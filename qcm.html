@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="style.css?v=284" />
   <link rel="stylesheet" href="practice-focus-toggle.css?v=285" />
   <style>
-    .mc-picker-shell{display:grid;gap:.65rem;margin:.75rem 0 1rem;max-width:680px}.mc-picker-btn{width:100%;min-height:54px;border-radius:999px;border:1px solid rgba(245,211,124,.55);background:rgba(245,211,124,.12);color:#ffe7a0;font-weight:900;text-align:left;padding:.8rem 1rem;font-size:1rem}.mc-picker-btn.module{border-color:rgba(86,180,255,.55);background:rgba(56,189,248,.10);color:#dff3ff}.subject-select,.module-select{display:none!important}.mc-modal{position:fixed;inset:0;z-index:10000;background:rgba(2,6,14,.88);display:none;padding:calc(env(safe-area-inset-top,0px) + 18px) 14px calc(env(safe-area-inset-bottom,0px) + 18px);overflow:auto}.mc-modal.open{display:block}.mc-panel{max-width:680px;margin:0 auto;background:#07101f;border:1px solid rgba(245,211,124,.28);border-radius:26px;padding:16px;box-shadow:0 22px 60px rgba(0,0,0,.45)}.mc-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.mc-title{font-size:1.15rem;font-weight:950;color:#fff;margin:0}.mc-close{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:.55rem .8rem;font-weight:900}.mc-list{display:grid;gap:10px}.mc-choice{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#f8fafc;border-radius:18px;padding:14px;text-align:left;font-weight:850;font-size:1rem}.mc-choice.active{border-color:rgba(245,211,124,.75);background:rgba(245,211,124,.18);color:#ffe7a0}.mc-note{color:rgba(226,232,240,.72);font-size:.92rem;line-height:1.35;margin:0 0 12px}
+    .mc-picker-shell{display:grid;gap:.65rem;margin:.75rem 0 1rem;max-width:680px}.mc-picker-btn{width:100%;min-height:54px;border-radius:999px;border:1px solid rgba(245,211,124,.55);background:rgba(245,211,124,.12);color:#ffe7a0;font-weight:900;text-align:left;padding:.8rem 1rem;font-size:1rem}.mc-picker-btn.module{border-color:rgba(86,180,255,.55);background:rgba(56,189,248,.10);color:#dff3ff}.subject-select,.module-select,.mc-original-hidden{display:none!important}.mc-modal{position:fixed;inset:0;z-index:10000;background:rgba(2,6,14,.88);display:none;padding:calc(env(safe-area-inset-top,0px) + 18px) 14px calc(env(safe-area-inset-bottom,0px) + 18px);overflow:auto}.mc-modal.open{display:block}.mc-panel{max-width:680px;margin:0 auto;background:#07101f;border:1px solid rgba(245,211,124,.28);border-radius:26px;padding:16px;box-shadow:0 22px 60px rgba(0,0,0,.45)}.mc-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.mc-title{font-size:1.15rem;font-weight:950;color:#fff;margin:0}.mc-close{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:.55rem .8rem;font-weight:900}.mc-list{display:grid;gap:10px}.mc-choice{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#f8fafc;border-radius:18px;padding:14px;text-align:left;font-weight:850;font-size:1rem}.mc-choice.active{border-color:rgba(245,211,124,.75);background:rgba(245,211,124,.18);color:#ffe7a0}.mc-note{color:rgba(226,232,240,.72);font-size:.92rem;line-height:1.35;margin:0 0 12px}.mc-choice small{display:block;margin-top:4px;color:rgba(226,232,240,.62);font-size:.78rem;font-weight:700}
   </style>
 </head>
 <body data-page="practice" data-practice-type="qcm" class="practice-page qcm-page">
@@ -87,24 +87,27 @@
     function data(){return (window.MED_COURSES_DATA&&window.MED_COURSES_DATA.courses)||[];}
     function query(){return new URLSearchParams(location.search);}
     function courseById(id){return data().find(function(c){return String(c.id)===String(id);});}
-    function moduleInfo(id){var r=null;data().forEach(function(c){(c.modules||[]).forEach(function(m){if(String(m.id)===String(id))r={course:c,module:m};});});return r;}
-    function name(x){return String(x&&x.title||x&&x.name||x||'').replace(/^\s+|\s+$/g,'');}
-    function short(t){t=name(t);if(/fisiolog/i.test(t))return 'Fisiología';if(/gen/i.test(t))return 'Genética';if(/micro/i.test(t))return 'Microbiología';if(/bioqu/i.test(t))return 'Bioquímica';if(/inmun/i.test(t))return 'Inmunología';return t.length>28?t.slice(0,27)+'…':t;}
+    function moduleInfo(id){var r=null;data().forEach(function(c){(c.modules||[]).forEach(function(m,i){if(String(m.id)===String(id))r={course:c,module:m,index:i};});});return r;}
+    function rawName(x){return String(x&&x.title||x&&x.name||x&&x.label||x||'').replace(/^\s+|\s+$/g,'');}
+    function titleCase(s){return String(s||'').replace(/[-_]+/g,' ').replace(/\s+/g,' ').replace(/^\s+|\s+$/g,'').replace(/\b\w/g,function(a){return a.toUpperCase();});}
+    function fromId(id){var s=String(id||'').toLowerCase();s=s.replace(/^(course|module|mod|physio|fisiologia|fisiología|bioquimica|genetica|microbiologia|inmunologia)[-_]*/g,'');s=s.replace(/v\d+/g,'').replace(/\d{2,}/g,'').replace(/[-_]+/g,' ');return titleCase(s);}
+    function shortCourse(t){t=rawName(t);if(/fisiolog/i.test(t))return 'Fisiología';if(/gen/i.test(t))return 'Genética';if(/micro/i.test(t))return 'Microbiología';if(/bioqu/i.test(t))return 'Bioquímica';if(/inmun/i.test(t))return 'Inmunología';return t.length>28?t.slice(0,27)+'…':t;}
+    function moduleLabel(m,i,c){var label=rawName(m&&m.shortTitle)||rawName(m&&m.moduleTitle)||rawName(m);var courseName=shortCourse(c||'');if(!label||label===courseName||/^fisiolog/i.test(label)||/^module\s*\d*$/i.test(label)){label=fromId(m&&m.id)||('Módulo '+(i+1));}if(label.length<3)label='Módulo '+(i+1);return label.length>34?label.slice(0,33)+'…':label;}
     function go(k,v){var p=query();if(k==='course'){if(v)p.set('course',v);else p.delete('course');p.delete('module');}if(k==='module'){if(v)p.set('module',v);else p.delete('module');}location.href=location.pathname+(p.toString()?'?'+p.toString():'');}
-    function current(){var p=query(), mi=moduleInfo(p.get('module')||''), cid=p.get('course')||(mi&&mi.course.id)||'', c=courseById(cid), mid=p.get('module')||'', m=mi&&mi.module;return {cid:cid,c:c,mid:mid,m:m};}
+    function current(){var p=query(), mi=moduleInfo(p.get('module')||''), cid=p.get('course')||(mi&&mi.course.id)||'', c=courseById(cid), mid=p.get('module')||'', m=mi&&mi.module, ix=mi?mi.index:0;return {cid:cid,c:c,mid:mid,m:m,index:ix};}
     function close(){if(modal)modal.classList.remove('open');}
     function open(type){
       var cur=current();
       if(!modal){modal=document.createElement('div');modal.className='mc-modal';document.body.appendChild(modal);}
       var html='<div class="mc-panel"><div class="mc-head"><h2 class="mc-title">'+(type==='course'?'Choisir une matière':'Choisir un module')+'</h2><button class="mc-close" type="button">Fermer</button></div>';
       if(type==='course'){
-        html+='<p class="mc-note">Choisis la matière, comme sur la page Matières. La page QCM se recharge avec le bon filtre.</p><div class="mc-list">';
+        html+='<p class="mc-note">Choisis la matière. La page QCM se recharge avec le bon filtre.</p><div class="mc-list">';
         html+='<button class="mc-choice '+(!cur.cid?'active':'')+'" data-kind="course" data-id="">Toutes les matières</button>';
-        data().forEach(function(c){html+='<button class="mc-choice '+(c.id===cur.cid?'active':'')+'" data-kind="course" data-id="'+c.id+'">'+short(c)+'</button>';});
+        data().forEach(function(c){html+='<button class="mc-choice '+(c.id===cur.cid?'active':'')+'" data-kind="course" data-id="'+c.id+'">'+shortCourse(c)+'</button>';});
         html+='</div>';
       } else {
         html+='<p class="mc-note">Choisis d’abord une matière, puis le module à travailler.</p><div class="mc-list">';
-        if(!cur.c){html+='<button class="mc-choice" data-kind="module" data-id="">Tous les modules</button>';} else {html+='<button class="mc-choice '+(!cur.mid?'active':'')+'" data-kind="module" data-id="">Tous les modules de '+short(cur.c)+'</button>'; (cur.c.modules||[]).forEach(function(m){html+='<button class="mc-choice '+(m.id===cur.mid?'active':'')+'" data-kind="module" data-id="'+m.id+'">'+short(m)+'</button>';});}
+        if(!cur.c){html+='<button class="mc-choice" data-kind="module" data-id="">Toute la banque</button>';} else {html+='<button class="mc-choice '+(!cur.mid?'active':'')+'" data-kind="module" data-id="">Tous les modules de '+shortCourse(cur.c)+'</button>'; (cur.c.modules||[]).forEach(function(m,i){html+='<button class="mc-choice '+(m.id===cur.mid?'active':'')+'" data-kind="module" data-id="'+m.id+'">'+moduleLabel(m,i,cur.c)+'<small>'+shortCourse(cur.c)+'</small></button>';});}
         html+='</div>';
       }
       html+='</div>';modal.innerHTML=html;modal.classList.add('open');
@@ -118,9 +121,11 @@
       if(!subject||document.querySelector('.mc-picker-shell'))return;
       var cur=current();
       var shell=document.createElement('div');shell.className='mc-picker-shell';
-      var b1=document.createElement('button');b1.type='button';b1.className='mc-picker-btn subject';b1.textContent='Mat.: '+(cur.c?short(cur.c):'Toutes les matières');b1.onclick=function(){open('course');};
-      var b2=document.createElement('button');b2.type='button';b2.className='mc-picker-btn module';b2.textContent='Mod.: '+(cur.m?short(cur.m):(cur.c?'Tous les modules':'Toute la banque'));b2.onclick=function(){open('module');};
-      shell.appendChild(b1);shell.appendChild(b2);subject.parentNode.insertBefore(shell,subject);
+      var b1=document.createElement('button');b1.type='button';b1.className='mc-picker-btn subject';b1.textContent='Mat.: '+(cur.c?shortCourse(cur.c):'Toutes les matières');b1.onclick=function(){open('course');};
+      var b2=document.createElement('button');b2.type='button';b2.className='mc-picker-btn module';b2.textContent='Mod.: '+(cur.m?moduleLabel(cur.m,cur.index,cur.c):(cur.c?'Tous les modules':'Toute la banque'));b2.onclick=function(){open('module');};
+      shell.appendChild(b1);shell.appendChild(b2);
+      var original=subject.closest('#courseFilters')||subject.closest('.chips')||subject.parentElement;
+      if(original&&original.parentNode){original.parentNode.insertBefore(shell,original);original.classList.add('mc-original-hidden');}else{subject.parentNode.insertBefore(shell,subject);}
       subject.style.display='none';if(module)module.style.display='none';
     }
     document.addEventListener('DOMContentLoaded',function(){[200,800,1600,2600].forEach(function(ms){setTimeout(install,ms);});});
