@@ -15,6 +15,7 @@
   <meta name="twitter:card" content="summary" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
   <link rel="stylesheet" href="style.css?v=284" />
+  <link rel="stylesheet" href="practice-focus-toggle.css?v=285" />
 </head>
 <body data-page="practice" data-practice-type="qcm" class="practice-page qcm-page">
   <header class="site-header">
@@ -59,6 +60,9 @@
       <p id="practiceDescription" data-i18n="practiceQcmDesc">Sélectionne une matière ou révise les questions disponibles.</p>
     </section>
     <section class="section reduced-top practice-focus-section">
+      <input type="checkbox" id="practiceFocusToggle" class="practice-focus-toggle" />
+      <label for="practiceFocusToggle" class="practice-focus-open">Plein écran QCM</label>
+      <label for="practiceFocusToggle" class="practice-focus-close">Fermer le mode question</label>
       <div class="practice-focus-topbar">
         <a class="mode-tab back-tab" id="practiceBackLink" href="matieres.html" data-i18n="back">← Retour</a>
         <div class="mode-nav" id="practiceModeNav"></div>
