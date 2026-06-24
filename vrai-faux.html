@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vrai/Faux | Med Cursos</title>
+  <meta name="description" content="Modo verdadero/falso para los módulos ." />
+
+  <link rel="canonical" href="https://med-cursos.netlify.app/vrai-faux.html" />
+  <meta property="og:title" content="Vrai/Faux | Med Cursos" />
+  <meta property="og:description" content="Révise avec des questions vrai/faux pour consolider les mécanismes importants." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://med-cursos.netlify.app/vrai-faux.html" />
+  <meta property="og:site_name" content="Med Cursos" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="assets/logo-medcursos-icon.png" />
+  <link rel="stylesheet" href="style.css?v=284" />
+</head>
+<body data-page="practice" data-practice-type="vf" class="practice-page vrai-faux-page">
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Navegación principal">
+      <a class="brand brand-official" href="index.html"><img src="assets/logo-medcursos-official.png" alt="Med Cursos" class="brand-logo brand-logo-official" /><span class="brand-context"><small data-i18n="vfMode">Mode Vrai/Faux</small></span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" data-i18n="home">Accueil</a>
+        <a href="matieres.html" data-i18n="navSubjects">Matières</a>
+        <a href="modules.html" data-i18n="navModules">Modules</a>
+        <a href="qcm.html" data-i18n="navQcm">QCM</a>
+        <a href="cas-cliniques.html" data-i18n="navClinical">Cas cliniques</a>
+        <a href="vrai-faux.html" data-i18n="doVf">Vrai/Faux</a>
+        <a href="erreurs.html" data-i18n="mistakes">Mes erreurs</a>
+        <a href="examen.html" data-i18n="examMode">Examen blanc</a>
+        <a href="contact.html" data-i18n="navContact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+<section class="practice-quick-header" aria-label="Entrenamiento actual">
+  <p class="practice-quick-kicker">ENTRENAMIENTO</p>
+  <h1 class="practice-quick-title">Verdadero/Falso</h1>
+  <p class="practice-quick-subtitle">Revisa conceptos clave uno por uno con feedback inmediato.</p>
+</section>
+
+<nav class="practice-compact-controls" aria-label="Accesos rápidos de entrenamiento">
+  <a class="practice-compact-pill " href="qcm.html"><strong>QCM</strong></a>
+  <a class="practice-compact-pill " href="cas-cliniques.html"><strong>Casos</strong></a>
+  <a class="practice-compact-pill is-primary" href="vrai-faux.html"><strong>V/F</strong></a>
+  <a class="practice-compact-pill " href="erreurs.html"><strong>Errores</strong></a>
+  <a class="practice-compact-pill" href="matieres.html">← Materias</a>
+</nav>
+
+
+    <section class="page-hero practice-hero">
+      <a class="back-link" href="matieres.html" data-i18n="backSubjects">← Retour aux matières</a>
+      <p class="eyebrow" id="practiceEyebrow">Vrai/Faux</p>
+      <h1 id="practiceTitle" data-i18n="vfMode">Mode Vrai/Faux</h1>
+      <p id="practiceDescription" data-i18n="practiceVfDesc">Sélectionne une matière ou révise les questions disponibles.</p>
+    </section>
+    <section class="section reduced-top practice-focus-section">
+      <div class="practice-focus-topbar">
+        <a class="mode-tab back-tab" id="practiceBackLink" href="matieres.html" data-i18n="back">← Retour</a>
+        <div class="mode-nav" id="practiceModeNav"></div>
+      </div>
+      <div class="chips" id="courseFilters"></div>
+      <div class="practice-list" id="practiceList"></div>
+      <p class="empty-state" id="emptyState" hidden data-i18n="emptyVf">Aucun contenu vrai/faux pour cette sélection.</p>
+    </section>
+  </main>
+
+  <script src="data/med-courses-data.js?v=282"></script>
+  <script src="data/med-practice-bank-init.js?v=282"></script>
+  <script src="data/med-practice-bank-loader.js?v=282"></script>
+  <script src="app.bundle.js?v=282"></script>
+  <script src="v210-module-picker-overlay.js?v=282"></script>
+
+  <form name="question-feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="question-feedback" />
+    <input name="bot-field" />
+    <input name="page" />
+    <input name="language" />
+    <input name="type" />
+    <input name="course" />
+    <input name="module" />
+    <input name="module_id" />
+    <input name="question_id" />
+    <input name="difficulty" />
+    <input name="question" />
+    <input name="options" />
+    <input name="correct_answer" />
+    <input name="issue_type" />
+    <textarea name="comment"></textarea>
+  </form>
+
+</body>
+</html>

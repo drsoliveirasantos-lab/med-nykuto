@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matières | Med Cursos</title>
+  <meta name="description" content="Toutes les matières disponibles dans Med Cursos." />
+
+  <link rel="canonical" href="https://med-cursos.netlify.app/matieres.html" />
+  <meta property="og:title" content="Matières | Med Cursos" />
+  <meta property="og:description" content="Choisis une matière médicale et accède aux modules, QCM, cas cliniques et vrai/faux." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://med-cursos.netlify.app/matieres.html" />
+  <meta property="og:site_name" content="Med Cursos" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="assets/logo-medcursos-icon.png" />
+  <link rel="stylesheet" href="style.css?v=284" />
+</head>
+<body data-page="catalog">
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Navigation principale">
+      <a class="brand brand-official" href="index.html" aria-label="Accueil"><img src="assets/logo-medcursos-official.png" alt="Med Cursos" class="brand-logo brand-logo-official" /><span class="brand-context"><small data-i18n="brandSubtitle">Bibliothèque médicale organisée</small></span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" data-i18n="home">Accueil</a>
+        <a href="matieres.html" data-i18n="navSubjects">Matières</a>
+        <a href="modules.html" data-i18n="navModules">Modules</a>
+        <a href="qcm.html" data-i18n="navQcm">QCM</a>
+        <a href="cas-cliniques.html" data-i18n="navClinical">Cas cliniques</a>
+        <a href="vrai-faux.html" data-i18n="doVf">Vrai/Faux</a>
+        <a href="erreurs.html" data-i18n="mistakes">Mes erreurs</a>
+        <a href="examen.html" data-i18n="examMode">Examen blanc</a>
+        <a href="contact.html" data-i18n="navContact">Contact</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="page-hero compact-page-hero">
+      <a class="back-link" href="index.html" data-i18n="backHome">Accueil /</a>
+      <p class="eyebrow" data-i18n="subjectsEyebrow">Organisation</p>
+      <h1 data-i18n="subjectsTitle">Matières disponibles</h1>
+      <p data-i18n="subjectsText">Chaque matière ouvre une page dédiée avec ses modules, ses QCM, ses cas cliniques et ses vrai/faux.</p>
+    </section>
+    <section class="section reduced-top">
+      <div class="course-grid" id="courseGrid"></div>
+    </section>
+  </main>
+  <footer class="footer compact-footer"><div><strong>Med Cursos</strong><p data-i18n="footerText">Bibliothèque médicale organisée pour réviser plus vite.</p></div></footer>
+  <script src="data/med-courses-data.js?v=282"></script>
+  <script src="data/med-practice-bank-init.js?v=282"></script>
+  <script src="data/med-practice-bank-loader.js?v=282"></script>
+  <script src="app.bundle.js?v=282"></script>
+  <script src="v210-module-picker-overlay.js?v=282"></script>
+
+  <form name="question-feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="question-feedback" />
+    <input name="bot-field" />
+    <input name="page" />
+    <input name="language" />
+    <input name="type" />
+    <input name="course" />
+    <input name="module" />
+    <input name="module_id" />
+    <input name="question_id" />
+    <input name="difficulty" />
+    <input name="question" />
+    <input name="options" />
+    <input name="correct_answer" />
+    <input name="issue_type" />
+    <textarea name="comment"></textarea>
+  </form>
+
+</body>
+</html>

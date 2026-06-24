@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Med Cursos</title>
+  <meta name="description" content="Contacter le projet Med Cursos pour une suggestion, un bug général ou une proposition d’amélioration." />
+
+  <link rel="canonical" href="https://med-cursos.netlify.app/contact.html" />
+  <meta property="og:title" content="Contact | Med Cursos" />
+  <meta property="og:description" content="Contacte le projet Med Cursos pour signaler un bug général, une suggestion ou une proposition." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://med-cursos.netlify.app/contact.html" />
+  <meta property="og:site_name" content="Med Cursos" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="assets/logo-medcursos-icon.png" />
+  <link rel="stylesheet" href="style.css?v=284" />
+</head>
+<body data-page="contact">
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Navigation principale">
+      <a class="brand brand-official" href="index.html" aria-label="Accueil"><img src="assets/logo-medcursos-official.png" alt="Med Cursos" class="brand-logo brand-logo-official" /><span class="brand-context"><small data-i18n="navContact">Contact</small></span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" data-i18n="home">Accueil</a>
+        <a href="matieres.html" data-i18n="navSubjects">Matières</a>
+        <a href="modules.html" data-i18n="navModules">Modules</a>
+        <a href="qcm.html" data-i18n="navQcm">QCM</a>
+        <a href="cas-cliniques.html" data-i18n="navClinical">Cas cliniques</a>
+        <a href="vrai-faux.html" data-i18n="doVf">Vrai/Faux</a>
+        <a href="erreurs.html" data-i18n="mistakes">Mes erreurs</a>
+        <a href="examen.html" data-i18n="examMode">Examen blanc</a>
+        <a href="contact.html" data-i18n="navContact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero contact-hero">
+      <a class="back-link" href="index.html" data-i18n="backHome">Accueil /</a>
+      <p class="eyebrow" data-i18n="contactEyebrow">Contact et améliorations</p>
+      <h1 data-i18n="contactTitle">Contacter le projet</h1>
+      <p data-i18n="contactText">Pour une suggestion, un bug général ou une proposition d’amélioration, envoie un message ici. Pour une question précise dans un QCM, utilise plutôt le bouton “Signaler une erreur” directement sur la question.</p>
+    </section>
+
+    <section class="section reduced-top contact-section-grid">
+      <article class="contact-card contact-form-card">
+        <div class="contact-card-head">
+          <p class="eyebrow" data-i18n="contactFormEyebrow">Formulaire</p>
+          <h2 data-i18n="contactFormTitle">Envoyer un message</h2>
+          <p data-i18n="contactFormText">Tu peux laisser ton nom et ton email si tu veux recevoir une réponse. Sinon, le message peut rester anonyme.</p>
+        </div>
+
+        <form name="site-contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="contact-success.html" class="contact-form">
+          <input type="hidden" name="form-name" value="site-contact" />
+          <p class="hidden-field" hidden>
+            <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+          </p>
+
+          <div class="contact-grid">
+            <label class="field-label">
+              <span data-i18n="contactType">Type de message</span>
+              <select name="type" required>
+                <option value="" data-i18n="contactChooseType">Choisir une catégorie</option>
+                <option value="course-error" data-i18n="contactTypeCourseError">Erreur dans un cours</option>
+                <option value="technical-issue" data-i18n="contactTypeTechnical">Problème technique</option>
+                <option value="suggestion" data-i18n="contactTypeSuggestion">Suggestion d’amélioration</option>
+                <option value="collaboration" data-i18n="contactTypeCollab">Proposition de collaboration</option>
+                <option value="general-question" data-i18n="contactTypeGeneral">Question générale</option>
+                <option value="other" data-i18n="issueOther">Autre problème</option>
+              </select>
+            </label>
+
+            <label class="field-label">
+              <span data-i18n="contactName">Nom ou prénom</span>
+              <input type="text" name="name" data-i18n-placeholder="contactNamePlaceholder" placeholder="Ex. Diego" />
+            </label>
+
+            <label class="field-label">
+              <span data-i18n="contactEmail">Email</span>
+              <input type="email" name="email" data-i18n-placeholder="contactEmailPlaceholder" placeholder="nom@email.com" />
+            </label>
+
+            <label class="field-label field-full">
+              <span data-i18n="contactMessage">Message</span>
+              <textarea name="message" required data-i18n-placeholder="contactMessagePlaceholder" placeholder="Décris le problème, l’idée ou l’amélioration que tu proposes."></textarea>
+            </label>
+          </div>
+
+          <div class="contact-actions">
+            <button type="submit" class="btn primary" data-i18n="contactSend">Envoyer le message</button>
+            <a href="index.html#supportProject" class="btn secondary" data-i18n="donateTitle">Soutenir le projet</a>
+          </div>
+        </form>
+      </article>
+
+      <aside class="contact-card contact-help-card">
+        <div class="contact-card-head">
+          <p class="eyebrow" data-i18n="contactTipsEyebrow">Avant d’envoyer</p>
+          <h2 data-i18n="contactTipsTitle">Comment faire un bon retour</h2>
+        </div>
+        <ul class="contact-tips">
+          <li data-i18n="contactTip1">Pour une erreur précise dans un QCM, utilise le bouton “Signaler une erreur” directement sur la question : la matière, le module et la question seront déjà préremplis.</li>
+          <li data-i18n="contactTip2">Pour un bug d’affichage, précise si possible ton appareil et ton navigateur : iPhone, Android, Safari, Chrome, etc.</li>
+          <li data-i18n="contactTip3">Pour une correction de cours, indique au minimum la matière, le module et ce qui te paraît faux ou incomplet.</li>
+        </ul>
+        <div class="contact-note">
+          <strong data-i18n="contactDirectTitle">Astuce</strong>
+          <p data-i18n="contactDirectText">Cette page sert surtout aux retours généraux. Pour les questions précises, le signalement intégré dans les QCM reste la meilleure option.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Med Cursos</p>
+    <div class="footer-links"><a href="index.html" data-i18n="home">Accueil</a><a href="matieres.html" data-i18n="navSubjects">Matières</a><a href="contact.html" data-i18n="navContact">Contact</a><a href="a-propos.html" data-i18n="navAbout">À propos</a><a href="mentions.html" data-i18n="navLegal">Mentions</a><a href="README_DEPLOIEMENT.txt">Guide</a></div>
+  </footer>
+
+  <script src="data/med-courses-data.js?v=282"></script>
+  <script src="data/med-practice-bank-init.js?v=282"></script>
+  <script src="data/med-practice-bank-loader.js?v=282"></script>
+  <script src="app.bundle.js?v=282"></script>
+  <script src="v210-module-picker-overlay.js?v=282"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
