@@ -24,6 +24,81 @@ Méthode technique actuelle :
 
 ---
 
+## Règle d'interprétation : matière active de la conversation
+
+Ce fichier contient plusieurs chantiers en parallèle. Une priorité indiquée dans une matière ne doit pas être appliquée automatiquement à une autre matière.
+
+Avant de continuer, identifier la matière active de la conversation :
+
+- conversation Fisiología → continuer Fisiología et son module actif ;
+- conversation Microbiología → continuer Microbiología et son module actif ;
+- conversation d'une autre matière → continuer cette matière ;
+- si la matière active n'est pas claire, demander confirmation avant toute modification GitHub.
+
+La priorité Microbiología ci-dessous concerne uniquement les conversations Microbiología, sauf demande explicite de l'utilisateur. Dans une conversation Fisiología, la prochaine étape est celle de la section Fisiología.
+
+---
+
+## Matière : Fisiología
+
+### Module 1
+
+Module ID : `01-fisiologia-01-neurofisiologia-y-potencial-de-accion`
+
+Titre : `Neurofisiología y potencial de acción`
+
+Statut global : reconstruction/correction en cours sur Preview par patchs séparés, sans modification directe de `data/practice-bank-fisiologia.js`.
+
+| Format | État |
+|---|---:|
+| QCM | 200 / 200 corrigés |
+| Verdadero/Falso | 10 / 50 corrigés |
+| Casos clínicos | 0 / 50 corrigés |
+
+### Patchs Fisiología Module 1 déjà créés
+
+#### QCM
+
+- `data/practice-bank-fisiologia-quality-patch-v314.js` : premier patch de sécurité, correction visible initiale et normalisations.
+- `data/practice-bank-fisiologia-quality-patch-v315.js` : QCM 001-020.
+- `data/practice-bank-fisiologia-quality-patch-v316.js` : QCM 021-060.
+- `data/practice-bank-fisiologia-quality-patch-v317.js` : QCM 061-100.
+- `data/practice-bank-fisiologia-quality-patch-v318.js` : QCM 101-140.
+- `data/practice-bank-fisiologia-quality-patch-v319.js` : QCM 141-180.
+- `data/practice-bank-fisiologia-quality-patch-v320.js` : QCM 181-200.
+
+#### Verdadero/Falso
+
+- `data/practice-bank-fisiologia-quality-patch-v321.js` : V/F 001-010.
+
+#### Casos clínicos
+
+- Aucun patch de casos clínicos Fisiología Module 1 créé pour le moment.
+
+### Loader attendu pour Fisiología
+
+Le fichier `data/med-practice-bank-loader.js` doit charger les patchs Fisiología de `v314` à `v321` et conserver les patchs Microbiología déjà présents.
+
+### Prochaine étape recommandée pour cette matière
+
+Continuer Fisiología Module 1 avec les V/F restants.
+
+Prochain patch conseillé :
+
+`data/practice-bank-fisiologia-quality-patch-v322.js`
+
+Cible recommandée : V/F 011-030 du Module 1 Fisiología, en respectant la règle des lots V/F de 20 à 25 maximum optimal.
+
+Ensuite :
+
+1. V/F 031-050 ;
+2. Casos clínicos 001-015 ;
+3. Casos clínicos 016-030 ;
+4. Casos clínicos 031-045 ;
+5. Casos clínicos 046-050.
+
+---
+
 ## Matière : Microbiología
 
 ### Module 1
@@ -73,13 +148,13 @@ Statut global : contenu reconstruit et disponible sur Preview, mais une repasse 
 
 Le fichier `data/med-practice-bank-loader.js` doit charger les patchs Microbiología de `v312` à `v325`.
 
-Il doit aussi conserver les patchs Physiología déjà présents.
+Il doit aussi conserver les patchs Fisiología déjà présents.
 
-Dernière vérification effectuée : le loader chargeait bien `practice-bank-microbiologia-quality-patch-v325.js` et conservait les patchs Physiología.
+Dernière vérification effectuée : le loader chargeait bien `practice-bank-microbiologia-quality-patch-v325.js` et conservait les patchs Fisiología.
 
 ---
 
-## Validation utilisateur
+## Validation utilisateur Microbiología
 
 L'utilisateur a vérifié le Module 1 Microbiología sur Preview.
 
@@ -101,9 +176,11 @@ Problème : l'étudiant ne comprend pas clairement la proposition complète à a
 
 ---
 
-## Correction prioritaire suivante
+## Correction prioritaire suivante pour Microbiología
 
 Avant de passer au Module 2 Microbiología, effectuer une repasse de lisibilité sur les options QCM du Module 1.
+
+Cette priorité concerne Microbiología seulement. Ne pas l'appliquer automatiquement dans une conversation Fisiología.
 
 Objectif : transformer les options trop télégraphiques en propositions complètes, surtout quand la question demande `¿cuál proposición es correcta?`.
 
@@ -165,15 +242,10 @@ Bon :
 
 ---
 
-## Prochaine étape recommandée
+## Prochaine étape recommandée selon la matière active
 
-Créer un patch de repasse lisibilité :
-
-`data/practice-bank-microbiologia-readable-options-patch-v326.js`
-
-Cible : QCM 001-040 du Module 1 Microbiología.
-
-Puis mettre à jour `data/med-practice-bank-loader.js` et vérifier que le patch est chargé.
+- Si conversation active = Fisiología : continuer `data/practice-bank-fisiologia-quality-patch-v322.js`, cible V/F 011-030 du Module 1 Fisiología.
+- Si conversation active = Microbiología : créer `data/practice-bank-microbiologia-readable-options-patch-v326.js`, cible QCM 001-040 du Module 1 Microbiología.
 
 ---
 
@@ -184,4 +256,5 @@ Si une conversation repart de zéro, commencer par :
 1. lire `AI_MED_NYKUTO_RULES.md` ;
 2. lire `AI_MED_NYKUTO_PROGRESS.md` ;
 3. travailler uniquement sur `preview` ;
-4. commencer par la correction prioritaire : lisibilité des options QCM du Module 1 Microbiología.
+4. identifier la matière active de la conversation ;
+5. continuer la prochaine étape recommandée pour cette matière, sans appliquer automatiquement la priorité d'une autre matière.
