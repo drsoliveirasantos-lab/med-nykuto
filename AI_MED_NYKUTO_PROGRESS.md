@@ -78,29 +78,6 @@ Statut global : reconstruction/correction en cours sur Preview par patchs sépar
 - `data/practice-bank-fisiologia-quality-patch-v325.js` : Casos clínicos 001-015.
 - `data/practice-bank-fisiologia-quality-patch-v327.js` : Casos clínicos 016-030.
 
-### Loader attendu pour Fisiología
-
-Le fichier `data/med-practice-bank-loader.js` doit charger les patchs Fisiología Module 1 de `v314` à `v321`, puis `v323`, `v324`, `v325` et `v327`, et conserver les patchs d'autres matières.
-
-Notes :
-
-- `data/practice-bank-fisiologia-quality-patch-v322.js` existe déjà et concerne Fisiología Module 2 QCM 001-040. Ne pas l'écraser.
-- `data/practice-bank-fisiologia-quality-patch-v326.js` existe déjà et concerne Fisiología Module 2 QCM 041-080. Ne pas l'écraser.
-
-### Prochaine étape recommandée pour cette matière
-
-Continuer Fisiología Module 1 avec les casos clínicos.
-
-Prochain patch conseillé :
-
-`data/practice-bank-fisiologia-quality-patch-v328.js`
-
-Cible recommandée : Casos clínicos 031-045 du Module 1 Fisiología.
-
-Ensuite :
-
-1. Casos clínicos 046-050.
-
 ### Module 2
 
 Module ID : `01-fisiologia-02-transporte-de-membrana`
@@ -111,6 +88,37 @@ Statut partiel : patchs QCM initiaux existants.
 
 - `data/practice-bank-fisiologia-quality-patch-v322.js` : Module 2 QCM 001-040.
 - `data/practice-bank-fisiologia-quality-patch-v326.js` : Module 2 QCM 041-080.
+
+### Module 3
+
+Titre : `Osmolaridad, ósmosis y tonicidad`
+
+Statut partiel : reconstruction/correction démarrée sur Preview par patch séparé, sans modification directe de `data/practice-bank-fisiologia.js`.
+
+- `data/practice-bank-fisiologia-quality-patch-v328.js` : Module 3 QCM 001-010, remplacement count-safe par position de module, IDs originaux préservés.
+
+Objectifs pédagogiques couverts par `v328` : solución, soluto, solvente, membrana semipermeable, ósmosis, dirección del agua, presión osmótica, osmolaridad, osmolalidad, disociación iónica, tonicidad.
+
+### Loader attendu pour Fisiología
+
+Le fichier `data/med-practice-bank-loader.js` doit charger les patchs Fisiología existants jusqu'à `v328`, en conservant les patchs d'autres matières.
+
+Notes :
+
+- `data/practice-bank-fisiologia-quality-patch-v322.js` existe déjà et concerne Fisiología Module 2 QCM 001-040. Ne pas l'écraser.
+- `data/practice-bank-fisiologia-quality-patch-v326.js` existe déjà et concerne Fisiología Module 2 QCM 041-080. Ne pas l'écraser.
+- `data/practice-bank-fisiologia-quality-patch-v327.js` existe déjà et concerne Fisiología Module 1 casos clínicos 016-030. Ne pas l'écraser.
+- `data/practice-bank-fisiologia-quality-patch-v328.js` existe déjà et concerne Fisiología Module 3 QCM 001-010. Ne pas l'écraser.
+
+### Prochaine étape recommandée pour cette matière
+
+Si la matière active est Fisiología Module 3, continuer avec :
+
+`data/practice-bank-fisiologia-quality-patch-v329.js`
+
+Cible recommandée : Module 3 QCM 011-030, toujours par remplacement count-safe et sans gonfler les totaux.
+
+Si l'utilisateur revient explicitement au Module 1, reprendre les casos clínicos 031-045 dans un nouveau patch ultérieur, sans réutiliser `v326`, `v327` ni `v328`.
 
 ---
 
@@ -173,11 +181,11 @@ Statut global : contenu reconstruit et disponible sur Preview. Repasse de lisibi
 
 Le fichier `data/med-practice-bank-loader.js` doit charger :
 
-- les patchs Fisiología existants, sans suppression ;
+- les patchs Fisiología existants jusqu'à `v328`, sans suppression ;
 - les patchs Microbiología de `v312` à `v325` ;
 - les patchs de lisibilité Microbiología `v326` à `v331`.
 
-Dernière vérification effectuée : le loader chargeait bien `practice-bank-microbiologia-readable-options-patch-v330.js` et `practice-bank-microbiologia-readable-options-patch-v331.js`, en conservant les patchs Fisiología jusqu'à `v327`.
+Dernière vérification effectuée : le loader charge bien `practice-bank-fisiologia-quality-patch-v328.js`, ainsi que `practice-bank-microbiologia-readable-options-patch-v330.js` et `practice-bank-microbiologia-readable-options-patch-v331.js`.
 
 ---
 
@@ -197,7 +205,7 @@ Options problématiques :
 
 - `Anticuerpos bacterianos secretados.`
 - `Cápsides eucariotas.`
-- `Hormonas del huésped exclusivement.`
+- `Hormonas del huésped exclusivamente.`
 
 Problème : l'étudiant ne comprend pas clairement la proposition complète à accepter ou rejeter.
 
@@ -250,7 +258,7 @@ Bon :
 
 Mauvais :
 
-- `Hormonas del huésped exclusivement.`
+- `Hormonas del huésped exclusivamente.`
 
 Bon :
 
@@ -268,5 +276,6 @@ Bon :
 
 ## Prochaine étape recommandée selon la matière active
 
-- Si conversation active = Fisiología : continuer `data/practice-bank-fisiologia-quality-patch-v328.js`, cible Casos clínicos 031-045 du Module 1 Fisiología.
+- Si conversation active = Fisiología Module 3 : continuer `data/practice-bank-fisiologia-quality-patch-v329.js`, cible QCM 011-030 du Module 3 Fisiología.
+- Si conversation active = Fisiología Module 1 : continuer les casos clínicos 031-045 dans un nouveau patch ultérieur.
 - Si conversation active = Microbiología : continuer la repasse lisibilité avec QCM 121-160 du Module 1 Microbiología.
