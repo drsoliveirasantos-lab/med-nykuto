@@ -1,4 +1,4 @@
-/* v291 — robust module picker + QCM mobile cleanup */
+/* v294 — robust module picker + QCM clean skip mode */
 (function(){
   'use strict';
   const DATA = window.MED_COURSES_DATA || {courses:[]};
@@ -190,6 +190,54 @@
     });
   }
 
+  function injectQcmCleanStyle(){
+    if(document.querySelector('#qcmCleanSkipStyle')) return;
+    const style = document.createElement('style');
+    style.id = 'qcmCleanSkipStyle';
+    style.textContent = `
+      body.qcm-page.qcm-skip-enabled .preanswer-tools,
+      body.qcm-page.qcm-skip-enabled .hint-panel,
+      body.qcm-page.qcm-skip-enabled .unknown-action-wrap,
+      body.qcm-page.qcm-skip-enabled .confidence-panel,
+      body.qcm-page.qcm-skip-enabled .confidence-btn,
+      body.qcm-page.qcm-skip-enabled [data-action="confidence"]{
+        display:none!important;visibility:hidden!important;opacity:0!important;max-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important;pointer-events:none!important;
+      }
+      body.qcm-page.qcm-skip-enabled .single-nav-actions,
+      body.qcm-page.qcm-skip-enabled .single-nav-actions:has(.btn[data-action="next-question"]),
+      body.qcm-page.qcm-skip-enabled .single-nav-actions:has(.btn[data-action="next-question"][disabled]){
+        display:grid!important;grid-template-columns:1fr!important;gap:.45rem!important;margin:.75rem 0 0!important;padding:.75rem 0 0!important;border-top:1px solid rgba(255,255,255,.10)!important;
+      }
+      body.qcm-page.qcm-skip-enabled .single-nav-actions .btn[data-action="next-question"]{
+        display:inline-flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;order:1!important;min-height:50px!important;border-color:rgba(245,211,124,.60)!important;background:linear-gradient(135deg,rgba(245,211,124,.36),rgba(245,211,124,.13))!important;color:#ffe7a0!important;
+      }
+      body.qcm-page.qcm-skip-enabled .single-nav-actions .btn[data-action="next-question"][disabled]{filter:none!important;}
+      body.qcm-page.qcm-skip-enabled .single-nav-actions .btn[data-action="previous-question"]{order:2!important;min-height:34px!important;opacity:.62!important;}
+      body.qcm-page.qcm-skip-enabled .options{margin-bottom:.65rem!important;}
+      body.qcm-page.qcm-skip-enabled .question-shortcuts{display:none!important;}
+      @media(max-width:760px){
+        body.qcm-page.qcm-skip-enabled .single-nav-actions{margin-top:.65rem!important;padding-top:.65rem!important;}
+        body.qcm-page.qcm-skip-enabled .single-nav-actions .btn[data-action="next-question"]{min-height:48px!important;font-size:.96rem!important;}
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function enableSkipNext(){
+    if(!document.body.classList.contains('qcm-page')) return;
+    document.body.classList.add('qcm-skip-enabled');
+    document.querySelectorAll('.single-nav-actions .btn[data-action="next-question"]').forEach(btn => {
+      btn.disabled = false;
+      btn.removeAttribute('disabled');
+      btn.setAttribute('aria-disabled','false');
+      btn.classList.add('skip-enabled-next');
+    });
+    document.querySelectorAll('.preanswer-tools,.hint-panel,.unknown-action-wrap').forEach(el => {
+      el.hidden = true;
+      el.setAttribute('aria-hidden','true');
+    });
+  }
+
   function buildStickyActions(){
     const bar = document.querySelector('.premium-bottom-actions');
     if(bar) bar.remove();
@@ -198,11 +246,13 @@
   function enhanceQcm(){
     if(!document.body.classList.contains('qcm-page')) return;
     document.body.classList.add('premium-qcm');
+    injectQcmCleanStyle();
     compactFocusButton();
     upgradePickerLabels();
     ensureProgress();
     collapseWeaknessPanel();
     cleanQuestionText();
+    enableSkipNext();
     buildStickyActions();
   }
   function applyQcmLoop(){
@@ -212,15 +262,15 @@
       const root = document.querySelector('.practice-focus-section') || document.body;
       new MutationObserver(() => {
         window.clearTimeout(window.__premiumQcmTimer);
-        window.__premiumQcmTimer = window.setTimeout(enhanceQcm, 70);
+        window.__premiumQcmTimer = window.setTimeout(enhanceQcm, 50);
       }).observe(root,{childList:true,subtree:true,characterData:true,attributes:true});
     }
   }
   function apply(){ enhanceCatalog(); enhanceReader(); applyQcmLoop(); }
   if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', () => { [0,250,900,1800,3200].forEach(ms => setTimeout(apply,ms)); });
+    document.addEventListener('DOMContentLoaded', () => { [0,120,350,900,1800,3200].forEach(ms => setTimeout(apply,ms)); });
   } else {
-    [0,250,900,1800,3200].forEach(ms => setTimeout(apply,ms));
+    [0,120,350,900,1800,3200].forEach(ms => setTimeout(apply,ms));
   }
-  window.addEventListener('load', () => { [0,500,1600,3200].forEach(ms => setTimeout(apply,ms)); });
+  window.addEventListener('load', () => { [0,250,800,1600,3200].forEach(ms => setTimeout(apply,ms)); });
 })();
