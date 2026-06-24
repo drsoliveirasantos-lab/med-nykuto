@@ -52,7 +52,7 @@ Statut global : reconstruction/correction en cours sur Preview par patchs sépar
 | Format | État |
 |---|---:|
 | QCM | 200 / 200 corrigés |
-| Verdadero/Falso | 10 / 50 corrigés |
+| Verdadero/Falso | 30 / 50 corrigés |
 | Casos clínicos | 0 / 50 corrigés |
 
 ### Patchs Fisiología Module 1 déjà créés
@@ -70,6 +70,7 @@ Statut global : reconstruction/correction en cours sur Preview par patchs sépar
 #### Verdadero/Falso
 
 - `data/practice-bank-fisiologia-quality-patch-v321.js` : V/F 001-010.
+- `data/practice-bank-fisiologia-quality-patch-v323.js` : V/F 011-030.
 
 #### Casos clínicos
 
@@ -77,7 +78,9 @@ Statut global : reconstruction/correction en cours sur Preview par patchs sépar
 
 ### Loader attendu pour Fisiología
 
-Le fichier `data/med-practice-bank-loader.js` doit charger les patchs Fisiología de `v314` à `v321` et conserver les patchs Microbiología déjà présents.
+Le fichier `data/med-practice-bank-loader.js` doit charger les patchs Fisiología Module 1 de `v314` à `v321`, puis `v323`, et conserver les patchs d'autres matières.
+
+Note : `data/practice-bank-fisiologia-quality-patch-v322.js` existe déjà et concerne Fisiología Module 2 QCM 001-040. Ne pas l'écraser.
 
 ### Prochaine étape recommandée pour cette matière
 
@@ -85,17 +88,26 @@ Continuer Fisiología Module 1 avec les V/F restants.
 
 Prochain patch conseillé :
 
-`data/practice-bank-fisiologia-quality-patch-v322.js`
+`data/practice-bank-fisiologia-quality-patch-v324.js`
 
-Cible recommandée : V/F 011-030 du Module 1 Fisiología, en respectant la règle des lots V/F de 20 à 25 maximum optimal.
+Cible recommandée : V/F 031-050 du Module 1 Fisiología.
 
 Ensuite :
 
-1. V/F 031-050 ;
-2. Casos clínicos 001-015 ;
-3. Casos clínicos 016-030 ;
-4. Casos clínicos 031-045 ;
-5. Casos clínicos 046-050.
+1. Casos clínicos 001-015 ;
+2. Casos clínicos 016-030 ;
+3. Casos clínicos 031-045 ;
+4. Casos clínicos 046-050.
+
+### Module 2
+
+Module ID : `01-fisiologia-02-transporte-de-membrana`
+
+Titre : `Transporte de membrana`
+
+Statut partiel : un patch QCM initial existe déjà.
+
+- `data/practice-bank-fisiologia-quality-patch-v322.js` : Module 2 QCM 001-040.
 
 ---
 
@@ -244,7 +256,7 @@ Bon :
 
 ## Prochaine étape recommandée selon la matière active
 
-- Si conversation active = Fisiología : continuer `data/practice-bank-fisiologia-quality-patch-v322.js`, cible V/F 011-030 du Module 1 Fisiología.
+- Si conversation active = Fisiología : continuer `data/practice-bank-fisiologia-quality-patch-v324.js`, cible V/F 031-050 du Module 1 Fisiología.
 - Si conversation active = Microbiología : créer `data/practice-bank-microbiologia-readable-options-patch-v326.js`, cible QCM 001-040 du Module 1 Microbiología.
 
 ---
