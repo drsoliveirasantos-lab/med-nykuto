@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auditoría Microbiología M1 | Med Nykuto</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="stylesheet" href="style.css?v=318" />
+  <style>
+    body{background:#07070a;color:#f5f5f5;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;padding:24px}.audit-wrap{max-width:1180px;margin:0 auto}.audit-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:18px;margin:14px 0}.audit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}.kpi{background:rgba(255,255,255,.08);border-radius:14px;padding:14px}.kpi strong{font-size:28px;display:block}.status-A{color:#68f08a}.status-B{color:#ffd166}.status-C{color:#ff6b6b}.item{border-top:1px solid rgba(255,255,255,.1);padding:14px 0}.item:first-child{border-top:0}.meta{opacity:.72;font-size:13px}.question{font-weight:700;margin:6px 0}.reason{margin:6px 0 0 0}.pill{display:inline-flex;align-items:center;border-radius:999px;padding:3px 9px;font-weight:700;background:rgba(255,255,255,.1);margin-right:6px}.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.toolbar button{border:0;border-radius:999px;padding:8px 12px;font-weight:700;cursor:pointer}.hide{display:none}.small{font-size:13px;opacity:.75}pre{white-space:pre-wrap;overflow:auto;background:#101018;padding:14px;border-radius:12px}</style>
+</head>
+<body>
+  <main class="audit-wrap">
+    <p class="small">Med Nykuto · Outil interne · Branche preview</p>
+    <h1>Auditoría Microbiología — Módulo 1</h1>
+    <p><strong>Módulo:</strong> Estructura bacteriana y patogenicidad</p>
+    <section class="audit-card">
+      <h2>Resumen automático</h2>
+      <div class="audit-grid" id="kpis"></div>
+      <p class="small" id="patchStatus"></p>
+    </section>
+    <section class="audit-card">
+      <h2>Filtros</h2>
+      <div class="toolbar">
+        <button data-filter="all">Todo</button>
+        <button data-filter="qcm">QCM</button>
+        <button data-filter="vf">V/F</button>
+        <button data-filter="case">Casos</button>
+        <button data-filter="A">A · Guardar</button>
+        <button data-filter="B">B · Corregir</button>
+        <button data-filter="C">C · Reemplazar</button>
+      </div>
+    </section>
+    <section class="audit-card">
+      <h2>Listado de items auditados</h2>
+      <div id="items"></div>
+    </section>
+    <section class="audit-card">
+      <h2>Informe JSON</h2>
+      <pre id="jsonOut"></pre>
+    </section>
+  </main>
+
+  <script src="data/med-practice-bank-init.js?v=318"></script>
+  <script src="data/practice-bank-microbiologia.js?v=312"></script>
+  <script src="data/practice-bank-microbiologia-quality-patch-v312.js?v=312"></script>
+  <script>
+  (function(){
+    "use strict";
+    var MODULE_ID = "02-microbiologia-01-estructura-bacteriana-y-patogenicidad";
+    var bank = window.MED_PRACTICE_BANK && window.MED_PRACTICE_BANK.byCourse && window.MED_PRACTICE_BANK.byCourse.microbiologia;
+    var genericWhy = "Falsa. Es plausible, pero cambia el mecanismo central o corresponde a otro contexto microbiológico.";
+    function arr(x){return Array.isArray(x)?x:[];}
+    function text(x){return String(x||"");}
+    function hasGeneric(item){
+      var w = arr(item.whyWrong).concat(arr(item.distractorExplanations)).join(" | ");
+      return w.indexOf(genericWhy) >= 0 || text(item.explanation).indexOf("sin confundirlo con otro mecanismo") >= 0;
+    }
+    function repeatedStem(item){
+      var q = text(item.question);
+      return q.indexOf("¿Cuál afirmación responde mejor al dato descrito?") >= 0 || q.indexOf("el dato microbiológico central es") >= 0 || q.indexOf("aparece el concepto de") >= 0;
+    }
+    function weakExplanation(item){
+      return text(item.explanation).length < 90 || !item.explanation;
+    }
+    function optionProblem(item){
+      return !Array.isArray(item.options) || item.options.length !== 4 || item.options.some(function(o){return text(o).trim().length < 8;});
+    }
+    function badAnswer(item){
+      return typeof item.answerIndex !== "number" || item.answerIndex < 0 || !item.options || item.answerIndex >= item.options.length;
+    }
+    function auditOne(item, format, idx){
+      var reasons = [];
+      if(badAnswer(item)) reasons.push("respuesta correcta inválida o ausente");
+      if(format !== "vf" && optionProblem(item)) reasons.push("opciones incompletas o no homogéneas");
+      if(hasGeneric(item)) reasons.push("justificación genérica de distractores");
+      if(repeatedStem(item)) reasons.push("formulación repetitiva / estilo generado");
+      if(weakExplanation(item)) reasons.push("explicación demasiado corta o débil");
+      if(format === "case"){
+        var stem = text(item.stem || item.clinicalStem || item.historia || "");
+        if(stem.length < 90) reasons.push("caso clínico sin mini-historia suficiente");
+        if(!stem.match(/hombre|mujer|niño|niña|paciente|años|internado|consulta|presenta/i)) reasons.push("caso clínico sin paciente/contexto claro");
+      }
+      if(format === "vf"){
+        if(!item.options || item.options[0] !== "Verdadero" || item.options[1] !== "Falso") reasons.push("estructura V/F no estándar");
+      }
+      var status = "A";
+      if(reasons.length >= 3 || badAnswer(item) || (format !== "vf" && optionProblem(item))) status = "C";
+      else if(reasons.length > 0) status = "B";
+      return {format:format,index:idx+1,id:item.id||"",status:status,question:item.question||item.stem||"",heading:item.heading||"",difficulty:item.difficulty||"",reasons:reasons.length?reasons:["item globalement exploitable"],answerIndex:item.answerIndex};
+    }
+    function moduleItems(list){return arr(list).filter(function(x){return x && x.moduleId === MODULE_ID;});}
+    var qcm = moduleItems(bank && bank.qcm);
+    var vf = moduleItems(bank && bank.vf);
+    var cases = moduleItems(bank && bank.cases);
+    var audits = [];
+    qcm.forEach(function(x,i){audits.push(auditOne(x,"qcm",i));});
+    vf.forEach(function(x,i){audits.push(auditOne(x,"vf",i));});
+    cases.forEach(function(x,i){audits.push(auditOne(x,"case",i));});
+    function count(format,status){return audits.filter(function(a){return (!format||a.format===format)&&(!status||a.status===status);}).length;}
+    var kpis = document.getElementById("kpis");
+    var boxes = [
+      ["Total",audits.length,""],["QCM",qcm.length,""],["V/F",vf.length,""],["Casos",cases.length,""],
+      ["A · Guardar",count(null,"A"),"status-A"],["B · Corregir",count(null,"B"),"status-B"],["C · Reemplazar",count(null,"C"),"status-C"]
+    ];
+    kpis.innerHTML = boxes.map(function(b){return '<div class="kpi"><span>'+b[0]+'</span><strong class="'+b[2]+'">'+b[1]+'</strong></div>';}).join("");
+    document.getElementById("patchStatus").textContent = "Patch cargado: " + (window.MED_PRACTICE_BANK.__MICROBIOLOGIA_M1_QUALITY_PATCH__ || "no detectado") + ". Objetivo esperado: 300 items = 200 QCM + 50 V/F + 50 casos.";
+    var list = document.getElementById("items");
+    function render(filter){
+      var shown = audits.filter(function(a){return filter==="all" || a.format===filter || a.status===filter;});
+      list.innerHTML = shown.map(function(a){
+        return '<article class="item" data-format="'+a.format+'" data-status="'+a.status+'"><div class="meta"><span class="pill '+("status-"+a.status)+'">'+a.status+'</span><strong>'+a.format.toUpperCase()+' '+String(a.index).padStart(3,"0")+'</strong> · '+a.heading+' · '+a.difficulty+'</div><div class="question">'+escapeHtml(a.question).slice(0,500)+'</div><ul class="reason">'+a.reasons.map(function(r){return '<li>'+escapeHtml(r)+'</li>';}).join("")+'</ul><p class="small">ID: '+escapeHtml(a.id)+'</p></article>';
+      }).join("") || '<p>No hay items para este filtro.</p>';
+    }
+    function escapeHtml(s){return text(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+    document.querySelectorAll("button[data-filter]").forEach(function(btn){btn.addEventListener("click",function(){render(btn.dataset.filter);});});
+    render("all");
+    document.getElementById("jsonOut").textContent = JSON.stringify({moduleId:MODULE_ID,total:audits.length,qcm:qcm.length,vf:vf.length,cases:cases.length,A:count(null,"A"),B:count(null,"B"),C:count(null,"C"),items:audits},null,2);
+  })();
+  </script>
+</body>
+</html>
