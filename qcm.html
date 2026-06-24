@@ -78,6 +78,24 @@
   <script src="data/med-practice-bank-loader.js?v=282"></script>
   <script src="app.bundle.js?v=282"></script>
   <script src="v210-module-picker-overlay.js?v=282"></script>
+  <script>
+  (function(){
+    function courses(){return (window.MED_COURSES_DATA&&window.MED_COURSES_DATA.courses)||[];}
+    function params(){return new URLSearchParams(location.search);}
+    function go(set){var q=params();Object.keys(set).forEach(function(k){if(set[k])q.set(k,set[k]);else q.delete(k);});location.href=location.pathname+(q.toString()?"?"+q.toString():"");}
+    function shortName(t){t=String(t||"");if(/fisiolog/i.test(t))return "Fisiología";if(/gen/i.test(t))return "Genética";if(/micro/i.test(t))return "Microbiología";if(/bioqu/i.test(t))return "Bioquímica";if(/inmun/i.test(t))return "Inmunología";return t.length>18?t.slice(0,17)+"…":t;}
+    function moduleById(id){var found=null;courses().forEach(function(c){(c.modules||[]).forEach(function(m){if(String(m.id)===String(id))found={m:m,c:c};});});return found;}
+    function rebuild(){
+      if(document.activeElement&&document.activeElement.matches&&document.activeElement.matches(".subject-select,.module-select"))return;
+      var p=params(), moduleId=p.get("module")||"", info=moduleById(moduleId), courseId=p.get("course")||(info&&info.c.id)||"";
+      var subject=document.querySelector(".subject-select"), module=document.querySelector(".module-select");
+      if(subject){var old=subject.value;subject.innerHTML="";var all=document.createElement("option");all.value="";all.textContent="Mat.: Toutes les matières";all.selected=!courseId;subject.appendChild(all);courses().forEach(function(c){var o=document.createElement("option");o.value=c.id;o.textContent="Mat.: "+shortName(c.title);o.selected=c.id===courseId;subject.appendChild(o);});if(subject.value!==old)subject.value=courseId||"";subject.onchange=function(){go({course:subject.value,module:""});};}
+      if(module){module.innerHTML="";var first=document.createElement("option");first.value="";first.textContent=courseId?"Mod.: Tous les modules":"Mod.: Toute la banque";first.selected=!moduleId;module.appendChild(first);module.disabled=!courseId;var c=courses().find(function(x){return x.id===courseId;});(c&&c.modules||[]).forEach(function(m){var o=document.createElement("option");o.value=m.id;o.textContent="Mod.: "+shortName(m.title);o.selected=m.id===moduleId;module.appendChild(o);});module.onchange=function(){go({course:courseId,module:module.value});};}
+    }
+    document.addEventListener("DOMContentLoaded",function(){[80,400,1200].forEach(function(ms){setTimeout(rebuild,ms);});});
+    document.addEventListener("click",function(){setTimeout(rebuild,250);});
+  })();
+  </script>
 
   <form name="question-feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
     <input type="hidden" name="form-name" value="question-feedback" />
