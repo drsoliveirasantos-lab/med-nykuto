@@ -1,86 +1,53 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modules | Med Cursos</title>
-  <meta name="description" content="Recherche et liste de tous les modules Med Cursos." />
-
-  <link rel="canonical" href="https://med-cursos.netlify.app/modules.html" />
-  <meta property="og:title" content="Modules | Med Cursos" />
-  <meta property="og:description" content="Recherche tous les modules médicaux disponibles sur Med Cursos." />
+  <title>Módulos | Med Nykuto</title>
+  <meta name="description" content="Busca y abre todos los módulos médicos disponibles en Med Nykuto." />
+  <link rel="canonical" href="https://preview.med-nykuto-git.pages.dev/modules.html" />
+  <meta property="og:title" content="Módulos | Med Nykuto" />
+  <meta property="og:description" content="Búsqueda global de módulos médicos en Med Nykuto." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://med-cursos.netlify.app/modules.html" />
-  <meta property="og:site_name" content="Med Cursos" />
+  <meta property="og:url" content="https://preview.med-nykuto-git.pages.dev/modules.html" />
+  <meta property="og:site_name" content="Med Nykuto" />
   <meta name="twitter:card" content="summary" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="style.css?v=284" />
+  <link rel="stylesheet" href="style.css?v=310" />
 </head>
-<body data-page="modules">
+<body data-page="modules" data-lang="es">
   <header class="site-header">
-    <nav class="nav-shell" aria-label="Navigation principale">
-      <a class="brand brand-official" href="index.html" aria-label="Accueil"><img src="assets/logo-medcursos-official.png" alt="Med Cursos" class="brand-logo brand-logo-official" /><span class="brand-context"><small data-i18n="brandSubtitle">Bibliothèque médicale organisée</small></span></a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu">☰</button>
+    <nav class="nav-shell" aria-label="Navegación principal">
+      <a class="brand brand-official" href="index.html" aria-label="Inicio"><img src="assets/logo-medcursos-official.png" alt="Med Nykuto" class="brand-logo brand-logo-official" /><span class="brand-context"><small>Biblioteca médica organizada</small></span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
       <div class="nav-links" id="navLinks">
-        <a href="index.html" data-i18n="home">Accueil</a>
-        <a href="matieres.html" data-i18n="navSubjects">Matières</a>
-        <a href="modules.html" data-i18n="navModules">Modules</a>
-        <a href="qcm.html" data-i18n="navQcm">QCM</a>
-        <a href="cas-cliniques.html" data-i18n="navClinical">Cas cliniques</a>
-        <a href="vrai-faux.html" data-i18n="doVf">Vrai/Faux</a>
-        <a href="erreurs.html" data-i18n="mistakes">Mes erreurs</a>
-        <a href="examen.html" data-i18n="examMode">Examen blanc</a>
-        <a href="contact.html" data-i18n="navContact">Contact</a>
+        <a href="index.html">Inicio</a><a href="matieres.html">Materias</a><a href="modules.html">Módulos</a><a href="qcm.html">QCM</a><a href="cas-cliniques.html">Casos clínicos</a><a href="vrai-faux.html">V/F</a><a href="erreurs.html">Errores</a><a href="examen.html">Examen blanco</a><a href="contact.html">Contacto</a>
       </div>
     </nav>
   </header>
   <main>
     <section class="page-hero compact-page-hero">
-      <a class="back-link" href="index.html" data-i18n="backHome">Accueil /</a>
-      <p class="eyebrow" data-i18n="modulesEyebrow">Recherche globale</p>
-      <h1 data-i18n="modulesTitle">Tous les modules</h1>
-      <p data-i18n="modulesText">Recherche un mot-clé et ouvre directement le module correspondant.</p>
+      <a class="back-link" href="index.html">Inicio /</a>
+      <p class="eyebrow">Búsqueda global</p>
+      <h1>Todos los módulos</h1>
+      <p>Busca una palabra clave y abre directamente el módulo correspondiente.</p>
     </section>
     <section class="section reduced-top">
       <div class="section-head split">
-        <div>
-          <p class="eyebrow" data-i18n="moduleListEyebrow">Modules intégrés</p>
-          <h2 data-i18n="moduleListTitle">Liste des cours</h2>
-        </div>
-        <div class="search-box small">
-          <input id="searchInput" type="search" data-i18n-placeholder="moduleSearchPlaceholder" placeholder="Rechercher dans les modules..." autocomplete="off" />
-          <span class="search-icon">⌕</span>
-        </div>
+        <div><p class="eyebrow">Módulos integrados</p><h2>Lista de cursos</h2></div>
+        <div class="search-box small"><input id="searchInput" type="search" placeholder="Buscar en los módulos..." autocomplete="off" /><span class="search-icon">⌕</span></div>
       </div>
-      <div class="chips" id="courseFilters" aria-label="Filtres par matière"></div>
+      <div class="chips" id="courseFilters" aria-label="Filtros por materia"></div>
       <div class="module-grid" id="moduleGrid"></div>
-      <p class="empty-state" id="emptyState" hidden data-i18n="noModuleFound">Aucun module trouvé.</p>
+      <p class="empty-state" id="emptyState" hidden>No se encontró ningún módulo.</p>
     </section>
   </main>
-  <footer class="footer compact-footer"><div><strong>Med Cursos</strong><p data-i18n="footerText">Bibliothèque médicale organisée pour réviser plus vite.</p></div></footer>
-  <script src="data/med-courses-data.js?v=282"></script>
-  <script src="data/med-practice-bank-init.js?v=282"></script>
-  <script src="data/med-practice-bank-loader.js?v=282"></script>
-  <script src="app.bundle.js?v=282"></script>
-  <script src="v210-module-picker-overlay.js?v=282"></script>
-
-  <form name="question-feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
-    <input type="hidden" name="form-name" value="question-feedback" />
-    <input name="bot-field" />
-    <input name="page" />
-    <input name="language" />
-    <input name="type" />
-    <input name="course" />
-    <input name="module" />
-    <input name="module_id" />
-    <input name="question_id" />
-    <input name="difficulty" />
-    <input name="question" />
-    <input name="options" />
-    <input name="correct_answer" />
-    <input name="issue_type" />
-    <textarea name="comment"></textarea>
-  </form>
-
+  <footer class="footer compact-footer"><div><strong>Med Nykuto</strong><p>Biblioteca médica organizada para revisar más rápido.</p></div></footer>
+  <script src="data/med-courses-data.js?v=310"></script>
+  <script src="data/med-practice-bank-init.js?v=310"></script>
+  <script src="data/med-practice-bank-loader.js?v=310"></script>
+  <script src="app.bundle.js?v=310"></script>
+  <script src="v210-module-picker-overlay.js?v=310"></script>
+  <script src="site-global-polish-v310.js?v=310"></script>
 </body>
 </html>
