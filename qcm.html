@@ -92,7 +92,7 @@
     function titleCase(s){return String(s||'').replace(/[-_]+/g,' ').replace(/\s+/g,' ').replace(/^\s+|\s+$/g,'').replace(/\b\w/g,function(a){return a.toUpperCase();});}
     function fromId(id){var s=String(id||'').toLowerCase();s=s.replace(/^(course|module|mod|physio|fisiologia|fisiología|bioquimica|genetica|microbiologia|inmunologia)[-_]*/g,'');s=s.replace(/v\d+/g,'').replace(/\d{2,}/g,'').replace(/[-_]+/g,' ');return titleCase(s);}
     function shortCourse(t){t=rawName(t);if(/fisiolog/i.test(t))return 'Fisiología';if(/gen/i.test(t))return 'Genética';if(/micro/i.test(t))return 'Microbiología';if(/bioqu/i.test(t))return 'Bioquímica';if(/inmun/i.test(t))return 'Inmunología';return t.length>28?t.slice(0,27)+'…':t;}
-    function moduleLabel(m,i,c){var label=rawName(m&&m.shortTitle)||rawName(m&&m.moduleTitle)||rawName(m);var courseName=shortCourse(c||'');if(!label||label===courseName||/^fisiolog/i.test(label)||/^module\s*\d*$/i.test(label)){label=fromId(m&&m.id)||('Módulo '+(i+1));}if(label.length<3)label='Módulo '+(i+1);return label.length>34?label.slice(0,33)+'…':label;}
+    function moduleLabel(m,i,c){var label=rawName(m&&m.shortTitle)||rawName(m&&m.moduleTitle)||rawName(m);var courseName=shortCourse(c||'');label=label.replace(/fisiolog[ií]a\s+fisiolog[ií]a/ig,'Fisiología').replace(/^fisiolog[ií]a\s*/i,'');if(!label||label===courseName||/^fisiolog/i.test(label)||/^module\s*\d*$/i.test(label)){label=fromId(m&&m.id)||('Módulo '+(i+1));}if(/cardio/i.test(label))label='Cardio';if(label.length<3)label='Módulo '+(i+1);return label.length>34?label.slice(0,33)+'…':label;}
     function go(k,v){var p=query();if(k==='course'){if(v)p.set('course',v);else p.delete('course');p.delete('module');}if(k==='module'){if(v)p.set('module',v);else p.delete('module');}location.href=location.pathname+(p.toString()?'?'+p.toString():'');}
     function current(){var p=query(), mi=moduleInfo(p.get('module')||''), cid=p.get('course')||(mi&&mi.course.id)||'', c=courseById(cid), mid=p.get('module')||'', m=mi&&mi.module, ix=mi?mi.index:0;return {cid:cid,c:c,mid:mid,m:m,index:ix};}
     function close(){if(modal)modal.classList.remove('open');}
@@ -114,21 +114,25 @@
       modal.querySelector('.mc-close').onclick=close;
       modal.querySelectorAll('.mc-choice').forEach(function(b){b.onclick=function(){go(b.getAttribute('data-kind'),b.getAttribute('data-id'));};});
     }
+    function hideLegacy(){
+      var shell=document.querySelector('.mc-picker-shell');
+      [].slice.call(document.querySelectorAll('#practiceList button,#practiceList select,#practiceList [role="button"],#courseFilters button,#courseFilters select,#courseFilters [role="button"]')).forEach(function(el){
+        if(shell&&shell.contains(el))return;
+        var t=(el.textContent||'').replace(/\s+/g,' ').replace(/^\s+|\s+$/g,'');
+        if(/^Mat\.|^Mod\.|^Mód\./i.test(t))el.classList.add('mc-original-hidden');
+      });
+    }
     function install(){
-      var selects=[].slice.call(document.querySelectorAll('select'));
-      var subject=document.querySelector('.subject-select')||selects[0];
-      var module=document.querySelector('.module-select')||selects[1];
-      if(!subject||document.querySelector('.mc-picker-shell'))return;
+      var anchor=document.getElementById('practiceList')||document.getElementById('courseFilters');
+      if(!anchor||document.querySelector('.mc-picker-shell')){hideLegacy();return;}
       var cur=current();
       var shell=document.createElement('div');shell.className='mc-picker-shell';
       var b1=document.createElement('button');b1.type='button';b1.className='mc-picker-btn subject';b1.textContent='Mat.: '+(cur.c?shortCourse(cur.c):'Toutes les matières');b1.onclick=function(){open('course');};
       var b2=document.createElement('button');b2.type='button';b2.className='mc-picker-btn module';b2.textContent='Mod.: '+(cur.m?moduleLabel(cur.m,cur.index,cur.c):(cur.c?'Tous les modules':'Toute la banque'));b2.onclick=function(){open('module');};
-      shell.appendChild(b1);shell.appendChild(b2);
-      var original=subject.closest('#courseFilters')||subject.closest('.chips')||subject.parentElement;
-      if(original&&original.parentNode){original.parentNode.insertBefore(shell,original);original.classList.add('mc-original-hidden');}else{subject.parentNode.insertBefore(shell,subject);}
-      subject.style.display='none';if(module)module.style.display='none';
+      shell.appendChild(b1);shell.appendChild(b2);anchor.parentNode.insertBefore(shell,anchor);
+      hideLegacy();
     }
-    document.addEventListener('DOMContentLoaded',function(){[200,800,1600,2600].forEach(function(ms){setTimeout(install,ms);});});
+    document.addEventListener('DOMContentLoaded',function(){[200,800,1600,2600,4200].forEach(function(ms){setTimeout(install,ms);});});
     document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
   })();
   </script>
