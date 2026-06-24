@@ -1,7 +1,7 @@
-/* v319 — Lazy practice bank loader
+/* v320 — Lazy practice bank loader
    Purpose: avoid loading every large practice bank on every page.
    This keeps Cloudflare files under 25 MiB and prevents QCM/Cases/VF pages from freezing.
-   v319 chains count-safe quality patches after the corresponding bank file.
+   v320 chains count-safe quality patches after the corresponding bank file.
 */
 (function(){
   "use strict";
@@ -9,7 +9,7 @@
   var bankFiles = {"bioquimica":"practice-bank-bioquimica.js","fisiologia":"practice-bank-fisiologia.js","genetica":"practice-bank-genetica.js","inmunologia":"practice-bank-inmunologia.js","microbiologia":"practice-bank-microbiologia.js"};
   var patchFiles = {
     "fisiologia":["practice-bank-fisiologia-quality-patch-v314.js","practice-bank-fisiologia-quality-patch-v315.js","practice-bank-fisiologia-quality-patch-v316.js","practice-bank-fisiologia-quality-patch-v317.js"],
-    "microbiologia":["practice-bank-microbiologia-quality-patch-v312.js","practice-bank-microbiologia-quality-patch-v313.js","practice-bank-microbiologia-quality-patch-v314.js","practice-bank-microbiologia-quality-patch-v315.js","practice-bank-microbiologia-quality-patch-v316.js","practice-bank-microbiologia-quality-patch-v317.js","practice-bank-microbiologia-quality-patch-v318.js","practice-bank-microbiologia-quality-patch-v319.js"]
+    "microbiologia":["practice-bank-microbiologia-quality-patch-v312.js","practice-bank-microbiologia-quality-patch-v313.js","practice-bank-microbiologia-quality-patch-v314.js","practice-bank-microbiologia-quality-patch-v315.js","practice-bank-microbiologia-quality-patch-v316.js","practice-bank-microbiologia-quality-patch-v317.js","practice-bank-microbiologia-quality-patch-v318.js","practice-bank-microbiologia-quality-patch-v319.js","practice-bank-microbiologia-quality-patch-v320.js"]
   };
 
   function normId(x){
@@ -70,11 +70,11 @@
     var file = bankFiles[id];
     if(!file) continue;
     if(!(window.MED_PRACTICE_BANK.byCourse && window.MED_PRACTICE_BANK.byCourse[id])){
-      document.write('<script src="data/' + file + '?v=319"><\/script>');
+      document.write('<script src="data/' + file + '?v=320"><\/script>');
     }
     var patches = patchFiles[id] || [];
     for(var j=0; j<patches.length; j++){
-      document.write('<script src="data/' + patches[j] + '?v=319"><\/script>');
+      document.write('<script src="data/' + patches[j] + '?v=320"><\/script>');
     }
   }
 
