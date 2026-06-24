@@ -32,6 +32,18 @@ Une priorité indiquée dans une matière ne doit pas être appliquée automatiq
 
 ---
 
+## Règle de taille des lots
+
+Utiliser le maximum autorisé par `AI_MED_NYKUTO_RULES.md` quand le format le permet, sans dépasser les limites :
+
+- QCM : 40 par patch ;
+- Verdadero/Falso : 20 à 25 par patch ;
+- Casos clínicos : 15 par patch.
+
+Exception : réduire le lot seulement si le nombre restant est inférieur au maximum, ou si une contrainte technique / pédagogique l'exige clairement.
+
+---
+
 ## Matière : Fisiología
 
 ### Module 1
@@ -105,7 +117,7 @@ Si la matière active est Fisiología Module 3, continuer avec :
 
 `data/practice-bank-fisiologia-quality-patch-v333.js`
 
-Cible recommandée : Module 3 QCM 031-040, remplacement count-safe, sans gonfler les totaux.
+Cible recommandée : Module 3 QCM 031-070, soit 40 QCM, remplacement count-safe, sans gonfler les totaux.
 
 Si la matière active est Fisiología Module 1, demander validation utilisateur sur Preview avant nouvelle repasse.
 
@@ -150,6 +162,6 @@ Dernière vérification : le loader charge `practice-bank-fisiologia-quality-pat
 
 ## Prochaine étape recommandée selon la matière active
 
-- Fisiología Module 3 : créer `data/practice-bank-fisiologia-quality-patch-v333.js`, cible QCM 031-040.
+- Fisiología Module 3 : créer `data/practice-bank-fisiologia-quality-patch-v333.js`, cible QCM 031-070, soit 40 QCM.
 - Fisiología Module 1 : demander validation utilisateur sur Preview avant nouvelle repasse.
 - Microbiología : demander validation utilisateur du Module 1 sur Preview avant de démarrer Module 2.
