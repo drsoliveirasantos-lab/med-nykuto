@@ -1,5 +1,5 @@
-/* v304 — Hard-fix QCM Materia/Módulo picker on iOS/Safari.
-   Captures the tap before other scripts can close/re-render it. */
+/* v305 — Premium QCM Materia/Módulo picker on iOS/Safari.
+   Stable tap capture + polished module/course selection UI. */
 (function(){
   'use strict';
 
@@ -50,8 +50,9 @@
     if(!label || label === cn || /^fisiolog/i.test(label) || /^module\s*\d*$/i.test(label)) label = fromId(m && m.id) || ('Módulo ' + (i + 1));
     if(/cardio/i.test(label)) label = 'Cardio';
     if(label.length < 3) label = 'Módulo ' + (i + 1);
-    return label.length > 34 ? label.slice(0,33) + '…' : label;
+    return label;
   }
+  function moduleDisplayNumber(m,i){ return (m && (m.number || m.num || m.order)) || (i + 1); }
   function courseById(id){ return courses().find(function(c){ return String(c.id) === String(id); }); }
   function moduleInfo(id){
     var r = null;
@@ -88,7 +89,7 @@
     if(m) return m;
     m = document.createElement('div');
     m.id = 'qcmForcePickerModal';
-    m.className = 'mc-modal qcm-force-picker-modal';
+    m.className = 'qcm-force-picker-modal';
     document.body.appendChild(m);
     return m;
   }
@@ -97,38 +98,61 @@
     if(m) m.classList.remove('open');
     document.body.classList.remove('mc-modal-open');
   }
+  function countQuestionsForCourse(c){
+    try{
+      var bank = window.MED_PRACTICE_BANK && window.MED_PRACTICE_BANK.byCourse && window.MED_PRACTICE_BANK.byCourse[c.id];
+      if(!bank) return 0;
+      return (bank.qcm||[]).length + (bank.cases||[]).length + (bank.vf||[]).length;
+    }catch(e){ return 0; }
+  }
+  function courseCard(c,active){
+    var mods = (c.modules || []).length;
+    var qs = countQuestionsForCourse(c);
+    return '<button class="qfp-choice qfp-course '+(active?'active':'')+'" data-kind="course" data-id="'+esc(c.id)+'">'
+      + '<span class="qfp-icon">📚</span><span class="qfp-choice-main"><strong>'+esc(courseLabel(c))+'</strong><small>'+mods+' módulos'+(qs?' · '+qs+' preguntas':'')+'</small></span><em>'+(active?'Actual':'Elegir')+'</em></button>';
+  }
+  function moduleCard(mod,i,cur){
+    var active = mod.id === cur.mid;
+    return '<button class="qfp-choice qfp-module '+(active?'active':'')+'" data-kind="module" data-id="'+esc(mod.id)+'">'
+      + '<span class="qfp-badge">Mód. '+esc(moduleDisplayNumber(mod,i))+'</span>'
+      + '<span class="qfp-choice-main"><strong>'+esc(moduleLabel(mod,i,cur.c))+'</strong><small>'+esc(courseLabel(cur.c))+'</small></span>'
+      + '<em>'+(active?'Actual':'Abrir')+'</em></button>';
+  }
   function open(type){
     var now = Date.now();
     if(now - lastOpen < 220) return;
     lastOpen = now;
 
     var cur = current();
-    var html = '<div class="mc-panel"><div class="mc-head"><h2 class="mc-title">' + (type === 'course' ? 'Elegir materia' : 'Elegir módulo') + '</h2><button class="mc-close" type="button">Cerrar</button></div>';
+    var isModule = type === 'module';
+    var eyebrow = isModule && cur.c ? courseLabel(cur.c).toUpperCase() : 'QCM';
+    var title = isModule && cur.c ? courseLabel(cur.c) + ' — Elegir un módulo' : (isModule ? 'Elegir módulo' : 'Elegir una materia');
+    var note = isModule ? 'Selecciona el módulo que quieres entrenar ahora.' : 'Selecciona una materia para filtrar el entrenamiento.';
+    var html = '<div class="qfp-backdrop" data-qfp-close="1"></div><section class="qfp-panel" role="dialog" aria-modal="true" aria-label="'+esc(title)+'">'
+      + '<header class="qfp-head"><div><p class="qfp-eyebrow">'+esc(eyebrow)+'</p><h2>'+esc(title)+'</h2><span>'+esc(note)+'</span></div><button class="qfp-close" type="button" aria-label="Cerrar" data-qfp-close="1">×</button></header>';
+
     if(type === 'course'){
-      html += '<p class="mc-note">Elige la materia. El QCM se recarga con el filtro correcto.</p><div class="mc-list">';
-      html += '<button class="mc-choice ' + (!cur.cid ? 'active' : '') + '" data-kind="course" data-id="">Todas las materias</button>';
-      courses().forEach(function(c){
-        if(isSoonCourse(c)) return;
-        html += '<button class="mc-choice ' + (c.id === cur.cid ? 'active' : '') + '" data-kind="course" data-id="' + esc(c.id) + '">' + esc(courseLabel(c)) + '</button>';
-      });
+      html += '<div class="qfp-toolbar"><input class="qfp-search" type="search" placeholder="Buscar materia…" autocomplete="off" /></div><div class="qfp-list">';
+      html += '<button class="qfp-choice qfp-course '+(!cur.cid?'active':'')+'" data-kind="course" data-id=""><span class="qfp-icon">✨</span><span class="qfp-choice-main"><strong>Todas las materias</strong><small>Entrenar toda la banca disponible</small></span><em>' + (!cur.cid?'Actual':'Elegir') + '</em></button>';
+      courses().forEach(function(c){ if(!isSoonCourse(c)) html += courseCard(c,c.id === cur.cid); });
       html += '</div>';
     } else {
-      html += '<p class="mc-note">Elige el módulo a trabajar.</p><div class="mc-list">';
+      html += '<div class="qfp-toolbar"><input class="qfp-search" type="search" placeholder="Buscar módulo…" autocomplete="off" /></div><div class="qfp-list">';
       if(!cur.c){
-        html += '<button class="mc-choice" data-kind="module" data-id="">Toda la banca</button>';
+        html += '<button class="qfp-choice qfp-module" data-kind="module" data-id=""><span class="qfp-badge">Todos</span><span class="qfp-choice-main"><strong>Toda la banca</strong><small>Sin filtro de módulo</small></span><em>Abrir</em></button>';
       } else {
-        html += '<button class="mc-choice ' + (!cur.mid ? 'active' : '') + '" data-kind="module" data-id="">Todos los módulos · ' + esc(courseLabel(cur.c)) + '</button>';
-        (cur.c.modules || []).forEach(function(mod,i){
-          html += '<button class="mc-choice ' + (mod.id === cur.mid ? 'active' : '') + '" data-kind="module" data-id="' + esc(mod.id) + '">' + esc(moduleLabel(mod,i,cur.c)) + '<small>' + esc(courseLabel(cur.c)) + '</small></button>';
-        });
+        html += '<button class="qfp-choice qfp-module '+(!cur.mid?'active':'')+'" data-kind="module" data-id=""><span class="qfp-badge">Todos</span><span class="qfp-choice-main"><strong>Todos los módulos</strong><small>'+esc(courseLabel(cur.c))+'</small></span><em>'+(!cur.mid?'Actual':'Abrir')+'</em></button>';
+        (cur.c.modules || []).forEach(function(mod,i){ html += moduleCard(mod,i,cur); });
       }
       html += '</div>';
     }
-    html += '</div>';
+    html += '</section>';
+
     var m = modal();
     m.innerHTML = html;
     m.classList.add('open');
     document.body.classList.add('mc-modal-open');
+    setTimeout(function(){ var input = m.querySelector('.qfp-search'); if(input) input.focus({preventScroll:true}); },80);
   }
   function pickerKindFromTarget(target){
     var btn = target && target.closest && target.closest('.mc-picker-btn');
@@ -148,16 +172,26 @@
   function handleModalClick(e){
     var inModal = e.target && e.target.closest && e.target.closest('#qcmForcePickerModal');
     if(!inModal) return;
-    var c = e.target.closest('.mc-close');
-    var choice = e.target.closest('.mc-choice');
-    if(c){ e.preventDefault(); e.stopPropagation(); close(); return; }
+    if(e.target.getAttribute && e.target.getAttribute('data-qfp-close') === '1'){
+      e.preventDefault(); e.stopPropagation(); close(); return;
+    }
+    var choice = e.target.closest('.qfp-choice');
     if(choice){ e.preventDefault(); e.stopPropagation(); go(choice.getAttribute('data-kind'), choice.getAttribute('data-id')); }
+  }
+  function handleSearch(e){
+    var input = e.target && e.target.closest && e.target.closest('#qcmForcePickerModal .qfp-search');
+    if(!input) return;
+    var q = clean(input.value).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    document.querySelectorAll('#qcmForcePickerModal .qfp-choice').forEach(function(btn){
+      var s = clean(btn.textContent).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      btn.hidden = q && s.indexOf(q) === -1;
+    });
   }
   function patchStyles(){
     if(document.getElementById('qcmForcePickerStyle')) return;
     var st = document.createElement('style');
     st.id = 'qcmForcePickerStyle';
-    st.textContent = '.mc-picker-btn{pointer-events:auto!important;cursor:pointer!important}.mc-picker-btn *{pointer-events:none!important}.qcm-force-picker-modal{z-index:12000!important}.qcm-force-picker-modal.open{display:block!important}';
+    st.textContent = '.mc-picker-btn{pointer-events:auto!important;cursor:pointer!important}.mc-picker-btn *{pointer-events:none!important}.qcm-force-picker-modal{position:fixed;inset:0;z-index:12000;display:none;padding:calc(env(safe-area-inset-top,0px) + 14px) 12px calc(env(safe-area-inset-bottom,0px) + 14px);background:rgba(2,6,14,.82);backdrop-filter:blur(10px);overflow:auto;-webkit-overflow-scrolling:touch}.qcm-force-picker-modal.open{display:block!important}.qfp-backdrop{position:fixed;inset:0}.qfp-panel{position:relative;max-width:720px;margin:0 auto;border-radius:28px;border:1px solid rgba(245,211,124,.38);background:linear-gradient(180deg,rgba(9,18,34,.98),rgba(5,10,20,.98));box-shadow:0 28px 80px rgba(0,0,0,.56);overflow:hidden}.qfp-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;padding:22px 22px 16px;border-bottom:1px solid rgba(255,255,255,.10)}.qfp-eyebrow{margin:0 0 8px;color:#ffe7a0;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:950}.qfp-head h2{margin:0;color:#f8fafc;font-size:1.42rem;line-height:1.13;font-weight:950}.qfp-head span{display:block;margin-top:10px;color:rgba(226,232,240,.62);font-size:.92rem;line-height:1.35}.qfp-close{width:54px;height:54px;min-width:54px;border-radius:18px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);color:#f8fafc;font-size:2rem;line-height:1;display:inline-flex;align-items:center;justify-content:center}.qfp-toolbar{padding:14px 22px 0}.qfp-search{width:100%;height:46px;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.055);color:#f8fafc;font-weight:850;font-size:.95rem;padding:0 14px;outline:none}.qfp-search::placeholder{color:rgba(226,232,240,.45)}.qfp-search:focus{border-color:rgba(245,211,124,.55);box-shadow:0 0 0 3px rgba(245,211,124,.10)}.qfp-list{display:grid;gap:10px;padding:14px 22px 22px}.qfp-choice{width:100%;min-height:64px;border-radius:20px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.045);color:#f8fafc;text-align:left;display:grid;grid-template-columns:auto 1fr auto;gap:13px;align-items:center;padding:12px 14px;touch-action:manipulation}.qfp-choice.active{border-color:rgba(245,211,124,.72);background:linear-gradient(135deg,rgba(245,211,124,.16),rgba(255,255,255,.045))}.qfp-choice:active{transform:scale(.992)}.qfp-badge,.qfp-icon{height:38px;min-width:76px;padding:0 13px;border-radius:999px;background:#ffe7a0;color:#07101f;border:1px solid rgba(245,211,124,.68);font-weight:950;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}.qfp-icon{min-width:42px;width:42px;padding:0;background:rgba(245,211,124,.14);color:#ffe7a0}.qfp-choice-main{min-width:0;display:block}.qfp-choice-main strong{display:block;font-size:1.02rem;line-height:1.18;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.qfp-choice-main small{display:block;margin-top:5px;color:rgba(226,232,240,.52);font-weight:800;font-size:.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.qfp-choice em{font-style:normal;color:rgba(226,232,240,.55);font-size:.73rem;font-weight:900;border:1px solid rgba(255,255,255,.10);border-radius:999px;padding:.24rem .5rem}.qfp-choice.active em{color:#ffe7a0;border-color:rgba(245,211,124,.45);background:rgba(245,211,124,.10)}@media(max-width:520px){.qcm-force-picker-modal{padding:calc(env(safe-area-inset-top,0px) + 10px) 10px calc(env(safe-area-inset-bottom,0px) + 10px)}.qfp-panel{border-radius:26px}.qfp-head{padding:20px 18px 14px}.qfp-head h2{font-size:1.25rem}.qfp-head span{font-size:.86rem}.qfp-close{width:48px;height:48px;min-width:48px;border-radius:16px}.qfp-toolbar{padding:12px 16px 0}.qfp-list{padding:12px 16px 18px;gap:9px}.qfp-choice{grid-template-columns:auto 1fr;min-height:58px;padding:11px 12px;border-radius:18px}.qfp-choice em{display:none}.qfp-badge{height:34px;min-width:70px;padding:0 11px}.qfp-choice-main strong{font-size:.96rem}.qfp-choice-main small{font-size:.73rem}}';
     document.head.appendChild(st);
   }
 
@@ -180,6 +214,7 @@
   document.addEventListener('click',handlePickerTap,true);
   document.addEventListener('click',handleModalClick,true);
   document.addEventListener('touchend',handleModalClick,{capture:true,passive:false});
+  document.addEventListener('input',handleSearch,true);
   document.addEventListener('keydown',function(e){ if(e.key === 'Escape') close(); });
 
   patchStyles();
