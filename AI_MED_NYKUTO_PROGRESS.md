@@ -53,7 +53,7 @@ Statut global : reconstruction/correction en cours sur Preview par patchs sépar
 |---|---:|
 | QCM | 200 / 200 corrigés |
 | Verdadero/Falso | 50 / 50 corrigés |
-| Casos clínicos | 0 / 50 corrigés |
+| Casos clínicos | 15 / 50 corrigés |
 
 ### Patchs Fisiología Module 1 déjà créés
 
@@ -75,11 +75,11 @@ Statut global : reconstruction/correction en cours sur Preview par patchs sépar
 
 #### Casos clínicos
 
-- Aucun patch de casos clínicos Fisiología Module 1 créé pour le moment.
+- `data/practice-bank-fisiologia-quality-patch-v325.js` : Casos clínicos 001-015.
 
 ### Loader attendu pour Fisiología
 
-Le fichier `data/med-practice-bank-loader.js` doit charger les patchs Fisiología Module 1 de `v314` à `v321`, puis `v323` et `v324`, et conserver les patchs d'autres matières.
+Le fichier `data/med-practice-bank-loader.js` doit charger les patchs Fisiología Module 1 de `v314` à `v321`, puis `v323`, `v324` et `v325`, et conserver les patchs d'autres matières.
 
 Note : `data/practice-bank-fisiologia-quality-patch-v322.js` existe déjà et concerne Fisiología Module 2 QCM 001-040. Ne pas l'écraser.
 
@@ -89,15 +89,14 @@ Continuer Fisiología Module 1 avec les casos clínicos.
 
 Prochain patch conseillé :
 
-`data/practice-bank-fisiologia-quality-patch-v325.js`
+`data/practice-bank-fisiologia-quality-patch-v326.js`
 
-Cible recommandée : Casos clínicos 001-015 du Module 1 Fisiología.
+Cible recommandée : Casos clínicos 016-030 du Module 1 Fisiología.
 
 Ensuite :
 
-1. Casos clínicos 016-030 ;
-2. Casos clínicos 031-045 ;
-3. Casos clínicos 046-050.
+1. Casos clínicos 031-045 ;
+2. Casos clínicos 046-050.
 
 ### Module 2
 
@@ -172,7 +171,7 @@ Le fichier `data/med-practice-bank-loader.js` doit charger :
 - les patchs Microbiología de `v312` à `v325` ;
 - les patchs de lisibilité Microbiología `v326` à `v329`.
 
-Dernière vérification effectuée : le loader chargeait bien `practice-bank-microbiologia-readable-options-patch-v328.js` et `practice-bank-microbiologia-readable-options-patch-v329.js`, en conservant les patchs Fisiología jusqu'à `v324`.
+Dernière vérification effectuée : le loader chargeait bien `practice-bank-microbiologia-readable-options-patch-v328.js` et `practice-bank-microbiologia-readable-options-patch-v329.js`, en conservant les patchs Fisiología jusqu'à `v325`.
 
 ---
 
@@ -262,5 +261,5 @@ Bon :
 
 ## Prochaine étape recommandée selon la matière active
 
-- Si conversation active = Fisiología : continuer `data/practice-bank-fisiologia-quality-patch-v325.js`, cible Casos clínicos 001-015 du Module 1 Fisiología.
+- Si conversation active = Fisiología : continuer `data/practice-bank-fisiologia-quality-patch-v326.js`, cible Casos clínicos 016-030 du Module 1 Fisiología.
 - Si conversation active = Microbiología : continuer la repasse lisibilité avec QCM 081-120 du Module 1 Microbiología.
