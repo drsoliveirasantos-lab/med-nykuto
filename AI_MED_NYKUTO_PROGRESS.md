@@ -47,13 +47,13 @@ Module ID : `01-fisiologia-01-neurofisiologia-y-potencial-de-accion`
 
 Titre : `Neurofisiología y potencial de acción`
 
-Statut global : reconstruction/correction en cours sur Preview par patchs séparés, sans modification directe de `data/practice-bank-fisiologia.js`.
+Statut global : Module 1 complet sur Preview par patchs séparés, sans modification directe de `data/practice-bank-fisiologia.js`.
 
 | Format | État |
 |---|---:|
 | QCM | 200 / 200 corrigés |
 | Verdadero/Falso | 50 / 50 corrigés |
-| Casos clínicos | 45 / 50 corrigés |
+| Casos clínicos | 50 / 50 corrigés |
 
 ### Patchs Fisiología Module 1 déjà créés
 
@@ -78,6 +78,7 @@ Statut global : reconstruction/correction en cours sur Preview par patchs sépar
 - `data/practice-bank-fisiologia-quality-patch-v325.js` : Casos clínicos 001-015.
 - `data/practice-bank-fisiologia-quality-patch-v327.js` : Casos clínicos 016-030.
 - `data/practice-bank-fisiologia-quality-patch-v330.js` : Casos clínicos 031-045.
+- `data/practice-bank-fisiologia-quality-patch-v331.js` : Casos clínicos 046-050.
 
 ### Module 2
 
@@ -105,7 +106,7 @@ Objectifs pédagogiques couverts par `v329` : soluto osmóticamente efectivo, is
 
 ### Loader attendu pour Fisiología
 
-Le fichier `data/med-practice-bank-loader.js` doit charger les patchs Fisiología existants jusqu'à `v330`, en conservant les patchs d'autres matières.
+Le fichier `data/med-practice-bank-loader.js` doit charger les patchs Fisiología existants jusqu'à `v331`, en conservant les patchs d'autres matières.
 
 Notes :
 
@@ -115,16 +116,15 @@ Notes :
 - `data/practice-bank-fisiologia-quality-patch-v328.js` existe déjà et concerne Fisiología Module 3 QCM 001-010. Ne pas l'écraser.
 - `data/practice-bank-fisiologia-quality-patch-v329.js` existe déjà et concerne Fisiología Module 3 QCM 011-020. Ne pas l'écraser.
 - `data/practice-bank-fisiologia-quality-patch-v330.js` existe déjà et concerne Fisiología Module 1 casos clínicos 031-045. Ne pas l'écraser.
+- `data/practice-bank-fisiologia-quality-patch-v331.js` existe déjà et concerne Fisiología Module 1 casos clínicos 046-050. Ne pas l'écraser.
 
 ### Prochaine étape recommandée pour cette matière
 
-Si la matière active est Fisiología Module 1, terminer le module avec les derniers casos clínicos :
+Si la matière active est Fisiología Module 1 : le module est complet. Prochaine action recommandée : validation utilisateur sur Preview avant d'ouvrir un nouveau bloc de travail.
 
-`data/practice-bank-fisiologia-quality-patch-v331.js`
+Si la matière active est Fisiología Module 2 : continuer la reconstruction/correction du Module 2 avec un nouveau patch libre, sans réutiliser `v322` ni `v326`.
 
-Cible recommandée : Casos clínicos 046-050 du Module 1 Fisiología, toujours par remplacement count-safe et sans gonfler les totaux.
-
-Si la matière active est Fisiología Module 3, continuer avec un nouveau patch ultérieur libre, sans réutiliser `v328`, `v329` ni `v330`.
+Si la matière active est Fisiología Module 3 : continuer avec un nouveau patch libre, sans réutiliser `v328`, `v329`, `v330` ni `v331`.
 
 ---
 
@@ -191,11 +191,11 @@ Statut global : contenu reconstruit et disponible sur Preview. Repasse de lisibi
 
 Le fichier `data/med-practice-bank-loader.js` doit charger :
 
-- les patchs Fisiología existants jusqu'à `v330`, sans suppression ;
+- les patchs Fisiología existants jusqu'à `v331`, sans suppression ;
 - les patchs Microbiología de `v312` à `v325` ;
 - les patchs de lisibilité Microbiología `v326` à `v335`.
 
-Dernière vérification effectuée : le loader charge bien `practice-bank-fisiologia-quality-patch-v330.js`, ainsi que les patchs Microbiología de lisibilité jusqu'à `v335`.
+Dernière vérification effectuée : le loader charge bien `practice-bank-fisiologia-quality-patch-v331.js`, ainsi que les patchs Microbiología de lisibilité jusqu'à `v335`.
 
 ---
 
@@ -258,6 +258,7 @@ Bon :
 
 ## Prochaine étape recommandée selon la matière active
 
-- Si conversation active = Fisiología Module 1 : terminer avec `data/practice-bank-fisiologia-quality-patch-v331.js`, cible Casos clínicos 046-050.
-- Si conversation active = Fisiología Module 3 : continuer avec un nouveau patch ultérieur libre, sans réutiliser `v328`, `v329` ni `v330`.
+- Si conversation active = Fisiología Module 1 : valider sur Preview, car le module est complet.
+- Si conversation active = Fisiología Module 2 : continuer avec un nouveau patch libre de cette matière/module.
+- Si conversation active = Fisiología Module 3 : continuer avec un nouveau patch libre de cette matière/module.
 - Si conversation active = Microbiología : demander validation utilisateur du Module 1 sur Preview avant de démarrer Module 2.
