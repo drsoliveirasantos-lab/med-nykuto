@@ -1,0 +1,119 @@
+/* Practice focus mode: mobile/fullscreen training overlay */
+.practice-focus-open,
+.practice-focus-close {
+  border: 1px solid rgba(245, 211, 124, 0.55);
+  background: linear-gradient(135deg, rgba(245, 211, 124, 0.22), rgba(245, 211, 124, 0.08));
+  color: #ffe7a0;
+  border-radius: 999px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
+  cursor: pointer;
+}
+
+.practice-focus-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 46px;
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0 1rem;
+  font-size: 0.95rem;
+}
+
+.practice-focus-close {
+  display: none;
+}
+
+.practice-focus-hint {
+  margin: 0.25rem 0 0.85rem;
+  color: rgba(226, 232, 240, 0.68);
+  font-size: 0.88rem;
+}
+
+body.practice-focus-active {
+  overflow: hidden;
+}
+
+body.practice-focus-active .site-header,
+body.practice-focus-active .practice-quick-header,
+body.practice-focus-active .practice-compact-controls,
+body.practice-focus-active .page-hero,
+body.practice-focus-active .practice-focus-topbar,
+body.practice-focus-active #courseFilters,
+body.practice-focus-active #emptyState,
+body.practice-focus-active .practice-focus-open,
+body.practice-focus-active .practice-focus-hint {
+  display: none !important;
+}
+
+body.practice-focus-active .practice-focus-section {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9998 !important;
+  width: 100vw !important;
+  height: 100dvh !important;
+  margin: 0 !important;
+  padding: calc(env(safe-area-inset-top, 0px) + 64px) 14px calc(env(safe-area-inset-bottom, 0px) + 22px) !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(245, 211, 124, 0.12), transparent 32%),
+    radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.10), transparent 32%),
+    #050912 !important;
+}
+
+body.practice-focus-active .practice-list {
+  width: min(100%, 860px) !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
+body.practice-focus-active .practice-list > *:not(:last-child) {
+  margin-bottom: 0.95rem !important;
+}
+
+body.practice-focus-active .practice-list > * {
+  max-width: 100% !important;
+}
+
+body.practice-focus-active .practice-focus-close {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  left: 14px;
+  right: 14px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 46px;
+  padding: 0.72rem 0.95rem;
+  font-size: 0.95rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(9, 14, 26, 0.92);
+}
+
+body.practice-focus-active .practice-focus-close::after {
+  content: '✕';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff1b8;
+}
+
+@media (min-width: 900px) {
+  .practice-focus-open {
+    display: none;
+  }
+
+  body.practice-focus-active .practice-focus-section {
+    padding-left: max(24px, calc((100vw - 900px) / 2)) !important;
+    padding-right: max(24px, calc((100vw - 900px) / 2)) !important;
+  }
+}
