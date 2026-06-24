@@ -75,10 +75,13 @@ Module ID : `01-fisiologia-02-transporte-de-membrana`
 
 Titre : `Transporte de membrana`
 
-Statut partiel : patchs QCM initiaux existants.
+Statut partiel : QCM 200 / 200 corrigés sur Preview par patchs séparés.
 
 - `data/practice-bank-fisiologia-quality-patch-v322.js` : Module 2 QCM 001-040.
 - `data/practice-bank-fisiologia-quality-patch-v326.js` : Module 2 QCM 041-080.
+- `data/practice-bank-fisiologia-quality-patch-v333-m2-qcm-081-120.js` : Module 2 QCM 081-120.
+- `data/practice-bank-fisiologia-quality-patch-v344-m2-qcm-121-160.js` : Module 2 QCM 121-160.
+- `data/practice-bank-fisiologia-quality-patch-v345-m2-qcm-161-200.js` : Module 2 QCM 161-200.
 
 ### Module 3
 
@@ -89,6 +92,7 @@ Statut partiel : reconstruction/correction démarrée sur Preview par patchs sé
 - `data/practice-bank-fisiologia-quality-patch-v328.js` : Module 3 QCM 001-010.
 - `data/practice-bank-fisiologia-quality-patch-v329.js` : Module 3 QCM 011-020.
 - `data/practice-bank-fisiologia-quality-patch-v332.js` : Module 3 QCM 021-030.
+- `data/practice-bank-fisiologia-quality-patch-v345-m3-qcm-031-070.js` : Module 3 QCM 031-070.
 
 Objectifs couverts par `v328` : solución, soluto, solvente, membrana semipermeable, ósmosis, dirección del agua, presión osmótica, osmolaridad, osmolalidad, disociación iónica, tonicidad.
 
@@ -96,9 +100,11 @@ Objectifs couverts par `v329` : soluto osmóticamente efectivo, isotonicidad, hi
 
 Objectifs couverts par `v332` : sueros isotónicos, sueros hipotónicos, sueros hipertónicos, eritrocito en medio hipotónico, eritrocito en medio hipertónico, acuaporinas, equilibrio osmótico, compartimentos corporales, presión oncótica, albúmina y edema.
 
+Objectifs couverts par `v345-m3` : osmolaridad plasmática, osmolalidad efectiva, hiponatremia hipotónica, pseudohiponatremia, hiponatremia hipertónica, sodio corregido, hipernatremia, sed osmótica, ADH, SIADH, diabetes insípida, polidipsia primaria, correcciones osmóticas, manitol, soluciones intravenosas, fuerzas de Starling, diuresis osmótica, gradiente medular, agua libre renal y osmoreceptores.
+
 ### Loader attendu pour Fisiología
 
-`data/med-practice-bank-loader.js` doit charger les patchs Fisiología existants jusqu'à `v332`, en conservant les patchs d'autres matières.
+`data/med-practice-bank-loader.js` doit charger les patchs Fisiología existants jusqu'à `v345-m3-qcm-031-070`, en conservant les patchs d'autres matières.
 
 Ne pas écraser :
 
@@ -109,15 +115,19 @@ Ne pas écraser :
 - `v329` : Fisiología Module 3 QCM 011-020 ;
 - `v330` : Fisiología Module 1 casos 031-045 ;
 - `v331` : Fisiología Module 1 casos 046-050 ;
-- `v332` : Fisiología Module 3 QCM 021-030.
+- `v332` : Fisiología Module 3 QCM 021-030 ;
+- `v333-m2` : Fisiología Module 2 QCM 081-120 ;
+- `v344-m2` : Fisiología Module 2 QCM 121-160 ;
+- `v345-m2` : Fisiología Module 2 QCM 161-200 ;
+- `v345-m3` : Fisiología Module 3 QCM 031-070.
 
 ### Prochaine étape recommandée pour Fisiología
 
 Si la matière active est Fisiología Module 3, continuer avec :
 
-`data/practice-bank-fisiologia-quality-patch-v333.js`
+`data/practice-bank-fisiologia-quality-patch-v346-m3-qcm-071-110.js`
 
-Cible recommandée : Module 3 QCM 031-070, soit 40 QCM, remplacement count-safe, sans gonfler les totaux.
+Cible recommandée : Module 3 QCM 071-110, soit 40 QCM, remplacement count-safe, sans gonfler les totaux.
 
 Si la matière active est Fisiología Module 1, demander validation utilisateur sur Preview avant nouvelle repasse.
 
@@ -152,16 +162,16 @@ Aucune correction prioritaire restante sur Microbiología Module 1. Avant de pas
 
 Le loader doit charger :
 
-- les patchs Fisiología jusqu'à `v332` ;
+- les patchs Fisiología jusqu'à `practice-bank-fisiologia-quality-patch-v345-m3-qcm-031-070.js` ;
 - les patchs Microbiología de reconstruction `v312` à `v325` ;
 - les patchs Microbiología de lisibilité `v326` à `v335`.
 
-Dernière vérification : le loader charge `practice-bank-fisiologia-quality-patch-v332.js` et conserve les patchs Microbiología jusqu'à `practice-bank-microbiologia-readable-options-patch-v335.js`.
+Dernière vérification : le loader charge `practice-bank-fisiologia-quality-patch-v345-m3-qcm-031-070.js` et conserve les patchs Microbiología jusqu'à `practice-bank-microbiologia-readable-options-patch-v335.js`.
 
 ---
 
 ## Prochaine étape recommandée selon la matière active
 
-- Fisiología Module 3 : créer `data/practice-bank-fisiologia-quality-patch-v333.js`, cible QCM 031-070, soit 40 QCM.
+- Fisiología Module 3 : créer `data/practice-bank-fisiologia-quality-patch-v346-m3-qcm-071-110.js`, cible QCM 071-110, soit 40 QCM.
 - Fisiología Module 1 : demander validation utilisateur sur Preview avant nouvelle repasse.
 - Microbiología : demander validation utilisateur du Module 1 sur Preview avant de démarrer Module 2.
