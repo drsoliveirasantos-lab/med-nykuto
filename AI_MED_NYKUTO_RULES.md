@@ -209,6 +209,19 @@ Après chaque lot, mettre à jour mentalement ou dans `AI_MED_NYKUTO_PROGRESS.md
 
 Si une nouvelle conversation commence, lire `AI_MED_NYKUTO_PROGRESS.md` avant de continuer.
 
+### 9.1 Règle de matière active par conversation
+
+`AI_MED_NYKUTO_PROGRESS.md` peut contenir plusieurs matières et plusieurs priorités en parallèle.
+
+La priorité à appliquer dépend de la matière active de la conversation en cours :
+
+- si la conversation travaille sur `Fisiología`, continuer la section Fisiología et son module actif ;
+- si la conversation travaille sur `Microbiología`, continuer la section Microbiología et son module actif ;
+- si la matière active n'est pas claire, demander confirmation à l'utilisateur avant toute modification GitHub ;
+- ne jamais appliquer automatiquement la priorité d'une autre matière simplement parce qu'elle apparaît plus haut ou plus récemment dans le fichier de progression.
+
+Une priorité écrite dans une section de matière est prioritaire seulement pour cette matière, sauf instruction explicite contraire de l'utilisateur.
+
 ---
 
 ## 10. Problème détecté à corriger en priorité
@@ -224,6 +237,8 @@ Action à faire : repasse de lisibilité sur les options QCM, surtout quand la q
 
 Objectif : transformer les options en propositions complètes et interprétables, sans changer le fond ni le nombre d'items.
 
+Cette priorité concerne la section Microbiología. Dans une conversation dont la matière active est Fisiología ou une autre matière, continuer la matière active sauf demande explicite de changer de matière.
+
 ---
 
 ## 11. Instruction courte pour future conversation
@@ -232,4 +247,4 @@ Quand une nouvelle conversation IA reprend le travail, l'utilisateur peut dire :
 
 `Lis AI_MED_NYKUTO_RULES.md et AI_MED_NYKUTO_PROGRESS.md dans le repo Med Nykuto, puis continue sur la branche preview.`
 
-L'IA doit alors appliquer ces règles sans demander à l'utilisateur de recoller le prompt complet.
+L'IA doit alors appliquer ces règles sans demander à l'utilisateur de recoller le prompt complet, puis identifier la matière active de la conversation avant toute modification GitHub.
