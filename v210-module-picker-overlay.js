@@ -1,4 +1,4 @@
-/* v210 — Robust module picker overlay + comfortable reader */
+/* v210 — Robust module picker overlay + comfortable reader + premium QCM mobile layer */
 (function(){
   const DATA = window.MED_COURSES_DATA || {courses:[]};
   const courses = DATA.courses || [];
@@ -93,7 +93,6 @@
     const grid = document.querySelector("#courseGrid");
     if(!grid) return;
 
-    // Remove previous v208/v209 inline/dropdown artifacts if they exist.
     document.querySelectorAll(".course-module-drawer,.v209-module-menu").forEach(el => el.remove());
     document.querySelectorAll(".course-card").forEach(card => {
       card.classList.remove("expanded","v209-open");
@@ -136,14 +135,155 @@
     }
   }
 
+  /* Premium QCM mobile layer */
+  function enhanceQcm(){
+    if(!document.body.classList.contains("qcm-page")) return;
+    document.body.classList.add("premium-qcm");
+    compactFocusButton();
+    upgradePickerLabels();
+    ensureProgress();
+    collapseWeaknessPanel();
+    cleanQuestionText();
+    buildStickyActions();
+  }
+
+  function compactFocusButton(){
+    const btn = document.querySelector(".practice-focus-open");
+    if(btn && btn.textContent.trim() !== "⛶ Focus") btn.textContent = "⛶ Focus";
+  }
+
+  function upgradePickerLabels(){
+    document.querySelectorAll(".mc-picker-btn").forEach(btn => {
+      if(btn.dataset.premiumLabel === "1") return;
+      const raw = btn.textContent.replace(/\s+/g," ").trim();
+      const isModule = btn.classList.contains("module") || /^Mod\./i.test(raw);
+      const label = isModule ? "Module" : "Matière";
+      const value = raw.replace(/^Mat\.:?\s*/i,"").replace(/^Mod\.:?\s*/i,"").trim();
+      btn.innerHTML = `<span class="premium-filter-label">${label}</span><strong>${esc(value || (isModule ? "Toute la banque" : "Toutes"))}</strong><span class="premium-filter-change">Changer ▾</span>`;
+      btn.dataset.premiumLabel = "1";
+    });
+  }
+
+  function getProgressNumbers(){
+    const section = document.querySelector(".practice-focus-section") || document.body;
+    const text = (section.textContent || "").replace(/\s+/g," ");
+    const match = text.match(/\b(\d{1,2})\s*\/\s*(20)\b/);
+    const current = match ? Math.max(1, Math.min(20, parseInt(match[1],10))) : 1;
+    const total = match ? parseInt(match[2],10) : 20;
+    return {current,total,percent:Math.round((current/total)*100)};
+  }
+
+  function ensureProgress(){
+    const section = document.querySelector(".practice-focus-section");
+    const picker = document.querySelector(".mc-picker-shell");
+    if(!section || !picker) return;
+    let bar = document.querySelector(".premium-progress");
+    if(!bar){
+      bar = document.createElement("div");
+      bar.className = "premium-progress";
+      picker.insertAdjacentElement("afterend", bar);
+    }
+    const p = getProgressNumbers();
+    bar.innerHTML = `<div class="premium-progress-head"><strong>Question ${p.current}/${p.total}</strong><span>${p.percent}%</span></div><div class="premium-progress-track"><i style="width:${p.percent}%"></i></div>`;
+  }
+
+  function findWeaknessBlock(){
+    const section = document.querySelector(".practice-focus-section");
+    if(!section) return null;
+    const candidates = Array.from(section.querySelectorAll("section,article,div"));
+    let best = null;
+    candidates.forEach(el => {
+      if(el.classList.contains("premium-weak-summary") || el.closest(".premium-weak-summary")) return;
+      const t = (el.textContent || "").replace(/\s+/g," ");
+      if(t.includes("Mes points faibles") && t.includes("ADAPTATIF")){
+        if(!best || (el.textContent || "").length < (best.textContent || "").length) best = el;
+      }
+    });
+    return best;
+  }
+
+  function collapseWeaknessPanel(){
+    const block = findWeaknessBlock();
+    if(!block || block.dataset.premiumWeak === "1") return;
+    block.dataset.premiumWeak = "1";
+    block.classList.add("premium-weak-hidden");
+    const t = (block.textContent || "").replace(/\s+/g," ");
+    const nums = Array.from(t.matchAll(/\b\d+\b/g)).map(m => m[0]);
+    const responses = nums[0] || "0";
+    const errors = nums[2] || nums[1] || "0";
+    const unsure = nums[3] || "0";
+    const summary = document.createElement("button");
+    summary.type = "button";
+    summary.className = "premium-weak-summary";
+    summary.innerHTML = `<strong>Points faibles</strong><span>${responses} réponses · ${errors} erreurs · ${unsure} je ne sais pas</span><em>Afficher ▾</em>`;
+    block.parentNode.insertBefore(summary, block);
+    summary.addEventListener("click", () => {
+      block.classList.toggle("premium-weak-hidden");
+      const open = !block.classList.contains("premium-weak-hidden");
+      summary.querySelector("em").textContent = open ? "Masquer ▴" : "Afficher ▾";
+    });
+  }
+
+  function cleanQuestionText(){
+    const root = document.querySelector("#practiceList") || document.body;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(n => {
+      let s = n.nodeValue;
+      const old = s;
+      s = s.replace(/,?\s*¿qué afirmación es correcta, célula, fase ni localización\?/gi, ", ¿cuál afirmación es correcta?");
+      s = s.replace(/¿qué afirmación es correcta, célula, fase ni localización\?/gi, "¿cuál afirmación es correcta?");
+      s = s.replace(/,?\s*célula, fase ni localización\?/gi, "?");
+      s = s.replace(/¿qué proposición mantiene la relación correcta entre causa, mecanismo y consecuencia\?/gi, "¿cuál proposición es correcta?");
+      if(s !== old) n.nodeValue = s;
+    });
+  }
+
+  function buildStickyActions(){
+    let bar = document.querySelector(".premium-bottom-actions");
+    if(!bar){
+      bar = document.createElement("div");
+      bar.className = "premium-bottom-actions";
+      document.body.appendChild(bar);
+    }
+    const root = document.querySelector("#practiceList") || document.body;
+    const buttons = Array.from(root.querySelectorAll("button,a")).filter(el => {
+      const t = (el.textContent || "").toLowerCase();
+      if(el.closest(".premium-bottom-actions") || el.closest(".mc-modal")) return false;
+      return /je ne sais pas|no sé|nao sei|não sei|valider|validar|corriger|corregir|suivant|siguiente|próxima|prochaine/.test(t);
+    }).slice(-2);
+    if(!buttons.length){ bar.classList.remove("visible"); return; }
+    bar.innerHTML = "";
+    buttons.forEach(original => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = original.textContent.trim() || "Action";
+      b.className = /suivant|siguiente|próxima|prochaine|valider|validar/i.test(b.textContent) ? "primary" : "secondary";
+      b.onclick = () => original.click();
+      bar.appendChild(b);
+    });
+    bar.classList.add("visible");
+  }
+
+  function applyQcmLoop(){
+    enhanceQcm();
+    if(document.body.classList.contains("qcm-page") && !document.body.dataset.premiumQcmObserver && window.MutationObserver){
+      document.body.dataset.premiumQcmObserver = "1";
+      const root = document.querySelector(".practice-focus-section") || document.body;
+      new MutationObserver(() => { window.clearTimeout(window.__premiumQcmTimer); window.__premiumQcmTimer = window.setTimeout(enhanceQcm, 80); }).observe(root,{childList:true,subtree:true,characterData:true});
+    }
+  }
+
   function apply(){
     enhanceCatalog();
     enhanceReader();
+    applyQcmLoop();
   }
   if(document.readyState === "loading"){
-    document.addEventListener("DOMContentLoaded", () => { setTimeout(apply,0); setTimeout(apply,250); setTimeout(apply,900); });
+    document.addEventListener("DOMContentLoaded", () => { setTimeout(apply,0); setTimeout(apply,250); setTimeout(apply,900); setTimeout(apply,1800); });
   } else {
-    setTimeout(apply,0); setTimeout(apply,250); setTimeout(apply,900);
+    setTimeout(apply,0); setTimeout(apply,250); setTimeout(apply,900); setTimeout(apply,1800);
   }
-  window.addEventListener("load", () => { setTimeout(apply,0); setTimeout(apply,500); });
+  window.addEventListener("load", () => { setTimeout(apply,0); setTimeout(apply,500); setTimeout(apply,1600); });
 })();
