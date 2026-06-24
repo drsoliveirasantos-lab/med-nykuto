@@ -1,10 +1,6 @@
 # AI_MED_NYKUTO_PROGRESS.md
 
-Document permanent de suivi du travail Med Nykuto.
-
-À lire au début de toute nouvelle conversation IA qui reprend la reconstruction ou correction des banques de questions.
-
-Lire aussi `AI_MED_NYKUTO_RULES.md` avant toute génération ou modification.
+Document permanent de suivi du travail Med Nykuto. À lire avec `AI_MED_NYKUTO_RULES.md` avant toute génération ou modification.
 
 ---
 
@@ -20,22 +16,19 @@ Méthode technique actuelle :
 - créer des patchs dans `data/` ;
 - charger les patchs via `data/med-practice-bank-loader.js` ;
 - remplacer les questions existantes sans gonfler les totaux ;
-- vérifier le loader après chaque patch.
+- vérifier le loader après chaque patch ;
+- préserver les patchs existants des autres matières.
 
 ---
 
 ## Règle d'interprétation : matière active de la conversation
 
-Ce fichier contient plusieurs chantiers en parallèle. Une priorité indiquée dans une matière ne doit pas être appliquée automatiquement à une autre matière.
-
-Avant de continuer, identifier la matière active de la conversation :
+Une priorité indiquée dans une matière ne doit pas être appliquée automatiquement à une autre matière.
 
 - conversation Fisiología → continuer Fisiología et son module actif ;
 - conversation Microbiología → continuer Microbiología et son module actif ;
 - conversation d'une autre matière → continuer cette matière ;
 - si la matière active n'est pas claire, demander confirmation avant toute modification GitHub.
-
-La priorité Microbiología ci-dessous concerne uniquement les conversations Microbiología, sauf demande explicite de l'utilisateur. Dans une conversation Fisiología, la prochaine étape est celle de la section Fisiología.
 
 ---
 
@@ -47,7 +40,7 @@ Module ID : `01-fisiologia-01-neurofisiologia-y-potencial-de-accion`
 
 Titre : `Neurofisiología y potencial de acción`
 
-Statut global : Module 1 complet sur Preview par patchs séparés, sans modification directe de `data/practice-bank-fisiologia.js`.
+Statut global : Module 1 complet sur Preview par patchs séparés.
 
 | Format | État |
 |---|---:|
@@ -55,26 +48,10 @@ Statut global : Module 1 complet sur Preview par patchs séparés, sans modifica
 | Verdadero/Falso | 50 / 50 corrigés |
 | Casos clínicos | 50 / 50 corrigés |
 
-### Patchs Fisiología Module 1 déjà créés
+Patchs Module 1 :
 
-#### QCM
-
-- `data/practice-bank-fisiologia-quality-patch-v314.js` : premier patch de sécurité, correction visible initiale et normalisations.
-- `data/practice-bank-fisiologia-quality-patch-v315.js` : QCM 001-020.
-- `data/practice-bank-fisiologia-quality-patch-v316.js` : QCM 021-060.
-- `data/practice-bank-fisiologia-quality-patch-v317.js` : QCM 061-100.
-- `data/practice-bank-fisiologia-quality-patch-v318.js` : QCM 101-140.
-- `data/practice-bank-fisiologia-quality-patch-v319.js` : QCM 141-180.
-- `data/practice-bank-fisiologia-quality-patch-v320.js` : QCM 181-200.
-
-#### Verdadero/Falso
-
-- `data/practice-bank-fisiologia-quality-patch-v321.js` : V/F 001-010.
-- `data/practice-bank-fisiologia-quality-patch-v323.js` : V/F 011-030.
-- `data/practice-bank-fisiologia-quality-patch-v324.js` : V/F 031-050.
-
-#### Casos clínicos
-
+- `data/practice-bank-fisiologia-quality-patch-v314.js` à `data/practice-bank-fisiologia-quality-patch-v321.js` : QCM / V-F initiaux du Module 1.
+- `data/practice-bank-fisiologia-quality-patch-v323.js` et `data/practice-bank-fisiologia-quality-patch-v324.js` : V/F 011-050.
 - `data/practice-bank-fisiologia-quality-patch-v325.js` : Casos clínicos 001-015.
 - `data/practice-bank-fisiologia-quality-patch-v327.js` : Casos clínicos 016-030.
 - `data/practice-bank-fisiologia-quality-patch-v330.js` : Casos clínicos 031-045.
@@ -95,36 +72,42 @@ Statut partiel : patchs QCM initiaux existants.
 
 Titre : `Osmolaridad, ósmosis y tonicidad`
 
-Statut partiel : reconstruction/correction démarrée sur Preview par patch séparé, sans modification directe de `data/practice-bank-fisiologia.js`.
+Statut partiel : reconstruction/correction démarrée sur Preview par patchs séparés.
 
-- `data/practice-bank-fisiologia-quality-patch-v328.js` : Module 3 QCM 001-010, remplacement count-safe par position de module, IDs originaux préservés.
-- `data/practice-bank-fisiologia-quality-patch-v329.js` : Module 3 QCM 011-020, remplacement count-safe par position de module, IDs originaux préservés.
+- `data/practice-bank-fisiologia-quality-patch-v328.js` : Module 3 QCM 001-010.
+- `data/practice-bank-fisiologia-quality-patch-v329.js` : Module 3 QCM 011-020.
+- `data/practice-bank-fisiologia-quality-patch-v332.js` : Module 3 QCM 021-030.
 
-Objectifs pédagogiques couverts par `v328` : solución, soluto, solvente, membrana semipermeable, ósmosis, dirección del agua, presión osmótica, osmolaridad, osmolalidad, disociación iónica, tonicidad.
+Objectifs couverts par `v328` : solución, soluto, solvente, membrana semipermeable, ósmosis, dirección del agua, presión osmótica, osmolaridad, osmolalidad, disociación iónica, tonicidad.
 
-Objectifs pédagogiques couverts par `v329` : soluto osmóticamente efectivo, isotonicidad, hipotonicidad, hipertonicidad, diferencia osmolaridad/tonicidad, urea, NaCl extracelular, agua libre, deshidratación hipertónica, hiperglucemia severa.
+Objectifs couverts par `v329` : soluto osmóticamente efectivo, isotonicidad, hipotonicidad, hipertonicidad, osmolaridad versus tonicidad, urea, NaCl extracelular, agua libre, deshidratación hipertónica, hiperglucemia severa.
+
+Objectifs couverts par `v332` : sueros isotónicos, sueros hipotónicos, sueros hipertónicos, eritrocito en medio hipotónico, eritrocito en medio hipertónico, acuaporinas, equilibrio osmótico, compartimentos corporales, presión oncótica, albúmina y edema.
 
 ### Loader attendu pour Fisiología
 
-Le fichier `data/med-practice-bank-loader.js` doit charger les patchs Fisiología existants jusqu'à `v331`, en conservant les patchs d'autres matières.
+`data/med-practice-bank-loader.js` doit charger les patchs Fisiología existants jusqu'à `v332`, en conservant les patchs d'autres matières.
 
-Notes :
+Ne pas écraser :
 
-- `data/practice-bank-fisiologia-quality-patch-v322.js` existe déjà et concerne Fisiología Module 2 QCM 001-040. Ne pas l'écraser.
-- `data/practice-bank-fisiologia-quality-patch-v326.js` existe déjà et concerne Fisiología Module 2 QCM 041-080. Ne pas l'écraser.
-- `data/practice-bank-fisiologia-quality-patch-v327.js` existe déjà et concerne Fisiología Module 1 casos clínicos 016-030. Ne pas l'écraser.
-- `data/practice-bank-fisiologia-quality-patch-v328.js` existe déjà et concerne Fisiología Module 3 QCM 001-010. Ne pas l'écraser.
-- `data/practice-bank-fisiologia-quality-patch-v329.js` existe déjà et concerne Fisiología Module 3 QCM 011-020. Ne pas l'écraser.
-- `data/practice-bank-fisiologia-quality-patch-v330.js` existe déjà et concerne Fisiología Module 1 casos clínicos 031-045. Ne pas l'écraser.
-- `data/practice-bank-fisiologia-quality-patch-v331.js` existe déjà et concerne Fisiología Module 1 casos clínicos 046-050. Ne pas l'écraser.
+- `v322` : Fisiología Module 2 QCM 001-040 ;
+- `v326` : Fisiología Module 2 QCM 041-080 ;
+- `v327` : Fisiología Module 1 casos 016-030 ;
+- `v328` : Fisiología Module 3 QCM 001-010 ;
+- `v329` : Fisiología Module 3 QCM 011-020 ;
+- `v330` : Fisiología Module 1 casos 031-045 ;
+- `v331` : Fisiología Module 1 casos 046-050 ;
+- `v332` : Fisiología Module 3 QCM 021-030.
 
-### Prochaine étape recommandée pour cette matière
+### Prochaine étape recommandée pour Fisiología
 
-Si la matière active est Fisiología Module 1 : le module est complet. Prochaine action recommandée : validation utilisateur sur Preview avant d'ouvrir un nouveau bloc de travail.
+Si la matière active est Fisiología Module 3, continuer avec :
 
-Si la matière active est Fisiología Module 2 : continuer la reconstruction/correction du Module 2 avec un nouveau patch libre, sans réutiliser `v322` ni `v326`.
+`data/practice-bank-fisiologia-quality-patch-v333.js`
 
-Si la matière active est Fisiología Module 3 : continuer avec un nouveau patch libre, sans réutiliser `v328`, `v329`, `v330` ni `v331`.
+Cible recommandée : Module 3 QCM 031-040, remplacement count-safe, sans gonfler les totaux.
+
+Si la matière active est Fisiología Module 1, demander validation utilisateur sur Preview avant nouvelle repasse.
 
 ---
 
@@ -145,120 +128,28 @@ Statut global : contenu reconstruit et disponible sur Preview. Repasse de lisibi
 | Casos clínicos | 50 / 50 reconstruits |
 | Repasse lisibilité options QCM | 200 / 200 corrigés |
 
----
+Patchs de reconstruction : `v312` à `v325`.
 
-## Patchs Microbiología Module 1 déjà créés
+Patchs de lisibilité QCM : `data/practice-bank-microbiologia-readable-options-patch-v326.js` à `data/practice-bank-microbiologia-readable-options-patch-v335.js`.
 
-### QCM — reconstruction de fond
-
-- `data/practice-bank-microbiologia-quality-patch-v312.js` : QCM 001-010 + premiers V/F + premiers casos.
-- `data/practice-bank-microbiologia-quality-patch-v313.js` : QCM 011-020.
-- `data/practice-bank-microbiologia-quality-patch-v314.js` : QCM 021-040.
-- `data/practice-bank-microbiologia-quality-patch-v315.js` : QCM 041-060.
-- `data/practice-bank-microbiologia-quality-patch-v316.js` : QCM 061-080.
-- `data/practice-bank-microbiologia-quality-patch-v317.js` : QCM 081-120.
-- `data/practice-bank-microbiologia-quality-patch-v318.js` : QCM 121-160.
-- `data/practice-bank-microbiologia-quality-patch-v319.js` : QCM 161-200.
-
-### Verdadero/Falso
-
-- `data/practice-bank-microbiologia-quality-patch-v320.js` : V/F 006-025.
-- `data/practice-bank-microbiologia-quality-patch-v321.js` : V/F 026-050.
-
-### Casos clínicos
-
-- `data/practice-bank-microbiologia-quality-patch-v322.js` : Casos 004-018.
-- `data/practice-bank-microbiologia-quality-patch-v323.js` : Casos 019-033.
-- `data/practice-bank-microbiologia-quality-patch-v324.js` : Casos 034-048.
-- `data/practice-bank-microbiologia-quality-patch-v325.js` : Casos 049-050.
-
-### Repasse lisibilité options QCM
-
-- `data/practice-bank-microbiologia-readable-options-patch-v326.js` : QCM 001-020.
-- `data/practice-bank-microbiologia-readable-options-patch-v327.js` : QCM 021-040.
-- `data/practice-bank-microbiologia-readable-options-patch-v328.js` : QCM 041-060.
-- `data/practice-bank-microbiologia-readable-options-patch-v329.js` : QCM 061-080.
-- `data/practice-bank-microbiologia-readable-options-patch-v330.js` : QCM 081-100.
-- `data/practice-bank-microbiologia-readable-options-patch-v331.js` : QCM 101-120.
-- `data/practice-bank-microbiologia-readable-options-patch-v332.js` : QCM 121-140.
-- `data/practice-bank-microbiologia-readable-options-patch-v333.js` : QCM 141-160.
-- `data/practice-bank-microbiologia-readable-options-patch-v334.js` : QCM 161-180.
-- `data/practice-bank-microbiologia-readable-options-patch-v335.js` : QCM 181-200.
+Aucune correction prioritaire restante sur Microbiología Module 1. Avant de passer à Microbiología Module 2, demander validation utilisateur sur Preview.
 
 ---
 
 ## Loader actuel attendu
 
-Le fichier `data/med-practice-bank-loader.js` doit charger :
+Le loader doit charger :
 
-- les patchs Fisiología existants jusqu'à `v331`, sans suppression ;
-- les patchs Microbiología de `v312` à `v325` ;
-- les patchs de lisibilité Microbiología `v326` à `v335`.
+- les patchs Fisiología jusqu'à `v332` ;
+- les patchs Microbiología de reconstruction `v312` à `v325` ;
+- les patchs Microbiología de lisibilité `v326` à `v335`.
 
-Dernière vérification effectuée : le loader charge bien `practice-bank-fisiologia-quality-patch-v331.js`, ainsi que les patchs Microbiología de lisibilité jusqu'à `v335`.
-
----
-
-## Validation utilisateur Microbiología
-
-L'utilisateur a vérifié le Module 1 Microbiología sur Preview.
-
-Il a confirmé que le module est disponible sur Preview et que les questions apparaissent.
-
-Problème détecté sur mobile : certaines options QCM étaient trop courtes et ne se lisaient pas comme de vraies propositions pédagogiques.
-
-La repasse de lisibilité QCM 001-200 est maintenant terminée par patchs séparés.
-
----
-
-## Correction prioritaire suivante pour Microbiología
-
-Aucune correction prioritaire restante sur le Module 1 Microbiología.
-
-Avant de passer au Module 2 Microbiología, demander confirmation explicite à l'utilisateur ou attendre sa validation sur Preview.
-
-Ne pas changer :
-
-- le nombre d'items ;
-- les IDs existants ;
-- la réponse correcte ;
-- le fond pédagogique déjà validé.
-
----
-
-## Règle spécifique pour la repasse options QCM
-
-Quand la question est une proposition globale ou demande une proposition correcte, chaque option doit être une phrase complète.
-
-Mauvais :
-
-- `Cápsides eucariotas.`
-
-Bon :
-
-- `Los PAMP bacterianos son cápsides propias de células eucariotas.`
-
-Mauvais :
-
-- `Hormonas del huésped exclusivamente.`
-
-Bon :
-
-- `Los PAMP bacterianos son hormonas exclusivas del huésped sin origen microbiano.`
-
-Mauvais :
-
-- `Anticuerpos bacterianos secretados.`
-
-Bon :
-
-- `Los PAMP bacterianos son anticuerpos secretados por bacterias para neutralizar al huésped.`
+Dernière vérification : le loader charge `practice-bank-fisiologia-quality-patch-v332.js` et conserve les patchs Microbiología jusqu'à `practice-bank-microbiologia-readable-options-patch-v335.js`.
 
 ---
 
 ## Prochaine étape recommandée selon la matière active
 
-- Si conversation active = Fisiología Module 1 : valider sur Preview, car le module est complet.
-- Si conversation active = Fisiología Module 2 : continuer avec un nouveau patch libre de cette matière/module.
-- Si conversation active = Fisiología Module 3 : continuer avec un nouveau patch libre de cette matière/module.
-- Si conversation active = Microbiología : demander validation utilisateur du Module 1 sur Preview avant de démarrer Module 2.
+- Fisiología Module 3 : créer `data/practice-bank-fisiologia-quality-patch-v333.js`, cible QCM 031-040.
+- Fisiología Module 1 : demander validation utilisateur sur Preview avant nouvelle repasse.
+- Microbiología : demander validation utilisateur du Module 1 sur Preview avant de démarrer Module 2.
