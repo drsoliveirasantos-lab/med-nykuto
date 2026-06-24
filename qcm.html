@@ -15,9 +15,9 @@
   <meta name="twitter:card" content="summary" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
   <link rel="stylesheet" href="style.css?v=284" />
-  <link rel="stylesheet" href="practice-focus-toggle.css?v=285" />
+  <link rel="stylesheet" href="practice-focus-toggle.css?v=286" />
   <style>
-    .mc-picker-shell{display:grid;gap:.65rem;margin:.75rem 0 1rem;max-width:680px}.mc-picker-btn{width:100%;min-height:54px;border-radius:999px;border:1px solid rgba(245,211,124,.55);background:rgba(245,211,124,.12);color:#ffe7a0;font-weight:900;text-align:left;padding:.8rem 1rem;font-size:1rem}.mc-picker-btn.module{border-color:rgba(86,180,255,.55);background:rgba(56,189,248,.10);color:#dff3ff}.subject-select,.module-select,.mc-original-hidden{display:none!important}.mc-modal{position:fixed;inset:0;z-index:10000;background:rgba(2,6,14,.88);display:none;padding:calc(env(safe-area-inset-top,0px) + 18px) 14px calc(env(safe-area-inset-bottom,0px) + 18px);overflow:auto}.mc-modal.open{display:block}.mc-panel{max-width:680px;margin:0 auto;background:#07101f;border:1px solid rgba(245,211,124,.28);border-radius:26px;padding:16px;box-shadow:0 22px 60px rgba(0,0,0,.45)}.mc-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.mc-title{font-size:1.15rem;font-weight:950;color:#fff;margin:0}.mc-close{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:.55rem .8rem;font-weight:900}.mc-list{display:grid;gap:10px}.mc-choice{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#f8fafc;border-radius:18px;padding:14px;text-align:left;font-weight:850;font-size:1rem}.mc-choice.active{border-color:rgba(245,211,124,.75);background:rgba(245,211,124,.18);color:#ffe7a0}.mc-note{color:rgba(226,232,240,.72);font-size:.92rem;line-height:1.35;margin:0 0 12px}.mc-choice small{display:block;margin-top:4px;color:rgba(226,232,240,.62);font-size:.78rem;font-weight:700}
+    .mc-picker-shell{display:grid;gap:.65rem;margin:.75rem 0 1rem;max-width:680px}.mc-picker-btn{width:100%;min-height:54px;border-radius:999px;border:1px solid rgba(245,211,124,.55);background:rgba(245,211,124,.12);color:#ffe7a0;font-weight:900;text-align:left;padding:.8rem 1rem;font-size:1rem;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.mc-picker-btn.module{border-color:rgba(86,180,255,.55);background:rgba(56,189,248,.10);color:#dff3ff}.subject-select,.module-select,.mc-original-hidden{display:none!important}.mc-modal{position:fixed;inset:0;z-index:10000;background:rgba(2,6,14,.88);display:none;padding:calc(env(safe-area-inset-top,0px) + 18px) 14px calc(env(safe-area-inset-bottom,0px) + 18px);overflow:auto}.mc-modal.open{display:block}.mc-panel{max-width:680px;margin:0 auto;background:#07101f;border:1px solid rgba(245,211,124,.28);border-radius:26px;padding:16px;box-shadow:0 22px 60px rgba(0,0,0,.45)}.mc-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.mc-title{font-size:1.15rem;font-weight:950;color:#fff;margin:0}.mc-close{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:.55rem .8rem;font-weight:900}.mc-list{display:grid;gap:10px}.mc-choice{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#f8fafc;border-radius:18px;padding:14px;text-align:left;font-weight:850;font-size:1rem;touch-action:manipulation}.mc-choice.active{border-color:rgba(245,211,124,.75);background:rgba(245,211,124,.18);color:#ffe7a0}.mc-note{color:rgba(226,232,240,.72);font-size:.92rem;line-height:1.35;margin:0 0 12px}.mc-choice small{display:block;margin-top:4px;color:rgba(226,232,240,.62);font-size:.78rem;font-weight:700}body.mc-modal-open{overflow:hidden}
   </style>
 </head>
 <body data-page="practice" data-practice-type="qcm" class="practice-page qcm-page">
@@ -40,7 +40,6 @@
   </header>
 
   <main>
-
 <section class="practice-quick-header" aria-label="Entrenamiento actual">
   <p class="practice-quick-kicker">ENTRENAMIENTO</p>
   <h1 class="practice-quick-title">QCM rápido</h1>
@@ -54,7 +53,6 @@
   <a class="practice-compact-pill " href="erreurs.html"><strong>Errores</strong></a>
   <a class="practice-compact-pill" href="matieres.html">← Materias</a>
 </nav>
-
 
     <section class="page-hero practice-hero">
       <a class="back-link" href="matieres.html" data-i18n="backSubjects">← Retour aux matières</a>
@@ -80,7 +78,7 @@
   <script src="data/med-practice-bank-init.js?v=282"></script>
   <script src="data/med-practice-bank-loader.js?v=282"></script>
   <script src="app.bundle.js?v=282"></script>
-  <script src="v210-module-picker-overlay.js?v=282"></script>
+  <script src="v210-module-picker-overlay.js?v=286"></script>
   <script>
   (function(){
     var modal, observerStarted=false;
@@ -95,10 +93,11 @@
     function moduleLabel(m,i,c){var label=rawName(m&&m.shortTitle)||rawName(m&&m.moduleTitle)||rawName(m);var courseName=shortCourse(c||'');label=label.replace(/fisiolog[ií]a\s+fisiolog[ií]a/ig,'Fisiología').replace(/^fisiolog[ií]a\s*/i,'');if(!label||label===courseName||/^fisiolog/i.test(label)||/^module\s*\d*$/i.test(label)){label=fromId(m&&m.id)||('Módulo '+(i+1));}if(/cardio/i.test(label))label='Cardio';if(label.length<3)label='Módulo '+(i+1);return label.length>34?label.slice(0,33)+'…':label;}
     function go(k,v){var p=query();if(k==='course'){if(v)p.set('course',v);else p.delete('course');p.delete('module');}if(k==='module'){if(v)p.set('module',v);else p.delete('module');}location.href=location.pathname+(p.toString()?'?'+p.toString():'');}
     function current(){var p=query(), mi=moduleInfo(p.get('module')||''), cid=p.get('course')||(mi&&mi.course.id)||'', c=courseById(cid), mid=p.get('module')||'', m=mi&&mi.module, ix=mi?mi.index:0;return {cid:cid,c:c,mid:mid,m:m,index:ix};}
-    function close(){if(modal)modal.classList.remove('open');}
+    function stop(e){if(!e)return; e.preventDefault(); e.stopPropagation(); if(e.stopImmediatePropagation)e.stopImmediatePropagation();}
+    function close(){if(modal)modal.classList.remove('open');document.body.classList.remove('mc-modal-open');}
     function open(type){
       var cur=current();
-      if(!modal){modal=document.createElement('div');modal.className='mc-modal';document.body.appendChild(modal);}
+      if(!modal){modal=document.createElement('div');modal.className='mc-modal';document.body.appendChild(modal);modal.addEventListener('click',function(e){e.stopPropagation();},true);modal.addEventListener('touchend',function(e){e.stopPropagation();},{capture:true,passive:true});}
       var html='<div class="mc-panel"><div class="mc-head"><h2 class="mc-title">'+(type==='course'?'Choisir une matière':'Choisir un module')+'</h2><button class="mc-close" type="button">Fermer</button></div>';
       if(type==='course'){
         html+='<p class="mc-note">Choisis la matière. La page QCM se recharge avec le bon filtre.</p><div class="mc-list">';
@@ -110,9 +109,15 @@
         if(!cur.c){html+='<button class="mc-choice" data-kind="module" data-id="">Toute la banque</button>';} else {html+='<button class="mc-choice '+(!cur.mid?'active':'')+'" data-kind="module" data-id="">Tous les modules de '+shortCourse(cur.c)+'</button>'; (cur.c.modules||[]).forEach(function(m,i){html+='<button class="mc-choice '+(m.id===cur.mid?'active':'')+'" data-kind="module" data-id="'+m.id+'">'+moduleLabel(m,i,cur.c)+'<small>'+shortCourse(cur.c)+'</small></button>';});}
         html+='</div>';
       }
-      html+='</div>';modal.innerHTML=html;modal.classList.add('open');
-      modal.querySelector('.mc-close').onclick=close;
-      modal.querySelectorAll('.mc-choice').forEach(function(b){b.onclick=function(){go(b.getAttribute('data-kind'),b.getAttribute('data-id'));};});
+      html+='</div>';modal.innerHTML=html;modal.classList.add('open');document.body.classList.add('mc-modal-open');
+      modal.querySelector('.mc-close').addEventListener('click',function(e){stop(e);close();},true);
+      modal.querySelectorAll('.mc-choice').forEach(function(b){var h=function(e){stop(e);go(b.getAttribute('data-kind'),b.getAttribute('data-id'));};b.addEventListener('click',h,true);b.addEventListener('touchend',h,{capture:true,passive:false});});
+    }
+    window.__openPremiumQcmPicker=open;
+    function bindPicker(btn,type){
+      if(!btn||btn.dataset.mcBound==='1')return;btn.dataset.mcBound='1';btn.setAttribute('aria-haspopup','dialog');
+      var h=function(e){stop(e);open(type);return false;};
+      btn.onclick=h;btn.addEventListener('click',h,true);btn.addEventListener('touchend',h,{capture:true,passive:false});btn.addEventListener('pointerup',h,true);
     }
     function hideLegacy(){
       var shell=document.querySelector('.mc-picker-shell');
@@ -132,14 +137,17 @@
       if(anchor&&!document.querySelector('.mc-picker-shell')){
         var cur=current();
         var shell=document.createElement('div');shell.className='mc-picker-shell';
-        var b1=document.createElement('button');b1.type='button';b1.className='mc-picker-btn subject';b1.textContent='Mat.: '+(cur.c?shortCourse(cur.c):'Toutes les matières');b1.onclick=function(){open('course');};
-        var b2=document.createElement('button');b2.type='button';b2.className='mc-picker-btn module';b2.textContent='Mod.: '+(cur.m?moduleLabel(cur.m,cur.index,cur.c):(cur.c?'Tous les modules':'Toute la banque'));b2.onclick=function(){open('module');};
+        var b1=document.createElement('button');b1.type='button';b1.className='mc-picker-btn subject';b1.textContent='Mat.: '+(cur.c?shortCourse(cur.c):'Toutes les matières');
+        var b2=document.createElement('button');b2.type='button';b2.className='mc-picker-btn module';b2.textContent='Mod.: '+(cur.m?moduleLabel(cur.m,cur.index,cur.c):(cur.c?'Tous les modules':'Toute la banque'));
         shell.appendChild(b1);shell.appendChild(b2);anchor.parentNode.insertBefore(shell,anchor);
+        bindPicker(b1,'course');bindPicker(b2,'module');
+      } else {
+        bindPicker(document.querySelector('.mc-picker-btn.subject'),'course');bindPicker(document.querySelector('.mc-picker-btn.module'),'module');
       }
       hideLegacy();
       if(!observerStarted&&document.querySelector('.practice-focus-section')&&window.MutationObserver){
         observerStarted=true;
-        new MutationObserver(function(){hideLegacy();}).observe(document.querySelector('.practice-focus-section'),{childList:true,subtree:true});
+        new MutationObserver(function(){hideLegacy();bindPicker(document.querySelector('.mc-picker-btn.subject'),'course');bindPicker(document.querySelector('.mc-picker-btn.module'),'module');}).observe(document.querySelector('.practice-focus-section'),{childList:true,subtree:true});
       }
     }
     document.addEventListener('DOMContentLoaded',function(){[200,800,1600,2600,4200].forEach(function(ms){setTimeout(install,ms);});});
