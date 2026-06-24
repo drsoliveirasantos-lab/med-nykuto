@@ -1,24 +1,52 @@
-GUIDE DE DÉPLOIEMENT — Med Cursos
+GUIA DE DESPLIEGUE — Med Nykuto / Cloudflare Pages
 
-1. Décompressez le ZIP.
-2. Envoyez tout le contenu du dossier à la racine de Netlify ou Cloudflare Pages.
-3. Vérifiez que les fichiers suivants restent présents :
-   - app.bundle.js
-   - style.css
-   - data/med-courses-data.js
-   - data/med-practice-bank-init.js
-   - data/med-practice-bank-loader.js
-   - data/practice-bank-*.js
-   - assets/
-4. Ne supprimez pas le dossier /data : les pages QCM, cas cliniques et vrai/faux chargent les banques depuis ce dossier.
-5. Après publication, testez :
-   - index.html
-   - matieres.html
-   - qcm.html?course=fisiologia
-   - cas-cliniques.html?course=fisiologia
-   - vrai-faux.html?course=fisiologia
+Workflow actual:
+- GitHub contiene el sitio.
+- Cloudflare Pages despliega automaticamente desde GitHub.
+- Netlify ya no se usa para esta version.
 
-Correction appliquée dans cette version :
-- stabilisation des observateurs JavaScript des pages d’entraînement ;
-- suppression d’une boucle de mutations qui pouvait bloquer le clic sur les réponses ;
-- ajout de ce guide pour éviter le lien cassé README_DEPLOIEMENT.txt.
+Regla critica:
+- No reemplazar ni reconstruir manualmente los archivos grandes del directorio /data.
+- Esos archivos pueden estar minificados en una sola linea enorme y parecer vacios o truncados en algunas herramientas.
+- Antes de modificar /data, verificar tamano, conteos y backup.
+
+Archivos indispensables:
+- index.html
+- style.css
+- app.bundle.js
+- v210-module-picker-overlay.js
+- premium-correction-v295.js
+- practice-focus-toggle.css
+- data/med-courses-data.js
+- data/med-practice-bank-init.js
+- data/med-practice-bank-loader.js
+- data/practice-bank-fisiologia.js
+- data/practice-bank-microbiologia.js
+- data/practice-bank-genetica.js
+- data/practice-bank-bioquimica.js
+- data/practice-bank-inmunologia.js
+- assets/
+
+Estado de interfaz:
+- Idioma por defecto: espanol.
+- Marca publica: Med Nykuto.
+- Biofisica permanece visible como Proximamente.
+- Contacto ya no debe depender de Netlify Forms; en Cloudflare debe usarse mailto, Pages Functions, Worker o un servicio externo.
+
+Pruebas despues de cada despliegue:
+1. index.html
+2. matieres.html
+3. modules.html
+4. matiere.html?course=fisiologia
+5. qcm.html?course=fisiologia
+6. cas-cliniques.html?course=fisiologia
+7. vrai-faux.html?course=fisiologia
+8. examen.html
+9. contact.html
+
+Checklist antes de tocar /data:
+- Confirmar backup de la rama funcional.
+- Confirmar que data/med-courses-data.js no es pequeno de forma anormal.
+- Confirmar que las paginas muestran materias y modulos antes y despues.
+- Confirmar que QCM, casos clinicos y verdadero/falso cargan preguntas reales.
+- Si un archivo parece vacio, verificar primero si esta minificado en una sola linea gigante.
