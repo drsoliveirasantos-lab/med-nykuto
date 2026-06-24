@@ -126,7 +126,7 @@ Statut global : contenu reconstruit et disponible sur Preview. Repasse de lisibi
 | QCM | 200 / 200 reconstruits |
 | Verdadero/Falso | 50 / 50 reconstruits |
 | Casos clínicos | 50 / 50 reconstruits |
-| Repasse lisibilité options QCM | 40 / 200 corrigés |
+| Repasse lisibilité options QCM | 80 / 200 corrigés |
 
 ---
 
@@ -159,6 +159,8 @@ Statut global : contenu reconstruit et disponible sur Preview. Repasse de lisibi
 
 - `data/practice-bank-microbiologia-readable-options-patch-v326.js` : QCM 001-020.
 - `data/practice-bank-microbiologia-readable-options-patch-v327.js` : QCM 021-040.
+- `data/practice-bank-microbiologia-readable-options-patch-v328.js` : QCM 041-060.
+- `data/practice-bank-microbiologia-readable-options-patch-v329.js` : QCM 061-080.
 
 ---
 
@@ -168,9 +170,9 @@ Le fichier `data/med-practice-bank-loader.js` doit charger :
 
 - les patchs Fisiología existants, sans suppression ;
 - les patchs Microbiología de `v312` à `v325` ;
-- les patchs de lisibilité Microbiología `v326` et `v327`.
+- les patchs de lisibilité Microbiología `v326` à `v329`.
 
-Dernière vérification effectuée : le loader chargeait bien `practice-bank-microbiologia-readable-options-patch-v326.js` et `practice-bank-microbiologia-readable-options-patch-v327.js`, en conservant les patchs Fisiología jusqu'à `v324`.
+Dernière vérification effectuée : le loader chargeait bien `practice-bank-microbiologia-readable-options-patch-v328.js` et `practice-bank-microbiologia-readable-options-patch-v329.js`, en conservant les patchs Fisiología jusqu'à `v324`.
 
 ---
 
@@ -203,14 +205,15 @@ Continuer la repasse de lisibilité sur les options QCM du Module 1.
 Déjà fait :
 
 1. QCM 001-020 → `data/practice-bank-microbiologia-readable-options-patch-v326.js` ;
-2. QCM 021-040 → `data/practice-bank-microbiologia-readable-options-patch-v327.js`.
+2. QCM 021-040 → `data/practice-bank-microbiologia-readable-options-patch-v327.js` ;
+3. QCM 041-060 → `data/practice-bank-microbiologia-readable-options-patch-v328.js` ;
+4. QCM 061-080 → `data/practice-bank-microbiologia-readable-options-patch-v329.js`.
 
 À faire ensuite :
 
-1. QCM 041-080 → créer `data/practice-bank-microbiologia-readable-options-patch-v328.js` ;
-2. QCM 081-120 → créer `data/practice-bank-microbiologia-readable-options-patch-v329.js` ;
-3. QCM 121-160 → créer `data/practice-bank-microbiologia-readable-options-patch-v330.js` ;
-4. QCM 161-200 → créer `data/practice-bank-microbiologia-readable-options-patch-v331.js`.
+1. QCM 081-120 → créer les prochains patchs de lisibilité, idéalement en deux blocs de 20 si nécessaire ;
+2. QCM 121-160 ;
+3. QCM 161-200.
 
 Ne pas changer :
 
@@ -260,4 +263,4 @@ Bon :
 ## Prochaine étape recommandée selon la matière active
 
 - Si conversation active = Fisiología : continuer `data/practice-bank-fisiologia-quality-patch-v325.js`, cible Casos clínicos 001-015 du Module 1 Fisiología.
-- Si conversation active = Microbiología : créer `data/practice-bank-microbiologia-readable-options-patch-v328.js`, cible QCM 041-080 du Module 1 Microbiología.
+- Si conversation active = Microbiología : continuer la repasse lisibilité avec QCM 081-120 du Module 1 Microbiología.
