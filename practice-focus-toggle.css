@@ -115,3 +115,20 @@ body.qcm-page .single-question-card{margin-top:.35rem!important;}
   body.qcm-page .single-question-card{margin-top:.45rem!important;}
   body.qcm-page .practice-focus .single-question-card{margin-top:.45rem!important;}
 }
+
+/* v293 — stop auto-scroll from hiding the question under Safari top bar + simplify pre-answer */
+body.qcm-page .single-question-card{scroll-margin-top:calc(150px + env(safe-area-inset-top,0px))!important;}
+body.qcm-page .confidence-panel,
+body.qcm-page .confidence-btn,
+body.qcm-page [data-action="confidence"]{display:none!important;}
+body.qcm-page .preanswer-tools{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:.5rem!important;margin:.7rem 0 .45rem!important;}
+body.qcm-page .preanswer-tools .tool-btn{min-width:0!important;width:100%!important;min-height:40px!important;border-radius:16px!important;padding:.45rem .35rem!important;font-size:.82rem!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;}
+body.qcm-page .unknown-action-wrap{display:grid!important;margin:.55rem 0 .15rem!important;}
+body.qcm-page .unknown-action-wrap .btn{min-height:44px!important;}
+@media(max-width:760px){
+  body.qcm-page .single-question-card{scroll-margin-top:calc(175px + env(safe-area-inset-top,0px))!important;}
+  body.qcm-page .practice-focus .option{padding:10px 11px!important;min-height:58px!important;}
+  body.qcm-page .practice-focus .option span{width:30px!important;height:30px!important;min-width:30px!important;}
+  body.qcm-page .practice-focus .option em{font-size:.9rem!important;line-height:1.32!important;}
+  body.qcm-page .practice-focus .options{gap:10px!important;margin:12px 0!important;}
+}
