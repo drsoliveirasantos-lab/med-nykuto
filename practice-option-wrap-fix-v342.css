@@ -1,0 +1,88 @@
+/* v342 — Mobile practice option wrapping fix.
+   Prevents the A/B/C/D badge style from being applied to internal option-line spans.
+   Keeps long semicolon-split medical options readable on phones. */
+body.practice-page .options{
+  display:grid!important;
+  gap:10px!important;
+}
+body.practice-page .option{
+  display:grid!important;
+  grid-template-columns:auto minmax(0,1fr)!important;
+  align-items:flex-start!important;
+  justify-content:stretch!important;
+  gap:12px!important;
+  width:100%!important;
+  min-height:0!important;
+  height:auto!important;
+  white-space:normal!important;
+  overflow:visible!important;
+}
+body.practice-page .option > span{
+  width:34px!important;
+  min-width:34px!important;
+  height:34px!important;
+  min-height:34px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex:0 0 34px!important;
+  border-radius:999px!important;
+  line-height:1!important;
+  padding:0!important;
+}
+body.practice-page .option > em{
+  display:block!important;
+  min-width:0!important;
+  width:100%!important;
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+  line-height:1.42!important;
+}
+body.practice-page .option > em .option-line,
+body.practice-page .option em span.option-line{
+  display:block!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:inherit!important;
+  font:inherit!important;
+  line-height:1.42!important;
+  padding:0!important;
+  margin:0 0 .28rem!important;
+  text-align:left!important;
+  letter-spacing:normal!important;
+}
+body.practice-page .option > em .option-line:last-child{
+  margin-bottom:0!important;
+}
+@media(max-width:620px){
+  body.practice-page .option{
+    gap:10px!important;
+    padding:12px 13px!important;
+  }
+  body.practice-page .option > span{
+    width:30px!important;
+    min-width:30px!important;
+    height:30px!important;
+    min-height:30px!important;
+    font-size:.82rem!important;
+  }
+  body.practice-page .option > em{
+    font-size:.95rem!important;
+    line-height:1.38!important;
+  }
+  body.practice-page .option > em .option-line,
+  body.practice-page .option em span.option-line{
+    line-height:1.38!important;
+    margin-bottom:.25rem!important;
+  }
+}
