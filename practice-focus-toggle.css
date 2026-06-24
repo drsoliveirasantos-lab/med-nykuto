@@ -120,3 +120,24 @@ body.qcm-page .practice-list{padding-bottom:calc(1rem + env(safe-area-inset-bott
   body.qcm-page .module-actions.slim{display:grid!important;grid-template-columns:1fr!important;gap:.5rem!important;margin-top:.75rem!important;}
   body.qcm-page .module-actions.slim .btn{width:100%!important;min-height:40px!important;font-size:.86rem!important;}
 }
+
+/* v291 — compact mobile after screenshot review */
+body.qcm-page .premium-weak-removed{display:none!important;visibility:hidden!important;max-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important;}
+body.qcm-page .single-nav-actions .btn[data-action="next-question"][disabled]{display:none!important;}
+body.qcm-page .single-nav-actions:has(.btn[data-action="next-question"][disabled]){display:none!important;}
+body.qcm-page .unknown-action-wrap{margin:.75rem 0 .25rem!important;}
+body.qcm-page .unknown-action-wrap .btn{width:100%!important;min-height:46px!important;border-radius:16px!important;}
+body.qcm-page .module-actions.slim{display:flex!important;flex-wrap:wrap!important;gap:.45rem!important;margin-top:.75rem!important;padding-top:.75rem!important;border-top:1px solid rgba(255,255,255,.09)!important;}
+body.qcm-page .module-actions.slim .btn{flex:1 1 30%!important;width:auto!important;min-height:34px!important;border-radius:999px!important;padding:.48rem .55rem!important;font-size:.76rem!important;line-height:1.1!important;}
+body.qcm-page .module-actions.slim .btn.report-btn,
+body.qcm-page .module-actions.slim .btn[data-action="restart-session"]{opacity:.70!important;}
+body.qcm-page .coach-banner{max-width:100%!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;margin:.65rem 0 0!important;font-size:.78rem!important;}
+@media(max-width:760px){
+  body.qcm-page .practice-focus-section{padding-left:8px!important;padding-right:8px!important;}
+  body.qcm-page .practice-list{padding-bottom:calc(1.25rem + env(safe-area-inset-bottom,0px))!important;}
+  body.qcm-page .practice-focus .single-question-card{margin-top:.7rem!important;}
+  body.qcm-page .single-nav-actions{margin-top:.75rem!important;padding-top:.65rem!important;}
+  body.qcm-page .single-nav-actions .btn[data-action="next-question"]{min-height:48px!important;font-size:.96rem!important;}
+  body.qcm-page .single-nav-actions .btn[data-action="previous-question"]{min-height:34px!important;font-size:.82rem!important;opacity:.64!important;background:rgba(255,255,255,.035)!important;}
+  body.qcm-page .module-actions.slim .btn{flex:1 1 100%!important;min-height:34px!important;font-size:.78rem!important;}
+}
