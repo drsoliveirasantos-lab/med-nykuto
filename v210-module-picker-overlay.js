@@ -1,11 +1,13 @@
-/* v301 — Med Nykuto stable overlay: restore QCM navigation, default ES, safe logo home, Biofísica soon. */
+/* v302 — Med Nykuto stability layer: clean QCM picker, skip tracking, cache sync, ES default. */
 (function(){
   'use strict';
-  var DATA=window.MED_COURSES_DATA||{courses:[]}, courses=DATA.courses||[];
+  var SITE_VERSION='v302';
+  var DATA=window.MED_COURSES_DATA||{courses:[]};
+  var courses=DATA.courses||[];
   var labels={
-    fr:{show:'Voir modules',close:'Fermer',title:'Choisir un module',empty:'Modules bientôt disponibles',soon:'Bientôt disponible'},
-    es:{show:'Ver módulos',close:'Cerrar',title:'Elegir un módulo',empty:'Módulos disponibles pronto',soon:'Próximamente'},
-    br:{show:'Ver módulos',close:'Fechar',title:'Escolher um módulo',empty:'Módulos em breve',soon:'Em breve'}
+    fr:{show:'Voir modules',close:'Fermer',title:'Choisir un module',empty:'Modules bientôt disponibles',soon:'Bientôt disponible',allSubjects:'Toutes les matières',allModules:'Tous les modules',allBank:'Toute la banque',subject:'Matière',module:'Module',change:'Changer'},
+    es:{show:'Ver módulos',close:'Cerrar',title:'Elegir un módulo',empty:'Módulos disponibles pronto',soon:'Próximamente',allSubjects:'Todas las materias',allModules:'Todos los módulos',allBank:'Toda la banca',subject:'Materia',module:'Módulo',change:'Cambiar'},
+    br:{show:'Ver módulos',close:'Fechar',title:'Escolher um módulo',empty:'Módulos em breve',soon:'Em breve',allSubjects:'Todas as matérias',allModules:'Todos os módulos',allBank:'Todo o banco',subject:'Matéria',module:'Módulo',change:'Trocar'}
   };
   function safeGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
   function safeSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
@@ -14,83 +16,88 @@
   function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
   function tx(v){return v&&typeof v==='object'?(v[lang()]||v.es||v.fr||v.br||Object.values(v)[0]||''):String(v||'')}
   function t(el){return String(el&&el.textContent||'').replace(/\s+/g,' ').trim()}
+  function params(){return new URLSearchParams(location.search)}
   function moduleUrl(m){return 'module.html?id='+encodeURIComponent(m.id)}
   function isBiofisica(course){return /biof[ií]sica/i.test(String((course&&course.id)||'')+' '+tx(course&&course.title||''))}
   function isSoonCourse(course){return isBiofisica(course)||!((course&&course.modules)||[]).length}
+  function raw(x){return String(x&&typeof x==='object'?(x.title||x.name||x.label||x.fr||x.es||x.br||Object.values(x)[0]):x||'').trim()}
+  function titleCase(s){return String(s||'').replace(/[-_]+/g,' ').replace(/\s+/g,' ').trim().replace(/\b\w/g,function(a){return a.toUpperCase()})}
+  function fromId(id){var s=String(id||'').toLowerCase();s=s.replace(/^(course|module|mod|physio|fisiologia|fisiología|bioquimica|genetica|microbiologia|inmunologia)[-_]*/g,'').replace(/v\d+/g,'').replace(/\d{2,}/g,'').replace(/[-_]+/g,' ');return titleCase(s)}
+  function courseById(id){return courses.find(function(c){return String(c.id)===String(id)})}
+  function moduleInfo(id){var r=null;courses.forEach(function(c){(c.modules||[]).forEach(function(m,i){if(String(m.id)===String(id))r={course:c,module:m,index:i}})});return r}
+  function courseLabel(c){var s=raw(c);if(/fisiolog/i.test(s))return 'Fisiología';if(/gen/i.test(s))return 'Genética';if(/micro/i.test(s))return 'Microbiología';if(/bioqu/i.test(s))return 'Bioquímica';if(/inmun/i.test(s))return 'Inmunología';if(/biof/i.test(s))return 'Biofísica';return s.length>28?s.slice(0,27)+'…':s}
+  function moduleLabel(m,i,c){var label=raw(m&&m.shortTitle)||raw(m&&m.moduleTitle)||raw(m);var cn=courseLabel(c||'');label=label.replace(/fisiolog[ií]a\s+fisiolog[ií]a/ig,'Fisiología').replace(/^fisiolog[ií]a\s*/i,'');if(!label||label===cn||/^fisiolog/i.test(label)||/^module\s*\d*$/i.test(label))label=fromId(m&&m.id)||('Módulo '+(i+1));if(/cardio/i.test(label))label='Cardio';if(label.length<3)label='Módulo '+(i+1);return label.length>34?label.slice(0,33)+'…':label}
+  function current(){var p=params(),mi=moduleInfo(p.get('module')||''),cid=p.get('course')||(mi&&mi.course.id)||'',c=courseById(cid),mid=p.get('module')||'',m=mi&&mi.module,ix=mi?mi.index:0;return{cid:cid,c:c,mid:mid,m:m,index:ix}}
+  function go(kind,id){var p=params();if(kind==='course'){id?p.set('course',id):p.delete('course');p.delete('module')}else if(kind==='module'){id?p.set('module',id):p.delete('module')}location.href=location.pathname+(p.toString()?'?'+p.toString():'')}
 
-  function ensureDefaultLang(){
-    if(!safeGet('medLang')) safeSet('medLang','es');
-    document.documentElement.lang=lang();
-    if(document.body)document.body.dataset.lang=lang();
-  }
+  function ensureDefaultLang(){if(!safeGet('medLang'))safeSet('medLang','es');document.documentElement.lang=lang();if(document.body)document.body.dataset.lang=lang()}
 
   function ensurePicker(){
     var root=document.querySelector('#v210ModulePicker'); if(root)return root;
     root=document.createElement('div'); root.id='v210ModulePicker'; root.className='v210-picker'; root.hidden=true;
     root.innerHTML='<div class="v210-picker-backdrop" data-v210-close="1"></div><section class="v210-picker-panel" role="dialog" aria-modal="true"><div class="v210-picker-head"><div><small id="v210PickerCourseCode"></small><h2 id="v210PickerTitle">'+L('title')+'</h2></div><button class="v210-picker-close" type="button" data-v210-close="1">×</button></div><div class="v210-picker-list"></div></section>';
-    document.body.appendChild(root); root.addEventListener('click',function(e){if(e.target&&e.target.getAttribute('data-v210-close')==='1')closePicker()}); document.addEventListener('keydown',function(e){if(e.key==='Escape')closePicker()}); return root;
+    document.body.appendChild(root);
+    root.addEventListener('click',function(e){if(e.target&&e.target.getAttribute('data-v210-close')==='1')closePicker()});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closePicker()});
+    return root;
   }
-  function closePicker(){var r=document.querySelector('#v210ModulePicker'); if(r)r.hidden=true; document.body.classList.remove('v210-picker-open')}
-  function openPicker(course){
-    var r=ensurePicker(), mods=Array.isArray(course.modules)?course.modules:[];
-    r.querySelector('#v210PickerCourseCode').textContent=course.code||course.id||'';
-    r.querySelector('#v210PickerTitle').textContent=tx(course.title)+' — '+L('title');
-    r.querySelector('.v210-picker-list').innerHTML=mods.length?mods.map(function(m){return '<a class="v210-picker-link" href="'+moduleUrl(m)+'"><span>Mód. '+esc(m.number||'')+'</span><strong>'+esc(tx(m.title))+'</strong></a>'}).join(''):'<div class="v210-picker-empty">'+L('empty')+'</div>';
-    r.hidden=false; document.body.classList.add('v210-picker-open');
+  function closePicker(){var r=document.querySelector('#v210ModulePicker'); if(r)r.hidden=true;document.body.classList.remove('v210-picker-open')}
+  function openPicker(course){var r=ensurePicker(),mods=Array.isArray(course.modules)?course.modules:[];r.querySelector('#v210PickerCourseCode').textContent=course.code||course.id||'';r.querySelector('#v210PickerTitle').textContent=tx(course.title)+' — '+L('title');r.querySelector('.v210-picker-list').innerHTML=mods.length?mods.map(function(m){return '<a class="v210-picker-link" href="'+moduleUrl(m)+'"><span>Mód. '+esc(m.number||'')+'</span><strong>'+esc(tx(m.title))+'</strong></a>'}).join(''):'<div class="v210-picker-empty">'+L('empty')+'</div>';r.hidden=false;document.body.classList.add('v210-picker-open')}
+
+  function ensureQcmModal(){var m=document.querySelector('#qcmChoiceModal');if(m)return m;m=document.createElement('div');m.id='qcmChoiceModal';m.className='mc-modal';document.body.appendChild(m);return m}
+  function closeQcmModal(){var m=document.querySelector('#qcmChoiceModal');if(m)m.classList.remove('open');document.body.classList.remove('mc-modal-open')}
+  function openQcmModal(type){
+    var cur=current(),m=ensureQcmModal(),html='<div class="mc-panel"><div class="mc-head"><h2 class="mc-title">'+(type==='course'?'Elegir materia':'Elegir módulo')+'</h2><button class="mc-close" type="button">'+L('close')+'</button></div>';
+    if(type==='course'){
+      html+='<p class="mc-note">Elige la materia. El QCM se recarga con el filtro correcto.</p><div class="mc-list"><button class="mc-choice '+(!cur.cid?'active':'')+'" data-kind="course" data-id="">'+L('allSubjects')+'</button>';
+      courses.forEach(function(c){if(!isSoonCourse(c))html+='<button class="mc-choice '+(c.id===cur.cid?'active':'')+'" data-kind="course" data-id="'+esc(c.id)+'">'+esc(courseLabel(c))+'</button>'});
+      html+='</div>';
+    }else{
+      html+='<p class="mc-note">Elige el módulo a trabajar.</p><div class="mc-list">';
+      if(!cur.c){html+='<button class="mc-choice" data-kind="module" data-id="">'+L('allBank')+'</button>'}
+      else{html+='<button class="mc-choice '+(!cur.mid?'active':'')+'" data-kind="module" data-id="">'+L('allModules')+' · '+esc(courseLabel(cur.c))+'</button>';(cur.c.modules||[]).forEach(function(mod,i){html+='<button class="mc-choice '+(mod.id===cur.mid?'active':'')+'" data-kind="module" data-id="'+esc(mod.id)+'">'+esc(moduleLabel(mod,i,cur.c))+'<small>'+esc(courseLabel(cur.c))+'</small></button>'})}
+      html+='</div>';
+    }
+    m.innerHTML=html+'</div>';m.classList.add('open');document.body.classList.add('mc-modal-open');
   }
-  function enhanceCatalog(){
-    if(document.body.dataset.page!=='catalog')return; var grid=document.querySelector('#courseGrid'); if(!grid)return;
-    document.querySelectorAll('.course-module-drawer,.v209-module-menu').forEach(function(el){el.remove()});
-    Array.from(grid.querySelectorAll('.course-card')).forEach(function(card,i){
-      var c=courses[i]; if(!c||card.dataset.v210Enhanced==='1')return; var b=card.querySelector('.card-actions .btn.primary'); if(!b)return;
-      if(isSoonCourse(c)){
-        card.classList.add('is-coming-soon');
-        b.removeAttribute('href'); b.setAttribute('aria-disabled','true'); b.classList.add('disabled'); b.textContent=L('soon'); b.onclick=function(e){e.preventDefault()};
-        if(!card.querySelector('.soon-badge')) b.insertAdjacentHTML('beforebegin','<span class="soon-badge">'+L('soon')+'</span>');
-      }else{
-        b.href='#'; b.textContent=L('show')+' ▾'; b.classList.add('v210-toggle'); b.onclick=function(e){e.preventDefault();openPicker(c)};
-      }
-      card.dataset.v210Enhanced='1';
-    });
+  function bindQcmModal(){
+    if(document.body.dataset.qcmModalBound==='1')return;document.body.dataset.qcmModalBound='1';
+    document.addEventListener('click',function(e){var c=e.target.closest&&e.target.closest('#qcmChoiceModal .mc-close');var choice=e.target.closest&&e.target.closest('#qcmChoiceModal .mc-choice');if(c){e.preventDefault();closeQcmModal();return}if(choice){e.preventDefault();go(choice.getAttribute('data-kind'),choice.getAttribute('data-id'));}},true);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeQcmModal()});
   }
+  function ensureQcmPicker(){
+    if(!document.body.classList.contains('qcm-page'))return;
+    var anchor=document.querySelector('#practiceList')||document.querySelector('#courseFilters');if(!anchor)return;
+    var shell=document.querySelector('.mc-picker-shell');
+    if(!shell){var cur=current();shell=document.createElement('div');shell.className='mc-picker-shell';shell.innerHTML='<button type="button" class="mc-picker-btn subject"></button><button type="button" class="mc-picker-btn module"></button>';anchor.parentNode.insertBefore(shell,anchor)}
+    var c=current(),b1=shell.querySelector('.subject'),b2=shell.querySelector('.module');
+    if(b1&&!b1.dataset.bound){b1.dataset.bound='1';b1.addEventListener('click',function(e){e.preventDefault();openQcmModal('course')})}
+    if(b2&&!b2.dataset.bound){b2.dataset.bound='1';b2.addEventListener('click',function(e){e.preventDefault();openQcmModal('module')})}
+    if(b1){b1.dataset.premiumLabel='';b1.textContent='Mat.: '+(c.c?courseLabel(c.c):L('allSubjects'))}
+    if(b2){b2.dataset.premiumLabel='';b2.textContent='Mod.: '+(c.m?moduleLabel(c.m,c.index,c.c):(c.c?L('allModules'):L('allBank')))}
+    bindQcmModal();
+  }
+
+  function enhanceCatalog(){if(document.body.dataset.page!=='catalog')return;var grid=document.querySelector('#courseGrid');if(!grid)return;document.querySelectorAll('.course-module-drawer,.v209-module-menu').forEach(function(el){el.remove()});Array.from(grid.querySelectorAll('.course-card')).forEach(function(card,i){var c=courses[i];if(!c||card.dataset.v210Enhanced==='1')return;var b=card.querySelector('.card-actions .btn.primary');if(!b)return;if(isSoonCourse(c)){card.classList.add('is-coming-soon');b.removeAttribute('href');b.setAttribute('aria-disabled','true');b.classList.add('disabled');b.textContent=L('soon');b.onclick=function(e){e.preventDefault()};if(!card.querySelector('.soon-badge'))b.insertAdjacentHTML('beforebegin','<span class="soon-badge">'+L('soon')+'</span>')}else{b.href='#';b.textContent=L('show')+' ▾';b.classList.add('v210-toggle');b.onclick=function(e){e.preventDefault();openPicker(c)}}card.dataset.v210Enhanced='1'})}
   function enhanceReader(){if(document.body.dataset.page==='module')document.body.classList.add('v208-reader-comfort')}
 
   function injectQcmStyle(){
-    if(document.getElementById('qcmCleanSkipStyle'))return; var st=document.createElement('style'); st.id='qcmCleanSkipStyle';
-    st.textContent='body.qcm-page .answer-panel{display:none!important;visibility:hidden!important;max-height:0!important;margin:0!important;padding:0!important;border:0!important;overflow:hidden!important}body.qcm-page.qcm-skip-enabled .preanswer-tools,body.qcm-page.qcm-skip-enabled .hint-panel,body.qcm-page.qcm-skip-enabled .unknown-action-wrap,body.qcm-page.qcm-skip-enabled .confidence-panel,body.qcm-page.qcm-skip-enabled .confidence-btn,body.qcm-page.qcm-skip-enabled [data-action="confidence"]{display:none!important;visibility:hidden!important;opacity:0!important;max-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important;pointer-events:none!important}body.qcm-page.qcm-skip-enabled .single-nav-actions,body.qcm-page.qcm-skip-enabled .single-nav-actions:has(.btn[data-action="next-question"]),body.qcm-page.qcm-skip-enabled .single-nav-actions:has(.btn[data-action="next-question"][disabled]){display:grid!important;grid-template-columns:1fr!important;gap:.45rem!important;margin:.75rem 0 0!important;padding:.75rem 0 0!important;border-top:1px solid rgba(255,255,255,.10)!important}body.qcm-page.qcm-skip-enabled .single-nav-actions .btn[data-action="next-question"]{display:inline-flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;order:1!important;min-height:50px!important;border-color:rgba(245,211,124,.60)!important;background:linear-gradient(135deg,rgba(245,211,124,.36),rgba(245,211,124,.13))!important;color:#ffe7a0!important}body.qcm-page.qcm-skip-enabled .single-nav-actions .btn[data-action="previous-question"]{order:2!important;min-height:34px!important;opacity:.62!important}body.qcm-page.qcm-skip-enabled .question-shortcuts{display:none!important}body.qcm-page .premium-bottom-actions{display:none!important}body.qcm-page .single-question-card{scroll-margin-top:calc(175px + env(safe-area-inset-top,0px))!important}.brand,.brand-official{position:relative!important;z-index:120!important;pointer-events:auto!important;min-width:54px!important;min-height:54px!important;padding:4px!important;cursor:pointer!important}.brand-logo,.brand-logo-official{pointer-events:auto!important}.soon-badge{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(245,211,124,.42);background:rgba(245,211,124,.12);color:#ffe7a0;border-radius:999px;padding:.32rem .62rem;font-weight:900;font-size:.78rem}.is-coming-soon{opacity:.78}.is-coming-soon .btn.disabled{pointer-events:none;opacity:.78}@media(max-width:760px){body.qcm-page.qcm-skip-enabled .single-nav-actions .btn[data-action="next-question"]{min-height:48px!important;font-size:.96rem!important}.brand,.brand-official{min-width:58px!important;min-height:58px!important}}';
+    if(document.getElementById('qcmCleanSkipStyle'))return;var st=document.createElement('style');st.id='qcmCleanSkipStyle';
+    st.textContent='.mc-picker-shell{display:grid;gap:.48rem;margin:.32rem 0 .42rem;max-width:100%;grid-template-columns:repeat(2,minmax(0,1fr))}.mc-picker-btn{width:100%;min-height:40px;border-radius:16px;border:1px solid rgba(245,211,124,.55);background:rgba(245,211,124,.12);color:#ffe7a0;font-weight:900;text-align:left;padding:.45rem 4.75rem .45rem .58rem;font-size:.78rem;line-height:1.06;touch-action:manipulation;position:relative;overflow:hidden}.mc-picker-btn.module{border-color:rgba(86,180,255,.55);background:rgba(56,189,248,.10);color:#dff3ff}.premium-filter-label{display:block;text-transform:uppercase;font-size:.54rem;letter-spacing:.12em;opacity:.62;margin-bottom:.08rem}.mc-picker-btn strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.92rem}.premium-filter-change{position:absolute;right:.58rem;top:50%;transform:translateY(-50%);font-size:.64rem;opacity:.68}.mc-modal{position:fixed;inset:0;z-index:10000;background:rgba(2,6,14,.88);display:none;padding:calc(env(safe-area-inset-top,0px) + 18px) 14px calc(env(safe-area-inset-bottom,0px) + 18px);overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}.mc-modal.open{display:block}.mc-panel{max-width:680px;margin:0 auto;background:#07101f;border:1px solid rgba(245,211,124,.28);border-radius:26px;padding:16px;box-shadow:0 22px 60px rgba(0,0,0,.45)}.mc-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.mc-title{font-size:1.15rem;font-weight:950;color:#fff;margin:0}.mc-close{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:.55rem .8rem;font-weight:900}.mc-list{display:grid;gap:10px}.mc-choice{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#f8fafc;border-radius:18px;padding:14px;text-align:left;font-weight:850;font-size:1rem}.mc-choice.active{border-color:rgba(245,211,124,.75);background:rgba(245,211,124,.18);color:#ffe7a0}.mc-note{color:rgba(226,232,240,.72);font-size:.92rem;line-height:1.35;margin:0 0 12px}.mc-choice small{display:block;margin-top:4px;color:rgba(226,232,240,.62);font-size:.78rem;font-weight:700}body.mc-modal-open{overflow:hidden}body.qcm-page .answer-panel{display:none!important;visibility:hidden!important;max-height:0!important;margin:0!important;padding:0!important;border:0!important;overflow:hidden!important}body.qcm-page.qcm-skip-enabled .preanswer-tools,body.qcm-page.qcm-skip-enabled .hint-panel,body.qcm-page.qcm-skip-enabled .unknown-action-wrap,body.qcm-page.qcm-skip-enabled .confidence-panel,body.qcm-page.qcm-skip-enabled .confidence-btn,body.qcm-page.qcm-skip-enabled [data-action="confidence"]{display:none!important;visibility:hidden!important;opacity:0!important;max-height:0!important;margin:0!important;padding:0!important;overflow:hidden!important;pointer-events:none!important}body.qcm-page.qcm-skip-enabled .single-nav-actions,body.qcm-page.qcm-skip-enabled .single-nav-actions:has(.btn[data-action="next-question"]),body.qcm-page.qcm-skip-enabled .single-nav-actions:has(.btn[data-action="next-question"][disabled]){display:grid!important;grid-template-columns:1fr!important;gap:.45rem!important;margin:.75rem 0 0!important;padding:.75rem 0 0!important;border-top:1px solid rgba(255,255,255,.10)!important}body.qcm-page.qcm-skip-enabled .single-nav-actions .btn[data-action="next-question"]{display:inline-flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;order:1!important;min-height:50px!important;border-color:rgba(245,211,124,.60)!important;background:linear-gradient(135deg,rgba(245,211,124,.36),rgba(245,211,124,.13))!important;color:#ffe7a0!important}body.qcm-page.qcm-skip-enabled .single-nav-actions .btn[data-action="previous-question"]{order:2!important;min-height:34px!important;opacity:.62!important}body.qcm-page.qcm-skip-enabled .question-shortcuts{display:none!important}body.qcm-page .premium-bottom-actions{display:none!important}body.qcm-page .single-question-card{scroll-margin-top:calc(175px + env(safe-area-inset-top,0px))!important}.brand,.brand-official{position:relative!important;z-index:120!important;pointer-events:auto!important;min-width:54px!important;min-height:54px!important;padding:4px!important;cursor:pointer!important}.brand-logo,.brand-logo-official{pointer-events:auto!important}.soon-badge{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(245,211,124,.42);background:rgba(245,211,124,.12);color:#ffe7a0;border-radius:999px;padding:.32rem .62rem;font-weight:900;font-size:.78rem}.is-coming-soon{opacity:.78}.is-coming-soon .btn.disabled{pointer-events:none;opacity:.78}@media(max-width:760px){.mc-picker-shell{grid-template-columns:repeat(2,minmax(0,1fr));gap:.48rem}.brand,.brand-official{min-width:58px!important;min-height:58px!important}body.qcm-page.qcm-skip-enabled .single-nav-actions .btn[data-action="next-question"]{min-height:48px!important;font-size:.96rem!important}}@media(max-width:360px){.mc-picker-shell{grid-template-columns:1fr}.mc-picker-btn{padding-right:4.75rem}}';
     document.head.appendChild(st);
   }
-  function upgradePickerLabels(){document.querySelectorAll('.mc-picker-btn').forEach(function(b){if(b.dataset.premiumLabel==='1')return;var raw=t(b),isM=b.classList.contains('module')||/^Mod\./i.test(raw),label=isM?'Módulo':'Materia',val=raw.replace(/^Mat\.:?\s*/i,'').replace(/^Mod\.:?\s*/i,'').trim();b.innerHTML='<span class="premium-filter-label">'+label+'</span><strong>'+esc(val||'Todas')+'</strong><span class="premium-filter-change">Cambiar ▾</span>';b.dataset.premiumLabel='1'})}
+  function upgradePickerLabels(){document.querySelectorAll('.mc-picker-btn').forEach(function(b){if(b.dataset.premiumLabel==='1')return;var raw=t(b),isM=b.classList.contains('module')||/^Mod\./i.test(raw),label=isM?L('module'):L('subject'),val=raw.replace(/^Mat\.:?\s*/i,'').replace(/^Mod\.:?\s*/i,'').trim();b.innerHTML='<span class="premium-filter-label">'+label+'</span><strong>'+esc(val||L('allSubjects'))+'</strong><span class="premium-filter-change">'+L('change')+' ▾</span>';b.dataset.premiumLabel='1'})}
   function progressNumbers(){var s=t(document.querySelector('.practice-focus-section')||document.body),m=s.match(/\b(\d{1,2})\s*\/\s*(20)\b/),c=m?Math.max(1,Math.min(20,parseInt(m[1],10))):1,total=m?parseInt(m[2],10):20;return{c:c,total:total,p:Math.round(c/total*100)}}
-  function ensureProgress(){var picker=document.querySelector('.mc-picker-shell'); if(!picker)return; var bar=document.querySelector('.premium-progress'); if(!bar){bar=document.createElement('div');bar.className='premium-progress';picker.insertAdjacentElement('afterend',bar)} var p=progressNumbers(); bar.innerHTML='<div class="premium-progress-head"><strong>Pregunta '+p.c+'/'+p.total+'</strong><span>'+p.p+'%</span></div><div class="premium-progress-track"><i style="width:'+p.p+'%"></i></div>'}
+  function ensureProgress(){var picker=document.querySelector('.mc-picker-shell');if(!picker)return;var bar=document.querySelector('.premium-progress');if(!bar){bar=document.createElement('div');bar.className='premium-progress';picker.insertAdjacentElement('afterend',bar)}var p=progressNumbers();bar.innerHTML='<div class="premium-progress-head"><strong>Pregunta '+p.c+'/'+p.total+'</strong><span>'+p.p+'%</span></div><div class="premium-progress-track"><i style="width:'+p.p+'%"></i></div>'}
   function collapseWeakness(){var root=document.querySelector('.practice-focus-section')||document.body;Array.from(root.querySelectorAll('section,article,div')).forEach(function(el){if(el.closest('.single-question-card,.premium-progress,.mc-picker-shell'))return;var s=t(el);if(s.length>45&&s.length<1700&&/Mes points faibles|Puntos débiles|Pontos fracos|ADAPTATIF|ADAPTATIVO/i.test(s)&&/réponses|respuestas|respostas|erreurs|errores|je ne sais pas|no sé|não sei/i.test(s)){el.classList.add('premium-weak-hidden','premium-weak-removed');el.style.display='none';el.setAttribute('aria-hidden','true')}});document.querySelectorAll('.premium-weak-summary,.premium-weak-summary-v2').forEach(function(el){el.remove()})}
-  function enableSkip(){document.body.classList.add('qcm-skip-enabled');document.querySelectorAll('.single-nav-actions .btn[data-action="next-question"]').forEach(function(b){b.disabled=false;b.removeAttribute('disabled');b.setAttribute('aria-disabled','false')});document.querySelectorAll('.preanswer-tools,.hint-panel,.unknown-action-wrap').forEach(function(el){el.hidden=true;el.setAttribute('aria-hidden','true')})}
+  function markSkipped(card){if(!card||card.querySelector('.option.correct,.option.wrong,.option.chosen'))return;try{var k='med-skipped-questions',list=JSON.parse(localStorage.getItem(k)||'[]');var id=card.id||t(card.querySelector('.question-prompt'))||Date.now();list.unshift({id:id,at:Date.now(),question:t(card.querySelector('.question-prompt'))});localStorage.setItem(k,JSON.stringify(list.filter(function(x,i,a){return a.findIndex(function(y){return y.id===x.id})===i}).slice(0,200)))}catch(e){}}
+  function enableSkip(){document.body.classList.add('qcm-skip-enabled');document.querySelectorAll('.single-nav-actions .btn[data-action="next-question"]').forEach(function(b){b.disabled=false;b.removeAttribute('disabled');b.setAttribute('aria-disabled','false');if(b.dataset.skipBound!=='1'){b.dataset.skipBound='1';b.addEventListener('click',function(){markSkipped(b.closest('.single-question-card'))},true)}});document.querySelectorAll('.preanswer-tools,.hint-panel,.unknown-action-wrap').forEach(function(el){el.hidden=true;el.setAttribute('aria-hidden','true')})}
   function cleanQuestionText(){var r=document.querySelector('#practiceList')||document.body,w=document.createTreeWalker(r,NodeFilter.SHOW_TEXT),a=[];while(w.nextNode())a.push(w.currentNode);a.forEach(function(n){var s=n.nodeValue,o=s;s=s.replace(/,?\s*¿qué afirmación es correcta, célula, fase ni localización\?/gi,', ¿cuál afirmación es correcta?').replace(/¿qué proposición mantiene la relación correcta entre causa, mecanismo y consecuencia\?/gi,'¿cuál proposición es correcta?');if(s!==o)n.nodeValue=s})}
-  function loadPremiumCorrection(){if(document.getElementById('premiumCorrectionScript'))return;var s=document.createElement('script');s.id='premiumCorrectionScript';s.src='premium-correction-v295.js?v=296';s.defer=true;document.body.appendChild(s)}
-  function enhanceQcm(){if(!document.body.classList.contains('qcm-page'))return;document.body.classList.add('premium-qcm');injectQcmStyle();upgradePickerLabels();ensureProgress();collapseWeakness();enableSkip();cleanQuestionText();loadPremiumCorrection()}
-
-  function fixLogoHomeLink(){
-    document.querySelectorAll('a.brand,a.brand-official').forEach(function(a){
-      if(a.dataset.logoHomeFixed==='1')return;
-      a.dataset.logoHomeFixed='1';
-      a.setAttribute('href','/');
-      a.setAttribute('aria-label','Inicio');
-      a.addEventListener('click',function(e){
-        if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
-        e.preventDefault();
-        window.location.href='/';
-      },true);
-    });
-  }
-  function patchSmallStaticBits(){
-    document.title=(document.title||'').replace(/Med Cursos/g,'Med Nykuto').replace('Accueil','Inicio');
-    var stat=document.querySelector('#statCursoes'); if(stat)stat.textContent='5';
-    var small=stat&&stat.parentElement&&stat.parentElement.querySelector('small'); if(small)small.textContent='Materias activas';
-    document.querySelectorAll('img[alt="Med Cursos"]').forEach(function(img){img.alt='Med Nykuto'});
-    document.querySelectorAll('.subject-progress-card').forEach(function(card){if(/Biof[ií]sica/i.test(t(card))){card.classList.add('is-coming-soon');var span=card.querySelector('span');if(span)span.textContent=L('soon');var pct=card.querySelector('.subject-progress-pct');if(pct)pct.textContent='—'}});
-    window.__MED_NYKUTO_STABILITY__={version:'v301',defaultLang:'es',protectedDataFiles:true};
-  }
+  function loadPremiumCorrection(){if(document.getElementById('premiumCorrectionScript'))return;var s=document.createElement('script');s.id='premiumCorrectionScript';s.src='premium-correction-v295.js?v=302';s.defer=true;document.body.appendChild(s)}
+  function enhanceQcm(){if(!document.body.classList.contains('qcm-page'))return;document.body.classList.add('premium-qcm');injectQcmStyle();ensureQcmPicker();upgradePickerLabels();ensureProgress();collapseWeakness();enableSkip();cleanQuestionText();loadPremiumCorrection()}
+  function fixLogoHomeLink(){document.querySelectorAll('a.brand,a.brand-official').forEach(function(a){if(a.dataset.logoHomeFixed==='1')return;a.dataset.logoHomeFixed='1';a.setAttribute('href','/');a.setAttribute('aria-label','Inicio');a.addEventListener('click',function(e){if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();window.location.href='/'},true)})}
+  function patchSmallStaticBits(){document.title=(document.title||'').replace(/Med Cursos/g,'Med Nykuto').replace('Accueil','Inicio');document.querySelectorAll('img[alt="Med Cursos"]').forEach(function(img){img.alt='Med Nykuto'});document.querySelectorAll('.subject-progress-card').forEach(function(card){if(/Biof[ií]sica/i.test(t(card))){card.classList.add('is-coming-soon');var span=card.querySelector('span');if(span)span.textContent=L('soon');var pct=card.querySelector('.subject-progress-pct');if(pct)pct.textContent='—'}});window.__MED_NYKUTO_STABILITY__={version:SITE_VERSION,defaultLang:'es',protectedDataFiles:true,skipTracking:true,cacheVersion:'302'}}
   function apply(){ensureDefaultLang();injectQcmStyle();fixLogoHomeLink();enhanceCatalog();enhanceReader();enhanceQcm();patchSmallStaticBits()}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){[0,120,350,900,1800,3200].forEach(function(ms){setTimeout(apply,ms)})});else[0,120,350,900,1800,3200].forEach(function(ms){setTimeout(apply,ms)});
-  if(window.MutationObserver)new MutationObserver(function(){clearTimeout(window.__premiumQcmTimer);window.__premiumQcmTimer=setTimeout(apply,120)}).observe(document.body,{childList:true,subtree:true});
+  if(window.MutationObserver){var obsTarget=document.body.classList.contains('qcm-page')?(document.querySelector('#practiceList')||document.body):document.body;new MutationObserver(function(){clearTimeout(window.__premiumQcmTimer);window.__premiumQcmTimer=setTimeout(apply,120)}).observe(obsTarget,{childList:true,subtree:true})}
 })();
