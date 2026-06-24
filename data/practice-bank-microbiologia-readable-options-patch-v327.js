@@ -1,0 +1,41 @@
+/* v327 — Microbiología Module 1 readable-options patch, QCM 021-040
+   Purpose: improve option readability without changing item counts or correct answers.
+*/
+(function(){
+  "use strict";
+  var ROOT = window.MED_PRACTICE_BANK = window.MED_PRACTICE_BANK || {};
+  ROOT.byCourse = ROOT.byCourse || {};
+  var bank = ROOT.byCourse["microbiologia"];
+  if(!bank || !Array.isArray(bank.qcm)) return;
+  var MODULE_ID = "02-microbiologia-01-estructura-bacteriana-y-patogenicidad";
+  function pad(n){ return String(n).padStart(3,"0"); }
+  function idQ(n){ return MODULE_ID + "-qcm-" + pad(n) + "-v167"; }
+  function replaceOptions(n, options){
+    var i = bank.qcm.findIndex(function(x){ return x && x.id === idQ(n); });
+    if(i >= 0) bank.qcm[i] = Object.assign({}, bank.qcm[i], {options:options, readableOptionsPatch:"v327"});
+  }
+
+  replaceOptions(21,["La microbiota normal puede proteger al huésped compitiendo por nichos y nutrientes.","La microbiota normal siempre produce enfermedad invasiva cuando coloniza una mucosa.","La microbiota normal equivale a esterilidad completa de piel e intestino.","La microbiota normal está formada únicamente por virus sin bacterias."]);
+  replaceOptions(22,["La disbiosis es una alteración de la microbiota que puede favorecer sobrecrecimiento de patógenos oportunistas.","La disbiosis elimina solo bacterias patógenas y conserva perfectamente la microbiota protectora.","La disbiosis es una técnica de tinción diferencial para bacterias intestinales.","La disbiosis convierte bacterias intestinales en células eucariotas."]);
+  replaceOptions(23,["Colonización significa presencia de microorganismos sin necesariamente producir enfermedad clínica.","Colonización significa siempre invasión de sangre con sepsis grave.","Colonización significa ausencia completa de microorganismos en un tejido.","Colonización significa destrucción de bacterias por autoclave."]);
+  replaceOptions(24,["Infección implica daño, invasión, toxinas o respuesta clínica del huésped frente a un microorganismo.","Infección es sinónimo de microbiota normal protectora en piel sana.","Infección significa siempre contaminación de laboratorio sin relevancia clínica.","Infección es una técnica de esterilización aplicada a superficies inanimadas."]);
+  replaceOptions(25,["La sangre y el líquido cefalorraquídeo son sitios normalmente estériles, por lo que bacterias allí son relevantes.","La piel sana es un sitio estéril sin microbiota, por lo que cualquier hisopo superficial confirma sepsis.","El colon es un sitio estéril, por lo que cualquier bacteria intestinal representa bacteriemia.","La mesa de exploración es un sitio anatómico estéril del paciente."]);
+  replaceOptions(26,["La contaminación de muestra puede producir un cultivo positivo que no representa infección real del paciente.","La contaminación de muestra confirma siempre infección invasiva y obliga a antibiótico.","La contaminación de muestra es imposible si se usa cualquier técnica de cultivo.","La contaminación de muestra significa que el paciente tiene sangre estéril demostrada."]);
+  replaceOptions(27,["La bacteriemia verdadera corresponde a presencia de bacterias viables en sangre, un sitio normalmente estéril.","La bacteriemia verdadera es colonización normal de la sangre por microbiota fisiológica.","La bacteriemia verdadera es una tinción diferencial de bacilos Gram negativos.","La bacteriemia verdadera es una forma de endospora ambiental."]);
+  replaceOptions(28,["La sepsis es una respuesta desregulada del huésped frente a infección con riesgo de disfunción orgánica.","La sepsis es cualquier colonización asintomática de piel sin respuesta clínica.","La sepsis es una técnica de desinfección de superficies hospitalarias.","La sepsis es la captación de ADN libre por una bacteria competente."]);
+  replaceOptions(29,["El shock séptico es una forma grave de sepsis con hipotensión persistente y alteraciones circulatorias o metabólicas.","El shock séptico es una simple colonización nasal sin síntomas sistémicos.","El shock séptico es la fase estacionaria de crecimiento bacteriano en cultivo.","El shock séptico es la conversión de una exotoxina en toxoide vacunal."]);
+  replaceOptions(30,["Las bacterias encapsuladas pueden evadir fagocitosis y causar infección invasiva si no son opsonizadas eficazmente.","Las bacterias encapsuladas son siempre más fáciles de fagocitar porque exponen más peptidoglicano.","Las bacterias encapsuladas carecen obligatoriamente de ADN y de ribosomas.","Las bacterias encapsuladas son virus con cápside proteica."]);
+  replaceOptions(31,["Las vacunas conjugadas unen polisacáridos capsulares a proteínas para mejorar respuesta inmune y memoria.","Las vacunas conjugadas son autoclaves aplicados a tejidos vivos para esterilizar mucosas.","Las vacunas conjugadas son plásmidos R que transmiten resistencia antimicrobiana.","Las vacunas conjugadas son colorantes de Gram usados para contratiñción."]);
+  replaceOptions(32,["La catalasa degrada peróxido de hidrógeno y ayuda a resistir estrés oxidativo.","La catalasa degrada colágeno de la matriz extracelular para diseminarse.","La catalasa transfiere plásmidos por contacto directo entre bacterias.","La catalasa forma el antígeno O del lipopolisacárido."]);
+  replaceOptions(33,["La superóxido dismutasa neutraliza radicales superóxido y contribuye a defensa frente a estrés oxidativo.","La superóxido dismutasa forma porinas para entrada de antibióticos.","La superóxido dismutasa es una cápsula polisacárida antifagocítica.","La superóxido dismutasa es una exotoxina preformada que siempre causa vómitos rápidos."]);
+  replaceOptions(34,["La DNasa bacteriana degrada ADN extracelular y puede disminuir la viscosidad del pus.","La DNasa bacteriana capta hierro del huésped unido a transferrina.","La DNasa bacteriana forma enlaces cruzados del peptidoglicano.","La DNasa bacteriana es una porina de membrana externa."]);
+  replaceOptions(35,["La fibrinolisina degrada fibrina y puede favorecer la diseminación bacteriana en tejidos.","La fibrinolisina aumenta la formación de un coágulo protector alrededor de bacterias.","La fibrinolisina capta hierro mediante sideróforos.","La fibrinolisina es la contratiñción rosada de la tinción de Gram."]);
+  replaceOptions(36,["La colagenasa degrada colágeno y facilita avance bacteriano en tejido conectivo.","La colagenasa neutraliza peróxido de hidrógeno en el fagocito.","La colagenasa se une al receptor de IgA secretora para bloquear mucosas.","La colagenasa forma el antígeno H del flagelo."]);
+  replaceOptions(37,["El sistema de secreción tipo III inyecta proteínas efectoras bacterianas dentro de células del huésped.","El sistema de secreción tipo III es la capa gruesa de peptidoglicano de Gram positivas.","El sistema de secreción tipo III es una técnica de esterilización por vapor a presión.","El sistema de secreción tipo III es una cápside viral que protege bacterias."]);
+  replaceOptions(38,["La variación antigénica modifica estructuras reconocidas por anticuerpos y ayuda a evadir la respuesta inmune.","La variación antigénica es la destrucción total de bacterias por autoclave.","La variación antigénica es la formación de endosporas por todas las bacterias.","La variación antigénica es una prueba de catalasa positiva."]);
+  replaceOptions(39,["La variación de fase permite encender o apagar reversiblemente la expresión de ciertos fenotipos de superficie.","La variación de fase convierte bacterias en células eucariotas con núcleo verdadero.","La variación de fase es la unión de safranina al LPS durante la tinción de Gram.","La variación de fase es una forma de antisepsia sobre tejido vivo."]);
+  replaceOptions(40,["La patogenicidad bacteriana resulta de la interacción entre factores microbianos, defensa del huésped y vía de transmisión.","La patogenicidad bacteriana depende solo del color final de la tinción de Gram.","La patogenicidad bacteriana depende únicamente de la presencia de ribosomas 70S.","La patogenicidad bacteriana siempre se explica por una única estructura sin influencia del huésped."]);
+
+  ROOT.version = (ROOT.version || "") + " | v327: Microbiología M1 QCM 021-040 readable options.";
+  ROOT.__MICROBIOLOGIA_M1_QCM_021_040_READABLE_OPTIONS_PATCH__ = "v327";
+})();
