@@ -1,5 +1,7 @@
-/* v316 — Aggressive visible cleanup for practice pages.
-   Fixes legacy header brand, removes old tools, enables next, and hides non-priority stats. */
+/* v317 — Practice visible cleanup.
+   Fix: keep correction/explanation panels visible and stop forcing “Suivant” before an answer.
+   The previous cleanup hid .answer-panel and the “Ver respuesta” control, which made explanations impossible to open.
+*/
 (function(){
   'use strict';
   var OLD = /Med Cursos/g;
@@ -8,6 +10,7 @@
   function isPractice(){ return document.body && document.body.classList.contains('practice-page'); }
   function clean(s){ return String(s||'').replace(/\s+/g,' ').trim(); }
   function all(sel,root){ return Array.from((root||document).querySelectorAll(sel)); }
+  function isCorrectionZone(el){ return !!(el && el.closest && el.closest('.answer-panel,.detailed-correction,.pc-card,.ppc-card,.ppc-panel,.confidence-panel,.correction-actions')); }
 
   function isRawStatsText(v){
     v = clean(v);
@@ -35,7 +38,7 @@
     while(walker.nextNode()) nodes.push(walker.currentNode);
     nodes.forEach(function(n){
       var v = n.nodeValue || '';
-      if(isPractice() && isRawStatsText(v)){ n.nodeValue = ''; return; }
+      if(isPractice() && isRawStatsText(v) && !isCorrectionZone(n.parentElement)){ n.nodeValue = ''; return; }
       var nv = v.replace(OLD, NEW)
         .replace(/\bToutes\b/g,'Todas')
         .replace(/Toute la banque/g,'Toda la banca')
@@ -76,7 +79,7 @@
   }
 
   function hideElement(el){
-    if(!el || el === document.body || el === document.documentElement) return;
+    if(!el || el === document.body || el === document.documentElement || isCorrectionZone(el)) return;
     el.hidden = true;
     el.setAttribute('aria-hidden','true');
     el.style.setProperty('display','none','important');
@@ -85,9 +88,8 @@
   function hideBySelectors(){
     if(!isPractice()) return;
     var selectors = [
-      '.preanswer-tools', '.hint-panel', '.unknown-action-wrap', '.question-shortcuts',
-      '.module-actions.slim', '.answer-panel:not(.pc-panel):not(.ppc-panel)',
-      '[data-action="show-hint"]', '[data-action="eliminate-two"]', '[data-action="mark-review"]', '[data-action="dont-know"]',
+      '.preanswer-tools', '.hint-panel', '.question-shortcuts',
+      '[data-action="show-hint"]', '[data-action="eliminate-two"]', '[data-action="mark-review"]',
       '.session-dashboard', '.compact-dashboard', '.ultra-compact-dashboard', '.coach-banner',
       '.adaptive-dashboard', '.adaptive-card', '.local-adaptive', '.weakness-card', '.weakness-dashboard',
       '.practice-live-summary', '.question-difficulty-panel', '.session-stat', '.session-bars', '.compact-bars',
@@ -99,7 +101,7 @@
   function hideRawStatsElements(){
     if(!isPractice()) return;
     all('section,article,div,p,span,details,summary').forEach(function(el){
-      if(el.hidden) return;
+      if(el.hidden || isCorrectionZone(el)) return;
       var txt = clean(el.textContent || '');
       if(!txt || txt.length > 1200) return;
       if(isRawStatsText(txt)){
@@ -112,22 +114,19 @@
   function hideNonPriorityCards(){
     if(!isPractice()) return;
     all('section,article,div').forEach(function(el){
-      if(el.hidden) return;
+      if(el.hidden || isCorrectionZone(el)) return;
       var txt = clean(el.textContent || '');
       if(!txt || txt.length > 1200) return;
-      if(/ADAPTATIF LOCAL|ADAPTATIVO LOCAL|Mes points faibles|Puntos débiles|point détecté|réussite|je ne sais pas|Ver estad[ií]sticas|Inicio de sesi[oó]n/i.test(txt)){
-        var target = el.closest('.practice-card,.adaptive-card,.local-adaptive,.session-dashboard,.compact-dashboard,.weakness-card,.weakness-dashboard,details,section,article,div') || el;
+      if(/ADAPTATIF LOCAL|ADAPTATIVO LOCAL|Mes points faibles|Puntos débiles|point détecté|Ver estad[ií]sticas|Inicio de sesi[oó]n/i.test(txt)){
+        var target = el.closest('.adaptive-card,.local-adaptive,.session-dashboard,.compact-dashboard,.weakness-card,.weakness-dashboard,details,section,article,div') || el;
         if(target && target !== document.body) hideElement(target);
       }
     });
   }
 
-  function enableNext(){
+  function normaliseNextButton(){
     if(!isPractice()) return;
     all('[data-action="next-question"]').forEach(function(btn){
-      btn.disabled = false;
-      btn.removeAttribute('disabled');
-      btn.setAttribute('aria-disabled','false');
       btn.style.pointerEvents = 'auto';
       if(/Balance|Bilan|Resultado/i.test(btn.textContent||'')) return;
       btn.textContent = 'Siguiente pregunta →';
@@ -142,9 +141,13 @@
     var st = document.createElement('style');
     st.id = 'practiceCleanupV314Style';
     st.textContent = [
-      'body.practice-page .preanswer-tools,body.practice-page .hint-panel,body.practice-page .unknown-action-wrap,body.practice-page .question-shortcuts,body.practice-page .module-actions.slim{display:none!important}',
-      'body.practice-page .answer-panel:not(.pc-panel):not(.ppc-panel){display:none!important;visibility:hidden!important;max-height:0!important;overflow:hidden!important}',
-      'body.practice-page [data-action="show-hint"],body.practice-page [data-action="eliminate-two"],body.practice-page [data-action="mark-review"],body.practice-page [data-action="dont-know"]{display:none!important}',
+      'body.practice-page .preanswer-tools,body.practice-page .hint-panel,body.practice-page .question-shortcuts,body.practice-page .module-actions.slim{display:none!important}',
+      'body.practice-page [data-action="show-hint"],body.practice-page [data-action="eliminate-two"],body.practice-page [data-action="mark-review"]{display:none!important}',
+      'body.practice-page .answer-panel{display:block!important;visibility:visible!important;max-height:none!important;overflow:visible!important}',
+      'body.practice-page .answer-panel[hidden]{display:none!important}',
+      'body.practice-page .unknown-action-wrap{display:flex!important;visibility:visible!important}',
+      'body.practice-page .unknown-action-wrap[hidden]{display:none!important}',
+      'body.practice-page [data-action="dont-know"]{display:inline-flex!important;visibility:visible!important}',
       'body.practice-page .session-dashboard,body.practice-page .compact-dashboard,body.practice-page .ultra-compact-dashboard,body.practice-page .coach-banner{display:none!important}',
       'body.practice-page .session-stat,body.practice-page .session-bars,body.practice-page .compact-bars{display:none!important}',
       'body.practice-page .adaptive-dashboard,body.practice-page .adaptive-card,body.practice-page .local-adaptive,body.practice-page .weakness-card,body.practice-page .weakness-dashboard{display:none!important}',
@@ -155,7 +158,7 @@
       'body.practice-page .site-header .brand-context small{font-size:0!important}',
       'body.practice-page .site-header .brand-context small::after{content:"Med Nykuto";font-size:1rem!important;font-weight:900!important;color:#f8fafc!important}',
       'body.practice-page .site-header img[alt="Med Nykuto"]{max-width:34px!important;height:auto!important}',
-      'body.practice-page [data-action="next-question"]{opacity:1!important;filter:none!important;pointer-events:auto!important}'
+      'body.practice-page [data-action="next-question"]{opacity:1!important;filter:none!important}'
     ].join('\n');
     document.head.appendChild(st);
   }
@@ -168,8 +171,8 @@
     hideBySelectors();
     hideRawStatsElements();
     hideNonPriorityCards();
-    enableNext();
-    window.__MED_NYKUTO_PRACTICE_CLEANUP__ = 'v316';
+    normaliseNextButton();
+    window.__MED_NYKUTO_PRACTICE_CLEANUP__ = 'v317';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
