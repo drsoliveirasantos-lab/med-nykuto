@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QCM | Med Cursos</title>
   <meta name="description" content="Mode QCM et questions d’examen pour les modules." />
-
   <link rel="canonical" href="https://med-cursos.netlify.app/qcm.html" />
   <meta property="og:title" content="QCM | Med Cursos" />
   <meta property="og:description" content="Entraîne-toi avec des QCM médicaux organisés par matière, module et difficulté." />
@@ -15,9 +14,9 @@
   <meta name="twitter:card" content="summary" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
   <link rel="stylesheet" href="style.css?v=284" />
-  <link rel="stylesheet" href="practice-focus-toggle.css?v=286" />
+  <link rel="stylesheet" href="practice-focus-toggle.css?v=287" />
   <style>
-    .mc-picker-shell{display:grid;gap:.65rem;margin:.75rem 0 1rem;max-width:680px}.mc-picker-btn{width:100%;min-height:54px;border-radius:999px;border:1px solid rgba(245,211,124,.55);background:rgba(245,211,124,.12);color:#ffe7a0;font-weight:900;text-align:left;padding:.8rem 1rem;font-size:1rem;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.mc-picker-btn.module{border-color:rgba(86,180,255,.55);background:rgba(56,189,248,.10);color:#dff3ff}.subject-select,.module-select,.mc-original-hidden{display:none!important}.mc-modal{position:fixed;inset:0;z-index:10000;background:rgba(2,6,14,.88);display:none;padding:calc(env(safe-area-inset-top,0px) + 18px) 14px calc(env(safe-area-inset-bottom,0px) + 18px);overflow:auto}.mc-modal.open{display:block}.mc-panel{max-width:680px;margin:0 auto;background:#07101f;border:1px solid rgba(245,211,124,.28);border-radius:26px;padding:16px;box-shadow:0 22px 60px rgba(0,0,0,.45)}.mc-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.mc-title{font-size:1.15rem;font-weight:950;color:#fff;margin:0}.mc-close{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:.55rem .8rem;font-weight:900}.mc-list{display:grid;gap:10px}.mc-choice{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#f8fafc;border-radius:18px;padding:14px;text-align:left;font-weight:850;font-size:1rem;touch-action:manipulation}.mc-choice.active{border-color:rgba(245,211,124,.75);background:rgba(245,211,124,.18);color:#ffe7a0}.mc-note{color:rgba(226,232,240,.72);font-size:.92rem;line-height:1.35;margin:0 0 12px}.mc-choice small{display:block;margin-top:4px;color:rgba(226,232,240,.62);font-size:.78rem;font-weight:700}body.mc-modal-open{overflow:hidden}
+    .mc-picker-shell{display:grid;gap:.65rem;margin:.75rem 0 1rem;max-width:680px}.mc-picker-btn{width:100%;min-height:54px;border-radius:999px;border:1px solid rgba(245,211,124,.55);background:rgba(245,211,124,.12);color:#ffe7a0;font-weight:900;text-align:left;padding:.8rem 1rem;font-size:1rem;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.mc-picker-btn.module{border-color:rgba(86,180,255,.55);background:rgba(56,189,248,.10);color:#dff3ff}.subject-select,.module-select,.mc-original-hidden{display:none!important}.mc-modal{position:fixed;inset:0;z-index:10000;background:rgba(2,6,14,.88);display:none;padding:calc(env(safe-area-inset-top,0px) + 18px) 14px calc(env(safe-area-inset-bottom,0px) + 18px);overflow:auto}.mc-modal.open{display:block}.mc-panel{max-width:680px;margin:0 auto;background:#07101f;border:1px solid rgba(245,211,124,.28);border-radius:26px;padding:16px;box-shadow:0 22px 60px rgba(0,0,0,.45)}.mc-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.mc-title{font-size:1.15rem;font-weight:950;color:#fff;margin:0}.mc-close{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:.55rem .8rem;font-weight:900;touch-action:manipulation}.mc-list{display:grid;gap:10px}.mc-choice{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#f8fafc;border-radius:18px;padding:14px;text-align:left;font-weight:850;font-size:1rem;touch-action:manipulation}.mc-choice.active{border-color:rgba(245,211,124,.75);background:rgba(245,211,124,.18);color:#ffe7a0}.mc-note{color:rgba(226,232,240,.72);font-size:.92rem;line-height:1.35;margin:0 0 12px}.mc-choice small{display:block;margin-top:4px;color:rgba(226,232,240,.62);font-size:.78rem;font-weight:700}body.mc-modal-open{overflow:hidden}
   </style>
 </head>
 <body data-page="practice" data-practice-type="qcm" class="practice-page qcm-page">
@@ -26,152 +25,47 @@
       <a class="brand brand-official" href="index.html"><img src="assets/logo-medcursos-official.png" alt="Med Cursos" class="brand-logo brand-logo-official" /><span class="brand-context"><small data-i18n="qcmMode">Mode QCM</small></span></a>
       <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
       <div class="nav-links" id="navLinks">
-        <a href="index.html" data-i18n="home">Accueil</a>
-        <a href="matieres.html" data-i18n="navSubjects">Matières</a>
-        <a href="modules.html" data-i18n="navModules">Modules</a>
-        <a href="qcm.html" data-i18n="navQcm">QCM</a>
-        <a href="cas-cliniques.html" data-i18n="navClinical">Cas cliniques</a>
-        <a href="vrai-faux.html" data-i18n="doVf">Vrai/Faux</a>
-        <a href="erreurs.html" data-i18n="mistakes">Mes erreurs</a>
-        <a href="examen.html" data-i18n="examMode">Examen blanc</a>
-        <a href="contact.html" data-i18n="navContact">Contact</a>
+        <a href="index.html" data-i18n="home">Accueil</a><a href="matieres.html" data-i18n="navSubjects">Matières</a><a href="modules.html" data-i18n="navModules">Modules</a><a href="qcm.html" data-i18n="navQcm">QCM</a><a href="cas-cliniques.html" data-i18n="navClinical">Cas cliniques</a><a href="vrai-faux.html" data-i18n="doVf">Vrai/Faux</a><a href="erreurs.html" data-i18n="mistakes">Mes erreurs</a><a href="examen.html" data-i18n="examMode">Examen blanc</a><a href="contact.html" data-i18n="navContact">Contact</a>
       </div>
     </nav>
   </header>
-
   <main>
-<section class="practice-quick-header" aria-label="Entrenamiento actual">
-  <p class="practice-quick-kicker">ENTRENAMIENTO</p>
-  <h1 class="practice-quick-title">QCM rápido</h1>
-  <p class="practice-quick-subtitle">20 preguntas, corrección inmediata y errores guardados.</p>
-</section>
-
-<nav class="practice-compact-controls" aria-label="Accesos rápidos de entrenamiento">
-  <a class="practice-compact-pill is-primary" href="qcm.html"><strong>QCM</strong></a>
-  <a class="practice-compact-pill " href="cas-cliniques.html"><strong>Casos</strong></a>
-  <a class="practice-compact-pill " href="vrai-faux.html"><strong>V/F</strong></a>
-  <a class="practice-compact-pill " href="erreurs.html"><strong>Errores</strong></a>
-  <a class="practice-compact-pill" href="matieres.html">← Materias</a>
-</nav>
-
-    <section class="page-hero practice-hero">
-      <a class="back-link" href="matieres.html" data-i18n="backSubjects">← Retour aux matières</a>
-      <p class="eyebrow" id="practiceEyebrow">QCM</p>
-      <h1 id="practiceTitle" data-i18n="qcmMode">Mode QCM</h1>
-      <p id="practiceDescription" data-i18n="practiceQcmDesc">Sélectionne une matière ou révise les questions disponibles.</p>
-    </section>
-    <section class="section reduced-top practice-focus-section">
-      <input type="checkbox" id="practiceFocusToggle" class="practice-focus-toggle" />
-      <label for="practiceFocusToggle" class="practice-focus-open">Plein écran QCM</label>
-      <label for="practiceFocusToggle" class="practice-focus-close">Fermer le mode question</label>
-      <div class="practice-focus-topbar">
-        <a class="mode-tab back-tab" id="practiceBackLink" href="matieres.html" data-i18n="back">← Retour</a>
-        <div class="mode-nav" id="practiceModeNav"></div>
-      </div>
-      <div class="chips" id="courseFilters"></div>
-      <div class="practice-list" id="practiceList"></div>
-      <p class="empty-state" id="emptyState" hidden data-i18n="emptyQcm">Aucun contenu QCM pour cette sélection.</p>
-    </section>
+    <section class="practice-quick-header" aria-label="Entrenamiento actual"><p class="practice-quick-kicker">ENTRENAMIENTO</p><h1 class="practice-quick-title">QCM rápido</h1><p class="practice-quick-subtitle">20 preguntas, corrección inmediata y errores guardados.</p></section>
+    <nav class="practice-compact-controls" aria-label="Accesos rápidos de entrenamiento"><a class="practice-compact-pill is-primary" href="qcm.html"><strong>QCM</strong></a><a class="practice-compact-pill" href="cas-cliniques.html"><strong>Casos</strong></a><a class="practice-compact-pill" href="vrai-faux.html"><strong>V/F</strong></a><a class="practice-compact-pill" href="erreurs.html"><strong>Errores</strong></a><a class="practice-compact-pill" href="matieres.html">← Materias</a></nav>
+    <section class="page-hero practice-hero"><a class="back-link" href="matieres.html" data-i18n="backSubjects">← Retour aux matières</a><p class="eyebrow" id="practiceEyebrow">QCM</p><h1 id="practiceTitle" data-i18n="qcmMode">Mode QCM</h1><p id="practiceDescription" data-i18n="practiceQcmDesc">Sélectionne une matière ou révise les questions disponibles.</p></section>
+    <section class="section reduced-top practice-focus-section"><input type="checkbox" id="practiceFocusToggle" class="practice-focus-toggle" /><label for="practiceFocusToggle" class="practice-focus-open">Plein écran QCM</label><label for="practiceFocusToggle" class="practice-focus-close">Fermer le mode question</label><div class="practice-focus-topbar"><a class="mode-tab back-tab" id="practiceBackLink" href="matieres.html" data-i18n="back">← Retour</a><div class="mode-nav" id="practiceModeNav"></div></div><div class="chips" id="courseFilters"></div><div class="practice-list" id="practiceList"></div><p class="empty-state" id="emptyState" hidden data-i18n="emptyQcm">Aucun contenu QCM pour cette sélection.</p></section>
   </main>
-
   <script src="data/med-courses-data.js?v=282"></script>
   <script src="data/med-practice-bank-init.js?v=282"></script>
   <script src="data/med-practice-bank-loader.js?v=282"></script>
   <script src="app.bundle.js?v=282"></script>
-  <script src="v210-module-picker-overlay.js?v=286"></script>
+  <script src="v210-module-picker-overlay.js?v=287"></script>
   <script>
   (function(){
     var modal, observerStarted=false;
-    function data(){return (window.MED_COURSES_DATA&&window.MED_COURSES_DATA.courses)||[];}
-    function query(){return new URLSearchParams(location.search);}
-    function courseById(id){return data().find(function(c){return String(c.id)===String(id);});}
-    function moduleInfo(id){var r=null;data().forEach(function(c){(c.modules||[]).forEach(function(m,i){if(String(m.id)===String(id))r={course:c,module:m,index:i};});});return r;}
-    function rawName(x){return String(x&&x.title||x&&x.name||x&&x.label||x||'').replace(/^\s+|\s+$/g,'');}
-    function titleCase(s){return String(s||'').replace(/[-_]+/g,' ').replace(/\s+/g,' ').replace(/^\s+|\s+$/g,'').replace(/\b\w/g,function(a){return a.toUpperCase();});}
-    function fromId(id){var s=String(id||'').toLowerCase();s=s.replace(/^(course|module|mod|physio|fisiologia|fisiología|bioquimica|genetica|microbiologia|inmunologia)[-_]*/g,'');s=s.replace(/v\d+/g,'').replace(/\d{2,}/g,'').replace(/[-_]+/g,' ');return titleCase(s);}
-    function shortCourse(t){t=rawName(t);if(/fisiolog/i.test(t))return 'Fisiología';if(/gen/i.test(t))return 'Genética';if(/micro/i.test(t))return 'Microbiología';if(/bioqu/i.test(t))return 'Bioquímica';if(/inmun/i.test(t))return 'Inmunología';return t.length>28?t.slice(0,27)+'…':t;}
-    function moduleLabel(m,i,c){var label=rawName(m&&m.shortTitle)||rawName(m&&m.moduleTitle)||rawName(m);var courseName=shortCourse(c||'');label=label.replace(/fisiolog[ií]a\s+fisiolog[ií]a/ig,'Fisiología').replace(/^fisiolog[ií]a\s*/i,'');if(!label||label===courseName||/^fisiolog/i.test(label)||/^module\s*\d*$/i.test(label)){label=fromId(m&&m.id)||('Módulo '+(i+1));}if(/cardio/i.test(label))label='Cardio';if(label.length<3)label='Módulo '+(i+1);return label.length>34?label.slice(0,33)+'…':label;}
-    function go(k,v){var p=query();if(k==='course'){if(v)p.set('course',v);else p.delete('course');p.delete('module');}if(k==='module'){if(v)p.set('module',v);else p.delete('module');}location.href=location.pathname+(p.toString()?'?'+p.toString():'');}
-    function current(){var p=query(), mi=moduleInfo(p.get('module')||''), cid=p.get('course')||(mi&&mi.course.id)||'', c=courseById(cid), mid=p.get('module')||'', m=mi&&mi.module, ix=mi?mi.index:0;return {cid:cid,c:c,mid:mid,m:m,index:ix};}
-    function stop(e){if(!e)return; e.preventDefault(); e.stopPropagation(); if(e.stopImmediatePropagation)e.stopImmediatePropagation();}
+    function courses(){return (window.MED_COURSES_DATA&&window.MED_COURSES_DATA.courses)||[];}
+    function params(){return new URLSearchParams(location.search);}
+    function courseById(id){return courses().find(function(c){return String(c.id)===String(id);});}
+    function moduleInfo(id){var r=null;courses().forEach(function(c){(c.modules||[]).forEach(function(m,i){if(String(m.id)===String(id))r={course:c,module:m,index:i};});});return r;}
+    function clean(s){return String(s||'').replace(/^\s+|\s+$/g,'');}
+    function raw(x){return clean(x&&typeof x==='object'?(x.title||x.name||x.label||x.fr||x.es||x.br||Object.values(x)[0]):x);}
+    function titleCase(s){return clean(String(s||'').replace(/[-_]+/g,' ').replace(/\s+/g,' ')).replace(/\b\w/g,function(a){return a.toUpperCase();});}
+    function fromId(id){var s=String(id||'').toLowerCase();s=s.replace(/^(course|module|mod|physio|fisiologia|fisiología|bioquimica|genetica|microbiologia|inmunologia)[-_]*/g,'').replace(/v\d+/g,'').replace(/\d{2,}/g,'').replace(/[-_]+/g,' ');return titleCase(s);}
+    function courseLabel(c){var t=raw(c);if(/fisiolog/i.test(t))return 'Fisiología';if(/gen/i.test(t))return 'Genética';if(/micro/i.test(t))return 'Microbiología';if(/bioqu/i.test(t))return 'Bioquímica';if(/inmun/i.test(t))return 'Inmunología';return t.length>28?t.slice(0,27)+'…':t;}
+    function moduleLabel(m,i,c){var label=raw(m&&m.shortTitle)||raw(m&&m.moduleTitle)||raw(m);var cn=courseLabel(c||'');label=label.replace(/fisiolog[ií]a\s+fisiolog[ií]a/ig,'Fisiología').replace(/^fisiolog[ií]a\s*/i,'');if(!label||label===cn||/^fisiolog/i.test(label)||/^module\s*\d*$/i.test(label))label=fromId(m&&m.id)||('Módulo '+(i+1));if(/cardio/i.test(label))label='Cardio';if(label.length<3)label='Módulo '+(i+1);return label.length>34?label.slice(0,33)+'…':label;}
+    function current(){var p=params(), mi=moduleInfo(p.get('module')||''), cid=p.get('course')||(mi&&mi.course.id)||'', c=courseById(cid), mid=p.get('module')||'', m=mi&&mi.module, ix=mi?mi.index:0;return {cid:cid,c:c,mid:mid,m:m,index:ix};}
+    function go(kind,id){var p=params();if(kind==='course'){id?p.set('course',id):p.delete('course');p.delete('module');}else if(kind==='module'){id?p.set('module',id):p.delete('module');}location.href=location.pathname+(p.toString()?'?'+p.toString():'');}
     function close(){if(modal)modal.classList.remove('open');document.body.classList.remove('mc-modal-open');}
-    function open(type){
-      var cur=current();
-      if(!modal){modal=document.createElement('div');modal.className='mc-modal';document.body.appendChild(modal);modal.addEventListener('click',function(e){e.stopPropagation();},true);modal.addEventListener('touchend',function(e){e.stopPropagation();},{capture:true,passive:true});}
-      var html='<div class="mc-panel"><div class="mc-head"><h2 class="mc-title">'+(type==='course'?'Choisir une matière':'Choisir un module')+'</h2><button class="mc-close" type="button">Fermer</button></div>';
-      if(type==='course'){
-        html+='<p class="mc-note">Choisis la matière. La page QCM se recharge avec le bon filtre.</p><div class="mc-list">';
-        html+='<button class="mc-choice '+(!cur.cid?'active':'')+'" data-kind="course" data-id="">Toutes les matières</button>';
-        data().forEach(function(c){html+='<button class="mc-choice '+(c.id===cur.cid?'active':'')+'" data-kind="course" data-id="'+c.id+'">'+shortCourse(c)+'</button>';});
-        html+='</div>';
-      } else {
-        html+='<p class="mc-note">Choisis d’abord une matière, puis le module à travailler.</p><div class="mc-list">';
-        if(!cur.c){html+='<button class="mc-choice" data-kind="module" data-id="">Toute la banque</button>';} else {html+='<button class="mc-choice '+(!cur.mid?'active':'')+'" data-kind="module" data-id="">Tous les modules de '+shortCourse(cur.c)+'</button>'; (cur.c.modules||[]).forEach(function(m,i){html+='<button class="mc-choice '+(m.id===cur.mid?'active':'')+'" data-kind="module" data-id="'+m.id+'">'+moduleLabel(m,i,cur.c)+'<small>'+shortCourse(cur.c)+'</small></button>';});}
-        html+='</div>';
-      }
-      html+='</div>';modal.innerHTML=html;modal.classList.add('open');document.body.classList.add('mc-modal-open');
-      modal.querySelector('.mc-close').addEventListener('click',function(e){stop(e);close();},true);
-      modal.querySelectorAll('.mc-choice').forEach(function(b){var h=function(e){stop(e);go(b.getAttribute('data-kind'),b.getAttribute('data-id'));};b.addEventListener('click',h,true);b.addEventListener('touchend',h,{capture:true,passive:false});});
-    }
-    window.__openPremiumQcmPicker=open;
-    function bindPicker(btn,type){
-      if(!btn||btn.dataset.mcBound==='1')return;btn.dataset.mcBound='1';btn.setAttribute('aria-haspopup','dialog');
-      var h=function(e){stop(e);open(type);return false;};
-      btn.onclick=h;btn.addEventListener('click',h,true);btn.addEventListener('touchend',h,{capture:true,passive:false});btn.addEventListener('pointerup',h,true);
-    }
-    function hideLegacy(){
-      var shell=document.querySelector('.mc-picker-shell');
-      var root=document.querySelector('.practice-focus-section');
-      if(!root)return;
-      [].slice.call(root.querySelectorAll('*')).forEach(function(el){
-        if(!el||el.classList.contains('mc-picker-shell')||(shell&&shell.contains(el))||(modal&&modal.contains(el)))return;
-        var t=(el.textContent||'').replace(/\s+/g,' ').replace(/^\s+|\s+$/g,'');
-        if((/^(Mat\.|Mod\.|Mód\.)/i.test(t)&&t.length<140)||(/^Total\s*\d+/i.test(t)&&t.length<40)){
-          el.classList.add('mc-original-hidden');
-          el.style.display='none';
-        }
-      });
-    }
-    function install(){
-      var anchor=document.getElementById('practiceList')||document.getElementById('courseFilters');
-      if(anchor&&!document.querySelector('.mc-picker-shell')){
-        var cur=current();
-        var shell=document.createElement('div');shell.className='mc-picker-shell';
-        var b1=document.createElement('button');b1.type='button';b1.className='mc-picker-btn subject';b1.textContent='Mat.: '+(cur.c?shortCourse(cur.c):'Toutes les matières');
-        var b2=document.createElement('button');b2.type='button';b2.className='mc-picker-btn module';b2.textContent='Mod.: '+(cur.m?moduleLabel(cur.m,cur.index,cur.c):(cur.c?'Tous les modules':'Toute la banque'));
-        shell.appendChild(b1);shell.appendChild(b2);anchor.parentNode.insertBefore(shell,anchor);
-        bindPicker(b1,'course');bindPicker(b2,'module');
-      } else {
-        bindPicker(document.querySelector('.mc-picker-btn.subject'),'course');bindPicker(document.querySelector('.mc-picker-btn.module'),'module');
-      }
-      hideLegacy();
-      if(!observerStarted&&document.querySelector('.practice-focus-section')&&window.MutationObserver){
-        observerStarted=true;
-        new MutationObserver(function(){hideLegacy();bindPicker(document.querySelector('.mc-picker-btn.subject'),'course');bindPicker(document.querySelector('.mc-picker-btn.module'),'module');}).observe(document.querySelector('.practice-focus-section'),{childList:true,subtree:true});
-      }
-    }
-    document.addEventListener('DOMContentLoaded',function(){[200,800,1600,2600,4200].forEach(function(ms){setTimeout(install,ms);});});
+    function open(type){var cur=current();if(!modal){modal=document.createElement('div');modal.className='mc-modal';document.body.appendChild(modal);}var html='<div class="mc-panel"><div class="mc-head"><h2 class="mc-title">'+(type==='course'?'Choisir une matière':'Choisir un module')+'</h2><button class="mc-close" type="button">Fermer</button></div>';
+      if(type==='course'){html+='<p class="mc-note">Choisis la matière. La page QCM se recharge avec le bon filtre.</p><div class="mc-list"><button class="mc-choice '+(!cur.cid?'active':'')+'" data-kind="course" data-id="">Toutes les matières</button>';courses().forEach(function(c){html+='<button class="mc-choice '+(c.id===cur.cid?'active':'')+'" data-kind="course" data-id="'+c.id+'">'+courseLabel(c)+'</button>';});html+='</div>';}else{html+='<p class="mc-note">Choisis le module à travailler.</p><div class="mc-list">';if(!cur.c){html+='<button class="mc-choice" data-kind="module" data-id="">Toute la banque</button>';}else{html+='<button class="mc-choice '+(!cur.mid?'active':'')+'" data-kind="module" data-id="">Tous les modules de '+courseLabel(cur.c)+'</button>';(cur.c.modules||[]).forEach(function(m,i){html+='<button class="mc-choice '+(m.id===cur.mid?'active':'')+'" data-kind="module" data-id="'+m.id+'">'+moduleLabel(m,i,cur.c)+'<small>'+courseLabel(cur.c)+'</small></button>';});}html+='</div>';}html+='</div>';modal.innerHTML=html;modal.classList.add('open');document.body.classList.add('mc-modal-open');}
+    function bind(el,type){if(!el)return;el.onclick=function(e){e.preventDefault();e.stopPropagation();open(type);};el.ontouchend=function(e){e.preventDefault();e.stopPropagation();open(type);};}
+    document.addEventListener('click',function(e){var c=e.target.closest&&e.target.closest('.mc-close');var choice=e.target.closest&&e.target.closest('.mc-choice');if(c){e.preventDefault();e.stopPropagation();close();return;}if(choice){e.preventDefault();e.stopPropagation();go(choice.getAttribute('data-kind'),choice.getAttribute('data-id'));}},true);
+    document.addEventListener('touchend',function(e){var c=e.target.closest&&e.target.closest('.mc-close');var choice=e.target.closest&&e.target.closest('.mc-choice');if(c){e.preventDefault();e.stopPropagation();close();return;}if(choice){e.preventDefault();e.stopPropagation();go(choice.getAttribute('data-kind'),choice.getAttribute('data-id'));}}, {capture:true, passive:false});
+    function hideLegacy(){var shell=document.querySelector('.mc-picker-shell'), root=document.querySelector('.practice-focus-section');if(!root)return;[].slice.call(root.querySelectorAll('*')).forEach(function(el){if(!el||el.classList.contains('mc-picker-shell')||(shell&&shell.contains(el))||(modal&&modal.contains(el)))return;var t=(el.textContent||'').replace(/\s+/g,' ').trim();if((/^(Mat\.|Mod\.|Mód\.)/i.test(t)&&t.length<140)||(/^Total\s*\d+/i.test(t)&&t.length<40)){el.classList.add('mc-original-hidden');el.style.display='none';}});}
+    function install(){var anchor=document.getElementById('practiceList')||document.getElementById('courseFilters');if(anchor&&!document.querySelector('.mc-picker-shell')){var cur=current(), shell=document.createElement('div');shell.className='mc-picker-shell';var b1=document.createElement('button');b1.type='button';b1.className='mc-picker-btn subject';b1.textContent='Mat.: '+(cur.c?courseLabel(cur.c):'Toutes les matières');var b2=document.createElement('button');b2.type='button';b2.className='mc-picker-btn module';b2.textContent='Mod.: '+(cur.m?moduleLabel(cur.m,cur.index,cur.c):(cur.c?'Tous les modules':'Toute la banque'));shell.appendChild(b1);shell.appendChild(b2);anchor.parentNode.insertBefore(shell,anchor);bind(b1,'course');bind(b2,'module');}else{bind(document.querySelector('.mc-picker-btn.subject'),'course');bind(document.querySelector('.mc-picker-btn.module'),'module');}hideLegacy();if(!observerStarted&&document.querySelector('.practice-focus-section')&&window.MutationObserver){observerStarted=true;new MutationObserver(function(){hideLegacy();bind(document.querySelector('.mc-picker-btn.subject'),'course');bind(document.querySelector('.mc-picker-btn.module'),'module');}).observe(document.querySelector('.practice-focus-section'),{childList:true,subtree:true});}}
+    document.addEventListener('DOMContentLoaded',function(){[150,500,1200,2400,4000].forEach(function(ms){setTimeout(install,ms);});});
     document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
   })();
   </script>
-
-  <form name="question-feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
-    <input type="hidden" name="form-name" value="question-feedback" />
-    <input name="bot-field" />
-    <input name="page" />
-    <input name="language" />
-    <input name="type" />
-    <input name="course" />
-    <input name="module" />
-    <input name="module_id" />
-    <input name="question_id" />
-    <input name="difficulty" />
-    <input name="question" />
-    <input name="options" />
-    <input name="correct_answer" />
-    <input name="issue_type" />
-    <textarea name="comment"></textarea>
-  </form>
-
 </body>
 </html>
