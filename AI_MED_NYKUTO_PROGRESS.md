@@ -136,14 +136,14 @@ Module ID : `02-microbiologia-01-estructura-bacteriana-y-patogenicidad`
 
 Titre : `Estructura bacteriana y patogenicidad`
 
-Statut global : contenu reconstruit et disponible sur Preview. Repasse de lisibilité des options QCM en cours.
+Statut global : contenu reconstruit et disponible sur Preview. Repasse de lisibilité des options QCM terminée.
 
 | Format | État |
 |---|---:|
 | QCM | 200 / 200 reconstruits |
 | Verdadero/Falso | 50 / 50 reconstruits |
 | Casos clínicos | 50 / 50 reconstruits |
-| Repasse lisibilité options QCM | 160 / 200 corrigés |
+| Repasse lisibilité options QCM | 200 / 200 corrigés |
 
 ---
 
@@ -182,6 +182,8 @@ Statut global : contenu reconstruit et disponible sur Preview. Repasse de lisibi
 - `data/practice-bank-microbiologia-readable-options-patch-v331.js` : QCM 101-120.
 - `data/practice-bank-microbiologia-readable-options-patch-v332.js` : QCM 121-140.
 - `data/practice-bank-microbiologia-readable-options-patch-v333.js` : QCM 141-160.
+- `data/practice-bank-microbiologia-readable-options-patch-v334.js` : QCM 161-180.
+- `data/practice-bank-microbiologia-readable-options-patch-v335.js` : QCM 181-200.
 
 ---
 
@@ -191,9 +193,9 @@ Le fichier `data/med-practice-bank-loader.js` doit charger :
 
 - les patchs Fisiología existants jusqu'à `v330`, sans suppression ;
 - les patchs Microbiología de `v312` à `v325` ;
-- les patchs de lisibilité Microbiología `v326` à `v333`.
+- les patchs de lisibilité Microbiología `v326` à `v335`.
 
-Dernière vérification effectuée : le loader charge bien `practice-bank-fisiologia-quality-patch-v330.js`, ainsi que les patchs Microbiología de lisibilité jusqu'à `v333`.
+Dernière vérification effectuée : le loader charge bien `practice-bank-fisiologia-quality-patch-v330.js`, ainsi que les patchs Microbiología de lisibilité jusqu'à `v335`.
 
 ---
 
@@ -203,40 +205,17 @@ L'utilisateur a vérifié le Module 1 Microbiología sur Preview.
 
 Il a confirmé que le module est disponible sur Preview et que les questions apparaissent.
 
-Problème détecté sur mobile : certaines options QCM sont trop courtes et ne se lisent pas comme de vraies propositions pédagogiques.
+Problème détecté sur mobile : certaines options QCM étaient trop courtes et ne se lisaient pas comme de vraies propositions pédagogiques.
 
-Exemple observé sur Preview :
-
-Question : `Sobre «PAMP bacteriano», ¿cuál proposición es correcta?`
-
-Options problématiques :
-
-- `Anticuerpos bacterianos secretados.`
-- `Cápsides eucariotas.`
-- `Hormonas del huésped exclusivement.`
-
-Problème : l'étudiant ne comprend pas clairement la proposition complète à accepter ou rejeter.
+La repasse de lisibilité QCM 001-200 est maintenant terminée par patchs séparés.
 
 ---
 
 ## Correction prioritaire suivante pour Microbiología
 
-Continuer la repasse de lisibilité sur les options QCM du Module 1.
+Aucune correction prioritaire restante sur le Module 1 Microbiología.
 
-Déjà fait :
-
-1. QCM 001-020 → `data/practice-bank-microbiologia-readable-options-patch-v326.js` ;
-2. QCM 021-040 → `data/practice-bank-microbiologia-readable-options-patch-v327.js` ;
-3. QCM 041-060 → `data/practice-bank-microbiologia-readable-options-patch-v328.js` ;
-4. QCM 061-080 → `data/practice-bank-microbiologia-readable-options-patch-v329.js` ;
-5. QCM 081-100 → `data/practice-bank-microbiologia-readable-options-patch-v330.js` ;
-6. QCM 101-120 → `data/practice-bank-microbiologia-readable-options-patch-v331.js` ;
-7. QCM 121-140 → `data/practice-bank-microbiologia-readable-options-patch-v332.js` ;
-8. QCM 141-160 → `data/practice-bank-microbiologia-readable-options-patch-v333.js`.
-
-À faire ensuite :
-
-1. QCM 161-200 → créer les derniers patchs de lisibilité, idéalement en deux blocs de 20 si nécessaire.
+Avant de passer au Module 2 Microbiología, demander confirmation explicite à l'utilisateur ou attendre sa validation sur Preview.
 
 Ne pas changer :
 
@@ -244,12 +223,6 @@ Ne pas changer :
 - les IDs existants ;
 - la réponse correcte ;
 - le fond pédagogique déjà validé.
-
-Changer :
-
-- la formulation des options trop courtes ;
-- les distracteurs incompréhensibles ;
-- les options qui ne peuvent pas être interprétées seules.
 
 ---
 
@@ -267,7 +240,7 @@ Bon :
 
 Mauvais :
 
-- `Hormonas del huésped exclusivement.`
+- `Hormonas del huésped exclusivamente.`
 
 Bon :
 
@@ -285,5 +258,6 @@ Bon :
 
 ## Prochaine étape recommandée selon la matière active
 
-- Si conversation active = Fisiología Module 1 : continuer `data/practice-bank-fisiologia-quality-patch-v331.js`, cible Casos clínicos 046-050 du Module 1 Fisiología.
-- Si conversation active = Microbiología : continuer la repasse lisibilité avec QCM 161-200 du Module 1 Microbiología.
+- Si conversation active = Fisiología Module 1 : terminer avec `data/practice-bank-fisiologia-quality-patch-v331.js`, cible Casos clínicos 046-050.
+- Si conversation active = Fisiología Module 3 : continuer avec un nouveau patch ultérieur libre, sans réutiliser `v328`, `v329` ni `v330`.
+- Si conversation active = Microbiología : demander validation utilisateur du Module 1 sur Preview avant de démarrer Module 2.
