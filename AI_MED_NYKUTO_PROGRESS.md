@@ -119,19 +119,20 @@ Module ID : `02-microbiologia-01-estructura-bacteriana-y-patogenicidad`
 
 Titre : `Estructura bacteriana y patogenicidad`
 
-Statut global : contenu reconstruit et disponible sur Preview, mais une repasse de lisibilité des options QCM est nécessaire.
+Statut global : contenu reconstruit et disponible sur Preview. Repasse de lisibilité des options QCM en cours.
 
 | Format | État |
 |---|---:|
 | QCM | 200 / 200 reconstruits |
 | Verdadero/Falso | 50 / 50 reconstruits |
 | Casos clínicos | 50 / 50 reconstruits |
+| Repasse lisibilité options QCM | 40 / 200 corrigés |
 
 ---
 
 ## Patchs Microbiología Module 1 déjà créés
 
-### QCM
+### QCM — reconstruction de fond
 
 - `data/practice-bank-microbiologia-quality-patch-v312.js` : QCM 001-010 + premiers V/F + premiers casos.
 - `data/practice-bank-microbiologia-quality-patch-v313.js` : QCM 011-020.
@@ -154,15 +155,22 @@ Statut global : contenu reconstruit et disponible sur Preview, mais une repasse 
 - `data/practice-bank-microbiologia-quality-patch-v324.js` : Casos 034-048.
 - `data/practice-bank-microbiologia-quality-patch-v325.js` : Casos 049-050.
 
+### Repasse lisibilité options QCM
+
+- `data/practice-bank-microbiologia-readable-options-patch-v326.js` : QCM 001-020.
+- `data/practice-bank-microbiologia-readable-options-patch-v327.js` : QCM 021-040.
+
 ---
 
 ## Loader actuel attendu
 
-Le fichier `data/med-practice-bank-loader.js` doit charger les patchs Microbiología de `v312` à `v325`.
+Le fichier `data/med-practice-bank-loader.js` doit charger :
 
-Il doit aussi conserver les patchs Fisiología déjà présents.
+- les patchs Fisiología existants, sans suppression ;
+- les patchs Microbiología de `v312` à `v325` ;
+- les patchs de lisibilité Microbiología `v326` et `v327`.
 
-Dernière vérification effectuée : le loader chargeait bien `practice-bank-microbiologia-quality-patch-v325.js` et conservait les patchs Fisiología.
+Dernière vérification effectuée : le loader chargeait bien `practice-bank-microbiologia-readable-options-patch-v326.js` et `practice-bank-microbiologia-readable-options-patch-v327.js`, en conservant les patchs Fisiología jusqu'à `v323`.
 
 ---
 
@@ -190,11 +198,19 @@ Problème : l'étudiant ne comprend pas clairement la proposition complète à a
 
 ## Correction prioritaire suivante pour Microbiología
 
-Avant de passer au Module 2 Microbiología, effectuer une repasse de lisibilité sur les options QCM du Module 1.
+Continuer la repasse de lisibilité sur les options QCM du Module 1.
 
-Cette priorité concerne Microbiología seulement. Ne pas l'appliquer automatiquement dans une conversation Fisiología.
+Déjà fait :
 
-Objectif : transformer les options trop télégraphiques en propositions complètes, surtout quand la question demande `¿cuál proposición es correcta?`.
+1. QCM 001-020 → `data/practice-bank-microbiologia-readable-options-patch-v326.js` ;
+2. QCM 021-040 → `data/practice-bank-microbiologia-readable-options-patch-v327.js`.
+
+À faire ensuite :
+
+1. QCM 041-080 → créer `data/practice-bank-microbiologia-readable-options-patch-v328.js` ;
+2. QCM 081-120 → créer `data/practice-bank-microbiologia-readable-options-patch-v329.js` ;
+3. QCM 121-160 → créer `data/practice-bank-microbiologia-readable-options-patch-v330.js` ;
+4. QCM 161-200 → créer `data/practice-bank-microbiologia-readable-options-patch-v331.js`.
 
 Ne pas changer :
 
@@ -208,19 +224,6 @@ Changer :
 - la formulation des options trop courtes ;
 - les distracteurs incompréhensibles ;
 - les options qui ne peuvent pas être interprétées seules.
-
-Plan conseillé :
-
-1. Patch lisibilité QCM 001-040 ;
-2. Patch lisibilité QCM 041-080 ;
-3. Patch lisibilité QCM 081-120 ;
-4. Patch lisibilité QCM 121-160 ;
-5. Patch lisibilité QCM 161-200.
-
-Nom suggéré :
-
-- `data/practice-bank-microbiologia-readable-options-patch-v326.js`
-- puis `v327`, `v328`, etc.
 
 ---
 
@@ -257,16 +260,4 @@ Bon :
 ## Prochaine étape recommandée selon la matière active
 
 - Si conversation active = Fisiología : continuer `data/practice-bank-fisiologia-quality-patch-v324.js`, cible V/F 031-050 du Module 1 Fisiología.
-- Si conversation active = Microbiología : créer `data/practice-bank-microbiologia-readable-options-patch-v326.js`, cible QCM 001-040 du Module 1 Microbiología.
-
----
-
-## Instruction courte pour la prochaine conversation IA
-
-Si une conversation repart de zéro, commencer par :
-
-1. lire `AI_MED_NYKUTO_RULES.md` ;
-2. lire `AI_MED_NYKUTO_PROGRESS.md` ;
-3. travailler uniquement sur `preview` ;
-4. identifier la matière active de la conversation ;
-5. continuer la prochaine étape recommandée pour cette matière, sans appliquer automatiquement la priorité d'une autre matière.
+- Si conversation active = Microbiología : créer `data/practice-bank-microbiologia-readable-options-patch-v328.js`, cible QCM 041-080 du Module 1 Microbiología.
