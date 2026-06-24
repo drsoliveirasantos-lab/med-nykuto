@@ -96,12 +96,15 @@ Titre : `Osmolaridad, ósmosis y tonicidad`
 Statut partiel : reconstruction/correction démarrée sur Preview par patch séparé, sans modification directe de `data/practice-bank-fisiologia.js`.
 
 - `data/practice-bank-fisiologia-quality-patch-v328.js` : Module 3 QCM 001-010, remplacement count-safe par position de module, IDs originaux préservés.
+- `data/practice-bank-fisiologia-quality-patch-v329.js` : Module 3 QCM 011-020, remplacement count-safe par position de module, IDs originaux préservés.
 
 Objectifs pédagogiques couverts par `v328` : solución, soluto, solvente, membrana semipermeable, ósmosis, dirección del agua, presión osmótica, osmolaridad, osmolalidad, disociación iónica, tonicidad.
 
+Objectifs pédagogiques couverts par `v329` : soluto osmóticamente efectivo, isotonicidad, hipotonicidad, hipertonicidad, diferencia osmolaridad/tonicidad, urea, NaCl extracelular, agua libre, deshidratación hipertónica, hiperglucemia severa.
+
 ### Loader attendu pour Fisiología
 
-Le fichier `data/med-practice-bank-loader.js` doit charger les patchs Fisiología existants jusqu'à `v328`, en conservant les patchs d'autres matières.
+Le fichier `data/med-practice-bank-loader.js` doit charger les patchs Fisiología existants jusqu'à `v329`, en conservant les patchs d'autres matières.
 
 Notes :
 
@@ -109,16 +112,17 @@ Notes :
 - `data/practice-bank-fisiologia-quality-patch-v326.js` existe déjà et concerne Fisiología Module 2 QCM 041-080. Ne pas l'écraser.
 - `data/practice-bank-fisiologia-quality-patch-v327.js` existe déjà et concerne Fisiología Module 1 casos clínicos 016-030. Ne pas l'écraser.
 - `data/practice-bank-fisiologia-quality-patch-v328.js` existe déjà et concerne Fisiología Module 3 QCM 001-010. Ne pas l'écraser.
+- `data/practice-bank-fisiologia-quality-patch-v329.js` existe déjà et concerne Fisiología Module 3 QCM 011-020. Ne pas l'écraser.
 
 ### Prochaine étape recommandée pour cette matière
 
 Si la matière active est Fisiología Module 3, continuer avec :
 
-`data/practice-bank-fisiologia-quality-patch-v329.js`
+`data/practice-bank-fisiologia-quality-patch-v330.js`
 
-Cible recommandée : Module 3 QCM 011-030, toujours par remplacement count-safe et sans gonfler les totaux.
+Cible recommandée : Module 3 QCM 021-030, toujours par remplacement count-safe et sans gonfler les totaux.
 
-Si l'utilisateur revient explicitement au Module 1, reprendre les casos clínicos 031-045 dans un nouveau patch ultérieur, sans réutiliser `v326`, `v327` ni `v328`.
+Si l'utilisateur revient explicitement au Module 1, reprendre les casos clínicos 031-045 dans un nouveau patch ultérieur, sans réutiliser `v326`, `v327`, `v328` ni `v329`.
 
 ---
 
@@ -183,11 +187,11 @@ Statut global : contenu reconstruit et disponible sur Preview. Repasse de lisibi
 
 Le fichier `data/med-practice-bank-loader.js` doit charger :
 
-- les patchs Fisiología existants jusqu'à `v328`, sans suppression ;
+- les patchs Fisiología existants jusqu'à `v329`, sans suppression ;
 - les patchs Microbiología de `v312` à `v325` ;
 - les patchs de lisibilité Microbiología `v326` à `v333`.
 
-Dernière vérification effectuée : le loader charge bien `practice-bank-fisiologia-quality-patch-v328.js`, ainsi que `practice-bank-microbiologia-readable-options-patch-v332.js` et `practice-bank-microbiologia-readable-options-patch-v333.js`.
+Dernière vérification effectuée : le loader charge bien `practice-bank-fisiologia-quality-patch-v329.js`, ainsi que `practice-bank-microbiologia-readable-options-patch-v332.js` et `practice-bank-microbiologia-readable-options-patch-v333.js`.
 
 ---
 
@@ -261,7 +265,7 @@ Bon :
 
 Mauvais :
 
-- `Hormonas del huésped exclusivamente.`
+- `Hormonas del huésped exclusivement.`
 
 Bon :
 
@@ -279,6 +283,6 @@ Bon :
 
 ## Prochaine étape recommandée selon la matière active
 
-- Si conversation active = Fisiología Module 3 : continuer `data/practice-bank-fisiologia-quality-patch-v329.js`, cible QCM 011-030 du Module 3 Fisiología.
+- Si conversation active = Fisiología Module 3 : continuer `data/practice-bank-fisiologia-quality-patch-v330.js`, cible QCM 021-030 du Module 3 Fisiología.
 - Si conversation active = Fisiología Module 1 : continuer les casos clínicos 031-045 dans un nouveau patch ultérieur.
 - Si conversation active = Microbiología : terminer la repasse lisibilité avec QCM 161-200 du Module 1 Microbiología.
