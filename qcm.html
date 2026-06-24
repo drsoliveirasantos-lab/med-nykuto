@@ -92,8 +92,7 @@
       if(subject){var old=subject.value;subject.innerHTML="";var all=document.createElement("option");all.value="";all.textContent="Mat.: Toutes les matières";all.selected=!courseId;subject.appendChild(all);courses().forEach(function(c){var o=document.createElement("option");o.value=c.id;o.textContent="Mat.: "+shortName(c.title);o.selected=c.id===courseId;subject.appendChild(o);});if(subject.value!==old)subject.value=courseId||"";subject.onchange=function(){go({course:subject.value,module:""});};}
       if(module){module.innerHTML="";var first=document.createElement("option");first.value="";first.textContent=courseId?"Mod.: Tous les modules":"Mod.: Toute la banque";first.selected=!moduleId;module.appendChild(first);module.disabled=!courseId;var c=courses().find(function(x){return x.id===courseId;});(c&&c.modules||[]).forEach(function(m){var o=document.createElement("option");o.value=m.id;o.textContent="Mod.: "+shortName(m.title);o.selected=m.id===moduleId;module.appendChild(o);});module.onchange=function(){go({course:courseId,module:module.value});};}
     }
-    document.addEventListener("DOMContentLoaded",function(){[80,400,1200].forEach(function(ms){setTimeout(rebuild,ms);});});
-    document.addEventListener("click",function(){setTimeout(rebuild,250);});
+    document.addEventListener("DOMContentLoaded",function(){[120,500,1400].forEach(function(ms){setTimeout(rebuild,ms);});});
   })();
   </script>
 
