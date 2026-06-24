@@ -1,101 +1,34 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cas cliniques | Med Cursos</title>
-  <meta name="description" content="Cas cliniques et applications pratiques des modules." />
-
-  <link rel="canonical" href="https://med-cursos.netlify.app/cas-cliniques.html" />
-  <meta property="og:title" content="Cas cliniques | Med Cursos" />
-  <meta property="og:description" content="Travaille le raisonnement médical avec des cas cliniques par matière et module." />
+  <title>Casos clínicos | Med Nykuto</title>
+  <meta name="description" content="Casos clínicos médicos por materia y módulo, con corrección inmediata." />
+  <link rel="canonical" href="https://preview.med-nykuto-git.pages.dev/cas-cliniques.html" />
+  <meta property="og:title" content="Casos clínicos | Med Nykuto" />
+  <meta property="og:description" content="Trabaja el razonamiento médico con casos clínicos por materia y módulo." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://med-cursos.netlify.app/cas-cliniques.html" />
-  <meta property="og:site_name" content="Med Cursos" />
+  <meta property="og:url" content="https://preview.med-nykuto-git.pages.dev/cas-cliniques.html" />
+  <meta property="og:site_name" content="Med Nykuto" />
   <meta name="twitter:card" content="summary" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="style.css?v=284" />
-  <link rel="stylesheet" href="practice-focus-toggle.css?v=285" />
+  <link rel="stylesheet" href="style.css?v=310" />
+  <link rel="stylesheet" href="practice-focus-toggle.css?v=310" />
 </head>
-<body data-page="practice" data-practice-type="case" class="practice-page cas-cliniques-page">
-  <header class="site-header">
-    <nav class="nav-shell" aria-label="Navegación principal">
-      <a class="brand brand-official" href="index.html"><img src="assets/logo-medcursos-official.png" alt="Med Cursos" class="brand-logo brand-logo-official" /><span class="brand-context"><small data-i18n="clinicalCases">Cas cliniques</small></span></a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
-      <div class="nav-links" id="navLinks">
-        <a href="index.html" data-i18n="home">Accueil</a>
-        <a href="matieres.html" data-i18n="navSubjects">Matières</a>
-        <a href="modules.html" data-i18n="navModules">Modules</a>
-        <a href="qcm.html" data-i18n="navQcm">QCM</a>
-        <a href="cas-cliniques.html" data-i18n="navClinical">Cas cliniques</a>
-        <a href="vrai-faux.html" data-i18n="doVf">Vrai/Faux</a>
-        <a href="erreurs.html" data-i18n="mistakes">Mes erreurs</a>
-        <a href="examen.html" data-i18n="examMode">Examen blanc</a>
-        <a href="contact.html" data-i18n="navContact">Contact</a>
-      </div>
-    </nav>
-  </header>
-
+<body data-page="practice" data-practice-type="case" data-lang="es" class="practice-page cas-cliniques-page">
+  <header class="site-header"><nav class="nav-shell" aria-label="Navegación principal"><a class="brand brand-official" href="index.html" aria-label="Inicio"><img src="assets/logo-medcursos-official.png" alt="Med Nykuto" class="brand-logo brand-logo-official" /><span class="brand-context"><small>Casos clínicos</small></span></a><button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button><div class="nav-links" id="navLinks"><a href="index.html">Inicio</a><a href="matieres.html">Materias</a><a href="modules.html">Módulos</a><a href="qcm.html">QCM</a><a href="cas-cliniques.html">Casos clínicos</a><a href="vrai-faux.html">V/F</a><a href="erreurs.html">Errores</a><a href="examen.html">Examen blanco</a><a href="contact.html">Contacto</a></div></nav></header>
   <main>
-
-<section class="practice-quick-header" aria-label="Entrenamiento actual">
-  <p class="practice-quick-kicker">ENTRENAMIENTO</p>
-  <h1 class="practice-quick-title">Casos clínicos</h1>
-  <p class="practice-quick-subtitle">Razonamiento por caso, corrección inmediata y revisión de errores.</p>
-</section>
-
-<nav class="practice-compact-controls" aria-label="Accesos rápidos de entrenamiento">
-  <a class="practice-compact-pill " href="qcm.html"><strong>QCM</strong></a>
-  <a class="practice-compact-pill is-primary" href="cas-cliniques.html"><strong>Casos</strong></a>
-  <a class="practice-compact-pill " href="vrai-faux.html"><strong>V/F</strong></a>
-  <a class="practice-compact-pill " href="erreurs.html"><strong>Errores</strong></a>
-  <a class="practice-compact-pill" href="matieres.html">← Materias</a>
-</nav>
-
-
-    <section class="page-hero practice-hero">
-      <a class="back-link" href="matieres.html" data-i18n="backSubjects">← Retour aux matières</a>
-      <p class="eyebrow" id="practiceEyebrow">Cas cliniques</p>
-      <h1 id="practiceTitle" data-i18n="clinicalCases">Cas cliniques</h1>
-      <p id="practiceDescription" data-i18n="practiceCaseDesc">Travaille les applications cliniques des modules.</p>
-    </section>
-    <section class="section reduced-top practice-focus-section">
-      <input type="checkbox" id="practiceFocusToggle" class="practice-focus-toggle" />
-      <label for="practiceFocusToggle" class="practice-focus-open">Plein écran cas clinique</label>
-      <label for="practiceFocusToggle" class="practice-focus-close">Fermer le mode question</label>
-      <div class="practice-focus-topbar">
-        <a class="mode-tab back-tab" id="practiceBackLink" href="matieres.html" data-i18n="back">← Retour</a>
-        <div class="mode-nav" id="practiceModeNav"></div>
-      </div>
-      <div class="chips" id="courseFilters"></div>
-      <div class="practice-list" id="practiceList"></div>
-      <p class="empty-state" id="emptyState" hidden data-i18n="emptyCase">Aucun cas clinique pour cette sélection.</p>
-    </section>
+    <section class="practice-quick-header" aria-label="Entrenamiento actual"><p class="practice-quick-kicker">ENTRENAMIENTO</p><h1 class="practice-quick-title">Casos clínicos</h1><p class="practice-quick-subtitle">Razonamiento por caso, corrección inmediata y revisión de errores.</p></section>
+    <nav class="practice-compact-controls" aria-label="Accesos rápidos de entrenamiento"><a class="practice-compact-pill" href="qcm.html"><strong>QCM</strong></a><a class="practice-compact-pill is-primary" href="cas-cliniques.html"><strong>Casos</strong></a><a class="practice-compact-pill" href="vrai-faux.html"><strong>V/F</strong></a><a class="practice-compact-pill" href="erreurs.html"><strong>Errores</strong></a><a class="practice-compact-pill" href="matieres.html">← Materias</a></nav>
+    <section class="page-hero practice-hero"><a class="back-link" href="matieres.html">← Materias</a><p class="eyebrow" id="practiceEyebrow">Casos clínicos</p><h1 id="practiceTitle">Casos clínicos</h1><p id="practiceDescription">Trabaja las aplicaciones clínicas de los módulos.</p></section>
+    <section class="section reduced-top practice-focus-section"><input type="checkbox" id="practiceFocusToggle" class="practice-focus-toggle" /><label for="practiceFocusToggle" class="practice-focus-open">⛶ Focus</label><label for="practiceFocusToggle" class="practice-focus-close">Cerrar modo pregunta</label><div class="practice-focus-topbar"><a class="mode-tab back-tab" id="practiceBackLink" href="matieres.html">← Volver</a><div class="mode-nav" id="practiceModeNav"></div></div><div class="chips" id="courseFilters"></div><div class="practice-list" id="practiceList"></div><p class="empty-state" id="emptyState" hidden>No hay casos clínicos para esta selección.</p></section>
   </main>
-
-  <script src="data/med-courses-data.js?v=282"></script>
-  <script src="data/med-practice-bank-init.js?v=282"></script>
-  <script src="data/med-practice-bank-loader.js?v=282"></script>
-  <script src="app.bundle.js?v=282"></script>
-  <script src="v210-module-picker-overlay.js?v=282"></script>
-
-  <form name="question-feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
-    <input type="hidden" name="form-name" value="question-feedback" />
-    <input name="bot-field" />
-    <input name="page" />
-    <input name="language" />
-    <input name="type" />
-    <input name="course" />
-    <input name="module" />
-    <input name="module_id" />
-    <input name="question_id" />
-    <input name="difficulty" />
-    <input name="question" />
-    <input name="options" />
-    <input name="correct_answer" />
-    <input name="issue_type" />
-    <textarea name="comment"></textarea>
-  </form>
-
+  <script src="data/med-courses-data.js?v=310"></script>
+  <script src="data/med-practice-bank-init.js?v=310"></script>
+  <script src="data/med-practice-bank-loader.js?v=310"></script>
+  <script src="app.bundle.js?v=310"></script>
+  <script src="v210-module-picker-overlay.js?v=310"></script>
+  <script src="site-global-polish-v310.js?v=310"></script>
 </body>
 </html>
