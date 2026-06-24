@@ -1,0 +1,41 @@
+/* v332 — Microbiología Module 1 readable-options patch, QCM 121-140
+   Improves option readability without changing item counts or correct answers.
+*/
+(function(){
+  "use strict";
+  var ROOT = window.MED_PRACTICE_BANK = window.MED_PRACTICE_BANK || {};
+  ROOT.byCourse = ROOT.byCourse || {};
+  var bank = ROOT.byCourse["microbiologia"];
+  if(!bank || !Array.isArray(bank.qcm)) return;
+  var MODULE_ID = "02-microbiologia-01-estructura-bacteriana-y-patogenicidad";
+  function pad(n){ return String(n).padStart(3,"0"); }
+  function idQ(n){ return MODULE_ID + "-qcm-" + pad(n) + "-v167"; }
+  function replaceOptions(n, options){
+    var i = bank.qcm.findIndex(function(x){ return x && x.id === idQ(n); });
+    if(i >= 0) bank.qcm[i] = Object.assign({}, bank.qcm[i], {options:options, readableOptionsPatch:"v332"});
+  }
+
+  replaceOptions(121,["Un toxoide es una exotoxina proteica inactivada que conserva antigenicidad para inducir anticuerpos protectores.","Una endotoxina activa es lípido A del LPS y no una exotoxina proteica inactivada.","Una porina vacunal no describe una toxina inactivada usada para inmunización.","Una endospora viva obligatoria es una forma de resistencia bacteriana, no un toxoide."]);
+  replaceOptions(122,["El lípido A del LPS no es una proteína secretada con estructura de toxoide clásico.","La endotoxina no es un ribosoma eucariota, sino un componente del LPS de Gram negativas.","Las endotoxinas no son cápsulas virales, porque las cápsulas virales son cápsides.","El LPS se encuentra en membrana externa de Gram negativas, no solo en bacterias sin pared."]);
+  replaceOptions(123,["El sistema de secreción tipo III inyecta proteínas efectoras bacterianas directamente en células del huésped.","La tinción de Gram positiva es un método diagnóstico y no inyecta proteínas celulares.","El autoclave por vapor esteriliza material y no es un mecanismo de virulencia bacteriana.","La opsonización por IgG facilita fagocitosis y no introduce efectores bacterianos."]);
+  replaceOptions(124,["La secreción de efectores es un mecanismo activo de virulencia que modifica funciones de células del huésped.","La secreción de efectores no esteriliza espontáneamente el tejido infectado.","La prueba de catalasa detecta una enzima, pero no describe secreción de efectores al huésped.","Una bacteria no se convierte en célula eucariota por secretar proteínas."]);
+  replaceOptions(125,["Una hemolisina es una toxina que rompe eritrocitos y puede lesionar membranas celulares.","Un sideróforo capta hierro, pero no lisa eritrocitos ni membranas.","El antígeno K se asocia a cápsula y no a lisis eritrocitaria.","El peptidoglicano es un componente de pared bacteriana y no una toxina hemolítica."]);
+  replaceOptions(126,["La actividad leucocidina destruye leucocitos y dificulta la eliminación inmune de la bacteria.","La transpeptidación de pared forma peptidoglicano y no destruye leucocitos.","La formación de antígeno O se relaciona con LPS, no con una toxina contra leucocitos.","La germinación de endospora no describe destrucción de células inmunes."]);
+  replaceOptions(127,["La IgA secretora es la inmunoglobulina predominante en mucosas que algunas bacterias degradan.","La IgE no es nuclear y no es la inmunoglobulina predominante de secreciones mucosas.","La IgM no es mitocondrial y no explica la defensa local descrita.","La IgD no forma parte del peptidoglicano bacteriano."]);
+  replaceOptions(128,["El moco, el epitelio ciliado y la IgA secretora son barreras locales de defensa del huésped.","Estos elementos no son factores de virulencia bacteriana obligatorios.","Moco, cilios e IgA no son estructuras de pared Gram negativa.","Estos elementos no son mecanismos de conjugación entre bacterias."]);
+  replaceOptions(129,["Falló la adhesión inicial al huésped, por lo que la bacteria fue eliminada antes de colonizar.","La producción de ribosomas 70S no explica el fallo de fijación al epitelio.","La formación de antígeno O puede servir para serotipificación, pero no sustituye la adhesión inicial.","Las bacterias no desarrollan membrana nuclear para causar enfermedad."]);
+  replaceOptions(130,["El tropismo tisular se explica por adhesinas bacterianas que reconocen receptores específicos del urotelio.","La esterilización selectiva por lisozima no explica preferencia de infección por urotelio.","La bacteria no cambia obligatoriamente de Gram negativa a Gram positiva por infectar un tejido.","La transducción por aerosoles mezcla transferencia genética por fago con transmisión aérea."]);
+  replaceOptions(131,["La invasión transcelular ocurre cuando bacterias atraviesan barreras entrando y saliendo de células.","La desinfección de superficie inanimada no es una estrategia bacteriana de invasión tisular.","La opsonización por complemento facilita fagocitosis y no describe paso transcelular.","La producción de cápside viral no corresponde a bacterias invasivas."]);
+  replaceOptions(132,["La invasión paracelular ocurre cuando bacterias pasan entre células epiteliales al alterar uniones intercelulares.","La transpeptidación del peptidoglicano sintetiza pared bacteriana y no describe paso entre células del huésped.","La tinción ácido-alcohol resistente es una técnica diagnóstica y no una vía de invasión.","La bacteriostasia farmacológica inhibe crecimiento bacteriano y no describe invasión epitelial."]);
+  replaceOptions(133,["La respuesta del huésped puede contribuir de forma importante al daño tisular durante una infección.","El daño infeccioso no depende solo del tamaño físico de la bacteria.","La inflamación puede proteger, pero también causar lesión si es excesiva o desregulada.","Las citocinas son mediadores del huésped y no cápsulas bacterianas."]);
+  replaceOptions(134,["La fiebre refleja respuesta del huésped a pirógenos y citocinas, no solo presencia física de bacterias.","La fiebre no confirma siempre presencia de endosporas en sangre.","La fiebre no se produce porque las bacterias tengan núcleo verdadero.","La fiebre no excluye infección bacteriana; puede acompañarla."]);
+  replaceOptions(135,["La vacuna dirigida contra polisacáridos capsulares neutraliza una cápsula antifagocítica.","El flagelo de quimiotaxis no es el blanco capsular de esta vacuna.","El ribosoma 70S es intracelular y no un polisacárido capsular.","Las bacterias no tienen membrana nuclear bacteriana como blanco vacunal capsular."]);
+  replaceOptions(136,["Una vacuna conjugada une un polisacárido capsular a una proteína transportadora para mejorar la respuesta inmune.","Un autoclave inmunológico no es un tipo real de vacuna.","La tinción de Gram vacunal no describe una plataforma de inmunización.","Un plásmido R inactivado porta resistencia y no define una vacuna capsular conjugada."]);
+  replaceOptions(137,["La catalasa permite resistir parte del estrés oxidativo al degradar peróxido de hidrógeno.","La catalasa no vuelve automáticamente Gram negativa a una bacteria.","La catalasa no elimina todos los factores de virulencia bacterianos.","La catalasa no transforma peróxido en peptidoglicano humano."]);
+  replaceOptions(138,["La superóxido dismutasa convierte radical superóxido en peróxido de hidrógeno y oxígeno.","La DNasa degrada ADN extracelular y no neutraliza radical superóxido.","La coagulasa favorece fibrina y no detoxifica radicales superóxido.","La transpeptidasa participa en síntesis de pared y no neutraliza estrés oxidativo."]);
+  replaceOptions(139,["La DNasa degrada ADN extracelular de neutrófilos destruidos y puede reducir viscosidad del pus.","Un sideróforo capta hierro, pero no degrada ADN del pus.","El lípido A es endotoxina del LPS y no degrada ADN extracelular.","El antígeno H se relaciona con flagelos y no con degradación de pus."]);
+  replaceOptions(140,["La coagulasa favorece fibrina alrededor de bacterias, mientras la fibrinolisina degrada fibrina y favorece diseminación.","Coagulasa y fibrinolisina no forman ribosomas 80S bacterianos.","La coagulasa no degrada ADN y la fibrinolisina no forma cápsides virales.","Coagulasa y fibrinolisina son enzimas bacterianas, no colorantes de Gram."]);
+
+  ROOT.version = (ROOT.version || "") + " | v332: Microbiología M1 QCM 121-140 readable options.";
+  ROOT.__MICROBIOLOGIA_M1_QCM_121_140_READABLE_OPTIONS_PATCH__ = "v332";
+})();
