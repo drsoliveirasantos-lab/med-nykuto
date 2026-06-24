@@ -83,7 +83,7 @@
   <script src="v210-module-picker-overlay.js?v=282"></script>
   <script>
   (function(){
-    var modal;
+    var modal, observerStarted=false;
     function data(){return (window.MED_COURSES_DATA&&window.MED_COURSES_DATA.courses)||[];}
     function query(){return new URLSearchParams(location.search);}
     function courseById(id){return data().find(function(c){return String(c.id)===String(id);});}
@@ -116,21 +116,31 @@
     }
     function hideLegacy(){
       var shell=document.querySelector('.mc-picker-shell');
-      [].slice.call(document.querySelectorAll('#practiceList button,#practiceList select,#practiceList [role="button"],#courseFilters button,#courseFilters select,#courseFilters [role="button"]')).forEach(function(el){
-        if(shell&&shell.contains(el))return;
+      var root=document.querySelector('.practice-focus-section');
+      if(!root)return;
+      [].slice.call(root.querySelectorAll('*')).forEach(function(el){
+        if(!el||el.classList.contains('mc-picker-shell')||(shell&&shell.contains(el))||(modal&&modal.contains(el)))return;
         var t=(el.textContent||'').replace(/\s+/g,' ').replace(/^\s+|\s+$/g,'');
-        if(/^Mat\.|^Mod\.|^Mód\./i.test(t))el.classList.add('mc-original-hidden');
+        if((/^(Mat\.|Mod\.|Mód\.)/i.test(t)&&t.length<140)||(/^Total\s*\d+/i.test(t)&&t.length<40)){
+          el.classList.add('mc-original-hidden');
+          el.style.display='none';
+        }
       });
     }
     function install(){
       var anchor=document.getElementById('practiceList')||document.getElementById('courseFilters');
-      if(!anchor||document.querySelector('.mc-picker-shell')){hideLegacy();return;}
-      var cur=current();
-      var shell=document.createElement('div');shell.className='mc-picker-shell';
-      var b1=document.createElement('button');b1.type='button';b1.className='mc-picker-btn subject';b1.textContent='Mat.: '+(cur.c?shortCourse(cur.c):'Toutes les matières');b1.onclick=function(){open('course');};
-      var b2=document.createElement('button');b2.type='button';b2.className='mc-picker-btn module';b2.textContent='Mod.: '+(cur.m?moduleLabel(cur.m,cur.index,cur.c):(cur.c?'Tous les modules':'Toute la banque'));b2.onclick=function(){open('module');};
-      shell.appendChild(b1);shell.appendChild(b2);anchor.parentNode.insertBefore(shell,anchor);
+      if(anchor&&!document.querySelector('.mc-picker-shell')){
+        var cur=current();
+        var shell=document.createElement('div');shell.className='mc-picker-shell';
+        var b1=document.createElement('button');b1.type='button';b1.className='mc-picker-btn subject';b1.textContent='Mat.: '+(cur.c?shortCourse(cur.c):'Toutes les matières');b1.onclick=function(){open('course');};
+        var b2=document.createElement('button');b2.type='button';b2.className='mc-picker-btn module';b2.textContent='Mod.: '+(cur.m?moduleLabel(cur.m,cur.index,cur.c):(cur.c?'Tous les modules':'Toute la banque'));b2.onclick=function(){open('module');};
+        shell.appendChild(b1);shell.appendChild(b2);anchor.parentNode.insertBefore(shell,anchor);
+      }
       hideLegacy();
+      if(!observerStarted&&document.querySelector('.practice-focus-section')&&window.MutationObserver){
+        observerStarted=true;
+        new MutationObserver(function(){hideLegacy();}).observe(document.querySelector('.practice-focus-section'),{childList:true,subtree:true});
+      }
     }
     document.addEventListener('DOMContentLoaded',function(){[200,800,1600,2600,4200].forEach(function(ms){setTimeout(install,ms);});});
     document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
