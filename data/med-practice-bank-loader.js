@@ -1,14 +1,14 @@
-/* v337 — Lazy practice bank loader
+/* v338 — Lazy practice bank loader
    Purpose: avoid loading every large practice bank on every page.
    This keeps Cloudflare files under 25 MiB and prevents QCM/Cases/VF pages from freezing.
-   v337 chains count-safe quality patches after the corresponding bank file.
+   v338 chains count-safe quality patches after the corresponding bank file.
 */
 (function(){
   "use strict";
 
   var bankFiles = {"bioquimica":"practice-bank-bioquimica.js","fisiologia":"practice-bank-fisiologia.js","genetica":"practice-bank-genetica.js","inmunologia":"practice-bank-inmunologia.js","microbiologia":"practice-bank-microbiologia.js"};
   var patchFiles = {
-    "fisiologia":["practice-bank-fisiologia-quality-patch-v314.js","practice-bank-fisiologia-quality-patch-v315.js","practice-bank-fisiologia-quality-patch-v316.js","practice-bank-fisiologia-quality-patch-v317.js","practice-bank-fisiologia-quality-patch-v318.js","practice-bank-fisiologia-quality-patch-v319.js","practice-bank-fisiologia-quality-patch-v320.js","practice-bank-fisiologia-quality-patch-v321.js","practice-bank-fisiologia-quality-patch-v322.js","practice-bank-fisiologia-quality-patch-v323.js","practice-bank-fisiologia-quality-patch-v324.js","practice-bank-fisiologia-quality-patch-v325.js","practice-bank-fisiologia-quality-patch-v326.js","practice-bank-fisiologia-quality-patch-v327.js","practice-bank-fisiologia-quality-patch-v328.js"],
+    "fisiologia":["practice-bank-fisiologia-quality-patch-v314.js","practice-bank-fisiologia-quality-patch-v315.js","practice-bank-fisiologia-quality-patch-v316.js","practice-bank-fisiologia-quality-patch-v317.js","practice-bank-fisiologia-quality-patch-v318.js","practice-bank-fisiologia-quality-patch-v319.js","practice-bank-fisiologia-quality-patch-v320.js","practice-bank-fisiologia-quality-patch-v321.js","practice-bank-fisiologia-quality-patch-v322.js","practice-bank-fisiologia-quality-patch-v323.js","practice-bank-fisiologia-quality-patch-v324.js","practice-bank-fisiologia-quality-patch-v325.js","practice-bank-fisiologia-quality-patch-v326.js","practice-bank-fisiologia-quality-patch-v327.js","practice-bank-fisiologia-quality-patch-v328.js","practice-bank-fisiologia-quality-patch-v329.js"],
     "microbiologia":["practice-bank-microbiologia-quality-patch-v312.js","practice-bank-microbiologia-quality-patch-v313.js","practice-bank-microbiologia-quality-patch-v314.js","practice-bank-microbiologia-quality-patch-v315.js","practice-bank-microbiologia-quality-patch-v316.js","practice-bank-microbiologia-quality-patch-v317.js","practice-bank-microbiologia-quality-patch-v318.js","practice-bank-microbiologia-quality-patch-v319.js","practice-bank-microbiologia-quality-patch-v320.js","practice-bank-microbiologia-quality-patch-v321.js","practice-bank-microbiologia-quality-patch-v322.js","practice-bank-microbiologia-quality-patch-v323.js","practice-bank-microbiologia-quality-patch-v324.js","practice-bank-microbiologia-quality-patch-v325.js","practice-bank-microbiologia-readable-options-patch-v326.js","practice-bank-microbiologia-readable-options-patch-v327.js","practice-bank-microbiologia-readable-options-patch-v328.js","practice-bank-microbiologia-readable-options-patch-v329.js","practice-bank-microbiologia-readable-options-patch-v330.js","practice-bank-microbiologia-readable-options-patch-v331.js","practice-bank-microbiologia-readable-options-patch-v332.js","practice-bank-microbiologia-readable-options-patch-v333.js"]
   };
 
@@ -46,7 +46,7 @@
   }
 
   function loadDataScript(path){
-    document.write('<scr' + 'ipt src="data/' + path + '?v=337"></scr' + 'ipt>');
+    document.write('<scr' + 'ipt src="data/' + path + '?v=338"></scr' + 'ipt>');
   }
 
   window.MED_PRACTICE_BANK = window.MED_PRACTICE_BANK || {byCourse:{}};
