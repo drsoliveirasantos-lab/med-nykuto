@@ -1,20 +1,18 @@
-/* v335 — Lazy practice bank loader
+/* v336 — Lazy practice bank loader
    Purpose: avoid loading every large practice bank on every page.
    This keeps Cloudflare files under 25 MiB and prevents QCM/Cases/VF pages from freezing.
-   v335 chains count-safe quality patches after the corresponding bank file.
+   v336 chains count-safe quality patches after the corresponding bank file.
 */
 (function(){
   "use strict";
 
   var bankFiles = {"bioquimica":"practice-bank-bioquimica.js","fisiologia":"practice-bank-fisiologia.js","genetica":"practice-bank-genetica.js","inmunologia":"practice-bank-inmunologia.js","microbiologia":"practice-bank-microbiologia.js"};
   var patchFiles = {
-    "fisiologia":["practice-bank-fisiologia-quality-patch-v314.js","practice-bank-fisiologia-quality-patch-v315.js","practice-bank-fisiologia-quality-patch-v316.js","practice-bank-fisiologia-quality-patch-v317.js","practice-bank-fisiologia-quality-patch-v318.js","practice-bank-fisiologia-quality-patch-v319.js","practice-bank-fisiologia-quality-patch-v320.js","practice-bank-fisiologia-quality-patch-v321.js","practice-bank-fisiologia-quality-patch-v322.js","practice-bank-fisiologia-quality-patch-v323.js","practice-bank-fisiologia-quality-patch-v324.js","practice-bank-fisiologia-quality-patch-v325.js","practice-bank-fisiologia-quality-patch-v326.js","practice-bank-fisiologia-quality-patch-v327.js"],
+    "fisiologia":["practice-bank-fisiologia-quality-patch-v314.js","practice-bank-fisiologia-quality-patch-v315.js","practice-bank-fisiologia-quality-patch-v316.js","practice-bank-fisiologia-quality-patch-v317.js","practice-bank-fisiologia-quality-patch-v318.js","practice-bank-fisiologia-quality-patch-v319.js","practice-bank-fisiologia-quality-patch-v320.js","practice-bank-fisiologia-quality-patch-v321.js","practice-bank-fisiologia-quality-patch-v322.js","practice-bank-fisiologia-quality-patch-v323.js","practice-bank-fisiologia-quality-patch-v324.js","practice-bank-fisiologia-quality-patch-v325.js","practice-bank-fisiologia-quality-patch-v326.js","practice-bank-fisiologia-quality-patch-v327.js","practice-bank-fisiologia-quality-patch-v328.js"],
     "microbiologia":["practice-bank-microbiologia-quality-patch-v312.js","practice-bank-microbiologia-quality-patch-v313.js","practice-bank-microbiologia-quality-patch-v314.js","practice-bank-microbiologia-quality-patch-v315.js","practice-bank-microbiologia-quality-patch-v316.js","practice-bank-microbiologia-quality-patch-v317.js","practice-bank-microbiologia-quality-patch-v318.js","practice-bank-microbiologia-quality-patch-v319.js","practice-bank-microbiologia-quality-patch-v320.js","practice-bank-microbiologia-quality-patch-v321.js","practice-bank-microbiologia-quality-patch-v322.js","practice-bank-microbiologia-quality-patch-v323.js","practice-bank-microbiologia-quality-patch-v324.js","practice-bank-microbiologia-quality-patch-v325.js","practice-bank-microbiologia-readable-options-patch-v326.js","practice-bank-microbiologia-readable-options-patch-v327.js","practice-bank-microbiologia-readable-options-patch-v328.js","practice-bank-microbiologia-readable-options-patch-v329.js","practice-bank-microbiologia-readable-options-patch-v330.js","practice-bank-microbiologia-readable-options-patch-v331.js"]
   };
 
-  function normId(x){
-    return String(x || "").toLowerCase().trim();
-  }
+  function normId(x){ return String(x || "").toLowerCase().trim(); }
 
   function courseFromModule(moduleId){
     try{
@@ -39,13 +37,16 @@
     var page = bodyPage();
     var course = normId(params.get("course"));
     var moduleId = params.get("module") || params.get("id") || "";
-
     if(!course && moduleId) course = normId(courseFromModule(moduleId));
     if(course && bankFiles[course]) return [course];
     if(page === "mistakes") return Object.keys(bankFiles);
     if(page === "exam") return course && bankFiles[course] ? [course] : Object.keys(bankFiles);
     if(page === "practice") return Object.keys(bankFiles);
     return [];
+  }
+
+  function loadDataScript(path){
+    document.write('<scr' + 'ipt src="data/' + path + '?v=336"></scr' + 'ipt>');
   }
 
   window.MED_PRACTICE_BANK = window.MED_PRACTICE_BANK || {byCourse:{}};
@@ -59,13 +60,9 @@
     var id = wanted[i];
     var file = bankFiles[id];
     if(!file) continue;
-    if(!(window.MED_PRACTICE_BANK.byCourse && window.MED_PRACTICE_BANK.byCourse[id])){
-      document.write('<script src="data/' + file + '?v=335"><\/script>');
-    }
+    if(!(window.MED_PRACTICE_BANK.byCourse && window.MED_PRACTICE_BANK.byCourse[id])) loadDataScript(file);
     var patches = patchFiles[id] || [];
-    for(var j=0; j<patches.length; j++){
-      document.write('<script src="data/' + patches[j] + '?v=335"><\/script>');
-    }
+    for(var j=0; j<patches.length; j++) loadDataScript(patches[j]);
   }
 
   window.MED_PRACTICE_BANK_LOADING = false;
