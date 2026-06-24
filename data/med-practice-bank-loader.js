@@ -1,7 +1,7 @@
-/* v316 — Lazy practice bank loader
+/* v317 — Lazy practice bank loader
    Purpose: avoid loading every large practice bank on every page.
    This keeps Cloudflare files under 25 MiB and prevents QCM/Cases/VF pages from freezing.
-   v316 chains count-safe quality patches after the corresponding bank file.
+   v317 chains count-safe quality patches after the corresponding bank file.
 */
 (function(){
   "use strict";
@@ -9,7 +9,7 @@
   var bankFiles = {"bioquimica":"practice-bank-bioquimica.js","fisiologia":"practice-bank-fisiologia.js","genetica":"practice-bank-genetica.js","inmunologia":"practice-bank-inmunologia.js","microbiologia":"practice-bank-microbiologia.js"};
   var patchFiles = {
     "fisiologia":["practice-bank-fisiologia-quality-patch-v314.js","practice-bank-fisiologia-quality-patch-v315.js"],
-    "microbiologia":["practice-bank-microbiologia-quality-patch-v312.js","practice-bank-microbiologia-quality-patch-v313.js","practice-bank-microbiologia-quality-patch-v314.js","practice-bank-microbiologia-quality-patch-v315.js","practice-bank-microbiologia-quality-patch-v316.js"]
+    "microbiologia":["practice-bank-microbiologia-quality-patch-v312.js","practice-bank-microbiologia-quality-patch-v313.js","practice-bank-microbiologia-quality-patch-v314.js","practice-bank-microbiologia-quality-patch-v315.js","practice-bank-microbiologia-quality-patch-v316.js","practice-bank-microbiologia-quality-patch-v317.js"]
   };
 
   function normId(x){
@@ -42,19 +42,10 @@
 
     if(!course && moduleId) course = normId(courseFromModule(moduleId));
 
-    // Practice pages with explicit course/module need only that course.
     if(course && bankFiles[course]) return [course];
-
-    // Mistakes may need all banks unless filtered by course.
     if(page === "mistakes") return Object.keys(bankFiles);
-
-    // Exam all-courses mode needs all. Course exam needs one.
     if(page === "exam") return course && bankFiles[course] ? [course] : Object.keys(bankFiles);
-
-    // Practice page without a course means "all questions", so load all.
     if(page === "practice") return Object.keys(bankFiles);
-
-    // Catalog, module reader, home etc. do not need full practice banks at startup.
     return [];
   }
 
@@ -70,11 +61,11 @@
     var file = bankFiles[id];
     if(!file) continue;
     if(!(window.MED_PRACTICE_BANK.byCourse && window.MED_PRACTICE_BANK.byCourse[id])){
-      document.write('<script src="data/' + file + '?v=316"><\/script>');
+      document.write('<script src="data/' + file + '?v=317"><\/script>');
     }
     var patches = patchFiles[id] || [];
     for(var j=0; j<patches.length; j++){
-      document.write('<script src="data/' + patches[j] + '?v=316"><\/script>');
+      document.write('<script src="data/' + patches[j] + '?v=317"><\/script>');
     }
   }
 
