@@ -1,14 +1,14 @@
-/* v325 — Lazy practice bank loader
+/* v326 — Lazy practice bank loader
    Purpose: avoid loading every large practice bank on every page.
    This keeps Cloudflare files under 25 MiB and prevents QCM/Cases/VF pages from freezing.
-   v325 chains count-safe quality patches after the corresponding bank file.
+   v326 chains count-safe quality patches after the corresponding bank file.
 */
 (function(){
   "use strict";
 
   var bankFiles = {"bioquimica":"practice-bank-bioquimica.js","fisiologia":"practice-bank-fisiologia.js","genetica":"practice-bank-genetica.js","inmunologia":"practice-bank-inmunologia.js","microbiologia":"practice-bank-microbiologia.js"};
   var patchFiles = {
-    "fisiologia":["practice-bank-fisiologia-quality-patch-v314.js","practice-bank-fisiologia-quality-patch-v315.js","practice-bank-fisiologia-quality-patch-v316.js","practice-bank-fisiologia-quality-patch-v317.js","practice-bank-fisiologia-quality-patch-v318.js","practice-bank-fisiologia-quality-patch-v319.js","practice-bank-fisiologia-quality-patch-v320.js"],
+    "fisiologia":["practice-bank-fisiologia-quality-patch-v314.js","practice-bank-fisiologia-quality-patch-v315.js","practice-bank-fisiologia-quality-patch-v316.js","practice-bank-fisiologia-quality-patch-v317.js","practice-bank-fisiologia-quality-patch-v318.js","practice-bank-fisiologia-quality-patch-v319.js","practice-bank-fisiologia-quality-patch-v320.js","practice-bank-fisiologia-quality-patch-v321.js"],
     "microbiologia":["practice-bank-microbiologia-quality-patch-v312.js","practice-bank-microbiologia-quality-patch-v313.js","practice-bank-microbiologia-quality-patch-v314.js","practice-bank-microbiologia-quality-patch-v315.js","practice-bank-microbiologia-quality-patch-v316.js","practice-bank-microbiologia-quality-patch-v317.js","practice-bank-microbiologia-quality-patch-v318.js","practice-bank-microbiologia-quality-patch-v319.js","practice-bank-microbiologia-quality-patch-v320.js","practice-bank-microbiologia-quality-patch-v321.js","practice-bank-microbiologia-quality-patch-v322.js","practice-bank-microbiologia-quality-patch-v323.js","practice-bank-microbiologia-quality-patch-v324.js","practice-bank-microbiologia-quality-patch-v325.js"]
   };
 
@@ -60,11 +60,11 @@
     var file = bankFiles[id];
     if(!file) continue;
     if(!(window.MED_PRACTICE_BANK.byCourse && window.MED_PRACTICE_BANK.byCourse[id])){
-      document.write('<script src="data/' + file + '?v=325"><\/script>');
+      document.write('<script src="data/' + file + '?v=326"><\/script>');
     }
     var patches = patchFiles[id] || [];
     for(var j=0; j<patches.length; j++){
-      document.write('<script src="data/' + patches[j] + '?v=325"><\/script>');
+      document.write('<script src="data/' + patches[j] + '?v=326"><\/script>');
     }
   }
 
