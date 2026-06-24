@@ -1,13 +1,16 @@
-/* v313 — Lazy practice bank loader
+/* v314 — Lazy practice bank loader
    Purpose: avoid loading every large practice bank on every page.
    This keeps Cloudflare files under 25 MiB and prevents QCM/Cases/VF pages from freezing.
-   v313 chains count-safe Microbiología quality patches after the corresponding bank file.
+   v314 chains count-safe quality patches after the corresponding bank file.
 */
 (function(){
   "use strict";
 
   var bankFiles = {"bioquimica":"practice-bank-bioquimica.js","fisiologia":"practice-bank-fisiologia.js","genetica":"practice-bank-genetica.js","inmunologia":"practice-bank-inmunologia.js","microbiologia":"practice-bank-microbiologia.js"};
-  var patchFiles = {"microbiologia":["practice-bank-microbiologia-quality-patch-v312.js","practice-bank-microbiologia-quality-patch-v313.js"]};
+  var patchFiles = {
+    "fisiologia":["practice-bank-fisiologia-quality-patch-v314.js"],
+    "microbiologia":["practice-bank-microbiologia-quality-patch-v312.js","practice-bank-microbiologia-quality-patch-v313.js"]
+  };
 
   function normId(x){
     return String(x || "").toLowerCase().trim();
@@ -67,11 +70,11 @@
     var file = bankFiles[id];
     if(!file) continue;
     if(!(window.MED_PRACTICE_BANK.byCourse && window.MED_PRACTICE_BANK.byCourse[id])){
-      document.write('<script src="data/' + file + '?v=313"><\/script>');
+      document.write('<script src="data/' + file + '?v=314"><\/script>');
     }
     var patches = patchFiles[id] || [];
     for(var j=0; j<patches.length; j++){
-      document.write('<script src="data/' + patches[j] + '?v=313"><\/script>');
+      document.write('<script src="data/' + patches[j] + '?v=314"><\/script>');
     }
   }
 
