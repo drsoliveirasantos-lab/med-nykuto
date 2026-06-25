@@ -1,11 +1,12 @@
-/* v361 — Global Med Nykuto polish layer.
+/* v363 — Global Med Nykuto polish layer.
    Applies identity, language, cache-visible UI text, logo/home behavior and practice-page safety across all pages.
-   Loads the v360 repair layer and the v361 runtime guard for data health and safer UI behavior. */
+   Loads the repair layer and runtime guard with v363 cache-busting after restored legacy data. */
 (function(){
   'use strict';
 
   var SITE_NAME = 'Med Nykuto';
   var HOST = 'https://preview.med-nykuto-git.pages.dev/';
+  var CACHE_VERSION = '363';
 
   function text(el,v){ if(el && v != null) el.textContent = v; }
   function attr(el,k,v){ if(el && v != null) el.setAttribute(k,v); }
@@ -148,17 +149,10 @@
     (document.body || document.head || document.documentElement).appendChild(s);
   }
 
-  function loadInterfaceFix(){
-    appendScript('interfaceClickFixV352', 'interface-click-fix-v352.js?v=361', '__MED_NYKUTO_INTERFACE_FIX_LOADER__');
-  }
-
-  function loadGlobalRepair(){
-    appendScript('medNykutoGlobalFixV358', 'med-nykuto-global-fix-v358.js?v=361', '__MED_NYKUTO_GLOBAL_FIX_LOADER__');
-  }
-
-  function loadRuntimeGuard(){
-    appendScript('medNykutoRuntimeGuardV361', 'med-nykuto-runtime-guard-v361.js?v=361', '__MED_NYKUTO_RUNTIME_GUARD_LOADER__');
-  }
+  function withCache(path){ return path + '?v=' + CACHE_VERSION; }
+  function loadInterfaceFix(){ appendScript('interfaceClickFixV352', withCache('interface-click-fix-v352.js'), '__MED_NYKUTO_INTERFACE_FIX_LOADER__'); }
+  function loadGlobalRepair(){ appendScript('medNykutoGlobalFixV358', withCache('med-nykuto-global-fix-v358.js'), '__MED_NYKUTO_GLOBAL_FIX_LOADER__'); }
+  function loadRuntimeGuard(){ appendScript('medNykutoRuntimeGuardV361', withCache('med-nykuto-runtime-guard-v361.js'), '__MED_NYKUTO_RUNTIME_GUARD_LOADER__'); }
 
   function run(){
     setLang();
@@ -171,7 +165,7 @@
     loadInterfaceFix();
     loadGlobalRepair();
     loadRuntimeGuard();
-    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v361-loader';
+    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v363-loader';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
