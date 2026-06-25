@@ -2,7 +2,6 @@
   "name": "med-nykuto-site",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "test": "npm run validate && npm run test:e2e",
     "validate": "node scripts/validate-site-links.js && node scripts/validate-data-health.js",
