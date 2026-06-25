@@ -131,6 +131,16 @@
     document.head.appendChild(st);
   }
 
+  function loadInterfaceFix(){
+    if(window.__MED_NYKUTO_INTERFACE_FIX_LOADER__ || document.getElementById('interfaceClickFixV352')) return;
+    window.__MED_NYKUTO_INTERFACE_FIX_LOADER__ = 'v352';
+    var s = document.createElement('script');
+    s.id = 'interfaceClickFixV352';
+    s.src = 'interface-click-fix-v352.js?v=352';
+    s.defer = true;
+    (document.body || document.head || document.documentElement).appendChild(s);
+  }
+
   function run(){
     setLang();
     setMeta();
@@ -139,7 +149,8 @@
     polishHome();
     polishComingSoon();
     injectGlobalStyle();
-    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v310';
+    loadInterfaceFix();
+    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v310+v352-loader';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
