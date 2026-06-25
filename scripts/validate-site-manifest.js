@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* v361 — validates the release manifest JSON and critical referenced files. */
+/* v363 — validates the release manifest JSON and critical referenced files. */
 const fs = require('fs');
 const path = require('path');
 
@@ -18,11 +18,13 @@ try {
 
 if(manifest){
   if(manifest.siteName !== 'Med Nykuto') add('manifest: wrong siteName');
-  if(manifest.release !== 'v361-runtime-hardening') add('manifest: wrong release');
+  if(manifest.release !== 'v363-restored-legacy-data-hardening') add('manifest: wrong release');
   if(manifest.branch !== 'preview') add('manifest: wrong branch');
   if(!manifest.deployment || manifest.deployment.provider !== 'Cloudflare Pages') add('manifest: deployment provider must be Cloudflare Pages');
   if(!manifest.expectedData || manifest.expectedData.moduleCount !== 58) add('manifest: expectedData.moduleCount must be 58');
+  if(!manifest.expectedData || !manifest.expectedData.restoredPracticeBankMinimums) add('manifest: restored practice bank minimums missing');
   if(!manifest.safeguards || manifest.safeguards.runtimeHealthVersion !== 'v361') add('manifest: runtime safeguard version must be v361');
+  if(!manifest.safeguards || manifest.safeguards.practiceLoaderCacheVersion !== 'v363') add('manifest: practice loader cache version must be v363');
   (manifest.navigationPages || []).forEach(file => { if(!exists(file)) add(`manifest page missing: ${file}`); });
   (manifest.criticalScripts || []).forEach(file => { if(!exists(file)) add(`manifest critical script missing: ${file}`); });
 }
