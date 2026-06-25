@@ -1,25 +1,15 @@
-/* v356 — QCM skip-safe next + stable progress display.
-   - Siguiente on an unanswered card is safely converted to "No sé" first.
-   - Then the real app advances after the state is valid.
-   - The premium progress bar updates only when values change, so it does not flicker. */
+/* v357 — QCM progress display-only patch.
+   Keeps the premium progress bar synchronized without flicker.
+   This file intentionally does NOT intercept, enable, disable, forward, or simulate Siguiente/Anterior clicks. */
 (function(){
   'use strict';
 
-  var VERSION = 'v356';
+  var VERSION = 'v357';
   var pendingProgressTimer = 0;
   var lastSignature = '';
-  var forwardingNext = false;
-  var handlingSkip = false;
-  var lastSkipAt = 0;
 
   function isQcmPage(){
     return !!(document.body && document.body.classList && document.body.classList.contains('qcm-page'));
-  }
-  function stop(e){
-    if(!e) return;
-    e.preventDefault();
-    e.stopPropagation();
-    if(e.stopImmediatePropagation) e.stopImmediatePropagation();
   }
   function clean(s){ return String(s || '').replace(/\s+/g, ' ').trim(); }
   function parseProgressText(s){
@@ -64,99 +54,42 @@
     if(!bar) return;
     var p = realProgress();
     if(!p) return;
+
     var signature = p.current + '/' + p.total + '/' + p.pct;
     if(bar.dataset.progressSignature === signature && lastSignature === signature) return;
+
     var parts = ensureProgressStructure(bar);
     var label = 'Pregunta ' + p.current + '/' + p.total;
     var pctText = p.pct + '%';
     var width = p.pct + '%';
+
     if(parts.strong && parts.strong.textContent !== label) parts.strong.textContent = label;
     if(parts.span && parts.span.textContent !== pctText) parts.span.textContent = pctText;
     if(parts.fill && parts.fill.style.width !== width) parts.fill.style.width = width;
+
     bar.dataset.progressFixed = VERSION;
     bar.dataset.progressSignature = signature;
     lastSignature = signature;
   }
   function scheduleProgressUpdate(delay){
     if(pendingProgressTimer) clearTimeout(pendingProgressTimer);
-    pendingProgressTimer = setTimeout(updatePremiumProgress, delay == null ? 80 : delay);
+    pendingProgressTimer = setTimeout(updatePremiumProgress, delay == null ? 90 : delay);
   }
   function scheduleAfterRender(){
-    [60, 160, 360].forEach(function(ms){ setTimeout(updatePremiumProgress, ms); });
+    [60, 180, 380].forEach(function(ms){ setTimeout(updatePremiumProgress, ms); });
   }
-  function cardAnswered(card){
-    if(!card) return true;
-    if(card.querySelector('.options[data-locked="1"]')) return true;
-    if(card.querySelector('.option.correct,.option.wrong,.option.chosen')) return true;
-    if(card.querySelector('.answer-panel:not([hidden])')) return true;
-    return false;
-  }
-  function makeNextLookClickable(){
-    if(!isQcmPage()) return;
-    document.querySelectorAll('.single-question-card .single-nav-actions [data-action="next-question"]').forEach(function(btn){
-      btn.setAttribute('aria-disabled','false');
-      btn.style.pointerEvents = 'auto';
-      btn.classList.remove('disabled');
-    });
-  }
-  function currentNextButton(){
-    return document.querySelector('.single-question-card .single-nav-actions [data-action="next-question"]');
-  }
-  function forwardToCurrentNext(){
-    var next = currentNextButton();
-    if(!next) return;
-    forwardingNext = true;
-    try{
-      next.disabled = false;
-      next.removeAttribute('disabled');
-      next.setAttribute('aria-disabled','false');
-      next.click();
-    } finally {
-      setTimeout(function(){ forwardingNext = false; handlingSkip = false; }, 180);
-    }
-    scheduleAfterRender();
-  }
-
-  document.addEventListener('click', function(e){
-    if(!isQcmPage()) return;
-    var btn = e.target && e.target.closest && e.target.closest('.single-question-card .single-nav-actions [data-action="next-question"]');
-    if(!btn) return;
-    scheduleAfterRender();
-    if(forwardingNext) return;
-
-    var card = btn.closest('.single-question-card');
-    if(!card) return;
-
-    if(cardAnswered(card)) return;
-
-    stop(e);
-    if(handlingSkip || Date.now() - lastSkipAt < 500) return;
-    handlingSkip = true;
-    lastSkipAt = Date.now();
-
-    var dontKnow = card.querySelector('[data-action="dont-know"]');
-    if(!dontKnow){ handlingSkip = false; return; }
-
-    try{ dontKnow.click(); }
-    catch(err){ handlingSkip = false; return; }
-
-    setTimeout(forwardToCurrentNext, 180);
-    setTimeout(function(){ if(handlingSkip) forwardToCurrentNext(); }, 420);
-  }, true);
-
   function run(){
     if(!isQcmPage()) return;
     window.__MED_NYKUTO_PRACTICE_PROGRESS_FIX__ = VERSION;
-    makeNextLookClickable();
     scheduleAfterRender();
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
   else run();
   window.addEventListener('load', run);
-  document.addEventListener('click', function(){ setTimeout(makeNextLookClickable, 60); scheduleProgressUpdate(140); }, true);
+  document.addEventListener('click', function(){ scheduleProgressUpdate(160); }, true);
   try{
     var target = document.querySelector('#practiceList') || document.body;
-    new MutationObserver(function(){ makeNextLookClickable(); scheduleProgressUpdate(120); }).observe(target, {childList:true, subtree:true, characterData:true});
+    new MutationObserver(function(){ scheduleProgressUpdate(140); }).observe(target, {childList:true, subtree:true, characterData:true});
   }catch(e){}
 })();
