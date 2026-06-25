@@ -83,7 +83,7 @@ test.describe('Med Nykuto smoke navigation', () => {
 
   test('homepage subject picker opens as a modal and then displays modules', async ({ page }) => {
     await page.goto('/index.html');
-    await page.waitForFunction(() => window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ === 'v367-delegated-modal', null, { timeout: 20000 });
+    await page.waitForFunction(() => window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ === 'v368-luxury-modal', null, { timeout: 20000 });
 
     const trigger = page.locator('[data-testid="home-subject-picker-trigger"]').first();
     await expect(trigger).toBeVisible();
