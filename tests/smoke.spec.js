@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-const CURRENT_GLOBAL_POLISH = 'v370-loader';
+const CURRENT_GLOBAL_POLISH = 'v371-loader';
 
 const pages = [
   '/',
