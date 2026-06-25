@@ -1,0 +1,24 @@
+name: Med Nykuto contact UI debug
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [preview]
+
+jobs:
+  contact-debug:
+    name: Contact UI debug
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          show-progress: false
+
+      - name: Quiet install
+        run: |
+          npm install --silent >/tmp/npm-install.log 2>&1 || { cat /tmp/npm-install.log; exit 1; }
+          npx playwright install --with-deps chromium >/tmp/playwright-install.log 2>&1 || { tail -120 /tmp/playwright-install.log; exit 1; }
+
+      - name: Contact test only
+        run: npx playwright test tests/contact.spec.js --project=desktop-chromium --reporter=line
