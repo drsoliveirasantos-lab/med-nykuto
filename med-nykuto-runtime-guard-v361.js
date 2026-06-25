@@ -117,6 +117,18 @@
     });
   }
 
+  function guardComingSoonSubjects(){
+    all('.subject-progress-card,.course-card').forEach(function(card){
+      if(!/Biof[ií]sica/i.test(clean(card.textContent))) return;
+      card.classList.add('is-coming-soon');
+      card.setAttribute('aria-disabled','true');
+      if(card.tagName === 'A') card.setAttribute('href','#');
+      all('a', card).forEach(function(a){ a.setAttribute('href','#'); a.setAttribute('aria-disabled','true'); });
+      var label = card.querySelector('span'); if(label && /0\s*m[óo]dulos|m[óo]dulos/i.test(clean(label.textContent))) label.textContent = 'Próximamente';
+      var pct = card.querySelector('.subject-progress-pct'); if(pct) pct.textContent = '—';
+    });
+  }
+
   function syncHomeStats(){
     if(!document.body || document.body.dataset.page !== 'home') return;
     var health = window.MED_NYKUTO_HEALTH || exposeHealth();
@@ -134,6 +146,7 @@
           '<div class="subject-progress-pct">'+(soon?'—':'0%')+'</div><div class="mini-progress"><i style="width:0%"></i></div></a>';
       }).join('');
     }
+    guardComingSoonSubjects();
   }
 
   function escapeHtml(s){ return String(s || '').replace(/[&<>"']/g, function(ch){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]; }); }
@@ -172,6 +185,7 @@
     migrateLegacyStorage();
     exposeHealth();
     hardBrandCleanup();
+    guardComingSoonSubjects();
     disableUnsafeLinks();
     syncHomeStats();
     protectQuestionFeedback();
