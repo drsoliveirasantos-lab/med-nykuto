@@ -1,7 +1,5 @@
-/* v317 — Practice visible cleanup.
-   Fix: keep correction/explanation panels visible and stop forcing “Suivant” before an answer.
-   The previous cleanup hid .answer-panel and the “Ver respuesta” control, which made explanations impossible to open.
-*/
+/* v360 — Practice visible cleanup.
+   Keeps correction/explanation panels visible while preserving essential actions such as Reportar error. */
 (function(){
   'use strict';
   var OLD = /Med Cursos/g;
@@ -10,7 +8,7 @@
   function isPractice(){ return document.body && document.body.classList.contains('practice-page'); }
   function clean(s){ return String(s||'').replace(/\s+/g,' ').trim(); }
   function all(sel,root){ return Array.from((root||document).querySelectorAll(sel)); }
-  function isCorrectionZone(el){ return !!(el && el.closest && el.closest('.answer-panel,.detailed-correction,.pc-card,.ppc-card,.ppc-panel,.confidence-panel,.correction-actions')); }
+  function isCorrectionZone(el){ return !!(el && el.closest && el.closest('.answer-panel,.detailed-correction,.pc-card,.ppc-card,.ppc-panel,.confidence-panel,.correction-actions,.module-actions.slim')); }
 
   function isRawStatsText(v){
     v = clean(v);
@@ -141,7 +139,9 @@
     var st = document.createElement('style');
     st.id = 'practiceCleanupV314Style';
     st.textContent = [
-      'body.practice-page .preanswer-tools,body.practice-page .hint-panel,body.practice-page .question-shortcuts,body.practice-page .module-actions.slim{display:none!important}',
+      'body.practice-page .preanswer-tools,body.practice-page .hint-panel,body.practice-page .question-shortcuts{display:none!important}',
+      'body.practice-page .module-actions.slim{display:flex!important;visibility:visible!important}',
+      'body.practice-page .module-actions.slim .report-btn{display:inline-flex!important;visibility:visible!important}',
       'body.practice-page [data-action="show-hint"],body.practice-page [data-action="eliminate-two"],body.practice-page [data-action="mark-review"]{display:none!important}',
       'body.practice-page .answer-panel{display:block!important;visibility:visible!important;max-height:none!important;overflow:visible!important}',
       'body.practice-page .answer-panel[hidden]{display:none!important}',
@@ -172,7 +172,7 @@
     hideRawStatsElements();
     hideNonPriorityCards();
     normaliseNextButton();
-    window.__MED_NYKUTO_PRACTICE_CLEANUP__ = 'v317';
+    window.__MED_NYKUTO_PRACTICE_CLEANUP__ = 'v360';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
