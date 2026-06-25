@@ -35,9 +35,10 @@ jobs:
       - name: Run QCM critical debug
         run: |
           set +e
-          npx playwright test tests/qcm-critical-clicks.spec.js --project=desktop-chromium --trace=on --video=retain-on-failure --screenshot=only-on-failure --output=test-results/qcm-debug --reporter=json > qcm-debug.json
-          code=$?
-          node scripts/print-playwright-summary.js qcm-debug.json
+          set -o pipefail
+          PLAYWRIGHT_JSON_OUTPUT_NAME=qcm-debug.json npx playwright test tests/qcm-critical-clicks.spec.js --project=desktop-chromium --trace=on --output=test-results/qcm-debug --reporter=line,json 2>&1 | tee qcm-debug.log
+          code=${PIPESTATUS[0]}
+          node scripts/print-playwright-summary.js qcm-debug.json 2>&1 | tee -a qcm-debug.log || true
           exit $code
       - name: Upload QCM debug evidence
         if: always()
@@ -46,6 +47,7 @@ jobs:
           name: qcm-debug-evidence
           if-no-files-found: ignore
           path: |
+            qcm-debug.log
             qcm-debug.json
             test-results/qcm-debug/**
             playwright-report/**
