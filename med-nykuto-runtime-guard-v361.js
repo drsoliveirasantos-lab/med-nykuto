@@ -14,6 +14,12 @@
   function safeGet(key){ try{ return localStorage.getItem(key); }catch(e){ return null; } }
   function safeSet(key, value){ try{ localStorage.setItem(key, value); }catch(e){} }
 
+  function currentPage(){ return (document.body && document.body.dataset && document.body.dataset.page) || ''; }
+  function bankRequired(){
+    var page = currentPage();
+    return /^(practice|exam|mistakes)$/.test(page) || /(?:qcm|cas-cliniques|vrai-faux|erreurs|examen)\.html$/.test(location.pathname || '');
+  }
+
   function courseData(){
     var data = window.MED_COURSES_DATA || {};
     var courses = Array.isArray(data.courses) ? data.courses : [];
@@ -43,15 +49,17 @@
     var b = bankData();
     var activeCourses = c.courses.filter(function(course){ return (course.moduleCount || (course.modules || []).length || 0) > 0; });
     var warnings = [];
+    var requiresBank = bankRequired();
     if(c.courses.length < 5) warnings.push('too_few_courses');
     if(c.modules.length < 40) warnings.push('too_few_modules');
-    if(!b.summary.qcm) warnings.push('no_qcm');
-    if(!b.summary.vf) warnings.push('no_vf');
-    if(!b.summary.cases) warnings.push('no_cases');
+    if(requiresBank && !b.summary.qcm) warnings.push('no_qcm');
+    if(requiresBank && !b.summary.vf) warnings.push('no_vf');
+    if(requiresBank && !b.summary.cases) warnings.push('no_cases');
     return {
       version: VERSION,
       ok: warnings.length === 0,
       warnings: warnings,
+      bankRequired: requiresBank,
       courseCount: c.courses.length,
       activeCourseCount: activeCourses.length,
       moduleCount: c.modules.length,
@@ -69,6 +77,7 @@
     if(document.body){
       document.body.dataset.medRuntime = VERSION;
       document.body.dataset.medHealth = health.ok ? 'ok' : 'warning';
+      document.body.dataset.medBankRequired = health.bankRequired ? '1' : '0';
       document.body.dataset.medModules = String(health.moduleCount || 0);
       document.body.dataset.medQcm = String(health.qcmCount || 0);
     }
