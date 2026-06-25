@@ -19,19 +19,41 @@ async function answerCurrent(page) {
   await expect(page.locator('.single-question-card .answer-panel:not([hidden])').first()).toBeVisible({ timeout: 15000 });
 }
 
+async function qcmDiag(page, label) {
+  const data = await page.evaluate(() => {
+    const card = document.querySelector('.single-question-card');
+    const next = document.querySelector('.single-question-card [data-action="next-question"], #practiceMobileNextBar .practice-stable-next');
+    return {
+      url: location.href,
+      cardId: card ? card.id : null,
+      fallback: window.__MED_NYKUTO_PRACTICE_CRITICAL_CLICK_FALLBACK__ || null,
+      forced: window.__MED_NYKUTO_LAST_FORCED_NEXT__ || null,
+      nextText: next ? next.textContent.trim() : null,
+      nextDisabled: next ? !!(next.disabled || next.hasAttribute('disabled')) : null,
+      answerPanel: !!document.querySelector('.single-question-card .answer-panel:not([hidden])')
+    };
+  });
+  console.log('QCM_DIAG_' + label + '=' + JSON.stringify(data));
+  return data;
+}
+
 test.describe('QCM critical click behavior', () => {
   test('real next click changes the current QCM question', async ({ page }) => {
     await waitPracticeReady(page);
     const firstId = await page.locator('.single-question-card').first().getAttribute('id');
+    await qcmDiag(page, 'BEFORE');
     await answerCurrent(page);
+    await qcmDiag(page, 'ANSWERED');
 
     const next = page.locator('.single-question-card [data-action="next-question"], #practiceMobileNextBar .practice-stable-next').first();
     await expect(next).toBeVisible({ timeout: 10000 });
     await next.scrollIntoViewIfNeeded();
-    await next.click();
+    await next.click({ force: true });
 
+    await page.waitForTimeout(1500);
     await page.waitForLoadState('domcontentloaded', { timeout: 15000 }).catch(() => {});
-    await expect.poll(async () => page.locator('.single-question-card').first().getAttribute('id'), { timeout: 15000 }).not.toBe(firstId);
+    const after = await qcmDiag(page, 'AFTER');
+    expect(after.cardId).not.toBe(firstId);
   });
 
   test('details control in the correction remains openable after answering', async ({ page }) => {
