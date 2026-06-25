@@ -81,21 +81,22 @@ test.describe('Med Nykuto smoke navigation', () => {
     await expect(page.locator('.home-v41-proof')).toContainText('QCM');
   });
 
-  test('homepage subject picker opens from Elegir materia and displays modules', async ({ page }) => {
+  test('homepage subject picker opens as a modal and then displays modules', async ({ page }) => {
     await page.goto('/index.html');
-    await page.waitForFunction(() => window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ === 'v365', null, { timeout: 20000 });
+    await page.waitForFunction(() => window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ === 'v366-modal', null, { timeout: 20000 });
 
     const trigger = page.locator('[data-testid="home-subject-picker-trigger"]').first();
     await expect(trigger).toBeVisible();
     await trigger.click();
 
-    await expect(page.locator('#homeSubjectPicker')).toBeVisible();
-    await expect(page.locator('#homeSubjectSelect')).toBeVisible();
+    await expect(page.locator('#homeSubjectModal.open')).toBeVisible();
+    await expect(page.locator('[data-testid="home-subject-modal-list"]')).toBeVisible();
+    await expect(page.locator('[data-testid="home-subject-choice"]')).toHaveCount(5);
 
-    await page.selectOption('#homeSubjectSelect', 'fisiologia');
-    await expect(page.locator('#homeSelectedModules')).toContainText('Fisiología');
-    await expect(page.locator('.home-module-card')).toHaveCount(9);
-    await expect(page.locator('.home-module-card-actions a.primary-link').first()).toHaveAttribute('href', /module\.html\?id=/);
+    await page.locator('[data-home-course-id="fisiologia"]').click();
+    await expect(page.locator('#homePickTitle')).toContainText('Fisiología — Elegir un módulo');
+    await expect(page.locator('[data-testid="home-module-choice"]')).toHaveCount(9);
+    await expect(page.locator('[data-testid="home-module-choice"]').first()).toHaveAttribute('href', /module\.html\?id=/);
   });
 
   test('Biofísica is absent or disabled safely', async ({ page }) => {
