@@ -81,9 +81,9 @@ test.describe('Med Nykuto smoke navigation', () => {
     await expect(page.locator('.home-v41-proof')).toContainText('QCM');
   });
 
-  test('homepage subject picker opens as a modal and then displays modules', async ({ page }) => {
+  test('homepage subject picker opens as a modal and routes selection correctly', async ({ page }) => {
     await page.goto('/index.html');
-    await page.waitForFunction(() => window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ === 'v368-luxury-modal', null, { timeout: 20000 });
+    await page.waitForFunction(() => window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ === 'v369-selection-router', null, { timeout: 20000 });
 
     const trigger = page.locator('[data-testid="home-subject-picker-trigger"]').first();
     await expect(trigger).toBeVisible();
@@ -96,7 +96,7 @@ test.describe('Med Nykuto smoke navigation', () => {
     await page.locator('[data-home-course-id="fisiologia"]').click();
     await expect(page.locator('#homePickTitle')).toContainText('Fisiología — Elegir un módulo');
     await expect(page.locator('[data-testid="home-module-choice"]')).toHaveCount(9);
-    await expect(page.locator('[data-testid="home-module-choice"]').first()).toHaveAttribute('href', /module\.html\?id=/);
+    await expect(page.locator('[data-testid="home-module-choice"]').first()).toHaveAttribute('data-home-module-href', /\/module\.html\?id=/);
   });
 
   test('Biofísica is absent or disabled safely', async ({ page }) => {
