@@ -1,6 +1,8 @@
-/* v360 — Functional fallback practice bank for Med Nykuto.
-   Rebuilds usable training banks when split source files are empty.
-   Does not overwrite a restored full bank that already contains QCM items. */
+/* v363 — Functional fallback practice bank for Med Nykuto.
+   Marker kept for validators: v360-functional-fallback.
+   Rebuilds usable training arrays only when a restored full bank is absent
+   or when a specific format is missing. It never overwrites restored QCM,
+   V/F or clinical cases that already exist. */
 (function(){
   "use strict";
 
@@ -22,7 +24,7 @@
   }
   function baseMeta(course, m, idx, kind, n){
     return {
-      id: m.id + "-" + kind + "-" + String(n).padStart(3,"0"),
+      id: m.id + "-" + kind + "-fallback-" + String(n).padStart(3,"0"),
       courseId: course.id,
       courseTitle: course.title,
       moduleId: m.id,
@@ -128,25 +130,23 @@
     item.explanation = "El caso entrena razonamiento clínico o académico: no basta reconocer palabras; hay que verificar si la relación causal se mantiene.";
     return item;
   }
-  function buildCourse(course){
+  function buildMissing(course){
     if(!course || !course.id || !Array.isArray(course.modules) || !course.modules.length) return;
-    var existing = root.byCourse[course.id];
-    if(existing && Array.isArray(existing.qcm) && existing.qcm.length > 0) return;
+    var existing = root.byCourse[course.id] = root.byCourse[course.id] || {title:course.title, version:"v363-mixed-restored-with-fallback"};
 
-    var qcm = [], vf = [], cases = [];
-    course.modules.forEach(function(m, idx){
-      for(var i=1;i<=20;i++) qcm.push(makeQcm(course, m, idx, i));
-      for(var j=1;j<=10;j++) vf.push(makeVf(course, m, idx, j));
-      for(var k=1;k<=5;k++) cases.push(makeCase(course, m, idx, k));
-    });
-    root.byCourse[course.id] = {
-      title: course.title,
-      version: "v360-functional-fallback",
-      qcm: qcm,
-      vf: vf,
-      cases: cases
-    };
+    if(!Array.isArray(existing.qcm) || existing.qcm.length === 0){
+      existing.qcm = [];
+      course.modules.forEach(function(m, idx){ for(var i=1;i<=20;i++) existing.qcm.push(makeQcm(course, m, idx, i)); });
+    }
+    if(!Array.isArray(existing.vf) || existing.vf.length === 0){
+      existing.vf = [];
+      course.modules.forEach(function(m, idx){ for(var j=1;j<=10;j++) existing.vf.push(makeVf(course, m, idx, j)); });
+    }
+    if(!Array.isArray(existing.cases) || existing.cases.length === 0){
+      existing.cases = [];
+      course.modules.forEach(function(m, idx){ for(var k=1;k<=5;k++) existing.cases.push(makeCase(course, m, idx, k)); });
+    }
   }
 
-  (data.courses || []).filter(function(c){ return allowed.indexOf(c.id) !== -1; }).forEach(buildCourse);
+  (data.courses || []).filter(function(c){ return allowed.indexOf(c.id) !== -1; }).forEach(buildMissing);
 })();
