@@ -27,6 +27,11 @@ for(const file of htmlFiles){
   if(!/<meta\s+name="viewport"/i.test(html)) add(file, 'missing viewport meta');
   if(!/<title>[^<]+Med Nykuto/i.test(html) && !['README_DEPLOIEMENT.txt'].includes(file)) add(file, 'title does not include Med Nykuto');
 
+  const unsafePlaceholders = Array.from(html.matchAll(/<a\b[^>]*href=["']#["'][^>]*>/gi))
+    .map(m => m[0])
+    .filter(tag => !/aria-disabled=["']true["']|is-coming-soon|data-allow-placeholder/i.test(tag));
+  if(unsafePlaceholders.length) add(file, `unsafe href="#" links: ${unsafePlaceholders.length}`);
+
   if(criticalRestoredPages.includes(file)){
     ['data/med-courses-data.js?v=363','data/med-practice-bank-init.js?v=363','data/med-practice-bank-loader.js?v=363'].forEach(src => {
       if(!html.includes(src)) add(file, `restored critical asset not cache-busted: ${src}`);
