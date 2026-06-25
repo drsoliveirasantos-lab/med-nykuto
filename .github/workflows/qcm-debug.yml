@@ -2,6 +2,15 @@ name: QCM Debug Only
 
 on:
   workflow_dispatch:
+  push:
+    branches: [preview]
+    paths:
+      - qcm.html
+      - app.bundle.js
+      - practice-critical-click-fallback-v101.js
+      - tests/qcm-critical-clicks.spec.js
+      - scripts/print-playwright-summary.js
+      - .github/workflows/qcm-debug.yml
 
 concurrency:
   group: med-nykuto-qcm-debug-${{ github.ref }}
