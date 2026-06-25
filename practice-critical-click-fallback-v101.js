@@ -1,9 +1,9 @@
-/* v103 — Critical practice click fallback.
-   Directly protects QCM/practice next clicks and keeps correction details visible.
+/* v104 — Critical practice click fallback.
+   Directly protects QCM/practice next clicks and keeps correction details visible without interrupting the click event.
 */
 (function(){
   'use strict';
-  var VERSION = 'v103';
+  var VERSION = 'v104';
   window.__MED_NYKUTO_PRACTICE_CRITICAL_CLICK_FALLBACK__ = VERSION;
 
   function isPractice(){ return document.body && document.body.classList && document.body.classList.contains('practice-page'); }
@@ -52,7 +52,7 @@
     }
     return fallback;
   }
-  function forceAdvanceFromStorage(beforeId){
+  function forceAdvanceFromStorage(beforeId, reloadDelay){
     var found = findSessionForQuestion(beforeId);
     if(!found) return false;
     var state = found.state;
@@ -68,23 +68,23 @@
     }
     try{ localStorage.setItem(found.key, JSON.stringify(state)); }catch(e){ return false; }
     window.__MED_NYKUTO_LAST_FORCED_NEXT__ = {beforeId:beforeId, nextIndex:state.currentIndex, at:Date.now()};
-    location.reload();
+    setTimeout(function(){ location.reload(); }, typeof reloadDelay === 'number' ? reloadDelay : 35);
     return true;
   }
   function directNext(e){
     if(!answeredVisible()) return false;
     var before = activeId();
-    var ok = forceAdvanceFromStorage(before);
+    var ok = forceAdvanceFromStorage(before, 45);
     if(ok) stop(e);
     return ok;
   }
   function scheduleNextFallback(beforeId){
-    [120, 360, 760].forEach(function(ms){
+    [140, 420, 900].forEach(function(ms){
       setTimeout(function(){
         if(!isPractice()) return;
         var nowId = activeId();
         if(nowId && beforeId && nowId !== beforeId) return;
-        forceAdvanceFromStorage(beforeId || nowId);
+        forceAdvanceFromStorage(beforeId || nowId, 20);
       }, ms);
     });
   }
@@ -136,9 +136,9 @@
   }, true);
 
   function injectStyle(){
-    if(document.getElementById('practiceCriticalClickFallbackV103Style')) return;
+    if(document.getElementById('practiceCriticalClickFallbackV104Style')) return;
     var st = document.createElement('style');
-    st.id = 'practiceCriticalClickFallbackV103Style';
+    st.id = 'practiceCriticalClickFallbackV104Style';
     st.textContent = 'body.practice-page .answer-panel:not([hidden]){display:block!important;visibility:visible!important;max-height:none!important;overflow:visible!important}body.practice-page .answer-panel details[open]{display:block!important}body.practice-page .detailed-correction,body.practice-page .premium-correction-card,body.practice-page .pc-card,body.practice-page .ppc-card,body.practice-page .ppc-panel{visibility:visible!important}';
     document.head.appendChild(st);
   }
