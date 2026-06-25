@@ -1,57 +1,69 @@
-# Med Nykuto — workflow de restauration des cours v362
+# Med Nykuto — workflow de restauration des cours et banques v363
 
 ## Objectif
 
-Restaurer les vrais cours complets dans `data/med-courses-data.js` à partir d'une ancienne version fonctionnelle du site, sans écraser à l'aveugle le fallback actuel.
+Restaurer les vrais cours complets et les banques d'entraînement depuis un ancien dossier fonctionnel du site, sans modifier `main` et sans écraser à l'aveugle les sécurités actuelles de `preview`.
 
-## Source prioritaire à retrouver
+## Source récupérée
 
-Le rapport Cloudflare v281 indique que la source complète était :
+Le dossier récupéré doit contenir au minimum :
 
 ```text
-site-med-cursos-v281-cloudflare-full-split.zip
+med-courses-data.js
+med-practice-bank-init.js
+practice-bank-fisiologia.js
+practice-bank-microbiologia.js
+practice-bank-genetica.js
+practice-bank-bioquimica.js
+practice-bank-inmunologia.js
 ```
 
-Cette version contenait :
+Le fichier `med-practice-bank-loader.js` peut être présent dans la source, mais le workflow v363 ne le remplace pas par défaut, pour conserver le loader `preview` actuel avec fallback et patchs qualité.
 
-- toutes les matières ;
-- tous les modules ;
-- `data/med-courses-data.js` séparé ;
-- fichiers `/data/` sous la limite Cloudflare Pages de 25 MiB.
+## Résultat de vérification du dossier récupéré
 
-Les rapports v282/v283 indiquaient aussi que `data/med-courses-data.js` faisait environ `2.79 MB`, ce qui est le signal attendu d'un fichier riche. Le fichier compact actuel est beaucoup plus petit et sert seulement de récupération fonctionnelle.
+La source récupérée correspond à une ancienne base riche :
 
-## Commande d'import
+| Fichier | Statut vérifié |
+|---|---|
+| `med-courses-data.js` | 6 matières, 58 modules, vrais cours longs, 0 module générique |
+| `practice-bank-fisiologia.js` | 9 modules, 1800 QCM, 450 V/F, 450 cas |
+| `practice-bank-microbiologia.js` | 13 modules, 2600 QCM, 650 V/F, 650 cas |
+| `practice-bank-genetica.js` | 12 modules, 2400 QCM, 600 V/F, 600 cas |
+| `practice-bank-bioquimica.js` | 12 modules, 600 QCM, 600 cas, pas de V/F dans cette source |
+| `practice-bank-inmunologia.js` | 12 modules, 600 QCM, 600 cas, pas de V/F dans cette source |
 
-Après avoir récupéré le ZIP ou le dossier extrait sur ton ordinateur :
+## Commande recommandée
+
+Depuis un checkout local de la branche `preview`, placer le dossier récupéré quelque part sur l'ordinateur, puis lancer :
 
 ```bash
-npm run import:courses -- /chemin/vers/site-med-cursos-v281-cloudflare-full-split.zip --write
+npm run import:legacy-data -- /chemin/vers/dossier-recupere --write
 ```
 
-Ou avec un dossier déjà décompressé :
+Avec un ZIP :
 
 ```bash
-npm run import:courses -- /chemin/vers/site-med-cursos-v281-cloudflare-full-split --write
+npm run import:legacy-data -- /chemin/vers/dossier-recupere.zip --write
 ```
 
-Ou directement avec l'ancien fichier JS :
+## Pourquoi ne pas remplacer le loader par défaut ?
+
+Le loader actuel de `preview` charge :
+
+1. les banques principales restaurées si elles existent ;
+2. le fallback fonctionnel ;
+3. les patchs qualité plus récents.
+
+Il est donc plus sûr que l'ancien loader v282. L'ancien loader peut être copié seulement si nécessaire :
 
 ```bash
-npm run import:courses -- /chemin/vers/data/med-courses-data.js --write
+npm run import:legacy-data -- /chemin/vers/dossier-recupere --write --replace-loader
 ```
 
-## Sécurité intégrée
+## Fallback V/F pour Bioquímica et Inmunología
 
-Le script `scripts/import-legacy-courses.js` :
-
-1. cherche les candidats `data/med-courses-data.js`, `data/courses-data.js`, `app.bundle.js` ;
-2. extrait `window.MED_COURSES_DATA` ;
-3. vérifie qu'il y a au moins 5 matières actives et 58 modules ;
-4. rejette les données génériques de fallback, sauf option explicite `--allow-generic` ;
-5. crée une sauvegarde de l'actuel `data/med-courses-data.js` ;
-6. écrit le fichier restauré ;
-7. demande ensuite de lancer les validateurs.
+Les fichiers récupérés pour Bioquímica et Inmunología ne contiennent pas de tableau `vf`. Le fallback `practice-bank-functional-fallback-v360.js` a donc été durci en v363 : il n'écrase pas les vraies banques, mais complète uniquement les formats absents.
 
 ## Commandes après import
 
@@ -60,18 +72,10 @@ npm run validate
 npm test
 ```
 
-## Attention
+## Règles de sécurité
 
-Ne pas importer un fichier qui contient seulement des modules génériques du type :
-
-```text
-Este módulo organiza los puntos esenciales...
-```
-
-Ce texte indique un fallback fonctionnel, pas les vrais cours complets.
-
-## Statut actuel
-
-- `preview` contient une version fonctionnelle compacte de `data/med-courses-data.js`.
-- L'historique GitHub récent montre une version vide, puis une version compacte générique.
-- La source complète doit donc être reprise depuis l'ancien ZIP/dossier v281/v282 ou depuis les fichiers de cours individuels validés.
+- Ne pas modifier `main`.
+- Importer sur `preview` uniquement.
+- Vérifier les tailles : les gros fichiers sont normaux.
+- Refuser les fichiers qui ne contiennent que du fallback générique.
+- Garder une sauvegarde automatique avant remplacement.
