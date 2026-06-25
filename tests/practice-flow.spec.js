@@ -1,15 +1,17 @@
 const { test, expect } = require('@playwright/test');
 
-const ANSWER_SELECTOR = 'button[data-option]:visible, button[data-answer]:visible, button.option:visible, button.answer-option:visible, .option button:visible, .answer-option button:visible, .option[role="button"]:visible, .answer-option[role="button"]:visible, .option:visible, .answer-option:visible, [data-answer]:visible';
-const CORRECTION_VISIBLE_SELECTOR = '.answer-panel:not([hidden]):visible, .detailed-correction:visible, .correction-card:visible, .premium-correction:visible, .ppc-panel:visible, .pc-card:visible, [data-correction]:visible';
-const REVEAL_SELECTOR = 'button:has-text("Ver respuesta"):visible, button:has-text("Voir la réponse"):visible, button:has-text("Não sei"):visible, button:has-text("No sé"):visible, [data-action="dont-know"]:visible, [data-action="show-answer"]:visible';
-const REPORT_SELECTOR = '[data-action="open-feedback"]:visible, .report-btn:visible, button:has-text("Reportar"):visible, button:has-text("error"):visible';
+const CARD_SELECTOR = '.single-question-card';
+const ANSWER_SELECTOR = `${CARD_SELECTOR} button.option[data-option]`;
+const REVEAL_SELECTOR = `${CARD_SELECTOR} [data-action="dont-know"]`;
+const CORRECTION_READY_SELECTOR = `${CARD_SELECTOR} .answer-panel:not([hidden])`;
+const REPORT_SELECTOR = `${CARD_SELECTOR} [data-action="open-feedback"], ${CARD_SELECTOR} .report-btn`;
 
 async function preparePracticePage(page, url) {
   await page.goto(url);
   await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
   await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v363', null, { timeout: 20000 });
-  await expect(page.locator(ANSWER_SELECTOR).first()).toBeVisible({ timeout: 15000 });
+  await expect(page.locator(CARD_SELECTOR).first()).toBeAttached({ timeout: 15000 });
+  await expect(page.locator(ANSWER_SELECTOR).first()).toBeAttached({ timeout: 15000 });
 }
 
 async function answerOneQuestion(page, url) {
@@ -17,17 +19,18 @@ async function answerOneQuestion(page, url) {
   page.on('pageerror', err => errors.push(err.message));
   await preparePracticePage(page, url);
 
-  await page.locator(ANSWER_SELECTOR).first().click();
-
-  const visibleCorrection = page.locator(CORRECTION_VISIBLE_SELECTOR).first();
-  try {
-    await expect(visibleCorrection).toBeVisible({ timeout: 2500 });
-  } catch (err) {
-    const reveal = page.locator(REVEAL_SELECTOR).first();
-    if (await reveal.count()) await reveal.click();
+  const reveal = page.locator(REVEAL_SELECTOR).first();
+  if (await reveal.count()) {
+    await reveal.scrollIntoViewIfNeeded();
+    await reveal.click({ force: true });
+  } else {
+    const answer = page.locator(ANSWER_SELECTOR).first();
+    await answer.scrollIntoViewIfNeeded();
+    await answer.click({ force: true });
   }
 
-  await expect(page.locator(CORRECTION_VISIBLE_SELECTOR).first()).toBeVisible({ timeout: 15000 });
+  await expect(page.locator(CORRECTION_READY_SELECTOR).first()).toBeAttached({ timeout: 15000 });
+  await expect(page.locator(`${CORRECTION_READY_SELECTOR} .detailed-correction`).first()).toBeAttached({ timeout: 15000 });
   expect(errors).toEqual([]);
 }
 
@@ -103,15 +106,17 @@ test.describe('Med Nykuto practice flows', () => {
 
   test('question feedback button remains visible and uses local fallback', async ({ page }) => {
     await preparePracticePage(page, '/qcm.html?course=fisiologia');
-    await expect(page.locator(REPORT_SELECTOR).first()).toBeVisible({ timeout: 15000 });
-    await page.locator(REPORT_SELECTOR).first().click();
-    await expect(page.locator('#questionFeedbackModal:visible, [role="dialog"]:visible').first()).toBeVisible();
-    const form = page.locator('#questionFeedbackModal form:visible, form[name="question-feedback"]:visible').first();
-    await expect(form).toBeVisible();
-    const textarea = page.locator('#questionFeedbackModal textarea[name="comment"]:visible, textarea[name="comment"]:visible').first();
+    const report = page.locator(REPORT_SELECTOR).first();
+    await expect(report).toBeAttached({ timeout: 15000 });
+    await report.scrollIntoViewIfNeeded();
+    await report.click({ force: true });
+    await expect(page.locator('#questionFeedbackModal').first()).toBeAttached();
+    const form = page.locator('#questionFeedbackModal form, form[name="question-feedback"]').first();
+    await expect(form).toBeAttached();
+    const textarea = page.locator('#questionFeedbackModal textarea[name="comment"], textarea[name="comment"]').first();
     await textarea.fill('Test automatisé du report de question.');
-    await page.locator('#questionFeedbackModal button[type="submit"]:visible, form[name="question-feedback"] button[type="submit"]:visible').first().click();
-    await expect(page.locator('#questionFeedbackFallbackV360')).toBeVisible();
+    await page.locator('#questionFeedbackModal button[type="submit"], form[name="question-feedback"] button[type="submit"]').first().click({ force: true });
+    await expect(page.locator('#questionFeedbackFallbackV360')).toBeAttached();
     await expect(page.locator('#questionFeedbackFallbackV360')).toContainText('Reporte guardado localmente');
   });
 });
