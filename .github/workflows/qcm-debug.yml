@@ -1,0 +1,42 @@
+name: QCM Debug Only
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: med-nykuto-qcm-debug-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  qcm-debug:
+    name: QCM critical debug with trace
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm install
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
+      - name: Run QCM critical debug
+        run: |
+          set +e
+          npx playwright test tests/qcm-critical-clicks.spec.js --project=desktop-chromium --trace=on --video=retain-on-failure --screenshot=only-on-failure --output=test-results/qcm-debug --reporter=json > qcm-debug.json
+          code=$?
+          node scripts/print-playwright-summary.js qcm-debug.json
+          exit $code
+      - name: Upload QCM debug evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qcm-debug-evidence
+          if-no-files-found: ignore
+          path: |
+            qcm-debug.json
+            test-results/qcm-debug/**
+            playwright-report/**
