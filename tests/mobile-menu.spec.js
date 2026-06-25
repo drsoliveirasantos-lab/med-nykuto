@@ -1,5 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
+const MENU_DEBOUNCE_MS = 220;
+
 test.describe('Med Nykuto mobile menu', () => {
   test('hamburger opens, closes and keeps links clickable', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -13,9 +15,11 @@ test.describe('Med Nykuto mobile menu', () => {
     await expect(menu).toHaveClass(/open/);
     await expect(page.locator('#navLinks a[href="matieres.html"]')).toBeVisible();
 
+    await page.waitForTimeout(MENU_DEBOUNCE_MS);
     await toggle.click();
     await expect(menu).not.toHaveClass(/open/);
 
+    await page.waitForTimeout(MENU_DEBOUNCE_MS);
     await toggle.click();
     await expect(menu).toHaveClass(/open/);
     await page.locator('#navLinks a[href="modules.html"]').click();
