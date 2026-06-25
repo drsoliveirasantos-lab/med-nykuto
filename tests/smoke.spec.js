@@ -99,13 +99,14 @@ test.describe('Med Nykuto smoke navigation', () => {
     await expect(page.locator('[data-testid="home-module-choice"]').first()).toHaveAttribute('data-home-module-href', /\/module\.html\?id=/);
   });
 
-  test('module page uses premium direct reader layout', async ({ page }) => {
+  test('module page uses content-first reader layout', async ({ page }) => {
     await page.goto('/module.html?id=01-fisiologia-01-neurofisiologia-y-potencial-de-accion');
-    await page.waitForFunction(() => window.__MED_NYKUTO_MODULE_DIRECT_READER__ === 'v102-premium-direct-course', null, { timeout: 20000 });
+    await page.waitForFunction(() => window.__MED_NYKUTO_MODULE_DIRECT_READER__ === 'v103-content-first', null, { timeout: 20000 });
     await expect(page.locator('body')).toHaveClass(/module-direct-ready/);
     await expect(page.locator('#moduleContent')).toBeVisible();
     await expect(page.locator('.mobile-toc')).toBeHidden();
     await expect(page.locator('.module-nav')).toBeHidden();
+    await expect(page.locator('.reader-card > :not(.reader-head):not(#moduleContent)')).toBeHidden();
   });
 
   test('Biofísica is absent or disabled safely', async ({ page }) => {
