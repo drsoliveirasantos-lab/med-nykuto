@@ -1,5 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
+const CURRENT_PRACTICE_LOADER = 'v364';
+
 const expectedCourses = {
   fisiologia: { modules: 9, qcm: 1800, vf: 450, cases: 450 },
   microbiologia: { modules: 13, qcm: 2600, vf: 650, cases: 650 },
@@ -38,7 +40,7 @@ test.describe('Med Nykuto restored data integrity', () => {
   for (const [courseId, expected] of Object.entries(expectedCourses)) {
     test(`restored bank volume is healthy for ${courseId}`, async ({ page }) => {
       await page.goto(`/qcm.html?course=${courseId}`);
-      await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v363');
+      await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_LOADER__ === version, CURRENT_PRACTICE_LOADER, { timeout: 20000 });
       await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361');
       const data = await page.evaluate((id) => {
         const courses = window.MED_COURSES_DATA?.courses || [];
@@ -56,7 +58,7 @@ test.describe('Med Nykuto restored data integrity', () => {
           healthOk: !!window.MED_NYKUTO_HEALTH?.ok
         };
       }, courseId);
-      expect(data.loader).toBe('v363');
+      expect(data.loader).toBe(CURRENT_PRACTICE_LOADER);
       expect(data.healthOk).toBeTruthy();
       expect(data.modules).toBe(expected.modules);
       expect(data.qcm).toBeGreaterThanOrEqual(expected.qcm);
