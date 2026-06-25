@@ -3,6 +3,7 @@ const { test, expect } = require('@playwright/test');
 test.describe('Med Nykuto contact fallback', () => {
   test('contact form does not fake-send on Cloudflare fallback', async ({ page }) => {
     await page.goto('/contact.html');
+    await page.waitForFunction(() => window.__MED_NYKUTO_GLOBAL_FIX__ === 'v360', null, { timeout: 20000 });
     await page.selectOption('select[name="type"]', 'technical-issue');
     await page.fill('input[name="name"]', 'Test');
     await page.fill('textarea[name="message"]', 'Test automatisé du formulaire.');
