@@ -14,24 +14,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-
       - name: Install dependencies
         run: npm install
-
       - name: Validate static links and release markers
         run: node scripts/validate-site-links.js
-
       - name: Validate restored data volumes
         run: node scripts/validate-data-health.js
-
       - name: Validate restored course assets
         run: node scripts/validate-course-assets.js
-
       - name: Validate site manifest
         run: node scripts/validate-site-manifest.js
 
@@ -46,7 +40,13 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test tests/smoke.spec.js --project=desktop-chromium --reporter=line
+      - name: Run smoke tests
+        run: |
+          set +e
+          npx playwright test tests/smoke.spec.js --project=desktop-chromium --reporter=json > smoke.json
+          code=$?
+          node scripts/print-playwright-summary.js smoke.json
+          exit $code
 
   browser-restored-data:
     name: Browser restored-data tests
@@ -59,7 +59,13 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test tests/restored-data.spec.js --project=desktop-chromium --reporter=line
+      - name: Run restored-data tests
+        run: |
+          set +e
+          npx playwright test tests/restored-data.spec.js --project=desktop-chromium --reporter=json > restored-data.json
+          code=$?
+          node scripts/print-playwright-summary.js restored-data.json
+          exit $code
 
   browser-practice-flow:
     name: Browser practice-flow tests
@@ -72,7 +78,13 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test tests/practice-flow.spec.js --project=desktop-chromium --reporter=line
+      - name: Run practice-flow tests
+        run: |
+          set +e
+          npx playwright test tests/practice-flow.spec.js --project=desktop-chromium --reporter=json > practice-flow.json
+          code=$?
+          node scripts/print-playwright-summary.js practice-flow.json
+          exit $code
 
   browser-click-audit:
     name: Browser click-audit tests
@@ -85,7 +97,13 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test tests/click-audit.spec.js --project=desktop-chromium --reporter=line
+      - name: Run click-audit tests
+        run: |
+          set +e
+          npx playwright test tests/click-audit.spec.js --project=desktop-chromium --reporter=json > click-audit.json
+          code=$?
+          node scripts/print-playwright-summary.js click-audit.json
+          exit $code
 
   browser-mobile-menu:
     name: Browser mobile-menu tests
@@ -98,7 +116,13 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test tests/mobile-menu.spec.js --project=desktop-chromium --reporter=line
+      - name: Run mobile-menu tests
+        run: |
+          set +e
+          npx playwright test tests/mobile-menu.spec.js --project=desktop-chromium --reporter=json > mobile-menu.json
+          code=$?
+          node scripts/print-playwright-summary.js mobile-menu.json
+          exit $code
 
   browser-contact:
     name: Browser contact tests
@@ -111,4 +135,10 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test tests/contact.spec.js --project=desktop-chromium --reporter=line
+      - name: Run contact tests
+        run: |
+          set +e
+          npx playwright test tests/contact.spec.js --project=desktop-chromium --reporter=json > contact.json
+          code=$?
+          node scripts/print-playwright-summary.js contact.json
+          exit $code
