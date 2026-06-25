@@ -1,5 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
+// Full real UI audit v2: scrolls each enabled target before overlay detection.
 const criticalPages = [
   '/index.html',
   '/matieres.html',
