@@ -1,8 +1,6 @@
-/* v351 — Lazy practice bank loader
+/* v360 — Lazy practice bank loader with functional fallback.
    Purpose: avoid loading every large practice bank on every page.
-   This keeps Cloudflare files under 25 MiB and prevents QCM/Cases/VF pages from freezing.
-   v351 chains count-safe quality patches after the corresponding bank file.
-*/
+   If split source files are empty, data/practice-bank-functional-fallback-v360.js rebuilds a usable bank. */
 (function(){
   "use strict";
 
@@ -13,25 +11,17 @@
   };
 
   function normId(x){ return String(x || "").toLowerCase().trim(); }
-
   function courseFromModule(moduleId){
     try{
       var courses = (window.MED_COURSES_DATA && window.MED_COURSES_DATA.courses) || [];
       for(var i=0; i<courses.length; i++){
         var mods = courses[i].modules || [];
-        for(var j=0; j<mods.length; j++){
-          if(String(mods[j].id) === String(moduleId)) return courses[i].id;
-        }
+        for(var j=0; j<mods.length; j++) if(String(mods[j].id) === String(moduleId)) return courses[i].id;
       }
     }catch(e){}
     return "";
   }
-
-  function bodyPage(){
-    try { return document.body && document.body.dataset ? document.body.dataset.page : ""; }
-    catch(e){ return ""; }
-  }
-
+  function bodyPage(){ try { return document.body && document.body.dataset ? document.body.dataset.page : ""; } catch(e){ return ""; } }
   function wantedCourses(){
     var params = new URLSearchParams(location.search || "");
     var page = bodyPage();
@@ -44,10 +34,7 @@
     if(page === "practice") return Object.keys(bankFiles);
     return [];
   }
-
-  function loadDataScript(path){
-    document.write('<scr' + 'ipt src="data/' + path + '?v=351"></scr' + 'ipt>');
-  }
+  function loadDataScript(path){ document.write('<scr' + 'ipt src="data/' + path + '?v=360"></scr' + 'ipt>'); }
 
   window.MED_PRACTICE_BANK = window.MED_PRACTICE_BANK || {byCourse:{}};
   window.MED_PRACTICE_BANK.byCourse = window.MED_PRACTICE_BANK.byCourse || {};
@@ -61,7 +48,10 @@
     var file = bankFiles[id];
     if(!file) continue;
     if(!(window.MED_PRACTICE_BANK.byCourse && window.MED_PRACTICE_BANK.byCourse[id])) loadDataScript(file);
-    var patches = patchFiles[id] || [];
+  }
+  if(wanted.length) loadDataScript("practice-bank-functional-fallback-v360.js");
+  for(var k=0; k<wanted.length; k++){
+    var patches = patchFiles[wanted[k]] || [];
     for(var j=0; j<patches.length; j++) loadDataScript(patches[j]);
   }
 
