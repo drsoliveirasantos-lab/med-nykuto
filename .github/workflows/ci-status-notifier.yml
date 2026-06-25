@@ -1,0 +1,51 @@
+name: Med Nykuto CI status notifier
+
+on:
+  workflow_run:
+    workflows:
+      - Med Nykuto site tests
+    types:
+      - completed
+
+permissions:
+  actions: read
+  contents: read
+  issues: write
+
+jobs:
+  notify:
+    name: Publish CI status comment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment CI status on issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue_number = 1;
+            const run = context.payload.workflow_run;
+            const conclusion = run.conclusion || 'unknown';
+            const emoji = conclusion === 'success' ? '✅' : conclusion === 'failure' ? '❌' : conclusion === 'cancelled' ? '⚪' : '⚠️';
+            const sha = (run.head_sha || '').slice(0, 7);
+            const branch = run.head_branch || 'unknown';
+            const title = `${emoji} ${run.name} #${run.run_number} — ${conclusion.toUpperCase()}`;
+            const body = [
+              title,
+              '',
+              `- Branch: \`${branch}\``,
+              `- Commit: \`${sha}\``,
+              `- Event: \`${run.event}\``,
+              `- Status: \`${run.status}\``,
+              `- Conclusion: \`${conclusion}\``,
+              `- Started: ${run.created_at}`,
+              `- Updated: ${run.updated_at}`,
+              `- Run: ${run.html_url}`,
+              '',
+              '<!-- med-nykuto-ci-status-notifier -->'
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number,
+              body
+            });
