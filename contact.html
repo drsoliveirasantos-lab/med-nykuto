@@ -29,7 +29,7 @@
             <label class="field-label"><span>Email</span><input type="email" name="email" placeholder="nombre@email.com" /></label>
             <label class="field-label field-full"><span>Mensaje</span><textarea name="message" required placeholder="Describe el problema, la idea o la mejora que propones."></textarea></label>
           </div>
-          <div class="contact-actions"><button type="submit" class="btn primary">Preparar mensaje</button><a href="index.html#supportProject" class="btn secondary">Apoyar el proyecto</a></div>
+          <div class="contact-actions"><button type="submit" class="btn primary" onclick="return window.medNykutoContactFallback(event,this.form)">Preparar mensaje</button><a href="index.html#supportProject" class="btn secondary">Apoyar el proyecto</a></div>
         </form>
       </article>
       <aside class="contact-card contact-help-card"><div class="contact-card-head"><p class="eyebrow">Antes de enviar</p><h2>Cómo hacer un buen reporte</h2></div><ul class="contact-tips"><li>Para un error preciso en un QCM, usa “Reportar error” en la pregunta.</li><li>Para un bug visual, indica dispositivo y navegador: iPhone, Android, Safari, Chrome, etc.</li><li>Para corregir un curso, indica materia, módulo y qué parece falso o incompleto.</li></ul><div class="contact-note"><strong>Consejo</strong><p>Esta página sirve sobre todo para retornos generales. Para preguntas precisas, el reporte integrado en QCM es mejor.</p></div></aside>
@@ -38,7 +38,7 @@
   <footer class="footer"><p>© <span id="year"></span> Med Nykuto</p><div class="footer-links"><a href="index.html">Inicio</a><a href="matieres.html">Materias</a><a href="contact.html">Contacto</a><a href="a-propos.html">Acerca de</a><a href="mentions.html">Aviso legal</a></div></footer>
   <script>
     window.medNykutoContactFallback = function(event, form){
-      if(event){ event.preventDefault(); event.stopPropagation(); }
+      if(event){ event.preventDefault(); event.stopPropagation(); if(event.stopImmediatePropagation) event.stopImmediatePropagation(); }
       form = form || document.querySelector('form[name="site-contact"]');
       if(!form) return false;
       var fd = new FormData(form);
@@ -68,9 +68,14 @@
     };
     document.addEventListener('DOMContentLoaded', function(){
       var form = document.querySelector('form[name="site-contact"]');
+      var btn = document.querySelector('form[name="site-contact"] button[type="submit"]');
       if(form && form.dataset.inlineContactFallbackBound !== '1'){
         form.dataset.inlineContactFallbackBound = '1';
         form.addEventListener('submit', function(e){ window.medNykutoContactFallback(e, form); }, true);
+      }
+      if(btn && btn.dataset.inlineContactFallbackClickBound !== '1'){
+        btn.dataset.inlineContactFallbackClickBound = '1';
+        btn.addEventListener('click', function(e){ window.medNykutoContactFallback(e, form); }, true);
       }
     });
   </script>
