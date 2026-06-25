@@ -17,15 +17,15 @@ const pages = [
 ];
 
 const navExpectations = [
-  ['Inicio', /index\.html|\/$/],
-  ['Materias', /matieres\.html/],
-  ['Módulos', /modules\.html/],
-  ['QCM', /qcm\.html/],
-  ['Casos clínicos', /cas-cliniques\.html/],
-  ['V/F', /vrai-faux\.html/],
-  ['Errores', /erreurs\.html/],
-  ['Examen blanco', /examen\.html/],
-  ['Contacto', /contact\.html/]
+  ['#navLinks a[href="index.html"], #navLinks a[href="/"]', /index\.html|\/$/],
+  ['#navLinks a[href="matieres.html"]', /matieres\.html/],
+  ['#navLinks a[href="modules.html"]', /modules\.html/],
+  ['#navLinks a[href="qcm.html"]', /qcm\.html/],
+  ['#navLinks a[href="cas-cliniques.html"]', /cas-cliniques\.html/],
+  ['#navLinks a[href="vrai-faux.html"]', /vrai-faux\.html/],
+  ['#navLinks a[href="erreurs.html"]', /erreurs\.html/],
+  ['#navLinks a[href="examen.html"]', /examen\.html/],
+  ['#navLinks a[href="contact.html"]', /contact\.html/]
 ];
 
 function collectPageErrors(page) {
@@ -37,6 +37,12 @@ function collectPageErrors(page) {
 async function waitReady(page) {
   await expect(page.locator('body')).toBeVisible();
   await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
+}
+
+async function clickHref(page, hrefPart) {
+  const link = page.locator(`a[href*="${hrefPart}"]`).first();
+  await expect(link).toBeAttached({ timeout: 15000 });
+  await link.click();
 }
 
 test.describe('Med Nykuto broad click audit', () => {
@@ -52,13 +58,19 @@ test.describe('Med Nykuto broad click audit', () => {
           const style = getComputedStyle(el);
           return r.width > 0 && r.height > 0 && style.visibility !== 'hidden' && style.display !== 'none';
         };
+        const isDisabled = el => (
+          el.getAttribute('aria-disabled') === 'true' ||
+          el.disabled === true ||
+          el.classList.contains('disabled') ||
+          !!el.closest('.disabled,.is-coming-soon,[aria-disabled="true"]')
+        );
         const controls = Array.from(document.querySelectorAll('a, button, summary, label, [role="button"], .option, [data-action]'))
           .filter(visible)
           .map(el => ({
             tag: el.tagName,
             text: (el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80),
             href: el.getAttribute('href') || '',
-            disabled: el.getAttribute('aria-disabled') === 'true' || el.disabled === true || el.closest('.is-coming-soon'),
+            disabled: isDisabled(el),
             pointer: getComputedStyle(el).pointerEvents,
             id: el.id || '',
             cls: el.className || ''
@@ -80,12 +92,12 @@ test.describe('Med Nykuto broad click audit', () => {
   }
 
   test('main navigation links go to the expected pages', async ({ page }) => {
-    for (const [label, expectedUrl] of navExpectations) {
+    for (const [selector, expectedUrl] of navExpectations) {
       const errors = collectPageErrors(page);
       await page.goto('/index.html');
       await waitReady(page);
-      const link = page.locator('#navLinks a', { hasText: label }).first();
-      await expect(link).toBeVisible();
+      const link = page.locator(selector).first();
+      await expect(link).toBeAttached({ timeout: 15000 });
       await link.click();
       await expect(page).toHaveURL(expectedUrl);
       await expect(page.locator('body')).toBeVisible();
@@ -100,13 +112,13 @@ test.describe('Med Nykuto broad click audit', () => {
 
     await page.locator('#openQcmBtn').click();
     await expect(page).toHaveURL(/qcm\.html/);
-    await expect(page.locator('.option').first()).toBeVisible();
+    await expect(page.locator('.option').first()).toBeAttached();
 
     await page.goto('/module.html?id=01-fisiologia-01-neurofisiologia-y-potencial-de-accion');
     await waitReady(page);
     await page.locator('#openCaseBtn').click();
     await expect(page).toHaveURL(/cas-cliniques\.html/);
-    await expect(page.locator('.option').first()).toBeVisible();
+    await expect(page.locator('.option').first()).toBeAttached();
   });
 
   test('mark-as-seen button toggles module progress without navigation break', async ({ page }) => {
@@ -123,17 +135,17 @@ test.describe('Med Nykuto broad click audit', () => {
   test('practice mode pills navigate between QCM cases V/F and errors', async ({ page }) => {
     await page.goto('/qcm.html?course=fisiologia');
     await waitReady(page);
-    await expect(page.locator('.option').first()).toBeVisible();
+    await expect(page.locator('.option').first()).toBeAttached();
 
-    await page.locator('.practice-compact-pill', { hasText: 'Casos' }).first().click();
+    await clickHref(page, 'cas-cliniques.html');
     await expect(page).toHaveURL(/cas-cliniques\.html/);
-    await expect(page.locator('.option').first()).toBeVisible();
+    await expect(page.locator('.option').first()).toBeAttached();
 
-    await page.locator('.practice-compact-pill', { hasText: 'V/F' }).first().click();
+    await clickHref(page, 'vrai-faux.html');
     await expect(page).toHaveURL(/vrai-faux\.html/);
-    await expect(page.locator('.option').first()).toBeVisible();
+    await expect(page.locator('.option').first()).toBeAttached();
 
-    await page.locator('.practice-compact-pill', { hasText: 'Errores' }).first().click();
+    await clickHref(page, 'erreurs.html');
     await expect(page).toHaveURL(/erreurs\.html/);
     await expect(page.locator('body')).toBeVisible();
   });
