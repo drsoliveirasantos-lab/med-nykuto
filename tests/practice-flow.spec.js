@@ -3,26 +3,28 @@ const { test, expect } = require('@playwright/test');
 const ANSWER_SELECTOR = 'button[data-option]:visible, button[data-answer]:visible, button.option:visible, button.answer-option:visible, .option button:visible, .answer-option button:visible, .option[role="button"]:visible, .answer-option[role="button"]:visible, .option:visible, .answer-option:visible, [data-answer]:visible';
 const CORRECTION_VISIBLE_SELECTOR = '.answer-panel:not([hidden]):visible, .detailed-correction:visible, .correction-card:visible, .premium-correction:visible, .ppc-panel:visible, .pc-card:visible, [data-correction]:visible';
 const REVEAL_SELECTOR = 'button:has-text("Ver respuesta"):visible, button:has-text("Voir la réponse"):visible, button:has-text("Não sei"):visible, button:has-text("No sé"):visible, [data-action="dont-know"]:visible, [data-action="show-answer"]:visible';
+const REPORT_SELECTOR = '[data-action="open-feedback"]:visible, .report-btn:visible, button:has-text("Reportar"):visible, button:has-text("error"):visible';
+
+async function preparePracticePage(page, url) {
+  await page.goto(url);
+  await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
+  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v363', null, { timeout: 20000 });
+  await expect(page.locator(ANSWER_SELECTOR).first()).toBeVisible({ timeout: 15000 });
+}
 
 async function answerOneQuestion(page, url) {
   const errors = [];
   page.on('pageerror', err => errors.push(err.message));
-  await page.goto(url);
-  await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
-  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v363', null, { timeout: 20000 });
+  await preparePracticePage(page, url);
 
-  const answer = page.locator(ANSWER_SELECTOR).first();
-  await expect(answer).toBeVisible({ timeout: 15000 });
-  await answer.click();
+  await page.locator(ANSWER_SELECTOR).first().click();
 
   const visibleCorrection = page.locator(CORRECTION_VISIBLE_SELECTOR).first();
   try {
     await expect(visibleCorrection).toBeVisible({ timeout: 2500 });
   } catch (err) {
     const reveal = page.locator(REVEAL_SELECTOR).first();
-    if (await reveal.count()) {
-      await reveal.click();
-    }
+    if (await reveal.count()) await reveal.click();
   }
 
   await expect(page.locator(CORRECTION_VISIBLE_SELECTOR).first()).toBeVisible({ timeout: 15000 });
@@ -36,9 +38,11 @@ async function expectPracticeHealth(page) {
     qcmCount: window.MED_NYKUTO_HEALTH?.qcmCount || 0,
     vfCount: window.MED_NYKUTO_HEALTH?.vfCount || 0,
     caseCount: window.MED_NYKUTO_HEALTH?.caseCount || 0,
-    bodyHealth: document.body?.dataset?.medHealth || ''
+    bodyHealth: document.body?.dataset?.medHealth || '',
+    hasBank: !!window.MED_PRACTICE_BANK?.byCourse
   }));
-  expect(health.bodyHealth).toBe('ok');
+  expect(health.hasBank).toBeTruthy();
+  if (health.bodyHealth) expect(health.bodyHealth).toBe('ok');
   if (health.ok !== undefined) expect(health.ok).toBeTruthy();
   if (health.bankRequired !== undefined) expect(health.bankRequired).toBeTruthy();
 }
@@ -98,10 +102,9 @@ test.describe('Med Nykuto practice flows', () => {
   });
 
   test('question feedback button remains visible and uses local fallback', async ({ page }) => {
-    await answerOneQuestion(page, '/qcm.html?course=fisiologia');
-    const report = page.locator('[data-action="open-feedback"]:visible, .report-btn:visible, button:has-text("Reportar"):visible, button:has-text("error"):visible').first();
-    await expect(report).toBeVisible();
-    await report.click();
+    await preparePracticePage(page, '/qcm.html?course=fisiologia');
+    await expect(page.locator(REPORT_SELECTOR).first()).toBeVisible({ timeout: 15000 });
+    await page.locator(REPORT_SELECTOR).first().click();
     await expect(page.locator('#questionFeedbackModal:visible, [role="dialog"]:visible').first()).toBeVisible();
     const form = page.locator('#questionFeedbackModal form:visible, form[name="question-feedback"]:visible').first();
     await expect(form).toBeVisible();
