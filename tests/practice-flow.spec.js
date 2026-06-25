@@ -35,6 +35,7 @@ test.describe('Med Nykuto practice flows', () => {
     await expect(report).toBeVisible();
     await report.click();
     await expect(page.locator('#questionFeedbackModal')).toBeVisible();
+    await expect(page.locator('#questionFeedbackModal form[data-med-nykuto-question-feedback-bound="1"]')).toBeVisible();
     await page.fill('#questionFeedbackModal textarea[name="comment"]', 'Test automatisé du report de question.');
     await page.click('#questionFeedbackModal button[type="submit"]');
     await expect(page.locator('#questionFeedbackFallbackV360')).toBeVisible();
