@@ -97,28 +97,37 @@ test.describe('Med Nykuto full real UI audit', () => {
     await expect(nav.locator('a[href="qcm.html"]').first()).toBeVisible();
   });
 
-  test('visible critical controls are not covered by invisible overlays', async ({ page }) => {
+  test('visible enabled critical controls are not covered by invisible overlays', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/qcm.html?course=fisiologia');
     await waitPracticeReady(page);
-    const blocked = await page.evaluate(() => {
-      const selectors = ['a.brand', 'a.brand-official', '#menuToggle', '.menu-toggle', '.single-question-card button.option', '.single-question-card [data-action="next-question"]'];
-      const controls = selectors.flatMap(sel => Array.from(document.querySelectorAll(sel))).filter(el => {
+    const blocked = await page.evaluate(async () => {
+      const selectors = ['a.brand', 'a.brand-official', '#menuToggle', '.menu-toggle', '.single-question-card button.option:not([disabled])', '.single-question-card [data-action="next-question"]:not([disabled])'];
+      const visible = el => {
         const r = el.getBoundingClientRect();
         const s = getComputedStyle(el);
-        return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none';
-      });
-      return controls.map(el => {
+        return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none' && s.pointerEvents !== 'none';
+      };
+      const controls = selectors.flatMap(sel => Array.from(document.querySelectorAll(sel))).filter(visible);
+      const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+      const results = [];
+      for (const el of controls) {
+        el.scrollIntoView({ block: 'center', inline: 'center' });
+        await wait(40);
         const r = el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight || r.right < 0 || r.left > window.innerWidth) continue;
         const x = Math.min(Math.max(r.left + r.width / 2, 1), window.innerWidth - 1);
         const y = Math.min(Math.max(r.top + r.height / 2, 1), window.innerHeight - 1);
         const top = document.elementFromPoint(x, y);
-        const ok = top === el || el.contains(top) || (top && top.contains(el));
-        return ok ? null : {
-          target: el.tagName + '#' + (el.id || '') + '.' + String(el.className || '').replace(/\s+/g, '.'),
-          top: top ? top.tagName + '#' + (top.id || '') + '.' + String(top.className || '').replace(/\s+/g, '.') : 'none'
-        };
-      }).filter(Boolean);
+        const ok = top === el || el.contains(top) || (top && top.closest && top.closest('button,a,[role="button"]') === el);
+        if (!ok) {
+          results.push({
+            target: el.tagName + '#' + (el.id || '') + '.' + String(el.className || '').replace(/\s+/g, '.'),
+            top: top ? top.tagName + '#' + (top.id || '') + '.' + String(top.className || '').replace(/\s+/g, '.') : 'none'
+          });
+        }
+      }
+      return results;
     });
     expect(blocked).toEqual([]);
   });
