@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+const { test, expect } = require('@playwright/test');
 
 test.describe('Med Nykuto contact fallback', () => {
   test('contact form does not fake-send on Cloudflare fallback', async ({ page }) => {
