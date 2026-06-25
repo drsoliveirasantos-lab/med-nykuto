@@ -2,18 +2,21 @@ name: Med Nykuto full real UI audit debug
 
 on:
   workflow_dispatch:
-  push:
-    branches: [preview]
+
+concurrency:
+  group: med-nykuto-full-real-ui-debug-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   full-real-ui-audit:
     name: Full real UI audit
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Quiet clone and run full real UI audit
         run: |
           set -e
           git clone --quiet --depth=1 --branch preview https://x-access-token:${{ github.token }}@github.com/drsoliveirasantos-lab/med-nykuto.git .
           npm install --silent >/tmp/npm-install.log 2>&1 || { cat /tmp/npm-install.log; exit 1; }
-          npx playwright install --with-deps chromium >/tmp/playwright-install.log 2>&1 || { tail -80 /tmp/playwright-install.log; exit 1; }
+          timeout 240s npx playwright install --with-deps chromium >/tmp/playwright-install.log 2>&1 || { tail -80 /tmp/playwright-install.log; exit 1; }
           npx playwright test tests/full-real-ui-audit.spec.js --project=desktop-chromium --reporter=line
