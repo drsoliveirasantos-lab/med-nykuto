@@ -47,7 +47,8 @@ test.describe('Med Nykuto smoke navigation', () => {
       repair: window.__MED_NYKUTO_GLOBAL_FIX__ || '',
       runtime: window.__MED_NYKUTO_RUNTIME_GUARD__ || '',
       health: window.MED_NYKUTO_HEALTH || null,
-      bodyHealth: document.body?.dataset?.medHealth || ''
+      bodyHealth: document.body?.dataset?.medHealth || '',
+      bankRequired: document.body?.dataset?.medBankRequired || ''
     }));
     expect(data.hasData).toBeTruthy();
     expect(data.courseCount).toBeGreaterThanOrEqual(5);
@@ -58,6 +59,7 @@ test.describe('Med Nykuto smoke navigation', () => {
     expect(data.health?.ok).toBeTruthy();
     expect(data.health?.moduleCount).toBeGreaterThanOrEqual(40);
     expect(data.bodyHealth).toBe('ok');
+    expect(data.bankRequired).toBe('0');
     await expect(page.locator('.course-card').first()).toBeVisible();
   });
 
@@ -69,5 +71,15 @@ test.describe('Med Nykuto smoke navigation', () => {
     await expect(page.locator('body')).not.toContainText('1160');
     await expect(page.locator('body')).not.toContainText('2900');
     await expect(page.locator('.home-v41-proof')).toContainText('QCM');
+  });
+
+  test('coming-soon Biofísica card is disabled safely', async ({ page }) => {
+    await page.goto('/index.html');
+    await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361');
+    const biofisica = page.locator('.subject-progress-card', { hasText: /Biofísica/ }).first();
+    await expect(biofisica).toHaveAttribute('aria-disabled', 'true');
+    const before = page.url();
+    await biofisica.click();
+    await expect(page).toHaveURL(before);
   });
 });
