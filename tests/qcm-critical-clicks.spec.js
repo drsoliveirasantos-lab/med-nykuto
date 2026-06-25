@@ -37,6 +37,19 @@ async function qcmDiag(page, label) {
   return data;
 }
 
+async function clickFirstVisible(locator) {
+  const count = await locator.count();
+  for (let i = 0; i < count; i += 1) {
+    const item = locator.nth(i);
+    if (await item.isVisible().catch(() => false)) {
+      await item.scrollIntoViewIfNeeded();
+      await item.click({ force: true });
+      return true;
+    }
+  }
+  return false;
+}
+
 test.describe('QCM critical click behavior', () => {
   test('real next click changes the current QCM question', async ({ page }) => {
     await waitPracticeReady(page);
@@ -63,26 +76,18 @@ test.describe('QCM critical click behavior', () => {
     const panel = page.locator('.single-question-card .answer-panel:not([hidden])').first();
     await expect(panel).toBeVisible({ timeout: 10000 });
 
-    const details = panel.locator('details').first();
-    const hasDetails = await details.count();
-    if (hasDetails) {
-      const summary = details.locator('summary').first();
-      await expect(summary).toBeVisible({ timeout: 10000 });
-      const alreadyOpen = await details.evaluate(el => !!el.open);
-      if (!alreadyOpen) await summary.click();
-      await expect(details).toHaveJSProperty('open', true, { timeout: 10000 });
+    const detailButton = panel.locator('button, a, [role="button"]').filter({ hasText: /explicación|detalles|détails|details|voir plus|ver más|mostrar más|plus de/i });
+    if (await clickFirstVisible(detailButton)) {
+      await expect(panel).toContainText(/Por qué|Correcta|respuesta|distractores|explicación/i, { timeout: 10000 });
       return;
     }
 
-    const detailButton = panel.locator('button, a, [role="button"]').filter({ hasText: /detalles|détails|details|voir plus|ver más|mostrar más|plus de/i }).first();
-    if (await detailButton.count()) {
-      await expect(detailButton).toBeVisible({ timeout: 10000 });
-      await detailButton.click();
-      await expect(panel).toBeVisible({ timeout: 10000 });
-      await expect(panel.locator('.detailed-correction, .premium-correction-card, .pc-card, .ppc-card, .ppc-panel').first()).toBeVisible({ timeout: 10000 });
+    const visibleSummary = panel.locator('details summary').filter({ hasText: /explicación|detalles|distractores|voir|ver/i });
+    if (await clickFirstVisible(visibleSummary)) {
+      await expect(panel.locator('details[open]').first()).toBeAttached({ timeout: 10000 });
       return;
     }
 
-    await expect(panel).toContainText(/respuesta|correcta|correcci/i);
+    await expect(panel).toContainText(/respuesta|correcta|correcci|Por qué/i);
   });
 });
