@@ -28,4 +28,16 @@ test.describe('Med Nykuto practice flows', () => {
     const bank = await page.evaluate(() => window.MED_PRACTICE_BANK?.byCourse?.fisiologia?.vf?.length || 0);
     expect(bank).toBeGreaterThanOrEqual(10);
   });
+
+  test('question feedback button remains visible and uses local fallback', async ({ page }) => {
+    await answerOneQuestion(page, '/qcm.html?course=fisiologia');
+    const report = page.locator('[data-action="open-feedback"]').first();
+    await expect(report).toBeVisible();
+    await report.click();
+    await expect(page.locator('#questionFeedbackModal')).toBeVisible();
+    await page.fill('#questionFeedbackModal textarea[name="comment"]', 'Test automatisé du report de question.');
+    await page.click('#questionFeedbackModal button[type="submit"]');
+    await expect(page.locator('#questionFeedbackFallbackV360')).toBeVisible();
+    await expect(page.locator('#questionFeedbackFallbackV360')).toContainText('Reporte guardado localmente');
+  });
 });
