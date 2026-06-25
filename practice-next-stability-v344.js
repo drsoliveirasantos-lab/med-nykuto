@@ -1,5 +1,5 @@
-/* v366 — Stable next-button guard for practice pages.
-   Keeps compact buttons safe, adds a mobile floating next action, and adds a fallback when a visible “Suivant/Siguiente” click does not advance the active question.
+/* v367 — Stable next-button guard for practice pages.
+   Keeps compact buttons safe, adds a mobile floating next action, and avoids MutationObserver update loops.
 */
 (function(){
   'use strict';
@@ -44,9 +44,9 @@
   }
 
   function injectMobileNextCss(){
-    if(document.getElementById('practice-mobile-next-css-v366')) return;
+    if(document.getElementById('practice-mobile-next-css-v367')) return;
     var style = document.createElement('style');
-    style.id = 'practice-mobile-next-css-v366';
+    style.id = 'practice-mobile-next-css-v367';
     style.textContent = [
       '@media (max-width: 760px){',
       '  body.practice-page.has-mobile-next-bar{ padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)); }',
@@ -80,6 +80,22 @@
     });
   }
 
+  function setHidden(el, value){
+    if(!el) return;
+    if(!!el.hidden !== !!value) el.hidden = !!value;
+  }
+  function setBodyClass(name, value){
+    if(!document.body) return;
+    var has = document.body.classList.contains(name);
+    if(value && !has) document.body.classList.add(name);
+    if(!value && has) document.body.classList.remove(name);
+  }
+  function setTextIfChanged(el, value){
+    if(!el) return;
+    value = String(value || 'Siguiente pregunta →');
+    if(String(el.textContent || '') !== value) el.textContent = value;
+  }
+
   function ensureMobileNextBar(){
     if(!isPractice() || !document.body) return;
     injectMobileNextCss();
@@ -102,14 +118,13 @@
     }
     var shouldShow = !!(real && answeredVisible());
     if(shouldShow){
-      var label = String(real.textContent || '').trim();
-      var stable = bar.querySelector('.practice-stable-next');
-      if(stable && label) stable.textContent = label;
-      bar.hidden = false;
-      document.body.classList.add('has-mobile-next-bar');
+      var label = String(real.textContent || '').trim() || 'Siguiente pregunta →';
+      setTextIfChanged(bar.querySelector('.practice-stable-next'), label);
+      setHidden(bar, false);
+      setBodyClass('has-mobile-next-bar', true);
     }else{
-      bar.hidden = true;
-      document.body.classList.remove('has-mobile-next-bar');
+      setHidden(bar, true);
+      setBodyClass('has-mobile-next-bar', false);
     }
   }
 
@@ -182,13 +197,17 @@
   window.addEventListener('resize', run);
   document.addEventListener('click', function(){ setTimeout(run, 30); setTimeout(run, 140); setTimeout(run, 420); }, true);
   try{
+    var scheduled = false;
     var mo = new MutationObserver(function(mutations){
       mutations.forEach(function(m){
         Array.prototype.forEach.call(m.addedNodes || [], function(n){
           if(n && n.nodeType === 1) stabilizeCompactButtons(n);
         });
       });
-      ensureMobileNextBar();
+      if(!scheduled){
+        scheduled = true;
+        setTimeout(function(){ scheduled = false; ensureMobileNextBar(); }, 50);
+      }
     });
     mo.observe(document.documentElement, {childList:true, subtree:true});
   }catch(e){}
