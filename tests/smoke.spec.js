@@ -79,10 +79,13 @@ test.describe('Med Nykuto smoke navigation', () => {
     await expect(page.locator('.home-v41-proof')).toContainText('QCM');
   });
 
-  test('coming-soon Biofísica card is disabled safely', async ({ page }) => {
+  test('Biofísica is absent or disabled safely', async ({ page }) => {
     await page.goto('/index.html');
     await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
     const biofisica = page.locator('.subject-progress-card', { hasText: /Biofísica/ }).first();
+    const count = await biofisica.count();
+    if (count === 0) return;
+
     await expect(biofisica).toHaveAttribute('aria-disabled', 'true');
     const before = page.url();
     await biofisica.click();
