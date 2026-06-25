@@ -8,7 +8,8 @@ on:
     branches: [preview]
 
 jobs:
-  validate-and-test:
+  validate:
+    name: Validate restored site data
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,9 +23,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
-
       - name: Validate static links and release markers
         run: node scripts/validate-site-links.js
 
@@ -37,5 +35,80 @@ jobs:
       - name: Validate site manifest
         run: node scripts/validate-site-manifest.js
 
-      - name: Browser tests
-        run: npx playwright test --project=desktop-chromium
+  browser-smoke:
+    name: Browser smoke tests
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test tests/smoke.spec.js --project=desktop-chromium --reporter=line
+
+  browser-restored-data:
+    name: Browser restored-data tests
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test tests/restored-data.spec.js --project=desktop-chromium --reporter=line
+
+  browser-practice-flow:
+    name: Browser practice-flow tests
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test tests/practice-flow.spec.js --project=desktop-chromium --reporter=line
+
+  browser-click-audit:
+    name: Browser click-audit tests
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test tests/click-audit.spec.js --project=desktop-chromium --reporter=line
+
+  browser-mobile-menu:
+    name: Browser mobile-menu tests
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test tests/mobile-menu.spec.js --project=desktop-chromium --reporter=line
+
+  browser-contact:
+    name: Browser contact tests
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test tests/contact.spec.js --project=desktop-chromium --reporter=line
