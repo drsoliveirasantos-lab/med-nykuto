@@ -25,9 +25,6 @@
     : String(value || '');
 
   const moduleUrl = module => `module.html?id=${encodeURIComponent(module.id)}`;
-  const qcmUrl = (course, module) => `qcm.html?course=${encodeURIComponent(course.id)}${module ? `&module=${encodeURIComponent(module.id)}` : ''}`;
-  const caseUrl = (course, module) => `cas-cliniques.html?course=${encodeURIComponent(course.id)}${module ? `&module=${encodeURIComponent(module.id)}` : ''}`;
-  const vfUrl = (course, module) => `vrai-faux.html?course=${encodeURIComponent(course.id)}${module ? `&module=${encodeURIComponent(module.id)}` : ''}`;
 
   function injectStyle(){
     if(document.getElementById('homeSubjectPickerStyle')) return;
@@ -51,8 +48,6 @@
       .home-pick-main strong{display:block;font-size:1.35rem;line-height:1.1;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#f8fafc}
       .home-pick-main span{display:block;margin-top:6px;color:rgba(226,232,240,.62);font-size:.9rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
       .home-pick-back{display:inline-flex;align-items:center;gap:8px;margin:0 22px 0;padding:11px 14px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(255,255,255,.06);color:#e5e7eb;font-weight:900;cursor:pointer}
-      .home-pick-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-      .home-pick-actions a{padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#e5e7eb;text-decoration:none;font-size:.78rem;font-weight:850}
       .home-pick-empty{padding:20px;border:1px dashed rgba(255,255,255,.18);border-radius:22px;color:rgba(226,232,240,.74)}
       @media (max-width:560px){.home-pick-modal{padding:calc(env(safe-area-inset-top,0px) + 48px) 10px calc(env(safe-area-inset-bottom,0px) + 18px)}.home-pick-panel{border-radius:26px}.home-pick-head{padding:22px 18px 20px}.home-pick-close{width:62px;height:62px;border-radius:22px;font-size:3rem}.home-pick-list{gap:12px;padding:18px 12px 20px}.home-pick-link,.home-pick-button{min-height:82px;border-radius:22px;padding:13px 14px;gap:14px}.home-pick-badge{min-width:96px;font-size:1rem;padding:11px 14px}.home-pick-main strong{font-size:1.22rem}.home-pick-main span{font-size:.82rem}.home-pick-back{margin-left:12px}}
     `;
@@ -148,12 +143,7 @@
             <span class="home-pick-badge">Mód. ${esc(module.number || '')}</span>
             <span class="home-pick-main">
               <strong>${esc(tx(module.title))}</strong>
-              <span>Curso · QCM · Casos · V/F</span>
-              <span class="home-pick-actions" aria-hidden="true">
-                <a href="${qcmUrl(course, module)}">QCM</a>
-                <a href="${caseUrl(course, module)}">Casos</a>
-                <a href="${vfUrl(course, module)}">V/F</a>
-              </span>
+              <span>Curso completo · entrenamiento disponible</span>
             </span>
           </a>
         `).join('') : '<div class="home-pick-empty">No hay módulos disponibles.</div>'}
