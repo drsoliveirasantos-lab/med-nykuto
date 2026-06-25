@@ -9,179 +9,178 @@
     : [];
 
   if(!courses.length) return;
-  if(document.getElementById('homeSubjectPicker')) return;
 
-  window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ = 'v365';
+  window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ = 'v366-modal';
 
-  const escapeHtml = value => String(value ?? '').replace(/[&<>"]/g, char => ({
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({
     '&': '&amp;',
     '<': '&lt;',
     '>': '&gt;',
-    '"': '&quot;'
+    '"': '&quot;',
+    "'": '&#39;'
   }[char]));
 
-  const subjectUrl = courseId => `matiere.html?course=${encodeURIComponent(courseId)}`;
-  const moduleUrl = moduleId => `module.html?id=${encodeURIComponent(moduleId)}`;
-  const qcmUrl = (courseId, moduleId) => `qcm.html?course=${encodeURIComponent(courseId)}${moduleId ? `&module=${encodeURIComponent(moduleId)}` : ''}`;
-  const caseUrl = (courseId, moduleId) => `cas-cliniques.html?course=${encodeURIComponent(courseId)}${moduleId ? `&module=${encodeURIComponent(moduleId)}` : ''}`;
-  const vfUrl = (courseId, moduleId) => `vrai-faux.html?course=${encodeURIComponent(courseId)}${moduleId ? `&module=${encodeURIComponent(moduleId)}` : ''}`;
+  const tx = value => value && typeof value === 'object'
+    ? (value.es || value.fr || value.br || Object.values(value)[0] || '')
+    : String(value || '');
+
+  const moduleUrl = module => `module.html?id=${encodeURIComponent(module.id)}`;
+  const qcmUrl = (course, module) => `qcm.html?course=${encodeURIComponent(course.id)}${module ? `&module=${encodeURIComponent(module.id)}` : ''}`;
+  const caseUrl = (course, module) => `cas-cliniques.html?course=${encodeURIComponent(course.id)}${module ? `&module=${encodeURIComponent(module.id)}` : ''}`;
+  const vfUrl = (course, module) => `vrai-faux.html?course=${encodeURIComponent(course.id)}${module ? `&module=${encodeURIComponent(module.id)}` : ''}`;
 
   function injectStyle(){
     if(document.getElementById('homeSubjectPickerStyle')) return;
     const style = document.createElement('style');
     style.id = 'homeSubjectPickerStyle';
     style.textContent = `
-      .home-subject-picker-section{width:min(1120px,calc(100% - 32px));margin:26px auto 18px;padding:24px;border:1px solid rgba(255,255,255,.12);border-radius:28px;background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.03));box-shadow:0 24px 70px rgba(0,0,0,.22)}
-      .home-subject-picker-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:18px}
-      .home-subject-picker-head h2{margin:.2rem 0 .35rem;font-size:clamp(1.35rem,2.5vw,2.05rem)}
-      .home-subject-picker-head p{margin:0;max-width:680px;color:rgba(255,255,255,.72)}
-      .home-subject-picker-control{display:grid;grid-template-columns:minmax(240px,420px) 1fr;gap:18px;align-items:center;margin:18px 0 16px}
-      .home-subject-picker-control label{display:block;font-weight:800;margin-bottom:8px}
-      .home-subject-picker-control select{width:100%;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:#111827;color:#fff;padding:14px 44px 14px 14px;font:inherit;font-weight:750;outline:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.03)}
-      .home-subject-picker-control select:focus{border-color:rgba(96,165,250,.9);box-shadow:0 0 0 4px rgba(96,165,250,.22)}
-      .home-subject-picker-hint{margin:0;color:rgba(255,255,255,.6);font-size:.95rem}
-      .home-selected-modules{min-height:96px}
-      .home-picker-placeholder{border:1px dashed rgba(255,255,255,.18);border-radius:22px;padding:20px;color:rgba(255,255,255,.68);background:rgba(0,0,0,.16)}
-      .home-selected-summary{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:14px;padding:16px 18px;border-radius:22px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.1)}
-      .home-selected-summary h3{margin:0 0 4px;font-size:1.16rem}.home-selected-summary p{margin:0;color:rgba(255,255,255,.66)}
-      .home-selected-summary-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.home-selected-summary-actions .btn{white-space:nowrap}
-      .home-module-scroll{max-height:460px;overflow:auto;padding-right:8px;scrollbar-width:thin}
-      .home-module-picker-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:12px}
-      .home-module-card{display:flex;flex-direction:column;gap:12px;min-height:190px;padding:16px;border-radius:20px;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.045)}
-      .home-module-card small{color:rgba(255,255,255,.52);font-weight:800;text-transform:uppercase;letter-spacing:.08em}.home-module-card h4{margin:0;font-size:1rem;line-height:1.28}.home-module-card p{margin:0;color:rgba(255,255,255,.62);font-size:.92rem;line-height:1.42}
-      .home-module-card-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}.home-module-card-actions a{font-size:.86rem;padding:8px 10px;border-radius:999px;text-decoration:none;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#fff}.home-module-card-actions a.primary-link{background:rgba(59,130,246,.22);border-color:rgba(96,165,250,.35)}
-      @media (max-width:720px){.home-subject-picker-section{width:min(100% - 18px,1120px);padding:18px;border-radius:22px}.home-subject-picker-head,.home-selected-summary{display:block}.home-subject-picker-control{grid-template-columns:1fr}.home-selected-summary-actions{justify-content:flex-start;margin-top:12px}.home-module-scroll{max-height:520px;padding-right:0}}
+      .home-pick-modal{position:fixed;inset:0;z-index:12000;display:none;align-items:flex-start;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 58px) 22px calc(env(safe-area-inset-bottom,0px) + 28px);background:rgba(0,0,0,.86);overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+      .home-pick-modal.open{display:flex}
+      body.home-pick-open{overflow:hidden}
+      .home-pick-panel{width:min(680px,100%);background:#07101f;border:1px solid rgba(245,211,124,.34);border-radius:30px;box-shadow:0 30px 80px rgba(0,0,0,.58);overflow:hidden;color:#f8fafc}
+      .home-pick-head{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:24px 26px 22px;border-bottom:1px solid rgba(255,255,255,.1)}
+      .home-pick-head small{display:block;color:#ffe59b;font-size:.82rem;font-weight:950;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px}
+      .home-pick-head h2{margin:0;color:#f8fafc;font-size:clamp(1.5rem,5.8vw,2.05rem);line-height:1.08;font-weight:950}
+      .home-pick-close{width:72px;height:72px;flex:0 0 auto;border-radius:24px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);color:#fff;font-size:3.3rem;line-height:1;display:grid;place-items:center;cursor:pointer}
+      .home-pick-close:active{transform:scale(.98)}
+      .home-pick-list{display:grid;gap:14px;padding:22px 22px 24px}
+      .home-pick-link,.home-pick-button{display:flex;align-items:center;gap:18px;width:100%;min-height:78px;text-align:left;text-decoration:none;border:1px solid rgba(255,255,255,.12);border-radius:26px;background:#0b1220;color:#f8fafc;padding:14px 18px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.02);cursor:pointer;font:inherit}
+      .home-pick-link:hover,.home-pick-button:hover{border-color:rgba(245,211,124,.42);background:#101827}
+      .home-pick-badge{display:inline-flex;align-items:center;justify-content:center;min-width:108px;padding:12px 16px;border-radius:999px;background:#ffe79b;color:#07101f;font-weight:950;font-size:1.05rem;white-space:nowrap}
+      .home-pick-main{display:block;min-width:0;overflow:hidden}
+      .home-pick-main strong{display:block;font-size:1.35rem;line-height:1.1;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#f8fafc}
+      .home-pick-main span{display:block;margin-top:6px;color:rgba(226,232,240,.62);font-size:.9rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .home-pick-back{display:inline-flex;align-items:center;gap:8px;margin:0 22px 0;padding:11px 14px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(255,255,255,.06);color:#e5e7eb;font-weight:900;cursor:pointer}
+      .home-pick-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+      .home-pick-actions a{padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#e5e7eb;text-decoration:none;font-size:.78rem;font-weight:850}
+      .home-pick-empty{padding:20px;border:1px dashed rgba(255,255,255,.18);border-radius:22px;color:rgba(226,232,240,.74)}
+      @media (max-width:560px){.home-pick-modal{padding:calc(env(safe-area-inset-top,0px) + 48px) 10px calc(env(safe-area-inset-bottom,0px) + 18px)}.home-pick-panel{border-radius:26px}.home-pick-head{padding:22px 18px 20px}.home-pick-close{width:62px;height:62px;border-radius:22px;font-size:3rem}.home-pick-list{gap:12px;padding:18px 12px 20px}.home-pick-link,.home-pick-button{min-height:82px;border-radius:22px;padding:13px 14px;gap:14px}.home-pick-badge{min-width:96px;font-size:1rem;padding:11px 14px}.home-pick-main strong{font-size:1.22rem}.home-pick-main span{font-size:.82rem}.home-pick-back{margin-left:12px}}
     `;
     document.head.appendChild(style);
   }
 
-  function buildSection(){
-    const section = document.createElement('section');
-    section.id = 'homeSubjectPicker';
-    section.className = 'home-subject-picker-section';
-    section.setAttribute('aria-labelledby', 'homeSubjectPickerTitle');
-    section.innerHTML = `
-      <div class="home-subject-picker-head">
-        <div>
-          <p class="eyebrow">SELECCIÓN RÁPIDA</p>
-          <h2 id="homeSubjectPickerTitle">Elige una materia y abre sus módulos</h2>
-          <p>Selecciona una materia en el menú desplegable. Sus módulos aparecerán aquí, sin pasar por una página intermedia con todas las materias.</p>
+  function ensureModal(){
+    let modal = document.getElementById('homeSubjectModal');
+    if(modal) return modal;
+
+    modal = document.createElement('div');
+    modal.id = 'homeSubjectModal';
+    modal.className = 'home-pick-modal';
+    modal.setAttribute('aria-hidden', 'true');
+    modal.innerHTML = `
+      <section class="home-pick-panel" role="dialog" aria-modal="true" aria-labelledby="homePickTitle">
+        <div class="home-pick-head">
+          <div>
+            <small id="homePickCode">MATERIAS</small>
+            <h2 id="homePickTitle">Elegir una materia</h2>
+          </div>
+          <button class="home-pick-close" type="button" data-home-pick-close aria-label="Cerrar">×</button>
         </div>
-      </div>
-      <div class="home-subject-picker-control">
-        <div>
-          <label for="homeSubjectSelect">Materia</label>
-          <select id="homeSubjectSelect" autocomplete="off" data-testid="home-subject-select">
-            <option value="">Selecciona una materia…</option>
-          </select>
-        </div>
-        <p class="home-subject-picker-hint">Después puedes abrir el curso, lanzar QCM, casos clínicos o V/F directamente desde el módulo.</p>
-      </div>
-      <div class="home-selected-modules" id="homeSelectedModules" data-testid="home-selected-modules">
-        <div class="home-picker-placeholder">Primero selecciona una materia para mostrar sus módulos.</div>
-      </div>
+        <div class="home-pick-body"></div>
+      </section>
     `;
-    return section;
+    document.body.appendChild(modal);
+
+    modal.addEventListener('click', event => {
+      if(event.target === modal || event.target.closest('[data-home-pick-close]')) closeModal();
+      const subjectButton = event.target.closest('[data-home-course-id]');
+      if(subjectButton){
+        event.preventDefault();
+        const course = courses.find(item => String(item.id) === String(subjectButton.dataset.homeCourseId));
+        if(course) openModuleModal(course);
+      }
+    });
+
+    document.addEventListener('keydown', event => {
+      if(event.key === 'Escape') closeModal();
+    });
+
+    return modal;
   }
 
-  function moduleSummary(module){
-    const summary = String(module.summary || '').trim();
-    if(summary) return summary.length > 135 ? `${summary.slice(0, 132)}…` : summary;
-    const headings = Array.isArray(module.headings) ? module.headings.filter(Boolean).slice(0, 3).join(' · ') : '';
-    return headings || 'Curso, entrenamiento y revisión disponibles.';
-  }
-
-  function renderCourse(courseId){
-    const holder = document.getElementById('homeSelectedModules');
-    if(!holder) return;
-    const course = courses.find(item => item.id === courseId);
-    if(!course){
-      holder.innerHTML = '<div class="home-picker-placeholder">Primero selecciona una materia para mostrar sus módulos.</div>';
-      return;
+  function closeModal(){
+    const modal = document.getElementById('homeSubjectModal');
+    if(modal){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
     }
+    document.body.classList.remove('home-pick-open');
+  }
 
-    const modules = Array.isArray(course.modules) ? course.modules : [];
-    holder.innerHTML = `
-      <div class="home-selected-summary">
-        <div>
-          <h3>${escapeHtml(course.title)}</h3>
-          <p>${modules.length} módulos disponibles para esta materia.</p>
-        </div>
-        <div class="home-selected-summary-actions">
-          <a class="btn secondary" href="${subjectUrl(course.id)}">Página de la materia</a>
-          <a class="btn primary" href="${qcmUrl(course.id)}">QCM de la materia</a>
-        </div>
-      </div>
-      <div class="home-module-scroll" tabindex="0" aria-label="Módulos de ${escapeHtml(course.title)}">
-        <div class="home-module-picker-grid">
-          ${modules.map(module => `
-            <article class="home-module-card">
-              <small>Módulo ${escapeHtml(module.number || '')}</small>
-              <h4>${escapeHtml(module.title || 'Módulo')}</h4>
-              <p>${escapeHtml(moduleSummary(module))}</p>
-              <div class="home-module-card-actions">
-                <a class="primary-link" href="${moduleUrl(module.id)}">Abrir curso</a>
-                <a href="${qcmUrl(course.id, module.id)}">QCM</a>
-                <a href="${caseUrl(course.id, module.id)}">Casos</a>
-                <a href="${vfUrl(course.id, module.id)}">V/F</a>
-              </div>
-            </article>
-          `).join('')}
-        </div>
+  function openModal(){
+    const modal = ensureModal();
+    renderSubjects();
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('home-pick-open');
+    window.setTimeout(() => modal.querySelector('[data-home-pick-close]')?.focus({ preventScroll:true }), 30);
+  }
+
+  function renderSubjects(){
+    const modal = ensureModal();
+    modal.querySelector('#homePickCode').textContent = 'MATERIAS';
+    modal.querySelector('#homePickTitle').textContent = 'Elegir una materia';
+    modal.querySelector('.home-pick-body').innerHTML = `
+      <div class="home-pick-list" data-testid="home-subject-modal-list">
+        ${courses.map(course => `
+          <button class="home-pick-button" type="button" data-home-course-id="${esc(course.id)}" data-testid="home-subject-choice">
+            <span class="home-pick-badge">${esc((course.modules || []).length)} mód.</span>
+            <span class="home-pick-main">
+              <strong>${esc(tx(course.title))}</strong>
+              <span>${esc(course.description || 'Módulos, QCM, casos clínicos y V/F')}</span>
+            </span>
+          </button>
+        `).join('')}
       </div>
     `;
   }
 
-  function setupTriggers(section, select){
+  function openModuleModal(course){
+    const modal = ensureModal();
+    const modules = Array.isArray(course.modules) ? course.modules : [];
+    modal.querySelector('#homePickCode').textContent = tx(course.title).toUpperCase();
+    modal.querySelector('#homePickTitle').textContent = `${tx(course.title)} — Elegir un módulo`;
+    modal.querySelector('.home-pick-body').innerHTML = `
+      <button class="home-pick-back" type="button" data-home-back-subjects>← Cambiar materia</button>
+      <div class="home-pick-list" data-testid="home-module-modal-list">
+        ${modules.length ? modules.map(module => `
+          <a class="home-pick-link" href="${moduleUrl(module)}" data-testid="home-module-choice">
+            <span class="home-pick-badge">Mód. ${esc(module.number || '')}</span>
+            <span class="home-pick-main">
+              <strong>${esc(tx(module.title))}</strong>
+              <span>Curso · QCM · Casos · V/F</span>
+              <span class="home-pick-actions" aria-hidden="true">
+                <a href="${qcmUrl(course, module)}">QCM</a>
+                <a href="${caseUrl(course, module)}">Casos</a>
+                <a href="${vfUrl(course, module)}">V/F</a>
+              </span>
+            </span>
+          </a>
+        `).join('') : '<div class="home-pick-empty">No hay módulos disponibles.</div>'}
+      </div>
+    `;
+    modal.querySelector('[data-home-back-subjects]')?.addEventListener('click', renderSubjects, { once:false });
+  }
+
+  function setupTriggers(){
     const triggers = [
       document.querySelector('.home-action-card.primary'),
       document.querySelector('.home-v41-actions .btn.primary')
     ].filter(Boolean);
 
     triggers.forEach(trigger => {
-      trigger.setAttribute('href', '#homeSubjectPicker');
-      trigger.setAttribute('aria-controls', 'homeSubjectPicker');
+      trigger.setAttribute('href', '#');
+      trigger.setAttribute('aria-haspopup', 'dialog');
+      trigger.setAttribute('aria-controls', 'homeSubjectModal');
       trigger.dataset.testid = 'home-subject-picker-trigger';
       trigger.addEventListener('click', event => {
         event.preventDefault();
-        history.replaceState(null, '', '#homeSubjectPicker');
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        window.setTimeout(() => select.focus({ preventScroll: true }), 350);
+        openModal();
       });
     });
   }
 
   injectStyle();
-
-  const section = buildSection();
-  const insertBefore = document.querySelector('.home-v41-dashboard') || document.querySelector('.home-v41-bottom') || document.querySelector('main > section:last-of-type');
-  if(insertBefore && insertBefore.parentNode) insertBefore.parentNode.insertBefore(section, insertBefore);
-  else document.querySelector('main')?.appendChild(section);
-
-  const select = document.getElementById('homeSubjectSelect');
-  if(!select) return;
-
-  select.insertAdjacentHTML('beforeend', courses.map(course => `<option value="${escapeHtml(course.id)}">${escapeHtml(course.title)} — ${(course.modules || []).length} módulos</option>`).join(''));
-  setupTriggers(section, select);
-
-  select.addEventListener('change', () => {
-    const value = select.value;
-    if(value) localStorage.setItem('med-nykuto-last-home-course', value);
-    renderCourse(value);
-    const holder = document.getElementById('homeSelectedModules');
-    if(holder && value) holder.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  });
-
-  const stored = localStorage.getItem('med-nykuto-last-home-course');
-  if(stored && courses.some(course => course.id === stored)){
-    select.value = stored;
-    renderCourse(stored);
-  }
-
-  if(location.hash === '#homeSubjectPicker'){
-    window.setTimeout(() => {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      select.focus({ preventScroll: true });
-    }, 120);
-  }
+  ensureModal();
+  setupTriggers();
 })();
