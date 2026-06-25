@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="Med Nykuto" />
   <meta name="twitter:card" content="summary" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="style.css?v=310" />
+  <link rel="stylesheet" href="style.css?v=360" />
 </head>
 <body data-page="contact" data-lang="es">
   <header class="site-header"><nav class="nav-shell" aria-label="Navegación principal"><a class="brand brand-official" href="index.html" aria-label="Inicio"><img src="assets/logo-medcursos-official.png" alt="Med Nykuto" class="brand-logo brand-logo-official" /><span class="brand-context"><small>Contacto</small></span></a><button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button><div class="nav-links" id="navLinks"><a href="index.html">Inicio</a><a href="matieres.html">Materias</a><a href="modules.html">Módulos</a><a href="qcm.html">QCM</a><a href="cas-cliniques.html">Casos clínicos</a><a href="vrai-faux.html">V/F</a><a href="erreurs.html">Errores</a><a href="examen.html">Examen blanco</a><a href="contact.html">Contacto</a></div></nav></header>
@@ -21,21 +21,21 @@
     <section class="page-hero contact-hero"><a class="back-link" href="index.html">Inicio /</a><p class="eyebrow">Contacto y mejoras</p><h1>Contactar el proyecto</h1><p>Para una sugerencia, un bug general o una propuesta de mejora, envía un mensaje aquí. Para una pregunta precisa de QCM, usa el botón “Reportar error” directamente en la pregunta.</p></section>
     <section class="section reduced-top contact-section-grid">
       <article class="contact-card contact-form-card"><div class="contact-card-head"><p class="eyebrow">Formulario</p><h2>Enviar un mensaje</h2><p>Puedes dejar tu nombre y email si quieres recibir una respuesta. También puedes enviar el mensaje de forma anónima.</p></div>
-        <form name="site-contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="contact-success.html" class="contact-form">
-          <input type="hidden" name="form-name" value="site-contact" /><p class="hidden-field" hidden><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
+        <form name="site-contact" method="POST" class="contact-form">
+          <input type="hidden" name="form-name" value="site-contact" />
           <div class="contact-grid">
             <label class="field-label"><span>Tipo de mensaje</span><select name="type" required><option value="">Elegir categoría</option><option value="course-error">Error en un curso</option><option value="technical-issue">Problema técnico</option><option value="suggestion">Sugerencia de mejora</option><option value="collaboration">Propuesta de colaboración</option><option value="general-question">Pregunta general</option><option value="other">Otro problema</option></select></label>
             <label class="field-label"><span>Nombre</span><input type="text" name="name" placeholder="Ej. Diego" /></label>
             <label class="field-label"><span>Email</span><input type="email" name="email" placeholder="nombre@email.com" /></label>
             <label class="field-label field-full"><span>Mensaje</span><textarea name="message" required placeholder="Describe el problema, la idea o la mejora que propones."></textarea></label>
           </div>
-          <div class="contact-actions"><button type="submit" class="btn primary">Enviar mensaje</button><a href="index.html#supportProject" class="btn secondary">Apoyar el proyecto</a></div>
+          <div class="contact-actions"><button type="submit" class="btn primary">Preparar mensaje</button><a href="index.html#supportProject" class="btn secondary">Apoyar el proyecto</a></div>
         </form>
       </article>
       <aside class="contact-card contact-help-card"><div class="contact-card-head"><p class="eyebrow">Antes de enviar</p><h2>Cómo hacer un buen reporte</h2></div><ul class="contact-tips"><li>Para un error preciso en un QCM, usa “Reportar error” en la pregunta.</li><li>Para un bug visual, indica dispositivo y navegador: iPhone, Android, Safari, Chrome, etc.</li><li>Para corregir un curso, indica materia, módulo y qué parece falso o incompleto.</li></ul><div class="contact-note"><strong>Consejo</strong><p>Esta página sirve sobre todo para retornos generales. Para preguntas precisas, el reporte integrado en QCM es mejor.</p></div></aside>
     </section>
   </main>
-  <footer class="footer"><p>© <span id="year"></span> Med Nykuto</p><div class="footer-links"><a href="index.html">Inicio</a><a href="matieres.html">Materias</a><a href="contact.html">Contacto</a><a href="a-propos.html">Acerca de</a><a href="mentions.html">Mentions</a><a href="README_DEPLOIEMENT.txt">Guide</a></div></footer>
-  <script src="data/med-courses-data.js?v=310"></script><script src="data/med-practice-bank-init.js?v=310"></script><script src="data/med-practice-bank-loader.js?v=310"></script><script src="app.bundle.js?v=310"></script><script src="v210-module-picker-overlay.js?v=310"></script><script src="site-global-polish-v310.js?v=310"></script><script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <footer class="footer"><p>© <span id="year"></span> Med Nykuto</p><div class="footer-links"><a href="index.html">Inicio</a><a href="matieres.html">Materias</a><a href="contact.html">Contacto</a><a href="a-propos.html">Acerca de</a><a href="mentions.html">Aviso legal</a></div></footer>
+  <script src="data/med-courses-data.js?v=360"></script><script src="data/med-practice-bank-init.js?v=360"></script><script src="data/med-practice-bank-loader.js?v=360"></script><script src="app.bundle.js?v=360"></script><script src="v210-module-picker-overlay.js?v=360"></script><script src="site-global-polish-v310.js?v=360"></script><script src="med-nykuto-global-fix-v358.js?v=360"></script><script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
