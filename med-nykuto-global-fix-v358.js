@@ -1,10 +1,11 @@
-/* v358 — Med Nykuto global repair layer.
+/* v360 — Med Nykuto global repair layer.
    Scope: global click/menu reliability, visible brand cleanup, cache-visible UI safety,
-   and honest Cloudflare contact-form fallback. Does not modify question-bank data. */
+   and honest Cloudflare fallback for contact and question-feedback forms.
+   Does not modify question-bank data. */
 (function(){
   'use strict';
 
-  var VERSION = 'v358';
+  var VERSION = 'v360';
   var BRAND = 'Med Nykuto';
   var lastMenuTouchAt = 0;
   var lastMenuToggleAt = 0;
@@ -119,13 +120,13 @@
     return rows.join('\n');
   }
 
-  function showContactFallback(form, payload){
-    var old = document.getElementById('contactFormFallbackV358');
+  function showOfflineFallback(form, payload, id, message){
+    var old = document.getElementById(id || 'contactFormFallbackV358');
     if(old) old.remove();
     var box = document.createElement('div');
-    box.id = 'contactFormFallbackV358';
+    box.id = id || 'contactFormFallbackV358';
     box.className = 'form-offline-note-v358';
-    box.innerHTML = '<strong>Mensaje preparado.</strong><span>El sitio está en Cloudflare Pages: este formulario está guardado localmente en tu navegador, pero no se envía a un servidor externo. Copia el texto si quieres conservarlo.</span>';
+    box.innerHTML = '<strong>Mensaje preparado.</strong><span>' + (message || 'El sitio está en Cloudflare Pages: este formulario está guardado localmente en tu navegador, pero no se envía a un servidor externo. Copia el texto si quieres conservarlo.') + '</span>';
     var area = document.createElement('textarea');
     area.readOnly = true;
     area.value = payload;
@@ -145,9 +146,17 @@
     form.appendChild(box);
   }
 
+  function stripCloudflareUnsupportedAttrs(form){
+    form.removeAttribute('data-netlify');
+    form.removeAttribute('netlify');
+    form.removeAttribute('netlify-honeypot');
+    form.removeAttribute('action');
+  }
+
   function patchContactForm(){
     var form = document.querySelector('form[name="site-contact"]');
     if(!form || form.dataset.medNykutoV358Bound === '1') return;
+    stripCloudflareUnsupportedAttrs(form);
     form.dataset.medNykutoV358Bound = '1';
     form.addEventListener('submit', function(e){
       stop(e);
@@ -157,8 +166,26 @@
         saved.push({createdAt:new Date().toISOString(), payload:payload});
         localStorage.setItem('med-nykuto-contact-drafts-v358', JSON.stringify(saved).slice(-50000));
       }catch(err){}
-      showContactFallback(form, payload);
+      showOfflineFallback(form, payload, 'contactFormFallbackV358');
     }, true);
+  }
+
+  function patchQuestionFeedbackForms(){
+    all('form[name="question-feedback"]').forEach(function(form){
+      if(form.dataset.medNykutoQuestionFeedbackBound === '1') return;
+      stripCloudflareUnsupportedAttrs(form);
+      form.dataset.medNykutoQuestionFeedbackBound = '1';
+      form.addEventListener('submit', function(e){
+        stop(e);
+        var payload = formPayload(form);
+        try{
+          var saved = JSON.parse(localStorage.getItem('med-nykuto-question-feedback-drafts-v360') || '[]');
+          saved.push({createdAt:new Date().toISOString(), page:location.href, payload:payload});
+          localStorage.setItem('med-nykuto-question-feedback-drafts-v360', JSON.stringify(saved).slice(-70000));
+        }catch(err){}
+        showOfflineFallback(form, payload, 'questionFeedbackFallbackV360', 'Reporte guardado localmente en este navegador. Todavía falta conectar un backend real para enviarlo automáticamente. Copia el reporte si quieres conservarlo.');
+      }, true);
+    });
   }
 
   function run(){
@@ -167,6 +194,7 @@
     patchAttributes();
     patchTextNodes();
     patchContactForm();
+    patchQuestionFeedbackForms();
     window.__MED_NYKUTO_GLOBAL_FIX__ = VERSION;
   }
 
