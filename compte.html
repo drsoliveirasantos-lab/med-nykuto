@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cuenta opcional | Med Nykuto</title>
+  <meta name="description" content="Panel de cuenta opcional de Med Nykuto. El sitio sigue público sin conexión obligatoria." />
+  <link rel="canonical" href="https://preview.med-nykuto-git.pages.dev/compte.html" />
+  <meta property="og:title" content="Cuenta opcional | Med Nykuto" />
+  <meta property="og:description" content="Cuenta opcional para preparar progreso, favoritos y funciones futuras sin bloquear el sitio." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://preview.med-nykuto-git.pages.dev/compte.html" />
+  <meta property="og:site_name" content="Med Nykuto" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="assets/logo-medcursos-icon.png" />
+  <link rel="stylesheet" href="style.css?v=363" />
+</head>
+<body data-page="account" data-lang="es" class="account-page auth-optional">
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Navegación principal">
+      <a class="brand brand-official" href="/index.html" aria-label="Inicio">
+        <img src="assets/logo-medcursos-official.png" alt="Med Nykuto" class="brand-logo brand-logo-official" />
+        <span class="brand-context"><small>Cuenta opcional</small></span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Inicio</a>
+        <a href="matieres.html">Materias</a>
+        <a href="modules.html">Módulos</a>
+        <a href="qcm.html">QCM</a>
+        <a href="cas-cliniques.html">Casos clínicos</a>
+        <a href="vrai-faux.html">V/F</a>
+        <a href="erreurs.html">Errores</a>
+        <a href="contact.html">Contacto</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <a class="back-link" href="index.html">← Inicio</a>
+      <p class="eyebrow">Cuenta · opcional</p>
+      <h1>Espacio de cuenta</h1>
+      <p>Esta zona prepara las futuras funciones de progreso, favoritos, historial y acceso premium. Por ahora, todo el sitio sigue abierto sin conexión.</p>
+    </section>
+
+    <section class="section reduced-top">
+      <div class="auth-card" data-account-root>
+        <span class="auth-chip">Acceso público mantenido</span>
+        <h2 data-account-name>Visitante público</h2>
+        <p class="auth-note" data-account-state>Todo el sitio sigue disponible sin conexión.</p>
+        <p><strong>Email:</strong> <span data-account-email>Sin cuenta opcional</span></p>
+
+        <div class="auth-grid" aria-label="Funciones previstas">
+          <div class="mini-card">
+            <h3>Progreso</h3>
+            <p class="auth-small">Preparado para guardar avances por materia y módulo.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Errores</h3>
+            <p class="auth-small">Preparado para sincronizar errores y preguntas difíciles.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Premium más tarde</h3>
+            <p class="auth-small">Preparado para privatizar solo ciertas funciones si decides hacerlo.</p>
+          </div>
+        </div>
+
+        <div class="auth-actions">
+          <a class="btn primary" href="login.html">Configurar perfil opcional</a>
+          <a class="btn secondary" href="qcm.html">Entrenar sin cuenta</a>
+          <button class="btn ghost" type="button" data-account-clear>Salir / borrar perfil local</button>
+        </div>
+        <p class="auth-small">Regla actual: conexión opcional, acceso público por defecto, sin bloqueo automático de páginas.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.bundle.js?v=363"></script>
+  <script src="site-global-polish-v310.js?v=364"></script>
+  <script src="auth-optional-v101.js?v=101"></script>
+</body>
+</html>
