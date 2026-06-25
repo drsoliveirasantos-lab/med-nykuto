@@ -1,0 +1,2 @@
+Trigger full CI after real-click viewport-aware fix.
+Commit before trigger: 4c29fbbdab0348a50262ccec9c9c46e2b8977f95
