@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+const { test, expect } = require('@playwright/test');
 
 async function answerOneQuestion(page, url) {
   const errors = [];
