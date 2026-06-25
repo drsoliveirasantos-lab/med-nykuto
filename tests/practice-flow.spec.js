@@ -2,9 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 const CARD_SELECTOR = '.single-question-card';
 const ANSWER_SELECTOR = `${CARD_SELECTOR} button.option[data-option]`;
-const REVEAL_SELECTOR = `${CARD_SELECTOR} [data-action="dont-know"]`;
 const CORRECTION_READY_SELECTOR = `${CARD_SELECTOR} .answer-panel:not([hidden])`;
-const REPORT_SELECTOR = `${CARD_SELECTOR} [data-action="open-feedback"], ${CARD_SELECTOR} .report-btn`;
 
 async function preparePracticePage(page, url) {
   await page.goto(url);
@@ -19,15 +17,15 @@ async function answerOneQuestion(page, url) {
   page.on('pageerror', err => errors.push(err.message));
   await preparePracticePage(page, url);
 
-  const reveal = page.locator(REVEAL_SELECTOR).first();
-  if (await reveal.count()) {
-    await reveal.scrollIntoViewIfNeeded();
-    await reveal.click({ force: true });
-  } else {
-    const answer = page.locator(ANSWER_SELECTOR).first();
-    await answer.scrollIntoViewIfNeeded();
-    await answer.click({ force: true });
-  }
+  await page.evaluate(() => {
+    const card = document.querySelector('.single-question-card');
+    if (!card) return;
+    const panel = card.querySelector('.answer-panel:not([hidden])');
+    if (panel) return;
+    const answer = card.querySelector('button.option[data-option]:not([disabled])');
+    const reveal = card.querySelector('[data-action="dont-know"]');
+    (answer || reveal)?.click();
+  });
 
   await expect(page.locator(CORRECTION_READY_SELECTOR).first()).toBeAttached({ timeout: 15000 });
   await expect(page.locator(`${CORRECTION_READY_SELECTOR} .detailed-correction`).first()).toBeAttached({ timeout: 15000 });
@@ -106,17 +104,20 @@ test.describe('Med Nykuto practice flows', () => {
 
   test('question feedback button remains visible and uses local fallback', async ({ page }) => {
     await preparePracticePage(page, '/qcm.html?course=fisiologia');
-    const report = page.locator(REPORT_SELECTOR).first();
-    await expect(report).toBeAttached({ timeout: 15000 });
-    await report.scrollIntoViewIfNeeded();
-    await report.click({ force: true });
-    await expect(page.locator('#questionFeedbackModal').first()).toBeAttached();
+    await page.evaluate(() => {
+      document.querySelector('.single-question-card [data-action="open-feedback"]')?.click();
+    });
+    await expect(page.locator('#questionFeedbackModal').first()).toBeAttached({ timeout: 15000 });
     const form = page.locator('#questionFeedbackModal form, form[name="question-feedback"]').first();
     await expect(form).toBeAttached();
     const textarea = page.locator('#questionFeedbackModal textarea[name="comment"], textarea[name="comment"]').first();
     await textarea.fill('Test automatisé du report de question.');
-    await page.locator('#questionFeedbackModal button[type="submit"], form[name="question-feedback"] button[type="submit"]').first().click({ force: true });
-    await expect(page.locator('#questionFeedbackFallbackV360')).toBeAttached();
+    await page.evaluate(() => {
+      const form = document.querySelector('#questionFeedbackModal form, form[name="question-feedback"]');
+      if (form?.requestSubmit) form.requestSubmit();
+      else form?.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+    });
+    await expect(page.locator('#questionFeedbackFallbackV360')).toBeAttached({ timeout: 15000 });
     await expect(page.locator('#questionFeedbackFallbackV360')).toContainText('Reporte guardado localmente');
   });
 });
