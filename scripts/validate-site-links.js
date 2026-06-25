@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Med Nykuto v361 — static site link/identity/release-hygiene validator.
+/* Med Nykuto v363 — static site link/identity/release-hygiene validator.
    Run from repo root: node scripts/validate-site-links.js
 */
 const fs = require('fs');
@@ -8,6 +8,7 @@ const path = require('path');
 const root = process.cwd();
 const htmlFiles = fs.readdirSync(root).filter(f => f.endsWith('.html'));
 const required = ['index.html','matieres.html','matiere.html','modules.html','module.html','qcm.html','cas-cliniques.html','vrai-faux.html','erreurs.html','examen.html','contact.html','contact-success.html','a-propos.html','mentions.html'];
+const criticalRestoredPages = ['module.html','qcm.html','cas-cliniques.html','vrai-faux.html','erreurs.html','examen.html'];
 const problems = [];
 function exists(p){ return fs.existsSync(path.join(root, p)); }
 function add(file,msg){ problems.push(`${file}: ${msg}`); }
@@ -26,6 +27,12 @@ for(const file of htmlFiles){
   if(!/<meta\s+name="viewport"/i.test(html)) add(file, 'missing viewport meta');
   if(!/<title>[^<]+Med Nykuto/i.test(html) && !['README_DEPLOIEMENT.txt'].includes(file)) add(file, 'title does not include Med Nykuto');
 
+  if(criticalRestoredPages.includes(file)){
+    ['data/med-courses-data.js?v=363','data/med-practice-bank-init.js?v=363','data/med-practice-bank-loader.js?v=363'].forEach(src => {
+      if(!html.includes(src)) add(file, `restored critical asset not cache-busted: ${src}`);
+    });
+  }
+
   const scripts = Array.from(html.matchAll(/<script[^>]+src="([^"]+)"/g)).map(m => m[1]);
   scripts.forEach(src => {
     const clean = src.split('?')[0];
@@ -40,11 +47,12 @@ for(const file of htmlFiles){
 }
 
 const jsChecks = [
-  ['site-global-polish-v310.js', /__MED_NYKUTO_GLOBAL_POLISH__\s*=\s*['"]v361-loader['"]/],
-  ['site-global-polish-v310.js', /med-nykuto-runtime-guard-v361\.js\?v=361/],
+  ['site-global-polish-v310.js', /__MED_NYKUTO_GLOBAL_POLISH__\s*=\s*['"]v363-loader['"]/],
+  ['site-global-polish-v310.js', /CACHE_VERSION\s*=\s*['"]363['"]/],
   ['med-nykuto-runtime-guard-v361.js', /__MED_NYKUTO_RUNTIME_GUARD__\s*=\s*VERSION/],
   ['med-nykuto-global-fix-v358.js', /__MED_NYKUTO_GLOBAL_FIX__\s*=\s*VERSION/],
   ['practice-cleanup-v314.js', /__MED_NYKUTO_PRACTICE_CLEANUP__\s*=\s*['"]v360['"]/],
+  ['data/med-practice-bank-loader.js', /__MED_NYKUTO_PRACTICE_LOADER__\s*=\s*['"]v363['"]/],
   ['data/med-practice-bank-loader.js', /practice-bank-functional-fallback-v360\.js/]
 ];
 jsChecks.forEach(([file, pattern]) => {
