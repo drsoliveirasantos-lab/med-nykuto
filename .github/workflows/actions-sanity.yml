@@ -13,8 +13,8 @@ permissions:
 jobs:
   sanity:
     name: Runner sanity check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 3
     steps:
       - name: Prove runner starts
-        run: echo "GitHub Actions runner is working"
+        run: echo "GitHub Actions runner is working on ubuntu-22.04"
