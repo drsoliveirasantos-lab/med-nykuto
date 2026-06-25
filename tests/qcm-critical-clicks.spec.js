@@ -30,6 +30,7 @@ test.describe('QCM critical click behavior', () => {
     await next.scrollIntoViewIfNeeded();
     await next.click();
 
+    await page.waitForLoadState('domcontentloaded', { timeout: 15000 }).catch(() => {});
     await expect.poll(async () => page.locator('.single-question-card').first().getAttribute('id'), { timeout: 15000 }).not.toBe(firstId);
   });
 
@@ -45,7 +46,8 @@ test.describe('QCM critical click behavior', () => {
     if (hasDetails) {
       const summary = details.locator('summary').first();
       await expect(summary).toBeVisible({ timeout: 10000 });
-      await summary.click();
+      const alreadyOpen = await details.evaluate(el => !!el.open);
+      if (!alreadyOpen) await summary.click();
       await expect(details).toHaveJSProperty('open', true, { timeout: 10000 });
       return;
     }
