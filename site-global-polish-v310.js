@@ -1,6 +1,6 @@
-/* v360 — Global Med Nykuto polish layer.
+/* v361 — Global Med Nykuto polish layer.
    Applies identity, language, cache-visible UI text, logo/home behavior and practice-page safety across all pages.
-   Loads the v360 global repair layer for menu reliability, brand cleanup and Cloudflare form fallbacks. */
+   Loads the v360 repair layer and the v361 runtime guard for data health and safer UI behavior. */
 (function(){
   'use strict';
 
@@ -134,7 +134,7 @@
     if(document.getElementById('siteGlobalPolishV310Style')) return;
     var st = document.createElement('style');
     st.id = 'siteGlobalPolishV310Style';
-    st.textContent = '.brand,.brand-official{position:relative!important;z-index:120!important;pointer-events:auto!important;cursor:pointer!important}.brand-logo,.brand-logo-official{pointer-events:auto!important}.is-coming-soon{opacity:.78}.is-coming-soon .mini-progress i{width:0!important}.site-header a,.nav-links a{touch-action:manipulation}.home-action-card,.subject-progress-card,.module-card,.course-card{touch-action:pan-y;}';
+    st.textContent = '.brand,.brand-official{position:relative!important;z-index:120!important;pointer-events:auto!important;cursor:pointer!important}.brand-logo,.brand-logo-official{pointer-events:auto!important}.is-coming-soon{opacity:.78}.is-coming-soon .mini-progress i{width:0!important}.site-header a,.nav-links a{touch-action:manipulation}.home-action-card,.subject-progress-card,.module-card,.course-card{touch-action:pan-y;}.runtime-health-panel{margin:16px auto;max-width:1080px}';
     document.head.appendChild(st);
   }
 
@@ -149,11 +149,15 @@
   }
 
   function loadInterfaceFix(){
-    appendScript('interfaceClickFixV352', 'interface-click-fix-v352.js?v=360', '__MED_NYKUTO_INTERFACE_FIX_LOADER__');
+    appendScript('interfaceClickFixV352', 'interface-click-fix-v352.js?v=361', '__MED_NYKUTO_INTERFACE_FIX_LOADER__');
   }
 
   function loadGlobalRepair(){
-    appendScript('medNykutoGlobalFixV358', 'med-nykuto-global-fix-v358.js?v=360', '__MED_NYKUTO_GLOBAL_FIX_LOADER__');
+    appendScript('medNykutoGlobalFixV358', 'med-nykuto-global-fix-v358.js?v=361', '__MED_NYKUTO_GLOBAL_FIX_LOADER__');
+  }
+
+  function loadRuntimeGuard(){
+    appendScript('medNykutoRuntimeGuardV361', 'med-nykuto-runtime-guard-v361.js?v=361', '__MED_NYKUTO_RUNTIME_GUARD_LOADER__');
   }
 
   function run(){
@@ -166,7 +170,8 @@
     injectGlobalStyle();
     loadInterfaceFix();
     loadGlobalRepair();
-    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v360-loader';
+    loadRuntimeGuard();
+    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v361-loader';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
