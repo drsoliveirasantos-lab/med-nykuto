@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Med Nykuto v367 — static site link/identity/release-hygiene validator.
+/* Med Nykuto v368 — static site link/identity/release-hygiene validator.
    Validates the public production pages listed below, not stray/debug HTML files. */
 const fs = require('fs');
 const path = require('path');
@@ -11,6 +11,9 @@ const criticalRestoredPages = ['module.html','qcm.html','cas-cliniques.html','vr
 const problems = [];
 function exists(p){ return fs.existsSync(path.join(root, p)); }
 function add(file,msg){ problems.push(`${file}: ${msg}`); }
+function hasScriptWithVersion(html, file){
+  return new RegExp('<script[^>]+src="' + file.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\?v=\\d+"').test(html);
+}
 
 required.forEach(f => { if(!exists(f)) add(f, 'required file missing'); });
 
@@ -31,8 +34,8 @@ for(const file of htmlFiles){
   if(unsafePlaceholders.length) add(file, `unsafe href="#" links: ${unsafePlaceholders.length}`);
 
   if(criticalRestoredPages.includes(file)){
-    ['data/med-courses-data.js?v=363','data/med-practice-bank-init.js?v=363','data/med-practice-bank-loader.js?v=363'].forEach(src => {
-      if(!html.includes(src)) add(file, `restored critical asset not cache-busted: ${src}`);
+    ['data/med-courses-data.js','data/med-practice-bank-init.js','data/med-practice-bank-loader.js'].forEach(src => {
+      if(!hasScriptWithVersion(html, src)) add(file, `restored critical asset not cache-busted: ${src}`);
     });
   }
 
@@ -53,6 +56,7 @@ const jsChecks = [
   ['site-global-polish-v310.js', /__MED_NYKUTO_GLOBAL_POLISH__\s*=\s*['"]v365-loader['"]/],
   ['site-global-polish-v310.js', /CACHE_VERSION\s*=\s*['"]365['"]/],
   ['course-image-zoom-v101.js', /__MED_NYKUTO_COURSE_IMAGE_ZOOM__\s*=\s*['"]v101['"]/],
+  ['practice-critical-click-fallback-v101.js', /__MED_NYKUTO_PRACTICE_CRITICAL_CLICK_FALLBACK__\s*=\s*VERSION/],
   ['auth-optional-v101.js', /MED_NYKUTO_AUTH_REQUIRED\s*=\s*false/],
   ['auth-optional-v101.js', /MED_NYKUTO_PUBLIC_FIRST\s*=\s*true/],
   ['med-nykuto-runtime-guard-v361.js', /__MED_NYKUTO_RUNTIME_GUARD__\s*=\s*VERSION/],
