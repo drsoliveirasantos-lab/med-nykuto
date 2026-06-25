@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-/* Med Nykuto v368 — static site link/identity/release-hygiene validator.
-   Validates the public production pages listed below, not stray/debug HTML files. */
+/* Med Nykuto v369 — static site link/identity/release-hygiene validator.
+   Validates public production pages. Root-relative local links such as /index.html are treated as repo files. */
 const fs = require('fs');
 const path = require('path');
 
@@ -9,10 +9,17 @@ const required = ['index.html','matieres.html','matiere.html','modules.html','mo
 const htmlFiles = required.filter(f => fs.existsSync(path.join(root, f)));
 const criticalRestoredPages = ['module.html','qcm.html','cas-cliniques.html','vrai-faux.html','erreurs.html','examen.html'];
 const problems = [];
-function exists(p){ return fs.existsSync(path.join(root, p)); }
+
+function localPath(p){
+  return String(p || '').replace(/^\.\//,'').replace(/^\//,'');
+}
+function exists(p){
+  return fs.existsSync(path.join(root, localPath(p)));
+}
 function add(file,msg){ problems.push(`${file}: ${msg}`); }
+function escapeRegExp(s){ return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 function hasScriptWithVersion(html, file){
-  return new RegExp('<script[^>]+src="' + file.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\?v=\\d+"').test(html);
+  return new RegExp('<script[^>]+src="/?' + escapeRegExp(file) + '\\?v=\\d+"').test(html);
 }
 
 required.forEach(f => { if(!exists(f)) add(f, 'required file missing'); });
@@ -41,12 +48,12 @@ for(const file of htmlFiles){
 
   const scripts = Array.from(html.matchAll(/<script[^>]+src="([^"]+)"/g)).map(m => m[1]);
   scripts.forEach(src => {
-    const clean = src.split('?')[0];
+    const clean = localPath(src.split('?')[0]);
     if(!/^https?:/i.test(clean) && !exists(clean)) add(file, `missing script: ${clean}`);
   });
   const links = Array.from(html.matchAll(/<(?:a|link)[^>]+href="([^"]+)"/g)).map(m => m[1]);
   links.forEach(href => {
-    const clean = href.split('#')[0].split('?')[0];
+    const clean = localPath(href.split('#')[0].split('?')[0]);
     if(!clean || /^(https?:|mailto:|tel:|#)/i.test(clean)) return;
     if(!exists(clean)) add(file, `missing href target: ${clean}`);
   });
@@ -67,7 +74,7 @@ const jsChecks = [
 ];
 jsChecks.forEach(([file, pattern]) => {
   if(!exists(file)){ add(file, 'required JS file missing'); return; }
-  const body = fs.readFileSync(path.join(root, file), 'utf8');
+  const body = fs.readFileSync(path.join(root, localPath(file)), 'utf8');
   if(!pattern.test(body)) add(file, 'missing expected release marker');
 });
 
