@@ -1,0 +1,19 @@
+name: Med Nykuto mobile UI debug
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [preview]
+
+jobs:
+  mobile-debug:
+    name: Mobile menu UI debug
+    runs-on: ubuntu-latest
+    steps:
+      - name: Quiet clone and test mobile menu
+        run: |
+          set -e
+          git clone --quiet --depth=1 --branch preview https://x-access-token:${{ github.token }}@github.com/drsoliveirasantos-lab/med-nykuto.git .
+          npm install --silent >/tmp/npm-install.log 2>&1 || { cat /tmp/npm-install.log; exit 1; }
+          npx playwright install --with-deps chromium >/tmp/playwright-install.log 2>&1 || { tail -80 /tmp/playwright-install.log; exit 1; }
+          npx playwright test tests/mobile-menu.spec.js --project=desktop-chromium --reporter=line
