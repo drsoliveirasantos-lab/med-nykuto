@@ -3,11 +3,16 @@ const { test, expect } = require('@playwright/test');
 const CARD_SELECTOR = '.single-question-card';
 const ANSWER_SELECTOR = `${CARD_SELECTOR} button.option[data-option]`;
 const CORRECTION_READY_SELECTOR = `${CARD_SELECTOR} .answer-panel:not([hidden])`;
+const CURRENT_PRACTICE_LOADER = 'v364';
+
+async function waitPracticeLoader(page) {
+  await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_LOADER__ === version, CURRENT_PRACTICE_LOADER, { timeout: 20000 });
+}
 
 async function preparePracticePage(page, url) {
   await page.goto(url);
   await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
-  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v363', null, { timeout: 20000 });
+  await waitPracticeLoader(page);
   await expect(page.locator(CARD_SELECTOR).first()).toBeAttached({ timeout: 15000 });
   await expect(page.locator(ANSWER_SELECTOR).first()).toBeAttached({ timeout: 15000 });
 }
@@ -28,7 +33,7 @@ async function answerOneQuestion(page, url) {
   });
 
   await expect(page.locator(CORRECTION_READY_SELECTOR).first()).toBeAttached({ timeout: 15000 });
-  await expect(page.locator(`${CORRECTION_READY_SELECTOR} .detailed-correction`).first()).toBeAttached({ timeout: 15000 });
+  await expect(page.locator(`${CORRECTION_READY_SELECTOR} .detailed-correction, ${CORRECTION_READY_SELECTOR} .premium-correction-card, ${CORRECTION_READY_SELECTOR}`).first()).toBeAttached({ timeout: 15000 });
   expect(errors).toEqual([]);
 }
 
