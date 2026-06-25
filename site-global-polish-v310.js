@@ -1,12 +1,12 @@
-/* v365 — Global Med Nykuto polish layer.
+/* v366 — Global Med Nykuto polish layer.
    Applies identity, language, cache-visible UI text, logo/home behavior, optional public-first auth, course image zoom and practice-page safety across all pages.
-   Loads repair layers with v365 cache-busting after restored legacy data. */
+   Loads repair layers with v366 cache-busting after restored legacy data. */
 (function(){
   'use strict';
 
   var SITE_NAME = 'Med Nykuto';
   var HOST = 'https://preview.med-nykuto-git.pages.dev/';
-  var CACHE_VERSION = '365';
+  var CACHE_VERSION = '366';
 
   function text(el,v){ if(el && v != null) el.textContent = v; }
   function attr(el,k,v){ if(el && v != null) el.setAttribute(k,v); }
@@ -26,6 +26,7 @@
       'matieres.html':'Materias | Med Nykuto',
       'matiere.html':'Materia | Med Nykuto',
       'modules.html':'Módulos | Med Nykuto',
+      'module.html':'Módulo | Med Nykuto',
       'qcm.html':'QCM | Med Nykuto',
       'cas-cliniques.html':'Casos clínicos | Med Nykuto',
       'vrai-faux.html':'Verdadero/Falso | Med Nykuto',
@@ -35,7 +36,6 @@
       'contact-success.html':'Mensaje preparado | Med Nykuto',
       'a-propos.html':'Acerca de | Med Nykuto',
       'mentions.html':'Aviso legal | Med Nykuto',
-      'module.html':'Módulo | Med Nykuto',
       'login.html':'Conexión opcional | Med Nykuto',
       'compte.html':'Cuenta opcional | Med Nykuto'
     }[path] || (document.title || '').replace(/Med Cursos/g,SITE_NAME).replace('Accueil','Inicio');
@@ -138,7 +138,20 @@
     if(document.getElementById('siteGlobalPolishV310Style')) return;
     var st = document.createElement('style');
     st.id = 'siteGlobalPolishV310Style';
-    st.textContent = '.brand,.brand-official{position:relative!important;z-index:120!important;pointer-events:auto!important;cursor:pointer!important}.brand-logo,.brand-logo-official{pointer-events:auto!important}.is-coming-soon{opacity:.78}.is-coming-soon .mini-progress i{width:0!important}.site-header a,.nav-links a{touch-action:manipulation}.home-action-card,.subject-progress-card,.module-card,.course-card{touch-action:pan-y;}.runtime-health-panel{margin:16px auto;max-width:1080px}';
+    st.textContent = [
+      '.brand,.brand-official{position:relative!important;z-index:140!important;pointer-events:auto!important;cursor:pointer!important}',
+      '.brand-logo,.brand-logo-official{pointer-events:auto!important}',
+      '.is-coming-soon{opacity:.78}',
+      '.is-coming-soon .mini-progress i{width:0!important}',
+      '.site-header a,.nav-links a{touch-action:manipulation}',
+      '.home-action-card,.subject-progress-card,.module-card,.course-card{touch-action:pan-y;}',
+      '.runtime-health-panel{margin:16px auto;max-width:1080px}',
+      '.nav-shell{position:relative!important;gap:10px!important}',
+      '.nav-links{position:relative!important;z-index:150!important;flex:1 1 auto!important;justify-content:flex-end!important;gap:12px!important}',
+      '.global-tools{position:relative!important;z-index:80!important;flex:0 1 190px!important;max-width:190px!important;min-width:0!important}',
+      '.global-tools input,#globalSearchInput{max-width:190px!important;min-width:0!important}',
+      '@media(max-width:1180px){.global-tools{display:none!important}.nav-links{gap:14px!important}}'
+    ].join('\n');
     document.head.appendChild(st);
   }
 
@@ -174,7 +187,7 @@
     loadHomeLinkFix();
     loadOptionalAuth();
     loadCourseImageZoom();
-    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v365-loader';
+    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v366-loader';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
