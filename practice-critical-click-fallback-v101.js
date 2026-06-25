@@ -1,16 +1,15 @@
-/* v101 — Critical practice click fallback.
+/* v102 — Critical practice click fallback.
    Last-resort guard for QCM/practice pages: if app click handlers fail, next advances through stored session and details panels open visibly.
 */
 (function(){
   'use strict';
-  var VERSION = 'v101';
+  var VERSION = 'v102';
   window.__MED_NYKUTO_PRACTICE_CRITICAL_CLICK_FALLBACK__ = VERSION;
 
   function isPractice(){ return document.body && document.body.classList && document.body.classList.contains('practice-page'); }
   function clean(s){ return String(s || '').replace(/\s+/g, ' ').trim(); }
   function activeCard(){ return document.querySelector('.single-question-card'); }
   function activeId(){ var c = activeCard(); return c ? (c.id || c.getAttribute('data-id') || '') : ''; }
-  function visible(el){ if(!el) return false; var r = el.getBoundingClientRect(); var s = getComputedStyle(el); return r.width > 0 && r.height > 0 && s.display !== 'none' && s.visibility !== 'hidden'; }
   function isNextControl(el){
     if(!el || !el.closest) return false;
     var c = el.closest('[data-action="next-question"], .practice-stable-next, button, a');
@@ -28,37 +27,54 @@
     }catch(e){}
     return out;
   }
-  function findSessionForCard(id){
-    if(!id) return null;
-    var keys = sessionKeys();
-    for(var i=0;i<keys.length;i++){
-      try{
-        var state = JSON.parse(localStorage.getItem(keys[i]) || '{}');
-        if(!state || !Array.isArray(state.currentBatch)) continue;
-        if(state.currentBatch[state.currentIndex || 0] === id) return {key:keys[i], state:state};
-      }catch(e){}
-    }
+  function readSession(key){
+    try{
+      var state = JSON.parse(localStorage.getItem(key) || '{}');
+      if(state && Array.isArray(state.currentBatch)) return state;
+    }catch(e){}
     return null;
   }
+  function findSessionForQuestion(id){
+    var keys = sessionKeys();
+    var fallback = null;
+    for(var i=0;i<keys.length;i++){
+      var state = readSession(keys[i]);
+      if(!state) continue;
+      if(!fallback) fallback = {key:keys[i], state:state, index:Math.max(0, Number(state.currentIndex || 0))};
+      if(id){
+        var exact = state.currentBatch[Math.max(0, Number(state.currentIndex || 0))] === id;
+        var idx = state.currentBatch.indexOf(id);
+        if(exact || idx >= 0) return {key:keys[i], state:state, index:idx >= 0 ? idx : Math.max(0, Number(state.currentIndex || 0))};
+      }
+    }
+    return fallback;
+  }
   function forceAdvanceFromStorage(beforeId){
-    var found = findSessionForCard(beforeId);
+    var found = findSessionForQuestion(beforeId);
     if(!found) return false;
     var state = found.state;
     var total = Array.isArray(state.currentBatch) ? state.currentBatch.length : 0;
     if(!total) return false;
-    var idx = Math.max(0, Number(state.currentIndex || 0));
-    if(idx >= total - 1){ state.batchFinished = true; }
-    else { state.currentIndex = idx + 1; }
+    var idx = Math.max(0, Number(found.index));
+    if(idx >= total - 1){
+      state.currentIndex = total - 1;
+      state.batchFinished = true;
+    } else {
+      state.currentIndex = idx + 1;
+      state.batchFinished = false;
+    }
     try{ localStorage.setItem(found.key, JSON.stringify(state)); }catch(e){ return false; }
+    window.__MED_NYKUTO_LAST_FORCED_NEXT__ = {beforeId:beforeId, nextIndex:state.currentIndex, at:Date.now()};
     location.reload();
     return true;
   }
   function scheduleNextFallback(beforeId){
-    [220, 520, 900].forEach(function(ms){
+    [120, 360, 760].forEach(function(ms){
       setTimeout(function(){
         if(!isPractice()) return;
-        if(activeId() && activeId() !== beforeId) return;
-        forceAdvanceFromStorage(beforeId);
+        var nowId = activeId();
+        if(nowId && beforeId && nowId !== beforeId) return;
+        forceAdvanceFromStorage(beforeId || nowId);
       }, ms);
     });
   }
@@ -107,9 +123,9 @@
   }, true);
 
   function injectStyle(){
-    if(document.getElementById('practiceCriticalClickFallbackV101Style')) return;
+    if(document.getElementById('practiceCriticalClickFallbackV102Style')) return;
     var st = document.createElement('style');
-    st.id = 'practiceCriticalClickFallbackV101Style';
+    st.id = 'practiceCriticalClickFallbackV102Style';
     st.textContent = 'body.practice-page .answer-panel:not([hidden]){display:block!important;visibility:visible!important;max-height:none!important;overflow:visible!important}body.practice-page .answer-panel details[open]{display:block!important}body.practice-page .detailed-correction,body.practice-page .premium-correction-card,body.practice-page .pc-card,body.practice-page .ppc-card,body.practice-page .ppc-panel{visibility:visible!important}';
     document.head.appendChild(st);
   }
