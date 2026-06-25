@@ -36,6 +36,8 @@ test.describe('Med Nykuto smoke navigation', () => {
 
   test('course and module data are available', async ({ page }) => {
     await page.goto('/matieres.html');
+    await page.waitForFunction(() => window.__MED_NYKUTO_GLOBAL_POLISH__ === 'v360-loader');
+    await page.waitForFunction(() => window.__MED_NYKUTO_GLOBAL_FIX__ === 'v360');
     const data = await page.evaluate(() => ({
       hasData: !!window.MED_COURSES_DATA,
       courseCount: window.MED_COURSES_DATA?.courses?.length || 0,
