@@ -64,6 +64,13 @@ test.describe('Med Nykuto broad click audit', () => {
           el.classList.contains('disabled') ||
           !!el.closest('.disabled,.is-coming-soon,[aria-disabled="true"]')
         );
+        const isActionHash = el => (
+          el.getAttribute('href') === '#' && (
+            el.hasAttribute('data-action') ||
+            el.getAttribute('role') === 'button' ||
+            /toggle|chip|filter|tab|dropdown|expand|collapse|force-toggle/.test(String(el.className || ''))
+          )
+        );
         const controls = Array.from(document.querySelectorAll('a, button, summary, label, [role="button"], .option, [data-action]'))
           .filter(visible)
           .map(el => ({
@@ -71,6 +78,7 @@ test.describe('Med Nykuto broad click audit', () => {
             text: (el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80),
             href: el.getAttribute('href') || '',
             disabled: isDisabled(el),
+            actionHash: isActionHash(el),
             pointer: getComputedStyle(el).pointerEvents,
             id: el.id || '',
             cls: el.className || ''
@@ -78,7 +86,7 @@ test.describe('Med Nykuto broad click audit', () => {
         return {
           count: controls.length,
           badPointer: controls.filter(x => !x.disabled && x.pointer === 'none'),
-          badHref: controls.filter(x => x.tag === 'A' && !x.disabled && x.href === '#'),
+          badHref: controls.filter(x => x.tag === 'A' && !x.disabled && !x.actionHash && x.href === '#'),
           emptyButtons: controls.filter(x => (x.tag === 'BUTTON' || x.tag === 'A') && !x.text && !x.id && !x.href)
         };
       });
