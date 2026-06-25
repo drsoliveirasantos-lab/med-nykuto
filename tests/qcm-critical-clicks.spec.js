@@ -1,11 +1,13 @@
 const { test, expect } = require('@playwright/test');
 
+const CURRENT_PRACTICE_LOADER = 'v364';
+
 async function waitPracticeReady(page) {
   await page.goto('/qcm.html?course=fisiologia');
   await page.evaluate(() => localStorage.clear());
   await page.reload();
   await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
-  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v363', null, { timeout: 20000 });
+  await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_LOADER__ === version, CURRENT_PRACTICE_LOADER, { timeout: 20000 });
   await expect(page.locator('.single-question-card').first()).toBeAttached({ timeout: 15000 });
 }
 
@@ -23,7 +25,7 @@ test.describe('QCM critical click behavior', () => {
     const firstId = await page.locator('.single-question-card').first().getAttribute('id');
     await answerCurrent(page);
 
-    const next = page.locator('.single-question-card .single-nav-actions [data-action="next-question"]').first();
+    const next = page.locator('.single-question-card [data-action="next-question"], #practiceMobileNextBar .practice-stable-next').first();
     await expect(next).toBeVisible({ timeout: 10000 });
     await next.scrollIntoViewIfNeeded();
     await next.click();
