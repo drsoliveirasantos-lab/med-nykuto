@@ -1,23 +1,15 @@
-/* v354 — QCM progress and skip accounting fix.
-   Fixes the premium progress bar reading stale text, without constantly repainting it.
-   Also turns "Siguiente" on an unanswered question into a counted "No sé" before advancing. */
+/* v355 — QCM progress display fix only.
+   Keeps the premium progress bar synchronized without flicker.
+   Important: this patch does not intercept Siguiente/Anterior; the original app handles navigation. */
 (function(){
   'use strict';
 
-  var VERSION = 'v354';
-  var autoAdvancing = false;
-  var lastAutoAdvanceAt = 0;
+  var VERSION = 'v355';
   var pendingProgressTimer = 0;
   var lastSignature = '';
 
   function isQcmPage(){
     return !!(document.body && document.body.classList && document.body.classList.contains('qcm-page'));
-  }
-  function stop(e){
-    if(!e) return;
-    e.preventDefault();
-    e.stopPropagation();
-    if(e.stopImmediatePropagation) e.stopImmediatePropagation();
   }
   function clean(s){ return String(s || '').replace(/\s+/g, ' ').trim(); }
   function parseProgressText(s){
@@ -87,71 +79,28 @@
   function scheduleAfterRender(){
     [40, 140, 320].forEach(function(ms){ setTimeout(updatePremiumProgress, ms); });
   }
-  function questionAnswered(card){
-    if(!card) return true;
-    if(card.querySelector('.options[data-locked="1"]')) return true;
-    if(card.querySelector('.option.correct,.option.wrong,.option.chosen')) return true;
-    if(card.querySelector('.answer-panel:not([hidden])')) return true;
-    return false;
-  }
-  function currentNextButton(){
-    return document.querySelector('.single-question-card .single-nav-actions [data-action="next-question"]');
-  }
-  function advanceAfterUnknown(){
-    var next = currentNextButton();
-    if(next){
-      autoAdvancing = true;
-      try{
-        next.disabled = false;
-        next.removeAttribute('disabled');
-        next.setAttribute('aria-disabled','false');
-        next.click();
-      } finally {
-        setTimeout(function(){ autoAdvancing = false; }, 120);
-      }
-    }else{
-      autoAdvancing = false;
-    }
-    scheduleAfterRender();
-  }
-
-  document.addEventListener('click', function(e){
+  function keepNextClickable(){
     if(!isQcmPage()) return;
-    var btn = e.target && e.target.closest && e.target.closest('[data-action="next-question"]');
-    if(!btn) return;
-
-    scheduleAfterRender();
-    if(autoAdvancing) return;
-
-    var card = btn.closest('.single-question-card');
-    if(!card || questionAnswered(card)) return;
-
-    var now = Date.now();
-    if(now - lastAutoAdvanceAt < 450){ stop(e); return; }
-    lastAutoAdvanceAt = now;
-
-    var dontKnow = card.querySelector('[data-action="dont-know"]');
-    if(!dontKnow) return;
-
-    stop(e);
-    autoAdvancing = true;
-    try{ dontKnow.click(); }catch(err){ autoAdvancing = false; return; }
-    setTimeout(advanceAfterUnknown, 140);
-    setTimeout(function(){ if(autoAdvancing) advanceAfterUnknown(); }, 360);
-  }, true);
-
+    document.querySelectorAll('.single-nav-actions [data-action="next-question"]').forEach(function(btn){
+      btn.disabled = false;
+      btn.removeAttribute('disabled');
+      btn.setAttribute('aria-disabled','false');
+      btn.style.pointerEvents = 'auto';
+    });
+  }
   function run(){
     if(!isQcmPage()) return;
     window.__MED_NYKUTO_PRACTICE_PROGRESS_FIX__ = VERSION;
+    keepNextClickable();
     scheduleAfterRender();
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
   else run();
   window.addEventListener('load', run);
-  document.addEventListener('click', function(){ scheduleProgressUpdate(120); }, true);
+  document.addEventListener('click', function(){ setTimeout(keepNextClickable, 40); scheduleProgressUpdate(120); }, true);
   try{
     var target = document.querySelector('#practiceList') || document.body;
-    new MutationObserver(function(){ scheduleProgressUpdate(90); }).observe(target, {childList:true, subtree:true, characterData:true});
+    new MutationObserver(function(){ keepNextClickable(); scheduleProgressUpdate(90); }).observe(target, {childList:true, subtree:true, characterData:true});
   }catch(e){}
 })();
