@@ -86,6 +86,25 @@ jobs:
           node scripts/print-playwright-summary.js practice-flow.json
           exit $code
 
+  browser-real-click:
+    name: Browser real-click regression tests
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+      - name: Run real-click regression tests
+        run: |
+          set +e
+          npx playwright test tests/real-click-regression.spec.js --project=desktop-chromium --reporter=json > real-click.json
+          code=$?
+          node scripts/print-playwright-summary.js real-click.json
+          exit $code
+
   browser-click-audit:
     name: Browser click-audit tests
     needs: validate
