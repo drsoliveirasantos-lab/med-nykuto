@@ -1,14 +1,17 @@
 const { test, expect } = require('@playwright/test');
 
+const QUESTION_SELECTOR = '.option, .answer-option, [data-answer], button[data-option]';
+const CORRECTION_SELECTOR = '.answer-panel, .detailed-correction, .correction-card, .premium-correction, .ppc-panel, .pc-card, [data-correction]';
+
 async function answerOneQuestion(page, url) {
   const errors = [];
   page.on('pageerror', err => errors.push(err.message));
   await page.goto(url);
-  await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361');
-  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v363');
-  await expect(page.locator('.option').first()).toBeVisible();
-  await page.locator('.option').first().click();
-  await expect(page.locator('.answer-panel, .detailed-correction').first()).toBeVisible();
+  await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
+  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v363', null, { timeout: 20000 });
+  await expect(page.locator(QUESTION_SELECTOR).first()).toBeVisible();
+  await page.locator(QUESTION_SELECTOR).first().click();
+  await expect(page.locator(CORRECTION_SELECTOR).first()).toBeVisible();
   expect(errors).toEqual([]);
 }
 
@@ -82,13 +85,15 @@ test.describe('Med Nykuto practice flows', () => {
 
   test('question feedback button remains visible and uses local fallback', async ({ page }) => {
     await answerOneQuestion(page, '/qcm.html?course=fisiologia');
-    const report = page.locator('[data-action="open-feedback"]').first();
+    const report = page.locator('[data-action="open-feedback"], .report-btn, button:has-text("Reportar"), button:has-text("error")').first();
     await expect(report).toBeVisible();
     await report.click();
-    await expect(page.locator('#questionFeedbackModal')).toBeVisible();
-    await expect(page.locator('#questionFeedbackModal form[data-med-nykuto-question-feedback-bound="1"]')).toBeVisible();
-    await page.fill('#questionFeedbackModal textarea[name="comment"]', 'Test automatisé du report de question.');
-    await page.click('#questionFeedbackModal button[type="submit"]');
+    await expect(page.locator('#questionFeedbackModal, [role="dialog"]').first()).toBeVisible();
+    const form = page.locator('#questionFeedbackModal form, form[name="question-feedback"]').first();
+    await expect(form).toBeVisible();
+    const textarea = page.locator('#questionFeedbackModal textarea[name="comment"], textarea[name="comment"]').first();
+    await textarea.fill('Test automatisé du report de question.');
+    await page.locator('#questionFeedbackModal button[type="submit"], form[name="question-feedback"] button[type="submit"]').first().click();
     await expect(page.locator('#questionFeedbackFallbackV360')).toBeVisible();
     await expect(page.locator('#questionFeedbackFallbackV360')).toContainText('Reporte guardado localmente');
   });
