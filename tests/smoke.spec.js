@@ -34,30 +34,35 @@ test.describe('Med Nykuto smoke navigation', () => {
     });
   }
 
-  test('course, module and runtime health data are available', async ({ page }) => {
+  test('restored course, module and runtime health data are available', async ({ page }) => {
     await page.goto('/matieres.html');
-    await page.waitForFunction(() => window.__MED_NYKUTO_GLOBAL_POLISH__ === 'v361-loader');
+    await page.waitForFunction(() => window.__MED_NYKUTO_GLOBAL_POLISH__ === 'v363-loader');
     await page.waitForFunction(() => window.__MED_NYKUTO_GLOBAL_FIX__ === 'v360');
     await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361');
-    const data = await page.evaluate(() => ({
-      hasData: !!window.MED_COURSES_DATA,
-      courseCount: window.MED_COURSES_DATA?.courses?.length || 0,
-      moduleCount: (window.MED_COURSES_DATA?.courses || []).reduce((sum, c) => sum + (c.modules?.length || 0), 0),
-      polish: window.__MED_NYKUTO_GLOBAL_POLISH__ || '',
-      repair: window.__MED_NYKUTO_GLOBAL_FIX__ || '',
-      runtime: window.__MED_NYKUTO_RUNTIME_GUARD__ || '',
-      health: window.MED_NYKUTO_HEALTH || null,
-      bodyHealth: document.body?.dataset?.medHealth || '',
-      bankRequired: document.body?.dataset?.medBankRequired || ''
-    }));
+    const data = await page.evaluate(() => {
+      const modules = (window.MED_COURSES_DATA?.courses || []).flatMap(c => c.modules || []);
+      return {
+        hasData: !!window.MED_COURSES_DATA,
+        courseCount: window.MED_COURSES_DATA?.courses?.length || 0,
+        moduleCount: modules.length,
+        richModules: modules.filter(m => String(m.markdown || m.fullMarkdown || '').length > 2500).length,
+        polish: window.__MED_NYKUTO_GLOBAL_POLISH__ || '',
+        repair: window.__MED_NYKUTO_GLOBAL_FIX__ || '',
+        runtime: window.__MED_NYKUTO_RUNTIME_GUARD__ || '',
+        health: window.MED_NYKUTO_HEALTH || null,
+        bodyHealth: document.body?.dataset?.medHealth || '',
+        bankRequired: document.body?.dataset?.medBankRequired || ''
+      };
+    });
     expect(data.hasData).toBeTruthy();
-    expect(data.courseCount).toBeGreaterThanOrEqual(5);
-    expect(data.moduleCount).toBeGreaterThanOrEqual(40);
-    expect(data.polish).toBe('v361-loader');
+    expect(data.courseCount).toBeGreaterThanOrEqual(6);
+    expect(data.moduleCount).toBe(58);
+    expect(data.richModules).toBeGreaterThanOrEqual(50);
+    expect(data.polish).toBe('v363-loader');
     expect(data.repair).toBe('v360');
     expect(data.runtime).toBe('v361');
     expect(data.health?.ok).toBeTruthy();
-    expect(data.health?.moduleCount).toBeGreaterThanOrEqual(40);
+    expect(data.health?.moduleCount).toBe(58);
     expect(data.bodyHealth).toBe('ok');
     expect(data.bankRequired).toBe('0');
     await expect(page.locator('.course-card').first()).toBeVisible();
