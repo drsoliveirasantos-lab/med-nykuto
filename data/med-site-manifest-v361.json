@@ -1,6 +1,6 @@
 {
   "siteName": "Med Nykuto",
-  "release": "v361-runtime-hardening",
+  "release": "v363-restored-legacy-data-hardening",
   "branch": "preview",
   "generatedAt": "2026-06-25",
   "deployment": {
@@ -27,6 +27,7 @@
     "data/med-courses-data.js",
     "data/med-practice-bank-init.js",
     "data/med-practice-bank-loader.js",
+    "data/practice-bank-functional-fallback-v360.js",
     "site-global-polish-v310.js",
     "med-nykuto-global-fix-v358.js",
     "med-nykuto-runtime-guard-v361.js"
@@ -35,10 +36,12 @@
     "courseCount": 6,
     "activeCourseCount": 5,
     "moduleCount": 58,
-    "fallbackMinimumPerFisiologia": {
-      "qcm": 180,
-      "vf": 90,
-      "cases": 45
+    "restoredPracticeBankMinimums": {
+      "fisiologia": { "qcm": 1800, "vf": 450, "cases": 450 },
+      "microbiologia": { "qcm": 2600, "vf": 650, "cases": 650 },
+      "genetica": { "qcm": 2400, "vf": 600, "cases": 600 },
+      "bioquimica": { "qcm": 600, "vf": 120, "cases": 600 },
+      "inmunologia": { "qcm": 600, "vf": 120, "cases": 600 }
     }
   },
   "safeguards": {
@@ -47,7 +50,9 @@
     "runtimeHealthMarker": "__MED_NYKUTO_RUNTIME_GUARD__",
     "runtimeHealthVersion": "v361",
     "contactFallback": "local-copy",
-    "questionFeedbackFallback": "local-copy"
+    "questionFeedbackFallback": "local-copy",
+    "practiceLoaderCacheVersion": "v363",
+    "fallbackMode": "complete-missing-formats-only"
   },
-  "contentWarning": "The fallback practice bank is functional recovery content, not the final validated pedagogical bank."
+  "contentWarning": "Course and practice data were restored from the recovered legacy split files. Fallback is kept only as a safety layer for missing formats."
 }
