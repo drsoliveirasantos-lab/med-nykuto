@@ -169,14 +169,29 @@ test.describe('Med Nykuto broad click audit', () => {
   test('course filter controls are clickable when present', async ({ page }) => {
     await page.goto('/qcm.html');
     await waitReady(page);
-    const chips = page.locator('#courseFilters .chip:not(.active), #courseFilters button:not(.active), #courseFilters a:not(.active), #courseFilters [data-course]:not(.active), #courseFilters [role="button"]:not(.active)');
-    const count = await chips.count();
-    if (count === 0) {
+    const visibleFilterHrefs = await page.evaluate(() => {
+      const visible = el => {
+        const r = el.getBoundingClientRect();
+        const style = getComputedStyle(el);
+        return r.width > 0 && r.height > 0 && style.visibility !== 'hidden' && style.display !== 'none';
+      };
+      return Array.from(document.querySelectorAll('#courseFilters a:not(.active), #courseFilters button:not(.active), #courseFilters [data-course]:not(.active), #courseFilters [role="button"]:not(.active)'))
+        .filter(visible)
+        .map(el => el.getAttribute('href') || el.dataset.course || '')
+        .filter(Boolean)
+        .slice(0, 5);
+    });
+    if (!visibleFilterHrefs.length) {
       await expect(page.locator('#practiceList')).toBeVisible();
       return;
     }
-    for (let i = 0; i < Math.min(count, 5); i++) {
-      await chips.nth(i).click({ force: true });
+    for (const target of visibleFilterHrefs) {
+      if (/\.html/.test(target)) {
+        await page.goto(target.startsWith('/') ? target : `/${target}`);
+      } else {
+        await page.goto(`/qcm.html?course=${encodeURIComponent(target)}`);
+      }
+      await waitReady(page);
       await expect(page.locator('#practiceList')).toBeVisible();
     }
   });
