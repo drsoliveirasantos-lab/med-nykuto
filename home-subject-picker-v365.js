@@ -10,7 +10,7 @@
 
   if(!courses.length) return;
 
-  window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ = 'v366-modal';
+  window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ = 'v367-delegated-modal';
 
   const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({
     '&': '&amp;',
@@ -152,25 +152,46 @@
     modal.querySelector('[data-home-back-subjects]')?.addEventListener('click', renderSubjects, { once:false });
   }
 
-  function setupTriggers(){
+  function isSubjectLauncher(target){
+    const el = target && target.closest && target.closest('[data-home-subject-launch], [data-testid="home-subject-picker-trigger"], .home-action-card.primary, .home-v41-actions .btn.primary');
+    if(!el) return null;
+    if(el.closest('#homeSubjectModal')) return null;
+    return el;
+  }
+
+  function markTriggers(){
     const triggers = [
       document.querySelector('.home-action-card.primary'),
       document.querySelector('.home-v41-actions .btn.primary')
     ].filter(Boolean);
 
     triggers.forEach(trigger => {
-      trigger.setAttribute('href', '#');
+      trigger.dataset.homeSubjectLaunch = '1';
+      trigger.dataset.testid = 'home-subject-picker-trigger';
       trigger.setAttribute('aria-haspopup', 'dialog');
       trigger.setAttribute('aria-controls', 'homeSubjectModal');
-      trigger.dataset.testid = 'home-subject-picker-trigger';
-      trigger.addEventListener('click', event => {
-        event.preventDefault();
-        openModal();
-      });
     });
   }
 
+  document.addEventListener('click', event => {
+    const trigger = isSubjectLauncher(event.target);
+    if(!trigger) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    openModal();
+  }, true);
+
+  document.addEventListener('touchend', event => {
+    const trigger = isSubjectLauncher(event.target);
+    if(!trigger) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    openModal();
+  }, { capture:true, passive:false });
+
   injectStyle();
   ensureModal();
-  setupTriggers();
+  markTriggers();
+  window.setTimeout(markTriggers, 350);
+  window.setTimeout(markTriggers, 1200);
 })();
