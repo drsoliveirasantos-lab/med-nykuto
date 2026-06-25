@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-// Full real UI audit v2: scrolls each enabled target before overlay detection.
+// Full real UI audit v3: checks mobile floating next action after answering.
 const criticalPages = [
   '/index.html',
   '/matieres.html',
@@ -76,13 +76,15 @@ test.describe('Med Nykuto full real UI audit', () => {
     await expect.poll(async () => page.locator('.single-question-card').first().getAttribute('id'), { timeout: 15000 }).not.toBe(firstId);
   });
 
-  test('mobile QCM answer then next really changes the active question', async ({ page }) => {
+  test('mobile QCM answer then floating next really changes the active question', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/qcm.html?course=fisiologia');
     await waitPracticeReady(page);
     const firstId = await page.locator('.single-question-card').first().getAttribute('id');
     await answerCurrentQuestion(page);
-    await page.locator('.single-question-card [data-action="next-question"], .compact-next-bar button, .compact-next-bar a').first().click({ force: true });
+    const mobileNext = page.locator('#practiceMobileNextBar .practice-stable-next, .compact-next-bar.practice-mobile-next-bar .practice-stable-next').first();
+    await expect(mobileNext).toBeVisible({ timeout: 8000 });
+    await mobileNext.click({ force: true });
     await expect.poll(async () => page.locator('.single-question-card').first().getAttribute('id'), { timeout: 15000 }).not.toBe(firstId);
   });
 
@@ -102,8 +104,10 @@ test.describe('Med Nykuto full real UI audit', () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/qcm.html?course=fisiologia');
     await waitPracticeReady(page);
+    await answerCurrentQuestion(page);
+    await expect(page.locator('#practiceMobileNextBar .practice-stable-next').first()).toBeVisible({ timeout: 8000 });
     const blocked = await page.evaluate(async () => {
-      const selectors = ['a.brand', 'a.brand-official', '#menuToggle', '.menu-toggle', '.single-question-card button.option:not([disabled])', '.single-question-card [data-action="next-question"]:not([disabled])'];
+      const selectors = ['a.brand', 'a.brand-official', '#menuToggle', '.menu-toggle', '.single-question-card button.option:not([disabled])', '#practiceMobileNextBar .practice-stable-next'];
       const visible = el => {
         const r = el.getBoundingClientRect();
         const s = getComputedStyle(el);
