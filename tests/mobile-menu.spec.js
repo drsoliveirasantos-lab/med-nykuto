@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+const { test, expect } = require('@playwright/test');
 
 test.describe('Med Nykuto mobile menu', () => {
   test('hamburger opens, closes and keeps links clickable', async ({ page }) => {
