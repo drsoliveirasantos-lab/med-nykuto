@@ -1,6 +1,7 @@
 name: Med Nykuto site tests
 
 on:
+  workflow_dispatch:
   push:
     branches: [preview]
   pull_request:
