@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-/* Med Nykuto v365 — static site link/identity/release-hygiene validator.
+/* Med Nykuto v366 — static site link/identity/release-hygiene validator.
    Validates the public production pages listed below, not stray/debug HTML files. */
 const fs = require('fs');
 const path = require('path');
 
 const root = process.cwd();
-const required = ['index.html','matieres.html','matiere.html','modules.html','module.html','qcm.html','cas-cliniques.html','vrai-faux.html','erreurs.html','examen.html','contact.html','contact-success.html','a-propos.html','mentions.html'];
+const required = ['index.html','matieres.html','matiere.html','modules.html','module.html','qcm.html','cas-cliniques.html','vrai-faux.html','erreurs.html','examen.html','contact.html','contact-success.html','a-propos.html','mentions.html','login.html','compte.html'];
 const htmlFiles = required.filter(f => fs.existsSync(path.join(root, f)));
 const criticalRestoredPages = ['module.html','qcm.html','cas-cliniques.html','vrai-faux.html','erreurs.html','examen.html'];
 const problems = [];
@@ -50,8 +50,10 @@ for(const file of htmlFiles){
 }
 
 const jsChecks = [
-  ['site-global-polish-v310.js', /__MED_NYKUTO_GLOBAL_POLISH__\s*=\s*['"]v363-loader['"]/],
-  ['site-global-polish-v310.js', /CACHE_VERSION\s*=\s*['"]363['"]/],
+  ['site-global-polish-v310.js', /__MED_NYKUTO_GLOBAL_POLISH__\s*=\s*['"]v364-loader['"]/],
+  ['site-global-polish-v310.js', /CACHE_VERSION\s*=\s*['"]364['"]/],
+  ['auth-optional-v101.js', /MED_NYKUTO_AUTH_REQUIRED\s*=\s*false/],
+  ['auth-optional-v101.js', /MED_NYKUTO_PUBLIC_FIRST\s*=\s*true/],
   ['med-nykuto-runtime-guard-v361.js', /__MED_NYKUTO_RUNTIME_GUARD__\s*=\s*VERSION/],
   ['med-nykuto-global-fix-v358.js', /__MED_NYKUTO_GLOBAL_FIX__\s*=\s*VERSION/],
   ['practice-cleanup-v314.js', /__MED_NYKUTO_PRACTICE_CLEANUP__\s*=\s*['"]v360['"]/],
