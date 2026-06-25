@@ -6,6 +6,7 @@
     "test": "npm run validate && npm run test:e2e",
     "validate": "node scripts/validate-site-links.js && node scripts/validate-data-health.js && node scripts/validate-site-manifest.js",
     "import:courses": "node scripts/import-legacy-courses.js",
+    "import:legacy-data": "node scripts/import-legacy-data.js",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed"
   },
