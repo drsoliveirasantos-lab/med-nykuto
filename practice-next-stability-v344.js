@@ -1,6 +1,5 @@
-/* v344 — Stable next-button guard for practice pages.
-   Fixes mobile double-dispatch/flicker when compact correction buttons clone the real “Siguiente” button.
-   The clone used to keep data-action="next-question" and also call the real button, allowing two handlers to race.
+/* v365 — Stable next-button guard for practice pages.
+   Keeps compact buttons safe and adds a fallback when a visible “Suivant/Siguiente” click does not advance the active question.
 */
 (function(){
   'use strict';
@@ -11,7 +10,7 @@
     return document.body && document.body.classList && document.body.classList.contains('practice-page');
   }
   function isNextText(el){
-    return /siguiente|suivant|próxima|proxima|next/i.test(String(el && el.textContent || ''));
+    return /siguiente|suivant|próxima|proxima|next|question suivante|pregunta siguiente/i.test(String(el && el.textContent || ''));
   }
   function nextCandidate(target){
     if(!target || !target.closest) return null;
@@ -21,10 +20,21 @@
     if(!btn) return false;
     if(btn.getAttribute && btn.getAttribute('data-action') === 'next-question') return true;
     if(btn.closest && btn.closest('.compact-next-bar') && isNextText(btn)) return true;
+    if(isNextText(btn) && btn.closest && btn.closest('.single-question-card')) return true;
     return false;
   }
+  function activeQuestionId(){
+    var card = document.querySelector('.single-question-card');
+    return card ? (card.id || card.getAttribute('data-id') || '') : '';
+  }
+  function answeredVisible(){
+    var card = document.querySelector('.single-question-card');
+    if(!card) return false;
+    var panel = card.querySelector('.answer-panel:not([hidden])');
+    return !!panel;
+  }
   function realNextButton(){
-    return document.querySelector('.single-nav-actions [data-action="next-question"]:not([disabled])');
+    return document.querySelector('.single-question-card .single-nav-actions [data-action="next-question"], #practiceList [data-action="next-question"], [data-action="next-question"]');
   }
   function stop(e){
     e.preventDefault();
@@ -46,35 +56,60 @@
     });
   }
 
-  function forwardToRealNext(){
+  function dispatchRealNext(){
     var real = realNextButton();
     if(!real) return false;
+    if(real.disabled || real.hasAttribute('disabled')){
+      if(!answeredVisible()) return false;
+      real.disabled = false;
+      real.removeAttribute('disabled');
+    }
     forwarding = true;
-    try{ real.click(); }
-    finally{ forwarding = false; }
-    lockedUntil = Date.now() + 650;
+    try{
+      real.dispatchEvent(new MouseEvent('click', {bubbles:true, cancelable:true, view:window}));
+    } finally {
+      forwarding = false;
+    }
+    lockedUntil = Date.now() + 500;
     return true;
+  }
+
+  function fallbackIfStillSame(beforeId){
+    setTimeout(function(){
+      if(!isPractice()) return;
+      if(activeQuestionId() !== beforeId) return;
+      dispatchRealNext();
+    }, 140);
+    setTimeout(function(){
+      if(!isPractice()) return;
+      if(activeQuestionId() !== beforeId) return;
+      dispatchRealNext();
+    }, 360);
   }
 
   document.addEventListener('click', function(e){
     if(!isPractice()) return;
     var btn = nextCandidate(e.target);
     if(!isNextButton(btn)) return;
+    var beforeId = activeQuestionId();
 
     var now = Date.now();
     if(!forwarding && now < lockedUntil){
       stop(e);
+      fallbackIfStillSame(beforeId);
       return;
     }
 
     if(btn.closest && btn.closest('.compact-next-bar')){
       stop(e);
-      forwardToRealNext();
+      dispatchRealNext();
+      fallbackIfStillSame(beforeId);
       return;
     }
 
     if(!forwarding){
-      lockedUntil = now + 650;
+      lockedUntil = now + 500;
+      fallbackIfStillSame(beforeId);
     }
   }, true);
 
@@ -82,6 +117,7 @@
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
   else run();
   window.addEventListener('load', run);
+  window.addEventListener('pageshow', run);
   document.addEventListener('click', function(){ setTimeout(run, 30); setTimeout(run, 140); }, true);
   try{
     var mo = new MutationObserver(function(mutations){
