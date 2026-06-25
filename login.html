@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conexión opcional | Med Nykuto</title>
+  <meta name="description" content="Cuenta opcional de Med Nykuto. El sitio sigue público y accesible sin conexión." />
+  <link rel="canonical" href="https://preview.med-nykuto-git.pages.dev/login.html" />
+  <meta property="og:title" content="Conexión opcional | Med Nykuto" />
+  <meta property="og:description" content="La cuenta es opcional. Med Nykuto sigue abierto sin obligación de conexión." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://preview.med-nykuto-git.pages.dev/login.html" />
+  <meta property="og:site_name" content="Med Nykuto" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="assets/logo-medcursos-icon.png" />
+  <link rel="stylesheet" href="style.css?v=363" />
+</head>
+<body data-page="login" data-lang="es" class="login-page auth-optional">
+  <header class="site-header">
+    <nav class="nav-shell" aria-label="Navegación principal">
+      <a class="brand brand-official" href="/index.html" aria-label="Inicio">
+        <img src="assets/logo-medcursos-official.png" alt="Med Nykuto" class="brand-logo brand-logo-official" />
+        <span class="brand-context"><small>Cuenta opcional</small></span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Inicio</a>
+        <a href="matieres.html">Materias</a>
+        <a href="modules.html">Módulos</a>
+        <a href="qcm.html">QCM</a>
+        <a href="cas-cliniques.html">Casos clínicos</a>
+        <a href="vrai-faux.html">V/F</a>
+        <a href="erreurs.html">Errores</a>
+        <a href="contact.html">Contacto</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <a class="back-link" href="index.html">← Inicio</a>
+      <p class="eyebrow">Cuenta · opcional</p>
+      <h1>Conexión opcional</h1>
+      <p>Med Nykuto sigue público. Puedes usar el sitio completo sin cuenta. Esta página solo prepara una base para guardar preferencias y progreso más adelante.</p>
+    </section>
+
+    <section class="section reduced-top">
+      <div class="auth-card">
+        <span class="auth-chip">Public-first · no bloquea el sitio</span>
+        <h2>Crear un perfil local opcional</h2>
+        <p class="auth-note">No es una cuenta real con servidor todavía. No uses contraseña. Esto guarda solo un perfil local en este navegador para preparar futuras funciones.</p>
+        <form class="auth-form" data-optional-login-form>
+          <label>
+            Nombre o apodo
+            <input type="text" name="name" maxlength="60" placeholder="Ej.: Diego" autocomplete="name" />
+          </label>
+          <label>
+            Email opcional
+            <input type="email" name="email" maxlength="120" placeholder="opcional" autocomplete="email" />
+          </label>
+          <div class="auth-actions">
+            <button class="btn primary" type="submit">Guardar perfil opcional</button>
+            <a class="btn secondary" href="qcm.html">Continuar sin cuenta</a>
+          </div>
+        </form>
+        <p class="auth-small">Más adelante, esta estructura podrá conectarse a un sistema real de conexión, abonnement ou accès premium. Pour l’instant, aucune page n’est privée.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.bundle.js?v=363"></script>
+  <script src="site-global-polish-v310.js?v=364"></script>
+  <script src="auth-optional-v101.js?v=101"></script>
+</body>
+</html>
