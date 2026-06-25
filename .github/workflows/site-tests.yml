@@ -118,6 +118,27 @@ jobs:
           node scripts/print-playwright-summary.js real-click.json
           exit $code
 
+  browser-module-ui:
+    name: Browser module UI regression tests
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
+      - name: Run module UI regression tests
+        run: |
+          set +e
+          npx playwright test tests/module-ui-regression.spec.js --project=desktop-chromium --reporter=json > module-ui.json
+          code=$?
+          node scripts/print-playwright-summary.js module-ui.json
+          exit $code
+
   browser-click-audit:
     name: Browser click-audit tests
     needs: validate
