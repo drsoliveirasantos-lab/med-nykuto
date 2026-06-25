@@ -10,7 +10,7 @@
 
   if(!courses.length) return;
 
-  window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ = 'v369-selection-router';
+  window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ = 'v370-scroll-safe-modal';
 
   const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({
     '&': '&amp;',
@@ -27,6 +27,44 @@
   const moduleUrl = module => `/module.html?id=${encodeURIComponent(module.id)}`;
   const two = value => String(value || 0).padStart(2, '0');
   let lastModalActionAt = 0;
+  let ignoreTapUntil = 0;
+  let modalTouch = null;
+  let launcherTouch = null;
+
+  const TAP_MOVE_LIMIT = 12;
+  const TAP_TIME_LIMIT = 750;
+
+  function pointFromEvent(event){
+    const touch = event.changedTouches && event.changedTouches[0] || event.touches && event.touches[0];
+    return touch || event;
+  }
+
+  function beginGesture(event, target){
+    const p = pointFromEvent(event);
+    return {
+      target,
+      x: Number(p.clientX || 0),
+      y: Number(p.clientY || 0),
+      time: Date.now(),
+      moved: false
+    };
+  }
+
+  function updateGesture(gesture, event){
+    if(!gesture) return gesture;
+    const p = pointFromEvent(event);
+    const dx = Math.abs(Number(p.clientX || 0) - gesture.x);
+    const dy = Math.abs(Number(p.clientY || 0) - gesture.y);
+    if(dx > TAP_MOVE_LIMIT || dy > TAP_MOVE_LIMIT) gesture.moved = true;
+    return gesture;
+  }
+
+  function isStableTap(gesture, event){
+    if(!gesture) return true;
+    updateGesture(gesture, event);
+    const elapsed = Date.now() - gesture.time;
+    return !gesture.moved && elapsed <= TAP_TIME_LIMIT;
+  }
 
   function injectStyle(){
     if(document.getElementById('homeSubjectPickerStyle')) return;
@@ -43,16 +81,16 @@
       .home-pick-head h2{margin:0;color:#f6f7fb;font-size:clamp(1.34rem,4.8vw,1.9rem);line-height:1.07;font-weight:900;letter-spacing:-.035em}
       .home-pick-close{width:52px;height:52px;flex:0 0 auto;border-radius:18px;border:1px solid rgba(255,255,255,.105);background:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.025));color:#f4f4f5;font-size:2rem;line-height:1;display:grid;place-items:center;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
       .home-pick-close:active{transform:scale(.98)}
-      .home-pick-body{min-height:0;overflow:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+      .home-pick-body{min-height:0;overflow:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;touch-action:pan-y}
       .home-pick-list{display:grid;gap:10px;padding:16px}
-      .home-pick-link,.home-pick-button{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;width:100%;min-height:68px;text-align:left;text-decoration:none;border:1px solid rgba(255,255,255,.085);border-radius:20px;background:linear-gradient(180deg,rgba(14,24,42,.96),rgba(7,15,29,.98));color:#f8fafc;padding:12px 14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.026),0 10px 24px rgba(0,0,0,.12);cursor:pointer;font:inherit;transition:transform .16s ease,border-color .16s ease,background .16s ease,box-shadow .16s ease}
+      .home-pick-link,.home-pick-button{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;width:100%;min-height:68px;text-align:left;text-decoration:none;border:1px solid rgba(255,255,255,.085);border-radius:20px;background:linear-gradient(180deg,rgba(14,24,42,.96),rgba(7,15,29,.98));color:#f8fafc;padding:12px 14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.026),0 10px 24px rgba(0,0,0,.12);cursor:pointer;font:inherit;transition:transform .16s ease,border-color .16s ease,background .16s ease,box-shadow .16s ease;touch-action:manipulation}
       .home-pick-link:hover,.home-pick-button:hover{transform:translateY(-1px);border-color:rgba(236,211,139,.28);background:linear-gradient(180deg,rgba(18,30,52,.98),rgba(8,17,33,1));box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 14px 30px rgba(0,0,0,.18)}
       .home-pick-index{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:15px;background:linear-gradient(180deg,rgba(236,211,139,.16),rgba(236,211,139,.055));border:1px solid rgba(236,211,139,.22);color:#ead18b;font-size:.76rem;letter-spacing:.11em;font-weight:950;box-shadow:inset 0 1px 0 rgba(255,255,255,.055)}
       .home-pick-main{display:block;min-width:0;overflow:hidden}
       .home-pick-main strong{display:block;font-size:1.06rem;line-height:1.12;font-weight:880;color:#f7f8fb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.015em}
       .home-pick-main span{display:block;margin-top:4px;color:rgba(210,219,233,.62);font-size:.78rem;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
       .home-pick-count{justify-self:end;display:inline-flex;align-items:center;justify-content:center;min-width:76px;padding:7px 10px;border-radius:999px;background:rgba(236,211,139,.09);border:1px solid rgba(236,211,139,.15);color:#e4ca81;font-size:.73rem;font-weight:900;letter-spacing:.02em;white-space:nowrap}
-      .home-pick-back{display:inline-flex;align-items:center;gap:8px;margin:14px 16px 0;padding:8px 11px;border:1px solid rgba(255,255,255,.09);border-radius:999px;background:rgba(255,255,255,.045);color:#dbe2ec;font-size:.8rem;font-weight:850;cursor:pointer}
+      .home-pick-back{display:inline-flex;align-items:center;gap:8px;margin:14px 16px 0;padding:8px 11px;border:1px solid rgba(255,255,255,.09);border-radius:999px;background:rgba(255,255,255,.045);color:#dbe2ec;font-size:.8rem;font-weight:850;cursor:pointer;touch-action:manipulation}
       .home-pick-empty{padding:18px;border:1px dashed rgba(255,255,255,.14);border-radius:18px;color:rgba(226,232,240,.72)}
       @keyframes homePickFade{from{opacity:0}to{opacity:1}}
       @keyframes homePickRise{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
@@ -70,9 +108,14 @@
 
   function guardModalAction(){
     const now = Date.now();
-    if(now - lastModalActionAt < 260) return false;
+    if(now - lastModalActionAt < 300) return false;
     lastModalActionAt = now;
     return true;
+  }
+
+  function markScrollGesture(event){
+    updateGesture(modalTouch, event);
+    if(modalTouch && modalTouch.moved) ignoreTapUntil = Date.now() + 450;
   }
 
   function ensureModal(){
@@ -97,11 +140,35 @@
     `;
     document.body.appendChild(modal);
 
+    modal.addEventListener('touchstart', event => {
+      modalTouch = beginGesture(event, event.target);
+    }, { capture:true, passive:true });
+
+    modal.addEventListener('touchmove', event => {
+      markScrollGesture(event);
+    }, { capture:true, passive:true });
+
+    modal.addEventListener('pointerdown', event => {
+      if(event.pointerType === 'mouse') return;
+      modalTouch = beginGesture(event, event.target);
+    }, { capture:true, passive:true });
+
+    modal.addEventListener('pointermove', event => {
+      if(event.pointerType === 'mouse') return;
+      markScrollGesture(event);
+    }, { capture:true, passive:true });
+
     const handleModalClick = event => {
       const close = event.target.closest && event.target.closest('[data-home-pick-close]');
       const back = event.target.closest && event.target.closest('[data-home-back-subjects]');
       const subjectButton = event.target.closest && event.target.closest('[data-home-course-id]');
       const moduleButton = event.target.closest && event.target.closest('[data-home-module-href]');
+      const actionable = close || back || subjectButton || moduleButton || event.target === modal;
+
+      if(actionable && Date.now() < ignoreTapUntil){
+        stopEvent(event);
+        return;
+      }
 
       if(event.target === modal || close){
         stopEvent(event);
@@ -128,9 +195,7 @@
       }
     };
 
-    ['click','pointerup','touchend'].forEach(type => {
-      modal.addEventListener(type, handleModalClick, { capture:true, passive:false });
-    });
+    modal.addEventListener('click', handleModalClick, { capture:true, passive:false });
 
     document.addEventListener('keydown', event => {
       if(event.key === 'Escape') closeModal();
@@ -146,6 +211,8 @@
       modal.setAttribute('aria-hidden', 'true');
     }
     document.body.classList.remove('home-pick-open');
+    modalTouch = null;
+    launcherTouch = null;
   }
 
   function openModal(){
@@ -180,6 +247,8 @@
   function openModuleModal(course){
     const modal = ensureModal();
     const modules = Array.isArray(course.modules) ? course.modules : [];
+    modalTouch = null;
+    ignoreTapUntil = Date.now() + 120;
     modal.querySelector('#homePickCode').textContent = tx(course.title).toUpperCase();
     modal.querySelector('#homePickTitle').textContent = `${tx(course.title)} — Elegir un módulo`;
     modal.querySelector('.home-pick-body').innerHTML = `
@@ -222,19 +291,33 @@
     });
   }
 
-  document.addEventListener('click', event => {
+  document.addEventListener('touchstart', event => {
     const trigger = isSubjectLauncher(event.target);
     if(!trigger) return;
-    stopEvent(event);
-    openModal();
-  }, true);
+    launcherTouch = beginGesture(event, trigger);
+  }, { capture:true, passive:true });
+
+  document.addEventListener('touchmove', event => {
+    updateGesture(launcherTouch, event);
+  }, { capture:true, passive:true });
 
   document.addEventListener('touchend', event => {
     const trigger = isSubjectLauncher(event.target);
     if(!trigger) return;
+    if(!isStableTap(launcherTouch, event)) return;
     stopEvent(event);
     openModal();
+    launcherTouch = null;
   }, { capture:true, passive:false });
+
+  document.addEventListener('click', event => {
+    const trigger = isSubjectLauncher(event.target);
+    if(!trigger) return;
+    if(launcherTouch && !isStableTap(launcherTouch, event)) return;
+    stopEvent(event);
+    openModal();
+    launcherTouch = null;
+  }, true);
 
   injectStyle();
   ensureModal();
