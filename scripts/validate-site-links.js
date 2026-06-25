@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Med Nykuto v366 — static site link/identity/release-hygiene validator.
+/* Med Nykuto v367 — static site link/identity/release-hygiene validator.
    Validates the public production pages listed below, not stray/debug HTML files. */
 const fs = require('fs');
 const path = require('path');
@@ -50,8 +50,9 @@ for(const file of htmlFiles){
 }
 
 const jsChecks = [
-  ['site-global-polish-v310.js', /__MED_NYKUTO_GLOBAL_POLISH__\s*=\s*['"]v364-loader['"]/],
-  ['site-global-polish-v310.js', /CACHE_VERSION\s*=\s*['"]364['"]/],
+  ['site-global-polish-v310.js', /__MED_NYKUTO_GLOBAL_POLISH__\s*=\s*['"]v365-loader['"]/],
+  ['site-global-polish-v310.js', /CACHE_VERSION\s*=\s*['"]365['"]/],
+  ['course-image-zoom-v101.js', /__MED_NYKUTO_COURSE_IMAGE_ZOOM__\s*=\s*['"]v101['"]/],
   ['auth-optional-v101.js', /MED_NYKUTO_AUTH_REQUIRED\s*=\s*false/],
   ['auth-optional-v101.js', /MED_NYKUTO_PUBLIC_FIRST\s*=\s*true/],
   ['med-nykuto-runtime-guard-v361.js', /__MED_NYKUTO_RUNTIME_GUARD__\s*=\s*VERSION/],
