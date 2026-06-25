@@ -1,6 +1,7 @@
 /* v361 — Med Nykuto runtime guard.
    Purpose: release-hardening layer for data health, legacy storage migration,
-   safe disabled links, dynamic stats, and visible fallback diagnostics.
+   safe disabled links, dynamic stats, restored legacy-data brand normalization,
+   and visible fallback diagnostics.
    Does not generate or modify medical question-bank content. */
 (function(){
   'use strict';
@@ -20,7 +21,19 @@
     return /^(practice|exam|mistakes)$/.test(page) || /(?:qcm|cas-cliniques|vrai-faux|erreurs|examen)\.html$/.test(location.pathname || '');
   }
 
+  function normalizeLegacyDataBrand(){
+    var data = window.MED_COURSES_DATA;
+    if(data && data.siteName !== BRAND) data.siteName = BRAND;
+    if(data && typeof data.generatedFrom === 'string') data.generatedFrom = data.generatedFrom.replace(/Med\s+Cursos/g, BRAND);
+    if(data && Array.isArray(data.courses)){
+      data.courses.forEach(function(course){
+        if(course && typeof course.description === 'string') course.description = course.description.replace(/Med\s+Cursos/g, BRAND);
+      });
+    }
+  }
+
   function courseData(){
+    normalizeLegacyDataBrand();
     var data = window.MED_COURSES_DATA || {};
     var courses = Array.isArray(data.courses) ? data.courses : [];
     var modules = [];
@@ -67,7 +80,8 @@
       qcmCount: b.summary.qcm,
       vfCount: b.summary.vf,
       caseCount: b.summary.cases,
-      fallbackActive: !!(window.MED_PRACTICE_BANK && String(window.MED_PRACTICE_BANK.version || '').indexOf('fallback') >= 0)
+      fallbackActive: !!(window.MED_PRACTICE_BANK && String(window.MED_PRACTICE_BANK.version || '').indexOf('fallback') >= 0),
+      dataSiteName: c.data.siteName || ''
     };
   }
 
@@ -141,8 +155,8 @@
       grid.innerHTML = c.courses.map(function(course){
         var count = course.moduleCount || (course.modules || []).length || 0;
         var soon = count <= 0;
-        return '<a class="subject-progress-card '+(soon?'is-coming-soon':'')+'" href="'+(soon?'#':'matiere.html?course='+encodeURIComponent(course.id))+'" '+(soon?'aria-disabled="true"':'')+'>'+
-          '<div><strong>'+escapeHtml(course.title || course.id || '')+'</strong><span>'+(soon?'Próximamente':count+' módulos')+'</span></div>'+
+        return '<a class="subject-progress-card '+(soon?'is-coming-soon':'')+'" href="'+(soon?'#':'matiere.html?course='+encodeURIComponent(course.id))+'" '+(soon?'aria-disabled="true"':'')+'>'+ 
+          '<div><strong>'+escapeHtml(course.title || course.id || '')+'</strong><span>'+(soon?'Próximamente':count+' módulos')+'</span></div>'+ 
           '<div class="subject-progress-pct">'+(soon?'—':'0%')+'</div><div class="mini-progress"><i style="width:0%"></i></div></a>';
       }).join('');
     }
@@ -160,9 +174,9 @@
     var box = document.createElement('section');
     box.id = 'medRuntimeHealthPanel';
     box.className = 'notice runtime-health-panel';
-    box.innerHTML = '<strong>Estado técnico del sitio</strong><p>'+
-      (fatal ? 'Una sección no pudo renderizarse correctamente. ' : '')+
-      'Cursos: '+health.courseCount+' · Módulos: '+health.moduleCount+' · QCM: '+health.qcmCount+' · V/F: '+health.vfCount+' · Casos: '+health.caseCount+'.</p>'+
+    box.innerHTML = '<strong>Estado técnico del sitio</strong><p>'+ 
+      (fatal ? 'Una sección no pudo renderizarse correctamente. ' : '')+ 
+      'Cursos: '+health.courseCount+' · Módulos: '+health.moduleCount+' · QCM: '+health.qcmCount+' · V/F: '+health.vfCount+' · Casos: '+health.caseCount+'.</p>'+ 
       (health.warnings.length ? '<small>Alertas: '+health.warnings.join(', ')+'</small>' : '');
     main.insertBefore(box, main.firstChild);
   }
@@ -183,6 +197,7 @@
 
   function run(){
     migrateLegacyStorage();
+    normalizeLegacyDataBrand();
     exposeHealth();
     hardBrandCleanup();
     syncHomeStats();
