@@ -1,0 +1,53 @@
+{
+  "siteName": "Med Nykuto",
+  "release": "v361-runtime-hardening",
+  "branch": "preview",
+  "generatedAt": "2026-06-25",
+  "deployment": {
+    "provider": "Cloudflare Pages",
+    "previewHost": "preview.med-nykuto-git.pages.dev"
+  },
+  "navigationPages": [
+    "index.html",
+    "matieres.html",
+    "matiere.html",
+    "modules.html",
+    "module.html",
+    "qcm.html",
+    "cas-cliniques.html",
+    "vrai-faux.html",
+    "erreurs.html",
+    "examen.html",
+    "contact.html",
+    "contact-success.html",
+    "a-propos.html",
+    "mentions.html"
+  ],
+  "criticalScripts": [
+    "data/med-courses-data.js",
+    "data/med-practice-bank-init.js",
+    "data/med-practice-bank-loader.js",
+    "site-global-polish-v310.js",
+    "med-nykuto-global-fix-v358.js",
+    "med-nykuto-runtime-guard-v361.js"
+  ],
+  "expectedData": {
+    "courseCount": 6,
+    "activeCourseCount": 5,
+    "moduleCount": 58,
+    "fallbackMinimumPerFisiologia": {
+      "qcm": 180,
+      "vf": 90,
+      "cases": 45
+    }
+  },
+  "safeguards": {
+    "noNetlifyForms": true,
+    "noFakeSentConfirmation": true,
+    "runtimeHealthMarker": "__MED_NYKUTO_RUNTIME_GUARD__",
+    "runtimeHealthVersion": "v361",
+    "contactFallback": "local-copy",
+    "questionFeedbackFallback": "local-copy"
+  },
+  "contentWarning": "The fallback practice bank is functional recovery content, not the final validated pedagogical bank."
+}
