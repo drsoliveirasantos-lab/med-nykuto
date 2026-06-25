@@ -125,10 +125,20 @@ jobs:
       - name: Run real-click and QCM critical tests
         run: |
           set +e
-          npx playwright test tests/real-click-regression.spec.js tests/qcm-critical-clicks.spec.js --project=desktop-chromium --reporter=json > real-click.json
+          npx playwright test tests/real-click-regression.spec.js tests/qcm-critical-clicks.spec.js --project=desktop-chromium --trace=retain-on-failure --output=test-results/real-click --reporter=json > real-click.json
           code=$?
           node scripts/print-playwright-summary.js real-click.json
           exit $code
+      - name: Upload real-click evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: real-click-evidence
+          if-no-files-found: ignore
+          path: |
+            real-click.json
+            test-results/real-click/**
+            playwright-report/**
 
   browser-module-ui:
     name: Browser module UI regression tests
@@ -169,10 +179,20 @@ jobs:
       - name: Run click-audit tests
         run: |
           set +e
-          npx playwright test tests/click-audit.spec.js --project=desktop-chromium --reporter=json > click-audit.json
+          npx playwright test tests/click-audit.spec.js --project=desktop-chromium --trace=retain-on-failure --output=test-results/click-audit --reporter=json > click-audit.json
           code=$?
           node scripts/print-playwright-summary.js click-audit.json
           exit $code
+      - name: Upload click-audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: click-audit-evidence
+          if-no-files-found: ignore
+          path: |
+            click-audit.json
+            test-results/click-audit/**
+            playwright-report/**
 
   browser-mobile-menu:
     name: Browser mobile-menu tests
