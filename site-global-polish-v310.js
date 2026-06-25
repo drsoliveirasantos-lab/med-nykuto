@@ -1,6 +1,6 @@
-/* v310 — Global Med Nykuto polish layer.
+/* v360 — Global Med Nykuto polish layer.
    Applies identity, language, cache-visible UI text, logo/home behavior and practice-page safety across all pages.
-   v358 loads the global repair layer for menu reliability, brand cleanup and Cloudflare form fallback. */
+   Loads the v360 global repair layer for menu reliability, brand cleanup and Cloudflare form fallbacks. */
 (function(){
   'use strict';
 
@@ -23,6 +23,7 @@
     var pageTitle = {
       'index.html':'Inicio | Med Nykuto',
       'matieres.html':'Materias | Med Nykuto',
+      'matiere.html':'Materia | Med Nykuto',
       'modules.html':'Módulos | Med Nykuto',
       'qcm.html':'QCM | Med Nykuto',
       'cas-cliniques.html':'Casos clínicos | Med Nykuto',
@@ -30,7 +31,7 @@
       'erreurs.html':'Errores | Med Nykuto',
       'examen.html':'Examen blanco | Med Nykuto',
       'contact.html':'Contacto | Med Nykuto',
-      'contact-success.html':'Mensaje enviado | Med Nykuto',
+      'contact-success.html':'Mensaje preparado | Med Nykuto',
       'a-propos.html':'Acerca de | Med Nykuto',
       'mentions.html':'Aviso legal | Med Nykuto',
       'module.html':'Módulo | Med Nykuto'
@@ -148,11 +149,11 @@
   }
 
   function loadInterfaceFix(){
-    appendScript('interfaceClickFixV352', 'interface-click-fix-v352.js?v=358', '__MED_NYKUTO_INTERFACE_FIX_LOADER__');
+    appendScript('interfaceClickFixV352', 'interface-click-fix-v352.js?v=360', '__MED_NYKUTO_INTERFACE_FIX_LOADER__');
   }
 
   function loadGlobalRepair(){
-    appendScript('medNykutoGlobalFixV358', 'med-nykuto-global-fix-v358.js?v=358', '__MED_NYKUTO_GLOBAL_FIX_LOADER__');
+    appendScript('medNykutoGlobalFixV358', 'med-nykuto-global-fix-v358.js?v=360', '__MED_NYKUTO_GLOBAL_FIX_LOADER__');
   }
 
   function run(){
@@ -165,12 +166,12 @@
     injectGlobalStyle();
     loadInterfaceFix();
     loadGlobalRepair();
-    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v310+v358-loader';
+    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v360-loader';
   }
 
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
-  else run();
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
   window.addEventListener('load', run);
-  setTimeout(run, 400);
-  setTimeout(run, 1400);
+  window.addEventListener('pageshow', run);
+  setTimeout(run, 250);
+  setTimeout(run, 900);
 })();
