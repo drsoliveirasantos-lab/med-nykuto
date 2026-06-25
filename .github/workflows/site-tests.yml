@@ -98,10 +98,10 @@ jobs:
           exit $code
 
   browser-real-click:
-    name: Browser real-click regression tests
+    name: Browser real-click and QCM critical tests
     needs: validate
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -110,10 +110,10 @@ jobs:
       - run: npm install
       - name: Install Playwright Chromium with timeout
         run: timeout 240s npx playwright install --with-deps chromium
-      - name: Run real-click regression tests
+      - name: Run real-click and QCM critical tests
         run: |
           set +e
-          npx playwright test tests/real-click-regression.spec.js --project=desktop-chromium --reporter=json > real-click.json
+          npx playwright test tests/real-click-regression.spec.js tests/qcm-critical-clicks.spec.js --project=desktop-chromium --reporter=json > real-click.json
           code=$?
           node scripts/print-playwright-summary.js real-click.json
           exit $code
