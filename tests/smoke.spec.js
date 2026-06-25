@@ -1,5 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
+const CURRENT_GLOBAL_POLISH = 'v365-loader';
+
 const pages = [
   '/',
   '/index.html',
@@ -37,7 +39,7 @@ test.describe('Med Nykuto smoke navigation', () => {
 
   test('restored course, module and runtime health data are available', async ({ page }) => {
     await page.goto('/matieres.html');
-    await page.waitForFunction(() => window.__MED_NYKUTO_GLOBAL_POLISH__ === 'v363-loader', null, { timeout: 20000 });
+    await page.waitForFunction((version) => window.__MED_NYKUTO_GLOBAL_POLISH__ === version, CURRENT_GLOBAL_POLISH, { timeout: 20000 });
     await page.waitForFunction(() => window.__MED_NYKUTO_GLOBAL_FIX__ === 'v360', null, { timeout: 20000 });
     await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
     const data = await page.evaluate(() => {
@@ -59,7 +61,7 @@ test.describe('Med Nykuto smoke navigation', () => {
     expect(data.courseCount).toBeGreaterThanOrEqual(6);
     expect(data.moduleCount).toBe(58);
     expect(data.richModules).toBeGreaterThanOrEqual(50);
-    expect(data.polish).toBe('v363-loader');
+    expect(data.polish).toBe(CURRENT_GLOBAL_POLISH);
     expect(data.repair).toBe('v360');
     expect(data.runtime).toBe('v361');
     expect(data.health?.ok).toBeTruthy();
