@@ -1,5 +1,6 @@
 /* v310 — Global Med Nykuto polish layer.
-   Applies identity, language, cache-visible UI text, logo/home behavior and practice-page safety across all pages. */
+   Applies identity, language, cache-visible UI text, logo/home behavior and practice-page safety across all pages.
+   v358 loads the global repair layer for menu reliability, brand cleanup and Cloudflare form fallback. */
 (function(){
   'use strict';
 
@@ -28,7 +29,11 @@
       'vrai-faux.html':'Verdadero/Falso | Med Nykuto',
       'erreurs.html':'Errores | Med Nykuto',
       'examen.html':'Examen blanco | Med Nykuto',
-      'contact.html':'Contacto | Med Nykuto'
+      'contact.html':'Contacto | Med Nykuto',
+      'contact-success.html':'Mensaje enviado | Med Nykuto',
+      'a-propos.html':'Acerca de | Med Nykuto',
+      'mentions.html':'Aviso legal | Med Nykuto',
+      'module.html':'Módulo | Med Nykuto'
     }[path] || (document.title || '').replace(/Med Cursos/g,SITE_NAME).replace('Accueil','Inicio');
     document.title = pageTitle;
 
@@ -43,7 +48,7 @@
   }
 
   function polishHeader(){
-    all('img[alt="Med Cursos"], img[alt="MedCursos"]').forEach(function(img){ img.alt = SITE_NAME; });
+    all('img[alt="Med Cursos"], img[alt="MedCursos"], img[alt="Med Nykuto"]').forEach(function(img){ img.alt = SITE_NAME; });
     all('a.brand,a.brand-official').forEach(function(a){
       a.href = 'index.html';
       a.setAttribute('aria-label','Inicio');
@@ -85,7 +90,8 @@
       'Vrai/Faux':'V/F',
       'Mes erreurs':'Errores',
       'Examen blanc':'Examen blanco',
-      'Accueil':'Inicio'
+      'Accueil':'Inicio',
+      'Mentions':'Aviso legal'
     };
     all('a,button,h1,h2,h3,p,small,span,em,strong,label,option').forEach(function(el){
       var v = clean(el.textContent);
@@ -131,14 +137,22 @@
     document.head.appendChild(st);
   }
 
-  function loadInterfaceFix(){
-    if(window.__MED_NYKUTO_INTERFACE_FIX_LOADER__ || document.getElementById('interfaceClickFixV352')) return;
-    window.__MED_NYKUTO_INTERFACE_FIX_LOADER__ = 'v352';
+  function appendScript(id, src, marker){
+    if((marker && window[marker]) || document.getElementById(id)) return;
+    if(marker) window[marker] = src;
     var s = document.createElement('script');
-    s.id = 'interfaceClickFixV352';
-    s.src = 'interface-click-fix-v352.js?v=352';
+    s.id = id;
+    s.src = src;
     s.defer = true;
     (document.body || document.head || document.documentElement).appendChild(s);
+  }
+
+  function loadInterfaceFix(){
+    appendScript('interfaceClickFixV352', 'interface-click-fix-v352.js?v=358', '__MED_NYKUTO_INTERFACE_FIX_LOADER__');
+  }
+
+  function loadGlobalRepair(){
+    appendScript('medNykutoGlobalFixV358', 'med-nykuto-global-fix-v358.js?v=358', '__MED_NYKUTO_GLOBAL_FIX_LOADER__');
   }
 
   function run(){
@@ -150,7 +164,8 @@
     polishComingSoon();
     injectGlobalStyle();
     loadInterfaceFix();
-    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v310+v352-loader';
+    loadGlobalRepair();
+    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v310+v358-loader';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
