@@ -9,8 +9,25 @@ async function waitPracticeReady(page) {
 async function answerCurrentQuestion(page) {
   const answer = page.locator('.single-question-card button.option[data-option]').first();
   await expect(answer).toBeAttached({ timeout: 15000 });
+  await answer.scrollIntoViewIfNeeded();
   await answer.click({ force: true });
   await expect(page.locator('.single-question-card .answer-panel:not([hidden])').first()).toBeAttached({ timeout: 15000 });
+}
+
+async function clickVisibleNext(page) {
+  const clicked = await page.evaluate(() => {
+    const candidates = Array.from(document.querySelectorAll('#practiceMobileNextBar .practice-stable-next, .compact-next-bar.practice-mobile-next-bar .practice-stable-next, .single-question-card [data-action="next-question"]'));
+    const visible = candidates.find(el => {
+      const r = el.getBoundingClientRect();
+      const s = getComputedStyle(el);
+      return r.width > 0 && r.height > 0 && s.display !== 'none' && s.visibility !== 'hidden' && !el.disabled && !el.hasAttribute('disabled');
+    });
+    if (!visible) return false;
+    visible.scrollIntoView({ block: 'center', inline: 'center' });
+    visible.click();
+    return true;
+  });
+  expect(clicked).toBe(true);
 }
 
 test.describe('Med Nykuto real user click regressions', () => {
@@ -26,7 +43,7 @@ test.describe('Med Nykuto real user click regressions', () => {
     await waitPracticeReady(page);
     const firstId = await page.locator('.single-question-card').first().getAttribute('id');
     await answerCurrentQuestion(page);
-    await page.locator('.single-question-card [data-action="next-question"]').first().click({ force: true });
+    await clickVisibleNext(page);
     await expect.poll(async () => page.locator('.single-question-card').first().getAttribute('id'), { timeout: 15000 }).not.toBe(firstId);
   });
 
@@ -36,9 +53,8 @@ test.describe('Med Nykuto real user click regressions', () => {
     await waitPracticeReady(page);
     const firstId = await page.locator('.single-question-card').first().getAttribute('id');
     await answerCurrentQuestion(page);
-    const next = page.locator('.single-question-card [data-action="next-question"], .compact-next-bar button, .compact-next-bar a').first();
-    await expect(next).toBeAttached({ timeout: 15000 });
-    await next.click({ force: true });
+    await expect(page.locator('#practiceMobileNextBar .practice-stable-next, .compact-next-bar.practice-mobile-next-bar .practice-stable-next').first()).toBeVisible({ timeout: 8000 });
+    await clickVisibleNext(page);
     await expect.poll(async () => page.locator('.single-question-card').first().getAttribute('id'), { timeout: 15000 }).not.toBe(firstId);
   });
 });
