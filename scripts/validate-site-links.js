@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Med Nykuto v360 — static site link/identity/release-hygiene validator.
+/* Med Nykuto v361 — static site link/identity/release-hygiene validator.
    Run from repo root: node scripts/validate-site-links.js
 */
 const fs = require('fs');
@@ -40,7 +40,9 @@ for(const file of htmlFiles){
 }
 
 const jsChecks = [
-  ['site-global-polish-v310.js', /__MED_NYKUTO_GLOBAL_POLISH__\s*=\s*['"]v360-loader['"]/],
+  ['site-global-polish-v310.js', /__MED_NYKUTO_GLOBAL_POLISH__\s*=\s*['"]v361-loader['"]/],
+  ['site-global-polish-v310.js', /med-nykuto-runtime-guard-v361\.js\?v=361/],
+  ['med-nykuto-runtime-guard-v361.js', /__MED_NYKUTO_RUNTIME_GUARD__\s*=\s*VERSION/],
   ['med-nykuto-global-fix-v358.js', /__MED_NYKUTO_GLOBAL_FIX__\s*=\s*VERSION/],
   ['practice-cleanup-v314.js', /__MED_NYKUTO_PRACTICE_CLEANUP__\s*=\s*['"]v360['"]/],
   ['data/med-practice-bank-loader.js', /practice-bank-functional-fallback-v360\.js/]
@@ -48,7 +50,7 @@ const jsChecks = [
 jsChecks.forEach(([file, pattern]) => {
   if(!exists(file)){ add(file, 'required JS file missing'); return; }
   const body = fs.readFileSync(path.join(root, file), 'utf8');
-  if(!pattern.test(body)) add(file, 'missing expected v360 marker');
+  if(!pattern.test(body)) add(file, 'missing expected release marker');
 });
 
 if(problems.length){
