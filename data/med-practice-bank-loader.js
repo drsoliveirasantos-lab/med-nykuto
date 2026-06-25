@@ -1,9 +1,9 @@
-/* v363 — Lazy practice bank loader after restored legacy data.
+/* v364 — Lazy practice bank loader after question-bank refresh.
    Loads restored split banks first, then fallback only to complete missing formats,
    then the newest quality patches. */
 (function(){
   "use strict";
-  var VERSION = "363";
+  var VERSION = "364";
   var bankFiles = {"bioquimica":"practice-bank-bioquimica.js","fisiologia":"practice-bank-fisiologia.js","genetica":"practice-bank-genetica.js","inmunologia":"practice-bank-inmunologia.js","microbiologia":"practice-bank-microbiologia.js"};
   var patchFiles = {
     "fisiologia":["practice-bank-fisiologia-quality-patch-v314.js","practice-bank-fisiologia-quality-patch-v315.js","practice-bank-fisiologia-quality-patch-v316.js","practice-bank-fisiologia-quality-patch-v317.js","practice-bank-fisiologia-quality-patch-v318.js","practice-bank-fisiologia-quality-patch-v319.js","practice-bank-fisiologia-quality-patch-v320.js","practice-bank-fisiologia-quality-patch-v321.js","practice-bank-fisiologia-quality-patch-v322.js","practice-bank-fisiologia-quality-patch-v323.js","practice-bank-fisiologia-quality-patch-v324.js","practice-bank-fisiologia-quality-patch-v325.js","practice-bank-fisiologia-quality-patch-v326.js","practice-bank-fisiologia-quality-patch-v327.js","practice-bank-fisiologia-quality-patch-v328.js","practice-bank-fisiologia-quality-patch-v329.js","practice-bank-fisiologia-quality-patch-v330.js","practice-bank-fisiologia-quality-patch-v331.js","practice-bank-fisiologia-quality-patch-v332.js","practice-bank-fisiologia-quality-patch-v333-m2-qcm-081-120.js","practice-bank-fisiologia-quality-patch-v344-m2-qcm-121-160.js","practice-bank-fisiologia-quality-patch-v345-m2-qcm-161-200.js","practice-bank-fisiologia-quality-patch-v345-m3-qcm-031-070.js","practice-bank-fisiologia-quality-patch-v346-m2-vf-001-025.js","practice-bank-fisiologia-quality-patch-v347-m3-qcm-071-110.js","practice-bank-fisiologia-quality-patch-v347-m2-vf-026-050.js","practice-bank-fisiologia-quality-patch-v350-m2-cases-001-015.js","practice-bank-fisiologia-quality-patch-v348-m3-qcm-111-150.js"],
@@ -53,5 +53,5 @@
     for(var j=0; j<patches.length; j++) loadDataScript(patches[j]);
   }
   window.MED_PRACTICE_BANK_LOADING = false;
-  window.__MED_NYKUTO_PRACTICE_LOADER__ = "v363";
+  window.__MED_NYKUTO_PRACTICE_LOADER__ = "v364";
 })();
