@@ -25,8 +25,17 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
-      - name: Static validation
-        run: npm run validate
+      - name: Validate static links and release markers
+        run: node scripts/validate-site-links.js
+
+      - name: Validate restored data volumes
+        run: node scripts/validate-data-health.js
+
+      - name: Validate restored course assets
+        run: node scripts/validate-course-assets.js
+
+      - name: Validate site manifest
+        run: node scripts/validate-site-manifest.js
 
       - name: Browser tests
         run: npx playwright test --project=desktop-chromium
