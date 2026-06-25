@@ -1,12 +1,12 @@
-/* v364 — Global Med Nykuto polish layer.
-   Applies identity, language, cache-visible UI text, logo/home behavior, optional public-first auth and practice-page safety across all pages.
-   Loads the repair layer and runtime guard with v364 cache-busting after restored legacy data. */
+/* v365 — Global Med Nykuto polish layer.
+   Applies identity, language, cache-visible UI text, logo/home behavior, optional public-first auth, course image zoom and practice-page safety across all pages.
+   Loads repair layers with v365 cache-busting after restored legacy data. */
 (function(){
   'use strict';
 
   var SITE_NAME = 'Med Nykuto';
   var HOST = 'https://preview.med-nykuto-git.pages.dev/';
-  var CACHE_VERSION = '364';
+  var CACHE_VERSION = '365';
 
   function text(el,v){ if(el && v != null) el.textContent = v; }
   function attr(el,k,v){ if(el && v != null) el.setAttribute(k,v); }
@@ -54,9 +54,10 @@
   function polishHeader(){
     all('img[alt="Med Cursos"], img[alt="MedCursos"], img[alt="Med Nykuto"]').forEach(function(img){ img.alt = SITE_NAME; });
     all('a.brand,a.brand-official').forEach(function(a){
-      a.href = 'index.html';
+      a.href = '/index.html';
       a.setAttribute('aria-label','Inicio');
       a.style.pointerEvents = 'auto';
+      a.style.cursor = 'pointer';
       var small = a.querySelector('.brand-context small');
       if(small && /Bibliothèque|Biblioteca|organisée|organizada/i.test(clean(small.textContent))) small.textContent = 'Biblioteca médica organizada';
     });
@@ -155,7 +156,9 @@
   function loadInterfaceFix(){ appendScript('interfaceClickFixV352', withCache('interface-click-fix-v352.js'), '__MED_NYKUTO_INTERFACE_FIX_LOADER__'); }
   function loadGlobalRepair(){ appendScript('medNykutoGlobalFixV358', withCache('med-nykuto-global-fix-v358.js'), '__MED_NYKUTO_GLOBAL_FIX_LOADER__'); }
   function loadRuntimeGuard(){ appendScript('medNykutoRuntimeGuardV361', withCache('med-nykuto-runtime-guard-v361.js'), '__MED_NYKUTO_RUNTIME_GUARD_LOADER__'); }
+  function loadHomeLinkFix(){ appendScript('homeLinkFixV303', 'home-link-fix-v303.js?v=365', '__MED_NYKUTO_HOME_LINK_FIX_LOADER__'); }
   function loadOptionalAuth(){ appendScript('authOptionalV101', 'auth-optional-v101.js?v=101', '__MED_NYKUTO_AUTH_OPTIONAL_LOADER__'); }
+  function loadCourseImageZoom(){ appendScript('courseImageZoomV101', 'course-image-zoom-v101.js?v=101', '__MED_NYKUTO_COURSE_IMAGE_ZOOM_LOADER__'); }
 
   function run(){
     setLang();
@@ -168,8 +171,10 @@
     loadInterfaceFix();
     loadGlobalRepair();
     loadRuntimeGuard();
+    loadHomeLinkFix();
     loadOptionalAuth();
-    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v364-loader';
+    loadCourseImageZoom();
+    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v365-loader';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
