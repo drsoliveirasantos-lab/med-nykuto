@@ -11,6 +11,7 @@ jobs:
   validate:
     name: Validate restored site data
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,13 +34,15 @@ jobs:
     name: Browser smoke tests
     needs: validate
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
       - run: npm install
-      - run: npx playwright install --with-deps chromium
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
       - name: Run smoke tests
         run: |
           set +e
@@ -52,13 +55,15 @@ jobs:
     name: Browser restored-data tests
     needs: validate
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
       - run: npm install
-      - run: npx playwright install --with-deps chromium
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
       - name: Run restored-data tests
         run: |
           set +e
@@ -71,13 +76,15 @@ jobs:
     name: Browser practice-flow tests
     needs: validate
     runs-on: ubuntu-latest
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
       - run: npm install
-      - run: npx playwright install --with-deps chromium
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
       - name: Run practice-flow tests
         run: |
           set +e
@@ -90,13 +97,15 @@ jobs:
     name: Browser real-click regression tests
     needs: validate
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
       - run: npm install
-      - run: npx playwright install --with-deps chromium
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
       - name: Run real-click regression tests
         run: |
           set +e
@@ -109,13 +118,15 @@ jobs:
     name: Browser click-audit tests
     needs: validate
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
       - run: npm install
-      - run: npx playwright install --with-deps chromium
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
       - name: Run click-audit tests
         run: |
           set +e
@@ -128,13 +139,15 @@ jobs:
     name: Browser mobile-menu tests
     needs: validate
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
       - run: npm install
-      - run: npx playwright install --with-deps chromium
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
       - name: Run mobile-menu tests
         run: |
           set +e
@@ -147,13 +160,15 @@ jobs:
     name: Browser contact tests
     needs: validate
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
       - run: npm install
-      - run: npx playwright install --with-deps chromium
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
       - name: Run contact tests
         run: |
           set +e
