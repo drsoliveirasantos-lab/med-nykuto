@@ -21,7 +21,7 @@
     <section class="page-hero contact-hero"><a class="back-link" href="index.html">Inicio /</a><p class="eyebrow">Contacto y mejoras</p><h1>Contactar el proyecto</h1><p>Para una sugerencia, un bug general o una propuesta de mejora, envía un mensaje aquí. Para una pregunta precisa de QCM, usa el botón “Reportar error” directamente en la pregunta.</p></section>
     <section class="section reduced-top contact-section-grid">
       <article class="contact-card contact-form-card"><div class="contact-card-head"><p class="eyebrow">Formulario</p><h2>Enviar un mensaje</h2><p>Puedes dejar tu nombre y email si quieres recibir una respuesta. También puedes enviar el mensaje de forma anónima.</p></div>
-        <form name="site-contact" method="POST" class="contact-form">
+        <form name="site-contact" method="POST" class="contact-form" onsubmit="return window.medNykutoContactFallback(event,this)">
           <input type="hidden" name="form-name" value="site-contact" />
           <div class="contact-grid">
             <label class="field-label"><span>Tipo de mensaje</span><select name="type" required><option value="">Elegir categoría</option><option value="course-error">Error en un curso</option><option value="technical-issue">Problema técnico</option><option value="suggestion">Sugerencia de mejora</option><option value="collaboration">Propuesta de colaboración</option><option value="general-question">Pregunta general</option><option value="other">Otro problema</option></select></label>
@@ -36,6 +36,44 @@
     </section>
   </main>
   <footer class="footer"><p>© <span id="year"></span> Med Nykuto</p><div class="footer-links"><a href="index.html">Inicio</a><a href="matieres.html">Materias</a><a href="contact.html">Contacto</a><a href="a-propos.html">Acerca de</a><a href="mentions.html">Aviso legal</a></div></footer>
+  <script>
+    window.medNykutoContactFallback = function(event, form){
+      if(event){ event.preventDefault(); event.stopPropagation(); }
+      form = form || document.querySelector('form[name="site-contact"]');
+      if(!form) return false;
+      var fd = new FormData(form);
+      var rows = [];
+      fd.forEach(function(value, key){
+        if(key === 'form-name' || !String(value || '').trim()) return;
+        rows.push(key + ': ' + String(value).trim());
+      });
+      var payload = rows.join('\n');
+      try{
+        var saved = JSON.parse(localStorage.getItem('med-nykuto-contact-drafts-v358') || '[]');
+        saved.push({createdAt:new Date().toISOString(), payload:payload});
+        localStorage.setItem('med-nykuto-contact-drafts-v358', JSON.stringify(saved).slice(-50000));
+      }catch(err){}
+      var old = document.getElementById('contactFormFallbackV358');
+      if(old) old.remove();
+      var box = document.createElement('div');
+      box.id = 'contactFormFallbackV358';
+      box.className = 'form-offline-note-v358';
+      box.innerHTML = '<strong>Mensaje preparado.</strong><span>El sitio está en Cloudflare Pages: este formulario está guardado localmente en tu navegador, pero no se envía a un servidor externo. Copia el texto si quieres conservarlo.</span>';
+      var area = document.createElement('textarea');
+      area.readOnly = true;
+      area.value = payload;
+      box.appendChild(area);
+      form.appendChild(box);
+      return false;
+    };
+    document.addEventListener('DOMContentLoaded', function(){
+      var form = document.querySelector('form[name="site-contact"]');
+      if(form && form.dataset.inlineContactFallbackBound !== '1'){
+        form.dataset.inlineContactFallbackBound = '1';
+        form.addEventListener('submit', function(e){ window.medNykutoContactFallback(e, form); }, true);
+      }
+    });
+  </script>
   <script src="data/med-courses-data.js?v=363"></script><script src="data/med-practice-bank-init.js?v=363"></script><script src="data/med-practice-bank-loader.js?v=363"></script><script src="app.bundle.js?v=363"></script><script src="v210-module-picker-overlay.js?v=363"></script><script src="site-global-polish-v310.js?v=363"></script><script src="med-nykuto-global-fix-v358.js?v=363"></script><script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
