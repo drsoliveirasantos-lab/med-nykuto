@@ -10,7 +10,7 @@
 
   if(!courses.length) return;
 
-  window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ = 'v368-luxury-modal';
+  window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ = 'v369-selection-router';
 
   const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({
     '&': '&amp;',
@@ -24,8 +24,9 @@
     ? (value.es || value.fr || value.br || Object.values(value)[0] || '')
     : String(value || '');
 
-  const moduleUrl = module => `module.html?id=${encodeURIComponent(module.id)}`;
+  const moduleUrl = module => `/module.html?id=${encodeURIComponent(module.id)}`;
   const two = value => String(value || 0).padStart(2, '0');
+  let lastModalActionAt = 0;
 
   function injectStyle(){
     if(document.getElementById('homeSubjectPickerStyle')) return;
@@ -60,6 +61,20 @@
     document.head.appendChild(style);
   }
 
+  function stopEvent(event){
+    if(!event) return;
+    event.preventDefault();
+    event.stopPropagation();
+    if(event.stopImmediatePropagation) event.stopImmediatePropagation();
+  }
+
+  function guardModalAction(){
+    const now = Date.now();
+    if(now - lastModalActionAt < 260) return false;
+    lastModalActionAt = now;
+    return true;
+  }
+
   function ensureModal(){
     let modal = document.getElementById('homeSubjectModal');
     if(modal) return modal;
@@ -82,14 +97,39 @@
     `;
     document.body.appendChild(modal);
 
-    modal.addEventListener('click', event => {
-      if(event.target === modal || event.target.closest('[data-home-pick-close]')) closeModal();
-      const subjectButton = event.target.closest('[data-home-course-id]');
+    const handleModalClick = event => {
+      const close = event.target.closest && event.target.closest('[data-home-pick-close]');
+      const back = event.target.closest && event.target.closest('[data-home-back-subjects]');
+      const subjectButton = event.target.closest && event.target.closest('[data-home-course-id]');
+      const moduleButton = event.target.closest && event.target.closest('[data-home-module-href]');
+
+      if(event.target === modal || close){
+        stopEvent(event);
+        closeModal();
+        return;
+      }
+      if(back){
+        stopEvent(event);
+        renderSubjects();
+        return;
+      }
       if(subjectButton){
-        event.preventDefault();
+        stopEvent(event);
+        if(!guardModalAction()) return;
         const course = courses.find(item => String(item.id) === String(subjectButton.dataset.homeCourseId));
         if(course) openModuleModal(course);
+        return;
       }
+      if(moduleButton){
+        stopEvent(event);
+        if(!guardModalAction()) return;
+        const href = moduleButton.dataset.homeModuleHref;
+        if(href) window.location.assign(href);
+      }
+    };
+
+    ['click','pointerup','touchend'].forEach(type => {
+      modal.addEventListener(type, handleModalClick, { capture:true, passive:false });
     });
 
     document.addEventListener('keydown', event => {
@@ -145,19 +185,20 @@
     modal.querySelector('.home-pick-body').innerHTML = `
       <button class="home-pick-back" type="button" data-home-back-subjects>← Cambiar materia</button>
       <div class="home-pick-list" data-testid="home-module-modal-list">
-        ${modules.length ? modules.map((module, index) => `
-          <a class="home-pick-link" href="${moduleUrl(module)}" data-testid="home-module-choice">
+        ${modules.length ? modules.map((module, index) => {
+          const href = moduleUrl(module);
+          return `
+          <button class="home-pick-link" type="button" data-home-module-href="${esc(href)}" data-testid="home-module-choice">
             <span class="home-pick-index">${two(module.number || index + 1)}</span>
             <span class="home-pick-main">
               <strong>${esc(tx(module.title))}</strong>
               <span>Curso completo · entrenamiento disponible</span>
             </span>
             <span class="home-pick-count">Módulo</span>
-          </a>
-        `).join('') : '<div class="home-pick-empty">No hay módulos disponibles.</div>'}
+          </button>`;
+        }).join('') : '<div class="home-pick-empty">No hay módulos disponibles.</div>'}
       </div>
     `;
-    modal.querySelector('[data-home-back-subjects]')?.addEventListener('click', renderSubjects, { once:false });
   }
 
   function isSubjectLauncher(target){
@@ -184,16 +225,14 @@
   document.addEventListener('click', event => {
     const trigger = isSubjectLauncher(event.target);
     if(!trigger) return;
-    event.preventDefault();
-    event.stopImmediatePropagation();
+    stopEvent(event);
     openModal();
   }, true);
 
   document.addEventListener('touchend', event => {
     const trigger = isSubjectLauncher(event.target);
     if(!trigger) return;
-    event.preventDefault();
-    event.stopImmediatePropagation();
+    stopEvent(event);
     openModal();
   }, { capture:true, passive:false });
 
