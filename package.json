@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "test": "npm run validate && npm run test:e2e",
-    "validate": "node scripts/validate-site-links.js && node scripts/validate-data-health.js",
+    "validate": "node scripts/validate-site-links.js && node scripts/validate-data-health.js && node scripts/validate-site-manifest.js",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed"
   },
