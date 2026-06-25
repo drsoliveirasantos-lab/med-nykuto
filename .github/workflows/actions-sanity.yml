@@ -1,0 +1,20 @@
+name: GitHub Actions sanity check
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [preview]
+    paths:
+      - .github/workflows/actions-sanity.yml
+
+permissions:
+  contents: read
+
+jobs:
+  sanity:
+    name: Runner sanity check
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Prove runner starts
+        run: echo "GitHub Actions runner is working"
