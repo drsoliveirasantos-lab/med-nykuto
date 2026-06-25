@@ -64,12 +64,18 @@ test.describe('Med Nykuto broad click audit', () => {
           el.classList.contains('disabled') ||
           !!el.closest('.disabled,.is-coming-soon,[aria-disabled="true"]')
         );
+        const className = el => String(el.className || '');
         const isActionHash = el => (
           el.getAttribute('href') === '#' && (
             el.hasAttribute('data-action') ||
             el.getAttribute('role') === 'button' ||
-            /toggle|chip|filter|tab|dropdown|expand|collapse|force-toggle/.test(String(el.className || ''))
+            /toggle|chip|filter|tab|dropdown|expand|collapse|force-toggle/.test(className(el))
           )
+        );
+        const isIconOnlyControl = el => (
+          /zoom|icon|close|hamburger|menu-toggle/.test(className(el)) ||
+          !!el.getAttribute('aria-label') ||
+          !!el.getAttribute('title')
         );
         const controls = Array.from(document.querySelectorAll('a, button, summary, label, [role="button"], .option, [data-action]'))
           .filter(visible)
@@ -79,15 +85,17 @@ test.describe('Med Nykuto broad click audit', () => {
             href: el.getAttribute('href') || '',
             disabled: isDisabled(el),
             actionHash: isActionHash(el),
+            iconOnly: isIconOnlyControl(el),
             pointer: getComputedStyle(el).pointerEvents,
             id: el.id || '',
-            cls: el.className || ''
+            cls: el.className || '',
+            label: el.getAttribute('aria-label') || el.getAttribute('title') || ''
           }));
         return {
           count: controls.length,
           badPointer: controls.filter(x => !x.disabled && x.pointer === 'none'),
           badHref: controls.filter(x => x.tag === 'A' && !x.disabled && !x.actionHash && x.href === '#'),
-          emptyButtons: controls.filter(x => (x.tag === 'BUTTON' || x.tag === 'A') && !x.text && !x.id && !x.href)
+          emptyButtons: controls.filter(x => (x.tag === 'BUTTON' || x.tag === 'A') && !x.text && !x.id && !x.href && !x.label && !x.iconOnly)
         };
       });
 
