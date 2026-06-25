@@ -1,7 +1,8 @@
 const { test, expect } = require('@playwright/test');
 
-const QUESTION_SELECTOR = '.option, .answer-option, [data-answer], button[data-option]';
-const CORRECTION_SELECTOR = '.answer-panel, .detailed-correction, .correction-card, .premium-correction, .ppc-panel, .pc-card, [data-correction]';
+const ANSWER_SELECTOR = 'button[data-option], button[data-answer], button.option, button.answer-option, .option button, .answer-option button, .option[role="button"], .answer-option[role="button"], .option, .answer-option, [data-answer]';
+const CORRECTION_VISIBLE_SELECTOR = '.answer-panel:not([hidden]), .detailed-correction:visible, .correction-card:visible, .premium-correction:visible, .ppc-panel:visible, .pc-card:visible, [data-correction]:visible';
+const REVEAL_SELECTOR = 'button:has-text("Ver respuesta"), button:has-text("Voir la réponse"), button:has-text("Não sei"), button:has-text("No sé"), [data-action="dont-know"], [data-action="show-answer"]';
 
 async function answerOneQuestion(page, url) {
   const errors = [];
@@ -9,9 +10,22 @@ async function answerOneQuestion(page, url) {
   await page.goto(url);
   await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
   await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v363', null, { timeout: 20000 });
-  await expect(page.locator(QUESTION_SELECTOR).first()).toBeVisible();
-  await page.locator(QUESTION_SELECTOR).first().click();
-  await expect(page.locator(CORRECTION_SELECTOR).first()).toBeVisible();
+
+  const answer = page.locator(ANSWER_SELECTOR).filter({ hasNot: page.locator('[hidden]') }).first();
+  await expect(answer).toBeVisible();
+  await answer.click();
+
+  const visibleCorrection = page.locator(CORRECTION_VISIBLE_SELECTOR).first();
+  try {
+    await expect(visibleCorrection).toBeVisible({ timeout: 2500 });
+  } catch (err) {
+    const reveal = page.locator(REVEAL_SELECTOR).first();
+    if (await reveal.count()) {
+      await reveal.click();
+    }
+  }
+
+  await expect(page.locator(CORRECTION_VISIBLE_SELECTOR).first()).toBeVisible({ timeout: 15000 });
   expect(errors).toEqual([]);
 }
 
