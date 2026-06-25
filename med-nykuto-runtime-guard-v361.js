@@ -185,9 +185,9 @@
     migrateLegacyStorage();
     exposeHealth();
     hardBrandCleanup();
+    syncHomeStats();
     guardComingSoonSubjects();
     disableUnsafeLinks();
-    syncHomeStats();
     protectQuestionFeedback();
     addHealthPanel();
     markReady();
