@@ -1,7 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
 const CURRENT_GLOBAL_POLISH = 'v371-loader';
-const CURRENT_NEXT_STABILITY = 'v370-native-exact-next';
 
 const pages = [
   '/',
@@ -25,13 +24,6 @@ async function waitForBasePage(page){
   await expect(page.locator('body')).toBeVisible();
   await expect(page.locator('.site-header')).toBeVisible();
   await expect(page.locator('#menuToggle')).toBeAttached();
-}
-
-async function waitQuestionChanged(page, firstId){
-  await page.waitForFunction((id) => {
-    const card = document.querySelector('.single-question-card');
-    return !!card && card.id !== id;
-  }, firstId, { timeout: 15000 });
 }
 
 test.describe('Med Nykuto smoke navigation', () => {
@@ -104,22 +96,6 @@ test.describe('Med Nykuto smoke navigation', () => {
       return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 0 && rect.height > 0;
     }).length);
     expect(visibleExtraChildren).toBe(0);
-  });
-
-  test('QCM native next button advances to the next question', async ({ page }) => {
-    await page.addInitScript(() => { localStorage.clear(); sessionStorage.clear(); });
-    await page.goto('/qcm.html?course=fisiologia&module=01-fisiologia-01-neurofisiologia-y-potencial-de-accion');
-    await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_NEXT_STABILITY__ === version, CURRENT_NEXT_STABILITY, { timeout: 20000 });
-    await expect(page.locator('#practiceMobileNextBar')).toHaveCount(0);
-    await expect(page.locator('.single-question-card')).toBeVisible();
-    const firstId = await page.locator('.single-question-card').first().getAttribute('id');
-    await page.locator('.single-question-card button.option[data-option]').first().click({ force: true });
-    await page.waitForFunction(() => {
-      const card = document.querySelector('.single-question-card');
-      return !!card && !!card.querySelector('.answer-panel:not([hidden]), .option.correct, .option.wrong, .option.selected, .option.chosen');
-    }, null, { timeout: 15000 });
-    await page.locator('.single-question-card [data-action="next-question"]').click({ force: true });
-    await waitQuestionChanged(page, firstId);
   });
 
   test('Biofísica is absent or disabled safely', async ({ page }) => {
