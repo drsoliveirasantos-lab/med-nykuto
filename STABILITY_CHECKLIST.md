@@ -14,6 +14,8 @@ Solo agregar código aparte si la corrección en la fuente no es segura o no es 
 - hace falta preservar compatibilidad con código antiguo;
 - no existe una corrección limpia en la fuente.
 
+Cuando haga falta quitar algo, eliminar únicamente el código, línea, bloque, importación, carga de script o selector responsable del problema. No borrar un archivo completo ni retirar una carga completa de `qcm.html`/HTML si el archivo contiene otras funciones útiles. Antes de eliminar, verificar qué otras responsabilidades tiene el archivo y conservar todo lo que no esté directamente implicado en el bug.
+
 No tocar los archivos grandes de `/data` sin backup y verificacion. Pueden estar minificados en una sola linea gigante y parecer vacios o truncados en algunas herramientas.
 
 ## Archivos protegidos
@@ -33,9 +35,10 @@ No tocar los archivos grandes de `/data` sin backup y verificacion. Pueden estar
 2. Confirmar que la preview actual funciona.
 3. Diagnosticar la causa real antes de editar: archivo responsable, selector/funcion implicada, test afectado y efecto visible.
 4. Corregir la fuente del bug si es posible, en lugar de agregar un archivo nuevo o un parche lateral.
-5. No hacer cambios directos en `/data` para ajustes de interfaz.
-6. Preferir cambios en archivos ligeros existentes: HTML, CSS, `v210-module-picker-overlay.js`, `_headers`.
-7. Separar cada correccion en commits pequenos.
+5. Si hay que eliminar código, eliminar solo la línea, bloque o llamada responsable; no borrar archivos completos ni retirar scripts completos cuando el archivo contiene otras funciones necesarias.
+6. No hacer cambios directos en `/data` para ajustes de interfaz.
+7. Preferir cambios en archivos ligeros existentes: HTML, CSS, `v210-module-picker-overlay.js`, `_headers`.
+8. Separar cada correccion en commits pequenos.
 
 ## Pruebas obligatorias despues de cada despliegue Cloudflare
 
