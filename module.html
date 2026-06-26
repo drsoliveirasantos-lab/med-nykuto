@@ -51,8 +51,29 @@
   <script src="data/med-practice-bank-init.js?v=363"></script>
   <script src="data/med-practice-bank-loader.js?v=363"></script>
   <script src="app.bundle.js?v=363"></script>
+  <script>
+    (function(){
+      'use strict';
+      window.__MED_NYKUTO_MODULE_PLAIN_TEXT_GUARD__ = 'v107';
+      function isPlainReaderTap(target){
+        if(!target || !target.closest) return false;
+        if(!target.closest('#moduleContent')) return false;
+        return !target.closest('a,button,input,select,textarea,label,summary,img,video,audio,canvas,iframe,[role="button"],.mn-abbr,.mn-abbr-popover,[data-course-image-zoom],.course-figure-zoom');
+      }
+      function guard(e){
+        if(!isPlainReaderTap(e.target)) return;
+        window.__MED_NYKUTO_MODULE_DIRECT_USER_READING__ = true;
+        window.__MED_NYKUTO_MODULE_DIRECT_SCROLLED__ = true;
+        e.stopPropagation();
+        if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+      }
+      ['click','pointerup','touchend'].forEach(function(type){
+        document.addEventListener(type, guard, {capture:true, passive:true});
+      });
+    })();
+  </script>
+  <script src="module-direct-reader-v101.js?v=106"></script>
   <script src="v210-module-picker-overlay.js?v=363"></script>
   <script src="site-global-polish-v310.js?v=372"></script>
-  <script src="module-direct-reader-v101.js?v=106"></script>
 </body>
 </html>
