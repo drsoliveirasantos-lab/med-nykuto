@@ -2,6 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
 const CURRENT_NEXT_STABILITY = 'v372-native-sticky-next-no-reload';
+const CURRENT_PROGRESS_FIX = 'v360';
 
 async function waitPracticeReady(page) {
   await page.goto('/qcm.html?course=fisiologia');
@@ -13,6 +14,7 @@ async function waitPracticeReady(page) {
   await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
   await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_LOADER__ === version, CURRENT_PRACTICE_LOADER, { timeout: 20000 });
   await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_NEXT_STABILITY__ === version, CURRENT_NEXT_STABILITY, { timeout: 20000 });
+  await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_PROGRESS_FIX__ === version, CURRENT_PROGRESS_FIX, { timeout: 20000 });
   await expect(page.locator('.single-question-card').first()).toBeAttached({ timeout: 15000 });
 }
 
@@ -27,7 +29,9 @@ async function currentQuestionIdentity(page) {
 
 async function currentQuestionCounter(page) {
   return page.evaluate(() => {
-    const nodes = Array.from(document.querySelectorAll('.question-count-stat strong, .single-question-card .quiz-head .badge, .premium-progress strong'));
+    const state = window.__MED_NYKUTO_PRACTICE_PROGRESS_STATE__;
+    if (state && state.current && state.total) return `${state.current}/${state.total}`;
+    const nodes = Array.from(document.querySelectorAll('.premium-progress strong, .question-count-stat strong, .single-question-card .quiz-head .badge'));
     for (const node of nodes) {
       const match = String(node.textContent || '').match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
       if (match) return `${match[1]}/${match[2]}`;
@@ -51,7 +55,9 @@ async function qcmDiag(page, label) {
     return {
       url: location.href,
       cardId: card ? card.id : null,
-      counter: document.querySelector('.question-count-stat strong, .premium-progress strong')?.textContent || null,
+      counter: document.querySelector('.premium-progress strong, .question-count-stat strong')?.textContent || null,
+      progressFix: window.__MED_NYKUTO_PRACTICE_PROGRESS_FIX__ || null,
+      progressState: window.__MED_NYKUTO_PRACTICE_PROGRESS_STATE__ || null,
       nextStability: window.__MED_NYKUTO_PRACTICE_NEXT_STABILITY__ || null,
       fallback: window.__MED_NYKUTO_PRACTICE_CRITICAL_CLICK_FALLBACK__ || null,
       forced: window.__MED_NYKUTO_LAST_FORCED_NEXT__ || null,
