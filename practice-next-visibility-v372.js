@@ -12,11 +12,20 @@
     return !!(document.body && document.body.classList && document.body.classList.contains('practice-page'));
   }
 
-  function hasScope(){
+  function hasUrlScope(){
     try{
       var p = new URLSearchParams(location.search || '');
       return !!(p.get('course') || p.get('module'));
     }catch(e){ return false; }
+  }
+
+  function hasRenderedQuestion(){
+    return !!document.querySelector('#practiceList .single-question-card');
+  }
+
+  function hasEnteredPracticeSession(){
+    if(!isPractice() || !document.body) return false;
+    return hasUrlScope() || hasRenderedQuestion() || document.body.classList.contains('practice-focus') || document.body.classList.contains('practice-has-scope');
   }
 
   function answered(c){
@@ -131,7 +140,7 @@
 
   function sync(){
     if(!isPractice()) return;
-    var scoped = hasScope();
+    var scoped = hasEnteredPracticeSession();
     document.body.classList.toggle('practice-has-scope', scoped);
     if(scoped) document.body.classList.add('practice-focus');
     document.querySelectorAll('.single-question-card').forEach(function(c){
