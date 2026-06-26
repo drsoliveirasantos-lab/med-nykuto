@@ -67,7 +67,7 @@ async function installTransitionProbe(page) {
       return '';
     };
 
-    const readIdentity = () => {
+    const readCardIdentity = () => {
       const card = document.querySelector('.single-question-card');
       if (!card) return '';
       if (card.id) return `id:${card.id}`;
@@ -90,7 +90,7 @@ async function installTransitionProbe(page) {
       window.__QCM_TRANSITION_PROBE__.push({
         t: performance.now(),
         label,
-        cardId: readIdentity(),
+        cardId: readCardIdentity(),
         counter: readCounter(),
         scrollY: Math.round(scrollY),
         listEmpty: !list || !list.querySelector('.single-question-card'),
@@ -110,8 +110,8 @@ async function installTransitionProbe(page) {
 
 async function startProbeClickWindow(page) {
   await page.evaluate(() => {
+    window.__QCM_TRANSITION_CLICK_AT__ = performance.now();
     if (typeof window.__QCM_TRANSITION_SNAP__ === 'function') window.__QCM_TRANSITION_SNAP__('before-click');
-    window.__QCM_TRANSITION_CLICK_AT__ = performance.now() - 1;
   });
 }
 
