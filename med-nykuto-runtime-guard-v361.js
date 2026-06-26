@@ -1,11 +1,11 @@
-/* v361 — Med Nykuto runtime guard.
+/* v362 — Med Nykuto runtime guard.
    Purpose: release-hardening layer for data health, legacy storage migration,
    safe disabled links, dynamic stats, restored legacy-data brand normalization,
    and visible fallback diagnostics.
    Does not generate or modify medical question-bank content. */
 (function(){
   'use strict';
-  var VERSION = 'v361';
+  var VERSION = 'v362';
   var BRAND = 'Med Nykuto';
 
   function $(sel, root){ return (root || document).querySelector(sel); }
@@ -209,10 +209,17 @@
     window.__MED_NYKUTO_RUNTIME_GUARD__ = VERSION;
   }
 
+  function shouldRunAfterClick(e){
+    var target = e && e.target;
+    if(!target || !target.closest) return false;
+    if(document.body && document.body.dataset.page === 'module' && target.closest('#moduleContent')) return false;
+    return !!target.closest('a,button,input,select,textarea,label,summary,[role="button"],form,[aria-disabled="true"],.is-coming-soon');
+  }
+
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
   window.addEventListener('load', run);
   window.addEventListener('pageshow', run);
-  document.addEventListener('click', function(){ setTimeout(run, 60); }, true);
+  document.addEventListener('click', function(e){ if(shouldRunAfterClick(e)) setTimeout(run, 60); }, true);
   if(window.MutationObserver){
     try{
       new MutationObserver(function(){
