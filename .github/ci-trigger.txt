@@ -1,4 +1,4 @@
 Manual workflow trigger
 
-Last trigger: 2026-06-26T15:??Z
-Reason: rerun real-click and QCM transition stability tests after normalizing probe IDs.
+Last trigger: 2026-06-26T15:41Z
+Reason: rerun real-click and QCM transition stability tests after robust counter/sequence test update.
