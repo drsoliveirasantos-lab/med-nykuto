@@ -1,17 +1,19 @@
-/* v372 — Global Med Nykuto polish layer.
-   Applies identity, language, cache-visible UI text, logo/home behavior, optional public-first auth, course image zoom and practice-page safety across all pages.
-   Loads repair layers with v372 cache-busting after restored legacy data. */
+/* v373 — Global Med Nykuto polish layer.
+   Applies identity, language, cache-visible UI text, logo/home behavior, optional public-first auth, course image zoom and practice-page safety.
+   Module reader rule: do not load forced global repair/debug layers on module.html, because the course text must stay passive while reading. */
 (function(){
   'use strict';
 
   var SITE_NAME = 'Med Nykuto';
   var HOST = 'https://preview.med-nykuto-git.pages.dev/';
-  var CACHE_VERSION = '372';
+  var CACHE_VERSION = '373';
 
   function text(el,v){ if(el && v != null) el.textContent = v; }
   function attr(el,k,v){ if(el && v != null) el.setAttribute(k,v); }
   function all(sel,root){ return Array.from((root||document).querySelectorAll(sel)); }
   function clean(s){ return String(s||'').replace(/\s+/g,' ').trim(); }
+  function pageName(){ return location.pathname.split('/').pop() || 'index.html'; }
+  function isModuleReaderPage(){ return pageName() === 'module.html' || !!(document.body && document.body.dataset.page === 'module'); }
 
   function setLang(){
     document.documentElement.lang = 'es';
@@ -20,7 +22,7 @@
   }
 
   function setMeta(){
-    var path = location.pathname.split('/').pop() || 'index.html';
+    var path = pageName();
     var pageTitle = {
       'index.html':'Inicio | Med Nykuto',
       'matieres.html':'Materias | Med Nykuto',
@@ -177,6 +179,20 @@
   function loadOptionalAuth(){ appendScript('authOptionalV101', 'auth-optional-v101.js?v=101', '__MED_NYKUTO_AUTH_OPTIONAL_LOADER__'); }
   function loadCourseImageZoom(){ appendScript('courseImageZoomV101', 'course-image-zoom-v101.js?v=101', '__MED_NYKUTO_COURSE_IMAGE_ZOOM_LOADER__'); }
 
+  function loadGlobalRepairLayers(){
+    if(isModuleReaderPage()){
+      window.__MED_NYKUTO_GLOBAL_POLISH_MODULE_LIGHT_MODE__ = 'v373-skip-forced-repair-layers';
+      loadCourseImageZoom();
+      return;
+    }
+    loadInterfaceFix();
+    loadGlobalRepair();
+    loadRuntimeGuard();
+    loadHomeLinkFix();
+    loadOptionalAuth();
+    loadCourseImageZoom();
+  }
+
   function run(){
     setLang();
     setMeta();
@@ -185,13 +201,8 @@
     polishHome();
     polishComingSoon();
     injectGlobalStyle();
-    loadInterfaceFix();
-    loadGlobalRepair();
-    loadRuntimeGuard();
-    loadHomeLinkFix();
-    loadOptionalAuth();
-    loadCourseImageZoom();
-    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v372-loader';
+    loadGlobalRepairLayers();
+    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v373-loader';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
