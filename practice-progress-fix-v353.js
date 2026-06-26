@@ -1,12 +1,13 @@
 /* v361 — native QCM progress controller.
    Clean fix: no overlay, no hidden duplicate counter. The existing progress DOM is
-   the only visible source; this controller prevents legacy rewrites from flashing
-   1/20 or double-counting after one real Next tap.
+   the only visible source. v387 derives progress from the visible card position
+   instead of trusting storage.currentIndex, which can already point to the next
+   question after answering.
 */
 (function(){
   'use strict';
   var VERSION = 'v361';
-  var MODE = 'native-progress-controller-v386';
+  var MODE = 'native-progress-controller-v387-visible-card-index';
   var current = 1;
   var total = 20;
   var started = false;
@@ -45,8 +46,7 @@
         var idx = state.currentBatch.indexOf(id);
         if(idx < 0) continue;
         var t = Math.max(1, state.currentBatch.length || 20);
-        var stored = Math.max(0, Number(state.currentIndex || 0));
-        return {current:Math.max(idx + 1, stored + 1), total:t};
+        return {current:idx + 1, total:t};
       }
     }catch(e){}
     return null;
