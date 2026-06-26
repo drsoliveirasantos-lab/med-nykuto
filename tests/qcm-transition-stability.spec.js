@@ -91,10 +91,11 @@ async function installVisualSampler(page) {
     window.__QCM_VISUAL_TRACE__ = [snap('initial')];
     window.__QCM_VISUAL_SNAP__ = snap;
     window.__QCM_START_VISUAL_SAMPLER__ = () => {
-      window.__QCM_VISUAL_TRACE__.push(snap('before-click'));
+      if (typeof window.__QCM_VISUAL_SNAP__ !== 'function') window.__QCM_VISUAL_SNAP__ = snap;
+      window.__QCM_VISUAL_TRACE__.push(window.__QCM_VISUAL_SNAP__('before-click'));
       const start = performance.now();
       const id = setInterval(() => {
-        window.__QCM_VISUAL_TRACE__.push(snap('sample'));
+        if (typeof window.__QCM_VISUAL_SNAP__ === 'function') window.__QCM_VISUAL_TRACE__.push(window.__QCM_VISUAL_SNAP__('sample'));
         if (performance.now() - start > 4200) clearInterval(id);
       }, 25);
     };
@@ -104,7 +105,48 @@ async function installVisualSampler(page) {
 async function collectActiveSamples(page, labelPrefix, samples = 28, intervalMs = 50) {
   const rows = [];
   for (let i = 0; i < samples; i += 1) {
-    rows.push(await page.evaluate((label) => window.__QCM_VISUAL_SNAP__(label), `${labelPrefix}-${i}`));
+    rows.push(await page.evaluate((label) => {
+      if (typeof window.__QCM_VISUAL_SNAP__ === 'function') return window.__QCM_VISUAL_SNAP__(label);
+      const clean = (s) => String(s || '').replace(/\s+/g, ' ').trim();
+      const isVisible = (el) => {
+        if (!el) return false;
+        const st = getComputedStyle(el);
+        if (st.display === 'none' || st.visibility === 'hidden' || Number(st.opacity) === 0) return false;
+        const r = el.getBoundingClientRect();
+        return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < innerHeight;
+      };
+      const readCounter = () => {
+        try { if (typeof window.__MED_NYKUTO_SYNC_PROGRESS__ === 'function') window.__MED_NYKUTO_SYNC_PROGRESS__(); } catch (e) {}
+        const nodes = Array.from(document.querySelectorAll('.premium-progress strong, .question-count-stat strong, .single-question-card .quiz-head .badge'));
+        for (const node of nodes) {
+          const match = String(node.textContent || '').match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
+          if (match) return `${match[1]}/${match[2]}`;
+        }
+        return '';
+      };
+      const card = document.querySelector('.single-question-card');
+      const prompt = card && card.querySelector('.question-prompt, .structured-prompt, h2, h3');
+      const rect = card ? card.getBoundingClientRect() : { top: 0, height: 0 };
+      const cardId = card ? (card.id ? `id:${card.id}` : `text:${clean(prompt?.textContent)}`) : '';
+      return {
+        t: performance.now(),
+        label,
+        cardId,
+        counter: readCounter(),
+        scrollY: Math.round(scrollY),
+        bodyTop: Math.round(parseFloat(getComputedStyle(document.body).top || '0') || 0),
+        viewportLock: document.body.classList.contains('practice-viewport-locked'),
+        cardTop: Math.round(rect.top),
+        cardHeight: Math.round(rect.height),
+        promptText: clean(prompt && prompt.textContent),
+        buttonCount: card ? card.querySelectorAll('button').length : 0,
+        listEmpty: !document.querySelector('#practiceList .single-question-card'),
+        quickHeaderVisible: isVisible(document.querySelector('.practice-quick-header')),
+        pageHeroVisible: isVisible(document.querySelector('.page-hero')),
+        nextVisibility: window.__MED_NYKUTO_NEXT_VISIBILITY__ || null,
+        samplerFallback: true,
+      };
+    }, `${labelPrefix}-${i}`));
     await page.waitForTimeout(intervalMs);
   }
   return rows;
@@ -125,6 +167,7 @@ function compactTrace(rows) {
     listEmpty: r.listEmpty,
     quickHeaderVisible: r.quickHeaderVisible,
     pageHeroVisible: r.pageHeroVisible,
+    samplerFallback: r.samplerFallback,
   })).slice(0, 180));
 }
 
