@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
 const CURRENT_NEXT_STABILITY = 'v371-native-storage-scan-next';
-const CURRENT_NEXT_VISIBILITY = 'v378-native-next-no-reload';
+const CURRENT_NEXT_VISIBILITY = 'v379-smooth-skip-next-no-reload';
 
 async function waitForWindowFlag(page, name, expected, timeout = 20000) {
   await expect.poll(
@@ -77,7 +77,7 @@ async function logStorageSnapshot(page, label) {
           currentIndex: state.currentIndex ?? null,
           batchFinished: state.batchFinished ?? null,
           answerCount: records.length,
-          skippedAnswerKeys: records.filter(([, rec]) => rec && rec.skipped === true).map(([qid]) => qid).slice(0, 5),
+          skippedAnswerKeys: records.filter(([, rec]) => rec && (rec.skipped === true || rec.unknown === true)).map(([qid]) => qid).slice(0, 5),
         });
       } catch (e) {}
     }
