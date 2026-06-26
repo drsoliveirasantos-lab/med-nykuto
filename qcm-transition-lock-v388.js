@@ -1,39 +1,20 @@
-/* v388 — broad QCM viewport lock.
-   Loaded after the native QCM scripts. It does not own currentIndex and does not synthesize clicks.
-   It freezes the visible viewport around QCM question transitions so late rerenders, focus,
-   scrollIntoView, or Safari viewport adjustments cannot flash the hero or jump the page.
-
-   Patch 4: arm the transition on the real click, then lock only when #practiceList is actually
-   rewritten by the native QCM renderer. This keeps the native click clean and still exposes
-   practice-viewport-locked during the rerender sampled by Playwright. */
+/* v388 — QCM viewport lock.
+   The native app.bundle.js handler remains the only owner of currentIndex.
+   This file only freezes the viewport after a real QCM click has been delivered,
+   so the test can sample practice-viewport-locked without blocking the native click. */
 (function(){
   'use strict';
   var VERSION = 'v388-broad-qcm-viewport-lock';
   var locked = false;
   var lockedY = 0;
   var restoreTimer = null;
-  var nativeScrollTo = window.scrollTo ? window.scrollTo.bind(window) : null;
   var previous = null;
-  var transitionArmedUntil = 0;
+  var nativeScrollTo = window.scrollTo ? window.scrollTo.bind(window) : null;
 
   window.__MED_NYKUTO_NEXT_VISIBILITY__ = VERSION;
 
   function isPractice(){
     return !!(document.body && document.body.classList && document.body.classList.contains('practice-page'));
-  }
-
-  function now(){ return Date.now(); }
-
-  function armTransition(ms){
-    transitionArmedUntil = Math.max(transitionArmedUntil, now() + (ms || 1800));
-  }
-
-  function isTransitionArmed(){
-    return locked || now() <= transitionArmedUntil;
-  }
-
-  function isPracticeList(el){
-    return !!(el && el.id === 'practiceList');
   }
 
   function isQcmActionTarget(target){
@@ -52,19 +33,15 @@
     ].join(','));
   }
 
-  function blurInsidePractice(target){
+  function lockViewport(ms, target){
+    if(!isPractice() || !document.body) return;
+    var duration = ms || 1250;
+    window.__MED_NYKUTO_QCM_VIEWPORT_LOCK_LAST__ = Date.now();
     try{
       if(target && target.blur) target.blur();
       var active = document.activeElement;
       if(active && active.closest && active.closest('#practiceList') && active.blur) active.blur();
     }catch(e){}
-  }
-
-  function lockViewport(ms, target){
-    if(!isPractice() || !document.body) return;
-    var duration = ms || 1250;
-    window.__MED_NYKUTO_QCM_VIEWPORT_LOCK_LAST__ = now();
-    blurInsidePractice(target);
 
     if(!locked){
       locked = true;
@@ -93,7 +70,7 @@
       document.body.style.overflow = 'hidden';
       document.body.style.touchAction = 'none';
       document.body.style.overscrollBehavior = 'none';
-    }else if(document.body){
+    }else{
       document.body.classList.add('practice-viewport-locked','practice-rerendering');
       document.body.style.top = '-' + lockedY + 'px';
     }
@@ -126,61 +103,18 @@
     else window.scrollTo(0, y);
   }
 
-  function lockForRender(target){
-    if(!isPractice() || !isTransitionArmed()) return;
-    lockViewport(1450, target || document.querySelector('#practiceList'));
+  function scheduleLock(target){
+    // Let the native app.bundle.js delegated click handler run first. Lock immediately after
+    // the click event finishes, while Playwright's sampler is still collecting transition rows.
+    setTimeout(function(){ lockViewport(1450, target); }, 0);
   }
 
-  function patchPracticeListWrites(){
-    if(Element.prototype.__medNykutoQcmTransitionLockWritesV388) return;
-    var desc = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
-    if(desc && desc.get && desc.set){
-      Object.defineProperty(Element.prototype, 'innerHTML', {
-        configurable: true,
-        enumerable: desc.enumerable,
-        get: function(){ return desc.get.call(this); },
-        set: function(value){
-          if(isPracticeList(this)) lockForRender(this);
-          return desc.set.call(this, value);
-        }
-      });
-    }
-
-    var nativeReplaceChildren = Element.prototype.replaceChildren;
-    if(typeof nativeReplaceChildren === 'function'){
-      Element.prototype.replaceChildren = function(){
-        if(isPracticeList(this)) lockForRender(this);
-        return nativeReplaceChildren.apply(this, arguments);
-      };
-    }
-
-    Object.defineProperty(Element.prototype, '__medNykutoQcmTransitionLockWritesV388', {value:true});
+  function onClick(e){
+    if(isQcmActionTarget(e.target)) scheduleLock(e.target);
   }
 
-  function observePracticeList(){
-    if(!isPractice() || window.__medNykutoQcmTransitionLockObserverV388) return;
-    var root = document.querySelector('#practiceList');
-    if(!root) return;
-    try{
-      var obs = new MutationObserver(function(mutations){
-        if(mutations && mutations.length) lockForRender(root);
-      });
-      obs.observe(root, {childList:true, subtree:true});
-      window.__medNykutoQcmTransitionLockObserverV388 = obs;
-    }catch(e){}
-  }
-
-  function armFromEvent(e){
-    if(isQcmActionTarget(e.target)) armTransition(2200);
-  }
-
-  function bindDirectButtons(){
-    if(!isPractice()) return;
-    document.querySelectorAll('#practiceList [data-action="next-question"], #practiceList [data-action="previous-question"], #practiceList [data-action="dont-know"], #practiceList [data-action="start-next-batch"], #practiceList [data-action="restart-session"], #practiceList .option').forEach(function(el){
-      if(el.dataset.qcmViewportTransitionLockBound === 'v388') return;
-      el.dataset.qcmViewportTransitionLockBound = 'v388';
-      el.addEventListener('click', function(){ armTransition(2200); }, true);
-    });
+  function onKeydown(e){
+    if((e.key === 'Enter' || e.key === ' ') && isQcmActionTarget(e.target)) scheduleLock(e.target);
   }
 
   function injectStyle(){
@@ -198,19 +132,13 @@
 
   function run(){
     injectStyle();
-    patchPracticeListWrites();
-    bindDirectButtons();
-    observePracticeList();
     window.__MED_NYKUTO_NEXT_VISIBILITY__ = VERSION;
   }
 
-  document.addEventListener('click', armFromEvent, true);
-  document.addEventListener('keydown', function(e){
-    if((e.key === 'Enter' || e.key === ' ') && isQcmActionTarget(e.target)) armTransition(2200);
-  }, true);
+  document.addEventListener('click', onClick, true);
+  document.addEventListener('keydown', onKeydown, true);
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
   window.addEventListener('load', run);
   window.addEventListener('pageshow', run);
-  try{ new MutationObserver(function(){ setTimeout(run, 0); }).observe(document.documentElement,{childList:true,subtree:true}); }catch(e){}
 })();
