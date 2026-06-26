@@ -1,4 +1,4 @@
-/* v374 — Global Med Nykuto polish layer.
+/* v375 — Global Med Nykuto polish layer.
    Applies identity, language, cache-visible UI text, logo/home behavior, optional public-first auth, course image zoom and practice-page safety.
    Quiet-page rule: module/practice/exam/mistakes pages must not load forced global repair/debug layers or delayed global refresh passes while the user is reading or answering. */
 (function(){
@@ -6,7 +6,7 @@
 
   var SITE_NAME = 'Med Nykuto';
   var HOST = 'https://preview.med-nykuto-git.pages.dev/';
-  var CACHE_VERSION = '374';
+  var CACHE_VERSION = '375';
 
   function text(el,v){ if(el && v != null) el.textContent = v; }
   function all(sel,root){ return Array.from((root||document).querySelectorAll(sel)); }
@@ -179,11 +179,11 @@
   function loadRuntimeGuard(){ appendScript('medNykutoRuntimeGuardV361', withCache('med-nykuto-runtime-guard-v361.js'), '__MED_NYKUTO_RUNTIME_GUARD_LOADER__'); }
   function loadHomeLinkFix(){ appendScript('homeLinkFixV303', 'home-link-fix-v303.js?v=365', '__MED_NYKUTO_HOME_LINK_FIX_LOADER__'); }
   function loadOptionalAuth(){ appendScript('authOptionalV101', 'auth-optional-v101.js?v=101', '__MED_NYKUTO_AUTH_OPTIONAL_LOADER__'); }
-  function loadCourseImageZoom(){ appendScript('courseImageZoomV101', 'course-image-zoom-v101.js?v=101', '__MED_NYKUTO_COURSE_IMAGE_ZOOM_LOADER__'); }
+  function loadCourseImageZoom(){ appendScript('courseImageZoomV101', 'course-image-zoom-v101.js?v=102', '__MED_NYKUTO_COURSE_IMAGE_ZOOM_LOADER__'); }
 
   function loadGlobalRepairLayers(){
     if(isQuietPage()){
-      window.__MED_NYKUTO_GLOBAL_POLISH_LIGHT_MODE__ = 'v374-skip-forced-repair-layers';
+      window.__MED_NYKUTO_GLOBAL_POLISH_LIGHT_MODE__ = 'v375-skip-forced-repair-layers';
       if(isModuleReaderPage()) loadCourseImageZoom();
       return;
     }
@@ -204,7 +204,7 @@
     polishComingSoon();
     injectGlobalStyle();
     loadGlobalRepairLayers();
-    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v374-loader';
+    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v375-loader';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
