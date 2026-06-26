@@ -1,15 +1,33 @@
-/* v381 — native visible next + stable render.
+/* v382 — native visible next + stable scroll/render.
    Keeps the native Siguiente handler as the only owner of currentIndex.
-   Also prevents the mobile Safari blank-frame flicker by refusing empty
-   #practiceList renders during question transitions. No overlay, no duplicate
-   progress layer, no synthetic No sé + Next sequence.
+   Prevents the mobile Safari flicker by refusing empty #practiceList renders,
+   disabling the smooth scroll jump during rerender, and hiding the non-practice
+   hero while a scoped QCM session is active. No overlay, no duplicate progress
+   layer, no synthetic No sé + Next sequence.
 */
 (function(){
   'use strict';
-  window.__MED_NYKUTO_NEXT_VISIBILITY__ = 'v381-native-next-stable-render';
+  var VERSION = 'v382-native-next-stable-scroll-render';
+  var transitionUntil = 0;
+  window.__MED_NYKUTO_NEXT_VISIBILITY__ = VERSION;
 
   function isPractice(){
     return !!(document.body && document.body.classList && document.body.classList.contains('practice-page'));
+  }
+
+  function hasScope(){
+    try{
+      var p = new URLSearchParams(location.search || '');
+      return !!(p.get('course') || p.get('module'));
+    }catch(e){ return false; }
+  }
+
+  function markTransition(ms){
+    transitionUntil = Math.max(transitionUntil, Date.now() + (ms || 900));
+    if(document.body) document.body.classList.add('practice-rerendering');
+    setTimeout(function(){
+      if(Date.now() >= transitionUntil && document.body) document.body.classList.remove('practice-rerendering');
+    }, ms || 900);
   }
 
   function answered(c){
@@ -22,7 +40,7 @@
 
   function patchEmptyPracticeListRender(){
     var desc = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
-    if(!desc || !desc.get || !desc.set || Element.prototype.__medNykutoNextStableRenderV381) return;
+    if(!desc || !desc.get || !desc.set || Element.prototype.__medNykutoNextStableRenderV382) return;
 
     Object.defineProperty(Element.prototype, 'innerHTML', {
       configurable: true,
@@ -38,11 +56,11 @@
       }
     });
 
-    Object.defineProperty(Element.prototype, '__medNykutoNextStableRenderV381', {value:true});
+    Object.defineProperty(Element.prototype, '__medNykutoNextStableRenderV382', {value:true});
   }
 
   function patchReplaceChildren(){
-    if(Element.prototype.__medNykutoNextStableReplaceChildrenV381) return;
+    if(Element.prototype.__medNykutoNextStableReplaceChildrenV382) return;
     var nativeReplaceChildren = Element.prototype.replaceChildren;
     if(typeof nativeReplaceChildren !== 'function') return;
     Element.prototype.replaceChildren = function(){
@@ -53,27 +71,29 @@
       }
       return nativeReplaceChildren.apply(this, arguments);
     };
-    Object.defineProperty(Element.prototype, '__medNykutoNextStableReplaceChildrenV381', {value:true});
+    Object.defineProperty(Element.prototype, '__medNykutoNextStableReplaceChildrenV382', {value:true});
   }
 
   function patchScrollIntoView(){
-    if(Element.prototype.__medNykutoNextStableScrollV381) return;
+    if(Element.prototype.__medNykutoNextStableScrollV382) return;
     var nativeScrollIntoView = Element.prototype.scrollIntoView;
     if(typeof nativeScrollIntoView !== 'function') return;
     Element.prototype.scrollIntoView = function(options){
       if(isPractice() && this && this.matches && this.matches('#practiceList, .single-question-card, .question-difficulty-panel')){
+        if(Date.now() < transitionUntil) return;
         var opts = typeof options === 'object' && options ? Object.assign({}, options) : {};
         opts.behavior = 'auto';
-        if(!opts.block) opts.block = 'start';
+        if(!opts.block) opts.block = 'nearest';
         return nativeScrollIntoView.call(this, opts);
       }
       return nativeScrollIntoView.apply(this, arguments);
     };
-    Object.defineProperty(Element.prototype, '__medNykutoNextStableScrollV381', {value:true});
+    Object.defineProperty(Element.prototype, '__medNykutoNextStableScrollV382', {value:true});
   }
 
   function sync(){
     if(!isPractice()) return;
+    document.body.classList.toggle('practice-has-scope', hasScope());
     document.querySelectorAll('.single-question-card').forEach(function(c){
       c.classList.toggle('answer-ready', answered(c));
       c.querySelectorAll('[data-action="next-question"]').forEach(function(btn){
@@ -88,18 +108,21 @@
   }
 
   function inject(){
-    if(document.getElementById('nextVisibilityV381Style')) return;
-    ['nextVisibilityV380Style','nextVisibilityV379Style','nextVisibilityV378Style','nextVisibilityV377Style','nextVisibilityV376Style','nextVisibilityV375Style','nextVisibilityV374Style','nextVisibilityV373Style','nextVisibilityV372Style','practiceRenderStabilityV390Css','practiceRenderStabilityV389Css'].forEach(function(id){
+    if(document.getElementById('nextVisibilityV382Style')) return;
+    ['nextVisibilityV381Style','nextVisibilityV380Style','nextVisibilityV379Style','nextVisibilityV378Style','nextVisibilityV377Style','nextVisibilityV376Style','nextVisibilityV375Style','nextVisibilityV374Style','nextVisibilityV373Style','nextVisibilityV372Style','practiceRenderStabilityV390Css','practiceRenderStabilityV389Css'].forEach(function(id){
       var old = document.getElementById(id);
       if(old) old.remove();
     });
     var style = document.createElement('style');
-    style.id = 'nextVisibilityV381Style';
+    style.id = 'nextVisibilityV382Style';
     style.textContent = [
       'body.practice-page .single-question-card [data-action="next-question"]{display:flex!important;visibility:visible!important;pointer-events:auto!important;opacity:1!important;touch-action:manipulation!important;-webkit-tap-highlight-color:transparent}',
       'body.practice-page .single-question-card [data-action="next-question"]:disabled{opacity:1!important}',
       'body.practice-page #practiceList{min-height:70vh}',
-      'body.practice-page .single-question-card,body.practice-page .practice-headbox{scroll-margin-top:92px}'
+      'body.practice-page .single-question-card,body.practice-page .practice-headbox{scroll-margin-top:92px}',
+      'body.practice-page.practice-has-scope .practice-quick-header,body.practice-page.practice-has-scope .page-hero{display:none!important}',
+      'body.practice-page.practice-rerendering{scroll-behavior:auto!important}',
+      'body.practice-page.practice-rerendering #practiceList{contain:layout paint;will-change:contents}'
     ].join('');
     document.head.appendChild(style);
   }
@@ -110,10 +133,14 @@
     patchScrollIntoView();
     inject();
     sync();
-    window.__MED_NYKUTO_NEXT_VISIBILITY__ = 'v381-native-next-stable-render';
+    window.__MED_NYKUTO_NEXT_VISIBILITY__ = VERSION;
   }
 
-  document.addEventListener('click', function(){
+  document.addEventListener('click', function(e){
+    var target = e.target;
+    var inPractice = target && target.closest && target.closest('#practiceList');
+    if(inPractice && target.closest('.option, [data-action="next-question"], [data-action="previous-question"], [data-action="dont-know"], [data-action="restart-session"], [data-action="start-next-batch"]')) markTransition(1000);
+    setTimeout(run, 0);
     setTimeout(run, 20);
     setTimeout(run, 120);
     setTimeout(run, 320);
