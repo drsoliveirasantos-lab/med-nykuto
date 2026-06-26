@@ -1,10 +1,10 @@
-/* v303 — Med Nykuto lightweight module picker.
-   QCM rule: app.bundle.js owns questions, answers, progress and navigation.
-   This file may only add the course/module picker UI. It must not hide corrections,
-   enable skip, inject progress, load correction scripts, or observe QCM rerenders. */
+/* v303 — Med Nykuto lightweight QCM picker/progress layer.
+   QCM rule: app.bundle.js owns questions, answers and navigation.
+   This file may add the course/module picker and mirror the visible native progress bar only.
+   It must not hide corrections, enable skip, load correction scripts, or observe QCM rerenders. */
 (function(){
   'use strict';
-  var SITE_VERSION = 'v303-qcm-picker-only';
+  var SITE_VERSION = 'v303-qcm-picker-progress-only';
   var DATA = window.MED_COURSES_DATA || {courses:[]};
   var courses = DATA.courses || [];
   var labels = {
@@ -21,6 +21,7 @@
   function tx(v){return v&&typeof v==='object'?(v[lang()]||v.es||v.fr||v.br||Object.values(v)[0]||''):String(v||'');}
   function clean(s){return String(s||'').replace(/\s+/g,' ').trim();}
   function params(){return new URLSearchParams(location.search);}
+  function isQcm(){return !!(document.body && document.body.classList.contains('qcm-page'));}
   function isBiofisica(course){return /biof[ií]sica/i.test(String((course&&course.id)||'')+' '+tx(course&&course.title||''));}
   function isSoonCourse(course){return isBiofisica(course)||!((course&&course.modules)||[]).length;}
   function raw(x){return clean(x&&typeof x==='object'?(x.title||x.name||x.label||x.fr||x.es||x.br||Object.values(x)[0]):x);}
@@ -47,6 +48,11 @@
       '.premium-filter-label{display:block;text-transform:uppercase;font-size:.54rem;letter-spacing:.12em;opacity:.62;margin-bottom:.08rem}',
       '.mc-picker-btn strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.92rem}',
       '.premium-filter-change{position:absolute;right:.58rem;top:50%;transform:translateY(-50%);font-size:.64rem;opacity:.68}',
+      '.premium-progress{margin:.2rem 0 .72rem;padding:.62rem .72rem;border-radius:18px;border:1px solid rgba(245,211,124,.22);background:rgba(255,255,255,.035)}',
+      '.premium-progress-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:.42rem;color:#f8fafc;font-size:.78rem;font-weight:900}',
+      '.premium-progress-head span{color:#ffe7a0}',
+      '.premium-progress-track{height:7px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden}',
+      '.premium-progress-track i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#f5d37c,#ffe7a0);transition:width .18s ease}',
       '@media(max-width:760px){.mc-picker-shell{grid-template-columns:repeat(2,minmax(0,1fr));gap:.48rem}}',
       '@media(max-width:360px){.mc-picker-shell{grid-template-columns:1fr}.mc-picker-btn{padding-right:4.75rem}}'
     ].join('');
@@ -54,7 +60,7 @@
   }
 
   function ensureQcmPicker(){
-    if(!document.body || !document.body.classList.contains('qcm-page')) return;
+    if(!isQcm()) return;
     var anchor = document.querySelector('#practiceList') || document.querySelector('#courseFilters');
     if(!anchor || !anchor.parentNode) return;
     var shell = document.querySelector('.mc-picker-shell');
@@ -78,6 +84,33 @@
     window.__MED_NYKUTO_STABILITY__ = {version:SITE_VERSION, defaultLang:'es', protectedDataFiles:true, qcmPickerOnly:true};
   }
 
+  function progressNumbers(){
+    var nodes = Array.prototype.slice.call(document.querySelectorAll('.single-question-card .quiz-head .badge, .question-count-stat strong, .premium-progress strong'));
+    for(var i=0;i<nodes.length;i+=1){
+      var m = clean(nodes[i].textContent).match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
+      if(m){
+        var c = Math.max(1, Number(m[1] || 1));
+        var total = Math.max(1, Number(m[2] || 20));
+        return {c:c,total:total,p:Math.max(0,Math.min(100,Math.round(c/total*100)))};
+      }
+    }
+    return {c:1,total:20,p:5};
+  }
+
+  function ensureProgress(){
+    if(!isQcm()) return;
+    var picker = document.querySelector('.mc-picker-shell');
+    if(!picker) return;
+    var bar = document.querySelector('.premium-progress');
+    if(!bar){
+      bar = document.createElement('div');
+      bar.className = 'premium-progress';
+      picker.insertAdjacentElement('afterend', bar);
+    }
+    var p = progressNumbers();
+    bar.innerHTML = '<div class="premium-progress-head"><strong>Pregunta '+p.c+'/'+p.total+'</strong><span>'+p.p+'%</span></div><div class="premium-progress-track"><i style="width:'+p.p+'%"></i></div>';
+  }
+
   function patchSmallStaticBits(){
     document.title=(document.title||'').replace(/Med Cursos/g,'Med Nykuto').replace('Accueil','Inicio');
     document.querySelectorAll('img[alt="Med Cursos"]').forEach(function(img){img.alt='Med Nykuto';});
@@ -87,9 +120,16 @@
     ensureDefaultLang();
     injectQcmStyle();
     ensureQcmPicker();
+    ensureProgress();
     patchSmallStaticBits();
+  }
+
+  function scheduleProgress(){
+    requestAnimationFrame(function(){ ensureProgress(); });
   }
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', apply); else apply();
   window.addEventListener('pageshow', apply);
+  window.addEventListener('load', apply);
+  document.addEventListener('click', scheduleProgress, true);
 })();
