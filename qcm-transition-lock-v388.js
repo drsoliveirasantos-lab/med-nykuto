@@ -1,6 +1,6 @@
 /* v388 — QCM transition marker.
    The native app.bundle.js handler remains the only owner of currentIndex.
-   This file must not freeze touch/scroll. It only marks a very short rerender window
+   This file must not freeze touch/scroll. It only marks the real question-navigation repaint window
    so the QCM transition does not animate or flash while preserving native mobile scroll. */
 (function(){
   'use strict';
@@ -13,19 +13,15 @@
     return !!(document.body && document.body.classList && document.body.classList.contains('practice-page'));
   }
 
-  function isQcmActionTarget(target){
+  function isQuestionNavigationTarget(target){
     if(!isPractice() || !target || !target.closest) return false;
     return !!target.closest([
       '#practiceList [data-action="next-question"]',
       '#practiceList [data-action="previous-question"]',
-      '#practiceList [data-action="dont-know"]',
       '#practiceList [data-action="restart-session"]',
       '#practiceList [data-action="start-next-batch"]',
-      '#practiceList .option',
-      '#practiceList button.option',
       '.single-question-card [data-action="next-question"]',
-      '.single-question-card [data-action="previous-question"]',
-      '.single-question-card .option'
+      '.single-question-card [data-action="previous-question"]'
     ].join(','));
   }
 
@@ -39,7 +35,7 @@
 
   function markTransition(ms, target){
     if(!isPractice() || !document.body) return;
-    var duration = ms || 220;
+    var duration = ms || 180;
     window.__MED_NYKUTO_QCM_VIEWPORT_LOCK_LAST__ = Date.now();
     blurInsidePractice(target);
 
@@ -57,16 +53,16 @@
 
   function scheduleMark(target){
     // Let the native delegated click handler update the question first, then mark only
-    // the short repaint window. Never set body position:fixed, overflow:hidden or touch-action:none.
-    setTimeout(function(){ markTransition(220, target); }, 0);
+    // the short navigation repaint. Answer-option taps are not page transitions.
+    setTimeout(function(){ markTransition(180, target); }, 0);
   }
 
   function onClick(e){
-    if(isQcmActionTarget(e.target)) scheduleMark(e.target);
+    if(isQuestionNavigationTarget(e.target)) scheduleMark(e.target);
   }
 
   function onKeydown(e){
-    if((e.key === 'Enter' || e.key === ' ') && isQcmActionTarget(e.target)) scheduleMark(e.target);
+    if((e.key === 'Enter' || e.key === ' ') && isQuestionNavigationTarget(e.target)) scheduleMark(e.target);
   }
 
   function injectStyle(){
