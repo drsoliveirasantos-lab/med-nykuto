@@ -1,7 +1,7 @@
-/* v311 — QCM inert-zone and no-submit guard.
+/* v312 — QCM inert-zone, no-submit and duplicate-Next guard.
    Tapping the question text/card background should do nothing.
-   Real QCM controls must stay clickable. Buttons inside #practiceList are only marked type="button";
-   this file does not preventDefault on answer/Next clicks, so app.bundle.js receives them normally. */
+   Real QCM controls stay clickable. This file only blocks duplicate Next clicks inside a short window,
+   so a delayed/synthetic/mobile double tap cannot advance two questions. */
 (function(){
   'use strict';
 
@@ -9,6 +9,7 @@
   var sx = 0;
   var sy = 0;
   var suppressClickUntil = 0;
+  var nextLockedUntil = 0;
 
   function isQcm(){
     return !!(document.body && document.body.classList && document.body.classList.contains('qcm-page'));
@@ -68,6 +69,25 @@
     neutraliseButton(btn);
   }
 
+  function nextButton(target){
+    if(!target || !target.closest) return null;
+    return target.closest('#practiceList [data-action="next-question"]');
+  }
+
+  function guardDuplicateNext(e){
+    if(!isQcm()) return;
+    var btn = nextButton(e.target);
+    if(!btn) return;
+    neutraliseButton(btn);
+    var now = Date.now();
+    if(now < nextLockedUntil){
+      swallow(e);
+      window.__MED_NYKUTO_QCM_DUPLICATE_NEXT_BLOCKED__ = now;
+      return;
+    }
+    nextLockedUntil = now + 650;
+  }
+
   function guardSubmit(e){
     if(!isQcm()) return;
     if(e.target && e.target.closest && e.target.closest('#practiceList')){
@@ -102,6 +122,8 @@
   }
 
   function onClick(e){
+    guardDuplicateNext(e);
+    if(e.cancelBubble) return;
     markPracticeButton(e);
     if(!isInertQcmZone(e.target)) return;
     if(Date.now() < suppressClickUntil || e.type === 'click') swallow(e);
