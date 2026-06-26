@@ -3,7 +3,7 @@ const { test, expect } = require('@playwright/test');
 const CURRENT_PRACTICE_LOADER = 'v364';
 const CURRENT_NEXT_STABILITY = 'v372-native-sticky-next-no-reload';
 const CURRENT_NEXT_VISIBILITY = 'v379-smooth-skip-next-no-reload';
-const CURRENT_PROGRESS_FIX = 'v360';
+const CURRENT_PROGRESS_FIX = 'v361';
 
 async function waitForWindowFlag(page, name, expected, timeout = 20000) {
   await expect.poll(
