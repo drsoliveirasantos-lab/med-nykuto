@@ -109,7 +109,7 @@ test.describe('Med Nykuto smoke navigation', () => {
   test('QCM native next button advances to the next question', async ({ page }) => {
     await page.addInitScript(() => { localStorage.clear(); sessionStorage.clear(); });
     await page.goto('/qcm.html?course=fisiologia&module=01-fisiologia-01-neurofisiologia-y-potencial-de-accion');
-    await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_NEXT_STABILITY__ === CURRENT_NEXT_STABILITY, null, { timeout: 20000 });
+    await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_NEXT_STABILITY__ === version, CURRENT_NEXT_STABILITY, { timeout: 20000 });
     await expect(page.locator('#practiceMobileNextBar')).toHaveCount(0);
     await expect(page.locator('.single-question-card')).toBeVisible();
     const firstId = await page.locator('.single-question-card').first().getAttribute('id');
