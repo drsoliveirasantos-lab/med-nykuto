@@ -1,10 +1,10 @@
-/* v370 — Native sticky next with exact-session hard fallback.
+/* v371 — Native sticky next with generic practice-storage fallback.
    Keeps the real [data-action="next-question"] button so the official app.bundle.js handler can run.
-   If mobile click delegation still fails, this script advances the exact medPractice:v35-bugfix session key.
+   If the native click stalls, this script advances the stored practice session that actually contains the visible card id.
 */
 (function(){
   'use strict';
-  window.__MED_NYKUTO_PRACTICE_NEXT_STABILITY__ = 'v370-native-exact-next';
+  window.__MED_NYKUTO_PRACTICE_NEXT_STABILITY__ = 'v371-native-storage-scan-next';
   var FORCE_LOCK_UNTIL = 0;
 
   function isPractice(){
@@ -22,7 +22,7 @@
 
   function hasAnsweredCurrentQuestion(){
     var card = currentCard();
-    return !!(card && card.querySelector('.answer-panel:not([hidden])'));
+    return !!(card && card.querySelector('.answer-panel:not([hidden]), .options.answered, .option.correct, .option.wrong, .option.chosen'));
   }
 
   function activeDifficulty(){
@@ -55,36 +55,67 @@
     try{ localStorage.setItem(key, JSON.stringify(state)); return true; }catch(e){ return false; }
   }
 
-  function forceExactNext(reason){
+  function pushUnique(list, key){
+    if(key && list.indexOf(key) < 0) list.push(key);
+  }
+
+  function candidateKeys(cardId){
+    var out = [];
+    pushUnique(out, exactPracticeKey());
+    try{
+      for(var i=0; i<localStorage.length; i++){
+        var key = localStorage.key(i) || '';
+        var state = readState(key);
+        if(!state) continue;
+        if(key.indexOf('medPractice:') === 0 || state.currentAnswers || state.history || (cardId && state.currentBatch.indexOf(cardId) >= 0)){
+          pushUnique(out, key);
+        }
+      }
+    }catch(e){}
+    return out.sort(function(a,b){
+      var sa = readState(a), sb = readState(b);
+      var ia = sa && cardId ? sa.currentBatch.indexOf(cardId) : -1;
+      var ib = sb && cardId ? sb.currentBatch.indexOf(cardId) : -1;
+      return (ib >= 0 ? 1 : 0) - (ia >= 0 ? 1 : 0);
+    });
+  }
+
+  function forceStoredNext(reason){
     if(!isPractice() || !hasAnsweredCurrentQuestion()) return false;
     var now = Date.now();
     if(now < FORCE_LOCK_UNTIL) return false;
     FORCE_LOCK_UNTIL = now + 700;
 
-    var key = exactPracticeKey();
-    var state = readState(key);
-    if(!state) return false;
-    var total = Array.isArray(state.currentBatch) ? state.currentBatch.length : 0;
-    if(!total) return false;
-    var idx = Math.max(0, Number(state.currentIndex || 0));
-    if(idx >= total - 1){
-      state.currentIndex = total - 1;
-      state.batchFinished = true;
-    }else{
-      state.currentIndex = idx + 1;
-      state.batchFinished = false;
+    var cardId = currentCardId();
+    var keys = candidateKeys(cardId);
+    for(var i=0; i<keys.length; i++){
+      var key = keys[i];
+      var state = readState(key);
+      if(!state || !state.currentBatch || !state.currentBatch.length) continue;
+      var total = state.currentBatch.length;
+      var foundIndex = cardId ? state.currentBatch.indexOf(cardId) : -1;
+      var idx = foundIndex >= 0 ? foundIndex : Math.max(0, Number(state.currentIndex || 0));
+      if(idx >= total - 1){
+        state.currentIndex = total - 1;
+        state.batchFinished = true;
+      }else{
+        state.currentIndex = idx + 1;
+        state.batchFinished = false;
+      }
+      if(!writeState(key,state)) continue;
+      window.__MED_NYKUTO_LAST_FORCED_NEXT__ = {
+        key:key,
+        reason:reason || 'fallback',
+        index:state.currentIndex,
+        total:total,
+        cardId:cardId,
+        at:Date.now()
+      };
+      try{ sessionStorage.setItem('__MED_NYKUTO_LAST_FORCED_NEXT__', JSON.stringify(window.__MED_NYKUTO_LAST_FORCED_NEXT__)); }catch(e){}
+      setTimeout(function(){ location.reload(); }, 20);
+      return true;
     }
-    if(!writeState(key,state)) return false;
-    window.__MED_NYKUTO_LAST_FORCED_NEXT__ = {
-      key:key,
-      reason:reason || 'fallback',
-      index:state.currentIndex,
-      total:total,
-      cardId:currentCardId(),
-      at:Date.now()
-    };
-    setTimeout(function(){ location.reload(); }, 20);
-    return true;
+    return false;
   }
 
   function normalizeNativeNext(){
@@ -104,16 +135,19 @@
     next.style.pointerEvents = 'auto';
     next.style.touchAction = 'manipulation';
 
-    if(!next.dataset.exactNextBound){
-      next.dataset.exactNextBound = '1';
+    if(!next.dataset.storageScanNextBound){
+      next.dataset.storageScanNextBound = '1';
       next.addEventListener('click', function(){
         var before = currentCardId();
         setTimeout(function(){
-          if(before && currentCardId() === before) forceExactNext('native-click-stalled-120ms');
+          if(before && currentCardId() === before) forceStoredNext('native-click-stalled-120ms');
         }, 120);
         setTimeout(function(){
-          if(before && currentCardId() === before) forceExactNext('native-click-stalled-420ms');
+          if(before && currentCardId() === before) forceStoredNext('native-click-stalled-420ms');
         }, 420);
+        setTimeout(function(){
+          if(before && currentCardId() === before) forceStoredNext('native-click-stalled-900ms');
+        }, 900);
       }, false);
     }
 
@@ -127,13 +161,13 @@
   }
 
   function injectCss(){
-    if(document.getElementById('practice-native-next-v370-css')) return;
-    ['practice-native-next-v369-css','practice-mobile-next-css-v368','practice-mobile-next-css-v367'].forEach(function(id){
+    if(document.getElementById('practice-native-next-v371-css')) return;
+    ['practice-native-next-v370-css','practice-native-next-v369-css','practice-mobile-next-css-v368','practice-mobile-next-css-v367'].forEach(function(id){
       var old = document.getElementById(id);
       if(old) old.remove();
     });
     var style = document.createElement('style');
-    style.id = 'practice-native-next-v370-css';
+    style.id = 'practice-native-next-v371-css';
     style.textContent = [
       '#practiceMobileNextBar,.practice-mobile-next-bar{display:none!important;visibility:hidden!important;pointer-events:none!important}',
       '@media (max-width:760px){',
@@ -170,8 +204,9 @@
     var next = e.target && e.target.closest && e.target.closest('[data-action="next-question"]');
     var before = next ? currentCardId() : '';
     setTimeout(run, 40);
-    setTimeout(function(){ run(); if(next && before && currentCardId() === before) forceExactNext('document-click-stalled-180ms'); }, 180);
-    setTimeout(function(){ run(); if(next && before && currentCardId() === before) forceExactNext('document-click-stalled-520ms'); }, 520);
+    setTimeout(function(){ run(); if(next && before && currentCardId() === before) forceStoredNext('document-click-stalled-180ms'); }, 180);
+    setTimeout(function(){ run(); if(next && before && currentCardId() === before) forceStoredNext('document-click-stalled-520ms'); }, 520);
+    setTimeout(function(){ run(); if(next && before && currentCardId() === before) forceStoredNext('document-click-stalled-1000ms'); }, 1000);
   }, true);
   try{
     var queued = false;
