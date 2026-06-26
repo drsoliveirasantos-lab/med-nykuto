@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
 const CURRENT_NEXT_STABILITY = 'v370-native-exact-next';
-const CURRENT_NEXT_VISIBILITY = 'v374-skip-unanswered-next';
+const CURRENT_NEXT_VISIBILITY = 'v375-native-skip-next';
 
 async function waitPracticeReady(page) {
   await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
