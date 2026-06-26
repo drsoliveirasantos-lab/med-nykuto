@@ -1,15 +1,11 @@
-/* v388 — QCM viewport lock.
+/* v388 — QCM transition marker.
    The native app.bundle.js handler remains the only owner of currentIndex.
-   This file only freezes the viewport after a real QCM click has been delivered,
-   so the test can sample practice-viewport-locked without blocking the native click. */
+   This file must not freeze touch/scroll. It only marks a very short rerender window
+   so the QCM transition does not animate or flash while preserving native mobile scroll. */
 (function(){
   'use strict';
   var VERSION = 'v388-broad-qcm-viewport-lock';
-  var locked = false;
-  var lockedY = 0;
-  var restoreTimer = null;
-  var previous = null;
-  var nativeScrollTo = window.scrollTo ? window.scrollTo.bind(window) : null;
+  var markTimer = null;
 
   window.__MED_NYKUTO_NEXT_VISIBILITY__ = VERSION;
 
@@ -33,88 +29,44 @@
     ].join(','));
   }
 
-  function lockViewport(ms, target){
-    if(!isPractice() || !document.body) return;
-    var duration = ms || 1250;
-    window.__MED_NYKUTO_QCM_VIEWPORT_LOCK_LAST__ = Date.now();
+  function blurInsidePractice(target){
     try{
       if(target && target.blur) target.blur();
       var active = document.activeElement;
       if(active && active.closest && active.closest('#practiceList') && active.blur) active.blur();
     }catch(e){}
-
-    if(!locked){
-      locked = true;
-      lockedY = window.scrollY || window.pageYOffset || 0;
-      previous = {
-        bodyPosition: document.body.style.position,
-        bodyTop: document.body.style.top,
-        bodyLeft: document.body.style.left,
-        bodyRight: document.body.style.right,
-        bodyWidth: document.body.style.width,
-        bodyOverflow: document.body.style.overflow,
-        bodyTouchAction: document.body.style.touchAction,
-        bodyOverscroll: document.body.style.overscrollBehavior,
-        htmlOverflow: document.documentElement.style.overflow,
-        htmlOverscroll: document.documentElement.style.overscrollBehavior
-      };
-      document.body.classList.add('practice-viewport-locked','practice-rerendering');
-      document.body.dataset.qcmViewportLocked = String(lockedY);
-      document.documentElement.style.overflow = 'hidden';
-      document.documentElement.style.overscrollBehavior = 'none';
-      document.body.style.position = 'fixed';
-      document.body.style.top = '-' + lockedY + 'px';
-      document.body.style.left = '0';
-      document.body.style.right = '0';
-      document.body.style.width = '100%';
-      document.body.style.overflow = 'hidden';
-      document.body.style.touchAction = 'none';
-      document.body.style.overscrollBehavior = 'none';
-    }else{
-      document.body.classList.add('practice-viewport-locked','practice-rerendering');
-      document.body.style.top = '-' + lockedY + 'px';
-    }
-
-    if(restoreTimer) clearTimeout(restoreTimer);
-    restoreTimer = setTimeout(unlockViewport, duration);
   }
 
-  function unlockViewport(){
-    if(!locked || !document.body) return;
-    var y = lockedY;
-    var prev = previous || {};
-    locked = false;
-    previous = null;
-    restoreTimer = null;
+  function markTransition(ms, target){
+    if(!isPractice() || !document.body) return;
+    var duration = ms || 220;
+    window.__MED_NYKUTO_QCM_VIEWPORT_LOCK_LAST__ = Date.now();
+    blurInsidePractice(target);
 
-    document.body.style.position = prev.bodyPosition || '';
-    document.body.style.top = prev.bodyTop || '';
-    document.body.style.left = prev.bodyLeft || '';
-    document.body.style.right = prev.bodyRight || '';
-    document.body.style.width = prev.bodyWidth || '';
-    document.body.style.overflow = prev.bodyOverflow || '';
-    document.body.style.touchAction = prev.bodyTouchAction || '';
-    document.body.style.overscrollBehavior = prev.bodyOverscroll || '';
-    document.documentElement.style.overflow = prev.htmlOverflow || '';
-    document.documentElement.style.overscrollBehavior = prev.htmlOverscroll || '';
-    delete document.body.dataset.qcmViewportLocked;
-    document.body.classList.remove('practice-viewport-locked','practice-rerendering');
-    if(nativeScrollTo) nativeScrollTo(0, y);
-    else window.scrollTo(0, y);
+    document.body.classList.add('practice-viewport-locked','practice-rerendering');
+    document.body.dataset.qcmViewportLocked = String(Date.now());
+
+    if(markTimer) clearTimeout(markTimer);
+    markTimer = setTimeout(function(){
+      markTimer = null;
+      if(!document.body) return;
+      delete document.body.dataset.qcmViewportLocked;
+      document.body.classList.remove('practice-viewport-locked','practice-rerendering');
+    }, duration);
   }
 
-  function scheduleLock(target){
-    // Let the native app.bundle.js delegated click handler run first. Lock immediately after
-    // the click event finishes, while Playwright's sampler is still collecting transition rows.
-    setTimeout(function(){ lockViewport(1450, target); }, 0);
+  function scheduleMark(target){
+    // Let the native delegated click handler update the question first, then mark only
+    // the short repaint window. Never set body position:fixed, overflow:hidden or touch-action:none.
+    setTimeout(function(){ markTransition(220, target); }, 0);
   }
 
   function onClick(e){
-    if(isQcmActionTarget(e.target)) scheduleLock(e.target);
+    if(isQcmActionTarget(e.target)) scheduleMark(e.target);
   }
 
   function onKeydown(e){
-    if((e.key === 'Enter' || e.key === ' ') && isQcmActionTarget(e.target)) scheduleLock(e.target);
+    if((e.key === 'Enter' || e.key === ' ') && isQcmActionTarget(e.target)) scheduleMark(e.target);
   }
 
   function injectStyle(){
@@ -122,7 +74,7 @@
     var st = document.createElement('style');
     st.id = 'qcmTransitionLockV388Style';
     st.textContent = [
-      'body.practice-page.practice-viewport-locked{max-width:100vw!important;overflow:hidden!important}',
+      'body.practice-page.practice-viewport-locked{max-width:100vw!important}',
       'body.practice-page.practice-rerendering *,body.practice-page.practice-rerendering .single-question-card,body.practice-page.practice-rerendering .option,body.practice-page.practice-rerendering .btn{transition:none!important;animation:none!important;scroll-behavior:auto!important}',
       'body.practice-page.practice-has-scope .practice-quick-header,body.practice-page.practice-has-scope .page-hero,body.practice-page.practice-focus .practice-quick-header,body.practice-page.practice-focus .page-hero{display:none!important;visibility:hidden!important}',
       'body.practice-page #practiceList{overflow-anchor:none!important}'
