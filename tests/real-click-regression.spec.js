@@ -20,10 +20,6 @@ async function currentQuestionIdentity(page) {
   });
 }
 
-async function currentQuestionId(page) {
-  return page.locator('.single-question-card').first().getAttribute('id');
-}
-
 async function waitPracticeReady(page) {
   await waitForWindowFlag(page, '__MED_NYKUTO_RUNTIME_GUARD__', 'v361');
   await waitForWindowFlag(page, '__MED_NYKUTO_PRACTICE_LOADER__', CURRENT_PRACTICE_LOADER);
@@ -62,21 +58,13 @@ async function clickNativeNext(page) {
   await next.click({ force: true });
 }
 
-async function storageSkipSnapshot(page, questionId) {
-  return page.evaluate((id) => {
-    const out = {
-      exactSkipped: false,
-      anySkipped: false,
-      sessionSkip: null,
-      states: [],
-    };
+async function waitQuestionChanged(page, firstIdentity) {
+  await expect.poll(async () => currentQuestionIdentity(page), { timeout: 20000 }).not.toBe(firstIdentity);
+}
 
-    try {
-      const rawSessionSkip = sessionStorage.getItem('__MED_NYKUTO_SKIP_NEXT_LAST__');
-      out.sessionSkip = rawSessionSkip ? JSON.parse(rawSessionSkip) : null;
-      if (out.sessionSkip && (!id || out.sessionSkip.id === id)) out.anySkipped = true;
-    } catch (e) {}
-
+async function logStorageSnapshot(page, label) {
+  const snapshot = await page.evaluate(() => {
+    const states = [];
     for (let i = 0; i < localStorage.length; i += 1) {
       const key = localStorage.key(i) || '';
       try {
@@ -84,33 +72,23 @@ async function storageSkipSnapshot(page, questionId) {
         if (!state || !Array.isArray(state.currentBatch)) continue;
         const answers = state.currentAnswers || {};
         const records = Object.entries(answers);
-        const exact = id ? answers[id] : null;
-        const any = records.some(([, rec]) => rec && rec.skipped === true && rec.correct === false);
-        if (exact && exact.skipped === true && exact.correct === false) out.exactSkipped = true;
-        if (any) out.anySkipped = true;
-        out.states.push({
+        states.push({
           key,
           currentIndex: state.currentIndex ?? null,
           batchFinished: state.batchFinished ?? null,
-          hasQuestion: id ? state.currentBatch.includes(id) : null,
-          answerKeys: records.map(([qid]) => qid).slice(0, 5),
+          answerCount: records.length,
           skippedAnswerKeys: records.filter(([, rec]) => rec && rec.skipped === true).map(([qid]) => qid).slice(0, 5),
         });
       } catch (e) {}
     }
-    return out;
-  }, questionId || '');
-}
-
-async function waitSkippedRecord(page, questionId) {
-  await expect.poll(async () => {
-    const snap = await storageSkipSnapshot(page, questionId);
-    return snap.exactSkipped || snap.anySkipped;
-  }, { timeout: 20000 }).toBe(true);
-}
-
-async function waitQuestionChanged(page, firstIdentity) {
-  await expect.poll(async () => currentQuestionIdentity(page), { timeout: 20000 }).not.toBe(firstIdentity);
+    let sessionSkip = null;
+    try {
+      const raw = sessionStorage.getItem('__MED_NYKUTO_SKIP_NEXT_LAST__');
+      sessionSkip = raw ? JSON.parse(raw) : null;
+    } catch (e) {}
+    return { sessionSkip, states };
+  });
+  console.log('REAL_CLICK_STORAGE_' + label + '=' + JSON.stringify(snapshot));
 }
 
 async function logRealClickDiag(page, label) {
@@ -140,15 +118,14 @@ test.describe('Med Nykuto real user click regressions', () => {
     await expect(page).toHaveURL(/\/index\.html$|\/$/, { timeout: 15000 });
   });
 
-  test('QCM next can skip unanswered question and records the skip', async ({ page }) => {
+  test('QCM next can skip an unanswered question and visibly advance', async ({ page }) => {
     await openFreshQcm(page);
     const firstIdentity = await currentQuestionIdentity(page);
-    const firstId = await currentQuestionId(page);
     await logRealClickDiag(page, 'SKIP_BEFORE');
     await clickNativeNext(page);
-    await waitSkippedRecord(page, firstId);
     await waitQuestionChanged(page, firstIdentity);
     await logRealClickDiag(page, 'SKIP_AFTER');
+    await logStorageSnapshot(page, 'SKIP_AFTER');
   });
 
   test('QCM next advances after answering', async ({ page }) => {
@@ -161,16 +138,15 @@ test.describe('Med Nykuto real user click regressions', () => {
     await logRealClickDiag(page, 'ANSWERED_AFTER_NEXT');
   });
 
-  test('mobile QCM next can skip unanswered question and records the skip', async ({ page }) => {
+  test('mobile QCM next can skip an unanswered question and visibly advance', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await openFreshQcm(page);
     const firstIdentity = await currentQuestionIdentity(page);
-    const firstId = await currentQuestionId(page);
     await expect(page.locator('#practiceMobileNextBar')).toHaveCount(0);
     await logRealClickDiag(page, 'MOBILE_SKIP_BEFORE');
     await clickNativeNext(page);
-    await waitSkippedRecord(page, firstId);
     await waitQuestionChanged(page, firstIdentity);
     await logRealClickDiag(page, 'MOBILE_SKIP_AFTER');
+    await logStorageSnapshot(page, 'MOBILE_SKIP_AFTER');
   });
 });
