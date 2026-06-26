@@ -144,12 +144,14 @@ function compactTrace(trace) {
   })).slice(0, 80);
 }
 
-function idSequence(trace) {
-  const seq = [];
+function idSequenceAfterInitial(trace, initialId, finalId) {
+  const seq = [initialId];
   for (const row of trace) {
     if (!row.cardId) continue;
+    if (row.cardId === initialId && seq.length === 1) continue;
     if (seq[seq.length - 1] !== row.cardId) seq.push(row.cardId);
   }
+  if (seq[seq.length - 1] !== finalId) seq.push(finalId);
   return seq;
 }
 
@@ -174,7 +176,7 @@ test.describe('QCM transition stability', () => {
 
     const trace = await sampleTransition(page);
     const finalId = await currentQuestionIdentity(page);
-    const sequence = idSequence(trace);
+    const sequence = idSequenceAfterInitial(trace, firstId, finalId);
     const traceSummary = JSON.stringify(compactTrace(trace));
 
     expect(finalId, 'one tap must land on one new question').not.toBe(firstId);
