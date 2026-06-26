@@ -1,14 +1,14 @@
 /* v361 — QCM progress display-only patch.
    Synchronizes the user-visible and test-visible QCM counter with the question
    currently displayed after real clicks, even if the legacy renderer or storage
-   state temporarily remains at 1/20. v384 removes visible mobile flicker by
-   correcting progress synchronously after legacy DOM rewrites.
+   state temporarily remains at 1/20. v385 removes visible mobile flicker and
+   prevents double-counting the expected identity change after a real next tap.
 */
 (function(){
   'use strict';
 
   var VERSION = 'v361';
-  var MODE = 'visual-question-progress-v384-no-flicker';
+  var MODE = 'visual-question-progress-v385-no-double-count';
   var pendingProgressTimer = 0;
   var manualIndex = 1;
   var visualIndex = 1;
@@ -18,6 +18,8 @@
   var nextTapLockUntil = 0;
   var bootedAt = Date.now();
   var publishing = false;
+  var expectedNextFromIdentity = '';
+  var expectedNextIndex = 0;
 
   function isQcmPage(){
     return !!(document.body && document.body.classList && document.body.classList.contains('qcm-page'));
@@ -116,10 +118,21 @@
     }
 
     if(identity !== lastIdentity){
+      var previousIdentity = lastIdentity;
       lastIdentity = identity;
       var total = inferTotal();
-      var baselineNext = Math.min(total, Math.max(visualIndex || 1, manualIndex || 1) + 1);
       var storedCurrent = state && state.current ? state.current : 0;
+      var isExpectedNextRender = !!expectedNextFromIdentity && previousIdentity === expectedNextFromIdentity;
+
+      if(isExpectedNextRender){
+        visualIndex = Math.max(visualIndex || 1, manualIndex || 1, expectedNextIndex || 1, storedCurrent);
+        expectedNextFromIdentity = '';
+        expectedNextIndex = 0;
+        manualIndex = Math.max(manualIndex || 1, visualIndex);
+        return normalizeProgress(visualIndex, total, 'visual-expected-next-render');
+      }
+
+      var baselineNext = Math.min(total, Math.max(visualIndex || 1, manualIndex || 1) + 1);
       visualIndex = Math.max(visualIndex || 1, baselineNext, storedCurrent);
       manualIndex = Math.max(manualIndex || 1, visualIndex);
       return normalizeProgress(visualIndex, total, 'visual-identity-change');
@@ -164,9 +177,11 @@
   function setWidth(el, value){ if(el && el.style.width !== value) el.style.width = value; }
 
   function injectAntiFlickerStyle(){
-    if(document.getElementById('practiceProgressNoFlickerV384')) return;
+    if(document.getElementById('practiceProgressNoFlickerV385')) return;
+    var old = document.getElementById('practiceProgressNoFlickerV384');
+    if(old) old.remove();
     var style = document.createElement('style');
-    style.id = 'practiceProgressNoFlickerV384';
+    style.id = 'practiceProgressNoFlickerV385';
     style.textContent = [
       'body.qcm-page .premium-progress strong, body.qcm-page .question-count-stat strong{transition:none!important}',
       'body.qcm-page .premium-progress-track i, body.qcm-page .premium-progress .progress-track i, body.qcm-page .practice-headbox .progress-track:not(.success) i{transition:none!important;animation:none!important}',
@@ -238,6 +253,7 @@
   function noteNextTap(){
     var now = Date.now();
     var total = inferTotal();
+    var beforeIdentity = currentIdentity() || lastIdentity || '';
     if(now < nextTapLockUntil){
       publishProgress(normalizeProgress(Math.max(manualIndex || 1, visualIndex || 1), total, 'next-tap-lock'));
       scheduleAfterRender();
@@ -246,6 +262,8 @@
     nextTapLockUntil = now + 650;
     manualIndex = Math.min(total, Math.max(manualIndex || 1, visualIndex || 1) + 1);
     visualIndex = Math.max(visualIndex || 1, manualIndex);
+    expectedNextFromIdentity = beforeIdentity;
+    expectedNextIndex = manualIndex;
     publishProgress(normalizeProgress(manualIndex, total, 'next-tap'));
     scheduleAfterRender();
   }
@@ -256,6 +274,8 @@
     manualTotal = 20;
     lastKnownProgress = null;
     nextTapLockUntil = 0;
+    expectedNextFromIdentity = '';
+    expectedNextIndex = 0;
     lastIdentity = currentIdentity() || '';
     publishProgress(normalizeProgress(1, inferTotal(), 'reset'));
   }
