@@ -1,0 +1,59 @@
+/* v389 — iOS Safari practice scroll canvas fix.
+   Prevents the white browser canvas from appearing when the user scrolls by dragging on options. */
+html{
+  background:#070a10!important;
+}
+html:has(body.practice-page){
+  background:#070a10!important;
+  overscroll-behavior-y:none;
+}
+body.practice-page{
+  background-color:#070a10!important;
+  background-image:
+    radial-gradient(circle at top left,rgba(216,180,91,.16),transparent 28rem),
+    radial-gradient(circle at 85% 10%,rgba(103,212,255,.12),transparent 24rem),
+    linear-gradient(180deg,#070a10 0%,#0d1420 100%)!important;
+  min-height:100vh;
+  min-height:100svh;
+  min-height:100dvh;
+  overscroll-behavior-y:none;
+  -webkit-overflow-scrolling:touch;
+}
+body.practice-page::before{
+  content:"";
+  position:fixed;
+  inset:-160px 0;
+  z-index:-1;
+  pointer-events:none;
+  background:#070a10;
+  background-image:
+    radial-gradient(circle at top left,rgba(216,180,91,.14),transparent 28rem),
+    radial-gradient(circle at 85% 10%,rgba(103,212,255,.10),transparent 24rem),
+    linear-gradient(180deg,#070a10 0%,#0d1420 100%);
+}
+body.practice-page main,
+body.practice-page .practice-focus-section,
+body.practice-page .practice-list,
+body.practice-page #practiceList{
+  background:transparent!important;
+}
+body.practice-page .single-question-card,
+body.practice-page .quiz-card,
+body.practice-page .practice-card{
+  -webkit-tap-highlight-color:transparent;
+  overscroll-behavior:contain;
+}
+body.practice-page button.option,
+body.practice-page .option{
+  -webkit-tap-highlight-color:rgba(216,180,91,.14);
+  touch-action:pan-y;
+}
+@supports (-webkit-touch-callout:none){
+  html,
+  body.practice-page{
+    background-color:#070a10!important;
+  }
+  body.practice-page{
+    background-attachment:scroll!important;
+  }
+}
