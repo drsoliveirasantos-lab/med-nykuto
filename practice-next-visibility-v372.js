@@ -1,10 +1,11 @@
 /* v388 — native visible Next + safe QCM transition marker.
    This file keeps the native app.bundle.js handler as the only owner of currentIndex.
-   It must not freeze body scroll or intercept touch scrolling on options. */
+   It must not freeze body scroll or repaint the QCM card several times after a tap. */
 (function(){
   'use strict';
   var VERSION = 'v388-broad-qcm-viewport-lock';
   var transitionTimer = null;
+  var syncQueued = false;
 
   window.__MED_NYKUTO_NEXT_VISIBILITY__ = VERSION;
 
@@ -70,7 +71,7 @@
       if(!document.body) return;
       delete document.body.dataset.qcmViewportLocked;
       document.body.classList.remove('practice-rerendering','practice-viewport-locked');
-    }, ms || 180);
+    }, ms || 120);
   }
 
   function patchEmptyPracticeListRender(){
@@ -115,7 +116,8 @@
       if(isPractice() && this && this.matches && this.matches('#practiceList, .single-question-card, .question-difficulty-panel, [data-action="next-question"], [data-action="previous-question"], .option')){
         var opts = typeof options === 'object' && options ? Object.assign({}, options) : {};
         opts.behavior = 'auto';
-        if(!opts.block) opts.block = 'nearest';
+        opts.block = 'nearest';
+        opts.inline = 'nearest';
         return nativeScrollIntoView.call(this, opts);
       }
       return nativeScrollIntoView.apply(this, arguments);
@@ -149,8 +151,10 @@
       c.classList.toggle('answer-ready', answered(c));
       c.querySelectorAll('[data-action="next-question"]').forEach(function(btn){
         btn.hidden = false;
-        btn.disabled = false;
-        btn.removeAttribute('disabled');
+        if(answered(c)){
+          btn.disabled = false;
+          btn.removeAttribute('disabled');
+        }
         btn.removeAttribute('aria-hidden');
         btn.style.pointerEvents = 'auto';
         btn.style.touchAction = 'manipulation';
@@ -171,7 +175,7 @@
     style.id = 'nextVisibilityV388Style';
     style.textContent = [
       'body.practice-page .single-question-card [data-action="next-question"]{display:flex!important;visibility:visible!important;pointer-events:auto!important;opacity:1!important;touch-action:manipulation!important;-webkit-tap-highlight-color:transparent}',
-      'body.practice-page .single-question-card [data-action="next-question"]:disabled{opacity:1!important}',
+      'body.practice-page .single-question-card [data-action="next-question"]:disabled{display:none!important}',
       'body.practice-page #practiceList{min-height:70vh;overflow-anchor:none!important}',
       'body.practice-page .single-question-card,body.practice-page .practice-headbox{scroll-margin-top:92px}',
       'body.practice-page .single-question-card .option{touch-action:pan-y!important;-webkit-tap-highlight-color:rgba(216,180,91,.14)}',
@@ -186,6 +190,7 @@
   }
 
   function run(){
+    syncQueued = false;
     patchEmptyPracticeListRender();
     patchReplaceChildren();
     patchScrollIntoView();
@@ -195,27 +200,31 @@
     window.__MED_NYKUTO_NEXT_VISIBILITY__ = VERSION;
   }
 
+  function scheduleRun(){
+    if(syncQueued) return;
+    syncQueued = true;
+    requestAnimationFrame(run);
+  }
+
   function onClick(e){
     if(isQuestionNavigationTarget(e.target)){
       rememberPracticeSession();
-      setTimeout(function(){ markTransition(180, e.target); }, 0);
+      setTimeout(function(){ markTransition(120, e.target); }, 0);
     }
-    setTimeout(run, 0);
-    setTimeout(run, 20);
-    setTimeout(run, 120);
-    setTimeout(run, 360);
+    scheduleRun();
   }
 
   document.addEventListener('click', onClick, true);
   document.addEventListener('keydown', function(e){
     if((e.key === 'Enter' || e.key === ' ') && isQuestionNavigationTarget(e.target)){
       rememberPracticeSession();
-      setTimeout(function(){ markTransition(180, e.target); }, 0);
+      setTimeout(function(){ markTransition(120, e.target); }, 0);
     }
+    scheduleRun();
   }, true);
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
   window.addEventListener('load', run);
   window.addEventListener('pageshow', run);
-  try{ new MutationObserver(function(){ setTimeout(run, 0); }).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','disabled','class','style']}); }catch(e){}
+  try{ new MutationObserver(scheduleRun).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','disabled','class','style']}); }catch(e){}
 })();
