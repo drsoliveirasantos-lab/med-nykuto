@@ -12,7 +12,8 @@ Solo agregar código aparte si la corrección en la fuente no es segura o no es 
 - el archivo fuente es generado automáticamente;
 - el archivo fuente está minificado o es demasiado riesgoso para editar directamente;
 - hace falta preservar compatibilidad con código antiguo;
-- no existe una corrección limpia en la fuente.
+- no existe una corrección limpia en la fuente;
+- la herramienta disponible solo permite reemplazo completo de un archivo grande, y reemplazar todo el archivo sería más riesgoso que una neutralización mínima en un helper existente.
 
 Cuando haga falta quitar algo, eliminar únicamente el código, línea, bloque, importación, carga de script o selector responsable del problema. No borrar un archivo completo ni retirar una carga completa de `qcm.html`/HTML si el archivo contiene otras funciones útiles. Antes de eliminar, verificar qué otras responsabilidades tiene el archivo y conservar todo lo que no esté directamente implicado en el bug.
 
@@ -36,9 +37,10 @@ No tocar los archivos grandes de `/data` sin backup y verificacion. Pueden estar
 3. Diagnosticar la causa real antes de editar: archivo responsable, selector/funcion implicada, test afectado y efecto visible.
 4. Corregir la fuente del bug si es posible, en lugar de agregar un archivo nuevo o un parche lateral.
 5. Si hay que eliminar código, eliminar solo la línea, bloque o llamada responsable; no borrar archivos completos ni retirar scripts completos cuando el archivo contiene otras funciones necesarias.
-6. No hacer cambios directos en `/data` para ajustes de interfaz.
-7. Preferir cambios en archivos ligeros existentes: HTML, CSS, `v210-module-picker-overlay.js`, `_headers`.
-8. Separar cada correccion en commits pequenos.
+6. Si un archivo maestro grande requiere edición pero la herramienta solo permite reemplazo completo, no reemplazarlo sin poder reconstruirlo/verificarlo entero. En ese caso, usar el helper existente más cercano para neutralizar únicamente la línea/comportamiento responsable y documentar la razón.
+7. No hacer cambios directos en `/data` para ajustes de interfaz.
+8. Preferir cambios en archivos ligeros existentes: HTML, CSS, `v210-module-picker-overlay.js`, `_headers`.
+9. Separar cada correccion en commits pequenos.
 
 ## Pruebas obligatorias despues de cada despliegue Cloudflare
 
