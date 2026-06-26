@@ -94,7 +94,7 @@ async function storageSkipSnapshot(page, questionId) {
           currentIndex: state ? state.currentIndex : null,
           batchFinished: state ? state.batchFinished : null,
           answerKeys: records.map(([qid]) => qid).slice(0, 5),
-          skippedKeys: records.filter(([, rec]) => rec && rec.skipped === true).map(([qid]) => qid).slice(0, 5),
+          skippedAnswerKeys: records.filter(([, rec]) => rec && rec.skipped === true).map(([qid]) => qid).slice(0, 5),
         });
       } catch (e) {}
     }
@@ -105,10 +105,8 @@ async function storageSkipSnapshot(page, questionId) {
 async function waitSkippedRecord(page, questionId) {
   await expect.poll(async () => {
     const snap = await storageSkipSnapshot(page, questionId);
-    if (snap.exactSkipped) return 'exact-skipped';
-    if (snap.anySkipped) return 'any-skipped';
-    return JSON.stringify(snap);
-  }, { timeout: 20000 }).toMatch(/skipped/);
+    return snap.exactSkipped || snap.anySkipped;
+  }, { timeout: 20000 }).toBe(true);
 }
 
 async function waitQuestionChanged(page, firstIdentity) {
