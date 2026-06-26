@@ -3,6 +3,7 @@ const { test, expect } = require('@playwright/test');
 const CURRENT_PRACTICE_LOADER = 'v364';
 const CURRENT_NEXT_STABILITY = 'v372-native-sticky-next-no-reload';
 const CURRENT_NEXT_VISIBILITY = 'v379-smooth-skip-next-no-reload';
+const CURRENT_PROGRESS_FIX = 'v360';
 
 async function waitForWindowFlag(page, name, expected, timeout = 20000) {
   await expect.poll(
@@ -22,7 +23,9 @@ async function currentQuestionIdentity(page) {
 
 async function currentQuestionCounter(page) {
   return page.evaluate(() => {
-    const nodes = Array.from(document.querySelectorAll('.question-count-stat strong, .single-question-card .quiz-head .badge, .premium-progress strong'));
+    const state = window.__MED_NYKUTO_PRACTICE_PROGRESS_STATE__;
+    if (state && state.current && state.total) return `${state.current}/${state.total}`;
+    const nodes = Array.from(document.querySelectorAll('.premium-progress strong, .question-count-stat strong, .single-question-card .quiz-head .badge'));
     for (const node of nodes) {
       const match = String(node.textContent || '').match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
       if (match) return `${match[1]}/${match[2]}`;
@@ -36,6 +39,7 @@ async function waitPracticeReady(page) {
   await waitForWindowFlag(page, '__MED_NYKUTO_PRACTICE_LOADER__', CURRENT_PRACTICE_LOADER);
   await waitForWindowFlag(page, '__MED_NYKUTO_PRACTICE_NEXT_STABILITY__', CURRENT_NEXT_STABILITY);
   await waitForWindowFlag(page, '__MED_NYKUTO_NEXT_VISIBILITY__', CURRENT_NEXT_VISIBILITY);
+  await waitForWindowFlag(page, '__MED_NYKUTO_PRACTICE_PROGRESS_FIX__', CURRENT_PROGRESS_FIX);
   await expect(page.locator('.single-question-card').first()).toBeVisible({ timeout: 15000 });
 }
 
@@ -96,7 +100,7 @@ async function logStorageSnapshot(page, label) {
         });
       } catch (e) {}
     }
-    return { states };
+    return { states, progressState: window.__MED_NYKUTO_PRACTICE_PROGRESS_STATE__ || null };
   });
   console.log('REAL_CLICK_STORAGE_' + label + '=' + JSON.stringify(snapshot));
 }
@@ -110,7 +114,9 @@ async function logRealClickDiag(page, label) {
       readyState: document.readyState,
       cardId: card ? card.id : null,
       cardText: card ? card.textContent.replace(/\s+/g, ' ').trim().slice(0, 300) : null,
-      counter: document.querySelector('.question-count-stat strong, .premium-progress strong')?.textContent || null,
+      counter: document.querySelector('.premium-progress strong, .question-count-stat strong')?.textContent || null,
+      progressFix: window.__MED_NYKUTO_PRACTICE_PROGRESS_FIX__ || null,
+      progressState: window.__MED_NYKUTO_PRACTICE_PROGRESS_STATE__ || null,
       nextVisible: next ? getComputedStyle(next).display !== 'none' && getComputedStyle(next).visibility !== 'hidden' : null,
       nextDisabled: next ? !!(next.disabled || next.hasAttribute('disabled')) : null,
       nextText: next ? next.textContent.trim() : null,
