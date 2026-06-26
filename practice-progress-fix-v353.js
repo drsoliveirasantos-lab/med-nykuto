@@ -1,17 +1,18 @@
-/* v359 — QCM progress display-only patch.
+/* v360 — QCM progress display-only patch.
    Synchronizes the visible premium progress/counter from the displayed card.
-   If legacy session state remains stuck at 1/20 while the visible card changes,
+   If legacy session counters remain stale while the visible card changes,
    this patch advances the displayed counter from observed question changes.
 */
 (function(){
   'use strict';
 
-  var VERSION = 'v359';
+  var VERSION = 'v360';
   var pendingProgressTimer = 0;
   var lastKnownProgress = null;
   var observedIdentity = '';
   var observedIndex = 1;
   var observedTotal = 20;
+  var bootedAt = Date.now();
 
   function isQcmPage(){
     return !!(document.body && document.body.classList && document.body.classList.contains('qcm-page'));
@@ -30,7 +31,7 @@
     var card = currentCard();
     if(!card) return '';
     var prompt = card.querySelector('.question-prompt, .structured-prompt, h2, h3, p');
-    return [card.id || '', clean(prompt ? prompt.textContent : card.textContent).slice(0, 220)].join('|');
+    return [card.id || '', clean(prompt ? prompt.textContent : card.textContent).slice(0, 260)].join('|');
   }
   function counterProgress(){
     var nodes = [];
@@ -67,7 +68,7 @@
   function observedProgress(){
     var id = cardIdentity();
     if(!id) return null;
-    var base = counterProgress() || lastKnownProgress || {current:1,total:20,pct:5};
+    var base = lastKnownProgress || counterProgress() || {current:1,total:20,pct:5};
     observedTotal = Math.max(1, base.total || observedTotal || 20);
     if(!observedIdentity){
       observedIdentity = id;
@@ -86,7 +87,7 @@
       var total = Math.max(state.total || 20, observed.total || 20);
       return {current: current, total: total, pct: clampPct(current,total), source: current === observed.current ? observed.source : state.source};
     }
-    return state || observed || counterProgress() || lastKnownProgress;
+    return observed || state || counterProgress() || lastKnownProgress;
   }
   function ensureProgressStructure(bar){
     var head = bar.querySelector('.premium-progress-head');
@@ -137,7 +138,7 @@
     pendingProgressTimer = setTimeout(updatePremiumProgress, delay == null ? 90 : delay);
   }
   function scheduleAfterRender(){
-    [20, 60, 120, 240, 480, 900].forEach(function(ms){ setTimeout(updatePremiumProgress, ms); });
+    [20, 60, 120, 240, 480, 900, 1400].forEach(function(ms){ setTimeout(updatePremiumProgress, ms); });
   }
   function resetObservedOnFilterChange(){
     observedIdentity = '';
@@ -160,6 +161,9 @@
   document.addEventListener('change', function(){ resetObservedOnFilterChange(); scheduleAfterRender(); }, true);
   try{
     var target = document.querySelector('#practiceList') || document.body;
-    new MutationObserver(function(){ scheduleProgressUpdate(40); }).observe(target, {childList:true, subtree:true, characterData:true});
+    new MutationObserver(function(){ scheduleProgressUpdate(35); }).observe(target, {childList:true, subtree:true, characterData:true});
   }catch(e){}
+  setInterval(function(){
+    if(Date.now() - bootedAt < 30000 || document.hidden === false) updatePremiumProgress();
+  }, 250);
 })();
