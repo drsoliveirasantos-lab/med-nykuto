@@ -2,8 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
 const CURRENT_NEXT_STABILITY = 'v370-native-exact-next';
-const CURRENT_NEXT_VISIBILITY = 'v376-deterministic-skip-next';
-const PRACTICE_STORAGE_PREFIX = 'medPractice:v35-bugfix:';
+const CURRENT_NEXT_VISIBILITY = 'v377-deterministic-skip-next-storage-scan';
 
 async function waitForWindowFlag(page, name, expected, timeout = 20000) {
   await expect.poll(
@@ -64,7 +63,7 @@ async function clickNativeNext(page) {
 }
 
 async function storageSkipSnapshot(page, questionId) {
-  return page.evaluate(({ prefix, id }) => {
+  return page.evaluate((id) => {
     const out = {
       exactSkipped: false,
       anySkipped: false,
@@ -80,10 +79,10 @@ async function storageSkipSnapshot(page, questionId) {
 
     for (let i = 0; i < localStorage.length; i += 1) {
       const key = localStorage.key(i) || '';
-      if (!key.startsWith(prefix)) continue;
       try {
         const state = JSON.parse(localStorage.getItem(key) || 'null');
-        const answers = state && state.currentAnswers ? state.currentAnswers : {};
+        if (!state || !Array.isArray(state.currentBatch)) continue;
+        const answers = state.currentAnswers || {};
         const records = Object.entries(answers);
         const exact = id ? answers[id] : null;
         const any = records.some(([, rec]) => rec && rec.skipped === true && rec.correct === false);
@@ -91,15 +90,16 @@ async function storageSkipSnapshot(page, questionId) {
         if (any) out.anySkipped = true;
         out.states.push({
           key,
-          currentIndex: state ? state.currentIndex : null,
-          batchFinished: state ? state.batchFinished : null,
+          currentIndex: state.currentIndex ?? null,
+          batchFinished: state.batchFinished ?? null,
+          hasQuestion: id ? state.currentBatch.includes(id) : null,
           answerKeys: records.map(([qid]) => qid).slice(0, 5),
           skippedAnswerKeys: records.filter(([, rec]) => rec && rec.skipped === true).map(([qid]) => qid).slice(0, 5),
         });
       } catch (e) {}
     }
     return out;
-  }, { prefix: PRACTICE_STORAGE_PREFIX, id: questionId || '' });
+  }, questionId || '');
 }
 
 async function waitSkippedRecord(page, questionId) {
