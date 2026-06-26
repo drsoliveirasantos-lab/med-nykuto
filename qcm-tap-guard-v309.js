@@ -1,7 +1,7 @@
-/* v310 — QCM inert-zone and no-submit guard.
+/* v311 — QCM inert-zone and no-submit guard.
    Tapping the question text/card background should do nothing.
-   QCM controls remain clickable, but all buttons inside #practiceList are forced to type="button"
-   so Safari never treats Next/answer buttons as a page/form navigation. */
+   Real QCM controls must stay clickable. Buttons inside #practiceList are only marked type="button";
+   this file does not preventDefault on answer/Next clicks, so app.bundle.js receives them normally. */
 (function(){
   'use strict';
 
@@ -61,12 +61,11 @@
     document.querySelectorAll('#practiceList button').forEach(neutraliseButton);
   }
 
-  function guardPracticeButtonDefault(e){
+  function markPracticeButton(e){
     if(!isQcm()) return;
     var btn = e.target && e.target.closest && e.target.closest('#practiceList button');
     if(!btn) return;
     neutraliseButton(btn);
-    e.preventDefault();
   }
 
   function guardSubmit(e){
@@ -79,6 +78,7 @@
   }
 
   function onTouchStart(e){
+    markPracticeButton(e);
     if(!isInertQcmZone(e.target)) return;
     var t = e.changedTouches && e.changedTouches[0];
     if(!t) return;
@@ -102,6 +102,7 @@
   }
 
   function onClick(e){
+    markPracticeButton(e);
     if(!isInertQcmZone(e.target)) return;
     if(Date.now() < suppressClickUntil || e.type === 'click') swallow(e);
   }
@@ -121,9 +122,7 @@
   document.addEventListener('touchstart', onTouchStart, {capture:true, passive:true});
   document.addEventListener('touchmove', onTouchMove, {capture:true, passive:true});
   document.addEventListener('touchend', onTouchEnd, {capture:true, passive:false});
-  document.addEventListener('pointerdown', guardPracticeButtonDefault, {capture:true, passive:false});
-  document.addEventListener('touchstart', guardPracticeButtonDefault, {capture:true, passive:false});
-  document.addEventListener('click', guardPracticeButtonDefault, {capture:true, passive:false});
+  document.addEventListener('pointerdown', markPracticeButton, {capture:true, passive:true});
   document.addEventListener('click', onClick, true);
   document.addEventListener('submit', guardSubmit, true);
 
