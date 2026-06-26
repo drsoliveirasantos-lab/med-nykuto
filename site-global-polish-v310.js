@@ -1,19 +1,21 @@
-/* v373 — Global Med Nykuto polish layer.
+/* v374 — Global Med Nykuto polish layer.
    Applies identity, language, cache-visible UI text, logo/home behavior, optional public-first auth, course image zoom and practice-page safety.
-   Module reader rule: do not load forced global repair/debug layers on module.html, because the course text must stay passive while reading. */
+   Quiet-page rule: module/practice/exam/mistakes pages must not load forced global repair/debug layers or delayed global refresh passes while the user is reading or answering. */
 (function(){
   'use strict';
 
   var SITE_NAME = 'Med Nykuto';
   var HOST = 'https://preview.med-nykuto-git.pages.dev/';
-  var CACHE_VERSION = '373';
+  var CACHE_VERSION = '374';
 
   function text(el,v){ if(el && v != null) el.textContent = v; }
-  function attr(el,k,v){ if(el && v != null) el.setAttribute(k,v); }
   function all(sel,root){ return Array.from((root||document).querySelectorAll(sel)); }
   function clean(s){ return String(s||'').replace(/\s+/g,' ').trim(); }
   function pageName(){ return location.pathname.split('/').pop() || 'index.html'; }
-  function isModuleReaderPage(){ return pageName() === 'module.html' || !!(document.body && document.body.dataset.page === 'module'); }
+  function bodyPage(){ return (document.body && document.body.dataset && document.body.dataset.page) || ''; }
+  function isModuleReaderPage(){ return pageName() === 'module.html' || bodyPage() === 'module'; }
+  function isPracticeLikePage(){ return /^(qcm|cas-cliniques|vrai-faux|erreurs|examen)\.html$/.test(pageName()) || /^(practice|exam|mistakes)$/.test(bodyPage()); }
+  function isQuietPage(){ return isModuleReaderPage() || isPracticeLikePage(); }
 
   function setLang(){
     document.documentElement.lang = 'es';
@@ -180,9 +182,9 @@
   function loadCourseImageZoom(){ appendScript('courseImageZoomV101', 'course-image-zoom-v101.js?v=101', '__MED_NYKUTO_COURSE_IMAGE_ZOOM_LOADER__'); }
 
   function loadGlobalRepairLayers(){
-    if(isModuleReaderPage()){
-      window.__MED_NYKUTO_GLOBAL_POLISH_MODULE_LIGHT_MODE__ = 'v373-skip-forced-repair-layers';
-      loadCourseImageZoom();
+    if(isQuietPage()){
+      window.__MED_NYKUTO_GLOBAL_POLISH_LIGHT_MODE__ = 'v374-skip-forced-repair-layers';
+      if(isModuleReaderPage()) loadCourseImageZoom();
       return;
     }
     loadInterfaceFix();
@@ -202,12 +204,14 @@
     polishComingSoon();
     injectGlobalStyle();
     loadGlobalRepairLayers();
-    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v373-loader';
+    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v374-loader';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
   window.addEventListener('load', run);
   window.addEventListener('pageshow', run);
-  setTimeout(run, 250);
-  setTimeout(run, 900);
+  if(!isQuietPage()){
+    setTimeout(run, 250);
+    setTimeout(run, 900);
+  }
 })();
