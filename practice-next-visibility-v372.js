@@ -34,6 +34,10 @@
       return (ib >= 0 ? 1 : 0) - (ia >= 0 ? 1 : 0);
     });
   }
+  function recordSkip(payload){
+    window.__MED_NYKUTO_SKIP_NEXT_LAST__ = payload;
+    try{ sessionStorage.setItem('__MED_NYKUTO_SKIP_NEXT_LAST__', JSON.stringify(payload)); }catch(e){}
+  }
   function skipAndNext(){
     if(!isPractice()) return false;
     var c = card();
@@ -64,7 +68,7 @@
       if(idx >= s.currentBatch.length - 1){ s.currentIndex = s.currentBatch.length - 1; s.batchFinished = true; }
       else { s.currentIndex = idx + 1; s.batchFinished = false; }
       if(save(k,s)){
-        window.__MED_NYKUTO_SKIP_NEXT_LAST__ = {key:k, id:qid, index:s.currentIndex, at:Date.now()};
+        recordSkip({key:k, id:qid, index:s.currentIndex, at:Date.now()});
         setTimeout(function(){ location.reload(); }, 20);
         return true;
       }
