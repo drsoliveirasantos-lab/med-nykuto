@@ -1,7 +1,7 @@
-/* v375 — next button skips unanswered questions through the native No sé flow. */
+/* v376 — deterministic skip: native No sé, then direct session advance. */
 (function(){
   'use strict';
-  window.__MED_NYKUTO_NEXT_VISIBILITY__ = 'v375-native-skip-next';
+  window.__MED_NYKUTO_NEXT_VISIBILITY__ = 'v376-deterministic-skip-next';
   var lockUntil = 0;
 
   function isPractice(){ return !!(document.body && document.body.classList && document.body.classList.contains('practice-page')); }
@@ -33,44 +33,49 @@
       return (ib >= 0 ? 1 : 0) - (ia >= 0 ? 1 : 0);
     });
   }
-  function convertNativeUnknownToSkipped(id){
+  function markSkippedAndAdvance(id){
     var list = keys(id);
     for(var i=0;i<list.length;i++){
       var k = list[i], s = read(k);
-      if(!s || !s.currentAnswers) continue;
-      var qid = id;
-      if(!s.currentAnswers[qid] && id && s.currentBatch){
-        var found = s.currentBatch.indexOf(id);
-        if(found >= 0) qid = s.currentBatch[found];
-      }
-      var rec = s.currentAnswers[qid];
-      if(!rec) continue;
+      if(!s || !s.currentBatch || !s.currentBatch.length) continue;
+      var idx = Math.max(0, Number(s.currentIndex || 0));
+      var found = id ? s.currentBatch.indexOf(id) : -1;
+      if(found >= 0) idx = found;
+      var qid = id || s.currentBatch[idx];
+      s.currentAnswers = s.currentAnswers || {};
+      s.history = s.history || {};
+      var rec = s.currentAnswers[qid] || {answeredAt:Date.now(), series:s.seriesNumber || 1};
       rec.skipped = true;
       rec.unknown = false;
       rec.correct = false;
       rec.chosen = -1;
       s.currentAnswers[qid] = rec;
-      if(Array.isArray(s.history && s.history[qid])){
-        s.history[qid] = s.history[qid].map(function(h){ return Object.assign({}, h, {skipped:true, unknown:false, correct:false, chosen:-1}); });
+      if(!Array.isArray(s.history[qid])) s.history[qid] = [];
+      if(!s.history[qid].length) s.history[qid].push(rec);
+      else s.history[qid] = s.history[qid].map(function(h){ return Object.assign({}, h, {skipped:true, unknown:false, correct:false, chosen:-1}); });
+      if(!rec.__countedBySkip){
+        rec.__countedBySkip = true;
+        s.answered = Math.max(Number(s.answered || 0), Object.keys(s.currentAnswers).length);
       }
+      s.streak = 0;
+      s.missStreak = Math.max(1, Number(s.missStreak || 0));
       s.lastAction = 'wrong';
+      if(idx >= s.currentBatch.length - 1){ s.currentIndex = s.currentBatch.length - 1; s.batchFinished = true; }
+      else { s.currentIndex = idx + 1; s.batchFinished = false; }
       if(save(k,s)){
         try{ sessionStorage.setItem('__MED_NYKUTO_SKIP_NEXT_LAST__', JSON.stringify({key:k,id:qid,index:s.currentIndex,at:Date.now()})); }catch(e){}
+        setTimeout(function(){ location.reload(); }, 20);
         return true;
       }
     }
     return false;
   }
-  function clickNativeDontKnowThenNext(id){
+  function nativeNoSeThenAdvance(id){
     var c = card();
     var unknown = c && c.querySelector('[data-action="dont-know"]');
-    if(!unknown) return false;
-    unknown.click();
-    setTimeout(function(){
-      convertNativeUnknownToSkipped(id);
-      var next = document.querySelector('.single-question-card [data-action="next-question"]');
-      if(next){ next.disabled = false; next.removeAttribute('disabled'); next.click(); }
-    }, 80);
+    if(unknown) unknown.click();
+    setTimeout(function(){ markSkippedAndAdvance(id); }, 100);
+    setTimeout(function(){ markSkippedAndAdvance(id); }, 260);
     return true;
   }
   function stop(e){ e.preventDefault(); e.stopPropagation(); if(e.stopImmediatePropagation) e.stopImmediatePropagation(); }
@@ -87,10 +92,10 @@
     });
   }
   function inject(){
-    if(document.getElementById('nextVisibilityV375Style')) return;
-    ['nextVisibilityV374Style','nextVisibilityV373Style','nextVisibilityV372Style'].forEach(function(id){ var old = document.getElementById(id); if(old) old.remove(); });
+    if(document.getElementById('nextVisibilityV376Style')) return;
+    ['nextVisibilityV375Style','nextVisibilityV374Style','nextVisibilityV373Style','nextVisibilityV372Style'].forEach(function(id){ var old = document.getElementById(id); if(old) old.remove(); });
     var s = document.createElement('style');
-    s.id = 'nextVisibilityV375Style';
+    s.id = 'nextVisibilityV376Style';
     s.textContent = 'body.practice-page .single-question-card [data-action="next-question"]{display:flex!important;visibility:visible!important;pointer-events:auto!important;opacity:1!important}';
     document.head.appendChild(s);
   }
@@ -102,8 +107,8 @@
       if(c && !answered(c)){
         if(Date.now() < lockUntil){ stop(e); return; }
         lockUntil = Date.now() + 900;
-        var id = cardId();
-        if(clickNativeDontKnowThenNext(id)) stop(e);
+        nativeNoSeThenAdvance(cardId());
+        stop(e);
         return;
       }
     }
