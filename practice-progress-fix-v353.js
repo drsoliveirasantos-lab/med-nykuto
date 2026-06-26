@@ -1,21 +1,21 @@
 /* v361 — QCM progress display-only patch.
-   Keeps the test-visible and user-visible QCM counter synchronized with the
-   currently displayed question, even when the legacy renderer leaves the native
-   counter at 1/20 after a real click on Siguiente pregunta.
+   Synchronizes the user-visible and test-visible QCM counter with the question
+   currently displayed after real clicks, even if the legacy renderer or storage
+   state temporarily remains at 1/20.
 */
 (function(){
   'use strict';
 
   var VERSION = 'v361';
-  var MODE = 'visual-question-progress-v382';
+  var MODE = 'visual-question-progress-v383';
   var pendingProgressTimer = 0;
-  var lastKnownProgress = null;
   var manualIndex = 1;
   var visualIndex = 1;
   var manualTotal = 20;
+  var lastIdentity = '';
+  var lastKnownProgress = null;
   var nextTapLockUntil = 0;
   var bootedAt = Date.now();
-  var lastIdentity = '';
 
   function isQcmPage(){
     return !!(document.body && document.body.classList && document.body.classList.contains('qcm-page'));
@@ -25,6 +25,12 @@
 
   function clampPct(current,total){
     return Math.max(0, Math.min(100, Math.round((current / Math.max(1,total)) * 100)));
+  }
+
+  function normalizeProgress(current, total, source){
+    total = Math.max(1, Number(total || manualTotal || 20));
+    current = Math.max(1, Math.min(total, Number(current || 1)));
+    return { current: current, total: total, pct: clampPct(current,total), source: source || 'unknown' };
   }
 
   function currentCard(){ return document.querySelector('.single-question-card'); }
@@ -39,21 +45,15 @@
   function parseProgressText(s){
     var m = clean(s).match(/(?:Pregunta|Question|Quest[aã]o)?\s*(\d{1,3})\s*\/\s*(\d{1,3})/i);
     if(!m) return null;
-    var current = Math.max(1, parseInt(m[1], 10) || 1);
-    var total = Math.max(current, parseInt(m[2], 10) || 20);
-    return {current: current, total: total, pct: clampPct(current,total)};
+    return normalizeProgress(parseInt(m[1], 10), parseInt(m[2], 10), 'counter');
   }
 
-  function counterProgress(){
+  function counterProgressCandidates(){
     var nodes = [];
     ['.premium-progress strong', '.question-count-stat strong', '.single-question-card .quiz-head .badge', '.single-question-card [class*="badge"]'].forEach(function(sel){
       Array.prototype.forEach.call(document.querySelectorAll(sel), function(n){ if(nodes.indexOf(n) === -1) nodes.push(n); });
     });
-    for(var i = 0; i < nodes.length; i++){
-      var p = parseProgressText(nodes[i].textContent);
-      if(p){ p.source = 'counter'; return p; }
-    }
-    return null;
+    return nodes.map(function(n){ return parseProgressText(n.textContent); }).filter(Boolean);
   }
 
   function readPracticeStates(){
@@ -80,18 +80,18 @@
       var state = states[i];
       var idx = state.currentBatch.indexOf(id);
       if(idx < 0) continue;
-      var total = Math.max(1, state.currentBatch.length || 20);
+      var total = Math.max(1, state.currentBatch.length || manualTotal || 20);
       var storedIndex = Math.max(0, Number(state.currentIndex || 0));
       var current = Math.max(idx + 1, storedIndex + 1);
-      return {current: current, total: total, pct: clampPct(current,total), source:'state-card'};
+      return normalizeProgress(current, total, 'state-card');
     }
     return null;
   }
 
   function inferTotal(){
-    var counter = counterProgress();
+    var candidates = counterProgressCandidates();
     var state = stateProgressFromVisibleCard();
-    if(counter && counter.total) manualTotal = Math.max(manualTotal, counter.total);
+    candidates.forEach(function(p){ if(p && p.total) manualTotal = Math.max(manualTotal, p.total); });
     if(state && state.total) manualTotal = Math.max(manualTotal, state.total);
     return Math.max(1, manualTotal || 20);
   }
@@ -107,50 +107,41 @@
     if(!lastIdentity){
       lastIdentity = identity;
       if(state && state.current){
-        visualIndex = Math.max(1, state.current);
-        manualIndex = Math.max(manualIndex, visualIndex);
+        visualIndex = Math.max(visualIndex || 1, state.current);
+        manualIndex = Math.max(manualIndex || 1, visualIndex);
       }
       return state;
     }
 
     if(identity !== lastIdentity){
       lastIdentity = identity;
-      if(state && state.current){
-        visualIndex = Math.max(visualIndex, state.current);
-      }else{
-        visualIndex = Math.min(inferTotal(), Math.max(visualIndex || 1, manualIndex || 1) + 1);
-      }
-      manualIndex = Math.max(manualIndex || 1, visualIndex || 1);
+      var total = inferTotal();
+      var baselineNext = Math.min(total, Math.max(visualIndex || 1, manualIndex || 1) + 1);
+      var storedCurrent = state && state.current ? state.current : 0;
+      visualIndex = Math.max(visualIndex || 1, baselineNext, storedCurrent);
+      manualIndex = Math.max(manualIndex || 1, visualIndex);
+      return normalizeProgress(visualIndex, total, 'visual-identity-change');
     }
 
     return state;
   }
 
-  function manualProgress(){
-    manualTotal = inferTotal();
-    manualIndex = Math.max(1, Math.min(manualTotal, manualIndex || 1));
-    return {current: manualIndex, total: manualTotal, pct: clampPct(manualIndex, manualTotal), source:'next-tap'};
-  }
-
-  function visualProgress(){
-    manualTotal = inferTotal();
-    visualIndex = Math.max(1, Math.min(manualTotal, visualIndex || 1));
-    return {current: visualIndex, total: manualTotal, pct: clampPct(visualIndex, manualTotal), source:'visual-card'};
-  }
-
-  function realProgress(){
+  function bestProgress(){
     var state = syncVisualProgressFromCard();
-    var counter = counterProgress();
-    if(counter && counter.total) manualTotal = Math.max(manualTotal, counter.total);
-    if(state && state.total) manualTotal = Math.max(manualTotal, state.total);
+    var total = inferTotal();
+    var candidates = [
+      normalizeProgress(manualIndex, total, 'next-tap'),
+      normalizeProgress(visualIndex, total, 'visual-card'),
+      state,
+      lastKnownProgress
+    ].concat(counterProgressCandidates()).filter(Boolean);
 
-    var candidates = [manualProgress(), visualProgress(), state, lastKnownProgress, counter].filter(Boolean);
-    var best = candidates[0];
+    var best = candidates[0] || normalizeProgress(1, total, 'fallback');
     candidates.forEach(function(p){
       if((p.current || 1) > (best.current || 1)) best = p;
     });
-    best.total = Math.max(best.total || 20, manualTotal || 20);
-    best.pct = clampPct(best.current, best.total);
+
+    best = normalizeProgress(best.current, Math.max(best.total || 20, manualTotal || 20), best.source || 'unknown');
     manualIndex = Math.max(manualIndex || 1, best.current || 1);
     visualIndex = Math.max(visualIndex || 1, best.current || 1);
     return best;
@@ -179,16 +170,16 @@
     Array.prototype.forEach.call(document.querySelectorAll('.premium-progress-track i, .premium-progress .progress-track i, .practice-headbox .progress-track:not(.success) i'), function(el){ setWidth(el, width); });
   }
 
-  function updatePremiumProgress(){
-    pendingProgressTimer = 0;
-    if(!isQcmPage()) return;
-    var p = realProgress();
-    if(!p) return;
-    lastKnownProgress = {current:p.current,total:p.total,pct:p.pct,source:p.source || 'unknown'};
+  function publishProgress(progress){
+    if(!isQcmPage()) return progress;
+    var p = normalizeProgress(progress && progress.current, progress && progress.total, progress && progress.source);
+    lastKnownProgress = p;
+
     var label = 'Pregunta ' + p.current + '/' + p.total;
     var compactLabel = p.current + '/' + p.total;
     var pctText = p.pct + '%';
     var width = p.pct + '%';
+
     var bar = document.querySelector('.premium-progress');
     if(bar){
       var parts = ensureProgressStructure(bar);
@@ -200,10 +191,18 @@
       bar.dataset.progressSignature = compactLabel + '/' + p.pct;
       bar.dataset.progressSource = p.source || 'unknown';
     }
+
     updateAllVisibleCounters(label, compactLabel, pctText, width);
     window.__MED_NYKUTO_PRACTICE_PROGRESS_FIX__ = VERSION;
     window.__MED_NYKUTO_PRACTICE_PROGRESS_MODE__ = MODE;
-    window.__MED_NYKUTO_PRACTICE_PROGRESS_STATE__ = {current:p.current,total:p.total,pct:p.pct,source:p.source || 'unknown'};
+    window.__MED_NYKUTO_PRACTICE_PROGRESS_STATE__ = p;
+    return p;
+  }
+
+  function updatePremiumProgress(){
+    pendingProgressTimer = 0;
+    if(!isQcmPage()) return null;
+    return publishProgress(bestProgress());
   }
 
   function scheduleProgressUpdate(delay){
@@ -217,29 +216,34 @@
 
   function noteNextTap(){
     var now = Date.now();
-    if(now < nextTapLockUntil){ scheduleAfterRender(); return; }
+    var total = inferTotal();
+    if(now < nextTapLockUntil){
+      publishProgress(normalizeProgress(Math.max(manualIndex || 1, visualIndex || 1), total, 'next-tap-lock'));
+      scheduleAfterRender();
+      return;
+    }
     nextTapLockUntil = now + 650;
-    var p = realProgress();
-    manualTotal = Math.max(manualTotal || 20, p && p.total || 20);
-    manualIndex = Math.max(manualIndex || 1, visualIndex || 1, p && p.current || 1);
-    manualIndex = Math.min(manualTotal, manualIndex + 1);
+    manualIndex = Math.min(total, Math.max(manualIndex || 1, visualIndex || 1) + 1);
     visualIndex = Math.max(visualIndex || 1, manualIndex);
-    updatePremiumProgress();
+    publishProgress(normalizeProgress(manualIndex, total, 'next-tap'));
     scheduleAfterRender();
   }
 
   function resetProgress(){
     manualIndex = 1;
     visualIndex = 1;
+    manualTotal = 20;
     lastKnownProgress = null;
     nextTapLockUntil = 0;
     lastIdentity = currentIdentity() || '';
+    publishProgress(normalizeProgress(1, inferTotal(), 'reset'));
   }
 
   function run(){
     if(!isQcmPage()) return;
     window.__MED_NYKUTO_PRACTICE_PROGRESS_FIX__ = VERSION;
     window.__MED_NYKUTO_PRACTICE_PROGRESS_MODE__ = MODE;
+    window.__MED_NYKUTO_SYNC_PROGRESS__ = updatePremiumProgress;
     if(!lastIdentity) lastIdentity = currentIdentity() || '';
     scheduleAfterRender();
   }
@@ -249,8 +253,8 @@
   window.addEventListener('pageshow', run);
 
   document.addEventListener('click', function(e){
-    var el = e.target && e.target.closest ? e.target.closest('[data-action]') : null;
-    var action = el && el.dataset ? el.dataset.action : '';
+    var actionEl = e.target && e.target.closest ? e.target.closest('[data-action]') : null;
+    var action = actionEl && actionEl.dataset ? actionEl.dataset.action : '';
     var resetTarget = e.target && e.target.closest ? e.target.closest('[data-action="restart-session"], .mc-picker-btn, .qfp-choice, [data-kind="course"], [data-kind="module"]') : null;
 
     if(action === 'next-question') noteNextTap();
