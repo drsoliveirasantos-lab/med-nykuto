@@ -1,13 +1,13 @@
-/* v373 — next button can skip unanswered questions as wrong. */
+/* v374 — next button can skip unanswered questions as wrong. */
 (function(){
   'use strict';
-  window.__MED_NYKUTO_NEXT_VISIBILITY__ = 'v373-skip-unanswered-next';
+  window.__MED_NYKUTO_NEXT_VISIBILITY__ = 'v374-skip-unanswered-next';
   var lockUntil = 0;
 
   function isPractice(){ return !!(document.body && document.body.classList && document.body.classList.contains('practice-page')); }
   function card(){ return document.querySelector('.single-question-card'); }
   function cardId(){ var c = card(); return c ? (c.id || '') : ''; }
-  function answered(c){ return !!(c && c.querySelector('.answer-panel:not([hidden]), .options.answered, .option.correct, .option.wrong, .option.chosen, .option.selected')); }
+  function answered(c){ return !!(c && c.querySelector('.answer-panel:not([hidden]), .options.answered, .option.correct, .option.wrong, .option.chosen')); }
   function read(k){ try{ var s = JSON.parse(localStorage.getItem(k) || 'null'); return s && Array.isArray(s.currentBatch) ? s : null; }catch(e){ return null; } }
   function save(k,s){ try{ localStorage.setItem(k, JSON.stringify(s)); return true; }catch(e){ return false; } }
   function level(){ var p = new URLSearchParams(location.search); var v = p.get('difficulty') || p.get('level') || 'all'; return ['all','normal','difficile','extreme','examen'].indexOf(v) >= 0 ? v : 'all'; }
@@ -89,11 +89,11 @@
     });
   }
   function inject(){
-    if(document.getElementById('nextVisibilityV373Style')) return;
-    var old = document.getElementById('nextVisibilityV372Style');
+    if(document.getElementById('nextVisibilityV374Style')) return;
+    var old = document.getElementById('nextVisibilityV373Style') || document.getElementById('nextVisibilityV372Style');
     if(old) old.remove();
     var s = document.createElement('style');
-    s.id = 'nextVisibilityV373Style';
+    s.id = 'nextVisibilityV374Style';
     s.textContent = 'body.practice-page .single-question-card [data-action="next-question"]{display:flex!important;visibility:visible!important;pointer-events:auto!important;opacity:1!important}';
     document.head.appendChild(s);
   }
