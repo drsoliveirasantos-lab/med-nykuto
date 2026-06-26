@@ -1,6 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
+const CURRENT_NEXT_STABILITY = 'v370-native-exact-next';
 
 async function waitPracticeReady(page) {
   await page.goto('/qcm.html?course=fisiologia');
@@ -8,24 +9,35 @@ async function waitPracticeReady(page) {
   await page.reload();
   await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
   await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_LOADER__ === version, CURRENT_PRACTICE_LOADER, { timeout: 20000 });
+  await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_NEXT_STABILITY__ === version, CURRENT_NEXT_STABILITY, { timeout: 20000 });
   await expect(page.locator('.single-question-card').first()).toBeAttached({ timeout: 15000 });
+}
+
+async function currentQuestionIdentity(page) {
+  return page.evaluate(() => {
+    const card = document.querySelector('.single-question-card');
+    if (!card) return '';
+    const prompt = card.querySelector('.question-prompt, .structured-prompt, h2, h3');
+    return [card.id || '', (prompt?.textContent || '').replace(/\s+/g, ' ').trim()].join('|');
+  });
 }
 
 async function answerCurrent(page) {
   const option = page.locator('.single-question-card button.option[data-option]').first();
   await expect(option).toBeVisible({ timeout: 15000 });
   await option.scrollIntoViewIfNeeded();
-  await option.click();
+  await option.click({ force: true });
   await expect(page.locator('.single-question-card .answer-panel:not([hidden])').first()).toBeVisible({ timeout: 15000 });
 }
 
 async function qcmDiag(page, label) {
   const data = await page.evaluate(() => {
     const card = document.querySelector('.single-question-card');
-    const next = document.querySelector('.single-question-card [data-action="next-question"], #practiceMobileNextBar .practice-stable-next');
+    const next = document.querySelector('.single-question-card [data-action="next-question"]');
     return {
       url: location.href,
       cardId: card ? card.id : null,
+      nextStability: window.__MED_NYKUTO_PRACTICE_NEXT_STABILITY__ || null,
       fallback: window.__MED_NYKUTO_PRACTICE_CRITICAL_CLICK_FALLBACK__ || null,
       forced: window.__MED_NYKUTO_LAST_FORCED_NEXT__ || null,
       nextText: next ? next.textContent.trim() : null,
@@ -53,20 +65,18 @@ async function clickFirstVisible(locator) {
 test.describe('QCM critical click behavior', () => {
   test('real next click changes the current QCM question', async ({ page }) => {
     await waitPracticeReady(page);
-    const firstId = await page.locator('.single-question-card').first().getAttribute('id');
+    const firstIdentity = await currentQuestionIdentity(page);
     await qcmDiag(page, 'BEFORE');
     await answerCurrent(page);
     await qcmDiag(page, 'ANSWERED');
 
-    const next = page.locator('.single-question-card [data-action="next-question"], #practiceMobileNextBar .practice-stable-next').first();
+    const next = page.locator('.single-question-card [data-action="next-question"]').first();
     await expect(next).toBeVisible({ timeout: 10000 });
     await next.scrollIntoViewIfNeeded();
     await next.click({ force: true });
 
-    await page.waitForTimeout(1500);
-    await page.waitForLoadState('domcontentloaded', { timeout: 15000 }).catch(() => {});
-    const after = await qcmDiag(page, 'AFTER');
-    expect(after.cardId).not.toBe(firstId);
+    await expect.poll(async () => currentQuestionIdentity(page), { timeout: 10000 }).not.toBe(firstIdentity);
+    await qcmDiag(page, 'AFTER');
   });
 
   test('details control in the correction remains openable after answering', async ({ page }) => {
