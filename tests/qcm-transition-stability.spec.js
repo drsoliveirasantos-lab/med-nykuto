@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
 const CURRENT_NEXT_STABILITY = 'v372-native-sticky-next-no-reload';
-const CURRENT_NEXT_VISIBILITY = 'v384-native-next-locked-transition-scroll-render';
+const CURRENT_NEXT_VISIBILITY = 'v385-native-next-no-late-repaint';
 const CURRENT_PROGRESS_FIX = 'v361';
 
 async function waitForWindowFlag(page, name, expected, timeout = 20000) {
@@ -57,6 +57,9 @@ async function installTransitionProbe(page) {
   await page.evaluate(() => {
     window.__QCM_TRANSITION_PROBE__ = [];
     window.__QCM_TRANSITION_START_LABEL__ = '';
+    window.__QCM_TRANSITION_CAPTURE_UNTIL__ = 0;
+
+    const clean = (s) => String(s || '').replace(/\s+/g, ' ').trim();
 
     const readCounter = () => {
       try {
@@ -75,7 +78,7 @@ async function installTransitionProbe(page) {
       if (!card) return '';
       if (card.id) return `id:${card.id}`;
       const prompt = card.querySelector('.question-prompt, .structured-prompt, h2, h3');
-      return `text:${(prompt?.textContent || '').replace(/\s+/g, ' ').trim()}`;
+      return `text:${clean(prompt?.textContent)}`;
     };
 
     const isVisibleInViewport = (el) => {
@@ -88,14 +91,29 @@ async function installTransitionProbe(page) {
 
     const snap = (label) => {
       const list = document.querySelector('#practiceList');
+      const card = document.querySelector('.single-question-card');
+      const prompt = card && card.querySelector('.question-prompt, .structured-prompt, h2, h3');
       const quickHeader = document.querySelector('.practice-quick-header');
       const pageHero = document.querySelector('.page-hero');
+      const rect = card ? card.getBoundingClientRect() : { top: 0, height: 0, bottom: 0 };
+      const unknown = card && card.querySelector('.unknown-action-wrap:not([hidden]), [data-action="dont-know"]');
+      const answer = card && card.querySelector('.answer-panel:not([hidden])');
+      const promptText = clean(prompt && prompt.textContent);
+      const cardText = clean(card && card.textContent).slice(0, 900);
       window.__QCM_TRANSITION_PROBE__.push({
         t: performance.now(),
         label,
         cardId: readCardIdentity(),
         counter: readCounter(),
         scrollY: Math.round(scrollY),
+        cardTop: Math.round(rect.top),
+        cardHeight: Math.round(rect.height),
+        cardBottom: Math.round(rect.bottom),
+        promptText,
+        cardText,
+        buttonCount: card ? card.querySelectorAll('button').length : 0,
+        unknownVisible: isVisibleInViewport(unknown),
+        answerVisible: isVisibleInViewport(answer),
         listEmpty: !list || !list.querySelector('.single-question-card'),
         quickHeaderVisible: isVisibleInViewport(quickHeader),
         pageHeroVisible: isVisibleInViewport(pageHero),
@@ -103,9 +121,20 @@ async function installTransitionProbe(page) {
       });
     };
 
+    const rafLoop = () => {
+      if (performance.now() <= window.__QCM_TRANSITION_CAPTURE_UNTIL__) {
+        snap('raf');
+        requestAnimationFrame(rafLoop);
+      }
+    };
+
     window.__QCM_TRANSITION_SNAP__ = snap;
+    window.__QCM_TRANSITION_START_RAF__ = (durationMs) => {
+      window.__QCM_TRANSITION_CAPTURE_UNTIL__ = performance.now() + durationMs;
+      requestAnimationFrame(rafLoop);
+    };
     const list = document.querySelector('#practiceList') || document.body;
-    new MutationObserver(() => snap('mutation')).observe(list, { childList: true, subtree: true, characterData: true });
+    new MutationObserver(() => snap('mutation')).observe(list, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['hidden', 'disabled', 'class', 'style'] });
     addEventListener('scroll', () => snap('scroll'), { passive: true });
     snap('initial');
   });
@@ -117,16 +146,17 @@ async function startProbeClickWindow(page) {
     if (typeof window.__QCM_TRANSITION_SNAP__ === 'function') {
       window.__QCM_TRANSITION_SNAP__(window.__QCM_TRANSITION_START_LABEL__);
     }
+    if (typeof window.__QCM_TRANSITION_START_RAF__ === 'function') {
+      window.__QCM_TRANSITION_START_RAF__(2200);
+    }
   });
 }
 
-async function sampleTransition(page, samples = 32, intervalMs = 50) {
-  for (let i = 0; i < samples; i += 1) {
-    await page.waitForTimeout(intervalMs);
-    await page.evaluate((label) => {
-      if (typeof window.__QCM_TRANSITION_SNAP__ === 'function') window.__QCM_TRANSITION_SNAP__(label);
-    }, `sample-${i}`);
-  }
+async function sampleTransition(page) {
+  await page.waitForTimeout(2300);
+  await page.evaluate(() => {
+    if (typeof window.__QCM_TRANSITION_SNAP__ === 'function') window.__QCM_TRANSITION_SNAP__('after-window');
+  });
   return page.evaluate(() => {
     const rows = window.__QCM_TRANSITION_PROBE__ || [];
     const startLabel = window.__QCM_TRANSITION_START_LABEL__ || '';
@@ -141,10 +171,16 @@ function compactTrace(trace) {
     cardId: row.cardId,
     counter: row.counter,
     scrollY: row.scrollY,
+    cardTop: row.cardTop,
+    cardHeight: row.cardHeight,
+    promptText: row.promptText,
+    buttonCount: row.buttonCount,
+    unknownVisible: row.unknownVisible,
+    answerVisible: row.answerVisible,
     listEmpty: row.listEmpty,
     quickHeaderVisible: row.quickHeaderVisible,
     pageHeroVisible: row.pageHeroVisible,
-  })).slice(0, 80);
+  })).slice(0, 120);
 }
 
 function idSequenceAfterInitial(trace, initialId, finalId) {
@@ -158,8 +194,21 @@ function idSequenceAfterInitial(trace, initialId, finalId) {
   return seq;
 }
 
+function stableVisualSignature(row) {
+  return [
+    row.cardId,
+    row.counter,
+    row.promptText,
+    row.buttonCount,
+    row.unknownVisible ? 'unknown' : 'no-unknown',
+    row.answerVisible ? 'answer' : 'no-answer',
+    Math.round((row.cardTop || 0) / 4) * 4,
+    Math.round((row.cardHeight || 0) / 4) * 4,
+  ].join('|');
+}
+
 test.describe('QCM transition stability', () => {
-  test('one real Next tap causes exactly one question transition and no blank/hero frame', async ({ page }) => {
+  test('one real Next tap causes exactly one visually stable transition and no late repaint', async ({ page }) => {
     await openFreshQcm(page);
     await installTransitionProbe(page);
 
@@ -200,5 +249,12 @@ test.describe('QCM transition stability', () => {
 
     const maxScrollDelta = Math.max(...trace.map((row) => Math.abs(row.scrollY - scrollBefore)), 0);
     expect(maxScrollDelta, `scroll must not jump after the question already changed. Trace=${traceSummary}`).toBeLessThanOrEqual(12);
+
+    const finalRows = trace.filter((row) => row.cardId === finalId);
+    expect(finalRows.length, `final question must be sampled repeatedly. Trace=${traceSummary}`).toBeGreaterThan(4);
+    const firstFinalT = finalRows[0].t;
+    const stableRows = finalRows.filter((row) => row.t >= firstFinalT + 180);
+    const visualSignatures = [...new Set(stableRows.map(stableVisualSignature))];
+    expect(visualSignatures, `final question must not repaint/mutate after it first appears. Trace=${traceSummary}`).toHaveLength(1);
   });
 });
