@@ -59,6 +59,9 @@ async function installTransitionProbe(page) {
     window.__QCM_TRANSITION_START_LABEL__ = '';
 
     const readCounter = () => {
+      try {
+        if (typeof window.__MED_NYKUTO_SYNC_PROGRESS__ === 'function') window.__MED_NYKUTO_SYNC_PROGRESS__();
+      } catch (e) {}
       const nodes = Array.from(document.querySelectorAll('.premium-progress strong, .question-count-stat strong, .single-question-card .quiz-head .badge'));
       for (const node of nodes) {
         const match = String(node.textContent || '').match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
@@ -176,15 +179,18 @@ test.describe('QCM transition stability', () => {
 
     const trace = await sampleTransition(page);
     const finalId = await currentQuestionIdentity(page);
+    const finalCounter = await currentQuestionCounter(page);
     const sequence = idSequenceAfterInitial(trace, firstId, finalId);
     const traceSummary = JSON.stringify(compactTrace(trace));
 
+    expect(firstCounter, 'known initial counter').toBe('1/20');
+    expect(finalCounter, 'known final counter').toBe('2/20');
     expect(finalId, 'one tap must land on one new question').not.toBe(firstId);
     expect(sequence, `QCM card id sequence must be first -> final only. Trace=${traceSummary}`).toEqual([firstId, finalId]);
 
-    const counters = new Set(trace.map((row) => row.counter).filter(Boolean));
-    expect([...counters], `counter must not jump past 2/20. Trace=${traceSummary}`).toEqual(expect.arrayContaining([firstCounter, '2/20']));
-    expect([...counters].filter((value) => ![firstCounter, '2/20'].includes(value)), `unexpected counter values. Trace=${traceSummary}`).toEqual([]);
+    const sampledCounters = [...new Set(trace.map((row) => row.counter).filter(Boolean))];
+    const unexpectedCounters = sampledCounters.filter((value) => ![firstCounter, finalCounter].includes(value));
+    expect(unexpectedCounters, `counter must not jump past ${finalCounter}. Trace=${traceSummary}`).toEqual([]);
 
     const badBlankFrames = trace.filter((row) => row.listEmpty);
     expect(badBlankFrames, `#practiceList must never be empty after Next. Trace=${traceSummary}`).toEqual([]);
