@@ -1,29 +1,95 @@
-/* v104 — Module page direct reader: stable scroll and abbreviation popovers. */
+/* v105 — Module page direct reader: stable scroll and expanded medical abbreviation popovers. */
 (function(){
   'use strict';
 
   if(!document.body || document.body.dataset.page !== 'module') return;
 
-  window.__MED_NYKUTO_MODULE_DIRECT_READER__ = 'v104-stable-scroll-abbreviations';
+  window.__MED_NYKUTO_MODULE_DIRECT_READER__ = 'v105-stable-scroll-expanded-abbreviations';
 
   const isMobile = () => window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
   const hasModuleId = () => new URLSearchParams(window.location.search).has('id');
   const ABBR = {
     TFG:'Tasa de filtración glomerular',
     RFG:'Ritmo de filtración glomerular',
+    FG:'Filtración glomerular',
     ATP:'Adenosina trifosfato',
     ADP:'Adenosina difosfato',
+    AMP:'Adenosina monofosfato',
     ADN:'Ácido desoxirribonucleico',
     ARN:'Ácido ribonucleico',
     ECG:'Electrocardiograma',
+    EKG:'Electrocardiograma',
     PA:'Presión arterial',
+    TA:'Tensión arterial',
     FC:'Frecuencia cardíaca',
     FR:'Frecuencia respiratoria',
     LCR:'Líquido cefalorraquídeo',
+    SNC:'Sistema nervioso central',
+    SNP:'Sistema nervioso periférico',
+    SNA:'Sistema nervioso autónomo',
     LDL:'Lipoproteína de baja densidad',
-    HDL:'Lipoproteína de alta densidad'
+    HDL:'Lipoproteína de alta densidad',
+    VLDL:'Lipoproteína de muy baja densidad',
+    TG:'Triglicéridos',
+    Hb:'Hemoglobina',
+    Hto:'Hematocrito',
+    VCM:'Volumen corpuscular medio',
+    HCM:'Hemoglobina corpuscular media',
+    CHCM:'Concentración de hemoglobina corpuscular media',
+    NaCl:'Cloruro de sodio',
+    Na:'Sodio',
+    K:'Potasio',
+    Cl:'Cloro',
+    Ca:'Calcio',
+    Mg:'Magnesio',
+    P:'Fósforo',
+    Pi:'Fosfato inorgánico',
+    HCO3:'Bicarbonato',
+    CO2:'Dióxido de carbono',
+    O2:'Oxígeno',
+    PO4:'Fosfato',
+    HPO4:'Hidrogenofosfato',
+    H2PO4:'Dihidrogenofosfato',
+    pH:'Potencial de hidrógeno',
+    SRAA:'Sistema renina-angiotensina-aldosterona',
+    ADH:'Hormona antidiurética',
+    PTH:'Parathormona',
+    TSH:'Hormona estimulante de la tiroides',
+    T3:'Triyodotironina',
+    T4:'Tiroxina',
+    TRH:'Hormona liberadora de tirotropina',
+    ACTH:'Hormona adrenocorticotropa',
+    CRH:'Hormona liberadora de corticotropina',
+    FSH:'Hormona foliculoestimulante',
+    LH:'Hormona luteinizante',
+    GnRH:'Hormona liberadora de gonadotropinas',
+    GH:'Hormona del crecimiento',
+    IGF1:'Factor de crecimiento similar a la insulina tipo 1',
+    EPO:'Eritropoyetina',
+    ANP:'Péptido natriurético auricular',
+    BNP:'Péptido natriurético cerebral',
+    HTA:'Hipertensión arterial',
+    DM:'Diabetes mellitus',
+    DM2:'Diabetes mellitus tipo 2',
+    IMC:'Índice de masa corporal',
+    IRA:'Insuficiencia renal aguda',
+    IRC:'Insuficiencia renal crónica',
+    ERC:'Enfermedad renal crónica',
+    ITU:'Infección del tracto urinario',
+    IVU:'Infección de vías urinarias',
+    AINE:'Antiinflamatorio no esteroideo',
+    IECA:'Inhibidor de la enzima convertidora de angiotensina',
+    ARAII:'Antagonista del receptor de angiotensina II',
+    'ARA-II':'Antagonista del receptor de angiotensina II',
+    EPOC:'Enfermedad pulmonar obstructiva crónica',
+    VEF1:'Volumen espiratorio forzado en el primer segundo',
+    CVF:'Capacidad vital forzada',
+    SatO2:'Saturación de oxígeno',
+    SpO2:'Saturación periférica de oxígeno',
+    PaO2:'Presión arterial de oxígeno',
+    PaCO2:'Presión arterial de dióxido de carbono'
   };
-  const ABBR_RE = /\b(TFG|RFG|ATP|ADP|ADN|ARN|ECG|PA|FC|FR|LCR|LDL|HDL)\b/g;
+  const ABBR_RE = /\b(NaCl|H2PO4|PaCO2|PaO2|SatO2|SpO2|ARA-II|ARAII|HCO3|HPO4|PO4|SRAA|ADH|PTH|TFG|RFG|ATP|ADP|AMP|ADN|ARN|ECG|EKG|PA|TA|FC|FR|LCR|SNC|SNP|SNA|LDL|HDL|VLDL|TG|Hb|Hto|VCM|HCM|CHCM|Na|K|Cl|Ca|Mg|P|Pi|CO2|O2|pH|TSH|T3|T4|TRH|ACTH|CRH|FSH|LH|GnRH|GH|IGF1|EPO|ANP|BNP|HTA|DM2|DM|IMC|IRA|IRC|ERC|ITU|IVU|AINE|IECA|EPOC|VEF1|CVF|FG)\b/g;
 
   function markUserReading(){
     window.__MED_NYKUTO_MODULE_DIRECT_USER_READING__ = true;
