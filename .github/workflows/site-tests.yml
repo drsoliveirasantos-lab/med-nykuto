@@ -130,7 +130,7 @@ jobs:
       - name: Run real-click and QCM critical tests
         run: |
           set +e
-          npx playwright test tests/real-click-regression.spec.js tests/qcm-critical-clicks.spec.js --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/real-click --reporter=json > real-click.json
+          npx playwright test tests/real-click-regression.spec.js tests/qcm-critical-clicks.spec.js tests/qcm-transition-stability.spec.js --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/real-click --reporter=json > real-click.json
           code=$?
           node scripts/print-playwright-summary.js real-click.json
           exit $code
