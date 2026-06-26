@@ -89,15 +89,25 @@ async function installVisualSampler(page) {
       };
     };
     window.__QCM_VISUAL_TRACE__ = [snap('initial')];
+    window.__QCM_VISUAL_SNAP__ = snap;
     window.__QCM_START_VISUAL_SAMPLER__ = () => {
       window.__QCM_VISUAL_TRACE__.push(snap('before-click'));
       const start = performance.now();
       const id = setInterval(() => {
         window.__QCM_VISUAL_TRACE__.push(snap('sample'));
-        if (performance.now() - start > 2200) clearInterval(id);
+        if (performance.now() - start > 4200) clearInterval(id);
       }, 25);
     };
   });
+}
+
+async function collectActiveSamples(page, labelPrefix, samples = 28, intervalMs = 50) {
+  const rows = [];
+  for (let i = 0; i < samples; i += 1) {
+    rows.push(await page.evaluate((label) => window.__QCM_VISUAL_SNAP__(label), `${labelPrefix}-${i}`));
+    await page.waitForTimeout(intervalMs);
+  }
+  return rows;
 }
 
 function compactTrace(rows) {
@@ -115,7 +125,7 @@ function compactTrace(rows) {
     listEmpty: r.listEmpty,
     quickHeaderVisible: r.quickHeaderVisible,
     pageHeroVisible: r.pageHeroVisible,
-  })).slice(0, 140));
+  })).slice(0, 180));
 }
 
 function visualSignature(row) {
@@ -127,6 +137,17 @@ function visualSignature(row) {
     Math.round((row.cardTop || 0) / 4) * 4,
     Math.round((row.cardHeight || 0) / 4) * 4,
   ].join('|');
+}
+
+function cardSequence(rows, firstId, finalId) {
+  const seq = [firstId];
+  for (const row of rows) {
+    if (!row.cardId) continue;
+    if (row.cardId === firstId && seq.length === 1) continue;
+    if (seq[seq.length - 1] !== row.cardId) seq.push(row.cardId);
+  }
+  if (seq[seq.length - 1] !== finalId) seq.push(finalId);
+  return seq;
 }
 
 test.describe('QCM transition stability', () => {
@@ -147,35 +168,38 @@ test.describe('QCM transition stability', () => {
     await next.click({ force: true });
     await expect.poll(async () => currentQuestionIdentity(page), { timeout: 15000 }).not.toBe(firstId);
     await expect.poll(async () => currentQuestionCounter(page), { timeout: 15000 }).toBe('2/20');
-    await page.waitForTimeout(2300);
 
     const finalId = await currentQuestionIdentity(page);
     const finalCounter = await currentQuestionCounter(page);
-    const rows = await page.evaluate(() => window.__QCM_VISUAL_TRACE__ || []);
-    const summary = compactTrace(rows);
+    const duringRows = await page.evaluate(() => window.__QCM_VISUAL_TRACE__ || []);
+
+    await expect.poll(async () => page.evaluate(() => document.body.classList.contains('practice-viewport-locked')), { timeout: 8000 }).toBe(false);
+    const postUnlockRows = await collectActiveSamples(page, 'post-unlock');
+    const allRows = [...duringRows, ...postUnlockRows];
+    const summary = compactTrace(allRows);
 
     expect(firstCounter).toBe('1/20');
     expect(finalCounter).toBe('2/20');
     expect(finalId).not.toBe(firstId);
 
-    const ids = [...new Set(rows.map((r) => r.cardId).filter(Boolean))];
-    expect(ids, `QCM card sequence must be first -> final only. Trace=${summary}`).toEqual([firstId, finalId]);
+    const sequence = cardSequence(allRows, firstId, finalId);
+    expect(sequence, `QCM card sequence must be first -> final only. Trace=${summary}`).toEqual([firstId, finalId]);
 
-    const counters = [...new Set(rows.map((r) => r.counter).filter(Boolean))];
+    const counters = [...new Set(allRows.map((r) => r.counter).filter(Boolean))];
     expect(counters.filter((v) => !['1/20', '2/20'].includes(v)), `counter must not jump. Trace=${summary}`).toEqual([]);
 
-    expect(rows.filter((r) => r.listEmpty), `#practiceList must never be empty. Trace=${summary}`).toEqual([]);
-    expect(rows.filter((r) => r.quickHeaderVisible || r.pageHeroVisible), `QCM hero/header must not flash. Trace=${summary}`).toEqual([]);
+    expect(allRows.filter((r) => r.listEmpty), `#practiceList must never be empty. Trace=${summary}`).toEqual([]);
+    expect(allRows.filter((r) => r.quickHeaderVisible || r.pageHeroVisible), `QCM hero/header must not flash. Trace=${summary}`).toEqual([]);
 
-    const unlockedRows = rows.filter((r) => !r.viewportLock);
+    const lockedRows = allRows.filter((r) => r.viewportLock);
+    expect(lockedRows.length, `viewport lock must be active during QCM rerender. Trace=${summary}`).toBeGreaterThan(2);
+
+    const unlockedRows = allRows.filter((r) => !r.viewportLock);
     const maxUnlockedScrollDelta = Math.max(...unlockedRows.map((r) => Math.abs(r.scrollY - scrollBefore)), 0);
     expect(maxUnlockedScrollDelta, `scroll must return to the exact pre-click position after transition. Trace=${summary}`).toBeLessThanOrEqual(12);
 
-    const lockedRows = rows.filter((r) => r.viewportLock);
-    expect(lockedRows.length, `viewport lock must be active during QCM rerender. Trace=${summary}`).toBeGreaterThan(2);
-
-    const finalRows = rows.filter((r) => r.cardId === finalId && !r.viewportLock).slice(2);
-    expect(finalRows.length, `final question must be sampled after unlock. Trace=${summary}`).toBeGreaterThan(2);
+    const finalRows = postUnlockRows.filter((r) => r.cardId === finalId).slice(2);
+    expect(finalRows.length, `final question must be sampled after unlock. Trace=${summary}`).toBeGreaterThan(10);
     expect([...new Set(finalRows.map(visualSignature))], `final question must not mutate after unlock. Trace=${summary}`).toHaveLength(1);
   });
 });
