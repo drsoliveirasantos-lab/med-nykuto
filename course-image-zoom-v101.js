@@ -1,10 +1,11 @@
-/* v101 — Course image zoom handler.
-   Opens reader/course images in an accessible fullscreen modal. Safe on pages without images.
-*/
+/* v102 — Course image zoom handler.
+   Opens reader/course images in a fullscreen modal and restores the exact scroll position on close.
+   Safe on pages without images. */
 (function(){
   'use strict';
   var MODAL_ID = 'courseImageZoomModal';
-  window.__MED_NYKUTO_COURSE_IMAGE_ZOOM__ = 'v101';
+  var state = {x:0, y:0, source:null, open:false};
+  window.__MED_NYKUTO_COURSE_IMAGE_ZOOM__ = 'v102-scroll-stable-close';
 
   function isImageTarget(target){
     if(!target || !target.closest) return null;
@@ -32,7 +33,8 @@
       '.course-image-zoom-dialog{position:relative;max-width:min(96vw,1200px);max-height:92vh;display:grid;gap:12px;justify-items:center}',
       '.course-image-zoom-dialog img{max-width:96vw;max-height:82vh;object-fit:contain;border-radius:18px;background:#fff;box-shadow:0 24px 70px rgba(0,0,0,.45)}',
       '.course-image-zoom-caption{color:#e5e7eb;text-align:center;font-size:.95rem;max-width:900px}',
-      '.course-image-zoom-close{position:absolute;right:-8px;top:-48px;min-width:42px;min-height:42px;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:rgba(15,23,42,.92);color:#fff;font-size:24px;line-height:1;cursor:pointer}',
+      '.course-image-zoom-close{position:absolute;right:-8px;top:-48px;min-width:42px;min-height:42px;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:rgba(15,23,42,.92);color:#fff;font-size:24px;line-height:1;cursor:pointer;touch-action:manipulation}',
+      'html.course-image-zoom-open{scroll-behavior:auto!important}',
       '@media(max-width:760px){.course-image-zoom-modal{padding:12px}.course-image-zoom-close{right:0;top:-50px}.course-image-zoom-dialog img{max-height:78vh;border-radius:14px}}'
     ].join('\n');
     document.head.appendChild(style);
@@ -52,31 +54,60 @@
     modal.innerHTML = '<div class="course-image-zoom-dialog"><button class="course-image-zoom-close" type="button" aria-label="Cerrar imagen ampliada">×</button><img alt="" /><div class="course-image-zoom-caption"></div></div>';
     document.body.appendChild(modal);
     modal.addEventListener('click', function(e){
-      if(e.target === modal || e.target.closest('.course-image-zoom-close')) closeZoom();
-    });
+      if(e.target === modal || (e.target.closest && e.target.closest('.course-image-zoom-close'))){
+        e.preventDefault();
+        e.stopPropagation();
+        closeZoom();
+      }
+    }, true);
+    modal.addEventListener('touchend', function(e){
+      if(e.target === modal || (e.target.closest && e.target.closest('.course-image-zoom-close'))){
+        e.preventDefault();
+        e.stopPropagation();
+        closeZoom();
+      }
+    }, {capture:true, passive:false});
     return modal;
+  }
+
+  function restoreScroll(){
+    if(!state.open && Number.isFinite(state.y)){
+      window.scrollTo({left:state.x || 0, top:state.y || 0, behavior:'auto'});
+      requestAnimationFrame(function(){ window.scrollTo({left:state.x || 0, top:state.y || 0, behavior:'auto'}); });
+      setTimeout(function(){ window.scrollTo({left:state.x || 0, top:state.y || 0, behavior:'auto'}); }, 80);
+    }
   }
 
   function openZoom(img){
     if(!img || !img.src) return false;
+    state.x = window.scrollX || 0;
+    state.y = window.scrollY || 0;
+    state.source = img;
+    state.open = true;
+    if(window.__MED_NYKUTO_MODULE_DIRECT_USER_READING__ !== undefined) window.__MED_NYKUTO_MODULE_DIRECT_USER_READING__ = true;
+    if(window.__MED_NYKUTO_MODULE_DIRECT_SCROLLED__ !== undefined) window.__MED_NYKUTO_MODULE_DIRECT_SCROLLED__ = true;
     var modal = ensureModal();
     var zoomImg = modal.querySelector('img');
     var caption = modal.querySelector('.course-image-zoom-caption');
-    var label = img.getAttribute('alt') || img.closest('figure')?.querySelector('figcaption')?.textContent || '';
+    var fig = img.closest && img.closest('figure');
+    var label = img.getAttribute('alt') || (fig && fig.querySelector('figcaption') ? fig.querySelector('figcaption').textContent : '') || '';
     zoomImg.src = img.currentSrc || img.src;
     zoomImg.alt = label || 'Imagen del curso ampliada';
     caption.textContent = label || '';
     modal.hidden = false;
     document.documentElement.classList.add('course-image-zoom-open');
-    setTimeout(function(){ var close = modal.querySelector('.course-image-zoom-close'); if(close) close.focus(); }, 20);
     return true;
   }
 
   function closeZoom(){
     var modal = document.getElementById(MODAL_ID);
-    if(!modal) return;
+    if(!modal || !state.open) return;
+    state.open = false;
     modal.hidden = true;
     document.documentElement.classList.remove('course-image-zoom-open');
+    var active = document.activeElement;
+    if(active && active.blur) active.blur();
+    restoreScroll();
   }
 
   document.addEventListener('click', function(e){
@@ -86,6 +117,7 @@
     if(!img) return;
     e.preventDefault();
     e.stopPropagation();
+    if(e.stopImmediatePropagation) e.stopImmediatePropagation();
     openZoom(img);
   }, true);
 
