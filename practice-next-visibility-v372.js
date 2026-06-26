@@ -1,13 +1,13 @@
-/* v382 — native visible next + stable scroll/render.
+/* v383 — native visible next + instant stable scroll/render.
    Keeps the native Siguiente handler as the only owner of currentIndex.
-   Prevents the mobile Safari flicker by refusing empty #practiceList renders,
-   disabling the smooth scroll jump during rerender, and hiding the non-practice
-   hero while a scoped QCM session is active. No overlay, no duplicate progress
-   layer, no synthetic No sé + Next sequence.
+   Prevents mobile Safari flicker by refusing empty #practiceList renders,
+   converting transition scrolls from smooth to instant, and hiding the
+   non-practice hero while a scoped QCM session is active. No overlay, no
+   duplicate progress layer, no synthetic No sé + Next sequence.
 */
 (function(){
   'use strict';
-  var VERSION = 'v382-native-next-stable-scroll-render';
+  var VERSION = 'v383-native-next-instant-stable-scroll-render';
   var transitionUntil = 0;
   window.__MED_NYKUTO_NEXT_VISIBILITY__ = VERSION;
 
@@ -30,6 +30,10 @@
     }, ms || 900);
   }
 
+  function inTransition(){
+    return isPractice() && Date.now() < transitionUntil;
+  }
+
   function answered(c){
     return !!(c && c.querySelector('.answer-panel:not([hidden]), .options.answered, .option.correct, .option.wrong, .option.chosen'));
   }
@@ -40,7 +44,7 @@
 
   function patchEmptyPracticeListRender(){
     var desc = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
-    if(!desc || !desc.get || !desc.set || Element.prototype.__medNykutoNextStableRenderV382) return;
+    if(!desc || !desc.get || !desc.set || Element.prototype.__medNykutoNextStableRenderV383) return;
 
     Object.defineProperty(Element.prototype, 'innerHTML', {
       configurable: true,
@@ -56,11 +60,11 @@
       }
     });
 
-    Object.defineProperty(Element.prototype, '__medNykutoNextStableRenderV382', {value:true});
+    Object.defineProperty(Element.prototype, '__medNykutoNextStableRenderV383', {value:true});
   }
 
   function patchReplaceChildren(){
-    if(Element.prototype.__medNykutoNextStableReplaceChildrenV382) return;
+    if(Element.prototype.__medNykutoNextStableReplaceChildrenV383) return;
     var nativeReplaceChildren = Element.prototype.replaceChildren;
     if(typeof nativeReplaceChildren !== 'function') return;
     Element.prototype.replaceChildren = function(){
@@ -71,24 +75,48 @@
       }
       return nativeReplaceChildren.apply(this, arguments);
     };
-    Object.defineProperty(Element.prototype, '__medNykutoNextStableReplaceChildrenV382', {value:true});
+    Object.defineProperty(Element.prototype, '__medNykutoNextStableReplaceChildrenV383', {value:true});
   }
 
   function patchScrollIntoView(){
-    if(Element.prototype.__medNykutoNextStableScrollV382) return;
+    if(Element.prototype.__medNykutoNextStableScrollV383) return;
     var nativeScrollIntoView = Element.prototype.scrollIntoView;
     if(typeof nativeScrollIntoView !== 'function') return;
     Element.prototype.scrollIntoView = function(options){
       if(isPractice() && this && this.matches && this.matches('#practiceList, .single-question-card, .question-difficulty-panel')){
-        if(Date.now() < transitionUntil) return;
         var opts = typeof options === 'object' && options ? Object.assign({}, options) : {};
         opts.behavior = 'auto';
-        if(!opts.block) opts.block = 'nearest';
+        if(!opts.block) opts.block = 'start';
         return nativeScrollIntoView.call(this, opts);
       }
       return nativeScrollIntoView.apply(this, arguments);
     };
-    Object.defineProperty(Element.prototype, '__medNykutoNextStableScrollV382', {value:true});
+    Object.defineProperty(Element.prototype, '__medNykutoNextStableScrollV383', {value:true});
+  }
+
+  function patchWindowScroll(){
+    if(window.__medNykutoNextStableWindowScrollV383) return;
+    var nativeScrollTo = window.scrollTo;
+    var nativeScrollBy = window.scrollBy;
+    if(typeof nativeScrollTo === 'function'){
+      window.scrollTo = function(){
+        if(inTransition() && arguments.length === 1 && arguments[0] && typeof arguments[0] === 'object'){
+          var opts = Object.assign({}, arguments[0], {behavior:'auto'});
+          return nativeScrollTo.call(window, opts);
+        }
+        return nativeScrollTo.apply(window, arguments);
+      };
+    }
+    if(typeof nativeScrollBy === 'function'){
+      window.scrollBy = function(){
+        if(inTransition() && arguments.length === 1 && arguments[0] && typeof arguments[0] === 'object'){
+          var opts = Object.assign({}, arguments[0], {behavior:'auto'});
+          return nativeScrollBy.call(window, opts);
+        }
+        return nativeScrollBy.apply(window, arguments);
+      };
+    }
+    Object.defineProperty(window, '__medNykutoNextStableWindowScrollV383', {value:true});
   }
 
   function sync(){
@@ -108,20 +136,21 @@
   }
 
   function inject(){
-    if(document.getElementById('nextVisibilityV382Style')) return;
-    ['nextVisibilityV381Style','nextVisibilityV380Style','nextVisibilityV379Style','nextVisibilityV378Style','nextVisibilityV377Style','nextVisibilityV376Style','nextVisibilityV375Style','nextVisibilityV374Style','nextVisibilityV373Style','nextVisibilityV372Style','practiceRenderStabilityV390Css','practiceRenderStabilityV389Css'].forEach(function(id){
+    if(document.getElementById('nextVisibilityV383Style')) return;
+    ['nextVisibilityV382Style','nextVisibilityV381Style','nextVisibilityV380Style','nextVisibilityV379Style','nextVisibilityV378Style','nextVisibilityV377Style','nextVisibilityV376Style','nextVisibilityV375Style','nextVisibilityV374Style','nextVisibilityV373Style','nextVisibilityV372Style','practiceRenderStabilityV390Css','practiceRenderStabilityV389Css'].forEach(function(id){
       var old = document.getElementById(id);
       if(old) old.remove();
     });
     var style = document.createElement('style');
-    style.id = 'nextVisibilityV382Style';
+    style.id = 'nextVisibilityV383Style';
     style.textContent = [
       'body.practice-page .single-question-card [data-action="next-question"]{display:flex!important;visibility:visible!important;pointer-events:auto!important;opacity:1!important;touch-action:manipulation!important;-webkit-tap-highlight-color:transparent}',
       'body.practice-page .single-question-card [data-action="next-question"]:disabled{opacity:1!important}',
       'body.practice-page #practiceList{min-height:70vh}',
       'body.practice-page .single-question-card,body.practice-page .practice-headbox{scroll-margin-top:92px}',
       'body.practice-page.practice-has-scope .practice-quick-header,body.practice-page.practice-has-scope .page-hero{display:none!important}',
-      'body.practice-page.practice-rerendering{scroll-behavior:auto!important}',
+      'html:has(body.practice-rerendering),body.practice-page.practice-rerendering{scroll-behavior:auto!important}',
+      'body.practice-page.practice-rerendering *{scroll-behavior:auto!important}',
       'body.practice-page.practice-rerendering #practiceList{contain:layout paint;will-change:contents}'
     ].join('');
     document.head.appendChild(style);
@@ -131,6 +160,7 @@
     patchEmptyPracticeListRender();
     patchReplaceChildren();
     patchScrollIntoView();
+    patchWindowScroll();
     inject();
     sync();
     window.__MED_NYKUTO_NEXT_VISIBILITY__ = VERSION;
