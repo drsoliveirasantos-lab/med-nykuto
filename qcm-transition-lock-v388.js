@@ -3,9 +3,9 @@
    It freezes the visible viewport around QCM question transitions so late rerenders, focus,
    scrollIntoView, or Safari viewport adjustments cannot flash the hero or jump the page.
 
-   Patch 2: do not lock during passive page/render mutations. The previous patch could freeze
-   the body before Playwright attempted a real click, making the native button appear outside
-   the viewport. Mutation-based locking is now armed only by an actual QCM action. */
+   Patch 3: the lock must start on the real click capture phase, not on pointerdown/mousedown.
+   Locking the body before Playwright's mouseup/click can move the native button under the pointer
+   and prevent the app.bundle delegated handler from advancing currentIndex. */
 (function(){
   'use strict';
   var VERSION = 'v388-broad-qcm-viewport-lock';
@@ -170,13 +170,6 @@
     }catch(e){}
   }
 
-  function onBeforeAction(e){
-    if(isQcmActionTarget(e.target)){
-      armTransition(1800);
-      lockViewport(1250, e.target);
-    }
-  }
-
   function onClick(e){
     if(isQcmActionTarget(e.target)){
       armTransition(2000);
@@ -189,12 +182,6 @@
     document.querySelectorAll('#practiceList [data-action="next-question"], #practiceList [data-action="previous-question"], #practiceList [data-action="dont-know"], #practiceList [data-action="start-next-batch"], #practiceList [data-action="restart-session"], #practiceList .option').forEach(function(el){
       if(el.dataset.qcmViewportTransitionLockBound === 'v388') return;
       el.dataset.qcmViewportTransitionLockBound = 'v388';
-      ['pointerdown','touchstart','mousedown','mouseup','pointerup'].forEach(function(type){
-        el.addEventListener(type, function(ev){
-          armTransition(1800);
-          lockViewport(1250, ev.currentTarget);
-        }, true);
-      });
       el.addEventListener('click', function(ev){
         armTransition(2000);
         lockViewport(1450, ev.currentTarget);
@@ -223,11 +210,6 @@
     window.__MED_NYKUTO_NEXT_VISIBILITY__ = VERSION;
   }
 
-  document.addEventListener('pointerdown', onBeforeAction, true);
-  document.addEventListener('touchstart', onBeforeAction, true);
-  document.addEventListener('mousedown', onBeforeAction, true);
-  document.addEventListener('mouseup', onBeforeAction, true);
-  document.addEventListener('pointerup', onBeforeAction, true);
   document.addEventListener('click', onClick, true);
   document.addEventListener('keydown', function(e){
     if((e.key === 'Enter' || e.key === ' ') && isQcmActionTarget(e.target)){
