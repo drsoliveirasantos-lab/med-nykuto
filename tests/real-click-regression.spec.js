@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
-const CURRENT_NEXT_STABILITY = 'v371-native-storage-scan-next';
+const CURRENT_NEXT_STABILITY = 'v372-native-sticky-next-no-reload';
 const CURRENT_NEXT_VISIBILITY = 'v379-smooth-skip-next-no-reload';
 
 async function waitForWindowFlag(page, name, expected, timeout = 20000) {
@@ -17,6 +17,17 @@ async function currentQuestionIdentity(page) {
     if (!card) return '';
     const prompt = card.querySelector('.question-prompt, .structured-prompt, h2, h3, p');
     return [card.id || '', (prompt?.textContent || '').replace(/\s+/g, ' ').trim()].join('|');
+  });
+}
+
+async function currentQuestionCounter(page) {
+  return page.evaluate(() => {
+    const nodes = Array.from(document.querySelectorAll('.question-count-stat strong, .single-question-card .quiz-head .badge, .premium-progress strong'));
+    for (const node of nodes) {
+      const match = String(node.textContent || '').match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
+      if (match) return `${match[1]}/${match[2]}`;
+    }
+    return '';
   });
 }
 
@@ -62,6 +73,10 @@ async function waitQuestionChanged(page, firstIdentity) {
   await expect.poll(async () => currentQuestionIdentity(page), { timeout: 20000 }).not.toBe(firstIdentity);
 }
 
+async function waitCounterAdvanced(page) {
+  await expect.poll(async () => currentQuestionCounter(page), { timeout: 20000 }).toBe('2/20');
+}
+
 async function logStorageSnapshot(page, label) {
   const snapshot = await page.evaluate(() => {
     const states = [];
@@ -81,12 +96,7 @@ async function logStorageSnapshot(page, label) {
         });
       } catch (e) {}
     }
-    let sessionSkip = null;
-    try {
-      const raw = sessionStorage.getItem('__MED_NYKUTO_SKIP_NEXT_LAST__');
-      sessionSkip = raw ? JSON.parse(raw) : null;
-    } catch (e) {}
-    return { sessionSkip, states };
+    return { states };
   });
   console.log('REAL_CLICK_STORAGE_' + label + '=' + JSON.stringify(snapshot));
 }
@@ -100,6 +110,7 @@ async function logRealClickDiag(page, label) {
       readyState: document.readyState,
       cardId: card ? card.id : null,
       cardText: card ? card.textContent.replace(/\s+/g, ' ').trim().slice(0, 300) : null,
+      counter: document.querySelector('.question-count-stat strong, .premium-progress strong')?.textContent || null,
       nextVisible: next ? getComputedStyle(next).display !== 'none' && getComputedStyle(next).visibility !== 'hidden' : null,
       nextDisabled: next ? !!(next.disabled || next.hasAttribute('disabled')) : null,
       nextText: next ? next.textContent.trim() : null,
@@ -118,12 +129,13 @@ test.describe('Med Nykuto real user click regressions', () => {
     await expect(page).toHaveURL(/\/index\.html$|\/$/, { timeout: 15000 });
   });
 
-  test('QCM next can skip an unanswered question and visibly advance', async ({ page }) => {
+  test('QCM next can skip an unanswered question and advance progress', async ({ page }) => {
     await openFreshQcm(page);
     const firstIdentity = await currentQuestionIdentity(page);
     await logRealClickDiag(page, 'SKIP_BEFORE');
     await clickNativeNext(page);
     await waitQuestionChanged(page, firstIdentity);
+    await waitCounterAdvanced(page);
     await logRealClickDiag(page, 'SKIP_AFTER');
     await logStorageSnapshot(page, 'SKIP_AFTER');
   });
@@ -135,10 +147,11 @@ test.describe('Med Nykuto real user click regressions', () => {
     await logRealClickDiag(page, 'ANSWERED_BEFORE_NEXT');
     await clickNativeNext(page);
     await waitQuestionChanged(page, firstIdentity);
+    await waitCounterAdvanced(page);
     await logRealClickDiag(page, 'ANSWERED_AFTER_NEXT');
   });
 
-  test('mobile QCM next can skip an unanswered question and visibly advance', async ({ page }) => {
+  test('mobile QCM next can skip an unanswered question and advance progress', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await openFreshQcm(page);
     const firstIdentity = await currentQuestionIdentity(page);
@@ -146,6 +159,7 @@ test.describe('Med Nykuto real user click regressions', () => {
     await logRealClickDiag(page, 'MOBILE_SKIP_BEFORE');
     await clickNativeNext(page);
     await waitQuestionChanged(page, firstIdentity);
+    await waitCounterAdvanced(page);
     await logRealClickDiag(page, 'MOBILE_SKIP_AFTER');
     await logStorageSnapshot(page, 'MOBILE_SKIP_AFTER');
   });
