@@ -1,9 +1,12 @@
-/* v360 — Practice visible cleanup.
-   Keeps correction/explanation panels visible while preserving essential actions such as Reportar error. */
+/* v361 — Practice visible cleanup without interval flicker.
+   Keeps correction/explanation panels visible while preserving essential actions such as Reportar error.
+   The previous 350ms interval could mutate the QCM card after the new question had already rendered,
+   producing a visible second repaint on mobile. This version runs on load, click/change, and throttled DOM mutations only. */
 (function(){
   'use strict';
   var OLD = /Med Cursos/g;
   var NEW = 'Med Nykuto';
+  var pending = false;
 
   function isPractice(){ return document.body && document.body.classList.contains('practice-page'); }
   function clean(s){ return String(s||'').replace(/\s+/g,' ').trim(); }
@@ -127,7 +130,7 @@
     all('[data-action="next-question"]').forEach(function(btn){
       btn.style.pointerEvents = 'auto';
       if(/Balance|Bilan|Resultado/i.test(btn.textContent||'')) return;
-      btn.textContent = 'Siguiente pregunta →';
+      if(btn.textContent !== 'Siguiente pregunta →') btn.textContent = 'Siguiente pregunta →';
     });
     all('[data-action="previous-question"]').forEach(function(btn){
       if(btn.disabled){ btn.style.opacity = '.45'; }
@@ -164,6 +167,7 @@
   }
 
   function run(){
+    pending = false;
     fixBrand();
     forceHeaderBrand();
     replaceTextNodes(document.body);
@@ -172,17 +176,23 @@
     hideRawStatsElements();
     hideNonPriorityCards();
     normaliseNextButton();
-    window.__MED_NYKUTO_PRACTICE_CLEANUP__ = 'v360';
+    window.__MED_NYKUTO_PRACTICE_CLEANUP__ = 'v361-no-interval';
+  }
+
+  function scheduleRun(delay){
+    if(pending) return;
+    pending = true;
+    setTimeout(run, typeof delay === 'number' ? delay : 60);
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
   else run();
   window.addEventListener('load', run);
   window.addEventListener('pageshow', run);
-  document.addEventListener('click', function(){ setTimeout(run, 30); setTimeout(run, 120); setTimeout(run, 360); }, true);
-  document.addEventListener('change', function(){ setTimeout(run, 30); setTimeout(run, 120); setTimeout(run, 360); }, true);
+  document.addEventListener('click', function(){ scheduleRun(30); setTimeout(run, 160); }, true);
+  document.addEventListener('change', function(){ scheduleRun(30); setTimeout(run, 160); }, true);
+  try{ new MutationObserver(function(){ scheduleRun(70); }).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','disabled','class','style']}); }catch(e){}
   setTimeout(run, 80);
   setTimeout(run, 240);
   setTimeout(run, 700);
-  setInterval(run, 350);
 })();
