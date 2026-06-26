@@ -28,46 +28,23 @@ async function currentQuestionCounter(page) {
         window.__MED_NYKUTO_SYNC_PROGRESS__();
       }
     } catch (e) {}
-
-    const candidates = [];
-    const pushCandidate = (current, total, source) => {
-      const c = Number(current);
-      const t = Number(total);
-      if (!Number.isFinite(c) || !Number.isFinite(t) || c < 1 || t < 1) return;
-      candidates.push({ current: c, total: t, source });
-    };
-
-    const nodes = Array.from(document.querySelectorAll('.premium-progress strong, .question-count-stat strong, .single-question-card .quiz-head .badge, .single-question-card [class*="badge"]'));
+    const nodes = Array.from(document.querySelectorAll('.premium-progress strong, .question-count-stat strong, .single-question-card .quiz-head .badge'));
     for (const node of nodes) {
-      const match = String(node.textContent || '').match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
-      if (match) pushCandidate(match[1], match[2], 'dom');
+      const text = String(node.textContent || '');
+      const match = text.match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
+      if (match) return `${match[1]}/${match[2]}`;
     }
-
-    const state = window.__MED_NYKUTO_PRACTICE_PROGRESS_STATE__;
-    if (state && state.current && state.total) pushCandidate(state.current, state.total, 'window-state');
-
-    const card = document.querySelector('.single-question-card');
-    const cardId = card && card.id;
-    if (cardId) {
-      for (let i = 0; i < localStorage.length; i += 1) {
-        const key = localStorage.key(i) || '';
-        try {
-          const stored = JSON.parse(localStorage.getItem(key) || 'null');
-          if (!stored || !Array.isArray(stored.currentBatch)) continue;
-          const idx = stored.currentBatch.indexOf(cardId);
-          if (idx < 0) continue;
-          const total = stored.currentBatch.length || 20;
-          const storedIndex = Number(stored.currentIndex || 0);
-          pushCandidate(Math.max(idx + 1, storedIndex + 1), total, 'storage-visible-card');
-        } catch (e) {}
-      }
-    }
-
-    if (!candidates.length) return '';
-    candidates.sort((a, b) => (b.current - a.current) || (b.total - a.total));
-    const best = candidates[0];
-    return `${best.current}/${best.total}`;
+    return '';
   });
+}
+
+async function expectStableCounter(page, expected) {
+  const values = [];
+  for (let i = 0; i < 12; i += 1) {
+    values.push(await currentQuestionCounter(page));
+    await page.waitForTimeout(100);
+  }
+  expect(values, 'visible QCM progress must not flicker after a real click').toEqual(Array(12).fill(expected));
 }
 
 async function waitPracticeReady(page) {
@@ -87,6 +64,7 @@ async function openFreshQcm(page) {
   });
   await page.reload({ waitUntil: 'domcontentloaded' });
   await waitPracticeReady(page);
+  await expect.poll(async () => currentQuestionCounter(page), { timeout: 15000 }).toBe('1/20');
 }
 
 async function answerCurrentQuestion(page) {
@@ -113,14 +91,9 @@ async function waitQuestionChanged(page, firstIdentity) {
   await expect.poll(async () => currentQuestionIdentity(page), { timeout: 20000 }).not.toBe(firstIdentity);
 }
 
-async function waitCounterAdvanced(page, firstIdentity) {
-  await expect.poll(async () => {
-    const identity = await currentQuestionIdentity(page);
-    if (identity === firstIdentity) return false;
-    const counter = await currentQuestionCounter(page);
-    const match = String(counter || '').match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
-    return !!match && Number(match[2]) === 20 && Number(match[1]) >= 1;
-  }, { timeout: 20000 }).toBe(true);
+async function waitCounterAdvanced(page) {
+  await expect.poll(async () => currentQuestionCounter(page), { timeout: 20000 }).toBe('2/20');
+  await expectStableCounter(page, '2/20');
 }
 
 async function logStorageSnapshot(page, label) {
@@ -183,29 +156,29 @@ test.describe('Med Nykuto real user click regressions', () => {
     await expect(page).toHaveURL(/\/index\.html$|\/$/, { timeout: 15000 });
   });
 
-  test('QCM next can skip an unanswered question and advance progress', async ({ page }) => {
+  test('QCM next can skip an unanswered question and advance progress without flicker', async ({ page }) => {
     await openFreshQcm(page);
     const firstIdentity = await currentQuestionIdentity(page);
     await logRealClickDiag(page, 'SKIP_BEFORE');
     await clickNativeNext(page);
     await waitQuestionChanged(page, firstIdentity);
-    await waitCounterAdvanced(page, firstIdentity);
+    await waitCounterAdvanced(page);
     await logRealClickDiag(page, 'SKIP_AFTER');
     await logStorageSnapshot(page, 'SKIP_AFTER');
   });
 
-  test('QCM next advances after answering', async ({ page }) => {
+  test('QCM next advances after answering without flicker', async ({ page }) => {
     await openFreshQcm(page);
     const firstIdentity = await currentQuestionIdentity(page);
     await answerCurrentQuestion(page);
     await logRealClickDiag(page, 'ANSWERED_BEFORE_NEXT');
     await clickNativeNext(page);
     await waitQuestionChanged(page, firstIdentity);
-    await waitCounterAdvanced(page, firstIdentity);
+    await waitCounterAdvanced(page);
     await logRealClickDiag(page, 'ANSWERED_AFTER_NEXT');
   });
 
-  test('mobile QCM next can skip an unanswered question and advance progress', async ({ page }) => {
+  test('mobile QCM next can skip an unanswered question and advance progress without flicker', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await openFreshQcm(page);
     const firstIdentity = await currentQuestionIdentity(page);
@@ -213,7 +186,7 @@ test.describe('Med Nykuto real user click regressions', () => {
     await logRealClickDiag(page, 'MOBILE_SKIP_BEFORE');
     await clickNativeNext(page);
     await waitQuestionChanged(page, firstIdentity);
-    await waitCounterAdvanced(page, firstIdentity);
+    await waitCounterAdvanced(page);
     await logRealClickDiag(page, 'MOBILE_SKIP_AFTER');
     await logStorageSnapshot(page, 'MOBILE_SKIP_AFTER');
   });
