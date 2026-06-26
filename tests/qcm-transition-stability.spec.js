@@ -67,6 +67,14 @@ async function installTransitionProbe(page) {
       return '';
     };
 
+    const readIdentity = () => {
+      const card = document.querySelector('.single-question-card');
+      if (!card) return '';
+      if (card.id) return `id:${card.id}`;
+      const prompt = card.querySelector('.question-prompt, .structured-prompt, h2, h3');
+      return `text:${(prompt?.textContent || '').replace(/\s+/g, ' ').trim()}`;
+    };
+
     const isVisibleInViewport = (el) => {
       if (!el) return false;
       const style = getComputedStyle(el);
@@ -76,14 +84,13 @@ async function installTransitionProbe(page) {
     };
 
     const snap = (label) => {
-      const card = document.querySelector('.single-question-card');
       const list = document.querySelector('#practiceList');
       const quickHeader = document.querySelector('.practice-quick-header');
       const pageHero = document.querySelector('.page-hero');
       window.__QCM_TRANSITION_PROBE__.push({
         t: performance.now(),
         label,
-        cardId: card ? (card.id || '') : '',
+        cardId: readIdentity(),
         counter: readCounter(),
         scrollY: Math.round(scrollY),
         listEmpty: !list || !list.querySelector('.single-question-card'),
@@ -103,8 +110,8 @@ async function installTransitionProbe(page) {
 
 async function startProbeClickWindow(page) {
   await page.evaluate(() => {
-    window.__QCM_TRANSITION_CLICK_AT__ = performance.now();
     if (typeof window.__QCM_TRANSITION_SNAP__ === 'function') window.__QCM_TRANSITION_SNAP__('before-click');
+    window.__QCM_TRANSITION_CLICK_AT__ = performance.now() - 1;
   });
 }
 
