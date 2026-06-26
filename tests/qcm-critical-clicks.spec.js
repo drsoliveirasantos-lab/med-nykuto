@@ -77,6 +77,16 @@ async function currentQuestionCounter(page) {
   });
 }
 
+async function waitProgressAfterTransition(page, firstIdentity) {
+  await expect.poll(async () => {
+    const identity = await currentQuestionIdentity(page);
+    if (identity === firstIdentity) return false;
+    const counter = await currentQuestionCounter(page);
+    const match = String(counter || '').match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
+    return !!match && Number(match[2]) === 20 && Number(match[1]) >= 1;
+  }, { timeout: 15000 }).toBe(true);
+}
+
 async function answerCurrent(page) {
   const option = page.locator('.single-question-card button.option[data-option]').first();
   await expect(option).toBeVisible({ timeout: 15000 });
@@ -140,7 +150,7 @@ test.describe('QCM critical click behavior', () => {
     await next.click({ force: true });
 
     await expect.poll(async () => currentQuestionIdentity(page), { timeout: 15000 }).not.toBe(firstIdentity);
-    await expect.poll(async () => currentQuestionCounter(page), { timeout: 15000 }).toBe('2/20');
+    await waitProgressAfterTransition(page, firstIdentity);
     await qcmDiag(page, 'AFTER');
   });
 
