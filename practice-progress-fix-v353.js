@@ -1,13 +1,13 @@
 /* v361 — native QCM progress controller.
    Clean fix: no overlay, no hidden duplicate counter. The existing progress DOM is
-   the only visible source. v387 derives progress from the visible card position
-   instead of trusting storage.currentIndex, which can already point to the next
-   question after answering.
+   the only visible source. v388 derives progress from the visible card position
+   and uses the card id as the stable identity, so correction/translation DOM
+   rewrites cannot be mistaken for an extra question transition.
 */
 (function(){
   'use strict';
   var VERSION = 'v361';
-  var MODE = 'native-progress-controller-v387-visible-card-index';
+  var MODE = 'native-progress-controller-v388-card-id-identity';
   var current = 1;
   var total = 20;
   var started = false;
@@ -25,8 +25,9 @@
   function identity(){
     var c = card();
     if(!c) return '';
-    var prompt = c.querySelector('.question-prompt, .structured-prompt, h2, h3, p');
-    return [c.id || '', clean(prompt && prompt.textContent)].join('|');
+    if(c.id) return 'id:' + c.id;
+    var prompt = c.querySelector('.question-prompt, .structured-prompt, h2, h3');
+    return 'text:' + clean(prompt && prompt.textContent);
   }
   function readCounterText(s){
     var m = clean(s).match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
