@@ -1,7 +1,7 @@
-/* v374 — next button can skip unanswered questions as wrong. */
+/* v375 — next button skips unanswered questions through the native No sé flow. */
 (function(){
   'use strict';
-  window.__MED_NYKUTO_NEXT_VISIBILITY__ = 'v374-skip-unanswered-next';
+  window.__MED_NYKUTO_NEXT_VISIBILITY__ = 'v375-native-skip-next';
   var lockUntil = 0;
 
   function isPractice(){ return !!(document.body && document.body.classList && document.body.classList.contains('practice-page')); }
@@ -10,14 +10,13 @@
   function answered(c){ return !!(c && c.querySelector('.answer-panel:not([hidden]), .options.answered, .option.correct, .option.wrong, .option.chosen')); }
   function read(k){ try{ var s = JSON.parse(localStorage.getItem(k) || 'null'); return s && Array.isArray(s.currentBatch) ? s : null; }catch(e){ return null; } }
   function save(k,s){ try{ localStorage.setItem(k, JSON.stringify(s)); return true; }catch(e){ return false; } }
-  function level(){ var p = new URLSearchParams(location.search); var v = p.get('difficulty') || p.get('level') || 'all'; return ['all','normal','difficile','extreme','examen'].indexOf(v) >= 0 ? v : 'all'; }
   function exactKey(){
     var p = new URLSearchParams(location.search);
     var type = document.body.dataset.practiceType || 'qcm';
     var mode = p.get('exam') ? 'exam' : 'study';
     var scope = p.get('module') || p.get('course') || 'all';
-    var lvl = mode === 'exam' ? 'examen' : level();
-    return 'medPractice:v35-bugfix:' + mode + ':' + type + ':' + scope + ':' + lvl;
+    var level = mode === 'exam' ? 'examen' : (p.get('difficulty') || p.get('level') || 'all');
+    return 'medPractice:v35-bugfix:' + mode + ':' + type + ':' + scope + ':' + level;
   }
   function keys(id){
     var out = [exactKey()];
@@ -34,46 +33,45 @@
       return (ib >= 0 ? 1 : 0) - (ia >= 0 ? 1 : 0);
     });
   }
-  function recordSkip(payload){
-    window.__MED_NYKUTO_SKIP_NEXT_LAST__ = payload;
-    try{ sessionStorage.setItem('__MED_NYKUTO_SKIP_NEXT_LAST__', JSON.stringify(payload)); }catch(e){}
-  }
-  function skipAndNext(){
-    if(!isPractice()) return false;
-    var c = card();
-    if(!c || answered(c)) return false;
-    if(Date.now() < lockUntil) return true;
-    lockUntil = Date.now() + 700;
-    var id = cardId();
+  function convertNativeUnknownToSkipped(id){
     var list = keys(id);
     for(var i=0;i<list.length;i++){
       var k = list[i], s = read(k);
-      if(!s || !s.currentBatch.length) continue;
-      var idx = Number(s.currentIndex || 0);
-      var found = id ? s.currentBatch.indexOf(id) : -1;
-      if(found >= 0) idx = found;
-      var qid = id || s.currentBatch[idx];
-      s.currentAnswers = s.currentAnswers || {};
-      s.history = s.history || {};
-      if(!s.currentAnswers[qid]){
-        var rec = {chosen:-1, correct:false, skipped:true, answeredAt:Date.now(), series:s.seriesNumber || 1};
-        s.currentAnswers[qid] = rec;
-        if(!s.history[qid]) s.history[qid] = [];
-        s.history[qid].push(rec);
-        s.answered = Number(s.answered || 0) + 1;
-        s.streak = 0;
-        s.missStreak = Number(s.missStreak || 0) + 1;
-        s.lastAction = 'wrong';
+      if(!s || !s.currentAnswers) continue;
+      var qid = id;
+      if(!s.currentAnswers[qid] && id && s.currentBatch){
+        var found = s.currentBatch.indexOf(id);
+        if(found >= 0) qid = s.currentBatch[found];
       }
-      if(idx >= s.currentBatch.length - 1){ s.currentIndex = s.currentBatch.length - 1; s.batchFinished = true; }
-      else { s.currentIndex = idx + 1; s.batchFinished = false; }
+      var rec = s.currentAnswers[qid];
+      if(!rec) continue;
+      rec.skipped = true;
+      rec.unknown = false;
+      rec.correct = false;
+      rec.chosen = -1;
+      s.currentAnswers[qid] = rec;
+      if(Array.isArray(s.history && s.history[qid])){
+        s.history[qid] = s.history[qid].map(function(h){ return Object.assign({}, h, {skipped:true, unknown:false, correct:false, chosen:-1}); });
+      }
+      s.lastAction = 'wrong';
       if(save(k,s)){
-        recordSkip({key:k, id:qid, index:s.currentIndex, at:Date.now()});
-        setTimeout(function(){ location.reload(); }, 20);
+        try{ sessionStorage.setItem('__MED_NYKUTO_SKIP_NEXT_LAST__', JSON.stringify({key:k,id:qid,index:s.currentIndex,at:Date.now()})); }catch(e){}
         return true;
       }
     }
     return false;
+  }
+  function clickNativeDontKnowThenNext(id){
+    var c = card();
+    var unknown = c && c.querySelector('[data-action="dont-know"]');
+    if(!unknown) return false;
+    unknown.click();
+    setTimeout(function(){
+      convertNativeUnknownToSkipped(id);
+      var next = document.querySelector('.single-question-card [data-action="next-question"]');
+      if(next){ next.disabled = false; next.removeAttribute('disabled'); next.click(); }
+    }, 80);
+    return true;
   }
   function stop(e){ e.preventDefault(); e.stopPropagation(); if(e.stopImmediatePropagation) e.stopImmediatePropagation(); }
   function sync(){
@@ -89,18 +87,26 @@
     });
   }
   function inject(){
-    if(document.getElementById('nextVisibilityV374Style')) return;
-    var old = document.getElementById('nextVisibilityV373Style') || document.getElementById('nextVisibilityV372Style');
-    if(old) old.remove();
+    if(document.getElementById('nextVisibilityV375Style')) return;
+    ['nextVisibilityV374Style','nextVisibilityV373Style','nextVisibilityV372Style'].forEach(function(id){ var old = document.getElementById(id); if(old) old.remove(); });
     var s = document.createElement('style');
-    s.id = 'nextVisibilityV374Style';
+    s.id = 'nextVisibilityV375Style';
     s.textContent = 'body.practice-page .single-question-card [data-action="next-question"]{display:flex!important;visibility:visible!important;pointer-events:auto!important;opacity:1!important}';
     document.head.appendChild(s);
   }
   function run(){ inject(); sync(); }
   document.addEventListener('click', function(e){
     var btn = e.target && e.target.closest && e.target.closest('[data-action="next-question"]');
-    if(btn && skipAndNext()) stop(e);
+    if(btn && isPractice()){
+      var c = card();
+      if(c && !answered(c)){
+        if(Date.now() < lockUntil){ stop(e); return; }
+        lockUntil = Date.now() + 900;
+        var id = cardId();
+        if(clickNativeDontKnowThenNext(id)) stop(e);
+        return;
+      }
+    }
     setTimeout(run, 40);
   }, true);
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
