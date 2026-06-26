@@ -26,6 +26,7 @@ async function answerCurrentQuestion(page) {
 async function clickNativeNext(page) {
   const next = page.locator('.single-question-card [data-action="next-question"]').first();
   await expect(next).toBeVisible({ timeout: 10000 });
+  await expect(next).toBeEnabled({ timeout: 10000 });
   await next.scrollIntoViewIfNeeded();
   await next.click({ force: true });
 }
