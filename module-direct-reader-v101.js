@@ -1,13 +1,34 @@
-/* v103 — Module page direct reader: keep only compact header + course content on mobile. */
+/* v104 — Module page direct reader: stable scroll and abbreviation popovers. */
 (function(){
   'use strict';
 
   if(!document.body || document.body.dataset.page !== 'module') return;
 
-  window.__MED_NYKUTO_MODULE_DIRECT_READER__ = 'v103-content-first';
+  window.__MED_NYKUTO_MODULE_DIRECT_READER__ = 'v104-stable-scroll-abbreviations';
 
   const isMobile = () => window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
   const hasModuleId = () => new URLSearchParams(window.location.search).has('id');
+  const ABBR = {
+    TFG:'Tasa de filtración glomerular',
+    RFG:'Ritmo de filtración glomerular',
+    ATP:'Adenosina trifosfato',
+    ADP:'Adenosina difosfato',
+    ADN:'Ácido desoxirribonucleico',
+    ARN:'Ácido ribonucleico',
+    ECG:'Electrocardiograma',
+    PA:'Presión arterial',
+    FC:'Frecuencia cardíaca',
+    FR:'Frecuencia respiratoria',
+    LCR:'Líquido cefalorraquídeo',
+    LDL:'Lipoproteína de baja densidad',
+    HDL:'Lipoproteína de alta densidad'
+  };
+  const ABBR_RE = /\b(TFG|RFG|ATP|ADP|ADN|ARN|ECG|PA|FC|FR|LCR|LDL|HDL)\b/g;
+
+  function markUserReading(){
+    window.__MED_NYKUTO_MODULE_DIRECT_USER_READING__ = true;
+    window.__MED_NYKUTO_MODULE_DIRECT_SCROLLED__ = true;
+  }
 
   function injectStyle(){
     if(document.getElementById('moduleDirectReaderV101Style')) return;
@@ -41,6 +62,9 @@
       body[data-page="module"].module-direct-ready .content li{margin:4px 0!important}
       body[data-page="module"].module-direct-ready .content blockquote{margin:12px 0!important;padding:12px 14px!important;border-radius:14px!important}
       body[data-page="module"].module-direct-ready .content table{margin:12px 0!important}
+      body[data-page="module"] .mn-abbr{display:inline;border:0;background:rgba(236,211,139,.11);color:#ffe6a3;border-bottom:1px dotted rgba(255,230,163,.82);border-radius:5px;padding:0 .12em;font:inherit;font-weight:800;line-height:inherit;cursor:pointer;touch-action:manipulation}
+      body[data-page="module"] .mn-abbr-popover{position:fixed;z-index:14000;max-width:min(300px,calc(100vw - 28px));padding:9px 11px;border-radius:13px;background:rgba(4,10,19,.98);border:1px solid rgba(236,211,139,.34);box-shadow:0 16px 45px rgba(0,0,0,.46);color:#f8fafc;font-size:.86rem;line-height:1.35;pointer-events:none}
+      body[data-page="module"] .mn-abbr-popover strong{color:#ffe6a3;margin-right:5px}
       @media(max-width:760px){
         body[data-page="module"].module-direct-ready .reader-shell{padding:6px 8px 30px!important}
         body[data-page="module"].module-direct-ready .reader-card{border-radius:19px!important}
@@ -96,26 +120,114 @@
 
   function focusCourseOnce(){
     if(!isMobile() || !hasModuleId() || location.hash) return;
+    if(window.__MED_NYKUTO_MODULE_DIRECT_USER_READING__) return;
     if(window.__MED_NYKUTO_MODULE_DIRECT_SCROLLED__) return;
+    if(window.scrollY > 32) return;
     if(!contentReady()) return;
     const content = document.getElementById('moduleContent');
     const headerOffset = Math.min(84, Math.max(58, document.querySelector('.site-header')?.getBoundingClientRect().height || 68));
     const y = content.getBoundingClientRect().top + window.scrollY - headerOffset - 4;
-    if(y > 6){
-      window.__MED_NYKUTO_MODULE_DIRECT_SCROLLED__ = true;
-      window.scrollTo({ top: y, behavior: 'auto' });
-    }
+    window.__MED_NYKUTO_MODULE_DIRECT_SCROLLED__ = true;
+    if(y > 6) window.scrollTo({ top: y, behavior: 'auto' });
+  }
+
+  function applyAbbreviations(){
+    const content = document.getElementById('moduleContent');
+    if(!contentReady() || !content || content.dataset.mnAbbrApplied === '1') return;
+    content.dataset.mnAbbrApplied = '1';
+    const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT, {
+      acceptNode:function(node){
+        const p = node.parentElement;
+        if(!p || /SCRIPT|STYLE|TEXTAREA|INPUT|SELECT|CODE|PRE|BUTTON|A/.test(p.tagName)) return NodeFilter.FILTER_REJECT;
+        if(p.closest && p.closest('.mn-abbr,.reader-head,.reader-actions,.toc-panel,.mobile-toc')) return NodeFilter.FILTER_REJECT;
+        ABBR_RE.lastIndex = 0;
+        return ABBR_RE.test(node.nodeValue || '') ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+      }
+    });
+    const nodes = [];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      const text = node.nodeValue || '';
+      ABBR_RE.lastIndex = 0;
+      let last = 0, match, frag = document.createDocumentFragment();
+      while((match = ABBR_RE.exec(text))){
+        const term = match[1];
+        if(match.index > last) frag.appendChild(document.createTextNode(text.slice(last, match.index)));
+        const ab = document.createElement('span');
+        ab.className = 'mn-abbr';
+        ab.setAttribute('role','button');
+        ab.setAttribute('tabindex','0');
+        ab.dataset.term = term;
+        ab.dataset.full = ABBR[term];
+        ab.textContent = term;
+        frag.appendChild(ab);
+        last = match.index + term.length;
+      }
+      if(last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+      if(node.parentNode) node.parentNode.replaceChild(frag, node);
+    });
+  }
+
+  function hidePopover(){
+    const old = document.querySelector('.mn-abbr-popover');
+    if(old) old.remove();
+  }
+
+  function showPopover(target){
+    hidePopover();
+    const pop = document.createElement('div');
+    pop.className = 'mn-abbr-popover';
+    pop.innerHTML = '<strong>' + target.dataset.term + '</strong>' + target.dataset.full;
+    document.body.appendChild(pop);
+    const r = target.getBoundingClientRect();
+    const pr = pop.getBoundingClientRect();
+    const left = Math.max(14, Math.min(window.innerWidth - pr.width - 14, r.left + r.width / 2 - pr.width / 2));
+    let top = r.top - pr.height - 8;
+    if(top < 12) top = r.bottom + 8;
+    pop.style.left = left + 'px';
+    pop.style.top = top + 'px';
+    clearTimeout(window.__mnAbbrPopoverTimer);
+    window.__mnAbbrPopoverTimer = setTimeout(hidePopover, 2600);
+  }
+
+  function bindAbbreviationEvents(){
+    if(document.body.dataset.mnAbbrBound === '1') return;
+    document.body.dataset.mnAbbrBound = '1';
+    document.addEventListener('click', function(e){
+      const ab = e.target && e.target.closest && e.target.closest('.mn-abbr');
+      if(ab){
+        e.preventDefault();
+        e.stopPropagation();
+        markUserReading();
+        showPopover(ab);
+      }
+    }, true);
+    document.addEventListener('keydown', function(e){
+      const ab = e.target && e.target.closest && e.target.closest('.mn-abbr');
+      if(ab && (e.key === 'Enter' || e.key === ' ')){
+        e.preventDefault();
+        markUserReading();
+        showPopover(ab);
+      }
+    }, true);
+    window.addEventListener('scroll', hidePopover, {passive:true});
   }
 
   function run(){
     markReady();
+    applyAbbreviations();
+    bindAbbreviationEvents();
     window.setTimeout(markReady, 60);
     window.setTimeout(markReady, 180);
     window.setTimeout(markReady, 420);
+    window.setTimeout(applyAbbreviations, 80);
+    window.setTimeout(applyAbbreviations, 260);
     window.setTimeout(focusCourseOnce, 140);
-    window.setTimeout(focusCourseOnce, 460);
-    window.setTimeout(focusCourseOnce, 900);
   }
+
+  document.addEventListener('touchstart', markUserReading, {capture:true, passive:true});
+  document.addEventListener('pointerdown', markUserReading, {capture:true, passive:true});
+  window.addEventListener('scroll', function(){ if(window.scrollY > 32) markUserReading(); }, {passive:true});
 
   injectStyle();
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
@@ -125,7 +237,7 @@
     try{
       new MutationObserver(() => {
         clearTimeout(window.__medModuleDirectTimer);
-        window.__medModuleDirectTimer = setTimeout(run, 40);
+        window.__medModuleDirectTimer = setTimeout(run, 80);
       }).observe(document.body, {childList:true, subtree:true});
     }catch(e){}
   }
