@@ -3,9 +3,9 @@
    It freezes the visible viewport around QCM question transitions so late rerenders, focus,
    scrollIntoView, or Safari viewport adjustments cannot flash the hero or jump the page.
 
-   Patch 3: the lock must start on the real click capture phase, not on pointerdown/mousedown.
-   Locking the body before Playwright's mouseup/click can move the native button under the pointer
-   and prevent the app.bundle delegated handler from advancing currentIndex. */
+   Patch 4: arm the transition on the real click, then lock only when #practiceList is actually
+   rewritten by the native QCM renderer. This keeps the native click clean and still exposes
+   practice-viewport-locked during the rerender sampled by Playwright. */
 (function(){
   'use strict';
   var VERSION = 'v388-broad-qcm-viewport-lock';
@@ -126,7 +126,7 @@
     else window.scrollTo(0, y);
   }
 
-  function lockForMutation(target){
+  function lockForRender(target){
     if(!isPractice() || !isTransitionArmed()) return;
     lockViewport(1450, target || document.querySelector('#practiceList'));
   }
@@ -140,7 +140,7 @@
         enumerable: desc.enumerable,
         get: function(){ return desc.get.call(this); },
         set: function(value){
-          if(isPracticeList(this)) lockForMutation(this);
+          if(isPracticeList(this)) lockForRender(this);
           return desc.set.call(this, value);
         }
       });
@@ -149,7 +149,7 @@
     var nativeReplaceChildren = Element.prototype.replaceChildren;
     if(typeof nativeReplaceChildren === 'function'){
       Element.prototype.replaceChildren = function(){
-        if(isPracticeList(this)) lockForMutation(this);
+        if(isPracticeList(this)) lockForRender(this);
         return nativeReplaceChildren.apply(this, arguments);
       };
     }
@@ -163,18 +163,15 @@
     if(!root) return;
     try{
       var obs = new MutationObserver(function(mutations){
-        if(mutations && mutations.length) lockForMutation(root);
+        if(mutations && mutations.length) lockForRender(root);
       });
       obs.observe(root, {childList:true, subtree:true});
       window.__medNykutoQcmTransitionLockObserverV388 = obs;
     }catch(e){}
   }
 
-  function onClick(e){
-    if(isQcmActionTarget(e.target)){
-      armTransition(2000);
-      lockViewport(1450, e.target);
-    }
+  function armFromEvent(e){
+    if(isQcmActionTarget(e.target)) armTransition(2200);
   }
 
   function bindDirectButtons(){
@@ -182,10 +179,7 @@
     document.querySelectorAll('#practiceList [data-action="next-question"], #practiceList [data-action="previous-question"], #practiceList [data-action="dont-know"], #practiceList [data-action="start-next-batch"], #practiceList [data-action="restart-session"], #practiceList .option').forEach(function(el){
       if(el.dataset.qcmViewportTransitionLockBound === 'v388') return;
       el.dataset.qcmViewportTransitionLockBound = 'v388';
-      el.addEventListener('click', function(ev){
-        armTransition(2000);
-        lockViewport(1450, ev.currentTarget);
-      }, true);
+      el.addEventListener('click', function(){ armTransition(2200); }, true);
     });
   }
 
@@ -210,12 +204,9 @@
     window.__MED_NYKUTO_NEXT_VISIBILITY__ = VERSION;
   }
 
-  document.addEventListener('click', onClick, true);
+  document.addEventListener('click', armFromEvent, true);
   document.addEventListener('keydown', function(e){
-    if((e.key === 'Enter' || e.key === ' ') && isQcmActionTarget(e.target)){
-      armTransition(2000);
-      lockViewport(1450, e.target);
-    }
+    if((e.key === 'Enter' || e.key === ' ') && isQcmActionTarget(e.target)) armTransition(2200);
   }, true);
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
