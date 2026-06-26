@@ -105,10 +105,18 @@
     if(!bar){
       bar = document.createElement('div');
       bar.className = 'premium-progress';
+      bar.innerHTML = '<div class="premium-progress-head"><strong></strong><span></span></div><div class="premium-progress-track"><i></i></div>';
       picker.insertAdjacentElement('afterend', bar);
     }
     var p = progressNumbers();
-    bar.innerHTML = '<div class="premium-progress-head"><strong>Pregunta '+p.c+'/'+p.total+'</strong><span>'+p.p+'%</span></div><div class="premium-progress-track"><i style="width:'+p.p+'%"></i></div>';
+    var label = 'Pregunta '+p.c+'/'+p.total;
+    var pct = p.p + '%';
+    var strong = bar.querySelector('.premium-progress-head strong');
+    var span = bar.querySelector('.premium-progress-head span');
+    var fill = bar.querySelector('.premium-progress-track i');
+    if(strong && strong.textContent !== label) strong.textContent = label;
+    if(span && span.textContent !== pct) span.textContent = pct;
+    if(fill && fill.style.width !== pct) fill.style.width = pct;
   }
 
   function patchSmallStaticBits(){
@@ -124,12 +132,15 @@
     patchSmallStaticBits();
   }
 
-  function scheduleProgress(){
+  function scheduleProgress(e){
+    var target = e && e.target;
+    if(!target || !target.closest) return;
+    if(!target.closest('[data-action="next-question"], [data-action="previous-question"], [data-action="restart-session"], [data-action="start-next-batch"]')) return;
     requestAnimationFrame(function(){ ensureProgress(); });
   }
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', apply); else apply();
   window.addEventListener('pageshow', apply);
   window.addEventListener('load', apply);
-  document.addEventListener('click', scheduleProgress, true);
+  document.addEventListener('click', scheduleProgress, false);
 })();
