@@ -37,6 +37,13 @@ async function waitQuestionChanged(page, firstId) {
   }, firstId, { timeout: 15000 });
 }
 
+async function lastSkip(page) {
+  return page.evaluate(() => {
+    if (window.__MED_NYKUTO_SKIP_NEXT_LAST__) return window.__MED_NYKUTO_SKIP_NEXT_LAST__;
+    try { return JSON.parse(sessionStorage.getItem('__MED_NYKUTO_SKIP_NEXT_LAST__') || 'null'); } catch (e) { return null; }
+  });
+}
+
 test.describe('Med Nykuto real user click regressions', () => {
   test('clicking the site logo from QCM returns to homepage', async ({ page }) => {
     await page.goto('/qcm.html?course=fisiologia');
@@ -51,8 +58,7 @@ test.describe('Med Nykuto real user click regressions', () => {
     const firstId = await page.locator('.single-question-card').first().getAttribute('id');
     await clickNativeNext(page);
     await waitQuestionChanged(page, firstId);
-    const skipped = await page.evaluate(() => window.__MED_NYKUTO_SKIP_NEXT_LAST__ || null);
-    expect(skipped).toBeTruthy();
+    expect(await lastSkip(page)).toBeTruthy();
   });
 
   test('QCM next advances after answering', async ({ page }) => {
