@@ -37,11 +37,19 @@ async function waitQuestionChanged(page, firstId) {
   }, firstId, { timeout: 15000 });
 }
 
-async function lastSkip(page) {
-  return page.evaluate(() => {
-    if (window.__MED_NYKUTO_SKIP_NEXT_LAST__) return window.__MED_NYKUTO_SKIP_NEXT_LAST__;
-    try { return JSON.parse(sessionStorage.getItem('__MED_NYKUTO_SKIP_NEXT_LAST__') || 'null'); } catch (e) { return null; }
-  });
+async function sessionRecordFor(page, questionId) {
+  return page.evaluate((id) => {
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const key = localStorage.key(i) || '';
+      if (!key.startsWith('medPractice:v35-bugfix:')) continue;
+      try {
+        const state = JSON.parse(localStorage.getItem(key) || 'null');
+        const rec = state && state.currentAnswers && state.currentAnswers[id];
+        if (rec) return { key, rec };
+      } catch (e) {}
+    }
+    return null;
+  }, questionId);
 }
 
 test.describe('Med Nykuto real user click regressions', () => {
@@ -58,7 +66,10 @@ test.describe('Med Nykuto real user click regressions', () => {
     const firstId = await page.locator('.single-question-card').first().getAttribute('id');
     await clickNativeNext(page);
     await waitQuestionChanged(page, firstId);
-    expect(await lastSkip(page)).toBeTruthy();
+    const skipped = await sessionRecordFor(page, firstId);
+    expect(skipped).toBeTruthy();
+    expect(skipped.rec.skipped).toBeTruthy();
+    expect(skipped.rec.correct).toBeFalsy();
   });
 
   test('QCM next advances after answering', async ({ page }) => {
@@ -78,5 +89,8 @@ test.describe('Med Nykuto real user click regressions', () => {
     await expect(page.locator('#practiceMobileNextBar')).toHaveCount(0);
     await clickNativeNext(page);
     await waitQuestionChanged(page, firstId);
+    const skipped = await sessionRecordFor(page, firstId);
+    expect(skipped).toBeTruthy();
+    expect(skipped.rec.skipped).toBeTruthy();
   });
 });
