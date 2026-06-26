@@ -25,7 +25,11 @@
 
   function hasEnteredPracticeSession(){
     if(!isPractice() || !document.body) return false;
-    return hasUrlScope() || hasRenderedQuestion() || document.body.classList.contains('practice-focus') || document.body.classList.contains('practice-has-scope');
+    return hasUrlScope() || hasRenderedQuestion() || document.body.classList.contains('practice-session-started') || document.body.classList.contains('practice-focus') || document.body.classList.contains('practice-has-scope');
+  }
+
+  function rememberPracticeSession(){
+    if(isPractice() && document.body) document.body.classList.add('practice-session-started');
   }
 
   function answered(c){
@@ -50,6 +54,7 @@
 
   function markTransition(ms, target){
     if(!isPractice() || !document.body) return;
+    rememberPracticeSession();
     window.__MED_NYKUTO_QCM_VIEWPORT_LOCK_LAST__ = Date.now();
     try{
       if(target && target.blur) target.blur();
@@ -137,6 +142,7 @@
   function sync(){
     if(!isPractice()) return;
     var scoped = hasEnteredPracticeSession();
+    if(scoped) rememberPracticeSession();
     document.body.classList.toggle('practice-has-scope', scoped);
     if(scoped) document.body.classList.add('practice-focus');
     document.querySelectorAll('.single-question-card').forEach(function(c){
@@ -169,7 +175,7 @@
       'body.practice-page #practiceList{min-height:70vh;overflow-anchor:none!important}',
       'body.practice-page .single-question-card,body.practice-page .practice-headbox{scroll-margin-top:92px}',
       'body.practice-page .single-question-card .option{touch-action:pan-y!important;-webkit-tap-highlight-color:rgba(216,180,91,.14)}',
-      'body.practice-page.practice-has-scope .practice-quick-header,body.practice-page.practice-has-scope .page-hero,body.practice-page.practice-focus .practice-quick-header,body.practice-page.practice-focus .page-hero{display:none!important;visibility:hidden!important}',
+      'body.practice-page.practice-session-started .practice-quick-header,body.practice-page.practice-session-started .page-hero,body.practice-page.practice-session-started .practice-focus-topbar,body.practice-page.practice-has-scope .practice-quick-header,body.practice-page.practice-has-scope .page-hero,body.practice-page.practice-focus .practice-quick-header,body.practice-page.practice-focus .page-hero{display:none!important;visibility:hidden!important}',
       'html:has(body.practice-page){scroll-behavior:auto!important}',
       'html:has(body.practice-rerendering),body.practice-page.practice-rerendering{scroll-behavior:auto!important;overflow-anchor:none!important}',
       'body.practice-page.practice-rerendering *,body.practice-page.practice-rerendering .single-question-card,body.practice-page.practice-rerendering .option,body.practice-page.practice-rerendering .btn{scroll-behavior:auto!important;transition:none!important;animation:none!important}',
@@ -190,7 +196,10 @@
   }
 
   function onClick(e){
-    if(isQuestionNavigationTarget(e.target)) setTimeout(function(){ markTransition(180, e.target); }, 0);
+    if(isQuestionNavigationTarget(e.target)){
+      rememberPracticeSession();
+      setTimeout(function(){ markTransition(180, e.target); }, 0);
+    }
     setTimeout(run, 0);
     setTimeout(run, 20);
     setTimeout(run, 120);
@@ -199,7 +208,10 @@
 
   document.addEventListener('click', onClick, true);
   document.addEventListener('keydown', function(e){
-    if((e.key === 'Enter' || e.key === ' ') && isQuestionNavigationTarget(e.target)) setTimeout(function(){ markTransition(180, e.target); }, 0);
+    if((e.key === 'Enter' || e.key === ' ') && isQuestionNavigationTarget(e.target)){
+      rememberPracticeSession();
+      setTimeout(function(){ markTransition(180, e.target); }, 0);
+    }
   }, true);
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
