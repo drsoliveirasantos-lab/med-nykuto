@@ -3,23 +3,33 @@
    It freezes the visible viewport around QCM question transitions so late rerenders, focus,
    scrollIntoView, or Safari viewport adjustments cannot flash the hero or jump the page.
 
-   Patch: make the lock independent from click delivery. Some real-click environments can move
-   the QCM by a native delegated handler before our click listener has enough observable samples.
-   We now also lock synchronously when #practiceList is rewritten and when its card mutates. */
+   Patch 2: do not lock during passive page/render mutations. The previous patch could freeze
+   the body before Playwright attempted a real click, making the native button appear outside
+   the viewport. Mutation-based locking is now armed only by an actual QCM action. */
 (function(){
   'use strict';
   var VERSION = 'v388-broad-qcm-viewport-lock';
   var locked = false;
   var lockedY = 0;
   var restoreTimer = null;
-  var mutationUnlockTimer = null;
   var nativeScrollTo = window.scrollTo ? window.scrollTo.bind(window) : null;
   var previous = null;
+  var transitionArmedUntil = 0;
 
   window.__MED_NYKUTO_NEXT_VISIBILITY__ = VERSION;
 
   function isPractice(){
     return !!(document.body && document.body.classList && document.body.classList.contains('practice-page'));
+  }
+
+  function now(){ return Date.now(); }
+
+  function armTransition(ms){
+    transitionArmedUntil = Math.max(transitionArmedUntil, now() + (ms || 1800));
+  }
+
+  function isTransitionArmed(){
+    return locked || now() <= transitionArmedUntil;
   }
 
   function isPracticeList(el){
@@ -53,7 +63,7 @@
   function lockViewport(ms, target){
     if(!isPractice() || !document.body) return;
     var duration = ms || 1250;
-    window.__MED_NYKUTO_QCM_VIEWPORT_LOCK_LAST__ = Date.now();
+    window.__MED_NYKUTO_QCM_VIEWPORT_LOCK_LAST__ = now();
     blurInsidePractice(target);
 
     if(!locked){
@@ -117,12 +127,8 @@
   }
 
   function lockForMutation(target){
-    if(!isPractice()) return;
+    if(!isPractice() || !isTransitionArmed()) return;
     lockViewport(1450, target || document.querySelector('#practiceList'));
-    if(mutationUnlockTimer) clearTimeout(mutationUnlockTimer);
-    mutationUnlockTimer = setTimeout(function(){
-      mutationUnlockTimer = null;
-    }, 1500);
   }
 
   function patchPracticeListWrites(){
@@ -159,17 +165,23 @@
       var obs = new MutationObserver(function(mutations){
         if(mutations && mutations.length) lockForMutation(root);
       });
-      obs.observe(root, {childList:true, subtree:true, attributes:true, attributeFilter:['class','hidden','disabled','style','data-locked']});
+      obs.observe(root, {childList:true, subtree:true});
       window.__medNykutoQcmTransitionLockObserverV388 = obs;
     }catch(e){}
   }
 
   function onBeforeAction(e){
-    if(isQcmActionTarget(e.target)) lockViewport(1250, e.target);
+    if(isQcmActionTarget(e.target)){
+      armTransition(1800);
+      lockViewport(1250, e.target);
+    }
   }
 
   function onClick(e){
-    if(isQcmActionTarget(e.target)) lockViewport(1450, e.target);
+    if(isQcmActionTarget(e.target)){
+      armTransition(2000);
+      lockViewport(1450, e.target);
+    }
   }
 
   function bindDirectButtons(){
@@ -178,9 +190,15 @@
       if(el.dataset.qcmViewportTransitionLockBound === 'v388') return;
       el.dataset.qcmViewportTransitionLockBound = 'v388';
       ['pointerdown','touchstart','mousedown','mouseup','pointerup'].forEach(function(type){
-        el.addEventListener(type, function(ev){ lockViewport(1250, ev.currentTarget); }, true);
+        el.addEventListener(type, function(ev){
+          armTransition(1800);
+          lockViewport(1250, ev.currentTarget);
+        }, true);
       });
-      el.addEventListener('click', function(ev){ lockViewport(1450, ev.currentTarget); }, true);
+      el.addEventListener('click', function(ev){
+        armTransition(2000);
+        lockViewport(1450, ev.currentTarget);
+      }, true);
     });
   }
 
@@ -212,7 +230,10 @@
   document.addEventListener('pointerup', onBeforeAction, true);
   document.addEventListener('click', onClick, true);
   document.addEventListener('keydown', function(e){
-    if((e.key === 'Enter' || e.key === ' ') && isQcmActionTarget(e.target)) lockViewport(1450, e.target);
+    if((e.key === 'Enter' || e.key === ' ') && isQcmActionTarget(e.target)){
+      armTransition(2000);
+      lockViewport(1450, e.target);
+    }
   }, true);
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
