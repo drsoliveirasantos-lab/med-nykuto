@@ -109,6 +109,22 @@ test.describe('Med Nykuto smoke navigation', () => {
     await expect(page.locator('.reader-card > :not(.reader-head):not(#moduleContent)')).toBeHidden();
   });
 
+  test('QCM native next button advances to the next question', async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.clear();
+      sessionStorage.clear();
+    });
+    await page.goto('/qcm.html?course=fisiologia&module=01-fisiologia-01-neurofisiologia-y-potencial-de-accion');
+    await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_NEXT_STABILITY__ === 'v369-native-sticky-next', null, { timeout: 20000 });
+    await expect(page.locator('#practiceMobileNextBar')).toHaveCount(0);
+    await expect(page.locator('.single-question-card')).toBeVisible();
+    await expect(page.locator('.question-count-stat strong')).toContainText('1/20');
+    await page.locator('.single-question-card .option').first().click();
+    await expect(page.locator('.single-question-card .answer-panel:not([hidden])')).toBeVisible();
+    await page.locator('.single-question-card [data-action="next-question"]').click();
+    await expect(page.locator('.question-count-stat strong')).toContainText('2/20');
+  });
+
   test('Biofísica is absent or disabled safely', async ({ page }) => {
     await page.goto('/index.html');
     await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
