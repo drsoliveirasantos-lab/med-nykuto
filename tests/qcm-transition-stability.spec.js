@@ -56,7 +56,7 @@ async function openFreshQcm(page) {
 async function installTransitionProbe(page) {
   await page.evaluate(() => {
     window.__QCM_TRANSITION_PROBE__ = [];
-    window.__QCM_TRANSITION_CLICK_AT__ = 0;
+    window.__QCM_TRANSITION_START_LABEL__ = '';
 
     const readCounter = () => {
       const nodes = Array.from(document.querySelectorAll('.premium-progress strong, .question-count-stat strong, .single-question-card .quiz-head .badge'));
@@ -110,8 +110,10 @@ async function installTransitionProbe(page) {
 
 async function startProbeClickWindow(page) {
   await page.evaluate(() => {
-    window.__QCM_TRANSITION_CLICK_AT__ = performance.now();
-    if (typeof window.__QCM_TRANSITION_SNAP__ === 'function') window.__QCM_TRANSITION_SNAP__('before-click');
+    window.__QCM_TRANSITION_START_LABEL__ = `before-click-${Date.now()}-${Math.random()}`;
+    if (typeof window.__QCM_TRANSITION_SNAP__ === 'function') {
+      window.__QCM_TRANSITION_SNAP__(window.__QCM_TRANSITION_START_LABEL__);
+    }
   });
 }
 
@@ -123,8 +125,10 @@ async function sampleTransition(page, samples = 32, intervalMs = 50) {
     }, `sample-${i}`);
   }
   return page.evaluate(() => {
-    const clickAt = window.__QCM_TRANSITION_CLICK_AT__ || 0;
-    return (window.__QCM_TRANSITION_PROBE__ || []).filter((row) => row.t >= clickAt);
+    const rows = window.__QCM_TRANSITION_PROBE__ || [];
+    const startLabel = window.__QCM_TRANSITION_START_LABEL__ || '';
+    const startIndex = rows.findIndex((row) => row.label === startLabel);
+    return startIndex >= 0 ? rows.slice(startIndex) : rows;
   });
 }
 
