@@ -1,13 +1,11 @@
-/* v105 — Module page direct reader: stable scroll and expanded medical abbreviation popovers. */
+/* v106 — Module page direct reader: stable reading without click refresh, expanded abbreviation popovers. */
 (function(){
   'use strict';
 
   if(!document.body || document.body.dataset.page !== 'module') return;
 
-  window.__MED_NYKUTO_MODULE_DIRECT_READER__ = 'v105-stable-scroll-expanded-abbreviations';
+  window.__MED_NYKUTO_MODULE_DIRECT_READER__ = 'v106-no-reader-click-refresh-expanded-abbreviations';
 
-  const isMobile = () => window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
-  const hasModuleId = () => new URLSearchParams(window.location.search).has('id');
   const ABBR = {
     TFG:'Tasa de filtración glomerular',
     RFG:'Ritmo de filtración glomerular',
@@ -184,19 +182,6 @@
     return !!(content && content.textContent && content.textContent.trim().length > 80);
   }
 
-  function focusCourseOnce(){
-    if(!isMobile() || !hasModuleId() || location.hash) return;
-    if(window.__MED_NYKUTO_MODULE_DIRECT_USER_READING__) return;
-    if(window.__MED_NYKUTO_MODULE_DIRECT_SCROLLED__) return;
-    if(window.scrollY > 32) return;
-    if(!contentReady()) return;
-    const content = document.getElementById('moduleContent');
-    const headerOffset = Math.min(84, Math.max(58, document.querySelector('.site-header')?.getBoundingClientRect().height || 68));
-    const y = content.getBoundingClientRect().top + window.scrollY - headerOffset - 4;
-    window.__MED_NYKUTO_MODULE_DIRECT_SCROLLED__ = true;
-    if(y > 6) window.scrollTo({ top: y, behavior: 'auto' });
-  }
-
   function applyAbbreviations(){
     const content = document.getElementById('moduleContent');
     if(!contentReady() || !content || content.dataset.mnAbbrApplied === '1') return;
@@ -288,7 +273,6 @@
     window.setTimeout(markReady, 420);
     window.setTimeout(applyAbbreviations, 80);
     window.setTimeout(applyAbbreviations, 260);
-    window.setTimeout(focusCourseOnce, 140);
   }
 
   document.addEventListener('touchstart', markUserReading, {capture:true, passive:true});
@@ -299,12 +283,4 @@
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
   window.addEventListener('load', run);
   window.addEventListener('pageshow', run);
-  if(window.MutationObserver){
-    try{
-      new MutationObserver(() => {
-        clearTimeout(window.__medModuleDirectTimer);
-        window.__medModuleDirectTimer = setTimeout(run, 80);
-      }).observe(document.body, {childList:true, subtree:true});
-    }catch(e){}
-  }
 })();
