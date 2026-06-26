@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
-const CURRENT_NEXT_STABILITY = 'v371-native-storage-scan-next';
+const CURRENT_NEXT_STABILITY = 'v372-native-sticky-next-no-reload';
 
 async function waitPracticeReady(page) {
   await page.goto('/qcm.html?course=fisiologia');
@@ -25,6 +25,17 @@ async function currentQuestionIdentity(page) {
   });
 }
 
+async function currentQuestionCounter(page) {
+  return page.evaluate(() => {
+    const nodes = Array.from(document.querySelectorAll('.question-count-stat strong, .single-question-card .quiz-head .badge, .premium-progress strong'));
+    for (const node of nodes) {
+      const match = String(node.textContent || '').match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
+      if (match) return `${match[1]}/${match[2]}`;
+    }
+    return '';
+  });
+}
+
 async function answerCurrent(page) {
   const option = page.locator('.single-question-card button.option[data-option]').first();
   await expect(option).toBeVisible({ timeout: 15000 });
@@ -40,6 +51,7 @@ async function qcmDiag(page, label) {
     return {
       url: location.href,
       cardId: card ? card.id : null,
+      counter: document.querySelector('.question-count-stat strong, .premium-progress strong')?.textContent || null,
       nextStability: window.__MED_NYKUTO_PRACTICE_NEXT_STABILITY__ || null,
       fallback: window.__MED_NYKUTO_PRACTICE_CRITICAL_CLICK_FALLBACK__ || null,
       forced: window.__MED_NYKUTO_LAST_FORCED_NEXT__ || null,
@@ -66,7 +78,7 @@ async function clickFirstVisible(locator) {
 }
 
 test.describe('QCM critical click behavior', () => {
-  test('real next click changes the current QCM question', async ({ page }) => {
+  test('real next click changes the current QCM question and progress', async ({ page }) => {
     await waitPracticeReady(page);
     const firstIdentity = await currentQuestionIdentity(page);
     await qcmDiag(page, 'BEFORE');
@@ -79,6 +91,7 @@ test.describe('QCM critical click behavior', () => {
     await next.click({ force: true });
 
     await expect.poll(async () => currentQuestionIdentity(page), { timeout: 15000 }).not.toBe(firstIdentity);
+    await expect.poll(async () => currentQuestionCounter(page), { timeout: 15000 }).toBe('2/20');
     await qcmDiag(page, 'AFTER');
   });
 
