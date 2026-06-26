@@ -1,6 +1,7 @@
-/* v309 — QCM inert-zone guard.
+/* v310 — QCM inert-zone and no-submit guard.
    Tapping the question text/card background should do nothing.
-   Only real controls (answers, buttons, links, picker, correction actions) remain clickable. */
+   QCM controls remain clickable, but all buttons inside #practiceList are forced to type="button"
+   so Safari never treats Next/answer buttons as a page/form navigation. */
 (function(){
   'use strict';
 
@@ -8,6 +9,10 @@
   var sx = 0;
   var sy = 0;
   var suppressClickUntil = 0;
+
+  function isQcm(){
+    return !!(document.body && document.body.classList && document.body.classList.contains('qcm-page'));
+  }
 
   function isInteractive(target){
     if(!target || !target.closest) return false;
@@ -35,7 +40,7 @@
 
   function isInertQcmZone(target){
     if(!target || !target.closest) return false;
-    if(!document.body.classList.contains('qcm-page')) return false;
+    if(!isQcm()) return false;
     if(isInteractive(target)) return false;
     return !!target.closest('.single-question-card,.question-prompt,.structured-prompt,.practice-list');
   }
@@ -44,6 +49,33 @@
     e.preventDefault();
     e.stopPropagation();
     if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+  }
+
+  function neutraliseButton(btn){
+    if(!btn || !btn.matches || !btn.matches('#practiceList button')) return;
+    if(btn.getAttribute('type') !== 'button') btn.setAttribute('type','button');
+  }
+
+  function neutraliseExistingButtons(){
+    if(!isQcm()) return;
+    document.querySelectorAll('#practiceList button').forEach(neutraliseButton);
+  }
+
+  function guardPracticeButtonDefault(e){
+    if(!isQcm()) return;
+    var btn = e.target && e.target.closest && e.target.closest('#practiceList button');
+    if(!btn) return;
+    neutraliseButton(btn);
+    e.preventDefault();
+  }
+
+  function guardSubmit(e){
+    if(!isQcm()) return;
+    if(e.target && e.target.closest && e.target.closest('#practiceList')){
+      e.preventDefault();
+      e.stopPropagation();
+      if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+    }
   }
 
   function onTouchStart(e){
@@ -78,15 +110,25 @@
     if(document.getElementById('qcmTapGuardStyle')) return;
     var st = document.createElement('style');
     st.id = 'qcmTapGuardStyle';
-    st.textContent = 'body.qcm-page .single-question-card,body.qcm-page .question-prompt,body.qcm-page .structured-prompt{touch-action:pan-y;}body.qcm-page .question-prompt,body.qcm-page .structured-prompt{cursor:default;}';
+    st.textContent = [
+      'body.qcm-page .single-question-card,body.qcm-page .question-prompt,body.qcm-page .structured-prompt{touch-action:pan-y}',
+      'body.qcm-page .question-prompt,body.qcm-page .structured-prompt{cursor:default}',
+      'body.qcm-page .practice-quick-header,body.qcm-page .page-hero{display:none!important;visibility:hidden!important}'
+    ].join(';');
     document.head.appendChild(st);
   }
 
   document.addEventListener('touchstart', onTouchStart, {capture:true, passive:true});
   document.addEventListener('touchmove', onTouchMove, {capture:true, passive:true});
   document.addEventListener('touchend', onTouchEnd, {capture:true, passive:false});
+  document.addEventListener('pointerdown', guardPracticeButtonDefault, {capture:true, passive:false});
+  document.addEventListener('touchstart', guardPracticeButtonDefault, {capture:true, passive:false});
+  document.addEventListener('click', guardPracticeButtonDefault, {capture:true, passive:false});
   document.addEventListener('click', onClick, true);
+  document.addEventListener('submit', guardSubmit, true);
 
   injectStyle();
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', injectStyle);
+  neutraliseExistingButtons();
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ injectStyle(); neutraliseExistingButtons(); });
+  window.addEventListener('pageshow', neutraliseExistingButtons);
 })();
