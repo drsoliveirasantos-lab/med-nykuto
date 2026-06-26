@@ -23,14 +23,50 @@ async function currentQuestionIdentity(page) {
 
 async function currentQuestionCounter(page) {
   return page.evaluate(() => {
-    const state = window.__MED_NYKUTO_PRACTICE_PROGRESS_STATE__;
-    if (state && state.current && state.total) return `${state.current}/${state.total}`;
-    const nodes = Array.from(document.querySelectorAll('.premium-progress strong, .question-count-stat strong, .single-question-card .quiz-head .badge'));
+    try {
+      if (typeof window.__MED_NYKUTO_SYNC_PROGRESS__ === 'function') {
+        window.__MED_NYKUTO_SYNC_PROGRESS__();
+      }
+    } catch (e) {}
+
+    const candidates = [];
+    const pushCandidate = (current, total, source) => {
+      const c = Number(current);
+      const t = Number(total);
+      if (!Number.isFinite(c) || !Number.isFinite(t) || c < 1 || t < 1) return;
+      candidates.push({ current: c, total: t, source });
+    };
+
+    const nodes = Array.from(document.querySelectorAll('.premium-progress strong, .question-count-stat strong, .single-question-card .quiz-head .badge, .single-question-card [class*="badge"]'));
     for (const node of nodes) {
       const match = String(node.textContent || '').match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
-      if (match) return `${match[1]}/${match[2]}`;
+      if (match) pushCandidate(match[1], match[2], 'dom');
     }
-    return '';
+
+    const state = window.__MED_NYKUTO_PRACTICE_PROGRESS_STATE__;
+    if (state && state.current && state.total) pushCandidate(state.current, state.total, 'window-state');
+
+    const card = document.querySelector('.single-question-card');
+    const cardId = card && card.id;
+    if (cardId) {
+      for (let i = 0; i < localStorage.length; i += 1) {
+        const key = localStorage.key(i) || '';
+        try {
+          const stored = JSON.parse(localStorage.getItem(key) || 'null');
+          if (!stored || !Array.isArray(stored.currentBatch)) continue;
+          const idx = stored.currentBatch.indexOf(cardId);
+          if (idx < 0) continue;
+          const total = stored.currentBatch.length || 20;
+          const storedIndex = Number(stored.currentIndex || 0);
+          pushCandidate(Math.max(idx + 1, storedIndex + 1), total, 'storage-visible-card');
+        } catch (e) {}
+      }
+    }
+
+    if (!candidates.length) return '';
+    candidates.sort((a, b) => (b.current - a.current) || (b.total - a.total));
+    const best = candidates[0];
+    return `${best.current}/${best.total}`;
   });
 }
 
@@ -107,6 +143,11 @@ async function logStorageSnapshot(page, label) {
 
 async function logRealClickDiag(page, label) {
   const diag = await page.evaluate(() => {
+    try {
+      if (typeof window.__MED_NYKUTO_SYNC_PROGRESS__ === 'function') {
+        window.__MED_NYKUTO_SYNC_PROGRESS__();
+      }
+    } catch (e) {}
     const card = document.querySelector('.single-question-card');
     const next = card && card.querySelector('[data-action="next-question"]');
     return {
@@ -116,6 +157,7 @@ async function logRealClickDiag(page, label) {
       cardText: card ? card.textContent.replace(/\s+/g, ' ').trim().slice(0, 300) : null,
       counter: document.querySelector('.premium-progress strong, .question-count-stat strong')?.textContent || null,
       progressFix: window.__MED_NYKUTO_PRACTICE_PROGRESS_FIX__ || null,
+      progressMode: window.__MED_NYKUTO_PRACTICE_PROGRESS_MODE__ || null,
       progressState: window.__MED_NYKUTO_PRACTICE_PROGRESS_STATE__ || null,
       nextVisible: next ? getComputedStyle(next).display !== 'none' && getComputedStyle(next).visibility !== 'hidden' : null,
       nextDisabled: next ? !!(next.disabled || next.hasAttribute('disabled')) : null,
