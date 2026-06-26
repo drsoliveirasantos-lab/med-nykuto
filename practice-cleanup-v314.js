@@ -1,12 +1,10 @@
-/* v361 — Practice visible cleanup without interval flicker.
+/* v361 — Practice visible cleanup without after-click repaint.
    Keeps correction/explanation panels visible while preserving essential actions such as Reportar error.
-   The previous 350ms interval could mutate the QCM card after the new question had already rendered,
-   producing a visible second repaint on mobile. This version runs on load, click/change, and throttled DOM mutations only. */
+   This file must not mutate the QCM card after an answer or Next render. */
 (function(){
   'use strict';
   var OLD = /Med Cursos/g;
   var NEW = 'Med Nykuto';
-  var pending = false;
 
   function isPractice(){ return document.body && document.body.classList.contains('practice-page'); }
   function clean(s){ return String(s||'').replace(/\s+/g,' ').trim(); }
@@ -79,52 +77,6 @@
     all('.site-header .brand-context small, .site-header .brand-title, .site-header .site-title, .site-header .brand-name').forEach(function(el){ el.textContent = NEW; });
   }
 
-  function hideElement(el){
-    if(!el || el === document.body || el === document.documentElement || isCorrectionZone(el)) return;
-    el.hidden = true;
-    el.setAttribute('aria-hidden','true');
-    el.style.setProperty('display','none','important');
-  }
-
-  function hideBySelectors(){
-    if(!isPractice()) return;
-    var selectors = [
-      '.preanswer-tools', '.hint-panel', '.question-shortcuts',
-      '[data-action="show-hint"]', '[data-action="eliminate-two"]', '[data-action="mark-review"]',
-      '.session-dashboard', '.compact-dashboard', '.ultra-compact-dashboard', '.coach-banner',
-      '.adaptive-dashboard', '.adaptive-card', '.local-adaptive', '.weakness-card', '.weakness-dashboard',
-      '.practice-live-summary', '.question-difficulty-panel', '.session-stat', '.session-bars', '.compact-bars',
-      '.difficulty-select-wrap:not(.inline-difficulty-control)', '.practice-mini-difficulty-wrap'
-    ];
-    selectors.forEach(function(sel){ all(sel).forEach(hideElement); });
-  }
-
-  function hideRawStatsElements(){
-    if(!isPractice()) return;
-    all('section,article,div,p,span,details,summary').forEach(function(el){
-      if(el.hidden || isCorrectionZone(el)) return;
-      var txt = clean(el.textContent || '');
-      if(!txt || txt.length > 1200) return;
-      if(isRawStatsText(txt)){
-        var target = el.closest('.practice-card,.session-dashboard,.compact-dashboard,.ultra-compact-dashboard,details,section,article,div') || el;
-        if(target !== document.body) hideElement(target);
-      }
-    });
-  }
-
-  function hideNonPriorityCards(){
-    if(!isPractice()) return;
-    all('section,article,div').forEach(function(el){
-      if(el.hidden || isCorrectionZone(el)) return;
-      var txt = clean(el.textContent || '');
-      if(!txt || txt.length > 1200) return;
-      if(/ADAPTATIF LOCAL|ADAPTATIVO LOCAL|Mes points faibles|Puntos débiles|point détecté|Ver estad[ií]sticas|Inicio de sesi[oó]n/i.test(txt)){
-        var target = el.closest('.adaptive-card,.local-adaptive,.session-dashboard,.compact-dashboard,.weakness-card,.weakness-dashboard,details,section,article,div') || el;
-        if(target && target !== document.body) hideElement(target);
-      }
-    });
-  }
-
   function normaliseNextButton(){
     if(!isPractice()) return;
     all('[data-action="next-question"]').forEach(function(btn){
@@ -167,32 +119,16 @@
   }
 
   function run(){
-    pending = false;
     fixBrand();
     forceHeaderBrand();
     replaceTextNodes(document.body);
     injectStyle();
-    hideBySelectors();
-    hideRawStatsElements();
-    hideNonPriorityCards();
     normaliseNextButton();
-    window.__MED_NYKUTO_PRACTICE_CLEANUP__ = 'v361-no-interval';
-  }
-
-  function scheduleRun(delay){
-    if(pending) return;
-    pending = true;
-    setTimeout(run, typeof delay === 'number' ? delay : 60);
+    window.__MED_NYKUTO_PRACTICE_CLEANUP__ = 'v361-no-after-click-repaint';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
   else run();
   window.addEventListener('load', run);
   window.addEventListener('pageshow', run);
-  document.addEventListener('click', function(){ scheduleRun(30); setTimeout(run, 160); }, true);
-  document.addEventListener('change', function(){ scheduleRun(30); setTimeout(run, 160); }, true);
-  try{ new MutationObserver(function(){ scheduleRun(70); }).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','disabled','class','style']}); }catch(e){}
-  setTimeout(run, 80);
-  setTimeout(run, 240);
-  setTimeout(run, 700);
 })();
