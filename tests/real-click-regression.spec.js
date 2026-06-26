@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
 const CURRENT_NEXT_STABILITY = 'v372-native-sticky-next-no-reload';
-const CURRENT_NEXT_VISIBILITY = 'v380-native-visible-next-no-intercept';
+const CURRENT_NEXT_VISIBILITY = 'v381-native-next-stable-render';
 const CURRENT_PROGRESS_FIX = 'v361';
 
 async function waitForWindowFlag(page, name, expected, timeout = 20000) {
