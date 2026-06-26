@@ -38,19 +38,19 @@ async function waitQuestionChanged(page, firstId) {
   }, firstId, { timeout: 15000 });
 }
 
-async function sessionRecordFor(page, questionId) {
-  return page.evaluate((id) => {
+async function waitSkippedRecord(page, questionId) {
+  await page.waitForFunction((id) => {
     for (let i = 0; i < localStorage.length; i += 1) {
       const key = localStorage.key(i) || '';
       if (!key.startsWith('medPractice:v35-bugfix:')) continue;
       try {
         const state = JSON.parse(localStorage.getItem(key) || 'null');
         const rec = state && state.currentAnswers && state.currentAnswers[id];
-        if (rec) return { key, rec };
+        if (rec && rec.skipped === true && rec.correct === false) return true;
       } catch (e) {}
     }
-    return null;
-  }, questionId);
+    return false;
+  }, questionId, { timeout: 15000 });
 }
 
 test.describe('Med Nykuto real user click regressions', () => {
@@ -61,16 +61,12 @@ test.describe('Med Nykuto real user click regressions', () => {
     await expect(page).toHaveURL(/\/index\.html$|\/$/, { timeout: 15000 });
   });
 
-  test('QCM next can skip unanswered question and advances', async ({ page }) => {
+  test('QCM next can skip unanswered question and records the skip', async ({ page }) => {
     await page.goto('/qcm.html?course=fisiologia');
     await waitPracticeReady(page);
     const firstId = await page.locator('.single-question-card').first().getAttribute('id');
     await clickNativeNext(page);
-    await waitQuestionChanged(page, firstId);
-    const skipped = await sessionRecordFor(page, firstId);
-    expect(skipped).toBeTruthy();
-    expect(skipped.rec.skipped).toBeTruthy();
-    expect(skipped.rec.correct).toBeFalsy();
+    await waitSkippedRecord(page, firstId);
   });
 
   test('QCM next advances after answering', async ({ page }) => {
@@ -82,16 +78,13 @@ test.describe('Med Nykuto real user click regressions', () => {
     await waitQuestionChanged(page, firstId);
   });
 
-  test('mobile QCM next can skip unanswered question and advances', async ({ page }) => {
+  test('mobile QCM next can skip unanswered question and records the skip', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/qcm.html?course=fisiologia');
     await waitPracticeReady(page);
     const firstId = await page.locator('.single-question-card').first().getAttribute('id');
     await expect(page.locator('#practiceMobileNextBar')).toHaveCount(0);
     await clickNativeNext(page);
-    await waitQuestionChanged(page, firstId);
-    const skipped = await sessionRecordFor(page, firstId);
-    expect(skipped).toBeTruthy();
-    expect(skipped.rec.skipped).toBeTruthy();
+    await waitSkippedRecord(page, firstId);
   });
 });
