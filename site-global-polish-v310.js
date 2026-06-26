@@ -1,12 +1,12 @@
-/* v371 — Global Med Nykuto polish layer.
+/* v372 — Global Med Nykuto polish layer.
    Applies identity, language, cache-visible UI text, logo/home behavior, optional public-first auth, course image zoom and practice-page safety across all pages.
-   Loads repair layers with v371 cache-busting after restored legacy data. */
+   Loads repair layers with v372 cache-busting after restored legacy data. */
 (function(){
   'use strict';
 
   var SITE_NAME = 'Med Nykuto';
   var HOST = 'https://preview.med-nykuto-git.pages.dev/';
-  var CACHE_VERSION = '371';
+  var CACHE_VERSION = '372';
 
   function text(el,v){ if(el && v != null) el.textContent = v; }
   function attr(el,k,v){ if(el && v != null) el.setAttribute(k,v); }
@@ -191,7 +191,7 @@
     loadHomeLinkFix();
     loadOptionalAuth();
     loadCourseImageZoom();
-    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v371-loader';
+    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v372-loader';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
