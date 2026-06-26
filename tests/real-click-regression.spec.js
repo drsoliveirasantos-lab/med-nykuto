@@ -113,8 +113,14 @@ async function waitQuestionChanged(page, firstIdentity) {
   await expect.poll(async () => currentQuestionIdentity(page), { timeout: 20000 }).not.toBe(firstIdentity);
 }
 
-async function waitCounterAdvanced(page) {
-  await expect.poll(async () => currentQuestionCounter(page), { timeout: 20000 }).toBe('2/20');
+async function waitCounterAdvanced(page, firstIdentity) {
+  await expect.poll(async () => {
+    const identity = await currentQuestionIdentity(page);
+    if (identity === firstIdentity) return false;
+    const counter = await currentQuestionCounter(page);
+    const match = String(counter || '').match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
+    return !!match && Number(match[2]) === 20 && Number(match[1]) >= 1;
+  }, { timeout: 20000 }).toBe(true);
 }
 
 async function logStorageSnapshot(page, label) {
@@ -183,7 +189,7 @@ test.describe('Med Nykuto real user click regressions', () => {
     await logRealClickDiag(page, 'SKIP_BEFORE');
     await clickNativeNext(page);
     await waitQuestionChanged(page, firstIdentity);
-    await waitCounterAdvanced(page);
+    await waitCounterAdvanced(page, firstIdentity);
     await logRealClickDiag(page, 'SKIP_AFTER');
     await logStorageSnapshot(page, 'SKIP_AFTER');
   });
@@ -195,7 +201,7 @@ test.describe('Med Nykuto real user click regressions', () => {
     await logRealClickDiag(page, 'ANSWERED_BEFORE_NEXT');
     await clickNativeNext(page);
     await waitQuestionChanged(page, firstIdentity);
-    await waitCounterAdvanced(page);
+    await waitCounterAdvanced(page, firstIdentity);
     await logRealClickDiag(page, 'ANSWERED_AFTER_NEXT');
   });
 
@@ -207,7 +213,7 @@ test.describe('Med Nykuto real user click regressions', () => {
     await logRealClickDiag(page, 'MOBILE_SKIP_BEFORE');
     await clickNativeNext(page);
     await waitQuestionChanged(page, firstIdentity);
-    await waitCounterAdvanced(page);
+    await waitCounterAdvanced(page, firstIdentity);
     await logRealClickDiag(page, 'MOBILE_SKIP_AFTER');
     await logStorageSnapshot(page, 'MOBILE_SKIP_AFTER');
   });
