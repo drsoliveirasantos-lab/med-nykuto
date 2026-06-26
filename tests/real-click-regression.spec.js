@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
 const CURRENT_NEXT_STABILITY = 'v370-native-exact-next';
-const CURRENT_NEXT_VISIBILITY = 'v373-skip-unanswered-next';
+const CURRENT_NEXT_VISIBILITY = 'v374-skip-unanswered-next';
 
 async function waitPracticeReady(page) {
   await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
@@ -19,7 +19,7 @@ async function answerCurrentQuestion(page) {
   await answer.click({ force: true });
   await page.waitForFunction(() => {
     const card = document.querySelector('.single-question-card');
-    return !!card && !!card.querySelector('.answer-panel:not([hidden]), .option.correct, .option.wrong, .option.selected, .option.chosen');
+    return !!card && !!card.querySelector('.answer-panel:not([hidden]), .option.correct, .option.wrong, .option.chosen');
   }, null, { timeout: 15000 });
 }
 
