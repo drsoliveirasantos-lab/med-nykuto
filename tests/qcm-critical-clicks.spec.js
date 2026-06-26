@@ -24,8 +24,9 @@ async function currentQuestionIdentity(page) {
   return page.evaluate(() => {
     const card = document.querySelector('.single-question-card');
     if (!card) return '';
+    if (card.id) return `id:${card.id}`;
     const prompt = card.querySelector('.question-prompt, .structured-prompt, h2, h3');
-    return [card.id || '', (prompt?.textContent || '').replace(/\s+/g, ' ').trim()].join('|');
+    return `text:${(prompt?.textContent || '').replace(/\s+/g, ' ').trim()}`;
   });
 }
 
