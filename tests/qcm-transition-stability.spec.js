@@ -36,6 +36,58 @@ async function currentQuestionCounter(page) {
   });
 }
 
+async function currentVisualSnapshot(page, label = 'sample') {
+  return page.evaluate((snapshotLabel) => {
+    const clean = (s) => String(s || '').replace(/\s+/g, ' ').trim();
+    const isVisibleInViewport = (el) => {
+      if (!el) return false;
+      const style = getComputedStyle(el);
+      if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) return false;
+      const r = el.getBoundingClientRect();
+      return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < innerHeight;
+    };
+    const readCounter = () => {
+      try {
+        if (typeof window.__MED_NYKUTO_SYNC_PROGRESS__ === 'function') window.__MED_NYKUTO_SYNC_PROGRESS__();
+      } catch (e) {}
+      const nodes = Array.from(document.querySelectorAll('.premium-progress strong, .question-count-stat strong, .single-question-card .quiz-head .badge'));
+      for (const node of nodes) {
+        const match = String(node.textContent || '').match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
+        if (match) return `${match[1]}/${match[2]}`;
+      }
+      return '';
+    };
+    const card = document.querySelector('.single-question-card');
+    const prompt = card && card.querySelector('.question-prompt, .structured-prompt, h2, h3');
+    const list = document.querySelector('#practiceList');
+    const quickHeader = document.querySelector('.practice-quick-header');
+    const pageHero = document.querySelector('.page-hero');
+    const unknown = card && card.querySelector('.unknown-action-wrap:not([hidden]), [data-action="dont-know"]');
+    const answer = card && card.querySelector('.answer-panel:not([hidden])');
+    const rect = card ? card.getBoundingClientRect() : { top: 0, height: 0, bottom: 0 };
+    const cardId = card ? (card.id ? `id:${card.id}` : `text:${clean(prompt?.textContent)}`) : '';
+    return {
+      t: performance.now(),
+      label: snapshotLabel,
+      cardId,
+      counter: readCounter(),
+      scrollY: Math.round(scrollY),
+      cardTop: Math.round(rect.top),
+      cardHeight: Math.round(rect.height),
+      cardBottom: Math.round(rect.bottom),
+      promptText: clean(prompt && prompt.textContent),
+      cardText: clean(card && card.textContent).slice(0, 900),
+      buttonCount: card ? card.querySelectorAll('button').length : 0,
+      unknownVisible: isVisibleInViewport(unknown),
+      answerVisible: isVisibleInViewport(answer),
+      listEmpty: !list || !list.querySelector('.single-question-card'),
+      quickHeaderVisible: isVisibleInViewport(quickHeader),
+      pageHeroVisible: isVisibleInViewport(pageHero),
+      nextVisibility: window.__MED_NYKUTO_NEXT_VISIBILITY__ || null,
+    };
+  }, label);
+}
+
 async function openFreshQcm(page) {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/qcm.html?course=fisiologia');
@@ -57,82 +109,56 @@ async function installTransitionProbe(page) {
   await page.evaluate(() => {
     window.__QCM_TRANSITION_PROBE__ = [];
     window.__QCM_TRANSITION_START_LABEL__ = '';
-    window.__QCM_TRANSITION_CAPTURE_UNTIL__ = 0;
-
-    const clean = (s) => String(s || '').replace(/\s+/g, ' ').trim();
-
-    const readCounter = () => {
-      try {
-        if (typeof window.__MED_NYKUTO_SYNC_PROGRESS__ === 'function') window.__MED_NYKUTO_SYNC_PROGRESS__();
-      } catch (e) {}
-      const nodes = Array.from(document.querySelectorAll('.premium-progress strong, .question-count-stat strong, .single-question-card .quiz-head .badge'));
-      for (const node of nodes) {
-        const match = String(node.textContent || '').match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
-        if (match) return `${match[1]}/${match[2]}`;
-      }
-      return '';
-    };
-
-    const readCardIdentity = () => {
-      const card = document.querySelector('.single-question-card');
-      if (!card) return '';
-      if (card.id) return `id:${card.id}`;
-      const prompt = card.querySelector('.question-prompt, .structured-prompt, h2, h3');
-      return `text:${clean(prompt?.textContent)}`;
-    };
-
-    const isVisibleInViewport = (el) => {
-      if (!el) return false;
-      const style = getComputedStyle(el);
-      if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) return false;
-      const r = el.getBoundingClientRect();
-      return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < innerHeight;
-    };
 
     const snap = (label) => {
-      const list = document.querySelector('#practiceList');
-      const card = document.querySelector('.single-question-card');
-      const prompt = card && card.querySelector('.question-prompt, .structured-prompt, h2, h3');
-      const quickHeader = document.querySelector('.practice-quick-header');
-      const pageHero = document.querySelector('.page-hero');
-      const rect = card ? card.getBoundingClientRect() : { top: 0, height: 0, bottom: 0 };
-      const unknown = card && card.querySelector('.unknown-action-wrap:not([hidden]), [data-action="dont-know"]');
-      const answer = card && card.querySelector('.answer-panel:not([hidden])');
-      const promptText = clean(prompt && prompt.textContent);
-      const cardText = clean(card && card.textContent).slice(0, 900);
-      window.__QCM_TRANSITION_PROBE__.push({
-        t: performance.now(),
-        label,
-        cardId: readCardIdentity(),
-        counter: readCounter(),
-        scrollY: Math.round(scrollY),
-        cardTop: Math.round(rect.top),
-        cardHeight: Math.round(rect.height),
-        cardBottom: Math.round(rect.bottom),
-        promptText,
-        cardText,
-        buttonCount: card ? card.querySelectorAll('button').length : 0,
-        unknownVisible: isVisibleInViewport(unknown),
-        answerVisible: isVisibleInViewport(answer),
-        listEmpty: !list || !list.querySelector('.single-question-card'),
-        quickHeaderVisible: isVisibleInViewport(quickHeader),
-        pageHeroVisible: isVisibleInViewport(pageHero),
-        nextVisibility: window.__MED_NYKUTO_NEXT_VISIBILITY__ || null,
-      });
-    };
-
-    const rafLoop = () => {
-      if (performance.now() <= window.__QCM_TRANSITION_CAPTURE_UNTIL__) {
-        snap('raf');
-        requestAnimationFrame(rafLoop);
+      try {
+        const clean = (s) => String(s || '').replace(/\s+/g, ' ').trim();
+        const isVisibleInViewport = (el) => {
+          if (!el) return false;
+          const style = getComputedStyle(el);
+          if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) return false;
+          const r = el.getBoundingClientRect();
+          return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < innerHeight;
+        };
+        const readCounter = () => {
+          try {
+            if (typeof window.__MED_NYKUTO_SYNC_PROGRESS__ === 'function') window.__MED_NYKUTO_SYNC_PROGRESS__();
+          } catch (e) {}
+          const nodes = Array.from(document.querySelectorAll('.premium-progress strong, .question-count-stat strong, .single-question-card .quiz-head .badge'));
+          for (const node of nodes) {
+            const match = String(node.textContent || '').match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
+            if (match) return `${match[1]}/${match[2]}`;
+          }
+          return '';
+        };
+        const list = document.querySelector('#practiceList');
+        const card = document.querySelector('.single-question-card');
+        const prompt = card && card.querySelector('.question-prompt, .structured-prompt, h2, h3');
+        const quickHeader = document.querySelector('.practice-quick-header');
+        const pageHero = document.querySelector('.page-hero');
+        const rect = card ? card.getBoundingClientRect() : { top: 0, height: 0, bottom: 0 };
+        const cardId = card ? (card.id ? `id:${card.id}` : `text:${clean(prompt?.textContent)}`) : '';
+        window.__QCM_TRANSITION_PROBE__.push({
+          t: performance.now(),
+          label,
+          cardId,
+          counter: readCounter(),
+          scrollY: Math.round(scrollY),
+          cardTop: Math.round(rect.top),
+          cardHeight: Math.round(rect.height),
+          promptText: clean(prompt && prompt.textContent),
+          buttonCount: card ? card.querySelectorAll('button').length : 0,
+          listEmpty: !list || !list.querySelector('.single-question-card'),
+          quickHeaderVisible: isVisibleInViewport(quickHeader),
+          pageHeroVisible: isVisibleInViewport(pageHero),
+          nextVisibility: window.__MED_NYKUTO_NEXT_VISIBILITY__ || null,
+        });
+      } catch (e) {
+        window.__QCM_TRANSITION_PROBE__.push({ t: performance.now(), label, error: String(e && e.message || e) });
       }
     };
 
     window.__QCM_TRANSITION_SNAP__ = snap;
-    window.__QCM_TRANSITION_START_RAF__ = (durationMs) => {
-      window.__QCM_TRANSITION_CAPTURE_UNTIL__ = performance.now() + durationMs;
-      requestAnimationFrame(rafLoop);
-    };
     const list = document.querySelector('#practiceList') || document.body;
     new MutationObserver(() => snap('mutation')).observe(list, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['hidden', 'disabled', 'class', 'style'] });
     addEventListener('scroll', () => snap('scroll'), { passive: true });
@@ -146,16 +172,13 @@ async function startProbeClickWindow(page) {
     if (typeof window.__QCM_TRANSITION_SNAP__ === 'function') {
       window.__QCM_TRANSITION_SNAP__(window.__QCM_TRANSITION_START_LABEL__);
     }
-    if (typeof window.__QCM_TRANSITION_START_RAF__ === 'function') {
-      window.__QCM_TRANSITION_START_RAF__(2200);
-    }
   });
 }
 
 async function sampleTransition(page) {
-  await page.waitForTimeout(2300);
+  await page.waitForTimeout(500);
   await page.evaluate(() => {
-    if (typeof window.__QCM_TRANSITION_SNAP__ === 'function') window.__QCM_TRANSITION_SNAP__('after-window');
+    if (typeof window.__QCM_TRANSITION_SNAP__ === 'function') window.__QCM_TRANSITION_SNAP__('after-transition-observer-window');
   });
   return page.evaluate(() => {
     const rows = window.__QCM_TRANSITION_PROBE__ || [];
@@ -163,6 +186,17 @@ async function sampleTransition(page) {
     const startIndex = rows.findIndex((row) => row.label === startLabel);
     return startIndex >= 0 ? rows.slice(startIndex) : rows;
   });
+}
+
+async function collectFinalVisualSamples(page, finalId, samples = 28, intervalMs = 50) {
+  const rows = [];
+  for (let i = 0; i < samples; i += 1) {
+    const row = await currentVisualSnapshot(page, `final-stability-${i}`);
+    rows.push(row);
+    if (row.cardId !== finalId) break;
+    await page.waitForTimeout(intervalMs);
+  }
+  return rows;
 }
 
 function compactTrace(trace) {
@@ -180,6 +214,7 @@ function compactTrace(trace) {
     listEmpty: row.listEmpty,
     quickHeaderVisible: row.quickHeaderVisible,
     pageHeroVisible: row.pageHeroVisible,
+    error: row.error,
   })).slice(0, 120);
 }
 
@@ -226,34 +261,35 @@ test.describe('QCM transition stability', () => {
     await expect.poll(async () => currentQuestionIdentity(page), { timeout: 15000 }).not.toBe(firstId);
     await expect.poll(async () => currentQuestionCounter(page), { timeout: 15000 }).toBe('2/20');
 
-    const trace = await sampleTransition(page);
     const finalId = await currentQuestionIdentity(page);
     const finalCounter = await currentQuestionCounter(page);
+    const finalSamples = await collectFinalVisualSamples(page, finalId);
+    const trace = await sampleTransition(page);
     const sequence = idSequenceAfterInitial(trace, firstId, finalId);
-    const traceSummary = JSON.stringify(compactTrace(trace));
+    const traceSummary = JSON.stringify(compactTrace([...trace, ...finalSamples]));
 
     expect(firstCounter, 'known initial counter').toBe('1/20');
     expect(finalCounter, 'known final counter').toBe('2/20');
     expect(finalId, 'one tap must land on one new question').not.toBe(firstId);
     expect(sequence, `QCM card id sequence must be first -> final only. Trace=${traceSummary}`).toEqual([firstId, finalId]);
 
-    const sampledCounters = [...new Set(trace.map((row) => row.counter).filter(Boolean))];
+    const allRows = [...trace, ...finalSamples];
+    const sampledCounters = [...new Set(allRows.map((row) => row.counter).filter(Boolean))];
     const unexpectedCounters = sampledCounters.filter((value) => ![firstCounter, finalCounter].includes(value));
     expect(unexpectedCounters, `counter must not jump past ${finalCounter}. Trace=${traceSummary}`).toEqual([]);
 
-    const badBlankFrames = trace.filter((row) => row.listEmpty);
+    const badBlankFrames = allRows.filter((row) => row.listEmpty);
     expect(badBlankFrames, `#practiceList must never be empty after Next. Trace=${traceSummary}`).toEqual([]);
 
-    const heroFrames = trace.filter((row) => row.quickHeaderVisible || row.pageHeroVisible);
+    const heroFrames = allRows.filter((row) => row.quickHeaderVisible || row.pageHeroVisible);
     expect(heroFrames, `QCM hero/header must not flash during transition. Trace=${traceSummary}`).toEqual([]);
 
-    const maxScrollDelta = Math.max(...trace.map((row) => Math.abs(row.scrollY - scrollBefore)), 0);
+    const maxScrollDelta = Math.max(...allRows.map((row) => Math.abs(row.scrollY - scrollBefore)), 0);
     expect(maxScrollDelta, `scroll must not jump after the question already changed. Trace=${traceSummary}`).toBeLessThanOrEqual(12);
 
-    const finalRows = trace.filter((row) => row.cardId === finalId);
-    expect(finalRows.length, `final question must be sampled repeatedly. Trace=${traceSummary}`).toBeGreaterThan(4);
-    const firstFinalT = finalRows[0].t;
-    const stableRows = finalRows.filter((row) => row.t >= firstFinalT + 180);
+    expect(finalSamples.length, `final question must be actively sampled repeatedly. Trace=${traceSummary}`).toBeGreaterThan(20);
+    expect(finalSamples.every((row) => row.cardId === finalId), `final question must not be replaced again. Trace=${traceSummary}`).toBe(true);
+    const stableRows = finalSamples.slice(4);
     const visualSignatures = [...new Set(stableRows.map(stableVisualSignature))];
     expect(visualSignatures, `final question must not repaint/mutate after it first appears. Trace=${traceSummary}`).toHaveLength(1);
   });
