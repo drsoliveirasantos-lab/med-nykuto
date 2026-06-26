@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
 const CURRENT_NEXT_STABILITY = 'v372-native-sticky-next-no-reload';
-const CURRENT_NEXT_VISIBILITY = 'v385-native-next-no-late-repaint';
+const CURRENT_NEXT_VISIBILITY = 'v386-native-next-real-scroll-focus-lock';
 const CURRENT_PROGRESS_FIX = 'v361';
 
 async function waitForWindowFlag(page, name, expected, timeout = 20000) {
@@ -249,11 +249,13 @@ test.describe('QCM transition stability', () => {
 
     const firstId = await currentQuestionIdentity(page);
     const firstCounter = await currentQuestionCounter(page);
-    const scrollBefore = await page.evaluate(() => Math.round(scrollY));
 
     const next = page.locator('.single-question-card [data-action="next-question"]').first();
     await expect(next).toBeVisible({ timeout: 10000 });
     await expect(next).toBeEnabled({ timeout: 10000 });
+    await next.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(80);
+    const scrollBefore = await page.evaluate(() => Math.round(scrollY));
 
     await startProbeClickWindow(page);
     await next.click({ force: true });
