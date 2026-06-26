@@ -1,6 +1,8 @@
 .practice-focus-toggle{position:absolute;opacity:0;width:1px;height:1px;}
 .practice-focus-open{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:.45rem .75rem;margin:.55rem 0 .65rem;border:1px solid rgba(245,211,124,.48);border-radius:999px;color:#ffe7a0;background:rgba(245,211,124,.10);font-weight:900;font-size:.86rem;letter-spacing:.01em;}
 .practice-focus-close{display:none;}
+html:has(body.practice-page){background:#070a10!important;}
+body.practice-page{background-color:#070a10!important;overscroll-behavior-y:none;}
 body:has(.practice-focus-toggle:checked){overflow:hidden;}
 body:has(.practice-focus-toggle:checked) .site-header,body:has(.practice-focus-toggle:checked) .practice-quick-header,body:has(.practice-focus-toggle:checked) .practice-compact-controls,body:has(.practice-focus-toggle:checked) .page-hero,body:has(.practice-focus-toggle:checked) .practice-focus-topbar,body:has(.practice-focus-toggle:checked) #courseFilters,body:has(.practice-focus-toggle:checked) #emptyState,body:has(.practice-focus-toggle:checked) .practice-focus-open{display:none!important;}
 body:has(.practice-focus-toggle:checked) .practice-focus-section{position:fixed!important;inset:0!important;z-index:9998!important;width:100vw!important;height:100dvh!important;margin:0!important;padding:calc(env(safe-area-inset-top,0px) + 64px) 14px calc(env(safe-area-inset-bottom,0px) + 82px)!important;overflow-y:auto!important;background:#050912!important;}
@@ -9,7 +11,7 @@ body:has(.practice-focus-toggle:checked) .practice-focus-close{position:fixed;to
 body:has(.practice-focus-toggle:checked) .practice-focus-close::after{content:'X';display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;background:rgba(255,255,255,.08);}
 
 /* Premium QCM mobile layout */
-body.qcm-page .practice-focus-section{padding-top:.2rem!important;position:relative!important;}
+body.qcm-page .practice-focus-section{padding-top:.2rem!important;position:relative!important;background:#070a10!important;}
 body.qcm-page .practice-focus-open{float:right;min-height:30px;padding:.34rem .58rem;margin:.08rem .04rem .25rem .55rem;border-radius:999px;font-size:.78rem;background:rgba(245,211,124,.13);box-shadow:0 8px 22px rgba(0,0,0,.18);}
 body.qcm-page .mc-picker-shell{clear:both;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:.48rem!important;margin:.32rem 0 .42rem!important;max-width:100%!important;}
 body.qcm-page .mc-picker-btn{min-height:40px!important;border-radius:16px!important;padding:.45rem .58rem!important;font-size:.78rem!important;line-height:1.06!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;box-shadow:none!important;position:relative;transition:transform .12s ease,background .12s ease,border-color .12s ease;}
