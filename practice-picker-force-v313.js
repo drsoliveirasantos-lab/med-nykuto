@@ -1,5 +1,5 @@
-/* v317 — Stable premium practice picker for Casos clínicos and V/F.
-   Fix: choosing a Materia now writes a real bank course id (fisiologia, genetica, etc.) and does not fall back to all. */
+/* v318 — Stable lightweight practice picker for Casos clínicos and V/F.
+   App bundle owns rendering and navigation. This file only adds the course/module picker and must not observe or repaint the practice card. */
 (function(){
   'use strict';
 
@@ -155,7 +155,8 @@
   }, {capture:true, passive:false});
 
   function apply(){ inject(); ensureShell(); }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', function(){ apply(); setTimeout(apply,400); setTimeout(apply,1200); });
-  else { apply(); setTimeout(apply,400); setTimeout(apply,1200); }
-  if(window.MutationObserver) new MutationObserver(function(){ clearTimeout(window.__pfpTimer); window.__pfpTimer=setTimeout(apply,80); }).observe(document.body,{childList:true,subtree:true});
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', apply);
+  else apply();
+  window.addEventListener('load', apply);
+  window.addEventListener('pageshow', apply);
 })();
