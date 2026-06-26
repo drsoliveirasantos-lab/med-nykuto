@@ -2,11 +2,13 @@ const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
 const CURRENT_NEXT_STABILITY = 'v370-native-exact-next';
+const CURRENT_NEXT_VISIBILITY = 'v372-answer-gated-next';
 
 async function waitPracticeReady(page) {
   await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
   await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_LOADER__ === version, CURRENT_PRACTICE_LOADER, { timeout: 20000 });
   await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_NEXT_STABILITY__ === version, CURRENT_NEXT_STABILITY, { timeout: 20000 });
+  await page.waitForFunction((version) => window.__MED_NYKUTO_NEXT_VISIBILITY__ === version, CURRENT_NEXT_VISIBILITY, { timeout: 20000 });
   await expect(page.locator('.single-question-card').first()).toBeAttached({ timeout: 15000 });
 }
 
@@ -43,22 +45,24 @@ test.describe('Med Nykuto real user click regressions', () => {
     await expect(page).toHaveURL(/\/index\.html$|\/$/, { timeout: 15000 });
   });
 
-  test('QCM next button advances to the following question after answering', async ({ page }) => {
+  test('QCM next appears only after answering and advances', async ({ page }) => {
     await page.goto('/qcm.html?course=fisiologia');
     await waitPracticeReady(page);
     const firstId = await page.locator('.single-question-card').first().getAttribute('id');
+    await expect(page.locator('.single-question-card [data-action="next-question"]')).toBeHidden();
     await answerCurrentQuestion(page);
     await clickNativeNext(page);
     await waitQuestionChanged(page, firstId);
   });
 
-  test('mobile QCM native next button advances after answering', async ({ page }) => {
+  test('mobile QCM next appears only after answering and advances', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/qcm.html?course=fisiologia');
     await waitPracticeReady(page);
     const firstId = await page.locator('.single-question-card').first().getAttribute('id');
-    await answerCurrentQuestion(page);
     await expect(page.locator('#practiceMobileNextBar')).toHaveCount(0);
+    await expect(page.locator('.single-question-card [data-action="next-question"]')).toBeHidden();
+    await answerCurrentQuestion(page);
     await clickNativeNext(page);
     await waitQuestionChanged(page, firstId);
   });
