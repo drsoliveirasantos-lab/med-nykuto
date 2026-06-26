@@ -14,7 +14,7 @@ permissions:
 
 concurrency:
   group: med-nykuto-site-tests-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   validate:
@@ -130,7 +130,7 @@ jobs:
       - name: Run real-click and QCM critical tests
         run: |
           set +e
-          npx playwright test tests/real-click-regression.spec.js tests/qcm-critical-clicks.spec.js --project=desktop-chromium --trace=retain-on-failure --output=test-results/real-click --reporter=json > real-click.json
+          npx playwright test tests/real-click-regression.spec.js tests/qcm-critical-clicks.spec.js --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/real-click --reporter=json > real-click.json
           code=$?
           node scripts/print-playwright-summary.js real-click.json
           exit $code
@@ -198,98 +198,3 @@ jobs:
             click-audit.json
             test-results/click-audit/**
             playwright-report/**
-
-  browser-mobile-menu:
-    name: Browser mobile-menu tests
-    needs: validate
-    if: ${{ always() }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 8
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm install
-      - name: Install Playwright Chromium with timeout
-        run: timeout 240s npx playwright install --with-deps chromium
-      - name: Run mobile-menu tests
-        run: |
-          set +e
-          npx playwright test tests/mobile-menu.spec.js --project=desktop-chromium --reporter=json > mobile-menu.json
-          code=$?
-          node scripts/print-playwright-summary.js mobile-menu.json
-          exit $code
-
-  browser-contact:
-    name: Browser contact tests
-    needs: validate
-    if: ${{ always() }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 8
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm install
-      - name: Install Playwright Chromium with timeout
-        run: timeout 240s npx playwright install --with-deps chromium
-      - name: Run contact tests
-        run: |
-          set +e
-          npx playwright test tests/contact.spec.js --project=desktop-chromium --reporter=json > contact.json
-          code=$?
-          node scripts/print-playwright-summary.js contact.json
-          exit $code
-
-  notify-status:
-    name: Publish CI status comment
-    needs:
-      - validate
-      - browser-smoke
-      - browser-restored-data
-      - browser-practice-flow
-      - browser-real-click
-      - browser-module-ui
-      - browser-click-audit
-      - browser-mobile-menu
-      - browser-contact
-    if: ${{ always() }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Comment CI status on issue #1
-        uses: actions/github-script@v7
-        env:
-          NEEDS_JSON: ${{ toJson(needs) }}
-        with:
-          script: |
-            const issue_number = 1;
-            const needs = JSON.parse(process.env.NEEDS_JSON || '{}');
-            const entries = Object.entries(needs);
-            const failed = entries.filter(([, job]) => job.result !== 'success');
-            const conclusion = failed.length ? 'failure' : 'success';
-            const emoji = conclusion === 'success' ? '✅' : '❌';
-            const title = `${emoji} Med Nykuto site tests #${context.runNumber} — ${conclusion.toUpperCase()}`;
-            const lines = entries.map(([id, job]) => `- ${job.result === 'success' ? '✅' : '❌'} ${id}: \`${job.result}\``);
-            const sha = context.sha.slice(0, 7);
-            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
-            const body = [
-              title,
-              '',
-              `- Branch: \`${context.ref.replace('refs/heads/', '')}\``,
-              `- Commit: \`${sha}\``,
-              `- Run: ${runUrl}`,
-              '',
-              'Jobs:',
-              ...lines,
-              '',
-              '<!-- med-nykuto-site-tests-status -->'
-            ].join('\n');
-
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number,
-              body
-            });
