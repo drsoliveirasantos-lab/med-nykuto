@@ -2,14 +2,11 @@ const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
 const CURRENT_NEXT_STABILITY = 'v372-native-sticky-next-no-reload';
-const CURRENT_NEXT_VISIBILITY = 'v386-native-next-real-scroll-focus-lock';
+const CURRENT_NEXT_VISIBILITY = 'v387-native-next-fixed-viewport-lock';
 const CURRENT_PROGRESS_FIX = 'v361';
 
 async function waitForWindowFlag(page, name, expected, timeout = 20000) {
-  await expect.poll(
-    async () => page.evaluate((flagName) => window[flagName] || null, name),
-    { timeout }
-  ).toBe(expected);
+  await expect.poll(async () => page.evaluate((flagName) => window[flagName] || null, name), { timeout }).toBe(expected);
 }
 
 async function currentQuestionIdentity(page) {
@@ -24,28 +21,14 @@ async function currentQuestionIdentity(page) {
 
 async function currentQuestionCounter(page) {
   return page.evaluate(() => {
-    try {
-      if (typeof window.__MED_NYKUTO_SYNC_PROGRESS__ === 'function') {
-        window.__MED_NYKUTO_SYNC_PROGRESS__();
-      }
-    } catch (e) {}
+    try { if (typeof window.__MED_NYKUTO_SYNC_PROGRESS__ === 'function') window.__MED_NYKUTO_SYNC_PROGRESS__(); } catch (e) {}
     const nodes = Array.from(document.querySelectorAll('.premium-progress strong, .question-count-stat strong, .single-question-card .quiz-head .badge'));
     for (const node of nodes) {
-      const text = String(node.textContent || '');
-      const match = text.match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
+      const match = String(node.textContent || '').match(/(\d{1,3})\s*\/\s*(\d{1,3})/);
       if (match) return `${match[1]}/${match[2]}`;
     }
     return '';
   });
-}
-
-async function expectStableCounter(page, expected) {
-  const values = [];
-  for (let i = 0; i < 12; i += 1) {
-    values.push(await currentQuestionCounter(page));
-    await page.waitForTimeout(100);
-  }
-  expect(values, 'visible QCM progress must not flicker after a real click').toEqual(Array(12).fill(expected));
 }
 
 async function waitPracticeReady(page) {
@@ -59,13 +42,19 @@ async function waitPracticeReady(page) {
 
 async function openFreshQcm(page) {
   await page.goto('/qcm.html?course=fisiologia');
-  await page.evaluate(() => {
-    localStorage.clear();
-    sessionStorage.clear();
-  });
+  await page.evaluate(() => { localStorage.clear(); sessionStorage.clear(); });
   await page.reload({ waitUntil: 'domcontentloaded' });
   await waitPracticeReady(page);
   await expect.poll(async () => currentQuestionCounter(page), { timeout: 15000 }).toBe('1/20');
+}
+
+async function expectStableCounter(page, expected) {
+  const values = [];
+  for (let i = 0; i < 12; i += 1) {
+    values.push(await currentQuestionCounter(page));
+    await page.waitForTimeout(100);
+  }
+  expect(values, 'visible QCM progress must not flicker after a real click').toEqual(Array(12).fill(expected));
 }
 
 async function answerCurrentQuestion(page) {
@@ -73,7 +62,6 @@ async function answerCurrentQuestion(page) {
   await expect(answer).toBeVisible({ timeout: 15000 });
   await answer.scrollIntoViewIfNeeded();
   await answer.click({ force: true });
-
   await expect.poll(async () => page.evaluate(() => {
     const card = document.querySelector('.single-question-card');
     return !!card && !!card.querySelector('.answer-panel:not([hidden]), .option.correct, .option.wrong, .option.chosen, .options.answered');
@@ -97,54 +85,19 @@ async function waitCounterAdvanced(page) {
   await expectStableCounter(page, '2/20');
 }
 
-async function logStorageSnapshot(page, label) {
-  const snapshot = await page.evaluate(() => {
-    const states = [];
-    for (let i = 0; i < localStorage.length; i += 1) {
-      const key = localStorage.key(i) || '';
-      try {
-        const state = JSON.parse(localStorage.getItem(key) || 'null');
-        if (!state || !Array.isArray(state.currentBatch)) continue;
-        const answers = state.currentAnswers || {};
-        const records = Object.entries(answers);
-        states.push({
-          key,
-          currentIndex: state.currentIndex ?? null,
-          batchFinished: state.batchFinished ?? null,
-          answerCount: records.length,
-          skippedAnswerKeys: records.filter(([, rec]) => rec && (rec.skipped === true || rec.unknown === true)).map(([qid]) => qid).slice(0, 5),
-        });
-      } catch (e) {}
-    }
-    return { states, progressState: window.__MED_NYKUTO_PRACTICE_PROGRESS_STATE__ || null };
-  });
-  console.log('REAL_CLICK_STORAGE_' + label + '=' + JSON.stringify(snapshot));
-}
-
 async function logRealClickDiag(page, label) {
   const diag = await page.evaluate(() => {
-    try {
-      if (typeof window.__MED_NYKUTO_SYNC_PROGRESS__ === 'function') {
-        window.__MED_NYKUTO_SYNC_PROGRESS__();
-      }
-    } catch (e) {}
+    try { if (typeof window.__MED_NYKUTO_SYNC_PROGRESS__ === 'function') window.__MED_NYKUTO_SYNC_PROGRESS__(); } catch (e) {}
     const card = document.querySelector('.single-question-card');
     const next = card && card.querySelector('[data-action="next-question"]');
     return {
       url: location.href,
-      readyState: document.readyState,
       cardId: card ? card.id : null,
-      cardText: card ? card.textContent.replace(/\s+/g, ' ').trim().slice(0, 300) : null,
       counter: document.querySelector('.premium-progress strong, .question-count-stat strong')?.textContent || null,
-      progressFix: window.__MED_NYKUTO_PRACTICE_PROGRESS_FIX__ || null,
-      progressMode: window.__MED_NYKUTO_PRACTICE_PROGRESS_MODE__ || null,
-      progressState: window.__MED_NYKUTO_PRACTICE_PROGRESS_STATE__ || null,
       nextVisible: next ? getComputedStyle(next).display !== 'none' && getComputedStyle(next).visibility !== 'hidden' : null,
       nextDisabled: next ? !!(next.disabled || next.hasAttribute('disabled')) : null,
-      nextText: next ? next.textContent.trim() : null,
       nextStability: window.__MED_NYKUTO_PRACTICE_NEXT_STABILITY__ || null,
       nextVisibility: window.__MED_NYKUTO_NEXT_VISIBILITY__ || null,
-      forcedNext: window.__MED_NYKUTO_LAST_FORCED_NEXT__ || null,
     };
   });
   console.log('REAL_CLICK_DIAG_' + label + '=' + JSON.stringify(diag));
@@ -165,7 +118,6 @@ test.describe('Med Nykuto real user click regressions', () => {
     await waitQuestionChanged(page, firstIdentity);
     await waitCounterAdvanced(page);
     await logRealClickDiag(page, 'SKIP_AFTER');
-    await logStorageSnapshot(page, 'SKIP_AFTER');
   });
 
   test('QCM next advances after answering without flicker', async ({ page }) => {
@@ -189,6 +141,5 @@ test.describe('Med Nykuto real user click regressions', () => {
     await waitQuestionChanged(page, firstIdentity);
     await waitCounterAdvanced(page);
     await logRealClickDiag(page, 'MOBILE_SKIP_AFTER');
-    await logStorageSnapshot(page, 'MOBILE_SKIP_AFTER');
   });
 });
