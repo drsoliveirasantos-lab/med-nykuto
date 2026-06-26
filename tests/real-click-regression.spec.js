@@ -1,10 +1,12 @@
 const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
+const CURRENT_NEXT_STABILITY = 'v370-native-exact-next';
 
 async function waitPracticeReady(page) {
   await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
   await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_LOADER__ === version, CURRENT_PRACTICE_LOADER, { timeout: 20000 });
+  await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_NEXT_STABILITY__ === version, CURRENT_NEXT_STABILITY, { timeout: 20000 });
   await expect(page.locator('.single-question-card').first()).toBeAttached({ timeout: 15000 });
 }
 
@@ -13,23 +15,24 @@ async function answerCurrentQuestion(page) {
   await expect(answer).toBeAttached({ timeout: 15000 });
   await answer.scrollIntoViewIfNeeded();
   await answer.click({ force: true });
-  await expect(page.locator('.single-question-card .answer-panel:not([hidden])').first()).toBeAttached({ timeout: 15000 });
+  await page.waitForFunction(() => {
+    const card = document.querySelector('.single-question-card');
+    return !!card && !!card.querySelector('.answer-panel:not([hidden]), .option.correct, .option.wrong, .option.selected, .option.chosen');
+  }, null, { timeout: 15000 });
 }
 
-async function clickVisibleNext(page) {
-  const clicked = await page.evaluate(() => {
-    const candidates = Array.from(document.querySelectorAll('#practiceMobileNextBar .practice-stable-next, .compact-next-bar.practice-mobile-next-bar .practice-stable-next, .single-question-card [data-action="next-question"]'));
-    const visible = candidates.find(el => {
-      const r = el.getBoundingClientRect();
-      const s = getComputedStyle(el);
-      return r.width > 0 && r.height > 0 && s.display !== 'none' && s.visibility !== 'hidden' && !el.disabled && !el.hasAttribute('disabled');
-    });
-    if (!visible) return false;
-    visible.scrollIntoView({ block: 'center', inline: 'center' });
-    visible.click();
-    return true;
-  });
-  expect(clicked).toBe(true);
+async function clickNativeNext(page) {
+  const next = page.locator('.single-question-card [data-action="next-question"]').first();
+  await expect(next).toBeVisible({ timeout: 10000 });
+  await next.scrollIntoViewIfNeeded();
+  await next.click({ force: true });
+}
+
+async function waitQuestionChanged(page, firstId) {
+  await page.waitForFunction((id) => {
+    const card = document.querySelector('.single-question-card');
+    return !!card && card.id !== id;
+  }, firstId, { timeout: 15000 });
 }
 
 test.describe('Med Nykuto real user click regressions', () => {
@@ -45,18 +48,18 @@ test.describe('Med Nykuto real user click regressions', () => {
     await waitPracticeReady(page);
     const firstId = await page.locator('.single-question-card').first().getAttribute('id');
     await answerCurrentQuestion(page);
-    await clickVisibleNext(page);
-    await expect.poll(async () => page.locator('.single-question-card').first().getAttribute('id'), { timeout: 15000 }).not.toBe(firstId);
+    await clickNativeNext(page);
+    await waitQuestionChanged(page, firstId);
   });
 
-  test('mobile QCM next button advances after answering', async ({ page }) => {
+  test('mobile QCM native next button advances after answering', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/qcm.html?course=fisiologia');
     await waitPracticeReady(page);
     const firstId = await page.locator('.single-question-card').first().getAttribute('id');
     await answerCurrentQuestion(page);
-    await expect(page.locator('#practiceMobileNextBar .practice-stable-next, .compact-next-bar.practice-mobile-next-bar .practice-stable-next').first()).toBeVisible({ timeout: 8000 });
-    await clickVisibleNext(page);
-    await expect.poll(async () => page.locator('.single-question-card').first().getAttribute('id'), { timeout: 15000 }).not.toBe(firstId);
+    await expect(page.locator('#practiceMobileNextBar')).toHaveCount(0);
+    await clickNativeNext(page);
+    await waitQuestionChanged(page, firstId);
   });
 });
