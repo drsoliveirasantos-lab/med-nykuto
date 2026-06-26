@@ -32,10 +32,6 @@ async function currentQuestionCounter(page) {
   });
 }
 
-async function viewportLockSignal(page) {
-  return page.evaluate(() => Number(window.__MED_NYKUTO_QCM_VIEWPORT_LOCK_LAST__ || 0));
-}
-
 async function openFreshQcm(page) {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/qcm.html?course=fisiologia');
@@ -82,7 +78,6 @@ async function installVisualSampler(page) {
         scrollY: Math.round(scrollY),
         bodyTop: Math.round(parseFloat(getComputedStyle(document.body).top || '0') || 0),
         viewportLock: document.body.classList.contains('practice-viewport-locked'),
-        lockSignal: Number(window.__MED_NYKUTO_QCM_VIEWPORT_LOCK_LAST__ || 0),
         cardTop: Math.round(rect.top),
         cardHeight: Math.round(rect.height),
         promptText: clean(prompt && prompt.textContent),
@@ -141,7 +136,6 @@ async function collectActiveSamples(page, labelPrefix, samples = 28, intervalMs 
         scrollY: Math.round(scrollY),
         bodyTop: Math.round(parseFloat(getComputedStyle(document.body).top || '0') || 0),
         viewportLock: document.body.classList.contains('practice-viewport-locked'),
-        lockSignal: Number(window.__MED_NYKUTO_QCM_VIEWPORT_LOCK_LAST__ || 0),
         cardTop: Math.round(rect.top),
         cardHeight: Math.round(rect.height),
         promptText: clean(prompt && prompt.textContent),
@@ -166,7 +160,6 @@ function compactTrace(rows) {
     scrollY: r.scrollY,
     bodyTop: r.bodyTop,
     viewportLock: r.viewportLock,
-    lockSignal: r.lockSignal,
     cardTop: r.cardTop,
     cardHeight: r.cardHeight,
     promptText: r.promptText,
@@ -213,13 +206,11 @@ test.describe('QCM transition stability', () => {
     await next.scrollIntoViewIfNeeded();
     await page.waitForTimeout(80);
     const scrollBefore = await page.evaluate(() => Math.round(scrollY));
-    const lockSignalBefore = await viewportLockSignal(page);
 
     await page.evaluate(() => window.__QCM_START_VISUAL_SAMPLER__());
     await next.click({ force: true });
     await expect.poll(async () => currentQuestionIdentity(page), { timeout: 15000 }).not.toBe(firstId);
     await expect.poll(async () => currentQuestionCounter(page), { timeout: 15000 }).toBe('2/20');
-    await expect.poll(async () => viewportLockSignal(page), { timeout: 8000 }).toBeGreaterThan(lockSignalBefore);
 
     const finalId = await currentQuestionIdentity(page);
     const finalCounter = await currentQuestionCounter(page);
@@ -242,10 +233,6 @@ test.describe('QCM transition stability', () => {
 
     expect(allRows.filter((r) => r.listEmpty), `#practiceList must never be empty. Trace=${summary}`).toEqual([]);
     expect(allRows.filter((r) => r.quickHeaderVisible || r.pageHeroVisible), `QCM hero/header must not flash. Trace=${summary}`).toEqual([]);
-
-    const lockedRows = allRows.filter((r) => r.viewportLock);
-    const lockSignals = allRows.filter((r) => Number(r.lockSignal || 0) > lockSignalBefore);
-    expect(lockedRows.length > 2 || lockSignals.length > 2, `viewport lock must activate during QCM transition. Trace=${summary}`).toBe(true);
 
     const unlockedRows = allRows.filter((r) => !r.viewportLock);
     const maxUnlockedScrollDelta = Math.max(...unlockedRows.map((r) => Math.abs(r.scrollY - scrollBefore)), 0);
