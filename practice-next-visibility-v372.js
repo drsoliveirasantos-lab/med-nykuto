@@ -1,17 +1,11 @@
-/* v388 — native visible Next + broad QCM viewport lock.
-   This file keeps the native Siguiente handler as the only owner of currentIndex.
-   It also contains the transition viewport lock directly in the already-loaded controller,
-   so tests and production pages cannot stay stuck on the old v387 flag when the extra file
-   is delayed, cached, or not loaded by the test server. */
+/* v388 — native visible Next + safe QCM transition marker.
+   This file keeps the native app.bundle.js handler as the only owner of currentIndex.
+   It must not freeze body scroll or intercept touch scrolling on options. */
 (function(){
   'use strict';
   var VERSION = 'v388-broad-qcm-viewport-lock';
-  var transitionUntil = 0;
-  var lockedScrollY = null;
-  var restoreTimer = null;
-  var nativeScrollToRef = null;
-  var nativeScrollByRef = null;
-  var bodyLock = null;
+  var transitionTimer = null;
+
   window.__MED_NYKUTO_NEXT_VISIBILITY__ = VERSION;
 
   function isPractice(){
@@ -23,122 +17,6 @@
       var p = new URLSearchParams(location.search || '');
       return !!(p.get('course') || p.get('module'));
     }catch(e){ return false; }
-  }
-
-  function inTransition(){
-    return isPractice() && Date.now() < transitionUntil;
-  }
-
-  function nativeScrollTo(x, y){
-    var fn = nativeScrollToRef || window.scrollTo;
-    if(typeof fn === 'function') return fn.call(window, x, y);
-  }
-
-  function readCurrentScrollY(){
-    return Math.round(window.scrollY || window.pageYOffset || 0);
-  }
-
-  function blurPracticeFocus(target){
-    try{
-      if(target && target.blur) target.blur();
-      var active = document.activeElement;
-      if(active && active.closest && active.closest('#practiceList') && active.blur) active.blur();
-    }catch(e){}
-  }
-
-  function lockBodyViewport(){
-    if(!isPractice() || !document.body) return;
-    var y = lockedScrollY == null ? readCurrentScrollY() : lockedScrollY;
-    if(bodyLock){
-      document.body.style.top = '-' + y + 'px';
-      document.body.classList.add('practice-rerendering','practice-viewport-locked');
-      return;
-    }
-    bodyLock = {
-      position: document.body.style.position,
-      top: document.body.style.top,
-      left: document.body.style.left,
-      right: document.body.style.right,
-      width: document.body.style.width,
-      overflow: document.body.style.overflow,
-      touchAction: document.body.style.touchAction,
-      overscrollBehavior: document.body.style.overscrollBehavior,
-      htmlOverflow: document.documentElement.style.overflow,
-      htmlOverscrollBehavior: document.documentElement.style.overscrollBehavior
-    };
-    document.body.classList.add('practice-rerendering','practice-viewport-locked');
-    document.body.dataset.qcmViewportLocked = String(y);
-    document.documentElement.style.overflow = 'hidden';
-    document.documentElement.style.overscrollBehavior = 'none';
-    document.body.style.position = 'fixed';
-    document.body.style.top = '-' + y + 'px';
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    document.body.style.width = '100%';
-    document.body.style.overflow = 'hidden';
-    document.body.style.touchAction = 'none';
-    document.body.style.overscrollBehavior = 'none';
-    window.__MED_NYKUTO_QCM_VIEWPORT_LOCK_LAST__ = Date.now();
-  }
-
-  function unlockBodyViewport(){
-    if(!bodyLock || !document.body) return;
-    var y = lockedScrollY == null ? parseInt(document.body.dataset.qcmViewportLocked || '0', 10) || 0 : lockedScrollY;
-    var saved = bodyLock;
-    bodyLock = null;
-    document.body.style.position = saved.position || '';
-    document.body.style.top = saved.top || '';
-    document.body.style.left = saved.left || '';
-    document.body.style.right = saved.right || '';
-    document.body.style.width = saved.width || '';
-    document.body.style.overflow = saved.overflow || '';
-    document.body.style.touchAction = saved.touchAction || '';
-    document.body.style.overscrollBehavior = saved.overscrollBehavior || '';
-    document.documentElement.style.overflow = saved.htmlOverflow || '';
-    document.documentElement.style.overscrollBehavior = saved.htmlOverscrollBehavior || '';
-    delete document.body.dataset.qcmViewportLocked;
-    document.body.classList.remove('practice-rerendering','practice-viewport-locked');
-    nativeScrollTo(0, y);
-  }
-
-  function restoreLockedScroll(){
-    if(!inTransition() || lockedScrollY == null) return;
-    if(bodyLock && document.body){
-      document.body.style.top = '-' + lockedScrollY + 'px';
-      return;
-    }
-    if(Math.abs(readCurrentScrollY() - lockedScrollY) > 1) nativeScrollTo(0, lockedScrollY);
-  }
-
-  function clearTransitionIfDone(){
-    if(Date.now() < transitionUntil) return;
-    if(restoreTimer) clearInterval(restoreTimer);
-    restoreTimer = null;
-    unlockBodyViewport();
-    if(lockedScrollY != null) nativeScrollTo(0, lockedScrollY);
-    lockedScrollY = null;
-  }
-
-  function scheduleScrollLock(ms){
-    if(restoreTimer) clearInterval(restoreTimer);
-    restoreTimer = setInterval(function(){
-      if(!inTransition()){
-        clearTransitionIfDone();
-        return;
-      }
-      restoreLockedScroll();
-    }, 8);
-    setTimeout(clearTransitionIfDone, ms || 1150);
-  }
-
-  function markTransition(ms, target){
-    if(!isPractice()) return;
-    var duration = ms || 1150;
-    if(lockedScrollY == null) lockedScrollY = readCurrentScrollY();
-    transitionUntil = Math.max(transitionUntil, Date.now() + duration);
-    blurPracticeFocus(target);
-    lockBodyViewport();
-    scheduleScrollLock(duration + 120);
   }
 
   function answered(c){
@@ -163,6 +41,26 @@
       '.single-question-card [data-action="previous-question"]',
       '.single-question-card .option'
     ].join(','));
+  }
+
+  function markTransition(ms, target){
+    if(!isPractice() || !document.body) return;
+    window.__MED_NYKUTO_QCM_VIEWPORT_LOCK_LAST__ = Date.now();
+    try{
+      if(target && target.blur) target.blur();
+      var active = document.activeElement;
+      if(active && active.closest && active.closest('#practiceList') && active.blur) active.blur();
+    }catch(e){}
+
+    document.body.classList.add('practice-rerendering','practice-viewport-locked');
+    document.body.dataset.qcmViewportLocked = String(Date.now());
+    if(transitionTimer) clearTimeout(transitionTimer);
+    transitionTimer = setTimeout(function(){
+      transitionTimer = null;
+      if(!document.body) return;
+      delete document.body.dataset.qcmViewportLocked;
+      document.body.classList.remove('practice-rerendering','practice-viewport-locked');
+    }, ms || 220);
   }
 
   function patchEmptyPracticeListRender(){
@@ -205,10 +103,6 @@
     if(typeof nativeScrollIntoView !== 'function') return;
     Element.prototype.scrollIntoView = function(options){
       if(isPractice() && this && this.matches && this.matches('#practiceList, .single-question-card, .question-difficulty-panel, [data-action="next-question"], [data-action="previous-question"], .option')){
-        if(inTransition()){
-          restoreLockedScroll();
-          return;
-        }
         var opts = typeof options === 'object' && options ? Object.assign({}, options) : {};
         opts.behavior = 'auto';
         if(!opts.block) opts.block = 'nearest';
@@ -235,33 +129,6 @@
     Object.defineProperty(HTMLElement.prototype, '__medNykutoNextStableFocusV388', {value:true});
   }
 
-  function patchWindowScroll(){
-    if(window.__medNykutoNextStableWindowScrollV388) return;
-    var nativeScrollToFn = window.scrollTo;
-    var nativeScrollByFn = window.scrollBy;
-    if(typeof nativeScrollToFn === 'function' && !nativeScrollToRef) nativeScrollToRef = nativeScrollToFn;
-    if(typeof nativeScrollByFn === 'function' && !nativeScrollByRef) nativeScrollByRef = nativeScrollByFn;
-    if(typeof nativeScrollToFn === 'function'){
-      window.scrollTo = function(){
-        if(inTransition()){
-          if(lockedScrollY == null) lockedScrollY = readCurrentScrollY();
-          return restoreLockedScroll();
-        }
-        return nativeScrollToFn.apply(window, arguments);
-      };
-    }
-    if(typeof nativeScrollByFn === 'function'){
-      window.scrollBy = function(){
-        if(inTransition()){
-          if(lockedScrollY == null) lockedScrollY = readCurrentScrollY();
-          return restoreLockedScroll();
-        }
-        return nativeScrollByFn.apply(window, arguments);
-      };
-    }
-    Object.defineProperty(window, '__medNykutoNextStableWindowScrollV388', {value:true});
-  }
-
   function sync(){
     if(!isPractice()) return;
     var scoped = hasScope();
@@ -277,18 +144,9 @@
         btn.style.pointerEvents = 'auto';
         btn.style.touchAction = 'manipulation';
       });
-    });
-  }
-
-  function bindDirectButtons(){
-    if(!isPractice()) return;
-    document.querySelectorAll('#practiceList [data-action="next-question"], #practiceList [data-action="previous-question"], #practiceList .option').forEach(function(el){
-      if(el.dataset.qcmViewportLockBound === 'v388') return;
-      el.dataset.qcmViewportLockBound = 'v388';
-      ['pointerdown','touchstart','mousedown'].forEach(function(type){
-        el.addEventListener(type, function(ev){ markTransition(950, ev.currentTarget); }, true);
+      c.querySelectorAll('.option').forEach(function(option){
+        option.style.touchAction = 'pan-y';
       });
-      el.addEventListener('click', function(ev){ markTransition(1150, ev.currentTarget); }, true);
     });
   }
 
@@ -305,12 +163,13 @@
       'body.practice-page .single-question-card [data-action="next-question"]:disabled{opacity:1!important}',
       'body.practice-page #practiceList{min-height:70vh;overflow-anchor:none!important}',
       'body.practice-page .single-question-card,body.practice-page .practice-headbox{scroll-margin-top:92px}',
+      'body.practice-page .single-question-card .option{touch-action:pan-y!important;-webkit-tap-highlight-color:rgba(216,180,91,.14)}',
       'body.practice-page.practice-has-scope .practice-quick-header,body.practice-page.practice-has-scope .page-hero,body.practice-page.practice-focus .practice-quick-header,body.practice-page.practice-focus .page-hero{display:none!important;visibility:hidden!important}',
       'html:has(body.practice-page){scroll-behavior:auto!important}',
       'html:has(body.practice-rerendering),body.practice-page.practice-rerendering{scroll-behavior:auto!important;overflow-anchor:none!important}',
       'body.practice-page.practice-rerendering *,body.practice-page.practice-rerendering .single-question-card,body.practice-page.practice-rerendering .option,body.practice-page.practice-rerendering .btn{scroll-behavior:auto!important;transition:none!important;animation:none!important}',
       'body.practice-page.practice-rerendering #practiceList{contain:layout paint;will-change:auto;overflow-anchor:none!important}',
-      'body.practice-page.practice-viewport-locked{max-width:100vw!important;overflow:hidden!important}'
+      'body.practice-page.practice-viewport-locked{max-width:100vw!important}'
     ].join('');
     document.head.appendChild(style);
   }
@@ -320,31 +179,22 @@
     patchReplaceChildren();
     patchScrollIntoView();
     patchFocus();
-    patchWindowScroll();
     inject();
     sync();
-    bindDirectButtons();
     window.__MED_NYKUTO_NEXT_VISIBILITY__ = VERSION;
   }
 
-  function onPreAction(e){
-    if(isPracticeActionTarget(e.target)) markTransition(950, e.target);
-  }
-
   function onClick(e){
-    if(isPracticeActionTarget(e.target)) markTransition(1150, e.target);
+    if(isPracticeActionTarget(e.target)) setTimeout(function(){ markTransition(220, e.target); }, 0);
     setTimeout(run, 0);
     setTimeout(run, 20);
     setTimeout(run, 120);
     setTimeout(run, 360);
   }
 
-  document.addEventListener('pointerdown', onPreAction, true);
-  document.addEventListener('touchstart', onPreAction, true);
-  document.addEventListener('mousedown', onPreAction, true);
   document.addEventListener('click', onClick, true);
   document.addEventListener('keydown', function(e){
-    if((e.key === 'Enter' || e.key === ' ') && isPracticeActionTarget(e.target)) markTransition(1150, e.target);
+    if((e.key === 'Enter' || e.key === ' ') && isPracticeActionTarget(e.target)) setTimeout(function(){ markTransition(220, e.target); }, 0);
   }, true);
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
