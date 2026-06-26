@@ -1,18 +1,18 @@
-/* v386 — native visible next + real scroll/focus lock.
+/* v387 — native visible next + fixed viewport transition.
    Keeps the native Siguiente handler as the only owner of currentIndex.
-   Fixes the remaining mobile flicker caused by a delayed scroll/focus jump: the previous
-   lock called the patched window.scrollTo recursively, so the restoration was ineffective.
-   This version keeps a native scrollTo reference, marks transitions on pointer/touch start,
-   and forces practice focus calls to use preventScroll. No overlay, no duplicate progress
-   layer, no synthetic No sé + Next sequence.
+   v386 proved the bug is a real scroll jump. This version freezes the visual viewport by
+   fixing the body at the current scroll offset during the short QCM rerender window, then
+   restores the exact scroll position with the native scrollTo reference. No overlay, no
+   duplicate progress layer, no synthetic No sé + Next sequence.
 */
 (function(){
   'use strict';
-  var VERSION = 'v386-native-next-real-scroll-focus-lock';
+  var VERSION = 'v387-native-next-fixed-viewport-lock';
   var transitionUntil = 0;
   var lockedScrollY = null;
   var restoreTimer = null;
   var nativeScrollToRef = null;
+  var bodyLock = null;
   window.__MED_NYKUTO_NEXT_VISIBILITY__ = VERSION;
 
   function isPractice(){
@@ -35,8 +35,58 @@
     if(typeof fn === 'function') return fn.call(window, x, y);
   }
 
+  function lockBodyViewport(){
+    if(!isPractice() || !document.body || bodyLock) return;
+    var y = lockedScrollY == null ? window.scrollY : lockedScrollY;
+    bodyLock = {
+      position: document.body.style.position,
+      top: document.body.style.top,
+      left: document.body.style.left,
+      right: document.body.style.right,
+      width: document.body.style.width,
+      overflow: document.body.style.overflow,
+      touchAction: document.body.style.touchAction,
+      overscrollBehavior: document.body.style.overscrollBehavior,
+      htmlOverflow: document.documentElement.style.overflow,
+      htmlOverscrollBehavior: document.documentElement.style.overscrollBehavior
+    };
+    document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.overscrollBehavior = 'none';
+    document.body.style.position = 'fixed';
+    document.body.style.top = '-' + y + 'px';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
+    document.body.style.overscrollBehavior = 'none';
+    document.body.dataset.qcmViewportLocked = String(y);
+  }
+
+  function unlockBodyViewport(){
+    if(!bodyLock || !document.body) return;
+    var y = lockedScrollY == null ? parseInt(document.body.dataset.qcmViewportLocked || '0', 10) || 0 : lockedScrollY;
+    document.body.style.position = bodyLock.position;
+    document.body.style.top = bodyLock.top;
+    document.body.style.left = bodyLock.left;
+    document.body.style.right = bodyLock.right;
+    document.body.style.width = bodyLock.width;
+    document.body.style.overflow = bodyLock.overflow;
+    document.body.style.touchAction = bodyLock.touchAction;
+    document.body.style.overscrollBehavior = bodyLock.overscrollBehavior;
+    document.documentElement.style.overflow = bodyLock.htmlOverflow;
+    document.documentElement.style.overscrollBehavior = bodyLock.htmlOverscrollBehavior;
+    delete document.body.dataset.qcmViewportLocked;
+    bodyLock = null;
+    nativeScrollTo(0, y);
+  }
+
   function restoreLockedScroll(){
     if(!inTransition() || lockedScrollY == null) return;
+    if(bodyLock && document.body){
+      document.body.style.top = '-' + lockedScrollY + 'px';
+      return;
+    }
     if(Math.abs(window.scrollY - lockedScrollY) > 1) nativeScrollTo(0, lockedScrollY);
   }
 
@@ -44,9 +94,10 @@
     if(Date.now() < transitionUntil) return;
     if(restoreTimer) clearInterval(restoreTimer);
     restoreTimer = null;
+    unlockBodyViewport();
     if(lockedScrollY != null) nativeScrollTo(0, lockedScrollY);
     lockedScrollY = null;
-    if(document.body) document.body.classList.remove('practice-rerendering');
+    if(document.body) document.body.classList.remove('practice-rerendering','practice-viewport-locked');
   }
 
   function scheduleScrollLock(ms){
@@ -74,7 +125,8 @@
     if(lockedScrollY == null) lockedScrollY = window.scrollY;
     transitionUntil = Math.max(transitionUntil, Date.now() + duration);
     blurPracticeFocus(target);
-    if(document.body) document.body.classList.add('practice-rerendering');
+    if(document.body) document.body.classList.add('practice-rerendering','practice-viewport-locked');
+    lockBodyViewport();
     scheduleScrollLock(duration + 140);
   }
 
@@ -92,7 +144,7 @@
 
   function patchEmptyPracticeListRender(){
     var desc = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
-    if(!desc || !desc.get || !desc.set || Element.prototype.__medNykutoNextStableRenderV386) return;
+    if(!desc || !desc.get || !desc.set || Element.prototype.__medNykutoNextStableRenderV387) return;
 
     Object.defineProperty(Element.prototype, 'innerHTML', {
       configurable: true,
@@ -108,11 +160,11 @@
       }
     });
 
-    Object.defineProperty(Element.prototype, '__medNykutoNextStableRenderV386', {value:true});
+    Object.defineProperty(Element.prototype, '__medNykutoNextStableRenderV387', {value:true});
   }
 
   function patchReplaceChildren(){
-    if(Element.prototype.__medNykutoNextStableReplaceChildrenV386) return;
+    if(Element.prototype.__medNykutoNextStableReplaceChildrenV387) return;
     var nativeReplaceChildren = Element.prototype.replaceChildren;
     if(typeof nativeReplaceChildren !== 'function') return;
     Element.prototype.replaceChildren = function(){
@@ -123,11 +175,11 @@
       }
       return nativeReplaceChildren.apply(this, arguments);
     };
-    Object.defineProperty(Element.prototype, '__medNykutoNextStableReplaceChildrenV386', {value:true});
+    Object.defineProperty(Element.prototype, '__medNykutoNextStableReplaceChildrenV387', {value:true});
   }
 
   function patchScrollIntoView(){
-    if(Element.prototype.__medNykutoNextStableScrollV386) return;
+    if(Element.prototype.__medNykutoNextStableScrollV387) return;
     var nativeScrollIntoView = Element.prototype.scrollIntoView;
     if(typeof nativeScrollIntoView !== 'function') return;
     Element.prototype.scrollIntoView = function(options){
@@ -143,11 +195,11 @@
       }
       return nativeScrollIntoView.apply(this, arguments);
     };
-    Object.defineProperty(Element.prototype, '__medNykutoNextStableScrollV386', {value:true});
+    Object.defineProperty(Element.prototype, '__medNykutoNextStableScrollV387', {value:true});
   }
 
   function patchFocus(){
-    if(HTMLElement.prototype.__medNykutoNextStableFocusV386) return;
+    if(HTMLElement.prototype.__medNykutoNextStableFocusV387) return;
     var nativeFocus = HTMLElement.prototype.focus;
     if(typeof nativeFocus !== 'function') return;
     HTMLElement.prototype.focus = function(options){
@@ -159,11 +211,11 @@
       }
       return nativeFocus.apply(this, arguments);
     };
-    Object.defineProperty(HTMLElement.prototype, '__medNykutoNextStableFocusV386', {value:true});
+    Object.defineProperty(HTMLElement.prototype, '__medNykutoNextStableFocusV387', {value:true});
   }
 
   function patchWindowScroll(){
-    if(window.__medNykutoNextStableWindowScrollV386) return;
+    if(window.__medNykutoNextStableWindowScrollV387) return;
     var nativeScrollToFn = window.scrollTo;
     var nativeScrollBy = window.scrollBy;
     if(typeof nativeScrollToFn === 'function' && !nativeScrollToRef) nativeScrollToRef = nativeScrollToFn;
@@ -171,7 +223,7 @@
       window.scrollTo = function(){
         if(inTransition()){
           if(lockedScrollY == null) lockedScrollY = window.scrollY;
-          return nativeScrollTo(0, lockedScrollY);
+          return restoreLockedScroll();
         }
         return nativeScrollToFn.apply(window, arguments);
       };
@@ -180,12 +232,12 @@
       window.scrollBy = function(){
         if(inTransition()){
           if(lockedScrollY == null) lockedScrollY = window.scrollY;
-          return nativeScrollTo(0, lockedScrollY);
+          return restoreLockedScroll();
         }
         return nativeScrollBy.apply(window, arguments);
       };
     }
-    Object.defineProperty(window, '__medNykutoNextStableWindowScrollV386', {value:true});
+    Object.defineProperty(window, '__medNykutoNextStableWindowScrollV387', {value:true});
   }
 
   function sync(){
@@ -207,13 +259,13 @@
   }
 
   function inject(){
-    if(document.getElementById('nextVisibilityV386Style')) return;
-    ['nextVisibilityV385Style','nextVisibilityV384Style','nextVisibilityV383Style','nextVisibilityV382Style','nextVisibilityV381Style','nextVisibilityV380Style','nextVisibilityV379Style','nextVisibilityV378Style','nextVisibilityV377Style','nextVisibilityV376Style','nextVisibilityV375Style','nextVisibilityV374Style','nextVisibilityV373Style','nextVisibilityV372Style','practiceRenderStabilityV390Css','practiceRenderStabilityV389Css'].forEach(function(id){
+    if(document.getElementById('nextVisibilityV387Style')) return;
+    ['nextVisibilityV386Style','nextVisibilityV385Style','nextVisibilityV384Style','nextVisibilityV383Style','nextVisibilityV382Style','nextVisibilityV381Style','nextVisibilityV380Style','nextVisibilityV379Style','nextVisibilityV378Style','nextVisibilityV377Style','nextVisibilityV376Style','nextVisibilityV375Style','nextVisibilityV374Style','nextVisibilityV373Style','nextVisibilityV372Style','practiceRenderStabilityV390Css','practiceRenderStabilityV389Css'].forEach(function(id){
       var old = document.getElementById(id);
       if(old) old.remove();
     });
     var style = document.createElement('style');
-    style.id = 'nextVisibilityV386Style';
+    style.id = 'nextVisibilityV387Style';
     style.textContent = [
       'body.practice-page .single-question-card [data-action="next-question"]{display:flex!important;visibility:visible!important;pointer-events:auto!important;opacity:1!important;touch-action:manipulation!important;-webkit-tap-highlight-color:transparent}',
       'body.practice-page .single-question-card [data-action="next-question"]:disabled{opacity:1!important}',
@@ -223,7 +275,8 @@
       'html:has(body.practice-page){scroll-behavior:auto!important}',
       'html:has(body.practice-rerendering),body.practice-page.practice-rerendering{scroll-behavior:auto!important;overflow-anchor:none!important}',
       'body.practice-page.practice-rerendering *,body.practice-page.practice-rerendering .single-question-card,body.practice-page.practice-rerendering .option,body.practice-page.practice-rerendering .btn{scroll-behavior:auto!important;transition:none!important;animation:none!important}',
-      'body.practice-page.practice-rerendering #practiceList{contain:layout paint;will-change:auto;overflow-anchor:none!important}'
+      'body.practice-page.practice-rerendering #practiceList{contain:layout paint;will-change:auto;overflow-anchor:none!important}',
+      'body.practice-page.practice-viewport-locked{max-width:100vw!important}'
     ].join('');
     document.head.appendChild(style);
   }
