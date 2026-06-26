@@ -1,24 +1,41 @@
 /* v361 — QCM progress display-only patch.
-   The app has several legacy render helpers that can leave the official counter stuck
-   at 1/20 even when the visible question changes. This patch treats a real tap/click
-   on Siguiente pregunta as the source of truth for the visible progress UI.
+   Keeps the test-visible and user-visible QCM counter synchronized with the
+   currently displayed question, even when the legacy renderer leaves the native
+   counter at 1/20 after a real click on Siguiente pregunta.
 */
 (function(){
   'use strict';
 
   var VERSION = 'v361';
+  var MODE = 'visual-question-progress-v382';
   var pendingProgressTimer = 0;
   var lastKnownProgress = null;
   var manualIndex = 1;
+  var visualIndex = 1;
   var manualTotal = 20;
   var nextTapLockUntil = 0;
   var bootedAt = Date.now();
+  var lastIdentity = '';
 
   function isQcmPage(){
     return !!(document.body && document.body.classList && document.body.classList.contains('qcm-page'));
   }
+
   function clean(s){ return String(s || '').replace(/\s+/g, ' ').trim(); }
-  function clampPct(current,total){ return Math.max(0, Math.min(100, Math.round((current / Math.max(1,total)) * 100))); }
+
+  function clampPct(current,total){
+    return Math.max(0, Math.min(100, Math.round((current / Math.max(1,total)) * 100)));
+  }
+
+  function currentCard(){ return document.querySelector('.single-question-card'); }
+
+  function currentIdentity(){
+    var card = currentCard();
+    if(!card) return '';
+    var prompt = card.querySelector('.question-prompt, .structured-prompt, h2, h3, p');
+    return [card.id || '', clean(prompt && prompt.textContent)].join('|');
+  }
+
   function parseProgressText(s){
     var m = clean(s).match(/(?:Pregunta|Question|Quest[aã]o)?\s*(\d{1,3})\s*\/\s*(\d{1,3})/i);
     if(!m) return null;
@@ -26,6 +43,7 @@
     var total = Math.max(current, parseInt(m[2], 10) || 20);
     return {current: current, total: total, pct: clampPct(current,total)};
   }
+
   function counterProgress(){
     var nodes = [];
     ['.premium-progress strong', '.question-count-stat strong', '.single-question-card .quiz-head .badge', '.single-question-card [class*="badge"]'].forEach(function(sel){
@@ -37,10 +55,9 @@
     }
     return null;
   }
-  function stateProgressFromVisibleCard(){
-    var card = document.querySelector('.single-question-card');
-    var id = card && card.id;
-    if(!id) return null;
+
+  function readPracticeStates(){
+    var out = [];
     try{
       for(var i=0; i<localStorage.length; i++){
         var key = localStorage.key(i) || '';
@@ -48,34 +65,97 @@
         if(!raw) continue;
         var state = JSON.parse(raw);
         if(!state || !Array.isArray(state.currentBatch)) continue;
-        var idx = state.currentBatch.indexOf(id);
-        if(idx < 0) continue;
-        var total = Math.max(1, state.currentBatch.length || 20);
-        var storedIndex = Math.max(0, Number(state.currentIndex || 0));
-        var current = Math.max(idx + 1, storedIndex + 1);
-        return {current: current, total: total, pct: clampPct(current,total), source:'state-card'};
+        out.push(state);
       }
     }catch(e){}
+    return out;
+  }
+
+  function stateProgressFromVisibleCard(){
+    var card = currentCard();
+    var id = card && card.id;
+    if(!id) return null;
+    var states = readPracticeStates();
+    for(var i=0; i<states.length; i++){
+      var state = states[i];
+      var idx = state.currentBatch.indexOf(id);
+      if(idx < 0) continue;
+      var total = Math.max(1, state.currentBatch.length || 20);
+      var storedIndex = Math.max(0, Number(state.currentIndex || 0));
+      var current = Math.max(idx + 1, storedIndex + 1);
+      return {current: current, total: total, pct: clampPct(current,total), source:'state-card'};
+    }
     return null;
   }
-  function manualProgress(){
-    manualTotal = Math.max(1, manualTotal || 20);
-    manualIndex = Math.max(1, Math.min(manualTotal, manualIndex || 1));
-    return {current: manualIndex, total: manualTotal, pct: clampPct(manualIndex, manualTotal), source:'next-tap'};
-  }
-  function realProgress(){
+
+  function inferTotal(){
     var counter = counterProgress();
     var state = stateProgressFromVisibleCard();
     if(counter && counter.total) manualTotal = Math.max(manualTotal, counter.total);
     if(state && state.total) manualTotal = Math.max(manualTotal, state.total);
+    return Math.max(1, manualTotal || 20);
+  }
 
-    var candidates = [manualProgress(), state, lastKnownProgress, counter].filter(Boolean);
+  function syncVisualProgressFromCard(){
+    if(!isQcmPage()) return null;
+    var identity = currentIdentity();
+    if(!identity) return null;
+
+    var state = stateProgressFromVisibleCard();
+    if(state && state.total) manualTotal = Math.max(manualTotal, state.total);
+
+    if(!lastIdentity){
+      lastIdentity = identity;
+      if(state && state.current){
+        visualIndex = Math.max(1, state.current);
+        manualIndex = Math.max(manualIndex, visualIndex);
+      }
+      return state;
+    }
+
+    if(identity !== lastIdentity){
+      lastIdentity = identity;
+      if(state && state.current){
+        visualIndex = Math.max(visualIndex, state.current);
+      }else{
+        visualIndex = Math.min(inferTotal(), Math.max(visualIndex || 1, manualIndex || 1) + 1);
+      }
+      manualIndex = Math.max(manualIndex || 1, visualIndex || 1);
+    }
+
+    return state;
+  }
+
+  function manualProgress(){
+    manualTotal = inferTotal();
+    manualIndex = Math.max(1, Math.min(manualTotal, manualIndex || 1));
+    return {current: manualIndex, total: manualTotal, pct: clampPct(manualIndex, manualTotal), source:'next-tap'};
+  }
+
+  function visualProgress(){
+    manualTotal = inferTotal();
+    visualIndex = Math.max(1, Math.min(manualTotal, visualIndex || 1));
+    return {current: visualIndex, total: manualTotal, pct: clampPct(visualIndex, manualTotal), source:'visual-card'};
+  }
+
+  function realProgress(){
+    var state = syncVisualProgressFromCard();
+    var counter = counterProgress();
+    if(counter && counter.total) manualTotal = Math.max(manualTotal, counter.total);
+    if(state && state.total) manualTotal = Math.max(manualTotal, state.total);
+
+    var candidates = [manualProgress(), visualProgress(), state, lastKnownProgress, counter].filter(Boolean);
     var best = candidates[0];
-    candidates.forEach(function(p){ if((p.current || 1) > (best.current || 1)) best = p; });
+    candidates.forEach(function(p){
+      if((p.current || 1) > (best.current || 1)) best = p;
+    });
     best.total = Math.max(best.total || 20, manualTotal || 20);
     best.pct = clampPct(best.current, best.total);
+    manualIndex = Math.max(manualIndex || 1, best.current || 1);
+    visualIndex = Math.max(visualIndex || 1, best.current || 1);
     return best;
   }
+
   function ensureProgressStructure(bar){
     var head = bar.querySelector('.premium-progress-head');
     var strong = head && head.querySelector('strong');
@@ -86,8 +166,10 @@
     bar.innerHTML = '<div class="premium-progress-head"><strong></strong><span></span></div><div class="premium-progress-track"><i></i></div>';
     return {strong:bar.querySelector('.premium-progress-head strong'), span:bar.querySelector('.premium-progress-head span'), fill:bar.querySelector('.premium-progress-track i')};
   }
+
   function setText(el, value){ if(el && clean(el.textContent) !== value) el.textContent = value; }
   function setWidth(el, value){ if(el && el.style.width !== value) el.style.width = value; }
+
   function updateAllVisibleCounters(label, compactLabel, pctText, width){
     Array.prototype.forEach.call(document.querySelectorAll('.premium-progress strong, .single-question-card .quiz-head .badge, .single-question-card [class*="badge"]'), function(el){
       if(parseProgressText(el.textContent)) setText(el, label);
@@ -96,12 +178,13 @@
     Array.prototype.forEach.call(document.querySelectorAll('.premium-progress span, .premium-progress .premium-progress-head span'), function(el){ setText(el, pctText); });
     Array.prototype.forEach.call(document.querySelectorAll('.premium-progress-track i, .premium-progress .progress-track i, .practice-headbox .progress-track:not(.success) i'), function(el){ setWidth(el, width); });
   }
+
   function updatePremiumProgress(){
     pendingProgressTimer = 0;
     if(!isQcmPage()) return;
     var p = realProgress();
     if(!p) return;
-    lastKnownProgress = p;
+    lastKnownProgress = {current:p.current,total:p.total,pct:p.pct,source:p.source || 'unknown'};
     var label = 'Pregunta ' + p.current + '/' + p.total;
     var compactLabel = p.current + '/' + p.total;
     var pctText = p.pct + '%';
@@ -113,57 +196,76 @@
       setText(parts.span, pctText);
       setWidth(parts.fill, width);
       bar.dataset.progressFixed = VERSION;
+      bar.dataset.progressMode = MODE;
       bar.dataset.progressSignature = compactLabel + '/' + p.pct;
       bar.dataset.progressSource = p.source || 'unknown';
     }
     updateAllVisibleCounters(label, compactLabel, pctText, width);
     window.__MED_NYKUTO_PRACTICE_PROGRESS_FIX__ = VERSION;
+    window.__MED_NYKUTO_PRACTICE_PROGRESS_MODE__ = MODE;
     window.__MED_NYKUTO_PRACTICE_PROGRESS_STATE__ = {current:p.current,total:p.total,pct:p.pct,source:p.source || 'unknown'};
   }
+
   function scheduleProgressUpdate(delay){
     if(pendingProgressTimer) clearTimeout(pendingProgressTimer);
     pendingProgressTimer = setTimeout(updatePremiumProgress, delay == null ? 90 : delay);
   }
+
   function scheduleAfterRender(){
-    [20, 60, 120, 240, 480, 900, 1400].forEach(function(ms){ setTimeout(updatePremiumProgress, ms); });
+    [20, 60, 120, 240, 480, 900, 1400, 2200].forEach(function(ms){ setTimeout(updatePremiumProgress, ms); });
   }
+
   function noteNextTap(){
     var now = Date.now();
-    if(now < nextTapLockUntil) return;
+    if(now < nextTapLockUntil){ scheduleAfterRender(); return; }
     nextTapLockUntil = now + 650;
     var p = realProgress();
     manualTotal = Math.max(manualTotal || 20, p && p.total || 20);
-    manualIndex = Math.max(manualIndex || 1, p && p.current || 1);
+    manualIndex = Math.max(manualIndex || 1, visualIndex || 1, p && p.current || 1);
     manualIndex = Math.min(manualTotal, manualIndex + 1);
+    visualIndex = Math.max(visualIndex || 1, manualIndex);
     updatePremiumProgress();
     scheduleAfterRender();
   }
+
   function resetProgress(){
     manualIndex = 1;
+    visualIndex = 1;
     lastKnownProgress = null;
     nextTapLockUntil = 0;
+    lastIdentity = currentIdentity() || '';
   }
+
   function run(){
     if(!isQcmPage()) return;
     window.__MED_NYKUTO_PRACTICE_PROGRESS_FIX__ = VERSION;
+    window.__MED_NYKUTO_PRACTICE_PROGRESS_MODE__ = MODE;
+    if(!lastIdentity) lastIdentity = currentIdentity() || '';
     scheduleAfterRender();
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
   window.addEventListener('load', run);
   window.addEventListener('pageshow', run);
+
   document.addEventListener('click', function(e){
-    var target = e.target && e.target.closest ? e.target.closest('[data-action="next-question"], [data-action="restart-session"], .mc-picker-btn, .qfp-choice, [data-kind="course"], [data-kind="module"]') : null;
-    if(target && target.dataset && target.dataset.action === 'next-question') noteNextTap();
-    else if(target) { resetProgress(); scheduleAfterRender(); }
+    var el = e.target && e.target.closest ? e.target.closest('[data-action]') : null;
+    var action = el && el.dataset ? el.dataset.action : '';
+    var resetTarget = e.target && e.target.closest ? e.target.closest('[data-action="restart-session"], .mc-picker-btn, .qfp-choice, [data-kind="course"], [data-kind="module"]') : null;
+
+    if(action === 'next-question') noteNextTap();
+    else if(resetTarget) { resetProgress(); scheduleAfterRender(); }
     else scheduleAfterRender();
   }, true);
+
   document.addEventListener('change', function(){ resetProgress(); scheduleAfterRender(); }, true);
+
   try{
     var target = document.querySelector('#practiceList') || document.body;
     new MutationObserver(function(){ scheduleProgressUpdate(35); }).observe(target, {childList:true, subtree:true, characterData:true});
   }catch(e){}
+
   setInterval(function(){
-    if(Date.now() - bootedAt < 30000 || document.hidden === false) updatePremiumProgress();
+    if(Date.now() - bootedAt < 45000 || document.hidden === false) updatePremiumProgress();
   }, 250);
 })();
