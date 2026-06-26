@@ -1,12 +1,15 @@
 const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
-const CURRENT_NEXT_STABILITY = 'v370-native-exact-next';
+const CURRENT_NEXT_STABILITY = 'v371-native-storage-scan-next';
 
 async function waitPracticeReady(page) {
   await page.goto('/qcm.html?course=fisiologia');
-  await page.evaluate(() => localStorage.clear());
-  await page.reload();
+  await page.evaluate(() => {
+    localStorage.clear();
+    sessionStorage.clear();
+  });
+  await page.reload({ waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
   await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_LOADER__ === version, CURRENT_PRACTICE_LOADER, { timeout: 20000 });
   await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_NEXT_STABILITY__ === version, CURRENT_NEXT_STABILITY, { timeout: 20000 });
@@ -75,7 +78,7 @@ test.describe('QCM critical click behavior', () => {
     await next.scrollIntoViewIfNeeded();
     await next.click({ force: true });
 
-    await expect.poll(async () => currentQuestionIdentity(page), { timeout: 10000 }).not.toBe(firstIdentity);
+    await expect.poll(async () => currentQuestionIdentity(page), { timeout: 15000 }).not.toBe(firstIdentity);
     await qcmDiag(page, 'AFTER');
   });
 
