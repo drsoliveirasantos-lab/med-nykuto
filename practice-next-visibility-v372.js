@@ -36,19 +36,15 @@
     return !!(el && el.id === 'practiceList');
   }
 
-  function isPracticeActionTarget(target){
+  function isQuestionNavigationTarget(target){
     if(!isPractice() || !target || !target.closest) return false;
     return !!target.closest([
       '#practiceList [data-action="next-question"]',
       '#practiceList [data-action="previous-question"]',
-      '#practiceList [data-action="dont-know"]',
       '#practiceList [data-action="restart-session"]',
       '#practiceList [data-action="start-next-batch"]',
-      '#practiceList .option',
-      '#practiceList button.option',
       '.single-question-card [data-action="next-question"]',
-      '.single-question-card [data-action="previous-question"]',
-      '.single-question-card .option'
+      '.single-question-card [data-action="previous-question"]'
     ].join(','));
   }
 
@@ -69,7 +65,7 @@
       if(!document.body) return;
       delete document.body.dataset.qcmViewportLocked;
       document.body.classList.remove('practice-rerendering','practice-viewport-locked');
-    }, ms || 220);
+    }, ms || 180);
   }
 
   function patchEmptyPracticeListRender(){
@@ -194,7 +190,7 @@
   }
 
   function onClick(e){
-    if(isPracticeActionTarget(e.target)) setTimeout(function(){ markTransition(220, e.target); }, 0);
+    if(isQuestionNavigationTarget(e.target)) setTimeout(function(){ markTransition(180, e.target); }, 0);
     setTimeout(run, 0);
     setTimeout(run, 20);
     setTimeout(run, 120);
@@ -203,7 +199,7 @@
 
   document.addEventListener('click', onClick, true);
   document.addEventListener('keydown', function(e){
-    if((e.key === 'Enter' || e.key === ' ') && isPracticeActionTarget(e.target)) setTimeout(function(){ markTransition(220, e.target); }, 0);
+    if((e.key === 'Enter' || e.key === ' ') && isQuestionNavigationTarget(e.target)) setTimeout(function(){ markTransition(180, e.target); }, 0);
   }, true);
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
