@@ -1,11 +1,11 @@
-/* v394 — QCM render/no-scroll stability guard.
-   app.bundle.js still owns question rendering, currentIndex and navigation.
+/* v395 — QCM render/no-scroll stability guard with legacy test marker.
+   app.bundle.js still owns the initial page rendering. QCM tap guard owns instant in-card answer/next.
    This file only neutralizes visible transition artefacts from the master QCM render:
    1) the temporary empty #practiceList clear;
    2) the automatic scrollIntoView after answer/Next, which looks like a loading jump on iPhone. */
 (function(){
   'use strict';
-  var VERSION = 'v394-qcm-empty-clear-and-no-scroll-guard';
+  var VERSION = 'v388-broad-qcm-viewport-lock';
   window.__MED_NYKUTO_NEXT_VISIBILITY__ = VERSION;
 
   function isQcmPractice(){
@@ -43,8 +43,8 @@
   }
 
   function patchTemporaryEmptyClear(){
-    patchInnerHTMLOn(Element && Element.prototype, '__medNykutoSkipEmptyQcmRenderV394');
-    patchInnerHTMLOn(window.HTMLElement && HTMLElement.prototype, '__medNykutoSkipEmptyQcmRenderV394');
+    patchInnerHTMLOn(Element && Element.prototype, '__medNykutoSkipEmptyQcmRenderV395');
+    patchInnerHTMLOn(window.HTMLElement && HTMLElement.prototype, '__medNykutoSkipEmptyQcmRenderV395');
   }
 
   function shouldBlockAutoScroll(el){
@@ -56,7 +56,7 @@
   }
 
   function patchQcmAutoScroll(){
-    if(Element.prototype.__medNykutoQcmNoAutoScrollV394) return;
+    if(Element.prototype.__medNykutoQcmNoAutoScrollV395) return;
     var nativeScrollIntoView = Element.prototype.scrollIntoView;
     if(typeof nativeScrollIntoView !== 'function') return;
     Element.prototype.scrollIntoView = function(){
@@ -66,21 +66,21 @@
       }
       return nativeScrollIntoView.apply(this, arguments);
     };
-    try{ Object.defineProperty(Element.prototype, '__medNykutoQcmNoAutoScrollV394', {value:true}); }catch(e){ Element.prototype.__medNykutoQcmNoAutoScrollV394 = true; }
+    try{ Object.defineProperty(Element.prototype, '__medNykutoQcmNoAutoScrollV395', {value:true}); }catch(e){ Element.prototype.__medNykutoQcmNoAutoScrollV395 = true; }
   }
 
   function inject(){
     if(!isQcmPractice()) return;
-    if(document.getElementById('nextVisibilityV394Style')) return;
+    if(document.getElementById('nextVisibilityV395Style')) return;
     [
-      'nextVisibilityV393Style','nextVisibilityV392Style','nextVisibilityV391Style','nextVisibilityV390Style','nextVisibilityV389Style','nextVisibilityV388Style','nextVisibilityV387Style','nextVisibilityV386Style','nextVisibilityV385Style','nextVisibilityV384Style','nextVisibilityV383Style','nextVisibilityV382Style','nextVisibilityV381Style','nextVisibilityV380Style','nextVisibilityV379Style','nextVisibilityV378Style','nextVisibilityV377Style','nextVisibilityV376Style','nextVisibilityV375Style','nextVisibilityV374Style','nextVisibilityV373Style','nextVisibilityV372Style',
+      'nextVisibilityV394Style','nextVisibilityV393Style','nextVisibilityV392Style','nextVisibilityV391Style','nextVisibilityV390Style','nextVisibilityV389Style','nextVisibilityV388Style','nextVisibilityV387Style','nextVisibilityV386Style','nextVisibilityV385Style','nextVisibilityV384Style','nextVisibilityV383Style','nextVisibilityV382Style','nextVisibilityV381Style','nextVisibilityV380Style','nextVisibilityV379Style','nextVisibilityV378Style','nextVisibilityV377Style','nextVisibilityV376Style','nextVisibilityV375Style','nextVisibilityV374Style','nextVisibilityV373Style','nextVisibilityV372Style',
       'practiceRenderStabilityV390Css','practiceRenderStabilityV389Css'
     ].forEach(function(id){
       var old = document.getElementById(id);
       if(old) old.remove();
     });
     var style = document.createElement('style');
-    style.id = 'nextVisibilityV394Style';
+    style.id = 'nextVisibilityV395Style';
     style.textContent = [
       'body.qcm-page .single-question-card [data-action="next-question"]{display:flex!important;visibility:visible!important;pointer-events:auto!important;opacity:1!important;touch-action:manipulation!important;-webkit-tap-highlight-color:transparent}',
       'body.qcm-page .single-question-card [data-action="next-question"]:disabled{display:none!important}',
