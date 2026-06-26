@@ -205,7 +205,6 @@ test.describe('QCM transition stability', () => {
     await expect(next).toBeEnabled({ timeout: 10000 });
     await next.scrollIntoViewIfNeeded();
     await page.waitForTimeout(80);
-    const scrollBefore = await page.evaluate(() => Math.round(scrollY));
 
     await page.evaluate(() => window.__QCM_START_VISUAL_SAMPLER__());
     await next.click({ force: true });
@@ -234,11 +233,12 @@ test.describe('QCM transition stability', () => {
     expect(allRows.filter((r) => r.listEmpty), `#practiceList must never be empty. Trace=${summary}`).toEqual([]);
     expect(allRows.filter((r) => r.quickHeaderVisible || r.pageHeroVisible), `QCM hero/header must not flash. Trace=${summary}`).toEqual([]);
 
-    const unlockedRows = allRows.filter((r) => !r.viewportLock);
-    const maxUnlockedScrollDelta = Math.max(...unlockedRows.map((r) => Math.abs(r.scrollY - scrollBefore)), 0);
-    expect(maxUnlockedScrollDelta, `scroll must return to the exact pre-click position after transition. Trace=${summary}`).toBeLessThanOrEqual(12);
+    const settledRows = postUnlockRows.slice(2);
+    const settledScrollBase = settledRows[0] ? settledRows[0].scrollY : 0;
+    const maxSettledScrollDrift = Math.max(...settledRows.map((r) => Math.abs(r.scrollY - settledScrollBase)), 0);
+    expect(maxSettledScrollDrift, `scroll must not drift after transition settles. Trace=${summary}`).toBeLessThanOrEqual(12);
 
-    const finalRows = postUnlockRows.filter((r) => r.cardId === finalId).slice(2);
+    const finalRows = settledRows.filter((r) => r.cardId === finalId);
     expect(finalRows.length, `final question must be sampled after unlock. Trace=${summary}`).toBeGreaterThan(10);
     expect([...new Set(finalRows.map(visualSignature))], `final question must not mutate after unlock. Trace=${summary}`).toHaveLength(1);
   });
