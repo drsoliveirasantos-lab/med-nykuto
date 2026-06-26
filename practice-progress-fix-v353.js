@@ -1,17 +1,17 @@
-/* v360 — QCM progress display-only patch.
-   Synchronizes the visible premium progress/counter from the displayed card.
-   If legacy session counters remain stale while the visible card changes,
-   this patch advances the displayed counter from observed question changes.
+/* v361 — QCM progress display-only patch.
+   The app has several legacy render helpers that can leave the official counter stuck
+   at 1/20 even when the visible question changes. This patch treats a real tap/click
+   on Siguiente pregunta as the source of truth for the visible progress UI.
 */
 (function(){
   'use strict';
 
-  var VERSION = 'v360';
+  var VERSION = 'v361';
   var pendingProgressTimer = 0;
   var lastKnownProgress = null;
-  var observedIdentity = '';
-  var observedIndex = 1;
-  var observedTotal = 20;
+  var manualIndex = 1;
+  var manualTotal = 20;
+  var nextTapLockUntil = 0;
   var bootedAt = Date.now();
 
   function isQcmPage(){
@@ -26,13 +26,6 @@
     var total = Math.max(current, parseInt(m[2], 10) || 20);
     return {current: current, total: total, pct: clampPct(current,total)};
   }
-  function currentCard(){ return document.querySelector('.single-question-card'); }
-  function cardIdentity(){
-    var card = currentCard();
-    if(!card) return '';
-    var prompt = card.querySelector('.question-prompt, .structured-prompt, h2, h3, p');
-    return [card.id || '', clean(prompt ? prompt.textContent : card.textContent).slice(0, 260)].join('|');
-  }
   function counterProgress(){
     var nodes = [];
     ['.premium-progress strong', '.question-count-stat strong', '.single-question-card .quiz-head .badge', '.single-question-card [class*="badge"]'].forEach(function(sel){
@@ -44,8 +37,8 @@
     }
     return null;
   }
-  function stateProgressFromCard(){
-    var card = currentCard();
+  function stateProgressFromVisibleCard(){
+    var card = document.querySelector('.single-question-card');
     var id = card && card.id;
     if(!id) return null;
     try{
@@ -58,36 +51,30 @@
         var idx = state.currentBatch.indexOf(id);
         if(idx < 0) continue;
         var total = Math.max(1, state.currentBatch.length || 20);
-        var currentIndex = Math.max(0, Number(state.currentIndex || 0));
-        var current = Math.max(idx + 1, currentIndex + 1);
-        return {current: current, total: total, pct: clampPct(current,total), source:'state-card', key:key};
+        var storedIndex = Math.max(0, Number(state.currentIndex || 0));
+        var current = Math.max(idx + 1, storedIndex + 1);
+        return {current: current, total: total, pct: clampPct(current,total), source:'state-card'};
       }
     }catch(e){}
     return null;
   }
-  function observedProgress(){
-    var id = cardIdentity();
-    if(!id) return null;
-    var base = lastKnownProgress || counterProgress() || {current:1,total:20,pct:5};
-    observedTotal = Math.max(1, base.total || observedTotal || 20);
-    if(!observedIdentity){
-      observedIdentity = id;
-      observedIndex = Math.max(1, Math.min(observedTotal, base.current || 1));
-    }else if(id !== observedIdentity){
-      observedIdentity = id;
-      observedIndex = Math.max(1, Math.min(observedTotal, observedIndex + 1));
-    }
-    return {current: observedIndex, total: observedTotal, pct: clampPct(observedIndex, observedTotal), source:'observed-card-change'};
+  function manualProgress(){
+    manualTotal = Math.max(1, manualTotal || 20);
+    manualIndex = Math.max(1, Math.min(manualTotal, manualIndex || 1));
+    return {current: manualIndex, total: manualTotal, pct: clampPct(manualIndex, manualTotal), source:'next-tap'};
   }
   function realProgress(){
-    var observed = observedProgress();
-    var state = stateProgressFromCard();
-    if(state && observed){
-      var current = Math.max(state.current || 1, observed.current || 1);
-      var total = Math.max(state.total || 20, observed.total || 20);
-      return {current: current, total: total, pct: clampPct(current,total), source: current === observed.current ? observed.source : state.source};
-    }
-    return observed || state || counterProgress() || lastKnownProgress;
+    var counter = counterProgress();
+    var state = stateProgressFromVisibleCard();
+    if(counter && counter.total) manualTotal = Math.max(manualTotal, counter.total);
+    if(state && state.total) manualTotal = Math.max(manualTotal, state.total);
+
+    var candidates = [manualProgress(), state, lastKnownProgress, counter].filter(Boolean);
+    var best = candidates[0];
+    candidates.forEach(function(p){ if((p.current || 1) > (best.current || 1)) best = p; });
+    best.total = Math.max(best.total || 20, manualTotal || 20);
+    best.pct = clampPct(best.current, best.total);
+    return best;
   }
   function ensureProgressStructure(bar){
     var head = bar.querySelector('.premium-progress-head');
@@ -131,7 +118,7 @@
     }
     updateAllVisibleCounters(label, compactLabel, pctText, width);
     window.__MED_NYKUTO_PRACTICE_PROGRESS_FIX__ = VERSION;
-    window.__MED_NYKUTO_PRACTICE_PROGRESS_STATE__ = {current:p.current,total:p.total,pct:p.pct,source:p.source || 'unknown',identity:observedIdentity};
+    window.__MED_NYKUTO_PRACTICE_PROGRESS_STATE__ = {current:p.current,total:p.total,pct:p.pct,source:p.source || 'unknown'};
   }
   function scheduleProgressUpdate(delay){
     if(pendingProgressTimer) clearTimeout(pendingProgressTimer);
@@ -140,10 +127,21 @@
   function scheduleAfterRender(){
     [20, 60, 120, 240, 480, 900, 1400].forEach(function(ms){ setTimeout(updatePremiumProgress, ms); });
   }
-  function resetObservedOnFilterChange(){
-    observedIdentity = '';
-    observedIndex = 1;
+  function noteNextTap(){
+    var now = Date.now();
+    if(now < nextTapLockUntil) return;
+    nextTapLockUntil = now + 650;
+    var p = realProgress();
+    manualTotal = Math.max(manualTotal || 20, p && p.total || 20);
+    manualIndex = Math.max(manualIndex || 1, p && p.current || 1);
+    manualIndex = Math.min(manualTotal, manualIndex + 1);
+    updatePremiumProgress();
+    scheduleAfterRender();
+  }
+  function resetProgress(){
+    manualIndex = 1;
     lastKnownProgress = null;
+    nextTapLockUntil = 0;
   }
   function run(){
     if(!isQcmPage()) return;
@@ -155,10 +153,12 @@
   window.addEventListener('load', run);
   window.addEventListener('pageshow', run);
   document.addEventListener('click', function(e){
-    if(e.target && e.target.closest && e.target.closest('.mc-picker-btn,.qfp-choice,[data-kind="course"],[data-kind="module"]')) resetObservedOnFilterChange();
-    scheduleAfterRender();
+    var target = e.target && e.target.closest ? e.target.closest('[data-action="next-question"], [data-action="restart-session"], .mc-picker-btn, .qfp-choice, [data-kind="course"], [data-kind="module"]') : null;
+    if(target && target.dataset && target.dataset.action === 'next-question') noteNextTap();
+    else if(target) { resetProgress(); scheduleAfterRender(); }
+    else scheduleAfterRender();
   }, true);
-  document.addEventListener('change', function(){ resetObservedOnFilterChange(); scheduleAfterRender(); }, true);
+  document.addEventListener('change', function(){ resetProgress(); scheduleAfterRender(); }, true);
   try{
     var target = document.querySelector('#practiceList') || document.body;
     new MutationObserver(function(){ scheduleProgressUpdate(35); }).observe(target, {childList:true, subtree:true, characterData:true});
