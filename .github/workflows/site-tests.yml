@@ -44,17 +44,25 @@ jobs:
         run: node scripts/protected-data-guard.js
       - name: Validate SEO, sitemap and visible branding
         run: node scripts/validate-seo-health.js
+      - name: Validate advanced branding regression
+        run: node scripts/validate-branding-regression-advanced.js
+      - name: Validate content sanitization
+        run: node scripts/validate-content-sanitization.js
       - name: Validate question bank deep integrity
         run: node scripts/validate-question-bank-deep-integrity.js
-      - name: Upload question bank quality report
+      - name: Upload quality and hardening reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: question-bank-quality-report
+          name: static-quality-hardening-reports
           if-no-files-found: ignore
           path: |
             reports/question-bank-quality-report.json
             reports/question-bank-quality-report.txt
+            reports/content-sanitization-report.json
+            reports/content-sanitization-report.txt
+            reports/branding-regression-report.json
+            reports/branding-regression-report.txt
 
   browser-desktop-core:
     name: Browser desktop core regression tests
@@ -214,4 +222,46 @@ jobs:
           path: |
             lot2-visible-features.json
             test-results/lot2-visible-features/**
+            playwright-report/**
+
+  browser-lot3-hardening:
+    name: Browser lot 3 hardening tests
+    needs: validate
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Install Playwright browsers with timeout
+        run: timeout 420s npx playwright install --with-deps chromium firefox webkit
+      - name: Run lot 3 hardening tests
+        run: |
+          set +e
+          npx playwright test tests/accessibility-advanced.spec.js tests/performance-budget.spec.js --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/lot3-chromium --reporter=json > lot3-chromium.json
+          code_chromium=$?
+          node scripts/print-playwright-summary.js lot3-chromium.json
+          npx playwright test tests/cross-engine-critical.spec.js --project=desktop-firefox --workers=1 --trace=retain-on-failure --output=test-results/lot3-firefox --reporter=json > lot3-firefox.json
+          code_firefox=$?
+          node scripts/print-playwright-summary.js lot3-firefox.json
+          npx playwright test tests/cross-engine-critical.spec.js --project=desktop-webkit --workers=1 --trace=retain-on-failure --output=test-results/lot3-webkit --reporter=json > lot3-webkit.json
+          code_webkit=$?
+          node scripts/print-playwright-summary.js lot3-webkit.json
+          if [ "$code_chromium" -ne 0 ] || [ "$code_firefox" -ne 0 ] || [ "$code_webkit" -ne 0 ]; then exit 1; fi
+      - name: Upload lot 3 hardening evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lot3-hardening-evidence
+          if-no-files-found: ignore
+          path: |
+            lot3-chromium.json
+            lot3-firefox.json
+            lot3-webkit.json
+            test-results/lot3-chromium/**
+            test-results/lot3-firefox/**
+            test-results/lot3-webkit/**
             playwright-report/**
