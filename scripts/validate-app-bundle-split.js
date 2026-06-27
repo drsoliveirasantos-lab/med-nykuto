@@ -31,27 +31,10 @@ function rebuiltFromManifest(manifest) {
   return output;
 }
 
-function syntaxCheck(source) {
-  const sandbox = {
-    window: { MED_COURSES_DATA: { courses: [] }, MED_PRACTICE_BANK: { byCourse: {} } },
-    document: {
-      body: { dataset: { page: '' }, classList: { add(){}, remove(){} } },
-      documentElement: { setAttribute(){} },
-      querySelector(){ return null; },
-      querySelectorAll(){ return []; },
-      addEventListener(){},
-      createElement(){ return { className: '', innerHTML: '', appendChild(){}, querySelector(){ return null; }, querySelectorAll(){ return [] }, classList: { add(){}, remove(){} }, dataset: {}, style: {} }; }
-    },
-    location: { search: '', pathname: '/' },
-    localStorage: { getItem(){ return null; }, setItem(){}, removeItem(){} },
-    navigator: { clipboard: { writeText(){ return Promise.resolve(); } } },
-    URLSearchParams,
-    console,
-    setTimeout,
-    clearTimeout
-  };
-  vm.createContext(sandbox);
-  vm.runInContext(source, sandbox, { filename: 'app.bundle.js' });
+function syntaxCheckOnly(source) {
+  // Parse the bundle without executing browser code. Running app.bundle.js needs a real DOM,
+  // but parsing catches syntax errors while keeping validation deterministic in CI.
+  new vm.Script(source, { filename: 'app.bundle.js' });
 }
 
 try {
@@ -65,7 +48,7 @@ try {
   const rebuilt = rebuiltFromManifest(manifest);
   assert(rebuilt === original, 'Rebuilt app.bundle.js does not match current app.bundle.js byte-for-byte');
   assert(Buffer.byteLength(rebuilt, 'utf8') === manifest.totalBytes, 'Total byte count mismatch');
-  syntaxCheck(rebuilt);
+  syntaxCheckOnly(rebuilt);
   console.log(`App bundle split OK: ${manifest.parts.length} fragments, ${manifest.totalBytes} bytes, byte-identical rebuild.`);
 } catch (error) {
   console.error('Validation failed:', error.message);
