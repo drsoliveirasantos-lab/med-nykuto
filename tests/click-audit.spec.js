@@ -1,5 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
+const CURRENT_RUNTIME_GUARD = 'v362';
+
 const pages = [
   '/index.html',
   '/matieres.html',
@@ -36,7 +38,7 @@ function collectPageErrors(page) {
 
 async function waitReady(page) {
   await expect(page.locator('body')).toBeVisible();
-  await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
+  await page.waitForFunction((version) => window.__MED_NYKUTO_RUNTIME_GUARD__ === version, CURRENT_RUNTIME_GUARD, { timeout: 20000 });
 }
 
 async function clickHref(page, hrefPart) {
