@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://med-cursos.netlify.app/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://med-cursos.netlify.app/matieres.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://med-cursos.netlify.app/modules.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://med-cursos.netlify.app/qcm.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://med-cursos.netlify.app/cas-cliniques.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://med-cursos.netlify.app/vrai-faux.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://med-cursos.netlify.app/erreurs.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://med-cursos.netlify.app/examen.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://med-cursos.netlify.app/contact.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://med-cursos.netlify.app/a-propos.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://med-cursos.netlify.app/mentions.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://preview.med-nykuto-git.pages.dev/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://preview.med-nykuto-git.pages.dev/matieres.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://preview.med-nykuto-git.pages.dev/modules.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://preview.med-nykuto-git.pages.dev/qcm.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://preview.med-nykuto-git.pages.dev/cas-cliniques.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://preview.med-nykuto-git.pages.dev/vrai-faux.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://preview.med-nykuto-git.pages.dev/erreurs.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://preview.med-nykuto-git.pages.dev/examen.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://preview.med-nykuto-git.pages.dev/contact.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://preview.med-nykuto-git.pages.dev/a-propos.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://preview.med-nykuto-git.pages.dev/mentions.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 </urlset>
