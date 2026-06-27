@@ -301,8 +301,8 @@ jobs:
         with:
           node-version: 20
       - run: npm install
-      - name: Install Playwright Chromium with timeout
-        run: timeout 240s npx playwright install --with-deps chromium
+      - name: Install Playwright Chromium and WebKit with timeout
+        run: timeout 300s npx playwright install --with-deps chromium webkit
       - name: Run mobile touch critical tests
         run: |
           set +e
