@@ -1,8 +1,11 @@
 const { test, expect } = require('@playwright/test');
 
+const CURRENT_RUNTIME_GUARD = 'v362';
+const CURRENT_IMAGE_ZOOM = 'v102-scroll-stable-close';
+
 async function waitRuntime(page) {
   await expect(page.locator('body')).toBeVisible({ timeout: 15000 });
-  await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
+  await page.waitForFunction((version) => window.__MED_NYKUTO_RUNTIME_GUARD__ === version, CURRENT_RUNTIME_GUARD, { timeout: 20000 });
 }
 
 async function waitModuleReady(page) {
@@ -22,7 +25,7 @@ test.describe('Module reader UI regressions', () => {
   test('course image click opens zoom modal', async ({ page }) => {
     await page.goto('/module.html?id=01-fisiologia-01-neurofisiologia-y-potencial-de-accion');
     await waitModuleReady(page);
-    await page.waitForFunction(() => window.__MED_NYKUTO_COURSE_IMAGE_ZOOM__ === 'v101', null, { timeout: 15000 });
+    await page.waitForFunction((version) => window.__MED_NYKUTO_COURSE_IMAGE_ZOOM__ === version, CURRENT_IMAGE_ZOOM, { timeout: 15000 });
 
     const imageCount = await page.locator('.course-figure-zoom img, #moduleContent img, .reader-content img').count();
     if (imageCount === 0) {
