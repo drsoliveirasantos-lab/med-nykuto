@@ -3,345 +3,403 @@
   "rebuildWith": "scripts/build-app-bundle.js",
   "validateWith": "scripts/validate-app-bundle-split.js",
   "sourceFile": "app.bundle.js",
-  "strategy": "ordered-fragments-byte-identical",
+  "strategy": "ordered-domain-fragments-byte-identical",
   "partCount": 48,
   "totalBytes": 437491,
   "parts": [
     {
       "order": 1,
-      "path": "parts/001-bundle-wrapper.js",
+      "path": "modules/runtime/001-bundle-wrapper.js",
       "category": "bundle-wrapper",
       "bytes": 246,
-      "summary": "Opening comments and IIFE wrapper"
+      "summary": "Opening comments and IIFE wrapper",
+      "bucket": "runtime"
     },
     {
       "order": 2,
-      "path": "parts/002-app-bootstrap-state.js",
+      "path": "modules/app/002-app-bootstrap-state.js",
       "category": "app-bootstrap-state",
       "bytes": 56,
-      "summary": "const DATA = window.MED_COURSES_DATA || {courses:[]};"
+      "summary": "const DATA = window.MED_COURSES_DATA || {courses:[]};",
+      "bucket": "app"
     },
     {
       "order": 3,
-      "path": "parts/003-app-misc.js",
+      "path": "modules/app/003-app-misc.js",
       "category": "app-misc",
       "bytes": 38,
-      "summary": "const courses = DATA.courses || [];"
+      "summary": "const courses = DATA.courses || [];",
+      "bucket": "app"
     },
     {
       "order": 4,
-      "path": "parts/004-app-misc.js",
+      "path": "modules/app/004-app-misc.js",
       "category": "app-misc",
       "bytes": 175,
-      "summary": "const allModules = courses.flatMap(course => (course.modules || []).map(module => ({...module, courseId:course.id, cours"
+      "summary": "const allModules = courses.flatMap(course => (course.modules || []).map(module => ({...module, courseId:course.id, cours",
+      "bucket": "app"
     },
     {
       "order": 5,
-      "path": "parts/005-progress-storage.js",
+      "path": "modules/app/005-progress-storage.js",
       "category": "progress-storage",
       "bytes": 49,
-      "summary": "const progressKey = 'med-cursos-progress-v37';"
+      "summary": "const progressKey = 'med-cursos-progress-v37';",
+      "bucket": "app"
     },
     {
       "order": 6,
-      "path": "parts/006-app-misc.js",
+      "path": "modules/app/006-app-misc.js",
       "category": "app-misc",
       "bytes": 58,
-      "summary": "const BANK = window.MED_PRACTICE_BANK || {byCourse:{}};"
+      "summary": "const BANK = window.MED_PRACTICE_BANK || {byCourse:{}};",
+      "bucket": "app"
     },
     {
       "order": 7,
-      "path": "parts/007-dom-events.js",
+      "path": "modules/dom/007-dom-events.js",
       "category": "dom-events",
       "bytes": 61,
-      "summary": "const $ = (sel, root=document) => root.querySelector(sel);"
+      "summary": "const $ = (sel, root=document) => root.querySelector(sel);",
+      "bucket": "dom"
     },
     {
       "order": 8,
-      "path": "parts/008-dom-events.js",
+      "path": "modules/dom/008-dom-events.js",
       "category": "dom-events",
       "bytes": 77,
-      "summary": "const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));"
+      "summary": "const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));",
+      "bucket": "dom"
     },
     {
       "order": 9,
-      "path": "parts/009-app-misc.js",
+      "path": "modules/app/009-app-misc.js",
       "category": "app-misc",
       "bytes": 55,
-      "summary": "const params = new URLSearchParams(location.search);"
+      "summary": "const params = new URLSearchParams(location.search);",
+      "bucket": "app"
     },
     {
       "order": 10,
-      "path": "parts/010-app-misc.js",
+      "path": "modules/app/010-app-misc.js",
       "category": "app-misc",
       "bytes": 43,
-      "summary": "const page = document.body.dataset.page;"
+      "summary": "const page = document.body.dataset.page;",
+      "bucket": "app"
     },
     {
       "order": 11,
-      "path": "parts/011-i18n-dictionary.js",
+      "path": "modules/i18n/011-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 3390,
-      "summary": "const UI = {"
+      "summary": "const UI = {",
+      "bucket": "i18n"
     },
     {
       "order": 12,
-      "path": "parts/012-i18n-dictionary.js",
+      "path": "modules/i18n/012-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2113,
-      "summary": "Object.assign(UI.es, {"
+      "summary": "Object.assign(UI.es, {",
+      "bucket": "i18n"
     },
     {
       "order": 13,
-      "path": "parts/013-i18n-dictionary.js",
+      "path": "modules/i18n/013-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2155,
-      "summary": "Object.assign(UI.fr, {"
+      "summary": "Object.assign(UI.fr, {",
+      "bucket": "i18n"
     },
     {
       "order": 14,
-      "path": "parts/014-i18n-dictionary.js",
+      "path": "modules/i18n/014-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2112,
-      "summary": "Object.assign(UI.br, {"
+      "summary": "Object.assign(UI.br, {",
+      "bucket": "i18n"
     },
     {
       "order": 15,
-      "path": "parts/015-i18n-dictionary.js",
+      "path": "modules/i18n/015-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 853,
-      "summary": "Object.assign(UI.es, {"
+      "summary": "Object.assign(UI.es, {",
+      "bucket": "i18n"
     },
     {
       "order": 16,
-      "path": "parts/016-i18n-dictionary.js",
+      "path": "modules/i18n/016-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 834,
-      "summary": "Object.assign(UI.fr, {"
+      "summary": "Object.assign(UI.fr, {",
+      "bucket": "i18n"
     },
     {
       "order": 17,
-      "path": "parts/017-i18n-dictionary.js",
+      "path": "modules/i18n/017-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 829,
-      "summary": "Object.assign(UI.br, {"
+      "summary": "Object.assign(UI.br, {",
+      "bucket": "i18n"
     },
     {
       "order": 18,
-      "path": "parts/018-i18n-dictionary.js",
+      "path": "modules/i18n/018-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 772,
-      "summary": "Object.assign(UI.es, {"
+      "summary": "Object.assign(UI.es, {",
+      "bucket": "i18n"
     },
     {
       "order": 19,
-      "path": "parts/019-i18n-dictionary.js",
+      "path": "modules/i18n/019-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 781,
-      "summary": "Object.assign(UI.fr, {"
+      "summary": "Object.assign(UI.fr, {",
+      "bucket": "i18n"
     },
     {
       "order": 20,
-      "path": "parts/020-i18n-dictionary.js",
+      "path": "modules/i18n/020-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 765,
-      "summary": "Object.assign(UI.br, {"
+      "summary": "Object.assign(UI.br, {",
+      "bucket": "i18n"
     },
     {
       "order": 21,
-      "path": "parts/021-i18n-dictionary.js",
+      "path": "modules/i18n/021-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 1062,
-      "summary": "Object.assign(UI.es, {"
+      "summary": "Object.assign(UI.es, {",
+      "bucket": "i18n"
     },
     {
       "order": 22,
-      "path": "parts/022-i18n-dictionary.js",
+      "path": "modules/i18n/022-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 1140,
-      "summary": "Object.assign(UI.fr, {"
+      "summary": "Object.assign(UI.fr, {",
+      "bucket": "i18n"
     },
     {
       "order": 23,
-      "path": "parts/023-i18n-dictionary.js",
+      "path": "modules/i18n/023-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 1085,
-      "summary": "Object.assign(UI.br, {"
+      "summary": "Object.assign(UI.br, {",
+      "bucket": "i18n"
     },
     {
       "order": 24,
-      "path": "parts/024-i18n-dictionary.js",
+      "path": "modules/i18n/024-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2177,
-      "summary": "Object.assign(UI.es, {"
+      "summary": "Object.assign(UI.es, {",
+      "bucket": "i18n"
     },
     {
       "order": 25,
-      "path": "parts/025-i18n-dictionary.js",
+      "path": "modules/i18n/025-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2272,
-      "summary": "Object.assign(UI.fr, {"
+      "summary": "Object.assign(UI.fr, {",
+      "bucket": "i18n"
     },
     {
       "order": 26,
-      "path": "parts/026-i18n-dictionary.js",
+      "path": "modules/i18n/026-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2188,
-      "summary": "Object.assign(UI.br, {"
+      "summary": "Object.assign(UI.br, {",
+      "bucket": "i18n"
     },
     {
       "order": 27,
-      "path": "parts/027-i18n-dictionary.js",
+      "path": "modules/i18n/027-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2706,
-      "summary": "Object.assign(UI.es, {"
+      "summary": "Object.assign(UI.es, {",
+      "bucket": "i18n"
     },
     {
       "order": 28,
-      "path": "parts/028-i18n-dictionary.js",
+      "path": "modules/i18n/028-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2838,
-      "summary": "Object.assign(UI.fr, {"
+      "summary": "Object.assign(UI.fr, {",
+      "bucket": "i18n"
     },
     {
       "order": 29,
-      "path": "parts/029-i18n-dictionary.js",
+      "path": "modules/i18n/029-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2676,
-      "summary": "Object.assign(UI.br, {"
+      "summary": "Object.assign(UI.br, {",
+      "bucket": "i18n"
     },
     {
       "order": 30,
-      "path": "parts/030-i18n-dictionary.js",
+      "path": "modules/i18n/030-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2341,
-      "summary": "Object.assign(UI.es, {home:'Inicio', backSubjects:'← Volver a materias', subjectBrandSubtitle:'Módulos por materia', rea"
+      "summary": "Object.assign(UI.es, {home:'Inicio', backSubjects:'← Volver a materias', subjectBrandSubtitle:'Módulos por materia', rea",
+      "bucket": "i18n"
     },
     {
       "order": 31,
-      "path": "parts/031-i18n-dictionary.js",
+      "path": "modules/i18n/031-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2396,
-      "summary": "Object.assign(UI.fr, {home:'Accueil', backSubjects:'← Retour aux matières', subjectBrandSubtitle:'Modules par matière', "
+      "summary": "Object.assign(UI.fr, {home:'Accueil', backSubjects:'← Retour aux matières', subjectBrandSubtitle:'Modules par matière', ",
+      "bucket": "i18n"
     },
     {
       "order": 32,
-      "path": "parts/032-i18n-dictionary.js",
+      "path": "modules/i18n/032-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2342,
-      "summary": "Object.assign(UI.br, {home:'Início', backSubjects:'← Voltar às matérias', subjectBrandSubtitle:'Módulos por matéria', re"
+      "summary": "Object.assign(UI.br, {home:'Início', backSubjects:'← Voltar às matérias', subjectBrandSubtitle:'Módulos por matéria', re",
+      "bucket": "i18n"
     },
     {
       "order": 33,
-      "path": "parts/033-i18n-dictionary.js",
+      "path": "modules/i18n/033-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 1382,
-      "summary": "function lang(){ return safeGetItem('medLang') || 'fr'; }"
+      "summary": "function lang(){ return safeGetItem('medLang') || 'fr'; }",
+      "bucket": "i18n"
     },
     {
       "order": 34,
-      "path": "parts/034-i18n-dictionary.js",
+      "path": "modules/i18n/034-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 1300,
-      "summary": "Object.assign(UI.fr, {mistakes:'Mes erreurs', reviewToday:'À réviser aujourd’hui', examMode:'Examen blanc', dashboard:'T"
+      "summary": "Object.assign(UI.fr, {mistakes:'Mes erreurs', reviewToday:'À réviser aujourd’hui', examMode:'Examen blanc', dashboard:'T",
+      "bucket": "i18n"
     },
     {
       "order": 35,
-      "path": "parts/035-i18n-dictionary.js",
+      "path": "modules/i18n/035-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 1218,
-      "summary": "Object.assign(UI.br, {mistakes:'Meus erros', reviewToday:'Revisar hoje', examMode:'Simulado', dashboard:'Painel de estud"
+      "summary": "Object.assign(UI.br, {mistakes:'Meus erros', reviewToday:'Revisar hoje', examMode:'Simulado', dashboard:'Painel de estud",
+      "bucket": "i18n"
     },
     {
       "order": 36,
-      "path": "parts/036-app-misc.js",
+      "path": "modules/app/036-app-misc.js",
       "category": "app-misc",
       "bytes": 123,
-      "summary": ""
+      "summary": "",
+      "bucket": "app"
     },
     {
       "order": 37,
-      "path": "parts/037-i18n-dictionary.js",
+      "path": "modules/i18n/037-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 4790,
-      "summary": "Object.assign(UI.es, {"
+      "summary": "Object.assign(UI.es, {",
+      "bucket": "i18n"
     },
     {
       "order": 38,
-      "path": "parts/038-i18n-dictionary.js",
+      "path": "modules/i18n/038-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 5139,
-      "summary": "Object.assign(UI.fr, {"
+      "summary": "Object.assign(UI.fr, {",
+      "bucket": "i18n"
     },
     {
       "order": 39,
-      "path": "parts/039-i18n-dictionary.js",
+      "path": "modules/i18n/039-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 4885,
-      "summary": "Object.assign(UI.br, {"
+      "summary": "Object.assign(UI.br, {",
+      "bucket": "i18n"
     },
     {
       "order": 40,
-      "path": "parts/040-app-misc.js",
+      "path": "modules/app/040-app-misc.js",
       "category": "app-misc",
       "bytes": 179,
-      "summary": ""
+      "summary": "",
+      "bucket": "app"
     },
     {
       "order": 41,
-      "path": "parts/041-app-misc.js",
+      "path": "modules/app/041-app-misc.js",
       "category": "app-misc",
       "bytes": 19295,
-      "summary": "const EDITORIAL_PHRASE_MAP = {\"fr\": [[\"Médecine · révision structurée\", \"Médecine · révision structurée\"], [\"Módulos int"
+      "summary": "const EDITORIAL_PHRASE_MAP = {\"fr\": [[\"Médecine · révision structurée\", \"Médecine · révision structurée\"], [\"Módulos int",
+      "bucket": "app"
     },
     {
       "order": 42,
-      "path": "parts/042-i18n-dictionary.js",
+      "path": "modules/i18n/042-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 768,
-      "summary": "Object.assign(UI.es, {"
+      "summary": "Object.assign(UI.es, {",
+      "bucket": "i18n"
     },
     {
       "order": 43,
-      "path": "parts/043-i18n-dictionary.js",
+      "path": "modules/i18n/043-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 767,
-      "summary": "Object.assign(UI.fr, {"
+      "summary": "Object.assign(UI.fr, {",
+      "bucket": "i18n"
     },
     {
       "order": 44,
-      "path": "parts/044-i18n-dictionary.js",
+      "path": "modules/i18n/044-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 761,
-      "summary": "Object.assign(UI.br, {"
+      "summary": "Object.assign(UI.br, {",
+      "bucket": "i18n"
     },
     {
       "order": 45,
-      "path": "parts/045-app-functions.js",
+      "path": "modules/app/045-app-functions.js",
       "category": "app-functions",
       "bytes": 200,
-      "summary": "function applyEditorialPhrases(out, l){"
+      "summary": "function applyEditorialPhrases(out, l){",
+      "bucket": "app"
     },
     {
       "order": 46,
-      "path": "parts/046-app-functions.js",
+      "path": "modules/app/046-app-functions.js",
       "category": "app-functions",
       "bytes": 622,
-      "summary": "function editorialCleanText(str=''){"
+      "summary": "function editorialCleanText(str=''){",
+      "bucket": "app"
     },
     {
       "order": 47,
-      "path": "parts/047-i18n-dictionary.js",
+      "path": "modules/i18n/047-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 355371,
-      "summary": "function rehydrateCollapsedMarkdown(md=''){"
+      "summary": "function rehydrateCollapsedMarkdown(md=''){",
+      "bucket": "i18n"
     },
     {
       "order": 48,
-      "path": "parts/048-bundle-wrapper.js",
+      "path": "modules/runtime/048-bundle-wrapper.js",
       "category": "bundle-wrapper",
       "bytes": 6,
-      "summary": "Closing IIFE wrapper"
+      "summary": "Closing IIFE wrapper",
+      "bucket": "runtime"
     }
-  ]
+  ],
+  "organizedWith": "scripts/organize-app-bundle-sources.js",
+  "folders": {
+    "runtime": "IIFE wrapper and generated runtime boundaries",
+    "app": "application state, helpers and storage glue",
+    "dom": "DOM helpers and event-related glue",
+    "i18n": "translation dictionaries and language helpers",
+    "pages": "page renderers",
+    "practice": "practice/question engine fragments",
+    "misc": "uncategorized fragments pending manual refinement"
+  }
 }
