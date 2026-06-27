@@ -1,0 +1,39 @@
+name: Export Fisiologia practice bank
+
+on:
+  push:
+    branches:
+      - export/fisiologia-bank-download
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    name: Package Fisiologia bank
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout preview branch
+        uses: actions/checkout@v4
+        with:
+          ref: preview
+
+      - name: Prepare export files
+        run: |
+          mkdir -p export
+          cp data/practice-bank-fisiologia.js export/practice-bank-fisiologia.js
+          cat > export/README.txt <<'EOF'
+          Source: data/practice-bank-fisiologia.js
+          Branch: preview
+          Purpose: temporary export for splitting the Fisiologia practice bank into smaller source files.
+          EOF
+          ls -lh export
+
+      - name: Upload ZIP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: practice-bank-fisiologia-export
+          path: export/*
+          if-no-files-found: error
