@@ -1,0 +1,18 @@
+{
+  "id": "04-bioquimica-05-metabolismo-nitrogenado-y-perfil-renal",
+  "number": 5,
+  "title": "Metabolismo nitrogenado y perfil renal",
+  "file": "Modulo_05_metabolismo_nitrogenado_y_perfil_renal.md",
+  "summary": "La idea central es simple: los aminoÃ¡cidos tienen grupo amino y ese grupo contiene nitrÃ³geno. Por eso, cuando el organismo degrada proteÃnas o aminoÃ¡cidos, aparecen productos nitrogenados que deben ser transformados, transportados y eliminados. La urea es el desecho nitrogenado câ€¦",
+  "headings": [],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

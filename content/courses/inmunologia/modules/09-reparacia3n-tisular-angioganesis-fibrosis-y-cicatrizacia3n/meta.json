@@ -1,0 +1,25 @@
+{
+  "id": "05-inmunologia-09-reparacion-tisular-angiogenesis-fibrosis-y-cicatrizacion",
+  "number": 9,
+  "title": "ReparaciÃ³n tisular: angiogÃ©nesis, fibrosis y cicatrizaciÃ³n",
+  "file": "Modulo_09_reparacion_tisular_angiogenesis_fibrosis_y_cicatrizacion.md",
+  "summary": "- Relacionar destrucciÃ³n vascular, migraciÃ³n leucocitaria y necesidad de nuevos vasos. - Diferenciar fibrosis y cicatrizaciÃ³n como intentos de curaciÃ³n del tejido lesionado. - Reconocer factores que enlentecen la reparaciÃ³n: diabetes, inmunodepresiÃ³n, trasplante y lesiones profunâ€¦",
+  "headings": [
+    "2. AngiogÃ©nesis: proliferaciÃ³n de nuevos vasos",
+    "3. De la inflamaciÃ³n al tejido cicatricial",
+    "4. Factores que enlentecen la cicatrizaciÃ³n",
+    "5. CÃ©lulas que participan en reparaciÃ³n",
+    "6. Casos clÃnicos rÃ¡pido",
+    "7. Algoritmo mental de revisiÃ³n"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

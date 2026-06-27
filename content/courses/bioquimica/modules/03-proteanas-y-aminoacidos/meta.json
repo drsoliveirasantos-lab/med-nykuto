@@ -1,0 +1,18 @@
+{
+  "id": "04-bioquimica-03-proteinas-y-aminoacidos",
+  "number": 3,
+  "title": "ProteÃnas y aminoÃ¡cidos",
+  "file": "Modulo_03_proteinas_y_aminoacidos.md",
+  "summary": "- Reconocer la estructura bÃ¡sica de un aminoÃ¡cido y ubicar el grupo amino como fuente de nitrÃ³geno. - Explicar por quÃ© el nitrÃ³geno se usa como puente entre proteÃnas, metabolismo y funciÃ³n renal. - Relacionar proteÃnas con anticuerpos, receptores, membrana, contracciÃ³n muscular â€¦",
+  "headings": [],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

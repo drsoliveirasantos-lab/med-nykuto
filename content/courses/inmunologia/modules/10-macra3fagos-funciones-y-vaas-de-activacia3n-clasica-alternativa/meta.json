@@ -1,0 +1,26 @@
+{
+  "id": "05-inmunologia-10-macrofagos-funciones-y-vias-de-activacion-clasica-alternativa",
+  "number": 10,
+  "title": "MacrÃ³fagos: funciones y vÃas de activaciÃ³n clÃ¡sica/alternativa",
+  "file": "Modulo_10_macrofagos_funciones_y_vias_de_activacion_clasica_alternativa.md",
+  "summary": "- Relacionar vÃa alternativa con reparaciÃ³n, fibrosis y reducciÃ³n de la inflamaciÃ³n. En la inflamaciÃ³n aguda predominan primero los neutrÃ³filos, sobre todo en las primeras 24 horas. Pero en procesos mÃ¡s prolongados, los monocitos migran, maduran y se convierten en macrÃ³fagos. Porâ€¦",
+  "headings": [
+    "2. Cuatro funciones principales del macrÃ³fago",
+    "3. ActivaciÃ³n clÃ¡sica del macrÃ³fago",
+    "4. ActivaciÃ³n alternativa del macrÃ³fago",
+    "5. ComparaciÃ³n directa: clÃ¡sica vs alternativa",
+    "6. No confundir con el complemento",
+    "7. Casos clÃnicos rÃ¡pido",
+    "8. Algoritmo mental de revisiÃ³n"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

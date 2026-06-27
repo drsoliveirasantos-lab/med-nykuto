@@ -1,0 +1,18 @@
+{
+  "id": "04-bioquimica-06-lipidos-colesterol-y-trigliceridos",
+  "number": 6,
+  "title": "LÃpidos, colesterol y triglicÃ©ridos",
+  "file": "Modulo_06_lipidos_colesterol_y_trigliceridos.md",
+  "summary": "La idea central de la clase es que los lÃpidos no son una sola molÃ©cula, sino un grupo heterogÃ©neo de biomolÃ©culas. Su caracterÃstica comÃºn es la insolubilidad en agua y en solventes polares, con solubilidad en solventes no polares. Por eso, para circular y participar en el metabâ€¦",
+  "headings": [],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

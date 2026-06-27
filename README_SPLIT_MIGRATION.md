@@ -86,3 +86,13 @@ Puis relancer :
 ```bash
 node scripts/build-courses-data.js
 ```
+
+## Images
+
+Les images optimisées pour le site sont dans :
+
+```txt
+assets/figures/fisiologia-muscular/
+```
+
+Les références dans le module 10 pointent vers ces fichiers.

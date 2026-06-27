@@ -1,0 +1,32 @@
+{
+  "id": "02-microbiologia-02-diagnostico-microbiologico-y-medios-de-cultivo",
+  "number": 2,
+  "title": "DiagnÃ³stico microbiolÃ³gico y medios de cultivo",
+  "file": "Modulo_02_diagnostico_microbiologico_y_medios_de_cultivo.md",
+  "summary": "Este mÃ³dulo reÃºne la parte del curso en la que el profesor explica cÃ³mo se identifica una bacteria en la prÃ¡ctica: desde la muestra clÃnica hasta la confirmaciÃ³n por cultivo, pruebas bioquÃmicas o antibiograma. La idea central es que el laboratorio no reemplaza el razonamiento clâ€¦",
+  "headings": [
+    "3. IntroducciÃ³n microbiolÃ³gica",
+    "Bloque 1 - DiagnÃ³stico clÃnico y mÃ©todo auxiliar",
+    "Bloque 2 - MÃ©todos directos e indirectos",
+    "Bloque 3 - La muestra: base de todo diagnÃ³stico",
+    "Bloque 4 - Frotis, microscopia directa y tinciÃ³n de Gram",
+    "Bloque 5 - Cultivo bacteriano: simular el cuerpo para hacer crecer bacterias",
+    "Bloque 6 - ClasificaciÃ³n de medios segÃºn estado fÃsico",
+    "Bloque 7 - ClasificaciÃ³n de medios segÃºn utilizaciÃ³n",
+    "Bloque 8 - Agar sangre, agar chocolate y MacConkey",
+    "Bloque 9 - Pruebas bioquÃmicas y reacciones quÃmicas",
+    "Bloque 10 - Antibiograma: cuÃ¡ndo y por quÃ© pedirlo",
+    "5. Algoritmo prÃ¡ctico de diagnÃ³stico microbiolÃ³gico",
+    "6. CorrelaciÃ³n clÃnica"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

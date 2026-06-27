@@ -1,0 +1,28 @@
+{
+  "id": "03-genetica-08-sindrome-de-down-edwards-y-patau",
+  "number": 8,
+  "title": "SÃndrome de Down, Edwards y Patau",
+  "file": "Modulo_08_sindrome_de_down_edwards_y_patau.md",
+  "summary": "Este mÃ³dulo reorganiza los bloques del profesor sobre aneuploidÃas autosÃ³micas. La lÃ³gica no es memorizar una lista suelta de signos, sino reconocer el cromosoma afectado, el mecanismo de producciÃ³n y el patrÃ³n clÃnico que permite diferenciar los sÃndromes en preguntas tipo caso â€¦",
+  "headings": [
+    "3. Base genÃ©tica: de la aneuploidÃa al sÃndrome",
+    "4. Mecanismo comÃºn: no disyunciÃ³n",
+    "5. SÃndrome de Down: trisomÃa 21",
+    "5.1. Formas genÃ©ticas del sÃndrome de Down",
+    "5.2. ClÃnica del sÃndrome de Down",
+    "6. SÃndrome de Edwards: trisomÃa 18",
+    "7. SÃndrome de Patau: trisomÃa 13",
+    "8. Tabla comparativa de alto rendimiento",
+    "9. CorrelaciÃ³n clÃnica y consejo familiar"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

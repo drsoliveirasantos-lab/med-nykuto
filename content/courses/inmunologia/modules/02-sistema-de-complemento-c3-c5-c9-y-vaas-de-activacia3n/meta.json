@@ -1,0 +1,28 @@
+{
+  "id": "05-inmunologia-02-sistema-de-complemento-c3-c5-c9-y-vias-de-activacion",
+  "number": 2,
+  "title": "Sistema de complemento: C3, C5, C9 y vÃas de activaciÃ³n",
+  "file": "Modulo_02_sistema_de_complemento_c3_c5_c9_y_vias_de_activacion.md",
+  "summary": "- Diferenciar las vÃas clÃ¡sica, lectina y alternativa por su forma de activaciÃ³n. - Entender cÃ³mo el complemento participa en la inflamaciÃ³n y el reclutamiento leucocitario. Es un conjunto de proteÃnas de defensa que se activan en cascada. En la clase, se presenta como un eje impâ€¦",
+  "headings": [
+    "1. Â¿QuÃ© es el sistema de complemento?",
+    "2. La trÃada que mÃ¡s se repite: C3, C5 y C9",
+    "3. OpsonizaciÃ³n: marcar para fagocitar",
+    "4. Quimiotaxis: atraer leucocitos",
+    "5. Lisis: perforar y destruir",
+    "6. VÃas de activaciÃ³n del complemento",
+    "7. Esquema mental de la cascada",
+    "10. Verdadero/Falso de entrenamiento",
+    "11. Ficha rÃ¡pida de repaso"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "title": "DistribuciÃ³n iÃ³nica y membrana celular",
+    "src": "assets/figures/physio-module1-v223/01_distribucion_ionica_membrana.webp",
+    "caption": "Figura 1 â€” DistribuciÃ³n iÃ³nica y membrana celular."
+  },
+  {
+    "title": "Gradiente quÃmico, elÃ©ctrico y electroquÃmico",
+    "src": "assets/figures/physio-module1-v223/02_gradiente_electroquimico.webp",
+    "caption": "Figura 2 â€” Gradiente quÃmico, elÃ©ctrico y electroquÃmico."
+  },
+  {
+    "title": "Potencial de equilibrio y potencial de membrana en reposo",
+    "src": "assets/figures/physio-module1-v223/03_potencial_equilibrio_reposo.webp",
+    "caption": "Figura 3 â€” Potencial de equilibrio y potencial de membrana en reposo."
+  },
+  {
+    "title": "Bomba Naâº/Kâº ATPasa y canales de fuga",
+    "src": "assets/figures/physio-module1-v223/04_bomba_na_k_canales_fuga.webp",
+    "caption": "Figura 4 â€” Bomba Naâº/Kâº ATPasa y canales de fuga."
+  },
+  {
+    "title": "Potenciales graduados, umbral y ley del todo o nada",
+    "src": "assets/figures/physio-module1-v223/05_potenciales_graduados_umbral_todo_nada.webp",
+    "caption": "Figura 5 â€” Potenciales graduados, umbral y ley del todo o nada."
+  },
+  {
+    "title": "Canales iÃ³nicos y potencial de acciÃ³n",
+    "src": "assets/figures/physio-module1-v223/06_canales_voltaje_na_k.webp",
+    "caption": "Figura 6 â€” Canales iÃ³nicos y potencial de acciÃ³n."
+  },
+  {
+    "title": "Fases del potencial de acciÃ³n",
+    "src": "assets/figures/physio-module1-v223/07_fases_potencial_accion.webp",
+    "caption": "Figura 7 â€” Fases del potencial de acciÃ³n."
+  },
+  {
+    "title": "PerÃodos refractarios absoluto y relativo",
+    "src": "assets/figures/physio-module1-v223/08_periodos_refractarios.webp",
+    "caption": "Figura 8 â€” PerÃodos refractarios absoluto y relativo."
+  },
+  {
+    "title": "Mielina y conducciÃ³n saltatoria",
+    "src": "assets/figures/physio-module1-v223/09_mielina_conduccion_saltatoria.webp",
+    "caption": "Figura 9 â€” Mielina y conducciÃ³n saltatoria."
+  },
+  {
+    "title": "Sinapsis quÃmica y transmisiÃ³n de seÃ±ales",
+    "src": "assets/figures/physio-module1-v223/10_sinapsis_ca2.webp",
+    "caption": "Figura 10 â€” Sinapsis quÃmica y transmisiÃ³n de seÃ±ales."
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "id": "04-bioquimica-09-metabolismo-de-carbohidratos-y-control-hormonal",
+  "number": 9,
+  "title": "Metabolismo de carbohidratos y control hormonal",
+  "file": "Modulo_09_metabolismo_de_carbohidratos_y_control_hormonal.md",
+  "summary": "La profesora insiste en relacionar estas hormonas con el pÃ¡ncreas. El pÃ¡ncreas tiene una funciÃ³n endocrina porque sintetiza hormonas reguladoras del metabolismo, como insulina, glucagÃ³n y somatostatina. Por eso, cuando se habla de glicemia, no se debe pensar solo en â€œazÃºcarâ€: se â€¦",
+  "headings": [],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

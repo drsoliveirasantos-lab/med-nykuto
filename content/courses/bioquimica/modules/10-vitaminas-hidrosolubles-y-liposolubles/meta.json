@@ -1,0 +1,25 @@
+{
+  "id": "04-bioquimica-10-vitaminas-hidrosolubles-y-liposolubles",
+  "number": 10,
+  "title": "Vitaminas hidrosolubles y liposolubles",
+  "file": "Modulo_10_vitaminas_hidrosolubles_y_liposolubles.md",
+  "summary": "- Distinguir vitaminas liposolubles e hidrosolubles segÃºn absorciÃ³n, reserva y eliminaciÃ³n. - Relacionar las vitaminas liposolubles con lÃpidos, tejido adiposo, membranas, calcio y hormonas esteroideas. - Relacionar las vitaminas hidrosolubles con coenzimas, energÃa, metabolismo â€¦",
+  "headings": [
+    "3. Concepto bioquÃmico de vitamina",
+    "4. Vitaminas liposolubles: A, D, E y K",
+    "5. Vitaminas hidrosolubles: vitamina C y complejo B",
+    "6. Cofactores, coenzimas y complejo B",
+    "7. ComparaciÃ³n clÃnica rÃ¡pida",
+    "8. CorrelaciÃ³n clÃnica"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

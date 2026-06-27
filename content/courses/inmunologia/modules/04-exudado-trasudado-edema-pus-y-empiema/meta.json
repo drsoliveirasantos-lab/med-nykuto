@@ -1,0 +1,28 @@
+{
+  "id": "05-inmunologia-04-exudado-trasudado-edema-pus-y-empiema",
+  "number": 4,
+  "title": "Exudado, trasudado, edema, pus y empiema",
+  "file": "Modulo_04_exudado_trasudado_edema_pus_y_empiema.md",
+  "summary": "El exudado es un filtrado plasmÃ¡tico inflamatorio con gran cantidad de lÃquido, proteÃnas y cÃ©lulas. Por eso se describe como de alta densidad: es mÃ¡s espeso, mÃ¡s â€œricoâ€ en componentes y aparece cuando se activa una respuesta inflamatoria. La principal cÃ©lula esperada es el leucoâ€¦",
+  "headings": [
+    "1. Exudado: lÃquido inflamatorio",
+    "2. Trasudado: lÃquido no inflamatorio",
+    "3. Mecanismo comparado",
+    "4. Edema: el tÃ©rmino general",
+    "5. Pus: exudado purulento",
+    "6. Empiema: pus en cavidades",
+    "7. AplicaciÃ³n clÃnica: derrame y muestra",
+    "10. Verdadero/Falso",
+    "11. Ficha rÃ¡pida de repaso"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

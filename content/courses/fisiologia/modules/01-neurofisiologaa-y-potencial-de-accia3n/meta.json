@@ -1,0 +1,101 @@
+{
+  "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+  "number": 1,
+  "title": "NeurofisiologÃa y potencial de acciÃ³n",
+  "file": "Modulo_01_neurofisiologia_y_potencial_de_accion.md",
+  "summary": "Curso completo + ficha rÃ¡pida + ficha ultra-rÃ¡pida integradas con imÃ¡genes especÃficas.",
+  "headings": [
+    "IntroducciÃ³n",
+    "Parte I â€” Fundamentos de la excitabilidad celular",
+    "1. CÃ©lula excitable",
+    "2. Membrana plasmÃ¡tica y separaciÃ³n de cargas",
+    "3. Iones principales",
+    "4. Gradiente electroquÃmico",
+    "5. Valores de referencia",
+    "6. Potencial de equilibrio y reposo",
+    "7. Bomba Naâº/Kâº ATPasa y canales de fuga",
+    "Parte II â€” GeneraciÃ³n del potencial de acciÃ³n",
+    "8. Potenciales graduados, umbral y ley del todo o nada",
+    "9. Canales dependientes de voltaje",
+    "10. Fases del potencial de acciÃ³n",
+    "11. Lectura de la grÃ¡fica",
+    "Parte III â€” PropagaciÃ³n y transmisiÃ³n",
+    "12. PerÃodo refractario",
+    "13. PropagaciÃ³n, mielina y conducciÃ³n saltatoria",
+    "14. Sinapsis y CaÂ²âº",
+    "15. CodificaciÃ³n de la informaciÃ³n nerviosa",
+    "Parte IV â€” IntegraciÃ³n fisiolÃ³gica y examen",
+    "16. Espiga, meseta y mÃºsculo liso",
+    "17. Correlaciones fisiopatolÃ³gicas sin casos clÃnicos",
+    "18. No confundir",
+    "19. Algoritmo de examen",
+    "20. Errores que mÃ¡s hacen perder puntos",
+    "21. SÃntesis activa final",
+    "22. Resumen final"
+  ],
+  "courseTitle": "FisiologÃa",
+  "contentModes": [
+    "full",
+    "fiche",
+    "ultra"
+  ],
+  "description": "MÃ³dulo integrado para prÃ¡ctica con QCM, verdadero/falso y casos clÃnicos.",
+  "courseDraftVersion": "v241_module4_images_root",
+  "quickSheetFigures": [
+    {
+      "filename": "quick_01_distribucion_ionica_membrana.webp",
+      "src": "/mnt/data/distribuciÃ³n_iÃ³nica_y_membrana_celular.png",
+      "dest": "assets/figures/physio-module1-sheets-v241_module4_images_root/quick_01_distribucion_ionica_membrana.webp",
+      "title": "Imagen â€” DistribuciÃ³n iÃ³nica y membrana celular",
+      "bytes": 214200,
+      "width": 1448,
+      "height": 1086
+    },
+    {
+      "filename": "quick_02_fases_potencial_accion.webp",
+      "src": "/mnt/data/fases_del_potencial_de_acciÃ³n.png",
+      "dest": "assets/figures/physio-module1-sheets-v241_module4_images_root/quick_02_fases_potencial_accion.webp",
+      "title": "Imagen â€” Fases del potencial de acciÃ³n",
+      "bytes": 139190,
+      "width": 1448,
+      "height": 1086
+    },
+    {
+      "filename": "quick_03_periodos_refractarios.webp",
+      "src": "/mnt/data/perÃodos_refractarios_y_potencial_de_acciÃ³n.png",
+      "dest": "assets/figures/physio-module1-sheets-v241_module4_images_root/quick_03_periodos_refractarios.webp",
+      "title": "Imagen â€” PerÃodos refractarios absoluto y relativo",
+      "bytes": 161908,
+      "width": 1448,
+      "height": 1086
+    },
+    {
+      "filename": "quick_04_sinapsis_quimica.webp",
+      "src": "/mnt/data/sinapsis_quÃmica_y_transmisiÃ³n_de_seÃ±ales.png",
+      "dest": "assets/figures/physio-module1-sheets-v241_module4_images_root/quick_04_sinapsis_quimica.webp",
+      "title": "Imagen â€” Sinapsis quÃmica y transmisiÃ³n de seÃ±ales",
+      "bytes": 117760,
+      "width": 1448,
+      "height": 1086
+    }
+  ],
+  "ultraSheetFigures": [
+    {
+      "filename": "ultra_01_potencial_accion_6_pasos.webp",
+      "src": "/mnt/data/potencial_de_acciÃ³n_en_6_pasos.png",
+      "dest": "assets/figures/physio-module1-sheets-v241_module4_images_root/ultra_01_potencial_accion_6_pasos.webp",
+      "title": "Imagen â€” Potencial de acciÃ³n en 6 pasos",
+      "bytes": 122126,
+      "width": 1448,
+      "height": 1086
+    }
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "ultraMarkdown": "ultra.md",
+    "exam": "exam.json",
+    "figures": "figures.json"
+  }
+}

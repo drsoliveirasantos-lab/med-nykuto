@@ -1,0 +1,30 @@
+{
+  "id": "02-microbiologia-04-vibrio-cholerae-y-colera",
+  "number": 4,
+  "title": "Vibrio cholerae y cÃ³lera",
+  "file": "Modulo_04_vibrio_cholerae_y_colera.md",
+  "summary": "El tema central es entender el cÃ³lera como una enfermedad aguda, toxigÃ©nica e hidroelÃ©ctrica: el problema no es solo la presencia de la bacteria, sino la acciÃ³n de la toxina y la pÃ©rdida rÃ¡pida de agua, sodio y potasio. El profesor lo orienta siempre hacia fisiopatologÃa, clÃnicaâ€¦",
+  "headings": [
+    "3. IntroducciÃ³n fisiopatolÃ³gica",
+    "Bloque 1 - Agente etiolÃ³gico y morfologÃa",
+    "Bloque 2 - EpidemiologÃa y fuente de contaminaciÃ³n",
+    "Bloque 3 - Patogenicidad: toxina y enfermedad aguda",
+    "Bloque 4 - ClÃnica cardinal: diarrea acuosa tipo agua de arroz",
+    "Bloque 5 - Ausencia de fiebre y diferencia con otras diarreas",
+    "Bloque 6 - PÃ©rdida hidroelÃ©ctrica: sodio, potasio y volumen",
+    "Bloque 7 - Hipovolemia, shock y signos de gravedad",
+    "Bloque 8 - DiagnÃ³stico: clÃnica, epidemiologÃa y mÃ©todos auxiliares",
+    "Bloque 9 - Tratamiento inicial: reponer volumen y electrolitos",
+    "6. CorrelaciÃ³n clÃnica"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

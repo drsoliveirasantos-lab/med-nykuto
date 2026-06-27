@@ -1,0 +1,28 @@
+{
+  "id": "02-microbiologia-12-resistencia-bacteriana-y-antibiograma",
+  "number": 12,
+  "title": "Resistencia bacteriana y antibiograma",
+  "file": "Modulo_12_resistencia_bacteriana_y_antibiograma.md",
+  "summary": "- Entender por quÃ© identificar gÃ©nero y especie modifica la elecciÃ³n del antibiÃ³tico. - Aplicar el razonamiento del profesor en infecciones oportunistas e intrahospitalarias. - Interpretar sensibilidad y resistencia en el antibiograma para continuar o cambiar tratamiento. - Evitaâ€¦",
+  "headings": [
+    "3. IntroducciÃ³n fisiolÃ³gica y clÃnica",
+    "Bloque 1 - Por quÃ© no basta saber el gÃ©nero bacteriano",
+    "Bloque 2 - Resistencia estructural vs resistencia metabÃ³lica",
+    "Bloque 3 - Cultivo, prueba rÃ¡pida y antibiograma",
+    "Bloque 4 - Recidiva, hospitalizaciÃ³n y cambio de estrategia",
+    "Bloque 5 - Beta-lactÃ¡micos, hidrÃ³lisis y beta-lactamasa",
+    "Bloque 6 - BacteriostÃ¡tico, amplio espectro y espera del resultado",
+    "5. CorrelaciÃ³n clÃnica",
+    "8. Cuadro resumen de repaso"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

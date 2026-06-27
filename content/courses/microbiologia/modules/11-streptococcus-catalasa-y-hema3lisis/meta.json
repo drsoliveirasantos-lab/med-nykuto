@@ -1,0 +1,33 @@
+{
+  "id": "02-microbiologia-11-streptococcus-catalasa-y-hemolisis",
+  "number": 11,
+  "title": "Streptococcus, catalasa y hemÃ³lisis",
+  "file": "Modulo_11_streptococcus_catalasa_y_hemolisis.md",
+  "summary": "Tema central: entender dÃ³nde se ubica Streptococcus dentro de los cocos Gram positivos y cÃ³mo diferenciarlo, sobre todo, de Staphylococcus. El profesor insiste en la lÃ³gica de laboratorio: primero se reconoce la morfologÃa y la tinciÃ³n, despuÃ©s se identifica el gÃ©nero y finalmentâ€¦",
+  "headings": [
+    "3. IntroducciÃ³n microbiolÃ³gica",
+    "Bloque 1 - Cocos Gram positivos: punto de partida",
+    "Bloque 2 - Familia, gÃ©nero y especie",
+    "Bloque 3 - Prueba de catalasa",
+    "Bloque 4 - HemÃ³lisis en agar sangre",
+    "Bloque 5 - Streptococcus dentro del razonamiento clÃnico",
+    "6. CorrelaciÃ³n clÃnica",
+    "1. En una lÃ¡mina se observan cocos Gram positivos en cadenas. La catalasa es negativa. Â¿CuÃ¡l es la orientaciÃ³n inicial?",
+    "2. Â¿Por quÃ© el profesor insiste en identificar especie y no quedarse solo con gÃ©nero?",
+    "3. Â¿QuÃ© significa beta-hemÃ³lisis en agar sangre?",
+    "4. Â¿QuÃ© prueba separa inicialmente Staphylococcus de Streptococcus?",
+    "5. Â¿Por quÃ© la coagulasa no es la primera prueba para Streptococcus?",
+    "6. Caso: paciente con faringitis, muestra farÃngea con cocos Gram positivos catalasa negativos. Â¿QuÃ© razonamiento debe hacerse?",
+    "Nota de fidelidad al texto"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

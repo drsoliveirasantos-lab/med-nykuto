@@ -1,0 +1,23 @@
+{
+  "id": "05-inmunologia-06-migracion-leucocitaria-marginacion-rodamiento-adhesion-y-diapedesis",
+  "number": 6,
+  "title": "MigraciÃ³n leucocitaria: marginaciÃ³n, rodamiento, adhesiÃ³n y diapedesis",
+  "file": "Modulo_06_migracion_leucocitaria_marginacion_rodamiento_adhesion_y_diapedesis.md",
+  "summary": "- Diferenciar lo que ocurre en la luz vascular, en el endotelio y en los tejidos. - Entender la diapedesis/transmigraciÃ³n como paso controlado a travÃ©s del endotelio. Los leucocitos se encuentran principalmente en el torrente sanguÃneo, pero el microorganismo o la lesiÃ³n suelen eâ€¦",
+  "headings": [
+    "2. Etapas dentro de la luz del vaso",
+    "3. Selectinas e integrinas",
+    "4. TransmigraciÃ³n o diapedesis",
+    "5. MigraciÃ³n en el tejido y quimiotaxis"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

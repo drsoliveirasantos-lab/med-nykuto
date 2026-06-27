@@ -1,0 +1,24 @@
+{
+  "id": "05-inmunologia-01-introduccion-a-la-inmunologia-inmunidad-innata-y-adaptativa",
+  "number": 1,
+  "title": "IntroducciÃ³n a la inmunologÃa: inmunidad innata y adaptativa",
+  "file": "Modulo_01_introduccion_a_la_inmunologia_inmunidad_innata_y_adaptativa.md",
+  "summary": "- Diferenciar inmunidad innata e inmunidad adaptativa sin confundir molÃ©culas ni cÃ©lulas principales. - Entender que la respuesta inflamatoria inicia por lesiones celulares y seÃ±ales de peligro. - Relacionar complemento, leucocitos, anticuerpos e inmunoglobulinas con el tipo de râ€¦",
+  "headings": [
+    "1. Â¿QuÃ© hace el sistema inmunolÃ³gico?",
+    "2. Inmunidad innata: primera lÃnea de defensa",
+    "3. Inmunidad adaptativa: especificidad y memoria",
+    "4. ComparaciÃ³n esencial para examen",
+    "5. Puente clÃnico: de protecciÃ³n a lesiÃ³n"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}
