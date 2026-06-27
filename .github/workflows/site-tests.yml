@@ -73,6 +73,18 @@ jobs:
       - name: Ensure protected bank files were not changed accidentally
         run: node scripts/protected-data-guard.js
 
+  seo-health:
+    name: SEO health tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate SEO, sitemap and visible branding
+        run: node scripts/validate-seo-health.js
+
   browser-smoke:
     name: Browser smoke tests
     needs: validate
@@ -469,4 +481,103 @@ jobs:
           path: |
             performance-light.json
             test-results/performance-light/**
+            playwright-report/**
+
+  browser-deployed-preview-smoke:
+    name: Browser deployed preview smoke tests
+    needs: validate
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
+      - name: Run deployed preview smoke tests
+        env:
+          DEPLOYED_PREVIEW_BASE_URL: https://preview.med-nykuto-git.pages.dev
+        run: |
+          set +e
+          npx playwright test tests/deployed-preview-smoke.spec.js --project=desktop-chromium --trace=retain-on-failure --output=test-results/deployed-preview --reporter=json > deployed-preview.json
+          code=$?
+          node scripts/print-playwright-summary.js deployed-preview.json
+          exit $code
+      - name: Upload deployed preview evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployed-preview-evidence
+          if-no-files-found: ignore
+          path: |
+            deployed-preview.json
+            test-results/deployed-preview/**
+            playwright-report/**
+
+  browser-visual-snapshots:
+    name: Browser visual snapshot evidence
+    needs: validate
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
+      - name: Capture visual snapshots
+        run: |
+          set +e
+          npx playwright test tests/visual-snapshots.spec.js --project=desktop-chromium --trace=retain-on-failure --output=test-results/visual-snapshots-run --reporter=json > visual-snapshots.json
+          code=$?
+          node scripts/print-playwright-summary.js visual-snapshots.json
+          exit $code
+      - name: Upload visual snapshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-snapshots
+          if-no-files-found: ignore
+          path: |
+            visual-snapshots.json
+            test-results/visual-snapshots/**
+            test-results/visual-snapshots-run/**
+            playwright-report/**
+
+  browser-accessibility-light:
+    name: Browser accessibility light tests
+    needs: validate
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
+      - name: Run accessibility light tests
+        run: |
+          set +e
+          npx playwright test tests/accessibility-light.spec.js --project=desktop-chromium --trace=retain-on-failure --output=test-results/accessibility-light --reporter=json > accessibility-light.json
+          code=$?
+          node scripts/print-playwright-summary.js accessibility-light.json
+          exit $code
+      - name: Upload accessibility evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: accessibility-light-evidence
+          if-no-files-found: ignore
+          path: |
+            accessibility-light.json
+            test-results/accessibility-light/**
             playwright-report/**
