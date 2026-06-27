@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://med-cursos.netlify.app/sitemap.xml
+Sitemap: https://preview.med-nykuto-git.pages.dev/sitemap.xml
