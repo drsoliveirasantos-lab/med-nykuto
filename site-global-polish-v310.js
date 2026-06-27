@@ -1,13 +1,13 @@
-/* v376 — Global Med Nykuto polish layer.
+/* v377 — Global Med Nykuto polish layer.
    Applies identity, language, cache-visible UI text, logo/home behavior, optional public-first auth, course image zoom and practice-page safety.
    Quiet-page rule: module/practice/exam/mistakes pages must not load forced global repair/debug layers or delayed global refresh passes while the user is reading or answering.
-   Quiet pages still expose a lightweight runtime/health marker for browser regression tests without loading the forced runtime repair layer. */
+   Quiet pages expose lightweight runtime/health markers, local feedback fallback, and brand text cleanup without forced runtime repaint layers. */
 (function(){
   'use strict';
 
   var SITE_NAME = 'Med Nykuto';
   var HOST = 'https://preview.med-nykuto-git.pages.dev/';
-  var CACHE_VERSION = '376';
+  var CACHE_VERSION = '377';
 
   function text(el,v){ if(el && v != null) el.textContent = v; }
   function all(sel,root){ return Array.from((root||document).querySelectorAll(sel)); }
@@ -110,6 +110,22 @@
     });
   }
 
+  function normalizeVisibleBrandText(){
+    if(!document.body) return;
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node){
+        var parent = node && node.parentElement;
+        if(!parent) return NodeFilter.FILTER_REJECT;
+        if(/^(SCRIPT|STYLE|TEXTAREA|INPUT|NOSCRIPT)$/.test(parent.tagName || '')) return NodeFilter.FILTER_REJECT;
+        return /Med\s+Cursos|MedCursos/i.test(node.nodeValue || '') ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+      }
+    });
+    var n;
+    while((n = walker.nextNode())){
+      n.nodeValue = String(n.nodeValue || '').replace(/Med\s+Cursos/g, SITE_NAME).replace(/MedCursos/g, SITE_NAME);
+    }
+  }
+
   function polishHome(){
     if(!document.body || document.body.dataset.page !== 'home') return;
     text(document.querySelector('#quick-actions-title'), '¿Qué quieres revisar ahora?');
@@ -187,7 +203,7 @@
     var health = computeCompactHealth();
     window.MED_NYKUTO_HEALTH = health;
     window.__MED_NYKUTO_RUNTIME_GUARD__ = 'v362';
-    window.__MED_NYKUTO_RUNTIME_GUARD_LIGHT__ = 'v376-quiet-no-forced-runtime';
+    window.__MED_NYKUTO_RUNTIME_GUARD_LIGHT__ = 'v377-quiet-no-forced-runtime';
     if(document.documentElement) document.documentElement.dataset.medRuntime = 'v362';
     if(document.body){
       document.body.dataset.medRuntime = 'v362';
@@ -197,6 +213,46 @@
       document.body.dataset.medQcm = String(health.qcmCount || 0);
       document.body.classList.add('med-runtime-ready');
     }
+  }
+
+  function showQuestionFeedbackFallback(form){
+    var old = document.getElementById('questionFeedbackFallbackV360');
+    if(old) old.remove();
+    var box = document.createElement('div');
+    box.id = 'questionFeedbackFallbackV360';
+    box.className = 'notice question-feedback-fallback';
+    box.innerHTML = '<strong>Reporte guardado localmente</strong><p>El reporte fue registrado en este navegador y podrá revisarse después.</p>';
+    (form && form.parentNode ? form.parentNode : (document.querySelector('main') || document.body)).appendChild(box);
+  }
+
+  function installQuietQuestionFeedbackFallback(){
+    if(!isPracticeLikePage() || window.__MED_NYKUTO_QUIET_FEEDBACK_FALLBACK__) return;
+    window.__MED_NYKUTO_QUIET_FEEDBACK_FALLBACK__ = 'v377-local-submit-guard';
+    document.addEventListener('submit', function(e){
+      var form = e.target;
+      if(!form || !form.matches || !form.matches('form[name="question-feedback"]')) return;
+      e.preventDefault();
+      e.stopPropagation();
+      if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+      try{
+        var data = new FormData(form);
+        var reports = JSON.parse(localStorage.getItem('medQuestionReports:v1') || '[]');
+        reports.push({
+          question_id: data.get('question_id') || '',
+          comment: data.get('comment') || '',
+          page: location.href,
+          createdAt: new Date().toISOString()
+        });
+        localStorage.setItem('medQuestionReports:v1', JSON.stringify(reports.slice(-50)));
+      }catch(err){}
+      showQuestionFeedbackFallback(form);
+    }, true);
+    all('form[name="question-feedback"]').forEach(function(form){
+      form.removeAttribute('action');
+      form.removeAttribute('data-netlify');
+      form.removeAttribute('netlify');
+      form.removeAttribute('netlify-honeypot');
+    });
   }
 
   function injectGlobalStyle(){
@@ -217,7 +273,9 @@
       '.is-coming-soon{opacity:.78}',
       '.is-coming-soon .mini-progress i{width:0!important}',
       '.home-action-card,.subject-progress-card,.module-card,.course-card{touch-action:pan-y;}',
+      '.practice-page button.weak-reset{pointer-events:auto!important}',
       '.runtime-health-panel{margin:16px auto;max-width:1080px}',
+      '.question-feedback-fallback{margin:14px 0;padding:12px;border:1px solid rgba(74,222,128,.35);border-radius:14px;background:rgba(74,222,128,.08)}',
       '@media(min-width:921px) and (max-width:1350px){.nav-shell{display:grid!important;grid-template-columns:auto auto!important;grid-template-areas:"brand lang" "links links"!important}.brand,.brand-official{grid-area:brand!important}.lang-switch,.language-switcher{grid-area:lang!important;justify-self:end!important}#navLinks,.nav-links{grid-area:links!important;width:100%!important;justify-content:center!important}}',
       '@media(max-width:920px){#navLinks,.nav-links{display:none!important;position:absolute!important;right:22px!important;top:70px!important;background:#0b111d!important;border:1px solid var(--line)!important;border-radius:18px!important;padding:14px!important;box-shadow:var(--shadow)!important;min-width:220px!important}.nav-links.open,#navLinks.open{display:grid!important}.menu-toggle{display:block!important}}'
     ].join('\n');
@@ -244,7 +302,7 @@
 
   function loadGlobalRepairLayers(){
     if(isQuietPage()){
-      window.__MED_NYKUTO_GLOBAL_POLISH_LIGHT_MODE__ = 'v376-skip-forced-repair-layers';
+      window.__MED_NYKUTO_GLOBAL_POLISH_LIGHT_MODE__ = 'v377-skip-forced-repair-layers';
       if(isModuleReaderPage()) loadCourseImageZoom();
       return;
     }
@@ -261,18 +319,22 @@
     setMeta();
     polishHeader();
     polishGenericText();
+    normalizeVisibleBrandText();
     polishHome();
     polishComingSoon();
     exposeQuietRuntime();
+    installQuietQuestionFeedbackFallback();
     injectGlobalStyle();
     loadGlobalRepairLayers();
-    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v376-loader';
+    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v377-loader';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
   window.addEventListener('load', run);
   window.addEventListener('pageshow', run);
-  if(!isQuietPage()){
+  if(isQuietPage()){
+    setTimeout(normalizeVisibleBrandText, 120);
+  }else{
     setTimeout(run, 250);
     setTimeout(run, 900);
   }
