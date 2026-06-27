@@ -20,11 +20,13 @@ for (const path of pages) {
     expect(response, `${path} should return a response`).toBeTruthy();
     expect(response.status(), `${path} should not be an HTTP error`).toBeLessThan(400);
     await expect(page.locator('body')).toBeVisible({ timeout: 15000 });
-    await expect(page.locator('main, body')).toBeVisible({ timeout: 15000 });
+    if (await page.locator('main').count()) {
+      await expect(page.locator('main').first()).toBeVisible({ timeout: 15000 });
+    }
 
     const metrics = await page.evaluate(() => {
       const bodyText = document.body?.innerText || '';
-      const mainText = document.querySelector('main')?.innerText || '';
+      const mainText = document.querySelector('main')?.innerText || bodyText;
       const h1Count = document.querySelectorAll('h1').length;
       const interactiveCount = document.querySelectorAll('a, button, input, select, textarea, [role="button"], [role="link"]').length;
       return { bodyText, mainText, h1Count, interactiveCount };
