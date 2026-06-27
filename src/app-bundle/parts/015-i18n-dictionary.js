@@ -1,0 +1,4 @@
+
+  Object.assign(UI.es, {
+    donateEyebrow:'Proyecto gratuito · apoyo voluntario', donateTitle:'Apoya el proyecto', donateText:'El sitio seguirá siendo gratuito y abierto para todos. Una pequeña contribución ayuda a pagar el alojamiento, mejorar los cursos y mantener accesibles las herramientas de entrenamiento.', donateBubbleTitle:'Si Julius viera la factura del servidor, ya habría apagado el router.', donateBubbleText:'Con un Pix, los QCM siguen funcionando.', pixPayloadLabel:'Código Pix copia y pega', copyPix:'Copiar código Pix', scanPix:'Ver QR Pix', pixHint:'', copyPixAria:'Copiar el código Pix', pixCopied:'Código Pix copiado.', pixManualCopy:'Si la copia automática falla, intenta de nuevo o usa el QR.', pixIntegratedNote:'El código Pix está integrado en el botón de copia. No aparece el código largo en la página.'
+  });

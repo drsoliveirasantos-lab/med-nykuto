@@ -1,0 +1,33 @@
+
+
+  Object.assign(UI.es, {
+    navAbout:'Sobre el proyecto',
+    navLegal:'Aviso legal',
+    aboutEyebrow:'Transparencia',
+    aboutTitle:'Sobre Med Cursos',
+    aboutText:'Med Cursos es una biblioteca médica gratuita pensada para revisar de forma activa: cursos, fichas, QCM, casos clínicos, verdadero/falso y revisión de errores.',
+    aboutMissionTitle:'Misión',
+    aboutMissionText:'El objetivo es simple: hacer que el estudio médico sea más claro, rápido y accesible, sin bloquear el acceso por pago.',
+    aboutHowTitle:'Cómo se organiza el contenido',
+    aboutHowText:'Los módulos están organizados por materia. Cada curso puede tener lectura completa, ficha rápida, QCM, casos clínicos y verdadero/falso para pasar de la teoría al entrenamiento.',
+    aboutQualityTitle:'Calidad y mejora continua',
+    aboutQualityText:'El sitio permite reportar errores en preguntas y enviar sugerencias. La prioridad es corregir ambigüedades, mejorar explicaciones y hacer preguntas más útiles para examen.',
+    aboutSupportTitle:'Proyecto gratuito y solidario',
+    aboutSupportText:'El acceso sigue siendo gratuito. El apoyo voluntario ayuda a mantener el alojamiento, mejorar las herramientas y continuar agregando contenido.',
+    aboutCtaStudy:'Empezar a estudiar',
+    aboutCtaContact:'Contactar',
+    legalEyebrow:'Información importante',
+    legalTitle:'Aviso legal y uso educativo',
+    legalText:'Este sitio es una herramienta educativa para estudiantes. No sustituye una consulta médica, una recomendación profesional ni el material oficial de tu universidad.',
+    legalEducationalTitle:'Uso educativo',
+    legalEducationalText:'El contenido sirve para revisar, memorizar y entrenar el razonamiento. Siempre verifica la información importante con tus clases, bibliografía y docentes.',
+    legalMedicalTitle:'No es consejo médico',
+    legalMedicalText:'La información publicada no debe usarse para diagnosticar, tratar o modificar conductas clínicas en pacientes reales.',
+    legalErrorsTitle:'Errores y correcciones',
+    legalErrorsText:'Puede haber errores, traducciones imperfectas o preguntas ambiguas. Si detectas un problema, utiliza el botón de reporte o la página de contacto.',
+    legalFormsTitle:'Formularios',
+    legalFormsText:'Los formularios de contacto y reporte se envían a través de Netlify Forms para poder revisar comentarios y corregir el sitio.',
+    legalPrivacyTitle:'Privacidad básica',
+    legalPrivacyText:'No escribas datos médicos personales sensibles en los formularios. Para recibir respuesta, puedes dejar un email, pero no es obligatorio.',
+    seoShareTitle:'Med Cursos — cursos médicos, QCM y casos clínicos gratis'
+  });
