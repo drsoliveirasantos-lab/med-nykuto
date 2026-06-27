@@ -1,0 +1,27 @@
+{
+  "id": "04-bioquimica-01-agua-ph-y-equilibrio-hidrico",
+  "number": 1,
+  "title": "Agua, pH y equilibrio hÃdrico",
+  "file": "Modulo_01_agua_ph_y_equilibrio_hidrico.md",
+  "summary": "- Explicar por quÃ© el agua es el componente quÃmico predominante de los organismos vivos. - Relacionar la estructura bipolar del agua con puentes de hidrÃ³geno, solvataciÃ³n y transporte de solutos. - Comprender cÃ³mo la ADH, el hipotÃ¡lamo, los riÃ±ones y la evaporaciÃ³n mantienen el â€¦",
+  "headings": [
+    "1. IntroducciÃ³n bioquÃmica: el agua como base del medio interno",
+    "2. Estructura del agua y propiedades fÃsico-quÃmicas",
+    "3. SolvataciÃ³n: por quÃ© el agua es el solvente biolÃ³gico ideal",
+    "4. Equilibrio hÃdrico: ADH, riÃ±Ã³n, sed y evaporaciÃ³n",
+    "5. pH: potencial de hidrÃ³geno y estabilidad de los fluidos",
+    "6. Bicarbonato y sistemas amortiguadores",
+    "7. CorrelaciÃ³n clÃnica: deshidrataciÃ³n, hemoconcentraciÃ³n y presiÃ³n arterial",
+    "8. Trampas frecuentes de examen"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "03-genetica-06-genetica-mendeliana-alelos-genotipo-y-fenotipo",
+  "number": 6,
+  "title": "GenÃ©tica mendeliana: alelos, genotipo y fenotipo",
+  "file": "Modulo_06_genetica_mendeliana_alelos_genotipo_y_fenotipo.md",
+  "summary": "- 4. Dominante: se expresa con una sola copia y se representa con letra mayÃºscula. - 5. Recesivo: necesita dos copias recesivas para manifestarse y se representa con letra minÃºscula. - Definir alelo, homocigoto, heterocigoto, dominante, recesivo, genotipo y fenotipo. - Explicar pâ€¦",
+  "headings": [
+    "1. Punto de partida: dos alelos para cada gen",
+    "2. Alelo dominante",
+    "3. Alelo recesivo",
+    "4. Genotipo y fenotipo",
+    "5. Ambiente: por quÃ© el fenotipo no es solo genÃ©tica",
+    "6. Ejemplos de rasgos dominantes y recesivos",
+    "7. CÃ³mo razonar cruces simples",
+    "8. CorrelaciÃ³n clÃnica: enfermedad mendeliana vs multifactorial"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

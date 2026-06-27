@@ -1,0 +1,18 @@
+{
+  "id": "04-bioquimica-08-carbohidratos-clasificacion-y-digestion",
+  "number": 8,
+  "title": "Carbohidratos: clasificaciÃ³n y digestiÃ³n",
+  "file": "Modulo_08_carbohidratos_clasificacion_y_digestion.md",
+  "summary": "Los carbohidratos, tambiÃ©n llamados glÃºcidos o hidratos de carbono, son biomolÃ©culas formadas principalmente por carbono, hidrÃ³geno y oxÃgeno. En la clase se remarcan como la fuente mÃ¡s inmediata de ATP para las reacciones del organismo: cuando el cuerpo necesita energÃa rÃ¡pida, â€¦",
+  "headings": [],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

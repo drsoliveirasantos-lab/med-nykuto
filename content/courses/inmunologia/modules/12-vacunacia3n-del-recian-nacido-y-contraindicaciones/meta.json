@@ -1,0 +1,25 @@
+{
+  "id": "05-inmunologia-12-vacunacion-del-recien-nacido-y-contraindicaciones",
+  "number": 12,
+  "title": "VacunaciÃ³n del reciÃ©n nacido y contraindicaciones",
+  "file": "Modulo_12_vacunacion_del_recien_nacido_y_contraindicaciones.md",
+  "summary": "- Escribir correctamente Tuberculosis/BCG y Hepatitis B, evitando respuestas incompletas. - Reconocer las contraindicaciones generales de vacunas segÃºn el tipo de paciente. - Diferenciar reacciÃ³n inflamatoria postvacunal de enfermedad causada por la vacuna. - Aplicar el razonamieâ€¦",
+  "headings": [
+    "1. Vacunas del reciÃ©n nacido",
+    "2. Esquema mÃnimo que el curso remarca",
+    "4. Contraindicaciones: idea general",
+    "5. ReacciÃ³n postvacunal: no es lo mismo que enfermedad",
+    "6. Vacunas vivas y pacientes especiales",
+    "7. CÃ³mo responder en examen"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

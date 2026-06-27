@@ -1,0 +1,22 @@
+{
+  "id": "microbiologia",
+  "folder": "02_Microbiologia",
+  "title": "MicrobiologÃa",
+  "description": "MÃ³dulos integrados para estudio.",
+  "moduleCount": 13,
+  "moduleOrder": [
+    "02-microbiologia-01-estructura-bacteriana-y-patogenicidad",
+    "02-microbiologia-02-diagnostico-microbiologico-y-medios-de-cultivo",
+    "02-microbiologia-03-metabolismo-y-crecimiento-bacteriano",
+    "02-microbiologia-04-vibrio-cholerae-y-colera",
+    "02-microbiologia-05-gardnerella-vaginalis-y-vaginosis-bacteriana",
+    "02-microbiologia-06-chlamydia-mycoplasma-y-ureaplasma",
+    "02-microbiologia-07-helicobacter-pylori",
+    "02-microbiologia-08-pseudomonas-aeruginosa",
+    "02-microbiologia-09-mycobacterium-tuberculosis-y-leprae",
+    "02-microbiologia-10-staphylococcus-y-cocos-gram-positivos",
+    "02-microbiologia-11-streptococcus-catalasa-y-hemolisis",
+    "02-microbiologia-12-resistencia-bacteriana-y-antibiograma",
+    "02-microbiologia-13-diagnostico-diferencial-genital-candida-trichomonas-y-gonorrea"
+  ]
+}

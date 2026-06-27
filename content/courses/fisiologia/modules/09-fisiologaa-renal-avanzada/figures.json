@@ -1,0 +1,52 @@
+[
+  {
+    "title": "Balance renal",
+    "src": "assets/figures/physio-module9-v255/01_balance_renal.webp",
+    "caption": "Figura 1 â€” Balance renal: filtraciÃ³n, reabsorciÃ³n, secreciÃ³n y excreciÃ³n."
+  },
+  {
+    "title": "Arteriolas glomerulares",
+    "src": "assets/figures/physio-module9-v255/03_arteriolas_glomerulares.webp",
+    "caption": "Figura 2 â€” Arteriolas glomerulares, TFG, FPR y fracciÃ³n de filtraciÃ³n."
+  },
+  {
+    "title": "AutorregulaciÃ³n renal",
+    "src": "assets/figures/physio-module9-v255/04_autorregulacion_macula_densa.webp",
+    "caption": "Figura 3 â€” AutorregulaciÃ³n renal y mÃ¡cula densa."
+  },
+  {
+    "title": "TÃºbulo proximal",
+    "src": "assets/figures/physio-module9-v255/05_tubulo_proximal.webp",
+    "caption": "Figura 4 â€” TÃºbulo proximal: reabsorciÃ³n masiva e isoosmÃ³tica."
+  },
+  {
+    "title": "Glucosa, Tm y glucosuria",
+    "src": "assets/figures/physio-module9-v255/06_glucosa_tm_glucosuria.webp",
+    "caption": "Figura 5 â€” Glucosa: carga filtrada, Tm y glucosuria."
+  },
+  {
+    "title": "Asa de Henle y vasa recta",
+    "src": "assets/figures/physio-module9-v255/07_asa_henle_vasa_recta.webp",
+    "caption": "Figura 6 â€” Asa de Henle y vasa recta."
+  },
+  {
+    "title": "TÃºbulo distal y colector",
+    "src": "assets/figures/physio-module9-v255/08_distal_colector_celulas.webp",
+    "caption": "Figura 7 â€” TÃºbulo distal/colector: cÃ©lulas principales e intercaladas."
+  },
+  {
+    "title": "ADH y AQP2",
+    "src": "assets/figures/physio-module9-v255/09_adh_aqp2_concentracion.webp",
+    "caption": "Figura 8 â€” ADH, AQP2 y concentraciÃ³n urinaria."
+  },
+  {
+    "title": "Naâº, Kâº y aldosterona",
+    "src": "assets/figures/physio-module9-v255/10_manejo_na_k_aldosterona.webp",
+    "caption": "Figura 9 â€” Manejo renal de Naâº y Kâº."
+  },
+  {
+    "title": "IntegraciÃ³n volumen-osmolaridad",
+    "src": "assets/figures/physio-module9-v255/11_integracion_volumen_osmolaridad.webp",
+    "caption": "Figura 10 â€” IntegraciÃ³n volumen-osmolaridad."
+  }
+]

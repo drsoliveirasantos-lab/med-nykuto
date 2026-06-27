@@ -1,0 +1,28 @@
+{
+  "id": "03-genetica-09-alteraciones-de-cromosomas-sexuales-monosomia-x-47-xxx-y-47-xxy",
+  "number": 9,
+  "title": "Alteraciones de cromosomas sexuales: monosomÃa X, 47,XXX y 47,XXY",
+  "file": "Modulo_09_alteraciones_de_cromosomas_sexuales_monosomia_x_47_xxx_y_47_xxy.md",
+  "summary": "Este mÃ³dulo reÃºne las alteraciones numÃ©ricas que afectan al par sexual. La idea central de la clase es que los cromosomas sexuales no solo determinan sexo biolÃ³gico, sino que tambiÃ©n condicionan expresiÃ³n clÃnica, desarrollo puberal, fertilidad, aprendizaje, coordinaciÃ³n motora yâ€¦",
+  "headings": [
+    "1. Recordatorio: cromosomas sexuales y expresiÃ³n clÃnica",
+    "Tabla comparativa inicial",
+    "2. Â¿Por quÃ© el cromosoma X pesa tanto clÃnicamente?",
+    "3. MonosomÃa X: sÃndrome de Turner (45,X)",
+    "Casos clÃnicos corto - Turner",
+    "4. TrisomÃa X: 47,XXX",
+    "5. 47,XXY: sÃndrome de Klinefelter",
+    "6. DiagnÃ³stico: cÃ³mo razonar el cariotipo",
+    "Tabla de razonamiento diagnÃ³stico"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

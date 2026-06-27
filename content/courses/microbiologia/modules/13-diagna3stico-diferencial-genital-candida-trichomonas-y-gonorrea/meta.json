@@ -1,0 +1,25 @@
+{
+  "id": "02-microbiologia-13-diagnostico-diferencial-genital-candida-trichomonas-y-gonorrea",
+  "number": 13,
+  "title": "DiagnÃ³stico diferencial genital: Candida, Trichomonas y gonorrea",
+  "file": "Modulo_13_diagnostico_diferencial_genital_candida_trichomonas_y_gonorrea.md",
+  "summary": "Basado en el bloque de vaginosis/vaginitis del profesor + complemento pedagÃ³gico de integraciÃ³n - Reconocer Candida como causa frecuente de vaginitis, especialmente cuando hay prurito, eritema y secreciÃ³n grumosa. - Reconocer Trichomonas como infecciÃ³n de transmisiÃ³n sexual asociâ€¦",
+  "headings": [
+    "3. IntroducciÃ³n fisiolÃ³gica y clÃnica",
+    "Bloque 1 - Vaginosis vs vaginitis: la puerta de entrada del razonamiento",
+    "Bloque 2 - Candida: vaginitis fÃºngica inflamatoria",
+    "Bloque 3 - Trichomonas vaginalis: vaginitis por protozoo e ITS",
+    "Bloque 4 - Gonorrea: cervicitis/uretritis purulenta",
+    "6. CorrelaciÃ³n clÃnica"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

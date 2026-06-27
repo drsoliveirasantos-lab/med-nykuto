@@ -1,0 +1,28 @@
+{
+  "id": "03-genetica-11-sindrome-de-marfan-y-enfermedades-del-tejido-conectivo",
+  "number": 11,
+  "title": "SÃndrome de Marfan y enfermedades del tejido conectivo",
+  "file": "Modulo_11_sindrome_de_marfan_y_enfermedades_del_tejido_conectivo.md",
+  "summary": "- Definir el sÃndrome de Marfan como enfermedad hereditaria autosÃ³mica dominante del tejido conectivo. - Relacionar el gen FBN1, la fibrilina-1, el cromosoma 15 y el brazo Q con el mecanismo de la enfermedad. - Reconocer el fenotipo marfanoide: persona alta, delgada, con extremidâ€¦",
+  "headings": [
+    "1. Concepto principal",
+    "2. Base genÃ©tica y mecanismo",
+    "3. Fenotipo corporal y tejido conectivo",
+    "4. Manifestaciones esquelÃ©ticas",
+    "5. Manifestaciones oculares",
+    "6. Manifestaciones cardiovasculares: lo mÃ¡s peligroso",
+    "7. Ejemplo del profesor: Paganini",
+    "8. DiagnÃ³stico y razonamiento clÃnico",
+    "9. Trampas frecuentes de examen"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

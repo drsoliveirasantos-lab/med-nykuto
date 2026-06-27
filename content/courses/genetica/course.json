@@ -1,0 +1,21 @@
+{
+  "id": "genetica",
+  "folder": "03_Genetica",
+  "title": "GenÃ©tica",
+  "description": "MÃ³dulos integrados para estudio.",
+  "moduleCount": 12,
+  "moduleOrder": [
+    "03-genetica-01-bases-celulares-y-material-genetico",
+    "03-genetica-02-adn-arn-y-sintesis-de-proteinas",
+    "03-genetica-03-cromosomas-cariotipo-y-tipos-cromosomicos",
+    "03-genetica-04-ciclo-celular-mitosis-meiosis-y-checkpoints",
+    "03-genetica-05-no-disyuncion-aneuploidias-trisomias-y-monosomias",
+    "03-genetica-06-genetica-mendeliana-alelos-genotipo-y-fenotipo",
+    "03-genetica-07-patrones-de-herencia-y-arboles-genealogicos",
+    "03-genetica-08-sindrome-de-down-edwards-y-patau",
+    "03-genetica-09-alteraciones-de-cromosomas-sexuales-monosomia-x-47-xxx-y-47-xxy",
+    "03-genetica-10-enfermedad-de-huntington-y-expansion-de-trinucleotidos",
+    "03-genetica-11-sindrome-de-marfan-y-enfermedades-del-tejido-conectivo",
+    "03-genetica-12-genetica-multifactorial-ambiente-y-predisposicion"
+  ]
+}

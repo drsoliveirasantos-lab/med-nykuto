@@ -1,0 +1,38 @@
+{
+  "id": "03-genetica-03-cromosomas-cariotipo-y-tipos-cromosomicos",
+  "number": 3,
+  "title": "Cromosomas, cariotipo y tipos cromosÃ³micos",
+  "file": "Modulo_03_cromosomas_cariotipo_y_tipos_cromosomicos.md",
+  "summary": "- 2. Partes del cromosoma: centrÃ³mero, cromÃ¡tidas, brazos P/Q, telÃ³meros y satÃ©lites. - Interpretar por quÃ© el cariotipo sirve para diagnosticar trisomÃas, monosomÃas, translocaciones y mosaicismo. Este mÃ³dulo une la base molecular con la genÃ©tica clÃnica. El ADN no aparece sueltâ€¦",
+  "headings": [
+    "IntroducciÃ³n genÃ©tica",
+    "1. De ADN a cromosoma",
+    "A. Concepto principal",
+    "B. Secuencia lÃ³gica",
+    "2. Partes del cromosoma",
+    "A. Elementos que deben reconocerse",
+    "3. Tipos morfolÃ³gicos de cromosomas",
+    "A. ClasificaciÃ³n segÃºn posiciÃ³n del centrÃ³mero",
+    "B. Importancia de los acrocÃ©ntricos",
+    "4. Autosomas y cromosomas sexuales",
+    "A. NÃºmero cromosÃ³mico humano",
+    "B. Por quÃ© algunas enfermedades afectan mÃ¡s a varones",
+    "5. Cariotipo: lectura y utilidad clÃnica",
+    "A. DefiniciÃ³n",
+    "B. QuÃ© puede detectar",
+    "C. CÃ³mo se interpreta en clÃnica",
+    "6. CorrelaciÃ³n clÃnica y lÃ³gica de examen",
+    "A. Casos clÃnicos breve",
+    "B. Trampas frecuentes"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

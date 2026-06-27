@@ -1,0 +1,46 @@
+{
+  "id": "02-microbiologia-08-pseudomonas-aeruginosa",
+  "number": 8,
+  "title": "Pseudomonas aeruginosa",
+  "file": "Modulo_08_pseudomonas_aeruginosa.md",
+  "summary": "Tema central: Pseudomonas aeruginosa como bacilo Gram negativo no fermentador, aerÃ³bico estricto y oportunista, capaz de producir lesiones cutÃ¡neas, dermatonecrosis, neumonÃa secundaria, otitis externa, infecciones asociadas a sondas/catÃ©teres, bacteriemia y cuadros graves en pacâ€¦",
+  "headings": [
+    "Palabras clave repetidas por el profesor",
+    "3. IntroducciÃ³n fisiolÃ³gica y microbiolÃ³gica",
+    "Bloque 1 - Identidad microbiolÃ³gica de Pseudomonas aeruginosa",
+    "A. Concepto principal",
+    "B. DefiniciÃ³n",
+    "C. ExplicaciÃ³n del profesor reorganizada",
+    "D. ExplicaciÃ³n fisiolÃ³gica complementaria",
+    "E. Ejemplo clÃnico",
+    "F. Punto clave para examen",
+    "Bloque 2 - Estructura: cÃ¡psula, pili, LPS y biopelÃcula",
+    "E. Ejemplo del profesor",
+    "Bloque 3 - Pigmentos y grupo fluorescente",
+    "D. ExplicaciÃ³n complementaria",
+    "E. Ejemplo clÃnico/laboratorial",
+    "Bloque 4 - Toxinas, enzimas y dermatonecrosis",
+    "Bloque 5 - DiagnÃ³stico: cultivo, MacConkey, agar sangre, oxidasa y antibiograma",
+    "Bloque 6 - Manifestaciones clÃnicas por sistema",
+    "E. Ejemplos clÃnicos",
+    "Bloque 7 - ComparaciÃ³n con Mycoplasma pneumoniae",
+    "E. Ejemplo de pregunta",
+    "5. CorrelaciÃ³n clÃnica",
+    "1. Paciente quemado desarrolla lesiÃ³n cutÃ¡nea necrosante con secreciÃ³n verdosa. Â¿QuÃ© bacteria sospechar y quÃ© mecanismo explica la lesiÃ³n?",
+    "2. Â¿Por quÃ© Pseudomonas puede generar infecciÃ³n urinaria en pacientes sondados?",
+    "3. Â¿CuÃ¡l es la diferencia entre otitis externa leve e invasora en Pseudomonas?",
+    "4. Â¿QuÃ© funciÃ³n tiene la proteasa alcalina?",
+    "5. Â¿Por quÃ© se debe solicitar antibiograma?",
+    "6. Compare Pseudomonas con Mycoplasma en el aparato respiratorio."
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

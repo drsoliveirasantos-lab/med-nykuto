@@ -1,0 +1,30 @@
+{
+  "id": "02-microbiologia-03-metabolismo-y-crecimiento-bacteriano",
+  "number": 3,
+  "title": "Metabolismo y crecimiento bacteriano",
+  "file": "Modulo_03_metabolismo_y_crecimiento_bacteriano.md",
+  "summary": "El tema central de este mÃ³dulo es comprender cÃ³mo una bacteria obtiene energÃa, se adapta al medio y pasa de una fase silenciosa a una fase proliferativa. Para el profesor, este punto es clave porque permite explicar patogenicidad, oportunismo, resistencia metabÃ³lica y crecimientâ€¦",
+  "headings": [
+    "3. IntroducciÃ³n microbiolÃ³gica",
+    "Bloque 1 - Concepto de metabolismo bacteriano",
+    "Bloque 2 - Nutrientes, fuente de carbono y energÃa",
+    "Bloque 3 - Enzimas bacterianas: constitutivas y adaptativas",
+    "Bloque 4 - Metabolismo autotrÃ³fico y heterotrÃ³fico",
+    "Bloque 5 - Catabolismo y anabolismo",
+    "Bloque 6 - Factores que favorecen el crecimiento bacteriano",
+    "Bloque 7 - Metabolismo de oxido-reducciÃ³n y catalasa",
+    "Bloque 8 - Curva de crecimiento bacteriano",
+    "5. CorrelaciÃ³n clÃnica",
+    "Respuestas explicadas"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

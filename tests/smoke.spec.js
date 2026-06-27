@@ -3,6 +3,8 @@ const { test, expect } = require('@playwright/test');
 const CURRENT_GLOBAL_POLISH = 'v377-loader';
 const CURRENT_RUNTIME_GUARD = 'v362';
 const CURRENT_MODULE_READER = 'v106-no-reader-click-refresh-expanded-abbreviations';
+const EXPECTED_TOTAL_MODULES = 59;
+const EXPECTED_FISIOLOGIA_MODULES = 10;
 
 const pages = [
   '/',
@@ -61,13 +63,13 @@ test.describe('Med Nykuto smoke navigation', () => {
     });
     expect(data.hasData).toBeTruthy();
     expect(data.courseCount).toBeGreaterThanOrEqual(6);
-    expect(data.moduleCount).toBe(58);
+    expect(data.moduleCount).toBe(EXPECTED_TOTAL_MODULES);
     expect(data.richModules).toBeGreaterThanOrEqual(50);
     expect(data.polish).toBe(CURRENT_GLOBAL_POLISH);
     expect(data.repair).toBe('v360');
     expect(data.runtime).toBe(CURRENT_RUNTIME_GUARD);
     expect(data.health?.ok).toBeTruthy();
-    expect(data.health?.moduleCount).toBe(58);
+    expect(data.health?.moduleCount).toBe(EXPECTED_TOTAL_MODULES);
     expect(data.bodyHealth).toBe('ok');
     expect(data.bankRequired).toBe('0');
   });
@@ -82,7 +84,7 @@ test.describe('Med Nykuto smoke navigation', () => {
     await expect(page.locator('[data-testid="home-subject-choice"]')).toHaveCount(5);
     await page.locator('[data-home-course-id="fisiologia"]').click();
     await expect(page.locator('#homePickTitle')).toContainText('Fisiología — Elegir un módulo');
-    await expect(page.locator('[data-testid="home-module-choice"]')).toHaveCount(9);
+    await expect(page.locator('[data-testid="home-module-choice"]')).toHaveCount(EXPECTED_FISIOLOGIA_MODULES);
   });
 
   test('module page uses content-first reader layout', async ({ page }) => {

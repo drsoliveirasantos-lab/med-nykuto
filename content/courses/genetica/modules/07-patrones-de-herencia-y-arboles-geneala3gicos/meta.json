@@ -1,0 +1,30 @@
+{
+  "id": "03-genetica-07-patrones-de-herencia-y-arboles-genealogicos",
+  "number": 7,
+  "title": "Patrones de herencia y Ã¡rboles genealÃ³gicos",
+  "file": "Modulo_07_patrones_de_herencia_y_arboles_genealogicos.md",
+  "summary": "- 1. Herencia autosÃ³mica dominante: aparece de forma vertical en varias generaciones. - 2. Herencia autosÃ³mica recesiva: puede saltar generaciones y manifestarse cuando hay dos alelos recesivos. - 3. Herencia ligada al cromosoma X: afecta con mÃ¡s frecuencia a hombres porque tieneâ€¦",
+  "headings": [
+    "1. CÃ³mo pensar un patrÃ³n de herencia",
+    "2. Herencia autosÃ³mica dominante",
+    "3. Herencia autosÃ³mica recesiva",
+    "4. Herencia ligada al cromosoma X",
+    "5. Mutaciones de novo: cuando no hay antecedentes familiares",
+    "6. AnticipaciÃ³n genÃ©tica y expansiÃ³n de trinucleÃ³tidos",
+    "7. Consanguinidad y riesgo familiar",
+    "8. Ambiente: no todo es genotipo",
+    "9. CÃ³mo responder en examen",
+    "10. CorrelaciÃ³n clÃnica breve",
+    "Trampas frecuentes de examen"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

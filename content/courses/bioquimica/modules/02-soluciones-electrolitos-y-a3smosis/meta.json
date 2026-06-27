@@ -1,0 +1,18 @@
+{
+  "id": "04-bioquimica-02-soluciones-electrolitos-y-osmosis",
+  "number": 2,
+  "title": "Soluciones, electrolitos y Ã³smosis",
+  "file": "Modulo_02_soluciones_electrolitos_y_osmosis.md",
+  "summary": "- Explicar por quÃ© Na+, K+, Cl- y Ca2+ se solicitan cuando hay desequilibrio hÃdrico. - Relacionar el potasio con impulso nervioso, latidos y riesgo de colapso cuando estÃ¡ muy elevado. - Aplicar los conceptos en casos de vÃ³mitos, diarrea, fiebre, edema e internaciÃ³n. En bioquÃmicâ€¦",
+  "headings": [],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

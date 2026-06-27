@@ -1,0 +1,27 @@
+{
+  "id": "03-genetica-01-bases-celulares-y-material-genetico",
+  "number": 1,
+  "title": "Bases celulares y material genÃ©tico",
+  "file": "Modulo_01_bases_celulares_y_material_genetico.md",
+  "summary": "Este primer mÃ³dulo funciona como base antes de entrar en ADN/ARN, cromosomas, ciclo celular, herencia y sÃndromes genÃ©ticos. El profesor inicia desde la cÃ©lula porque la genÃ©tica no se entiende como una lista aislada de enfermedades: todo comienza en una unidad celular que contieâ€¦",
+  "headings": [
+    "3. IntroducciÃ³n fisiolÃ³gica y genÃ©tica",
+    "Bloque 1 - La cÃ©lula como unidad bÃ¡sica",
+    "Bloque 2 - NÃºcleo celular y genoma",
+    "Bloque 3 - Material genÃ©tico: ADN, cromatina y cromosoma",
+    "Bloque 4 - Organelos membranosos",
+    "Bloque 5 - Organelos no membranosos y citoesqueleto",
+    "Bloque 6 - RelaciÃ³n entre genoma, proteÃnas y enfermedad",
+    "6. CorrelaciÃ³n clÃnica"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

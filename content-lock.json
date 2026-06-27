@@ -1,0 +1,21 @@
+{
+  "version": "split-module10-lock-v1",
+  "totalModules": 59,
+  "courses": {
+    "fisiologia": 10,
+    "microbiologia": 13,
+    "genetica": 12,
+    "bioquimica": 12,
+    "inmunologia": 12,
+    "biofisica": 0
+  },
+  "protectedCourses": {
+    "fisiologia": 10,
+    "microbiologia": 13,
+    "genetica": 12,
+    "bioquimica": 12,
+    "inmunologia": 12
+  },
+  "expectedNewModule": "01-fisiologia-10-fisiologia-muscular",
+  "notes": "Validation should fail if a course disappears, if module IDs duplicate, or if referenced local images are missing."
+}

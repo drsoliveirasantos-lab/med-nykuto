@@ -1,0 +1,23 @@
+{
+  "id": "05-inmunologia-05-inflamacion-aguda-vasodilatacion-permeabilidad-y-mediadores",
+  "number": 5,
+  "title": "InflamaciÃ³n aguda: vasodilataciÃ³n, permeabilidad y mediadores",
+  "file": "Modulo_05_inflamacion_aguda_vasodilatacion_permeabilidad_y_mediadores.md",
+  "summary": "- Definir la inflamaciÃ³n aguda como respuesta rÃ¡pida, intensa y generalmente limitada. - Explicar los tres componentes iniciales: vasodilataciÃ³n, permeabilidad y migraciÃ³n leucocitaria. - Relacionar la permeabilidad vascular con el exudado rico en proteÃnas y cÃ©lulas. - Identificâ€¦",
+  "headings": [
+    "2. VasodilataciÃ³n y signos inflamatorios",
+    "3. Aumento de permeabilidad vascular",
+    "4. Mediadores de la inflamaciÃ³n",
+    "5. De la inflamaciÃ³n aguda a la lesiÃ³n endotelial"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}
