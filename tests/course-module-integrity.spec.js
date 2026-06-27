@@ -23,7 +23,8 @@ test('course catalog exposes active courses, rich modules and unique module IDs'
 
 test('modules page search and course filters keep visible results usable', async ({ page }) => {
   await page.goto('/modules.html', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('#moduleGrid, main')).toBeVisible({ timeout: 15000 });
+  const moduleSurface = page.locator('#moduleGrid').first();
+  await expect(moduleSurface).toBeVisible({ timeout: 15000 });
 
   const cards = page.locator('#moduleGrid a, .module-card, .course-module-card');
   expect(await cards.count(), 'module grid must expose cards or links').toBeGreaterThan(0);
@@ -32,7 +33,7 @@ test('modules page search and course filters keep visible results usable', async
   if (await search.count()) {
     await search.fill('cardio');
     await page.waitForTimeout(300);
-    await expect(page.locator('#moduleGrid, main')).toBeVisible();
+    await expect(moduleSurface).toBeVisible();
     await search.fill('');
   }
 
@@ -40,7 +41,7 @@ test('modules page search and course filters keep visible results usable', async
   if (await filters.count()) {
     await filters.first().click({ force: true });
     await page.waitForTimeout(300);
-    await expect(page.locator('#moduleGrid, main')).toBeVisible();
+    await expect(moduleSurface).toBeVisible();
     await expect(page.locator('body')).not.toContainText(/undefined|null|Cannot read/i, { timeout: 1000 });
   }
 });
