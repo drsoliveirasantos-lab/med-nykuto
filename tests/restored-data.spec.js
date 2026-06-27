@@ -1,6 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
+const CURRENT_RUNTIME_GUARD = 'v362';
 
 const expectedCourses = {
   fisiologia: { modules: 9, qcm: 1800, vf: 450, cases: 450 },
@@ -13,7 +14,7 @@ const expectedCourses = {
 test.describe('Med Nykuto restored data integrity', () => {
   test('course catalog is restored and rich', async ({ page }) => {
     await page.goto('/matieres.html');
-    await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361');
+    await page.waitForFunction((version) => window.__MED_NYKUTO_RUNTIME_GUARD__ === version, CURRENT_RUNTIME_GUARD);
     const data = await page.evaluate(() => {
       const courses = window.MED_COURSES_DATA?.courses || [];
       const modules = courses.flatMap(c => (c.modules || []).map(m => ({...m, courseId: c.id})));
@@ -41,7 +42,7 @@ test.describe('Med Nykuto restored data integrity', () => {
     test(`restored bank volume is healthy for ${courseId}`, async ({ page }) => {
       await page.goto(`/qcm.html?course=${courseId}`);
       await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_LOADER__ === version, CURRENT_PRACTICE_LOADER, { timeout: 20000 });
-      await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361');
+      await page.waitForFunction((version) => window.__MED_NYKUTO_RUNTIME_GUARD__ === version, CURRENT_RUNTIME_GUARD);
       const data = await page.evaluate((id) => {
         const courses = window.MED_COURSES_DATA?.courses || [];
         const course = courses.find(c => c.id === id);
