@@ -47,6 +47,10 @@ node scripts/validate-app-bundle-split.js
 
 Do not edit `app.bundle.js` directly when changing application logic. Edit the appropriate fragment under `src/app-bundle/parts/`, rebuild, then run validation and browser tests.
 
+## Validation contract
+
+The split is acceptable only if `scripts/validate-app-bundle-split.js` confirms that the rebuilt bundle is byte-identical to the current runtime file.
+
 ## Next evolution
 
 The next cleanup phase can progressively convert these ordered fragments into true modules:
