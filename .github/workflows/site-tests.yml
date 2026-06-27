@@ -85,6 +85,18 @@ jobs:
       - name: Validate SEO, sitemap and visible branding
         run: node scripts/validate-seo-health.js
 
+  data-question-bank-deep-integrity:
+    name: Question bank deep integrity
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate question bank deep integrity
+        run: node scripts/validate-question-bank-deep-integrity.js
+
   browser-smoke:
     name: Browser smoke tests
     needs: validate
@@ -580,4 +592,36 @@ jobs:
           path: |
             accessibility-light.json
             test-results/accessibility-light/**
+            playwright-report/**
+
+  browser-lot1-student-integrity:
+    name: Browser lot 1 student integrity tests
+    needs: validate
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
+      - name: Run lot 1 student integrity browser tests
+        run: |
+          set +e
+          npx playwright test tests/student-full-journey.spec.js tests/progress-and-mistakes-storage.spec.js tests/course-module-integrity.spec.js tests/no-blank-page-matrix.spec.js tests/console-error-guard.spec.js --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/lot1-student-integrity --reporter=json > lot1-student-integrity.json
+          code=$?
+          node scripts/print-playwright-summary.js lot1-student-integrity.json
+          exit $code
+      - name: Upload lot 1 student integrity evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lot1-student-integrity-evidence
+          if-no-files-found: ignore
+          path: |
+            lot1-student-integrity.json
+            test-results/lot1-student-integrity/**
             playwright-report/**
