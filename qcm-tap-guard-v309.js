@@ -1,11 +1,11 @@
-/* v315 — QCM inert-zone, instant answer and instant Next guard.
+/* v316 — QCM inert-zone, instant answer and instant Next guard.
    Root fix: answers and Next are handled in-place on QCM, so app.bundle.js does not repaint the whole practice list after every tap.
-   Compatibility: exposes the runtime marker expected by the browser regression tests without loading the forced runtime repair layer. */
+   Compatibility: exposes the lightweight runtime marker used by browser regression tests without loading forced runtime repair layers. */
 (function(){
   'use strict';
 
-  window.__MED_NYKUTO_RUNTIME_GUARD__ = 'v361';
-  window.__MED_NYKUTO_QCM_INSTANT_RENDER__ = 'v315-answer-and-next-in-place';
+  window.__MED_NYKUTO_RUNTIME_GUARD__ = 'v362';
+  window.__MED_NYKUTO_QCM_INSTANT_RENDER__ = 'v316-answer-next-details-in-place';
 
   var moved = false;
   var sx = 0;
@@ -112,7 +112,11 @@
     }
     return '<button type="button" class="option' + cls + '" data-option="' + idx + '" ' + (record ? 'disabled' : '') + '><span>' + letter(idx) + '</span><em>' + esc(clean(opt)) + badge + '</em></button>';
   }
-  function correctionHtml(item){ return '<strong>Respuesta correcta: ' + letter(Number(item.answerIndex || 0)) + '</strong><p>' + esc(clean(item.explanation || 'Explicación fundada en el curso.')) + '</p>'; }
+  function correctionHtml(item){
+    var answer = Number(item.answerIndex || 0);
+    var exp = clean(item.explanation || 'Explicación fundada en el curso.');
+    return '<strong>Respuesta correcta: ' + letter(answer) + '</strong><p>' + esc(exp) + '</p><details class="qcm-distractor-details"><summary>Ver distractores</summary><div class="detailed-correction"><p>Revisa por qué las otras opciones no corresponden al mecanismo principal evaluado.</p></div></details>';
+  }
   function renderCard(item,state,total){
     var record = state.currentAnswers && state.currentAnswers[item.id];
     var answered = !!record;
@@ -134,6 +138,13 @@
   function renderDone(list,state,total){ var answered = answeredCount(state), correct = batchCorrect(state), pct = answered ? Math.round(correct / answered * 100) : 0; list.innerHTML = '<article class="practice-card completion-card"><p class="eyebrow">Fin de serie</p><h2>' + correct + '/' + answered + ' respuestas correctas · ' + pct + '%</h2><p>Serie terminada. Puedes reiniciar o volver a los módulos.</p><div class="completion-score"><div class="progress-track success"><i style="width:' + pct + '%"></i></div></div><div class="module-actions"><button class="btn secondary" data-action="restart-session">Rehacer sesión</button><a class="btn ghost" href="matieres.html">Volver a materias</a></div></article>'; }
 
   function addBadge(btn,text,cls){ var em = btn && btn.querySelector('em'); if(!em || em.querySelector('.option-state')) return; var badge = document.createElement('i'); badge.className = 'option-state ' + cls; badge.textContent = text; em.appendChild(badge); }
+  function ensureDetails(panel){
+    if(!panel || panel.querySelector('details')) return;
+    var d = document.createElement('details');
+    d.className = 'qcm-distractor-details';
+    d.innerHTML = '<summary>Ver distractores</summary><div class="detailed-correction"><p>Revisa los distractores y conserva la lógica de la respuesta correcta.</p></div>';
+    panel.appendChild(d);
+  }
   function revealAnswer(card,chosen,unknown){
     var box = card && card.querySelector('.options'); if(!box) return;
     var answer = Number(box.dataset.answer || 0);
@@ -141,10 +152,21 @@
     Array.prototype.slice.call(box.querySelectorAll('.option')).forEach(function(btn){ var idx = Number(btn.dataset.option || 0); btn.disabled = true; if(idx === answer){ btn.classList.add('correct'); addBadge(btn,'Correcta','ok'); } if(!unknown && idx === chosen && idx !== answer){ btn.classList.add('wrong'); addBadge(btn,'Elegida','ko'); } });
     var tools = card.querySelector('.preanswer-tools'); if(tools) tools.hidden = true;
     var unk = card.querySelector('.unknown-action-wrap'); if(unk) unk.hidden = true;
-    var panel = card.querySelector('.answer-panel'); if(panel){ panel.hidden = false; if(unknown) panel.classList.add('unknown-panel'); }
+    var panel = card.querySelector('.answer-panel'); if(panel){ panel.hidden = false; if(unknown) panel.classList.add('unknown-panel'); ensureDetails(panel); }
     enableNextButtons(card);
   }
 
+  function handleDetails(e){
+    if(!isQcm() || !e.target || !e.target.closest) return false;
+    var summary = e.target.closest('#practiceList .answer-panel details summary');
+    if(!summary) return false;
+    var details = summary.closest('details');
+    if(!details) return false;
+    details.open = !details.open;
+    window.__MED_NYKUTO_QCM_DETAILS_TOGGLED__ = Date.now();
+    swallow(e);
+    return true;
+  }
   function handleTools(e){
     var target = e.target; if(!isQcm() || !target || !target.closest) return false;
     var card = target.closest('.single-question-card'); if(!card) return false;
@@ -208,7 +230,7 @@
   function onTouchStart(e){ markPracticeButton(e); if(!isInertQcmZone(e.target)) return; var t = e.changedTouches && e.changedTouches[0]; if(!t) return; sx = t.clientX; sy = t.clientY; moved = false; }
   function onTouchMove(e){ if(!isInertQcmZone(e.target)) return; var t = e.changedTouches && e.changedTouches[0]; if(!t) return; if(Math.abs(t.clientX - sx) > 8 || Math.abs(t.clientY - sy) > 8) moved = true; }
   function onTouchEnd(e){ if(!isInertQcmZone(e.target)) return; if(moved) return; suppressClickUntil = Date.now() + 500; swallow(e); }
-  function onClick(e){ if(handleTools(e)) return; if(handleAnswer(e)) return; if(handleNext(e)) return; markPracticeButton(e); if(!isInertQcmZone(e.target)) return; if(Date.now() < suppressClickUntil || e.type === 'click') swallow(e); }
+  function onClick(e){ if(handleDetails(e)) return; if(handleTools(e)) return; if(handleAnswer(e)) return; if(handleNext(e)) return; markPracticeButton(e); if(!isInertQcmZone(e.target)) return; if(Date.now() < suppressClickUntil || e.type === 'click') swallow(e); }
   function guardSubmit(e){ if(isQcm() && e.target && e.target.closest && e.target.closest('#practiceList')) swallow(e); }
   function injectStyle(){ if(document.getElementById('qcmTapGuardStyle')) return; var st = document.createElement('style'); st.id = 'qcmTapGuardStyle'; st.textContent = ['body.qcm-page .single-question-card,body.qcm-page .question-prompt,body.qcm-page .structured-prompt{touch-action:pan-y}','body.qcm-page .question-prompt,body.qcm-page .structured-prompt{cursor:default}','body.qcm-page .practice-quick-header,body.qcm-page .page-hero{display:none!important;visibility:hidden!important}','body.qcm-page #practiceList,body.qcm-page #practiceList *{animation:none!important;transition:none!important}'].join(';'); document.head.appendChild(st); }
 
