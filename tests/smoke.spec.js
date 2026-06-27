@@ -1,6 +1,8 @@
 const { test, expect } = require('@playwright/test');
 
-const CURRENT_GLOBAL_POLISH = 'v371-loader';
+const CURRENT_GLOBAL_POLISH = 'v376-loader';
+const CURRENT_RUNTIME_GUARD = 'v362';
+const CURRENT_MODULE_READER = 'v106-no-reader-click-refresh-expanded-abbreviations';
 
 const pages = [
   '/',
@@ -41,7 +43,7 @@ test.describe('Med Nykuto smoke navigation', () => {
     await page.goto('/matieres.html');
     await page.waitForFunction((version) => window.__MED_NYKUTO_GLOBAL_POLISH__ === version, CURRENT_GLOBAL_POLISH, { timeout: 20000 });
     await page.waitForFunction(() => window.__MED_NYKUTO_GLOBAL_FIX__ === 'v360', null, { timeout: 20000 });
-    await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
+    await page.waitForFunction((version) => window.__MED_NYKUTO_RUNTIME_GUARD__ === version, CURRENT_RUNTIME_GUARD, { timeout: 20000 });
     const data = await page.evaluate(() => {
       const modules = (window.MED_COURSES_DATA?.courses || []).flatMap(c => c.modules || []);
       return {
@@ -63,7 +65,7 @@ test.describe('Med Nykuto smoke navigation', () => {
     expect(data.richModules).toBeGreaterThanOrEqual(50);
     expect(data.polish).toBe(CURRENT_GLOBAL_POLISH);
     expect(data.repair).toBe('v360');
-    expect(data.runtime).toBe('v361');
+    expect(data.runtime).toBe(CURRENT_RUNTIME_GUARD);
     expect(data.health?.ok).toBeTruthy();
     expect(data.health?.moduleCount).toBe(58);
     expect(data.bodyHealth).toBe('ok');
@@ -85,7 +87,7 @@ test.describe('Med Nykuto smoke navigation', () => {
 
   test('module page uses content-first reader layout', async ({ page }) => {
     await page.goto('/module.html?id=01-fisiologia-01-neurofisiologia-y-potencial-de-accion');
-    await page.waitForFunction(() => window.__MED_NYKUTO_MODULE_DIRECT_READER__ === 'v103-content-first', null, { timeout: 20000 });
+    await page.waitForFunction((version) => window.__MED_NYKUTO_MODULE_DIRECT_READER__ === version, CURRENT_MODULE_READER, { timeout: 20000 });
     await expect(page.locator('body')).toHaveClass(/module-direct-ready/);
     await expect(page.locator('#moduleContent')).toBeVisible();
     await expect(page.locator('.mobile-toc')).toBeHidden();
@@ -100,7 +102,7 @@ test.describe('Med Nykuto smoke navigation', () => {
 
   test('Biofísica is absent or disabled safely', async ({ page }) => {
     await page.goto('/index.html');
-    await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
+    await page.waitForFunction((version) => window.__MED_NYKUTO_RUNTIME_GUARD__ === version, CURRENT_RUNTIME_GUARD, { timeout: 20000 });
     const biofisica = page.locator('.subject-progress-card', { hasText: /Biofísica/ }).first();
     const count = await biofisica.count();
     if (count === 0) return;
