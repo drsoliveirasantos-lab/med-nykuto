@@ -29,6 +29,10 @@ Le nouveau module est :
 
 `01-fisiologia-10-fisiologia-muscular`
 
+## Validation CI
+
+Les tests de régression doivent attendre 59 modules au total et 10 modules pour Fisiología. La banque d'entraînement de Fisiología reste validée sur les 9 modules existants jusqu'à création séparée de la banque du module 10.
+
 ## Workflow recommandé
 
 1. Créer une branche séparée, par exemple :
