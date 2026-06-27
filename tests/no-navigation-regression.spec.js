@@ -24,6 +24,8 @@ async function expectNoNavigationAfterClick(page, locator) {
   await expect(page.locator('#practiceList .single-question-card').first()).toBeVisible({ timeout: 5000 });
 }
 
+const localDetailLabel = /explicaci[oó]n|explication|justificaci[oó]n|justification|completa|compl[eè]te|detalles|détails|distractores|voir|ver/i;
+
 for (const [label, url] of [
   ['qcm', '/qcm.html?course=fisiologia'],
   ['cases', '/cas-cliniques.html?course=fisiologia'],
@@ -33,7 +35,7 @@ for (const [label, url] of [
     await openPractice(page, url);
     await answerFirst(page);
 
-    const controls = page.locator('#practiceList .single-question-card details summary, #practiceList .single-question-card .ppc-toggle, #practiceList .single-question-card [role="button"]').filter({ hasText: /explicaci[oó]n|explication|detalles|détails|distractores|voir|ver/i });
+    const controls = page.locator('#practiceList .single-question-card details summary, #practiceList .single-question-card .ppc-toggle, #practiceList .single-question-card [role="button"]').filter({ hasText: localDetailLabel });
     const count = await controls.count();
     expect(count, `${label} must expose at least one local explanation/detail control`).toBeGreaterThan(0);
     await expectNoNavigationAfterClick(page, controls.first());
