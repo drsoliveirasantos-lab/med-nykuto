@@ -1,5 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
+const CURRENT_RUNTIME_GUARD = 'v362';
 const CURRENT_PRACTICE_LOADER = 'v364';
 const CURRENT_NEXT_STABILITY = 'v372-native-sticky-next-no-reload';
 const CURRENT_PROGRESS_FIX = 'v361';
@@ -11,7 +12,7 @@ async function waitPracticeReady(page) {
     sessionStorage.clear();
   });
   await page.reload({ waitUntil: 'domcontentloaded' });
-  await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
+  await page.waitForFunction((version) => window.__MED_NYKUTO_RUNTIME_GUARD__ === version, CURRENT_RUNTIME_GUARD, { timeout: 20000 });
   await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_LOADER__ === version, CURRENT_PRACTICE_LOADER, { timeout: 20000 });
   await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_NEXT_STABILITY__ === version, CURRENT_NEXT_STABILITY, { timeout: 20000 });
   await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_PROGRESS_FIX__ === version, CURRENT_PROGRESS_FIX, { timeout: 20000 });
