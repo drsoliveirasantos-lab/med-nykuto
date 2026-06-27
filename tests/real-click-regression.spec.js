@@ -1,5 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
+const CURRENT_RUNTIME_GUARD = 'v362';
 const CURRENT_PRACTICE_LOADER = 'v364';
 const CURRENT_NEXT_STABILITY = 'v372-native-sticky-next-no-reload';
 const CURRENT_NEXT_VISIBILITY = 'v388-broad-qcm-viewport-lock';
@@ -32,7 +33,7 @@ async function currentQuestionCounter(page) {
 }
 
 async function waitPracticeReady(page) {
-  await waitForWindowFlag(page, '__MED_NYKUTO_RUNTIME_GUARD__', 'v361');
+  await waitForWindowFlag(page, '__MED_NYKUTO_RUNTIME_GUARD__', CURRENT_RUNTIME_GUARD);
   await waitForWindowFlag(page, '__MED_NYKUTO_PRACTICE_LOADER__', CURRENT_PRACTICE_LOADER);
   await waitForWindowFlag(page, '__MED_NYKUTO_PRACTICE_NEXT_STABILITY__', CURRENT_NEXT_STABILITY);
   await waitForWindowFlag(page, '__MED_NYKUTO_NEXT_VISIBILITY__', CURRENT_NEXT_VISIBILITY);
