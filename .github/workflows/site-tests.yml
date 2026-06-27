@@ -96,6 +96,15 @@ jobs:
           node-version: 20
       - name: Validate question bank deep integrity
         run: node scripts/validate-question-bank-deep-integrity.js
+      - name: Upload question bank quality report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: question-bank-quality-report
+          if-no-files-found: ignore
+          path: |
+            reports/question-bank-quality-report.json
+            reports/question-bank-quality-report.txt
 
   browser-smoke:
     name: Browser smoke tests
