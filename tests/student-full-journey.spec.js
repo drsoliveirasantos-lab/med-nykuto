@@ -34,10 +34,10 @@ test('student can complete the main study loop without dead ends', async ({ page
   await expect(page.locator('body')).toContainText(/QCM|Casos|Materias/i);
 
   await page.goto('/matieres.html', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('main, body')).toContainText(/Fisiolog|Microbiolog|Gen[eé]tica|Inmunolog|Bioqu[ií]mica/i, { timeout: 15000 });
+  await expect(page.locator('body')).toContainText(/Fisiolog|Microbiolog|Gen[eé]tica|Inmunolog|Bioqu[ií]mica/i, { timeout: 15000 });
 
   await page.goto('/modules.html', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('#moduleGrid, main')).toBeVisible({ timeout: 15000 });
+  await expect(page.locator('#moduleGrid').first()).toBeVisible({ timeout: 15000 });
   const moduleLinks = page.locator('a[href*="module"], .module-card a, #moduleGrid a');
   expect(await moduleLinks.count(), 'modules page must expose module links/cards').toBeGreaterThan(0);
 
@@ -51,6 +51,9 @@ test('student can complete the main study loop without dead ends', async ({ page
   await answerAndNext(page);
 
   await page.goto('/erreurs.html', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('main, body')).toBeVisible({ timeout: 10000 });
+  await expect(page.locator('body')).toBeVisible({ timeout: 10000 });
+  if (await page.locator('main').count()) {
+    await expect(page.locator('main').first()).toBeVisible({ timeout: 10000 });
+  }
   await expect(page.locator('body')).not.toContainText(/undefined|null|Cannot read/i, { timeout: 1000 });
 });
