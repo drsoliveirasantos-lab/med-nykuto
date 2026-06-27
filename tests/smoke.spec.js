@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-const CURRENT_GLOBAL_POLISH = 'v376-loader';
+const CURRENT_GLOBAL_POLISH = 'v377-loader';
 const CURRENT_RUNTIME_GUARD = 'v362';
 const CURRENT_MODULE_READER = 'v106-no-reader-click-refresh-expanded-abbreviations';
 
