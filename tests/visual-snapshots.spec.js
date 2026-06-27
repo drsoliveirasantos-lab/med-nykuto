@@ -19,6 +19,7 @@ async function answerFirst(page) {
 
 test.describe('Visual snapshot evidence', () => {
   test('capture key desktop states', async ({ page }) => {
+    await page.setViewportSize({ width: 1365, height: 900 });
     await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
     await saveShot(page, 'desktop-home');
 
@@ -44,6 +45,7 @@ test.describe('Visual snapshot evidence', () => {
   });
 
   test('capture key mobile states', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
     const toggle = page.locator('#menuToggle, .menu-toggle').first();
     await expect(toggle).toBeVisible({ timeout: 10000 });
