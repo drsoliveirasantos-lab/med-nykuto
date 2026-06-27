@@ -1,0 +1,17 @@
+{
+  "courseId": "fisiologia",
+  "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+  "moduleNumber": 9,
+  "moduleTitle": "Fisiología renal avanzada",
+  "directory": "09-fisiologia-renal-avanzada",
+  "counts": {
+    "qcm": 200,
+    "vf": 50,
+    "cases": 50
+  },
+  "files": {
+    "qcm": "qcm.json",
+    "vf": "vf.json",
+    "cases": "cases.json"
+  }
+}

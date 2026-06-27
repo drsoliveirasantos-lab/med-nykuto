@@ -1,0 +1,2792 @@
+[
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-001",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Bicapa lipídica",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Moléculas pequeñas y liposolubles atraviesan mejor la bicapa porque se disuelven en su región hidrofóbica.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. La bicapa fosfolipídica tiene un interior hidrofóbico. Por eso favorece el paso de moléculas pequeñas y liposolubles, como gases o esteroides, mientras dificulta el paso de iones, moléculas grandes o sustancias muy polares. La permeabilidad selectiva obliga a muchas sustancias a usar canales, carriers o bombas. Esta frase identifica correctamente el mecanismo de bicapa lipídica y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La bicapa fosfolipídica tiene un interior hidrofóbico. Por eso favorece el paso de moléculas pequeñas y liposolubles, como gases o esteroides, mientras dificulta el paso de iones, moléculas grandes o sustancias muy polares. La permeabilidad selectiva obliga a muchas sustancias a usar canales, carriers o bombas."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La bicapa fosfolipídica tiene un interior hidrofóbico. Por eso favorece el paso de moléculas pequeñas y liposolubles, como gases o esteroides, mientras dificulta el paso de iones, moléculas grandes o sustancias muy polares. La permeabilidad selectiva obliga a muchas sustancias a usar canales, carriers o bombas."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Bicapa lipídica",
+      "topicSlug": "bicapa_lipidica",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Bicapa lipídica",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:bicapa_lipidica",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-002",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Permeabilidad selectiva",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? Permite que todas las sustancias crucen hasta igualar completamente el citoplasma con el medio externo.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «Permite que todas las sustancias crucen hasta igualar completamente el citoplasma con el medio externo.». Si todo cruzara libremente, desaparecerían gradientes iónicos y osmóticos; la célula perdería control de volumen y excitabilidad. La corrección conceptual es: Permite el paso de algunas sustancias y restringe otras según tamaño, carga, liposolubilidad y proteínas disponibles. La permeabilidad selectiva hace posible la homeostasis celular. La membrana no deja pasar todo ni bloquea todo: regula el movimiento mediante la bicapa lipídica y proteínas específicas. Así conserva gradientes de Na+, K+, Ca2+, glucosa y otras moléculas necesarias para excitabilidad, volumen celular y metabolismo.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Si todo cruzara libremente, desaparecerían gradientes iónicos y osmóticos; la célula perdería control de volumen y excitabilidad.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Si todo cruzara libremente, desaparecerían gradientes iónicos y osmóticos; la célula perdería control de volumen y excitabilidad.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Permeabilidad selectiva",
+      "topicSlug": "permeabilidad_selectiva",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "tonicidad",
+        "renal_electrolitos"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Permeabilidad selectiva",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:exam_trap",
+      "topic:permeabilidad_selectiva",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:tonicidad",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-003",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Gradiente de concentración",
+    "difficulty": "Avancé",
+    "question": "¿Verdadero o falso? Es una diferencia de concentración; a favor del gradiente significa ir desde mayor hacia menor concentración.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. El gradiente de concentración es la diferencia de cantidad de una misma sustancia entre dos lados de la membrana. En transporte pasivo, la sustancia tiende a desplazarse desde donde está más concentrada hacia donde está menos concentrada. Ese movimiento reduce la diferencia y no exige ATP directo. Esta frase identifica correctamente el mecanismo de gradiente de concentración y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: El gradiente de concentración es la diferencia de cantidad de una misma sustancia entre dos lados de la membrana. En transporte pasivo, la sustancia tiende a desplazarse desde donde está más concentrada hacia donde está menos concentrada. Ese movimiento reduce la diferencia y no exige ATP directo."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: El gradiente de concentración es la diferencia de cantidad de una misma sustancia entre dos lados de la membrana. En transporte pasivo, la sustancia tiende a desplazarse desde donde está más concentrada hacia donde está menos concentrada. Ese movimiento reduce la diferencia y no exige ATP directo."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Gradiente de concentración",
+      "topicSlug": "gradiente_de_concentracion",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Gradiente de concentración",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:gradiente_de_concentracion",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-004",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Gradiente electroquímico",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? Depende únicamente del tamaño del ion y de la presión arterial del tejido.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «Depende únicamente del tamaño del ion y de la presión arterial del tejido.». El tamaño puede influir en selectividad del canal, pero no define la fuerza impulsora principal del ion. La presión arterial tampoco determina directamente el flujo iónico transmembrana. La corrección conceptual es: Integra la diferencia de concentración y la fuerza eléctrica generada por el voltaje de membrana. Los iones tienen carga, por lo que su movimiento depende de dos fuerzas: la química, relacionada con concentración, y la eléctrica, relacionada con el potencial de membrana. El gradiente electroquímico explica por qué un ion puede entrar o salir cuando se abre un canal y por qué el voltaje puede favorecer o frenar ese movimiento.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. El tamaño puede influir en selectividad del canal, pero no define la fuerza impulsora principal del ion. La presión arterial tampoco determina directamente el flujo iónico transmembrana.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. El tamaño puede influir en selectividad del canal, pero no define la fuerza impulsora principal del ion. La presión arterial tampoco determina directamente el flujo iónico transmembrana.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Gradiente electroquímico",
+      "topicSlug": "gradiente_electroquimico",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Gradiente electroquímico",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:hard",
+      "skill:mechanism",
+      "topic:gradiente_electroquimico",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-005",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Transporte pasivo",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Ocurre a favor del gradiente y no requiere gasto directo de ATP por la proteína de transporte.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. El transporte pasivo aprovecha una diferencia ya existente de concentración o de potencial electroquímico. La sustancia se mueve en la dirección energéticamente favorable, de mayor a menor concentración para moléculas no cargadas, o según gradiente electroquímico para iones. No usa ATP directo en el paso. Esta frase identifica correctamente el mecanismo de transporte pasivo y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: El transporte pasivo aprovecha una diferencia ya existente de concentración o de potencial electroquímico. La sustancia se mueve en la dirección energéticamente favorable, de mayor a menor concentración para moléculas no cargadas, o según gradiente electroquímico para iones. No usa ATP directo en el paso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: El transporte pasivo aprovecha una diferencia ya existente de concentración o de potencial electroquímico. La sustancia se mueve en la dirección energéticamente favorable, de mayor a menor concentración para moléculas no cargadas, o según gradiente electroquímico para iones. No usa ATP directo en el paso."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Transporte pasivo",
+      "topicSlug": "transporte_pasivo",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Transporte pasivo",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:transporte_pasivo",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-006",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Difusión simple",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? Es el transporte contra gradiente por una bomba que hidroliza ATP.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «Es el transporte contra gradiente por una bomba que hidroliza ATP.». Una bomba que hidroliza ATP realiza transporte activo primario; su dirección puede ser contra gradiente, lo opuesto a difusión simple. La corrección conceptual es: Es el paso directo de moléculas pequeñas o liposolubles a favor del gradiente, sin carrier ni ATP. En difusión simple, la sustancia atraviesa la bicapa o una vía abierta sin ciclos de unión y cambio conformacional como un carrier. No requiere ATP y aumenta con el gradiente, la superficie y la liposolubilidad. O2 y CO2 son ejemplos clásicos por su pequeño tamaño y carácter no polar.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Una bomba que hidroliza ATP realiza transporte activo primario; su dirección puede ser contra gradiente, lo opuesto a difusión simple.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Una bomba que hidroliza ATP realiza transporte activo primario; su dirección puede ser contra gradiente, lo opuesto a difusión simple.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Difusión simple",
+      "topicSlug": "difusion_simple",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_intercambio"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Difusión simple",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:exam_trap",
+      "topic:difusion_simple",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-007",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Difusión facilitada",
+    "difficulty": "Avancé",
+    "question": "¿Verdadero o falso? Usa una proteína específica y mueve la sustancia a favor del gradiente sin gasto directo de ATP.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. La difusión facilitada es pasiva porque la sustancia se mueve a favor de su gradiente, pero necesita una proteína, generalmente un carrier o canal. Los carriers tienen sitios de unión y cambios conformacionales, por eso muestran especificidad, competencia y saturación cuando todos están ocupados. Esta frase identifica correctamente el mecanismo de difusión facilitada y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La difusión facilitada es pasiva porque la sustancia se mueve a favor de su gradiente, pero necesita una proteína, generalmente un carrier o canal. Los carriers tienen sitios de unión y cambios conformacionales, por eso muestran especificidad, competencia y saturación cuando todos están ocupados."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La difusión facilitada es pasiva porque la sustancia se mueve a favor de su gradiente, pero necesita una proteína, generalmente un carrier o canal. Los carriers tienen sitios de unión y cambios conformacionales, por eso muestran especificidad, competencia y saturación cuando todos están ocupados."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Difusión facilitada",
+      "topicSlug": "difusion_facilitada",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_intercambio"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Difusión facilitada",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:difusion_facilitada",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-008",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Saturación del transportador",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? La membrana se rompe por exceso de soluto y permite difusión libre de proteínas.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «La membrana se rompe por exceso de soluto y permite difusión libre de proteínas.». La saturación no implica daño físico de la membrana. Es una propiedad cinética de proteínas transportadoras limitadas. La corrección conceptual es: Todos los sitios de transporte están ocupados y el flujo alcanza una velocidad máxima aunque aumente el sustrato. Los carriers deben unirse al sustrato y cambiar de conformación para trasladarlo. Como el número de proteínas es limitado, llega un punto en que todas trabajan al máximo. Desde ahí, aumentar la concentración del sustrato no aumenta proporcionalmente el transporte: aparece una velocidad máxima o Tm.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. La saturación no implica daño físico de la membrana. Es una propiedad cinética de proteínas transportadoras limitadas.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. La saturación no implica daño físico de la membrana. Es una propiedad cinética de proteínas transportadoras limitadas.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Saturación del transportador",
+      "topicSlug": "saturacion_del_transportador",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_intercambio"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Saturación del transportador",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:hard",
+      "skill:exam_trap",
+      "topic:saturacion_del_transportador",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-009",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Canales iónicos",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Forma un poro selectivo que permite flujo rápido de iones a favor de su gradiente electroquímico.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Un canal iónico es una proteína que crea una vía acuosa selectiva para iones. Cuando está abierto, muchos iones pueden atravesarlo rápidamente según su gradiente electroquímico. No transporta por ciclos lentos de unión como un carrier y, en general, no usa ATP directo para cada ion que pasa. Esta frase identifica correctamente el mecanismo de canales iónicos y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: Un canal iónico es una proteína que crea una vía acuosa selectiva para iones. Cuando está abierto, muchos iones pueden atravesarlo rápidamente según su gradiente electroquímico. No transporta por ciclos lentos de unión como un carrier y, en general, no usa ATP directo para cada ion que pasa."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: Un canal iónico es una proteína que crea una vía acuosa selectiva para iones. Cuando está abierto, muchos iones pueden atravesarlo rápidamente según su gradiente electroquímico. No transporta por ciclos lentos de unión como un carrier y, en general, no usa ATP directo para cada ion que pasa."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Canales iónicos",
+      "topicSlug": "canales_ionicos",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Canales iónicos",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:canales_ionicos",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-010",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Carrier",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? Abre un poro continuo por donde millones de iones cruzan sin unión específica.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «Abre un poro continuo por donde millones de iones cruzan sin unión específica.». Un poro continuo describe un canal. El carrier requiere unión y cambio conformacional, por eso suele transportar más lentamente. La corrección conceptual es: Se une al sustrato, cambia de conformación y lo transloca con especificidad y posible saturación. El carrier no es un poro abierto. Tiene sitios de unión para su sustrato y alterna conformaciones para exponerlo a un lado u otro de la membrana. Esa mecánica explica selectividad, competencia entre sustancias similares y saturación. Puede actuar en difusión facilitada o transporte activo según el acoplamiento energético.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Un poro continuo describe un canal. El carrier requiere unión y cambio conformacional, por eso suele transportar más lentamente.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Un poro continuo describe un canal. El carrier requiere unión y cambio conformacional, por eso suele transportar más lentamente.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Carrier",
+      "topicSlug": "carrier",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_intercambio"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Carrier",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:carrier",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-011",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Canal regulado por voltaje",
+    "difficulty": "Avancé",
+    "question": "¿Verdadero o falso? Se abre o cambia de estado cuando se modifica el potencial eléctrico de la membrana.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Los canales voltaje-dependientes tienen regiones sensibles al campo eléctrico de la membrana. Cuando el voltaje cambia, la proteína modifica su conformación y puede abrirse, cerrarse o inactivarse. Son fundamentales para potencial de acción en neuronas, músculo y corazón. Esta frase identifica correctamente el mecanismo de canal regulado por voltaje y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: Los canales voltaje-dependientes tienen regiones sensibles al campo eléctrico de la membrana. Cuando el voltaje cambia, la proteína modifica su conformación y puede abrirse, cerrarse o inactivarse. Son fundamentales para potencial de acción en neuronas, músculo y corazón."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: Los canales voltaje-dependientes tienen regiones sensibles al campo eléctrico de la membrana. Cuando el voltaje cambia, la proteína modifica su conformación y puede abrirse, cerrarse o inactivarse. Son fundamentales para potencial de acción en neuronas, músculo y corazón."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Canal regulado por voltaje",
+      "topicSlug": "canal_regulado_por_voltaje",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Canal regulado por voltaje",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:canal_regulado_por_voltaje",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-012",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Canal regulado por ligando",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? Se abre exclusivamente por cambios mecánicos de presión sobre la membrana celular.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «Se abre exclusivamente por cambios mecánicos de presión sobre la membrana celular.». La presión o deformación activa canales mecanosensibles, no canales definidos por unión de ligando. La corrección conceptual es: Se abre cuando una molécula específica, como un neurotransmisor, se une al receptor-canal. Un canal regulado por ligando responde a la unión de una molécula señal. En sinapsis, el neurotransmisor se une al receptor-canal y modifica rápidamente la permeabilidad iónica postsináptica. La señal de apertura es química, no eléctrica ni necesariamente mecánica.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. La presión o deformación activa canales mecanosensibles, no canales definidos por unión de ligando.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. La presión o deformación activa canales mecanosensibles, no canales definidos por unión de ligando.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Canal regulado por ligando",
+      "topicSlug": "canal_regulado_por_ligando",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Canal regulado por ligando",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:hard",
+      "skill:exam_trap",
+      "topic:canal_regulado_por_ligando",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-013",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Canal mecanosensible",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? La deformación, presión o estiramiento de la membrana modifica la apertura del canal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Los canales mecanosensibles responden a fuerzas físicas aplicadas sobre la membrana o estructuras asociadas. Esa deformación cambia la conformación del canal y permite flujo iónico, convirtiendo estímulos como presión, tacto o estiramiento en señales eléctricas. Esta frase identifica correctamente el mecanismo de canal mecanosensible y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: Los canales mecanosensibles responden a fuerzas físicas aplicadas sobre la membrana o estructuras asociadas. Esa deformación cambia la conformación del canal y permite flujo iónico, convirtiendo estímulos como presión, tacto o estiramiento en señales eléctricas."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: Los canales mecanosensibles responden a fuerzas físicas aplicadas sobre la membrana o estructuras asociadas. Esa deformación cambia la conformación del canal y permite flujo iónico, convirtiendo estímulos como presión, tacto o estiramiento en señales eléctricas."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Canal mecanosensible",
+      "topicSlug": "canal_mecanosensible",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Canal mecanosensible",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:canal_mecanosensible",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-014",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Aquaporinas",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? Bombean Na+ contra gradiente usando ATP para arrastrar moléculas de agua.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «Bombean Na+ contra gradiente usando ATP para arrastrar moléculas de agua.». El agua se mueve pasivamente por gradiente osmótico. La bomba Na+/K+ puede crear condiciones osmóticas indirectas, pero una aquaporina no hidroliza ATP para bombear Na+. La corrección conceptual es: Permiten el paso rápido y selectivo de agua según gradientes osmóticos, sin transportar solutos grandes. Las aquaporinas son canales de agua. Aumentan mucho la permeabilidad hidráulica de la membrana y permiten que el agua se desplace según diferencias osmóticas. Son importantes en riñón, epitelios y control de volumen celular. No son bombas ni transportadores inespecíficos de macromoléculas.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. El agua se mueve pasivamente por gradiente osmótico. La bomba Na+/K+ puede crear condiciones osmóticas indirectas, pero una aquaporina no hidroliza ATP para bombear Na+.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. El agua se mueve pasivamente por gradiente osmótico. La bomba Na+/K+ puede crear condiciones osmóticas indirectas, pero una aquaporina no hidroliza ATP para bombear Na+.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Aquaporinas",
+      "topicSlug": "aquaporinas",
+      "concepts": [
+        "electricidad_biologica",
+        "tonicidad",
+        "renal_electrolitos"
+      ],
+      "skill": "comparison",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Aquaporinas",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:comparison",
+      "topic:aquaporinas",
+      "concept:electricidad_biologica",
+      "concept:tonicidad",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-015",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Ósmosis",
+    "difficulty": "Avancé",
+    "question": "¿Verdadero o falso? Es el movimiento de agua hacia el lado con mayor concentración de solutos osmóticamente efectivos.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. La ósmosis describe el movimiento de agua a través de una membrana permeable al agua cuando existen diferencias de solutos que no cruzan libremente. El agua se desplaza hacia el compartimento con mayor osmolaridad efectiva para reducir la diferencia de concentración de agua. Esta frase identifica correctamente el mecanismo de ósmosis y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La ósmosis describe el movimiento de agua a través de una membrana permeable al agua cuando existen diferencias de solutos que no cruzan libremente. El agua se desplaza hacia el compartimento con mayor osmolaridad efectiva para reducir la diferencia de concentración de agua."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La ósmosis describe el movimiento de agua a través de una membrana permeable al agua cuando existen diferencias de solutos que no cruzan libremente. El agua se desplaza hacia el compartimento con mayor osmolaridad efectiva para reducir la diferencia de concentración de agua."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Ósmosis",
+      "topicSlug": "osmosis",
+      "concepts": [
+        "electricidad_biologica",
+        "osmolaridad"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Ósmosis",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:osmosis",
+      "concept:electricidad_biologica",
+      "concept:osmolaridad"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-016",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Tonicidad",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? Mide solo el número total de solutos, aunque todos crucen libremente la membrana.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «Mide solo el número total de solutos, aunque todos crucen libremente la membrana.». Eso describe mejor osmolaridad total. Si el soluto cruza libremente, no mantiene un gradiente efectivo y puede no cambiar el volumen celular de forma sostenida. La corrección conceptual es: Describe el efecto de una solución sobre el volumen celular según sus solutos osmóticamente efectivos. La tonicidad predice cómo cambiará el volumen celular. Importan especialmente los solutos no permeantes, porque retienen agua en un compartimento. Una solución hipertónica efectiva encoge células; una hipotónica efectiva las hincha. La osmolaridad total puede incluir solutos permeantes que no sostienen un gradiente osmótico duradero.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Eso describe mejor osmolaridad total. Si el soluto cruza libremente, no mantiene un gradiente efectivo y puede no cambiar el volumen celular de forma sostenida.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Eso describe mejor osmolaridad total. Si el soluto cruza libremente, no mantiene un gradiente efectivo y puede no cambiar el volumen celular de forma sostenida.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Tonicidad",
+      "topicSlug": "tonicidad",
+      "concepts": [
+        "electricidad_biologica",
+        "osmolaridad",
+        "tonicidad"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Tonicidad",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:hard",
+      "skill:mechanism",
+      "topic:tonicidad",
+      "concept:electricidad_biologica",
+      "concept:osmolaridad",
+      "concept:tonicidad"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-017",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Transporte activo",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Mueve sustancias contra su gradiente usando energía directa de ATP o energía indirecta de otro gradiente.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. El transporte activo permite acumular sustancias donde ya son más abundantes o expulsarlas contra su fuerza electroquímica. Puede ser primario, con ATP directo, o secundario, usando la energía almacenada en otro gradiente, como el de Na+. Es esencial para gradientes iónicos y absorción epitelial. Esta frase identifica correctamente el mecanismo de transporte activo y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: El transporte activo permite acumular sustancias donde ya son más abundantes o expulsarlas contra su fuerza electroquímica. Puede ser primario, con ATP directo, o secundario, usando la energía almacenada en otro gradiente, como el de Na+. Es esencial para gradientes iónicos y absorción epitelial."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: El transporte activo permite acumular sustancias donde ya son más abundantes o expulsarlas contra su fuerza electroquímica. Puede ser primario, con ATP directo, o secundario, usando la energía almacenada en otro gradiente, como el de Na+. Es esencial para gradientes iónicos y absorción epitelial."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Transporte activo",
+      "topicSlug": "transporte_activo",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Transporte activo",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:transporte_activo",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-018",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Transporte activo primario",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? El soluto se mueve por la bicapa lipídica sin proteína ni gasto energético.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «El soluto se mueve por la bicapa lipídica sin proteína ni gasto energético.». Eso es difusión simple si va a favor del gradiente; no es activo ni primario. La corrección conceptual es: La proteína transportadora hidroliza ATP directamente para mover solutos contra su gradiente. En transporte activo primario, la energía procede directamente de la hidrólisis de ATP en la propia proteína. Las ATPasas de membrana, como Na+/K+ ATPasa, Ca2+ ATPasa o H+/K+ ATPasa, usan esa energía para desplazar solutos contra gradientes electroquímicos.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Eso es difusión simple si va a favor del gradiente; no es activo ni primario.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Eso es difusión simple si va a favor del gradiente; no es activo ni primario.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Transporte activo primario",
+      "topicSlug": "transporte_activo_primario",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "ph_acido_base",
+        "renal_electrolitos",
+        "respiratorio_intercambio"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Transporte activo primario",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:exam_trap",
+      "topic:transporte_activo_primario",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-019",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Na+/K+ ATPasa",
+    "difficulty": "Avancé",
+    "question": "¿Verdadero o falso? Expulsa 3 Na+ e introduce 2 K+ por cada ATP, manteniendo gradientes iónicos esenciales.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. La Na+/K+ ATPasa hidroliza ATP para sacar tres sodios y entrar dos potasios contra sus gradientes. Mantiene alto Na+ extracelular y alto K+ intracelular, sostiene volumen celular, excitabilidad, transporte secundario y contribuye de forma electrogénica al potencial de membrana. Esta frase identifica correctamente el mecanismo de na+/k+ atpasa y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La Na+/K+ ATPasa hidroliza ATP para sacar tres sodios y entrar dos potasios contra sus gradientes. Mantiene alto Na+ extracelular y alto K+ intracelular, sostiene volumen celular, excitabilidad, transporte secundario y contribuye de forma electrogénica al potencial de membrana."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La Na+/K+ ATPasa hidroliza ATP para sacar tres sodios y entrar dos potasios contra sus gradientes. Mantiene alto Na+ extracelular y alto K+ intracelular, sostiene volumen celular, excitabilidad, transporte secundario y contribuye de forma electrogénica al potencial de membrana."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Na+/K+ ATPasa",
+      "topicSlug": "na_k_atpasa",
+      "concepts": [
+        "electricidad_biologica",
+        "tonicidad",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Na+/K+ ATPasa",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:na_k_atpasa",
+      "concept:electricidad_biologica",
+      "concept:tonicidad",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-020",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Electrogenicidad de la Na+/K+ ATPasa",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? Introduce una carga positiva neta por ciclo y vuelve el interior más positivo de forma sostenida.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «Introduce una carga positiva neta por ciclo y vuelve el interior más positivo de forma sostenida.». La dirección neta de carga positiva es hacia afuera, no hacia adentro. Por eso no despolariza sostenidamente por su efecto directo. La corrección conceptual es: Saca una carga positiva neta por ciclo, contribuyendo a que el interior celular sea más negativo. Por cada ciclo, la bomba expulsa 3 Na+ y entra 2 K+. Como ambos son cationes, sale una carga positiva neta. Este efecto hace la bomba electrogénica y contribuye modestamente a la negatividad intracelular, aunque el potencial de reposo depende sobre todo de permeabilidades iónicas.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. La dirección neta de carga positiva es hacia afuera, no hacia adentro. Por eso no despolariza sostenidamente por su efecto directo.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. La dirección neta de carga positiva es hacia afuera, no hacia adentro. Por eso no despolariza sostenidamente por su efecto directo.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Electrogenicidad de la Na+/K+ ATPasa",
+      "topicSlug": "electrogenicidad_de_la_na_k_atpasa",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Electrogenicidad de la Na+/K+ ATPasa",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:hard",
+      "skill:exam_trap",
+      "topic:electrogenicidad_de_la_na_k_atpasa",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-021",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Transporte activo secundario",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Usa la energía almacenada en el gradiente de un soluto, frecuentemente Na+, para mover otro contra gradiente.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. El transporte activo secundario no hidroliza ATP directamente en el cotransportador. Usa la energía de un gradiente creado previamente, por ejemplo el gradiente de Na+ mantenido por la Na+/K+ ATPasa. El Na+ baja a favor de su gradiente y arrastra o intercambia otro soluto contra el suyo. Esta frase identifica correctamente el mecanismo de transporte activo secundario y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: El transporte activo secundario no hidroliza ATP directamente en el cotransportador. Usa la energía de un gradiente creado previamente, por ejemplo el gradiente de Na+ mantenido por la Na+/K+ ATPasa. El Na+ baja a favor de su gradiente y arrastra o intercambia otro soluto contra el suyo."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: El transporte activo secundario no hidroliza ATP directamente en el cotransportador. Usa la energía de un gradiente creado previamente, por ejemplo el gradiente de Na+ mantenido por la Na+/K+ ATPasa. El Na+ baja a favor de su gradiente y arrastra o intercambia otro soluto contra el suyo."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Transporte activo secundario",
+      "topicSlug": "transporte_activo_secundario",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Transporte activo secundario",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:transporte_activo_secundario",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-022",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Simporte",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? Dos solutos se intercambian en direcciones opuestas por la misma proteína.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «Dos solutos se intercambian en direcciones opuestas por la misma proteína.». Eso define antiporte o contratransporte, no simporte. La diferencia de dirección es la clave. La corrección conceptual es: Dos solutos se transportan en la misma dirección a través de la membrana mediante una misma proteína. En un simporte, ambos solutos se desplazan en el mismo sentido. Un ejemplo importante es SGLT, donde Na+ entra a favor de su gradiente y permite que glucosa entre contra el suyo. El término describe dirección relativa, no necesariamente gasto directo de ATP.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Eso define antiporte o contratransporte, no simporte. La diferencia de dirección es la clave.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Eso define antiporte o contratransporte, no simporte. La diferencia de dirección es la clave.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Simporte",
+      "topicSlug": "simporte",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos"
+      ],
+      "skill": "comparison",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Simporte",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:comparison",
+      "topic:simporte",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-023",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Antiporte",
+    "difficulty": "Avancé",
+    "question": "¿Verdadero o falso? Dos solutos se transportan en direcciones opuestas mediante una misma proteína de membrana.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. El antiporte o contratransporte acopla movimientos opuestos. Un soluto puede moverse a favor de su gradiente y proporcionar energía para mover otro contra el suyo. Ejemplos fisiológicos incluyen intercambiadores Na+/Ca2+ y Na+/H+. Esta frase identifica correctamente el mecanismo de antiporte y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: El antiporte o contratransporte acopla movimientos opuestos. Un soluto puede moverse a favor de su gradiente y proporcionar energía para mover otro contra el suyo. Ejemplos fisiológicos incluyen intercambiadores Na+/Ca2+ y Na+/H+."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: El antiporte o contratransporte acopla movimientos opuestos. Un soluto puede moverse a favor de su gradiente y proporcionar energía para mover otro contra el suyo. Ejemplos fisiológicos incluyen intercambiadores Na+/Ca2+ y Na+/H+."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Antiporte",
+      "topicSlug": "antiporte",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Antiporte",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:antiporte",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-024",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "SGLT intestinal",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? Expulsa glucosa hacia la luz intestinal por difusión simple lipídica.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «Expulsa glucosa hacia la luz intestinal por difusión simple lipídica.». La glucosa es polar y no atraviesa bien la bicapa por difusión simple. Además, fisiológicamente se absorbe desde la luz hacia la célula. La corrección conceptual es: Introduce glucosa junto con Na+ desde la luz intestinal usando transporte activo secundario. SGLT es un cotransportador apical. El Na+ entra a favor de su gradiente y esa energía permite que glucosa entre incluso contra su gradiente. La Na+/K+ ATPasa basolateral mantiene bajo el Na+ intracelular, sosteniendo la fuerza para SGLT.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. La glucosa es polar y no atraviesa bien la bicapa por difusión simple. Además, fisiológicamente se absorbe desde la luz hacia la célula.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. La glucosa es polar y no atraviesa bien la bicapa por difusión simple. Además, fisiológicamente se absorbe desde la luz hacia la célula.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "SGLT intestinal",
+      "topicSlug": "sglt_intestinal",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos",
+        "respiratorio_intercambio"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "SGLT intestinal",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:hard",
+      "skill:exam_trap",
+      "topic:sglt_intestinal",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-025",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "GLUT",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Realiza difusión facilitada de glucosa a favor de su gradiente mediante un carrier específico.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. GLUT es una familia de carriers de glucosa que permite difusión facilitada. La glucosa se mueve según su gradiente, con especificidad y saturación, pero sin ATP directo. En epitelios, puede participar en la salida basolateral de glucosa hacia sangre. Esta frase identifica correctamente el mecanismo de glut y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: GLUT es una familia de carriers de glucosa que permite difusión facilitada. La glucosa se mueve según su gradiente, con especificidad y saturación, pero sin ATP directo. En epitelios, puede participar en la salida basolateral de glucosa hacia sangre."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: GLUT es una familia de carriers de glucosa que permite difusión facilitada. La glucosa se mueve según su gradiente, con especificidad y saturación, pero sin ATP directo. En epitelios, puede participar en la salida basolateral de glucosa hacia sangre."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "GLUT",
+      "topicSlug": "glut",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_intercambio"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "GLUT",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:glut",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-026",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "GLUT4 e insulina",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? La insulina convierte GLUT4 en una bomba que hidroliza ATP para expulsar glucosa.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «La insulina convierte GLUT4 en una bomba que hidroliza ATP para expulsar glucosa.». GLUT4 sigue siendo un carrier de difusión facilitada; no hidroliza ATP para bombear glucosa contra gradiente. La corrección conceptual es: La insulina aumenta la inserción de GLUT4 en la membrana y facilita entrada de glucosa a favor de gradiente. GLUT4 es un transportador regulado por insulina en músculo y tejido adiposo. La insulina favorece que vesículas con GLUT4 se inserten en la membrana plasmática, aumentando la capacidad de difusión facilitada de glucosa hacia el interior celular. No cambia GLUT4 en una bomba ATPasa.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. GLUT4 sigue siendo un carrier de difusión facilitada; no hidroliza ATP para bombear glucosa contra gradiente.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. GLUT4 sigue siendo un carrier de difusión facilitada; no hidroliza ATP para bombear glucosa contra gradiente.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "GLUT4 e insulina",
+      "topicSlug": "glut4_e_insulina",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "respiratorio_intercambio"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "GLUT4 e insulina",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:exam_trap",
+      "topic:glut4_e_insulina",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-027",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Na+/Ca2+ exchanger",
+    "difficulty": "Avancé",
+    "question": "¿Verdadero o falso? Usa la entrada de Na+ a favor de gradiente para expulsar Ca2+ contra su gradiente.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. El intercambiador Na+/Ca2+ es un antiporte activo secundario. Aprovecha el gradiente de Na+ para mover Ca2+ en sentido opuesto, generalmente expulsándolo y ayudando a mantener baja la concentración citosólica de Ca2+. Su funcionamiento depende indirectamente de la Na+/K+ ATPasa. Esta frase identifica correctamente el mecanismo de na+/ca2+ exchanger y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: El intercambiador Na+/Ca2+ es un antiporte activo secundario. Aprovecha el gradiente de Na+ para mover Ca2+ en sentido opuesto, generalmente expulsándolo y ayudando a mantener baja la concentración citosólica de Ca2+. Su funcionamiento depende indirectamente de la Na+/K+ ATPasa."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: El intercambiador Na+/Ca2+ es un antiporte activo secundario. Aprovecha el gradiente de Na+ para mover Ca2+ en sentido opuesto, generalmente expulsándolo y ayudando a mantener baja la concentración citosólica de Ca2+. Su funcionamiento depende indirectamente de la Na+/K+ ATPasa."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Na+/Ca2+ exchanger",
+      "topicSlug": "na_ca2_exchanger",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Na+/Ca2+ exchanger",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:na_ca2_exchanger",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-028",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Na+/H+ exchanger",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? Introduce H+ junto con Na+ en la misma dirección para acidificar siempre la célula.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «Introduce H+ junto con Na+ en la misma dirección para acidificar siempre la célula.». Eso sería simporte de Na+ y H+ hacia dentro y produciría acidificación, lo contrario del mecanismo clásico de salida de H+. La corrección conceptual es: Permite entrada de Na+ y salida de H+, ayudando a regular el pH intracelular. El intercambiador Na+/H+ es un antiporte que usa la entrada de Na+ a favor de su gradiente para expulsar protones. Así puede contribuir a corregir acidificación intracelular. Es transporte activo secundario porque depende del gradiente de Na+ mantenido por bombas primarias.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Eso sería simporte de Na+ y H+ hacia dentro y produciría acidificación, lo contrario del mecanismo clásico de salida de H+.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Eso sería simporte de Na+ y H+ hacia dentro y produciría acidificación, lo contrario del mecanismo clásico de salida de H+.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Na+/H+ exchanger",
+      "topicSlug": "na_h_exchanger",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Na+/H+ exchanger",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:hard",
+      "skill:mechanism",
+      "topic:na_h_exchanger",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-029",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Transporte epitelial polarizado",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Las caras apical y basolateral expresan transportadores distintos, generando movimiento direccional de solutos.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Los epitelios separan compartimentos, como luz intestinal y sangre. Para transportar de forma direccional, colocan transportadores específicos en la membrana apical y otros en la basolateral. Por ejemplo, SGLT apical capta glucosa y GLUT basolateral permite salida hacia sangre. Esta frase identifica correctamente el mecanismo de transporte epitelial polarizado y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: Los epitelios separan compartimentos, como luz intestinal y sangre. Para transportar de forma direccional, colocan transportadores específicos en la membrana apical y otros en la basolateral. Por ejemplo, SGLT apical capta glucosa y GLUT basolateral permite salida hacia sangre."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: Los epitelios separan compartimentos, como luz intestinal y sangre. Para transportar de forma direccional, colocan transportadores específicos en la membrana apical y otros en la basolateral. Por ejemplo, SGLT apical capta glucosa y GLUT basolateral permite salida hacia sangre."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Transporte epitelial polarizado",
+      "topicSlug": "transporte_epitelial_polarizado",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Transporte epitelial polarizado",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:transporte_epitelial_polarizado",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-030",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Vía transcelular",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? El soluto pasa entre células sin atravesar membranas plasmáticas.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «El soluto pasa entre células sin atravesar membranas plasmáticas.». Pasar entre células corresponde a vía paracelular, regulada por uniones estrechas, no transcelular. La corrección conceptual es: El soluto cruza la célula: entra por una membrana, atraviesa el citoplasma y sale por otra. La vía transcelular implica paso a través de la célula epitelial. Requiere transportadores, canales o difusión en la membrana apical, movimiento intracelular y salida por la membrana basolateral. Permite alta selectividad y regulación.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Pasar entre células corresponde a vía paracelular, regulada por uniones estrechas, no transcelular.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Pasar entre células corresponde a vía paracelular, regulada por uniones estrechas, no transcelular.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Vía transcelular",
+      "topicSlug": "via_transcelular",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_intercambio"
+      ],
+      "skill": "recognition_pattern",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Vía transcelular",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:recognition_pattern",
+      "topic:via_transcelular",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-031",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Vía paracelular",
+    "difficulty": "Avancé",
+    "question": "¿Verdadero o falso? El soluto pasa entre células, regulado por uniones estrechas y gradientes electroquímicos u osmóticos.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. La vía paracelular permite paso entre células epiteliales. Las uniones estrechas determinan qué tan permeable es esa ruta. Puede ser importante para agua, iones y pequeños solutos según el epitelio. No atraviesa el citoplasma de la célula. Esta frase identifica correctamente el mecanismo de vía paracelular y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La vía paracelular permite paso entre células epiteliales. Las uniones estrechas determinan qué tan permeable es esa ruta. Puede ser importante para agua, iones y pequeños solutos según el epitelio. No atraviesa el citoplasma de la célula."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La vía paracelular permite paso entre células epiteliales. Las uniones estrechas determinan qué tan permeable es esa ruta. Puede ser importante para agua, iones y pequeños solutos según el epitelio. No atraviesa el citoplasma de la célula."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Vía paracelular",
+      "topicSlug": "via_paracelular",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Vía paracelular",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:via_paracelular",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-032",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Uniones estrechas",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? Forman canales de Na+ voltaje-dependientes para iniciar potenciales de acción.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «Forman canales de Na+ voltaje-dependientes para iniciar potenciales de acción.». Los canales de Na+ voltaje-dependientes pertenecen a células excitables. Las uniones estrechas son complejos de adhesión epitelial. La corrección conceptual es: Regulan el paso entre células y ayudan a mantener separadas las proteínas apicales y basolaterales. Las uniones estrechas sellan el espacio entre células epiteliales en distintos grados. Regulan la permeabilidad paracelular y actúan como barrera que conserva la polaridad, impidiendo que transportadores apicales y basolaterales se mezclen libremente.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Los canales de Na+ voltaje-dependientes pertenecen a células excitables. Las uniones estrechas son complejos de adhesión epitelial.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Los canales de Na+ voltaje-dependientes pertenecen a células excitables. Las uniones estrechas son complejos de adhesión epitelial.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Uniones estrechas",
+      "topicSlug": "uniones_estrechas",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Uniones estrechas",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:hard",
+      "skill:exam_trap",
+      "topic:uniones_estrechas",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-033",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Endocitosis",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? La membrana se invagina y forma vesículas que introducen material extracelular al interior celular.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. La endocitosis es transporte vesicular. Permite internalizar partículas, macromoléculas o líquidos que no pueden cruzar por canales o carriers. La membrana envuelve el material y genera una vesícula intracelular. Incluye fagocitosis, pinocitosis y endocitosis mediada por receptor. Esta frase identifica correctamente el mecanismo de endocitosis y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La endocitosis es transporte vesicular. Permite internalizar partículas, macromoléculas o líquidos que no pueden cruzar por canales o carriers. La membrana envuelve el material y genera una vesícula intracelular. Incluye fagocitosis, pinocitosis y endocitosis mediada por receptor."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La endocitosis es transporte vesicular. Permite internalizar partículas, macromoléculas o líquidos que no pueden cruzar por canales o carriers. La membrana envuelve el material y genera una vesícula intracelular. Incluye fagocitosis, pinocitosis y endocitosis mediada por receptor."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Endocitosis",
+      "topicSlug": "endocitosis",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Endocitosis",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:endocitosis",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-034",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Exocitosis",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? La sustancia entra por invaginación de membrana desde el exterior hacia el citoplasma.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «La sustancia entra por invaginación de membrana desde el exterior hacia el citoplasma.». Eso describe endocitosis, el movimiento opuesto: entrada por invaginación. La corrección conceptual es: Vesículas intracelulares se fusionan con la membrana plasmática y liberan su contenido al exterior. La exocitosis es transporte vesicular hacia afuera. Una vesícula se aproxima, se fusiona con la membrana plasmática y descarga su contenido. Es esencial para secreción hormonal, liberación de neurotransmisores y renovación de componentes de membrana.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Eso describe endocitosis, el movimiento opuesto: entrada por invaginación.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Eso describe endocitosis, el movimiento opuesto: entrada por invaginación.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Exocitosis",
+      "topicSlug": "exocitosis",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Exocitosis",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:exam_trap",
+      "topic:exocitosis",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-035",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Endocitosis mediada por receptor",
+    "difficulty": "Avancé",
+    "question": "¿Verdadero o falso? El ligando se une a receptores específicos y el complejo se internaliza en vesículas.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. En la endocitosis mediada por receptor, la célula reconoce moléculas específicas mediante receptores de superficie. Tras unión del ligando, la membrana forma una vesícula que internaliza el complejo. Esto aumenta selectividad y eficiencia comparado con entrada inespecífica de líquido. Esta frase identifica correctamente el mecanismo de endocitosis mediada por receptor y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: En la endocitosis mediada por receptor, la célula reconoce moléculas específicas mediante receptores de superficie. Tras unión del ligando, la membrana forma una vesícula que internaliza el complejo. Esto aumenta selectividad y eficiencia comparado con entrada inespecífica de líquido."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: En la endocitosis mediada por receptor, la célula reconoce moléculas específicas mediante receptores de superficie. Tras unión del ligando, la membrana forma una vesícula que internaliza el complejo. Esto aumenta selectividad y eficiencia comparado con entrada inespecífica de líquido."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Endocitosis mediada por receptor",
+      "topicSlug": "endocitosis_mediada_por_receptor",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Endocitosis mediada por receptor",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:endocitosis_mediada_por_receptor",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-036",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Fagocitosis",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? Es el paso de glucosa por un carrier específico a favor de su gradiente.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «Es el paso de glucosa por un carrier específico a favor de su gradiente.». Glucosa por carrier es difusión facilitada o cotransporte, no ingestión de partículas grandes. La corrección conceptual es: Es la ingestión vesicular de partículas grandes, como bacterias, por células especializadas. La fagocitosis es una forma de endocitosis especializada para partículas grandes. Macrófagos y neutrófilos extienden membrana alrededor del material, forman un fagosoma y luego lo procesan, usualmente mediante fusión con lisosomas.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Glucosa por carrier es difusión facilitada o cotransporte, no ingestión de partículas grandes.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Glucosa por carrier es difusión facilitada o cotransporte, no ingestión de partículas grandes.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Fagocitosis",
+      "topicSlug": "fagocitosis",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "respiratorio_intercambio"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Fagocitosis",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:hard",
+      "skill:exam_trap",
+      "topic:fagocitosis",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-037",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Pinocitosis",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Es la incorporación vesicular de líquido extracelular y solutos disueltos, generalmente de forma poco específica.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. La pinocitosis es una forma de endocitosis en la que la célula incorpora pequeñas porciones de líquido extracelular con solutos disueltos. Es menos específica que la endocitosis mediada por receptor y no debe confundirse con exocitosis. Esta frase identifica correctamente el mecanismo de pinocitosis y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La pinocitosis es una forma de endocitosis en la que la célula incorpora pequeñas porciones de líquido extracelular con solutos disueltos. Es menos específica que la endocitosis mediada por receptor y no debe confundirse con exocitosis."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La pinocitosis es una forma de endocitosis en la que la célula incorpora pequeñas porciones de líquido extracelular con solutos disueltos. Es menos específica que la endocitosis mediada por receptor y no debe confundirse con exocitosis."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Pinocitosis",
+      "topicSlug": "pinocitosis",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Pinocitosis",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:pinocitosis",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-038",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "CFTR",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? CFTR es una bomba Na+/K+ que introduce cloruro al núcleo celular.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «CFTR es una bomba Na+/K+ que introduce cloruro al núcleo celular.». La Na+/K+ ATPasa mueve Na+ y K+, no es CFTR ni transporta Cl− al núcleo. La corrección conceptual es: CFTR es un canal de Cl− regulado por ATP que participa en transporte epitelial de sal y agua. CFTR funciona como canal de cloruro en epitelios. Al regular el movimiento de Cl−, modifica el transporte de Na+ y agua, por lo que su disfunción altera hidratación de secreciones. En fibrosis quística, secreciones espesas se relacionan con transporte anormal de cloruro y agua.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. La Na+/K+ ATPasa mueve Na+ y K+, no es CFTR ni transporta Cl− al núcleo.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. La Na+/K+ ATPasa mueve Na+ y K+, no es CFTR ni transporta Cl− al núcleo.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "CFTR",
+      "topicSlug": "cftr",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "CFTR",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:exam_trap",
+      "topic:cftr",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-039",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Rehidratación oral",
+    "difficulty": "Avancé",
+    "question": "¿Verdadero o falso? La entrada conjunta de Na+ y glucosa por SGLT favorece absorción osmótica de agua.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. En diarrea, SGLT1 puede seguir absorbiendo Na+ y glucosa desde la luz intestinal. Ese movimiento de solutos favorece la absorción de agua por gradientes osmóticos. Por eso la combinación adecuada de sal y glucosa es más efectiva que agua sola en muchos cuadros diarreicos. Esta frase identifica correctamente el mecanismo de rehidratación oral y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: En diarrea, SGLT1 puede seguir absorbiendo Na+ y glucosa desde la luz intestinal. Ese movimiento de solutos favorece la absorción de agua por gradientes osmóticos. Por eso la combinación adecuada de sal y glucosa es más efectiva que agua sola en muchos cuadros diarreicos."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: En diarrea, SGLT1 puede seguir absorbiendo Na+ y glucosa desde la luz intestinal. Ese movimiento de solutos favorece la absorción de agua por gradientes osmóticos. Por eso la combinación adecuada de sal y glucosa es más efectiva que agua sola en muchos cuadros diarreicos."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Rehidratación oral",
+      "topicSlug": "rehidratacion_oral",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Rehidratación oral",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:rehidratacion_oral",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-040",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Inhibición de Na+/K+ ATPasa",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? Aumenta indefinidamente el K+ intracelular porque la bomba funciona más rápido.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «Aumenta indefinidamente el K+ intracelular porque la bomba funciona más rápido.». Si la bomba está inhibida, no introduce K+ eficazmente. El K+ intracelular tenderá a disminuir con el tiempo. La corrección conceptual es: Se pierden gradientes de Na+ y K+, aumenta Na+ intracelular y puede entrar agua con edema celular. La Na+/K+ ATPasa mantiene bajo Na+ intracelular y alto K+ intracelular. Si se inhibe, el Na+ tiende a acumularse dentro por fugas y transportes, el K+ se pierde gradualmente y el agua puede seguir al sodio, produciendo hinchazón celular. Esto es importante en hipoxia y falla energética.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Si la bomba está inhibida, no introduce K+ eficazmente. El K+ intracelular tenderá a disminuir con el tiempo.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Si la bomba está inhibida, no introduce K+ eficazmente. El K+ intracelular tenderá a disminuir con el tiempo.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Inhibición de Na+/K+ ATPasa",
+      "topicSlug": "inhibicion_de_na_k_atpasa",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos",
+        "cardiovascular_vasos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Inhibición de Na+/K+ ATPasa",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:hard",
+      "skill:mechanism",
+      "topic:inhibicion_de_na_k_atpasa",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-041",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Digoxina y bomba Na+/K+",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Al inhibir la bomba, aumenta Na+ intracelular y se reduce la expulsión de Ca2+ por el intercambiador Na+/Ca2+.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. La inhibición parcial de Na+/K+ ATPasa aumenta Na+ intracelular. Esto reduce el gradiente que impulsa al intercambiador Na+/Ca2+ a expulsar Ca2+. Al quedar más Ca2+ disponible dentro de la célula cardíaca, puede aumentar la contractilidad. Es una aplicación clínica de transportes acoplados. Esta frase identifica correctamente el mecanismo de digoxina y bomba na+/k+ y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La inhibición parcial de Na+/K+ ATPasa aumenta Na+ intracelular. Esto reduce el gradiente que impulsa al intercambiador Na+/Ca2+ a expulsar Ca2+. Al quedar más Ca2+ disponible dentro de la célula cardíaca, puede aumentar la contractilidad. Es una aplicación clínica de transportes acoplados."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La inhibición parcial de Na+/K+ ATPasa aumenta Na+ intracelular. Esto reduce el gradiente que impulsa al intercambiador Na+/Ca2+ a expulsar Ca2+. Al quedar más Ca2+ disponible dentro de la célula cardíaca, puede aumentar la contractilidad. Es una aplicación clínica de transportes acoplados."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Digoxina y bomba Na+/K+",
+      "topicSlug": "digoxina_y_bomba_na_k",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos",
+        "cardiovascular_bomba"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Digoxina y bomba Na+/K+",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:digoxina_y_bomba_na_k",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos",
+      "concept:cardiovascular_bomba"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-042",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Transporte de Ca2+",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? El Ca2+ permanece alto en reposo para impedir cualquier señalización intracelular.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «El Ca2+ permanece alto en reposo para impedir cualquier señalización intracelular.». Si el Ca2+ estuviera alto todo el tiempo, se perdería su valor como señal y podría activar procesos dañinos. La corrección conceptual es: Bombas Ca2+ ATPasa e intercambiadores mantienen bajo Ca2+ citosólico, permitiendo que su aumento actúe como señal. El Ca2+ es un mensajero intracelular potente. Por eso su concentración citosólica en reposo se mantiene baja mediante bombas Ca2+ ATPasa, secuestro en retículo e intercambiadores como Na+/Ca2+. Una entrada o liberación breve de Ca2+ puede activar contracción, secreción o enzimas.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Si el Ca2+ estuviera alto todo el tiempo, se perdería su valor como señal y podría activar procesos dañinos.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Si el Ca2+ estuviera alto todo el tiempo, se perdería su valor como señal y podría activar procesos dañinos.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Transporte de Ca2+",
+      "topicSlug": "transporte_de_ca2",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Transporte de Ca2+",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:transporte_de_ca2",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-043",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Bomba de protones H+/K+ ATPasa",
+    "difficulty": "Avancé",
+    "question": "¿Verdadero o falso? Hidroliza ATP para secretar H+ hacia la luz gástrica e introducir K+ en la célula parietal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. La H+/K+ ATPasa de células parietales es una bomba primaria. Usa ATP para mover H+ hacia la luz gástrica contra gradiente, contribuyendo a la acidez del estómago, e intercambia K+. Es el blanco de inhibidores de bomba de protones. Esta frase identifica correctamente el mecanismo de bomba de protones h+/k+ atpasa y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La H+/K+ ATPasa de células parietales es una bomba primaria. Usa ATP para mover H+ hacia la luz gástrica contra gradiente, contribuyendo a la acidez del estómago, e intercambia K+. Es el blanco de inhibidores de bomba de protones."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: La H+/K+ ATPasa de células parietales es una bomba primaria. Usa ATP para mover H+ hacia la luz gástrica contra gradiente, contribuyendo a la acidez del estómago, e intercambia K+. Es el blanco de inhibidores de bomba de protones."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Bomba de protones H+/K+ ATPasa",
+      "topicSlug": "bomba_de_protones_h_k_atpasa",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Bomba de protones H+/K+ ATPasa",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:bomba_de_protones_h_k_atpasa",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-044",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Bomba Ca2+ ATPasa",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? Introduce Na+ y glucosa juntos por simporte desde la luz intestinal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «Introduce Na+ y glucosa juntos por simporte desde la luz intestinal.». Na+/glucosa describe SGLT, transporte secundario, no una bomba de calcio. La corrección conceptual es: Usa ATP para retirar Ca2+ del citosol hacia el exterior o hacia depósitos intracelulares. Las Ca2+ ATPasas son bombas primarias que usan ATP para mover calcio contra gradiente. Incluyen bombas de membrana plasmática y SERCA en retículo sarcoplásmico/endoplásmico. Son esenciales para terminar señales de Ca2+ y permitir relajación muscular.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Na+/glucosa describe SGLT, transporte secundario, no una bomba de calcio.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Na+/glucosa describe SGLT, transporte secundario, no una bomba de calcio.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Bomba Ca2+ ATPasa",
+      "topicSlug": "bomba_ca2_atpasa",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Bomba Ca2+ ATPasa",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:hard",
+      "skill:exam_trap",
+      "topic:bomba_ca2_atpasa",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-045",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Competencia en carriers",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Pueden competir por sitios de unión y reducir el transporte una de la otra.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Los carriers tienen sitios de unión específicos. Si dos moléculas estructuralmente similares pueden unirse al mismo sitio, una puede disminuir el transporte de la otra. Esto se relaciona con especificidad, saturación y cinética competitiva. Esta frase identifica correctamente el mecanismo de competencia en carriers y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: Los carriers tienen sitios de unión específicos. Si dos moléculas estructuralmente similares pueden unirse al mismo sitio, una puede disminuir el transporte de la otra. Esto se relaciona con especificidad, saturación y cinética competitiva."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: Los carriers tienen sitios de unión específicos. Si dos moléculas estructuralmente similares pueden unirse al mismo sitio, una puede disminuir el transporte de la otra. Esto se relaciona con especificidad, saturación y cinética competitiva."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Competencia en carriers",
+      "topicSlug": "competencia_en_carriers",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Competencia en carriers",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:competencia_en_carriers",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-046",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Especificidad de transporte",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? La proteína transporta cualquier molécula siempre que el gradiente sea grande.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «La proteína transporta cualquier molécula siempre que el gradiente sea grande.». Un gradiente grande puede aumentar fuerza impulsora, pero no permite que cualquier molécula use una proteína no compatible. La corrección conceptual es: La proteína reconoce características químicas del sustrato y transporta solo moléculas compatibles. La especificidad depende de la estructura del sitio de unión o del poro selectivo. Carga, tamaño, forma y grupos químicos determinan si el soluto puede interactuar con la proteína. Esto explica por qué GLUT transporta glucosa y no proteínas plasmáticas, o por qué canales discriminan entre iones.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Un gradiente grande puede aumentar fuerza impulsora, pero no permite que cualquier molécula use una proteína no compatible.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Un gradiente grande puede aumentar fuerza impulsora, pero no permite que cualquier molécula use una proteína no compatible.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Especificidad de transporte",
+      "topicSlug": "especificidad_de_transporte",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Especificidad de transporte",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:especificidad_de_transporte",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-047",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Osmolaridad efectiva",
+    "difficulty": "Avancé",
+    "question": "¿Verdadero o falso? Los solutos no permeantes mantienen diferencias osmóticas y producen movimiento sostenido de agua.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Un soluto osmóticamente efectivo es aquel que no atraviesa libremente la membrana durante el intervalo considerado. Al permanecer en un compartimento, retiene o atrae agua. Los solutos permeantes pueden equilibrarse y perder efecto sostenido sobre volumen celular. Esta frase identifica correctamente el mecanismo de osmolaridad efectiva y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: Un soluto osmóticamente efectivo es aquel que no atraviesa libremente la membrana durante el intervalo considerado. Al permanecer en un compartimento, retiene o atrae agua. Los solutos permeantes pueden equilibrarse y perder efecto sostenido sobre volumen celular."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: Un soluto osmóticamente efectivo es aquel que no atraviesa libremente la membrana durante el intervalo considerado. Al permanecer en un compartimento, retiene o atrae agua. Los solutos permeantes pueden equilibrarse y perder efecto sostenido sobre volumen celular."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Osmolaridad efectiva",
+      "topicSlug": "osmolaridad_efectiva",
+      "concepts": [
+        "electricidad_biologica",
+        "osmolaridad",
+        "tonicidad"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Osmolaridad efectiva",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:osmolaridad_efectiva",
+      "concept:electricidad_biologica",
+      "concept:osmolaridad",
+      "concept:tonicidad"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-048",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Edema celular por falla energética",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? La falta de ATP activa difusión simple de proteínas hacia el exterior y seca la célula.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «La falta de ATP activa difusión simple de proteínas hacia el exterior y seca la célula.». Las proteínas no salen por difusión simple y la pérdida de ATP no seca la célula por ese mecanismo. La corrección conceptual es: La falla de Na+/K+ ATPasa aumenta Na+ intracelular y el agua entra siguiendo el gradiente osmótico. Cuando falta ATP, la Na+/K+ ATPasa trabaja menos. El Na+ se acumula dentro de la célula y aumenta la osmolaridad intracelular efectiva; el agua entra para equilibrar, produciendo edema celular. Es un mecanismo temprano de lesión celular por hipoxia.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Las proteínas no salen por difusión simple y la pérdida de ATP no seca la célula por ese mecanismo.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. Las proteínas no salen por difusión simple y la pérdida de ATP no seca la célula por ese mecanismo.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Edema celular por falla energética",
+      "topicSlug": "edema_celular_por_falla_energetica",
+      "concepts": [
+        "electricidad_biologica",
+        "osmolaridad",
+        "renal_electrolitos",
+        "respiratorio_intercambio",
+        "cardiovascular_vasos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Edema celular por falla energética",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:hard",
+      "skill:mechanism",
+      "topic:edema_celular_por_falla_energetica",
+      "concept:electricidad_biologica",
+      "concept:osmolaridad",
+      "concept:renal_electrolitos",
+      "concept:respiratorio_intercambio",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-049",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Volumen celular",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? El volumen depende del balance osmótico; el agua sigue solutos efectivos acumulados dentro o fuera.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. El agua se mueve según gradientes osmóticos. Si aumentan solutos efectivos dentro de la célula, el agua tiende a entrar y el volumen aumenta. Si el exterior es más hipertónico efectivo, el agua sale y la célula se encoge. Por eso los transportes de Na+, K+ y otros solutos influyen en volumen. Esta frase identifica correctamente el mecanismo de volumen celular y evita confundir dirección del gradiente, gasto de energía y tipo de proteína.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: El agua se mueve según gradientes osmóticos. Si aumentan solutos efectivos dentro de la célula, el agua tiende a entrar y el volumen aumenta. Si el exterior es más hipertónico efectivo, el agua sale y la célula se encoge. Por eso los transportes de Na+, K+ y otros solutos influyen en volumen."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. La afirmación describe el mecanismo real: El agua se mueve según gradientes osmóticos. Si aumentan solutos efectivos dentro de la célula, el agua tiende a entrar y el volumen aumenta. Si el exterior es más hipertónico efectivo, el agua sale y la célula se encoge. Por eso los transportes de Na+, K+ y otros solutos influyen en volumen."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Volumen celular",
+      "topicSlug": "volumen_celular",
+      "concepts": [
+        "electricidad_biologica",
+        "tonicidad",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Volumen celular",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:volumen_celular",
+      "concept:electricidad_biologica",
+      "concept:tonicidad",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-02-transporte-de-membrana-vf-v115-050",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-02-transporte-de-membrana",
+    "moduleNumber": 2,
+    "moduleTitle": "Transporte de membrana",
+    "heading": "Membrana y potencial de acción",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? El potencial de acción se debe a transporte vesicular de proteínas por endocitosis.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Dice: «El potencial de acción se debe a transporte vesicular de proteínas por endocitosis.». La endocitosis puede modificar membrana o receptores, pero no genera la espiga eléctrica rápida. La corrección conceptual es: Los gradientes iónicos mantenidos por bombas permiten que canales generen cambios rápidos de voltaje. La excitabilidad requiere dos niveles de transporte: bombas como Na+/K+ ATPasa mantienen gradientes a largo plazo, y canales iónicos permiten flujos rápidos de Na+ y K+ que producen despolarización y repolarización. Sin gradientes, abrir canales no generaría cambios eléctricos adecuados.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. La endocitosis puede modificar membrana o receptores, pero no genera la espiga eléctrica rápida.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto porque acepta una inversión del mecanismo. La endocitosis puede modificar membrana o receptores, pero no genera la espiga eléctrica rápida.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 2,
+      "moduleId": "01-fisiologia-02-transporte-de-membrana",
+      "moduleTitle": "Transporte de membrana",
+      "format": "vf",
+      "topic": "Membrana y potencial de acción",
+      "topicSlug": "membrana_y_potencial_de_accion",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Membrana y potencial de acción",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:2",
+      "module_id:01_fisiologia_02_transporte_de_membrana",
+      "format:vf",
+      "difficulty:medium",
+      "skill:exam_trap",
+      "topic:membrana_y_potencial_de_accion",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos"
+    ]
+  }
+]

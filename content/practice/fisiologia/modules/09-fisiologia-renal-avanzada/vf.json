@@ -1,0 +1,2758 @@
+[
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-001",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 01",
+    "difficulty": "Moyen",
+    "question": "La nefrona es la unidad funcional del riñón.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Filtra plasma y modifica el filtrado por reabsorción y secreción.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 01",
+      "topicSlug": "verdadero_falso_01",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 01",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_01",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-002",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 02",
+    "difficulty": "Base",
+    "question": "La barrera glomerular restringe células y proteínas grandes.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Depende de endotelio fenestrado, membrana basal y podocitos.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 02",
+      "topicSlug": "verdadero_falso_02",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 02",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:verdadero_falso_02",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-003",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 03",
+    "difficulty": "Moyen",
+    "question": "La TFG mide el volumen filtrado por los glomérulos por unidad de tiempo.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Es una medida central de función renal.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 03",
+      "topicSlug": "verdadero_falso_03",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 03",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_03",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-004",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 04",
+    "difficulty": "Base",
+    "question": "La presión hidrostática capilar glomerular favorece filtración.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Empuja líquido hacia la cápsula de Bowman.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 04",
+      "topicSlug": "verdadero_falso_04",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_vasos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 04",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_04",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-005",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 05",
+    "difficulty": "Moyen",
+    "question": "La presión oncótica capilar se opone a la filtración.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Las proteínas retienen agua dentro del capilar.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 05",
+      "topicSlug": "verdadero_falso_05",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_vasos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 05",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_05",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-006",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 06",
+    "difficulty": "Base",
+    "question": "La constricción aferente reduce TFG.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Disminuye flujo y presión glomerular.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 06",
+      "topicSlug": "verdadero_falso_06",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 06",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_06",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-007",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 07",
+    "difficulty": "Moyen",
+    "question": "La constricción eferente moderada puede sostener TFG.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Aumenta presión hidrostática glomerular.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 07",
+      "topicSlug": "verdadero_falso_07",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 07",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_07",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-008",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 08",
+    "difficulty": "Base",
+    "question": "La mácula densa detecta NaCl tubular.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Participa en retroalimentación túbulo-glomerular.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 08",
+      "topicSlug": "verdadero_falso_08",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre",
+        "renal_tubulo"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 08",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_08",
+      "concept:electricidad_biologica",
+      "concept:agua_libre",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-009",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 09",
+    "difficulty": "Moyen",
+    "question": "La renina inicia el sistema renina-angiotensina-aldosterona.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Convierte angiotensinógeno en angiotensina I.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 09",
+      "topicSlug": "verdadero_falso_09",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 09",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_09",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-010",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 10",
+    "difficulty": "Base",
+    "question": "Angiotensina II es vasoconstrictora.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. También estimula aldosterona.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 10",
+      "topicSlug": "verdadero_falso_10",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 10",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_10",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-011",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 11",
+    "difficulty": "Moyen",
+    "question": "Aldosterona aumenta reabsorción de Na⁺.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Actúa sobre células principales del distal/colector.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 11",
+      "topicSlug": "verdadero_falso_11",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 11",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_11",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-012",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 12",
+    "difficulty": "Base",
+    "question": "Aldosterona aumenta secreción de K⁺.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Por eso hiperaldosteronismo puede causar hipopotasemia.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 12",
+      "topicSlug": "verdadero_falso_12",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 12",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_12",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-013",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 13",
+    "difficulty": "Moyen",
+    "question": "ADH aumenta permeabilidad al agua en el conducto colector.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Inserta acuaporina-2 por receptor V2.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 13",
+      "topicSlug": "verdadero_falso_13",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 13",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_13",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-014",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 14",
+    "difficulty": "Base",
+    "question": "El túbulo proximal reabsorbe la mayor parte del filtrado.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Reabsorbe Na⁺, agua, bicarbonato, glucosa y aminoácidos.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 14",
+      "topicSlug": "verdadero_falso_14",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_tubulo",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 14",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_14",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_tubulo",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-015",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 15",
+    "difficulty": "Moyen",
+    "question": "La glucosa normal se reabsorbe casi totalmente en proximal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Hasta alcanzar el transporte máximo.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 15",
+      "topicSlug": "verdadero_falso_15",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 15",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_15",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-016",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 16",
+    "difficulty": "Base",
+    "question": "El asa descendente delgada es permeable al agua.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El líquido tubular se concentra al descender.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 16",
+      "topicSlug": "verdadero_falso_16",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 16",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_16",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-017",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 17",
+    "difficulty": "Moyen",
+    "question": "El asa ascendente gruesa es impermeable al agua.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Reabsorbe NaCl y diluye el filtrado.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 17",
+      "topicSlug": "verdadero_falso_17",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 17",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_17",
+      "concept:electricidad_biologica",
+      "concept:agua_libre"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-018",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 18",
+    "difficulty": "Base",
+    "question": "NKCC2 se localiza en asa ascendente gruesa.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Lo bloquean diuréticos de asa.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 18",
+      "topicSlug": "verdadero_falso_18",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 18",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_18",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-019",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 19",
+    "difficulty": "Moyen",
+    "question": "NCC se localiza en túbulo distal temprano.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Lo bloquean tiazidas.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 19",
+      "topicSlug": "verdadero_falso_19",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 19",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_19",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-020",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 20",
+    "difficulty": "Base",
+    "question": "El gradiente medular permite concentrar la orina.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Requiere asa de Henle, urea y vasos rectos.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 20",
+      "topicSlug": "verdadero_falso_20",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre",
+        "renal_tubulo"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 20",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_20",
+      "concept:electricidad_biologica",
+      "concept:agua_libre",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-021",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 21",
+    "difficulty": "Moyen",
+    "question": "Los vasos rectos preservan el gradiente medular.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Funcionan por intercambio contracorriente.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 21",
+      "topicSlug": "verdadero_falso_21",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 21",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_21",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-022",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 22",
+    "difficulty": "Base",
+    "question": "Las células intercaladas alfa secretan H⁺.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Ayudan en acidosis.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 22",
+      "topicSlug": "verdadero_falso_22",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 22",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_22",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-023",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 23",
+    "difficulty": "Moyen",
+    "question": "Las células intercaladas beta secretan HCO₃⁻.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Ayudan en alcalosis.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 23",
+      "topicSlug": "verdadero_falso_23",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 23",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_23",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-024",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 24",
+    "difficulty": "Base",
+    "question": "El clearance mayor que TFG sugiere secreción neta.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. La sustancia sale por filtración y secreción.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 24",
+      "topicSlug": "verdadero_falso_24",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 24",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:calculation_formula",
+      "topic:verdadero_falso_24",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-025",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 25",
+    "difficulty": "Moyen",
+    "question": "La inulina mide TFG porque no se reabsorbe ni secreta.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Su clearance equivale a TFG.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 25",
+      "topicSlug": "verdadero_falso_25",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 25",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:verdadero_falso_25",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-026",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 26",
+    "difficulty": "Base",
+    "question": "La vejiga es el principal sitio de reabsorción de bicarbonato.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. El bicarbonato se reabsorbe en túbulos, sobre todo proximal.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 26",
+      "topicSlug": "verdadero_falso_26",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 26",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_26",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-027",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 27",
+    "difficulty": "Moyen",
+    "question": "La arteriola eferente lleva sangre hacia el glomérulo.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La aferente entra; la eferente sale.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 27",
+      "topicSlug": "verdadero_falso_27",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_vasos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 27",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_27",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-028",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 28",
+    "difficulty": "Base",
+    "question": "La dilatación aferente siempre disminuye la TFG.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Generalmente aumenta flujo y presión glomerular.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 28",
+      "topicSlug": "verdadero_falso_28",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 28",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_28",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-029",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 29",
+    "difficulty": "Moyen",
+    "question": "La renina convierte angiotensina II en aldosterona.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Renina convierte angiotensinógeno en angiotensina I.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 29",
+      "topicSlug": "verdadero_falso_29",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 29",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_29",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-030",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 30",
+    "difficulty": "Base",
+    "question": "Angiotensina II inhibe aldosterona.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La estimula.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 30",
+      "topicSlug": "verdadero_falso_30",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 30",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_30",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-031",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 31",
+    "difficulty": "Moyen",
+    "question": "Aldosterona disminuye secreción renal de K⁺.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La aumenta.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 31",
+      "topicSlug": "verdadero_falso_31",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 31",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_31",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-032",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 32",
+    "difficulty": "Base",
+    "question": "ADH reduce acuaporina-2 en el colector.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La aumenta en membrana apical.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 32",
+      "topicSlug": "verdadero_falso_32",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 32",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_32",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-033",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 33",
+    "difficulty": "Moyen",
+    "question": "ADH baja produce orina concentrada y de bajo volumen.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. ADH baja favorece orina diluida y más volumen.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 33",
+      "topicSlug": "verdadero_falso_33",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 33",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_33",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-034",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 34",
+    "difficulty": "Base",
+    "question": "El túbulo proximal es el principal sitio de acción de ADH.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. ADH actúa sobre todo en colector.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 34",
+      "topicSlug": "verdadero_falso_34",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 34",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_34",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-035",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 35",
+    "difficulty": "Moyen",
+    "question": "SGLT2 transporta Na⁺, K⁺ y 2Cl⁻ en el asa ascendente.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Ese transportador es NKCC2; SGLT2 transporta Na⁺/glucosa en proximal.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 35",
+      "topicSlug": "verdadero_falso_35",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 35",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_35",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-036",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 36",
+    "difficulty": "Base",
+    "question": "El asa ascendente gruesa es muy permeable al agua.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Es impermeable al agua.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 36",
+      "topicSlug": "verdadero_falso_36",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 36",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_36",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-037",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 37",
+    "difficulty": "Moyen",
+    "question": "Los diuréticos de asa aumentan el gradiente medular.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Lo reducen al bloquear NKCC2.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 37",
+      "topicSlug": "verdadero_falso_37",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 37",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_37",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-038",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 38",
+    "difficulty": "Base",
+    "question": "Las tiazidas bloquean NKCC2.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Bloquean NCC en túbulo distal temprano.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 38",
+      "topicSlug": "verdadero_falso_38",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 38",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_38",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-039",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 39",
+    "difficulty": "Moyen",
+    "question": "Los ahorradores de K⁺ causan hipokalemia obligatoria.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Su riesgo característico es hiperkalemia.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 39",
+      "topicSlug": "verdadero_falso_39",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 39",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_39",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-040",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 40",
+    "difficulty": "Base",
+    "question": "La diabetes insípida central se debe a resistencia renal a ADH.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Se debe a déficit de producción/liberación de ADH.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 40",
+      "topicSlug": "verdadero_falso_40",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 40",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_40",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-041",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 41",
+    "difficulty": "Moyen",
+    "question": "La diabetes insípida nefrogénica responde plenamente a desmopresina.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Responde poco porque el riñón no responde a ADH.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 41",
+      "topicSlug": "verdadero_falso_41",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 41",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:verdadero_falso_41",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-042",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 42",
+    "difficulty": "Base",
+    "question": "SIADH causa hipernatremia por pérdida de agua.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Causa hiponatremia dilucional por retención de agua.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 42",
+      "topicSlug": "verdadero_falso_42",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 42",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_42",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-043",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 43",
+    "difficulty": "Moyen",
+    "question": "La hiponatremia siempre significa déficit absoluto de sodio.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Suele reflejar exceso relativo de agua.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 43",
+      "topicSlug": "verdadero_falso_43",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 43",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_43",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-044",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 44",
+    "difficulty": "Base",
+    "question": "La hipernatremia suele reflejar exceso de agua libre.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Suele reflejar déficit de agua respecto a sodio.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 44",
+      "topicSlug": "verdadero_falso_44",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 44",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_44",
+      "concept:electricidad_biologica",
+      "concept:agua_libre",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-045",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 45",
+    "difficulty": "Moyen",
+    "question": "La PTH aumenta reabsorción renal de fosfato.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La disminuye y causa fosfaturia.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 45",
+      "topicSlug": "verdadero_falso_45",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 45",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_45",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-046",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 46",
+    "difficulty": "Base",
+    "question": "El clearance menor que TFG indica secreción neta.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Indica reabsorción neta.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 46",
+      "topicSlug": "verdadero_falso_46",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 46",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:calculation_formula",
+      "topic:verdadero_falso_46",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-047",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 47",
+    "difficulty": "Moyen",
+    "question": "La creatinina plasmática baja cuando cae mucho la TFG.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Suele aumentar.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 47",
+      "topicSlug": "verdadero_falso_47",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 47",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_47",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-048",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 48",
+    "difficulty": "Base",
+    "question": "PAH mide TFG porque no se secreta.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. PAH estima flujo plasmático renal efectivo por secreción intensa.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 48",
+      "topicSlug": "verdadero_falso_48",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 48",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:verdadero_falso_48",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-049",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 49",
+    "difficulty": "Moyen",
+    "question": "La acidosis crónica disminuye amoniogénesis renal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La aumenta.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 49",
+      "topicSlug": "verdadero_falso_49",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 49",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_49",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-vf-v129-050",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Verdadero/Falso 50",
+    "difficulty": "Base",
+    "question": "La eritropoyetina renal reduce producción de eritrocitos.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La estimula.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 50",
+      "topicSlug": "verdadero_falso_50",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 50",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_50",
+      "concept:electricidad_biologica"
+    ]
+  }
+]
