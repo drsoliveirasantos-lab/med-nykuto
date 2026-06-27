@@ -3,9 +3,9 @@ name: Med Nykuto site tests
 on:
   workflow_dispatch:
   push:
-    branches: [preview]
+    branches: [preview, main]
   pull_request:
-    branches: [preview]
+    branches: [preview, main]
 
 permissions:
   contents: read
@@ -18,183 +18,250 @@ concurrency:
 
 jobs:
   validate:
-    name: Validate restored site data
+    name: Static, data and quality validation
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
       - name: Install dependencies
         run: npm install
       - name: Validate static links and release markers
-        continue-on-error: true
-        run: |
-          node scripts/validate-site-links.js || echo "Static hygiene validator reported warnings; continuing to browser regression tests."
+        run: node scripts/validate-site-links.js || echo "Static hygiene validator reported warnings; continuing."
       - name: Validate restored data volumes
-        continue-on-error: true
-        run: |
-          node scripts/validate-data-health.js || echo "Data health validator reported warnings; continuing to browser regression tests."
+        run: node scripts/validate-data-health.js || echo "Data health validator reported warnings; continuing."
       - name: Validate restored course assets
-        continue-on-error: true
-        run: |
-          node scripts/validate-course-assets.js || echo "Course asset validator reported warnings; continuing to browser regression tests."
+        run: node scripts/validate-course-assets.js || echo "Course asset validator reported warnings; continuing."
       - name: Validate site manifest
-        continue-on-error: true
-        run: |
-          node scripts/validate-site-manifest.js || echo "Manifest validator reported warnings; continuing to browser regression tests."
-
-  browser-smoke:
-    name: Browser smoke tests
-    needs: validate
-    if: ${{ always() }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 8
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm install
-      - name: Install Playwright Chromium with timeout
-        run: timeout 240s npx playwright install --with-deps chromium
-      - name: Run smoke tests
-        run: |
-          set +e
-          npx playwright test tests/smoke.spec.js --project=desktop-chromium --reporter=json > smoke.json
-          code=$?
-          node scripts/print-playwright-summary.js smoke.json
-          exit $code
-
-  browser-restored-data:
-    name: Browser restored-data tests
-    needs: validate
-    if: ${{ always() }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 8
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm install
-      - name: Install Playwright Chromium with timeout
-        run: timeout 240s npx playwright install --with-deps chromium
-      - name: Run restored-data tests
-        run: |
-          set +e
-          npx playwright test tests/restored-data.spec.js --project=desktop-chromium --reporter=json > restored-data.json
-          code=$?
-          node scripts/print-playwright-summary.js restored-data.json
-          exit $code
-
-  browser-practice-flow:
-    name: Browser practice-flow tests
-    needs: validate
-    if: ${{ always() }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 12
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm install
-      - name: Install Playwright Chromium with timeout
-        run: timeout 240s npx playwright install --with-deps chromium
-      - name: Run practice-flow tests
-        run: |
-          set +e
-          npx playwright test tests/practice-flow.spec.js --project=desktop-chromium --reporter=json > practice-flow.json
-          code=$?
-          node scripts/print-playwright-summary.js practice-flow.json
-          exit $code
-
-  browser-real-click:
-    name: Browser real-click and QCM critical tests
-    needs: validate
-    if: ${{ always() }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 12
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm install
-      - name: Install Playwright Chromium with timeout
-        run: timeout 240s npx playwright install --with-deps chromium
-      - name: Run real-click and QCM critical tests
-        run: |
-          set +e
-          npx playwright test tests/real-click-regression.spec.js tests/qcm-critical-clicks.spec.js tests/qcm-transition-stability.spec.js --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/real-click --reporter=json > real-click.json
-          code=$?
-          node scripts/print-playwright-summary.js real-click.json
-          exit $code
-      - name: Upload real-click evidence
+        run: node scripts/validate-site-manifest.js || echo "Manifest validator reported warnings; continuing."
+      - name: Validate strict HTML/JS references
+        run: node scripts/validate-strict-html-js-health.js
+      - name: Ensure protected bank files were not changed accidentally
+        run: node scripts/protected-data-guard.js
+      - name: Validate SEO, sitemap and visible branding
+        run: node scripts/validate-seo-health.js
+      - name: Validate advanced branding regression
+        run: node scripts/validate-branding-regression-advanced.js
+      - name: Validate content sanitization
+        run: node scripts/validate-content-sanitization.js
+      - name: Validate question bank deep integrity
+        run: node scripts/validate-question-bank-deep-integrity.js
+      - name: Upload quality and hardening reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: real-click-evidence
+          name: static-quality-hardening-reports
           if-no-files-found: ignore
           path: |
-            real-click.json
-            test-results/real-click/**
+            reports/question-bank-quality-report.json
+            reports/question-bank-quality-report.txt
+            reports/content-sanitization-report.json
+            reports/content-sanitization-report.txt
+            reports/branding-regression-report.json
+            reports/branding-regression-report.txt
+
+  browser-desktop-core:
+    name: Browser desktop core regression tests
+    needs: validate
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
+      - name: Run desktop core regression tests
+        run: |
+          set +e
+          npx playwright test \
+            tests/smoke.spec.js \
+            tests/restored-data.spec.js \
+            tests/practice-flow.spec.js \
+            tests/real-click-regression.spec.js \
+            tests/qcm-critical-clicks.spec.js \
+            tests/qcm-transition-stability.spec.js \
+            tests/module-ui-regression.spec.js \
+            tests/click-audit.spec.js \
+            tests/cases-critical.spec.js \
+            tests/vf-critical.spec.js \
+            tests/no-navigation-regression.spec.js \
+            tests/runtime-conflict.spec.js \
+            tests/cache-version-integrity.spec.js \
+            tests/report-error-critical.spec.js \
+            tests/performance-regression-light.spec.js \
+            tests/student-full-journey.spec.js \
+            tests/progress-and-mistakes-storage.spec.js \
+            tests/course-module-integrity.spec.js \
+            tests/no-blank-page-matrix.spec.js \
+            tests/console-error-guard.spec.js \
+            --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/desktop-core --reporter=json > desktop-core.json
+          code=$?
+          node scripts/print-playwright-summary.js desktop-core.json
+          exit $code
+      - name: Upload desktop core evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-core-evidence
+          if-no-files-found: ignore
+          path: |
+            desktop-core.json
+            test-results/desktop-core/**
             playwright-report/**
 
-  browser-module-ui:
-    name: Browser module UI regression tests
+  browser-mobile-critical:
+    name: Browser mobile Safari-shape critical tests
     needs: validate
     if: ${{ always() }}
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 14
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
       - run: npm install
-      - name: Install Playwright Chromium with timeout
-        run: timeout 240s npx playwright install --with-deps chromium
-      - name: Run module UI regression tests
+      - name: Install Playwright Chromium and WebKit with timeout
+        run: timeout 300s npx playwright install --with-deps chromium webkit
+      - name: Run mobile touch critical tests
         run: |
           set +e
-          npx playwright test tests/module-ui-regression.spec.js --project=desktop-chromium --reporter=json > module-ui.json
+          npx playwright test tests/mobile-touch-critical.spec.js --project=mobile-safari-shape --trace=retain-on-failure --output=test-results/mobile-touch --reporter=json > mobile-touch.json
           code=$?
-          node scripts/print-playwright-summary.js module-ui.json
+          node scripts/print-playwright-summary.js mobile-touch.json
           exit $code
-
-  browser-click-audit:
-    name: Browser click-audit tests
-    needs: validate
-    if: ${{ always() }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm install
-      - name: Install Playwright Chromium with timeout
-        run: timeout 240s npx playwright install --with-deps chromium
-      - name: Run click-audit tests
-        run: |
-          set +e
-          npx playwright test tests/click-audit.spec.js --project=desktop-chromium --trace=retain-on-failure --output=test-results/click-audit --reporter=json > click-audit.json
-          code=$?
-          node scripts/print-playwright-summary.js click-audit.json
-          exit $code
-      - name: Upload click-audit evidence
+      - name: Upload mobile touch evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: click-audit-evidence
+          name: mobile-touch-evidence
           if-no-files-found: ignore
           path: |
-            click-audit.json
-            test-results/click-audit/**
+            mobile-touch.json
+            test-results/mobile-touch/**
+            playwright-report/**
+
+  browser-deployed-visual-a11y:
+    name: Browser deployed, visual and accessibility tests
+    needs: validate
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
+      - name: Run deployed, visual and accessibility tests
+        env:
+          DEPLOYED_PREVIEW_BASE_URL: https://preview.med-nykuto-git.pages.dev
+        run: |
+          set +e
+          npx playwright test \
+            tests/deployed-preview-smoke.spec.js \
+            tests/visual-snapshots.spec.js \
+            tests/accessibility-light.spec.js \
+            --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/deployed-visual-a11y --reporter=json > deployed-visual-a11y.json
+          code=$?
+          node scripts/print-playwright-summary.js deployed-visual-a11y.json
+          exit $code
+      - name: Upload deployed, visual and accessibility evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployed-visual-a11y-evidence
+          if-no-files-found: ignore
+          path: |
+            deployed-visual-a11y.json
+            test-results/deployed-visual-a11y/**
+            test-results/visual-snapshots/**
+            playwright-report/**
+
+  browser-lot2-visible-features:
+    name: Browser lot 2 visible feature tests
+    needs: validate
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
+      - name: Run lot 2 exam, contact, Pix and responsive tests
+        run: |
+          set +e
+          npx playwright test \
+            tests/exam-mode-critical.spec.js \
+            tests/contact-support-pix.spec.js \
+            tests/responsive-layout-matrix.spec.js \
+            --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/lot2-visible-features --reporter=json > lot2-visible-features.json
+          code=$?
+          node scripts/print-playwright-summary.js lot2-visible-features.json
+          exit $code
+      - name: Upload lot 2 visible feature evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lot2-visible-features-evidence
+          if-no-files-found: ignore
+          path: |
+            lot2-visible-features.json
+            test-results/lot2-visible-features/**
+            playwright-report/**
+
+  browser-lot3-hardening:
+    name: Browser lot 3 hardening tests
+    needs: validate
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - name: Install Playwright browsers with timeout
+        run: timeout 420s npx playwright install --with-deps chromium firefox webkit
+      - name: Run lot 3 hardening tests
+        run: |
+          set +e
+          npx playwright test tests/accessibility-advanced.spec.js tests/performance-budget.spec.js --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/lot3-chromium --reporter=json > lot3-chromium.json
+          code_chromium=$?
+          node scripts/print-playwright-summary.js lot3-chromium.json
+          npx playwright test tests/cross-engine-critical.spec.js --project=desktop-firefox --workers=1 --trace=retain-on-failure --output=test-results/lot3-firefox --reporter=json > lot3-firefox.json
+          code_firefox=$?
+          node scripts/print-playwright-summary.js lot3-firefox.json
+          npx playwright test tests/cross-engine-critical.spec.js --project=desktop-webkit --workers=1 --trace=retain-on-failure --output=test-results/lot3-webkit --reporter=json > lot3-webkit.json
+          code_webkit=$?
+          node scripts/print-playwright-summary.js lot3-webkit.json
+          if [ "$code_chromium" -ne 0 ] || [ "$code_firefox" -ne 0 ] || [ "$code_webkit" -ne 0 ]; then exit 1; fi
+      - name: Upload lot 3 hardening evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lot3-hardening-evidence
+          if-no-files-found: ignore
+          path: |
+            lot3-chromium.json
+            lot3-firefox.json
+            lot3-webkit.json
+            test-results/lot3-chromium/**
+            test-results/lot3-firefox/**
+            test-results/lot3-webkit/**
             playwright-report/**

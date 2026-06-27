@@ -24,10 +24,10 @@
         <form name="site-contact" method="POST" class="contact-form" onsubmit="return window.medNykutoContactFallback(event,this)">
           <input type="hidden" name="form-name" value="site-contact" />
           <div class="contact-grid">
-            <label class="field-label"><span>Tipo de mensaje</span><select name="type" required><option value="">Elegir categoría</option><option value="course-error">Error en un curso</option><option value="technical-issue">Problema técnico</option><option value="suggestion">Sugerencia de mejora</option><option value="collaboration">Propuesta de colaboración</option><option value="general-question">Pregunta general</option><option value="other">Otro problema</option></select></label>
-            <label class="field-label"><span>Nombre</span><input type="text" name="name" placeholder="Ej. Diego" /></label>
-            <label class="field-label"><span>Email</span><input type="email" name="email" placeholder="nombre@email.com" /></label>
-            <label class="field-label field-full"><span>Mensaje</span><textarea name="message" required placeholder="Describe el problema, la idea o la mejora que propones."></textarea></label>
+            <label class="field-label"><span>Tipo de mensaje</span><select name="type" required aria-label="Tipo de mensaje"><option value="">Elegir categoría</option><option value="course-error">Error en un curso</option><option value="technical-issue">Problema técnico</option><option value="suggestion">Sugerencia de mejora</option><option value="collaboration">Propuesta de colaboración</option><option value="general-question">Pregunta general</option><option value="other">Otro problema</option></select></label>
+            <label class="field-label"><span>Nombre</span><input type="text" name="name" placeholder="Ej. Diego" aria-label="Nombre" /></label>
+            <label class="field-label"><span>Email</span><input type="email" name="email" placeholder="nombre@email.com" aria-label="Email" /></label>
+            <label class="field-label field-full"><span>Mensaje</span><textarea name="message" required placeholder="Describe el problema, la idea o la mejora que propones." aria-label="Mensaje"></textarea></label>
           </div>
           <div class="contact-actions"><button type="submit" class="btn primary" onclick="return window.medNykutoContactFallback(event,this.form)">Preparar mensaje</button><a href="index.html#supportProject" class="btn secondary">Apoyar el proyecto</a></div>
         </form>
@@ -79,6 +79,6 @@
       }
     });
   </script>
-  <script src="data/med-courses-data.js?v=363"></script><script src="data/med-practice-bank-init.js?v=363"></script><script src="data/med-practice-bank-loader.js?v=363"></script><script src="app.bundle.js?v=363"></script><script src="v210-module-picker-overlay.js?v=363"></script><script src="site-global-polish-v310.js?v=363"></script><script src="med-nykuto-global-fix-v358.js?v=363"></script><script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="data/med-courses-data.js?v=363"></script><script src="data/med-practice-bank-init.js?v=363"></script><script src="data/med-practice-bank-loader.js?v=363"></script><script src="app.bundle.js?v=363"></script><script src="v210-module-picker-overlay.js?v=363"></script><script src="site-global-polish-v310.js?v=363"></script><script src="mobile-menu-layout-fix-v101.js?v=101"></script><script src="med-nykuto-global-fix-v358.js?v=363"></script><script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
