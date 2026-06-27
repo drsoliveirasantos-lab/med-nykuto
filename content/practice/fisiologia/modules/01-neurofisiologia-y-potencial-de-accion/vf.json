@@ -1,0 +1,3006 @@
+[
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-001",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Electricidad biológica",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? La electricidad biológica depende del desplazamiento selectivo de iones a través de canales de membrana, no de electrones circulando como en un cable metálico.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. El potencial de acción aparece porque Na+, K+ y Ca2+ modifican el voltaje transmembrana cuando sus canales cambian de estado. Esta afirmación corresponde específicamente a base iónica de la señal eléctrica. Mecanismo: La señal eléctrica biológica es un cambio de potencial transmembrana producido por corrientes iónicas. La membrana funciona como barrera capacitativa y los canales regulan cuándo Na+, K+, Ca2+ o Cl− modifican el voltaje; no hay conducción por electrones como en un metal.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente base iónica de la señal eléctrica. Corrección: La señal eléctrica biológica es un cambio de potencial transmembrana producido por corrientes iónicas. La membrana funciona como barrera capacitativa y los canales regulan cuándo Na+, K+, Ca2+ o Cl− modifican el voltaje; no hay conducción por electrones como en un metal."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente base iónica de la señal eléctrica. Corrección: La señal eléctrica biológica es un cambio de potencial transmembrana producido por corrientes iónicas. La membrana funciona como barrera capacitativa y los canales regulan cuándo Na+, K+, Ca2+ o Cl− modifican el voltaje; no hay conducción por electrones como en un metal."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La señal eléctrica biológica es un cambio de potencial transmembrana producido por corrientes iónicas. La membrana funciona como barrera capacitativa y los canales regulan cuándo Na+, K+, Ca2+ o Cl− modifican el voltaje; no hay conducción por electrones como en un metal.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Electricidad biológica",
+      "topicSlug": "electricidad_biologica",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Electricidad biológica",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:electricidad_biologica",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-002",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Células excitables",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? La hemacia es el modelo clásico de potencial de acción porque transporta oxígeno y por eso genera espigas eléctricas repetidas en la circulación.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: la hemacia es metabólicamente activa para transportar gases, pero no es el modelo clásico de excitabilidad eléctrica ni genera potenciales de acción propagados. La formulación correcta sería: Neuronas, músculo esquelético, miocardio y músculo liso son células excitables porque pueden transformar un estímulo en cambios rápidos del potencial de membrana. Mecanismo: Una célula excitable transforma estímulos químicos, mecánicos o eléctricos en cambios rápidos de voltaje. Neuronas y músculo tienen canales dependientes de voltaje o de ligando que permiten potenciales de acción o respuestas graduadas; otras células pueden tener membrana, pero no necesariamente espigas propagadas.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: la hemacia es metabólicamente activa para transportar gases, pero no es el modelo clásico de excitabilidad eléctrica ni genera potenciales de acción propagados. Corrección: Una célula excitable transforma estímulos químicos, mecánicos o eléctricos en cambios rápidos de voltaje. Neuronas y músculo tienen canales dependientes de voltaje o de ligando que permiten potenciales de acción o respuestas graduadas; otras células pueden tener membrana, pero no necesariamente espigas propagadas.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: la hemacia es metabólicamente activa para transportar gases, pero no es el modelo clásico de excitabilidad eléctrica ni genera potenciales de acción propagados. Corrección: Una célula excitable transforma estímulos químicos, mecánicos o eléctricos en cambios rápidos de voltaje. Neuronas y músculo tienen canales dependientes de voltaje o de ligando que permiten potenciales de acción o respuestas graduadas; otras células pueden tener membrana, pero no necesariamente espigas propagadas.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "Una célula excitable transforma estímulos químicos, mecánicos o eléctricos en cambios rápidos de voltaje. Neuronas y músculo tienen canales dependientes de voltaje o de ligando que permiten potenciales de acción o respuestas graduadas; otras células pueden tener membrana, pero no necesariamente espigas propagadas.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Células excitables",
+      "topicSlug": "celulas_excitables",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Células excitables",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:calculation_formula",
+      "topic:celulas_excitables",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-003",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Distribución iónica",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? En reposo, el Na+ predomina en el líquido extracelular y el K+ predomina en el intracelular; esa asimetría sostiene la excitabilidad.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. La distribución desigual crea gradientes electroquímicos: Na+ tiende a entrar cuando se abren sus canales y K+ tiende a salir por sus canales. Esta afirmación corresponde específicamente a predominio de Na+ extracelular y K+ intracelular. Mecanismo: El reposo depende de la asimetría iónica: Na+ y Ca2+ predominan fuera, K+ y aniones orgánicos dentro. Cuando se abre un canal, el ion se mueve siguiendo gradiente electroquímico; por eso la entrada de Na+ despolariza y la salida de K+ repolariza o hiperpolariza.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente predominio de Na+ extracelular y K+ intracelular. Corrección: El reposo depende de la asimetría iónica: Na+ y Ca2+ predominan fuera, K+ y aniones orgánicos dentro. Cuando se abre un canal, el ion se mueve siguiendo gradiente electroquímico; por eso la entrada de Na+ despolariza y la salida de K+ repolariza o hiperpolariza."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente predominio de Na+ extracelular y K+ intracelular. Corrección: El reposo depende de la asimetría iónica: Na+ y Ca2+ predominan fuera, K+ y aniones orgánicos dentro. Cuando se abre un canal, el ion se mueve siguiendo gradiente electroquímico; por eso la entrada de Na+ despolariza y la salida de K+ repolariza o hiperpolariza."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "El reposo depende de la asimetría iónica: Na+ y Ca2+ predominan fuera, K+ y aniones orgánicos dentro. Cuando se abre un canal, el ion se mueve siguiendo gradiente electroquímico; por eso la entrada de Na+ despolariza y la salida de K+ repolariza o hiperpolariza.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Distribución iónica",
+      "topicSlug": "distribucion_ionica",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Distribución iónica",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:distribucion_ionica",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-004",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Gradiente electroquímico",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? El gradiente electroquímico depende solo de la concentración; la carga eléctrica del ion no modifica su dirección de movimiento.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa porque el término electroquímico incluye dos fuerzas: concentración y voltaje; ignorar la carga impide entender equilibrio iónico. La formulación correcta sería: Un ion se mueve según su gradiente electroquímico, que combina diferencia de concentración y atracción o repulsión por el voltaje de membrana. Mecanismo: La fuerza que mueve un ion combina gradiente químico y fuerza eléctrica. No basta saber la concentración: un catión es atraído por cargas negativas y repelido por cargas positivas, y el equilibrio aparece cuando ambas fuerzas se compensan.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa porque el término electroquímico incluye dos fuerzas: concentración y voltaje; ignorar la carga impide entender equilibrio iónico. Corrección: La fuerza que mueve un ion combina gradiente químico y fuerza eléctrica. No basta saber la concentración: un catión es atraído por cargas negativas y repelido por cargas positivas, y el equilibrio aparece cuando ambas fuerzas se compensan.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa porque el término electroquímico incluye dos fuerzas: concentración y voltaje; ignorar la carga impide entender equilibrio iónico. Corrección: La fuerza que mueve un ion combina gradiente químico y fuerza eléctrica. No basta saber la concentración: un catión es atraído por cargas negativas y repelido por cargas positivas, y el equilibrio aparece cuando ambas fuerzas se compensan.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La fuerza que mueve un ion combina gradiente químico y fuerza eléctrica. No basta saber la concentración: un catión es atraído por cargas negativas y repelido por cargas positivas, y el equilibrio aparece cuando ambas fuerzas se compensan.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Gradiente electroquímico",
+      "topicSlug": "gradiente_electroquimico",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Gradiente electroquímico",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:gradiente_electroquimico",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-005",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Membrana y permeabilidad selectiva",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? La membrana separa medios y controla el paso de iones mediante canales, bombas y transportadores; por eso la permeabilidad puede cambiar en milisegundos.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. La excitabilidad requiere una barrera lipídica con proteínas especializadas que abren, cierran o transportan iones de manera regulada. Esta afirmación corresponde específicamente a canales, bombas y transportadores regulan el paso iónico. Mecanismo: La bicapa lipídica impide el paso libre de iones, de modo que la excitabilidad depende de proteínas de membrana: canales, bombas y transportadores. Cambiar la permeabilidad a Na+ o K+ modifica rápidamente el potencial.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente canales, bombas y transportadores regulan el paso iónico. Corrección: La bicapa lipídica impide el paso libre de iones, de modo que la excitabilidad depende de proteínas de membrana: canales, bombas y transportadores. Cambiar la permeabilidad a Na+ o K+ modifica rápidamente el potencial."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente canales, bombas y transportadores regulan el paso iónico. Corrección: La bicapa lipídica impide el paso libre de iones, de modo que la excitabilidad depende de proteínas de membrana: canales, bombas y transportadores. Cambiar la permeabilidad a Na+ o K+ modifica rápidamente el potencial."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La bicapa lipídica impide el paso libre de iones, de modo que la excitabilidad depende de proteínas de membrana: canales, bombas y transportadores. Cambiar la permeabilidad a Na+ o K+ modifica rápidamente el potencial.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Membrana y permeabilidad selectiva",
+      "topicSlug": "membrana_y_permeabilidad_selectiva",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Membrana y permeabilidad selectiva",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:mechanism",
+      "topic:membrana_y_permeabilidad_selectiva",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-006",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Potencial de reposo",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Reposo significa que la célula no tiene actividad metabólica y que el interior carece completamente de cargas positivas.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: la célula en reposo está viva y mantiene gradientes; el interior tiene K+ y otros cationes, pero es relativamente negativo. La formulación correcta sería: El potencial de reposo representa un interior celular relativamente negativo respecto al exterior, con la membrana polarizada y preparada para responder. Mecanismo: El potencial de reposo es un estado polarizado, no inactivo: la membrana tiene voltaje estable porque es más permeable a K+ y conserva gradientes mantenidos por la Na+/K+ ATPasa. En neuronas suele aproximarse a −70 mV.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: la célula en reposo está viva y mantiene gradientes; el interior tiene K+ y otros cationes, pero es relativamente negativo. Corrección: El potencial de reposo es un estado polarizado, no inactivo: la membrana tiene voltaje estable porque es más permeable a K+ y conserva gradientes mantenidos por la Na+/K+ ATPasa. En neuronas suele aproximarse a −70 mV.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: la célula en reposo está viva y mantiene gradientes; el interior tiene K+ y otros cationes, pero es relativamente negativo. Corrección: El potencial de reposo es un estado polarizado, no inactivo: la membrana tiene voltaje estable porque es más permeable a K+ y conserva gradientes mantenidos por la Na+/K+ ATPasa. En neuronas suele aproximarse a −70 mV.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "El potencial de reposo es un estado polarizado, no inactivo: la membrana tiene voltaje estable porque es más permeable a K+ y conserva gradientes mantenidos por la Na+/K+ ATPasa. En neuronas suele aproximarse a −70 mV.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Potencial de reposo",
+      "topicSlug": "potencial_de_reposo",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Potencial de reposo",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:basic",
+      "skill:calculation_formula",
+      "topic:potencial_de_reposo",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-007",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Potencial de equilibrio",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? El potencial de equilibrio de un ion es el voltaje en que su fuerza química y su fuerza eléctrica se compensan y el flujo neto se aproxima a cero.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Para K+ suele ser negativo porque la salida por concentración queda equilibrada por atracción eléctrica hacia el interior negativo. Esta afirmación corresponde específicamente a punto donde fuerza química y eléctrica se equilibran para un ion. Mecanismo: El potencial de equilibrio de un ion es el voltaje al que su gradiente químico queda compensado por la fuerza eléctrica. Para K+, la salida por concentración se frena cuando el interior negativo atrae K+ hacia dentro.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente punto donde fuerza química y eléctrica se equilibran para un ion. Corrección: El potencial de equilibrio de un ion es el voltaje al que su gradiente químico queda compensado por la fuerza eléctrica. Para K+, la salida por concentración se frena cuando el interior negativo atrae K+ hacia dentro."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente punto donde fuerza química y eléctrica se equilibran para un ion. Corrección: El potencial de equilibrio de un ion es el voltaje al que su gradiente químico queda compensado por la fuerza eléctrica. Para K+, la salida por concentración se frena cuando el interior negativo atrae K+ hacia dentro."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "El potencial de equilibrio de un ion es el voltaje al que su gradiente químico queda compensado por la fuerza eléctrica. Para K+, la salida por concentración se frena cuando el interior negativo atrae K+ hacia dentro.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Potencial de equilibrio",
+      "topicSlug": "potencial_de_equilibrio",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Potencial de equilibrio",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:potencial_de_equilibrio",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-008",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Ecuación de Goldman",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? El reposo se calcula únicamente con Na+ porque la despolarización usa sodio; K+ y Cl− no influyen mientras la célula está polarizada.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: aunque Na+ domina la fase ascendente, el reposo depende sobre todo de permeabilidad a K+ y también de otros iones. La formulación correcta sería: El potencial de reposo real se aproxima por las permeabilidades relativas de varios iones, especialmente K+, Na+ y Cl−, como resume Goldman. Mecanismo: El potencial de reposo real depende de la permeabilidad relativa a varios iones. La ecuación de Goldman explica por qué el voltaje se acerca más al equilibrio del ion más permeable, especialmente K+, pero no coincide exactamente con un solo ion.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: aunque Na+ domina la fase ascendente, el reposo depende sobre todo de permeabilidad a K+ y también de otros iones. Corrección: El potencial de reposo real depende de la permeabilidad relativa a varios iones. La ecuación de Goldman explica por qué el voltaje se acerca más al equilibrio del ion más permeable, especialmente K+, pero no coincide exactamente con un solo ion.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: aunque Na+ domina la fase ascendente, el reposo depende sobre todo de permeabilidad a K+ y también de otros iones. Corrección: El potencial de reposo real depende de la permeabilidad relativa a varios iones. La ecuación de Goldman explica por qué el voltaje se acerca más al equilibrio del ion más permeable, especialmente K+, pero no coincide exactamente con un solo ion.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "El potencial de reposo real depende de la permeabilidad relativa a varios iones. La ecuación de Goldman explica por qué el voltaje se acerca más al equilibrio del ion más permeable, especialmente K+, pero no coincide exactamente con un solo ion.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Ecuación de Goldman",
+      "topicSlug": "ecuacion_de_goldman",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Ecuación de Goldman",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:calculation_formula",
+      "topic:ecuacion_de_goldman",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-009",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Bomba Na+/K+ ATPasa",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? La Na+/K+ ATPasa consume ATP, expulsa 3 Na+ e introduce 2 K+, manteniendo los gradientes que permiten excitabilidad repetida.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Su función principal es conservar la distribución iónica a largo plazo; no es el canal rápido que produce la despolarización. Esta afirmación corresponde específicamente a mantener gradientes con transporte activo 3 Na+ fuera y 2 K+ dentro. Mecanismo: La Na+/K+ ATPasa consume ATP para expulsar 3 Na+ e introducir 2 K+. Mantiene los gradientes que luego los canales usan pasivamente; no es responsable de la fase rápida de milisegundos del potencial de acción.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente mantener gradientes con transporte activo 3 Na+ fuera y 2 K+ dentro. Corrección: La Na+/K+ ATPasa consume ATP para expulsar 3 Na+ e introducir 2 K+. Mantiene los gradientes que luego los canales usan pasivamente; no es responsable de la fase rápida de milisegundos del potencial de acción."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente mantener gradientes con transporte activo 3 Na+ fuera y 2 K+ dentro. Corrección: La Na+/K+ ATPasa consume ATP para expulsar 3 Na+ e introducir 2 K+. Mantiene los gradientes que luego los canales usan pasivamente; no es responsable de la fase rápida de milisegundos del potencial de acción."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La Na+/K+ ATPasa consume ATP para expulsar 3 Na+ e introducir 2 K+. Mantiene los gradientes que luego los canales usan pasivamente; no es responsable de la fase rápida de milisegundos del potencial de acción.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Bomba Na+/K+ ATPasa",
+      "topicSlug": "bomba_na_k_atpasa",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Bomba Na+/K+ ATPasa",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:bomba_na_k_atpasa",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-010",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Despolarización",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? La despolarización se produce por salida rápida de K+, que vuelve el interior más negativo desde el inicio de la espiga.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa porque describe repolarización/hiperpolarización; la fase ascendente de la neurona típica es entrada de Na+. La formulación correcta sería: La despolarización neuronal típica ocurre cuando se abren canales de Na+ voltaje-dependientes y entra Na+, haciendo el interior menos negativo. Mecanismo: La despolarización neuronal clásica ocurre cuando se abren canales de Na+ voltaje-dependientes y Na+ entra a favor de su gradiente. El interior se vuelve menos negativo y puede acercarse a valores positivos.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa porque describe repolarización/hiperpolarización; la fase ascendente de la neurona típica es entrada de Na+. Corrección: La despolarización neuronal clásica ocurre cuando se abren canales de Na+ voltaje-dependientes y Na+ entra a favor de su gradiente. El interior se vuelve menos negativo y puede acercarse a valores positivos.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa porque describe repolarización/hiperpolarización; la fase ascendente de la neurona típica es entrada de Na+. Corrección: La despolarización neuronal clásica ocurre cuando se abren canales de Na+ voltaje-dependientes y Na+ entra a favor de su gradiente. El interior se vuelve menos negativo y puede acercarse a valores positivos.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La despolarización neuronal clásica ocurre cuando se abren canales de Na+ voltaje-dependientes y Na+ entra a favor de su gradiente. El interior se vuelve menos negativo y puede acercarse a valores positivos.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Despolarización",
+      "topicSlug": "despolarizacion",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Despolarización",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:despolarizacion",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-011",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Umbral de excitación",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? El umbral es el nivel mínimo de despolarización que activa suficientes canales de Na+ para iniciar un potencial de acción autorregenerativo.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Por debajo del umbral puede haber potencial graduado, pero no se dispara una espiga propagada con ley del todo o nada. Esta afirmación corresponde específicamente a nivel mínimo de despolarización para iniciar el potencial de acción. Mecanismo: El umbral es el nivel de despolarización que activa suficientes canales de Na+ para convertir una señal local en un potencial de acción autorregenerativo. Por debajo del umbral puede haber potencial graduado, pero no espiga propagada.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente nivel mínimo de despolarización para iniciar el potencial de acción. Corrección: El umbral es el nivel de despolarización que activa suficientes canales de Na+ para convertir una señal local en un potencial de acción autorregenerativo. Por debajo del umbral puede haber potencial graduado, pero no espiga propagada."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente nivel mínimo de despolarización para iniciar el potencial de acción. Corrección: El umbral es el nivel de despolarización que activa suficientes canales de Na+ para convertir una señal local en un potencial de acción autorregenerativo. Por debajo del umbral puede haber potencial graduado, pero no espiga propagada."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "El umbral es el nivel de despolarización que activa suficientes canales de Na+ para convertir una señal local en un potencial de acción autorregenerativo. Por debajo del umbral puede haber potencial graduado, pero no espiga propagada.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Umbral de excitación",
+      "topicSlug": "umbral_de_excitacion",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Umbral de excitación",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:mechanism",
+      "topic:umbral_de_excitacion",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-012",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Ley del todo o nada",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? La ley indica que estímulos más intensos producen potenciales de acción individuales cada vez más altos y prolongados.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: los potenciales graduados sí varían; la espiga individual mantiene amplitud característica cuando se supera el umbral. La formulación correcta sería: Una vez alcanzado el umbral, el potencial de acción se dispara con amplitud característica; un estímulo mayor no produce una espiga más alta. Mecanismo: Cuando se alcanza el umbral, una fibra dispara un potencial de acción de amplitud característica. La intensidad del estímulo no aumenta la altura de una espiga individual; se codifica por frecuencia de disparo y reclutamiento de fibras.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: los potenciales graduados sí varían; la espiga individual mantiene amplitud característica cuando se supera el umbral. Corrección: Cuando se alcanza el umbral, una fibra dispara un potencial de acción de amplitud característica. La intensidad del estímulo no aumenta la altura de una espiga individual; se codifica por frecuencia de disparo y reclutamiento de fibras.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: los potenciales graduados sí varían; la espiga individual mantiene amplitud característica cuando se supera el umbral. Corrección: Cuando se alcanza el umbral, una fibra dispara un potencial de acción de amplitud característica. La intensidad del estímulo no aumenta la altura de una espiga individual; se codifica por frecuencia de disparo y reclutamiento de fibras.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "Cuando se alcanza el umbral, una fibra dispara un potencial de acción de amplitud característica. La intensidad del estímulo no aumenta la altura de una espiga individual; se codifica por frecuencia de disparo y reclutamiento de fibras.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Ley del todo o nada",
+      "topicSlug": "ley_del_todo_o_nada",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Ley del todo o nada",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:basic",
+      "skill:calculation_formula",
+      "topic:ley_del_todo_o_nada",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-013",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Canales de Na+ voltaje-dependientes",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? Los canales de Na+ voltaje-dependientes se activan rápidamente al alcanzar umbral y luego se inactivan, limitando la entrada de Na+.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. La activación inicia la fase ascendente; la inactivación contribuye al fin de la despolarización y al período refractario absoluto. Esta afirmación corresponde específicamente a activación rápida e inactivación posterior durante la espiga. Mecanismo: Estos canales se abren rápidamente al alcanzar umbral y luego se inactivan. Su activación produce la fase ascendente; su inactivación limita la entrada de Na+ y contribuye al refractario absoluto.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente activación rápida e inactivación posterior durante la espiga. Corrección: Estos canales se abren rápidamente al alcanzar umbral y luego se inactivan. Su activación produce la fase ascendente; su inactivación limita la entrada de Na+ y contribuye al refractario absoluto."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente activación rápida e inactivación posterior durante la espiga. Corrección: Estos canales se abren rápidamente al alcanzar umbral y luego se inactivan. Su activación produce la fase ascendente; su inactivación limita la entrada de Na+ y contribuye al refractario absoluto."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "Estos canales se abren rápidamente al alcanzar umbral y luego se inactivan. Su activación produce la fase ascendente; su inactivación limita la entrada de Na+ y contribuye al refractario absoluto.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Canales de Na+ voltaje-dependientes",
+      "topicSlug": "canales_de_na_voltaje_dependientes",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Canales de Na+ voltaje-dependientes",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:canales_de_na_voltaje_dependientes",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-014",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Inactivación del Na+",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? Inactivación significa que el canal está cerrado y listo para abrirse de inmediato ante cualquier estímulo pequeño.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: el canal cerrado disponible y el canal inactivado no son equivalentes; el inactivado no responde hasta recuperarse. La formulación correcta sería: La inactivación del canal de Na+ deja el canal temporalmente no disponible, aunque el voltaje siga despolarizado, y exige repolarización para recuperarse. Mecanismo: Un canal de Na+ inactivado no está simplemente cerrado: queda temporalmente no disponible aunque haya estímulo. Necesita repolarización para volver al estado cerrado disponible.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: el canal cerrado disponible y el canal inactivado no son equivalentes; el inactivado no responde hasta recuperarse. Corrección: Un canal de Na+ inactivado no está simplemente cerrado: queda temporalmente no disponible aunque haya estímulo. Necesita repolarización para volver al estado cerrado disponible.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: el canal cerrado disponible y el canal inactivado no son equivalentes; el inactivado no responde hasta recuperarse. Corrección: Un canal de Na+ inactivado no está simplemente cerrado: queda temporalmente no disponible aunque haya estímulo. Necesita repolarización para volver al estado cerrado disponible.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "Un canal de Na+ inactivado no está simplemente cerrado: queda temporalmente no disponible aunque haya estímulo. Necesita repolarización para volver al estado cerrado disponible.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Inactivación del Na+",
+      "topicSlug": "inactivacion_del_na",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Inactivación del Na+",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:calculation_formula",
+      "topic:inactivacion_del_na",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-015",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Canales de K+ voltaje-dependientes",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Los canales de K+ voltaje-dependientes se abren con retraso y permiten salida de K+, favoreciendo repolarización e hiperpolarización posterior.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Su cinética lenta respecto al Na+ explica por qué actúan después de la fase ascendente y ayudan a devolver el voltaje hacia valores negativos. Esta afirmación corresponde específicamente a apertura retardada y salida de K+ para repolarizar. Mecanismo: Los canales de K+ se abren más lentamente que los de Na+ y permiten salida de K+. Esto repolariza la membrana y puede generar hiperpolarización si permanecen abiertos después del reposo.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente apertura retardada y salida de K+ para repolarizar. Corrección: Los canales de K+ se abren más lentamente que los de Na+ y permiten salida de K+. Esto repolariza la membrana y puede generar hiperpolarización si permanecen abiertos después del reposo."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente apertura retardada y salida de K+ para repolarizar. Corrección: Los canales de K+ se abren más lentamente que los de Na+ y permiten salida de K+. Esto repolariza la membrana y puede generar hiperpolarización si permanecen abiertos después del reposo."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "Los canales de K+ se abren más lentamente que los de Na+ y permiten salida de K+. Esto repolariza la membrana y puede generar hiperpolarización si permanecen abiertos después del reposo.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Canales de K+ voltaje-dependientes",
+      "topicSlug": "canales_de_k_voltaje_dependientes",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Canales de K+ voltaje-dependientes",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:basic",
+      "skill:calculation_formula",
+      "topic:canales_de_k_voltaje_dependientes",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-016",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Repolarización",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? La repolarización es una segunda entrada de Na+ que refuerza la positividad interna antes de volver al reposo.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa porque una nueva entrada de Na+ mantendría la despolarización; el retorno negativo requiere detener Na+ y favorecer salida de K+. La formulación correcta sería: La repolarización ocurre por inactivación de canales de Na+ y apertura retardada de canales de K+, con salida de K+ hacia el exterior. Mecanismo: La repolarización aparece cuando disminuye la entrada de Na+ por inactivación y aumenta la salida de K+ por apertura retardada. El interior recupera negatividad relativa.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa porque una nueva entrada de Na+ mantendría la despolarización; el retorno negativo requiere detener Na+ y favorecer salida de K+. Corrección: La repolarización aparece cuando disminuye la entrada de Na+ por inactivación y aumenta la salida de K+ por apertura retardada. El interior recupera negatividad relativa.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa porque una nueva entrada de Na+ mantendría la despolarización; el retorno negativo requiere detener Na+ y favorecer salida de K+. Corrección: La repolarización aparece cuando disminuye la entrada de Na+ por inactivación y aumenta la salida de K+ por apertura retardada. El interior recupera negatividad relativa.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La repolarización aparece cuando disminuye la entrada de Na+ por inactivación y aumenta la salida de K+ por apertura retardada. El interior recupera negatividad relativa.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Repolarización",
+      "topicSlug": "repolarizacion",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Repolarización",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:repolarizacion",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-017",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Hiperpolarización",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? La hiperpolarización aparece cuando canales de K+ permanecen abiertos un tiempo extra, dejando salir K+ y llevando el voltaje por debajo del reposo.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Es una fase transitoria que reduce momentáneamente la excitabilidad porque la membrana queda más lejos del umbral. Esta afirmación corresponde específicamente a voltaje más negativo que el reposo por cierre lento de canales de K+. Mecanismo: La hiperpolarización posterior ocurre cuando la conductancia a K+ sigue elevada y el voltaje cae por debajo del reposo. Esto aleja transitoriamente la membrana del umbral.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente voltaje más negativo que el reposo por cierre lento de canales de K+. Corrección: La hiperpolarización posterior ocurre cuando la conductancia a K+ sigue elevada y el voltaje cae por debajo del reposo. Esto aleja transitoriamente la membrana del umbral."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente voltaje más negativo que el reposo por cierre lento de canales de K+. Corrección: La hiperpolarización posterior ocurre cuando la conductancia a K+ sigue elevada y el voltaje cae por debajo del reposo. Esto aleja transitoriamente la membrana del umbral."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La hiperpolarización posterior ocurre cuando la conductancia a K+ sigue elevada y el voltaje cae por debajo del reposo. Esto aleja transitoriamente la membrana del umbral.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Hiperpolarización",
+      "topicSlug": "hiperpolarizacion",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Hiperpolarización",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:mechanism",
+      "topic:hiperpolarizacion",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-018",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Período refractario absoluto",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Durante el refractario absoluto un estímulo más fuerte sí genera una espiga mayor porque supera mejor el umbral.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: en absoluto no hay respuesta adicional; confunde con período refractario relativo, donde un estímulo mayor puede funcionar. La formulación correcta sería: Durante el período refractario absoluto no puede generarse otro potencial de acción porque muchos canales de Na+ están inactivados. Mecanismo: Durante el refractario absoluto no puede generarse otro potencial de acción porque muchos canales de Na+ están inactivados. Un estímulo más fuerte no resuelve el problema hasta que los canales se recuperan.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: en absoluto no hay respuesta adicional; confunde con período refractario relativo, donde un estímulo mayor puede funcionar. Corrección: Durante el refractario absoluto no puede generarse otro potencial de acción porque muchos canales de Na+ están inactivados. Un estímulo más fuerte no resuelve el problema hasta que los canales se recuperan.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: en absoluto no hay respuesta adicional; confunde con período refractario relativo, donde un estímulo mayor puede funcionar. Corrección: Durante el refractario absoluto no puede generarse otro potencial de acción porque muchos canales de Na+ están inactivados. Un estímulo más fuerte no resuelve el problema hasta que los canales se recuperan.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "Durante el refractario absoluto no puede generarse otro potencial de acción porque muchos canales de Na+ están inactivados. Un estímulo más fuerte no resuelve el problema hasta que los canales se recuperan.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Período refractario absoluto",
+      "topicSlug": "periodo_refractario_absoluto",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Período refractario absoluto",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:basic",
+      "skill:calculation_formula",
+      "topic:periodo_refractario_absoluto",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-019",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Período refractario relativo",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? Durante el período refractario relativo puede generarse otra espiga, pero se requiere estímulo mayor porque la membrana está hiperpolarizada o parcialmente recuperada.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Algunos canales de Na+ ya se recuperaron, pero la conductancia de K+ elevada mantiene la excitabilidad reducida. Esta afirmación corresponde específicamente a nuevo disparo posible solo con estímulo mayor por hiperpolarización parcial. Mecanismo: Durante el refractario relativo algunos canales de Na+ ya se recuperaron, pero la conductancia a K+ aún puede estar alta. Se requiere estímulo mayor porque la membrana está hiperpolarizada o estabilizada.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente nuevo disparo posible solo con estímulo mayor por hiperpolarización parcial. Corrección: Durante el refractario relativo algunos canales de Na+ ya se recuperaron, pero la conductancia a K+ aún puede estar alta. Se requiere estímulo mayor porque la membrana está hiperpolarizada o estabilizada."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente nuevo disparo posible solo con estímulo mayor por hiperpolarización parcial. Corrección: Durante el refractario relativo algunos canales de Na+ ya se recuperaron, pero la conductancia a K+ aún puede estar alta. Se requiere estímulo mayor porque la membrana está hiperpolarizada o estabilizada."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "Durante el refractario relativo algunos canales de Na+ ya se recuperaron, pero la conductancia a K+ aún puede estar alta. Se requiere estímulo mayor porque la membrana está hiperpolarizada o estabilizada.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Período refractario relativo",
+      "topicSlug": "periodo_refractario_relativo",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Período refractario relativo",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:periodo_refractario_relativo",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-020",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Propagación axonal",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? La misma molécula de sodio entra por el cono axónico y se desplaza físicamente hasta la terminal sináptica llevando el mensaje.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: no viaja una molécula individual como mensajero longitudinal; se regenera el cambio de voltaje a lo largo de la membrana. La formulación correcta sería: La propagación axonal ocurre porque la despolarización de un segmento genera corrientes locales que llevan el segmento vecino al umbral. Mecanismo: La propagación del potencial de acción es regenerativa: la despolarización local activa canales de Na+ en el segmento vecino. Por eso no se atenúa como un potencial graduado.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: no viaja una molécula individual como mensajero longitudinal; se regenera el cambio de voltaje a lo largo de la membrana. Corrección: La propagación del potencial de acción es regenerativa: la despolarización local activa canales de Na+ en el segmento vecino. Por eso no se atenúa como un potencial graduado.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: no viaja una molécula individual como mensajero longitudinal; se regenera el cambio de voltaje a lo largo de la membrana. Corrección: La propagación del potencial de acción es regenerativa: la despolarización local activa canales de Na+ en el segmento vecino. Por eso no se atenúa como un potencial graduado.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La propagación del potencial de acción es regenerativa: la despolarización local activa canales de Na+ en el segmento vecino. Por eso no se atenúa como un potencial graduado.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Propagación axonal",
+      "topicSlug": "propagacion_axonal",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Propagación axonal",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:calculation_formula",
+      "topic:propagacion_axonal",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-021",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Conducción continua",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? En axones no mielinizados, la conducción es continua porque cada región adyacente de membrana debe despolarizarse secuencialmente.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Esto es más lento que la conducción saltatoria porque hay más membrana que cargar y más canales que activar en serie. Esta afirmación corresponde específicamente a axón no mielinizado despolariza membrana punto por punto. Mecanismo: En fibras no mielinizadas, cada segmento de membrana debe despolarizarse sucesivamente. Esto es más lento porque hay canales distribuidos a lo largo de toda la membrana expuesta.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente axón no mielinizado despolariza membrana punto por punto. Corrección: En fibras no mielinizadas, cada segmento de membrana debe despolarizarse sucesivamente. Esto es más lento porque hay canales distribuidos a lo largo de toda la membrana expuesta."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente axón no mielinizado despolariza membrana punto por punto. Corrección: En fibras no mielinizadas, cada segmento de membrana debe despolarizarse sucesivamente. Esto es más lento porque hay canales distribuidos a lo largo de toda la membrana expuesta."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "En fibras no mielinizadas, cada segmento de membrana debe despolarizarse sucesivamente. Esto es más lento porque hay canales distribuidos a lo largo de toda la membrana expuesta.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Conducción continua",
+      "topicSlug": "conduccion_continua",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Conducción continua",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:conduccion_continua",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-022",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Mielina y conducción saltatoria",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? La mielina enlentece la conducción porque obliga a abrir canales de Na+ en toda la superficie internodal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: la mielina reduce el intercambio iónico internodal y concentra el disparo en nodos, acelerando la conducción. La formulación correcta sería: La mielina aumenta la resistencia de membrana y reduce capacitancia, permitiendo que la despolarización salte eficazmente entre nodos de Ranvier. Mecanismo: La mielina aumenta resistencia de membrana y reduce capacitancia, concentrando el intercambio iónico en nodos de Ranvier. La corriente local viaja rápido bajo la mielina y la espiga se regenera en los nodos.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: la mielina reduce el intercambio iónico internodal y concentra el disparo en nodos, acelerando la conducción. Corrección: La mielina aumenta resistencia de membrana y reduce capacitancia, concentrando el intercambio iónico en nodos de Ranvier. La corriente local viaja rápido bajo la mielina y la espiga se regenera en los nodos.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: la mielina reduce el intercambio iónico internodal y concentra el disparo en nodos, acelerando la conducción. Corrección: La mielina aumenta resistencia de membrana y reduce capacitancia, concentrando el intercambio iónico en nodos de Ranvier. La corriente local viaja rápido bajo la mielina y la espiga se regenera en los nodos.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La mielina aumenta resistencia de membrana y reduce capacitancia, concentrando el intercambio iónico en nodos de Ranvier. La corriente local viaja rápido bajo la mielina y la espiga se regenera en los nodos.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Mielina y conducción saltatoria",
+      "topicSlug": "mielina_y_conduccion_saltatoria",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Mielina y conducción saltatoria",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:mielina_y_conduccion_saltatoria",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-023",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Nodos de Ranvier",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? Los nodos de Ranvier concentran canales de Na+ voltaje-dependientes y permiten regenerar el potencial de acción en axones mielinizados.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Entre nodos, la mielina conserva la corriente; en el nodo, la membrana excitable vuelve a disparar la espiga. Esta afirmación corresponde específicamente a zonas de alta densidad de canales de Na+ para regenerar la espiga. Mecanismo: Los nodos de Ranvier son interrupciones de la mielina ricas en canales de Na+ voltaje-dependientes. Son puntos de regeneración del potencial de acción en conducción saltatoria.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente zonas de alta densidad de canales de Na+ para regenerar la espiga. Corrección: Los nodos de Ranvier son interrupciones de la mielina ricas en canales de Na+ voltaje-dependientes. Son puntos de regeneración del potencial de acción en conducción saltatoria."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente zonas de alta densidad de canales de Na+ para regenerar la espiga. Corrección: Los nodos de Ranvier son interrupciones de la mielina ricas en canales de Na+ voltaje-dependientes. Son puntos de regeneración del potencial de acción en conducción saltatoria."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "Los nodos de Ranvier son interrupciones de la mielina ricas en canales de Na+ voltaje-dependientes. Son puntos de regeneración del potencial de acción en conducción saltatoria.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Nodos de Ranvier",
+      "topicSlug": "nodos_de_ranvier",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Nodos de Ranvier",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:mechanism",
+      "topic:nodos_de_ranvier",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-024",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Diámetro axonal",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Un axón más delgado conduce más rápido porque concentra el sodio en un volumen menor y aumenta siempre la amplitud de la espiga.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: la amplitud no aumenta por delgadez; un diámetro menor aumenta resistencia interna y suele enlentecer conducción. La formulación correcta sería: Un axón de mayor diámetro conduce más rápido porque disminuye la resistencia interna al flujo de corriente longitudinal. Mecanismo: Un axón de mayor diámetro ofrece menor resistencia axial al flujo local de corriente, por lo que la despolarización alcanza más rápido el segmento vecino. Eso aumenta velocidad de conducción.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: la amplitud no aumenta por delgadez; un diámetro menor aumenta resistencia interna y suele enlentecer conducción. Corrección: Un axón de mayor diámetro ofrece menor resistencia axial al flujo local de corriente, por lo que la despolarización alcanza más rápido el segmento vecino. Eso aumenta velocidad de conducción.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: la amplitud no aumenta por delgadez; un diámetro menor aumenta resistencia interna y suele enlentecer conducción. Corrección: Un axón de mayor diámetro ofrece menor resistencia axial al flujo local de corriente, por lo que la despolarización alcanza más rápido el segmento vecino. Eso aumenta velocidad de conducción.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "Un axón de mayor diámetro ofrece menor resistencia axial al flujo local de corriente, por lo que la despolarización alcanza más rápido el segmento vecino. Eso aumenta velocidad de conducción.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Diámetro axonal",
+      "topicSlug": "diametro_axonal",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Diámetro axonal",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:basic",
+      "skill:calculation_formula",
+      "topic:diametro_axonal",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-025",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Codificación de intensidad",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? La intensidad de un estímulo se codifica aumentando la frecuencia de potenciales de acción y reclutando más fibras, no aumentando la amplitud de cada espiga.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. La espiga individual obedece todo o nada; el sistema nervioso representa intensidad por patrones temporales y poblacionales. Esta afirmación corresponde específicamente a frecuencia de disparo y reclutamiento, no amplitud de una espiga. Mecanismo: La intensidad sensorial se codifica sobre todo por frecuencia de potenciales de acción y reclutamiento de unidades, no por aumento de amplitud de cada espiga.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente frecuencia de disparo y reclutamiento, no amplitud de una espiga. Corrección: La intensidad sensorial se codifica sobre todo por frecuencia de potenciales de acción y reclutamiento de unidades, no por aumento de amplitud de cada espiga."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente frecuencia de disparo y reclutamiento, no amplitud de una espiga. Corrección: La intensidad sensorial se codifica sobre todo por frecuencia de potenciales de acción y reclutamiento de unidades, no por aumento de amplitud de cada espiga."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La intensidad sensorial se codifica sobre todo por frecuencia de potenciales de acción y reclutamiento de unidades, no por aumento de amplitud de cada espiga.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Codificación de intensidad",
+      "topicSlug": "codificacion_de_intensidad",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Codificación de intensidad",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:codificacion_de_intensidad",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-026",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Potenciales graduados",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? Los potenciales graduados tienen siempre la misma amplitud y se regeneran sin decremento hasta la terminal axonal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: eso describe mejor al potencial de acción; los graduados varían y se atenúan con la distancia. La formulación correcta sería: Los potenciales graduados tienen amplitud proporcional al estímulo, se propagan con decremento y pueden sumarse temporal o espacialmente. Mecanismo: Los potenciales graduados son locales, variables y decrementales. Pueden sumarse espacial o temporalmente y acercar el cono axónico al umbral, pero no obedecen ley del todo o nada.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: eso describe mejor al potencial de acción; los graduados varían y se atenúan con la distancia. Corrección: Los potenciales graduados son locales, variables y decrementales. Pueden sumarse espacial o temporalmente y acercar el cono axónico al umbral, pero no obedecen ley del todo o nada.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: eso describe mejor al potencial de acción; los graduados varían y se atenúan con la distancia. Corrección: Los potenciales graduados son locales, variables y decrementales. Pueden sumarse espacial o temporalmente y acercar el cono axónico al umbral, pero no obedecen ley del todo o nada.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "Los potenciales graduados son locales, variables y decrementales. Pueden sumarse espacial o temporalmente y acercar el cono axónico al umbral, pero no obedecen ley del todo o nada.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Potenciales graduados",
+      "topicSlug": "potenciales_graduados",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Potenciales graduados",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:calculation_formula",
+      "topic:potenciales_graduados",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-027",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Sumación temporal",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? La sumación temporal ocurre cuando potenciales postsinápticos sucesivos de una misma sinapsis llegan antes de que el anterior desaparezca.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. La membrana integra señales cercanas en el tiempo; si la suma alcanza umbral en el cono axónico, puede disparar una espiga. Esta afirmación corresponde específicamente a estímulos repetidos en la misma sinapsis se acumulan en el tiempo. Mecanismo: La sumación temporal ocurre cuando varios potenciales postsinápticos llegan muy próximos en el tiempo a la misma región. Se superponen antes de disiparse y pueden alcanzar umbral.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente estímulos repetidos en la misma sinapsis se acumulan en el tiempo. Corrección: La sumación temporal ocurre cuando varios potenciales postsinápticos llegan muy próximos en el tiempo a la misma región. Se superponen antes de disiparse y pueden alcanzar umbral."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente estímulos repetidos en la misma sinapsis se acumulan en el tiempo. Corrección: La sumación temporal ocurre cuando varios potenciales postsinápticos llegan muy próximos en el tiempo a la misma región. Se superponen antes de disiparse y pueden alcanzar umbral."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La sumación temporal ocurre cuando varios potenciales postsinápticos llegan muy próximos en el tiempo a la misma región. Se superponen antes de disiparse y pueden alcanzar umbral.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Sumación temporal",
+      "topicSlug": "sumacion_temporal",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "sinapsis_neurotransmisores"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Sumación temporal",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:sumacion_temporal",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:sinapsis_neurotransmisores"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-028",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Sumación espacial",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? La sumación espacial es la repetición rápida de potenciales desde una sola sinapsis en intervalos muy cortos.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa porque eso define sumación temporal; en la espacial importan múltiples localizaciones sinápticas. La formulación correcta sería: La sumación espacial ocurre cuando potenciales postsinápticos originados en distintas sinapsis se combinan en la neurona postsináptica. Mecanismo: La sumación espacial integra señales simultáneas de diferentes sinapsis. El resultado depende del balance entre EPSP e IPSP y de su distancia al cono axónico.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa porque eso define sumación temporal; en la espacial importan múltiples localizaciones sinápticas. Corrección: La sumación espacial integra señales simultáneas de diferentes sinapsis. El resultado depende del balance entre EPSP e IPSP y de su distancia al cono axónico.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa porque eso define sumación temporal; en la espacial importan múltiples localizaciones sinápticas. Corrección: La sumación espacial integra señales simultáneas de diferentes sinapsis. El resultado depende del balance entre EPSP e IPSP y de su distancia al cono axónico.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La sumación espacial integra señales simultáneas de diferentes sinapsis. El resultado depende del balance entre EPSP e IPSP y de su distancia al cono axónico.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Sumación espacial",
+      "topicSlug": "sumacion_espacial",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "sinapsis_neurotransmisores"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Sumación espacial",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:sumacion_espacial",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:sinapsis_neurotransmisores"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-029",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Cono axónico",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? El cono axónico integra señales graduadas y, por su alta densidad de canales de Na+, suele ser la zona donde inicia el potencial de acción.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Si el potencial neto alcanza umbral allí, se activa una espiga que se propaga por el axón. Esta afirmación corresponde específicamente a zona gatillo con alta densidad de canales de Na+ y decisión de disparo. Mecanismo: El cono axónico o segmento inicial tiene alta densidad de canales de Na+ voltaje-dependientes. Allí se decide si la suma de señales postsinápticas alcanza umbral y genera espiga.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente zona gatillo con alta densidad de canales de Na+ y decisión de disparo. Corrección: El cono axónico o segmento inicial tiene alta densidad de canales de Na+ voltaje-dependientes. Allí se decide si la suma de señales postsinápticas alcanza umbral y genera espiga."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente zona gatillo con alta densidad de canales de Na+ y decisión de disparo. Corrección: El cono axónico o segmento inicial tiene alta densidad de canales de Na+ voltaje-dependientes. Allí se decide si la suma de señales postsinápticas alcanza umbral y genera espiga."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "El cono axónico o segmento inicial tiene alta densidad de canales de Na+ voltaje-dependientes. Allí se decide si la suma de señales postsinápticas alcanza umbral y genera espiga.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Cono axónico",
+      "topicSlug": "cono_axonico",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Cono axónico",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:mechanism",
+      "topic:cono_axonico",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-030",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Sinapsis química",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? La sinapsis química transmite la corriente directamente por continuidad citoplasmática, sin neurotransmisor ni receptores postsinápticos.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: eso se parece más a sinapsis eléctrica por uniones gap; la sinapsis química requiere neurotransmisor y receptores. La formulación correcta sería: En la sinapsis química, el potencial de acción abre canales de Ca2+ presinápticos, libera neurotransmisor y activa receptores postsinápticos. Mecanismo: La sinapsis química convierte señal eléctrica presináptica en señal química por neurotransmisor y luego en respuesta postsináptica. Permite dirección, modulación y amplificación, pero introduce retardo sináptico.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: eso se parece más a sinapsis eléctrica por uniones gap; la sinapsis química requiere neurotransmisor y receptores. Corrección: La sinapsis química convierte señal eléctrica presináptica en señal química por neurotransmisor y luego en respuesta postsináptica. Permite dirección, modulación y amplificación, pero introduce retardo sináptico.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: eso se parece más a sinapsis eléctrica por uniones gap; la sinapsis química requiere neurotransmisor y receptores. Corrección: La sinapsis química convierte señal eléctrica presináptica en señal química por neurotransmisor y luego en respuesta postsináptica. Permite dirección, modulación y amplificación, pero introduce retardo sináptico.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La sinapsis química convierte señal eléctrica presináptica en señal química por neurotransmisor y luego en respuesta postsináptica. Permite dirección, modulación y amplificación, pero introduce retardo sináptico.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Sinapsis química",
+      "topicSlug": "sinapsis_quimica",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Sinapsis química",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:basic",
+      "skill:calculation_formula",
+      "topic:sinapsis_quimica",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-031",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Calcio presináptico",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? La entrada de Ca2+ en la terminal presináptica desencadena fusión de vesículas y liberación de neurotransmisor.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. El Ca2+ actúa como señal intracelular que acopla la llegada del potencial de acción con la exocitosis. Esta afirmación corresponde específicamente a entrada de Ca2+ desencadena exocitosis vesicular. Mecanismo: La entrada de Ca2+ por canales voltaje-dependientes en la terminal presináptica desencadena fusión vesicular. Sin Ca2+ presináptico, llega el potencial de acción pero disminuye la liberación de neurotransmisor.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente entrada de Ca2+ desencadena exocitosis vesicular. Corrección: La entrada de Ca2+ por canales voltaje-dependientes en la terminal presináptica desencadena fusión vesicular. Sin Ca2+ presináptico, llega el potencial de acción pero disminuye la liberación de neurotransmisor."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente entrada de Ca2+ desencadena exocitosis vesicular. Corrección: La entrada de Ca2+ por canales voltaje-dependientes en la terminal presináptica desencadena fusión vesicular. Sin Ca2+ presináptico, llega el potencial de acción pero disminuye la liberación de neurotransmisor."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La entrada de Ca2+ por canales voltaje-dependientes en la terminal presináptica desencadena fusión vesicular. Sin Ca2+ presináptico, llega el potencial de acción pero disminuye la liberación de neurotransmisor.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Calcio presináptico",
+      "topicSlug": "calcio_presinaptico",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Calcio presináptico",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:calcio_presinaptico",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-032",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "EPSP",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? Un EPSP hiperpolariza la neurona y la aleja del umbral, reduciendo siempre la probabilidad de potencial de acción.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: eso describe un IPSP; EPSP significa excitador y acerca la membrana al umbral. La formulación correcta sería: Un EPSP despolariza la membrana postsináptica y acerca el potencial al umbral, aumentando la probabilidad de disparo. Mecanismo: Un EPSP es una despolarización postsináptica graduada que acerca la membrana al umbral. Suele producirse por entrada neta de cargas positivas, como Na+ o Ca2+, o por reducción de salida de K+.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: eso describe un IPSP; EPSP significa excitador y acerca la membrana al umbral. Corrección: Un EPSP es una despolarización postsináptica graduada que acerca la membrana al umbral. Suele producirse por entrada neta de cargas positivas, como Na+ o Ca2+, o por reducción de salida de K+.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: eso describe un IPSP; EPSP significa excitador y acerca la membrana al umbral. Corrección: Un EPSP es una despolarización postsináptica graduada que acerca la membrana al umbral. Suele producirse por entrada neta de cargas positivas, como Na+ o Ca2+, o por reducción de salida de K+.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "Un EPSP es una despolarización postsináptica graduada que acerca la membrana al umbral. Suele producirse por entrada neta de cargas positivas, como Na+ o Ca2+, o por reducción de salida de K+.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "EPSP",
+      "topicSlug": "epsp",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "EPSP",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:calculation_formula",
+      "topic:epsp",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-033",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "IPSP",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Un IPSP aleja la membrana del umbral, frecuentemente por entrada de Cl− o salida de K+, disminuyendo la probabilidad de disparo.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. La inhibición no “apaga” la neurona por completo; modifica el balance de integración sináptica en contra de la descarga. Esta afirmación corresponde específicamente a potencial inhibidor aleja del umbral por Cl− o K+. Mecanismo: Un IPSP aleja la membrana del umbral o la estabiliza. Puede depender de entrada de Cl− o salida de K+, reduciendo la probabilidad de disparo.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente potencial inhibidor aleja del umbral por Cl− o K+. Corrección: Un IPSP aleja la membrana del umbral o la estabiliza. Puede depender de entrada de Cl− o salida de K+, reduciendo la probabilidad de disparo."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente potencial inhibidor aleja del umbral por Cl− o K+. Corrección: Un IPSP aleja la membrana del umbral o la estabiliza. Puede depender de entrada de Cl− o salida de K+, reduciendo la probabilidad de disparo."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "Un IPSP aleja la membrana del umbral o la estabiliza. Puede depender de entrada de Cl− o salida de K+, reduciendo la probabilidad de disparo.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "IPSP",
+      "topicSlug": "ipsp",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "IPSP",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:ipsp",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-034",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Terminación del neurotransmisor",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? La señal termina porque el neurotransmisor se convierte en Na+ y entra por canales voltaje-dependientes postsinápticos.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: el neurotransmisor no se transforma en ion sodio; activa receptores y luego se retira o degrada. La formulación correcta sería: La señal sináptica termina por recaptación, degradación enzimática o difusión del neurotransmisor fuera de la hendidura. Mecanismo: La señal sináptica debe terminar por degradación enzimática, recaptación o difusión. Si no termina, el receptor permanece activado y se pierde precisión temporal.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: el neurotransmisor no se transforma en ion sodio; activa receptores y luego se retira o degrada. Corrección: La señal sináptica debe terminar por degradación enzimática, recaptación o difusión. Si no termina, el receptor permanece activado y se pierde precisión temporal.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: el neurotransmisor no se transforma en ion sodio; activa receptores y luego se retira o degrada. Corrección: La señal sináptica debe terminar por degradación enzimática, recaptación o difusión. Si no termina, el receptor permanece activado y se pierde precisión temporal.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La señal sináptica debe terminar por degradación enzimática, recaptación o difusión. Si no termina, el receptor permanece activado y se pierde precisión temporal.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Terminación del neurotransmisor",
+      "topicSlug": "terminacion_del_neurotransmisor",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos",
+        "respiratorio_intercambio"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Terminación del neurotransmisor",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:terminacion_del_neurotransmisor",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-035",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Glía",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? Las células gliales sostienen, nutren, aíslan y modulan la actividad neuronal; no son solo tejido de relleno pasivo.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Astrocitos, oligodendrocitos, células de Schwann, microglía y ependimarias cumplen funciones específicas en homeostasis y conducción. Esta afirmación corresponde específicamente a soporte, nutrición, aislamiento y modulación neuronal. Mecanismo: La glía no es relleno pasivo. Sostiene metabolismo, mielina, homeostasis iónica, barrera hematoencefálica, defensa y modulación sináptica.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente soporte, nutrición, aislamiento y modulación neuronal. Corrección: La glía no es relleno pasivo. Sostiene metabolismo, mielina, homeostasis iónica, barrera hematoencefálica, defensa y modulación sináptica."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente soporte, nutrición, aislamiento y modulación neuronal. Corrección: La glía no es relleno pasivo. Sostiene metabolismo, mielina, homeostasis iónica, barrera hematoencefálica, defensa y modulación sináptica."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La glía no es relleno pasivo. Sostiene metabolismo, mielina, homeostasis iónica, barrera hematoencefálica, defensa y modulación sináptica.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Glía",
+      "topicSlug": "glia",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Glía",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:mechanism",
+      "topic:glia",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-036",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Astrocitos",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Los astrocitos forman la mielina de los axones periféricos y envuelven una sola fibra cada uno.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: la mielina periférica corresponde a células de Schwann; los astrocitos cumplen soporte y homeostasis en SNC. La formulación correcta sería: Los astrocitos regulan el medio extracelular, ayudan al soporte metabólico y contribuyen a la barrera hematoencefálica mediante sus pies vasculares. Mecanismo: Los astrocitos regulan K+ extracelular, captan neurotransmisores como glutamato, participan en la barrera hematoencefálica y sostienen metabolismo neuronal. Esto protege contra hiperexcitabilidad.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: la mielina periférica corresponde a células de Schwann; los astrocitos cumplen soporte y homeostasis en SNC. Corrección: Los astrocitos regulan K+ extracelular, captan neurotransmisores como glutamato, participan en la barrera hematoencefálica y sostienen metabolismo neuronal. Esto protege contra hiperexcitabilidad.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: la mielina periférica corresponde a células de Schwann; los astrocitos cumplen soporte y homeostasis en SNC. Corrección: Los astrocitos regulan K+ extracelular, captan neurotransmisores como glutamato, participan en la barrera hematoencefálica y sostienen metabolismo neuronal. Esto protege contra hiperexcitabilidad.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "Los astrocitos regulan K+ extracelular, captan neurotransmisores como glutamato, participan en la barrera hematoencefálica y sostienen metabolismo neuronal. Esto protege contra hiperexcitabilidad.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Astrocitos",
+      "topicSlug": "astrocitos",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Astrocitos",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:basic",
+      "skill:calculation_formula",
+      "topic:astrocitos",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-037",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Oligodendrocito y célula de Schwann",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? El oligodendrocito mieliniza axones en el SNC y la célula de Schwann mieliniza axones en el SNP.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Un oligodendrocito puede mielinizar segmentos de varios axones; una célula de Schwann mieliniza un segmento periférico. Esta afirmación corresponde específicamente a mielina en SNC versus SNP. Mecanismo: Los oligodendrocitos mielinizan SNC y las células de Schwann mielinizan SNP. La célula afectada depende de si el problema está en encéfalo/médula o nervio periférico.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente mielina en SNC versus SNP. Corrección: Los oligodendrocitos mielinizan SNC y las células de Schwann mielinizan SNP. La célula afectada depende de si el problema está en encéfalo/médula o nervio periférico."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente mielina en SNC versus SNP. Corrección: Los oligodendrocitos mielinizan SNC y las células de Schwann mielinizan SNP. La célula afectada depende de si el problema está en encéfalo/médula o nervio periférico."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "Los oligodendrocitos mielinizan SNC y las células de Schwann mielinizan SNP. La célula afectada depende de si el problema está en encéfalo/médula o nervio periférico.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Oligodendrocito y célula de Schwann",
+      "topicSlug": "oligodendrocito_y_celula_de_schwann",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Oligodendrocito y célula de Schwann",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:oligodendrocito_y_celula_de_schwann",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-038",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Dismielinización",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? La pérdida de mielina acelera la conducción porque expone más membrana y permite abrir más canales simultáneamente.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: exponer membrana aumenta fuga y capacitancia; no mejora la conducción saltatoria, la deteriora. La formulación correcta sería: La pérdida de mielina disminuye la velocidad de conducción y puede producir bloqueo porque se pierde aislamiento y seguridad de propagación nodal. Mecanismo: La desmielinización aumenta capacitancia, reduce resistencia de membrana y altera conducción saltatoria. Puede enlentecer, dispersar o bloquear la conducción.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: exponer membrana aumenta fuga y capacitancia; no mejora la conducción saltatoria, la deteriora. Corrección: La desmielinización aumenta capacitancia, reduce resistencia de membrana y altera conducción saltatoria. Puede enlentecer, dispersar o bloquear la conducción.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: exponer membrana aumenta fuga y capacitancia; no mejora la conducción saltatoria, la deteriora. Corrección: La desmielinización aumenta capacitancia, reduce resistencia de membrana y altera conducción saltatoria. Puede enlentecer, dispersar o bloquear la conducción.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La desmielinización aumenta capacitancia, reduce resistencia de membrana y altera conducción saltatoria. Puede enlentecer, dispersar o bloquear la conducción.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Dismielinización",
+      "topicSlug": "dismielinizacion",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Dismielinización",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:calculation_formula",
+      "topic:dismielinizacion",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-039",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Espiga versus potencial graduado",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? La espiga es todo o nada, se regenera y conserva amplitud; el potencial graduado es local, variable y puede decrementar con distancia.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Distinguir ambos distingue integración dendrítica con propagación axonal del mensaje. Esta afirmación corresponde específicamente a potencial de acción es todo o nada; graduado es local y variable. Mecanismo: La espiga es todo o nada, regenerativa y propagada; el potencial graduado es local, variable, decremental y sumable. Confundirlos impide entender integración dendrítica y disparo axonal.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente potencial de acción es todo o nada; graduado es local y variable. Corrección: La espiga es todo o nada, regenerativa y propagada; el potencial graduado es local, variable, decremental y sumable. Confundirlos impide entender integración dendrítica y disparo axonal."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente potencial de acción es todo o nada; graduado es local y variable. Corrección: La espiga es todo o nada, regenerativa y propagada; el potencial graduado es local, variable, decremental y sumable. Confundirlos impide entender integración dendrítica y disparo axonal."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La espiga es todo o nada, regenerativa y propagada; el potencial graduado es local, variable, decremental y sumable. Confundirlos impide entender integración dendrítica y disparo axonal.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Espiga versus potencial graduado",
+      "topicSlug": "espiga_versus_potencial_graduado",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Espiga versus potencial graduado",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:espiga_versus_potencial_graduado",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-040",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Potencial en meseta cardíaco",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? La meseta cardíaca es una hiperpolarización profunda causada por salida exclusiva de Cl− durante toda la contracción.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: la meseta mantiene despolarización relativa; se asocia sobre todo con entrada de Ca2+ y balance con K+. La formulación correcta sería: El potencial en meseta del miocardio se debe en gran parte a entrada sostenida de Ca2+, prolongando despolarización y contracción. Mecanismo: La meseta cardíaca se debe a entrada sostenida de Ca2+ tipo L equilibrada con salida de K+. Prolonga el potencial de acción y el refractario, favoreciendo contracción coordinada y evitando tetania.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: la meseta mantiene despolarización relativa; se asocia sobre todo con entrada de Ca2+ y balance con K+. Corrección: La meseta cardíaca se debe a entrada sostenida de Ca2+ tipo L equilibrada con salida de K+. Prolonga el potencial de acción y el refractario, favoreciendo contracción coordinada y evitando tetania.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: la meseta mantiene despolarización relativa; se asocia sobre todo con entrada de Ca2+ y balance con K+. Corrección: La meseta cardíaca se debe a entrada sostenida de Ca2+ tipo L equilibrada con salida de K+. Prolonga el potencial de acción y el refractario, favoreciendo contracción coordinada y evitando tetania.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La meseta cardíaca se debe a entrada sostenida de Ca2+ tipo L equilibrada con salida de K+. Prolonga el potencial de acción y el refractario, favoreciendo contracción coordinada y evitando tetania.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Potencial en meseta cardíaco",
+      "topicSlug": "potencial_en_meseta_cardiaco",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Potencial en meseta cardíaco",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:potencial_en_meseta_cardiaco",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-041",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Músculo liso",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? En músculo liso, el Ca2+ participa de forma central en la excitabilidad y activa la contracción mediante calmodulina y MLCK.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. A diferencia del músculo esquelético, el músculo liso suele tener respuestas más lentas y dependientes de Ca2+ extracelular. Esta afirmación corresponde específicamente a Ca2+ tiene papel central en despolarización y contracción lenta. Mecanismo: El músculo liso depende de Ca2+-calmodulina y MLCK para fosforilar miosina e iniciar contracción. Puede activarse por voltaje, ligandos, estiramiento y vías autónomas.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente Ca2+ tiene papel central en despolarización y contracción lenta. Corrección: El músculo liso depende de Ca2+-calmodulina y MLCK para fosforilar miosina e iniciar contracción. Puede activarse por voltaje, ligandos, estiramiento y vías autónomas."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente Ca2+ tiene papel central en despolarización y contracción lenta. Corrección: El músculo liso depende de Ca2+-calmodulina y MLCK para fosforilar miosina e iniciar contracción. Puede activarse por voltaje, ligandos, estiramiento y vías autónomas."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "El músculo liso depende de Ca2+-calmodulina y MLCK para fosforilar miosina e iniciar contracción. Puede activarse por voltaje, ligandos, estiramiento y vías autónomas.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Músculo liso",
+      "topicSlug": "musculo_liso",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Músculo liso",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:mechanism",
+      "topic:musculo_liso",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-042",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Hipercalemia",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? La hipercalemia aumenta el gradiente de salida de K+ y vuelve el interior mucho más negativo que en reposo.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: al elevar K+ extracelular disminuye la fuerza de salida de K+ y el reposo se vuelve menos negativo. La formulación correcta sería: La hipercalemia reduce el gradiente de salida de K+, despolariza el reposo y puede inactivar canales de Na+, alterando conducción. Mecanismo: La hipercalemia reduce el gradiente de salida de K+ y despolariza el reposo. Inicialmente aumenta excitabilidad, pero si es sostenida inactiva canales de Na+ y puede bloquear conducción.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: al elevar K+ extracelular disminuye la fuerza de salida de K+ y el reposo se vuelve menos negativo. Corrección: La hipercalemia reduce el gradiente de salida de K+ y despolariza el reposo. Inicialmente aumenta excitabilidad, pero si es sostenida inactiva canales de Na+ y puede bloquear conducción.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: al elevar K+ extracelular disminuye la fuerza de salida de K+ y el reposo se vuelve menos negativo. Corrección: La hipercalemia reduce el gradiente de salida de K+ y despolariza el reposo. Inicialmente aumenta excitabilidad, pero si es sostenida inactiva canales de Na+ y puede bloquear conducción.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La hipercalemia reduce el gradiente de salida de K+ y despolariza el reposo. Inicialmente aumenta excitabilidad, pero si es sostenida inactiva canales de Na+ y puede bloquear conducción.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Hipercalemia",
+      "topicSlug": "hipercalemia",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Hipercalemia",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:basic",
+      "skill:calculation_formula",
+      "topic:hipercalemia",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-043",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Hipocalemia",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? La hipocalemia tiende a hiperpolarizar la membrana, alejándola del umbral y favoreciendo debilidad o alteraciones de excitabilidad.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Al disminuir K+ extracelular, aumenta la tendencia de K+ a salir y el interior se vuelve más negativo. Esta afirmación corresponde específicamente a bajo K+ extracelular hiperpolariza y reduce excitabilidad. Mecanismo: La hipocalemia aumenta el gradiente de salida de K+ y tiende a hiperpolarizar la membrana. Aleja el reposo del umbral y puede causar debilidad por menor excitabilidad.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente bajo K+ extracelular hiperpolariza y reduce excitabilidad. Corrección: La hipocalemia aumenta el gradiente de salida de K+ y tiende a hiperpolarizar la membrana. Aleja el reposo del umbral y puede causar debilidad por menor excitabilidad."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente bajo K+ extracelular hiperpolariza y reduce excitabilidad. Corrección: La hipocalemia aumenta el gradiente de salida de K+ y tiende a hiperpolarizar la membrana. Aleja el reposo del umbral y puede causar debilidad por menor excitabilidad."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La hipocalemia aumenta el gradiente de salida de K+ y tiende a hiperpolarizar la membrana. Aleja el reposo del umbral y puede causar debilidad por menor excitabilidad.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Hipocalemia",
+      "topicSlug": "hipocalemia",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Hipocalemia",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:hipocalemia",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-044",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Calcio extracelular y umbral",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? La hipocalcemia siempre disminuye excitabilidad porque elimina la entrada de Na+ durante la fase ascendente neuronal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: el Na+ sigue siendo la fase ascendente; bajo Ca2+ extracelular puede facilitar activación de canales de Na+. La formulación correcta sería: La hipocalcemia puede aumentar excitabilidad porque reduce la estabilización de canales de Na+ y facilita alcanzar umbral. Mecanismo: El Ca2+ extracelular estabiliza canales de Na+. La hipocalcemia reduce el umbral y aumenta excitabilidad neuromuscular; la hipercalcemia eleva el umbral y deprime excitabilidad.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: el Na+ sigue siendo la fase ascendente; bajo Ca2+ extracelular puede facilitar activación de canales de Na+. Corrección: El Ca2+ extracelular estabiliza canales de Na+. La hipocalcemia reduce el umbral y aumenta excitabilidad neuromuscular; la hipercalcemia eleva el umbral y deprime excitabilidad.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: el Na+ sigue siendo la fase ascendente; bajo Ca2+ extracelular puede facilitar activación de canales de Na+. Corrección: El Ca2+ extracelular estabiliza canales de Na+. La hipocalcemia reduce el umbral y aumenta excitabilidad neuromuscular; la hipercalcemia eleva el umbral y deprime excitabilidad.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "El Ca2+ extracelular estabiliza canales de Na+. La hipocalcemia reduce el umbral y aumenta excitabilidad neuromuscular; la hipercalcemia eleva el umbral y deprime excitabilidad.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Calcio extracelular y umbral",
+      "topicSlug": "calcio_extracelular_y_umbral",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Calcio extracelular y umbral",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:calculation_formula",
+      "topic:calcio_extracelular_y_umbral",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-045",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Anestésicos locales",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? Los anestésicos locales bloquean canales de Na+ voltaje-dependientes, impidiendo la fase ascendente y la propagación del potencial de acción.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Al no generarse ni propagarse la espiga en fibras sensitivas, la información dolorosa no llega eficazmente al SNC. Esta afirmación corresponde específicamente a bloqueo de canales de Na+ impide conducción del dolor. Mecanismo: Los anestésicos locales bloquean canales de Na+ voltaje-dependientes desde el lado intracelular, impidiendo generación y propagación del potencial de acción en fibras sensitivas.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente bloqueo de canales de Na+ impide conducción del dolor. Corrección: Los anestésicos locales bloquean canales de Na+ voltaje-dependientes desde el lado intracelular, impidiendo generación y propagación del potencial de acción en fibras sensitivas."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente bloqueo de canales de Na+ impide conducción del dolor. Corrección: Los anestésicos locales bloquean canales de Na+ voltaje-dependientes desde el lado intracelular, impidiendo generación y propagación del potencial de acción en fibras sensitivas."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "Los anestésicos locales bloquean canales de Na+ voltaje-dependientes desde el lado intracelular, impidiendo generación y propagación del potencial de acción en fibras sensitivas.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Anestésicos locales",
+      "topicSlug": "anestesicos_locales",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Anestésicos locales",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:anestesicos_locales",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-046",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Tetrodotoxina",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? La tetrodotoxina abre canales de K+ para producir una meseta cardíaca más prolongada y contracción sostenida.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: su blanco clásico son canales de Na+; no prolonga meseta por apertura de K+. La formulación correcta sería: La tetrodotoxina bloquea canales de Na+ voltaje-dependientes e impide potenciales de acción en nervio y músculo excitable. Mecanismo: La tetrodotoxina bloquea canales de Na+ voltaje-dependientes desde el exterior. Sin entrada rápida de Na+, no hay fase ascendente ni propagación normal.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: su blanco clásico son canales de Na+; no prolonga meseta por apertura de K+. Corrección: La tetrodotoxina bloquea canales de Na+ voltaje-dependientes desde el exterior. Sin entrada rápida de Na+, no hay fase ascendente ni propagación normal.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: su blanco clásico son canales de Na+; no prolonga meseta por apertura de K+. Corrección: La tetrodotoxina bloquea canales de Na+ voltaje-dependientes desde el exterior. Sin entrada rápida de Na+, no hay fase ascendente ni propagación normal.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La tetrodotoxina bloquea canales de Na+ voltaje-dependientes desde el exterior. Sin entrada rápida de Na+, no hay fase ascendente ni propagación normal.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Tetrodotoxina",
+      "topicSlug": "tetrodotoxina",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Tetrodotoxina",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:tetrodotoxina",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-047",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Direccionalidad de la propagación",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? La refractariedad del segmento recién activado favorece que el potencial se propague hacia adelante y no retroceda de inmediato.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Los canales de Na+ detrás del frente de onda están inactivados, por lo que el segmento previo no puede redescargar enseguida. Esta afirmación corresponde específicamente a refractariedad evita retropropagación inmediata. Mecanismo: La propagación es funcionalmente unidireccional porque el segmento recién activado queda en refractario. La zona anterior puede activarse; la posterior no redescarga inmediatamente.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente refractariedad evita retropropagación inmediata. Corrección: La propagación es funcionalmente unidireccional porque el segmento recién activado queda en refractario. La zona anterior puede activarse; la posterior no redescarga inmediatamente."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente refractariedad evita retropropagación inmediata. Corrección: La propagación es funcionalmente unidireccional porque el segmento recién activado queda en refractario. La zona anterior puede activarse; la posterior no redescarga inmediatamente."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La propagación es funcionalmente unidireccional porque el segmento recién activado queda en refractario. La zona anterior puede activarse; la posterior no redescarga inmediatamente.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Direccionalidad de la propagación",
+      "topicSlug": "direccionalidad_de_la_propagacion",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Direccionalidad de la propagación",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:mechanism",
+      "topic:direccionalidad_de_la_propagacion",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-048",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Sinapsis eléctrica versus química",
+    "difficulty": "Base",
+    "question": "¿Verdadero o falso? La sinapsis eléctrica libera vesículas de acetilcolina y siempre tarda más que la sinapsis química.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: vesículas y neurotransmisores corresponden a sinapsis química; la eléctrica suele ser más rápida. La formulación correcta sería: La sinapsis eléctrica usa uniones gap para paso directo de corriente; la química usa neurotransmisor, receptores y presenta retardo sináptico. Mecanismo: La sinapsis eléctrica usa uniones gap, es rápida y sincronizante; la química usa neurotransmisor, tiene retardo y mayor plasticidad/modulación.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: vesículas y neurotransmisores corresponden a sinapsis química; la eléctrica suele ser más rápida. Corrección: La sinapsis eléctrica usa uniones gap, es rápida y sincronizante; la química usa neurotransmisor, tiene retardo y mayor plasticidad/modulación.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: vesículas y neurotransmisores corresponden a sinapsis química; la eléctrica suele ser más rápida. Corrección: La sinapsis eléctrica usa uniones gap, es rápida y sincronizante; la química usa neurotransmisor, tiene retardo y mayor plasticidad/modulación.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "La sinapsis eléctrica usa uniones gap, es rápida y sincronizante; la química usa neurotransmisor, tiene retardo y mayor plasticidad/modulación.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Sinapsis eléctrica versus química",
+      "topicSlug": "sinapsis_electrica_versus_quimica",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "sinapsis_neurotransmisores"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Sinapsis eléctrica versus química",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:basic",
+      "skill:calculation_formula",
+      "topic:sinapsis_electrica_versus_quimica",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:sinapsis_neurotransmisores"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-049",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Retardo sináptico",
+    "difficulty": "Moyen",
+    "question": "¿Verdadero o falso? El retardo sináptico químico se debe a apertura de Ca2+, exocitosis, difusión del neurotransmisor y activación de receptores postsinápticos.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "La afirmación es verdadera. Aunque sea breve, la señal necesita pasos moleculares adicionales que no existen en conducción axonal directa. Esta afirmación corresponde específicamente a tiempo por conversión eléctrica-química-eléctrica. Mecanismo: El retardo sináptico se debe a entrada de Ca2+, fusión vesicular, difusión del neurotransmisor y activación del receptor postsináptico. No pertenece a la conducción axonal pura.",
+    "whyWrong": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente tiempo por conversión eléctrica-química-eléctrica. Corrección: El retardo sináptico se debe a entrada de Ca2+, fusión vesicular, difusión del neurotransmisor y activación del receptor postsináptico. No pertenece a la conducción axonal pura."
+    ],
+    "distractorExplanations": [
+      null,
+      "Elegir «Falso» sería incorrecto. la afirmación describe correctamente tiempo por conversión eléctrica-química-eléctrica. Corrección: El retardo sináptico se debe a entrada de Ca2+, fusión vesicular, difusión del neurotransmisor y activación del receptor postsináptico. No pertenece a la conducción axonal pura."
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "El retardo sináptico se debe a entrada de Ca2+, fusión vesicular, difusión del neurotransmisor y activación del receptor postsináptico. No pertenece a la conducción axonal pura.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Retardo sináptico",
+      "topicSlug": "retardo_sinaptico",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos",
+        "respiratorio_intercambio"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Retardo sináptico",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:retardo_sinaptico",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion-vf-v113-050",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "moduleNumber": 1,
+    "moduleTitle": "Neurofisiología y potencial de acción",
+    "heading": "Receptores ionotrópicos y metabotrópicos",
+    "difficulty": "Examen",
+    "question": "¿Verdadero o falso? Los receptores ionotrópicos siempre tardan minutos porque necesitan transcripción génica antes de abrir un canal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "La afirmación es falsa. Es falsa: ionotrópico significa canal activado por ligando con respuesta rápida; transcripción pertenece a efectos más lentos. La formulación correcta sería: Los receptores ionotrópicos son canales regulados por ligando y responden rápido; los metabotrópicos actúan por proteínas G y segundos mensajeros. Mecanismo: Los receptores ionotrópicos son canales activados por ligando y producen respuestas rápidas. Los metabotrópicos activan proteínas G y segundos mensajeros; son más lentos, moduladores y pueden amplificar señales.",
+    "whyWrong": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: ionotrópico significa canal activado por ligando con respuesta rápida; transcripción pertenece a efectos más lentos. Corrección: Los receptores ionotrópicos son canales activados por ligando y producen respuestas rápidas. Los metabotrópicos activan proteínas G y segundos mensajeros; son más lentos, moduladores y pueden amplificar señales.",
+      null
+    ],
+    "distractorExplanations": [
+      "Elegir «Verdadero» sería incorrecto. Marcar verdadero sería incorrecto. Es falsa: ionotrópico significa canal activado por ligando con respuesta rápida; transcripción pertenece a efectos más lentos. Corrección: Los receptores ionotrópicos son canales activados por ligando y producen respuestas rápidas. Los metabotrópicos activan proteínas G y segundos mensajeros; son más lentos, moduladores y pueden amplificar señales.",
+      null
+    ],
+    "sourceVersion": "v113_review_not_integrated",
+    "version": "v113",
+    "teachingFocus": "Los receptores ionotrópicos son canales activados por ligando y producen respuestas rápidas. Los metabotrópicos activan proteínas G y segundos mensajeros; son más lentos, moduladores y pueden amplificar señales.",
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 1,
+      "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "moduleTitle": "Neurofisiología y potencial de acción",
+      "format": "vf",
+      "topic": "Receptores ionotrópicos y metabotrópicos",
+      "topicSlug": "receptores_ionotropicos_y_metabotropicos",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Receptores ionotrópicos y metabotrópicos",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:1",
+      "module_id:01_fisiologia_01_neurofisiologia_y_potencial_de",
+      "format:vf",
+      "difficulty:hard",
+      "skill:calculation_formula",
+      "topic:receptores_ionotropicos_y_metabotropicos",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion"
+    ]
+  }
+]

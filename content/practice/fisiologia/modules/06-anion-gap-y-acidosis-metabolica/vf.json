@@ -1,0 +1,2776 @@
+[
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-001",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 01",
+    "difficulty": "Moyen",
+    "question": "El anion gap estima aniones plasmáticos no medidos.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Se calcula con electrolitos medidos y orienta a aniones como lactato, cetoácidos o toxinas.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 01",
+      "topicSlug": "verdadero_falso_01",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 01",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:verdadero_falso_01",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-002",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 02",
+    "difficulty": "Base",
+    "question": "La fórmula clásica sin potasio es AG = Na⁺ − (Cl⁻ + HCO₃⁻).",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Es la fórmula más usada en práctica clínica.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 02",
+      "topicSlug": "verdadero_falso_02",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 02",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:calculation_formula",
+      "topic:verdadero_falso_02",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-003",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 03",
+    "difficulty": "Moyen",
+    "question": "La albúmina es el principal anión no medido del plasma.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Por eso la hipoalbuminemia baja el AG medido.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 03",
+      "topicSlug": "verdadero_falso_03",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 03",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_03",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-004",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 04",
+    "difficulty": "Base",
+    "question": "La hipoalbuminemia puede ocultar una acidosis de anion gap elevado.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Corregir el AG por albúmina evita subestimar aniones no medidos.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 04",
+      "topicSlug": "verdadero_falso_04",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 04",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_04",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-005",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 05",
+    "difficulty": "Moyen",
+    "question": "La acidosis láctica suele elevar el anion gap.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El lactato queda como anión no medido y el H⁺ consume bicarbonato.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 05",
+      "topicSlug": "verdadero_falso_05",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 05",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_05",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-006",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 06",
+    "difficulty": "Base",
+    "question": "La cetoacidosis diabética típica produce acidosis metabólica con AG elevado.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Los cetoaniones elevan el gap y consumen bicarbonato.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 06",
+      "topicSlug": "verdadero_falso_06",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 06",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_06",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-007",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 07",
+    "difficulty": "Moyen",
+    "question": "La diarrea intensa suele causar acidosis metabólica con AG normal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Se pierde bicarbonato y aumenta cloro de forma compensadora.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 07",
+      "topicSlug": "verdadero_falso_07",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 07",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_07",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-008",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 08",
+    "difficulty": "Base",
+    "question": "La acidosis hiperclorémica es una acidosis metabólica con gap normal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El descenso de HCO₃⁻ se acompaña de aumento relativo de Cl⁻.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 08",
+      "topicSlug": "verdadero_falso_08",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 08",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_08",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-009",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 09",
+    "difficulty": "Moyen",
+    "question": "La fórmula de Winter evalúa compensación respiratoria en acidosis metabólica.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. PaCO₂ esperada = 1,5 × HCO₃⁻ + 8 ± 2.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 09",
+      "topicSlug": "verdadero_falso_09",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 09",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:verdadero_falso_09",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-010",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 10",
+    "difficulty": "Base",
+    "question": "PaCO₂ mayor que Winter sugiere acidosis respiratoria agregada.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El paciente ventila menos de lo esperado para compensar.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 10",
+      "topicSlug": "verdadero_falso_10",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 10",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:clinical_reasoning",
+      "topic:verdadero_falso_10",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-011",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 11",
+    "difficulty": "Moyen",
+    "question": "PaCO₂ menor que Winter sugiere alcalosis respiratoria agregada.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Hay hiperventilación mayor que la compensadora.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 11",
+      "topicSlug": "verdadero_falso_11",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 11",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_11",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-012",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 12",
+    "difficulty": "Base",
+    "question": "El delta gap ayuda a detectar trastornos metabólicos mixtos.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Compara aumento del AG con caída de HCO₃⁻.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 12",
+      "topicSlug": "verdadero_falso_12",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "comparison",
+      "cognitiveLevel": "application",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 12",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:comparison",
+      "topic:verdadero_falso_12",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-013",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 13",
+    "difficulty": "Moyen",
+    "question": "Un delta ratio bajo sugiere acidosis normal gap agregada.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El HCO₃⁻ cae más de lo esperado para el aumento del AG.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 13",
+      "topicSlug": "verdadero_falso_13",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 13",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_13",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-014",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 14",
+    "difficulty": "Base",
+    "question": "Un delta ratio alto sugiere alcalosis metabólica agregada.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El HCO₃⁻ cae menos de lo esperado para el aumento del AG.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 14",
+      "topicSlug": "verdadero_falso_14",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 14",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_14",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-015",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 15",
+    "difficulty": "Moyen",
+    "question": "El metanol puede causar HAGMA y alteraciones visuales.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Su metabolito formiato es tóxico para retina y nervio óptico.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 15",
+      "topicSlug": "verdadero_falso_15",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 15",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_15",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-016",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 16",
+    "difficulty": "Base",
+    "question": "El etilenglicol puede causar HAGMA y cristales de oxalato cálcico.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Sus metabolitos causan lesión renal e hipocalcemia.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 16",
+      "topicSlug": "verdadero_falso_16",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 16",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_16",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-017",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 17",
+    "difficulty": "Moyen",
+    "question": "Los salicilatos pueden producir alcalosis respiratoria y HAGMA simultáneas.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Estimulan ventilación y generan ácidos orgánicos.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 17",
+      "topicSlug": "verdadero_falso_17",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 17",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_17",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-018",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 18",
+    "difficulty": "Base",
+    "question": "El osmolal gap puede estar elevado al inicio de intoxicaciones por alcoholes tóxicos.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El alcohol original actúa como osmól no medido antes de metabolizarse.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 18",
+      "topicSlug": "verdadero_falso_18",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 18",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_18",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-019",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 19",
+    "difficulty": "Moyen",
+    "question": "El urine anion gap ayuda a estimar indirectamente NH₄⁺ urinario.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Se usa sobre todo en acidosis metabólica hiperclorémica.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 19",
+      "topicSlug": "verdadero_falso_19",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 19",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_19",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-020",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 20",
+    "difficulty": "Base",
+    "question": "Un UAG negativo sugiere excreción adecuada de NH₄⁺.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Es típico de respuesta renal adecuada, como en diarrea.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 20",
+      "topicSlug": "verdadero_falso_20",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 20",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_20",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-021",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 21",
+    "difficulty": "Moyen",
+    "question": "Un UAG positivo en NAGMA sugiere defecto renal de excreción ácida.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Puede orientar a acidosis tubular renal.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 21",
+      "topicSlug": "verdadero_falso_21",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 21",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_21",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-022",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 22",
+    "difficulty": "Base",
+    "question": "La RTA distal tipo 1 suele tener pH urinario inapropiadamente alto.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Hay falla de secreción distal de H⁺.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 22",
+      "topicSlug": "verdadero_falso_22",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 22",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_22",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-023",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 23",
+    "difficulty": "Moyen",
+    "question": "La RTA tipo 4 se asocia a hiperpotasemia.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Se relaciona con hipoaldosteronismo o resistencia a aldosterona.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 23",
+      "topicSlug": "verdadero_falso_23",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 23",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_23",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-024",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 24",
+    "difficulty": "Base",
+    "question": "La insuficiencia renal avanzada puede elevar el AG.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Retiene sulfatos, fosfatos y otros aniones urémicos.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 24",
+      "topicSlug": "verdadero_falso_24",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 24",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_24",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-025",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 25",
+    "difficulty": "Moyen",
+    "question": "Un pH normal no excluye HAGMA.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Puede haber trastorno mixto o compensación que oculte la acidemia.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 25",
+      "topicSlug": "verdadero_falso_25",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 25",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_25",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-026",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 26",
+    "difficulty": "Base",
+    "question": "Un anion gap normal descarta acidosis metabólica.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Puede existir acidosis metabólica hiperclorémica con AG normal.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 26",
+      "topicSlug": "verdadero_falso_26",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 26",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_26",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-027",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 27",
+    "difficulty": "Moyen",
+    "question": "La fórmula del AG es HCO₃⁻ − (Na⁺ + Cl⁻).",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La fórmula correcta es Na⁺ − (Cl⁻ + HCO₃⁻).",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 27",
+      "topicSlug": "verdadero_falso_27",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 27",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:verdadero_falso_27",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-028",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 28",
+    "difficulty": "Base",
+    "question": "La albúmina baja aumenta siempre el AG medido.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La albúmina baja reduce el AG medido.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 28",
+      "topicSlug": "verdadero_falso_28",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 28",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_28",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-029",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 29",
+    "difficulty": "Moyen",
+    "question": "La acidosis láctica típica produce AG normal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. El lactato es un anión no medido y suele elevar el AG.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 29",
+      "topicSlug": "verdadero_falso_29",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 29",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_29",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-030",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 30",
+    "difficulty": "Base",
+    "question": "La diarrea produce HAGMA por lactato.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La diarrea pierde bicarbonato y causa NAGMA hiperclorémica.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 30",
+      "topicSlug": "verdadero_falso_30",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 30",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_30",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-031",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 31",
+    "difficulty": "Moyen",
+    "question": "La fórmula de Winter diagnostica la causa del anion gap.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Winter evalúa compensación respiratoria, no la etiología del gap.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 31",
+      "topicSlug": "verdadero_falso_31",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 31",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:verdadero_falso_31",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-032",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 32",
+    "difficulty": "Base",
+    "question": "PaCO₂ mayor que Winter indica alcalosis respiratoria agregada.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. PaCO₂ mayor indica ventilación insuficiente o acidosis respiratoria agregada.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 32",
+      "topicSlug": "verdadero_falso_32",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 32",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_32",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-033",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 33",
+    "difficulty": "Moyen",
+    "question": "PaCO₂ menor que Winter indica acidosis respiratoria agregada.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. PaCO₂ menor indica alcalosis respiratoria agregada.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 33",
+      "topicSlug": "verdadero_falso_33",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 33",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_33",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-034",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 34",
+    "difficulty": "Base",
+    "question": "El delta gap evalúa oxigenación pulmonar.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Evalúa proporcionalidad entre AG y HCO₃⁻.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 34",
+      "topicSlug": "verdadero_falso_34",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 34",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_34",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-035",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 35",
+    "difficulty": "Moyen",
+    "question": "Metanol se asocia clásicamente a cristales de oxalato renal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Eso orienta a etilenglicol; metanol se asocia a toxicidad visual.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 35",
+      "topicSlug": "verdadero_falso_35",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 35",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_35",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-036",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 36",
+    "difficulty": "Base",
+    "question": "Etilenglicol se asocia clásicamente a ceguera por formiato.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La ceguera por formiato orienta a metanol.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 36",
+      "topicSlug": "verdadero_falso_36",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 36",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_36",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-037",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 37",
+    "difficulty": "Moyen",
+    "question": "Salicilatos producen solo alcalosis metabólica pura.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. El patrón típico es alcalosis respiratoria más acidosis metabólica con gap elevado.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 37",
+      "topicSlug": "verdadero_falso_37",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "recognition_pattern",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 37",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:recognition_pattern",
+      "topic:verdadero_falso_37",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-038",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 38",
+    "difficulty": "Base",
+    "question": "El osmolal gap y el anion gap son exactamente lo mismo.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Osmolal gap evalúa osmoles no medidos; anion gap evalúa aniones no medidos.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 38",
+      "topicSlug": "verdadero_falso_38",
+      "concepts": [
+        "electricidad_biologica",
+        "osmolaridad",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 38",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_38",
+      "concept:electricidad_biologica",
+      "concept:osmolaridad",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-039",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 39",
+    "difficulty": "Moyen",
+    "question": "El UAG se calcula con Na⁺ plasmático y bicarbonato plasmático.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. El UAG usa Na⁺, K⁺ y Cl⁻ urinarios.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 39",
+      "topicSlug": "verdadero_falso_39",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 39",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:verdadero_falso_39",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-040",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 40",
+    "difficulty": "Base",
+    "question": "Un UAG negativo en NAGMA sugiere RTA como primera opción.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. UAG negativo sugiere buena excreción de NH₄⁺, como en diarrea.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 40",
+      "topicSlug": "verdadero_falso_40",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 40",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_40",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-041",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 41",
+    "difficulty": "Moyen",
+    "question": "La RTA distal tipo 1 suele presentar hiperpotasemia marcada.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La distal tipo 1 suele asociarse más a hipokalemia; hiperpotasemia orienta a tipo 4.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 41",
+      "topicSlug": "verdadero_falso_41",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 41",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_41",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-042",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 42",
+    "difficulty": "Base",
+    "question": "La RTA proximal tipo 2 es una falla primaria de aldosterona.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La tipo 2 es defecto de reabsorción proximal de bicarbonato.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 42",
+      "topicSlug": "verdadero_falso_42",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 42",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_42",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-043",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 43",
+    "difficulty": "Moyen",
+    "question": "La RTA tipo 4 se caracteriza por hipokalemia profunda.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La tipo 4 se caracteriza por hiperpotasemia.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 43",
+      "topicSlug": "verdadero_falso_43",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 43",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_43",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-044",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 44",
+    "difficulty": "Base",
+    "question": "La insuficiencia renal avanzada siempre produce alcalosis metabólica.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Suele producir acidosis metabólica por menor excreción de ácido.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 44",
+      "topicSlug": "verdadero_falso_44",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 44",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_44",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-045",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 45",
+    "difficulty": "Moyen",
+    "question": "El AG no debe corregirse por albúmina.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Debe corregirse si la albúmina está baja para no ocultar HAGMA.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 45",
+      "topicSlug": "verdadero_falso_45",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 45",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_45",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-046",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 46",
+    "difficulty": "Base",
+    "question": "La DKA se resuelve solo cuando la PaCO₂ sube.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Se monitoriza por cierre del anion gap y resolución de cetosis, no por subir PaCO₂.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 46",
+      "topicSlug": "verdadero_falso_46",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 46",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_46",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-047",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 47",
+    "difficulty": "Moyen",
+    "question": "El exceso de NaCl 0,9% produce siempre alcalosis metabólica.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Puede producir acidosis hiperclorémica con gap normal.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 47",
+      "topicSlug": "verdadero_falso_47",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 47",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_47",
+      "concept:electricidad_biologica",
+      "concept:agua_libre",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-048",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 48",
+    "difficulty": "Base",
+    "question": "El bicarbonato bajo con gap alto siempre es diarrea aislada.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La diarrea aislada suele tener gap normal; gap alto sugiere aniones no medidos.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 48",
+      "topicSlug": "verdadero_falso_48",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 48",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_48",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-049",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 49",
+    "difficulty": "Moyen",
+    "question": "El AG elevado con pH normal debe ignorarse.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Puede indicar trastorno mixto o HAGMA oculta.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 49",
+      "topicSlug": "verdadero_falso_49",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 49",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_49",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-vf-v120-050",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Verdadero/Falso 50",
+    "difficulty": "Base",
+    "question": "El lactato no modifica el anion gap.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. El lactato acumulado eleva el anion gap como anión no medido.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "vf",
+      "topic": "Verdadero/Falso 50",
+      "topicSlug": "verdadero_falso_50",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 50",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_50",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  }
+]

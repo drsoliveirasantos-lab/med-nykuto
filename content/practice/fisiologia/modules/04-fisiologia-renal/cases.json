@@ -1,0 +1,3502 @@
+[
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-001",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 01",
+    "difficulty": "Examen",
+    "stem": "Un hombre de 70 años llega a urgencias por hemorragia digestiva abundante. Está hipotenso y su diuresis cae a 10 mL/h durante la primera hora. La menor perfusión renal reduce la presión que impulsa la filtración glomerular.",
+    "question": "¿Qué explica mejor la oliguria inicial?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "Pérdida de selectividad de la barrera glomerular."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado.",
+    "whyWrong": [
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      "Falsa. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      "Falsa. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un hombre de 70 años llega con hemorragia digestiva, hipotensión y diuresis de 10 mL/h.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un hombre de 70 años llega con hemorragia digestiva, hipotensión y diuresis de 10 mL/h. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 01",
+      "topicSlug": "caso_01",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 01",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_01",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-002",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 02",
+    "difficulty": "Examen",
+    "stem": "Una mujer de 46 años consulta por dolor lumbar intenso y se confirma un cálculo ureteral obstructivo. La ecografía muestra hidronefrosis del lado afectado y creatinina en aumento. La presión dentro de Bowman se eleva y se opone a la filtración.",
+    "question": "¿Qué fuerza explica la caída de filtración?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "Pérdida de selectividad de la barrera glomerular."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      "Falsa. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      "Falsa. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Una mujer con cálculo ureteral obstructivo desarrolla hidronefrosis y cae el GFR del riñón afectado.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Una mujer con cálculo ureteral obstructivo desarrolla hidronefrosis y cae el GFR del riñón afectado. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 02",
+      "topicSlug": "caso_02",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "respiratorio_espirometria"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 02",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_02",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:respiratorio_espirometria"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-003",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 03",
+    "difficulty": "Examen",
+    "stem": "Un paciente con diabetes mal controlada presenta poliuria, sed intensa y glucosuria marcada. La glucosa plasmática supera la capacidad tubular de reabsorción. El problema aparece cuando los transportadores proximales alcanzan su límite.",
+    "question": "¿Por qué aparece glucosa en la orina?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "Pérdida de selectividad de la barrera glomerular."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un diabético con glucosa muy elevada presenta poliuria y glucosuria.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente es evaluado por cambios de diuresis, perfusión renal o filtración glomerular. Un diabético con glucosa muy elevada presenta poliuria y glucosuria.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 03",
+      "topicSlug": "caso_03",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 03",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_03",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-004",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 04",
+    "difficulty": "Examen",
+    "stem": "Un paciente con edema periférico y orina espumosa tiene albuminuria persistente. El laboratorio muestra proteínas urinarias elevadas sin infección urinaria. La barrera glomerular perdió selectividad para proteínas plasmáticas.",
+    "question": "¿Qué estructura está probablemente alterada?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "Pérdida de selectividad de la barrera glomerular."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "originalStem_v131": "Un paciente tiene albuminuria persistente y edema periférico.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente tiene albuminuria persistente y edema periférico. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 04",
+      "topicSlug": "caso_04",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 04",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_04",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-005",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 05",
+    "difficulty": "Examen",
+    "stem": "Una paciente con insuficiencia cardíaca avanzada tiene bajo volumen arterial efectivo y perfusión renal reducida. Se activa RAAS y aumenta angiotensina II. Al inicio, la constricción eferente ayuda a sostener la presión dentro del glomérulo.",
+    "question": "¿Qué acción ayuda a sostener el GFR inicialmente?",
+    "options": [
+      "Constricción eferente por angiotensina II que sostiene presión glomerular.",
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. En hipovolemia moderada, contraer la eferente ayuda a mantener GFR.",
+    "whyWrong": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Una paciente con insuficiencia cardíaca activa RAAS por bajo volumen arterial efectivo.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Una paciente con insuficiencia cardíaca activa RAAS por bajo volumen arterial efectivo. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 05",
+      "topicSlug": "caso_05",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_hormonas"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 05",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_05",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-006",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 06",
+    "difficulty": "Examen",
+    "stem": "Un paciente con estenosis bilateral de arterias renales inicia un IECA por hipertensión. Días después sube la creatinina y cae la filtración glomerular. Al bloquear angiotensina II, se pierde la constricción eferente que sostenía el GFR.",
+    "question": "¿Qué mecanismo explica la caída?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Dilatación eferente por pérdida de angiotensina II.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. En estenosis renal bilateral, el GFR depende de angiotensina II para mantener constricción eferente. Al bloquear RAAS, baja la presión glomerular.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente con estenosis bilateral de arterias renales recibe un IECA y cae su GFR.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente con estenosis bilateral de arterias renales recibe un IECA y cae su GFR. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 06",
+      "topicSlug": "caso_06",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_hormonas"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 06",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_06",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-007",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 07",
+    "difficulty": "Examen",
+    "stem": "Una mujer con SIADH tiene hiponatremia, plasma hipoosmolar y orina concentrada. A pesar del sodio bajo, el túbulo colector sigue reabsorbiendo agua. La ADH aumenta la inserción de AQP2 en células principales.",
+    "question": "¿Qué acción tubular está aumentada?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Acción de ADH sobre AQP2 en el conducto colector.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. ADH aumenta permeabilidad al agua y permite concentrar orina si hay gradiente medular.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Una mujer con SIADH produce orina concentrada pese a hiponatremia.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Una mujer con SIADH produce orina concentrada pese a hiponatremia. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 07",
+      "topicSlug": "caso_07",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_tubulo",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 07",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_07",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-008",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 08",
+    "difficulty": "Examen",
+    "stem": "Un paciente operado de hipófisis presenta poliuria intensa y orina muy diluida. El sodio plasmático sube y no logra concentrar la orina. Falta la acción de ADH sobre AQP2 en el conducto colector.",
+    "question": "¿Qué mecanismo tubular falta?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "Acción de ADH sobre AQP2 en el conducto colector."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. ADH aumenta permeabilidad al agua y permite concentrar orina si hay gradiente medular.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "originalStem_v131": "Un paciente posquirúrgico hipofisario tiene poliuria intensa y orina muy diluida.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente posquirúrgico hipofisario tiene poliuria intensa y orina muy diluida. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 08",
+      "topicSlug": "caso_08",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_tubulo",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 08",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_08",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-009",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 09",
+    "difficulty": "Examen",
+    "stem": "Un paciente con hiperaldosteronismo primario consulta por hipertensión y debilidad muscular. El laboratorio muestra K+ bajo y alcalosis metabólica leve. La aldosterona aumenta la secreción distal de potasio.",
+    "question": "¿Qué explica la hipokalemia?",
+    "options": [
+      "Aumento de secreción distal de K⁺ por aldosterona o alto flujo distal.",
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. Células principales secretan más K⁺ cuando aumenta ENaC, aldosterona o flujo tubular.",
+    "whyWrong": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente con hiperaldosteronismo presenta hipertensión e hipokalemia.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente con hiperaldosteronismo presenta hipertensión e hipokalemia. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 09",
+      "topicSlug": "caso_09",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_tfg",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 09",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_09",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_tfg",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-010",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 10",
+    "difficulty": "Examen",
+    "stem": "Un paciente con edema pulmonar recibe furosemida intravenosa. El fármaco bloquea NKCC2 en la rama ascendente gruesa. Al perderse el gradiente medular, disminuye la capacidad de concentrar orina.",
+    "question": "¿Qué efecto se espera sobre la concentración urinaria?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Disminución del gradiente medular por bloqueo de NKCC2.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. Sin reabsorción de NaCl en ascendente gruesa, baja la capacidad de concentrar orina.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente recibe un diurético de asa que bloquea NKCC2.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente recibe un diurético de asa que bloquea NKCC2. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 10",
+      "topicSlug": "caso_10",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre",
+        "renal_tfg",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 10",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_10",
+      "concept:electricidad_biologica",
+      "concept:agua_libre",
+      "concept:renal_tfg",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-011",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 11",
+    "difficulty": "Examen",
+    "stem": "Un estudiante deshidratado llega tras varias horas de ejercicio sin beber agua. Tiene ADH elevada y produce poca orina, muy concentrada. La concentración urinaria requiere AQP2 activa y gradiente medular preservado.",
+    "question": "¿Qué condición permite concentrar esa orina?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Acción de ADH sobre AQP2 en el conducto colector.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. ADH aumenta permeabilidad al agua y permite concentrar orina si hay gradiente medular.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un estudiante deshidratado tiene ADH alta y orina escasa, muy concentrada.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un estudiante deshidratado tiene ADH alta y orina escasa, muy concentrada. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 11",
+      "topicSlug": "caso_11",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_tubulo",
+        "renal_hormonas"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 11",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_11",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-012",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 12",
+    "difficulty": "Examen",
+    "stem": "Un paciente con daño tubular proximal presenta glucosuria pese a glucemia normal. También pierde bicarbonato y fosfato en orina. La reabsorción masiva del túbulo proximal está alterada.",
+    "question": "¿Qué explica este hallazgo?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "Fallo de reabsorción masiva en túbulo proximal."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. El proximal recupera glucosa, aminoácidos, fosfato, bicarbonato, Na⁺ y agua.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con daño tubular proximal tiene glucosuria con glucemia normal.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente con daño tubular proximal tiene glucosuria con glucemia normal. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 12",
+      "topicSlug": "caso_12",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_tfg",
+        "renal_tubulo",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 12",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_12",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_tfg",
+      "concept:renal_tubulo",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-013",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 13",
+    "difficulty": "Examen",
+    "stem": "Un paciente cirrótico consulta por ascitis y edema en piernas. La albúmina plasmática está muy baja y el líquido sale del intravascular con facilidad. La fuerza oncótica plasmática disminuida favorece el edema.",
+    "question": "¿Qué fuerza vascular está disminuida?",
+    "options": [
+      "Disminución de la presión oncótica plasmática.",
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. La albúmina retiene agua dentro del capilar. Al bajar, se favorece salida de líquido al intersticio y edema.",
+    "whyWrong": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente cirrótico con hipoalbuminemia marcada presenta edema.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente cirrótico con hipoalbuminemia marcada presenta edema. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 13",
+      "topicSlug": "caso_13",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 13",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_13",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-014",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 14",
+    "difficulty": "Examen",
+    "stem": "Un paciente deshidratado por vómitos prolongados tiene presión arterial baja y renina elevada. El aparato yuxtaglomerular interpreta el cuadro como bajo volumen arterial efectivo. Esa señal activa el eje renina-angiotensina-aldosterona.",
+    "question": "¿Qué estímulo activó el aparato yuxtaglomerular?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Liberación de renina por bajo volumen arterial efectivo.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. Células yuxtaglomerulares responden a baja presión, bajo NaCl distal o estímulo β1.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente deshidratado tiene renina elevada.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente deshidratado tiene renina elevada. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 14",
+      "topicSlug": "caso_14",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre",
+        "renal_tfg",
+        "renal_hormonas",
+        "cardiovascular_presion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 14",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_14",
+      "concept:electricidad_biologica",
+      "concept:agua_libre",
+      "concept:renal_tfg",
+      "concept:renal_hormonas",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-015",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 15",
+    "difficulty": "Examen",
+    "stem": "Una persona consume mucha sal durante semanas y mantiene presión arterial elevada. El riñón retiene sodio y agua hasta aumentar el volumen extracelular. La regulación crónica de la presión depende del balance renal de Na+ y agua.",
+    "question": "¿Qué sistema renal sostiene el aumento de volumen?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Balance renal de Na⁺ y agua como regulador de volumen extracelular.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. El sodio retiene agua en ECF y determina presión arterial a largo plazo.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Una persona consume mucha sal y mantiene presión arterial elevada durante semanas.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Una persona consume mucha sal y mantiene presión arterial elevada durante semanas. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 15",
+      "topicSlug": "caso_15",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_electrolitos",
+        "cardiovascular_presion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 15",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_15",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_electrolitos",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-016",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 16",
+    "difficulty": "Examen",
+    "stem": "Un paciente participa en una cirugía experimental con monitorización renal directa. Durante el procedimiento se contrae la arteriola aferente del riñón perfundido y cae el flujo hacia el glomérulo. La presión hidrostática glomerular baja y disminuye el GFR.",
+    "question": "¿Qué ocurre con el GFR?",
+    "options": [
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "Pérdida de selectividad de la barrera glomerular.",
+      "Caída del GFR por menor presión de perfusión glomerular."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado.",
+    "whyWrong": [
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      "Falsa. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      "Falsa. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "originalStem_v131": "En un experimento se contrae la arteriola aferente.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente es evaluado por cambios de diuresis, perfusión renal o filtración glomerular. En un experimento se contrae la arteriola aferente.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 16",
+      "topicSlug": "caso_16",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 16",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_16",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-017",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 17",
+    "difficulty": "Examen",
+    "stem": "En un paciente con hipovolemia moderada, la angiotensina II contrae preferentemente la arteriola eferente. La perfusión renal global cae, pero la presión capilar glomerular se sostiene inicialmente. El efecto puede mantener el GFR en la fase temprana.",
+    "question": "¿Qué cambio inicial se espera en el GFR?",
+    "options": [
+      "Constricción eferente por angiotensina II que sostiene presión glomerular.",
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. En hipovolemia moderada, contraer la eferente ayuda a mantener GFR.",
+    "whyWrong": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "En un experimento se contrae moderadamente la arteriola eferente.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente es evaluado por cambios de diuresis, perfusión renal o filtración glomerular. En un experimento se contrae moderadamente la arteriola eferente.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 17",
+      "topicSlug": "caso_17",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_hormonas",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 17",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_17",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_hormonas",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-018",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 18",
+    "difficulty": "Examen",
+    "stem": "Un paciente con enfermedad renal crónica consulta por fatiga y palidez. El hemograma muestra anemia normocítica sin sangrado evidente. La pérdida de masa renal reduce la producción de eritropoyetina.",
+    "question": "¿Qué función endocrina renal está reducida?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Disminución de eritropoyetina renal.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. La falla renal reduce EPO y puede causar anemia.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente con enfermedad renal crónica desarrolla anemia normocítica.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente con enfermedad renal crónica desarrolla anemia normocítica. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 18",
+      "topicSlug": "caso_18",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 18",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_18",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-019",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 19",
+    "difficulty": "Examen",
+    "stem": "Un paciente con falla renal crónica tiene hipocalcemia y PTH elevada. El laboratorio muestra calcitriol bajo pese a ingesta adecuada de vitamina D. El riñón no activa suficiente vitamina D.",
+    "question": "¿Qué función renal está afectada?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Disminución de activación renal de vitamina D.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. Menos calcitriol reduce absorción intestinal de calcio y altera metabolismo mineral.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente con falla renal tiene calcitriol bajo e hipocalcemia.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente con falla renal tiene calcitriol bajo e hipocalcemia. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 19",
+      "topicSlug": "caso_19",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "renal_tfg",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 19",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_19",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_tfg",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-020",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 20",
+    "difficulty": "Examen",
+    "stem": "Un paciente hipovolémico presenta bajo NaCl en la mácula densa durante la evaluación renal. El aparato yuxtaglomerular responde aumentando renina. La señal tubular contribuye a activar RAAS.",
+    "question": "¿Qué respuesta se activa?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "Liberación de renina por bajo volumen arterial efectivo."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. Células yuxtaglomerulares responden a baja presión, bajo NaCl distal o estímulo β1.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "originalStem_v131": "La mácula densa detecta bajo NaCl tubular durante hipovolemia.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente es evaluado por cambios de diuresis, perfusión renal o filtración glomerular. La mácula densa detecta bajo NaCl tubular durante hipovolemia.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 20",
+      "topicSlug": "caso_20",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre",
+        "renal_tfg",
+        "renal_tubulo",
+        "renal_hormonas"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 20",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_20",
+      "concept:electricidad_biologica",
+      "concept:agua_libre",
+      "concept:renal_tfg",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-021",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 21",
+    "difficulty": "Examen",
+    "stem": "Un hombre con obstrucción prostática bilateral presenta oliguria y creatinina elevada. La ecografía muestra dilatación urinaria por encima de la obstrucción. La presión retrógrada aumenta en Bowman y reduce la filtración.",
+    "question": "¿Por qué baja la filtración?",
+    "options": [
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "Pérdida de selectividad de la barrera glomerular."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular.",
+    "whyWrong": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      "Falsa. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      "Falsa. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente con obstrucción prostática bilateral presenta creatinina elevada.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente con obstrucción prostática bilateral presenta creatinina elevada. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 21",
+      "topicSlug": "caso_21",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 21",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_21",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-022",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 22",
+    "difficulty": "Examen",
+    "stem": "Un paciente febril y deshidratado tiene ADH elevada. En el túbulo colector, las células principales insertan más AQP2 en la membrana apical. El agua se reabsorbe y la orina se concentra.",
+    "question": "¿Qué cambio se produce en células principales?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Acción de ADH sobre AQP2 en el conducto colector.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. ADH aumenta permeabilidad al agua y permite concentrar orina si hay gradiente medular.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente febril y deshidratado tiene ADH elevada.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente febril y deshidratado tiene ADH elevada. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 22",
+      "topicSlug": "caso_22",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_tubulo",
+        "renal_hormonas"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 22",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_22",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-023",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 23",
+    "difficulty": "Examen",
+    "stem": "Una persona bebe una gran cantidad de agua en poco tiempo. Horas después elimina orina muy clara y abundante. La baja ADH reduce AQP2 en el conducto colector y permite excretar agua libre.",
+    "question": "¿Qué explica la orina diluida?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Acción de ADH sobre AQP2 en el conducto colector.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. ADH aumenta permeabilidad al agua y permite concentrar orina si hay gradiente medular.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Una persona bebe gran cantidad de agua y elimina orina clara.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Una persona bebe gran cantidad de agua y elimina orina clara. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 23",
+      "topicSlug": "caso_23",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre",
+        "renal_tfg",
+        "renal_tubulo",
+        "renal_hormonas"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 23",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_23",
+      "concept:electricidad_biologica",
+      "concept:agua_libre",
+      "concept:renal_tfg",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-024",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 24",
+    "difficulty": "Examen",
+    "stem": "Un paciente con bajo flujo distal por insuficiencia renal desarrolla hiperpotasemia. Aunque haya aldosterona, llega poco sodio y agua al segmento distal. La secreción de K+ disminuye cuando el flujo distal es bajo.",
+    "question": "¿Qué mecanismo contribuye?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "Aumento de secreción distal de K⁺ por aldosterona o alto flujo distal."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. Células principales secretan más K⁺ cuando aumenta ENaC, aldosterona o flujo tubular.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con bajo flujo distal desarrolla hiperpotasemia.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente con bajo flujo distal desarrolla hiperpotasemia. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 24",
+      "topicSlug": "caso_24",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 24",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_24",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-025",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 25",
+    "difficulty": "Examen",
+    "stem": "Un paciente tratado con amilorida por hipertensión desarrolla K+ plasmático elevado. El fármaco bloquea ENaC en células principales. Al reducir la entrada de Na+, disminuye el voltaje que favorece secreción de K+.",
+    "question": "¿Qué explica la hiperpotasemia?",
+    "options": [
+      "Aumento de secreción distal de K⁺ por aldosterona o alto flujo distal.",
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. Células principales secretan más K⁺ cuando aumenta ENaC, aldosterona o flujo tubular.",
+    "whyWrong": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente usa bloqueador de ENaC y sube su K⁺ plasmático.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente usa bloqueador de ENaC y sube su K⁺ plasmático. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 25",
+      "topicSlug": "caso_25",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 25",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_25",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-026",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 26",
+    "difficulty": "Examen",
+    "stem": "Un paciente con carga alcalina aumenta el bicarbonato urinario. En el conducto colector, células especializadas secretan bicarbonato hacia la luz. La célula intercalada beta participa en esa respuesta.",
+    "question": "¿Qué célula participa?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Célula intercalada beta.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. Las intercaladas beta pueden secretar bicarbonato hacia la luz tubular en situaciones de carga alcalina.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente con carga alcalina aumenta eliminación renal de bicarbonato.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente con carga alcalina aumenta eliminación renal de bicarbonato. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 26",
+      "topicSlug": "caso_26",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_tfg",
+        "renal_tubulo"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 26",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_26",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_tfg",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-027",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 27",
+    "difficulty": "Examen",
+    "stem": "Un paciente acidótico respira rápido y además aumenta acidificación urinaria. El riñón secreta H+ hacia la luz tubular para recuperar equilibrio ácido-base. La célula intercalada alfa es la responsable principal.",
+    "question": "¿Qué célula secreta H⁺?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Célula intercalada alfa.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. Las intercaladas alfa secretan H⁺ y reabsorben bicarbonato, ayudando a acidificar la orina.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente acidótico aumenta la acidificación urinaria.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente acidótico aumenta la acidificación urinaria. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 27",
+      "topicSlug": "caso_27",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_tfg"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 27",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_27",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-028",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 28",
+    "difficulty": "Examen",
+    "stem": "En un paciente hospitalizado se administra una sustancia ideal para estimar filtración glomerular. La sustancia se filtra libremente y no se reabsorbe ni se secreta. Su clearance refleja el GFR.",
+    "question": "¿Qué propiedad debe tener?",
+    "options": [
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "Pérdida de selectividad de la barrera glomerular.",
+      "Filtrarse libremente sin reabsorción ni secreción."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. Si la sustancia no se modifica tubularmente, su clearance equivale al GFR.",
+    "whyWrong": [
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      "Falsa. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      "Falsa. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "originalStem_v131": "Una sustancia tiene clearance igual al GFR.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente es evaluado por cambios de diuresis, perfusión renal o filtración glomerular. Una sustancia tiene clearance igual al GFR.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 28",
+      "topicSlug": "caso_28",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 28",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_28",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-029",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 29",
+    "difficulty": "Examen",
+    "stem": "Un paciente participa en un estudio de perfusión renal con PAH. La sustancia aparece en orina en cantidad muy alta porque se filtra y también se secreta en túbulo proximal. Por eso su clearance se aproxima al flujo plasmático renal efectivo.",
+    "question": "¿Por qué su clearance es alto?",
+    "options": [
+      "Porque se filtra y se secreta casi por completo.",
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. La extracción renal casi completa de PAH permite estimar flujo plasmático renal efectivo.",
+    "whyWrong": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Se usa PAH para valorar perfusión renal.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente es evaluado por cambios de diuresis, perfusión renal o filtración glomerular. Se usa PAH para valorar perfusión renal.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 29",
+      "topicSlug": "caso_29",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_tubulo"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 29",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_29",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-030",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 30",
+    "difficulty": "Examen",
+    "stem": "Un paciente con presión arterial renal elevada elimina más sodio en orina. No recibió diurético, pero el aumento de presión favorece natriuresis. El fenómeno ayuda a regular el volumen extracelular a largo plazo.",
+    "question": "¿Qué fenómeno describe esto?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Balance renal de Na⁺ y agua como regulador de volumen extracelular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. El sodio retiene agua en ECF y determina presión arterial a largo plazo.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente con presión renal elevada elimina más sodio.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente con presión renal elevada elimina más sodio. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 30",
+      "topicSlug": "caso_30",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_electrolitos",
+        "cardiovascular_presion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 30",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_30",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_electrolitos",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-031",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 31",
+    "difficulty": "Examen",
+    "stem": "Una mujer siente urgencia urinaria cuando la vejiga se llena. Los receptores de estiramiento de la pared vesical envían señales hacia centros medulares. La distensión vesical inicia el reflejo de micción.",
+    "question": "¿Qué inicia el reflejo?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Distensión de la pared vesical.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. El llenado activa receptores de estiramiento que desencadenan el reflejo miccional.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Una persona siente urgencia cuando se llena la vejiga.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Una persona siente urgencia cuando se llena la vejiga. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 31",
+      "topicSlug": "caso_31",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 31",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_31",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-032",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 32",
+    "difficulty": "Examen",
+    "stem": "Un paciente con vejiga llena inicia micción y aumenta la presión intravesical. El esfínter se relaja y la pared vesical se contrae. El músculo detrusor genera la fuerza expulsiva principal.",
+    "question": "¿Qué músculo produce el aumento?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "Contracción del músculo detrusor."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. El detrusor es músculo liso vesical responsable de generar presión de vaciamiento.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "originalStem_v131": "Durante la micción aumenta la presión vesical.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente es evaluado por cambios de diuresis, perfusión renal o filtración glomerular. Durante la micción aumenta la presión vesical.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 32",
+      "topicSlug": "caso_32",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 32",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_32",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-033",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 33",
+    "difficulty": "Examen",
+    "stem": "Un paciente con proteinuria intensa se somete a biopsia renal. El patólogo describe daño de diafragmas de filtración entre podocitos. La barrera pierde selectividad y permite paso anormal de proteínas.",
+    "question": "¿Qué hallazgo urinario se espera?",
+    "options": [
+      "Pérdida de selectividad de la barrera glomerular.",
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células.",
+    "whyWrong": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Una biopsia muestra daño de diafragmas de filtración.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente es evaluado por cambios de diuresis, perfusión renal o filtración glomerular. Una biopsia muestra daño de diafragmas de filtración.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 33",
+      "topicSlug": "caso_33",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 33",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_33",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-034",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 34",
+    "difficulty": "Examen",
+    "stem": "Un paciente con angiotensina II elevada por hipovolemia reabsorbe más sodio en túbulo proximal. También aumenta la recuperación de agua junto con el sodio. El objetivo fisiológico es defender volumen extracelular y presión arterial.",
+    "question": "¿Qué objetivo fisiológico cumple?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Balance renal de Na⁺ y agua como regulador de volumen extracelular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. El sodio retiene agua en ECF y determina presión arterial a largo plazo.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente con angiotensina II elevada reabsorbe más sodio proximal.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente con angiotensina II elevada reabsorbe más sodio proximal. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 34",
+      "topicSlug": "caso_34",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_tubulo",
+        "renal_hormonas",
+        "renal_electrolitos",
+        "cardiovascular_presion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 34",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_34",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-035",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 35",
+    "difficulty": "Examen",
+    "stem": "Un paciente con expansión de volumen libera ANP desde las aurículas. Luego aumenta la excreción renal de sodio y agua. La natriuresis ayuda a reducir el volumen extracelular.",
+    "question": "¿Qué efecto renal se espera?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Balance renal de Na⁺ y agua como regulador de volumen extracelular.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. El sodio retiene agua en ECF y determina presión arterial a largo plazo.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente con expansión de volumen libera ANP.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente con expansión de volumen libera ANP. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 35",
+      "topicSlug": "caso_35",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_hormonas",
+        "renal_electrolitos",
+        "cardiovascular_presion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 35",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_35",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-036",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 36",
+    "difficulty": "Examen",
+    "stem": "En una biopsia renal de un paciente se observa una nefrona con asa de Henle larga que desciende profundamente en la médula. Esa disposición permite participar en el gradiente corticomedular. Corresponde a una nefrona yuxtamedular.",
+    "question": "¿Qué tipo de nefrona es?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "Nefrona yuxtamedular."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. Las nefronas yuxtamedulares tienen asas largas que penetran profundamente en la médula y participan en concentración urinaria.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "originalStem_v131": "Una nefrona tiene asa larga hasta médula profunda.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente es evaluado por cambios de diuresis, perfusión renal o filtración glomerular. Una nefrona tiene asa larga hasta médula profunda.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 36",
+      "topicSlug": "caso_36",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_tubulo"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 36",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_36",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-037",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 37",
+    "difficulty": "Examen",
+    "stem": "En un estudio histológico, una nefrona de un paciente tiene glomérulo superficial y asa de Henle corta. No llega profundamente a la médula. La morfología corresponde a una nefrona cortical.",
+    "question": "¿Qué tipo de nefrona es?",
+    "options": [
+      "Nefrona cortical.",
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. Las nefronas corticales son más numerosas y tienen asas relativamente cortas.",
+    "whyWrong": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Una nefrona cortical superficial tiene asa corta.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente es evaluado por cambios de diuresis, perfusión renal o filtración glomerular. Una nefrona cortical superficial tiene asa corta.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 37",
+      "topicSlug": "caso_37",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_tubulo"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 37",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_37",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-038",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 38",
+    "difficulty": "Examen",
+    "stem": "Un paciente presenta glucosa, aminoácidos y fosfato en orina. La glucemia no explica por sí sola todas las pérdidas. El patrón sugiere falla amplia de reabsorción en el túbulo proximal.",
+    "question": "¿Qué proceso falló?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Fallo de reabsorción masiva en túbulo proximal.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. El proximal recupera glucosa, aminoácidos, fosfato, bicarbonato, Na⁺ y agua.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente pierde aminoácidos, glucosa y fosfato en orina.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente pierde aminoácidos, glucosa y fosfato en orina. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 38",
+      "topicSlug": "caso_38",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_tfg",
+        "renal_tubulo",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 38",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_38",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_tfg",
+      "concept:renal_tubulo",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-039",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 39",
+    "difficulty": "Examen",
+    "stem": "Un paciente tiene concentración plasmática elevada de una sustancia filtrable. Al mantenerse el GFR, aumenta la cantidad que entra por minuto al filtrado glomerular. La carga filtrada depende del GFR multiplicado por la concentración plasmática filtrable.",
+    "question": "¿Qué determina su carga filtrada?",
+    "options": [
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "GFR multiplicado por concentración plasmática filtrable.",
+      "Pérdida de selectividad de la barrera glomerular."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. La carga filtrada depende del volumen filtrado por minuto y de la concentración libre filtrable.",
+    "whyWrong": [
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Una sustancia tiene concentración plasmática muy elevada y aumenta su entrada al filtrado.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente es evaluado por cambios de diuresis, perfusión renal o filtración glomerular. Una sustancia tiene concentración plasmática muy elevada y aumenta su entrada al filtrado.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 39",
+      "topicSlug": "caso_39",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 39",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_39",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-040",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 40",
+    "difficulty": "Examen",
+    "stem": "Un paciente con enfermedad renal presenta creatinina plasmática elevada. No aumentó la producción muscular, sino que disminuyó su eliminación por el riñón. La creatinina sube porque cae su depuración renal.",
+    "question": "¿Por qué sube la creatinina?",
+    "options": [
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "Pérdida de selectividad de la barrera glomerular.",
+      "Disminuye su depuración renal."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. Al caer el GFR, se elimina menos creatinina y su concentración plasmática aumenta.",
+    "whyWrong": [
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      "Falsa. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      "Falsa. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con GFR reducido tiene creatinina plasmática alta.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente con GFR reducido tiene creatinina plasmática alta. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 40",
+      "topicSlug": "caso_40",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 40",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_40",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-041",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 41",
+    "difficulty": "Examen",
+    "stem": "Un paciente con deshidratación severa concentra proteínas plasmáticas en los capilares glomerulares. La presión oncótica dentro del capilar aumenta a lo largo del glomérulo. Esa fuerza se opone a la filtración y tiende a reducir el GFR.",
+    "question": "¿Qué efecto tiene sobre GFR?",
+    "options": [
+      "Pérdida de selectividad de la barrera glomerular.",
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. Lesión de podocitos, membrana basal o endotelio permite paso anormal de proteínas o células.",
+    "whyWrong": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Aumentan las proteínas plasmáticas en capilares glomerulares.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente es evaluado por cambios de diuresis, perfusión renal o filtración glomerular. Aumentan las proteínas plasmáticas en capilares glomerulares.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 41",
+      "topicSlug": "caso_41",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 41",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_41",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-042",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 42",
+    "difficulty": "Examen",
+    "stem": "En un paciente que necesita conservar agua, el intersticio medular está hipertónico. En la rama descendente del asa de Henle, el agua sale del túbulo hacia la médula. El líquido tubular se concentra progresivamente.",
+    "question": "¿Qué ocurre con el agua tubular?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Sale del túbulo hacia la médula y concentra el líquido tubular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. La rama descendente es permeable al agua; la médula hipertónica extrae agua.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "En la rama descendente, el intersticio medular es hipertónico.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente es evaluado por cambios de diuresis, perfusión renal o filtración glomerular. En la rama descendente, el intersticio medular es hipertónico.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 42",
+      "topicSlug": "caso_42",
+      "concepts": [
+        "electricidad_biologica",
+        "tonicidad",
+        "renal_tfg",
+        "renal_tubulo"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 42",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_42",
+      "concept:electricidad_biologica",
+      "concept:tonicidad",
+      "concept:renal_tfg",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-043",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 43",
+    "difficulty": "Examen",
+    "stem": "Un paciente recibe un fármaco que afecta la rama ascendente gruesa. En ese segmento se reabsorbe NaCl sin acompañamiento de agua. Como resultado, el líquido tubular se diluye al avanzar.",
+    "question": "¿Qué ocurre con el líquido tubular?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Se diluye progresivamente.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. Reabsorber NaCl sin agua reduce la osmolaridad del líquido tubular.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "En la rama ascendente gruesa se reabsorbe NaCl sin agua.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente es evaluado por cambios de diuresis, perfusión renal o filtración glomerular. En la rama ascendente gruesa se reabsorbe NaCl sin agua.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 43",
+      "topicSlug": "caso_43",
+      "concepts": [
+        "electricidad_biologica",
+        "osmolaridad",
+        "agua_libre",
+        "renal_tfg"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 43",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_43",
+      "concept:electricidad_biologica",
+      "concept:osmolaridad",
+      "concept:agua_libre",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-044",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 44",
+    "difficulty": "Examen",
+    "stem": "Un paciente pierde el gradiente medular y no logra concentrar la orina. Los vasos rectos ya no preservan bien el intercambio contracorriente. Sin ese sistema, el lavado medular reduce la concentración urinaria máxima.",
+    "question": "¿Qué estructura ayuda a preservarlo?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "Los vasos rectos."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. Los vasos rectos preservan el gradiente medular por intercambio de contracorriente.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "originalStem_v131": "Un paciente pierde el gradiente medular y no concentra orina.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente pierde el gradiente medular y no concentra orina. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 44",
+      "topicSlug": "caso_44",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 44",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_44",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-045",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 45",
+    "difficulty": "Examen",
+    "stem": "Una paciente hipertensa toma una tiazida que bloquea NCC. El efecto principal ocurre en el túbulo contorneado distal temprano. Allí disminuye la reabsorción de NaCl.",
+    "question": "¿Qué segmento se afecta?",
+    "options": [
+      "Túbulo contorneado distal temprano.",
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. NCC se encuentra en distal temprano y es bloqueado por tiazidas.",
+    "whyWrong": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Una paciente toma tiazida que bloquea NCC.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Una paciente toma tiazida que bloquea NCC. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 45",
+      "topicSlug": "caso_45",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre",
+        "renal_tfg"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 45",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_45",
+      "concept:electricidad_biologica",
+      "concept:agua_libre",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-046",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 46",
+    "difficulty": "Examen",
+    "stem": "Un paciente con hiperparatiroidismo tiene fosfato bajo y fosfaturia. La PTH reduce la reabsorción proximal de fosfato. Por eso aumenta su eliminación urinaria.",
+    "question": "¿Qué mecanismo la explica?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Disminución de reabsorción proximal de fosfato.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. PTH inhibe cotransporte Na⁺/fosfato y aumenta fosfaturia.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente con PTH elevada tiene fosfaturia.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente con PTH elevada tiene fosfaturia. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 46",
+      "topicSlug": "caso_46",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 46",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_46",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-047",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 47",
+    "difficulty": "Examen",
+    "stem": "Un paciente con PTH elevada mantiene calcio plasmático pese a baja ingesta. En el nefrón distal aumenta la reabsorción de Ca2+. Esa acción renal ayuda a conservar calcio.",
+    "question": "¿Qué acción renal participa?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Aumento de reabsorción distal de Ca²⁺.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. PTH favorece conservación renal de calcio en el túbulo distal.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente con PTH elevada conserva calcio.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente con PTH elevada conserva calcio. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 47",
+      "topicSlug": "caso_47",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "renal_tfg",
+        "renal_tubulo",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 47",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_47",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_tfg",
+      "concept:renal_tubulo",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-048",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 48",
+    "difficulty": "Examen",
+    "stem": "Un paciente con hemorragia activa presenta taquicardia, vasoconstricción y activación simpática renal. Las células yuxtaglomerulares reciben estímulo beta-1. La consecuencia es aumento de liberación de renina.",
+    "question": "¿Qué receptor estimula renina?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT.",
+      "Estimulación β1 de células yuxtaglomerulares."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. El simpático renal estimula renina por receptores β1.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con hemorragia activa simpático renal.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente con hemorragia activa simpático renal. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 48",
+      "topicSlug": "caso_48",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_hormonas"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 48",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_48",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-049",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 49",
+    "difficulty": "Examen",
+    "stem": "Un paciente consulta por orina rojiza y el sedimento muestra eritrocitos. Los glóbulos rojos no deberían atravesar una barrera glomerular intacta. El hallazgo sugiere lesión glomerular o sangrado en vías urinarias.",
+    "question": "¿Qué significa desde la barrera glomerular?",
+    "options": [
+      "No es normal; sugiere lesión glomerular o sangrado en vías urinarias.",
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. Los eritrocitos no atraviesan normalmente la barrera glomerular.",
+    "whyWrong": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente presenta eritrocitos en orina.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente presenta eritrocitos en orina. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 49",
+      "topicSlug": "caso_49",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 49",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_49",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-case-v117-050",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Caso 50",
+    "difficulty": "Examen",
+    "stem": "Un paciente con síndrome nefrótico pierde grandes cantidades de albúmina por orina. Desarrolla edema en piernas y presión oncótica plasmática baja. La pérdida de proteínas reduce la fuerza que retiene agua dentro de capilares sistémicos.",
+    "question": "¿Qué fuerza baja en capilares sistémicos?",
+    "options": [
+      "Caída del GFR por menor presión de perfusión glomerular.",
+      "Disminución de presión oncótica plasmática.",
+      "Aumento de presión en Bowman que se opone a la filtración.",
+      "Saturación o daño de reabsorción proximal de glucosa por SGLT."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. La pérdida de albúmina reduce la fuerza que retiene agua dentro de capilares.",
+    "whyWrong": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. La hipoperfusión reduce presión hidrostática capilar y baja la formación de filtrado. No corresponde al dato dominante del caso.",
+      null,
+      "Falsa. La presión retrógrada por obstrucción reduce el gradiente de filtración glomerular. No corresponde al dato dominante del caso.",
+      "Falsa. Cuando la carga filtrada supera el transporte máximo, o el proximal falla, aparece glucosuria. No corresponde al dato dominante del caso."
+    ],
+    "originalStem_v131": "Un paciente con síndrome nefrótico pierde albúmina y desarrolla edema.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v156",
+    "originalStem_v155_module4": "Un paciente con síndrome nefrótico pierde albúmina y desarrolla edema. Durante la evaluación, el dato fisiológico se relaciona con filtración glomerular, flujo renal o función tubular.",
+    "module4CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "case",
+      "topic": "Caso 50",
+      "topicSlug": "caso_50",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 50",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_50",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:cardiovascular_vasos"
+    ]
+  }
+]

@@ -1,0 +1,2757 @@
+[
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-001",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 01",
+    "difficulty": "Moyen",
+    "question": "El pH arterial normal se mantiene aproximadamente entre 7,35 y 7,45.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Este rango estrecho permite función enzimática, neuromuscular y cardiovascular normal.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 01",
+      "topicSlug": "verdadero_falso_01",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 01",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_01",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-002",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 02",
+    "difficulty": "Base",
+    "question": "La PaCO₂ representa el componente respiratorio del equilibrio ácido-base.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Depende de la ventilación alveolar y del manejo pulmonar de CO₂.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 02",
+      "topicSlug": "verdadero_falso_02",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 02",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:verdadero_falso_02",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-003",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 03",
+    "difficulty": "Moyen",
+    "question": "El bicarbonato representa el componente metabólico principal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Es regulado sobre todo por el riñón y actúa como base principal en el sistema bicarbonato.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 03",
+      "topicSlug": "verdadero_falso_03",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 03",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_03",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-004",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 04",
+    "difficulty": "Base",
+    "question": "La hiperventilación aguda tiende a producir alcalosis respiratoria.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Al eliminar CO₂, baja H⁺ y sube el pH.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 04",
+      "topicSlug": "verdadero_falso_04",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 04",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:exam_trap",
+      "topic:verdadero_falso_04",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-005",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 05",
+    "difficulty": "Moyen",
+    "question": "La acidosis metabólica primaria se caracteriza por HCO₃⁻ bajo.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El bicarbonato bajo refleja pérdida de base o consumo por ácidos.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 05",
+      "topicSlug": "verdadero_falso_05",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 05",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_05",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-006",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 06",
+    "difficulty": "Base",
+    "question": "La alcalosis metabólica primaria se caracteriza por HCO₃⁻ alto.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Suele deberse a pérdida de H⁺ o ganancia de base.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 06",
+      "topicSlug": "verdadero_falso_06",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 06",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_06",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-007",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 07",
+    "difficulty": "Moyen",
+    "question": "En alcalosis metabólica, la compensación respiratoria es hipoventilación relativa.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Retener CO₂ ayuda a bajar el pH, aunque está limitado por hipoxemia.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 07",
+      "topicSlug": "verdadero_falso_07",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "definition",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 07",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:definition",
+      "topic:verdadero_falso_07",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-008",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 08",
+    "difficulty": "Base",
+    "question": "La compensación renal de acidosis respiratoria crónica aumenta HCO₃⁻.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El riñón genera y conserva bicarbonato para compensar CO₂ alto.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 08",
+      "topicSlug": "verdadero_falso_08",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 08",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_08",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-009",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 09",
+    "difficulty": "Moyen",
+    "question": "La compensación renal de alcalosis respiratoria crónica elimina HCO₃⁻.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El riñón reduce la base plasmática para compensar PaCO₂ baja.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 09",
+      "topicSlug": "verdadero_falso_09",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 09",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:exam_trap",
+      "topic:verdadero_falso_09",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-010",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 10",
+    "difficulty": "Base",
+    "question": "El sistema bicarbonato/CO₂ conecta pulmón y riñón.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. CO₂ es regulado por pulmón y HCO₃⁻ por riñón.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 10",
+      "topicSlug": "verdadero_falso_10",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 10",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_10",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-011",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 11",
+    "difficulty": "Moyen",
+    "question": "La anhidrasa carbónica acelera la reacción entre CO₂ y agua.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Es fundamental en eritrocitos y túbulos renales.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 11",
+      "topicSlug": "verdadero_falso_11",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 11",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_11",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-012",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 12",
+    "difficulty": "Base",
+    "question": "El túbulo proximal reabsorbe la mayor parte del bicarbonato filtrado.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Lo hace mediante secreción de H⁺, formación de CO₂ y regeneración intracelular de HCO₃⁻.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 12",
+      "topicSlug": "verdadero_falso_12",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_tubulo"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 12",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_12",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-013",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 13",
+    "difficulty": "Moyen",
+    "question": "El amonio permite excretar H⁺ y generar nuevo bicarbonato.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. La amoniogénesis aumenta en acidosis crónica.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 13",
+      "topicSlug": "verdadero_falso_13",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 13",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_13",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-014",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 14",
+    "difficulty": "Base",
+    "question": "El ácido titulable incluye H⁺ unido a tampones urinarios como fosfato.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Permite eliminar ácido sin que todo el H⁺ quede libre.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 14",
+      "topicSlug": "verdadero_falso_14",
+      "concepts": [
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 14",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:exam_trap",
+      "topic:verdadero_falso_14",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-015",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 15",
+    "difficulty": "Moyen",
+    "question": "Las células intercaladas alfa secretan H⁺.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Acidifican la orina y reabsorben bicarbonato.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 15",
+      "topicSlug": "verdadero_falso_15",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 15",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_15",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-016",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 16",
+    "difficulty": "Base",
+    "question": "Las células intercaladas beta pueden secretar bicarbonato.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Ayudan a eliminar base en alcalosis.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 16",
+      "topicSlug": "verdadero_falso_16",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 16",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:exam_trap",
+      "topic:verdadero_falso_16",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-017",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 17",
+    "difficulty": "Moyen",
+    "question": "La diarrea intensa puede causar acidosis metabólica por pérdida de HCO₃⁻.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El líquido intestinal contiene bicarbonato.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 17",
+      "topicSlug": "verdadero_falso_17",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 17",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_17",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-018",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 18",
+    "difficulty": "Base",
+    "question": "La respiración de Kussmaul compensa acidosis metabólica severa.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Elimina CO₂ para reducir H⁺.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 18",
+      "topicSlug": "verdadero_falso_18",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 18",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:exam_trap",
+      "topic:verdadero_falso_18",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-019",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 19",
+    "difficulty": "Moyen",
+    "question": "La PaCO₂ baja en acidosis metabólica suele indicar compensación respiratoria.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. La hiperventilación reduce CO₂.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 19",
+      "topicSlug": "verdadero_falso_19",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 19",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_19",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-020",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 20",
+    "difficulty": "Base",
+    "question": "La hipopotasemia puede mantener una alcalosis metabólica.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Favorece secreción renal de H⁺ y reabsorción de bicarbonato.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 20",
+      "topicSlug": "verdadero_falso_20",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 20",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_20",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-021",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 21",
+    "difficulty": "Moyen",
+    "question": "La alcalosis disminuye el calcio ionizado por mayor unión a albúmina.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Esto puede causar parestesias o tetania.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 21",
+      "topicSlug": "verdadero_falso_21",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 21",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_21",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-022",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 22",
+    "difficulty": "Base",
+    "question": "La insuficiencia renal avanzada puede causar acidosis metabólica.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Disminuye excreción de ácido fijo y generación de bicarbonato.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 22",
+      "topicSlug": "verdadero_falso_22",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 22",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_22",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-023",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 23",
+    "difficulty": "Moyen",
+    "question": "El efecto Bohr indica que la acidosis favorece liberación de O₂ por hemoglobina.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. H⁺ y CO₂ reducen afinidad de Hb por O₂.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 23",
+      "topicSlug": "verdadero_falso_23",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 23",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_23",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-024",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 24",
+    "difficulty": "Base",
+    "question": "pH bajo, HCO₃⁻ bajo y PaCO₂ baja sugieren acidosis metabólica compensada.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. La PaCO₂ baja indica hiperventilación compensadora.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 24",
+      "topicSlug": "verdadero_falso_24",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 24",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_24",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-025",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 25",
+    "difficulty": "Moyen",
+    "question": "pH alto, PaCO₂ baja y HCO₃⁻ normal sugieren alcalosis respiratoria aguda.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El evento primario es eliminación excesiva de CO₂.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 25",
+      "topicSlug": "verdadero_falso_25",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 25",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:exam_trap",
+      "topic:verdadero_falso_25",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-026",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 26",
+    "difficulty": "Base",
+    "question": "Acidemia y acidosis significan exactamente lo mismo.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Acidemia es pH bajo; acidosis es un proceso que tiende a bajar el pH.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 26",
+      "topicSlug": "verdadero_falso_26",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 26",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_26",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-027",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 27",
+    "difficulty": "Moyen",
+    "question": "La hipoventilación aguda tiende a producir alcalosis respiratoria.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Hipoventilar retiene CO₂ y produce acidosis respiratoria.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 27",
+      "topicSlug": "verdadero_falso_27",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 27",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_27",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-028",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 28",
+    "difficulty": "Base",
+    "question": "En acidosis metabólica, la compensación esperada es hipoventilación.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La compensación es hiperventilación para bajar PaCO₂.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 28",
+      "topicSlug": "verdadero_falso_28",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 28",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_28",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-029",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 29",
+    "difficulty": "Moyen",
+    "question": "Generar nuevo bicarbonato renal equivale a perder bicarbonato por orina.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Generar nuevo bicarbonato requiere excretar H⁺ como NH₄⁺ o ácido titulable y devolver HCO₃⁻ a sangre.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 29",
+      "topicSlug": "verdadero_falso_29",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 29",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_29",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-030",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 30",
+    "difficulty": "Base",
+    "question": "Los vómitos prolongados causan típicamente acidosis metabólica por pérdida de bicarbonato.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Los vómitos pierden HCl gástrico y producen alcalosis metabólica.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 30",
+      "topicSlug": "verdadero_falso_30",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 30",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_30",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-031",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 31",
+    "difficulty": "Moyen",
+    "question": "Un pH normal descarta siempre trastorno ácido-base.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Puede existir trastorno mixto con procesos opuestos.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 31",
+      "topicSlug": "verdadero_falso_31",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 31",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_31",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-032",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 32",
+    "difficulty": "Base",
+    "question": "Los ácidos fijos se eliminan principalmente por ventilación pulmonar directa.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. El pulmón elimina CO₂; el riñón elimina ácidos no volátiles.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 32",
+      "topicSlug": "verdadero_falso_32",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 32",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:exam_trap",
+      "topic:verdadero_falso_32",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-033",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 33",
+    "difficulty": "Moyen",
+    "question": "La cetoacidosis produce alcalosis metabólica por exceso de bicarbonato.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Produce acidosis metabólica por acumulación de ácidos y consumo de HCO₃⁻.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 33",
+      "topicSlug": "verdadero_falso_33",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 33",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_33",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-034",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 34",
+    "difficulty": "Base",
+    "question": "La acidosis respiratoria primaria se define por PaCO₂ baja.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La acidosis respiratoria primaria se define por PaCO₂ alta por hipoventilación.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 34",
+      "topicSlug": "verdadero_falso_34",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "definition",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 34",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:definition",
+      "topic:verdadero_falso_34",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-035",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 35",
+    "difficulty": "Moyen",
+    "question": "La alcalosis respiratoria primaria se define por HCO₃⁻ alto.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La alcalosis respiratoria primaria se define por PaCO₂ baja; HCO₃⁻ puede bajar como compensación crónica.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 35",
+      "topicSlug": "verdadero_falso_35",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "definition",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 35",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:definition",
+      "topic:verdadero_falso_35",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-036",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 36",
+    "difficulty": "Base",
+    "question": "La acidosis metabólica se compensa eliminando bicarbonato por orina.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Eliminar bicarbonato empeora la acidosis; la compensación renal conserva y genera HCO₃⁻.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 36",
+      "topicSlug": "verdadero_falso_36",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 36",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:exam_trap",
+      "topic:verdadero_falso_36",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-037",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 37",
+    "difficulty": "Moyen",
+    "question": "La alcalosis metabólica se compensa con hiperventilación intensa.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Hiperventilar bajaría PaCO₂ y subiría más el pH; la compensación es hipoventilación relativa.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 37",
+      "topicSlug": "verdadero_falso_37",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 37",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_37",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-038",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 38",
+    "difficulty": "Base",
+    "question": "La anhidrasa carbónica transporta oxígeno como la hemoglobina.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La hemoglobina transporta O₂; la anhidrasa carbónica cataliza la reacción CO₂/HCO₃⁻.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 38",
+      "topicSlug": "verdadero_falso_38",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 38",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_38",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-039",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 39",
+    "difficulty": "Moyen",
+    "question": "El bicarbonato filtrado se reabsorbe principalmente en la vejiga.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La vejiga almacena orina; la reabsorción de HCO₃⁻ ocurre sobre todo en túbulo proximal.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 39",
+      "topicSlug": "verdadero_falso_39",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_tubulo"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 39",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_39",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-040",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 40",
+    "difficulty": "Base",
+    "question": "El NH₄⁺ urinario corrige alcalosis eliminando base.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. El NH₄⁺ elimina ácido y aumenta especialmente en acidosis.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 40",
+      "topicSlug": "verdadero_falso_40",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 40",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:exam_trap",
+      "topic:verdadero_falso_40",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-041",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 41",
+    "difficulty": "Moyen",
+    "question": "Las células principales son las principales secretoras de H⁺.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Las células principales regulan Na⁺, K⁺ y agua; la secreción de H⁺ corresponde sobre todo a intercaladas alfa.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 41",
+      "topicSlug": "verdadero_falso_41",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "recognition_pattern",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 41",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:recognition_pattern",
+      "topic:verdadero_falso_41",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-042",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 42",
+    "difficulty": "Base",
+    "question": "La diarrea intensa produce alcalosis metabólica por pérdida de ácido gástrico.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La diarrea pierde bicarbonato intestinal y causa acidosis metabólica.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 42",
+      "topicSlug": "verdadero_falso_42",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 42",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_42",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-043",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 43",
+    "difficulty": "Moyen",
+    "question": "La PaCO₂ alta en acidosis metabólica simple es una compensación adecuada.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. En acidosis metabólica simple la PaCO₂ debe bajar; si sube, sugiere trastorno respiratorio agregado.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 43",
+      "topicSlug": "verdadero_falso_43",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 43",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_43",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-044",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 44",
+    "difficulty": "Base",
+    "question": "La hipocloremia facilita siempre la eliminación renal de bicarbonato.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La hipocloremia puede dificultar la secreción de HCO₃⁻ y mantener alcalosis metabólica.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 44",
+      "topicSlug": "verdadero_falso_44",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 44",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:exam_trap",
+      "topic:verdadero_falso_44",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-045",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 45",
+    "difficulty": "Moyen",
+    "question": "La alcalosis aumenta el calcio ionizado al liberar Ca²⁺ de la albúmina.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La alcalosis aumenta unión de Ca²⁺ a albúmina y baja calcio ionizado.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 45",
+      "topicSlug": "verdadero_falso_45",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 45",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_45",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-046",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 46",
+    "difficulty": "Base",
+    "question": "La acidosis disminuye siempre el calcio ionizado por mayor unión a albúmina.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La acidosis reduce unión a albúmina y puede aumentar calcio ionizado.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 46",
+      "topicSlug": "verdadero_falso_46",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 46",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_46",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-047",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 47",
+    "difficulty": "Moyen",
+    "question": "El base excess negativo indica exceso metabólico de base.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. BE negativo indica déficit de base; BE positivo indica exceso de base.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 47",
+      "topicSlug": "verdadero_falso_47",
+      "concepts": [],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 47",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_47"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-048",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 48",
+    "difficulty": "Base",
+    "question": "pH bajo y PaCO₂ alta sugieren alcalosis respiratoria.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Ese patrón sugiere acidosis respiratoria.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 48",
+      "topicSlug": "verdadero_falso_48",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "recognition_pattern",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 48",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:recognition_pattern",
+      "topic:verdadero_falso_48",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-049",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 49",
+    "difficulty": "Moyen",
+    "question": "pH alto y HCO₃⁻ bajo sugieren alcalosis metabólica simple.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Alcalosis metabólica simple tiene HCO₃⁻ alto; HCO₃⁻ bajo orienta a otro trastorno o compensación.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 49",
+      "topicSlug": "verdadero_falso_49",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 49",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_49",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-05-equilibrio-acido-base-vf-v119-050",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+    "moduleNumber": 5,
+    "moduleTitle": "Equilibrio ácido-base",
+    "heading": "Verdadero/Falso 50",
+    "difficulty": "Base",
+    "question": "La hemoglobina no participa en el tamponamiento de H⁺.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La hemoglobina, especialmente desoxigenada, es un tampón importante dentro del eritrocito.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 5,
+      "moduleId": "01-fisiologia-05-equilibrio-acido-base",
+      "moduleTitle": "Equilibrio ácido-base",
+      "format": "vf",
+      "topic": "Verdadero/Falso 50",
+      "topicSlug": "verdadero_falso_50",
+      "concepts": [
+        "ph_acido_base",
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 50",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:5",
+      "module_id:01_fisiologia_05_equilibrio_acido_base",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_50",
+      "concept:ph_acido_base",
+      "concept:respiratorio_intercambio"
+    ]
+  }
+]

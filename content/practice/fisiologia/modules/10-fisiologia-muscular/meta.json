@@ -1,0 +1,17 @@
+{
+  "courseId": "fisiologia",
+  "moduleId": "01-fisiologia-10-fisiologia-muscular",
+  "moduleNumber": 10,
+  "moduleTitle": "Fisiología muscular",
+  "directory": "10-fisiologia-muscular",
+  "counts": {
+    "qcm": 0,
+    "vf": 0,
+    "cases": 0
+  },
+  "files": {
+    "qcm": "qcm.json",
+    "vf": "vf.json",
+    "cases": "cases.json"
+  }
+}

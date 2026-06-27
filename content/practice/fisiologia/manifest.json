@@ -1,0 +1,173 @@
+{
+  "courseId": "fisiologia",
+  "courseTitle": "Fisiología",
+  "sourceFile": "data/practice-bank-fisiologia.js",
+  "generatedFrom": "scripts/split-practice-bank-fisiologia.js",
+  "totals": {
+    "qcm": 1800,
+    "vf": 450,
+    "cases": 450
+  },
+  "modules": [
+    {
+      "id": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+      "number": 1,
+      "title": "Neurofisiología y potencial de acción",
+      "directory": "01-neurofisiologia-y-potencial-de-accion",
+      "counts": {
+        "qcm": 200,
+        "vf": 50,
+        "cases": 50
+      },
+      "files": {
+        "qcm": "qcm.json",
+        "vf": "vf.json",
+        "cases": "cases.json"
+      }
+    },
+    {
+      "id": "01-fisiologia-02-transporte-de-membrana",
+      "number": 2,
+      "title": "Transporte de membrana",
+      "directory": "02-transporte-de-membrana",
+      "counts": {
+        "qcm": 200,
+        "vf": 50,
+        "cases": 50
+      },
+      "files": {
+        "qcm": "qcm.json",
+        "vf": "vf.json",
+        "cases": "cases.json"
+      }
+    },
+    {
+      "id": "01-fisiologia-03-osmolaridad-osmosis-y-tonicidad",
+      "number": 3,
+      "title": "Osmolaridad, ósmosis y tonicidad",
+      "directory": "03-osmolaridad-osmosis-y-tonicidad",
+      "counts": {
+        "qcm": 200,
+        "vf": 50,
+        "cases": 50
+      },
+      "files": {
+        "qcm": "qcm.json",
+        "vf": "vf.json",
+        "cases": "cases.json"
+      }
+    },
+    {
+      "id": "01-fisiologia-04-fisiologia-renal",
+      "number": 4,
+      "title": "Fisiología renal",
+      "directory": "04-fisiologia-renal",
+      "counts": {
+        "qcm": 200,
+        "vf": 50,
+        "cases": 50
+      },
+      "files": {
+        "qcm": "qcm.json",
+        "vf": "vf.json",
+        "cases": "cases.json"
+      }
+    },
+    {
+      "id": "01-fisiologia-05-equilibrio-acido-base",
+      "number": 5,
+      "title": "Equilibrio ácido-base",
+      "directory": "05-equilibrio-acido-base",
+      "counts": {
+        "qcm": 200,
+        "vf": 50,
+        "cases": 50
+      },
+      "files": {
+        "qcm": "qcm.json",
+        "vf": "vf.json",
+        "cases": "cases.json"
+      }
+    },
+    {
+      "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "number": 6,
+      "title": "Anion gap y acidosis metabólica",
+      "directory": "06-anion-gap-y-acidosis-metabolica",
+      "counts": {
+        "qcm": 200,
+        "vf": 50,
+        "cases": 50
+      },
+      "files": {
+        "qcm": "qcm.json",
+        "vf": "vf.json",
+        "cases": "cases.json"
+      }
+    },
+    {
+      "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "number": 7,
+      "title": "Fisiología respiratoria",
+      "directory": "07-fisiologia-respiratoria",
+      "counts": {
+        "qcm": 200,
+        "vf": 50,
+        "cases": 50
+      },
+      "files": {
+        "qcm": "qcm.json",
+        "vf": "vf.json",
+        "cases": "cases.json"
+      }
+    },
+    {
+      "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "number": 8,
+      "title": "Fisiología cardiovascular, circulación y presión arterial",
+      "directory": "08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "counts": {
+        "qcm": 200,
+        "vf": 50,
+        "cases": 50
+      },
+      "files": {
+        "qcm": "qcm.json",
+        "vf": "vf.json",
+        "cases": "cases.json"
+      }
+    },
+    {
+      "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "number": 9,
+      "title": "Fisiología renal avanzada",
+      "directory": "09-fisiologia-renal-avanzada",
+      "counts": {
+        "qcm": 200,
+        "vf": 50,
+        "cases": 50
+      },
+      "files": {
+        "qcm": "qcm.json",
+        "vf": "vf.json",
+        "cases": "cases.json"
+      }
+    },
+    {
+      "id": "01-fisiologia-10-fisiologia-muscular",
+      "number": 10,
+      "title": "Fisiología muscular",
+      "directory": "10-fisiologia-muscular",
+      "counts": {
+        "qcm": 0,
+        "vf": 0,
+        "cases": 0
+      },
+      "files": {
+        "qcm": "qcm.json",
+        "vf": "vf.json",
+        "cases": "cases.json"
+      }
+    }
+  ]
+}

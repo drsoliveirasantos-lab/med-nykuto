@@ -1,0 +1,2704 @@
+[
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-001",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 01",
+    "difficulty": "Moyen",
+    "question": "La ventilación pulmonar depende de gradientes de presión entre alvéolo y atmósfera.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El aire entra o sale según diferencias de presión.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 01",
+      "topicSlug": "verdadero_falso_01",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 01",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:verdadero_falso_01",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-002",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 02",
+    "difficulty": "Base",
+    "question": "El diafragma es el principal músculo inspiratorio en reposo.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Su contracción aumenta el volumen torácico.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 02",
+      "topicSlug": "verdadero_falso_02",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 02",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_02",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-003",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 03",
+    "difficulty": "Moyen",
+    "question": "Durante la inspiración tranquila, la presión alveolar cae por debajo de la atmosférica.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Eso permite entrada de aire.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 03",
+      "topicSlug": "verdadero_falso_03",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 03",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_03",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-004",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 04",
+    "difficulty": "Base",
+    "question": "La presión pleural normal suele ser negativa.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Ayuda a mantener el pulmón expandido.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 04",
+      "topicSlug": "verdadero_falso_04",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 04",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_04",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-005",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 05",
+    "difficulty": "Moyen",
+    "question": "La presión transpulmonar es presión alveolar menos presión pleural.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Es la fuerza que distiende el pulmón.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 05",
+      "topicSlug": "verdadero_falso_05",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 05",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_05",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-006",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 06",
+    "difficulty": "Base",
+    "question": "El neumotórax reduce la presión transpulmonar efectiva.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El aire pleural elimina la presión negativa.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 06",
+      "topicSlug": "verdadero_falso_06",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 06",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:exam_trap",
+      "topic:verdadero_falso_06",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-007",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 07",
+    "difficulty": "Moyen",
+    "question": "La fibrosis disminuye compliance pulmonar.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El pulmón se vuelve rígido.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 07",
+      "topicSlug": "verdadero_falso_07",
+      "concepts": [],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 07",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_07"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-008",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 08",
+    "difficulty": "Base",
+    "question": "El enfisema aumenta compliance y reduce retroceso elástico.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Favorece atrapamiento aéreo.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 08",
+      "topicSlug": "verdadero_falso_08",
+      "concepts": [
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 08",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_08",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-009",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 09",
+    "difficulty": "Moyen",
+    "question": "El surfactante reduce tensión superficial alveolar.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Disminuye colapso y trabajo respiratorio.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 09",
+      "topicSlug": "verdadero_falso_09",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 09",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_09",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-010",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 10",
+    "difficulty": "Base",
+    "question": "Los neumocitos tipo II producen surfactante.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. También participan en reparación epitelial.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 10",
+      "topicSlug": "verdadero_falso_10",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 10",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_10",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-011",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 11",
+    "difficulty": "Moyen",
+    "question": "La resistencia de la vía aérea depende mucho del radio bronquial.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Pequeñas reducciones elevan mucho resistencia.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 11",
+      "topicSlug": "verdadero_falso_11",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 11",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_11",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-012",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 12",
+    "difficulty": "Base",
+    "question": "La estimulación β₂ produce broncodilatación.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Relaja músculo liso bronquial.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 12",
+      "topicSlug": "verdadero_falso_12",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 12",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_12",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-013",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 13",
+    "difficulty": "Moyen",
+    "question": "La ventilación alveolar descuenta el espacio muerto.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Solo aire que llega a alvéolos funcionales intercambia gases.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 13",
+      "topicSlug": "verdadero_falso_13",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 13",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_13",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-014",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 14",
+    "difficulty": "Base",
+    "question": "PaCO₂ aumenta cuando disminuye ventilación alveolar.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Se elimina menos CO₂.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 14",
+      "topicSlug": "verdadero_falso_14",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 14",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:exam_trap",
+      "topic:verdadero_falso_14",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-015",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 15",
+    "difficulty": "Moyen",
+    "question": "La ley de Fick relaciona difusión con área, grosor y gradiente.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Mayor grosor reduce difusión.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 15",
+      "topicSlug": "verdadero_falso_15",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 15",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_15",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-016",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 16",
+    "difficulty": "Base",
+    "question": "El CO₂ difunde mejor que O₂ por mayor solubilidad.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Por eso la hipercapnia aparece más tarde en defectos difusivos aislados.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 16",
+      "topicSlug": "verdadero_falso_16",
+      "concepts": [],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 16",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_16"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-017",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 17",
+    "difficulty": "Moyen",
+    "question": "El shunt tiene V/Q cercano a cero.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Hay perfusión sin ventilación.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 17",
+      "topicSlug": "verdadero_falso_17",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_ventilacion",
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 17",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_17",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_ventilacion",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-018",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 18",
+    "difficulty": "Base",
+    "question": "El espacio muerto alveolar tiene V/Q tendiendo a infinito.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Hay ventilación sin perfusión.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 18",
+      "topicSlug": "verdadero_falso_18",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_ventilacion",
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 18",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_18",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_ventilacion",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-019",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 19",
+    "difficulty": "Moyen",
+    "question": "La mayor parte del O₂ viaja unido a hemoglobina.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El O₂ disuelto es pequeño.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 19",
+      "topicSlug": "verdadero_falso_19",
+      "concepts": [
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 19",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_19",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-020",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 20",
+    "difficulty": "Base",
+    "question": "PaO₂ mide O₂ disuelto en plasma arterial.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. No mide todo el contenido de O₂.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 20",
+      "topicSlug": "verdadero_falso_20",
+      "concepts": [
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 20",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_20",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-021",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 21",
+    "difficulty": "Moyen",
+    "question": "SaO₂ mide porcentaje de Hb ocupada por O₂.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Puede ser normal en anemia.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 21",
+      "topicSlug": "verdadero_falso_21",
+      "concepts": [
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 21",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_21",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-022",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 22",
+    "difficulty": "Base",
+    "question": "El efecto Bohr facilita liberación de O₂ en tejidos ácidos.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. H⁺ y CO₂ bajan afinidad de Hb.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 22",
+      "topicSlug": "verdadero_falso_22",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 22",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_22",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-023",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 23",
+    "difficulty": "Moyen",
+    "question": "El efecto Haldane facilita eliminación pulmonar de CO₂.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. La oxigenación de Hb libera CO₂ y H⁺.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 23",
+      "topicSlug": "verdadero_falso_23",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_hormonas"
+      ],
+      "skill": "exam_trap",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 23",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:exam_trap",
+      "topic:verdadero_falso_23",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-024",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 24",
+    "difficulty": "Base",
+    "question": "La mayor parte del CO₂ se transporta como bicarbonato.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Se forma en eritrocitos por anhidrasa carbónica.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 24",
+      "topicSlug": "verdadero_falso_24",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 24",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_24",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-025",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 25",
+    "difficulty": "Moyen",
+    "question": "Los quimiorreceptores centrales responden sobre todo a H⁺ en LCR generado por CO₂.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El CO₂ cruza rápido al LCR.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 25",
+      "topicSlug": "verdadero_falso_25",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 25",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_25",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-026",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 26",
+    "difficulty": "Base",
+    "question": "La presión alveolar debe ser mayor que la atmosférica para que entre aire.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Para inspirar, debe ser menor.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 26",
+      "topicSlug": "verdadero_falso_26",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 26",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_26",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-027",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 27",
+    "difficulty": "Moyen",
+    "question": "La presión pleural normal es igual a la atmosférica.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Normalmente es negativa.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 27",
+      "topicSlug": "verdadero_falso_27",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 27",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_27",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-028",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 28",
+    "difficulty": "Base",
+    "question": "La compliance aumenta en fibrosis pulmonar.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La fibrosis la disminuye.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 28",
+      "topicSlug": "verdadero_falso_28",
+      "concepts": [],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 28",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_28"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-029",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 29",
+    "difficulty": "Moyen",
+    "question": "El surfactante aumenta la tensión superficial.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La disminuye.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 29",
+      "topicSlug": "verdadero_falso_29",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 29",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_29",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-030",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 30",
+    "difficulty": "Base",
+    "question": "Los neumocitos tipo I producen la mayor parte del surfactante.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Lo producen los tipo II.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 30",
+      "topicSlug": "verdadero_falso_30",
+      "concepts": [],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 30",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_30"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-031",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 31",
+    "difficulty": "Moyen",
+    "question": "La broncodilatación aumenta la resistencia aérea.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Disminuye la resistencia al aumentar radio.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 31",
+      "topicSlug": "verdadero_falso_31",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 31",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_31",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-032",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 32",
+    "difficulty": "Base",
+    "question": "El volumen residual se mide con espirometría simple.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. No sale por la boca durante la prueba.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 32",
+      "topicSlug": "verdadero_falso_32",
+      "concepts": [
+        "respiratorio_espirometria"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 32",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_32",
+      "concept:respiratorio_espirometria"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-033",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 33",
+    "difficulty": "Moyen",
+    "question": "La ventilación minuto descuenta el espacio muerto.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Eso lo hace la ventilación alveolar.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 33",
+      "topicSlug": "verdadero_falso_33",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 33",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_33",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-034",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 34",
+    "difficulty": "Base",
+    "question": "La hiperventilación aumenta PaCO₂.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La disminuye.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 34",
+      "topicSlug": "verdadero_falso_34",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 34",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_34",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-035",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 35",
+    "difficulty": "Moyen",
+    "question": "La fibrosis mejora la difusión al engrosar la membrana.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. El grosor reduce difusión.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 35",
+      "topicSlug": "verdadero_falso_35",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 35",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_35",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-036",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 36",
+    "difficulty": "Base",
+    "question": "La embolia pulmonar produce V/Q cero en la zona afectada.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Produce ventilación sin perfusión, V/Q alto.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 36",
+      "topicSlug": "verdadero_falso_36",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_ventilacion",
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 36",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_36",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_ventilacion",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-037",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 37",
+    "difficulty": "Moyen",
+    "question": "El shunt verdadero corrige completamente con oxígeno.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Responde poco.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 37",
+      "topicSlug": "verdadero_falso_37",
+      "concepts": [
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 37",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_37",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-038",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 38",
+    "difficulty": "Base",
+    "question": "En anemia pura la PaO₂ siempre baja.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Puede ser normal.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 38",
+      "topicSlug": "verdadero_falso_38",
+      "concepts": [
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 38",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_38",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-039",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 39",
+    "difficulty": "Moyen",
+    "question": "El CO reduce PaO₂ como mecanismo principal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Reduce contenido de O₂ unido a Hb.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 39",
+      "topicSlug": "verdadero_falso_39",
+      "concepts": [
+        "respiratorio_intercambio"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 39",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:verdadero_falso_39",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-040",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 40",
+    "difficulty": "Base",
+    "question": "El aumento de 2,3-BPG desplaza la curva a la izquierda.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La desplaza a la derecha.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 40",
+      "topicSlug": "verdadero_falso_40",
+      "concepts": [
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 40",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_40",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-041",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 41",
+    "difficulty": "Moyen",
+    "question": "La acidosis desplaza la curva Hb-O₂ a la izquierda.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La desplaza a la derecha.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 41",
+      "topicSlug": "verdadero_falso_41",
+      "concepts": [
+        "ph_acido_base",
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 41",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_41",
+      "concept:ph_acido_base",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-042",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 42",
+    "difficulty": "Base",
+    "question": "El efecto Bohr describe liberación de CO₂ por oxigenación de Hb.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Eso es Haldane.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 42",
+      "topicSlug": "verdadero_falso_42",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas",
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 42",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_42",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-043",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 43",
+    "difficulty": "Moyen",
+    "question": "Los quimiorreceptores centrales detectan directamente PaO₂ baja.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La hipoxemia activa sobre todo periféricos.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 43",
+      "topicSlug": "verdadero_falso_43",
+      "concepts": [
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 43",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_43",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-044",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 44",
+    "difficulty": "Base",
+    "question": "La hipoxia alveolar produce vasodilatación pulmonar local.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Produce vasoconstricción local.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 44",
+      "topicSlug": "verdadero_falso_44",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 44",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_44",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-045",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 45",
+    "difficulty": "Moyen",
+    "question": "El gradiente A-a compara PaCO₂ con HCO₃⁻.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Compara PAO₂ con PaO₂.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 45",
+      "topicSlug": "verdadero_falso_45",
+      "concepts": [
+        "ph_acido_base",
+        "respiratorio_intercambio"
+      ],
+      "skill": "comparison",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 45",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:comparison",
+      "topic:verdadero_falso_45",
+      "concept:ph_acido_base",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-046",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 46",
+    "difficulty": "Base",
+    "question": "La hipoxemia por hipoventilación pura siempre aumenta el gradiente A-a.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Puede estar normal.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 46",
+      "topicSlug": "verdadero_falso_46",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 46",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_46",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-047",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 47",
+    "difficulty": "Moyen",
+    "question": "Kussmaul es hipoventilación superficial por alcalosis.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Es hiperventilación profunda por acidosis metabólica.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 47",
+      "topicSlug": "verdadero_falso_47",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 47",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_47",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-048",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 48",
+    "difficulty": "Base",
+    "question": "El espacio muerto es perfusión sin ventilación.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Eso es shunt; espacio muerto es ventilación sin perfusión.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 48",
+      "topicSlug": "verdadero_falso_48",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_ventilacion",
+        "respiratorio_intercambio"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 48",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_48",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_ventilacion",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-049",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 49",
+    "difficulty": "Moyen",
+    "question": "La mayor parte del CO₂ viaja unido a O₂.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Viaja sobre todo como bicarbonato.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 49",
+      "topicSlug": "verdadero_falso_49",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 49",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_49",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos-vf-v124-050",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "moduleNumber": 7,
+    "moduleTitle": "Fisiología respiratoria y casos clínicos",
+    "heading": "Verdadero/Falso 50",
+    "difficulty": "Base",
+    "question": "La FEV1/FVC baja es típica de restricción pura.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Es típica de obstrucción.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 7,
+      "moduleId": "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+      "moduleTitle": "Fisiología respiratoria y casos clínicos",
+      "format": "vf",
+      "topic": "Verdadero/Falso 50",
+      "topicSlug": "verdadero_falso_50",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 50",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:7",
+      "module_id:01_fisiologia_07_fisiologia_respiratoria_y_casos",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_50",
+      "concept:electricidad_biologica"
+    ]
+  }
+]
