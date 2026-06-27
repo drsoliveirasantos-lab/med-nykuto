@@ -3,9 +3,9 @@ name: Med Nykuto site tests
 on:
   workflow_dispatch:
   push:
-    branches: [preview]
+    branches: [preview, main]
   pull_request:
-    branches: [preview]
+    branches: [preview, main]
 
 permissions:
   contents: read
