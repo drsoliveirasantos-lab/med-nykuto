@@ -1,0 +1,10 @@
+  Object.assign(UI.br, {
+    brandSubtitle:'Biblioteca médica organizada', navSubjects:'Matérias', navModules:'Módulos', navQcm:'QCM', navClinical:'Casos clínicos',
+    homeEyebrow:'Medicina · revisão estruturada', homeTitle:'Uma plataforma limpa para estudar seus cursos de medicina.', homeText:'Acesse matérias, módulos, QCM, casos clínicos, verdadeiro/falso e busca global em uma interface simples.', exploreSubjects:'Explorar matérias', openModules:'Ver todos os módulos',
+    statSubjects:'Matérias', statModules:'Módulos integrados', statProgress:'Progresso total', homeOverviewEyebrow:'Avanço', homeOverviewTitle:'Matérias presentes', resetProgress:'Reiniciar progresso', footerText:'Biblioteca médica organizada para revisar mais rápido.',
+    backHome:'← Voltar ao início', subjectsEyebrow:'Organização', subjectsTitle:'Matérias disponíveis', subjectsText:'Cada matéria abre uma página dedicada com seus módulos, QCM, casos clínicos e verdadeiro/falso.',
+    modulesEyebrow:'Busca global', modulesTitle:'Todos os módulos', modulesText:'Pesquise uma palavra-chave e abra diretamente o módulo correspondente.', moduleListEyebrow:'Módulos integrados', moduleListTitle:'Lista de cursos', moduleSearchPlaceholder:'Pesquisar nos módulos...', noModuleFound:'Nenhum módulo encontrado.',
+    viewCourses:'Ver cursos', doQcm:'Fazer QCM', doClinical:'Fazer caso clínico', doVf:'Verdadeiro/Falso', openCourse:'Abrir curso', markSeen:'Marcar visto', removeSeen:'Remover visto', seen:'Visto', coursePlan:'Plano do curso', planEmpty:'Plano detalhado disponível na página do curso.', titles:'títulos', allModules:'Todos os módulos', localProgress:'Progresso local', subjectProgress:'Progresso da matéria',
+    searchResultIn:'Aparece em', searchOpenModule:'Abrir módulo', searchNoResult:'Nenhum resultado para essa palavra. Tente outra forma: QRS, onda T, Na/K, osmolaridade.',
+    searchLabel:'Pesquisar', searchPlaceholder:'QRS, Na/K, osmolaridade...', searchHint:'Digite pelo menos 2 letras para pesquisar em todos os módulos.', noSearch:'Nenhum resultado encontrado.'
+  });
