@@ -11,6 +11,39 @@ function readJson(file){ return JSON.parse(fs.readFileSync(file, 'utf8')); }
 function readTextIf(file){ return fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : undefined; }
 function sortModules(a,b){ return Number(a.number||0)-Number(b.number||0) || String(a.id).localeCompare(String(b.id)); }
 
+const mojibakeMap = new Map(Object.entries({
+  'Ã¡':'á','Ã©':'é','Ã­':'í','Ã³':'ó','Ãº':'ú','Ã±':'ñ',
+  'Ã':'Á','Ã‰':'É','Ã':'Í','Ã“':'Ó','Ãš':'Ú','Ã‘':'Ñ',
+  'Ã¼':'ü','Ãœ':'Ü','Â¿':'¿','Â¡':'¡','Â²':'²','Â³':'³','Â¹':'¹',
+  'Âº':'º','Â°':'°','Â±':'±','Âµ':'µ','Â·':'·',
+  'â‚‚':'₂','â‚ƒ':'₃','â‚„':'₄','â‚':'₁',
+  'âº':'⁺','â»':'⁻',
+  'â†’':'→','â†':'←','â†‘':'↑','â†“':'↓','â†”':'↔','â‡„':'⇄',
+  'â€”':'—','â€“':'–','â€œ':'“','â€':'”','â€˜':'‘','â€™':'’',
+  'â€¦':'…','â€¢':'•','âˆ’':'−','âˆ':'∝','â‰ˆ':'≈','â‰ ':'≠',
+  'Ã—':'×','â‰¤':'≤','â‰¥':'≥'
+}));
+
+function repairText(value){
+  if(typeof value !== 'string') return value;
+  if(!/[ÃÂâ]/.test(value)) return value;
+  let out = value;
+  const entries = [...mojibakeMap.entries()].sort((a,b) => b[0].length - a[0].length);
+  for(const [bad, good] of entries) out = out.split(bad).join(good);
+  out = out.replace(/Ã(?=($|[A-Za-z0-9ÁÉÍÓÚáéíóúñÑ\s,.;:!?\)\]\}\/-]))/g, 'í');
+  out = out.replace(/Ã/g, 'í');
+  return out;
+}
+
+function repairDeep(value){
+  if(typeof value === 'string') return repairText(value);
+  if(Array.isArray(value)) return value.map(repairDeep);
+  if(value && typeof value === 'object'){
+    for(const key of Object.keys(value)) value[key] = repairDeep(value[key]);
+  }
+  return value;
+}
+
 function build(){
   const catalogFile = path.join(contentRoot, 'catalog.json');
   if(!fs.existsSync(catalogFile)) throw new Error('Missing content/courses/catalog.json');
@@ -58,13 +91,13 @@ function build(){
     courses.push(course);
   }
 
-  const data = {
+  const data = repairDeep({
     siteName: catalog.siteName || 'Med Nykuto',
     version: catalog.version || `generated_${new Date().toISOString()}`,
     generatedFrom: catalog.generatedFrom || 'content/courses split sources',
     totalModules: courses.reduce((sum,c) => sum + (c.modules || []).length, 0),
     courses
-  };
+  });
 
   fs.mkdirSync(path.dirname(outFile), {recursive:true});
   const body = `/* AUTO-GENERATED FILE — DO NOT EDIT MANUALLY.
