@@ -41,7 +41,10 @@ test('errors/progress surfaces do not break after answering and reloading', asyn
   expect(storageKeys.length, 'answering should not prevent localStorage inspection and may create study-state keys').toBeGreaterThanOrEqual(0);
 
   await page.goto('/erreurs.html', { waitUntil: 'domcontentloaded' });
-  await expect(page.locator('main, body')).toBeVisible({ timeout: 10000 });
+  await expect(page.locator('body')).toBeVisible({ timeout: 10000 });
+  if (await page.locator('main').count()) {
+    await expect(page.locator('main').first()).toBeVisible({ timeout: 10000 });
+  }
   await expect(page.locator('body')).not.toContainText(/Application error|Cannot read|undefined|null/i, { timeout: 1000 });
 
   await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
