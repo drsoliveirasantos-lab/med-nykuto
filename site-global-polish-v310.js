@@ -1,12 +1,13 @@
-/* v375 — Global Med Nykuto polish layer.
+/* v376 — Global Med Nykuto polish layer.
    Applies identity, language, cache-visible UI text, logo/home behavior, optional public-first auth, course image zoom and practice-page safety.
-   Quiet-page rule: module/practice/exam/mistakes pages must not load forced global repair/debug layers or delayed global refresh passes while the user is reading or answering. */
+   Quiet-page rule: module/practice/exam/mistakes pages must not load forced global repair/debug layers or delayed global refresh passes while the user is reading or answering.
+   Quiet pages still expose a lightweight runtime/health marker for browser regression tests without loading the forced runtime repair layer. */
 (function(){
   'use strict';
 
   var SITE_NAME = 'Med Nykuto';
   var HOST = 'https://preview.med-nykuto-git.pages.dev/';
-  var CACHE_VERSION = '375';
+  var CACHE_VERSION = '376';
 
   function text(el,v){ if(el && v != null) el.textContent = v; }
   function all(sel,root){ return Array.from((root||document).querySelectorAll(sel)); }
@@ -16,6 +17,7 @@
   function isModuleReaderPage(){ return pageName() === 'module.html' || bodyPage() === 'module'; }
   function isPracticeLikePage(){ return /^(qcm|cas-cliniques|vrai-faux|erreurs|examen)\.html$/.test(pageName()) || /^(practice|exam|mistakes)$/.test(bodyPage()); }
   function isQuietPage(){ return isModuleReaderPage() || isPracticeLikePage(); }
+  function escapeHtml(s){ return String(s || '').replace(/[&<>"']/g, function(ch){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]; }); }
 
   function setLang(){
     document.documentElement.lang = 'es';
@@ -132,10 +134,69 @@
     all('.subject-progress-card').forEach(function(card){
       if(/Biof[ií]sica/i.test(clean(card.textContent))){
         card.classList.add('is-coming-soon');
+        card.setAttribute('aria-disabled','true');
+        if(card.tagName === 'A') card.setAttribute('href','#');
         var span = card.querySelector('span'); if(span) span.textContent = 'Próximamente';
         var pct = card.querySelector('.subject-progress-pct'); if(pct) pct.textContent = '—';
       }
     });
+  }
+
+  function computeCompactHealth(){
+    var data = window.MED_COURSES_DATA || {};
+    if(data && data.siteName !== SITE_NAME) data.siteName = SITE_NAME;
+    var courses = Array.isArray(data.courses) ? data.courses : [];
+    var modules = [];
+    courses.forEach(function(course){ (course.modules || []).forEach(function(module){ modules.push(module); }); });
+    var bank = window.MED_PRACTICE_BANK || {};
+    var byCourse = bank.byCourse || {};
+    var summary = {courses:0, qcm:0, vf:0, cases:0};
+    Object.keys(byCourse).forEach(function(cid){
+      var b = byCourse[cid] || {};
+      summary.courses += 1;
+      summary.qcm += (b.qcm || []).length;
+      summary.vf += (b.vf || []).length;
+      summary.cases += (b.cases || []).length;
+    });
+    var requiresBank = isPracticeLikePage();
+    var warnings = [];
+    if(courses.length < 5) warnings.push('too_few_courses');
+    if(modules.length < 40) warnings.push('too_few_modules');
+    if(requiresBank && !summary.qcm) warnings.push('no_qcm');
+    if(requiresBank && !summary.vf) warnings.push('no_vf');
+    if(requiresBank && !summary.cases) warnings.push('no_cases');
+    return {
+      version:'v362-quiet-compact',
+      ok:warnings.length === 0,
+      warnings:warnings,
+      bankRequired:requiresBank,
+      courseCount:courses.length,
+      activeCourseCount:courses.filter(function(c){ return (c.modules || []).length > 0; }).length,
+      moduleCount:modules.length,
+      bankCourseCount:summary.courses,
+      qcmCount:summary.qcm,
+      vfCount:summary.vf,
+      caseCount:summary.cases,
+      fallbackActive:!!(bank && String(bank.version || '').indexOf('fallback') >= 0),
+      dataSiteName:data.siteName || SITE_NAME
+    };
+  }
+
+  function exposeQuietRuntime(){
+    if(!isQuietPage()) return;
+    var health = computeCompactHealth();
+    window.MED_NYKUTO_HEALTH = health;
+    window.__MED_NYKUTO_RUNTIME_GUARD__ = 'v362';
+    window.__MED_NYKUTO_RUNTIME_GUARD_LIGHT__ = 'v376-quiet-no-forced-runtime';
+    if(document.documentElement) document.documentElement.dataset.medRuntime = 'v362';
+    if(document.body){
+      document.body.dataset.medRuntime = 'v362';
+      document.body.dataset.medHealth = health.ok ? 'ok' : 'warning';
+      document.body.dataset.medBankRequired = health.bankRequired ? '1' : '0';
+      document.body.dataset.medModules = String(health.moduleCount || 0);
+      document.body.dataset.medQcm = String(health.qcmCount || 0);
+      document.body.classList.add('med-runtime-ready');
+    }
   }
 
   function injectGlobalStyle(){
@@ -183,7 +244,7 @@
 
   function loadGlobalRepairLayers(){
     if(isQuietPage()){
-      window.__MED_NYKUTO_GLOBAL_POLISH_LIGHT_MODE__ = 'v375-skip-forced-repair-layers';
+      window.__MED_NYKUTO_GLOBAL_POLISH_LIGHT_MODE__ = 'v376-skip-forced-repair-layers';
       if(isModuleReaderPage()) loadCourseImageZoom();
       return;
     }
@@ -202,9 +263,10 @@
     polishGenericText();
     polishHome();
     polishComingSoon();
+    exposeQuietRuntime();
     injectGlobalStyle();
     loadGlobalRepairLayers();
-    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v375-loader';
+    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v376-loader';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
