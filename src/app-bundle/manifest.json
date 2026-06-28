@@ -3,7 +3,7 @@
   "rebuildWith": "scripts/build-app-bundle.js",
   "validateWith": "scripts/validate-app-bundle-split.js",
   "sourceFile": "app.bundle.js",
-  "strategy": "refined-domain-fragments-byte-identical",
+  "strategy": "i18n-extracted-domain-fragments-byte-identical",
   "partCount": 48,
   "totalBytes": 437491,
   "parts": [
@@ -89,203 +89,253 @@
     },
     {
       "order": 11,
-      "path": "modules/i18n/011-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/011-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 3390,
       "summary": "const UI = {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 12,
-      "path": "modules/i18n/012-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/012-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2113,
       "summary": "Object.assign(UI.es, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 13,
-      "path": "modules/i18n/013-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/013-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2155,
       "summary": "Object.assign(UI.fr, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 14,
-      "path": "modules/i18n/014-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/014-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2112,
       "summary": "Object.assign(UI.br, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 15,
-      "path": "modules/i18n/015-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/015-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 853,
       "summary": "Object.assign(UI.es, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 16,
-      "path": "modules/i18n/016-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/016-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 834,
       "summary": "Object.assign(UI.fr, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 17,
-      "path": "modules/i18n/017-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/017-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 829,
       "summary": "Object.assign(UI.br, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 18,
-      "path": "modules/i18n/018-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/018-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 772,
       "summary": "Object.assign(UI.es, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 19,
-      "path": "modules/i18n/019-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/019-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 781,
       "summary": "Object.assign(UI.fr, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 20,
-      "path": "modules/i18n/020-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/020-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 765,
       "summary": "Object.assign(UI.br, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 21,
-      "path": "modules/i18n/021-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/021-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 1062,
       "summary": "Object.assign(UI.es, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 22,
-      "path": "modules/i18n/022-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/022-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 1140,
       "summary": "Object.assign(UI.fr, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 23,
-      "path": "modules/i18n/023-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/023-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 1085,
       "summary": "Object.assign(UI.br, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 24,
-      "path": "modules/i18n/024-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/024-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2177,
       "summary": "Object.assign(UI.es, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 25,
-      "path": "modules/i18n/025-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/025-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2272,
       "summary": "Object.assign(UI.fr, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 26,
-      "path": "modules/i18n/026-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/026-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2188,
       "summary": "Object.assign(UI.br, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 27,
-      "path": "modules/i18n/027-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/027-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2706,
       "summary": "Object.assign(UI.es, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 28,
-      "path": "modules/i18n/028-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/028-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2838,
       "summary": "Object.assign(UI.fr, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 29,
-      "path": "modules/i18n/029-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/029-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2676,
       "summary": "Object.assign(UI.br, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 30,
-      "path": "modules/i18n/030-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/030-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2341,
       "summary": "Object.assign(UI.es, {home:'Inicio', backSubjects:'← Volver a materias', subjectBrandSubtitle:'Módulos por materia', rea",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 31,
-      "path": "modules/i18n/031-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/031-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2396,
       "summary": "Object.assign(UI.fr, {home:'Accueil', backSubjects:'← Retour aux matières', subjectBrandSubtitle:'Modules par matière', ",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 32,
-      "path": "modules/i18n/032-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/032-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 2342,
       "summary": "Object.assign(UI.br, {home:'Início', backSubjects:'← Voltar às matérias', subjectBrandSubtitle:'Módulos por matéria', re",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 33,
-      "path": "modules/i18n/033-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/033-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 1382,
       "summary": "function lang(){ return safeGetItem('medLang') || 'fr'; }",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 34,
-      "path": "modules/i18n/034-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/034-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 1300,
       "summary": "Object.assign(UI.fr, {mistakes:'Mes erreurs', reviewToday:'À réviser aujourd’hui', examMode:'Examen blanc', dashboard:'T",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 35,
-      "path": "modules/i18n/035-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/035-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 1218,
       "summary": "Object.assign(UI.br, {mistakes:'Meus erros', reviewToday:'Revisar hoje', examMode:'Simulado', dashboard:'Painel de estud",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 36,
@@ -297,27 +347,33 @@
     },
     {
       "order": 37,
-      "path": "modules/i18n/037-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/037-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 4790,
       "summary": "Object.assign(UI.es, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 38,
-      "path": "modules/i18n/038-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/038-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 5139,
       "summary": "Object.assign(UI.fr, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 39,
-      "path": "modules/i18n/039-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/039-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 4885,
       "summary": "Object.assign(UI.br, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 40,
@@ -337,27 +393,33 @@
     },
     {
       "order": 42,
-      "path": "modules/i18n/042-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/042-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 768,
       "summary": "Object.assign(UI.es, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 43,
-      "path": "modules/i18n/043-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/043-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 767,
       "summary": "Object.assign(UI.fr, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 44,
-      "path": "modules/i18n/044-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/044-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 761,
       "summary": "Object.assign(UI.br, {",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 45,
@@ -377,12 +439,14 @@
     },
     {
       "order": 47,
-      "path": "modules/i18n/047-i18n-dictionary.js",
+      "path": "../i18n/app-bundle/047-i18n-dictionary.js",
       "category": "i18n-dictionary",
       "bytes": 355371,
       "summary": "function rehydrateCollapsedMarkdown(md=''){",
       "bucket": "i18n",
-      "refineNote": "not-safely-splittable"
+      "refineNote": "not-safely-splittable",
+      "sourceDomain": "i18n",
+      "sourceRoot": "src/i18n/app-bundle"
     },
     {
       "order": 48,
@@ -405,5 +469,8 @@
   },
   "refinedWith": "scripts/refine-app-bundle-fragments.js",
   "largeFragmentThresholdBytes": 50000,
-  "refinedLargeFragmentCount": 0
+  "refinedLargeFragmentCount": 0,
+  "i18nExtractedWith": "scripts/extract-app-bundle-i18n.js",
+  "i18nSourceRoot": "src/i18n/app-bundle",
+  "i18nPartCount": 32
 }
