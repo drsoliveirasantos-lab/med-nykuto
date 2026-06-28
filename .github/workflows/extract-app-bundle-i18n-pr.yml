@@ -1,0 +1,47 @@
+name: Extract app bundle i18n source from PR
+
+on:
+  pull_request:
+    branches:
+      - preview
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    if: github.head_ref == 'refactor/extract-i18n-source'
+    name: Extract app bundle i18n fragments
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract i18n, rebuild and validate app.bundle.js
+        run: |
+          cp app.bundle.js /tmp/app.bundle.original.js
+          node scripts/extract-app-bundle-i18n.js
+          node scripts/validate-app-bundle-split.js
+          node scripts/build-app-bundle.js
+          cmp app.bundle.js /tmp/app.bundle.original.js
+          node scripts/validate-app-bundle-split.js
+
+      - name: Commit extracted i18n source
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/app-bundle src/i18n scripts/extract-app-bundle-i18n.js README_APP_BUNDLE_SPLIT.md
+          if git diff --cached --quiet; then
+            echo "No i18n extraction changes."
+            exit 0
+          fi
+          git commit -m "Extract app bundle i18n fragments"
+          git push origin HEAD:${{ github.head_ref }}
