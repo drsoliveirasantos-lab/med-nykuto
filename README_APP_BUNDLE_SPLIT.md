@@ -55,6 +55,12 @@ Extract i18n fragments into the i18n source area:
 node scripts/extract-app-bundle-i18n.js
 ```
 
+Reclassify the large content-normalization fragment if it is incorrectly grouped with i18n:
+
+```bash
+node scripts/reclassify-content-normalization-source.js
+```
+
 Rebuild the runtime file from fragments:
 
 ```bash
@@ -75,6 +81,12 @@ For translations and language helpers, edit files under:
 
 ```txt
 src/i18n/app-bundle/
+```
+
+Application glue, storage helpers and content-normalization helpers remain under:
+
+```txt
+src/app-bundle/modules/app/
 ```
 
 Other generated application fragments remain under:
