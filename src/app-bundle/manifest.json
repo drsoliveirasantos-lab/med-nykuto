@@ -3,7 +3,7 @@
   "rebuildWith": "scripts/build-app-bundle.js",
   "validateWith": "scripts/validate-app-bundle-split.js",
   "sourceFile": "app.bundle.js",
-  "strategy": "ordered-domain-fragments-byte-identical",
+  "strategy": "refined-domain-fragments-byte-identical",
   "partCount": 48,
   "totalBytes": 437491,
   "parts": [
@@ -381,7 +381,8 @@
       "category": "i18n-dictionary",
       "bytes": 355371,
       "summary": "function rehydrateCollapsedMarkdown(md=''){",
-      "bucket": "i18n"
+      "bucket": "i18n",
+      "refineNote": "not-safely-splittable"
     },
     {
       "order": 48,
@@ -401,5 +402,8 @@
     "pages": "page renderers",
     "practice": "practice/question engine fragments",
     "misc": "uncategorized fragments pending manual refinement"
-  }
+  },
+  "refinedWith": "scripts/refine-app-bundle-fragments.js",
+  "largeFragmentThresholdBytes": 50000,
+  "refinedLargeFragmentCount": 0
 }
