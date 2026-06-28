@@ -18,12 +18,14 @@ src/app-bundle/
   modules/
     runtime/
     app/
-    dom/
     pages/
     practice/
     misc/
 
 src/i18n/
+  app-bundle/
+
+src/dom/
   app-bundle/
 ```
 
@@ -61,6 +63,12 @@ Reclassify the large content-normalization fragment if it is incorrectly grouped
 node scripts/reclassify-content-normalization-source.js
 ```
 
+Extract DOM helper fragments into the DOM source area:
+
+```bash
+node scripts/extract-app-bundle-dom.js
+```
+
 Rebuild the runtime file from fragments:
 
 ```bash
@@ -81,6 +89,12 @@ For translations and language helpers, edit files under:
 
 ```txt
 src/i18n/app-bundle/
+```
+
+For DOM selector/helper glue, edit files under:
+
+```txt
+src/dom/app-bundle/
 ```
 
 Application glue, storage helpers and content-normalization helpers remain under:
