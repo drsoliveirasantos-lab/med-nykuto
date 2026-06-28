@@ -41,6 +41,12 @@ Organize existing fragments by domain:
 node scripts/organize-app-bundle-sources.js
 ```
 
+Refine oversized fragments into smaller ordered fragments:
+
+```bash
+node scripts/refine-app-bundle-fragments.js
+```
+
 Rebuild the runtime file from fragments:
 
 ```bash
