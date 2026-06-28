@@ -3,7 +3,7 @@
   "rebuildWith": "scripts/build-app-bundle.js",
   "validateWith": "scripts/validate-app-bundle-split.js",
   "sourceFile": "app.bundle.js",
-  "strategy": "i18n-extracted-domain-fragments-byte-identical",
+  "strategy": "domain-fragments-with-content-normalization-byte-identical",
   "partCount": 48,
   "totalBytes": 437491,
   "parts": [
@@ -439,14 +439,14 @@
     },
     {
       "order": 47,
-      "path": "../i18n/app-bundle/047-i18n-dictionary.js",
-      "category": "i18n-dictionary",
+      "path": "modules/app/047-content-normalization.js",
+      "category": "content-normalization",
       "bytes": 355371,
       "summary": "function rehydrateCollapsedMarkdown(md=''){",
-      "bucket": "i18n",
+      "bucket": "app",
       "refineNote": "not-safely-splittable",
-      "sourceDomain": "i18n",
-      "sourceRoot": "src/i18n/app-bundle"
+      "sourceDomain": "app",
+      "sourceRoot": "src/app-bundle/modules/app"
     },
     {
       "order": 48,
@@ -472,5 +472,7 @@
   "refinedLargeFragmentCount": 0,
   "i18nExtractedWith": "scripts/extract-app-bundle-i18n.js",
   "i18nSourceRoot": "src/i18n/app-bundle",
-  "i18nPartCount": 32
+  "i18nPartCount": 32,
+  "contentNormalizationReclassifiedWith": "scripts/reclassify-content-normalization-source.js",
+  "contentNormalizationSource": "src/app-bundle/modules/app/047-content-normalization.js"
 }
