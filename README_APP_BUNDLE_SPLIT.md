@@ -19,10 +19,12 @@ src/app-bundle/
     runtime/
     app/
     dom/
-    i18n/
     pages/
     practice/
     misc/
+
+src/i18n/
+  app-bundle/
 ```
 
 At this stage, the split is intentionally conservative: the fragments rebuild `app.bundle.js` byte-for-byte. This means the site behavior should not change.
@@ -47,6 +49,12 @@ Refine oversized fragments into smaller ordered fragments:
 node scripts/refine-app-bundle-fragments.js
 ```
 
+Extract i18n fragments into the i18n source area:
+
+```bash
+node scripts/extract-app-bundle-i18n.js
+```
+
 Rebuild the runtime file from fragments:
 
 ```bash
@@ -61,7 +69,19 @@ node scripts/validate-app-bundle-split.js
 
 ## Editing rule
 
-Do not edit `app.bundle.js` directly when changing application logic. Edit the appropriate fragment under `src/app-bundle/modules/`, rebuild, then run validation and browser tests.
+Do not edit `app.bundle.js` directly when changing application logic. Edit the appropriate source fragment, rebuild, then run validation and browser tests.
+
+For translations and language helpers, edit files under:
+
+```txt
+src/i18n/app-bundle/
+```
+
+Other generated application fragments remain under:
+
+```txt
+src/app-bundle/modules/
+```
 
 ## Validation contract
 
