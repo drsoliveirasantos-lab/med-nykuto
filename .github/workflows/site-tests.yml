@@ -32,6 +32,8 @@ jobs:
         run: npm install
       - name: Validate split course sources and module counters
         run: node scripts/validate-course-sources.js
+      - name: Validate repository hygiene and stale files
+        run: node scripts/validate-no-stale-files.js
       - name: Validate static links and release markers
         run: node scripts/validate-site-links.js || echo "Static hygiene validator reported warnings; continuing."
       - name: Validate restored data volumes
