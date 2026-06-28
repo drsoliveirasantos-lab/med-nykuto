@@ -2,11 +2,11 @@
 /* Validate split course source tree before building. */
 const fs = require('fs');
 const path = require('path');
-const vm = require('vm');
 
 const root = process.cwd();
 const contentRoot = path.join(root, 'content', 'courses');
 const lockFile = path.join(root, 'content-lock.json');
+const indexFile = path.join(root, 'index.html');
 const problems = [];
 const warnings = [];
 const strictAssets = process.argv.includes('--strict-assets');
@@ -50,7 +50,8 @@ for(const courseId of courseIds){
   const modulesRoot = path.join(courseDir, 'modules');
   const dirs = fs.existsSync(modulesRoot) ? fs.readdirSync(modulesRoot).filter(name => fs.statSync(path.join(modulesRoot,name)).isDirectory()).sort() : [];
   courseCounts[courseId] = dirs.length;
-  if(Number(course.moduleCount || 0) !== dirs.length) warn(`${courseId}: course.json moduleCount=${course.moduleCount} but source has ${dirs.length}`);
+  if(Number(course.moduleCount || 0) !== dirs.length) add(`${courseId}: course.json moduleCount=${course.moduleCount} but source has ${dirs.length}`);
+  if(Array.isArray(course.moduleOrder) && course.moduleOrder.length !== dirs.length) add(`${courseId}: moduleOrder has ${course.moduleOrder.length} entries but source has ${dirs.length}`);
   for(const dir of dirs){
     total++;
     const moduleDir = path.join(modulesRoot, dir);
@@ -89,7 +90,19 @@ if(lock){
   }
   if(lock.expectedNewModule && !ids.has(lock.expectedNewModule)) add(`missing expected module ${lock.expectedNewModule}`);
 }
-if(total < 58) add(`expected at least 58 modules, got ${total}`);
+
+if(fs.existsSync(indexFile) && lock && Number.isInteger(lock.totalModules)){
+  const html = readText(indexFile);
+  const expected = String(lock.totalModules);
+  const staleHardcoded = ['statModulesHero', 'statModules']
+    .map(id => new RegExp(`<strong\\s+id=["']${id}["']>${expected}<\\/strong>|<span\\s+id=["']${id}["']>${expected}<\\/span>`).test(html) ? null : id)
+    .filter(Boolean);
+  if(staleHardcoded.length) add(`homepage module counter mismatch for: ${staleHardcoded.join(', ')}; expected ${expected}`);
+  if(/>58<|58\s*<\/strong>|58\s*<\/span>/.test(html) && expected !== '58') add('homepage still contains stale visible module count 58');
+}
+
+if(lock && total < lock.totalModules) add(`expected at least ${lock.totalModules} modules, got ${total}`);
+else if(!lock && total < 1) add(`expected source modules, got ${total}`);
 if(rich < 50) add(`expected at least 50 rich modules, got ${rich}`);
 
 warnings.forEach(w => console.log('Warning:', w));
