@@ -215,7 +215,7 @@ function main() {
     ...manifest,
     strategy: 'refined-domain-fragments-byte-identical',
     refinedWith: 'scripts/refine-app-bundle-fragments.js',
-    largeFragmentThresholdBytes,
+    largeFragmentThresholdBytes: largeThresholdBytes,
     refinedLargeFragmentCount: refinedCount,
     partCount: refined.length,
     totalBytes,
