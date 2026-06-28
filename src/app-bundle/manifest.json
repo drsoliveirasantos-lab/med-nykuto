@@ -3,7 +3,7 @@
   "rebuildWith": "scripts/build-app-bundle.js",
   "validateWith": "scripts/validate-app-bundle-split.js",
   "sourceFile": "app.bundle.js",
-  "strategy": "domain-fragments-with-content-normalization-byte-identical",
+  "strategy": "dom-extracted-domain-fragments-byte-identical",
   "partCount": 48,
   "totalBytes": 437491,
   "parts": [
@@ -57,19 +57,23 @@
     },
     {
       "order": 7,
-      "path": "modules/dom/007-dom-events.js",
+      "path": "../dom/app-bundle/007-dom-events.js",
       "category": "dom-events",
       "bytes": 61,
       "summary": "const $ = (sel, root=document) => root.querySelector(sel);",
-      "bucket": "dom"
+      "bucket": "dom",
+      "sourceDomain": "dom",
+      "sourceRoot": "src/dom/app-bundle"
     },
     {
       "order": 8,
-      "path": "modules/dom/008-dom-events.js",
+      "path": "../dom/app-bundle/008-dom-events.js",
       "category": "dom-events",
       "bytes": 77,
       "summary": "const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));",
-      "bucket": "dom"
+      "bucket": "dom",
+      "sourceDomain": "dom",
+      "sourceRoot": "src/dom/app-bundle"
     },
     {
       "order": 9,
@@ -474,5 +478,8 @@
   "i18nSourceRoot": "src/i18n/app-bundle",
   "i18nPartCount": 32,
   "contentNormalizationReclassifiedWith": "scripts/reclassify-content-normalization-source.js",
-  "contentNormalizationSource": "src/app-bundle/modules/app/047-content-normalization.js"
+  "contentNormalizationSource": "src/app-bundle/modules/app/047-content-normalization.js",
+  "domExtractedWith": "scripts/extract-app-bundle-dom.js",
+  "domSourceRoot": "src/dom/app-bundle",
+  "domPartCount": 2
 }
