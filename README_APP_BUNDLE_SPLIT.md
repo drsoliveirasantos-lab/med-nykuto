@@ -10,15 +10,19 @@ The runtime file remains:
 app.bundle.js
 ```
 
-The editable source fragments are generated in:
+The editable source fragments are organized in:
 
 ```txt
 src/app-bundle/
   manifest.json
-  parts/
-    001-bundle-wrapper.js
-    002-app-bootstrap-state.js
-    ...
+  modules/
+    runtime/
+    app/
+    dom/
+    i18n/
+    pages/
+    practice/
+    misc/
 ```
 
 At this stage, the split is intentionally conservative: the fragments rebuild `app.bundle.js` byte-for-byte. This means the site behavior should not change.
@@ -29,6 +33,12 @@ Split the current bundle into ordered fragments:
 
 ```bash
 node scripts/split-app-bundle.js
+```
+
+Organize existing fragments by domain:
+
+```bash
+node scripts/organize-app-bundle-sources.js
 ```
 
 Rebuild the runtime file from fragments:
@@ -45,7 +55,7 @@ node scripts/validate-app-bundle-split.js
 
 ## Editing rule
 
-Do not edit `app.bundle.js` directly when changing application logic. Edit the appropriate fragment under `src/app-bundle/parts/`, rebuild, then run validation and browser tests.
+Do not edit `app.bundle.js` directly when changing application logic. Edit the appropriate fragment under `src/app-bundle/modules/`, rebuild, then run validation and browser tests.
 
 ## Validation contract
 
