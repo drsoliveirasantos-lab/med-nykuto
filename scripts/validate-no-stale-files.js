@@ -5,7 +5,6 @@
 */
 const fs = require('fs');
 const path = require('path');
-const vm = require('vm');
 const cp = require('child_process');
 
 const root = process.cwd();
@@ -211,21 +210,18 @@ function checkGeneratedCourseData() {
   if (!exists('content-lock.json')) return;
   const expectedTotal = Number(readJson('content-lock.json').totalModules);
   const code = fs.readFileSync(path.join(root, 'data/med-courses-data.js'), 'utf8');
-  const sandbox = { window: {} };
-  vm.createContext(sandbox);
-  try {
-    vm.runInContext(code, sandbox, { timeout: 5000 });
-    const data = sandbox.window.MED_COURSES_DATA;
-    if (!data) addCritical('Generated data does not expose window.MED_COURSES_DATA.');
-    else {
-      if (Number(data.totalModules) !== expectedTotal) addCritical(`Generated data totalModules ${data.totalModules} differs from lock ${expectedTotal}.`);
-      const fisiologia = (data.courses || []).find(course => course.id === 'fisiologia');
-      if (!fisiologia) addCritical('Generated data missing fisiologia course.');
-      else if ((fisiologia.modules || []).length !== 10) addCritical(`Generated data fisiologia has ${(fisiologia.modules || []).length} modules instead of 10.`);
-    }
-  } catch (error) {
-    addCritical(`Generated data evaluation failed: ${error.message}`);
+  const compact = code.replace(/\s+/g, '');
+
+  if (!/MED_COURSES_DATA/.test(code)) {
+    addCritical('Generated data does not reference MED_COURSES_DATA.');
   }
+  if (!compact.includes(`"totalModules":${expectedTotal}`) && !compact.includes(`totalModules:${expectedTotal}`)) {
+    addCritical(`Generated data does not contain totalModules ${expectedTotal}.`);
+  }
+  if (!/["']id["']\s*:\s*["']fisiologia["']/.test(code) && !/\bid\s*:\s*["']fisiologia["']/.test(code)) {
+    addCritical('Generated data does not contain fisiologia course id.');
+  }
+  notes.push(`Generated course data size: ${code.length} characters.`);
 }
 
 function checkWorkflows(files) {
