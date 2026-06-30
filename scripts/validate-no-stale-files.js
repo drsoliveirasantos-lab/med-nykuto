@@ -162,22 +162,25 @@ function checkCourseSources() {
       addCritical(`Missing course.json for locked course ${courseId}.`);
       continue;
     }
+
     const course = readJson(courseJsonPath);
     const modulesDir = `content/courses/${courseId}/modules`;
     const moduleDirs = listDirs(modulesDir);
     const declared = Number(course.moduleCount);
     const locked = Number(expectedCourses[courseId]);
     computedTotal += moduleDirs.length;
+
     if (declared !== locked) addCritical(`${courseId}: course.json moduleCount ${declared} differs from content-lock ${locked}.`);
     if (moduleDirs.length !== locked) addCritical(`${courseId}: module folder count ${moduleDirs.length} differs from content-lock ${locked}.`);
-    if (Array.isArray(course.moduleOrder)) {
-      if (course.moduleOrder.length !== moduleDirs.length) addCritical(`${courseId}: moduleOrder length ${course.moduleOrder.length} differs from module folders ${moduleDirs.length}.`);
-      for (const moduleId of course.moduleOrder) {
-        if (!moduleDirs.includes(moduleId)) addCritical(`${courseId}: moduleOrder references missing folder ${moduleId}.`);
-      }
-    } else {
+
+    if (!Array.isArray(course.moduleOrder)) {
       addCritical(`${courseId}: course.json must define moduleOrder array.`);
+      continue;
     }
+
+    if (course.moduleOrder.length !== declared) addCritical(`${courseId}: moduleOrder length ${course.moduleOrder.length} differs from course.json moduleCount ${declared}.`);
+    const uniqueModuleIds = new Set(course.moduleOrder);
+    if (uniqueModuleIds.size !== course.moduleOrder.length) addCritical(`${courseId}: moduleOrder contains duplicate module ids.`);
   }
 
   for (const courseId of courseDirs) {
@@ -186,6 +189,7 @@ function checkCourseSources() {
 
   if (computedTotal !== expectedTotal) addCritical(`Computed total modules ${computedTotal} differs from content-lock total ${expectedTotal}.`);
   notes.push(`Course audit total modules: ${computedTotal}; locked total: ${expectedTotal}.`);
+  notes.push('moduleOrder entries are treated as canonical module ids; this audit checks their count and uniqueness, not physical directory names.');
 }
 
 function checkHomepageCounters() {
