@@ -67,6 +67,8 @@ jobs:
             reports/content-sanitization-report.txt
             reports/branding-regression-report.json
             reports/branding-regression-report.txt
+            reports/preview-hygiene-audit.json
+            reports/preview-hygiene-audit.txt
 
   browser-desktop-core:
     name: Browser desktop core regression tests
