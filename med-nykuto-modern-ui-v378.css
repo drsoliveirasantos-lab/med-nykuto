@@ -1,0 +1,180 @@
+/* v378 — Modern high-tech UI layer for Med Nykuto.
+   Visual-only polish: animated medical grid, premium hover states, answer feedback, and reduced-motion safety. */
+:root{
+  --tech-glow-blue:rgba(103,212,255,.38);
+  --tech-glow-gold:rgba(255,226,154,.34);
+  --tech-glow-green:rgba(114,227,160,.32);
+  --tech-glass:rgba(255,255,255,.055);
+  --tech-glass-strong:rgba(255,255,255,.085);
+}
+html{background:#070a10;}
+body{
+  position:relative;
+  overflow-x:hidden;
+  background:
+    radial-gradient(circle at 12% 4%,rgba(216,180,91,.18),transparent 28rem),
+    radial-gradient(circle at 88% 8%,rgba(103,212,255,.16),transparent 24rem),
+    radial-gradient(circle at 50% 110%,rgba(114,227,160,.08),transparent 30rem),
+    var(--bg)!important;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.38;
+  background-image:
+    linear-gradient(rgba(103,212,255,.10) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(103,212,255,.08) 1px,transparent 1px),
+    radial-gradient(circle at 20% 15%,rgba(255,226,154,.13),transparent 23rem),
+    radial-gradient(circle at 82% 32%,rgba(103,212,255,.12),transparent 25rem);
+  background-size:64px 64px,64px 64px,100% 100%,100% 100%;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.92),rgba(0,0,0,.38) 52%,transparent 100%);
+  animation:medTechGridDrift 24s linear infinite;
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.18;
+  background:linear-gradient(115deg,transparent 0%,rgba(103,212,255,.22) 46%,rgba(255,226,154,.16) 50%,transparent 56%);
+  transform:translateX(-120%);
+  animation:medScannerSweep 9s ease-in-out infinite;
+}
+.site-header,.footer,main,.page-hero,.hero,.section,.reader-shell{position:relative;z-index:1;}
+.site-header{
+  box-shadow:0 14px 38px rgba(0,0,0,.24),0 1px 0 rgba(255,255,255,.06) inset;
+}
+.brand-logo,.brand-logo-official{
+  box-shadow:0 0 24px rgba(216,180,91,.22),0 0 42px rgba(103,212,255,.10)!important;
+  transition:transform .22s ease,box-shadow .22s ease,filter .22s ease;
+}
+.brand:hover .brand-logo,.brand-official:hover .brand-logo-official{
+  transform:translateY(-1px) scale(1.025);
+  filter:saturate(1.08);
+  box-shadow:0 0 30px rgba(255,226,154,.34),0 0 52px rgba(103,212,255,.18)!important;
+}
+.nav-links a,.mode-tab,.chip,.practice-compact-pill{
+  position:relative;
+  overflow:hidden;
+  transition:transform .2s ease,border-color .2s ease,background .2s ease,color .2s ease,box-shadow .2s ease!important;
+}
+.nav-links a:hover,.mode-tab:hover,.chip:hover,.practice-compact-pill:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 26px rgba(0,0,0,.20),0 0 0 1px rgba(103,212,255,.10) inset;
+}
+.btn{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  box-shadow:0 10px 26px rgba(0,0,0,.16);
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease,filter .2s ease!important;
+}
+.btn::after{
+  content:"";
+  position:absolute;
+  inset:-40% auto -40% -60%;
+  width:54%;
+  transform:skewX(-22deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);
+  opacity:0;
+  z-index:-1;
+  transition:opacity .2s ease,left .62s ease;
+}
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 36px rgba(0,0,0,.25),0 0 24px rgba(103,212,255,.12);
+}
+.btn:hover::after{left:118%;opacity:.72;}
+.btn.primary:hover{box-shadow:0 16px 38px rgba(0,0,0,.28),0 0 32px rgba(255,226,154,.30);}
+.home-quick-actions,.home-v41-hero-card,.home-v41-donate-card,.home-v41-steps article,.home-v41-study-map,.learning-slot-v41,.home-v41-bottom,
+.course-card,.module-card,.practice-card,.reader-card,.toc-panel,.stat-card,.home-action-card,.subject-progress-card,.session-dashboard,.single-question-card,.checkpoint-card{
+  backdrop-filter:blur(18px) saturate(1.06);
+  transition:transform .24s ease,border-color .24s ease,box-shadow .24s ease,background .24s ease,filter .24s ease;
+}
+.home-action-card,.course-card,.module-card,.practice-card,.home-v41-steps article,.subject-progress-card,.stat-card{
+  isolation:isolate;
+}
+.home-action-card::after,.course-card::after,.module-card::after,.practice-card::after,.subject-progress-card::after,.stat-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,226,154,.16),transparent 34%,rgba(103,212,255,.12));
+  opacity:0;
+  transition:opacity .24s ease;
+}
+.home-action-card:hover,.course-card:hover,.module-card:hover,.practice-card:hover,.home-v41-steps article:hover,.subject-progress-card:hover,.stat-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(103,212,255,.34)!important;
+  box-shadow:0 24px 62px rgba(0,0,0,.34),0 0 0 1px rgba(255,226,154,.10) inset,0 0 32px rgba(103,212,255,.12)!important;
+}
+.home-action-card:hover::after,.course-card:hover::after,.module-card:hover::after,.practice-card:hover::after,.subject-progress-card:hover::after,.stat-card:hover::after{opacity:1;}
+.home-action-icon,.home-action-code,.badge,.level-base,.level-moyen,.level-examen{
+  box-shadow:0 0 18px rgba(255,226,154,.10);
+}
+.eyebrow,.practice-quick-kicker{
+  text-shadow:0 0 18px rgba(255,226,154,.22);
+}
+.hero h1,.page-hero h1,.home-v41-copy h1,.home-quick-actions h1{
+  text-shadow:0 14px 40px rgba(0,0,0,.34),0 0 28px rgba(103,212,255,.08);
+}
+.progress-track i{
+  position:relative;
+  overflow:hidden;
+  background-size:180% 100%!important;
+  animation:medProgressGlow 2.8s ease-in-out infinite;
+}
+.progress-track i::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);
+  transform:translateX(-100%);
+  animation:medProgressSweep 2.4s ease-in-out infinite;
+}
+.option{
+  position:relative;
+  overflow:hidden;
+}
+.option:hover{
+  box-shadow:0 14px 32px rgba(0,0,0,.25),0 0 22px rgba(103,212,255,.10)!important;
+}
+.option.correct{
+  animation:medCorrectPulse .42s ease-out;
+  box-shadow:0 16px 38px rgba(34,197,94,.16),0 0 0 1px rgba(114,227,160,.20) inset!important;
+}
+.option.wrong{
+  animation:medWrongShake .36s ease-out;
+  box-shadow:0 16px 38px rgba(248,113,113,.13),0 0 0 1px rgba(255,123,123,.18) inset!important;
+}
+.answer-panel,.coach-banner,.notice{
+  animation:medSoftReveal .28s ease-out both;
+}
+main > section,.page-hero,.hero,.reader-shell{
+  animation:medPageReveal .46s ease-out both;
+}
+main > section:nth-of-type(2){animation-delay:.05s;}
+main > section:nth-of-type(3){animation-delay:.10s;}
+main > section:nth-of-type(4){animation-delay:.15s;}
+@keyframes medTechGridDrift{from{background-position:0 0,0 0,0 0,0 0}to{background-position:128px 96px,96px 128px,0 0,0 0}}
+@keyframes medScannerSweep{0%,62%{transform:translateX(-125%);opacity:0}72%{opacity:.16}100%{transform:translateX(125%);opacity:0}}
+@keyframes medPageReveal{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes medSoftReveal{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes medProgressGlow{0%,100%{filter:saturate(1)}50%{filter:saturate(1.35) brightness(1.05)}}
+@keyframes medProgressSweep{0%{transform:translateX(-110%)}55%,100%{transform:translateX(110%)}}
+@keyframes medCorrectPulse{0%{transform:scale(.992)}55%{transform:scale(1.012)}100%{transform:scale(1)}}
+@keyframes medWrongShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}55%{transform:translateX(3px)}75%{transform:translateX(-1px)}}
+@media(max-width:760px){
+  body::before{opacity:.24;background-size:56px 56px,56px 56px,100% 100%,100% 100%;}
+  body::after{display:none;}
+  .home-action-card:hover,.course-card:hover,.module-card:hover,.practice-card:hover,.subject-progress-card:hover,.stat-card:hover{transform:translateY(-2px);}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important;}
+  body::after{display:none!important;}
+}
