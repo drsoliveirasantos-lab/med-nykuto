@@ -1,5 +1,5 @@
-/* v378 — Modern high-tech UI layer for Med Nykuto.
-   Visual-only polish: animated medical grid, premium hover states, answer feedback, and reduced-motion safety. */
+/* v379 — Modern high-tech UI layer for Med Nykuto.
+   Visual-only polish: animated medical grid, premium hover states, answer feedback, and mobile-density fixes. */
 :root{
   --tech-glow-blue:rgba(103,212,255,.38);
   --tech-glow-gold:rgba(255,226,154,.34);
@@ -91,7 +91,8 @@ body::after{
 .btn:hover::after{left:118%;opacity:.72;}
 .btn.primary:hover{box-shadow:0 16px 38px rgba(0,0,0,.28),0 0 32px rgba(255,226,154,.30);}
 .home-quick-actions,.home-v41-hero-card,.home-v41-donate-card,.home-v41-steps article,.home-v41-study-map,.learning-slot-v41,.home-v41-bottom,
-.course-card,.module-card,.practice-card,.reader-card,.toc-panel,.stat-card,.home-action-card,.subject-progress-card,.session-dashboard,.single-question-card,.checkpoint-card{
+.course-card,.module-card,.practice-card,.reader-card,.toc-panel,.stat-card,.home-action-card,.subject-progress-card,.session-dashboard,.single-question-card,.checkpoint-card,
+.contact-card,.exam-setup,.mistakes-list > *{
   backdrop-filter:blur(18px) saturate(1.06);
   transition:transform .24s ease,border-color .24s ease,box-shadow .24s ease,background .24s ease,filter .24s ease;
 }
@@ -170,9 +171,37 @@ main > section:nth-of-type(4){animation-delay:.15s;}
 @keyframes medCorrectPulse{0%{transform:scale(.992)}55%{transform:scale(1.012)}100%{transform:scale(1)}}
 @keyframes medWrongShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}55%{transform:translateX(3px)}75%{transform:translateX(-1px)}}
 @media(max-width:760px){
-  body::before{opacity:.24;background-size:56px 56px,56px 56px,100% 100%,100% 100%;}
+  body::before{opacity:.18;background-size:56px 56px,56px 56px,100% 100%,100% 100%;}
   body::after{display:none;}
-  .home-action-card:hover,.course-card:hover,.module-card:hover,.practice-card:hover,.subject-progress-card:hover,.stat-card:hover{transform:translateY(-2px);}
+  .site-header{background:rgba(7,10,16,.92)!important;}
+  .nav-shell{padding:10px 16px!important;gap:8px!important;align-items:center!important;min-height:86px!important;}
+  .brand,.brand-official{max-width:86px!important;overflow:hidden!important;}
+  .brand-context{display:none!important;}
+  .brand-logo,.brand-logo-official{width:74px!important;height:74px!important;border-radius:18px!important;object-fit:contain!important;box-shadow:0 0 18px rgba(216,180,91,.18)!important;}
+  .menu-toggle{width:56px!important;height:56px!important;border-radius:22px!important;font-size:26px!important;padding:0!important;display:inline-grid!important;place-items:center!important;}
+  .lang-switch,.language-switcher,[class*="lang-switch"],[class*="language-switch"]{transform:scale(.88)!important;transform-origin:center!important;}
+  .home-only-main{padding-top:16px!important;}
+  .home-quick-actions{width:calc(100% - 36px)!important;margin:18px auto 22px!important;padding:22px 18px 20px!important;border-radius:30px!important;box-shadow:0 18px 46px rgba(0,0,0,.28),0 0 0 1px rgba(255,226,154,.10) inset!important;}
+  .home-quick-eyebrow{font-size:11px!important;letter-spacing:4px!important;margin-bottom:14px!important;}
+  .home-quick-actions h1,#quick-actions-title{font-size:clamp(2.25rem,10vw,2.9rem)!important;line-height:1.04!important;letter-spacing:-1.8px!important;margin-bottom:18px!important;}
+  .home-quick-subtitle{font-size:1.08rem!important;line-height:1.48!important;margin-bottom:22px!important;color:#d5deea!important;}
+  .home-action-grid{gap:12px!important;}
+  .home-action-card{min-height:88px!important;padding:14px 16px!important;border-radius:26px!important;gap:16px!important;}
+  .home-action-card:hover{transform:translateY(-2px);}
+  .home-action-icon,.home-action-code{width:58px!important;height:58px!important;min-width:58px!important;border-radius:22px!important;font-size:14px!important;letter-spacing:3px!important;}
+  .home-action-card strong{font-size:1.18rem!important;line-height:1.16!important;}
+  .home-action-card small{font-size:.95rem!important;line-height:1.25!important;margin-top:3px!important;}
+  .home-v41-hero,.home-v41-dashboard,.home-v41-bottom{width:calc(100% - 28px)!important;margin-left:auto!important;margin-right:auto!important;}
+  .home-v41-hero-card,.home-v41-donate-card,.home-v41-study-map,.learning-slot-v41,.home-v41-bottom{border-radius:26px!important;}
+  .course-card,.module-card,.practice-card,.subject-progress-card,.stat-card{transform:none!important;}
+  .course-card:hover,.module-card:hover,.practice-card:hover,.subject-progress-card:hover,.stat-card:hover{transform:translateY(-2px)!important;}
+  [class*="donate"][class*="banner"],[class*="support"][class*="banner"],[class*="donation"][class*="bar"]{margin:10px 16px!important;border-radius:18px!important;}
+}
+@media(max-width:390px){
+  .home-quick-actions h1,#quick-actions-title{font-size:2.15rem!important;}
+  .home-quick-subtitle{font-size:1rem!important;}
+  .home-action-card{min-height:82px!important;padding:13px 14px!important;}
+  .home-action-icon,.home-action-code{width:52px!important;height:52px!important;min-width:52px!important;font-size:13px!important;}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important;}
