@@ -29,7 +29,9 @@ test.describe('Cache and version integrity', () => {
   test('Verdadero/Falso keeps explicit correction scripts visible to the test suite', async ({ page }) => {
     await page.goto('/vrai-faux.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
     const sources = await scriptSources(page);
-    expect(hasSource(sources, /premium-correction-v313\.js\?v=314/)).toBeTruthy();
+    expect(hasSource(sources, /premium-correction-v313\.js\?v=315/)).toBeTruthy();
     expect(hasSource(sources, /practice-tap-guard-v313\.js\?v=316/)).toBeTruthy();
+    await page.waitForFunction(() => window.__MED_NYKUTO_PREMIUM_PRACTICE_CORRECTION__, null, { timeout: 20000 });
+    await expect.poll(() => page.evaluate(() => window.__MED_NYKUTO_PREMIUM_PRACTICE_CORRECTION__)).toMatch(/^v315-/);
   });
 });

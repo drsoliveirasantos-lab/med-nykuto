@@ -6263,7 +6263,8 @@ function topicForQuestion(item){
     return /qcm|cas-cliniques|vrai-faux|erreurs|examen/.test(location.pathname || "");
   }
   function lang(){
-    const raw = ((document.querySelector(".lang-btn.active, [data-lang].active, .compact-lang .active") || {}).textContent || document.documentElement.lang || localStorage.getItem("medCursosLang") || "es").toLowerCase();
+    const active = document.querySelector(".brand-lang button.active, .lang-switch button.active, .lang-btn.active, button[data-lang].active");
+    const raw = ((active && (active.getAttribute("data-lang") || active.textContent)) || document.documentElement.lang || localStorage.getItem("medCursosLang") || "es").toLowerCase();
     if(raw.includes("fr")) return "fr";
     if(raw.includes("br") || raw.includes("pt")) return "br";
     return "es";
@@ -6403,7 +6404,7 @@ function setupCourseFigureLightbox(){
   if(document.querySelector('.figure-lightbox')) return;
   const overlay = document.createElement('div');
   overlay.className = 'figure-lightbox';
-  overlay.innerHTML = '<button class="figure-lightbox-close" type="button" aria-label="Fermer">×</button><img alt="">';
+  overlay.innerHTML = '<button class="figure-lightbox-close" type="button" aria-label="' + escapeHtml(t('closeFigure')) + '">×</button><img alt="">';
   document.body.appendChild(overlay);
   const img = overlay.querySelector('img');
   const close = () => {
@@ -6467,11 +6468,11 @@ function setupReaderModuleSwitcherV228_DISABLED(){
 
     const card = document.createElement('section');
     card.className = 'v228-module-switcher';
-    card.setAttribute('aria-label','Changer de module');
+    card.setAttribute('aria-label', t('changeModule'));
     card.innerHTML = `
       <div class="v228-switcher-head">
-        <span class="v228-switcher-kicker">Navigation du cours</span>
-        <strong>Changer de module</strong>
+        <span class="v228-switcher-kicker">${escapeHtml(t('courseNavigation'))}</span>
+        <strong>${escapeHtml(t('changeModule'))}</strong>
       </div>
       <div class="v228-switcher-row">
         ${prev ? `<a class="v228-switcher-btn" href="module.html?id=${encodeURIComponent(prev.id)}${viewParam}">← Mód. ${prev.number}</a>` : `<span class="v228-switcher-btn disabled">← Mód.</span>`}
@@ -6548,18 +6549,18 @@ function setupReaderModuleSwitcherV237(){
 
     const card = document.createElement('section');
     card.className = 'v237-module-switcher';
-    card.setAttribute('aria-label','Changer de module');
+    card.setAttribute('aria-label', t('changeModule'));
     card.innerHTML = `
       <div class="v237-switcher-main">
         <div class="v237-switcher-copy">
-          <span class="v237-switcher-kicker">Navigation du cours</span>
+          <span class="v237-switcher-kicker">${safe(t('courseNavigation'))}</span>
           <strong>Mód. ${safe(current.number)} — ${safe(current.title || current.name || 'Module')}</strong>
         </div>
         <div class="v237-switcher-actions">
           ${prev ? `<a class="v237-nav-mini" href="module.html?id=${encodeURIComponent(prev.id)}${viewParam}">← Mód. ${safe(prev.number)}</a>` : `<span class="v237-nav-mini disabled">←</span>`}
           <div class="v237-dropdown">
             <button class="v237-dropdown-btn" type="button" aria-expanded="false">
-              Changer de module
+              ${safe(t('changeModule'))}
               <span>▾</span>
             </button>
             <div class="v237-dropdown-menu" role="menu">

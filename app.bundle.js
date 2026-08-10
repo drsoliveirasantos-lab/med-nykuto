@@ -317,9 +317,9 @@
   function lang(){ return safeGetItem('medLang') || 'es'; }
   function t(key){ const l = lang(); return (UI[l] && UI[l][key]) || UI.es[key] || key; }
 
-  Object.assign(UI.es, {mistakes:'Mis errores', reviewToday:'Repasar hoy', examMode:'Examen blanco', dashboard:'Panel de estudio', continueLearning:'Continuar', weakPoints:'Puntos débiles', noMistakes:'No hay errores guardados todavía.', mistakesText:'Aquí aparecen las preguntas falladas o marcadas como “No sé”, con revisión espaciada.', dueToday:'Para hoy', laterReview:'Más tarde', mastered:'Dominado', markMastered:'Marcar dominado', retryQuestion:'Rehacer pregunta', openCourseSection:'Abrir curso', detailedCorrection:'Corrección detallada', whyCorrect:'Por qué es correcta', whyWrong:'Por qué las otras son falsas', keyTakeaway:'Punto clave', ultraSheet:'Ficha ultra-rápida', startExam:'Iniciar examen blanco', examIntro:'Simulación con preguntas tipo examen, corrección al final y detección de puntos débiles.', examCorrectionHidden:'Modo examen: la corrección aparecerá al final.', reviewMistakes:'Revisar mis errores', todayPlan:'Plan de hoy', quickActions:'Acciones rápidas', questionsToReview:'preguntas para revisar', recentErrors:'errores recientes', startRevision:'Iniciar revisión', allClear:'Todo limpio por ahora', examResult:'Resultado del examen', examReview:'Corrección del examen', enlargeFigure:'Ampliar figura', languageSwitcher:'Cambiar idioma'});
-  Object.assign(UI.fr, {mistakes:'Mes erreurs', reviewToday:'À réviser aujourd’hui', examMode:'Examen blanc', dashboard:'Tableau de bord', continueLearning:'Continuer', weakPoints:'Points faibles', noMistakes:'Aucune erreur enregistrée pour l’instant.', mistakesText:'Ici apparaissent les questions ratées ou marquées “Je ne sais pas”, avec révision espacée.', dueToday:'Pour aujourd’hui', laterReview:'Plus tard', mastered:'Maîtrisé', markMastered:'Marquer maîtrisé', retryQuestion:'Refaire la question', openCourseSection:'Ouvrir le cours', detailedCorrection:'Correction détaillée', whyCorrect:'Pourquoi c’est correct', whyWrong:'Pourquoi les autres sont fausses', keyTakeaway:'Point clé', ultraSheet:'Fiche ultra-rapide', startExam:'Lancer un examen blanc', examIntro:'Simulation avec questions type examen, correction à la fin et détection des points faibles.', examCorrectionHidden:'Mode examen : la correction apparaîtra à la fin.', reviewMistakes:'Revoir mes erreurs', todayPlan:'Plan du jour', quickActions:'Actions rapides', questionsToReview:'questions à revoir', recentErrors:'erreurs récentes', startRevision:'Lancer la révision', allClear:'Rien à revoir pour l’instant', examResult:'Résultat de l’examen', examReview:'Correction de l’examen', enlargeFigure:'Agrandir la figure', languageSwitcher:'Changer la langue'});
-  Object.assign(UI.br, {mistakes:'Meus erros', reviewToday:'Revisar hoje', examMode:'Simulado', dashboard:'Painel de estudo', continueLearning:'Continuar', weakPoints:'Pontos fracos', noMistakes:'Nenhum erro salvo por enquanto.', mistakesText:'Aqui aparecem perguntas erradas ou marcadas como “Não sei”, com revisão espaçada.', dueToday:'Para hoje', laterReview:'Mais tarde', mastered:'Dominado', markMastered:'Marcar dominado', retryQuestion:'Refazer pergunta', openCourseSection:'Abrir curso', detailedCorrection:'Correção detalhada', whyCorrect:'Por que está correta', whyWrong:'Por que as outras estão erradas', keyTakeaway:'Ponto-chave', ultraSheet:'Ficha ultrarrápida', startExam:'Iniciar simulado', examIntro:'Simulação com perguntas tipo prova, correção no final e detecção dos pontos fracos.', examCorrectionHidden:'Modo simulado: a correção aparecerá no final.', reviewMistakes:'Revisar meus erros', todayPlan:'Plano de hoje', quickActions:'Ações rápidas', questionsToReview:'perguntas para revisar', recentErrors:'erros recentes', startRevision:'Iniciar revisão', allClear:'Nada para revisar por enquanto', examResult:'Resultado do simulado', examReview:'Correção do simulado', enlargeFigure:'Ampliar figura', languageSwitcher:'Mudar idioma'});
+  Object.assign(UI.es, {mistakes:'Mis errores', reviewToday:'Repasar hoy', examMode:'Examen blanco', dashboard:'Panel de estudio', continueLearning:'Continuar', weakPoints:'Puntos débiles', noMistakes:'No hay errores guardados todavía.', mistakesText:'Aquí aparecen las preguntas falladas o marcadas como “No sé”, con revisión espaciada.', dueToday:'Para hoy', laterReview:'Más tarde', mastered:'Dominado', markMastered:'Marcar dominado', retryQuestion:'Rehacer pregunta', openCourseSection:'Abrir curso', detailedCorrection:'Corrección detallada', whyCorrect:'Por qué es correcta', whyWrong:'Por qué las otras son falsas', keyTakeaway:'Punto clave', ultraSheet:'Ficha ultra-rápida', startExam:'Iniciar examen blanco', examIntro:'Simulación con preguntas tipo examen, corrección al final y detección de puntos débiles.', examCorrectionHidden:'Modo examen: la corrección aparecerá al final.', reviewMistakes:'Revisar mis errores', todayPlan:'Plan de hoy', quickActions:'Acciones rápidas', questionsToReview:'preguntas para revisar', recentErrors:'errores recientes', startRevision:'Iniciar revisión', allClear:'Todo limpio por ahora', examResult:'Resultado del examen', examReview:'Corrección del examen', enlargeFigure:'Ampliar figura', closeFigure:'Cerrar figura', languageSwitcher:'Cambiar idioma', changeModule:'Cambiar de módulo', courseNavigation:'Navegación del curso'});
+  Object.assign(UI.fr, {mistakes:'Mes erreurs', reviewToday:'À réviser aujourd’hui', examMode:'Examen blanc', dashboard:'Tableau de bord', continueLearning:'Continuer', weakPoints:'Points faibles', noMistakes:'Aucune erreur enregistrée pour l’instant.', mistakesText:'Ici apparaissent les questions ratées ou marquées “Je ne sais pas”, avec révision espacée.', dueToday:'Pour aujourd’hui', laterReview:'Plus tard', mastered:'Maîtrisé', markMastered:'Marquer maîtrisé', retryQuestion:'Refaire la question', openCourseSection:'Ouvrir le cours', detailedCorrection:'Correction détaillée', whyCorrect:'Pourquoi c’est correct', whyWrong:'Pourquoi les autres sont fausses', keyTakeaway:'Point clé', ultraSheet:'Fiche ultra-rapide', startExam:'Lancer un examen blanc', examIntro:'Simulation avec questions type examen, correction à la fin et détection des points faibles.', examCorrectionHidden:'Mode examen : la correction apparaîtra à la fin.', reviewMistakes:'Revoir mes erreurs', todayPlan:'Plan du jour', quickActions:'Actions rapides', questionsToReview:'questions à revoir', recentErrors:'erreurs récentes', startRevision:'Lancer la révision', allClear:'Rien à revoir pour l’instant', examResult:'Résultat de l’examen', examReview:'Correction de l’examen', enlargeFigure:'Agrandir la figure', closeFigure:'Fermer la figure', languageSwitcher:'Changer la langue', changeModule:'Changer de module', courseNavigation:'Navigation du cours'});
+  Object.assign(UI.br, {mistakes:'Meus erros', reviewToday:'Revisar hoje', examMode:'Simulado', dashboard:'Painel de estudo', continueLearning:'Continuar', weakPoints:'Pontos fracos', noMistakes:'Nenhum erro salvo por enquanto.', mistakesText:'Aqui aparecem perguntas erradas ou marcadas como “Não sei”, com revisão espaçada.', dueToday:'Para hoje', laterReview:'Mais tarde', mastered:'Dominado', markMastered:'Marcar dominado', retryQuestion:'Refazer pergunta', openCourseSection:'Abrir curso', detailedCorrection:'Correção detalhada', whyCorrect:'Por que está correta', whyWrong:'Por que as outras estão erradas', keyTakeaway:'Ponto-chave', ultraSheet:'Ficha ultrarrápida', startExam:'Iniciar simulado', examIntro:'Simulação com perguntas tipo prova, correção no final e detecção dos pontos fracos.', examCorrectionHidden:'Modo simulado: a correção aparecerá no final.', reviewMistakes:'Revisar meus erros', todayPlan:'Plano de hoje', quickActions:'Ações rápidas', questionsToReview:'perguntas para revisar', recentErrors:'erros recentes', startRevision:'Iniciar revisão', allClear:'Nada para revisar por enquanto', examResult:'Resultado do simulado', examReview:'Correção do simulado', enlargeFigure:'Ampliar figura', closeFigure:'Fechar figura', languageSwitcher:'Mudar idioma', changeModule:'Mudar de módulo', courseNavigation:'Navegação do curso'});
 
   // v33 — audit linguistique global : toutes les chaînes générées par les pages d'étude passent par cette couche.
   Object.assign(UI.es, {
@@ -6681,7 +6681,8 @@ function topicForQuestion(item){
     return /qcm|cas-cliniques|vrai-faux|erreurs|examen/.test(location.pathname || "");
   }
   function lang(){
-    const raw = ((document.querySelector(".lang-btn.active, [data-lang].active, .compact-lang .active") || {}).textContent || document.documentElement.lang || localStorage.getItem("medCursosLang") || "es").toLowerCase();
+    const active = document.querySelector(".brand-lang button.active, .lang-switch button.active, .lang-btn.active, button[data-lang].active");
+    const raw = ((active && (active.getAttribute("data-lang") || active.textContent)) || document.documentElement.lang || localStorage.getItem("medCursosLang") || "es").toLowerCase();
     if(raw.includes("fr")) return "fr";
     if(raw.includes("br") || raw.includes("pt")) return "br";
     return "es";
@@ -6821,7 +6822,7 @@ function setupCourseFigureLightbox(){
   if(document.querySelector('.figure-lightbox')) return;
   const overlay = document.createElement('div');
   overlay.className = 'figure-lightbox';
-  overlay.innerHTML = '<button class="figure-lightbox-close" type="button" aria-label="Fermer">×</button><img alt="">';
+  overlay.innerHTML = '<button class="figure-lightbox-close" type="button" aria-label="' + escapeHtml(t('closeFigure')) + '">×</button><img alt="">';
   document.body.appendChild(overlay);
   const img = overlay.querySelector('img');
   const close = () => {
@@ -6885,11 +6886,11 @@ function setupReaderModuleSwitcherV228_DISABLED(){
 
     const card = document.createElement('section');
     card.className = 'v228-module-switcher';
-    card.setAttribute('aria-label','Changer de module');
+    card.setAttribute('aria-label', t('changeModule'));
     card.innerHTML = `
       <div class="v228-switcher-head">
-        <span class="v228-switcher-kicker">Navigation du cours</span>
-        <strong>Changer de module</strong>
+        <span class="v228-switcher-kicker">${escapeHtml(t('courseNavigation'))}</span>
+        <strong>${escapeHtml(t('changeModule'))}</strong>
       </div>
       <div class="v228-switcher-row">
         ${prev ? `<a class="v228-switcher-btn" href="module.html?id=${encodeURIComponent(prev.id)}${viewParam}">← Mód. ${prev.number}</a>` : `<span class="v228-switcher-btn disabled">← Mód.</span>`}
@@ -6966,18 +6967,18 @@ function setupReaderModuleSwitcherV237(){
 
     const card = document.createElement('section');
     card.className = 'v237-module-switcher';
-    card.setAttribute('aria-label','Changer de module');
+    card.setAttribute('aria-label', t('changeModule'));
     card.innerHTML = `
       <div class="v237-switcher-main">
         <div class="v237-switcher-copy">
-          <span class="v237-switcher-kicker">Navigation du cours</span>
+          <span class="v237-switcher-kicker">${safe(t('courseNavigation'))}</span>
           <strong>Mód. ${safe(current.number)} — ${safe(current.title || current.name || 'Module')}</strong>
         </div>
         <div class="v237-switcher-actions">
           ${prev ? `<a class="v237-nav-mini" href="module.html?id=${encodeURIComponent(prev.id)}${viewParam}">← Mód. ${safe(prev.number)}</a>` : `<span class="v237-nav-mini disabled">←</span>`}
           <div class="v237-dropdown">
             <button class="v237-dropdown-btn" type="button" aria-expanded="false">
-              Changer de module
+              ${safe(t('changeModule'))}
               <span>▾</span>
             </button>
             <div class="v237-dropdown-menu" role="menu">
