@@ -111,7 +111,7 @@
     if(document.title) document.title = document.title.replace(/Med\s+Cursos/g, BRAND).replace(/Mensaje enviado/g, 'Mensaje preparado');
     all('meta[content]').forEach(function(meta){
       var content = meta.getAttribute('content') || '';
-      var next = content.replace(/Med\s+Cursos/g, BRAND).replace(/med-cursos\.netlify\.app/g, 'preview.med-nykuto-git.pages.dev').replace(/Mensaje enviado/g, 'Mensaje preparado');
+      var next = content.replace(/Med\s+Cursos/g, BRAND).replace(/med-cursos\.netlify\.app/g, 'med.nykuto.com').replace(/Mensaje enviado/g, 'Mensaje preparado');
       if(next !== content) meta.setAttribute('content', next);
     });
     all('a[href="mentions.html"]').forEach(function(link){ if(clean(link.textContent) === 'Mentions') link.textContent = 'Aviso legal'; });

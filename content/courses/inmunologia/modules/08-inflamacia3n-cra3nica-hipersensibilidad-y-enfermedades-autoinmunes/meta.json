@@ -1,0 +1,25 @@
+{
+  "id": "05-inmunologia-08-inflamacion-cronica-hipersensibilidad-y-enfermedades-autoinmunes",
+  "number": 8,
+  "title": "InflamaciÃ³n crÃ³nica, hipersensibilidad y enfermedades autoinmunes",
+  "file": "Modulo_08_inflamacion_cronica_hipersensibilidad_y_enfermedades_autoinmunes.md",
+  "summary": "- Diferenciar inflamaciÃ³n aguda de inflamaciÃ³n crÃ³nica por tiempo, intensidad y daÃ±o tisular. - Reconocer las causas principales: microorganismos persistentes, hipersensibilidad/autoinmunidad y tÃ³xicos. - Entender que la crÃ³nica puede tener episodios agudos, pero mantiene una basâ€¦",
+  "headings": [
+    "2. Causas principales",
+    "3. Aguda vs crÃ³nica",
+    "4. CÃ©lulas predominantes",
+    "5. Hipersensibilidad y autoinmunidad",
+    "6. Ejemplos clÃnicos orientadores",
+    "7. CÃ³mo reconocerla en la historia clÃnica"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

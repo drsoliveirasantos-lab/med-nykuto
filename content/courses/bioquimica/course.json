@@ -1,0 +1,21 @@
+{
+  "id": "bioquimica",
+  "folder": "04_Bioquimica",
+  "title": "BioquÃmica",
+  "description": "MÃ³dulos integrados para estudio.",
+  "moduleCount": 12,
+  "moduleOrder": [
+    "04-bioquimica-01-agua-ph-y-equilibrio-hidrico",
+    "04-bioquimica-02-soluciones-electrolitos-y-osmosis",
+    "04-bioquimica-03-proteinas-y-aminoacidos",
+    "04-bioquimica-04-clasificacion-de-proteinas-y-perfil-proteico",
+    "04-bioquimica-05-metabolismo-nitrogenado-y-perfil-renal",
+    "04-bioquimica-06-lipidos-colesterol-y-trigliceridos",
+    "04-bioquimica-07-lipidos-complejos-membranas-y-vitaminas-liposolubles",
+    "04-bioquimica-08-carbohidratos-clasificacion-y-digestion",
+    "04-bioquimica-09-metabolismo-de-carbohidratos-y-control-hormonal",
+    "04-bioquimica-10-vitaminas-hidrosolubles-y-liposolubles",
+    "04-bioquimica-11-examen-de-orina-e-interpretacion-bioquimica",
+    "04-bioquimica-12-protocolos-laboratoriales-integradores"
+  ]
+}

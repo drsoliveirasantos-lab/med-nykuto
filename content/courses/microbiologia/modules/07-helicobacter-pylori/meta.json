@@ -1,0 +1,47 @@
+{
+  "id": "02-microbiologia-07-helicobacter-pylori",
+  "number": 7,
+  "title": "Helicobacter pylori",
+  "file": "Modulo_07_helicobacter_pylori.md",
+  "summary": "Tema central: Helicobacter pylori como bacilo Gram negativo adaptado al ambiente gÃ¡strico, capaz de generar gastritis crÃ³nica, Ãºlcera pÃ©ptica y, con persistencia prolongada y factores del huÃ©sped, adenocarcinoma gÃ¡strico. - Reconocer las caracterÃsticas microbiolÃ³gicas principaleâ€¦",
+  "headings": [
+    "Palabras clave repetidas por el profesor",
+    "3. IntroducciÃ³n fisiolÃ³gica y microbiolÃ³gica",
+    "Bloque 1 - Concepto principal: Â¿quÃ© es Helicobacter pylori?",
+    "A. Concepto principal",
+    "B. DefiniciÃ³n",
+    "C. ExplicaciÃ³n del profesor reorganizada",
+    "D. ExplicaciÃ³n fisiolÃ³gica complementaria",
+    "E. Ejemplo clÃnico",
+    "F. Punto clave para examen",
+    "Bloque 2 - AdaptaciÃ³n al estÃ³mago: ureasa, amonÃaco y bicarbonato",
+    "Bloque 3 - VÃas de transmisiÃ³n y factores predisponentes",
+    "Bloque 4 - Mecanismo de lesiÃ³n de la mucosa gÃ¡strica",
+    "Bloque 5 - EvoluciÃ³n: gastritis, Ãºlcera pÃ©ptica y adenocarcinoma",
+    "E. Ejemplo del profesor",
+    "Bloque 6 - Manifestaciones clÃnicas",
+    "E. Casos clÃnicos corto",
+    "Bloque 7 - DiagnÃ³stico: clÃnica, prueba de urea y endoscopÃa",
+    "Bloque 8 - Tratamiento y prevenciÃ³n de recidiva",
+    "Tabla 1 - H. pylori versus Vibrio cholerae: dos lÃ³gicas distintas",
+    "Tabla 2 - Factores predisponentes en H. pylori",
+    "6. CorrelaciÃ³n clÃnica",
+    "1. Paciente con epigastralgia recurrente, eructos fÃ©tidos, saliva amarga y pÃ©rdida de peso. Â¿CuÃ¡l es el diagnÃ³stico sospechado y quÃ© prueba no invasiva puede ayudar?",
+    "2. Â¿Por quÃ© H. pylori puede sobrevivir en un ambiente Ã¡cido como el estÃ³mago?",
+    "3. Â¿CuÃ¡l es la secuencia evolutiva que el profesor quiere que se entienda?",
+    "4. Â¿QuÃ© factores predisponentes deben buscarse en la anamnesis?",
+    "5. Â¿Por quÃ© un paciente puede adelgazar en enfermedad pÃ©ptica?",
+    "6. Â¿CuÃ¡l es la idea del tratamiento triple?",
+    "Cierre"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

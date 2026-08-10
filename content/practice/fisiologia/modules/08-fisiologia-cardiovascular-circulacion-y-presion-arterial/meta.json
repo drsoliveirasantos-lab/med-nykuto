@@ -1,0 +1,17 @@
+{
+  "courseId": "fisiologia",
+  "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+  "moduleNumber": 8,
+  "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+  "directory": "08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+  "counts": {
+    "qcm": 200,
+    "vf": 50,
+    "cases": 50
+  },
+  "files": {
+    "qcm": "qcm.json",
+    "vf": "vf.json",
+    "cases": "cases.json"
+  }
+}

@@ -1,0 +1,5 @@
+
+
+  Object.assign(UI.es, {
+    reportError:'Reportar error', reportQuestion:'Reportar esta pregunta', feedbackTitle:'Reportar un problema', feedbackIntro:'El reporte enviará automáticamente la materia, el módulo, la pregunta, las opciones y la respuesta prevista.', feedbackProblem:'Tipo de problema', feedbackComment:'Comentario', feedbackSend:'Enviar reporte', feedbackCancel:'Cancelar', feedbackThanks:'Gracias, el reporte se enviará al validar.', issueWrongAnswer:'La respuesta correcta parece falsa', issueBadWording:'La pregunta está mal formulada', issueTranslation:'Error de traducción', issueAmbiguous:'Opciones ambiguas', issueExplanation:'Explicación insuficiente', issueMismatch:'No corresponde al curso', issueBug:'Bug técnico', issueOther:'Otro problema', confidenceTitle:'Nivel de confianza', confidenceSure:'Seguro', confidenceHesitated:'Dudé', confidenceGuessed:'Adiviné', confidenceSaved:'Confianza guardada', reviewCourseErrors:'Errores de esta materia', confidenceHelp:'Si acertaste dudando, márcalo: volverá en revisión.'
+  });

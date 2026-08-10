@@ -6,8 +6,8 @@
   'use strict';
 
   var SITE_NAME = 'Med Nykuto';
-  var HOST = 'https://preview.med-nykuto-git.pages.dev/';
-  var CACHE_VERSION = '377';
+  var HOST = 'https://med.nykuto.com/';
+  var CACHE_VERSION = '378';
 
   function text(el,v){ if(el && v != null) el.textContent = v; }
   function all(sel,root){ return Array.from((root||document).querySelectorAll(sel)); }
@@ -133,8 +133,8 @@
     all('[data-i18n="home.quick.qcm.text"]').forEach(function(el){el.textContent='Entrenar ahora';});
     all('[data-i18n="home.quick.errors.text"]').forEach(function(el){el.textContent='Corregir lo que bloquea';});
     all('[data-i18n="homeEyebrow"]').forEach(function(el){el.textContent='Medicina · revisión estructurada';});
-    all('[data-i18n="currentSemesterBadge"]').forEach(function(el){el.textContent='Semestre 3';});
-    all('[data-i18n="currentSemesterText"]').forEach(function(el){el.textContent='Contenido actual: materias del tercer semestre';});
+    all('[data-i18n="currentSemesterBadge"]').forEach(function(el){el.textContent='Biblioteca en evolución';});
+    all('[data-i18n="currentSemesterText"]').forEach(function(el){el.textContent='59 módulos publicados · nuevos contenidos en preparación';});
     all('[data-i18n="homeTitle"]').forEach(function(el){el.textContent='Estudia medicina con un plan claro, activo y rápido.';});
     all('[data-i18n="homeText"]').forEach(function(el){el.textContent='Elige una materia, revisa el curso, entrena con QCM y corrige tus errores sin perder tiempo.';});
     all('[data-i18n="startStudying"]').forEach(function(el){el.textContent='Empezar a revisar';});
@@ -326,7 +326,7 @@
     installQuietQuestionFeedbackFallback();
     injectGlobalStyle();
     loadGlobalRepairLayers();
-    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v377-loader';
+    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v378-loader';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();

@@ -1,0 +1,10 @@
+  Object.assign(UI.es, {
+    brandSubtitle:'Biblioteca médica organizada', navSubjects:'Materias', navModules:'Módulos', navQcm:'QCM', navClinical:'Casos clínicos',
+    homeEyebrow:'Medicina · revisión estructurada', homeTitle:'Una plataforma limpia para estudiar tus cursos de medicina.', homeText:'Accede a materias, módulos, QCM, casos clínicos, verdadero/falso y búsqueda global desde una interfaz simple.', exploreSubjects:'Explorar materias', openModules:'Ver todos los módulos',
+    statSubjects:'Materias', statModules:'Módulos integrados', statProgress:'Progreso total', homeOverviewEyebrow:'Avance', homeOverviewTitle:'Materias presentes', resetProgress:'Reiniciar progreso', footerText:'Biblioteca médica organizada para revisar más rápido.',
+    backHome:'← Volver al inicio', subjectsEyebrow:'Organización', subjectsTitle:'Materias disponibles', subjectsText:'Cada materia abre una página dedicada con sus módulos, QCM, casos clínicos y verdadero/falso.',
+    modulesEyebrow:'Búsqueda global', modulesTitle:'Todos los módulos', modulesText:'Busca una palabra clave y abre directamente el módulo correspondiente.', moduleListEyebrow:'Módulos integrados', moduleListTitle:'Lista de cursos', moduleSearchPlaceholder:'Buscar en los módulos...', noModuleFound:'No se encontró ningún módulo.',
+    viewCourses:'Ver cursos', doQcm:'Hacer QCM', doClinical:'Hacer caso clínico', doVf:'Verdadero/Falso', openCourse:'Abrir curso', markSeen:'Marcar visto', removeSeen:'Quitar visto', seen:'Visto', coursePlan:'Plan del curso', planEmpty:'Plan detallado disponible en la página del curso.', titles:'títulos', allModules:'Todos los módulos', localProgress:'Progreso local', subjectProgress:'Progreso de la materia',
+    searchResultIn:'Aparece en', searchOpenModule:'Abrir módulo', searchNoResult:'No hay resultado para esta palabra. Prueba otra forma: QRS, onda T, Na/K, osmolaridad.',
+    searchLabel:'Buscar', searchPlaceholder:'QRS, Na/K, osmolaridad...', searchHint:'Escribe al menos 2 letras para buscar en todos los módulos.', noSearch:'Ningún resultado encontrado.'
+  });

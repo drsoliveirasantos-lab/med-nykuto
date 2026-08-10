@@ -1,0 +1,38 @@
+{
+  "id": "01-fisiologia-10-fisiologia-muscular",
+  "number": 10,
+  "title": "Fisiología muscular",
+  "file": "Modulo_10_fisiologia_muscular.md",
+  "summary": "Curso completo sobre músculo esquelético, cardíaco y liso: contracción, calcio, ATP, unión neuromuscular y control fisiológico.",
+  "headings": [
+    "Objetivos generales",
+    "Conceptos generales del tejido muscular",
+    "Músculo esquelético y sarcómero",
+    "Contracción actina-miosina y papel del ATP",
+    "Acoplamiento excitación-contracción en músculo esquelético",
+    "Unión neuromuscular",
+    "Mecánica muscular",
+    "Tipos de fibras musculares esqueléticas",
+    "Músculo cardíaco",
+    "Músculo liso",
+    "Comparación final y algoritmo de examen",
+    "Casos clínicos breves",
+    "Resumen final"
+  ],
+  "courseTitle": "FisiologÃa",
+  "contentModes": [
+    "full",
+    "fiche",
+    "ultra"
+  ],
+  "description": "Módulo integrado para curso completo, ficha rápida y ficha ultra-rápida.",
+  "courseDraftVersion": "v256_module10_fisiologia_muscular",
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "ultraMarkdown": "ultra.md",
+    "exam": "exam.json",
+    "figures": "figures.json"
+  }
+}

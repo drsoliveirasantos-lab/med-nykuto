@@ -1,0 +1,29 @@
+{
+  "id": "02-microbiologia-06-chlamydia-mycoplasma-y-ureaplasma",
+  "number": 6,
+  "title": "Chlamydia, Mycoplasma y Ureaplasma",
+  "file": "Modulo_06_chlamydia_mycoplasma_y_ureaplasma.md",
+  "summary": "- Explicar por quÃ© Chlamydia trachomatis se considera un parÃ¡sito intracelular obligado. - Diferenciar cuerpo elemental y cuerpo reticulado dentro del ciclo reproductivo de Chlamydia. - Reconocer la evoluciÃ³n clÃnica del linfogranuloma venÃ©reo: lesiÃ³n inicial, compromiso linfÃ¡ticâ€¦",
+  "headings": [
+    "3. IntroducciÃ³n fisiolÃ³gica y microbiolÃ³gica",
+    "4. Chlamydia trachomatis: concepto principal",
+    "5. Ciclo reproductivo: cuerpo elemental y cuerpo reticulado",
+    "6. Linfogranuloma venÃ©reo: evoluciÃ³n clÃnica",
+    "7. Tracoma y manifestaciones oculares",
+    "8. NeumonÃa del lactante por Chlamydia",
+    "9. Mycoplasma pneumoniae: adhesina P1 y ciliostasis",
+    "10. ComparaciÃ³n obligatoria: Mycoplasma vs Pseudomonas",
+    "11. Ureaplasma urealyticum",
+    "12. DiagnÃ³stico: cÃ³mo orientar el estudio"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

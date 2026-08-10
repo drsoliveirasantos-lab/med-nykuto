@@ -1,0 +1,35 @@
+{
+  "id": "03-genetica-04-ciclo-celular-mitosis-meiosis-y-checkpoints",
+  "number": 4,
+  "title": "Ciclo celular, mitosis, meiosis y checkpoints",
+  "file": "Modulo_04_ciclo_celular_mitosis_meiosis_y_checkpoints.md",
+  "summary": "- Reconocer el papel de microtÃºbulos, cinetocoros y cohesina en la segregaciÃ³n cromosÃ³mica. - Relacionar errores de control con apoptosis, trisomÃas, monosomÃas y proliferaciÃ³n maligna. La profesora insiste en que el ciclo celular no es solamente una lista de fases: es un sistemaâ€¦",
+  "headings": [
+    "IntroducciÃ³n genÃ©tica",
+    "1. Concepto de ciclo celular",
+    "A. Concepto principal",
+    "B. DivisiÃ³n general",
+    "2. Interfase: G1, S y G2",
+    "3. Tipos de cÃ©lulas frente al ciclo",
+    "4. Fase M: mitosis y citocinesis",
+    "A. Mitosis: divisiÃ³n del material nuclear",
+    "B. Citocinesis: divisiÃ³n del citoplasma",
+    "5. Fases de la mitosis: lectura prÃ¡ctica",
+    "6. MicrotÃºbulos, cinetocoros y cohesina",
+    "7. Meiosis: idea necesaria para genÃ©tica mÃ©dica",
+    "8. Checkpoints o puntos de control",
+    "9. CorrelaciÃ³n clÃnica",
+    "Caso 1: error cromosÃ³mico",
+    "Caso 2: proliferaciÃ³n tumoral"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

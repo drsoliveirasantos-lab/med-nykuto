@@ -1,0 +1,10 @@
+  Object.assign(UI.fr, {
+    brandSubtitle:'Bibliothèque médicale organisée', navSubjects:'Matières', navModules:'Modules', navQcm:'QCM', navClinical:'Cas cliniques',
+    homeEyebrow:'Médecine · révision structurée', homeTitle:'Une plateforme propre pour étudier tes cours de médecine.', homeText:'Accède aux matières, aux modules, aux QCM, aux cas cliniques, aux vrai/faux et à la recherche globale depuis une interface simple.', exploreSubjects:'Explorer les matières', openModules:'Voir tous les modules',
+    statSubjects:'Matières', statModules:'Modules intégrés', statProgress:'Progression totale', homeOverviewEyebrow:'Avancement', homeOverviewTitle:'Matières présentes', resetProgress:'Réinitialiser la progression', footerText:'Bibliothèque médicale organisée pour réviser plus vite.',
+    backHome:'← Retour à l’accueil', subjectsEyebrow:'Organisation', subjectsTitle:'Matières disponibles', subjectsText:'Chaque matière ouvre une page dédiée avec ses modules, QCM, cas cliniques et vrai/faux.',
+    modulesEyebrow:'Recherche globale', modulesTitle:'Tous les modules', modulesText:'Recherche un mot-clé et ouvre directement le module correspondant.', moduleListEyebrow:'Modules intégrés', moduleListTitle:'Liste des cours', moduleSearchPlaceholder:'Rechercher dans les modules...', noModuleFound:'Aucun module trouvé.',
+    viewCourses:'Voir les cours', doQcm:'Faire QCM', doClinical:'Faire cas clinique', doVf:'Vrai/Faux', openCourse:'Ouvrir le cours', markSeen:'Marquer vu', removeSeen:'Retirer vu', seen:'Vu', coursePlan:'Plan du cours', planEmpty:'Plan détaillé disponible dans la page du cours.', titles:'titres', allModules:'Tous les modules', localProgress:'Progression locale', subjectProgress:'Progression de la matière',
+    searchResultIn:'Apparaît dans', searchOpenModule:'Ouvrir le module', searchNoResult:'Aucun résultat pour ce mot. Essaie une autre forme : QRS, onde T, Na/K, osmolarité.',
+    searchLabel:'Rechercher', searchPlaceholder:'QRS, Na/K, osmolarité...', searchHint:'Écris au moins 2 lettres pour chercher dans tous les modules.', noSearch:'Aucun résultat trouvé.'
+  });

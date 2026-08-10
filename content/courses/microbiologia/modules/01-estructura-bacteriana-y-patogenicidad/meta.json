@@ -1,0 +1,31 @@
+{
+  "id": "02-microbiologia-01-estructura-bacteriana-y-patogenicidad",
+  "number": 1,
+  "title": "Estructura bacteriana y patogenicidad",
+  "file": "Modulo_01_estructura_bacteriana_y_patogenicidad.md",
+  "summary": "El mÃ³dulo funciona como la base para entender todos los microorganismos estudiados despuÃ©s. Antes de memorizar Vibrio, Gardnerella, Chlamydia, Helicobacter, Pseudomonas o Staphylococcus, hay que dominar la lÃ³gica que el profesor repite: cada bacteria enferma al paciente por su esâ€¦",
+  "headings": [
+    "3. IntroducciÃ³n fisiolÃ³gica y microbiolÃ³gica",
+    "Bloque 1 - Patogenicidad: quÃ© significa que una bacteria sea patÃ³gena",
+    "Bloque 2 - PatÃ³geno primario vs patÃ³geno oportunista",
+    "Bloque 3 - Gram positivo y Gram negativo: estructura como base de resistencia",
+    "Bloque 4 - CÃ¡psula: protecciÃ³n, antifagocitosis y resistencia estructural",
+    "Bloque 5 - Pili, adhesinas y biopelÃcula: la bacteria necesita adherirse",
+    "Bloque 6 - Flagelo y movilidad",
+    "Bloque 7 - Toxinas y enzimas: daÃ±o celular, necrosis e intoxicaciÃ³n",
+    "Bloque 8 - InfecciÃ³n vs intoxicaciÃ³n",
+    "Bloque 9 - Resistencia estructural y resistencia metabÃ³lica",
+    "Bloque 10 - Del mecanismo a la clÃnica: cÃ³mo razonar en examen",
+    "6. CorrelaciÃ³n clÃnica"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

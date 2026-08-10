@@ -1,0 +1,19 @@
+{
+  "id": "fisiologia",
+  "folder": "01_Fisiologia",
+  "title": "FisiologÃa",
+  "description": "MÃ³dulos integrados para estudio.",
+  "moduleCount": 10,
+  "moduleOrder": [
+    "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+    "01-fisiologia-02-transporte-de-membrana",
+    "01-fisiologia-03-osmolaridad-osmosis-y-tonicidad",
+    "01-fisiologia-04-fisiologia-renal",
+    "01-fisiologia-05-equilibrio-acido-base",
+    "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "01-fisiologia-07-fisiologia-respiratoria-y-casos-clinicos",
+    "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "01-fisiologia-10-fisiologia-muscular"
+  ]
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* v363 — Data health validator for Med Nykuto restored split files.
+/* v365 — Data health validator for Med Nykuto restored split files.
    Validates the rich course catalog, restored practice banks and fallback completion. */
 const fs = require('fs');
 const path = require('path');
@@ -46,7 +46,7 @@ const coursesCode = nonEmptyJs('data/med-courses-data.js', 'MED_COURSES_DATA');
 const initCode = nonEmptyJs('data/med-practice-bank-init.js', 'MED_PRACTICE_BANK');
 const loader = nonEmptyJs('data/med-practice-bank-loader.js', 'practice-bank-functional-fallback-v360.js');
 if(!/MED_PRACTICE_BANK_LAZY_WANTED/.test(loader)) add('data/med-practice-bank-loader.js: missing lazy wanted marker');
-if(!/v363|VERSION\s*=\s*["']363/.test(loader)) add('data/med-practice-bank-loader.js: cache version is not v363');
+if(!/v364|VERSION\s*=\s*["']364/.test(loader)) add('data/med-practice-bank-loader.js: cache version is not v364');
 
 const fallbackCode = nonEmptyJs('data/practice-bank-functional-fallback-v360.js', 'v360-functional-fallback');
 ['qcm','vf','cases'].forEach(key => { if(!new RegExp(`\\b${key}\\b`).test(fallbackCode)) add(`fallback bank: missing ${key}`); });
@@ -60,11 +60,11 @@ else {
   const modules = data.courses.flatMap(c => c.modules || []);
   if(data.courses.length < 6) add(`MED_COURSES_DATA: expected at least 6 courses, got ${data.courses.length}`);
   if(active.length < 5) add(`MED_COURSES_DATA: expected at least 5 active courses, got ${active.length}`);
-  if(modules.length !== 58) add(`MED_COURSES_DATA: expected 58 modules, got ${modules.length}`);
+  if(modules.length !== 59) add(`MED_COURSES_DATA: expected 59 modules, got ${modules.length}`);
   const generic = modules.filter(m => /Este módulo organiza los puntos esenciales|La lógica de estudio debe seguir/i.test(String(m.markdown || m.fullMarkdown || '')));
   if(generic.length) add(`MED_COURSES_DATA: generic fallback modules detected: ${generic.length}`);
   const rich = modules.filter(m => String(m.markdown || m.fullMarkdown || '').length > 2500);
-  if(rich.length < 50) add(`MED_COURSES_DATA: expected rich markdown in most modules, got ${rich.length}/58`);
+  if(rich.length < 50) add(`MED_COURSES_DATA: expected rich markdown in most modules, got ${rich.length}/${modules.length}`);
   const ids = new Set();
   modules.forEach(m => {
     if(!m.id || !m.title || !(m.markdown || m.fullMarkdown)) add(`MED_COURSES_DATA: incomplete module ${m && m.id}`);

@@ -1,8 +1,10 @@
 const { test, expect } = require('@playwright/test');
 
-const CURRENT_GLOBAL_POLISH = 'v377-loader';
+const CURRENT_GLOBAL_POLISH = 'v378-loader';
 const CURRENT_RUNTIME_GUARD = 'v362';
-const CURRENT_MODULE_READER = 'v106-no-reader-click-refresh-expanded-abbreviations';
+const CURRENT_MODULE_READER = 'v107-visible-reader-mode-tabs';
+const EXPECTED_TOTAL_MODULES = 59;
+const EXPECTED_FISIOLOGIA_MODULES = 10;
 
 const pages = [
   '/',
@@ -61,13 +63,13 @@ test.describe('Med Nykuto smoke navigation', () => {
     });
     expect(data.hasData).toBeTruthy();
     expect(data.courseCount).toBeGreaterThanOrEqual(6);
-    expect(data.moduleCount).toBe(58);
+    expect(data.moduleCount).toBe(EXPECTED_TOTAL_MODULES);
     expect(data.richModules).toBeGreaterThanOrEqual(50);
     expect(data.polish).toBe(CURRENT_GLOBAL_POLISH);
     expect(data.repair).toBe('v360');
     expect(data.runtime).toBe(CURRENT_RUNTIME_GUARD);
     expect(data.health?.ok).toBeTruthy();
-    expect(data.health?.moduleCount).toBe(58);
+    expect(data.health?.moduleCount).toBe(EXPECTED_TOTAL_MODULES);
     expect(data.bodyHealth).toBe('ok');
     expect(data.bankRequired).toBe('0');
   });
@@ -82,22 +84,38 @@ test.describe('Med Nykuto smoke navigation', () => {
     await expect(page.locator('[data-testid="home-subject-choice"]')).toHaveCount(5);
     await page.locator('[data-home-course-id="fisiologia"]').click();
     await expect(page.locator('#homePickTitle')).toContainText('Fisiología — Elegir un módulo');
-    await expect(page.locator('[data-testid="home-module-choice"]')).toHaveCount(9);
+    await expect(page.locator('[data-testid="home-module-choice"]')).toHaveCount(EXPECTED_FISIOLOGIA_MODULES);
   });
 
-  test('module page uses content-first reader layout', async ({ page }) => {
+  test('Spanish is the coherent default when no language preference is stored', async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.removeItem('medLang');
+      localStorage.removeItem('medCursosLang');
+    });
+    await page.goto('/qcm.html?course=fisiologia');
+    await page.waitForFunction(() => window.__MED_NYKUTO_QCM_INSTANT_RENDER__, null, { timeout: 20000 });
+    await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+    await expect(page.locator('body')).toHaveAttribute('data-lang', 'es');
+    await expect(page.locator('[data-lang="es"]').first()).toHaveClass(/active/);
+    await expect(page.locator('#adaptiveWeakDashboardV261')).toContainText('Mis puntos débiles');
+    await expect(page.locator('#adaptiveWeakDashboardV261')).not.toContainText(/Mes points faibles|Afficher|Réinitialiser/);
+  });
+
+  test('module page uses content-first reader layout and exposes all reading modes', async ({ page }) => {
     await page.goto('/module.html?id=01-fisiologia-01-neurofisiologia-y-potencial-de-accion');
     await page.waitForFunction((version) => window.__MED_NYKUTO_MODULE_DIRECT_READER__ === version, CURRENT_MODULE_READER, { timeout: 20000 });
     await expect(page.locator('body')).toHaveClass(/module-direct-ready/);
     await expect(page.locator('#moduleContent')).toBeVisible();
     await expect(page.locator('.mobile-toc')).toBeHidden();
     await expect(page.locator('.module-nav')).toBeHidden();
-    const visibleExtraChildren = await page.locator('.reader-card > :not(.reader-head):not(#moduleContent)').evaluateAll(nodes => nodes.filter(node => {
-      const style = getComputedStyle(node);
-      const rect = node.getBoundingClientRect();
-      return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 0 && rect.height > 0;
-    }).length);
-    expect(visibleExtraChildren).toBe(0);
+    const tabs = page.locator('.reader-view-tabs');
+    await expect(tabs).toBeVisible();
+    await expect(tabs.locator('.reader-tab')).toHaveCount(3);
+    await expect(tabs.locator('.reader-tab.active')).toContainText('Curso completo');
+    await tabs.locator('a[href*="view=fiche"]').click();
+    await expect(page).toHaveURL(/view=fiche/);
+    await expect(page.locator('body')).toHaveAttribute('data-reader-mode', 'fiche');
+    await expect(page.locator('.reader-view-tabs .reader-tab.active')).toContainText('Ficha rápida');
   });
 
   test('Biofísica is absent or disabled safely', async ({ page }) => {

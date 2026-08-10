@@ -1,0 +1,52 @@
+[
+  {
+    "title": "Arquitectura funcional del aparato respiratorio",
+    "src": "assets/figures/physio-module7-v247/01_arquitectura_respiratoria.webp",
+    "caption": "Figura 1 â€” Arquitectura funcional del aparato respiratorio."
+  },
+  {
+    "title": "Presiones respiratorias",
+    "src": "assets/figures/physio-module7-v247/02_presiones_respiratorias.webp",
+    "caption": "Figura 2 â€” Presiones respiratorias e inspiraciÃ³n/espiraciÃ³n."
+  },
+  {
+    "title": "Compliance pulmonar y surfactante",
+    "src": "assets/figures/physio-module7-v247/03_compliance_surfactante.webp",
+    "caption": "Figura 3 â€” Compliance pulmonar y surfactante."
+  },
+  {
+    "title": "VolÃºmenes y capacidades",
+    "src": "assets/figures/physio-module7-v247/04_volumenes_capacidades.webp",
+    "caption": "Figura 4 â€” VolÃºmenes y capacidades pulmonares."
+  },
+  {
+    "title": "VentilaciÃ³n alveolar y espacio muerto",
+    "src": "assets/figures/physio-module7-v247/05_ventilacion_espacio_muerto.webp",
+    "caption": "Figura 5 â€” VentilaciÃ³n alveolar y espacio muerto."
+  },
+  {
+    "title": "DifusiÃ³n alveolo-capilar",
+    "src": "assets/figures/physio-module7-v247/06_difusion_fick.webp",
+    "caption": "Figura 6 â€” DifusiÃ³n alveolo-capilar y ley de Fick."
+  },
+  {
+    "title": "Transporte de Oâ‚‚",
+    "src": "assets/figures/physio-module7-v247/07_transporte_oxigeno.webp",
+    "caption": "Figura 7 â€” Transporte de Oâ‚‚: PaOâ‚‚, SaOâ‚‚ y hemoglobina."
+  },
+  {
+    "title": "Curva Hb-Oâ‚‚",
+    "src": "assets/figures/physio-module7-v247/08_curva_hb_o2.webp",
+    "caption": "Figura 8 â€” Curva de disociaciÃ³n Hb-Oâ‚‚."
+  },
+  {
+    "title": "RelaciÃ³n V/Q",
+    "src": "assets/figures/physio-module7-v247/09_vq_shunt_espacio_muerto.webp",
+    "caption": "Figura 9 â€” RelaciÃ³n V/Q, shunt y espacio muerto."
+  },
+  {
+    "title": "EspirometrÃa",
+    "src": "assets/figures/physio-module7-v247/10_espirometria.webp",
+    "caption": "Figura 10 â€” EspirometrÃa: obstructivo vs restrictivo."
+  }
+]

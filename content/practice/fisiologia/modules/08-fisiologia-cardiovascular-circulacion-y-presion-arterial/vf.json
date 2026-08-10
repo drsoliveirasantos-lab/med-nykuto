@@ -1,0 +1,2846 @@
+[
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-001",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 01",
+    "difficulty": "Moyen",
+    "question": "El nodo sinusal suele ser el marcapasos dominante del corazón.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Tiene la frecuencia espontánea de descarga más alta en condiciones normales.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 01",
+      "topicSlug": "verdadero_falso_01",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 01",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_01",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-002",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 02",
+    "difficulty": "Base",
+    "question": "La fase ascendente del potencial nodal depende principalmente de Ca²⁺.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Las células nodales usan canales de calcio tipo L más que canales rápidos de sodio.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 02",
+      "topicSlug": "verdadero_falso_02",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 02",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_02",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-003",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 03",
+    "difficulty": "Moyen",
+    "question": "La fase 0 del miocito ventricular depende de entrada rápida de Na⁺.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Eso permite despolarización ventricular rápida.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 03",
+      "topicSlug": "verdadero_falso_03",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "renal_electrolitos",
+        "cardiovascular_presion"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 03",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:verdadero_falso_03",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:renal_electrolitos",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-004",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 04",
+    "difficulty": "Base",
+    "question": "La meseta ventricular prolonga el período refractario.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Ayuda a evitar tetania cardíaca.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 04",
+      "topicSlug": "verdadero_falso_04",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 04",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_04",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-005",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 05",
+    "difficulty": "Moyen",
+    "question": "El nodo AV retrasa la conducción hacia ventrículos.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Ese retraso favorece el llenado ventricular antes de la sístole.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 05",
+      "topicSlug": "verdadero_falso_05",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 05",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_05",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-006",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 06",
+    "difficulty": "Base",
+    "question": "La onda P representa despolarización auricular.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Es el evento eléctrico que precede a la contracción auricular.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 06",
+      "topicSlug": "verdadero_falso_06",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 06",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_06",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-007",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 07",
+    "difficulty": "Moyen",
+    "question": "El QRS representa despolarización ventricular.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. La repolarización auricular queda oculta por el QRS.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 07",
+      "topicSlug": "verdadero_falso_07",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 07",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_07",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-008",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 08",
+    "difficulty": "Base",
+    "question": "La onda T representa repolarización ventricular.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Marca recuperación eléctrica ventricular.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 08",
+      "topicSlug": "verdadero_falso_08",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 08",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_08",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-009",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 09",
+    "difficulty": "Moyen",
+    "question": "El primer ruido cardíaco se debe al cierre de válvulas AV.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Ocurre al inicio de la sístole ventricular.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 09",
+      "topicSlug": "verdadero_falso_09",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 09",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_09",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-010",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 10",
+    "difficulty": "Base",
+    "question": "El segundo ruido cardíaco se debe al cierre de válvulas semilunares.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Ocurre al final de la eyección.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 10",
+      "topicSlug": "verdadero_falso_10",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 10",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_10",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-011",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 11",
+    "difficulty": "Moyen",
+    "question": "El volumen sistólico es EDV menos ESV.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Representa la sangre eyectada por latido.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 11",
+      "topicSlug": "verdadero_falso_11",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_bomba",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 11",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_11",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_bomba",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-012",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 12",
+    "difficulty": "Base",
+    "question": "El gasto cardíaco es frecuencia cardíaca por volumen sistólico.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Expresa volumen bombeado por minuto.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 12",
+      "topicSlug": "verdadero_falso_12",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_bomba",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 12",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_12",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_bomba",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-013",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 13",
+    "difficulty": "Moyen",
+    "question": "La precarga se relaciona con el llenado ventricular final diastólico.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Mayor retorno venoso aumenta precarga.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 13",
+      "topicSlug": "verdadero_falso_13",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_bomba",
+        "cardiovascular_presion",
+        "cardiovascular_vasos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 13",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_13",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_bomba",
+      "concept:cardiovascular_presion",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-014",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 14",
+    "difficulty": "Base",
+    "question": "Frank-Starling aumenta volumen sistólico cuando aumenta el llenado dentro de límites fisiológicos.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El estiramiento mejora la fuerza contráctil hasta un límite.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 14",
+      "topicSlug": "verdadero_falso_14",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_bomba",
+        "cardiovascular_presion",
+        "cardiovascular_vasos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 14",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_14",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_bomba",
+      "concept:cardiovascular_presion",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-015",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 15",
+    "difficulty": "Moyen",
+    "question": "La contractilidad aumenta con estimulación simpática β₁.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El simpático aumenta Ca²⁺ disponible.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 15",
+      "topicSlug": "verdadero_falso_15",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos",
+        "cardiovascular_bomba",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 15",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_15",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos",
+      "concept:cardiovascular_bomba",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-016",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 16",
+    "difficulty": "Base",
+    "question": "La poscarga izquierda aumenta con la presión arterial sistémica.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El ventrículo debe eyectar contra mayor presión.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 16",
+      "topicSlug": "verdadero_falso_16",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 16",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_16",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-017",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 17",
+    "difficulty": "Moyen",
+    "question": "La PAM depende principalmente de gasto cardíaco y resistencia periférica total.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Ambas determinan la presión de perfusión sistémica.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 17",
+      "topicSlug": "verdadero_falso_17",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_bomba",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 17",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_17",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_bomba",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-018",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 18",
+    "difficulty": "Base",
+    "question": "Las arteriolas son vasos clave de resistencia.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Pequeños cambios de radio cambian mucho la resistencia.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 18",
+      "topicSlug": "verdadero_falso_18",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion",
+        "cardiovascular_vasos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 18",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_18",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-019",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 19",
+    "difficulty": "Moyen",
+    "question": "El retorno venoso contribuye a la precarga.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Determina el llenado del corazón.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 19",
+      "topicSlug": "verdadero_falso_19",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_bomba",
+        "cardiovascular_presion",
+        "cardiovascular_vasos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 19",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_19",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_bomba",
+      "concept:cardiovascular_presion",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-020",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 20",
+    "difficulty": "Base",
+    "question": "Los barorreceptores responden al estiramiento arterial.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Están en seno carotídeo y arco aórtico.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 20",
+      "topicSlug": "verdadero_falso_20",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 20",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_20",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-021",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 21",
+    "difficulty": "Moyen",
+    "question": "El simpático aumenta frecuencia cardíaca y contractilidad.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Actúa principalmente por receptores β₁ en corazón.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 21",
+      "topicSlug": "verdadero_falso_21",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_bomba",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 21",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_21",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_bomba",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-022",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 22",
+    "difficulty": "Base",
+    "question": "El parasimpático vagal disminuye la frecuencia cardíaca.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Actúa en nodos por receptores muscarínicos.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 22",
+      "topicSlug": "verdadero_falso_22",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_bomba",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 22",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_22",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_bomba",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-023",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 23",
+    "difficulty": "Moyen",
+    "question": "Angiotensina II es vasoconstrictora.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Ayuda a elevar resistencia periférica.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 23",
+      "topicSlug": "verdadero_falso_23",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 23",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_23",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-024",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 24",
+    "difficulty": "Base",
+    "question": "ADH aumenta reabsorción de agua en el colector.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Actúa por receptores V2 y acuaporina-2.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 24",
+      "topicSlug": "verdadero_falso_24",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo",
+        "renal_hormonas",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 24",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_24",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-025",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 25",
+    "difficulty": "Moyen",
+    "question": "ANP favorece natriuresis.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Se opone a retención excesiva de sodio y volumen.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 25",
+      "topicSlug": "verdadero_falso_25",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas",
+        "renal_electrolitos",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 25",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_25",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-026",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 26",
+    "difficulty": "Base",
+    "question": "El ECG mide directamente la presión arterial.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. El ECG mide actividad eléctrica, no presión mecánica.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 26",
+      "topicSlug": "verdadero_falso_26",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 26",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_26",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-027",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 27",
+    "difficulty": "Moyen",
+    "question": "La onda P representa repolarización ventricular.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La repolarización ventricular corresponde a onda T.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 27",
+      "topicSlug": "verdadero_falso_27",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "cardiovascular_presion"
+      ],
+      "skill": "recognition_pattern",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 27",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:recognition_pattern",
+      "topic:verdadero_falso_27",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-028",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 28",
+    "difficulty": "Base",
+    "question": "El QRS representa despolarización auricular aislada.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. El QRS representa despolarización ventricular.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 28",
+      "topicSlug": "verdadero_falso_28",
+      "concepts": [
+        "electricidad_biologica",
+        "potencial_accion",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 28",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_28",
+      "concept:electricidad_biologica",
+      "concept:potencial_accion",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-029",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 29",
+    "difficulty": "Moyen",
+    "question": "El intervalo PR evalúa principalmente la eyección aórtica.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Evalúa conducción auriculoventricular.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 29",
+      "topicSlug": "verdadero_falso_29",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 29",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_29",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-030",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 30",
+    "difficulty": "Base",
+    "question": "La contracción isovolumétrica ocurre con cambio grande de volumen.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Isovolumétrica significa volumen constante.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 30",
+      "topicSlug": "verdadero_falso_30",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 30",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_30",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-031",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 31",
+    "difficulty": "Moyen",
+    "question": "Las válvulas cardíacas se abren por contracción activa de sus valvas.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Se abren pasivamente por gradientes de presión.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 31",
+      "topicSlug": "verdadero_falso_31",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 31",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_31",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-032",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 32",
+    "difficulty": "Base",
+    "question": "El gasto cardíaco se calcula como presión arterial dividida por frecuencia.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Se calcula como frecuencia por volumen sistólico.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 32",
+      "topicSlug": "verdadero_falso_32",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_bomba",
+        "cardiovascular_presion"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 32",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:calculation_formula",
+      "topic:verdadero_falso_32",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_bomba",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-033",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 33",
+    "difficulty": "Moyen",
+    "question": "La precarga es la presión contra la que se eyecta sangre.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Eso corresponde a poscarga.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 33",
+      "topicSlug": "verdadero_falso_33",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_bomba",
+        "cardiovascular_presion"
+      ],
+      "skill": "recognition_pattern",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 33",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:recognition_pattern",
+      "topic:verdadero_falso_33",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_bomba",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-034",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 34",
+    "difficulty": "Base",
+    "question": "La poscarga es el volumen que llena el ventrículo al final de la diástole.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Eso describe precarga.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 34",
+      "topicSlug": "verdadero_falso_34",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_bomba",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 34",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_34",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_bomba",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-035",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 35",
+    "difficulty": "Moyen",
+    "question": "Aumentar contractilidad siempre aumenta volumen telesistólico.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Suele disminuirlo al eyectar más sangre.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 35",
+      "topicSlug": "verdadero_falso_35",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_bomba",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 35",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_35",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_bomba",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-036",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 36",
+    "difficulty": "Base",
+    "question": "Las arteriolas no influyen en la resistencia periférica.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Son vasos principales de resistencia.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 36",
+      "topicSlug": "verdadero_falso_36",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion",
+        "cardiovascular_vasos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 36",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_36",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-037",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 37",
+    "difficulty": "Moyen",
+    "question": "La vasodilatación arteriolar sistémica aumenta siempre la resistencia total.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La disminuye.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 37",
+      "topicSlug": "verdadero_falso_37",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion",
+        "cardiovascular_vasos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 37",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_37",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-038",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 38",
+    "difficulty": "Base",
+    "question": "La presión de pulso es igual al intervalo PR.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Presión de pulso es sistólica menos diastólica.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 38",
+      "topicSlug": "verdadero_falso_38",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 38",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_38",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-039",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 39",
+    "difficulty": "Moyen",
+    "question": "La rigidez arterial disminuye la presión sistólica.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Suele aumentarla y eleva presión de pulso.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 39",
+      "topicSlug": "verdadero_falso_39",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 39",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_39",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-040",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 40",
+    "difficulty": "Base",
+    "question": "El barorreflejo aumenta parasimpático cuando cae la presión arterial.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Ante caída de presión aumenta simpático y reduce parasimpático.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 40",
+      "topicSlug": "verdadero_falso_40",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 40",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_40",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-041",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 41",
+    "difficulty": "Moyen",
+    "question": "El vago aumenta la frecuencia cardíaca por β₁.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. El vago usa receptores muscarínicos y reduce frecuencia.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 41",
+      "topicSlug": "verdadero_falso_41",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_bomba",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 41",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_41",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_bomba",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-042",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 42",
+    "difficulty": "Base",
+    "question": "RAAS disminuye volumen extracelular como objetivo principal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Tiende a conservar sodio/agua y aumentar volumen efectivo.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 42",
+      "topicSlug": "verdadero_falso_42",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 42",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_42",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-043",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 43",
+    "difficulty": "Moyen",
+    "question": "La aldosterona aumenta excreción de sodio.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Aumenta reabsorción de sodio.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 43",
+      "topicSlug": "verdadero_falso_43",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas",
+        "renal_electrolitos",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 43",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_43",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-044",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 44",
+    "difficulty": "Base",
+    "question": "ADH bloquea acuaporina-2 en el colector.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. ADH favorece inserción de acuaporina-2.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 44",
+      "topicSlug": "verdadero_falso_44",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo",
+        "renal_hormonas",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 44",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_44",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-045",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 45",
+    "difficulty": "Moyen",
+    "question": "ANP aumenta aldosterona como efecto principal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. ANP se opone al RAAS.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 45",
+      "topicSlug": "verdadero_falso_45",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 45",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_45",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-046",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 46",
+    "difficulty": "Base",
+    "question": "La presión oncótica baja protege contra edema.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Favorece edema porque reduce reabsorción hacia plasma.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 46",
+      "topicSlug": "verdadero_falso_46",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion",
+        "cardiovascular_vasos"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 46",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:verdadero_falso_46",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-047",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 47",
+    "difficulty": "Moyen",
+    "question": "La hipovolemia aumenta precarga de forma primaria.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La reduce al bajar retorno venoso.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 47",
+      "topicSlug": "verdadero_falso_47",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_bomba",
+        "cardiovascular_presion",
+        "cardiovascular_vasos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 47",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_47",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_bomba",
+      "concept:cardiovascular_presion",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-048",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 48",
+    "difficulty": "Base",
+    "question": "El shock siempre implica perfusión tisular excesiva.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Implica perfusión insuficiente.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 48",
+      "topicSlug": "verdadero_falso_48",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 48",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_48",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-049",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 49",
+    "difficulty": "Moyen",
+    "question": "Durante ejercicio dinámico normal, el gasto cardíaco disminuye.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Aumenta para cubrir demanda metabólica.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 49",
+      "topicSlug": "verdadero_falso_49",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_bomba",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 49",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_49",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_bomba",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial-vf-v127-050",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+    "moduleNumber": 8,
+    "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+    "heading": "Verdadero/Falso 50",
+    "difficulty": "Base",
+    "question": "El flujo coronario izquierdo es máximo durante sístole ventricular.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Suele ser mayor durante diástole por compresión sistólica.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 8,
+      "moduleId": "01-fisiologia-08-fisiologia-cardiovascular-circulacion-y-presion-arterial",
+      "moduleTitle": "Fisiología cardiovascular, circulación y presión arterial",
+      "format": "vf",
+      "topic": "Verdadero/Falso 50",
+      "topicSlug": "verdadero_falso_50",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_presion"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 50",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:8",
+      "module_id:01_fisiologia_08_fisiologia_cardiovascular_circu",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_50",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_presion"
+    ]
+  }
+]

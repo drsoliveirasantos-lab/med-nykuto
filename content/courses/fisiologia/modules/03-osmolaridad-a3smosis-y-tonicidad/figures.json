@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Compartimentos de agua corporal",
+    "src": "assets/figures/physio-module3-v232/01_compartimentos_agua_corporal.webp",
+    "caption": "Figura 1 â€” Compartimentos de agua corporal."
+  },
+  {
+    "title": "Solutos permeables vs impermeables",
+    "src": "assets/figures/physio-module3-v232/02_solutos_permeables_impermeables.webp",
+    "caption": "Figura 2 â€” Solutos permeables vs impermeables."
+  },
+  {
+    "title": "CÃ¡lculo de osmolaridad",
+    "src": "assets/figures/physio-module3-v232/03_calculo_osmolaridad.webp",
+    "caption": "Figura 3 â€” CÃ¡lculo de osmolaridad."
+  },
+  {
+    "title": "Ã“smosis y membrana semipermeable",
+    "src": "assets/figures/physio-module3-v232/04_osmosis_membrana_semipermeable.webp",
+    "caption": "Figura 4 â€” Ã“smosis y membrana semipermeable."
+  },
+  {
+    "title": "Medio hipotÃ³nico, isotÃ³nico e hipertÃ³nico",
+    "src": "assets/figures/physio-module3-v232/05_hipotonico_isotonico_hipertonico.webp",
+    "caption": "Figura 5 â€” Medio hipotÃ³nico, isotÃ³nico e hipertÃ³nico."
+  },
+  {
+    "title": "Osmolaridad vs tonicidad",
+    "src": "assets/figures/physio-module3-v232/06_osmolaridad_vs_tonicidad.webp",
+    "caption": "Figura 6 â€” Osmolaridad vs tonicidad."
+  },
+  {
+    "title": "Isoosmolaridad vs isotonicidad",
+    "src": "assets/figures/physio-module3-v232/07_isoosmolaridad_vs_isotonicidad.webp",
+    "caption": "Figura 7 â€” Isoosmolaridad vs isotonicidad."
+  }
+]

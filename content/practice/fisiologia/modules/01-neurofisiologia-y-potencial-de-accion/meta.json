@@ -1,0 +1,17 @@
+{
+  "courseId": "fisiologia",
+  "moduleId": "01-fisiologia-01-neurofisiologia-y-potencial-de-accion",
+  "moduleNumber": 1,
+  "moduleTitle": "Neurofisiología y potencial de acción",
+  "directory": "01-neurofisiologia-y-potencial-de-accion",
+  "counts": {
+    "qcm": 200,
+    "vf": 50,
+    "cases": 50
+  },
+  "files": {
+    "qcm": "qcm.json",
+    "vf": "vf.json",
+    "cases": "cases.json"
+  }
+}

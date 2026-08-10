@@ -22,6 +22,8 @@ module.exports = defineConfig({
   },
   projects: [
     { name: 'desktop-chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'desktop-firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'desktop-webkit', use: { ...devices['Desktop Safari'] } },
     { name: 'mobile-safari-shape', use: { ...devices['iPhone 13'] } }
   ]
 });

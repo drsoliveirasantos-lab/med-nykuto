@@ -1,0 +1,52 @@
+[
+  {
+    "title": "Comparación de los tres tipos de músculo",
+    "src": "assets/figures/fisiologia-muscular/01_comparacion_tipos_musculo.webp",
+    "caption": "Imagen — Comparación de los tres tipos de músculo. Esta imagen resume las diferencias esenciales entre músculo esquelético, cardíaco y liso: control voluntario o involuntario, presencia de estriaciones y proteína reguladora principal."
+  },
+  {
+    "title": "Sarcómero en reposo y contracción",
+    "src": "assets/figures/fisiologia-muscular/02_sarcomero_reposo_contraccion.webp",
+    "caption": "Imagen — Sarcómero en reposo y contracción. La imagen muestra el acortamiento del sarcómero por deslizamiento de filamentos. Durante la contracción, las líneas Z se aproximan, la banda I y la zona H disminuyen, mientras la banda A permanece constante."
+  },
+  {
+    "title": "Ciclo actina-miosina y ATP",
+    "src": "assets/figures/fisiologia-muscular/03_ciclo_actina_miosina_atp.webp",
+    "caption": "Imagen — Ciclo actina-miosina y ATP. Esta imagen representa el ciclo de puentes cruzados. El punto clave es que el ATP permite separar la miosina de la actina y recargar la cabeza de miosina para un nuevo ciclo."
+  },
+  {
+    "title": "Acoplamiento excitación-contracción",
+    "src": "assets/figures/fisiologia-muscular/04_acoplamiento_excitacion_contraccion.webp",
+    "caption": "Imagen — Acoplamiento excitación-contracción. La imagen muestra cómo el potencial de acción se transmite por el sarcolema y el túbulo T, activa DHPR y RyR1, libera Ca²⁺ del retículo sarcoplásmico y permite la contracción por unión del calcio a la troponina C."
+  },
+  {
+    "title": "Unión neuromuscular",
+    "src": "assets/figures/fisiologia-muscular/05_union_neuromuscular.webp",
+    "caption": "Imagen — Unión neuromuscular. Esta imagen ilustra la transmisión entre la motoneurona y la fibra muscular esquelética. La acetilcolina se libera en la hendidura sináptica, se une al receptor nicotínico y permite la entrada de Na⁺ para generar el potencial de placa."
+  },
+  {
+    "title": "Tipos de fibras musculares",
+    "src": "assets/figures/fisiologia-muscular/06_tipos_fibras_musculares.webp",
+    "caption": "Imagen — Tipos de fibras musculares. La imagen compara fibras tipo I, IIa y IIx. Las fibras tipo I son lentas, oxidativas y resistentes; las tipo IIa son rápidas y mixtas; las tipo IIx son muy rápidas, glucolíticas y fatigables."
+  },
+  {
+    "title": "Potencial de acción cardíaco",
+    "src": "assets/figures/fisiologia-muscular/07_potencial_accion_cardiaco.webp",
+    "caption": "Imagen — Potencial de acción cardíaco. La imagen destaca la meseta del potencial de acción ventricular. La entrada de Ca²⁺ durante la fase 2 prolonga el periodo refractario y evita la tetanización del corazón."
+  },
+  {
+    "title": "Músculo liso: contracción y relajación",
+    "src": "assets/figures/fisiologia-muscular/08_musculo_liso_contraccion_relajacion.webp",
+    "caption": "Imagen — Músculo liso: contracción y relajación. La imagen resume la vía principal del músculo liso: Ca²⁺ se une a calmodulina, activa MLCK y favorece la fosforilación de miosina. La MLCP permite la desfosforilación y la relajación."
+  },
+  {
+    "title": "Troponina vs calmodulina",
+    "src": "assets/figures/fisiologia-muscular/09_troponina_vs_calmodulina.webp",
+    "caption": "Imagen — Troponina vs calmodulina. La imagen fija el principal contraste de examen: la troponina C regula la contracción en músculo esquelético y cardíaco, mientras que la calmodulina activa MLCK en músculo liso."
+  },
+  {
+    "title": "Mapa clínico de la fisiología muscular",
+    "src": "assets/figures/fisiologia-muscular/10_mapa_clinico_fisiologia_muscular.webp",
+    "caption": "Imagen — Mapa clínico de la fisiología muscular. La imagen relaciona mecanismos fisiológicos con cuadros clínicos: receptor nicotínico en miastenia gravis, liberación de acetilcolina en botulismo, acetilcolinesterasa en organofosforados, RyR1/Ca²⁺ en hipertermia maligna y ATP en rigidez cadavérica."
+  }
+]

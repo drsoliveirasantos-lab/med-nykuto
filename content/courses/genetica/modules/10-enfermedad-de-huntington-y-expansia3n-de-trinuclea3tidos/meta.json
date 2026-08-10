@@ -1,0 +1,27 @@
+{
+  "id": "03-genetica-10-enfermedad-de-huntington-y-expansion-de-trinucleotidos",
+  "number": 10,
+  "title": "Enfermedad de Huntington y expansiÃ³n de trinucleÃ³tidos",
+  "file": "Modulo_10_enfermedad_de_huntington_y_expansion_de_trinucleotidos.md",
+  "summary": "- Definir la enfermedad de Huntington como trastorno neurodegenerativo autosÃ³mico dominante. - Relacionar expansiÃ³n CAG, gen HTT, cromosoma 4 y brazo P con el mecanismo molecular. - Explicar el concepto de anticipaciÃ³n genÃ©tica y su importancia en generaciones sucesivas. - Reconoâ€¦",
+  "headings": [
+    "1. Concepto principal",
+    "2. Base genÃ©tica y localizaciÃ³n cromosÃ³mica",
+    "3. PatrÃ³n de herencia: autosÃ³mica dominante",
+    "4. AnticipaciÃ³n genÃ©tica",
+    "5. Cuadro clÃnico motor",
+    "6. Manifestaciones cognitivas y psiquiÃ¡tricas",
+    "7. DiagnÃ³stico y lectura clÃnica",
+    "8. CorrelaciÃ³n clÃnica tipo caso"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

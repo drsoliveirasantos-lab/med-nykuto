@@ -1,0 +1,21 @@
+{
+  "id": "inmunologia",
+  "folder": "05_Inmunologia",
+  "title": "InmunologÃa",
+  "description": "MÃ³dulos integrados para estudio.",
+  "moduleCount": 12,
+  "moduleOrder": [
+    "05-inmunologia-01-introduccion-a-la-inmunologia-inmunidad-innata-y-adaptativa",
+    "05-inmunologia-02-sistema-de-complemento-c3-c5-c9-y-vias-de-activacion",
+    "05-inmunologia-03-inflamacion-concepto-necrosis-apoptosis-y-sufijo-itis",
+    "05-inmunologia-04-exudado-trasudado-edema-pus-y-empiema",
+    "05-inmunologia-05-inflamacion-aguda-vasodilatacion-permeabilidad-y-mediadores",
+    "05-inmunologia-06-migracion-leucocitaria-marginacion-rodamiento-adhesion-y-diapedesis",
+    "05-inmunologia-07-fagocitosis-neutrofilos-monocitos-y-macrofagos",
+    "05-inmunologia-08-inflamacion-cronica-hipersensibilidad-y-enfermedades-autoinmunes",
+    "05-inmunologia-09-reparacion-tisular-angiogenesis-fibrosis-y-cicatrizacion",
+    "05-inmunologia-10-macrofagos-funciones-y-vias-de-activacion-clasica-alternativa",
+    "05-inmunologia-11-vacunas-toxoides-vivas-atenuadas-inactivadas-conjugadas-y-combinadas",
+    "05-inmunologia-12-vacunacion-del-recien-nacido-y-contraindicaciones"
+  ]
+}

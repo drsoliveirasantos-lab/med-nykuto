@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Panorama general de la acidosis metabÃ³lica",
+    "src": "assets/figures/physio-module6-v244/01_acidosis_metabolica_mecanismos_compensacion.webp",
+    "caption": "Figura 1 â€” Panorama general de la acidosis metabÃ³lica."
+  },
+  {
+    "title": "Electroneutralidad plasmÃ¡tica",
+    "src": "assets/figures/physio-module6-v244/02_electroneutralidad_plasmatica.webp",
+    "caption": "Figura 2 â€” Electroneutralidad plasmÃ¡tica."
+  },
+  {
+    "title": "Anion gap",
+    "src": "assets/figures/physio-module6-v244/03_anion_gap.webp",
+    "caption": "Figura 3 â€” FÃ³rmula y descomposiciÃ³n del anion gap."
+  },
+  {
+    "title": "CÃ³mo se eleva el anion gap",
+    "src": "assets/figures/physio-module6-v244/04_como_se_eleva_el_anion_gap.webp",
+    "caption": "Figura 4 â€” Mecanismo de elevaciÃ³n del anion gap."
+  },
+  {
+    "title": "Acidosis hiperclorÃ©mica",
+    "src": "assets/figures/physio-module6-v244/05_acidosis_hipercloremica.webp",
+    "caption": "Figura 5 â€” Acidosis metabÃ³lica hiperclorÃ©mica."
+  },
+  {
+    "title": "CompensaciÃ³n respiratoria",
+    "src": "assets/figures/physio-module6-v244/06_compensacion_respiratoria.webp",
+    "caption": "Figura 6 â€” CompensaciÃ³n respiratoria en acidosis metabÃ³lica."
+  },
+  {
+    "title": "FÃ³rmula de Winter",
+    "src": "assets/figures/physio-module6-v244/07_formula_de_winter.webp",
+    "caption": "Figura 7 â€” FÃ³rmula de Winter."
+  },
+  {
+    "title": "Algoritmo diagnÃ³stico",
+    "src": "assets/figures/physio-module6-v244/08_algoritmo_acidosis_metabolica.webp",
+    "caption": "Figura 8 â€” Algoritmo diagnÃ³stico de acidosis metabÃ³lica."
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "id": "03-genetica-02-adn-arn-y-sintesis-de-proteinas",
+  "number": 2,
+  "title": "ADN, ARN y sÃntesis de proteÃnas",
+  "file": "Modulo_02_adn_arn_y_sintesis_de_proteinas.md",
+  "summary": "- 1. Estructura del ADN: doble cadena, bases nitrogenadas y puentes de hidrÃ³geno. - 2. Diferencias entre ADN y ARN: azÃºcar, base exclusiva, nÃºmero de cadenas y funciÃ³n. - 5. ReparaciÃ³n del ADN: control de lectura, ADN polimerasa, ligasa y prevenciÃ³n de mutaciones. - Explicar por â€¦",
+  "headings": [
+    "IntroducciÃ³n fisiolÃ³gica",
+    "1. ADN: estructura que conserva la informaciÃ³n genÃ©tica",
+    "A. Concepto principal",
+    "B. Estructura bÃ¡sica",
+    "C. Complementariedad de bases",
+    "2. ARN: molÃ©cula de expresiÃ³n de la informaciÃ³n genÃ©tica",
+    "A. DefiniciÃ³n",
+    "B. Diferencias ADN vs ARN",
+    "3. Tipos de ARN y su papel en la sÃntesis proteica",
+    "A. ARN mensajero",
+    "B. ARN de transferencia",
+    "C. ARN ribosÃ³mico",
+    "4. Dogma central: de ADN a ARN y de ARN a proteÃna",
+    "A. ReplicaciÃ³n o duplicaciÃ³n",
+    "B. TranscripciÃ³n",
+    "C. TraducciÃ³n",
+    "5. ReparaciÃ³n del ADN y prevenciÃ³n de mutaciones",
+    "A. Por quÃ© se necesita reparaciÃ³n",
+    "B. Control de lectura por ADN polimerasa",
+    "C. ReparaciÃ³n despuÃ©s de la sÃntesis",
+    "CorrelaciÃ³n clÃnica"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

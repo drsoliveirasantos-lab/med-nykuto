@@ -1,0 +1,29 @@
+{
+  "id": "05-inmunologia-03-inflamacion-concepto-necrosis-apoptosis-y-sufijo-itis",
+  "number": 3,
+  "title": "InflamaciÃ³n: concepto, necrosis, apoptosis y sufijo â€œ-itisâ€",
+  "file": "Modulo_03_inflamacion_concepto_necrosis_apoptosis_y_sufijo_itis.md",
+  "summary": "Cuando se habla de inflamaciÃ³n, la idea inicial del curso es identificar quÃ© estÃ¡ estimulando la respuesta: un microorganismo, un patÃ³geno, un cuerpo extraÃ±o o una lesiÃ³n celular. No se trata solo de â€œhinchazÃ³nâ€; es una respuesta organizada de defensa. Participan estructuras de dâ€¦",
+  "headings": [
+    "1. Â¿QuÃ© es la inflamaciÃ³n?",
+    "2. Â¿CÃ³mo inicia una respuesta inflamatoria?",
+    "3. ProtecciÃ³n primero, lesiÃ³n despuÃ©s",
+    "4. Necrosis y apoptosis: diferencia clave",
+    "5. RelaciÃ³n con el complemento",
+    "6. El sufijo â€œ-itisâ€: pista clÃnica",
+    "7. La inflamaciÃ³n cambia segÃºn el Ã³rgano",
+    "8. EvoluciÃ³n clÃnica: leve a grave",
+    "11. Verdadero/Falso de entrenamiento",
+    "12. Ficha rÃ¡pida de repaso"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

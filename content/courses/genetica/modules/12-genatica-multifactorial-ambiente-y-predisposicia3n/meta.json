@@ -1,0 +1,27 @@
+{
+  "id": "03-genetica-12-genetica-multifactorial-ambiente-y-predisposicion",
+  "number": 12,
+  "title": "GenÃ©tica multifactorial, ambiente y predisposiciÃ³n",
+  "file": "Modulo_12_genetica_multifactorial_ambiente_y_predisposicion.md",
+  "summary": "- Definir enfermedad multifactorial y diferenciarla de una enfermedad monogÃ©nica mendeliana. - Explicar por quÃ© una predisposiciÃ³n genÃ©tica puede no manifestarse si no aparece un factor ambiental desencadenante. - Reconocer factores ambientales modificables y no modificables que â€¦",
+  "headings": [
+    "1. Concepto principal",
+    "2. PredisposiciÃ³n genÃ©tica: carga familiar y susceptibilidad",
+    "3. Ambiente y estilo de vida: el desencadenante",
+    "4. Diabetes tipo 2 como ejemplo integrador",
+    "5. Obesidad infantil y hÃ¡bitos tempranos",
+    "6. CÃ¡ncer: genoma, ambiente y puntos de control",
+    "7. Otros ejemplos del curso",
+    "8. CÃ³mo responder en examen"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

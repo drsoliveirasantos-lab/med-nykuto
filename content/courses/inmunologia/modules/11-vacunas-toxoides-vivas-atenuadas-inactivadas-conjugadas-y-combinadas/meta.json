@@ -1,0 +1,27 @@
+{
+  "id": "05-inmunologia-11-vacunas-toxoides-vivas-atenuadas-inactivadas-conjugadas-y-combinadas",
+  "number": 11,
+  "title": "Vacunas: toxoides, vivas atenuadas, inactivadas, conjugadas y combinadas",
+  "file": "Modulo_11_vacunas_toxoides_vivas_atenuadas_inactivadas_conjugadas_y_combinadas.md",
+  "summary": "- Definir quÃ© busca una vacuna: estimular memoria inmunolÃ³gica y anticuerpos protectores. - Clasificar las vacunas en toxoides, vivas atenuadas, inactivadas, conjugadas y combinadas. - Diferenciar vivas atenuadas de inactivadas/subunidades segÃºn informaciÃ³n antigÃ©nica y duraciÃ³n.â€¦",
+  "headings": [
+    "2. ClasificaciÃ³n de vacunas",
+    "3. Toxoides",
+    "4. Vacunas vivas atenuadas",
+    "5. Vacunas muertas, inactivadas o de subunidades",
+    "6. Vacunas conjugadas",
+    "7. Vacunas combinadas",
+    "8. Dosis, refuerzos y memoria",
+    "9. Contraindicaciones generales del bloque"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

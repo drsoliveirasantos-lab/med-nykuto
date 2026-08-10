@@ -2,9 +2,10 @@ const { test, expect } = require('@playwright/test');
 
 const CURRENT_PRACTICE_LOADER = 'v364';
 const CURRENT_RUNTIME_GUARD = 'v362';
+const EXPECTED_TOTAL_MODULES = 59;
 
 const expectedCourses = {
-  fisiologia: { modules: 9, qcm: 1800, vf: 450, cases: 450 },
+  fisiologia: { modules: 10, bankModules: 9, qcm: 1800, vf: 450, cases: 450 },
   microbiologia: { modules: 13, qcm: 2600, vf: 650, cases: 650 },
   genetica: { modules: 12, qcm: 2400, vf: 600, cases: 600 },
   bioquimica: { modules: 12, qcm: 600, vf: 120, cases: 600 },
@@ -31,11 +32,12 @@ test.describe('Med Nykuto restored data integrity', () => {
     });
     expect(data.courseCount).toBeGreaterThanOrEqual(6);
     expect(data.activeCourseCount).toBeGreaterThanOrEqual(5);
-    expect(data.totalModules || data.moduleCount).toBe(58);
-    expect(data.moduleCount).toBe(58);
+    expect(data.totalModules || data.moduleCount).toBe(EXPECTED_TOTAL_MODULES);
+    expect(data.moduleCount).toBe(EXPECTED_TOTAL_MODULES);
     expect(data.richModuleCount).toBeGreaterThanOrEqual(50);
     expect(data.genericModuleCount).toBe(0);
-    expect(new Set(data.moduleIds).size).toBe(58);
+    expect(new Set(data.moduleIds).size).toBe(EXPECTED_TOTAL_MODULES);
+    expect(data.moduleIds).toContain('01-fisiologia-10-fisiologia-muscular');
   });
 
   for (const [courseId, expected] of Object.entries(expectedCourses)) {
@@ -65,7 +67,7 @@ test.describe('Med Nykuto restored data integrity', () => {
       expect(data.qcm).toBeGreaterThanOrEqual(expected.qcm);
       expect(data.vf).toBeGreaterThanOrEqual(expected.vf);
       expect(data.cases).toBeGreaterThanOrEqual(expected.cases);
-      expect(data.representedModules).toBeGreaterThanOrEqual(expected.modules);
+      expect(data.representedModules).toBeGreaterThanOrEqual(expected.bankModules || expected.modules);
       expect(data.sampleQcmOptions).toBe(4);
     });
   }

@@ -1,10 +1,10 @@
-/* v106 — Module page direct reader: stable reading without click refresh, expanded abbreviation popovers. */
+/* v107 — Module page direct reader: stable reading with accessible course-mode tabs. */
 (function(){
   'use strict';
 
   if(!document.body || document.body.dataset.page !== 'module') return;
 
-  window.__MED_NYKUTO_MODULE_DIRECT_READER__ = 'v106-no-reader-click-refresh-expanded-abbreviations';
+  window.__MED_NYKUTO_MODULE_DIRECT_READER__ = 'v107-visible-reader-mode-tabs';
 
   const ABBR = {
     TFG:'Tasa de filtración glomerular',
@@ -106,7 +106,10 @@
       body[data-page="module"].module-direct-ready .module-nav,
       body[data-page="module"].module-direct-ready .module-direct-hidden-nav,
       body[data-page="module"].module-direct-ready .module-direct-mode-tabs{display:none!important;visibility:hidden!important;height:0!important;max-height:0!important;min-height:0!important;overflow:hidden!important;margin:0!important;padding:0!important;border:0!important;opacity:0!important;pointer-events:none!important}
-      body[data-page="module"].module-direct-ready .reader-card > :not(.reader-head):not(#moduleContent){display:none!important;visibility:hidden!important;height:0!important;max-height:0!important;min-height:0!important;overflow:hidden!important;margin:0!important;padding:0!important;border:0!important;opacity:0!important;pointer-events:none!important}
+      body[data-page="module"].module-direct-ready .reader-card > :not(.reader-head):not(.reader-view-tabs):not(#moduleContent){display:none!important;visibility:hidden!important;height:0!important;max-height:0!important;min-height:0!important;overflow:hidden!important;margin:0!important;padding:0!important;border:0!important;opacity:0!important;pointer-events:none!important}
+      body[data-page="module"].module-direct-ready .reader-view-tabs{display:flex!important;visibility:visible!important;height:auto!important;max-height:none!important;min-height:0!important;overflow-x:auto!important;margin:0!important;padding:9px 12px!important;border:0!important;border-bottom:1px solid rgba(255,255,255,.065)!important;opacity:1!important;pointer-events:auto!important;gap:6px!important;scrollbar-width:none!important}
+      body[data-page="module"].module-direct-ready .reader-view-tabs::-webkit-scrollbar{display:none!important}
+      body[data-page="module"].module-direct-ready .reader-view-tabs .reader-tab{flex:0 0 auto!important;white-space:nowrap!important}
       body[data-page="module"].module-direct-ready .reader-card{border-radius:22px!important;background:linear-gradient(180deg,rgba(10,19,35,.97),rgba(4,10,19,.99))!important;border:1px solid rgba(236,211,139,.14)!important;box-shadow:0 18px 54px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.03)!important;overflow:hidden!important}
       body[data-page="module"].module-direct-ready .reader-head{display:grid!important;gap:6px!important;padding:11px 14px 10px!important;border-bottom:1px solid rgba(255,255,255,.065)!important;background:radial-gradient(circle at 12% 0%,rgba(236,211,139,.075),transparent 34%),linear-gradient(180deg,rgba(255,255,255,.034),rgba(255,255,255,0))!important}
       body[data-page="module"].module-direct-ready .reader-head .eyebrow{margin:0!important;color:#d8bf79!important;font-size:.58rem!important;letter-spacing:.20em!important;line-height:1.1!important}
@@ -154,6 +157,10 @@
       Array.from(card.children).forEach(child => {
         if(child.classList.contains('reader-head')) return;
         if(child.id === 'moduleContent') return;
+        if(child.classList.contains('reader-view-tabs')){
+          child.classList.remove('module-direct-hidden-nav');
+          return;
+        }
         child.classList.add('module-direct-hidden-nav');
       });
     }
@@ -161,6 +168,10 @@
     Array.from(document.querySelectorAll('main div, main nav, main section, main aside, .module-nav, .mobile-toc')).forEach(el => {
       if(el.id === 'moduleContent') return;
       if(el.classList.contains('reader-head') || el.classList.contains('reader-card') || el.classList.contains('reader-shell')) return;
+      if(el.classList.contains('reader-view-tabs')){
+        el.classList.remove('module-direct-hidden-nav');
+        return;
+      }
       if(el.closest && el.closest('#moduleContent')) return;
       const txt = textOf(el);
       const buttons = el.querySelectorAll('a,button').length;

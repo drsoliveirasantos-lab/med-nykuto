@@ -1,0 +1,2704 @@
+[
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-001",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 01",
+    "difficulty": "Moyen",
+    "question": "El túbulo proximal reabsorbe la mayor parte del Na⁺ y agua filtrados.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. La reabsorción proximal es masiva y aproximadamente isoosmótica.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 01",
+      "topicSlug": "verdadero_falso_01",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 01",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_01",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-002",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 02",
+    "difficulty": "Base",
+    "question": "La rama descendente del asa de Henle es permeable al agua.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. El agua sale hacia la médula hiperosmótica y concentra el líquido tubular.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 02",
+      "topicSlug": "verdadero_falso_02",
+      "concepts": [
+        "renal_tubulo"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 02",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_02",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-003",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 03",
+    "difficulty": "Moyen",
+    "question": "La rama ascendente gruesa reabsorbe NaCl sin agua.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Por eso diluye el líquido tubular y contribuye al gradiente medular.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 03",
+      "topicSlug": "verdadero_falso_03",
+      "concepts": [
+        "agua_libre"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 03",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_03",
+      "concept:agua_libre"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-004",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 04",
+    "difficulty": "Base",
+    "question": "ADH aumenta AQP2 en el conducto colector.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Esto aumenta permeabilidad al agua en células principales.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 04",
+      "topicSlug": "verdadero_falso_04",
+      "concepts": [
+        "renal_tubulo",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 04",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_04",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-005",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 05",
+    "difficulty": "Moyen",
+    "question": "Aldosterona aumenta reabsorción de Na⁺ y secreción de K⁺.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Actúa en células principales del distal tardío/colector.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 05",
+      "topicSlug": "verdadero_falso_05",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 05",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_05",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-006",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 06",
+    "difficulty": "Base",
+    "question": "Inulina mide GFR porque se filtra y no se modifica tubularmente.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Su clearance equivale al GFR.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 06",
+      "topicSlug": "verdadero_falso_06",
+      "concepts": [
+        "renal_tfg"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 06",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:calculation_formula",
+      "topic:verdadero_falso_06",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-007",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 07",
+    "difficulty": "Moyen",
+    "question": "Creatinina estima GFR y puede sobreestimarlo ligeramente.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Tiene pequeña secreción tubular.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 07",
+      "topicSlug": "verdadero_falso_07",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 07",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_07",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-008",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 08",
+    "difficulty": "Base",
+    "question": "PAH estima flujo plasmático renal efectivo.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Se filtra y secreta casi por completo.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 08",
+      "topicSlug": "verdadero_falso_08",
+      "concepts": [],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 08",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_08"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-009",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 09",
+    "difficulty": "Moyen",
+    "question": "La constricción aferente disminuye flujo renal y GFR.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Reduce entrada de sangre y presión glomerular.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 09",
+      "topicSlug": "verdadero_falso_09",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 09",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_09",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-010",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 10",
+    "difficulty": "Base",
+    "question": "La constricción eferente moderada puede sostener el GFR.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Eleva presión hidrostática glomerular.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 10",
+      "topicSlug": "verdadero_falso_10",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 10",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_10",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-011",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 11",
+    "difficulty": "Moyen",
+    "question": "La mácula densa detecta NaCl tubular distal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Participa en feedback tubuloglomerular.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 11",
+      "topicSlug": "verdadero_falso_11",
+      "concepts": [
+        "agua_libre",
+        "renal_tubulo"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 11",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_11",
+      "concept:agua_libre",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-012",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 12",
+    "difficulty": "Base",
+    "question": "Las células yuxtaglomerulares secretan renina.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Responden a baja perfusión, bajo NaCl y estímulo β1.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 12",
+      "topicSlug": "verdadero_falso_12",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre",
+        "renal_hormonas"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 12",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:calculation_formula",
+      "topic:verdadero_falso_12",
+      "concept:electricidad_biologica",
+      "concept:agua_libre",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-013",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 13",
+    "difficulty": "Moyen",
+    "question": "Angiotensina II constriñe preferentemente la arteriola eferente.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Esto ayuda a sostener presión glomerular en hipovolemia moderada.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 13",
+      "topicSlug": "verdadero_falso_13",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas",
+        "cardiovascular_vasos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 13",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_13",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-014",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 14",
+    "difficulty": "Base",
+    "question": "ANP favorece natriuresis.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Se opone funcionalmente a sistemas de retención de volumen.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 14",
+      "topicSlug": "verdadero_falso_14",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 14",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_14",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-015",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 15",
+    "difficulty": "Moyen",
+    "question": "La albúmina normal casi no se filtra.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. La barrera glomerular la restringe por tamaño y carga.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 15",
+      "topicSlug": "verdadero_falso_15",
+      "concepts": [],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 15",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_15"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-016",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 16",
+    "difficulty": "Base",
+    "question": "El daño de podocitos puede causar proteinuria.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Pierde selectividad de la barrera de filtración.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 16",
+      "topicSlug": "verdadero_falso_16",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 16",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_16",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-017",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 17",
+    "difficulty": "Moyen",
+    "question": "La presión oncótica capilar se opone al GFR.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Atrae agua hacia el capilar.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 17",
+      "topicSlug": "verdadero_falso_17",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "cardiovascular_vasos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 17",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_17",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-018",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 18",
+    "difficulty": "Base",
+    "question": "Excreción = filtración − reabsorción + secreción.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Resume el manejo renal de un soluto.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 18",
+      "topicSlug": "verdadero_falso_18",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 18",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_18",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-019",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 19",
+    "difficulty": "Moyen",
+    "question": "SGLT reabsorbe glucosa usando el gradiente de Na⁺.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Es transporte secundario activo en proximal.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 19",
+      "topicSlug": "verdadero_falso_19",
+      "concepts": [
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 19",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_19",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-020",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 20",
+    "difficulty": "Base",
+    "question": "El gradiente medular requiere asa de Henle y urea.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Permite concentrar orina con ADH.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 20",
+      "topicSlug": "verdadero_falso_20",
+      "concepts": [
+        "agua_libre",
+        "renal_tubulo",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 20",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_20",
+      "concept:agua_libre",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-021",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 21",
+    "difficulty": "Moyen",
+    "question": "Las células principales tienen ENaC y responden a aldosterona.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Ajustan Na⁺, K⁺ y agua.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 21",
+      "topicSlug": "verdadero_falso_21",
+      "concepts": [
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 21",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_21",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-022",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 22",
+    "difficulty": "Base",
+    "question": "Las intercaladas alfa secretan H⁺.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Ayudan a acidificar la orina.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 22",
+      "topicSlug": "verdadero_falso_22",
+      "concepts": [
+        "ph_acido_base"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 22",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_22",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-023",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 23",
+    "difficulty": "Moyen",
+    "question": "La distensión vesical inicia el reflejo de micción.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Activa receptores de estiramiento.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 23",
+      "topicSlug": "verdadero_falso_23",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 23",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_23",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-024",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 24",
+    "difficulty": "Base",
+    "question": "El riñón produce eritropoyetina.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Estimula eritropoyesis en médula ósea.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 24",
+      "topicSlug": "verdadero_falso_24",
+      "concepts": [],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 24",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_24"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-025",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 25",
+    "difficulty": "Moyen",
+    "question": "El riñón activa vitamina D a calcitriol.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 0,
+    "explanation": "Verdadero. Es importante para metabolismo calcio-fosfato.",
+    "whyWrong": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "distractorExplanations": [
+      null,
+      "Marcar falso sería incorrecto porque la afirmación corresponde al mecanismo fisiológico descrito."
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 25",
+      "topicSlug": "verdadero_falso_25",
+      "concepts": [
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 25",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_25",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-026",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 26",
+    "difficulty": "Base",
+    "question": "La rama descendente reabsorbe NaCl activamente por NKCC2.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. NKCC2 caracteriza a la rama ascendente gruesa; la descendente es permeable al agua.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 26",
+      "topicSlug": "verdadero_falso_26",
+      "concepts": [
+        "agua_libre"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 26",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_26",
+      "concept:agua_libre"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-027",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 27",
+    "difficulty": "Moyen",
+    "question": "ADH actúa principalmente filtrando proteínas glomerulares.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. ADH regula permeabilidad al agua en colector, no barrera proteica.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 27",
+      "topicSlug": "verdadero_falso_27",
+      "concepts": [
+        "renal_tubulo",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 27",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_27",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-028",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 28",
+    "difficulty": "Base",
+    "question": "Aldosterona disminuye secreción de K⁺.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Aldosterona suele aumentar secreción y excreción de K⁺.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 28",
+      "topicSlug": "verdadero_falso_28",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 28",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_28",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-029",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 29",
+    "difficulty": "Moyen",
+    "question": "Inulina mide GFR porque se reabsorbe completamente.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Debe no reabsorberse ni secretarse.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 29",
+      "topicSlug": "verdadero_falso_29",
+      "concepts": [
+        "renal_tfg"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 29",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:mechanism",
+      "topic:verdadero_falso_29",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-030",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 30",
+    "difficulty": "Base",
+    "question": "PAH mide GFR puro porque no se secreta.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. PAH se secreta intensamente y estima flujo plasmático renal efectivo.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 30",
+      "topicSlug": "verdadero_falso_30",
+      "concepts": [
+        "renal_tfg"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 30",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:verdadero_falso_30",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-031",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 31",
+    "difficulty": "Moyen",
+    "question": "La presión en Bowman favorece la filtración.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Se opone a la filtración.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 31",
+      "topicSlug": "verdadero_falso_31",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 31",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_31",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-032",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 32",
+    "difficulty": "Base",
+    "question": "La presión oncótica capilar favorece el GFR.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Se opone a la filtración.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 32",
+      "topicSlug": "verdadero_falso_32",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "cardiovascular_vasos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 32",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_32",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-033",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 33",
+    "difficulty": "Moyen",
+    "question": "La mácula densa detecta volumen de orina vesical.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Detecta NaCl en túbulo distal.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 33",
+      "topicSlug": "verdadero_falso_33",
+      "concepts": [
+        "agua_libre",
+        "renal_tubulo"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 33",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_33",
+      "concept:agua_libre",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-034",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 34",
+    "difficulty": "Base",
+    "question": "Los podocitos secretan renina.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La renina viene de células yuxtaglomerulares.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 34",
+      "topicSlug": "verdadero_falso_34",
+      "concepts": [
+        "renal_hormonas"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 34",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:calculation_formula",
+      "topic:verdadero_falso_34",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-035",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 35",
+    "difficulty": "Moyen",
+    "question": "ANP conserva sodio en hipervolemia.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. ANP favorece natriuresis.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 35",
+      "topicSlug": "verdadero_falso_35",
+      "concepts": [
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 35",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_35",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-036",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 36",
+    "difficulty": "Base",
+    "question": "El túbulo proximal secreta toda la glucosa filtrada.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Normalmente la reabsorbe casi por completo.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 36",
+      "topicSlug": "verdadero_falso_36",
+      "concepts": [
+        "renal_tubulo"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 36",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_36",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-037",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 37",
+    "difficulty": "Moyen",
+    "question": "AQP2 transporta glucosa.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. AQP2 transporta agua.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 37",
+      "topicSlug": "verdadero_falso_37",
+      "concepts": [
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 37",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_37",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-038",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 38",
+    "difficulty": "Base",
+    "question": "Bloquear NKCC2 fortalece el gradiente medular.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Lo debilita y reduce capacidad de concentrar orina.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 38",
+      "topicSlug": "verdadero_falso_38",
+      "concepts": [],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 38",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_38"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-039",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 39",
+    "difficulty": "Moyen",
+    "question": "Las células principales son las principales secretoras de H⁺.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Esa función corresponde a intercaladas alfa.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 39",
+      "topicSlug": "verdadero_falso_39",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "recognition_pattern",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 39",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:recognition_pattern",
+      "topic:verdadero_falso_39",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-040",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 40",
+    "difficulty": "Base",
+    "question": "La vejiga determina el GFR.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. GFR depende de fuerzas glomerulares y hemodinámica renal.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 40",
+      "topicSlug": "verdadero_falso_40",
+      "concepts": [
+        "renal_tfg"
+      ],
+      "skill": "mechanism",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 40",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:mechanism",
+      "topic:verdadero_falso_40",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-041",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 41",
+    "difficulty": "Moyen",
+    "question": "Las nefronas corticales tienen las asas más largas.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Las yuxtamedulares tienen asas largas.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 41",
+      "topicSlug": "verdadero_falso_41",
+      "concepts": [],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 41",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:verdadero_falso_41"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-042",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 42",
+    "difficulty": "Base",
+    "question": "La creatinina plasmática baja cuando cae mucho el GFR.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Tiende a subir por menor depuración.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 42",
+      "topicSlug": "verdadero_falso_42",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 42",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_42",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-043",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 43",
+    "difficulty": "Moyen",
+    "question": "La proteinuria persistente siempre es normal.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Sugiere alteración glomerular o tubular según el tipo.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 43",
+      "topicSlug": "verdadero_falso_43",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 43",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_43",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-044",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 44",
+    "difficulty": "Base",
+    "question": "La PTH aumenta reabsorción proximal de fosfato.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La disminuye y aumenta fosfaturia.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 44",
+      "topicSlug": "verdadero_falso_44",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 44",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_44",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-045",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 45",
+    "difficulty": "Moyen",
+    "question": "La natriuresis por presión reduce excreción de Na⁺ al subir presión.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Aumenta excreción de Na⁺ y agua.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 45",
+      "topicSlug": "verdadero_falso_45",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 45",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_45",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-046",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 46",
+    "difficulty": "Base",
+    "question": "El detrusor es una arteriola glomerular.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Es músculo liso vesical.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 46",
+      "topicSlug": "verdadero_falso_46",
+      "concepts": [
+        "cardiovascular_vasos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 46",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_46",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-047",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 47",
+    "difficulty": "Moyen",
+    "question": "La activación simpática renal inhibe renina por β1.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La estimulación β1 aumenta renina.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 47",
+      "topicSlug": "verdadero_falso_47",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "application",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 47",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:verification",
+      "topic:verdadero_falso_47",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-048",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 48",
+    "difficulty": "Base",
+    "question": "Los eritrocitos se filtran normalmente en el glomérulo.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La barrera normal retiene células sanguíneas.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 48",
+      "topicSlug": "verdadero_falso_48",
+      "concepts": [],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 48",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_48"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-049",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 49",
+    "difficulty": "Moyen",
+    "question": "La carga filtrada no depende del GFR.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. Carga filtrada = GFR × concentración plasmática filtrable.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 49",
+      "topicSlug": "verdadero_falso_49",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "calculation_formula",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "medium",
+      "sourceHeading": "Verdadero/Falso 49",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:medium",
+      "skill:calculation_formula",
+      "topic:verdadero_falso_49",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-04-fisiologia-renal-vf-v117-050",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-04-fisiologia-renal",
+    "moduleNumber": 4,
+    "moduleTitle": "Fisiología renal",
+    "heading": "Verdadero/Falso 50",
+    "difficulty": "Base",
+    "question": "La hipoalbuminemia aumenta la presión oncótica capilar.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "answerIndex": 1,
+    "explanation": "Falso. La reduce.",
+    "whyWrong": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "distractorExplanations": [
+      "Marcar verdadero sería incorrecto porque la afirmación contradice el mecanismo fisiológico descrito.",
+      null
+    ],
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 4,
+      "moduleId": "01-fisiologia-04-fisiologia-renal",
+      "moduleTitle": "Fisiología renal",
+      "format": "vf",
+      "topic": "Verdadero/Falso 50",
+      "topicSlug": "verdadero_falso_50",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_vasos"
+      ],
+      "skill": "verification",
+      "cognitiveLevel": "recall",
+      "difficulty": "basic",
+      "sourceHeading": "Verdadero/Falso 50",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:4",
+      "module_id:01_fisiologia_04_fisiologia_renal",
+      "format:vf",
+      "difficulty:basic",
+      "skill:verification",
+      "topic:verdadero_falso_50",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_vasos"
+    ]
+  }
+]

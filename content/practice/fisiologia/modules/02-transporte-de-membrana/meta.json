@@ -1,0 +1,17 @@
+{
+  "courseId": "fisiologia",
+  "moduleId": "01-fisiologia-02-transporte-de-membrana",
+  "moduleNumber": 2,
+  "moduleTitle": "Transporte de membrana",
+  "directory": "02-transporte-de-membrana",
+  "counts": {
+    "qcm": 200,
+    "vf": 50,
+    "cases": 50
+  },
+  "files": {
+    "qcm": "qcm.json",
+    "vf": "vf.json",
+    "cases": "cases.json"
+  }
+}

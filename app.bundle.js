@@ -314,7 +314,7 @@
   Object.assign(UI.fr, {home:'Accueil', backSubjects:'← Retour aux matières', subjectBrandSubtitle:'Modules par matière', readingCourse:'Lecture du cours', subjectCourseEyebrow:'Cours de la matière', subjectModulesTitle:'Modules disponibles', subjectSearchPlaceholder:'Rechercher dans cette matière...', readerFooterText:'Lecture en pages séparées avec navigation par titres.', toc:'Sommaire', courseIndex:'Sommaire du cours', moduleQcm:'QCM de ce cours', moduleClinical:'Cas cliniques', qcmMode:'Mode QCM', clinicalCases:'Cas cliniques', vfMode:'Mode Vrai/Faux', practiceQcmDesc:'Sélectionne une matière ou révise les questions disponibles.', practiceCaseDesc:'Travaille les applications cliniques des modules.', practiceVfDesc:'Sélectionne une matière ou révise les énoncés disponibles.', practiceDescriptionDefault:'Choisis une matière ou un module. Les questions apparaissent une par une avec recyclage automatique des erreurs.', practiceDescriptionSeries:'Révision par séries de 20 questions : les erreurs reviennent dans la série suivante, mélangées à de nouvelles questions.', practiceDescriptionSeriesVf:'Révision vrai/faux par séries de 20 énoncés : les erreurs reviennent dans la série suivante.', emptyQcm:'Aucun contenu QCM pour cette sélection.', emptyCase:'Aucun cas clinique pour cette sélection.', emptyVf:'Aucun contenu vrai/faux pour cette sélection.', noQuestions:'Aucune question disponible pour cette sélection.', level:'Niveau', allLevels:'Tous', sessionFinished:'Session terminée', globalResultLabel:'Résultat global', successSentence:'Tu as obtenu {pct}% de réussite. Les questions ratées sont recyclées dans les séries suivantes jusqu’à épuisement de la banque disponible.', redoSession:'Refaire la session', backToModules:'Retour aux modules', matterLabel:'Matière', courseLabel:'Cours', openArrow:'Ouvrir →', resetSubjectProgress:'Réinitialiser', subjectProgressReset:'Progression de la matière réinitialisée', difficulty:'Difficulté', allDifficulties:'Aléatoire · tous niveaux', questionLevel:'Niveau de la question', normalLevel:'Normal', difficultLevel:'Difficile', extremeLevel:'Extrême', examLevel:'Examen', questionCounter:'Question', bankTotal:'Banque totale', selectedBank:'Niveau choisi', currentLevel:'Niveau actuel', fullCourse:'Cours complet', quickSheet:'Fiche rapide', courseMode:'Mode de lecture' });
   Object.assign(UI.br, {home:'Início', backSubjects:'← Voltar às matérias', subjectBrandSubtitle:'Módulos por matéria', readingCourse:'Leitura do curso', subjectCourseEyebrow:'Curso da matéria', subjectModulesTitle:'Módulos disponíveis', subjectSearchPlaceholder:'Pesquisar nesta matéria...', readerFooterText:'Leitura em páginas separadas com navegação por títulos.', toc:'Índice', courseIndex:'Índice do curso', moduleQcm:'QCM deste curso', moduleClinical:'Casos clínicos', qcmMode:'Modo QCM', clinicalCases:'Casos clínicos', vfMode:'Modo Verdadeiro/Falso', practiceQcmDesc:'Selecione uma matéria ou revise as perguntas disponíveis.', practiceCaseDesc:'Trabalhe as aplicações clínicas dos módulos.', practiceVfDesc:'Selecione uma matéria ou revise os enunciados disponíveis.', practiceDescriptionDefault:'Escolha uma matéria ou um módulo. As perguntas aparecem uma por uma com reciclagem automática dos erros.', practiceDescriptionSeries:'Revisão em séries de 20 perguntas: os erros voltam na série seguinte, misturados com perguntas novas.', practiceDescriptionSeriesVf:'Revisão verdadeiro/falso em séries de 20 enunciados: os erros voltam na série seguinte.', emptyQcm:'Não há conteúdo QCM para esta seleção.', emptyCase:'Não há casos clínicos para esta seleção.', emptyVf:'Não há conteúdo verdadeiro/falso para esta seleção.', noQuestions:'Não há perguntas disponíveis para esta seleção.', level:'Nível', allLevels:'Todos', sessionFinished:'Sessão finalizada', globalResultLabel:'Resultado global', successSentence:'Você obteve {pct}% de acertos. As perguntas erradas são recicladas nas séries seguintes até esgotar o banco disponível.', redoSession:'Refazer sessão', backToModules:'Voltar aos módulos', matterLabel:'Matéria', courseLabel:'Curso', openArrow:'Abrir →', resetSubjectProgress:'Reiniciar', subjectProgressReset:'Progresso da matéria reiniciado', difficulty:'Dificuldade', allDifficulties:'Aleatório · todos os níveis', questionLevel:'Nível da questão', normalLevel:'Normal', difficultLevel:'Difícil', extremeLevel:'Extremo', examLevel:'Exame', questionCounter:'Questão', bankTotal:'Banco total', selectedBank:'Nível escolhido', currentLevel:'Nível atual', fullCourse:'Curso completo', quickSheet:'Ficha rápida', courseMode:'Modo de leitura' });
 
-  function lang(){ return safeGetItem('medLang') || 'fr'; }
+  function lang(){ return safeGetItem('medLang') || 'es'; }
   function t(key){ const l = lang(); return (UI[l] && UI[l][key]) || UI.es[key] || key; }
 
   Object.assign(UI.es, {mistakes:'Mis errores', reviewToday:'Repasar hoy', examMode:'Examen blanco', dashboard:'Panel de estudio', continueLearning:'Continuar', weakPoints:'Puntos débiles', noMistakes:'No hay errores guardados todavía.', mistakesText:'Aquí aparecen las preguntas falladas o marcadas como “No sé”, con revisión espaciada.', dueToday:'Para hoy', laterReview:'Más tarde', mastered:'Dominado', markMastered:'Marcar dominado', retryQuestion:'Rehacer pregunta', openCourseSection:'Abrir curso', detailedCorrection:'Corrección detallada', whyCorrect:'Por qué es correcta', whyWrong:'Por qué las otras son falsas', keyTakeaway:'Punto clave', ultraSheet:'Ficha ultra-rápida', startExam:'Iniciar examen blanco', examIntro:'Simulación con preguntas tipo examen, corrección al final y detección de puntos débiles.', examCorrectionHidden:'Modo examen: la corrección aparecerá al final.', reviewMistakes:'Revisar mis errores', todayPlan:'Plan de hoy', quickActions:'Acciones rápidas', questionsToReview:'preguntas para revisar', recentErrors:'errores recientes', startRevision:'Iniciar revisión', allClear:'Todo limpio por ahora', examResult:'Resultado del examen', examReview:'Corrección del examen'});
@@ -1091,19 +1091,19 @@ Object.assign(UI.br, {
 const SUPPORT_RIBBON_MESSAGES = {
   es:[
     'Proyecto gratuito · Si este sitio te ayuda a estudiar, un pequeño Pix ayuda a mantenerlo en línea.',
-    '58 módulos, QCM, casos clínicos y verdadero/falso gratuitos · el apoyo voluntario ayuda a sostener el proyecto.',
+    '59 módulos, QCM, casos clínicos y verdadero/falso gratuitos · el apoyo voluntario ayuda a sostener el proyecto.',
     'Si el sitio te ahorra tiempo, un pequeño Pix ayuda a pagar el alojamiento y mejorar los cursos.',
     'El contenido sigue abierto para todos · el apoyo ayuda a mantener las herramientas accesibles.'
   ],
   fr:[
     'Projet gratuit · Si ce site t’aide à réviser, un petit Pix aide à le garder en ligne.',
-    '58 modules, QCM, cas cliniques et vrai/faux gratuits · le soutien volontaire aide à faire durer le projet.',
+    '59 modules, QCM, cas cliniques et vrai/faux gratuits · le soutien volontaire aide à faire durer le projet.',
     'Si ce site te fait gagner du temps, un petit Pix aide à payer l’hébergement et à améliorer les cours.',
     'Le contenu reste ouvert à tous · le soutien aide à garder les outils accessibles.'
   ],
   br:[
     'Projeto gratuito · Se este site te ajuda a estudar, um pequeno Pix ajuda a mantê-lo no ar.',
-    '58 módulos, QCM, casos clínicos e verdadeiro/falso gratuitos · o apoio voluntário ajuda a sustentar o projeto.',
+    '59 módulos, QCM, casos clínicos e verdadeiro/falso gratuitos · o apoio voluntário ajuda a sustentar o projeto.',
     'Se o site te faz ganhar tempo, um pequeno Pix ajuda a pagar a hospedagem e melhorar os cursos.',
     'O conteúdo continua aberto para todos · o apoio ajuda a manter as ferramentas acessíveis.'
   ]
@@ -1230,34 +1230,34 @@ const SUPPORT_RIBBON_MESSAGES = {
 
 
   Object.assign(UI.es, {
-    currentSemesterBadge:'Semestre 3',
-    currentSemesterText:'Contenido actual: materias del tercer semestre',
-    semesterCatalogNote:'Las materias mostradas corresponden actualmente al tercer semestre. El sitio evolucionará después con los próximos semestres.',
+    currentSemesterBadge:'Biblioteca en evolución',
+    currentSemesterText:'59 módulos publicados · nuevos contenidos en preparación',
+    semesterCatalogNote:'La biblioteca conserva los módulos ya publicados y se amplía progresivamente con el recorrido académico.',
     aboutScopeTitle:'Lo que cubre actualmente el sitio',
-    aboutScopeText:'Med Cursos no pretende cubrir toda la medicina de una sola vez. Hoy, el sitio presenta sobre todo las materias del tercer semestre, porque sigue un recorrido real de estudiante y se construye al ritmo de los cursos estudiados.',
-    aboutScopeText2:'Cuando empiece el semestre 4, se podrán añadir nuevos módulos progresivamente. El objetivo es que el sitio avance con el recorrido, semestre tras semestre, conservando los contenidos ya disponibles para los estudiantes que los necesiten.',
+    aboutScopeText:'Med Nykuto no pretende cubrir toda la medicina de una sola vez. La biblioteca conserva los 59 módulos ya publicados y se construye al ritmo de un recorrido real de estudiante.',
+    aboutScopeText2:'Los contenidos del semestre 4 se pueden incorporar progresivamente, conservando los módulos ya disponibles para los estudiantes que los necesiten.',
     aboutMethodTitle:'Cómo se construyen los contenidos',
     aboutMethodText:'Los contenidos se preparan a partir de un trabajo personal de estudio: apuntes, transcripciones de revisión, explicaciones escuchadas en clase, búsquedas complementarias y reorganización pedagógica.',
     aboutMethodText2:'La inteligencia artificial se utiliza como herramienta de ayuda para organizar la información, aclarar explicaciones, crear fichas y generar entrenamientos. El objetivo no es reemplazar a los profesores o libros, sino transformar un contenido bruto en un soporte de revisión más claro y activo.'
   });
   Object.assign(UI.fr, {
-    currentSemesterBadge:'Semestre 3',
-    currentSemesterText:'Contenu actuel : matières du troisième semestre',
-    semesterCatalogNote:'Les matières affichées correspondent actuellement au troisième semestre. Le site évoluera ensuite avec les prochains semestres.',
+    currentSemesterBadge:'Bibliothèque en évolution',
+    currentSemesterText:'59 modules publiés · nouveaux contenus en préparation',
+    semesterCatalogNote:'La bibliothèque conserve les modules déjà publiés et s’enrichit progressivement avec le parcours universitaire.',
     aboutScopeTitle:'Ce que le site couvre actuellement',
-    aboutScopeText:'Med Cursos ne prétend pas couvrir toute la médecine d’un seul coup. Aujourd’hui, le site présente surtout les matières du troisième semestre, parce qu’il suit un parcours réel d’étudiant et se construit au rythme des cours étudiés.',
-    aboutScopeText2:'Quand le semestre 4 commencera, de nouveaux modules pourront être ajoutés progressivement. L’objectif est que le site avance avec le parcours, semestre après semestre, tout en gardant les contenus déjà disponibles pour les étudiants qui en ont besoin.',
+    aboutScopeText:'Med Nykuto ne prétend pas couvrir toute la médecine d’un seul coup. La bibliothèque conserve les 59 modules déjà publiés et se construit au rythme d’un parcours réel d’étudiant.',
+    aboutScopeText2:'Les contenus du semestre 4 peuvent être ajoutés progressivement, tout en gardant les modules déjà disponibles pour les étudiants qui en ont besoin.',
     aboutMethodTitle:'Comment les contenus sont construits',
     aboutMethodText:'Les contenus sont préparés à partir d’un travail personnel d’étude : notes, transcriptions de révision, explications entendues en cours, recherches complémentaires et restructuration pédagogique.',
     aboutMethodText2:'L’intelligence artificielle est utilisée comme outil d’aide pour organiser les informations, clarifier les explications, créer des fiches et générer des entraînements. Le but n’est pas de remplacer les professeurs ou les livres, mais de transformer un contenu brut en support de révision plus clair et plus actif.'
   });
   Object.assign(UI.br, {
-    currentSemesterBadge:'Semestre 3',
-    currentSemesterText:'Conteúdo atual: matérias do terceiro semestre',
-    semesterCatalogNote:'As matérias exibidas correspondem atualmente ao terceiro semestre. O site evoluirá depois com os próximos semestres.',
+    currentSemesterBadge:'Biblioteca em evolução',
+    currentSemesterText:'59 módulos publicados · novos conteúdos em preparação',
+    semesterCatalogNote:'A biblioteca conserva os módulos já publicados e cresce progressivamente com o percurso acadêmico.',
     aboutScopeTitle:'O que o site cobre atualmente',
-    aboutScopeText:'Med Cursos não pretende cobrir toda a medicina de uma vez. Hoje, o site apresenta principalmente as matérias do terceiro semestre, porque acompanha um percurso real de estudante e é construído no ritmo dos cursos estudados.',
-    aboutScopeText2:'Quando o semestre 4 começar, novos módulos poderão ser adicionados progressivamente. O objetivo é que o site avance com o percurso, semestre após semestre, mantendo os conteúdos já disponíveis para os estudantes que precisarem deles.',
+    aboutScopeText:'Med Nykuto não pretende cobrir toda a medicina de uma vez. A biblioteca conserva os 59 módulos já publicados e é construída no ritmo de um percurso real de estudante.',
+    aboutScopeText2:'Os conteúdos do semestre 4 podem ser adicionados progressivamente, mantendo os módulos já disponíveis para os estudantes que precisarem deles.',
     aboutMethodTitle:'Como os conteúdos são construídos',
     aboutMethodText:'Os conteúdos são preparados a partir de um trabalho pessoal de estudo: anotações, transcrições de revisão, explicações ouvidas em aula, pesquisas complementares e reorganização pedagógica.',
     aboutMethodText2:'A inteligência artificial é usada como ferramenta de apoio para organizar informações, esclarecer explicações, criar fichas e gerar treinos. O objetivo não é substituir professores ou livros, mas transformar um conteúdo bruto em um material de revisão mais claro e ativo.'
@@ -7424,14 +7424,28 @@ window.addEventListener('pageshow', () => setTimeout(setupReaderModuleSwitcherV2
     return Math.max(0, Math.min(100, Math.round(n))) + "%";
   }
 
-  function labelStatus(item){
+  var WEAK_LABELS = {
+    es:{confirm:'por confirmar',weak:'débil',reinforce:'por reforzar',average:'medio',mastered:'dominado',successAria:'acierto',empty:'Haz algunas preguntas: tus puntos débiles aparecerán aquí automáticamente.',none:'Ningún punto débil detectado',point:'punto detectado',points:'puntos detectados',adaptive:'Adaptativo local',title:'Mis puntos débiles',click:'pulsa para',hideLower:'ocultar',showLower:'mostrar',detail:'el detalle',answers:'respuestas',success:'acierto',errors:'errores',unknown:'no sé',hide:'Ocultar',show:'Mostrar',local:'Calculado únicamente en este dispositivo. Las etiquetas permanecen ocultas.',reset:'Reiniciar',confirmReset:'¿Reiniciar tus estadísticas locales en este dispositivo?'},
+    fr:{confirm:'à confirmer',weak:'faible',reinforce:'à renforcer',average:'moyen',mastered:'maîtrisé',successAria:'réussite',empty:'Fais quelques questions : tes points faibles apparaîtront ici automatiquement.',none:'Aucun point faible détecté',point:'point détecté',points:'points détectés',adaptive:'Adaptatif local',title:'Mes points faibles',click:'clique pour',hideLower:'masquer',showLower:'afficher',detail:'le détail',answers:'réponses',success:'réussite',errors:'erreurs',unknown:'je ne sais pas',hide:'Masquer',show:'Afficher',local:'Calculé uniquement sur cet appareil. Les tags restent cachés.',reset:'Réinitialiser',confirmReset:'Réinitialiser tes statistiques locales sur cet appareil ?'},
+    br:{confirm:'a confirmar',weak:'fraco',reinforce:'a reforçar',average:'médio',mastered:'dominado',successAria:'acerto',empty:'Faça algumas perguntas: seus pontos fracos aparecerão aqui automaticamente.',none:'Nenhum ponto fraco detectado',point:'ponto detectado',points:'pontos detectados',adaptive:'Adaptativo local',title:'Meus pontos fracos',click:'toque para',hideLower:'ocultar',showLower:'mostrar',detail:'os detalhes',answers:'respostas',success:'acerto',errors:'erros',unknown:'não sei',hide:'Ocultar',show:'Mostrar',local:'Calculado somente neste dispositivo. As etiquetas permanecem ocultas.',reset:'Reiniciar',confirmReset:'Reiniciar suas estatísticas locais neste dispositivo?'}
+  };
+
+  function weakLabels(){
+    var active = document.querySelector('.brand-lang button.active, .lang-switch button.active, [data-lang].active');
+    var raw = String((active && (active.getAttribute('data-lang') || active.textContent)) || document.documentElement.lang || 'es').toLowerCase();
+    if(raw.indexOf('fr') >= 0) return WEAK_LABELS.fr;
+    if(raw.indexOf('br') >= 0 || raw.indexOf('pt') >= 0) return WEAK_LABELS.br;
+    return WEAK_LABELS.es;
+  }
+
+  function labelStatus(item, labels){
     var acc = item.accuracy || 0;
     var attempts = item.attempts || 0;
-    if(attempts < 2) return {label:"à confirmer", cls:"warn"};
-    if(acc < 50) return {label:"faible", cls:"bad"};
-    if(acc < 70) return {label:"à renforcer", cls:"warn"};
-    if(acc < 85) return {label:"moyen", cls:"mid"};
-    return {label:"maîtrisé", cls:"good"};
+    if(attempts < 2) return {label:labels.confirm, cls:"warn"};
+    if(acc < 50) return {label:labels.weak, cls:"bad"};
+    if(acc < 70) return {label:labels.reinforce, cls:"warn"};
+    if(acc < 85) return {label:labels.average, cls:"mid"};
+    return {label:labels.mastered, cls:"good"};
   }
 
   function getStats(){
@@ -7464,6 +7478,7 @@ window.addEventListener('pageshow', () => setTimeout(setupReaderModuleSwitcherV2
     var totals = data && data.totals ? data.totals : {attempts:0, correct:0, wrong:0, unknown:0, fragile:0};
     var attempts = totals.attempts || 0;
     var accuracy = attempts ? Math.round(((totals.correct || 0) / attempts) * 100) : 0;
+    var labels = weakLabels();
 
     if(!existing){
       existing = document.createElement("section");
@@ -7491,7 +7506,7 @@ window.addEventListener('pageshow', () => setTimeout(setupReaderModuleSwitcherV2
     var rows = "";
     if(items.length){
       rows = items.map(function(item, idx){
-        var st = labelStatus(item);
+        var st = labelStatus(item, labels);
         var topic = item.label || item.topic || item.key || "Concept";
         var moduleText = item.moduleNumber ? ("M" + item.moduleNumber) : "";
         var subject = item.subject ? item.subject : "";
@@ -7502,7 +7517,7 @@ window.addEventListener('pageshow', () => setTimeout(setupReaderModuleSwitcherV2
               '<strong>' + escapeHtml(topic) + '</strong>' +
               '<small>' + escapeHtml([subject, moduleText].filter(Boolean).join(" · ")) + '</small>' +
             '</span>' +
-            '<span class="weak-meter" aria-label="réussite">' +
+            '<span class="weak-meter" aria-label="' + labels.successAria + '">' +
               '<i style="width:' + Math.max(3, Math.min(100, item.accuracy || 0)) + '%"></i>' +
             '</span>' +
             '<span class="weak-score">' + pct(item.accuracy || 0) + '</span>' +
@@ -7510,34 +7525,35 @@ window.addEventListener('pageshow', () => setTimeout(setupReaderModuleSwitcherV2
           '</button>';
       }).join("");
     } else {
-      rows = '<div class="weak-empty">Fais quelques questions : tes points faibles apparaîtront ici automatiquement.</div>';
+      rows = '<div class="weak-empty">' + labels.empty + '</div>';
     }
 
     var weakCount = items.length;
-    var weakSummary = weakCount ? (weakCount + " point" + (weakCount > 1 ? "s" : "") + " détecté" + (weakCount > 1 ? "s" : "")) : "Aucun point faible détecté";
+    var weakSummary = weakCount ? (weakCount + ' ' + (weakCount > 1 ? labels.points : labels.point)) : labels.none;
+    existing.dataset.weakCount = String(weakCount);
     var dashboardHtml = '' +
       '<div class="weak-head" role="button" tabindex="0" aria-controls="adaptiveWeakDetailsV261" aria-expanded="' + (isOpen ? 'true' : 'false') + '">' +
         '<div class="weak-title">' +
-          '<p class="eyebrow">Adaptatif local</p>' +
-          '<h2>Mes points faibles</h2>' +
-          '<p class="weak-summary">' + weakSummary + ' · clique pour ' + (isOpen ? 'masquer' : 'afficher') + ' le détail</p>' +
+          '<p class="eyebrow">' + labels.adaptive + '</p>' +
+          '<h2>' + labels.title + '</h2>' +
+          '<p class="weak-summary">' + weakSummary + ' · ' + labels.click + ' ' + (isOpen ? labels.hideLower : labels.showLower) + ' ' + labels.detail + '</p>' +
         '</div>' +
         '<div class="weak-stats">' +
-          '<span><strong>' + attempts + '</strong><small>réponses</small></span>' +
-          '<span><strong>' + pct(accuracy) + '</strong><small>réussite</small></span>' +
-          '<span><strong>' + (totals.wrong || 0) + '</strong><small>erreurs</small></span>' +
-          '<span><strong>' + (totals.unknown || 0) + '</strong><small>je ne sais pas</small></span>' +
+          '<span><strong>' + attempts + '</strong><small>' + labels.answers + '</small></span>' +
+          '<span><strong>' + pct(accuracy) + '</strong><small>' + labels.success + '</small></span>' +
+          '<span><strong>' + (totals.wrong || 0) + '</strong><small>' + labels.errors + '</small></span>' +
+          '<span><strong>' + (totals.unknown || 0) + '</strong><small>' + labels.unknown + '</small></span>' +
         '</div>' +
         '<button class="weak-toggle" type="button" aria-expanded="' + (isOpen ? 'true' : 'false') + '" aria-controls="adaptiveWeakDetailsV261">' +
-          '<span class="weak-toggle-text">' + (isOpen ? 'Masquer' : 'Afficher') + '</span>' +
+          '<span class="weak-toggle-text">' + (isOpen ? labels.hide : labels.show) + '</span>' +
           '<span class="weak-chevron" aria-hidden="true">⌄</span>' +
         '</button>' +
       '</div>' +
       '<div class="weak-collapsible" id="adaptiveWeakDetailsV261" aria-hidden="' + (isOpen ? 'false' : 'true') + '">' +
         '<div class="weak-body">' + rows + '</div>' +
         '<div class="weak-foot">' +
-          '<span>Calculé uniquement sur cet appareil. Les tags restent cachés.</span>' +
-          '<button class="weak-reset" type="button">Réinitialiser</button>' +
+          '<span>' + labels.local + '</span>' +
+          '<button class="weak-reset" type="button">' + labels.reset + '</button>' +
         '</div>' +
       '</div>';
 
@@ -7575,7 +7591,7 @@ window.addEventListener('pageshow', () => setTimeout(setupReaderModuleSwitcherV2
     if(reset){
       reset.onclick = function(){
         if(!window.MedAdaptiveV260 || typeof window.MedAdaptiveV260.reset !== "function") return;
-        if(confirm("Réinitialiser tes statistiques locales sur cet appareil ?")){
+        if(confirm(labels.confirmReset)){
           window.MedAdaptiveV260.reset();
           setTimeout(ensureDashboard, 80);
         }
@@ -7602,9 +7618,12 @@ window.addEventListener('pageshow', () => setTimeout(setupReaderModuleSwitcherV2
     if(head) head.setAttribute("aria-expanded", open ? "true" : "false");
     if(details) details.setAttribute("aria-hidden", open ? "false" : "true");
     if(toggleBtn) toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
-    if(toggleText) toggleText.textContent = open ? "Masquer" : "Afficher";
+    var labels = weakLabels();
+    if(toggleText) toggleText.textContent = open ? labels.hide : labels.show;
     if(summary){
-      summary.textContent = summary.textContent.replace(open ? "clique pour afficher" : "clique pour masquer", open ? "clique pour masquer" : "clique pour afficher");
+      var weakCount = Number(box.dataset.weakCount || 0);
+      var weakSummary = weakCount ? (weakCount + ' ' + (weakCount > 1 ? labels.points : labels.point)) : labels.none;
+      summary.textContent = weakSummary + ' · ' + labels.click + ' ' + (open ? labels.hideLower : labels.showLower) + ' ' + labels.detail;
     }
     if(persist){
       try { localStorage.setItem("medWeakDashboardV261Open", open ? "1" : "0"); } catch(e){}

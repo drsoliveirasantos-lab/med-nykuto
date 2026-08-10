@@ -1,0 +1,17 @@
+{
+  "courseId": "fisiologia",
+  "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+  "moduleNumber": 6,
+  "moduleTitle": "Anion gap y acidosis metabólica",
+  "directory": "06-anion-gap-y-acidosis-metabolica",
+  "counts": {
+    "qcm": 200,
+    "vf": 50,
+    "cases": 50
+  },
+  "files": {
+    "qcm": "qcm.json",
+    "vf": "vf.json",
+    "cases": "cases.json"
+  }
+}

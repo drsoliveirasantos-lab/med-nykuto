@@ -129,7 +129,7 @@ function validateCourses(file){
   const rich = modules.filter(m => String(m.markdown || m.fullMarkdown || '').length > 2500);
   if(courses.length < 6) fail(`med-courses-data.js: expected >=6 courses, got ${courses.length}`);
   if(active.length < 5) fail(`med-courses-data.js: expected >=5 active courses, got ${active.length}`);
-  if(modules.length !== 58) fail(`med-courses-data.js: expected 58 modules, got ${modules.length}`);
+  if(modules.length !== 59) fail(`med-courses-data.js: expected 59 modules, got ${modules.length}`);
   if(generic.length) fail(`med-courses-data.js: generic fallback modules detected: ${generic.length}`);
   if(rich.length < 50) fail(`med-courses-data.js: expected rich course markdown in most modules, got ${rich.length}/58`);
   const ids = new Set();

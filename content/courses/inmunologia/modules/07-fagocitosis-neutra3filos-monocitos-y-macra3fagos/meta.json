@@ -1,0 +1,24 @@
+{
+  "id": "05-inmunologia-07-fagocitosis-neutrofilos-monocitos-y-macrofagos",
+  "number": 7,
+  "title": "Fagocitosis, neutrÃ³filos, monocitos y macrÃ³fagos",
+  "file": "Modulo_07_fagocitosis_neutrofilos_monocitos_y_macrofagos.md",
+  "summary": "En la respuesta inflamatoria, los leucocitos que mÃ¡s se relacionan con la fagocitosis son neutrÃ³filos, monocitos y macrÃ³fagos. Los monocitos circulan en sangre y, al migrar al tejido, maduran y se convierten en macrÃ³fagos. La profesora insiste en no memorizar cÃ©lulas de forma aisâ€¦",
+  "headings": [
+    "1. CÃ©lulas fagocÃticas principales",
+    "2. NeutrÃ³filos: respuesta rÃ¡pida y bacterias",
+    "3. Monocitos y macrÃ³fagos",
+    "4. Pasos de la fagocitosis",
+    "5. Fagocitosis y memoria inmunolÃ³gica"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

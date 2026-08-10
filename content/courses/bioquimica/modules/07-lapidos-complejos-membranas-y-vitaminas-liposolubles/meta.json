@@ -1,0 +1,18 @@
+{
+  "id": "04-bioquimica-07-lipidos-complejos-membranas-y-vitaminas-liposolubles",
+  "number": 7,
+  "title": "LÃpidos complejos, membranas y vitaminas liposolubles",
+  "file": "Modulo_07_lipidos_complejos_membranas_y_vitaminas_liposolubles.md",
+  "summary": "DespuÃ©s de estudiar colesterol y triglicÃ©ridos, la clase avanza hacia la clasificaciÃ³n general. La profesora distingue lÃpidos simples, lÃpidos complejos y lÃpidos asociados o derivados. La idea de examen no es memorizar una lista suelta, sino reconocer quÃ© molÃ©cula estÃ¡ asociadaâ€¦",
+  "headings": [],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

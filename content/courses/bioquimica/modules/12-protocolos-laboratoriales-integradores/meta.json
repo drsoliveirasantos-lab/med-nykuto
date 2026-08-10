@@ -1,0 +1,27 @@
+{
+  "id": "04-bioquimica-12-protocolos-laboratoriales-integradores",
+  "number": 12,
+  "title": "Protocolos laboratoriales integradores",
+  "file": "Modulo_12_protocolos_laboratoriales_integradores.md",
+  "summary": "- Saber quÃ© marcadores memorizar para examen: hemograma, glucosa, colesterol y triglicÃ©ridos. - Aplicar la lÃ³gica del laboratorio a casos clÃnicos simples: edema, dolor abdominal, reciÃ©n nacido y sospecha cardÃaca. Regla de la profesora: cada prueba debe tener una justificaciÃ³n. â€¦",
+  "headings": [
+    "3. Principio de un buen protocolo",
+    "4. Protocolo de rutina: el esqueleto",
+    "5. Perfiles laboratoriales por sistema",
+    "6. CuÃ¡ndo agregar cada perfil",
+    "7. Perfil neonatal: lÃ³gica prÃ¡ctica",
+    "8. IntegraciÃ³n de marcadores clave",
+    "9. Casos clÃnicos integradores",
+    "12. Algoritmo express de solicitud"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

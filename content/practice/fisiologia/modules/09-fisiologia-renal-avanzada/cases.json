@@ -1,0 +1,3878 @@
+[
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-001",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 01",
+    "difficulty": "Examen",
+    "stem": "Un hombre de 62 años con diabetes llega con creatinina en aumento y oliguria. En el cálculo clínico, la tasa de filtración glomerular estimada está reducida. La depuración renal de solutos filtrados cae con la pérdida de nefronas funcionales.",
+    "question": "¿Qué variable resume mejor la función de filtración renal global?",
+    "options": [
+      "Tasa de filtración glomerular.",
+      "Volumen residual pulmonar.",
+      "Frecuencia cardíaca máxima.",
+      "Presión oncótica pleural."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. La TFG estima el volumen de plasma filtrado por unidad de tiempo y es el indicador global más usado de función renal.",
+    "whyWrong": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con obstrucción ureteral bilateral presenta aumento de presión en la cápsula de Bowman y caída de diuresis.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con obstrucción ureteral bilateral presenta aumento de presión en la cápsula de Bowman y caída de diuresis. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué ocurre con la TFG?",
+    "originalOptions_v160_module9": [
+      "Disminuye por aumento de presión hidrostática en Bowman, cuando se reconoce el concepto de caso renal 1.",
+      "Alteración de ventilación alveolar como causa primaria, cuando se reconoce el concepto de caso renal 1.",
+      "Despolarización ventricular como mecanismo dominante, cuando se reconoce el concepto de caso renal 1.",
+      "Producción de surfactante como respuesta central, cuando se reconoce el concepto de caso renal 1 Puede confundir si no se separa filtración, reabsorción y secreción."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 01",
+      "topicSlug": "caso_01",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "cardiovascular_bomba"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 01",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_01",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:cardiovascular_bomba"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-002",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 02",
+    "difficulty": "Examen",
+    "stem": "Una mujer con creatinina estable participa en una medición experimental con inulina. La sustancia se filtra libremente y no se reabsorbe ni se secreta. Su excreción urinaria refleja lo que entró al filtrado.",
+    "question": "¿Qué mide mejor el clearance de inulina?",
+    "options": [
+      "Flujo sanguíneo pulmonar.",
+      "TFG real.",
+      "Volumen sistólico cardíaco.",
+      "Osmolaridad del líquido cefalorraquídeo."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. La inulina es el patrón ideal para medir TFG porque solo se filtra y no tiene manejo tubular neto.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Una mujer con hemorragia aguda activa simpático y angiotensina II.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Una mujer con hemorragia aguda activa simpático y angiotensina II. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué efecto renal ayuda a sostener la TFG?",
+    "originalOptions_v160_module9": [
+      "Aumento de onda P como explicación directa, cuando se interpreta el mecanismo de caso renal 2.",
+      "Constricción eferente moderada, cuando se interpreta el mecanismo de caso renal 2.",
+      "Cambio aislado de compliance arterial, cuando se interpreta el mecanismo de caso renal 2.",
+      "Shunt intrapulmonar como causa principal, cuando se interpreta el mecanismo de caso renal 2."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 02",
+      "topicSlug": "caso_02",
+      "concepts": [
+        "electricidad_biologica",
+        "osmolaridad",
+        "renal_tfg",
+        "cardiovascular_bomba"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 02",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_02",
+      "concept:electricidad_biologica",
+      "concept:osmolaridad",
+      "concept:renal_tfg",
+      "concept:cardiovascular_bomba"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-003",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 03",
+    "difficulty": "Examen",
+    "stem": "Un paciente con masa muscular estable tiene creatinina plasmática elevada. No hay aumento de producción muscular, pero la depuración renal disminuyó. El médico usa creatinina para aproximar la filtración.",
+    "question": "¿Por qué sube la creatinina plasmática en este contexto?",
+    "options": [
+      "Porque aumenta la ventilación alveolar.",
+      "Porque se bloquea la hemoglobina.",
+      "Porque disminuye la depuración renal.",
+      "Porque aumenta el surfactante."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. Cuando cae la TFG, se elimina menos creatinina y su concentración plasmática aumenta.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente recibe AINEs y desarrolla caída de TFG en hipovolemia.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente recibe AINEs y desarrolla caída de TFG en hipovolemia. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué mecanismo explica el deterioro?",
+    "originalOptions_v160_module9": [
+      "Bloqueo del nodo AV como causa primaria, cuando se aplica al contexto renal de caso renal 3.",
+      "Aumento de volumen residual pulmonar, cuando se aplica al contexto renal de caso renal 3 Es plausible, pero no explica la variable renal principal.",
+      "Pérdida de prostaglandinas vasodilatadoras aferentes, cuando se aplica al contexto renal de caso renal 3.",
+      "Efecto Bohr como mecanismo principal, cuando se aplica al contexto renal de caso renal 3."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 03",
+      "topicSlug": "caso_03",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "respiratorio_ventilacion",
+        "respiratorio_intercambio"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 03",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_03",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:respiratorio_ventilacion",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-004",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 04",
+    "difficulty": "Examen",
+    "stem": "Un paciente con sepsis presenta hipotensión, lactato elevado y oliguria. La perfusión renal cae de forma brusca y el filtrado glomerular disminuye. La causa inicial es hemodinámica, no destrucción tubular primaria.",
+    "question": "¿Qué tipo de injuria renal aguda sugiere el cuadro inicial?",
+    "options": [
+      "Posrenal por obstrucción prostática.",
+      "Glomerulonefritis por complejos inmunes.",
+      "Acidosis tubular distal aislada.",
+      "Prerrenal por hipoperfusión."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. La hipoperfusión reduce presión de filtración y produce injuria prerrenal si aún no hay daño estructural establecido.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "originalStem_v131": "Un paciente toma IECA y tiene estenosis bilateral de arterias renales.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente toma IECA y tiene estenosis bilateral de arterias renales. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Por qué puede caer la TFG?",
+    "originalOptions_v160_module9": [
+      "Vasodilatación bronquial por β₂ como explicación, cuando se analiza la consecuencia funcional de caso renal 4.",
+      "Contracción isovolumétrica ventricular como respuesta tubular, cuando se analiza la consecuencia funcional de caso renal 4.",
+      "Hipoxia histotóxica como única explicación, cuando se analiza la consecuencia funcional de caso renal 4.",
+      "Se dilata la eferente y baja presión glomerular, cuando se analiza la consecuencia funcional de caso renal 4."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 04",
+      "topicSlug": "caso_04",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_tfg"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 04",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_04",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-005",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 05",
+    "difficulty": "Examen",
+    "stem": "Un anciano con hiperplasia prostática presenta chorro débil, globo vesical y creatinina elevada. La ecografía muestra hidronefrosis bilateral. La presión urinaria se transmite hacia túbulos y espacio de Bowman.",
+    "question": "¿Qué mecanismo reduce la TFG?",
+    "options": [
+      "Aumento de presión retrógrada tubular/Bowman.",
+      "Disminución de presión en Bowman.",
+      "Aumento de filtración por menor resistencia.",
+      "Aumento de inulina plasmática."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. La obstrucción posrenal aumenta la presión hidrostática tubular y de Bowman, oponiéndose a la filtración glomerular.",
+    "whyWrong": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un diabético con glucemia muy alta presenta poliuria.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente es evaluado por alteración renal, tubular o hidroelectrolítica. Un diabético con glucemia muy alta presenta poliuria.",
+    "originalQuestion_v160_module9": "¿Qué mecanismo causa la poliuria?",
+    "originalOptions_v160_module9": [
+      "Diuresis osmótica por glucosa no reabsorbida, cuando se reconoce el concepto de caso renal 5.",
+      "Alteración de ventilación alveolar como causa primaria, cuando se reconoce el concepto de caso renal 5.",
+      "Despolarización ventricular como mecanismo dominante, cuando se reconoce el concepto de caso renal 5.",
+      "Producción de surfactante como respuesta central, cuando se reconoce el concepto de caso renal 5."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 05",
+      "topicSlug": "caso_05",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 05",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_05",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-006",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 06",
+    "difficulty": "Examen",
+    "stem": "Un paciente con glomerulonefritis presenta hematuria, cilindros hemáticos e hipertensión. La inflamación afecta capilares glomerulares y altera la barrera de filtración. El sedimento urinario orienta hacia origen renal glomerular.",
+    "question": "¿Qué estructura está inflamada principalmente?",
+    "options": [
+      "Conducto pancreático.",
+      "Glomérulo.",
+      "Bronquiolo terminal.",
+      "Nodo sinoauricular."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. Hematuria con cilindros hemáticos sugiere inflamación glomerular, porque los eritrocitos atraviesan la barrera alterada.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con déficit de ADH orina 8 litros al día con osmolaridad urinaria baja.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con déficit de ADH orina 8 litros al día con osmolaridad urinaria baja. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué diagnóstico fisiológico encaja?",
+    "originalOptions_v160_module9": [
+      "Aumento de onda P como explicación directa, cuando se interpreta el mecanismo de caso renal 6.",
+      "Diabetes insípida central, cuando se interpreta el mecanismo de caso renal 6.",
+      "Cambio aislado de compliance arterial, cuando se interpreta el mecanismo de caso renal 6.",
+      "Shunt intrapulmonar como causa principal, cuando se interpreta el mecanismo de caso renal 6."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 06",
+      "topicSlug": "caso_06",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 06",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_06",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-007",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 07",
+    "difficulty": "Examen",
+    "stem": "Una mujer con síndrome nefrótico tiene edema, albuminuria masiva e hipoalbuminemia. El daño de podocitos permite el paso de proteínas al filtrado. La presión oncótica plasmática baja y el líquido sale al intersticio.",
+    "question": "¿Qué parte de la barrera glomerular está alterada?",
+    "options": [
+      "Neumocitos tipo II.",
+      "Válvula mitral.",
+      "Hendiduras de filtración podocitarias.",
+      "Nodo AV."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. Los podocitos y sus diafragmas de filtración son esenciales para restringir el paso de proteínas plasmáticas.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con litio tiene ADH elevada pero orina muy diluida.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con litio tiene ADH elevada pero orina muy diluida. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué mecanismo explica el cuadro?",
+    "originalOptions_v160_module9": [
+      "Bloqueo del nodo AV como causa primaria, cuando se aplica al contexto renal de caso renal 7.",
+      "Aumento de volumen residual pulmonar, cuando se aplica al contexto renal de caso renal 7.",
+      "Resistencia renal a ADH, cuando se aplica al contexto renal de caso renal 7.",
+      "Efecto Bohr como mecanismo principal, cuando se aplica al contexto renal de caso renal 7."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 07",
+      "topicSlug": "caso_07",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_ventilacion",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 07",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_07",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_ventilacion",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-008",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 08",
+    "difficulty": "Examen",
+    "stem": "Un paciente diabético desarrolla microalbuminuria persistente. La TFG puede estar normal al inicio, pero la barrera glomerular ya perdió selectividad. La albuminuria es un marcador temprano de daño renal.",
+    "question": "¿Qué cambio funcional aparece primero?",
+    "options": [
+      "Aumento de surfactante alveolar.",
+      "Disminución de frecuencia cardíaca.",
+      "Bloqueo de receptores beta-2.",
+      "Aumento de permeabilidad glomerular a albúmina."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. La microalbuminuria refleja pérdida de selectividad glomerular antes de una caída importante de TFG.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "originalStem_v131": "Una paciente con SIADH presenta Na⁺ bajo y orina concentrada.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Una paciente con SIADH presenta Na⁺ bajo y orina concentrada. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué mecanismo causa la hiponatremia?",
+    "originalOptions_v160_module9": [
+      "Vasodilatación bronquial por β₂ como explicación, cuando se analiza la consecuencia funcional de caso renal 8.",
+      "Contracción isovolumétrica ventricular como respuesta tubular, cuando se analiza la consecuencia funcional de caso renal 8.",
+      "Hipoxia histotóxica como única explicación, cuando se analiza la consecuencia funcional de caso renal 8.",
+      "Retención de agua libre por exceso de ADH, cuando se analiza la consecuencia funcional de caso renal 8."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 08",
+      "topicSlug": "caso_08",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "cardiovascular_bomba"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 08",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_08",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:cardiovascular_bomba"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-009",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 09",
+    "difficulty": "Examen",
+    "stem": "Un niño con síndrome de Fanconi presenta glucosuria con glucemia normal, fosfaturia, aminoaciduria y acidosis. Varias moléculas normalmente recuperadas se pierden en orina. El defecto está en un segmento con gran capacidad reabsortiva.",
+    "question": "¿Qué segmento tubular está afectado principalmente?",
+    "options": [
+      "Túbulo proximal.",
+      "Conducto colector medular exclusivamente.",
+      "Asa descendente fina exclusivamente.",
+      "Mácula densa como único sitio."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. El túbulo proximal reabsorbe glucosa, aminoácidos, fosfato y bicarbonato; su daño produce pérdidas múltiples.",
+    "whyWrong": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente deshidratado tiene osmolaridad plasmática elevada.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente deshidratado tiene osmolaridad plasmática elevada. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué respuesta hormonal se espera?",
+    "originalOptions_v160_module9": [
+      "Aumento de ADH y sed, cuando se reconoce el concepto de caso renal 9.",
+      "Alteración de ventilación alveolar como causa primaria, cuando se reconoce el concepto de caso renal 9.",
+      "Despolarización ventricular como mecanismo dominante, cuando se reconoce el concepto de caso renal 9.",
+      "Producción de surfactante como respuesta central, cuando se reconoce el concepto de caso renal 9."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 09",
+      "topicSlug": "caso_09",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_tubulo",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 09",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_09",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_tubulo",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-010",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 10",
+    "difficulty": "Examen",
+    "stem": "Un paciente diabético tiene glucosa plasmática muy elevada y glucosuria. Los transportadores proximales de glucosa se saturan y no logran recuperar toda la carga filtrada. La glucosa arrastra agua hacia la orina.",
+    "question": "¿Qué concepto explica la aparición de glucosuria?",
+    "options": [
+      "Ausencia completa de filtración glomerular.",
+      "Transporte máximo tubular superado.",
+      "Secreción de glucosa por el asa descendente.",
+      "Bloqueo de ADH en el pulmón."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. Cuando la carga filtrada de glucosa supera el Tm de SGLT, aparece glucosa en orina.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Tras beber mucha agua, una persona produce orina abundante y diluida.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Tras beber mucha agua, una persona produce orina abundante y diluida. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué cambio hormonal lo permite?",
+    "originalOptions_v160_module9": [
+      "Aumento de onda P como explicación directa, cuando se interpreta el mecanismo de caso renal 10.",
+      "Disminución de ADH, cuando se interpreta el mecanismo de caso renal 10.",
+      "Cambio aislado de compliance arterial, cuando se interpreta el mecanismo de caso renal 10.",
+      "Shunt intrapulmonar como causa principal, cuando se interpreta el mecanismo de caso renal 10."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 10",
+      "topicSlug": "caso_10",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg",
+        "renal_hormonas"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 10",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_10",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-011",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 11",
+    "difficulty": "Examen",
+    "stem": "Un recién nacido prematuro desarrolla acidosis metabólica leve durante los primeros días. El túbulo proximal aún no reabsorbe bicarbonato con la eficiencia del adulto. La pérdida urinaria de base contribuye al trastorno.",
+    "question": "¿Qué función tubular está inmadura?",
+    "options": [
+      "Secreción alveolar de surfactante.",
+      "Contracción del ventrículo izquierdo.",
+      "Reabsorción proximal de bicarbonato.",
+      "Difusión de oxígeno por membrana pulmonar."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. La reabsorción proximal de bicarbonato puede ser limitada en prematuros, favoreciendo acidosis.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un prematuro renal pierde bicarbonato con facilidad y desarrolla acidosis.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente es evaluado por alteración renal, tubular o hidroelectrolítica. Un prematuro renal pierde bicarbonato con facilidad y desarrolla acidosis.",
+    "originalQuestion_v160_module9": "¿Qué función tubular está inmadura?",
+    "originalOptions_v160_module9": [
+      "Bloqueo del nodo AV como causa primaria, cuando se aplica al contexto renal de caso renal 11.",
+      "Aumento de volumen residual pulmonar, cuando se aplica al contexto renal de caso renal 11.",
+      "Reabsorción proximal de bicarbonato, cuando se aplica al contexto renal de caso renal 11.",
+      "Efecto Bohr como mecanismo principal, cuando se aplica al contexto renal de caso renal 11."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 11",
+      "topicSlug": "caso_11",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_tubulo",
+        "respiratorio_intercambio"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 11",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_11",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_tubulo",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-012",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 12",
+    "difficulty": "Examen",
+    "stem": "Un paciente con glaucoma recibe acetazolamida y luego presenta bicarbonaturia con acidosis metabólica leve. El fármaco inhibe anhidrasa carbónica en túbulo proximal. La recuperación de bicarbonato filtrado disminuye.",
+    "question": "¿Qué mecanismo explica la acidosis?",
+    "options": [
+      "Aumento de aldosterona con secreción de K+.",
+      "Bloqueo de NKCC2 en asa ascendente.",
+      "Activación de ADH en colector.",
+      "Inhibición de anhidrasa carbónica con pérdida de HCO3−."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. La anhidrasa carbónica facilita reabsorción proximal de bicarbonato; al inhibirse, se pierde HCO3−.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "originalStem_v131": "Un paciente recibe acetazolamida y desarrolla acidosis metabólica leve.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente recibe acetazolamida y desarrolla acidosis metabólica leve. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué mecanismo lo explica?",
+    "originalOptions_v160_module9": [
+      "Vasodilatación bronquial por β₂ como explicación, cuando se analiza la consecuencia funcional de caso renal 12.",
+      "Contracción isovolumétrica ventricular como respuesta tubular, cuando se analiza la consecuencia funcional de caso renal 12.",
+      "Hipoxia histotóxica como única explicación, cuando se analiza la consecuencia funcional de caso renal 12.",
+      "Inhibición de anhidrasa carbónica con pérdida de HCO₃⁻, cuando se analiza la consecuencia funcional de caso renal 12."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 12",
+      "topicSlug": "caso_12",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_tubulo",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 12",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_12",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-013",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 13",
+    "difficulty": "Examen",
+    "stem": "Un paciente con acidosis metabólica crónica aumenta la excreción urinaria de NH4+. También incrementa la producción renal de bicarbonato nuevo. La respuesta tubular ayuda a eliminar carga ácida diaria.",
+    "question": "¿Qué logra el riñón al aumentar NH4+ urinario?",
+    "options": [
+      "Excreta H+ y genera bicarbonato nuevo.",
+      "Elimina glucosa por saturación de SGLT.",
+      "Reduce la ventilación alveolar.",
+      "Aumenta el espacio muerto pulmonar."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. La amoniogénesis permite atrapar H+ como NH4+ y añadir bicarbonato nuevo al plasma.",
+    "whyWrong": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con acidosis crónica aumenta excreción de NH₄⁺.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con acidosis crónica aumenta excreción de NH₄⁺. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué logra el riñón con esto?",
+    "originalOptions_v160_module9": [
+      "Elimina H⁺ y genera bicarbonato nuevo, cuando se reconoce el concepto de caso renal 13.",
+      "Alteración de ventilación alveolar como causa primaria, cuando se reconoce el concepto de caso renal 13.",
+      "Despolarización ventricular como mecanismo dominante, cuando se reconoce el concepto de caso renal 13.",
+      "Producción de surfactante como respuesta central, cuando se reconoce el concepto de caso renal 13."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 13",
+      "topicSlug": "caso_13",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 13",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_13",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-014",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 14",
+    "difficulty": "Examen",
+    "stem": "Una paciente con alcalosis metabólica e hidratación adecuada empieza a eliminar bicarbonato en orina. En el colector, células intercaladas especializadas secretan HCO3− hacia la luz. El objetivo es reducir el exceso de base.",
+    "question": "¿Qué célula participa en esa secreción de bicarbonato?",
+    "options": [
+      "Célula principal secretora de renina.",
+      "Célula intercalada beta.",
+      "Podocito visceral.",
+      "Macrófago alveolar."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. Las células intercaladas beta secretan bicarbonato y ayudan a corregir alcalosis.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con alcalosis activa células intercaladas beta.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con alcalosis activa células intercaladas beta. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué hacen estas células?",
+    "originalOptions_v160_module9": [
+      "Aumento de onda P como explicación directa, cuando se interpreta el mecanismo de caso renal 14.",
+      "Secretan bicarbonato hacia la luz tubular, cuando se interpreta el mecanismo de caso renal 14.",
+      "Cambio aislado de compliance arterial, cuando se interpreta el mecanismo de caso renal 14.",
+      "Shunt intrapulmonar como causa principal, cuando se interpreta el mecanismo de caso renal 14."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 14",
+      "topicSlug": "caso_14",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_tubulo",
+        "renal_hormonas"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 14",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_14",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-015",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 15",
+    "difficulty": "Examen",
+    "stem": "Un paciente con hiperaldosteronismo presenta hipertensión, hipopotasemia y alcalosis metabólica. En el túbulo distal y colector aumenta la actividad de ENaC y la secreción de K+. El potasio urinario está elevado.",
+    "question": "¿Qué mecanismo renal explica el K+ bajo?",
+    "options": [
+      "Bloqueo de secreción distal de K+.",
+      "Pérdida de podocitos exclusivamente.",
+      "Aumento de secreción distal de K+.",
+      "Disminución de sodio filtrado a cero."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. La aldosterona aumenta reabsorción de Na+ por células principales y favorece secreción de K+.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con hiperaldosteronismo tiene hipertensión e hipopotasemia.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con hiperaldosteronismo tiene hipertensión e hipopotasemia. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué mecanismo renal explica el K⁺ bajo?",
+    "originalOptions_v160_module9": [
+      "Bloqueo del nodo AV como causa primaria, cuando se aplica al contexto renal de caso renal 15.",
+      "Aumento de volumen residual pulmonar, cuando se aplica al contexto renal de caso renal 15.",
+      "Aumento de secreción distal de K⁺, cuando se aplica al contexto renal de caso renal 15.",
+      "Efecto Bohr como mecanismo principal, cuando se aplica al contexto renal de caso renal 15."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 15",
+      "topicSlug": "caso_15",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_tubulo",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 15",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_15",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-016",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 16",
+    "difficulty": "Examen",
+    "stem": "Una paciente con insuficiencia cardíaca toma espironolactona y luego presenta hiperpotasemia. El fármaco antagoniza la acción de aldosterona en el colector. Disminuye la secreción distal de K+.",
+    "question": "¿Qué mecanismo explica la hiperpotasemia?",
+    "options": [
+      "Estimulación de aldosterona en células principales.",
+      "Aumento de filtración de potasio sin cambios tubulares.",
+      "Activación de bomba de protones gástrica.",
+      "Bloqueo de acción de aldosterona en colector."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. Al bloquear aldosterona, baja la actividad de ENaC y la secreción luminal de potasio.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "originalStem_v131": "Un paciente toma espironolactona y desarrolla hiperkalemia.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente toma espironolactona y desarrolla hiperkalemia. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué mecanismo explica el efecto?",
+    "originalOptions_v160_module9": [
+      "Vasodilatación bronquial por β₂ como explicación, cuando se analiza la consecuencia funcional de caso renal 16.",
+      "Contracción isovolumétrica ventricular como respuesta tubular, cuando se analiza la consecuencia funcional de caso renal 16.",
+      "Hipoxia histotóxica como única explicación, cuando se analiza la consecuencia funcional de caso renal 16.",
+      "Bloqueo de acción de aldosterona en colector, cuando se analiza la consecuencia funcional de caso renal 16."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 16",
+      "topicSlug": "caso_16",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 16",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_16",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-017",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 17",
+    "difficulty": "Examen",
+    "stem": "Un paciente con edema recibe furosemida y luego elimina más Na+, K+, Ca2+ y Mg2+ en orina. El fármaco actúa en la rama ascendente gruesa del asa de Henle. También reduce el gradiente medular.",
+    "question": "¿Qué transportador fue bloqueado?",
+    "options": [
+      "NKCC2 en asa ascendente gruesa.",
+      "SGLT2 del túbulo proximal.",
+      "ENaC del colector cortical.",
+      "NCC del túbulo distal temprano."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. Los diuréticos de asa bloquean NKCC2, reduciendo reabsorción de NaCl y el gradiente corticomedular.",
+    "whyWrong": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente toma furosemida y pierde Mg²⁺ y Ca²⁺ en orina.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente toma furosemida y pierde Mg²⁺ y Ca²⁺ en orina. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué transportador fue bloqueado?",
+    "originalOptions_v160_module9": [
+      "NKCC2 en asa ascendente gruesa, cuando se reconoce el concepto de caso renal 17.",
+      "Alteración de ventilación alveolar como causa primaria, cuando se reconoce el concepto de caso renal 17.",
+      "Despolarización ventricular como mecanismo dominante, cuando se reconoce el concepto de caso renal 17.",
+      "Producción de surfactante como respuesta central, cuando se reconoce el concepto de caso renal 17."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 17",
+      "topicSlug": "caso_17",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "agua_libre",
+        "renal_tubulo",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 17",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_17",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:agua_libre",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-018",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 18",
+    "difficulty": "Examen",
+    "stem": "Una paciente con hipercalciuria y cálculos renales recibe una tiazida. Luego disminuye la excreción urinaria de calcio. El fármaco actúa en el túbulo contorneado distal temprano.",
+    "question": "¿Qué efecto renal ayuda a reducir cálculos de calcio?",
+    "options": [
+      "Aumento intenso de calciuria.",
+      "Disminución de excreción urinaria de Ca2+.",
+      "Bloqueo de reabsorción proximal de glucosa.",
+      "Eliminación de proteínas glomerulares."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. Las tiazidas aumentan reabsorción distal de calcio y reducen calciuria.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Una paciente con cálculos de calcio recibe tiazida.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Una paciente con cálculos de calcio recibe tiazida. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué efecto renal puede ayudar?",
+    "originalOptions_v160_module9": [
+      "Aumento de onda P como explicación directa, cuando se interpreta el mecanismo de caso renal 18.",
+      "Disminución de excreción urinaria de Ca²⁺, cuando se interpreta el mecanismo de caso renal 18.",
+      "Cambio aislado de compliance arterial, cuando se interpreta el mecanismo de caso renal 18.",
+      "Shunt intrapulmonar como causa principal, cuando se interpreta el mecanismo de caso renal 18."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 18",
+      "topicSlug": "caso_18",
+      "concepts": [
+        "electricidad_biologica",
+        "sinapsis_neurotransmisores",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 18",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_18",
+      "concept:electricidad_biologica",
+      "concept:sinapsis_neurotransmisores",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-019",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 19",
+    "difficulty": "Examen",
+    "stem": "Un paciente con hiperparatiroidismo presenta fosfato bajo y fosfaturia. La PTH actúa sobre el túbulo proximal reduciendo cotransporte de fosfato con sodio. Aumenta la pérdida urinaria de fosfato.",
+    "question": "¿Qué acción renal de PTH explica la fosfaturia?",
+    "options": [
+      "Estimulación de reabsorción proximal de fosfato.",
+      "Bloqueo de ADH en el colector.",
+      "Inhibición de reabsorción proximal de fosfato.",
+      "Cierre de la arteriola aferente."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. La PTH disminuye reabsorción proximal de fosfato, generando fosfaturia.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con hiperparatiroidismo presenta fosfaturia.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con hiperparatiroidismo presenta fosfaturia. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué acción renal de PTH lo explica?",
+    "originalOptions_v160_module9": [
+      "Bloqueo del nodo AV como causa primaria, cuando se aplica al contexto renal de caso renal 19.",
+      "Aumento de volumen residual pulmonar, cuando se aplica al contexto renal de caso renal 19 Puede confundir si no se separa filtración, reabsorción y secreción.",
+      "Inhibición de reabsorción proximal de fosfato, cuando se aplica al contexto renal de caso renal 19.",
+      "Efecto Bohr como mecanismo principal, cuando se aplica al contexto renal de caso renal 19."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 19",
+      "topicSlug": "caso_19",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo",
+        "renal_hormonas",
+        "renal_electrolitos",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 19",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_19",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-020",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 20",
+    "difficulty": "Examen",
+    "stem": "Un paciente con enfermedad renal crónica presenta anemia normocítica, fatiga y palidez. No hay sangrado activo ni déficit evidente de hierro. La masa renal funcional ya no produce suficiente señal endocrina para médula ósea.",
+    "question": "¿Qué función endocrina renal falló?",
+    "options": [
+      "Producción de surfactante.",
+      "Secreción de insulina pancreática.",
+      "Liberación de acetilcolina en placa motora.",
+      "Producción de eritropoyetina."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. El riñón produce eritropoyetina; su déficit en ERC reduce eritropoyesis.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con enfermedad renal crónica presenta anemia.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con enfermedad renal crónica presenta anemia. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué función endocrina renal falló?",
+    "originalOptions_v160_module9": [
+      "Vasodilatación bronquial por β₂ como explicación, cuando se analiza la consecuencia funcional de caso renal 20.",
+      "Contracción isovolumétrica ventricular como respuesta tubular, cuando se analiza la consecuencia funcional de caso renal 20.",
+      "Hipoxia histotóxica como única explicación, cuando se analiza la consecuencia funcional de caso renal 20.",
+      "Producción de eritropoyetina, cuando se analiza la consecuencia funcional de caso renal 20."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 20",
+      "topicSlug": "caso_20",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 20",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_20",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-021",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 21",
+    "difficulty": "Examen",
+    "stem": "Una persona con dieta muy baja en proteínas pierde capacidad de concentrar orina. La urea disponible para reciclar en la médula renal disminuye. El intersticio medular se vuelve menos hiperosmolar.",
+    "question": "¿Qué soluto medular disminuye y limita la concentración urinaria?",
+    "options": [
+      "Urea medular.",
+      "Glucosa alveolar.",
+      "Lactato eritrocitario.",
+      "Troponina plasmática."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. La urea contribuye al gradiente osmótico medular, especialmente en antidiuresis.",
+    "whyWrong": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Una persona con dieta muy baja en proteínas pierde capacidad de concentrar orina.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Una persona con dieta muy baja en proteínas pierde capacidad de concentrar orina. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué soluto medular disminuye?",
+    "originalOptions_v160_module9": [
+      "Urea medular, cuando se reconoce el concepto de caso renal 21.",
+      "Alteración de ventilación alveolar como causa primaria, cuando se reconoce el concepto de caso renal 21.",
+      "Despolarización ventricular como mecanismo dominante, cuando se reconoce el concepto de caso renal 21.",
+      "Producción de surfactante como respuesta central, cuando se reconoce el concepto de caso renal 21."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 21",
+      "topicSlug": "caso_21",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 21",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_21",
+      "concept:electricidad_biologica",
+      "concept:agua_libre"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-022",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 22",
+    "difficulty": "Examen",
+    "stem": "Un paciente con edema pulmonar recibe diurético de asa y luego pierde capacidad de concentrar la orina. El bloqueo de reabsorción de NaCl en asa ascendente reduce la hiperosmolaridad medular. La ADH no puede concentrar bien si falta ese gradiente.",
+    "question": "¿Qué estructura funcional se afecta?",
+    "options": [
+      "Nodo sinoauricular.",
+      "Gradiente corticomedular.",
+      "Membrana alveolocapilar.",
+      "Hendidura sináptica."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. La rama ascendente gruesa crea parte importante del gradiente corticomedular necesario para concentrar orina.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con diurético de asa pierde capacidad de concentrar orina.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con diurético de asa pierde capacidad de concentrar orina. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué estructura funcional se afecta?",
+    "originalOptions_v160_module9": [
+      "Aumento de onda P como explicación directa, cuando se interpreta el mecanismo de caso renal 22.",
+      "Gradiente corticomedular, cuando se interpreta el mecanismo de caso renal 22.",
+      "Cambio aislado de compliance arterial, cuando se interpreta el mecanismo de caso renal 22.",
+      "Shunt intrapulmonar como causa principal, cuando se interpreta el mecanismo de caso renal 22."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 22",
+      "topicSlug": "caso_22",
+      "concepts": [
+        "electricidad_biologica",
+        "osmolaridad",
+        "agua_libre",
+        "renal_hormonas",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 22",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_22",
+      "concept:electricidad_biologica",
+      "concept:osmolaridad",
+      "concept:agua_libre",
+      "concept:renal_hormonas",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-023",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 23",
+    "difficulty": "Examen",
+    "stem": "Un paciente en shock hemorrágico tiene bajo flujo renal y bajo NaCl distal. La mácula densa detecta esa caída en el túbulo distal. Las células yuxtaglomerulares aumentan la liberación de renina.",
+    "question": "¿Qué respuesta se activa?",
+    "options": [
+      "Disminución de RAAS.",
+      "Aumento de surfactante pulmonar.",
+      "Aumento de renina.",
+      "Bloqueo de aldosterona."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. Bajo NaCl en mácula densa y baja perfusión estimulan renina para activar RAAS.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "En shock, la mácula densa detecta bajo NaCl distal.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente es evaluado por alteración renal, tubular o hidroelectrolítica. En shock, la mácula densa detecta bajo NaCl distal.",
+    "originalQuestion_v160_module9": "¿Qué respuesta se activa?",
+    "originalOptions_v160_module9": [
+      "Bloqueo del nodo AV como causa primaria, cuando se aplica al contexto renal de caso renal 23.",
+      "Aumento de volumen residual pulmonar, cuando se aplica al contexto renal de caso renal 23.",
+      "Aumento de renina, cuando se aplica al contexto renal de caso renal 23.",
+      "Efecto Bohr como mecanismo principal, cuando se aplica al contexto renal de caso renal 23."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 23",
+      "topicSlug": "caso_23",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre",
+        "renal_tubulo",
+        "renal_hormonas"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 23",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_23",
+      "concept:electricidad_biologica",
+      "concept:agua_libre",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-024",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 24",
+    "difficulty": "Examen",
+    "stem": "Un paciente con proteinuria masiva desarrolla edema en piernas y ascitis. La albúmina plasmática está baja por pérdida urinaria. Al caer la fuerza oncótica intravascular, el líquido sale al intersticio.",
+    "question": "¿Qué fuerza plasmática cayó?",
+    "options": [
+      "Presión alveolar inspiratoria.",
+      "Presión transmural bronquial.",
+      "Presión del nodo AV.",
+      "Presión oncótica por hipoalbuminemia."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. La hipoalbuminemia reduce presión oncótica plasmática y favorece edema.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con proteinuria masiva desarrolla edema.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con proteinuria masiva desarrolla edema. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué fuerza plasmática cayó?",
+    "originalOptions_v160_module9": [
+      "Vasodilatación bronquial por β₂ como explicación, cuando se analiza la consecuencia funcional de caso renal 24.",
+      "Contracción isovolumétrica ventricular como respuesta tubular, cuando se analiza la consecuencia funcional de caso renal 24.",
+      "Hipoxia histotóxica como única explicación, cuando se analiza la consecuencia funcional de caso renal 24.",
+      "Presión oncótica por hipoalbuminemia, cuando se analiza la consecuencia funcional de caso renal 24."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 24",
+      "topicSlug": "caso_24",
+      "concepts": [
+        "electricidad_biologica",
+        "respiratorio_ventilacion",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 24",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_24",
+      "concept:electricidad_biologica",
+      "concept:respiratorio_ventilacion",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-025",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 25",
+    "difficulty": "Examen",
+    "stem": "Un paciente con hematuria, edema e hipertensión tiene cilindros hemáticos en orina. El hallazgo indica que los eritrocitos atravesaron una barrera renal inflamada. La lesión se localiza en el glomérulo.",
+    "question": "¿Qué estructura está inflamada?",
+    "options": [
+      "Glomérulo.",
+      "Bronquio principal.",
+      "Válvula aórtica.",
+      "Retículo sarcoplásmico."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. Los cilindros hemáticos indican origen tubular de eritrocitos filtrados a través de un glomérulo lesionado.",
+    "whyWrong": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con glomerulonefritis tiene hematuria y cilindros hemáticos.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con glomerulonefritis tiene hematuria y cilindros hemáticos. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué estructura está inflamada?",
+    "originalOptions_v160_module9": [
+      "Glomérulo, cuando se reconoce el concepto de caso renal 25.",
+      "Alteración de ventilación alveolar como causa primaria, cuando se reconoce el concepto de caso renal 25.",
+      "Despolarización ventricular como mecanismo dominante, cuando se reconoce el concepto de caso renal 25.",
+      "Producción de surfactante como respuesta central, cuando se reconoce el concepto de caso renal 25."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 25",
+      "topicSlug": "caso_25",
+      "concepts": [
+        "electricidad_biologica",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 25",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_25",
+      "concept:electricidad_biologica",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-026",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 26",
+    "difficulty": "Examen",
+    "stem": "Un paciente con TFG baja acumula creatinina y urea. El laboratorio muestra aumento progresivo de creatinina plasmática. La producción no cambió, pero la eliminación renal se redujo.",
+    "question": "¿Qué explica la elevación plasmática?",
+    "options": [
+      "Mayor ventilación alveolar.",
+      "Menor depuración renal.",
+      "Mayor degradación de hemoglobina por CO.",
+      "Aumento de surfactante."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. La depuración renal disminuye cuando cae la TFG, elevando solutos retenidos.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con TFG baja acumula creatinina.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con TFG baja acumula creatinina. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué explica la elevación plasmática?",
+    "originalOptions_v160_module9": [
+      "Aumento de onda P como explicación directa, cuando se interpreta el mecanismo de caso renal 26.",
+      "Menor depuración renal, cuando se interpreta el mecanismo de caso renal 26.",
+      "Cambio aislado de compliance arterial, cuando se interpreta el mecanismo de caso renal 26.",
+      "Shunt intrapulmonar como causa principal, cuando se interpreta el mecanismo de caso renal 26."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 26",
+      "topicSlug": "caso_26",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre",
+        "renal_tfg",
+        "respiratorio_ventilacion",
+        "respiratorio_intercambio"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 26",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_26",
+      "concept:electricidad_biologica",
+      "concept:agua_libre",
+      "concept:renal_tfg",
+      "concept:respiratorio_ventilacion",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-027",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 27",
+    "difficulty": "Examen",
+    "stem": "Una sustancia experimental se filtra libremente y además se secreta en túbulo proximal. En un paciente, su clearance resulta mayor que el de inulina. Eso indica eliminación tubular adicional.",
+    "question": "¿Qué manejo tubular sugiere?",
+    "options": [
+      "Reabsorción tubular completa.",
+      "Ausencia de filtración.",
+      "Secreción tubular neta.",
+      "Metabolismo alveolar."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. Si clearance supera al de inulina, la sustancia se elimina por filtración más secreción neta.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Una sustancia tiene clearance mayor que inulina.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente es evaluado por alteración renal, tubular o hidroelectrolítica. Una sustancia tiene clearance mayor que inulina.",
+    "originalQuestion_v160_module9": "¿Qué manejo tubular sugiere?",
+    "originalOptions_v160_module9": [
+      "Bloqueo del nodo AV como causa primaria, cuando se aplica al contexto renal de caso renal 27.",
+      "Aumento de volumen residual pulmonar, cuando se aplica al contexto renal de caso renal 27.",
+      "Secreción tubular neta, cuando se aplica al contexto renal de caso renal 27.",
+      "Efecto Bohr como mecanismo principal, cuando se aplica al contexto renal de caso renal 27."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 27",
+      "topicSlug": "caso_27",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 27",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_27",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-028",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 28",
+    "difficulty": "Examen",
+    "stem": "Un paciente participa en un estudio renal con una sustancia que se filtra libremente. Parte de la sustancia vuelve desde el túbulo hacia la sangre y su clearance es menor que el de inulina. La excreción final es menor que la carga filtrada.",
+    "question": "¿Qué manejo tubular sugiere?",
+    "options": [
+      "Secreción tubular neta intensa.",
+      "Bloqueo completo de filtración.",
+      "Producción por neumocitos.",
+      "Reabsorción tubular neta."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. Si clearance es menor que inulina, hubo reabsorción neta después de la filtración.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "originalStem_v131": "Una sustancia tiene clearance menor que inulina.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente es evaluado por alteración renal, tubular o hidroelectrolítica. Una sustancia tiene clearance menor que inulina.",
+    "originalQuestion_v160_module9": "¿Qué manejo tubular sugiere?",
+    "originalOptions_v160_module9": [
+      "Vasodilatación bronquial por β₂ como explicación, cuando se analiza la consecuencia funcional de caso renal 28.",
+      "Contracción isovolumétrica ventricular como respuesta tubular, cuando se analiza la consecuencia funcional de caso renal 28.",
+      "Hipoxia histotóxica como única explicación, cuando se analiza la consecuencia funcional de caso renal 28.",
+      "Reabsorción tubular neta, cuando se analiza la consecuencia funcional de caso renal 28."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 28",
+      "topicSlug": "caso_28",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 28",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_28",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-029",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 29",
+    "difficulty": "Examen",
+    "stem": "Un paciente participa en un estudio con PAH. La sustancia se filtra y se secreta de forma tan intensa que casi desaparece del plasma renal en una pasada. El clearance se usa para estimar perfusión renal efectiva.",
+    "question": "¿Qué se estima con el clearance de PAH?",
+    "options": [
+      "Flujo plasmático renal efectivo.",
+      "Volumen residual pulmonar.",
+      "Fracción de eyección ventricular.",
+      "Presión oncótica sistémica."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. El PAH se extrae casi completamente del plasma renal, por lo que su clearance aproxima el flujo plasmático renal efectivo.",
+    "whyWrong": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Se administra PAH y casi desaparece del plasma renal en una pasada.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente es evaluado por alteración renal, tubular o hidroelectrolítica. Se administra PAH y casi desaparece del plasma renal en una pasada.",
+    "originalQuestion_v160_module9": "¿Qué se estima con su clearance?",
+    "originalOptions_v160_module9": [
+      "Flujo plasmático renal efectivo, cuando se reconoce el concepto de caso renal 29.",
+      "Alteración de ventilación alveolar como causa primaria, cuando se reconoce el concepto de caso renal 29.",
+      "Despolarización ventricular como mecanismo dominante, cuando se reconoce el concepto de caso renal 29.",
+      "Producción de surfactante como respuesta central, cuando se reconoce el concepto de caso renal 29."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 29",
+      "topicSlug": "caso_29",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 29",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_29",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-030",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 30",
+    "difficulty": "Examen",
+    "stem": "Un paciente séptico tiene vasodilatación, bajo volumen arterial efectivo y retención de sodio. El riñón interpreta baja perfusión efectiva y activa respuestas hormonales. Aumentan angiotensina II y aldosterona.",
+    "question": "¿Qué sistema favorece la retención renal de sodio?",
+    "options": [
+      "Eje surfactante-neumocito.",
+      "RAAS y aldosterona.",
+      "Reflejo pupilar directo.",
+      "Sistema de coagulación exclusivamente."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. RAAS aumenta reabsorción de sodio y agua para defender volumen arterial efectivo.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con sepsis tiene bajo volumen arterial efectivo y retiene sodio.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con sepsis tiene bajo volumen arterial efectivo y retiene sodio. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué sistema favorece esa retención?",
+    "originalOptions_v160_module9": [
+      "Aumento de onda P como explicación directa, cuando se interpreta el mecanismo de caso renal 30.",
+      "RAAS y aldosterona, cuando se interpreta el mecanismo de caso renal 30.",
+      "Cambio aislado de compliance arterial, cuando se interpreta el mecanismo de caso renal 30.",
+      "Shunt intrapulmonar como causa principal, cuando se interpreta el mecanismo de caso renal 30."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 30",
+      "topicSlug": "caso_30",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 30",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_30",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-031",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 31",
+    "difficulty": "Examen",
+    "stem": "Una paciente con expansión de volumen tiene distensión auricular. Se libera ANP y aumenta la excreción de sodio y agua. El volumen extracelular tiende a disminuir.",
+    "question": "¿Qué efecto renal se espera por ANP?",
+    "options": [
+      "Retención obligada de sodio.",
+      "Cierre completo de todos los capilares.",
+      "Natriuresis y diuresis.",
+      "Aumento de secreción gástrica de ácido."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. El ANP promueve natriuresis y diuresis, antagonizando la expansión de volumen.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Una aurícula distendida libera ANP.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente es evaluado por alteración renal, tubular o hidroelectrolítica. Una aurícula distendida libera ANP.",
+    "originalQuestion_v160_module9": "¿Qué efecto renal se espera?",
+    "originalOptions_v160_module9": [
+      "Bloqueo del nodo AV como causa primaria, cuando se aplica al contexto renal de caso renal 31.",
+      "Aumento de volumen residual pulmonar, cuando se aplica al contexto renal de caso renal 31.",
+      "Natriuresis y diuresis, cuando se aplica al contexto renal de caso renal 31.",
+      "Efecto Bohr como mecanismo principal, cuando se aplica al contexto renal de caso renal 31."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 31",
+      "topicSlug": "caso_31",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas",
+        "renal_electrolitos",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 31",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_31",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-032",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 32",
+    "difficulty": "Examen",
+    "stem": "Una persona con presión arterial alta aumenta la excreción renal de sodio sin cambiar bruscamente hormonas. Al eliminar más sodio, también elimina agua. Este fenómeno contribuye a control crónico de la presión arterial.",
+    "question": "¿Qué fenómeno renal participa?",
+    "options": [
+      "Hipoventilación alveolar por presión.",
+      "Reabsorción obligada de todo el sodio.",
+      "Secreción de surfactante por presión.",
+      "Natriuresis por presión."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. La natriuresis por presión permite excretar más sodio cuando la presión arterial aumenta.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "originalStem_v131": "Una persona con presión arterial alta aumenta excreción de sodio.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Una persona con presión arterial alta aumenta excreción de sodio. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué fenómeno renal participa?",
+    "originalOptions_v160_module9": [
+      "Vasodilatación bronquial por β₂ como explicación, cuando se analiza la consecuencia funcional de caso renal 32.",
+      "Contracción isovolumétrica ventricular como respuesta tubular, cuando se analiza la consecuencia funcional de caso renal 32.",
+      "Hipoxia histotóxica como única explicación, cuando se analiza la consecuencia funcional de caso renal 32.",
+      "Natriuresis por presión, cuando se analiza la consecuencia funcional de caso renal 32."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 32",
+      "topicSlug": "caso_32",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos",
+        "respiratorio_ventilacion",
+        "cardiovascular_presion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 32",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_32",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos",
+      "concept:respiratorio_ventilacion",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-033",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 33",
+    "difficulty": "Examen",
+    "stem": "Un anciano deshidratado con acceso limitado a agua presenta pérdida de peso, sed intensa y Na+ de 158 mEq/L. La orina está concentrada por ADH elevada. La alteración dominante es déficit de agua libre.",
+    "question": "¿Qué alteración domina?",
+    "options": [
+      "Déficit de agua libre.",
+      "Exceso puro de sodio con agua normal siempre.",
+      "Pérdida aislada de albúmina.",
+      "Aumento de surfactante."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. La hipernatremia por deshidratación suele reflejar déficit de agua libre mayor que pérdida de sodio.",
+    "whyWrong": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con hipernatremia tras no beber agua pierde peso.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con hipernatremia tras no beber agua pierde peso. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué alteración domina?",
+    "originalOptions_v160_module9": [
+      "Déficit de agua libre, cuando se reconoce el concepto de caso renal 33.",
+      "Alteración de ventilación alveolar como causa primaria, cuando se reconoce el concepto de caso renal 33.",
+      "Despolarización ventricular como mecanismo dominante, cuando se reconoce el concepto de caso renal 33.",
+      "Producción de surfactante como respuesta central, cuando se reconoce el concepto de caso renal 33."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 33",
+      "topicSlug": "caso_33",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 33",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_33",
+      "concept:electricidad_biologica",
+      "concept:agua_libre",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-034",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 34",
+    "difficulty": "Examen",
+    "stem": "Una paciente con hiponatremia aguda por exceso de agua desarrolla cefalea, vómitos y convulsión. El laboratorio muestra plasma hipoosmolar y Na+ muy bajo, permitiendo entrada de agua a neuronas. El volumen cerebral aumenta de forma peligrosa.",
+    "question": "¿Qué mecanismo cerebral explica las convulsiones?",
+    "options": [
+      "Deshidratación neuronal por salida de agua.",
+      "Edema cerebral por entrada de agua a células.",
+      "Aumento de hemoglobina.",
+      "Hipertrofia ventricular concéntrica."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. En hiponatremia aguda, el agua entra al compartimento intracelular cerebral y causa edema.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Una hiponatremia aguda severa causa convulsiones.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente es evaluado por alteración renal, tubular o hidroelectrolítica. Una hiponatremia aguda severa causa convulsiones.",
+    "originalQuestion_v160_module9": "¿Qué mecanismo cerebral lo explica?",
+    "originalOptions_v160_module9": [
+      "Aumento de onda P como explicación directa, cuando se interpreta el mecanismo de caso renal 34.",
+      "Edema cerebral por entrada de agua a células, cuando se interpreta el mecanismo de caso renal 34.",
+      "Cambio aislado de compliance arterial, cuando se interpreta el mecanismo de caso renal 34 Puede confundir si no se separa filtración, reabsorción y secreción.",
+      "Shunt intrapulmonar como causa principal, cuando se interpreta el mecanismo de caso renal 34."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 34",
+      "topicSlug": "caso_34",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos",
+        "respiratorio_intercambio",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 34",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_34",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos",
+      "concept:respiratorio_intercambio",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-035",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 35",
+    "difficulty": "Examen",
+    "stem": "Un paciente con hiponatremia crónica se corrige rápidamente con solución hipertónica. Al día siguiente presenta disartria, cuadriparesia y deterioro neurológico durante la hospitalización. El cambio osmótico rápido daña la mielina.",
+    "question": "¿Qué complicación se teme?",
+    "options": [
+      "Edema pulmonar cardiogénico por mitral.",
+      "Hipercalciuria por tiazidas.",
+      "Desmielinización osmótica.",
+      "Broncoconstricción asmática."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. La corrección rápida de hiponatremia crónica puede causar síndrome de desmielinización osmótica.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con hiponatremia crónica se corrige demasiado rápido.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con hiponatremia crónica se corrige demasiado rápido. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué complicación se teme?",
+    "originalOptions_v160_module9": [
+      "Bloqueo del nodo AV como causa primaria, cuando se aplica al contexto renal de caso renal 35.",
+      "Aumento de volumen residual pulmonar, cuando se aplica al contexto renal de caso renal 35.",
+      "Desmielinización osmótica, cuando se aplica al contexto renal de caso renal 35.",
+      "Efecto Bohr como mecanismo principal, cuando se aplica al contexto renal de caso renal 35."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 35",
+      "topicSlug": "caso_35",
+      "concepts": [
+        "electricidad_biologica",
+        "tonicidad",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 35",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_35",
+      "concept:electricidad_biologica",
+      "concept:tonicidad",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-036",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 36",
+    "difficulty": "Examen",
+    "stem": "Un paciente con hiperpotasemia estimula secreción de aldosterona. En el colector cortical aumenta la actividad de células principales. La respuesta renal busca eliminar más potasio.",
+    "question": "¿Qué objetivo renal tiene la respuesta?",
+    "options": [
+      "Bloquear secreción de K+.",
+      "Disminuir flujo distal a cero.",
+      "Aumentar glucosuria por SGLT.",
+      "Aumentar secreción de K+."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. La aldosterona aumenta secreción distal de K+ y ayuda a corregir hiperpotasemia.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "originalStem_v131": "Una persona con hiperpotasemia estimula aldosterona.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Una persona con hiperpotasemia estimula aldosterona. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué objetivo renal tiene la respuesta?",
+    "originalOptions_v160_module9": [
+      "Vasodilatación bronquial por β₂ como explicación, cuando se analiza la consecuencia funcional de caso renal 36.",
+      "Contracción isovolumétrica ventricular como respuesta tubular, cuando se analiza la consecuencia funcional de caso renal 36.",
+      "Hipoxia histotóxica como única explicación, cuando se analiza la consecuencia funcional de caso renal 36.",
+      "Aumentar secreción de K⁺, cuando se analiza la consecuencia funcional de caso renal 36."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 36",
+      "topicSlug": "caso_36",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 36",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_36",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-037",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 37",
+    "difficulty": "Examen",
+    "stem": "Un paciente con insuficiencia renal oligúrica tiene bajo flujo distal y desarrolla hiperpotasemia. Llega poco sodio y agua al colector. El gradiente luminal para secretar potasio se reduce.",
+    "question": "¿Por qué cae la secreción de K+?",
+    "options": [
+      "Menor gradiente y entrega distal para secreción.",
+      "Exceso de flujo distal siempre aumenta retención.",
+      "Bloqueo de filtración de albúmina.",
+      "Activación de surfactante."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. La secreción de K+ depende de entrega distal de sodio/agua y del gradiente electroquímico en el colector.",
+    "whyWrong": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con bajo flujo distal retiene K⁺.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con bajo flujo distal retiene K⁺. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Por qué cae la secreción de K⁺?",
+    "originalOptions_v160_module9": [
+      "Menor gradiente y entrega distal para secreción, cuando se reconoce el concepto de caso renal 37.",
+      "Alteración de ventilación alveolar como causa primaria, cuando se reconoce el concepto de caso renal 37.",
+      "Despolarización ventricular como mecanismo dominante, cuando se reconoce el concepto de caso renal 37.",
+      "Producción de surfactante como respuesta central, cuando se reconoce el concepto de caso renal 37."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 37",
+      "topicSlug": "caso_37",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 37",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_37",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-038",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 38",
+    "difficulty": "Examen",
+    "stem": "Un paciente con pseudohipoaldosteronismo tiene pérdida de sodio, hipovolemia e hiperpotasemia. Las células principales del colector no reabsorben Na+ de forma adecuada. El canal apical implicado es ENaC.",
+    "question": "¿Qué canal puede estar alterado?",
+    "options": [
+      "NKCC2 exclusivamente.",
+      "ENaC.",
+      "SGLT1 intestinal.",
+      "Canal de sodio neuronal voltaje-dependiente."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. ENaC permite entrada apical de Na+ en células principales; su defecto reduce reabsorción de sodio y secreción de K+.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con defecto de células principales no reabsorbe Na⁺ adecuadamente.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con defecto de células principales no reabsorbe Na⁺ adecuadamente. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué canal puede estar alterado?",
+    "originalOptions_v160_module9": [
+      "Aumento de onda P como explicación directa, cuando se interpreta el mecanismo de caso renal 38.",
+      "ENaC, cuando se interpreta el mecanismo de caso renal 38.",
+      "Cambio aislado de compliance arterial, cuando se interpreta el mecanismo de caso renal 38.",
+      "Shunt intrapulmonar como causa principal, cuando se interpreta el mecanismo de caso renal 38."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 38",
+      "topicSlug": "caso_38",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo",
+        "renal_hormonas",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 38",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_38",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-039",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 39",
+    "difficulty": "Examen",
+    "stem": "Una paciente con acidosis tubular distal no logra acidificar la orina pese a acidemia. El pH urinario permanece alto y hay tendencia a cálculos. Las células intercaladas alfa fallan en secretar H+.",
+    "question": "¿Qué trastorno ácido-base aparece?",
+    "options": [
+      "Alcalosis respiratoria aguda.",
+      "Acidosis láctica por shock.",
+      "Acidosis metabólica tubular distal.",
+      "Alcalosis metabólica por vómitos exclusivamente."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. La RTA distal tipo 1 produce acidosis metabólica por defecto de secreción distal de H+.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con defecto de intercaladas alfa no acidifica orina.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con defecto de intercaladas alfa no acidifica orina. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué trastorno ácido-base aparece?",
+    "originalOptions_v160_module9": [
+      "Bloqueo del nodo AV como causa primaria, cuando se aplica al contexto renal de caso renal 39.",
+      "Aumento de volumen residual pulmonar, cuando se aplica al contexto renal de caso renal 39.",
+      "Acidosis metabólica tubular distal, cuando se aplica al contexto renal de caso renal 39.",
+      "Efecto Bohr como mecanismo principal, cuando se aplica al contexto renal de caso renal 39."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 39",
+      "topicSlug": "caso_39",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 39",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_39",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-040",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 40",
+    "difficulty": "Examen",
+    "stem": "Un niño con defecto tubular proximal pierde bicarbonato por orina. Después de cierto descenso, el bicarbonato plasmático se estabiliza en un nivel bajo. El defecto corresponde a acidosis tubular proximal.",
+    "question": "¿Qué trastorno ácido-base aparece?",
+    "options": [
+      "Alcalosis respiratoria por altura.",
+      "Acidosis respiratoria por opioides.",
+      "Alcalosis metabólica por exceso de aldosterona.",
+      "Acidosis metabólica tubular proximal."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. La RTA proximal tipo 2 se debe a falla de reabsorción proximal de bicarbonato.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con defecto proximal pierde bicarbonato.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con defecto proximal pierde bicarbonato. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué trastorno ácido-base aparece?",
+    "originalOptions_v160_module9": [
+      "Vasodilatación bronquial por β₂ como explicación, cuando se analiza la consecuencia funcional de caso renal 40.",
+      "Contracción isovolumétrica ventricular como respuesta tubular, cuando se analiza la consecuencia funcional de caso renal 40.",
+      "Hipoxia histotóxica como única explicación, cuando se analiza la consecuencia funcional de caso renal 40.",
+      "Acidosis metabólica tubular proximal, cuando se analiza la consecuencia funcional de caso renal 40."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 40",
+      "topicSlug": "caso_40",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_hormonas"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 40",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_40",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-041",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 41",
+    "difficulty": "Examen",
+    "stem": "Un paciente con edema cerebral recibe manitol intravenoso. El manitol filtrado queda en la luz tubular y arrastra agua. La diuresis aumenta de forma osmótica.",
+    "question": "¿Qué mecanismo explica el efecto diurético?",
+    "options": [
+      "Retención osmótica de agua en el túbulo.",
+      "Aumento directo de aldosterona.",
+      "Bloqueo de receptores beta-1 cardíacos.",
+      "Aumento de presión oncótica pulmonar."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. El manitol actúa como osmole tubular, reduce reabsorción de agua y aumenta diuresis.",
+    "whyWrong": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente recibe manitol y aumenta mucho la diuresis.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente recibe manitol y aumenta mucho la diuresis. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué mecanismo explica el efecto?",
+    "originalOptions_v160_module9": [
+      "Retención osmótica de agua en el túbulo, cuando se reconoce el concepto de caso renal 41.",
+      "Alteración de ventilación alveolar como causa primaria, cuando se reconoce el concepto de caso renal 41.",
+      "Despolarización ventricular como mecanismo dominante, cuando se reconoce el concepto de caso renal 41.",
+      "Producción de surfactante como respuesta central, cuando se reconoce el concepto de caso renal 41."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 41",
+      "topicSlug": "caso_41",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre",
+        "renal_hormonas",
+        "cardiovascular_vasos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 41",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_41",
+      "concept:electricidad_biologica",
+      "concept:agua_libre",
+      "concept:renal_hormonas",
+      "concept:cardiovascular_vasos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-042",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 42",
+    "difficulty": "Examen",
+    "stem": "Una paciente con alto flujo medular pierde capacidad de concentrar la orina. Los vasos rectos no preservan bien el gradiente osmótico medular. Se produce lavado medular.",
+    "question": "¿Qué estructura no preservó el gradiente?",
+    "options": [
+      "Nodo sinoauricular.",
+      "Vasos rectos.",
+      "Podocito exclusivamente.",
+      "Bronquiolo terminal."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. Los vasos rectos funcionan como intercambiadores a contracorriente y preservan el gradiente medular.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Una persona con médula renal lavada por alto flujo pierde concentración urinaria.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Una persona con médula renal lavada por alto flujo pierde concentración urinaria. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué estructura no preservó el gradiente?",
+    "originalOptions_v160_module9": [
+      "Aumento de onda P como explicación directa, cuando se interpreta el mecanismo de caso renal 42.",
+      "Vasos rectos, cuando se interpreta el mecanismo de caso renal 42.",
+      "Cambio aislado de compliance arterial, cuando se interpreta el mecanismo de caso renal 42.",
+      "Shunt intrapulmonar como causa principal, cuando se interpreta el mecanismo de caso renal 42."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 42",
+      "topicSlug": "caso_42",
+      "concepts": [
+        "electricidad_biologica"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 42",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_42",
+      "concept:electricidad_biologica"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-043",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 43",
+    "difficulty": "Examen",
+    "stem": "Un paciente con daño de podocitos presenta proteinuria intensa. La membrana basal y los diafragmas de filtración pierden selectividad. La albúmina atraviesa la barrera hacia el ultrafiltrado.",
+    "question": "¿Qué parte de la barrera falló?",
+    "options": [
+      "Canal ENaC del colector.",
+      "Transportador NCC distal.",
+      "Hendiduras de filtración podocitarias.",
+      "Mácula densa exclusivamente."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. El diafragma entre pedicelos de podocitos limita el paso de proteínas; su lesión produce proteinuria.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con daño de podocitos presenta proteinuria.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con daño de podocitos presenta proteinuria. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué parte de la barrera falló?",
+    "originalOptions_v160_module9": [
+      "Bloqueo del nodo AV como causa primaria, cuando se aplica al contexto renal de caso renal 43.",
+      "Aumento de volumen residual pulmonar, cuando se aplica al contexto renal de caso renal 43.",
+      "Hendiduras de filtración podocitarias, cuando se aplica al contexto renal de caso renal 43.",
+      "Efecto Bohr como mecanismo principal, cuando se aplica al contexto renal de caso renal 43."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 43",
+      "topicSlug": "caso_43",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo",
+        "renal_hormonas",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 43",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_43",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo",
+      "concept:renal_hormonas",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-044",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 44",
+    "difficulty": "Examen",
+    "stem": "Una mujer con hemorragia tiene baja perfusión renal y activación simpática. Las células yuxtaglomerulares reciben estímulo beta-1. Aumenta la liberación de renina.",
+    "question": "¿Qué sistema nervioso participa?",
+    "options": [
+      "Parasimpático bronquial.",
+      "Sistema somático de placa motora.",
+      "Sistema visual retiniano.",
+      "Simpático renal."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. El simpático renal estimula receptores beta-1 en células yuxtaglomerulares y aumenta renina.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "originalStem_v131": "Una persona con baja perfusión renal aumenta renina por estímulo β₁.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Una persona con baja perfusión renal aumenta renina por estímulo β₁. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué sistema nervioso participa?",
+    "originalOptions_v160_module9": [
+      "Vasodilatación bronquial por β₂ como explicación, cuando se analiza la consecuencia funcional de caso renal 44.",
+      "Contracción isovolumétrica ventricular como respuesta tubular, cuando se analiza la consecuencia funcional de caso renal 44.",
+      "Hipoxia histotóxica como única explicación, cuando se analiza la consecuencia funcional de caso renal 44.",
+      "Simpático renal, cuando se analiza la consecuencia funcional de caso renal 44."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 44",
+      "topicSlug": "caso_44",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 44",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_44",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-045",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 45",
+    "difficulty": "Examen",
+    "stem": "Un paciente con exceso de aldosterona retiene Na+ y agua. Su volumen extracelular aumenta y se eleva la presión arterial. Al mismo tiempo pierde K+ en orina.",
+    "question": "¿Qué pasa con el volumen extracelular?",
+    "options": [
+      "Se expande.",
+      "Se contrae obligatoriamente.",
+      "No puede cambiar con aldosterona.",
+      "Se transforma en volumen pulmonar residual."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. La aldosterona favorece reabsorción de Na+; el agua sigue al sodio y expande el volumen extracelular.",
+    "whyWrong": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con exceso de aldosterona retiene Na⁺ y agua.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con exceso de aldosterona retiene Na⁺ y agua. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué pasa con volumen extracelular?",
+    "originalOptions_v160_module9": [
+      "Se expande, cuando se reconoce el concepto de caso renal 45.",
+      "Alteración de ventilación alveolar como causa primaria, cuando se reconoce el concepto de caso renal 45.",
+      "Despolarización ventricular como mecanismo dominante, cuando se reconoce el concepto de caso renal 45.",
+      "Producción de surfactante como respuesta central, cuando se reconoce el concepto de caso renal 45."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 45",
+      "topicSlug": "caso_45",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_hormonas",
+        "renal_electrolitos",
+        "cardiovascular_presion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 45",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_45",
+      "concept:electricidad_biologica",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos",
+      "concept:cardiovascular_presion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-046",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 46",
+    "difficulty": "Examen",
+    "stem": "Un paciente con enfermedad renal avanzada presenta acidosis metabólica e hiperpotasemia. La TFG está muy baja y el túbulo no excreta adecuadamente ácido ni potasio. Los solutos se acumulan en plasma.",
+    "question": "¿Qué falla global lo explica?",
+    "options": [
+      "Aumento de excreción renal de ácido y K+.",
+      "Menor excreción renal de ácido y K+.",
+      "Mayor producción de surfactante.",
+      "Aumento de ventilación alveolar."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. En enfermedad renal avanzada se reduce la eliminación de ácido fijo y potasio, causando acidosis e hiperpotasemia.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con enfermedad renal avanzada presenta acidosis e hiperkalemia.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con enfermedad renal avanzada presenta acidosis e hiperkalemia. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué falla global lo explica?",
+    "originalOptions_v160_module9": [
+      "Aumento de onda P como explicación directa, cuando se interpreta el mecanismo de caso renal 46.",
+      "Menor excreción renal de ácido y K⁺, cuando se interpreta el mecanismo de caso renal 46.",
+      "Cambio aislado de compliance arterial, cuando se interpreta el mecanismo de caso renal 46.",
+      "Shunt intrapulmonar como causa principal, cuando se interpreta el mecanismo de caso renal 46."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 46",
+      "topicSlug": "caso_46",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_tfg",
+        "renal_electrolitos",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 46",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_46",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_tfg",
+      "concept:renal_electrolitos",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-047",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 47",
+    "difficulty": "Examen",
+    "stem": "Una sustancia filtrada libremente se reabsorbe por completo en condiciones normales. En un paciente sano, su clearance es cercano a cero. La glucosa se comporta así mientras no se supere su Tm.",
+    "question": "¿Qué ejemplo se aproxima en condiciones normales?",
+    "options": [
+      "Inulina.",
+      "PAH.",
+      "Glucosa.",
+      "Creatinina con secreción tubular."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. La glucosa filtrada se reabsorbe casi por completo en túbulo proximal si la carga filtrada no supera el Tm.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Una sustancia filtrada y reabsorbida por completo tiene clearance cercano a cero.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente es evaluado por alteración renal, tubular o hidroelectrolítica. Una sustancia filtrada y reabsorbida por completo tiene clearance cercano a cero.",
+    "originalQuestion_v160_module9": "¿Qué ejemplo se aproxima en condiciones normales?",
+    "originalOptions_v160_module9": [
+      "Bloqueo del nodo AV como causa primaria, cuando se aplica al contexto renal de caso renal 47.",
+      "Aumento de volumen residual pulmonar, cuando se aplica al contexto renal de caso renal 47.",
+      "Glucosa, cuando se aplica al contexto renal de caso renal 47.",
+      "Efecto Bohr como mecanismo principal, cuando se aplica al contexto renal de caso renal 47."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 47",
+      "topicSlug": "caso_47",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 47",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_47",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-048",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 48",
+    "difficulty": "Examen",
+    "stem": "Una persona con alto consumo de sal mantiene presión estable tras varios días. El riñón aumenta excreción de sodio hasta igualar la ingesta. El balance corporal de sodio se regula a largo plazo.",
+    "question": "¿Qué principio se cumple?",
+    "options": [
+      "Bloqueo completo de natriuresis.",
+      "Retención obligatoria de toda la sal.",
+      "Independencia total entre sodio y agua.",
+      "Balance de sodio a largo plazo."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. A largo plazo, la excreción renal de sodio debe igualar la ingesta para estabilizar volumen y presión.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null
+    ],
+    "originalStem_v131": "Una persona con alto consumo de sal mantiene presión estable al aumentar excreción renal.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Una persona con alto consumo de sal mantiene presión estable al aumentar excreción renal. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué principio se cumple?",
+    "originalOptions_v160_module9": [
+      "Vasodilatación bronquial por β₂ como explicación, cuando se analiza la consecuencia funcional de caso renal 48.",
+      "Contracción isovolumétrica ventricular como respuesta tubular, cuando se analiza la consecuencia funcional de caso renal 48.",
+      "Hipoxia histotóxica como única explicación, cuando se analiza la consecuencia funcional de caso renal 48.",
+      "Balance de sodio a largo plazo, cuando se analiza la consecuencia funcional de caso renal 48."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 48",
+      "topicSlug": "caso_48",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 48",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_48",
+      "concept:electricidad_biologica",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-049",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 49",
+    "difficulty": "Examen",
+    "stem": "Un paciente con PTH elevada necesita activar vitamina D. En el túbulo proximal renal aumenta la conversión a calcitriol. La enzima clave es estimulada por PTH.",
+    "question": "¿Qué enzima participa?",
+    "options": [
+      "1α-hidroxilasa.",
+      "Anhidrasa carbónica eritrocitaria como única vía.",
+      "Na+/K+ ATPasa del miocardio.",
+      "Elastasa neutrofílica pulmonar."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. La 1α-hidroxilasa renal convierte 25-OH vitamina D en calcitriol, estimulada por PTH.",
+    "whyWrong": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Un paciente con PTH elevada activa vitamina D renal.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Un paciente con PTH elevada activa vitamina D renal. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué enzima participa?",
+    "originalOptions_v160_module9": [
+      "1α-hidroxilasa, cuando se reconoce el concepto de caso renal 49.",
+      "Alteración de ventilación alveolar como causa primaria, cuando se reconoce el concepto de caso renal 49.",
+      "Despolarización ventricular como mecanismo dominante, cuando se reconoce el concepto de caso renal 49.",
+      "Producción de surfactante como respuesta central, cuando se reconoce el concepto de caso renal 49."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 49",
+      "topicSlug": "caso_49",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tubulo",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 49",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_49",
+      "concept:electricidad_biologica",
+      "concept:renal_tubulo",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica-case-v129-050",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+    "moduleNumber": 9,
+    "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+    "heading": "Caso 50",
+    "difficulty": "Examen",
+    "stem": "Un hombre con obstrucción prostática crónica desarrolla hidronefrosis y creatinina elevada. La presión retrógrada aumenta desde la vía urinaria hacia túbulos y Bowman. La filtración se reduce por una fuerza opuesta.",
+    "question": "¿Qué fuerza reduce la TFG?",
+    "options": [
+      "Disminución de presión en Bowman.",
+      "Aumento de presión retrógrada tubular/Bowman.",
+      "Aumento de presión neta de filtración.",
+      "Aumento de reabsorción proximal de glucosa."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. La obstrucción aumenta presión tubular/Bowman y reduce la presión neta de filtración.",
+    "whyWrong": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "distractorExplanations": [
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      null,
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso.",
+      "Falsa. Puede parecer relacionada, pero no explica el mecanismo renal central descrito en este caso."
+    ],
+    "originalStem_v131": "Una persona con obstrucción prostática crónica desarrolla hidronefrosis.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v161",
+    "originalStem_v160_module9": "Una persona con obstrucción prostática crónica desarrolla hidronefrosis. Durante la evaluación, el dato fisiológico se relaciona con TFG, transporte tubular y regulación hidroelectrolítica.",
+    "originalQuestion_v160_module9": "¿Qué fuerza reduce la TFG?",
+    "originalOptions_v160_module9": [
+      "Aumento de onda P como explicación directa, cuando se interpreta el mecanismo de caso renal 50.",
+      "Aumento de presión retrógrada tubular/Bowman, cuando se interpreta el mecanismo de caso renal 50.",
+      "Cambio aislado de compliance arterial, cuando se interpreta el mecanismo de caso renal 50 No coincide con el mecanismo fisiológico solicitado.",
+      "Shunt intrapulmonar como causa principal, cuando se interpreta el mecanismo de caso renal 50."
+    ],
+    "module9CaseRebuilt": true,
+    "module9OptionsCleaned": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 9,
+      "moduleId": "01-fisiologia-09-fisiologia-renal-avanzada-filtracion-tubular-hidroelectrolitica",
+      "moduleTitle": "Fisiología renal avanzada: filtración, función tubular y regulación hidroelectrolítica",
+      "format": "case",
+      "topic": "Caso 50",
+      "topicSlug": "caso_50",
+      "concepts": [
+        "electricidad_biologica",
+        "renal_tfg"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 50",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:9",
+      "module_id:01_fisiologia_09_fisiologia_renal_avanzada_filtr",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_50",
+      "concept:electricidad_biologica",
+      "concept:renal_tfg"
+    ]
+  }
+]

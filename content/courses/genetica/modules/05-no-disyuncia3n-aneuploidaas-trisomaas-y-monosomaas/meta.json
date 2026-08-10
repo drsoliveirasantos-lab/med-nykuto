@@ -1,0 +1,32 @@
+{
+  "id": "03-genetica-05-no-disyuncion-aneuploidias-trisomias-y-monosomias",
+  "number": 5,
+  "title": "No disyunciÃ³n, aneuploidÃas, trisomÃas y monosomÃas",
+  "file": "Modulo_05_no_disyuncion_aneuploidias_trisomias_y_monosomias.md",
+  "summary": "- 6. Mecanismos: edad materna avanzada, cohesina, cinetocoros, microtÃºbulos y checkpoints. - Explicar por quÃ© un error en metafase/anafase puede cambiar el nÃºmero cromosÃ³mico final. - Responder preguntas de examen usando palabras clave: 47, 45, cohesina, cinetocoro, meiosis I/II.â€¦",
+  "headings": [
+    "1. Punto de partida: nÃºmero cromosÃ³mico normal",
+    "2. AneuploidÃa: concepto general",
+    "3. TrisomÃa: exceso cromosÃ³mico",
+    "4. MonosomÃa: defecto cromosÃ³mico",
+    "5. No disyunciÃ³n: el mecanismo central",
+    "6. Causas y puntos crÃticos de la no disyunciÃ³n",
+    "A. Edad materna avanzada",
+    "B. Error de cohesina",
+    "C. Error de cinetocoro y microtÃºbulos",
+    "D. Fallo de checkpoints",
+    "7. CÃ³mo se interpreta en un caso clÃnico",
+    "8. Tabla de integraciÃ³n clÃnica",
+    "9. Trampas frecuentes de examen"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

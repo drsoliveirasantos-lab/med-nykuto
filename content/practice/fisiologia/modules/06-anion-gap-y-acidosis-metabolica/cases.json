@@ -1,0 +1,3422 @@
+[
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-001",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 01",
+    "difficulty": "Examen",
+    "stem": "Un hombre de 65 años llega en shock séptico con piel fría, hipotensión y confusión. La gasometría muestra pH 7,21, HCO3− 12 mEq/L, lactato 7 mmol/L y anion gap corregido elevado. La hipoperfusión tisular aumenta la producción de lactato.",
+    "question": "¿Qué trastorno ácido-base explica mejor el cuadro?",
+    "options": [
+      "Acidosis metabólica con anion gap elevado por lactato.",
+      "Acidosis metabólica hiperclorémica aislada.",
+      "HAGMA por lactato como única explicación.",
+      "Alcalosis respiratoria aislada."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. La hipoperfusión y la sepsis aumentan lactato. El lactato queda como anión no medido y el H⁺ consume bicarbonato.",
+    "whyWrong": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "originalStem_v131": "Un hombre de 65 años en shock séptico presenta pH 7,21, HCO₃⁻ 12 mEq/L, lactato 7 mmol/L y AG corregido elevado.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un hombre de 65 años en shock séptico presenta pH 7,21, HCO₃⁻ 12 mEq/L, lactato 7 mmol/L y AG corregido elevado. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 01",
+      "topicSlug": "caso_01",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 01",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_01",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-002",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 02",
+    "difficulty": "Examen",
+    "stem": "Una mujer de 28 años con diabetes tipo 1 llega con vómitos, respiración de Kussmaul y deshidratación. La glucosa es 480 mg/dL, el HCO3− 8 mEq/L y las cetonas están elevadas. La acumulación de cetoaniones explica el anion gap alto.",
+    "question": "¿Qué mecanismo explica el anion gap elevado?",
+    "options": [
+      "Diarrea con UAG negativo como causa única.",
+      "Acumulación de cetoaniones por cetoacidosis diabética.",
+      "RTA tipo 4 como explicación universal.",
+      "Corrección completa solo por hiperventilación."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. El déficit de insulina favorece lipólisis y cetogénesis. Los cetoácidos consumen bicarbonato y elevan el AG.",
+    "whyWrong": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "distractorExplanations": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "originalStem_v131": "Una mujer de 28 años con diabetes tipo 1 llega con vómitos, respiración profunda, glucosa 480 mg/dL, HCO₃⁻ 8 mEq/L y cetonas elevadas.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Una mujer de 28 años con diabetes tipo 1 llega con vómitos, respiración profunda, glucosa 480 mg/dL, HCO₃⁻ 8 mEq/L y cetonas elevadas. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 02",
+      "topicSlug": "caso_02",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 02",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_02",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-003",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 03",
+    "difficulty": "Examen",
+    "stem": "Un paciente con diarrea acuosa de varios días llega débil y con mucosas secas. La gasometría muestra pH 7,30, HCO3− 15 mEq/L, Cl− alto y anion gap normal. La pérdida intestinal de bicarbonato produce acidosis hiperclorémica.",
+    "question": "¿Cuál es la causa más probable?",
+    "options": [
+      "Cetoacidosis diabética obligatoria en todo AG elevado.",
+      "Anion gap normal porque el cloro siempre reemplaza todos los aniones.",
+      "Pérdida intestinal de bicarbonato con acidosis hiperclorémica.",
+      "Interpretación basada solo en pH sin electrolitos."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. La diarrea elimina bicarbonato. El cloro aumenta para mantener electroneutralidad, por eso el AG permanece normal.",
+    "whyWrong": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "distractorExplanations": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "originalStem_v131": "Un paciente con diarrea acuosa de varios días tiene pH 7,30, HCO₃⁻ 15 mEq/L, Cl⁻ alto y AG normal.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con diarrea acuosa de varios días tiene pH 7,30, HCO₃⁻ 15 mEq/L, Cl⁻ alto y AG normal. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 03",
+      "topicSlug": "caso_03",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 03",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_03",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-004",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 04",
+    "difficulty": "Examen",
+    "stem": "Un paciente con cirrosis avanzada y ascitis tiene albúmina de 2 g/dL. Aunque el anion gap medido es 12 mEq/L, el bicarbonato está bajo y el estado clínico sugiere acidosis. Antes de considerar normal el gap, debe corregirse por hipoalbuminemia.",
+    "question": "¿Qué debe hacerse antes de llamar normal al gap?",
+    "options": [
+      "Acidosis respiratoria pura por retención primaria de CO₂.",
+      "Alcalosis metabólica por pérdida gástrica de H⁺.",
+      "Gasometría normal sin trastorno ácido-base.",
+      "Corregir el anion gap por hipoalbuminemia."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. La albúmina baja reduce el AG medido. Al corregir, puede aparecer una HAGMA oculta.",
+    "whyWrong": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con cirrosis y albúmina 2 g/dL tiene AG medido de 12 mEq/L y HCO₃⁻ bajo.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con cirrosis y albúmina 2 g/dL tiene AG medido de 12 mEq/L y HCO₃⁻ bajo. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 04",
+      "topicSlug": "caso_04",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 04",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_04",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-005",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 05",
+    "difficulty": "Examen",
+    "stem": "Un paciente con acidosis metabólica grave presenta HCO3− de 10 mEq/L. Según Winter, la PaCO2 esperada es cercana a 23 ±2 mmHg, pero la PaCO2 medida es 40 mmHg. La ventilación no compensa adecuadamente la acidosis.",
+    "question": "¿Qué trastorno adicional sugiere esto?",
+    "options": [
+      "Acidosis respiratoria concomitante por ventilación insuficiente.",
+      "Acidosis metabólica hiperclorémica aislada.",
+      "HAGMA por lactato como única explicación.",
+      "Alcalosis respiratoria aislada."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. En acidosis metabólica la PaCO₂ debería bajar. Si está más alta que Winter, hay retención de CO₂ agregada.",
+    "whyWrong": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "originalStem_v131": "Un paciente con acidosis metabólica tiene HCO₃⁻ 10 mEq/L. Winter predice PaCO₂ cercana a 23 ±2, pero la PaCO₂ medida es 40.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con acidosis metabólica tiene HCO₃⁻ 10 mEq/L. Winter predice PaCO₂ cercana a 23 ±2, pero la PaCO₂ medida es 40.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 05",
+      "topicSlug": "caso_05",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 05",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_05",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-006",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 06",
+    "difficulty": "Examen",
+    "stem": "Una paciente embarazada llega con sepsis, fiebre y taquipnea marcada. Tiene HCO3− 14 mEq/L, anion gap elevado y PaCO2 mucho menor que la esperada por Winter. La gasometría sugiere acidosis metabólica con alcalosis respiratoria agregada.",
+    "question": "¿Qué trastorno mixto sugiere?",
+    "options": [
+      "Diarrea con UAG negativo como causa única.",
+      "HAGMA con alcalosis respiratoria concomitante.",
+      "RTA tipo 4 como explicación universal.",
+      "Corrección completa solo por hiperventilación."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. La acidosis metabólica explica HCO₃⁻ bajo y AG alto; la PaCO₂ excesivamente baja indica hiperventilación primaria agregada.",
+    "whyWrong": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "distractorExplanations": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "originalStem_v131": "Una embarazada con sepsis tiene HCO₃⁻ 14 mEq/L, AG elevado y PaCO₂ mucho menor que la esperada por Winter.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Una embarazada con sepsis tiene HCO₃⁻ 14 mEq/L, AG elevado y PaCO₂ mucho menor que la esperada por Winter. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 06",
+      "topicSlug": "caso_06",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 06",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_06",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-007",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 07",
+    "difficulty": "Examen",
+    "stem": "Un paciente llega con dolor abdominal, visión borrosa y antecedente de alcohol adulterado. La gasometría muestra acidosis metabólica con anion gap elevado y osmolal gap alto. El cuadro orienta a metabolismo de metanol hacia ácidos tóxicos.",
+    "question": "¿Qué intoxicación es más probable?",
+    "options": [
+      "Cetoacidosis diabética obligatoria en todo AG elevado.",
+      "Anion gap normal porque el cloro siempre reemplaza todos los aniones.",
+      "Intoxicación por metanol.",
+      "Interpretación basada solo en pH sin electrolitos."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. El metanol se metaboliza a formiato, que causa acidosis de gap elevado y toxicidad ocular.",
+    "whyWrong": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "distractorExplanations": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "originalStem_v131": "Un paciente con dolor abdominal y visión borrosa tras beber alcohol adulterado presenta HAGMA y osmolal gap elevado.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con dolor abdominal y visión borrosa tras beber alcohol adulterado presenta HAGMA y osmolal gap elevado. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 07",
+      "topicSlug": "caso_07",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 07",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_07",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-008",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 08",
+    "difficulty": "Examen",
+    "stem": "Un paciente refiere haber ingerido anticongelante durante un intento autolítico. Presenta acidosis metabólica con anion gap alto, hipocalcemia, lesión renal y cristales de oxalato en orina. El tóxico más probable es etilenglicol.",
+    "question": "¿Qué tóxico explica el cuadro?",
+    "options": [
+      "Acidosis respiratoria pura por retención primaria de CO₂.",
+      "Alcalosis metabólica por pérdida gástrica de H⁺.",
+      "Gasometría normal sin trastorno ácido-base.",
+      "Etilenglicol."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. El etilenglicol produce metabolitos ácidos y oxalato cálcico, causando acidosis de gap elevado y nefrotoxicidad.",
+    "whyWrong": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con ingesta de anticongelante tiene HAGMA, hipocalcemia, lesión renal y cristales de oxalato en orina.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con ingesta de anticongelante tiene HAGMA, hipocalcemia, lesión renal y cristales de oxalato en orina. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 08",
+      "topicSlug": "caso_08",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 08",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_08",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-009",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 09",
+    "difficulty": "Examen",
+    "stem": "Una adolescente llega con tinnitus, fiebre, vómitos e hiperventilación. La gasometría muestra PaCO2 baja, HCO3− bajo y anion gap elevado. El patrón combina alcalosis respiratoria y acidosis metabólica por salicilatos.",
+    "question": "¿Qué intoxicación debe sospecharse?",
+    "options": [
+      "Intoxicación por salicilatos con trastorno mixto.",
+      "Acidosis metabólica hiperclorémica aislada.",
+      "HAGMA por lactato como única explicación.",
+      "Alcalosis respiratoria aislada."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. Los salicilatos estimulan ventilación y producen ácidos orgánicos, combinando alcalosis respiratoria y HAGMA.",
+    "whyWrong": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "originalStem_v131": "Una adolescente con tinnitus, fiebre e hiperventilación tiene PaCO₂ baja, HCO₃⁻ bajo y AG elevado.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Una adolescente con tinnitus, fiebre e hiperventilación tiene PaCO₂ baja, HCO₃⁻ bajo y AG elevado. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 09",
+      "topicSlug": "caso_09",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 09",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_09",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-010",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 10",
+    "difficulty": "Examen",
+    "stem": "Un paciente con diarrea crónica presenta acidosis hiperclorémica. El urine anion gap es negativo, lo que indica buena excreción urinaria de NH4+. La respuesta renal adecuada apoya causa extrarrenal por pérdida digestiva de bicarbonato.",
+    "question": "¿Cómo se interpreta el UAG?",
+    "options": [
+      "Diarrea con UAG negativo como causa única.",
+      "Excreción adecuada de NH₄⁺ que apoya causa extrarrenal.",
+      "RTA tipo 4 como explicación universal.",
+      "Corrección completa solo por hiperventilación."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. El riñón responde a la acidosis excretando NH₄Cl, sube Cl⁻ urinario y el UAG se vuelve negativo.",
+    "whyWrong": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "distractorExplanations": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "originalStem_v131": "Un paciente con acidosis hiperclorémica tiene UAG negativo y antecedente de diarrea.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con acidosis hiperclorémica tiene UAG negativo y antecedente de diarrea. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 10",
+      "topicSlug": "caso_10",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 10",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_10",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-011",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 11",
+    "difficulty": "Examen",
+    "stem": "Un paciente con acidosis hiperclorémica niega diarrea y no tiene pérdidas gastrointestinales. El urine anion gap es positivo, sugiriendo mala excreción de NH4+. El médico sospecha defecto renal de acidificación.",
+    "question": "¿Qué sugiere este resultado?",
+    "options": [
+      "Cetoacidosis diabética obligatoria en todo AG elevado.",
+      "Anion gap normal porque el cloro siempre reemplaza todos los aniones.",
+      "Defecto renal de excreción de ácido, como acidosis tubular renal.",
+      "Interpretación basada solo en pH sin electrolitos."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. UAG positivo sugiere poco NH₄⁺ urinario, lo que orienta a causa renal de NAGMA.",
+    "whyWrong": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "distractorExplanations": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "originalStem_v131": "Un paciente con acidosis hiperclorémica tiene UAG positivo y no presenta diarrea.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con acidosis hiperclorémica tiene UAG positivo y no presenta diarrea. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 11",
+      "topicSlug": "caso_11",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 11",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_11",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-012",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 12",
+    "difficulty": "Examen",
+    "stem": "Una mujer con nefrolitiasis recurrente presenta debilidad y acidosis metabólica con anion gap normal. El potasio está bajo y el pH urinario permanece 6,5 pese a acidemia. La incapacidad de acidificar la orina sugiere RTA distal tipo 1.",
+    "question": "¿Qué diagnóstico es más probable?",
+    "options": [
+      "Acidosis respiratoria pura por retención primaria de CO₂.",
+      "Alcalosis metabólica por pérdida gástrica de H⁺.",
+      "Gasometría normal sin trastorno ácido-base.",
+      "Acidosis tubular renal distal tipo 1."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. La orina no se acidifica adecuadamente por falla distal de secreción de H⁺; se asocia a hipokalemia y litiasis.",
+    "whyWrong": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "originalStem_v131": "Una mujer con nefrolitiasis recurrente tiene acidosis metabólica con AG normal, K⁺ bajo y pH urinario 6,5 pese a acidemia.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Una mujer con nefrolitiasis recurrente tiene acidosis metabólica con AG normal, K⁺ bajo y pH urinario 6,5 pese a acidemia. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 12",
+      "topicSlug": "caso_12",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 12",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_12",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-013",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 13",
+    "difficulty": "Examen",
+    "stem": "Un niño consulta por retraso de crecimiento y poliuria. El laboratorio muestra glucosuria con glucemia normal, fosfaturia, aminoaciduria y acidosis hiperclorémica. El patrón integra daño tubular proximal tipo Fanconi.",
+    "question": "¿Qué diagnóstico integra mejor los hallazgos?",
+    "options": [
+      "Síndrome de Fanconi con RTA proximal tipo 2.",
+      "Acidosis metabólica hiperclorémica aislada.",
+      "HAGMA por lactato como única explicación.",
+      "Alcalosis respiratoria aislada."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. El túbulo proximal falla en reabsorber bicarbonato y otros solutos, causando pérdidas múltiples.",
+    "whyWrong": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "originalStem_v131": "Un niño con glucosuria normoglucémica, fosfaturia, aminoaciduria y acidosis hiperclorémica presenta daño tubular proximal.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un niño con glucosuria normoglucémica, fosfaturia, aminoaciduria y acidosis hiperclorémica presenta daño tubular proximal. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 13",
+      "topicSlug": "caso_13",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_tubulo"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 13",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_13",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_tubulo"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-014",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 14",
+    "difficulty": "Examen",
+    "stem": "Un paciente diabético con nefropatía toma varios fármacos y llega con debilidad. Presenta acidosis metabólica con anion gap normal, hiperpotasemia y aldosterona baja. El cuadro encaja con acidosis tubular renal tipo 4.",
+    "question": "¿Qué tipo de RTA es más probable?",
+    "options": [
+      "Diarrea con UAG negativo como causa única.",
+      "Acidosis tubular renal tipo 4.",
+      "RTA tipo 4 como explicación universal.",
+      "Corrección completa solo por hiperventilación."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. La hipoaldosteronismo reduce secreción distal de K⁺ y H⁺; la hiperpotasemia reduce amoniogénesis.",
+    "whyWrong": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "distractorExplanations": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "originalStem_v131": "Un diabético con nefropatía tiene acidosis metabólica con AG normal, hiperpotasemia y aldosterona baja.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente llega a urgencias con alteración metabólica y se solicita gasometría con electrolitos. Un diabético con nefropatía tiene acidosis metabólica con AG normal, hiperpotasemia y aldosterona baja.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 14",
+      "topicSlug": "caso_14",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_hormonas",
+        "renal_electrolitos",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 14",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_14",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-015",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 15",
+    "difficulty": "Examen",
+    "stem": "Un paciente con enfermedad renal crónica avanzada consulta por náuseas y fatiga. Tiene HCO3− bajo, fosfato elevado y anion gap alto. La falla renal retiene aniones urémicos no medidos.",
+    "question": "¿Qué mecanismo explica el gap?",
+    "options": [
+      "Cetoacidosis diabética obligatoria en todo AG elevado.",
+      "Anion gap normal porque el cloro siempre reemplaza todos los aniones.",
+      "Retención de aniones urémicos por falla renal.",
+      "Interpretación basada solo en pH sin electrolitos."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. La pérdida de función renal reduce eliminación de ácidos no volátiles y aniones como sulfato/fosfato.",
+    "whyWrong": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "distractorExplanations": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "originalStem_v131": "Un paciente con enfermedad renal crónica avanzada tiene HCO₃⁻ bajo y AG elevado con fosfato alto.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con enfermedad renal crónica avanzada tiene HCO₃⁻ bajo y AG elevado con fosfato alto. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 15",
+      "topicSlug": "caso_15",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 15",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_15",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-016",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 16",
+    "difficulty": "Examen",
+    "stem": "Un paciente con cetoacidosis diabética recibe grandes volúmenes de NaCl 0,9% durante la reanimación. Horas después el anion gap cierra, pero persiste bicarbonato bajo con cloro elevado. La acidosis residual es hiperclorémica postratamiento.",
+    "question": "¿Qué acidosis persiste?",
+    "options": [
+      "Acidosis respiratoria pura por retención primaria de CO₂.",
+      "Alcalosis metabólica por pérdida gástrica de H⁺.",
+      "Gasometría normal sin trastorno ácido-base.",
+      "Acidosis hiperclorémica postratamiento."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. La carga de cloro y la pérdida previa de cetoaniones pueden mantener bicarbonato bajo con AG normal.",
+    "whyWrong": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "originalStem_v131": "Un paciente en DKA recibe grandes volúmenes de NaCl 0,9%. El gap cierra, pero persiste HCO₃⁻ bajo con Cl⁻ alto.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente en DKA recibe grandes volúmenes de NaCl 0,9%. El gap cierra, pero persiste HCO₃⁻ bajo con Cl⁻ alto.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 16",
+      "topicSlug": "caso_16",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 16",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_16",
+      "concept:electricidad_biologica",
+      "concept:agua_libre",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-017",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 17",
+    "difficulty": "Examen",
+    "stem": "Un paciente con alcoholismo crónico pasa varios días sin comer y luego llega con vómitos. La glucosa está normal-baja, las cetonas están elevadas y el anion gap es alto. El cuadro corresponde a cetoacidosis alcohólica.",
+    "question": "¿Qué diagnóstico es probable?",
+    "options": [
+      "Cetoacidosis alcohólica.",
+      "Acidosis metabólica hiperclorémica aislada.",
+      "HAGMA por lactato como única explicación.",
+      "Alcalosis respiratoria aislada."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. Alcohol, ayuno y vómitos favorecen cetogénesis sin requerir hiperglucemia marcada.",
+    "whyWrong": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "originalStem_v131": "Un paciente con alcoholismo y varios días sin comer presenta vómitos, glucosa normal-baja, cetonas elevadas y AG alto.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con alcoholismo y varios días sin comer presenta vómitos, glucosa normal-baja, cetonas elevadas y AG alto. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 17",
+      "topicSlug": "caso_17",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 17",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_17",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-018",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 18",
+    "difficulty": "Examen",
+    "stem": "Una mujer después de ayuno prolongado presenta debilidad, cetonas positivas y glucosa baja. El anion gap está moderadamente elevado y no hay hiperglucemia importante. El metabolismo de grasas genera cetoácidos por ayuno.",
+    "question": "¿Qué explica el trastorno?",
+    "options": [
+      "Diarrea con UAG negativo como causa única.",
+      "Cetoacidosis por ayuno.",
+      "RTA tipo 4 como explicación universal.",
+      "Corrección completa solo por hiperventilación."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. La baja disponibilidad de carbohidratos aumenta lipólisis y cetogénesis, generalmente menos severa que DKA.",
+    "whyWrong": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "distractorExplanations": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "originalStem_v131": "Una mujer con ayuno prolongado presenta cetonas positivas, AG moderadamente elevado y glucosa baja.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Una mujer con ayuno prolongado presenta cetonas positivas, AG moderadamente elevado y glucosa baja. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 18",
+      "topicSlug": "caso_18",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 18",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_18",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-019",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 19",
+    "difficulty": "Examen",
+    "stem": "Un paciente llega con lactato alto por sepsis y diarrea intensa simultánea. El anion gap está elevado, pero el bicarbonato está más bajo de lo esperado para ese aumento. El delta gap sugiere acidosis metabólica normal gap agregada.",
+    "question": "¿Qué trastorno mixto existe?",
+    "options": [
+      "Cetoacidosis diabética obligatoria en todo AG elevado.",
+      "Anion gap normal porque el cloro siempre reemplaza todos los aniones.",
+      "HAGMA más acidosis metabólica normal gap.",
+      "Interpretación basada solo en pH sin electrolitos."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. La HAGMA eleva el gap; la diarrea agrega pérdida de bicarbonato y baja más el HCO₃⁻.",
+    "whyWrong": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "distractorExplanations": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "originalStem_v131": "Un paciente con AG alto tiene HCO₃⁻ más bajo de lo esperado para el aumento del gap y diarrea simultánea.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con AG alto tiene HCO₃⁻ más bajo de lo esperado para el aumento del gap y diarrea simultánea. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 19",
+      "topicSlug": "caso_19",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 19",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_19",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-020",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 20",
+    "difficulty": "Examen",
+    "stem": "Un paciente con cetoacidosis diabética también tiene vómitos persistentes y contracción de volumen. El anion gap está alto, pero el pH queda casi normal. La alcalosis metabólica concomitante puede enmascarar la acidemia.",
+    "question": "¿Qué trastorno mixto puede explicarlo?",
+    "options": [
+      "Acidosis respiratoria pura por retención primaria de CO₂.",
+      "Alcalosis metabólica por pérdida gástrica de H⁺.",
+      "Gasometría normal sin trastorno ácido-base.",
+      "HAGMA con alcalosis metabólica concomitante."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. Los cetoácidos elevan el gap y los vómitos elevan bicarbonato por pérdida de H⁺, compensando el pH final.",
+    "whyWrong": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con cetoacidosis y vómitos persistentes tiene AG alto pero pH casi normal.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con cetoacidosis y vómitos persistentes tiene AG alto pero pH casi normal. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 20",
+      "topicSlug": "caso_20",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 20",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_20",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-021",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 21",
+    "difficulty": "Examen",
+    "stem": "Un paciente crítico en UCI tiene albúmina 1,8 g/dL, lactato 5 mmol/L y bicarbonato bajo. El anion gap medido es solo 11 mEq/L. La hipoalbuminemia reduce el gap basal y puede ocultar HAGMA.",
+    "question": "¿Por qué el AG medido puede parecer poco elevado?",
+    "options": [
+      "La hipoalbuminemia reduce el anion gap basal.",
+      "Acidosis metabólica hiperclorémica aislada.",
+      "HAGMA por lactato como única explicación.",
+      "Alcalosis respiratoria aislada."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. Albúmina baja resta carga aniónica no medida; corregir el AG revela mejor la HAGMA.",
+    "whyWrong": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "originalStem_v131": "Un paciente crítico con albúmina 1,8 g/dL tiene AG medido 11 y lactato 5 mmol/L.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente crítico con albúmina 1,8 g/dL tiene AG medido 11 y lactato 5 mmol/L. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 21",
+      "topicSlug": "caso_21",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 21",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_21",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-022",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 22",
+    "difficulty": "Examen",
+    "stem": "Un paciente con sospecha de alcohol tóxico llega temprano con osmolal gap alto. Horas después, el osmolal gap baja mientras el anion gap aumenta. El alcohol se metaboliza a ácidos aniónicos.",
+    "question": "¿Qué proceso explica esta evolución?",
+    "options": [
+      "Diarrea con UAG negativo como causa única.",
+      "Metabolismo de alcohol tóxico a ácidos aniónicos.",
+      "RTA tipo 4 como explicación universal.",
+      "Corrección completa solo por hiperventilación."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. El alcohol neutro aumenta osmolal gap; sus metabolitos ácidos elevan luego el anion gap.",
+    "whyWrong": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "distractorExplanations": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "originalStem_v131": "Un paciente con HAGMA tiene osmolal gap alto inicialmente; horas después el osmolal gap baja y el AG sube más.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con HAGMA tiene osmolal gap alto inicialmente; horas después el osmolal gap baja y el AG sube más. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 22",
+      "topicSlug": "caso_22",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 22",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_22",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-023",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 23",
+    "difficulty": "Examen",
+    "stem": "Un paciente con shock hemorrágico presenta piel fría, hipotensión y lactato 9 mmol/L. Respira rápido y su bicarbonato cae. La acidosis láctica es tipo A por hipoperfusión tisular.",
+    "question": "¿Qué tipo de acidosis láctica tiene?",
+    "options": [
+      "Cetoacidosis diabética obligatoria en todo AG elevado.",
+      "Anion gap normal porque el cloro siempre reemplaza todos los aniones.",
+      "Acidosis láctica tipo A por hipoperfusión tisular.",
+      "Interpretación basada solo en pH sin electrolitos."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. La entrega de oxígeno insuficiente favorece metabolismo anaerobio y producción de lactato.",
+    "whyWrong": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "distractorExplanations": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "originalStem_v131": "Un paciente con shock hemorrágico desarrolla lactato 9 mmol/L y respiración rápida.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con shock hemorrágico desarrolla lactato 9 mmol/L y respiración rápida. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 23",
+      "topicSlug": "caso_23",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 23",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_23",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-024",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 24",
+    "difficulty": "Examen",
+    "stem": "Un paciente con enfermedad hepática grave tiene lactato elevado sin hipoxemia arterial marcada. No hay shock profundo, pero el hígado depura peor el lactato. La menor eliminación hepática contribuye al anion gap.",
+    "question": "¿Qué mecanismo puede contribuir?",
+    "options": [
+      "Acidosis respiratoria pura por retención primaria de CO₂.",
+      "Alcalosis metabólica por pérdida gástrica de H⁺.",
+      "Gasometría normal sin trastorno ácido-base.",
+      "Menor depuración hepática de lactato."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. El hígado metaboliza lactato; si falla, el lactato puede acumularse aunque la PaO₂ no esté muy baja.",
+    "whyWrong": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con enfermedad hepática grave tiene lactato elevado sin hipoxemia marcada.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con enfermedad hepática grave tiene lactato elevado sin hipoxemia marcada. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 24",
+      "topicSlug": "caso_24",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_intercambio"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 24",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_24",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-025",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 25",
+    "difficulty": "Examen",
+    "stem": "Un paciente llega con respiración rápida y gasometría: pH 7,25, HCO3− 12, Na+ 140 y Cl− 100. El médico calcula el anion gap para clasificar la acidosis. El valor aproximado es 28 mEq/L.",
+    "question": "¿Cuál es el anion gap aproximado?",
+    "options": [
+      "28 mEq/L, compatible con anion gap elevado.",
+      "Acidosis metabólica hiperclorémica aislada.",
+      "HAGMA por lactato como única explicación.",
+      "Alcalosis respiratoria aislada."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. AG = 140 − (100 + 12) = 28. Es elevado y sugiere aniones no medidos.",
+    "whyWrong": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "originalStem_v131": "Una gasometría muestra pH 7,25, HCO₃⁻ 12, Na⁺ 140, Cl⁻ 100.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente llega a urgencias con alteración metabólica y se solicita gasometría con electrolitos. Una gasometría muestra pH 7,25, HCO₃⁻ 12, Na⁺ 140, Cl⁻ 100.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 25",
+      "topicSlug": "caso_25",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_electrolitos",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 25",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_25",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-026",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 26",
+    "difficulty": "Examen",
+    "stem": "Una paciente llega con pH 7,28, HCO3− 14, Na+ 138 y Cl− 114. El cloro alto compensa la caída del bicarbonato y el anion gap calculado es cercano a 10 mEq/L. El patrón corresponde a acidosis metabólica de gap normal.",
+    "question": "¿Cuál es la interpretación del gap?",
+    "options": [
+      "Diarrea con UAG negativo como causa única.",
+      "AG de 10 mEq/L, compatible con acidosis metabólica de gap normal.",
+      "RTA tipo 4 como explicación universal.",
+      "Corrección completa solo por hiperventilación."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. AG = 138 − (114 + 14) = 10. Con HCO₃⁻ bajo y Cl⁻ alto, orienta a NAGMA.",
+    "whyWrong": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "distractorExplanations": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "originalStem_v131": "Una gasometría muestra pH 7,28, HCO₃⁻ 14, Na⁺ 138, Cl⁻ 114.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente llega a urgencias con alteración metabólica y se solicita gasometría con electrolitos. Una gasometría muestra pH 7,28, HCO₃⁻ 14, Na⁺ 138, Cl⁻ 114.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 26",
+      "topicSlug": "caso_26",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_electrolitos",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 26",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_26",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-027",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 27",
+    "difficulty": "Examen",
+    "stem": "Un paciente con HCO3− de 8 mEq/L hiperventila y tiene PaCO2 medida de 18 mmHg. La fórmula de Winter predice una PaCO2 aproximada de 20 ±2. La compensación respiratoria es adecuada.",
+    "question": "¿La compensación respiratoria parece adecuada por Winter?",
+    "options": [
+      "Cetoacidosis diabética obligatoria en todo AG elevado.",
+      "Anion gap normal porque el cloro siempre reemplaza todos los aniones.",
+      "Sí, porque Winter predice aproximadamente 20 ±2 mmHg.",
+      "Interpretación basada solo en pH sin electrolitos."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. PaCO₂ esperada = 1,5×8 + 8 = 20 ±2. Una PaCO₂ de 18 está dentro del rango.",
+    "whyWrong": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "distractorExplanations": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "originalStem_v131": "Un paciente con HCO₃⁻ 8 mEq/L tiene PaCO₂ medida 18 mmHg.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con HCO₃⁻ 8 mEq/L tiene PaCO₂ medida 18 mmHg. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 27",
+      "topicSlug": "caso_27",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 27",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_27",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-028",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 28",
+    "difficulty": "Examen",
+    "stem": "Un paciente con acidosis metabólica tiene HCO3− de 8 mEq/L, pero PaCO2 medida de 30 mmHg. Según Winter, debería ventilar más y tener una PaCO2 menor. La PaCO2 alta sugiere acidosis respiratoria agregada o compensación insuficiente.",
+    "question": "¿Qué indica este dato?",
+    "options": [
+      "Acidosis respiratoria pura por retención primaria de CO₂.",
+      "Alcalosis metabólica por pérdida gástrica de H⁺.",
+      "Gasometría normal sin trastorno ácido-base.",
+      "Acidosis respiratoria agregada o compensación insuficiente."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. Winter predice 20 ±2; PaCO₂ 30 es demasiado alta para acidosis metabólica simple.",
+    "whyWrong": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con HCO₃⁻ 8 mEq/L tiene PaCO₂ medida 30 mmHg.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con HCO₃⁻ 8 mEq/L tiene PaCO₂ medida 30 mmHg. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 28",
+      "topicSlug": "caso_28",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 28",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_28",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-029",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 29",
+    "difficulty": "Examen",
+    "stem": "Un paciente con HCO3− de 12 mEq/L respira muy rápido por ansiedad y dolor. La PaCO2 medida es 18 mmHg, menor que la esperada por Winter. Esto indica alcalosis respiratoria agregada a la acidosis metabólica.",
+    "question": "¿Qué indica este dato?",
+    "options": [
+      "Alcalosis respiratoria agregada.",
+      "Acidosis metabólica hiperclorémica aislada.",
+      "HAGMA por lactato como única explicación.",
+      "Alcalosis respiratoria aislada."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. Winter predice 1,5×12 + 8 = 26 ±2; PaCO₂ 18 es más baja de lo esperado.",
+    "whyWrong": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "originalStem_v131": "Un paciente con HCO₃⁻ 12 mEq/L tiene PaCO₂ medida 18 mmHg.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con HCO₃⁻ 12 mEq/L tiene PaCO₂ medida 18 mmHg. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 29",
+      "topicSlug": "caso_29",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 29",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_29",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-030",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 30",
+    "difficulty": "Examen",
+    "stem": "Un paciente con cetoacidosis diabética tiene anion gap 30, pero HCO3− de 20 mEq/L por vómitos intensos. El bicarbonato está relativamente alto para el aumento del gap. Esto sugiere alcalosis metabólica concomitante.",
+    "question": "¿Qué sugiere el bicarbonato relativamente alto?",
+    "options": [
+      "Diarrea con UAG negativo como causa única.",
+      "Alcalosis metabólica concomitante.",
+      "RTA tipo 4 como explicación universal.",
+      "Corrección completa solo por hiperventilación."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. Para un gap tan alto, se esperaría mayor caída de HCO₃⁻; los vómitos pueden elevarlo.",
+    "whyWrong": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "distractorExplanations": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "originalStem_v131": "Un paciente con DKA tiene AG 30 y HCO₃⁻ 20 por vómitos intensos.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con DKA tiene AG 30 y HCO₃⁻ 20 por vómitos intensos. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 30",
+      "topicSlug": "caso_30",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 30",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_30",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-031",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 31",
+    "difficulty": "Examen",
+    "stem": "Un paciente con sepsis y diarrea presenta lactato alto, anion gap 24 y HCO3− de 8 mEq/L. La caída del bicarbonato es demasiado grande para el gap observado. Hay acidosis hiperclorémica agregada a la HAGMA.",
+    "question": "¿Qué sugiere el HCO₃⁻ muy bajo?",
+    "options": [
+      "Cetoacidosis diabética obligatoria en todo AG elevado.",
+      "Anion gap normal porque el cloro siempre reemplaza todos los aniones.",
+      "Acidosis hiperclorémica agregada a la HAGMA.",
+      "Interpretación basada solo en pH sin electrolitos."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. La diarrea pierde bicarbonato y hace que HCO₃⁻ caiga más de lo explicado por lactato solo.",
+    "whyWrong": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "distractorExplanations": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "originalStem_v131": "Un paciente con lactato alto y diarrea tiene AG 24 y HCO₃⁻ 8.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con lactato alto y diarrea tiene AG 24 y HCO₃⁻ 8. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 31",
+      "topicSlug": "caso_31",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 31",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_31",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-032",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 32",
+    "difficulty": "Examen",
+    "stem": "Un paciente con mieloma múltiple tiene anion gap muy bajo en un control, pero no tiene acidemia. El laboratorio confirma proteínas monoclonales catiónicas elevadas. Esas paraproteínas pueden bajar el anion gap medido.",
+    "question": "¿Qué causa debe considerarse?",
+    "options": [
+      "Acidosis respiratoria pura por retención primaria de CO₂.",
+      "Alcalosis metabólica por pérdida gástrica de H⁺.",
+      "Gasometría normal sin trastorno ácido-base.",
+      "Paraproteínas catiónicas o alteración de aniones no medidos."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. Además de hipoalbuminemia o error, paraproteínas con carga positiva pueden reducir el gap medido.",
+    "whyWrong": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con mieloma múltiple tiene anion gap muy bajo sin acidemia.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con mieloma múltiple tiene anion gap muy bajo sin acidemia. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 32",
+      "topicSlug": "caso_32",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 32",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_32",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-033",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 33",
+    "difficulty": "Examen",
+    "stem": "Un paciente en tratamiento con litio consulta por temblor y confusión. Los electrolitos muestran anion gap bajo sin explicación por albúmina. El exceso de cationes no medidos puede disminuir el gap.",
+    "question": "¿Qué mecanismo puede explicarlo?",
+    "options": [
+      "Exceso de cationes no medidos.",
+      "Acidosis metabólica hiperclorémica aislada.",
+      "HAGMA por lactato como única explicación.",
+      "Alcalosis respiratoria aislada."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. Litio es un catión no medido que puede reducir el anion gap en contexto de toxicidad.",
+    "whyWrong": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "originalStem_v131": "Un paciente tratado con litio presenta anion gap bajo.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente tratado con litio presenta anion gap bajo. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 33",
+      "topicSlug": "caso_33",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 33",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_33",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-034",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 34",
+    "difficulty": "Examen",
+    "stem": "Un paciente con HAGMA y cetonas tiene prueba de nitroprusiato débilmente positiva. Sin embargo, el cuadro clínico sugiere cetoacidosis importante. Debe sospecharse beta-hidroxibutirato elevado, que esa prueba detecta peor.",
+    "question": "¿Qué debe medirse o sospecharse?",
+    "options": [
+      "Diarrea con UAG negativo como causa única.",
+      "Beta-hidroxibutirato elevado.",
+      "RTA tipo 4 como explicación universal.",
+      "Corrección completa solo por hiperventilación."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. El nitroprusiato detecta peor beta-hidroxibutirato, que predomina en DKA severa.",
+    "whyWrong": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "distractorExplanations": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "originalStem_v131": "Un paciente con HAGMA y cetonas presenta prueba de nitroprusiato débilmente positiva.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con HAGMA y cetonas presenta prueba de nitroprusiato débilmente positiva. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 34",
+      "topicSlug": "caso_34",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 34",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_34",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-035",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 35",
+    "difficulty": "Examen",
+    "stem": "Un paciente séptico tiene lactato 6 mmol/L, HCO3− bajo y PaCO2 baja. A pesar de esto, el pH está casi normal. La alcalosis respiratoria simultánea puede equilibrar parcialmente la acidosis metabólica.",
+    "question": "¿Por qué el pH puede estar casi normal?",
+    "options": [
+      "Cetoacidosis diabética obligatoria en todo AG elevado.",
+      "Anion gap normal porque el cloro siempre reemplaza todos los aniones.",
+      "Trastorno mixto con HAGMA y alcalosis respiratoria.",
+      "Interpretación basada solo en pH sin electrolitos."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. El lactato acidifica; la hiperventilación primaria baja CO₂ y alcaliniza, acercando el pH a normal.",
+    "whyWrong": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "distractorExplanations": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "originalStem_v131": "Un paciente con sepsis tiene pH casi normal, lactato 6, PaCO₂ baja y HCO₃⁻ bajo.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con sepsis tiene pH casi normal, lactato 6, PaCO₂ baja y HCO₃⁻ bajo. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 35",
+      "topicSlug": "caso_35",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 35",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_35",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-036",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 36",
+    "difficulty": "Examen",
+    "stem": "Un paciente con vómitos y diarrea simultáneos llega con pH casi normal. El bicarbonato, el cloro y los signos de volumen están alterados. Procesos metabólicos opuestos pueden ocultarse si solo se mira el pH.",
+    "question": "¿Qué principio explica la dificultad diagnóstica?",
+    "options": [
+      "Acidosis respiratoria pura por retención primaria de CO₂.",
+      "Alcalosis metabólica por pérdida gástrica de H⁺.",
+      "Gasometría normal sin trastorno ácido-base.",
+      "Procesos metabólicos opuestos pueden normalizar el pH final."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. Vómitos producen alcalosis y diarrea acidosis; el pH puede ocultar trastornos mixtos.",
+    "whyWrong": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con vómitos y diarrea simultáneos tiene pH casi normal.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con vómitos y diarrea simultáneos tiene pH casi normal. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 36",
+      "topicSlug": "caso_36",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 36",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_36",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-037",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 37",
+    "difficulty": "Examen",
+    "stem": "Un paciente malnutrido toma paracetamol de forma crónica y llega con acidosis metabólica de anion gap alto. Lactato y cetonas no explican el cuadro. Debe considerarse acidosis piroglutámica por 5-oxoprolina.",
+    "question": "¿Qué causa rara se debe considerar?",
+    "options": [
+      "Acidosis piroglutámica por 5-oxoprolina.",
+      "Acidosis metabólica hiperclorémica aislada.",
+      "HAGMA por lactato como única explicación.",
+      "Alcalosis respiratoria aislada."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. Depleción de glutatión y acetaminofén crónico pueden acumular 5-oxoprolina.",
+    "whyWrong": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "originalStem_v131": "Un paciente con intoxicación por paracetamol crónico, malnutrición y HAGMA no explicada por lactato ni cetonas.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con intoxicación por paracetamol crónico, malnutrición y HAGMA no explicada por lactato ni cetonas. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 37",
+      "topicSlug": "caso_37",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 37",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_37",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-038",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 38",
+    "difficulty": "Examen",
+    "stem": "Un paciente con HAGMA tiene saturación de oxígeno normal y pregunta si eso descarta lactato. Está séptico y con mala perfusión periférica. El lactato puede elevarse sin hipoxemia arterial evidente.",
+    "question": "¿Cuál es la respuesta fisiológica correcta?",
+    "options": [
+      "Diarrea con UAG negativo como causa única.",
+      "No, lactato puede elevarse sin hipoxemia arterial evidente.",
+      "RTA tipo 4 como explicación universal.",
+      "Corrección completa solo por hiperventilación."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. Sepsis, alteración microcirculatoria, catecolaminas o falla hepática pueden elevar lactato con PaO₂ normal.",
+    "whyWrong": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "distractorExplanations": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "originalStem_v131": "Un paciente con HAGMA y saturación normal pregunta si puede descartarse lactato.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con HAGMA y saturación normal pregunta si puede descartarse lactato. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 38",
+      "topicSlug": "caso_38",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion",
+        "respiratorio_intercambio"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 38",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_38",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion",
+      "concept:respiratorio_intercambio"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-039",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 39",
+    "difficulty": "Examen",
+    "stem": "Un paciente con albúmina baja tiene anion gap medido normal, pero bicarbonato bajo y clínica de acidosis. Tras corregir por albúmina, el gap queda elevado. La acidosis debe clasificarse con el anion gap corregido.",
+    "question": "¿Cómo debe clasificarse?",
+    "options": [
+      "Cetoacidosis diabética obligatoria en todo AG elevado.",
+      "Anion gap normal porque el cloro siempre reemplaza todos los aniones.",
+      "Acidosis de anion gap elevado corregido.",
+      "Interpretación basada solo en pH sin electrolitos."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. La clasificación debe considerar albúmina; el valor medido subestima el gap real.",
+    "whyWrong": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "distractorExplanations": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "originalStem_v131": "Un paciente tiene AG elevado después de corregir por albúmina, pero AG medido normal.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente tiene AG elevado después de corregir por albúmina, pero AG medido normal. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 39",
+      "topicSlug": "caso_39",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 39",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_39",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-040",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 40",
+    "difficulty": "Examen",
+    "stem": "Un paciente recibe varios litros de salina normal durante una reanimación. Después desarrolla acidosis metabólica con cloro muy alto y anion gap normal. El exceso de cloro reduce la diferencia de iones fuertes y baja el bicarbonato.",
+    "question": "¿Qué mecanismo ácido-base participa?",
+    "options": [
+      "Acidosis respiratoria pura por retención primaria de CO₂.",
+      "Alcalosis metabólica por pérdida gástrica de H⁺.",
+      "Gasometría normal sin trastorno ácido-base.",
+      "Reducción de diferencia de iones fuertes y acidosis hiperclorémica."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. El exceso relativo de cloro favorece acidosis metabólica con gap normal.",
+    "whyWrong": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con acidosis metabólica tiene Cl⁻ muy alto tras varios litros de salina.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con acidosis metabólica tiene Cl⁻ muy alto tras varios litros de salina. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 40",
+      "topicSlug": "caso_40",
+      "concepts": [
+        "electricidad_biologica",
+        "agua_libre",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 40",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_40",
+      "concept:electricidad_biologica",
+      "concept:agua_libre",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-041",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 41",
+    "difficulty": "Examen",
+    "stem": "Un paciente con diarrea tiene acidosis metabólica hiperclorémica, pero el urine anion gap no es negativo como se esperaba. El médico revisa volumen, función renal y contexto clínico. El resultado obliga a buscar defecto renal asociado o limitaciones del UAG.",
+    "question": "¿Qué interpretación es más prudente?",
+    "options": [
+      "Buscar defecto renal asociado o limitación del UAG por contexto clínico.",
+      "Acidosis metabólica hiperclorémica aislada.",
+      "HAGMA por lactato como única explicación.",
+      "Alcalosis respiratoria aislada."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. En diarrea se espera UAG negativo; si no ocurre, puede haber alteración renal, bajo sodio urinario o condiciones que limitan la interpretación.",
+    "whyWrong": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "originalStem_v131": "Un paciente con diarrea tiene UAG positivo en vez de negativo.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con diarrea tiene UAG positivo en vez de negativo. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 41",
+      "topicSlug": "caso_41",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 41",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_41",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-042",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 42",
+    "difficulty": "Examen",
+    "stem": "Un paciente toma un IECA y presenta acidosis metabólica con hiperpotasemia. La aldosterona funcional está reducida y se secreta menos ácido y potasio en el nefrón distal. El mecanismo puede producir RTA tipo 4.",
+    "question": "¿Qué mecanismo puede contribuir?",
+    "options": [
+      "Diarrea con UAG negativo como causa única.",
+      "Hipoaldosteronismo funcional con RTA tipo 4.",
+      "RTA tipo 4 como explicación universal.",
+      "Corrección completa solo por hiperventilación."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. Menos angiotensina II reduce aldosterona, favoreciendo hiperpotasemia y menor excreción de ácido.",
+    "whyWrong": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "distractorExplanations": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "originalStem_v131": "Un paciente con acidosis metabólica e hiperpotasemia toma un inhibidor de la enzima convertidora.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con acidosis metabólica e hiperpotasemia toma un inhibidor de la enzima convertidora. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 42",
+      "topicSlug": "caso_42",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_hormonas",
+        "renal_electrolitos",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 42",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_42",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_hormonas",
+      "concept:renal_electrolitos",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-043",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 43",
+    "difficulty": "Examen",
+    "stem": "Una paciente con síndrome de Sjögren consulta por debilidad, hipokalemia y nefrolitiasis. Tiene acidosis metabólica normal gap y pH urinario alto pese a acidemia. El contexto se asocia a RTA distal tipo 1.",
+    "question": "¿Qué RTA se asocia a este contexto?",
+    "options": [
+      "Cetoacidosis diabética obligatoria en todo AG elevado.",
+      "Anion gap normal porque el cloro siempre reemplaza todos los aniones.",
+      "RTA distal tipo 1.",
+      "Interpretación basada solo en pH sin electrolitos."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. Enfermedades autoinmunes como Sjögren pueden afectar secreción distal de H⁺.",
+    "whyWrong": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "distractorExplanations": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "originalStem_v131": "Una paciente con Sjögren presenta NAGMA, hipokalemia y pH urinario alto.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Una paciente con Sjögren presenta NAGMA, hipokalemia y pH urinario alto. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 43",
+      "topicSlug": "caso_43",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 43",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_43",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-044",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 44",
+    "difficulty": "Examen",
+    "stem": "Un paciente con mieloma desarrolla síndrome de Fanconi por daño proximal. Presenta glucosuria normoglucémica, fosfaturia y acidosis metabólica. La pérdida proximal de bicarbonato causa NAGMA por RTA tipo 2.",
+    "question": "¿Qué tipo de acidosis se espera?",
+    "options": [
+      "Acidosis respiratoria pura por retención primaria de CO₂.",
+      "Alcalosis metabólica por pérdida gástrica de H⁺.",
+      "Gasometría normal sin trastorno ácido-base.",
+      "NAGMA por RTA proximal tipo 2."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. El daño proximal causa pérdida de bicarbonato y otros solutos, con gap normal.",
+    "whyWrong": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con mieloma y daño proximal tiene Fanconi y acidosis.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con mieloma y daño proximal tiene Fanconi y acidosis. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 44",
+      "topicSlug": "caso_44",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 44",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_44",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-045",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 45",
+    "difficulty": "Examen",
+    "stem": "Un paciente con cetoacidosis diabética llega con K+ plasmático alto antes de iniciar tratamiento. Está deshidratado y con déficit corporal total de potasio por diuresis osmótica. La hiperpotasemia plasmática no excluye depleción total de K+.",
+    "question": "¿Qué advertencia fisiológica es correcta?",
+    "options": [
+      "El potasio total corporal puede estar bajo pese a hiperpotasemia plasmática.",
+      "Acidosis metabólica hiperclorémica aislada.",
+      "HAGMA por lactato como única explicación.",
+      "Alcalosis respiratoria aislada."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. Déficit de insulina, acidosis y osmolaridad desplazan K⁺ fuera, mientras hay pérdidas urinarias totales.",
+    "whyWrong": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "originalStem_v131": "Un paciente con DKA tiene K⁺ plasmático alto antes del tratamiento.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con DKA tiene K⁺ plasmático alto antes del tratamiento. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 45",
+      "topicSlug": "caso_45",
+      "concepts": [
+        "electricidad_biologica",
+        "osmolaridad",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 45",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_45",
+      "concept:electricidad_biologica",
+      "concept:osmolaridad",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-046",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 46",
+    "difficulty": "Examen",
+    "stem": "Un paciente con HAGMA grave comienza a hipoventilar por fatiga muscular. La PaCO2 aumenta mientras el bicarbonato sigue muy bajo. El pH caerá más por acidosis respiratoria agregada.",
+    "question": "¿Qué pasará con el pH?",
+    "options": [
+      "Diarrea con UAG negativo como causa única.",
+      "Bajará más por acidosis respiratoria agregada.",
+      "RTA tipo 4 como explicación universal.",
+      "Corrección completa solo por hiperventilación."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. Si no elimina CO₂, aumenta H⁺ respiratorio sobre la acidosis metabólica existente.",
+    "whyWrong": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "distractorExplanations": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "originalStem_v131": "Un paciente con HAGMA grave comienza a hipoventilar por fatiga.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con HAGMA grave comienza a hipoventilar por fatiga. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 46",
+      "topicSlug": "caso_46",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 46",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_46",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-047",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 47",
+    "difficulty": "Examen",
+    "stem": "Un paciente en shock séptico recibe antibióticos, fluidos y vasopresores con buena respuesta. En las horas siguientes mejora la perfusión y baja el lactato. Se espera descenso progresivo del anion gap.",
+    "question": "¿Qué cambio se espera si mejora la perfusión?",
+    "options": [
+      "Cetoacidosis diabética obligatoria en todo AG elevado.",
+      "Anion gap normal porque el cloro siempre reemplaza todos los aniones.",
+      "Disminución progresiva del lactato y del anion gap.",
+      "Interpretación basada solo en pH sin electrolitos."
+    ],
+    "answerIndex": 2,
+    "explanation": "Correcta. Al mejorar perfusión y depuración, baja lactato; se consume menos bicarbonato y el gap se cierra.",
+    "whyWrong": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "distractorExplanations": [
+      "Falsa. DKA es una causa importante, pero AG alto también puede venir de lactato, uremia, tóxicos, salicilatos o 5-oxoprolina.",
+      "Falsa. En HAGMA, aniones no medidos elevan el gap; el cloro no siempre compensa la caída de bicarbonato.",
+      null,
+      "Falsa. El pH final puede ocultar trastornos mixtos; se necesitan HCO₃⁻, PaCO₂, AG, albúmina y contexto."
+    ],
+    "originalStem_v131": "Un paciente con lactato alto recibe tratamiento eficaz del shock.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con lactato alto recibe tratamiento eficaz del shock. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 47",
+      "topicSlug": "caso_47",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 47",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_47",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-048",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 48",
+    "difficulty": "Examen",
+    "stem": "Un paciente con enfermedad renal avanzada tiene HAGMA con albúmina normal, lactato normal y cetonas negativas. No hay tóxicos evidentes en la historia. La retención de aniones urémicos explica el gap.",
+    "question": "¿Qué explica el gap?",
+    "options": [
+      "Acidosis respiratoria pura por retención primaria de CO₂.",
+      "Alcalosis metabólica por pérdida gástrica de H⁺.",
+      "Gasometría normal sin trastorno ácido-base.",
+      "Retención de aniones urémicos."
+    ],
+    "answerIndex": 3,
+    "explanation": "Correcta. La falla renal avanzada acumula ácidos no volátiles como sulfatos y fosfatos.",
+    "whyWrong": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "distractorExplanations": [
+      "Falsa. Esta opción solo encaja si PaCO₂ está elevada como causa primaria. Aquí los datos orientan a metabolismo, anion gap, cloro, lactato, cetonas o respuesta renal.",
+      "Falsa. Esa opción requiere HCO₃⁻ alto y contexto de vómitos o diuréticos, no el patrón principal descrito.",
+      "Falsa. Los datos de pH, HCO₃⁻, AG, lactato, cetonas o electrolitos obligan a clasificar un trastorno o mezcla.",
+      null
+    ],
+    "originalStem_v131": "Un paciente con HAGMA tiene albúmina normal, lactato normal, cetonas negativas y falla renal avanzada.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con HAGMA tiene albúmina normal, lactato normal, cetonas negativas y falla renal avanzada. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 48",
+      "topicSlug": "caso_48",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 48",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_48",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-049",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 49",
+    "difficulty": "Examen",
+    "stem": "Un paciente con acidosis metabólica pregunta si el anion gap es un diagnóstico definitivo. El médico revisa sodio, cloro, bicarbonato, albúmina y contexto clínico. El gap solo clasifica la acidosis y orienta la búsqueda etiológica.",
+    "question": "¿Cuál es la mejor respuesta?",
+    "options": [
+      "No; es una clasificación que orienta la búsqueda etiológica.",
+      "Acidosis metabólica hiperclorémica aislada.",
+      "HAGMA por lactato como única explicación.",
+      "Alcalosis respiratoria aislada."
+    ],
+    "answerIndex": 0,
+    "explanation": "Correcta. El AG separa acidosis por aniones no medidos de acidosis hiperclorémicas, pero requiere clínica y pruebas específicas.",
+    "whyWrong": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "distractorExplanations": [
+      null,
+      "Falsa. Sería correcta si el AG fuese normal y predominara pérdida de bicarbonato o cloro alto sin aniones no medidos.",
+      "Falsa. Lactato explica muchos casos de gap elevado, pero aquí el contexto y los datos señalan otro mecanismo o trastorno mixto.",
+      "Falsa. PaCO₂ baja sola no explica HCO₃⁻ bajo, gap elevado, cetonas, toxinas o defectos renales cuando están presentes."
+    ],
+    "originalStem_v131": "Un paciente con acidosis metabólica pregunta si el anion gap es un diagnóstico.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente con acidosis metabólica pregunta si el anion gap es un diagnóstico. Durante la evaluación, el dato fisiológico se interpreta con anion gap, bicarbonato y compensación.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 49",
+      "topicSlug": "caso_49",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "renal_electrolitos"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 49",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_49",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:renal_electrolitos"
+    ]
+  },
+  {
+    "id": "01-fisiologia-06-anion-gap-y-acidosis-metabolica-case-v120-050",
+    "courseId": "fisiologia",
+    "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+    "moduleNumber": 6,
+    "moduleTitle": "Anion gap y acidosis metabólica",
+    "heading": "Caso 50",
+    "difficulty": "Examen",
+    "stem": "Un paciente llega con diarrea acuosa, pH 7,31, HCO3− bajo, anion gap normal y pH urinario 4,8. El riñón acidifica adecuadamente la orina. El patrón es compatible con pérdida extrarrenal de bicarbonato.",
+    "question": "¿Qué causa es más compatible?",
+    "options": [
+      "Diarrea con UAG negativo como causa única.",
+      "Diarrea u otra pérdida extrarrenal de bicarbonato con respuesta renal adecuada.",
+      "RTA tipo 4 como explicación universal.",
+      "Corrección completa solo por hiperventilación."
+    ],
+    "answerIndex": 1,
+    "explanation": "Correcta. La orina ácida sugiere que el riñón puede secretar H⁺; en RTA distal el pH urinario sería inapropiadamente alto.",
+    "whyWrong": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "distractorExplanations": [
+      "Falsa. La diarrea produce NAGMA típica, pero no explica todos los hallazgos como gap elevado, tóxicos, cetonas, oxalato o pH urinario alto.",
+      null,
+      "Falsa. La RTA tipo 4 se reconoce por NAGMA e hiperpotasemia; no explica HAGMA por lactato, cetonas o alcoholes tóxicos.",
+      "Falsa. La ventilación compensa el pH, pero no elimina aniones no medidos ni corrige pérdida renal o digestiva de bicarbonato."
+    ],
+    "originalStem_v131": "Una gasometría muestra pH 7,31, HCO₃⁻ bajo, AG normal y pH urinario 4,8.",
+    "caseStyle": "mini_historia_clinica_2_3_frases_manual",
+    "caseNarrativeVersion": "v158",
+    "originalStem_v157_module6": "Un paciente llega a urgencias con alteración metabólica y se solicita gasometría con electrolitos. Una gasometría muestra pH 7,31, HCO₃⁻ bajo, AG normal y pH urinario 4,8.",
+    "module6CaseAdjusted": true,
+    "tags": {
+      "subject": "fisiologia",
+      "subjectLabel": "Fisiología",
+      "moduleNumber": 6,
+      "moduleId": "01-fisiologia-06-anion-gap-y-acidosis-metabolica",
+      "moduleTitle": "Anion gap y acidosis metabólica",
+      "format": "case",
+      "topic": "Caso 50",
+      "topicSlug": "caso_50",
+      "concepts": [
+        "electricidad_biologica",
+        "ph_acido_base",
+        "respiratorio_ventilacion"
+      ],
+      "skill": "clinical_reasoning",
+      "cognitiveLevel": "reasoning",
+      "difficulty": "hard",
+      "sourceHeading": "Caso 50",
+      "adaptiveVersion": "v258",
+      "visible": false
+    },
+    "tagList": [
+      "subject:fisiologia",
+      "module:6",
+      "module_id:01_fisiologia_06_anion_gap_y_acidosis_metabolica",
+      "format:case",
+      "difficulty:hard",
+      "skill:clinical_reasoning",
+      "topic:caso_50",
+      "concept:electricidad_biologica",
+      "concept:ph_acido_base",
+      "concept:respiratorio_ventilacion"
+    ]
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "title": "CirculaciÃ³n sistÃ©mica y pulmonar",
+    "src": "assets/figures/physio-module8-v251/01_circulacion_sistemica_pulmonar.webp",
+    "caption": "Figura 1 â€” CirculaciÃ³n sistÃ©mica y pulmonar."
+  },
+  {
+    "title": "Ãrbol vascular funcional",
+    "src": "assets/figures/physio-module8-v251/02_arbol_vascular_funcional.webp",
+    "caption": "Figura 2 â€” Ãrbol vascular funcional."
+  },
+  {
+    "title": "Sistema de conducciÃ³n cardÃaca",
+    "src": "assets/figures/physio-module8-v251/03_sistema_conduccion_cardiaca.webp",
+    "caption": "Figura 3 â€” Sistema de conducciÃ³n cardÃaca."
+  },
+  {
+    "title": "Ciclo cardÃaco y vÃ¡lvulas",
+    "src": "assets/figures/physio-module8-v251/04_ciclo_cardiaco_valvulas.webp",
+    "caption": "Figura 4 â€” Ciclo cardÃaco y vÃ¡lvulas."
+  },
+  {
+    "title": "Loop presiÃ³n-volumen ventricular",
+    "src": "assets/figures/physio-module8-v251/05_loop_presion_volumen.webp",
+    "caption": "Figura 5 â€” Loop presiÃ³n-volumen ventricular."
+  },
+  {
+    "title": "Precarga, postcarga y contractilidad",
+    "src": "assets/figures/physio-module8-v251/06_precarga_postcarga_contractilidad.webp",
+    "caption": "Figura 6 â€” Precarga, postcarga, contractilidad y Frank-Starling."
+  },
+  {
+    "title": "PresiÃ³n, flujo y resistencia",
+    "src": "assets/figures/physio-module8-v251/07_presion_flujo_resistencia_poiseuille.webp",
+    "caption": "Figura 7 â€” RelaciÃ³n presiÃ³n-flujo-resistencia y ley de Poiseuille."
+  },
+  {
+    "title": "Retorno venoso",
+    "src": "assets/figures/physio-module8-v251/08_retorno_venoso_reservorio.webp",
+    "caption": "Figura 8 â€” Retorno venoso y reservorio venoso."
+  },
+  {
+    "title": "PresiÃ³n arterial y barorreflejo",
+    "src": "assets/figures/physio-module8-v251/09_presion_arterial_barorreceptor.webp",
+    "caption": "Figura 9 â€” PresiÃ³n arterial media y reflejo barorreceptor."
+  },
+  {
+    "title": "MicrocirculaciÃ³n",
+    "src": "assets/figures/physio-module8-v251/10_microcirculacion_starling.webp",
+    "caption": "Figura 10 â€” MicrocirculaciÃ³n y fuerzas de Starling."
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "id": "04-bioquimica-04-clasificacion-de-proteinas-y-perfil-proteico",
+  "number": 4,
+  "title": "ClasificaciÃ³n de proteÃnas y perfil proteico",
+  "file": "Modulo_04_clasificacion_de_proteinas_y_perfil_proteico.md",
+  "summary": "La idea central del bloque es que las proteÃnas no se estudian solo como â€œcadenas de aminoÃ¡cidosâ€. En clÃnica interesa saber quÃ© componente tienen, dÃ³nde se producen, quÃ© transportan y quÃ© perfil de laboratorio permite evaluarlas. La profesora insiste en leer el nombre de la molÃ©â€¦",
+  "headings": [],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

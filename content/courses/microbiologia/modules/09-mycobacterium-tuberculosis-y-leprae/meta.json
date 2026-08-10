@@ -1,0 +1,31 @@
+{
+  "id": "02-microbiologia-09-mycobacterium-tuberculosis-y-leprae",
+  "number": 9,
+  "title": "Mycobacterium tuberculosis y leprae",
+  "file": "Modulo_09_mycobacterium_tuberculosis_y_leprae.md",
+  "summary": "- Definir quÃ© significa bacilo Ã¡cido-alcohol resistente y por quÃ© Mycobacterium tiene esa propiedad. - Explicar la secuencia fisiopatolÃ³gica de la tuberculosis desde la inhalaciÃ³n hasta la caverna. - Diferenciar tuberculosis pulmonar, extrapulmonar y reactivaciÃ³n en pacientes inmâ€¦",
+  "headings": [
+    "3. IntroducciÃ³n fisiolÃ³gica y microbiolÃ³gica",
+    "4. Concepto principal: Mycobacterium y BAAR",
+    "5. DiagnÃ³stico microbiolÃ³gico: muestras y Ziehl-Neelsen",
+    "6. Tuberculosis: transmisiÃ³n y entrada del bacilo",
+    "7. Patogenicidad de la tuberculosis: tres procesos clave",
+    "8. Necrosis caseosa y caverna tuberculosa",
+    "9. ClÃnica de tuberculosis",
+    "10. Tratamiento y resistencia en tuberculosis",
+    "11. Mycobacterium leprae y Hanseniasis",
+    "12. DiagnÃ³stico de lepra: lesiÃ³n, lÃ³bulo de oreja y globi",
+    "13. ComparaciÃ³n rÃ¡pida: tuberculosis vs lepra",
+    "14. CorrelaciÃ³n clÃnica"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

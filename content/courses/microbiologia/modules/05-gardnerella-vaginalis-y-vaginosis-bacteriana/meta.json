@@ -1,0 +1,28 @@
+{
+  "id": "02-microbiologia-05-gardnerella-vaginalis-y-vaginosis-bacteriana",
+  "number": 5,
+  "title": "Gardnerella vaginalis y vaginosis bacteriana",
+  "file": "Modulo_05_gardnerella_vaginalis_y_vaginosis_bacteriana.md",
+  "summary": "- Definir Gardnerella vaginalis y explicar por quÃ© se asocia principalmente a vaginosis bacteriana. - Diferenciar vaginosis y vaginitis desde el punto de vista clÃnico, inflamatorio y microbiolÃ³gico. - Reconocer la secreciÃ³n patolÃ³gica tÃpica: blanquecina o grisÃ¡cea, viscosa, pegâ€¦",
+  "headings": [
+    "3. IntroducciÃ³n fisiolÃ³gica y microbiolÃ³gica",
+    "Bloque 1 - Concepto principal: Gardnerella vaginalis",
+    "Bloque 2 - Vaginosis versus vaginitis",
+    "Bloque 3 - Manifestaciones clÃnicas de Gardnerella",
+    "Bloque 4 - Factores predisponentes",
+    "Bloque 5 - DiagnÃ³stico: clÃnica + microscopia directa",
+    "Bloque 6 - Cultivo, agar sangre y antibiograma",
+    "Bloque 7 - Recurrencia, embarazo y complicaciones",
+    "6. CorrelaciÃ³n clÃnica"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}

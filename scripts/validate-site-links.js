@@ -60,16 +60,16 @@ for(const file of htmlFiles){
 }
 
 const jsChecks = [
-  ['site-global-polish-v310.js', /__MED_NYKUTO_GLOBAL_POLISH__\s*=\s*['"]v365-loader['"]/],
-  ['site-global-polish-v310.js', /CACHE_VERSION\s*=\s*['"]365['"]/],
-  ['course-image-zoom-v101.js', /__MED_NYKUTO_COURSE_IMAGE_ZOOM__\s*=\s*['"]v101['"]/],
+  ['site-global-polish-v310.js', /__MED_NYKUTO_GLOBAL_POLISH__\s*=\s*['"]v378-loader['"]/],
+  ['site-global-polish-v310.js', /CACHE_VERSION\s*=\s*['"]378['"]/],
+  ['course-image-zoom-v101.js', /__MED_NYKUTO_COURSE_IMAGE_ZOOM__\s*=\s*['"]v102-scroll-stable-close['"]/],
   ['practice-critical-click-fallback-v101.js', /__MED_NYKUTO_PRACTICE_CRITICAL_CLICK_FALLBACK__\s*=\s*VERSION/],
   ['auth-optional-v101.js', /MED_NYKUTO_AUTH_REQUIRED\s*=\s*false/],
   ['auth-optional-v101.js', /MED_NYKUTO_PUBLIC_FIRST\s*=\s*true/],
   ['med-nykuto-runtime-guard-v361.js', /__MED_NYKUTO_RUNTIME_GUARD__\s*=\s*VERSION/],
   ['med-nykuto-global-fix-v358.js', /__MED_NYKUTO_GLOBAL_FIX__\s*=\s*VERSION/],
-  ['practice-cleanup-v314.js', /__MED_NYKUTO_PRACTICE_CLEANUP__\s*=\s*['"]v360['"]/],
-  ['data/med-practice-bank-loader.js', /__MED_NYKUTO_PRACTICE_LOADER__\s*=\s*['"]v363['"]/],
+  ['practice-cleanup-v314.js', /__MED_NYKUTO_PRACTICE_CLEANUP__\s*=\s*['"]v361-no-after-click-repaint['"]/],
+  ['data/med-practice-bank-loader.js', /__MED_NYKUTO_PRACTICE_LOADER__\s*=\s*['"]v364['"]/],
   ['data/med-practice-bank-loader.js', /practice-bank-functional-fallback-v360\.js/]
 ];
 jsChecks.forEach(([file, pattern]) => {

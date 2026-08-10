@@ -1,0 +1,27 @@
+{
+  "id": "04-bioquimica-11-examen-de-orina-e-interpretacion-bioquimica",
+  "number": 11,
+  "title": "Examen de orina e interpretaciÃ³n bioquÃmica",
+  "file": "Modulo_11_examen_de_orina_e_interpretacion_bioquimica.md",
+  "summary": "- Distinguir las tres partes del examen de orina: fÃsico, quÃmico y microscÃ³pico. - Relacionar proteinuria, glucosuria, cetonuria, hematuria y nitritos con situaciones clÃnicas. - Reconocer cuÃ¡ndo pedir urocultivo y cÃ³mo interpretar bacterias, levaduras, cristales y sedimento. Coâ€¦",
+  "headings": [
+    "3. Examen de orina: por quÃ© es bioquÃmica",
+    "4. Las tres partes del examen de orina",
+    "5. pH urinario, densidad y volumen de 24 horas",
+    "6. Marcadores quÃmicos principales",
+    "7. Proteinuria, glucosuria y cetonuria",
+    "8. Examen microscÃ³pico y cultivo",
+    "9. Casos clÃnicos integradores",
+    "12. Ficha express para examen"
+  ],
+  "contentModes": [
+    "full",
+    "fiche"
+  ],
+  "sourceFiles": {
+    "markdown": "markdown.md",
+    "fullMarkdown": "full.md",
+    "ficheMarkdown": "fiche.md",
+    "exam": "exam.json"
+  }
+}
