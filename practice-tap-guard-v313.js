@@ -1,10 +1,10 @@
-/* v314 — Practice inert-zone guard plus instant Casos clínicos renderer.
+/* v315 — Practice inert-zone guard plus localized instant Casos clínicos renderer.
    Casos clínicos now reveal answers and move Next in-place, without app.bundle.js repainting #practiceList.
    V/F keeps the existing inert-zone protection only. */
 (function(){
   'use strict';
 
-  window.__MED_NYKUTO_CASE_INSTANT_RENDER__ = 'v314-answer-next-details-in-place';
+  window.__MED_NYKUTO_CASE_INSTANT_RENDER__ = 'v315-localized-answer-next-in-place';
 
   var moved = false;
   var sx = 0;
@@ -17,6 +17,13 @@
   function params(){ return new URLSearchParams(location.search || ''); }
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function clean(s){ return String(s || '').replace(/\b(Selon|D'après|Dans) le cours[^?.!]*[?.!]\s*/gi,'').replace(/\bSelon le module[^?.!]*[?.!]\s*/gi,'').replace(/\bSegún el curso[^?.!]*[?.!]\s*/gi,'').replace(/\bSegún el módulo[^?.!]*[?.!]\s*/gi,'').replace(/\bA partir del caso,?\s*/gi,'').replace(/\s+/g,' ').trim(); }
+  function correctionLabels(){
+    var active = document.querySelector('.brand-lang button.active, .lang-switch button.active, [data-lang].active');
+    var raw = String((active && (active.getAttribute('data-lang') || active.textContent)) || document.documentElement.lang || 'es').toLowerCase();
+    if(raw.indexOf('fr') >= 0) return {quick:'Justification rapide', full:'Voir l’explication complète', others:'Pourquoi les autres réponses sont fausses', takeaway:'À retenir'};
+    if(raw.indexOf('br') >= 0 || raw.indexOf('pt') >= 0) return {quick:'Justificativa rápida', full:'Ver explicação completa', others:'Por que as outras respostas estão erradas', takeaway:'Ponto-chave'};
+    return {quick:'Justificación rápida', full:'Ver explicación completa', others:'Por qué las otras respuestas son falsas', takeaway:'Punto clave'};
+  }
   function letter(i){ return String.fromCharCode(65 + Number(i || 0)); }
   function hash(str){ var h = 0, s = String(str || ''); for(var i=0;i<s.length;i+=1){ h = ((h << 5) - h + s.charCodeAt(i)) | 0; } return Math.abs(h); }
   function difficultyKey(item){
@@ -136,13 +143,14 @@
   }
   function feedbackHtml(item, record){
     var answer = Number(item.answerIndex || 0), selected = record && !record.unknown && Number(record.chosen) >= 0 ? letter(record.chosen) : 'No sé', cls = record && record.correct ? 'is-correct' : (record && record.unknown ? 'is-unknown' : 'is-wrong'), label = record && record.correct ? 'Correcta' : (record && record.unknown ? 'Respuesta revelada' : 'Incorrecta');
+    var labels = correctionLabels();
     var distractors = (item.options || []).map(function(opt,idx){ var ok = idx === answer; return '<div class="case-reason-item ' + (ok ? 'is-answer' : '') + '"><span>' + letter(idx) + '</span><div><strong>' + (ok ? 'Correcta' : 'Falsa') + '</strong><p>' + esc(optionReason(item, idx)) + '</p></div></div>'; }).join('');
     return '<section class="case-feedback-card ' + cls + '">' +
       '<div class="case-feedback-top"><span class="case-feedback-pill">' + label + '</span><p>Tu respuesta: <strong>' + esc(selected) + '</strong> · Buena respuesta: <strong>' + letter(answer) + '</strong></p></div>' +
-      '<div class="case-feedback-short"><strong>Justification rapide</strong><p>' + esc(shortExplanation(item, record)) + '</p></div>' +
-      '<details class="case-feedback-details" open><summary>Voir explication complète</summary><p>' + esc(longExplanation(item)) + '</p></details>' +
-      '<section class="case-feedback-reasons"><h4>Pourquoi les autres réponses sont fausses</h4>' + distractors + '</section>' +
-      '<section class="case-feedback-takeaway"><h4>À retenir</h4><p>' + esc(takeaway(item)) + '</p></section>' +
+      '<div class="case-feedback-short"><strong>' + labels.quick + '</strong><p>' + esc(shortExplanation(item, record)) + '</p></div>' +
+      '<details class="case-feedback-details" open><summary>' + labels.full + '</summary><p>' + esc(longExplanation(item)) + '</p></details>' +
+      '<section class="case-feedback-reasons"><h4>' + labels.others + '</h4>' + distractors + '</section>' +
+      '<section class="case-feedback-takeaway"><h4>' + labels.takeaway + '</h4><p>' + esc(takeaway(item)) + '</p></section>' +
       '</section>';
   }
   function renderCard(item,state,total){

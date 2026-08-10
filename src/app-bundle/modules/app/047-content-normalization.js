@@ -354,7 +354,7 @@
         flushPara(); closeList();
         const alt = translateInlineForReader(img[1] || '');
         const src = String(img[2] || '').trim();
-        html += `<figure class="course-figure"><button class="course-figure-zoom" type="button" aria-label="Agrandir la figure"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async"></button><figcaption>${inline(img[1] || '')}</figcaption></figure>`;
+        html += `<figure class="course-figure"><button class="course-figure-zoom" type="button" aria-label="${escapeHtml(t('enlargeFigure'))}"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async"></button><figcaption>${inline(img[1] || '')}</figcaption></figure>`;
         continue;
       }
       if(isTableStart(lines,i)){
@@ -1585,6 +1585,8 @@ function topicForQuestion(item){
     const translatedTopic = ltitle(topic);
     if(type === 'vf') return cleanGeneratedText(item.question || item.stem || topic);
     if(type === 'case') return t('qCase');
+    const originalQuestion = cleanGeneratedText(item.question || item.stem || '');
+    if(originalQuestion.length >= 18 && /[¿?]/.test(originalQuestion)) return lt(originalQuestion);
     if(level === 'normal') return t('qNormal').replace('{topic}', translatedTopic);
     if(level === 'difficile') return t('qDifficult').replace('{topic}', translatedTopic);
     if(level === 'extreme') return t('qExtreme').replace('{topic}', translatedTopic);
@@ -2228,8 +2230,25 @@ function topicForQuestion(item){
     wrap.innerHTML = `<article class="exam-setup-card"><p class="eyebrow">${t('examMode')}</p><h1>${t('startExam')}</h1><p>${t('examIntro')}</p>
       <label class="difficulty-select-wrap"><span>${t('matterLabel')}</span><select id="examCourse"><option value="">${t('all')}</option>${options}</select></label>
       <div class="module-actions"><button class="btn primary" id="startExamBtn">${t('startExam')}</button><a class="btn ghost" href="erreurs.html">${t('reviewMistakes')}</a></div></article>`;
-    $('#startExamBtn').onclick=()=>{ const cid=$('#examCourse').value; const q=new URLSearchParams(); if(cid) q.set('course',cid); q.set('difficulty','examen'); q.set('exam','1'); location.href='qcm.html?'+q.toString(); };
+    const startButton = $('#startExamBtn');
+    if(startButton) startButton.addEventListener('click', launchExamFromSetup);
   }
+
+  function launchExamFromSetup(event){
+    if(event){ event.preventDefault(); event.stopPropagation(); }
+    const select = $('#examCourse');
+    const cid = select ? select.value : '';
+    const q = new URLSearchParams();
+    if(cid) q.set('course',cid);
+    q.set('difficulty','examen');
+    q.set('exam','1');
+    location.assign('qcm.html?'+q.toString());
+  }
+
+  document.addEventListener('click', event => {
+    const button = event.target && event.target.closest ? event.target.closest('#startExamBtn') : null;
+    if(button) launchExamFromSetup(event);
+  }, true);
 
 
   function setupGlobalTools(){
@@ -2247,7 +2266,7 @@ function topicForQuestion(item){
     nav.insertBefore(tools, toggle || nav.querySelector('#navLinks'));
     const brand = nav.querySelector('.brand');
     if(brand && !nav.querySelector('.brand-lang')){
-      brand.insertAdjacentHTML('afterend', `<div class="brand-lang lang-switch compact-lang" aria-label="Changer la langue"><button type="button" data-lang="fr">FR</button><button type="button" data-lang="es">ES</button><button type="button" data-lang="br">BR</button></div>`);
+      brand.insertAdjacentHTML('afterend', `<div class="brand-lang lang-switch compact-lang" aria-label="${escapeHtml(t('languageSwitcher'))}"><button type="button" data-lang="fr">FR</button><button type="button" data-lang="es">ES</button><button type="button" data-lang="br">BR</button></div>`);
     }
     const navLinks = nav.querySelector('#navLinks');
     if(navLinks){

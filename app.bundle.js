@@ -317,9 +317,9 @@
   function lang(){ return safeGetItem('medLang') || 'es'; }
   function t(key){ const l = lang(); return (UI[l] && UI[l][key]) || UI.es[key] || key; }
 
-  Object.assign(UI.es, {mistakes:'Mis errores', reviewToday:'Repasar hoy', examMode:'Examen blanco', dashboard:'Panel de estudio', continueLearning:'Continuar', weakPoints:'Puntos débiles', noMistakes:'No hay errores guardados todavía.', mistakesText:'Aquí aparecen las preguntas falladas o marcadas como “No sé”, con revisión espaciada.', dueToday:'Para hoy', laterReview:'Más tarde', mastered:'Dominado', markMastered:'Marcar dominado', retryQuestion:'Rehacer pregunta', openCourseSection:'Abrir curso', detailedCorrection:'Corrección detallada', whyCorrect:'Por qué es correcta', whyWrong:'Por qué las otras son falsas', keyTakeaway:'Punto clave', ultraSheet:'Ficha ultra-rápida', startExam:'Iniciar examen blanco', examIntro:'Simulación con preguntas tipo examen, corrección al final y detección de puntos débiles.', examCorrectionHidden:'Modo examen: la corrección aparecerá al final.', reviewMistakes:'Revisar mis errores', todayPlan:'Plan de hoy', quickActions:'Acciones rápidas', questionsToReview:'preguntas para revisar', recentErrors:'errores recientes', startRevision:'Iniciar revisión', allClear:'Todo limpio por ahora', examResult:'Resultado del examen', examReview:'Corrección del examen'});
-  Object.assign(UI.fr, {mistakes:'Mes erreurs', reviewToday:'À réviser aujourd’hui', examMode:'Examen blanc', dashboard:'Tableau de bord', continueLearning:'Continuer', weakPoints:'Points faibles', noMistakes:'Aucune erreur enregistrée pour l’instant.', mistakesText:'Ici apparaissent les questions ratées ou marquées “Je ne sais pas”, avec révision espacée.', dueToday:'Pour aujourd’hui', laterReview:'Plus tard', mastered:'Maîtrisé', markMastered:'Marquer maîtrisé', retryQuestion:'Refaire la question', openCourseSection:'Ouvrir le cours', detailedCorrection:'Correction détaillée', whyCorrect:'Pourquoi c’est correct', whyWrong:'Pourquoi les autres sont fausses', keyTakeaway:'Point clé', ultraSheet:'Fiche ultra-rapide', startExam:'Lancer un examen blanc', examIntro:'Simulation avec questions type examen, correction à la fin et détection des points faibles.', examCorrectionHidden:'Mode examen : la correction apparaîtra à la fin.', reviewMistakes:'Revoir mes erreurs', todayPlan:'Plan du jour', quickActions:'Actions rapides', questionsToReview:'questions à revoir', recentErrors:'erreurs récentes', startRevision:'Lancer la révision', allClear:'Rien à revoir pour l’instant', examResult:'Résultat de l’examen', examReview:'Correction de l’examen'});
-  Object.assign(UI.br, {mistakes:'Meus erros', reviewToday:'Revisar hoje', examMode:'Simulado', dashboard:'Painel de estudo', continueLearning:'Continuar', weakPoints:'Pontos fracos', noMistakes:'Nenhum erro salvo por enquanto.', mistakesText:'Aqui aparecem perguntas erradas ou marcadas como “Não sei”, com revisão espaçada.', dueToday:'Para hoje', laterReview:'Mais tarde', mastered:'Dominado', markMastered:'Marcar dominado', retryQuestion:'Refazer pergunta', openCourseSection:'Abrir curso', detailedCorrection:'Correção detalhada', whyCorrect:'Por que está correta', whyWrong:'Por que as outras estão erradas', keyTakeaway:'Ponto-chave', ultraSheet:'Ficha ultrarrápida', startExam:'Iniciar simulado', examIntro:'Simulação com perguntas tipo prova, correção no final e detecção dos pontos fracos.', examCorrectionHidden:'Modo simulado: a correção aparecerá no final.', reviewMistakes:'Revisar meus erros', todayPlan:'Plano de hoje', quickActions:'Ações rápidas', questionsToReview:'perguntas para revisar', recentErrors:'erros recentes', startRevision:'Iniciar revisão', allClear:'Nada para revisar por enquanto', examResult:'Resultado do simulado', examReview:'Correção do simulado'});
+  Object.assign(UI.es, {mistakes:'Mis errores', reviewToday:'Repasar hoy', examMode:'Examen blanco', dashboard:'Panel de estudio', continueLearning:'Continuar', weakPoints:'Puntos débiles', noMistakes:'No hay errores guardados todavía.', mistakesText:'Aquí aparecen las preguntas falladas o marcadas como “No sé”, con revisión espaciada.', dueToday:'Para hoy', laterReview:'Más tarde', mastered:'Dominado', markMastered:'Marcar dominado', retryQuestion:'Rehacer pregunta', openCourseSection:'Abrir curso', detailedCorrection:'Corrección detallada', whyCorrect:'Por qué es correcta', whyWrong:'Por qué las otras son falsas', keyTakeaway:'Punto clave', ultraSheet:'Ficha ultra-rápida', startExam:'Iniciar examen blanco', examIntro:'Simulación con preguntas tipo examen, corrección al final y detección de puntos débiles.', examCorrectionHidden:'Modo examen: la corrección aparecerá al final.', reviewMistakes:'Revisar mis errores', todayPlan:'Plan de hoy', quickActions:'Acciones rápidas', questionsToReview:'preguntas para revisar', recentErrors:'errores recientes', startRevision:'Iniciar revisión', allClear:'Todo limpio por ahora', examResult:'Resultado del examen', examReview:'Corrección del examen', enlargeFigure:'Ampliar figura', languageSwitcher:'Cambiar idioma'});
+  Object.assign(UI.fr, {mistakes:'Mes erreurs', reviewToday:'À réviser aujourd’hui', examMode:'Examen blanc', dashboard:'Tableau de bord', continueLearning:'Continuer', weakPoints:'Points faibles', noMistakes:'Aucune erreur enregistrée pour l’instant.', mistakesText:'Ici apparaissent les questions ratées ou marquées “Je ne sais pas”, avec révision espacée.', dueToday:'Pour aujourd’hui', laterReview:'Plus tard', mastered:'Maîtrisé', markMastered:'Marquer maîtrisé', retryQuestion:'Refaire la question', openCourseSection:'Ouvrir le cours', detailedCorrection:'Correction détaillée', whyCorrect:'Pourquoi c’est correct', whyWrong:'Pourquoi les autres sont fausses', keyTakeaway:'Point clé', ultraSheet:'Fiche ultra-rapide', startExam:'Lancer un examen blanc', examIntro:'Simulation avec questions type examen, correction à la fin et détection des points faibles.', examCorrectionHidden:'Mode examen : la correction apparaîtra à la fin.', reviewMistakes:'Revoir mes erreurs', todayPlan:'Plan du jour', quickActions:'Actions rapides', questionsToReview:'questions à revoir', recentErrors:'erreurs récentes', startRevision:'Lancer la révision', allClear:'Rien à revoir pour l’instant', examResult:'Résultat de l’examen', examReview:'Correction de l’examen', enlargeFigure:'Agrandir la figure', languageSwitcher:'Changer la langue'});
+  Object.assign(UI.br, {mistakes:'Meus erros', reviewToday:'Revisar hoje', examMode:'Simulado', dashboard:'Painel de estudo', continueLearning:'Continuar', weakPoints:'Pontos fracos', noMistakes:'Nenhum erro salvo por enquanto.', mistakesText:'Aqui aparecem perguntas erradas ou marcadas como “Não sei”, com revisão espaçada.', dueToday:'Para hoje', laterReview:'Mais tarde', mastered:'Dominado', markMastered:'Marcar dominado', retryQuestion:'Refazer pergunta', openCourseSection:'Abrir curso', detailedCorrection:'Correção detalhada', whyCorrect:'Por que está correta', whyWrong:'Por que as outras estão erradas', keyTakeaway:'Ponto-chave', ultraSheet:'Ficha ultrarrápida', startExam:'Iniciar simulado', examIntro:'Simulação com perguntas tipo prova, correção no final e detecção dos pontos fracos.', examCorrectionHidden:'Modo simulado: a correção aparecerá no final.', reviewMistakes:'Revisar meus erros', todayPlan:'Plano de hoje', quickActions:'Ações rápidas', questionsToReview:'perguntas para revisar', recentErrors:'erros recentes', startRevision:'Iniciar revisão', allClear:'Nada para revisar por enquanto', examResult:'Resultado do simulado', examReview:'Correção do simulado', enlargeFigure:'Ampliar figura', languageSwitcher:'Mudar idioma'});
 
   // v33 — audit linguistique global : toutes les chaînes générées par les pages d'étude passent par cette couche.
   Object.assign(UI.es, {
@@ -330,7 +330,7 @@
     objectiveCase:'Objetivo: relacionar el signo clínico con el mecanismo de «{topic}».', objectiveVf:'Objetivo: verificar si el enunciado respeta exactamente el mecanismo de «{topic}».', objectiveQcm:'Objetivo: reconocer la proposición exacta sobre «{topic}», no solo una palabra familiar del curso.',
     hint:'Pista', targetedHint:'Pista dirigida', eliminateTwo:'Eliminar 2 distractores', markReview:'Marcar para revisar', addedToReview:'Pregunta añadida a “Mis errores / Repasar”.',
     hintVf:'Pista: primero busca si el enunciado contiene una palabra demasiado absoluta o invierte una relación del curso. Tema: {topic}.', hintCase:'Pista: parte del síntoma o del dato clínico y pregúntate qué cambio funcional lo produce. Tema: {topic}.', hintQcm:'Pista: la opción correcta conserva la cadena definición → mecanismo → consecuencia. {clue}', hintFallback:'Elimina las opciones que invierten causa, ion, célula o localización.', usefulRecall:'Recordatorio útil: {clue}',
-    qVf:'El enunciado sobre «{topic}» respeta el curso? Responde verdadero o falso revisando sobre todo palabras absolutas, inversiones y excepciones.', qCase:'¿Qué mecanismo explica mejor el signo o resultado clínico presentado?', qNormal:'Sobre «{topic}», ¿qué proposición es correcta?', qDifficult:'Sobre «{topic}», ¿qué proposición mantiene la relación correcta entre causa, mecanismo y consecuencia?', qExtreme:'Sobre «{topic}», ¿qué afirmación es correcta, célula, fase ni localización?', qExam:'Pregunta: «{topic}».',
+    qVf:'El enunciado sobre «{topic}» respeta el curso? Responde verdadero o falso revisando sobre todo palabras absolutas, inversiones y excepciones.', qCase:'¿Qué mecanismo explica mejor el signo o resultado clínico presentado?', qNormal:'Sobre «{topic}», ¿qué proposición es correcta?', qDifficult:'Sobre «{topic}», ¿qué proposición mantiene la relación correcta entre causa, mecanismo y consecuencia?', qExtreme:'En «{topic}», ¿qué opción relaciona correctamente el mecanismo con su consecuencia?', qExam:'Pregunta de examen sobre «{topic}»: elige la opción más precisa.',
     clinicalCase:'Casos clínicos', module:'Módulo', shortcutHelp:'Atajos: A–D para responder · I para pista · E para eliminar · N para “No sé”.', correctBadge:'correcta', chosenBadge:'elegida',
     diagUnknown:'Usaste “No sé”: buena estrategia si estabas bloqueado. Ahora convierte esta pregunta en un punto activo de revisión.', diagCorrect:'Respuesta correcta: identificaste el mecanismo prioritario y eliminaste los distractores.', diagUnclassified:'Error no clasificado: vuelve a leer la corrección buscando la relación causa → mecanismo → consecuencia.',
     trapAbsolute:'Formulación demasiado absoluta: en medicina, “siempre / nunca / solamente” suele ser una trampa.', trapNegation:'Negación excesiva: la opción elimina un mecanismo que existe o exagera su ausencia.', trapIon:'Trampa iónica: verifica si el ion, el sentido del flujo o la fase están invertidos.', trapDirection:'Trampa de sentido: la acción parece posible, pero la relación causa → efecto puede estar invertida.', trapLocation:'Trampa de localización: la estructura citada puede ser verdadera en otro contexto, no necesariamente aquí.', trapConcept:'Distractor conceptual: usa palabras del curso pero no respeta el mecanismo principal solicitado.',
@@ -772,7 +772,7 @@
         flushPara(); closeList();
         const alt = translateInlineForReader(img[1] || '');
         const src = String(img[2] || '').trim();
-        html += `<figure class="course-figure"><button class="course-figure-zoom" type="button" aria-label="Agrandir la figure"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async"></button><figcaption>${inline(img[1] || '')}</figcaption></figure>`;
+        html += `<figure class="course-figure"><button class="course-figure-zoom" type="button" aria-label="${escapeHtml(t('enlargeFigure'))}"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async"></button><figcaption>${inline(img[1] || '')}</figcaption></figure>`;
         continue;
       }
       if(isTableStart(lines,i)){
@@ -2003,6 +2003,8 @@ function topicForQuestion(item){
     const translatedTopic = ltitle(topic);
     if(type === 'vf') return cleanGeneratedText(item.question || item.stem || topic);
     if(type === 'case') return t('qCase');
+    const originalQuestion = cleanGeneratedText(item.question || item.stem || '');
+    if(originalQuestion.length >= 18 && /[¿?]/.test(originalQuestion)) return lt(originalQuestion);
     if(level === 'normal') return t('qNormal').replace('{topic}', translatedTopic);
     if(level === 'difficile') return t('qDifficult').replace('{topic}', translatedTopic);
     if(level === 'extreme') return t('qExtreme').replace('{topic}', translatedTopic);
@@ -2646,8 +2648,25 @@ function topicForQuestion(item){
     wrap.innerHTML = `<article class="exam-setup-card"><p class="eyebrow">${t('examMode')}</p><h1>${t('startExam')}</h1><p>${t('examIntro')}</p>
       <label class="difficulty-select-wrap"><span>${t('matterLabel')}</span><select id="examCourse"><option value="">${t('all')}</option>${options}</select></label>
       <div class="module-actions"><button class="btn primary" id="startExamBtn">${t('startExam')}</button><a class="btn ghost" href="erreurs.html">${t('reviewMistakes')}</a></div></article>`;
-    $('#startExamBtn').onclick=()=>{ const cid=$('#examCourse').value; const q=new URLSearchParams(); if(cid) q.set('course',cid); q.set('difficulty','examen'); q.set('exam','1'); location.href='qcm.html?'+q.toString(); };
+    const startButton = $('#startExamBtn');
+    if(startButton) startButton.addEventListener('click', launchExamFromSetup);
   }
+
+  function launchExamFromSetup(event){
+    if(event){ event.preventDefault(); event.stopPropagation(); }
+    const select = $('#examCourse');
+    const cid = select ? select.value : '';
+    const q = new URLSearchParams();
+    if(cid) q.set('course',cid);
+    q.set('difficulty','examen');
+    q.set('exam','1');
+    location.assign('qcm.html?'+q.toString());
+  }
+
+  document.addEventListener('click', event => {
+    const button = event.target && event.target.closest ? event.target.closest('#startExamBtn') : null;
+    if(button) launchExamFromSetup(event);
+  }, true);
 
 
   function setupGlobalTools(){
@@ -2665,7 +2684,7 @@ function topicForQuestion(item){
     nav.insertBefore(tools, toggle || nav.querySelector('#navLinks'));
     const brand = nav.querySelector('.brand');
     if(brand && !nav.querySelector('.brand-lang')){
-      brand.insertAdjacentHTML('afterend', `<div class="brand-lang lang-switch compact-lang" aria-label="Changer la langue"><button type="button" data-lang="fr">FR</button><button type="button" data-lang="es">ES</button><button type="button" data-lang="br">BR</button></div>`);
+      brand.insertAdjacentHTML('afterend', `<div class="brand-lang lang-switch compact-lang" aria-label="${escapeHtml(t('languageSwitcher'))}"><button type="button" data-lang="fr">FR</button><button type="button" data-lang="es">ES</button><button type="button" data-lang="br">BR</button></div>`);
     }
     const navLinks = nav.querySelector('#navLinks');
     if(navLinks){

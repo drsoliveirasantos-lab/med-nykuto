@@ -37,6 +37,9 @@ test.describe('Casos clínicos critical behavior', () => {
 
     const panel = page.locator('#practiceList .single-question-card .answer-panel:not([hidden])').first();
     await expect(panel).toBeVisible({ timeout: 5000 });
+    await expect(panel).toContainText('Justificación rápida');
+    await expect(panel).toContainText('Por qué las otras respuestas son falsas');
+    await expect(panel).not.toContainText(/Justification|Pourquoi|À retenir/);
     await expect.poll(() => visibleCardCount(page), { timeout: 5000 }).toBeGreaterThan(0);
     expect(page.url()).toBe(initialUrl);
 
@@ -51,7 +54,7 @@ test.describe('Casos clínicos critical behavior', () => {
 
     await summary.click({ force: true });
     await expect.poll(() => details.evaluate((node) => node.open), { timeout: 5000 }).toBe(true);
-    await expect(panel).toContainText(/Justification|Razonamiento|correcta|respuesta|retenir|recordar|examen/i, { timeout: 5000 });
+    await expect(panel).toContainText(/Justificación|Razonamiento|correcta|respuesta|recordar|examen/i, { timeout: 5000 });
     expect(page.url()).toBe(initialUrl);
 
     const next = page.locator('#practiceList .single-question-card [data-action="next-question"]').first();

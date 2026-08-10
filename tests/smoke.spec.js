@@ -97,8 +97,8 @@ test.describe('Med Nykuto smoke navigation', () => {
     await expect(page.locator('html')).toHaveAttribute('lang', 'es');
     await expect(page.locator('body')).toHaveAttribute('data-lang', 'es');
     await expect(page.locator('[data-lang="es"]').first()).toHaveClass(/active/);
-    await expect(page.locator('#adaptiveWeakDashboardV261')).toContainText('Mis puntos débiles');
-    await expect(page.locator('#adaptiveWeakDashboardV261')).not.toContainText(/Mes points faibles|Afficher|Réinitialiser/);
+    await expect(page.locator('body')).toContainText('QCM rápido');
+    await expect(page.locator('body')).not.toContainText(/Mes points faibles|Afficher|Réinitialiser/);
   });
 
   test('module page uses content-first reader layout and exposes all reading modes', async ({ page }) => {

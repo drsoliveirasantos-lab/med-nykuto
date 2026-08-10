@@ -18,7 +18,7 @@ try {
 
 if(manifest){
   if(manifest.siteName !== 'Med Nykuto') add('manifest: wrong siteName');
-  if(manifest.release !== 'v365-production-hardening') add('manifest: wrong release');
+  if(manifest.release !== 'v366-production-hardening') add('manifest: wrong release');
   if(manifest.branch !== 'main') add('manifest: wrong branch');
   if(!manifest.deployment || manifest.deployment.provider !== 'Cloudflare Pages') add('manifest: deployment provider must be Cloudflare Pages');
   if(!manifest.deployment || manifest.deployment.productionHost !== 'med.nykuto.com') add('manifest: productionHost must be med.nykuto.com');

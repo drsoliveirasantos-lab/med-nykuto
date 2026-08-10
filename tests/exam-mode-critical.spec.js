@@ -26,8 +26,7 @@ test('exam page exposes a usable exam setup and does not dead-end', async ({ pag
   const hasLaunch = await clickFirstVisible(launchControls);
   expect(hasLaunch, 'exam page should expose a visible launch/start control').toBeTruthy();
 
-  await page.waitForTimeout(500);
-  const examSurface = page.locator('#examSetup, #practiceList, .single-question-card, .exam-question, main').first();
-  await expect(examSurface).toBeVisible({ timeout: 15000 });
+  await expect(page).toHaveURL(/qcm\.html\?(?=.*difficulty=examen)(?=.*exam=1)/, { timeout: 15000 });
+  await expect(page.locator('#practiceList .single-question-card').first()).toBeVisible({ timeout: 20000 });
   await expect(page.locator('body')).not.toContainText(/undefined|null|Cannot read|Application error/i, { timeout: 1000 });
 });

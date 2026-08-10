@@ -47,9 +47,9 @@ function requireContains(file, pattern, label) {
   if (!pattern.test(content)) failures.push(`${file}: missing ${label}`);
 }
 
-requireContains('qcm.html', /qcm-tap-guard-v309\.js\?v=317/, 'current QCM guard cache version');
+requireContains('qcm.html', /qcm-tap-guard-v309\.js\?v=318/, 'current QCM guard cache version');
 requireContains('qcm.html', /site-global-polish-v310\.js\?v=378/, 'current global polish cache version');
-requireContains('cas-cliniques.html', /practice-tap-guard-v313\.js\?v=315/, 'current cases tap guard cache version');
+requireContains('cas-cliniques.html', /practice-tap-guard-v313\.js\?v=316/, 'current cases tap guard cache version');
 if (/cas-cliniques.html/.test('cas-cliniques.html') && /premium-correction-v313\.js/.test(read('cas-cliniques.html'))) {
   failures.push('cas-cliniques.html: legacy premium correction script must not load on cases page');
 }

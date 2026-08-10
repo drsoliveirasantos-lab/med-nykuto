@@ -12,16 +12,16 @@ test.describe('Cache and version integrity', () => {
   test('QCM loads the expected instant renderer and global polish versions', async ({ page }) => {
     await page.goto('/qcm.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
     const sources = await scriptSources(page);
-    expect(hasSource(sources, /qcm-tap-guard-v309\.js\?v=317/)).toBeTruthy();
-    expect(hasSource(sources, /site-global-polish-v310\.js\?v=377/)).toBeTruthy();
+    expect(hasSource(sources, /qcm-tap-guard-v309\.js\?v=318/)).toBeTruthy();
+    expect(hasSource(sources, /site-global-polish-v310\.js\?v=378/)).toBeTruthy();
     await page.waitForFunction(() => window.__MED_NYKUTO_QCM_INSTANT_RENDER__, null, { timeout: 20000 });
-    await expect.poll(() => page.evaluate(() => window.__MED_NYKUTO_QCM_INSTANT_RENDER__)).toMatch(/^v317-/);
+    await expect.poll(() => page.evaluate(() => window.__MED_NYKUTO_QCM_INSTANT_RENDER__)).toMatch(/^v318-/);
   });
 
   test('Casos clínicos loads native instant renderer and no legacy premium overlay', async ({ page }) => {
     await page.goto('/cas-cliniques.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
     const sources = await scriptSources(page);
-    expect(hasSource(sources, /practice-tap-guard-v313\.js\?v=315/)).toBeTruthy();
+    expect(hasSource(sources, /practice-tap-guard-v313\.js\?v=316/)).toBeTruthy();
     expect(hasSource(sources, /premium-correction-v313\.js/)).toBeFalsy();
     await page.waitForFunction(() => window.__MED_NYKUTO_CASE_INSTANT_RENDER__, null, { timeout: 20000 });
   });
@@ -30,6 +30,6 @@ test.describe('Cache and version integrity', () => {
     await page.goto('/vrai-faux.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
     const sources = await scriptSources(page);
     expect(hasSource(sources, /premium-correction-v313\.js\?v=314/)).toBeTruthy();
-    expect(hasSource(sources, /practice-tap-guard-v313\.js\?v=364/)).toBeTruthy();
+    expect(hasSource(sources, /practice-tap-guard-v313\.js\?v=316/)).toBeTruthy();
   });
 });

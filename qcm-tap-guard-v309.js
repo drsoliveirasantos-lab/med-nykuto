@@ -1,11 +1,11 @@
-/* v317 — QCM instant renderer with progress bar and structured pedagogical feedback.
+/* v318 — QCM instant renderer with coherent localized pedagogical feedback.
    Answers and Next are handled in-place on QCM, so app.bundle.js does not repaint the whole practice list after every tap.
    Adds a clean progress bar, visible justification, detailed rationale, distractor explanations and a point-key block. */
 (function(){
   'use strict';
 
   window.__MED_NYKUTO_RUNTIME_GUARD__ = 'v362';
-  window.__MED_NYKUTO_QCM_INSTANT_RENDER__ = 'v317-progress-feedback-in-place';
+  window.__MED_NYKUTO_QCM_INSTANT_RENDER__ = 'v318-localized-feedback-in-place';
 
   var moved = false;
   var sx = 0;
@@ -19,6 +19,13 @@
   function params(){ return new URLSearchParams(location.search || ''); }
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function clean(s){ return String(s || '').replace(/\b(Selon|D'après|Dans) le cours[^?.!]*[?.!]\s*/gi,'').replace(/\bSegún el curso[^?.!]*[?.!]\s*/gi,'').replace(/\bSegún el módulo[^?.!]*[?.!]\s*/gi,'').replace(/\s+/g,' ').trim(); }
+  function correctionLabels(){
+    var active = document.querySelector('.brand-lang button.active, .lang-switch button.active, [data-lang].active');
+    var raw = String((active && (active.getAttribute('data-lang') || active.textContent)) || document.documentElement.lang || 'es').toLowerCase();
+    if(raw.indexOf('fr') >= 0) return {quick:'Justification rapide', full:'Justification complète', others:'Pourquoi les autres réponses sont fausses', takeaway:'À retenir'};
+    if(raw.indexOf('br') >= 0 || raw.indexOf('pt') >= 0) return {quick:'Justificativa rápida', full:'Justificativa completa', others:'Por que as outras respostas estão erradas', takeaway:'Ponto-chave'};
+    return {quick:'Justificación rápida', full:'Justificación completa', others:'Por qué las otras respuestas son falsas', takeaway:'Punto clave'};
+  }
   function letter(i){ return String.fromCharCode(65 + Number(i || 0)); }
   function hash(str){ var h = 0, s = String(str || ''); for(var i=0;i<s.length;i+=1){ h = ((h << 5) - h + s.charCodeAt(i)) | 0; } return Math.abs(h); }
   function difficultyKey(item){
@@ -199,14 +206,15 @@
     record = record || {chosen:-1, correct:false, unknown:true};
     var answer = Number(item.answerIndex || 0);
     var status = feedbackStatus(record);
+    var labels = correctionLabels();
     var selected = record.unknown || Number(record.chosen) < 0 ? 'No sé' : letter(record.chosen);
     var current = total ? ' · Progreso ' + Math.min(total, 1 + (stateFor(item.id || '').state.currentIndex || 0)) + '/' + total : '';
     return '<section class="qcm-feedback-card ' + status.cls + '">' +
       '<div class="qcm-feedback-top"><span class="qcm-feedback-pill">' + status.icon + ' ' + status.label + '</span><span class="qcm-feedback-answer">Tu respuesta: <strong>' + esc(selected) + '</strong> · Buena respuesta: <strong>' + letter(answer) + '</strong>' + esc(current) + '</span></div>' +
-      '<div class="qcm-feedback-short"><strong>Justificación rápida</strong><p>' + esc(shortExplanation(item,record)) + '</p></div>' +
-      '<details class="qcm-feedback-details" open><summary>Justificación complète</summary><div class="qcm-feedback-long"><p>' + esc(longExplanation(item)) + '</p></div></details>' +
-      '<section class="qcm-feedback-wrong"><h4>Pourquoi les autres réponses sont fausses</h4>' + distractorHtml(item) + '</section>' +
-      '<section class="qcm-feedback-takeaway"><h4>À retenir</h4><p>' + esc(takeawayText(item)) + '</p></section>' +
+      '<div class="qcm-feedback-short"><strong>' + labels.quick + '</strong><p>' + esc(shortExplanation(item,record)) + '</p></div>' +
+      '<details class="qcm-feedback-details" open><summary>' + labels.full + '</summary><div class="qcm-feedback-long"><p>' + esc(longExplanation(item)) + '</p></div></details>' +
+      '<section class="qcm-feedback-wrong"><h4>' + labels.others + '</h4>' + distractorHtml(item) + '</section>' +
+      '<section class="qcm-feedback-takeaway"><h4>' + labels.takeaway + '</h4><p>' + esc(takeawayText(item)) + '</p></section>' +
       '</section>';
   }
   function renderCard(item,state,total){
