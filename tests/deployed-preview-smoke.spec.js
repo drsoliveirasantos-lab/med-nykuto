@@ -23,15 +23,15 @@ test.describe('Deployed production smoke', () => {
     await expect(page).toHaveTitle(/Med Nykuto/i);
     await expect(page.locator('body')).toContainText(/Med Nykuto/i);
 
-    await gotoDeployed(page, '/qcm?course=fisiologia');
+    await gotoDeployed(page, '/qcm.html?course=fisiologia');
     await page.waitForFunction(() => window.__MED_NYKUTO_QCM_INSTANT_RENDER__, null, { timeout: 20000 });
     await expect(page.locator('#practiceList .single-question-card').first()).toBeVisible({ timeout: 20000 });
 
-    await gotoDeployed(page, '/cas-cliniques?course=fisiologia');
+    await gotoDeployed(page, '/cas-cliniques.html?course=fisiologia');
     await page.waitForFunction(() => window.__MED_NYKUTO_CASE_INSTANT_RENDER__, null, { timeout: 20000 });
     await expect(page.locator('#practiceList .single-question-card').first()).toBeVisible({ timeout: 20000 });
 
-    await gotoDeployed(page, '/vrai-faux?course=fisiologia');
+    await gotoDeployed(page, '/vrai-faux.html?course=fisiologia');
     await expect(page.locator('#practiceList .single-question-card').first()).toBeVisible({ timeout: 20000 });
   });
 
@@ -44,9 +44,9 @@ test.describe('Deployed production smoke', () => {
       }
     });
 
-    await gotoDeployed(page, '/qcm?course=fisiologia');
-    await gotoDeployed(page, '/cas-cliniques?course=fisiologia');
-    await gotoDeployed(page, '/vrai-faux?course=fisiologia');
+    await gotoDeployed(page, '/qcm.html?course=fisiologia');
+    await gotoDeployed(page, '/cas-cliniques.html?course=fisiologia');
+    await gotoDeployed(page, '/vrai-faux.html?course=fisiologia');
     expect(failed, 'No critical deployed assets should return 4xx/5xx').toEqual([]);
   });
 });

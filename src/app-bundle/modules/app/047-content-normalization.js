@@ -6401,32 +6401,7 @@ function topicForQuestion(item){
 })();
 
 function setupCourseFigureLightbox(){
-  if(document.querySelector('.figure-lightbox')) return;
-  const overlay = document.createElement('div');
-  overlay.className = 'figure-lightbox';
-  overlay.innerHTML = '<button class="figure-lightbox-close" type="button" aria-label="' + escapeHtml(t('closeFigure')) + '">×</button><img alt="">';
-  document.body.appendChild(overlay);
-  const img = overlay.querySelector('img');
-  const close = () => {
-    overlay.classList.remove('open');
-    img.removeAttribute('src');
-    img.setAttribute('alt','');
-  };
-  overlay.addEventListener('click', (e) => {
-    if(e.target === overlay || e.target.classList.contains('figure-lightbox-close')) close();
-  });
-  document.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape') close();
-  });
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest && e.target.closest('.course-figure-zoom');
-    if(!btn) return;
-    const source = btn.querySelector('img');
-    if(!source) return;
-    img.src = source.currentSrc || source.src;
-    img.alt = source.alt || '';
-    overlay.classList.add('open');
-  });
+  window.__MED_NYKUTO_LEGACY_FIGURE_LIGHTBOX__ = 'disabled-external-zoom-v368';
 }
 
 try{document.addEventListener('DOMContentLoaded', setupCourseFigureLightbox);}catch(e){}

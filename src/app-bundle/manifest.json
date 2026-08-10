@@ -5,7 +5,7 @@
   "sourceFile": "app.bundle.js",
   "strategy": "dom-extracted-domain-fragments-byte-identical",
   "partCount": 48,
-  "totalBytes": 441364,
+  "totalBytes": 440365,
   "parts": [
     {
       "order": 1,
@@ -445,7 +445,7 @@
       "order": 47,
       "path": "modules/app/047-content-normalization.js",
       "category": "content-normalization",
-      "bytes": 358671,
+      "bytes": 357672,
       "summary": "function rehydrateCollapsedMarkdown(md=''){",
       "bucket": "app",
       "refineNote": "not-safely-splittable",
