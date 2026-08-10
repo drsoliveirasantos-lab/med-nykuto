@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-const CURRENT_GLOBAL_POLISH = 'v378-loader';
+const CURRENT_GLOBAL_POLISH = 'v379-multilingual-loader';
 const CURRENT_RUNTIME_GUARD = 'v362';
 const CURRENT_MODULE_READER = 'v107-visible-reader-mode-tabs';
 const EXPECTED_TOTAL_MODULES = 59;
@@ -99,6 +99,30 @@ test.describe('Med Nykuto smoke navigation', () => {
     await expect(page.locator('[data-lang="es"]').first()).toHaveClass(/active/);
     await expect(page.locator('body')).toContainText('QCM rápido');
     await expect(page.locator('body')).not.toContainText(/Mes points faibles|Afficher|Réinitialiser/);
+  });
+
+  test('homepage language switch keeps the navigation and primary content coherent', async ({ page }) => {
+    await page.goto('/index.html');
+    await page.locator('button[data-lang="fr"]').click();
+    await page.waitForFunction(() => document.body?.dataset?.lang === 'fr', null, { timeout: 15000 });
+    await expect(page.locator('#quick-actions-title')).toHaveText('Que veux-tu réviser maintenant ?');
+    await expect(page.locator('.home-v41-copy > h1')).toContainText('Étudie la médecine');
+    await expect(page.locator('#navLinks a[href="matieres.html"]')).toHaveText('Matières');
+
+    await page.goto('/contact.html');
+    await page.waitForFunction((version) => window.__MED_NYKUTO_GLOBAL_POLISH__ === version, CURRENT_GLOBAL_POLISH, { timeout: 20000 });
+    await expect(page.locator('.footer > p')).toContainText('©');
+    await expect(page.locator('.footer a[href="index.html"]')).toHaveText('Accueil');
+    await page.goto('/index.html');
+
+    await page.locator('button[data-lang="br"]').click();
+    await page.waitForFunction(() => document.body?.dataset?.lang === 'br', null, { timeout: 15000 });
+    await expect(page.locator('#quick-actions-title')).toHaveText('O que você quer revisar agora?');
+    await expect(page.locator('#navLinks a[href="matieres.html"]')).toHaveText('Matérias');
+
+    await page.locator('button[data-lang="es"]').click();
+    await page.waitForFunction(() => document.body?.dataset?.lang === 'es', null, { timeout: 15000 });
+    await expect(page.locator('#quick-actions-title')).toHaveText('¿Qué quieres revisar ahora?');
   });
 
   test('module page uses content-first reader layout and exposes all reading modes', async ({ page }) => {

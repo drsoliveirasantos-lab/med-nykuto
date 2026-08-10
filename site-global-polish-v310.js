@@ -1,4 +1,4 @@
-/* v377 — Global Med Nykuto polish layer.
+/* v379 — Global Med Nykuto polish layer with coherent ES/FR/BR rendering.
    Applies identity, language, cache-visible UI text, logo/home behavior, optional public-first auth, course image zoom and practice-page safety.
    Quiet-page rule: module/practice/exam/mistakes pages must not load forced global repair/debug layers or delayed global refresh passes while the user is reading or answering.
    Quiet pages expose lightweight runtime/health markers, local feedback fallback, and brand text cleanup without forced runtime repaint layers. */
@@ -7,7 +7,7 @@
 
   var SITE_NAME = 'Med Nykuto';
   var HOST = 'https://med.nykuto.com/';
-  var CACHE_VERSION = '378';
+  var CACHE_VERSION = '379';
 
   function text(el,v){ if(el && v != null) el.textContent = v; }
   function all(sel,root){ return Array.from((root||document).querySelectorAll(sel)); }
@@ -19,35 +19,96 @@
   function isQuietPage(){ return isModuleReaderPage() || isPracticeLikePage(); }
   function escapeHtml(s){ return String(s || '').replace(/[&<>"']/g, function(ch){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]; }); }
 
+  function currentLanguage(){
+    var stored = '';
+    try{ stored = localStorage.getItem('medLang') || ''; }catch(e){}
+    var raw = String(stored || document.documentElement.lang || 'es').toLowerCase();
+    if(raw.indexOf('fr') === 0) return 'fr';
+    if(raw.indexOf('br') === 0 || raw.indexOf('pt') === 0) return 'br';
+    return 'es';
+  }
+
+  var COPY = {
+    es:{
+      home:'Inicio', subjects:'Materias', modules:'Módulos', clinical:'Casos clínicos', vf:'V/F', mistakes:'Errores', exam:'Examen blanco', contact:'Contacto', account:'Cuenta', about:'Acerca de', legal:'Aviso legal',
+      brandSubtitle:'Biblioteca médica organizada', menu:'Abrir menú', languageSwitcher:'Cambiar idioma', navigation:'Navegación principal', footer:'Biblioteca médica organizada para revisar más rápido.', back:'← Volver', backSubjects:'← Materias',
+      quickEyebrow:'REVISIÓN INMEDIATA', quickTitle:'¿Qué quieres revisar ahora?', quickSubtitle:'Elige una entrada y empieza directo: materia, QCM, casos clínicos o errores.',
+      quickCards:[['Elegir materia','Ver cursos y módulos'],['QCM rápido','Entrenar ahora'],['Casos clínicos','Razonar como examen'],['Revisar errores','Corregir lo que bloquea']],
+      heroEyebrow:'Medicina · revisión estructurada', scopeBadge:'Biblioteca en evolución', scopeText:'59 módulos publicados · nuevos contenidos en preparación',
+      heroTitle:'Estudia medicina con un plan claro, activo y rápido.', heroText:'Elige una materia, revisa el curso, entrena con QCM y corrige tus errores sin perder tiempo.',
+      proof:['módulos','materias activas','funcional','+ casos'], heroActions:['Empezar a revisar','Ver módulos','Revisar errores'],
+      donateEyebrow:'Proyecto gratuito · apoyo libre', donateTitle:'Apoyar el proyecto', donateText:'El sitio seguirá gratuito y abierto. Una pequeña contribución ayuda a pagar el alojamiento, mejorar los cursos y mantener los entrenamientos.', copyPix:'Copiar código Pix', donateBubble:'Un pequeño Pix y los QCM continúan funcionando.', donateThanks:'Gracias por apoyar el proyecto.',
+      steps:[['Elige una materia','Abre Fisiología, Bioquímica, Microbiología, Genética o Inmunología.'],['Lee el curso o la ficha','Pasa del curso completo a la ficha rápida o al ultra-resumen.'],['Entrena activamente','Haz QCM, casos clínicos y verdadero/falso, luego revisa tus errores.']],
+      stats:['Materias','Módulos','Progreso total'], progressTitle:'Materias presentes', reset:'Reiniciar', openProject:'Proyecto abierto', communityTitle:'Gratuito para estudiar, apoyado por la comunidad.', communityText:'El objetivo es simple: hacer cursos, fichas y entrenamientos accesibles sin barrera.', comingSoon:'Próximamente',
+      reportSaved:'Reporte guardado localmente', reportSavedText:'El reporte fue registrado en este navegador y podrá revisarse después.',
+      projectLabel:'Proyecto', supportLabel:'Apoyar el proyecto', howToLabel:'Cómo usar el sitio', progressLabel:'Tabla de progreso', statsLabel:'Estadísticas del sitio', pixAlt:'QR Pix de apoyo',
+      metaDescription:'Med Nykuto: cursos médicos, módulos, QCM, casos clínicos, verdadero/falso y revisión de errores.'
+    },
+    fr:{
+      home:'Accueil', subjects:'Matières', modules:'Modules', clinical:'Cas cliniques', vf:'V/F', mistakes:'Erreurs', exam:'Examen blanc', contact:'Contact', account:'Compte', about:'À propos', legal:'Mentions légales',
+      brandSubtitle:'Bibliothèque médicale organisée', menu:'Ouvrir le menu', languageSwitcher:'Changer la langue', navigation:'Navigation principale', footer:'Bibliothèque médicale organisée pour réviser plus vite.', back:'← Retour', backSubjects:'← Matières',
+      quickEyebrow:'RÉVISION IMMÉDIATE', quickTitle:'Que veux-tu réviser maintenant ?', quickSubtitle:'Choisis une entrée et commence directement : matière, QCM, cas cliniques ou erreurs.',
+      quickCards:[['Choisir une matière','Voir les cours et modules'],['QCM rapide','S’entraîner maintenant'],['Cas cliniques','Raisonner comme à l’examen'],['Revoir les erreurs','Corriger ce qui bloque']],
+      heroEyebrow:'Médecine · révision structurée', scopeBadge:'Bibliothèque en évolution', scopeText:'59 modules publiés · nouveaux contenus en préparation',
+      heroTitle:'Étudie la médecine avec un plan clair, actif et rapide.', heroText:'Choisis une matière, révise le cours, entraîne-toi avec les QCM et corrige tes erreurs sans perdre de temps.',
+      proof:['modules','matières actives','fonctionnel','+ cas'], heroActions:['Commencer à réviser','Voir les modules','Revoir les erreurs'],
+      donateEyebrow:'Projet gratuit · soutien libre', donateTitle:'Soutenir le projet', donateText:'Le site restera gratuit et ouvert. Une petite contribution aide à payer l’hébergement, améliorer les cours et maintenir les entraînements.', copyPix:'Copier le code Pix', donateBubble:'Un petit Pix et les QCM continuent de fonctionner.', donateThanks:'Merci de soutenir le projet.',
+      steps:[['Choisis une matière','Ouvre Physiologie, Biochimie, Microbiologie, Génétique ou Immunologie.'],['Lis le cours ou la fiche','Passe du cours complet à la fiche rapide ou à l’ultra-résumé.'],['Entraîne-toi activement','Fais des QCM, des cas cliniques et du vrai/faux, puis revois tes erreurs.']],
+      stats:['Matières','Modules','Progression totale'], progressTitle:'Matières présentes', reset:'Réinitialiser', openProject:'Projet ouvert', communityTitle:'Gratuit pour étudier, soutenu par la communauté.', communityText:'L’objectif est simple : rendre les cours, fiches et entraînements accessibles sans barrière.', comingSoon:'Bientôt disponible',
+      reportSaved:'Signalement enregistré localement', reportSavedText:'Le signalement a été enregistré dans ce navigateur et pourra être revu plus tard.',
+      projectLabel:'Projet', supportLabel:'Soutenir le projet', howToLabel:'Comment utiliser le site', progressLabel:'Tableau de progression', statsLabel:'Statistiques du site', pixAlt:'QR Pix de soutien',
+      metaDescription:'Med Nykuto : cours de médecine, modules, QCM, cas cliniques, vrai/faux et révision des erreurs.'
+    },
+    br:{
+      home:'Início', subjects:'Matérias', modules:'Módulos', clinical:'Casos clínicos', vf:'V/F', mistakes:'Erros', exam:'Simulado', contact:'Contato', account:'Conta', about:'Sobre', legal:'Aviso legal',
+      brandSubtitle:'Biblioteca médica organizada', menu:'Abrir menu', languageSwitcher:'Mudar idioma', navigation:'Navegação principal', footer:'Biblioteca médica organizada para revisar mais rápido.', back:'← Voltar', backSubjects:'← Matérias',
+      quickEyebrow:'REVISÃO IMEDIATA', quickTitle:'O que você quer revisar agora?', quickSubtitle:'Escolha uma entrada e comece direto: matéria, QCM, casos clínicos ou erros.',
+      quickCards:[['Escolher matéria','Ver cursos e módulos'],['QCM rápido','Treinar agora'],['Casos clínicos','Raciocinar como prova'],['Revisar erros','Corrigir o que trava']],
+      heroEyebrow:'Medicina · revisão estruturada', scopeBadge:'Biblioteca em evolução', scopeText:'59 módulos publicados · novos conteúdos em preparação',
+      heroTitle:'Estude medicina com um plano claro, ativo e rápido.', heroText:'Escolha uma matéria, revise o curso, treine com QCM e corrija seus erros sem perder tempo.',
+      proof:['módulos','matérias ativas','funcional','+ casos'], heroActions:['Começar a revisar','Ver módulos','Revisar erros'],
+      donateEyebrow:'Projeto gratuito · apoio livre', donateTitle:'Apoiar o projeto', donateText:'O site continuará gratuito e aberto. Uma pequena contribuição ajuda a pagar a hospedagem, melhorar os cursos e manter os treinamentos.', copyPix:'Copiar código Pix', donateBubble:'Um pequeno Pix e os QCM continuam funcionando.', donateThanks:'Obrigado por apoiar o projeto.',
+      steps:[['Escolha uma matéria','Abra Fisiologia, Bioquímica, Microbiologia, Genética ou Imunologia.'],['Leia o curso ou a ficha','Passe do curso completo para a ficha rápida ou o ultra-resumo.'],['Treine ativamente','Faça QCM, casos clínicos e verdadeiro/falso, depois revise seus erros.']],
+      stats:['Matérias','Módulos','Progresso total'], progressTitle:'Matérias presentes', reset:'Reiniciar', openProject:'Projeto aberto', communityTitle:'Gratuito para estudar, apoiado pela comunidade.', communityText:'O objetivo é simples: tornar cursos, fichas e treinamentos acessíveis sem barreira.', comingSoon:'Em breve',
+      reportSaved:'Relato salvo localmente', reportSavedText:'O relato foi registrado neste navegador e poderá ser revisado depois.',
+      projectLabel:'Projeto', supportLabel:'Apoiar o projeto', howToLabel:'Como usar o site', progressLabel:'Tabela de progresso', statsLabel:'Estatísticas do site', pixAlt:'QR Pix de apoio',
+      metaDescription:'Med Nykuto: cursos médicos, módulos, QCM, casos clínicos, verdadeiro/falso e revisão de erros.'
+    }
+  };
+
+  function copy(){ return COPY[currentLanguage()] || COPY.es; }
+
   function setLang(){
-    document.documentElement.lang = 'es';
-    if(document.body) document.body.dataset.lang = 'es';
+    var language = currentLanguage();
+    document.documentElement.lang = language === 'br' ? 'pt-BR' : language;
+    if(document.body) document.body.dataset.lang = language;
     try{ if(!localStorage.getItem('medLang')) localStorage.setItem('medLang','es'); }catch(e){}
   }
 
   function setMeta(){
     var path = pageName();
+    var c = copy();
     var pageTitle = {
-      'index.html':'Inicio | Med Nykuto',
-      'matieres.html':'Materias | Med Nykuto',
-      'matiere.html':'Materia | Med Nykuto',
-      'modules.html':'Módulos | Med Nykuto',
-      'module.html':'Módulo | Med Nykuto',
+      'index.html':c.home + ' | Med Nykuto',
+      'matieres.html':c.subjects + ' | Med Nykuto',
+      'matiere.html':c.subjects + ' | Med Nykuto',
+      'modules.html':c.modules + ' | Med Nykuto',
+      'module.html':c.modules + ' | Med Nykuto',
       'qcm.html':'QCM | Med Nykuto',
-      'cas-cliniques.html':'Casos clínicos | Med Nykuto',
-      'vrai-faux.html':'Verdadero/Falso | Med Nykuto',
-      'erreurs.html':'Errores | Med Nykuto',
-      'examen.html':'Examen blanco | Med Nykuto',
-      'contact.html':'Contacto | Med Nykuto',
-      'contact-success.html':'Mensaje preparado | Med Nykuto',
-      'a-propos.html':'Acerca de | Med Nykuto',
-      'mentions.html':'Aviso legal | Med Nykuto',
-      'login.html':'Conexión opcional | Med Nykuto',
-      'compte.html':'Cuenta opcional | Med Nykuto'
-    }[path] || (document.title || '').replace(/Med Cursos/g,SITE_NAME).replace('Accueil','Inicio');
+      'cas-cliniques.html':c.clinical + ' | Med Nykuto',
+      'vrai-faux.html':c.vf + ' | Med Nykuto',
+      'erreurs.html':c.mistakes + ' | Med Nykuto',
+      'examen.html':c.exam + ' | Med Nykuto',
+      'contact.html':c.contact + ' | Med Nykuto',
+      'contact-success.html':c.contact + ' | Med Nykuto',
+      'a-propos.html':c.about + ' | Med Nykuto',
+      'mentions.html':c.legal + ' | Med Nykuto',
+      'login.html':c.account + ' | Med Nykuto',
+      'compte.html':c.account + ' | Med Nykuto'
+    }[path] || (document.title || '').replace(/Med Cursos/g,SITE_NAME).replace(/^Accueil\b/,c.home);
     document.title = pageTitle;
 
-    var desc = 'Med Nykuto: cursos médicos, módulos, QCM, casos clínicos, verdadero/falso y revisión de errores.';
+    var desc = c.metaDescription;
     var metaDesc = document.querySelector('meta[name="description"]');
     if(metaDesc) metaDesc.setAttribute('content', desc);
     all('meta[property="og:site_name"]').forEach(function(m){m.setAttribute('content', SITE_NAME);});
@@ -58,56 +119,43 @@
   }
 
   function polishHeader(){
+    var c = copy();
+    all('.nav-shell').forEach(function(nav){ nav.setAttribute('aria-label',c.navigation); });
+    all('.lang-switch,.language-switcher').forEach(function(el){ el.setAttribute('aria-label',c.languageSwitcher); });
     all('img[alt="Med Cursos"], img[alt="MedCursos"], img[alt="Med Nykuto"]').forEach(function(img){ img.alt = SITE_NAME; });
     all('a.brand,a.brand-official').forEach(function(a){
       a.href = '/index.html';
-      a.setAttribute('aria-label','Inicio');
+      a.setAttribute('aria-label',c.home);
       a.style.pointerEvents = 'auto';
       a.style.cursor = 'pointer';
       var small = a.querySelector('.brand-context small');
-      if(small && /Bibliothèque|Biblioteca|organisée|organizada/i.test(clean(small.textContent))) small.textContent = 'Biblioteca médica organizada';
+      if(small) small.textContent = c.brandSubtitle;
     });
     var map = [
-      ['a[href="index.html"][data-i18n="home"]','Inicio'],
-      ['a[href="matieres.html"][data-i18n="navSubjects"]','Materias'],
-      ['a[href="modules.html"][data-i18n="navModules"]','Módulos'],
-      ['a[href="cas-cliniques.html"][data-i18n="navClinical"]','Casos clínicos'],
-      ['a[href="vrai-faux.html"][data-i18n="doVf"]','V/F'],
-      ['a[href="erreurs.html"][data-i18n="mistakes"]','Errores'],
-      ['a[href="examen.html"][data-i18n="examMode"]','Examen blanco'],
-      ['a[href="contact.html"][data-i18n="navContact"]','Contacto']
+      ['#navLinks a[href="index.html"],.nav-links a[href="index.html"]',c.home],
+      ['#navLinks a[href="matieres.html"],.nav-links a[href="matieres.html"]',c.subjects],
+      ['#navLinks a[href="modules.html"],.nav-links a[href="modules.html"]',c.modules],
+      ['#navLinks a[href="cas-cliniques.html"],.nav-links a[href="cas-cliniques.html"]',c.clinical],
+      ['#navLinks a[href="vrai-faux.html"],.nav-links a[href="vrai-faux.html"]',c.vf],
+      ['#navLinks a[href="erreurs.html"],.nav-links a[href="erreurs.html"]',c.mistakes],
+      ['#navLinks a[href="examen.html"],.nav-links a[href="examen.html"]',c.exam],
+      ['#navLinks a[href="contact.html"],.nav-links a[href="contact.html"]',c.contact],
+      ['#navLinks a[href="compte.html"],.nav-links a[href="compte.html"]',c.account]
     ];
     map.forEach(function(x){ all(x[0]).forEach(function(el){el.textContent = x[1];}); });
-    all('.menu-toggle').forEach(function(b){ b.setAttribute('aria-label','Abrir menú'); });
+    all('.menu-toggle').forEach(function(b){ b.setAttribute('aria-label',c.menu); });
   }
 
   function polishGenericText(){
+    var c = copy();
     all('strong').forEach(function(el){ if(clean(el.textContent)==='Med Cursos') el.textContent = SITE_NAME; });
     all('.footer strong').forEach(function(el){ el.textContent = SITE_NAME; });
-    all('[data-i18n="footerText"]').forEach(function(el){ el.textContent = 'Biblioteca médica organizada para revisar más rápido.'; });
-    all('[data-i18n="backHome"]').forEach(function(el){ el.textContent = 'Inicio /'; });
-    all('[data-i18n="backSubjects"]').forEach(function(el){ el.textContent = '← Materias'; });
-    all('[data-i18n="back"]').forEach(function(el){ el.textContent = '← Volver'; });
-
-    var replacements = {
-      'Entrenar maintenant':'Entrenar ahora',
-      'Corriger ce qui bloque':'Corregir lo que bloquea',
-      'Commencer à réviser':'Empezar a revisar',
-      'Voir tous les modules':'Ver todos los módulos',
-      'Revoir mes erreurs':'Revisar errores',
-      'Matières':'Materias',
-      'Modules':'Módulos',
-      'Cas cliniques':'Casos clínicos',
-      'Vrai/Faux':'V/F',
-      'Mes erreurs':'Errores',
-      'Examen blanc':'Examen blanco',
-      'Accueil':'Inicio',
-      'Mentions':'Aviso legal'
-    };
-    all('a,button,h1,h2,h3,p,small,span,em,strong,label,option').forEach(function(el){
-      var v = clean(el.textContent);
-      if(replacements[v]) el.textContent = replacements[v];
-    });
+    all('[data-i18n="footerText"],.footer strong + p').forEach(function(el){ el.textContent = c.footer; });
+    all('[data-i18n="backHome"]').forEach(function(el){ el.textContent = c.home + ' /'; });
+    all('[data-i18n="backSubjects"]').forEach(function(el){ el.textContent = c.backSubjects; });
+    all('[data-i18n="back"]').forEach(function(el){ el.textContent = c.back; });
+    var footerLinks = [["index.html",c.home],["matieres.html",c.subjects],["modules.html",c.modules],["contact.html",c.contact],["a-propos.html",c.about],["mentions.html",c.legal]];
+    footerLinks.forEach(function(pair){ all('.footer a[href="' + pair[0] + '"]').forEach(function(el){ text(el,pair[1]); }); });
   }
 
   function normalizeVisibleBrandText(){
@@ -128,22 +176,49 @@
 
   function polishHome(){
     if(!document.body || document.body.dataset.page !== 'home') return;
-    text(document.querySelector('#quick-actions-title'), '¿Qué quieres revisar ahora?');
-    all('[data-i18n="home.quick.subtitle"]').forEach(function(el){el.textContent='Elige una entrada y empieza directo: materia, QCM, casos clínicos o errores.';});
-    all('[data-i18n="home.quick.qcm.text"]').forEach(function(el){el.textContent='Entrenar ahora';});
-    all('[data-i18n="home.quick.errors.text"]').forEach(function(el){el.textContent='Corregir lo que bloquea';});
-    all('[data-i18n="homeEyebrow"]').forEach(function(el){el.textContent='Medicina · revisión estructurada';});
-    all('[data-i18n="currentSemesterBadge"]').forEach(function(el){el.textContent='Biblioteca en evolución';});
-    all('[data-i18n="currentSemesterText"]').forEach(function(el){el.textContent='59 módulos publicados · nuevos contenidos en preparación';});
-    all('[data-i18n="homeTitle"]').forEach(function(el){el.textContent='Estudia medicina con un plan claro, activo y rápido.';});
-    all('[data-i18n="homeText"]').forEach(function(el){el.textContent='Elige una materia, revisa el curso, entrena con QCM y corrige tus errores sin perder tiempo.';});
-    all('[data-i18n="startStudying"]').forEach(function(el){el.textContent='Empezar a revisar';});
-    all('[data-i18n="openModules"]').forEach(function(el){el.textContent='Ver módulos';});
-    all('[data-i18n="reviewMistakes"]').forEach(function(el){el.textContent='Revisar errores';});
-    all('[data-i18n="donateEyebrow"]').forEach(function(el){el.textContent='Proyecto gratuito · apoyo libre';});
-    all('[data-i18n="donateTitle"]').forEach(function(el){el.textContent='Apoyar el proyecto';});
-    all('[data-i18n="donateText"]').forEach(function(el){el.textContent='El sitio seguirá gratuito y abierto. Una pequeña contribución ayuda a pagar el alojamiento y mejorar los entrenamientos.';});
-    all('[data-i18n="copyPix"]').forEach(function(el){el.textContent='Copiar código Pix';});
+    var c = copy();
+    text(document.querySelector('.home-quick-eyebrow'), c.quickEyebrow);
+    text(document.querySelector('#quick-actions-title'), c.quickTitle);
+    text(document.querySelector('.home-quick-subtitle'), c.quickSubtitle);
+    all('.home-action-grid .home-action-card').forEach(function(card,index){
+      var pair = c.quickCards[index];
+      if(!pair) return;
+      text(card.querySelector('strong'), pair[0]);
+      text(card.querySelector('small'), pair[1]);
+    });
+    text(document.querySelector('.home-v41-copy > .eyebrow'), c.heroEyebrow);
+    text(document.querySelector('.current-scope-v58 span'), c.scopeBadge);
+    text(document.querySelector('.current-scope-v58 strong'), c.scopeText);
+    text(document.querySelector('.home-v41-copy > h1'), c.heroTitle);
+    text(document.querySelector('.home-v41-copy > .hero-text'), c.heroText);
+    all('.home-v41-proof em').forEach(function(el,index){ text(el,c.proof[index]); });
+    all('.home-v41-actions a').forEach(function(el,index){ text(el,c.heroActions[index]); });
+    text(document.querySelector('.home-v42-donate-card .donate-text .eyebrow'), c.donateEyebrow);
+    text(document.querySelector('.home-v42-donate-card .donate-text h2'), c.donateTitle);
+    text(document.querySelector('.home-v42-donate-card .donate-text > p:not(.eyebrow)'), c.donateText);
+    text(document.querySelector('#copyPixBtn'), c.copyPix);
+    text(document.querySelector('.donate-fun-bubble strong'), c.donateBubble);
+    text(document.querySelector('.donate-fun-bubble span'), c.donateThanks);
+    var hero = document.querySelector('.home-v41-hero'); if(hero) hero.setAttribute('aria-label',c.home);
+    var donate = document.querySelector('.home-v42-donate-card'); if(donate) donate.setAttribute('aria-label',c.supportLabel);
+    var steps = document.querySelector('.home-v41-steps'); if(steps) steps.setAttribute('aria-label',c.howToLabel);
+    var dashboard = document.querySelector('.home-v41-dashboard'); if(dashboard) dashboard.setAttribute('aria-label',c.progressLabel);
+    var stats = document.querySelector('.home-v41-study-map'); if(stats) stats.setAttribute('aria-label',c.statsLabel);
+    var bottom = document.querySelector('.home-v41-bottom'); if(bottom) bottom.setAttribute('aria-label',c.projectLabel);
+    var pix = document.querySelector('.donate-visual img'); if(pix) pix.alt = c.pixAlt;
+    var pixButton = document.querySelector('#copyPixQr'); if(pixButton) pixButton.setAttribute('aria-label',c.copyPix);
+    all('.home-v41-steps article').forEach(function(article,index){
+      var step = c.steps[index];
+      if(!step) return;
+      text(article.querySelector('h3'),step[0]);
+      text(article.querySelector('p'),step[1]);
+    });
+    all('.home-v41-stat-row .stat-card small').forEach(function(el,index){ text(el,c.stats[index]); });
+    text(document.querySelector('.home-progress-head strong'),c.progressTitle);
+    text(document.querySelector('#clearProgress'),c.reset);
+    text(document.querySelector('.home-v41-bottom .eyebrow'),c.openProject);
+    text(document.querySelector('.home-v41-bottom h2'),c.communityTitle);
+    text(document.querySelector('.home-v41-bottom p:not(.eyebrow)'),c.communityText);
   }
 
   function polishComingSoon(){
@@ -152,7 +227,7 @@
         card.classList.add('is-coming-soon');
         card.setAttribute('aria-disabled','true');
         if(card.tagName === 'A') card.setAttribute('href','#');
-        var span = card.querySelector('span'); if(span) span.textContent = 'Próximamente';
+        var span = card.querySelector('span'); if(span) span.textContent = copy().comingSoon;
         var pct = card.querySelector('.subject-progress-pct'); if(pct) pct.textContent = '—';
       }
     });
@@ -216,12 +291,13 @@
   }
 
   function showQuestionFeedbackFallback(form){
+    var c = copy();
     var old = document.getElementById('questionFeedbackFallbackV360');
     if(old) old.remove();
     var box = document.createElement('div');
     box.id = 'questionFeedbackFallbackV360';
     box.className = 'notice question-feedback-fallback';
-    box.innerHTML = '<strong>Reporte guardado localmente</strong><p>El reporte fue registrado en este navegador y podrá revisarse después.</p>';
+    box.innerHTML = '<strong>' + escapeHtml(c.reportSaved) + '</strong><p>' + escapeHtml(c.reportSavedText) + '</p>';
     (form && form.parentNode ? form.parentNode : (document.querySelector('main') || document.body)).appendChild(box);
   }
 
@@ -326,7 +402,7 @@
     installQuietQuestionFeedbackFallback();
     injectGlobalStyle();
     loadGlobalRepairLayers();
-    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v378-loader';
+    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v379-multilingual-loader';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
