@@ -160,6 +160,32 @@ const bankRoot = context.window.MED_PRACTICE_BANK || {};
 const byCourse = bankRoot.byCourse || {};
 const globalIds = new Set();
 const exactTexts = new Map();
+const exactQuestions = new Map();
+const boilerplatePrompts = [];
+const boilerplatePatterns = [
+  /cu[aá]l opci[oó]n identifica el mecanismo principal del caso/i,
+  /qu[eé] interpretaci[oó]n relaciona mejor el dato cl[ií]nico con el mecanismo estudiado/i,
+  /en formato de examen,.*evita el distractor principal/i,
+  /en este caso, todos los razonamientos siguientes son compatibles/i,
+  /cu[aá]l es la interpretaci[oó]n m[aá]s directa/i,
+  /qu[eé] mecanismo fisiol[oó]gico explica mejor este (?:caso|cuadro)/i,
+  /qu[eé] mecanismo de transporte explica mejor esta situaci[oó]n/i,
+  /cu[aá]l afirmaci[oó]n responde mejor al dato descrito/i,
+  /marque la respuesta correcta/i,
+  /marque la opci[oó]n correcta/i,
+  /para reconocer correctamente .*marque/i,
+  /en una evaluaci[oó]n parcial, aparece una pregunta sobre/i,
+  /el examinador busca diferenciar mecanismo verdadero y distractor/i,
+  /un estudiante debe explicar .*durante una revisi[oó]n.*opci[oó]n integra mejor/i,
+  /en una pregunta de interpretaci[oó]n sobre .*respuesta relaciona mejor definici[oó]n y funci[oó]n/i,
+  /marque la alternativa que evita el error conceptual m[aá]s frecuente/i,
+  /^¿(?:cu[aá]l|qu[eé]) (?:es )?(?:la )?interpretaci[oó]n (?:es )?(?:m[aá]s )?(?:correcta|adecuada|precisa|probable|prudente|razonable)\?$/i,
+  /^¿qu[eé] (?:conclusi[oó]n|afirmaci[oó]n) es correcta\?$/i,
+  /^¿qu[eé] patr[oó]n funcional sugiere\?$/i,
+  /^¿qu[eé] explica la disminuci[oó]n\?$/i,
+  /^¿qu[eé] mecanismo es m[aá]s probable\?$/i,
+  /^¿qu[eé] microorganismo explica mejor el cuadro\?$/i
+];
 
 for (const [courseId, bank] of Object.entries(byCourse)) {
   if (!bank || typeof bank !== 'object') continue;
@@ -214,6 +240,12 @@ for (const [courseId, bank] of Object.entries(byCourse)) {
       }
       if (!hasExplanation(item)) warn(`${where}: explanation appears short or missing`, { ...baseMeta, type: 'short-or-missing-explanation', explanationLength: explanationText(item).length });
 
+      const normalizedQuestion = norm(question);
+      if (normalizedQuestion) exactQuestions.set(normalizedQuestion, [...(exactQuestions.get(normalizedQuestion) || []), baseMeta]);
+      if (question && boilerplatePatterns.some((pattern) => pattern.test(question))) {
+        boilerplatePrompts.push({ ...baseMeta, question });
+      }
+
       const signature = norm(itemText(item));
       if (signature.length > 40) {
         exactTexts.set(signature, [...(exactTexts.get(signature) || []), { ...baseMeta, signaturePreview: signature.slice(0, 160) }]);
@@ -228,11 +260,28 @@ for (const [courseId, bank] of Object.entries(byCourse)) {
 }
 
 const repeated = [...exactTexts.entries()].filter(([, occurrences]) => occurrences.length > 1);
-if (repeated.length > 25) {
-  warn(`Exact duplicate question signatures detected: ${repeated.length}`, {
+if (repeated.length) {
+  fail(`Exact duplicate question signatures detected: ${repeated.length}`, {
     type: 'duplicate-question-signatures',
     duplicateSignatureCount: repeated.length,
     samples: repeated.slice(0, 50).map(([signature, occurrences]) => ({ signaturePreview: signature.slice(0, 160), occurrences }))
+  });
+}
+
+const overusedQuestions = [...exactQuestions.entries()].filter(([, occurrences]) => occurrences.length > 2);
+if (overusedQuestions.length) {
+  fail(`Question texts repeated more than twice: ${overusedQuestions.length}`, {
+    type: 'overused-question-prompts',
+    overusedPromptCount: overusedQuestions.length,
+    samples: overusedQuestions.slice(0, 50).map(([question, occurrences]) => ({ question: question.slice(0, 220), count: occurrences.length, occurrences }))
+  });
+}
+
+if (boilerplatePrompts.length) {
+  fail(`Generic boilerplate prompts detected: ${boilerplatePrompts.length}`, {
+    type: 'generic-boilerplate-prompts',
+    boilerplatePromptCount: boilerplatePrompts.length,
+    samples: boilerplatePrompts.slice(0, 100)
   });
 }
 

@@ -1274,7 +1274,7 @@
     "heading": "Caso 17",
     "difficulty": "Examen",
     "stem": "Un paciente fumador tiene disnea, sibilancias y prueba funcional con FEV1 muy reducido. La relación FEV1/FVC está baja. El patrón funcional indica obstrucción al flujo espiratorio.",
-    "question": "¿Qué patrón funcional sugiere?",
+    "question": "¿Cuál opción integra correctamente el cambio observado con «Fisiología respiratoria y casos clínicos»?",
     "options": [
       "Patrón obstructivo.",
       "Patrón restrictivo con FEV1/FVC normal o alto.",
@@ -1350,7 +1350,7 @@
     "heading": "Caso 18",
     "difficulty": "Examen",
     "stem": "Una paciente con fibrosis pulmonar presenta disnea progresiva y volúmenes pulmonares bajos. La FVC está reducida y la relación FEV1/FVC es normal o alta. El patrón funcional es restrictivo.",
-    "question": "¿Qué patrón funcional sugiere?",
+    "question": "¿Qué alternativa conserva la relación causal evaluada en «Fisiología respiratoria y casos clínicos»?",
     "options": [
       "Patrón restrictivo con FEV1/FVC normal o alto.",
       "Patrón restrictivo.",
@@ -1426,7 +1426,7 @@
     "heading": "Caso 19",
     "difficulty": "Examen",
     "stem": "Un paciente con enfisema tiene disnea y destrucción alveolar en tomografía. La prueba de difusión muestra DLCO baja. La superficie alveolocapilar disponible para transferir gases está reducida.",
-    "question": "¿Qué explica la disminución?",
+    "question": "¿Cuál interpretación convierte los datos en una conclusión válida sobre «Fisiología respiratoria y casos clínicos»?",
     "options": [
       "Shunt verdadero como explicación obligatoria del cuadro.",
       "Hipoventilación alveolar pura con gradiente A-a normal.",
@@ -1504,7 +1504,7 @@
     "heading": "Caso 20",
     "difficulty": "Examen",
     "stem": "Una paciente con enfermedad intersticial tiene tos seca, disnea y DLCO baja. La tomografía muestra engrosamiento difuso del intersticio. La membrana de difusión más gruesa reduce el paso de gases.",
-    "question": "¿Qué explica la disminución?",
+    "question": "A la luz de «Fisiología respiratoria y casos clínicos», ¿cuál alternativa integra correctamente el dato clave y su consecuencia?",
     "options": [
       "Shunt verdadero como explicación obligatoria del cuadro.",
       "Hipoventilación alveolar pura con gradiente A-a normal.",
@@ -1744,7 +1744,7 @@
     "heading": "Caso 23",
     "difficulty": "Examen",
     "stem": "Un paciente llega con hipoxemia y gasometría que muestra gradiente A-a normal. No hay datos de consolidación ni embolia, pero la ventilación global está reducida. El mecanismo probable es hipoventilación alveolar o baja FiO2 inspirada.",
-    "question": "¿Qué mecanismo es más probable?",
+    "question": "¿Qué razonamiento sobre «Fisiología respiratoria y casos clínicos» se ajusta al escenario descrito?",
     "options": [
       "Patrón obstructivo como explicación primaria.",
       "Shunt intrapulmonar con V/Q cercano a cero.",
@@ -1824,7 +1824,7 @@
     "heading": "Caso 24",
     "difficulty": "Examen",
     "stem": "Un paciente con neumonía extensa presenta hipoxemia y gradiente A-a elevado. El oxígeno alveolar disponible no se traduce en PaO2 arterial normal. El patrón orienta a desajuste V/Q, shunt o limitación de difusión.",
-    "question": "¿Qué mecanismo es más probable?",
+    "question": "En el contexto de «Fisiología respiratoria y casos clínicos», ¿qué conclusión está respaldada por los hallazgos?",
     "options": [
       "Patrón restrictivo por baja compliance pulmonar.",
       "Hipoxia anémica pura con PaO2 necesariamente normal.",
@@ -3246,7 +3246,7 @@
     "heading": "Caso 42",
     "difficulty": "Examen",
     "stem": "Un paciente con tos crónica y tabaquismo tiene FEV1 muy bajo y FEV1/FVC reducido. La limitación principal aparece durante la espiración forzada. El resultado sugiere patrón obstructivo.",
-    "question": "¿Qué patrón funcional sugiere?",
+    "question": "En el contexto de «Fisiología respiratoria y casos clínicos», ¿qué conclusión está respaldada por los hallazgos?",
     "options": [
       "Patrón restrictivo con FEV1/FVC normal o alto.",
       "Patrón obstructivo.",
@@ -3324,7 +3324,7 @@
     "heading": "Caso 43",
     "difficulty": "Examen",
     "stem": "Una paciente con fibrosis pulmonar tiene FVC baja y relación FEV1/FVC conservada o aumentada. La caja torácica se expande con dificultad por pulmón rígido. La espirometría sugiere patrón restrictivo.",
-    "question": "¿Qué patrón funcional sugiere?",
+    "question": "¿Cuál de las opciones vincula correctamente los datos del caso con «Fisiología respiratoria y casos clínicos»?",
     "options": [
       "Patrón restrictivo con FEV1/FVC normal o alto.",
       "Aumento del grosor de la membrana de difusión como mecanismo principal.",
@@ -3400,7 +3400,7 @@
     "heading": "Caso 44",
     "difficulty": "Examen",
     "stem": "Un paciente con enfisema tiene pérdida de tabiques alveolares y DLCO reducida. La superficie disponible para difusión cae de forma importante. Menos área alveolocapilar limita la transferencia de gases.",
-    "question": "¿Qué explica la disminución?",
+    "question": "¿Cuál opción relaciona correctamente el hallazgo principal con «Fisiología respiratoria y casos clínicos»?",
     "options": [
       "Shunt verdadero como explicación obligatoria del cuadro.",
       "Hipoventilación alveolar pura con gradiente A-a normal.",
@@ -3478,7 +3478,7 @@
     "heading": "Caso 45",
     "difficulty": "Examen",
     "stem": "Una paciente con enfermedad intersticial tiene DLCO baja y disnea de esfuerzo. El engrosamiento de la membrana alveolocapilar aumenta la distancia de difusión. La ley de Fick predice menor transferencia de gases.",
-    "question": "¿Qué explica la disminución?",
+    "question": "¿Qué razonamiento sobre «Fisiología respiratoria y casos clínicos» se ajusta al escenario descrito?",
     "options": [
       "Aumento del grosor de la membrana de difusión.",
       "Shunt verdadero como explicación obligatoria del cuadro.",
@@ -3720,7 +3720,7 @@
     "heading": "Caso 48",
     "difficulty": "Examen",
     "stem": "Un paciente con hipoventilación por depresión del sistema nervioso central presenta hipoxemia. El gradiente A-a es normal porque el problema está en la ventilación global, no en la membrana alveolocapilar. La PaCO2 suele estar elevada.",
-    "question": "¿Qué mecanismo es más probable?",
+    "question": "¿Cuál interpretación de «Fisiología respiratoria y casos clínicos» resuelve de forma consistente el caso?",
     "options": [
       "Patrón obstructivo como explicación primaria.",
       "Shunt intrapulmonar con V/Q cercano a cero.",
@@ -3802,7 +3802,7 @@
     "heading": "Caso 49",
     "difficulty": "Examen",
     "stem": "Un paciente con hipoxemia tiene gradiente A-a elevado en gasometría. El médico sospecha alteración en unidades pulmonares o en la difusión. V/Q desigual, shunt o limitación de difusión explican mejor el hallazgo.",
-    "question": "¿Qué mecanismo es más probable?",
+    "question": "¿Qué opción conserva la coherencia entre el escenario y «Fisiología respiratoria y casos clínicos»?",
     "options": [
       "Desajuste V/Q, shunt o limitación de difusión.",
       "Patrón restrictivo por baja compliance pulmonar.",

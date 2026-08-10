@@ -8,7 +8,7 @@
     "heading": "Caso 01",
     "difficulty": "Examen",
     "stem": "Un corredor de 24 años llega a urgencias después de una maratón en clima caluroso. Bebió varios litros de agua sin sales y ahora presenta confusión, vómitos y Na+ de 121 mEq/L. El dato central es el descenso agudo de tonicidad extracelular.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál opción permite pasar del dato observado al mecanismo de «Caso 01»?",
     "options": [
       "Hiponatremia aguda con entrada de agua a células cerebrales.",
       "Alteración primaria de presión oncótica por albúmina.",
@@ -83,7 +83,7 @@
     "heading": "Caso 02",
     "difficulty": "Examen",
     "stem": "Una mujer de 68 años hospitalizada por neumonía desarrolla somnolencia progresiva. El laboratorio muestra Na+ de 118 mEq/L, plasma hipoosmolar y orina concentrada pese a hiponatremia. El equipo sospecha secreción de ADH inapropiada.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué opción mantiene la dirección causal correcta al analizar «Caso 02»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "SIADH con retención de agua libre por ADH inapropiada.",
@@ -158,7 +158,7 @@
     "heading": "Caso 03",
     "difficulty": "Examen",
     "stem": "Un paciente de 35 años con traumatismo craneal presenta signos de hipertensión intracraneal. En UCI recibe manitol intravenoso y luego aumenta la osmolaridad plasmática efectiva. El objetivo es movilizar agua fuera del tejido cerebral.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál razonamiento integra mejor el contexto con «Caso 03»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina por reducción directa de proteínas capilares.",
       "Bloqueo directo de canales de Na⁺ neuronales con cambio primario de la excitabilidad eléctrica.",
@@ -233,7 +233,7 @@
     "heading": "Caso 04",
     "difficulty": "Examen",
     "stem": "Un hombre con diabetes mal controlada consulta por poliuria intensa y sed. La glucosa plasmática está muy elevada y la tira de orina muestra glucosuria marcada. La glucosa filtrada actúa como osmole dentro del túbulo.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué opción conserva la coherencia entre el escenario y «Caso 04»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales.",
@@ -304,7 +304,7 @@
     "heading": "Caso 05",
     "difficulty": "Examen",
     "stem": "Un anciano dependiente permanece dos días con acceso limitado a agua durante una ola de calor. Llega confuso, con mucosas secas y Na+ de 160 mEq/L. El líquido extracelular se vuelve hipertónico frente a las células cerebrales.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál interpretación de «Caso 05» resuelve de forma consistente el caso?",
     "options": [
       "Contracción de células cerebrales por ECF hipertónico.",
       "Alteración primaria de presión oncótica por albúmina.",
@@ -377,7 +377,7 @@
     "heading": "Caso 06",
     "difficulty": "Examen",
     "stem": "En el laboratorio de hematología, una muestra de sangre de un paciente se coloca accidentalmente en agua destilada. Minutos después el tubo se vuelve rojizo transparente y casi no se observan eritrocitos intactos. El cambio se debe a entrada masiva de agua.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué alternativa responde al problema planteado desde «Caso 06»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Hemólisis por entrada osmótica de agua.",
@@ -448,7 +448,7 @@
     "heading": "Caso 07",
     "difficulty": "Examen",
     "stem": "Una muestra de eritrocitos de un paciente se expone a NaCl muy concentrado durante una práctica. Al microscopio, las células aparecen arrugadas y con bordes irregulares. El medio extracelular extrajo agua de los eritrocitos.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál conclusión sobre «Caso 07» se sostiene con la información disponible?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales con cambio primario de la excitabilidad eléctrica.",
@@ -523,7 +523,7 @@
     "heading": "Caso 08",
     "difficulty": "Examen",
     "stem": "Un paciente con hemorragia digestiva llega hipotenso y taquicárdico. Se administra NaCl 0,9% para recuperar volumen circulante sin producir gran movimiento de agua hacia las células. La expansión ocurre sobre todo en el compartimento extracelular.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué alternativa conserva la relación causal evaluada en «Caso 08»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales.",
@@ -596,7 +596,7 @@
     "heading": "Caso 09",
     "difficulty": "Examen",
     "stem": "Un niño posoperatorio recibe líquidos intravenosos hipotónicos durante varias horas. Luego desarrolla cefalea, somnolencia y convulsión. El sodio bajo favorece entrada de agua a neuronas y edema cerebral.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál interpretación convierte los datos en una conclusión válida sobre «Caso 09»?",
     "options": [
       "Edema cerebral por disminución de tonicidad extracelular.",
       "Alteración primaria de presión oncótica por albúmina.",
@@ -669,7 +669,7 @@
     "heading": "Caso 10",
     "difficulty": "Examen",
     "stem": "Un paciente operado de hipófisis consulta por sed intensa y poliuria de 9 L/día. El laboratorio muestra Na+ elevado y orina muy diluida. El cuadro sugiere falta de ADH circulante.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál interpretación convierte los datos en una conclusión válida sobre «Caso 10»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Diabetes insípida central por déficit de ADH.",
@@ -744,7 +744,7 @@
     "heading": "Caso 11",
     "difficulty": "Examen",
     "stem": "Un paciente tratado con litio por trastorno bipolar consulta por poliuria persistente. A pesar de tener ADH, el riñón concentra mal la orina. La resistencia tubular a ADH explica la pérdida de agua libre.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué alternativa conserva la relación causal evaluada en «Caso 11»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales con cambio primario de la excitabilidad eléctrica.",
@@ -819,7 +819,7 @@
     "heading": "Caso 12",
     "difficulty": "Examen",
     "stem": "Una paciente con carcinoma pulmonar presenta náuseas, debilidad y sodio bajo. El plasma es hipoosmolar, pero la orina permanece inadecuadamente concentrada. El tumor se asocia a secreción no regulada de ADH.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál conclusión explica el escenario de acuerdo con «Caso 12»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales.",
@@ -892,7 +892,7 @@
     "heading": "Caso 13",
     "difficulty": "Examen",
     "stem": "Un paciente con cetoacidosis diabética llega con glucosa de 700 mg/dL y Na+ medido bajo. La hiperglucemia aumenta la osmolaridad extracelular y atrae agua desde las células. El sodio parece bajo por dilución en el compartimento extracelular.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué opción aplica sin contradicciones el principio central de «Caso 13»?",
     "options": [
       "Hiponatremia dilucional por salida de agua desde el ICF hacia el ECF.",
       "Alteración primaria de presión oncótica por albúmina por reducción directa de proteínas capilares.",
@@ -967,7 +967,7 @@
     "heading": "Caso 14",
     "difficulty": "Examen",
     "stem": "Una mujer hospitalizada recibe varios litros de D5W por vía intravenosa. Horas después, la glucosa se metaboliza y queda un exceso de agua libre. El laboratorio muestra Na+ bajo por dilución.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "A la luz de «Caso 14», ¿cuál alternativa integra correctamente el dato clave y su consecuencia?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Aporte de agua libre tras metabolismo de glucosa.",
@@ -1040,7 +1040,7 @@
     "heading": "Caso 15",
     "difficulty": "Examen",
     "stem": "Un paciente con hiponatremia sintomática recibe solución salina hipertónica bajo monitorización. El Na+ plasmático aumenta y el líquido extracelular se vuelve más hipertónico. El agua tiende a salir del compartimento intracelular.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué opción explica de forma coherente el hallazgo central desde «Caso 15»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales.",
@@ -1113,7 +1113,7 @@
     "heading": "Caso 16",
     "difficulty": "Examen",
     "stem": "Un trabajador agrícola suda durante horas sin beber agua suficiente. Llega con sed intensa, mareo y hemoconcentración leve. La pérdida de sudor hipotónico aumenta la tonicidad extracelular.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál opción relaciona correctamente el hallazgo principal con «Caso 16»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales con cambio primario de la excitabilidad eléctrica.",
@@ -1186,7 +1186,7 @@
     "heading": "Caso 17",
     "difficulty": "Examen",
     "stem": "Un paciente con cirrosis avanzada presenta ascitis, edema en miembros inferiores y albúmina baja. Aunque hay mucho líquido total, el plasma retiene peor el agua dentro del vaso. El problema se relaciona con presión oncótica reducida.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué razonamiento sobre «Caso 17» se ajusta al escenario descrito?",
     "options": [
       "Disminución de presión oncótica plasmática.",
       "Alteración primaria de presión oncótica por albúmina.",
@@ -1259,7 +1259,7 @@
     "heading": "Caso 18",
     "difficulty": "Examen",
     "stem": "Una paciente con quemaduras extensas desarrolla edema generalizado durante las primeras horas. El laboratorio muestra hipoalbuminemia y pérdida de proteínas plasmáticas hacia tejidos lesionados. La fuerza oncótica intravascular cae.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "En el contexto de «Caso 18», ¿qué conclusión está respaldada por los hallazgos?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Pérdida de presión oncótica intravascular.",
@@ -1332,7 +1332,7 @@
     "heading": "Caso 19",
     "difficulty": "Examen",
     "stem": "Un paciente llega intoxicado y con disminución del nivel de conciencia. La osmolalidad medida es mucho mayor que la calculada con sodio, glucosa y urea. El hallazgo sugiere osmoles no medidos en plasma.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál de las opciones vincula correctamente los datos del caso con «Caso 19»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales.",
@@ -1405,7 +1405,7 @@
     "heading": "Caso 20",
     "difficulty": "Examen",
     "stem": "Un paciente con intoxicación etílica tiene brecha osmolar elevada, pero Na+ normal y pocas señales de movimiento agudo de agua entre células. El etanol aumenta la osmolalidad medida, aunque penetra tejidos con facilidad. El caso distingue osmolalidad total de tonicidad efectiva.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué razonamiento sobre «Caso 20» se ajusta al escenario descrito?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales.",
@@ -1476,7 +1476,7 @@
     "heading": "Caso 21",
     "difficulty": "Examen",
     "stem": "En un estudio celular, muestras de un paciente se colocan en solución isoosmolar de urea. Al inicio parece equilibrada, pero la urea entra a las células y luego entra agua. Las células aumentan de volumen pese a la isoosmolaridad inicial.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál opción relaciona correctamente el hallazgo principal con «Caso 21»?",
     "options": [
       "Entrada de urea seguida de entrada de agua.",
       "Alteración primaria de presión oncótica por albúmina.",
@@ -1549,7 +1549,7 @@
     "heading": "Caso 22",
     "difficulty": "Examen",
     "stem": "En una práctica de laboratorio, células de un paciente se colocan en solución isoosmolar con manitol. El manitol no atraviesa de forma importante la membrana y el volumen celular se mantiene estable. La solución actúa como osmole efectivo.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué alternativa conserva la relación causal evaluada en «Caso 22»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Manitol efectivo no permeable con tonicidad equilibrada.",
@@ -1622,7 +1622,7 @@
     "heading": "Caso 23",
     "difficulty": "Examen",
     "stem": "Un paciente con hiponatremia crónica de varios días es corregido rápidamente de 110 a 138 mEq/L. Al día siguiente desarrolla alteración neurológica y debilidad. El cambio brusco de osmolaridad pone en riesgo la mielina del sistema nervioso central.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál interpretación convierte los datos en una conclusión válida sobre «Caso 23»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales.",
@@ -1693,7 +1693,7 @@
     "heading": "Caso 24",
     "difficulty": "Examen",
     "stem": "Un paciente con lesión hipotalámica no siente sed pese a estar deshidratado. Llega con Na+ elevado y osmolalidad plasmática alta. El problema no es solo renal, sino falla de respuesta conductual a la hiperosmolalidad.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué afirmación permite resolver el caso sin contradecir «Caso 24»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales.",
@@ -1766,7 +1766,7 @@
     "heading": "Caso 25",
     "difficulty": "Examen",
     "stem": "Un paciente con insuficiencia renal avanzada tiene urea muy elevada y osmolalidad medida alta. Sin embargo, la urea atraviesa muchas membranas y no sostiene igual un gradiente de agua entre compartimentos. El caso diferencia osmolalidad total de efecto tónico sostenido.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál es la interpretación más consistente del escenario en relación con «Caso 25»?",
     "options": [
       "Aumento de osmolalidad total con menor efecto tónico sostenido.",
       "Alteración primaria de presión oncótica por albúmina por reducción directa de proteínas capilares.",
@@ -1841,7 +1841,7 @@
     "heading": "Caso 26",
     "difficulty": "Examen",
     "stem": "Un deportista amateur bebe agua en exceso después de correr bajo calor intenso. Presenta cefalea, vómitos y Na+ de 121 mEq/L. El descenso brusco de tonicidad extracelular favorece edema de células cerebrales.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué opción explica de forma coherente el hallazgo central desde «Caso 26»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Hiponatremia aguda con entrada de agua a células cerebrales.",
@@ -1916,7 +1916,7 @@
     "heading": "Caso 27",
     "difficulty": "Examen",
     "stem": "Una paciente con neumonía grave se vuelve confusa durante la hospitalización. El sodio baja a 118 mEq/L, el plasma está diluido y la orina sigue concentrada. La ADH actúa cuando debería estar suprimida.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "A la luz de «Caso 27», ¿cuál alternativa integra correctamente el dato clave y su consecuencia?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales con cambio primario de la excitabilidad eléctrica.",
@@ -1991,7 +1991,7 @@
     "heading": "Caso 28",
     "difficulty": "Examen",
     "stem": "Un hombre con traumatismo craneoencefálico recibe manitol por edema cerebral. Después de la infusión, aumenta la tonicidad plasmática efectiva. El agua sale del encéfalo hacia el espacio intravascular.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué opción mantiene la dirección causal correcta al analizar «Caso 28»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina por reducción directa de proteínas capilares.",
       "Bloqueo directo de canales de Na⁺ neuronales con cambio primario de la excitabilidad eléctrica.",
@@ -2066,7 +2066,7 @@
     "heading": "Caso 29",
     "difficulty": "Examen",
     "stem": "Un paciente con diabetes descompensada tiene glucosa muy alta, sed y poliuria. La glucosa excede la capacidad de reabsorción tubular y permanece en la orina. Ese soluto arrastra agua y aumenta el volumen urinario.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál razonamiento integra mejor el contexto con «Caso 29»?",
     "options": [
       "Diuresis osmótica por glucosa no reabsorbida.",
       "Alteración primaria de presión oncótica por albúmina.",
@@ -2137,7 +2137,7 @@
     "heading": "Caso 30",
     "difficulty": "Examen",
     "stem": "Un anciano que vive solo es encontrado somnoliento después de varios días con poca ingesta de agua. El laboratorio muestra Na+ de 160 mEq/L. Las células cerebrales pierden agua hacia un líquido extracelular hipertónico.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál interpretación fisiológica de «Caso 30» concuerda con el caso?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Contracción de células cerebrales por ECF hipertónico.",
@@ -2210,7 +2210,7 @@
     "heading": "Caso 31",
     "difficulty": "Examen",
     "stem": "Durante una práctica, sangre de un paciente se mezcla con agua destilada por error. Los eritrocitos se hinchan y se rompen, liberando hemoglobina al plasma. La causa es entrada osmótica de agua en un medio muy hipotónico.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué mecanismo fisiológico relacionado con «Caso 31» explica los hallazgos?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales.",
@@ -2283,7 +2283,7 @@
     "heading": "Caso 32",
     "difficulty": "Examen",
     "stem": "En un estudio de tonicidad, eritrocitos de un paciente se colocan en NaCl muy concentrado. Las células pierden agua y se encogen visiblemente al microscopio. El medio hipertónico provoca crenación.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál interpretación de «Caso 32» resuelve de forma consistente el caso?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales con cambio primario de la excitabilidad eléctrica.",
@@ -2358,7 +2358,7 @@
     "heading": "Caso 33",
     "difficulty": "Examen",
     "stem": "Un paciente con hemorragia aguda recibe varios bolos de NaCl 0,9%. La presión arterial mejora y no hay cambio importante del volumen intracelular. El líquido isotónico se distribuye principalmente en el espacio extracelular.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué opción conserva la coherencia entre el escenario y «Caso 33»?",
     "options": [
       "Expansión del líquido extracelular.",
       "Alteración primaria de presión oncótica por albúmina.",
@@ -2433,7 +2433,7 @@
     "heading": "Caso 34",
     "difficulty": "Examen",
     "stem": "Un adolescente recibe líquido hipotónico después de una cirugía y desarrolla convulsión. La natremia cae y el plasma se vuelve menos tónico. El agua entra al encéfalo y aumenta el riesgo de edema cerebral.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál conclusión sobre «Caso 34» se sostiene con la información disponible?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Edema cerebral por disminución de tonicidad extracelular.",
@@ -2506,7 +2506,7 @@
     "heading": "Caso 35",
     "difficulty": "Examen",
     "stem": "Un paciente con cirugía hipofisaria reciente presenta poliuria extrema y orina casi transparente. También tiene Na+ plasmático alto y sed intensa. La falta de ADH impide concentrar la orina.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué alternativa responde al problema planteado desde «Caso 35»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales.",
@@ -2581,7 +2581,7 @@
     "heading": "Caso 36",
     "difficulty": "Examen",
     "stem": "Una mujer tratada con litio consulta por sed y poliuria de varios litros al día. La administración de ADH no concentra adecuadamente la orina. El túbulo colector es resistente a la señal hormonal.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál opción permite pasar del dato observado al mecanismo de «Caso 36»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales con cambio primario de la excitabilidad eléctrica.",
@@ -2656,7 +2656,7 @@
     "heading": "Caso 37",
     "difficulty": "Examen",
     "stem": "Una paciente con carcinoma pulmonar llega por debilidad, náuseas y confusión leve. Los estudios muestran hiponatremia hipoosmolar con orina concentrada. La sospecha principal es producción inapropiada de ADH.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué interpretación es compatible con los principios de «Caso 37»?",
     "options": [
       "Secreción inapropiada de ADH.",
       "Alteración primaria de presión oncótica por albúmina.",
@@ -2729,7 +2729,7 @@
     "heading": "Caso 38",
     "difficulty": "Examen",
     "stem": "Un paciente con cetoacidosis diabética presenta glucosa de 700 mg/dL y sodio medido bajo. El agua se desplaza desde el interior celular hacia el líquido extracelular hiperosmolar. El sodio se diluye en ese compartimento.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "A la luz de «Caso 38», ¿cuál alternativa integra correctamente el dato clave y su consecuencia?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina por reducción directa de proteínas capilares.",
       "Hiponatremia dilucional por salida de agua desde el ICF hacia el ECF.",
@@ -2804,7 +2804,7 @@
     "heading": "Caso 39",
     "difficulty": "Examen",
     "stem": "Una paciente recibe grandes volúmenes de D5W durante su hospitalización. Tras metabolizar la glucosa, queda aporte neto de agua libre. El sodio plasmático cae por dilución.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué opción explica de forma coherente el hallazgo central desde «Caso 39»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales.",
@@ -2877,7 +2877,7 @@
     "heading": "Caso 40",
     "difficulty": "Examen",
     "stem": "Un paciente con hiponatremia severa recibe salina hipertónica. A medida que sube el Na+, el líquido extracelular atrae agua desde las células. Se expanden los espacios extracelulares y se contrae el intracelular.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál de las opciones vincula correctamente los datos del caso con «Caso 40»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales.",
@@ -2950,7 +2950,7 @@
     "heading": "Caso 41",
     "difficulty": "Examen",
     "stem": "Un trabajador suda por horas durante una jornada calurosa y solo repone poca agua. Refiere sed intensa, boca seca y mareo. La pérdida de sudor hipotónico deja el líquido extracelular más hipertónico.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "En el contexto de «Caso 41», ¿qué conclusión está respaldada por los hallazgos?",
     "options": [
       "Hipertonía extracelular por pérdida de sudor hipotónico.",
       "Alteración primaria de presión oncótica por albúmina.",
@@ -3023,7 +3023,7 @@
     "heading": "Caso 42",
     "difficulty": "Examen",
     "stem": "Un paciente cirrótico con ascitis presenta albúmina plasmática muy baja. El líquido se acumula en cavidad abdominal aunque el volumen total corporal esté aumentado. La menor presión oncótica favorece salida de agua del intravascular.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué relación funcional de «Caso 42» permite explicar el dato central?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Disminución de presión oncótica plasmática.",
@@ -3096,7 +3096,7 @@
     "heading": "Caso 43",
     "difficulty": "Examen",
     "stem": "Una paciente con quemaduras extensas pierde proteínas por tejidos dañados. En las horas siguientes desarrolla edema e hipoalbuminemia. La presión oncótica intravascular disminuye y se favorece el paso de líquido al intersticio.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál opción integra correctamente el cambio observado con «Caso 43»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales.",
@@ -3169,7 +3169,7 @@
     "heading": "Caso 44",
     "difficulty": "Examen",
     "stem": "Un paciente intoxicado llega con visión borrosa, náuseas y alteración del sensorio. La osmolalidad medida supera ampliamente la calculada. La diferencia sugiere presencia de osmoles no medidos.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué mecanismo fisiológico relacionado con «Caso 44» explica los hallazgos?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales.",
@@ -3242,7 +3242,7 @@
     "heading": "Caso 45",
     "difficulty": "Examen",
     "stem": "Un paciente con intoxicación por etanol tiene osmolalidad medida elevada y Na+ normal. El soluto responsable atraviesa membranas con relativa facilidad. Por eso aumenta la osmolalidad total sin ejercer el mismo efecto tónico sostenido.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál interpretación fisiológica de «Caso 45» concuerda con el caso?",
     "options": [
       "Aumento de osmolalidad medida por soluto permeable.",
       "Alteración primaria de presión oncótica por albúmina.",
@@ -3313,7 +3313,7 @@
     "heading": "Caso 46",
     "difficulty": "Examen",
     "stem": "En laboratorio, células de un paciente se colocan en solución isoosmolar de urea. La urea entra a las células y el agua la sigue. El volumen celular aumenta aunque la solución parecía isoosmolar al inicio.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué opción conserva la coherencia entre el escenario y «Caso 46»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Entrada de urea seguida de entrada de agua.",
@@ -3386,7 +3386,7 @@
     "heading": "Caso 47",
     "difficulty": "Examen",
     "stem": "En un estudio comparativo, células de un paciente se colocan en solución isoosmolar de manitol. El manitol permanece fuera de la célula y no genera entrada neta de agua. El volumen celular se mantiene estable.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál interpretación de «Caso 47» resuelve de forma consistente el caso?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales con cambio primario de la excitabilidad eléctrica.",
@@ -3459,7 +3459,7 @@
     "heading": "Caso 48",
     "difficulty": "Examen",
     "stem": "Un paciente con hiponatremia crónica es corregido demasiado rápido en urgencias. Horas después presenta disartria, debilidad y deterioro neurológico. El daño se relaciona con cambios osmóticos bruscos sobre el sistema nervioso central.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Qué alternativa responde al problema planteado desde «Caso 48»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina.",
       "Bloqueo directo de canales de Na⁺ neuronales.",
@@ -3530,7 +3530,7 @@
     "heading": "Caso 49",
     "difficulty": "Examen",
     "stem": "Un paciente con lesión hipotalámica pierde la sensación de sed. A pesar de Na+ elevado, no busca agua ni aumenta la ingesta. La hiperosmolalidad no desencadena la respuesta conductual normal.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál conclusión sobre «Caso 49» se sostiene con la información disponible?",
     "options": [
       "Falla de respuesta de sed ante hiperosmolalidad.",
       "Alteración primaria de presión oncótica por albúmina.",
@@ -3603,7 +3603,7 @@
     "heading": "Caso 50",
     "difficulty": "Examen",
     "stem": "Un paciente con enfermedad renal avanzada acumula urea en sangre. La osmolalidad medida aumenta, pero la urea penetra tejidos y no mantiene un gradiente tónico fuerte. La interpretación exige separar osmolalidad total y tonicidad.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este cuadro?",
+    "question": "¿Cuál alternativa interpreta el dato principal dentro de «Caso 50»?",
     "options": [
       "Alteración primaria de presión oncótica por albúmina por reducción directa de proteínas capilares.",
       "Aumento de osmolalidad total con menor efecto tónico sostenido.",

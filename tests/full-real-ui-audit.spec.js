@@ -37,7 +37,7 @@ async function waitRuntime(page) {
 
 async function waitPracticeReady(page) {
   await waitRuntime(page);
-  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v364', null, { timeout: 20000 });
+  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v370', null, { timeout: 20000 });
   await expect(page.locator('.single-question-card').first()).toBeAttached({ timeout: 15000 });
 }
 

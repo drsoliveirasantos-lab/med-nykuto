@@ -1,10 +1,10 @@
-/* v364 — Practice question-bank version refresh.
+/* v370 — Practice question-bank version refresh.
    Forces practice pages to rebuild old local question batches after bank/patch changes.
    This prevents very old cached questions from surviving after restoring newer patch files.
 */
 (function(){
   'use strict';
-  var VERSION = 'med-nykuto-practice-bank-v364-2026-06-25';
+  var VERSION = 'med-nykuto-practice-bank-v370-2026-08-10';
   var VERSION_KEY = 'medNykuto.practiceBankVersion';
   var DEBUG_KEY = '__MED_NYKUTO_BANK_REFRESH__';
   var MATCH = /(practice|qcm|quiz|case|cas|vf|vrai|faux|exam|currentBatch|currentIndex|answers|confidence|med[_-]?nykuto)/i;

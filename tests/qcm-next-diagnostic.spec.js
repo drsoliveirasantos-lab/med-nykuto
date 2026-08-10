@@ -5,7 +5,7 @@ test('diagnose QCM next click visibly changes card', async ({ page }) => {
   await page.evaluate(() => localStorage.clear());
   await page.reload();
   await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v362', null, { timeout: 20000 });
-  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v364', null, { timeout: 20000 });
+  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v370', null, { timeout: 20000 });
   await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_CRITICAL_CLICK_FALLBACK__ === 'v108-native-clicks-only-no-retry', null, { timeout: 20000 });
   await expect(page.locator('.single-question-card').first()).toBeAttached({ timeout: 15000 });
 

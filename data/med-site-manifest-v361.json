@@ -1,6 +1,6 @@
 {
   "siteName": "Med Nykuto",
-  "release": "v369-runtime-console-fix",
+  "release": "v370-question-bank-quality",
   "branch": "main",
   "generatedAt": "2026-08-10",
   "deployment": {
@@ -51,7 +51,7 @@
     "runtimeHealthVersion": "v362",
     "contactFallback": "local-copy",
     "questionFeedbackFallback": "local-copy",
-    "practiceLoaderCacheVersion": "v364",
+    "practiceLoaderCacheVersion": "v370",
     "fallbackMode": "complete-missing-formats-only"
   },
   "contentWarning": "Course and practice data were restored from the recovered legacy split files. Fallback is kept only as a safety layer for missing formats."

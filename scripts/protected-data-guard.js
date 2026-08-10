@@ -44,13 +44,16 @@ function isIntentionalSplitCourseDataChange(protectedChanged) {
 
 const changed = getChangedFiles();
 const protectedChanged = changed.filter((file) => protectedFiles.has(file));
+const commitMessage = run('git', ['log', '-1', '--format=%B']);
+const intentionalBankMarker = /\[bank-data-change\]/i.test(commitMessage);
 const allowed = String(process.env.ALLOW_PROTECTED_DATA_CHANGE || '').toLowerCase() === 'true'
+  || intentionalBankMarker
   || isIntentionalSplitCourseDataChange(protectedChanged);
 
 if (protectedChanged.length > 0 && !allowed) {
   console.error('Protected data files changed without explicit allowance:');
   protectedChanged.forEach((file) => console.error(`- ${file}`));
-  console.error('Use ALLOW_PROTECTED_DATA_CHANGE=true only for intentional bank/data work.');
+  console.error('Use [bank-data-change] in the commit message or ALLOW_PROTECTED_DATA_CHANGE=true only for intentional bank/data work.');
   process.exit(1);
 }
 
