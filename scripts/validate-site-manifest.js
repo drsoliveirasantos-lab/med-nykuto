@@ -18,14 +18,14 @@ try {
 
 if(manifest){
   if(manifest.siteName !== 'Med Nykuto') add('manifest: wrong siteName');
-  if(manifest.release !== 'v370-question-bank-quality') add('manifest: wrong release');
+  if(manifest.release !== 'v371-answer-randomization') add('manifest: wrong release');
   if(manifest.branch !== 'main') add('manifest: wrong branch');
   if(!manifest.deployment || manifest.deployment.provider !== 'Cloudflare Pages') add('manifest: deployment provider must be Cloudflare Pages');
   if(!manifest.deployment || manifest.deployment.productionHost !== 'med.nykuto.com') add('manifest: productionHost must be med.nykuto.com');
   if(!manifest.expectedData || manifest.expectedData.moduleCount !== 59) add('manifest: expectedData.moduleCount must be 59');
   if(!manifest.expectedData || !manifest.expectedData.restoredPracticeBankMinimums) add('manifest: restored practice bank minimums missing');
   if(!manifest.safeguards || manifest.safeguards.runtimeHealthVersion !== 'v362') add('manifest: runtime safeguard version must be v362');
-  if(!manifest.safeguards || manifest.safeguards.practiceLoaderCacheVersion !== 'v370') add('manifest: practice loader cache version must be v370');
+  if(!manifest.safeguards || manifest.safeguards.practiceLoaderCacheVersion !== 'v371') add('manifest: practice loader cache version must be v371');
   (manifest.navigationPages || []).forEach(file => { if(!exists(file)) add(`manifest page missing: ${file}`); });
   (manifest.criticalScripts || []).forEach(file => { if(!exists(file)) add(`manifest critical script missing: ${file}`); });
 }

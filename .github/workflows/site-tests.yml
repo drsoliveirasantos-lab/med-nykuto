@@ -91,6 +91,7 @@ jobs:
             tests/smoke.spec.js \
             tests/restored-data.spec.js \
             tests/practice-flow.spec.js \
+            tests/practice-answer-randomization.spec.js \
             tests/real-click-regression.spec.js \
             tests/qcm-critical-clicks.spec.js \
             tests/qcm-transition-stability.spec.js \

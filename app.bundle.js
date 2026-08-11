@@ -1864,9 +1864,9 @@ function renderHome(){
   function practiceDifficultyKey(item){
     const raw = String(item && item.difficulty || '').toLowerCase();
     if(/normal|base|básico|basico/.test(raw)) return 'normal';
-    if(/difficile|difícil|dificil|moyen|medio/.test(raw)) return 'difficile';
-    if(/extr/.test(raw)) return 'extreme';
-    if(/exam/.test(raw)) return stableHash(item.id || item.question || '') % 2 === 0 ? 'examen' : 'extreme';
+    if(/difficile|difícil|dificil|moyen|medio|intermedio|intermédiaire/.test(raw)) return 'difficile';
+    if(/extr|avanzado|avancé|avance|advanced/.test(raw)) return 'extreme';
+    if(/exam/.test(raw)) return 'examen';
     return 'normal';
   }
   function difficultyOrder(d){
@@ -2069,7 +2069,7 @@ function topicForQuestion(item){
     </div>`;
   }
   function practiceScopeKey(type, activeCursoe, moduleParam, activeDifficulty){
-    return `medPractice:v35-bugfix:${params.get('exam')?'exam':'study'}:${type}:${moduleParam || activeCursoe || 'all'}:${activeDifficulty || 'all'}`;
+    return `medPractice:v371-answer-mix:${params.get('exam')?'exam':'study'}:${type}:${moduleParam || activeCursoe || 'all'}:${activeDifficulty || 'all'}`;
   }
   function scopeLabel(selectedModule, selectedCursoe, type){
     const label = type === 'case' ? t('clinical') : (type === 'vf' ? t('vf') : 'QCM');
@@ -2088,6 +2088,88 @@ function topicForQuestion(item){
     }
     return a;
   }
+  function makeSessionSeed(){
+    return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2,12)}`;
+  }
+  function seededUint(value=''){
+    let h = 2166136261;
+    const text = String(value || '');
+    for(let i=0;i<text.length;i++){
+      h ^= text.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    h ^= h >>> 16;
+    h = Math.imul(h, 2246822507);
+    h ^= h >>> 13;
+    h = Math.imul(h, 3266489909);
+    return (h ^ (h >>> 16)) >>> 0;
+  }
+  function optionOrderForSession(item, seed){
+    const order = [0,1,2,3];
+    let state = seededUint(`${seed}|${item && item.id || item && item.question || ''}`) || 1;
+    for(let i=order.length-1;i>0;i--){
+      state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+      const j = state % (i+1);
+      [order[i],order[j]] = [order[j],order[i]];
+    }
+    return order;
+  }
+  function makeAnswerSlots(ids, seed, optionCount=4){
+    const slots = {}, total = (ids || []).length, counts = Array(optionCount).fill(0), pool = [];
+    const minPerSlot = Math.max(0, Math.floor(total / optionCount) - 2);
+    const maxPerSlot = Math.ceil(total / optionCount) + 2;
+    for(let slot=0; slot<optionCount; slot++){
+      for(let count=0; count<minPerSlot; count++){ pool.push(slot); counts[slot] += 1; }
+    }
+    while(pool.length < total){
+      let slot = seededUint(`${seed}|answer-slot|${pool.length}`) % optionCount;
+      while(counts[slot] >= maxPerSlot) slot = (slot + 1) % optionCount;
+      pool.push(slot);
+      counts[slot] += 1;
+    }
+    let state = seededUint(`${seed}|answer-slot-shuffle`) || 1;
+    for(let index=pool.length-1; index>0; index--){
+      state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+      const other = state % (index+1);
+      [pool[index],pool[other]] = [pool[other],pool[index]];
+    }
+    for(let index=3; index<pool.length; index++){
+      if(!pool.slice(index-3,index).every(slot => slot === pool[index])) continue;
+      const replacement = pool.findIndex((slot,candidateIndex) => candidateIndex > index && slot !== pool[index]);
+      if(replacement > index) [pool[index],pool[replacement]] = [pool[replacement],pool[index]];
+    }
+    (ids || []).forEach((id,index) => { slots[id] = pool[index]; });
+    return slots;
+  }
+  function reorderReasonField(field, order){
+    if(Array.isArray(field)) return order.map(oldIndex => field[oldIndex]);
+    if(!field || typeof field !== 'object') return field;
+    const out = {};
+    Object.entries(field).forEach(([key,value]) => {
+      if(!/^[A-D]$/i.test(key)) out[key] = value;
+    });
+    order.forEach((oldIndex,newIndex) => {
+      const value = field[optionLetter(oldIndex)] || field[optionLetter(oldIndex).toLowerCase()];
+      if(value != null) out[optionLetter(newIndex)] = value;
+    });
+    return out;
+  }
+  function practiceItemForSession(item, state, type){
+    if(type === 'vf' || !item || !Array.isArray(item.options) || item.options.length !== 4) return item;
+    const oldAnswer = Number(item.answerIndex);
+    if(!Number.isInteger(oldAnswer) || oldAnswer < 0 || oldAnswer > 3) return item;
+    const order = optionOrderForSession(item, state.optionSeed);
+    const targetSlot = Number(state.answerSlots && state.answerSlots[item.id]);
+    if(Number.isInteger(targetSlot) && targetSlot >= 0 && targetSlot < order.length){
+      const currentSlot = order.indexOf(oldAnswer);
+      [order[currentSlot],order[targetSlot]] = [order[targetSlot],order[currentSlot]];
+    }
+    const clone = {...item, options: order.map(oldIndex => item.options[oldIndex]), answerIndex: order.indexOf(oldAnswer)};
+    ['whyWrong','distractorExplanations','porQueLasOtrasSonFalsas'].forEach(field => {
+      if(item[field] != null) clone[field] = reorderReasonField(item[field], order);
+    });
+    return clone;
+  }
   function uniqueIds(ids){
     const out = [], seen = new Set();
     (ids || []).forEach(id => {
@@ -2101,9 +2183,43 @@ function topicForQuestion(item){
     const fresh = (unseenIds || []).filter(id => !carry.includes(id)).slice(0, needed);
     return shuffleCopy(carry.concat(fresh));
   }
+  function avoidBinaryAnswerStreaks(ids, items){
+    const byId = new Map((items || []).map(item => [item.id,item]));
+    const ordered = (ids || []).slice();
+    const answerFor = id => {
+      const item = byId.get(id);
+      return item && Array.isArray(item.options) && item.options.length === 2 ? Number(item.answerIndex) : null;
+    };
+    for(let index=3; index<ordered.length; index++){
+      const previous = [index-3,index-2,index-1].map(position => answerFor(ordered[position]));
+      const current = answerFor(ordered[index]);
+      if(current == null || !previous.every(answer => answer === current)) continue;
+      const replacement = ordered.findIndex((id,candidateIndex) => candidateIndex > index && answerFor(id) !== current);
+      if(replacement > index) [ordered[index],ordered[replacement]] = [ordered[replacement],ordered[index]];
+    }
+    return ordered;
+  }
+  function buildInitialBatch(items, order, size, seed){
+    const byId = new Map((items || []).map(item => [item.id,item]));
+    const binary = (order || []).filter(id => {
+      const item = byId.get(id);
+      return item && Array.isArray(item.options) && item.options.length === 2 && [0,1].includes(Number(item.answerIndex));
+    });
+    if(binary.length !== order.length) return buildBatchFromPools([], order, size);
+    const pools = [0,1].map(answer => order.filter(id => Number(byId.get(id).answerIndex) === answer));
+    if(!pools[0].length || !pools[1].length) return buildBatchFromPools([], order, size);
+    const variation = (seededUint(`${seed}|binary-balance`) % 5) - 2;
+    const firstCount = Math.max(1, Math.min(pools[0].length, Math.floor(size / 2) + variation));
+    const secondCount = Math.max(1, Math.min(pools[1].length, size - firstCount));
+    const selected = pools[0].slice(0,firstCount).concat(pools[1].slice(0,secondCount));
+    if(selected.length < size) selected.push(...order.filter(id => !selected.includes(id)).slice(0,size-selected.length));
+    return shuffleCopy(selected).slice(0,size);
+  }
   function makeInitialSession(items, batchSize=20){
-    const order = items.map(x => x.id);
-    const firstBatch = buildBatchFromPools([], order, batchSize);
+    const order = shuffleCopy(items.map(x => x.id));
+    const optionSeed = makeSessionSeed();
+    let firstBatch = buildInitialBatch(items, order, batchSize, optionSeed);
+    firstBatch = avoidBinaryAnswerStreaks(firstBatch, items);
     const usedFirst = new Set(firstBatch);
     return {
       order,
@@ -2123,6 +2239,8 @@ function topicForQuestion(item){
       lastAction: 'start',
       bestStreak: 0,
       batchFinished: false,
+      optionSeed,
+      answerSlots: makeAnswerSlots(firstBatch, optionSeed),
       createdAt: Date.now()
     };
   }
@@ -2149,6 +2267,8 @@ function topicForQuestion(item){
     state.bestStreak = state.bestStreak || 0;
     state.seriesNumber = state.seriesNumber || 1;
     state.batchFinished = !!state.batchFinished;
+    state.optionSeed = state.optionSeed || makeSessionSeed();
+    state.answerSlots = state.answerSlots || makeAnswerSlots(state.currentBatch, state.optionSeed);
     return state;
   }
   function loadSession(key, items, batchSize=20){
@@ -2360,13 +2480,15 @@ function topicForQuestion(item){
   }
   function startNextBatch(state, items){
     const missed = uniqueIds(batchMissedIds(state));
-    const nextBatch = buildBatchFromPools(missed, state.unseenIds || [], 20);
+    let nextBatch = buildBatchFromPools(missed, state.unseenIds || [], 20);
+    nextBatch = avoidBinaryAnswerStreaks(nextBatch, items);
     const usedFresh = new Set(nextBatch.filter(id => !missed.includes(id)));
     state.unseenIds = (state.unseenIds || []).filter(id => !usedFresh.has(id));
     state.currentBatch = nextBatch;
     state.currentIndex = 0;
     state.currentAnswers = {};
     state.currentMissedIds = [];
+    state.answerSlots = makeAnswerSlots(nextBatch, state.optionSeed);
     state.batchFinished = false;
     state.seriesNumber = (state.seriesNumber || 1) + 1;
     return state;
@@ -2432,6 +2554,7 @@ function topicForQuestion(item){
     const key = practiceScopeKey(type, activeCursoe, moduleParam, examMode ? 'examen' : activeDifficulty);
     const batchSize = examMode ? Math.min(40, items.length) : 20;
     let state = loadSession(key, items, batchSize);
+    items = items.map(item => practiceItemForSession(item, state, type));
     const batchItems = currentBatchItems(items, state);
     const total = batchItems.length;
     if(state.batchFinished || state.currentIndex >= total){

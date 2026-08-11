@@ -14,16 +14,12 @@ const stats = {
   checkedItems: 0,
   byCourse: {},
   byType: { qcm: 0, vf: 0, cases: 0 },
-  generatedAt: new Date().toISOString()
+  generatedAt: new Date().toISOString(),
+  qualitySignals: {
+    qcm: { eligible: 0, correctStrictlyLongest: 0, correctLongerThanDistractorMean: 0, obviousLengthCue: 0 },
+    cases: { eligible: 0, correctStrictlyLongest: 0, correctLongerThanDistractorMean: 0, obviousLengthCue: 0 }
+  }
 };
-const bankFiles = {
-  fisiologia: 'data/practice-bank-fisiologia.js',
-  microbiologia: 'data/practice-bank-microbiologia.js',
-  genetica: 'data/practice-bank-genetica.js',
-  bioquimica: 'data/practice-bank-bioquimica.js',
-  inmunologia: 'data/practice-bank-inmunologia.js'
-};
-
 function record(list, severity, message, meta = {}) {
   list.push({ severity, message, ...meta });
 }
@@ -83,6 +79,18 @@ function addStat(courseId, format) {
   stats.byCourse[courseId].total += 1;
   stats.byCourse[courseId][format] += 1;
 }
+function addLengthSignals(format, options, answerIndex) {
+  if (!['qcm', 'cases'].includes(format) || options.length !== 4 || answerIndex == null) return;
+  const lengths = options.map((option) => clean(option).length);
+  const correctLength = lengths[answerIndex];
+  const distractors = lengths.filter((_, index) => index !== answerIndex);
+  const secondLongest = distractors.slice().sort((a, b) => b - a)[0] || 0;
+  const signal = stats.qualitySignals[format];
+  signal.eligible += 1;
+  if (lengths.filter((length) => length === Math.max(...lengths)).length === 1 && correctLength === Math.max(...lengths)) signal.correctStrictlyLongest += 1;
+  if (correctLength > distractors.reduce((sum, length) => sum + length, 0) / distractors.length) signal.correctLongerThanDistractorMean += 1;
+  if (correctLength >= secondLongest * 1.2 && correctLength - secondLongest >= 12) signal.obviousLengthCue += 1;
+}
 function ensureReportDir() {
   fs.mkdirSync(reportDir, { recursive: true });
 }
@@ -108,7 +116,9 @@ function writeReports() {
       warningCount: warnings.length,
       courses: Object.keys(stats.byCourse).length,
       byType: stats.byType,
-      byCourse: stats.byCourse
+      byCourse: stats.byCourse,
+      qualitySignals: stats.qualitySignals,
+      runtimeScripts: stats.runtimeScripts
     },
     failures: problems,
     warnings,
@@ -129,6 +139,12 @@ function writeReports() {
     lines.push(`- ${course}: total=${value.total}, qcm=${value.qcm}, vf=${value.vf}, cases=${value.cases}`);
   });
   lines.push('');
+  lines.push('Length-cue signals (content debt, measured on the final runtime bank):');
+  Object.entries(stats.qualitySignals).forEach(([format, value]) => {
+    const pct = (count) => value.eligible ? `${(count * 100 / value.eligible).toFixed(1)}%` : '0.0%';
+    lines.push(`- ${format}: eligible=${value.eligible}, strictly-longest=${value.correctStrictlyLongest} (${pct(value.correctStrictlyLongest)}), longer-than-distractor-mean=${value.correctLongerThanDistractorMean} (${pct(value.correctLongerThanDistractorMean)}), obvious-cue=${value.obviousLengthCue} (${pct(value.obviousLengthCue)})`);
+  });
+  lines.push('');
   lines.push('Failures:');
   if (!problems.length) lines.push('- none');
   problems.forEach((item, index) => lines.push(`${index + 1}. ${item.message}`));
@@ -144,17 +160,27 @@ function writeReports() {
   fs.writeFileSync(reportTxtPath, lines.join('\n') + '\n');
 }
 
+const runtimeScripts = [];
 const context = vm.createContext({
   window: {},
   console: { log() {}, warn() {}, error() {} },
-  document: { write() {}, body: { dataset: {} } },
-  localStorage: {}
+  document: {
+    write(html) {
+      const match = String(html || '').match(/src=["']data\/([^?"']+)/i);
+      if (match) runtimeScripts.push(`data/${match[1]}`);
+    },
+    body: { dataset: { page: 'practice' } }
+  },
+  localStorage: {},
+  location: { search: '' },
+  URLSearchParams
 });
 run('data/med-courses-data.js', read('data/med-courses-data.js'), context);
 run('data/med-practice-bank-init.js', read('data/med-practice-bank-init.js'), context);
-Object.entries(bankFiles).forEach(([course, file]) => run(file, read(file), context));
-context.window.MED_PRACTICE_BANK_LAZY_WANTED = Object.keys(bankFiles);
-run('data/practice-bank-functional-fallback-v360.js', read('data/practice-bank-functional-fallback-v360.js'), context);
+run('data/med-practice-bank-loader.js', read('data/med-practice-bank-loader.js'), context);
+runtimeScripts.forEach((file) => run(file, read(file), context));
+if (!runtimeScripts.length) fail('Runtime loader did not request any practice-bank scripts', { type: 'runtime-loader-empty' });
+stats.runtimeScripts = runtimeScripts.slice();
 
 const bankRoot = context.window.MED_PRACTICE_BANK || {};
 const byCourse = bankRoot.byCourse || {};
@@ -213,6 +239,7 @@ for (const [courseId, bank] of Object.entries(byCourse)) {
       const stem = clean(item.stem || item.case || item.context || '');
       const options = Array.isArray(item.options) ? item.options.map(optionText) : [];
       const answerIndex = answerIndexOf(item, options);
+      addLengthSignals(format, options, answerIndex);
 
       if (format === 'qcm') {
         if (question.length < 8) warn(`${where}: QCM question is very short`, { ...baseMeta, type: 'short-question' });
@@ -284,6 +311,21 @@ if (boilerplatePrompts.length) {
     samples: boilerplatePrompts.slice(0, 100)
   });
 }
+
+Object.entries(stats.qualitySignals).forEach(([format, signal]) => {
+  if (!signal.eligible) return;
+  const longestRate = signal.correctStrictlyLongest / signal.eligible;
+  const obviousRate = signal.obviousLengthCue / signal.eligible;
+  if (longestRate > 0.4 || obviousRate > 0.2) {
+    warn(`${format}: answer-length cue remains elevated (${(longestRate * 100).toFixed(1)}% strictly longest; ${(obviousRate * 100).toFixed(1)}% obvious margin)`, {
+      format,
+      type: 'answer-length-cue-debt',
+      eligible: signal.eligible,
+      correctStrictlyLongest: signal.correctStrictlyLongest,
+      obviousLengthCue: signal.obviousLengthCue
+    });
+  }
+});
 
 if (stats.checkedItems < 1000) fail(`Expected to check at least 1000 bank items, got ${stats.checkedItems}`, { type: 'too-few-items', checkedItems: stats.checkedItems });
 

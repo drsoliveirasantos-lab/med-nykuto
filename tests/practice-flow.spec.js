@@ -3,7 +3,7 @@ const { test, expect } = require('@playwright/test');
 const CARD_SELECTOR = '.single-question-card';
 const ANSWER_SELECTOR = `${CARD_SELECTOR} button.option[data-option]`;
 const CORRECTION_READY_SELECTOR = `${CARD_SELECTOR} .answer-panel:not([hidden])`;
-const CURRENT_PRACTICE_LOADER = 'v370';
+const CURRENT_PRACTICE_LOADER = 'v371';
 const CURRENT_RUNTIME_GUARD = 'v362';
 
 async function waitPracticeLoader(page) {
