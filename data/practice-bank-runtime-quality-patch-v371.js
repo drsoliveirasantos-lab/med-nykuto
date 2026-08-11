@@ -29,5 +29,11 @@
     "02-microbiologia-01-estructura-bacteriana-y-patogenicidad-case-021-v323",
     "¿Qué significado tienen dos hemocultivos concordantes en este contexto clínico?"
   );
+  updateQuestion(
+    "microbiologia",
+    "cases",
+    "02-microbiologia-06-chlamydia-mycoplasma-y-ureaplasma-case-036-v171",
+    "¿Qué hallazgo permite diferenciar una infección por Chlamydia de otras causas de uretritis o cervicitis?"
+  );
   root.__RUNTIME_QUALITY_PATCH__ = "v371";
 })();

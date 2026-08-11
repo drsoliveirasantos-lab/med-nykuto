@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-const CURRENT_PRACTICE_LOADER = 'v372';
+const CURRENT_PRACTICE_LOADER = 'v373';
 const CURRENT_RUNTIME_GUARD = 'v362';
 const EXPECTED_TOTAL_MODULES = 59;
 

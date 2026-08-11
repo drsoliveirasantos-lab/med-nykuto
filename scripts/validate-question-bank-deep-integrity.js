@@ -241,6 +241,9 @@ for (const [courseId, bank] of Object.entries(byCourse)) {
       const question = clean(item.question || item.prompt || '');
       const stem = clean(item.stem || item.case || item.context || '');
       const options = Array.isArray(item.options) ? item.options.map(optionText) : [];
+      if (/validation-only|\b(?:qcm|vf|case)s?-\d{2,3}-v\d+\b/i.test(question)) {
+        fail(`${where}: technical identifier leaked into visible question`, { ...baseMeta, type: 'technical-id-in-question', question });
+      }
       const answerIndex = answerIndexOf(item, options);
       addLengthSignals(format, options, answerIndex);
 

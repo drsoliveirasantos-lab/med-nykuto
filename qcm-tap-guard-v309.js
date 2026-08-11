@@ -1,11 +1,11 @@
-/* v318 — QCM instant renderer with coherent localized pedagogical feedback.
+/* v319 — QCM instant renderer preserving authored medical questions.
    Answers and Next are handled in-place on QCM, so app.bundle.js does not repaint the whole practice list after every tap.
    Adds a clean progress bar, visible justification, detailed rationale, distractor explanations and a point-key block. */
 (function(){
   'use strict';
 
   window.__MED_NYKUTO_RUNTIME_GUARD__ = 'v362';
-  window.__MED_NYKUTO_QCM_INSTANT_RENDER__ = 'v318-localized-feedback-in-place';
+  window.__MED_NYKUTO_QCM_INSTANT_RENDER__ = 'v319-authored-question-preserved';
 
   var moved = false;
   var sx = 0;
@@ -38,13 +38,18 @@
   }
   function difficultyOrder(x){ var k = typeof x === 'string' ? x : difficultyKey(x); return k === 'normal' ? 0 : k === 'difficile' ? 1 : k === 'extreme' ? 2 : k === 'examen' ? 3 : 4; }
   function topic(item){
-    var list = [item && item.heading, item && item.moduleTitle, item && item.question, item && item.stem].map(clean).filter(Boolean);
-    var t = list.find(function(x){ return !/(caso clínico|pregunta|marca la opción|identifica la opción|desde el punto de vista)/i.test(x); }) || clean(item && item.moduleTitle || 'este tema');
+    var list = [item && item.question, item && item.moduleTitle, item && item.heading, item && item.stem].map(clean).filter(Boolean);
+    var t = list.find(function(x){
+      return !/(caso clínico|pregunta|marca la opción|identifica la opción|desde el punto de vista|validation-only)/i.test(x)
+        && !/\b(?:qcm|vf|case)s?-\d{2,3}-v\d+\b/i.test(x);
+    }) || clean(item && item.moduleTitle || 'este tema');
     t = t.replace(/^Módulo\s+\d+\s*-\s*/i,'').trim();
     if(t.length > 70) t = t.slice(0,70).replace(/\s+\S*$/,'') + '…';
     return t || 'este tema';
   }
   function questionText(item){
+    var original = clean(item && item.question || '');
+    if(original.length >= 18 && /[¿?]/.test(original) && !/validation-only|\b(?:qcm|vf|case)s?-\d{2,3}-v\d+\b/i.test(original)) return original;
     var k = difficultyKey(item), t = topic(item);
     if(k === 'normal') return '¿Qué opción describe correctamente ' + t + '?';
     if(k === 'difficile') return '¿Cuál es la relación fisiológica más correcta sobre ' + t + '?';

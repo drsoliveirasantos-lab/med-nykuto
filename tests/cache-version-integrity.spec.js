@@ -13,10 +13,10 @@ test.describe('Cache and version integrity', () => {
     await page.goto('/qcm.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
     const sources = await scriptSources(page);
     expect(hasSource(sources, /app\.bundle\.js\?v=371/)).toBeTruthy();
-    expect(hasSource(sources, /qcm-tap-guard-v309\.js\?v=318/)).toBeTruthy();
+    expect(hasSource(sources, /qcm-tap-guard-v309\.js\?v=319/)).toBeTruthy();
     expect(hasSource(sources, /site-global-polish-v310\.js\?v=379/)).toBeTruthy();
     await page.waitForFunction(() => window.__MED_NYKUTO_QCM_INSTANT_RENDER__, null, { timeout: 20000 });
-    await expect.poll(() => page.evaluate(() => window.__MED_NYKUTO_QCM_INSTANT_RENDER__)).toMatch(/^v318-/);
+    await expect.poll(() => page.evaluate(() => window.__MED_NYKUTO_QCM_INSTANT_RENDER__)).toMatch(/^v319-/);
   });
 
   test('Casos clínicos loads native instant renderer and no legacy premium overlay', async ({ page }) => {

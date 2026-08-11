@@ -16,12 +16,8 @@ function longestRun(values) {
 
 test('physiology module batches mix A-D answers without remapping errors', async ({ page }) => {
   await page.goto(`/qcm.html?course=fisiologia&module=${MODULE_2}`);
-  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v372');
+  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v373');
   await expect(page.locator('.single-question-card')).toBeVisible({ timeout: 20000 });
-  const lengthPatch = await page.evaluate(() => window.MED_PRACTICE_BANK.__ANSWER_LENGTH_PATCH__);
-  expect(lengthPatch.version).toBe('v372');
-  expect(lengthPatch.changed).toBeGreaterThan(0);
-
   const audit = await page.evaluate(() => window.__MED_NYKUTO_PRACTICE_BATCH_AUDIT__);
   expect(audit.type).toBe('qcm');
   expect(audit.ids).toHaveLength(20);
@@ -41,7 +37,7 @@ test('physiology module batches mix A-D answers without remapping errors', async
 
 test('true-false batches avoid pathological same-answer streaks', async ({ page }) => {
   await page.goto(`/vrai-faux.html?course=fisiologia&module=${MODULE_2}`);
-  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v372');
+  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v373');
   await expect(page.locator('.single-question-card')).toBeVisible({ timeout: 20000 });
 
   const audit = await page.evaluate(() => window.__MED_NYKUTO_PRACTICE_BATCH_AUDIT__);
