@@ -16,8 +16,8 @@ const stats = {
   byType: { qcm: 0, vf: 0, cases: 0 },
   generatedAt: new Date().toISOString(),
   qualitySignals: {
-    qcm: { eligible: 0, correctStrictlyLongest: 0, correctLongerThanDistractorMean: 0, obviousLengthCue: 0 },
-    cases: { eligible: 0, correctStrictlyLongest: 0, correctLongerThanDistractorMean: 0, obviousLengthCue: 0 }
+    qcm: { eligible: 0, correctStrictlyLongest: 0, correctStrictlyShortest: 0, correctLongerThanDistractorMean: 0, obviousLengthCue: 0, obviousShortCue: 0 },
+    cases: { eligible: 0, correctStrictlyLongest: 0, correctStrictlyShortest: 0, correctLongerThanDistractorMean: 0, obviousLengthCue: 0, obviousShortCue: 0 }
   }
 };
 function record(list, severity, message, meta = {}) {
@@ -85,11 +85,14 @@ function addLengthSignals(format, options, answerIndex) {
   const correctLength = lengths[answerIndex];
   const distractors = lengths.filter((_, index) => index !== answerIndex);
   const secondLongest = distractors.slice().sort((a, b) => b - a)[0] || 0;
+  const shortestDistractor = distractors.slice().sort((a, b) => a - b)[0] || 0;
   const signal = stats.qualitySignals[format];
   signal.eligible += 1;
   if (lengths.filter((length) => length === Math.max(...lengths)).length === 1 && correctLength === Math.max(...lengths)) signal.correctStrictlyLongest += 1;
+  if (lengths.filter((length) => length === Math.min(...lengths)).length === 1 && correctLength === Math.min(...lengths)) signal.correctStrictlyShortest += 1;
   if (correctLength > distractors.reduce((sum, length) => sum + length, 0) / distractors.length) signal.correctLongerThanDistractorMean += 1;
   if (correctLength >= secondLongest * 1.2 && correctLength - secondLongest >= 12) signal.obviousLengthCue += 1;
+  if (shortestDistractor >= correctLength * 1.2 && shortestDistractor - correctLength >= 12) signal.obviousShortCue += 1;
 }
 function ensureReportDir() {
   fs.mkdirSync(reportDir, { recursive: true });
@@ -142,7 +145,7 @@ function writeReports() {
   lines.push('Length-cue signals (content debt, measured on the final runtime bank):');
   Object.entries(stats.qualitySignals).forEach(([format, value]) => {
     const pct = (count) => value.eligible ? `${(count * 100 / value.eligible).toFixed(1)}%` : '0.0%';
-    lines.push(`- ${format}: eligible=${value.eligible}, strictly-longest=${value.correctStrictlyLongest} (${pct(value.correctStrictlyLongest)}), longer-than-distractor-mean=${value.correctLongerThanDistractorMean} (${pct(value.correctLongerThanDistractorMean)}), obvious-cue=${value.obviousLengthCue} (${pct(value.obviousLengthCue)})`);
+    lines.push(`- ${format}: eligible=${value.eligible}, strictly-longest=${value.correctStrictlyLongest} (${pct(value.correctStrictlyLongest)}), strictly-shortest=${value.correctStrictlyShortest} (${pct(value.correctStrictlyShortest)}), longer-than-distractor-mean=${value.correctLongerThanDistractorMean} (${pct(value.correctLongerThanDistractorMean)}), obvious-long-cue=${value.obviousLengthCue} (${pct(value.obviousLengthCue)}), obvious-short-cue=${value.obviousShortCue} (${pct(value.obviousShortCue)})`);
   });
   lines.push('');
   lines.push('Failures:');
@@ -316,13 +319,15 @@ Object.entries(stats.qualitySignals).forEach(([format, signal]) => {
   if (!signal.eligible) return;
   const longestRate = signal.correctStrictlyLongest / signal.eligible;
   const obviousRate = signal.obviousLengthCue / signal.eligible;
-  if (longestRate > 0.4 || obviousRate > 0.2) {
-    warn(`${format}: answer-length cue remains elevated (${(longestRate * 100).toFixed(1)}% strictly longest; ${(obviousRate * 100).toFixed(1)}% obvious margin)`, {
+  const obviousShortRate = signal.obviousShortCue / signal.eligible;
+  if (longestRate > 0.35 || obviousRate > 0.01 || obviousShortRate > 0.01) {
+    warn(`${format}: answer-length cue remains elevated (${(longestRate * 100).toFixed(1)}% strictly longest; ${(obviousRate * 100).toFixed(1)}% obvious long; ${(obviousShortRate * 100).toFixed(1)}% obvious short)`, {
       format,
       type: 'answer-length-cue-debt',
       eligible: signal.eligible,
       correctStrictlyLongest: signal.correctStrictlyLongest,
-      obviousLengthCue: signal.obviousLengthCue
+      obviousLengthCue: signal.obviousLengthCue,
+      obviousShortCue: signal.obviousShortCue
     });
   }
 });

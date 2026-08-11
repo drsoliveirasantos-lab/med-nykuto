@@ -1,6 +1,6 @@
 {
   "siteName": "Med Nykuto",
-  "release": "v371-answer-randomization",
+  "release": "v372-answer-length-balance",
   "branch": "main",
   "generatedAt": "2026-08-11",
   "deployment": {
@@ -29,6 +29,7 @@
     "data/med-practice-bank-loader.js",
     "data/practice-bank-functional-fallback-v360.js",
     "data/practice-bank-runtime-quality-patch-v371.js",
+    "data/practice-bank-answer-length-patch-v372.js",
     "site-global-polish-v310.js",
     "med-nykuto-global-fix-v358.js",
     "med-nykuto-runtime-guard-v361.js"
@@ -52,7 +53,7 @@
     "runtimeHealthVersion": "v362",
     "contactFallback": "local-copy",
     "questionFeedbackFallback": "local-copy",
-    "practiceLoaderCacheVersion": "v371",
+    "practiceLoaderCacheVersion": "v372",
     "fallbackMode": "complete-missing-formats-only"
   },
   "contentWarning": "Course and practice data were restored from the recovered legacy split files. Fallback is kept only as a safety layer for missing formats."
