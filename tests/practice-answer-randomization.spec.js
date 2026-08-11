@@ -26,7 +26,7 @@ test('physiology module batches mix A-D answers without remapping errors', async
     await expect(correct).toHaveCount(1);
     positions.push(Number(await correct.getAttribute('data-option')));
     if (index < 19) {
-      await page.locator('[data-action="next-question"]').click({ force: true });
+      await page.locator('.single-question-card [data-action="next-question"]').first().click({ force: true });
       await expect(page.locator('.single-question-card .option:not([disabled])').first()).toBeVisible();
     }
   }
@@ -49,7 +49,10 @@ test('true-false batches avoid pathological same-answer streaks', async ({ page 
     const correct = page.locator('.single-question-card .option.correct');
     await expect(correct).toHaveCount(1);
     positions.push(Number(await correct.getAttribute('data-option')));
-    if (index < 19) await page.locator('[data-action="next-question"]').click({ force: true });
+    if (index < 19) {
+      await page.locator('.single-question-card [data-action="next-question"]').first().click({ force: true });
+      await expect(page.locator('.single-question-card .option:not([disabled])').first()).toBeVisible();
+    }
   }
 
   expect(new Set(positions).size).toBe(2);
