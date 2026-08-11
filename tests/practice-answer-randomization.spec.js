@@ -21,13 +21,19 @@ test('physiology module batches mix A-D answers without remapping errors', async
 
   const positions = [];
   for (let index = 0; index < 20; index += 1) {
-    await page.locator('.single-question-card .option').first().click({ force: true });
+    const answer = page.locator('.single-question-card .option').first();
+    await expect(answer).toBeEnabled();
+    await answer.click();
     const correct = page.locator('.single-question-card .option.correct');
     await expect(correct).toHaveCount(1);
     positions.push(Number(await correct.getAttribute('data-option')));
     if (index < 19) {
       const previousQuestionId = await page.locator('.single-question-card').getAttribute('id');
-      await page.locator('.single-question-card [data-action="next-question"]').first().click({ force: true });
+      const next = page.locator('.single-question-card [data-action="next-question"]').first();
+      await expect(next).toBeVisible();
+      await expect(next).toBeEnabled();
+      await next.scrollIntoViewIfNeeded();
+      await next.click();
       await expect(page.locator('.single-question-card')).not.toHaveAttribute('id', previousQuestionId);
       await expect(page.locator('.single-question-card .option').first()).toBeVisible();
     }
@@ -47,13 +53,19 @@ test('true-false batches avoid pathological same-answer streaks', async ({ page 
 
   const positions = [];
   for (let index = 0; index < 20; index += 1) {
-    await page.locator('.single-question-card .option').first().click({ force: true });
+    const answer = page.locator('.single-question-card .option').first();
+    await expect(answer).toBeEnabled();
+    await answer.click();
     const correct = page.locator('.single-question-card .option.correct');
     await expect(correct).toHaveCount(1);
     positions.push(Number(await correct.getAttribute('data-option')));
     if (index < 19) {
       const previousQuestionId = await page.locator('.single-question-card').getAttribute('id');
-      await page.locator('.single-question-card [data-action="next-question"]').first().click({ force: true });
+      const next = page.locator('.single-question-card [data-action="next-question"]').first();
+      await expect(next).toBeVisible();
+      await expect(next).toBeEnabled();
+      await next.scrollIntoViewIfNeeded();
+      await next.click();
       await expect(page.locator('.single-question-card')).not.toHaveAttribute('id', previousQuestionId);
       await expect(page.locator('.single-question-card .option').first()).toBeVisible();
     }
