@@ -14,6 +14,15 @@ function longestRun(values) {
   return longest;
 }
 
+async function readPracticeSession(page, type) {
+  return page.evaluate((practiceType) => {
+    const prefix = `medPractice:v371-answer-mix:study:${practiceType}:`;
+    const keys = Array.from({ length: localStorage.length }, (_, index) => localStorage.key(index));
+    const key = keys.find((entry) => entry && entry.startsWith(prefix));
+    return key ? JSON.parse(localStorage.getItem(key)) : null;
+  }, type);
+}
+
 test('physiology module batches mix A-D answers without remapping errors', async ({ page }) => {
   await page.goto(`/qcm.html?course=fisiologia&module=${MODULE_2}`);
   await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v371');
@@ -22,10 +31,8 @@ test('physiology module batches mix A-D answers without remapping errors', async
   await page.locator('.single-question-card .option').first().click();
   const correct = page.locator('.single-question-card .option.correct');
   await expect(correct).toHaveCount(1);
-  const session = await page.evaluate(() => {
-    const key = Object.keys(localStorage).find((entry) => entry.startsWith('medPractice:v371-answer-mix:study:qcm:'));
-    return key ? JSON.parse(localStorage.getItem(key)) : null;
-  });
+  await expect.poll(() => readPracticeSession(page, 'qcm')).toBeTruthy();
+  const session = await readPracticeSession(page, 'qcm');
   expect(session).toBeTruthy();
   const positions = session.currentBatch.map((id) => session.answerSlots[id]);
   expect(Number(await correct.getAttribute('data-option'))).toBe(positions[0]);
@@ -43,8 +50,10 @@ test('true-false batches avoid pathological same-answer streaks', async ({ page 
   await expect(page.locator('.single-question-card')).toBeVisible({ timeout: 20000 });
 
   await page.locator('.single-question-card .option').first().click();
+  await expect.poll(() => readPracticeSession(page, 'vf')).toBeTruthy();
   const positions = await page.evaluate(() => {
-    const key = Object.keys(localStorage).find((entry) => entry.startsWith('medPractice:v371-answer-mix:study:vf:'));
+    const keys = Array.from({ length: localStorage.length }, (_, index) => localStorage.key(index));
+    const key = keys.find((entry) => entry && entry.startsWith('medPractice:v371-answer-mix:study:vf:'));
     const session = key ? JSON.parse(localStorage.getItem(key)) : null;
     const byId = new Map();
     const visit = (value) => {
