@@ -2154,6 +2154,11 @@ function topicForQuestion(item){
     });
     return out;
   }
+  function remapCorrectLetterText(value, oldAnswer, newAnswer){
+    if(typeof value !== 'string' || oldAnswer === newAnswer) return value;
+    const oldLetter = optionLetter(oldAnswer), newLetter = optionLetter(newAnswer);
+    return value.replace(new RegExp(`((?:respuesta|réponse|resposta)\\s+(?:correcta|correcte|correta)(?:\\s+es|\\s+est|\\s+é|\\s*:)?\\s*)${oldLetter}\\b`, 'gi'), `$1${newLetter}`);
+  }
   function practiceItemForSession(item, state, type){
     if(type === 'vf' || !item || !Array.isArray(item.options) || item.options.length !== 4) return item;
     const oldAnswer = Number(item.answerIndex);
@@ -2167,6 +2172,9 @@ function topicForQuestion(item){
     const clone = {...item, options: order.map(oldIndex => item.options[oldIndex]), answerIndex: order.indexOf(oldAnswer)};
     ['whyWrong','distractorExplanations','porQueLasOtrasSonFalsas'].forEach(field => {
       if(item[field] != null) clone[field] = reorderReasonField(item[field], order);
+    });
+    ['explanation','feedback','rationale','justification','correction','correctRationale','correctExplanation','explanationShort','shortExplanation','explanationLong','longExplanation','detailedExplanation'].forEach(field => {
+      if(item[field] != null) clone[field] = remapCorrectLetterText(item[field], oldAnswer, clone.answerIndex);
     });
     return clone;
   }
@@ -2564,7 +2572,8 @@ function topicForQuestion(item){
     window.__MED_NYKUTO_PRACTICE_BATCH_AUDIT__ = {
       type,
       ids: batchItems.map(item => item.id),
-      answerPositions: batchItems.map(item => Number(item.answerIndex))
+      answerPositions: batchItems.map(item => Number(item.answerIndex)),
+      items: batchItems
     };
     const total = batchItems.length;
     if(state.batchFinished || state.currentIndex >= total){

@@ -1,11 +1,11 @@
-/* v319 — QCM instant renderer preserving authored medical questions.
+/* v320 — QCM instant renderer synchronized with shuffled session items.
    Answers and Next are handled in-place on QCM, so app.bundle.js does not repaint the whole practice list after every tap.
    Adds a clean progress bar, visible justification, detailed rationale, distractor explanations and a point-key block. */
 (function(){
   'use strict';
 
   window.__MED_NYKUTO_RUNTIME_GUARD__ = 'v362';
-  window.__MED_NYKUTO_QCM_INSTANT_RENDER__ = 'v319-authored-question-preserved';
+  window.__MED_NYKUTO_QCM_INSTANT_RENDER__ = 'v320-shuffled-session-synchronized';
 
   var moved = false;
   var sx = 0;
@@ -113,9 +113,16 @@
     items = items.slice().sort(function(a,b){ return difficultyOrder(a) - difficultyOrder(b) || Number(a.moduleNumber || 0) - Number(b.moduleNumber || 0) || String(a.id).localeCompare(String(b.id)); });
     if(level === 'all') items = items.slice().sort(function(a,b){ return hash('qcm|' + course + '|' + moduleId + '|' + a.id) - hash('qcm|' + course + '|' + moduleId + '|' + b.id); });
     else items = items.filter(function(x){ return difficultyKey(x) === level; });
-    return {items:items, course:course, moduleId:moduleId, level:level};
+    var audit = window.__MED_NYKUTO_PRACTICE_BATCH_AUDIT__;
+    var preferredBatch = [];
+    if(audit && audit.type === 'qcm' && Array.isArray(audit.items)){
+      var mapped = {}; audit.items.forEach(function(item){ if(item && item.id) mapped[item.id] = item; });
+      items = items.map(function(item){ return mapped[item.id] || item; });
+      preferredBatch = (audit.ids || []).filter(function(id){ return !!mapped[id]; });
+    }
+    return {items:items, course:course, moduleId:moduleId, level:level, preferredBatch:preferredBatch};
   }
-  function scopeKey(info){ return 'medPractice:v35-bugfix:study:qcm:' + (info.moduleId || info.course || 'all') + ':' + (info.level || 'all'); }
+  function scopeKey(info){ return 'medPractice:v320-shuffled-sync:study:qcm:' + (info.moduleId || info.course || 'all') + ':' + (info.level || 'all'); }
   function unique(ids){ var out = [], seen = {}; (ids || []).forEach(function(id){ if(id && !seen[id]){ seen[id] = 1; out.push(id); } }); return out; }
   function stateFor(cardId){
     var info = bankInfo();
@@ -125,7 +132,8 @@
     try{ state = JSON.parse(localStorage.getItem(key) || 'null'); }catch(e){ state = null; }
     if(!state || state.signature !== signature || !Array.isArray(state.currentBatch)){
       var ids = info.items.map(function(x){ return x.id; });
-      var batch = unique([cardId].concat(ids.filter(function(id){ return id !== cardId; }))).slice(0,20);
+      var preferred = unique(info.preferredBatch || []).filter(function(id){ return ids.indexOf(id) >= 0; });
+      var batch = preferred.length ? preferred.slice(0,20) : unique([cardId].concat(ids.filter(function(id){ return id !== cardId; }))).slice(0,20);
       var used = {}; batch.forEach(function(id){ used[id] = 1; });
       state = {order:ids, unseenIds:ids.filter(function(id){ return !used[id]; }), currentBatch:batch, currentIndex:Math.max(0, batch.indexOf(cardId)), seriesNumber:1, currentAnswers:{}, currentMissedIds:[], history:{}, correct:0, answered:0, streak:0, missStreak:0, unknown:0, unknownStreak:0, lastAction:'start', bestStreak:0, batchFinished:false, createdAt:Date.now(), signature:signature};
     }

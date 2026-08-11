@@ -26,7 +26,14 @@ test('physiology module batches mix A-D answers without remapping errors', async
   await page.locator('.single-question-card .option').first().click();
   const correct = page.locator('.single-question-card .option.correct');
   await expect(correct).toHaveCount(1);
-  expect(Number(await correct.getAttribute('data-option'))).toBe(positions[0]);
+  const displayedCorrect = Number(await correct.getAttribute('data-option'));
+  expect(displayedCorrect).toBe(positions[0]);
+  const correction = page.locator('.single-question-card .answer-panel:not([hidden])');
+  await expect(correction).toContainText(`Buena respuesta: ${String.fromCharCode(65 + displayedCorrect)}`);
+  if (displayedCorrect === 0) await expect(correction.locator('.qcm-feedback-pill')).toContainText('Correcta');
+  else await expect(correction.locator('.qcm-feedback-pill')).toContainText('Incorrecta');
+  const mentionedLetters = (await correction.innerText()).match(/respuesta correcta (?:es|:)\s*([A-D])/gi) || [];
+  mentionedLetters.forEach((mention) => expect(mention.toUpperCase()).toContain(String.fromCharCode(65 + displayedCorrect)));
 
   const counts = [0, 0, 0, 0];
   positions.forEach((position) => { counts[position] += 1; });
