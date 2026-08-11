@@ -1,4 +1,4 @@
-/* v379 — Global Med Nykuto polish layer with coherent ES/FR/BR rendering.
+/* v380 — Global Med Nykuto polish layer with coherent ES/FR/BR rendering.
    Applies identity, language, cache-visible UI text, logo/home behavior, optional public-first auth, course image zoom and practice-page safety.
    Quiet-page rule: module/practice/exam/mistakes pages must not load forced global repair/debug layers or delayed global refresh passes while the user is reading or answering.
    Quiet pages expose lightweight runtime/health markers, local feedback fallback, and brand text cleanup without forced runtime repaint layers. */
@@ -7,7 +7,19 @@
 
   var SITE_NAME = 'Med Nykuto';
   var HOST = 'https://med.nykuto.com/';
-  var CACHE_VERSION = '379';
+  var CACHE_VERSION = '380';
+
+  function enforceSemesterScope(){
+    var semester = '';
+    try{ semester = localStorage.getItem('medNykuto:studentSemester') || ''; }catch(e){}
+    if(semester !== 's4' && semester !== 's5') return false;
+    var protectedPage = /^(matieres|matiere|modules|module|qcm|cas-cliniques|vrai-faux|erreurs|examen)\.html$/.test(location.pathname.split('/').pop() || '');
+    if(!protectedPage) return false;
+    location.replace('index.html?semestre=' + encodeURIComponent(semester) + '&contenido=proximamente');
+    return true;
+  }
+
+  if(enforceSemesterScope()) return;
 
   function text(el,v){ if(el && v != null) el.textContent = v; }
   function all(sel,root){ return Array.from((root||document).querySelectorAll(sel)); }
@@ -402,7 +414,7 @@
     installQuietQuestionFeedbackFallback();
     injectGlobalStyle();
     loadGlobalRepairLayers();
-    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v379-multilingual-loader';
+    window.__MED_NYKUTO_GLOBAL_POLISH__ = 'v380-multilingual-loader';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();

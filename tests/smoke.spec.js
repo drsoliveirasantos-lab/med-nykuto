@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-const CURRENT_GLOBAL_POLISH = 'v379-multilingual-loader';
+const CURRENT_GLOBAL_POLISH = 'v380-multilingual-loader';
 const CURRENT_RUNTIME_GUARD = 'v362';
 const CURRENT_MODULE_READER = 'v107-visible-reader-mode-tabs';
 const EXPECTED_TOTAL_MODULES = 59;
@@ -75,9 +75,9 @@ test.describe('Med Nykuto smoke navigation', () => {
   });
 
   test('homepage subject picker opens as a modal and routes selection correctly', async ({ page }) => {
-    await page.addInitScript(() => localStorage.setItem('medNykuto:studentSemester', 's4'));
+    await page.addInitScript(() => localStorage.setItem('medNykuto:studentSemester', 's3'));
     await page.goto('/index.html');
-    await page.waitForFunction(() => window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ === 'v371-semester-profile', null, { timeout: 20000 });
+    await page.waitForFunction(() => window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ === 'v372-semester-catalog-isolation', null, { timeout: 20000 });
     const trigger = page.locator('[data-testid="home-subject-picker-trigger"]').first();
     await expect(trigger).toBeVisible();
     await trigger.click();
@@ -99,9 +99,28 @@ test.describe('Med Nykuto smoke navigation', () => {
     await expect(page.locator('#homeSemesterModal')).not.toHaveClass(/open/);
     await expect(page.locator('#homeSemesterCard')).toContainText('Semestre 4 seleccionado');
     await expect(page.locator('#homeSemesterCard')).toContainText('agosto y diciembre de 2026');
+    await expect(page.locator('#statModules')).toHaveText('0');
+    await expect(page.locator('#statCursoes')).toHaveText('6');
+    await page.locator('[data-testid="home-subject-picker-trigger"]').first().click();
+    await expect(page.locator('[data-testid="home-subject-choice"]')).toHaveCount(6);
+    await expect(page.locator('[data-testid="home-subject-choice"]')).toContainText(['Fisiología II','Microbiología II','Bioquímica II','Nutrición','Epidemiología y Salud Pública','Bioética']);
+    await expect(page.locator('[data-testid="home-subject-choice"]').first()).toContainText('0 módulos');
+    await page.locator('[data-home-course-id="fisiologia-2"]').click();
+    await expect(page.locator('[data-testid="home-module-choice"]')).toHaveCount(0);
+    await expect(page.locator('.home-pick-empty')).toContainText('No hay módulos disponibles');
+    await page.locator('[data-home-pick-close]').click();
     await page.reload();
     await expect(page.locator('#homeSemesterModal')).not.toHaveClass(/open/);
     await expect(page.locator('#homeSemesterCard')).toContainText('Semestre 4 seleccionado');
+  });
+
+  test('semester 4 cannot open semester 3 courses or practice by direct URL', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('medNykuto:studentSemester', 's4'));
+    await page.goto('/qcm.html?course=fisiologia');
+    await expect(page).toHaveURL(/index\.html\?semestre=s4&contenido=proximamente/);
+    await expect(page.locator('#statModules')).toHaveText('0');
+    await expect(page.locator('#subjectProgressGrid')).toContainText('Fisiología II');
+    await expect(page.locator('#subjectProgressGrid')).not.toContainText('Genética');
   });
 
   test('Spanish is the coherent default when no language preference is stored', async ({ page }) => {
@@ -119,6 +138,7 @@ test.describe('Med Nykuto smoke navigation', () => {
   });
 
   test('homepage language switch keeps the navigation and primary content coherent', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('medNykuto:studentSemester', 's3'));
     await page.goto('/index.html');
     await page.locator('button[data-lang="fr"]').click();
     await page.waitForFunction(() => document.body?.dataset?.lang === 'fr', null, { timeout: 15000 });
