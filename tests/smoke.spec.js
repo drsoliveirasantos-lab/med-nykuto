@@ -75,8 +75,9 @@ test.describe('Med Nykuto smoke navigation', () => {
   });
 
   test('homepage subject picker opens as a modal and routes selection correctly', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('medNykuto:studentSemester', 's4'));
     await page.goto('/index.html');
-    await page.waitForFunction(() => window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ === 'v370-scroll-safe-modal', null, { timeout: 20000 });
+    await page.waitForFunction(() => window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ === 'v371-semester-profile', null, { timeout: 20000 });
     const trigger = page.locator('[data-testid="home-subject-picker-trigger"]').first();
     await expect(trigger).toBeVisible();
     await trigger.click();
@@ -85,6 +86,22 @@ test.describe('Med Nykuto smoke navigation', () => {
     await page.locator('[data-home-course-id="fisiologia"]').click();
     await expect(page.locator('#homePickTitle')).toContainText('Fisiología — Elegir un módulo');
     await expect(page.locator('[data-testid="home-module-choice"]')).toHaveCount(EXPECTED_FISIOLOGIA_MODULES);
+  });
+
+  test('homepage asks for the semester, persists it and shows the publication period', async ({ page }) => {
+    await page.addInitScript(() => localStorage.removeItem('medNykuto:studentSemester'));
+    await page.goto('/index.html');
+    await expect(page.locator('#homeSemesterModal.open')).toBeVisible();
+    await expect(page.locator('[data-semester-select]')).toHaveCount(3);
+    await expect(page.locator('[data-semester-select="s4"]')).toContainText('Agosto–diciembre de 2026');
+    await expect(page.locator('[data-semester-select="s5"]')).toContainText('A partir de febrero de 2027');
+    await page.locator('[data-semester-select="s4"]').click();
+    await expect(page.locator('#homeSemesterModal')).not.toHaveClass(/open/);
+    await expect(page.locator('#homeSemesterCard')).toContainText('Semestre 4 seleccionado');
+    await expect(page.locator('#homeSemesterCard')).toContainText('agosto y diciembre de 2026');
+    await page.reload();
+    await expect(page.locator('#homeSemesterModal')).not.toHaveClass(/open/);
+    await expect(page.locator('#homeSemesterCard')).toContainText('Semestre 4 seleccionado');
   });
 
   test('Spanish is the coherent default when no language preference is stored', async ({ page }) => {
