@@ -2138,6 +2138,11 @@ function topicForQuestion(item){
     let state = loadSession(key, items, batchSize);
     items = items.map(item => practiceItemForSession(item, state, type));
     const batchItems = currentBatchItems(items, state);
+    window.__MED_NYKUTO_PRACTICE_BATCH_AUDIT__ = {
+      type,
+      ids: batchItems.map(item => item.id),
+      answerPositions: batchItems.map(item => Number(item.answerIndex))
+    };
     const total = batchItems.length;
     if(state.batchFinished || state.currentIndex >= total){
       if(hasMoreQuestionsAfterBatch(state)){
