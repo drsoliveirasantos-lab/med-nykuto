@@ -47,7 +47,7 @@ function requireContains(file, pattern, label) {
   if (!pattern.test(content)) failures.push(`${file}: missing ${label}`);
 }
 
-requireContains('qcm.html', /qcm-tap-guard-v309\.js\?v=318/, 'current QCM guard cache version');
+requireContains('qcm.html', /qcm-tap-guard-v309\.js\?v=319/, 'current QCM guard cache version');
 requireContains('qcm.html', /app\.bundle\.js\?v=371/, 'current app bundle cache version');
 requireContains('qcm.html', /site-global-polish-v310\.js\?v=379/, 'current global polish cache version');
 requireContains('app.bundle.js', /__MED_NYKUTO_LEGACY_FIGURE_LIGHTBOX__\s*=\s*['"]disabled-external-zoom-v368['"]/, 'disabled legacy figure lightbox marker');
