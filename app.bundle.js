@@ -2190,14 +2190,19 @@ function topicForQuestion(item){
       const item = byId.get(id);
       return item && Array.isArray(item.options) && item.options.length === 2 ? Number(item.answerIndex) : null;
     };
-    for(let index=3; index<ordered.length; index++){
-      const previous = [index-3,index-2,index-1].map(position => answerFor(ordered[position]));
-      const current = answerFor(ordered[index]);
-      if(current == null || !previous.every(answer => answer === current)) continue;
-      const replacement = ordered.findIndex((id,candidateIndex) => candidateIndex > index && answerFor(id) !== current);
-      if(replacement > index) [ordered[index],ordered[replacement]] = [ordered[replacement],ordered[index]];
+    if(ordered.some(id => ![0,1].includes(answerFor(id)))) return ordered;
+    const pools = [0,1].map(answer => ordered.filter(id => answerFor(id) === answer));
+    const balanced = [];
+    while(pools[0].length || pools[1].length){
+      const recent = balanced.slice(-3).map(answerFor);
+      const forced = recent.length === 3 && recent.every(answer => answer === recent[0]) ? 1-recent[0] : null;
+      let answer = forced != null && pools[forced].length
+        ? forced
+        : (pools[0].length === pools[1].length ? answerFor(ordered.find(id => pools[answerFor(id)].includes(id))) : (pools[0].length > pools[1].length ? 0 : 1));
+      if(!pools[answer].length) answer = 1-answer;
+      balanced.push(pools[answer].shift());
     }
-    return ordered;
+    return balanced;
   }
   function buildInitialBatch(items, order, size, seed){
     const byId = new Map((items || []).map(item => [item.id,item]));
