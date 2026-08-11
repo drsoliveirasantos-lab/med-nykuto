@@ -26,8 +26,10 @@ test('physiology module batches mix A-D answers without remapping errors', async
     await expect(correct).toHaveCount(1);
     positions.push(Number(await correct.getAttribute('data-option')));
     if (index < 19) {
+      const previousQuestionId = await page.locator('.single-question-card').getAttribute('id');
       await page.locator('.single-question-card [data-action="next-question"]').first().click({ force: true });
-      await expect(page.locator('.single-question-card .option:not([disabled])').first()).toBeVisible();
+      await expect(page.locator('.single-question-card')).not.toHaveAttribute('id', previousQuestionId);
+      await expect(page.locator('.single-question-card .option').first()).toBeVisible();
     }
   }
 
@@ -50,8 +52,10 @@ test('true-false batches avoid pathological same-answer streaks', async ({ page 
     await expect(correct).toHaveCount(1);
     positions.push(Number(await correct.getAttribute('data-option')));
     if (index < 19) {
+      const previousQuestionId = await page.locator('.single-question-card').getAttribute('id');
       await page.locator('.single-question-card [data-action="next-question"]').first().click({ force: true });
-      await expect(page.locator('.single-question-card .option:not([disabled])').first()).toBeVisible();
+      await expect(page.locator('.single-question-card')).not.toHaveAttribute('id', previousQuestionId);
+      await expect(page.locator('.single-question-card .option').first()).toBeVisible();
     }
   }
 
