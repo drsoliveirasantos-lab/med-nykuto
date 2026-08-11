@@ -1,11 +1,11 @@
-/* v320 — QCM instant renderer synchronized with shuffled session items.
+/* v321 — Distinct quick key and complete medical reasoning.
    Answers and Next are handled in-place on QCM, so app.bundle.js does not repaint the whole practice list after every tap.
    Adds a clean progress bar, visible justification, detailed rationale, distractor explanations and a point-key block. */
 (function(){
   'use strict';
 
   window.__MED_NYKUTO_RUNTIME_GUARD__ = 'v362';
-  window.__MED_NYKUTO_QCM_INSTANT_RENDER__ = 'v320-shuffled-session-synchronized';
+  window.__MED_NYKUTO_QCM_INSTANT_RENDER__ = 'v321-distinct-quick-full-feedback';
 
   var moved = false;
   var sx = 0;
@@ -85,10 +85,16 @@
     return 'No es la mejor respuesta porque no explica el mecanismo principal evaluado o desplaza el foco hacia un distractor.';
   }
   function shortExplanation(item, record){
-    var base = firstText(item, ['explanationShort','shortExplanation','briefExplanation','rationaleShort','explanation']);
-    if(base && base.length > 220) base = base.slice(0, 220).replace(/\s+\S*$/,'') + '…';
-    if(base) return base;
-    return record && record.correct ? 'La opción elegida coincide con el mecanismo principal evaluado.' : 'La respuesta correcta es la que conserva la lógica fisiológica central del tema.';
+    var base = firstText(item, ['explanationShort','shortExplanation','briefExplanation','rationaleShort']);
+    var full = longExplanation(item);
+    if(base && clean(base) !== clean(full)){
+      if(base.length > 220) base = base.slice(0, 220).replace(/\s+\S*$/,'') + '…';
+      return base;
+    }
+    var answer = Number(item && item.answerIndex || 0);
+    var option = clean(item && item.options && item.options[answer] || '');
+    if(option) return 'Clave: ' + letter(answer) + ' — ' + option;
+    return record && record.correct ? 'La opción elegida coincide con el mecanismo principal evaluado.' : 'Revisa la opción correcta antes de abrir el razonamiento completo.';
   }
   function longExplanation(item){
     return firstText(item, ['explanationLong','longExplanation','detailedExplanation','rationale','explanation']) || 'La clave es identificar el mecanismo principal, relacionarlo con la consecuencia fisiológica y descartar las opciones que cambian el órgano, el ion, la localización o la secuencia causal.';

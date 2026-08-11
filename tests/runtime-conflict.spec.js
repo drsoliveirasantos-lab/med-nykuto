@@ -28,11 +28,11 @@ test.describe('Runtime script conflict detection', () => {
     await page.goto('/qcm.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => window.__MED_NYKUTO_QCM_INSTANT_RENDER__, null, { timeout: 20000 });
     const qcmMarker = await page.evaluate(() => window.__MED_NYKUTO_QCM_INSTANT_RENDER__);
-    expect(qcmMarker).toMatch(/^v320-/);
+    expect(qcmMarker).toMatch(/^v321-/);
 
     await page.goto('/cas-cliniques.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => window.__MED_NYKUTO_CASE_INSTANT_RENDER__, null, { timeout: 20000 });
     const caseMarker = await page.evaluate(() => window.__MED_NYKUTO_CASE_INSTANT_RENDER__);
-    expect(caseMarker).toMatch(/^v315-/);
+    expect(caseMarker).toMatch(/^v316-/);
   });
 });

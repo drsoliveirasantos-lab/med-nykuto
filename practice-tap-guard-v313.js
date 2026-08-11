@@ -1,10 +1,10 @@
-/* v315 — Practice inert-zone guard plus localized instant Casos clínicos renderer.
+/* v316 — Distinct quick clinical key and complete case reasoning.
    Casos clínicos now reveal answers and move Next in-place, without app.bundle.js repainting #practiceList.
    V/F keeps the existing inert-zone protection only. */
 (function(){
   'use strict';
 
-  window.__MED_NYKUTO_CASE_INSTANT_RENDER__ = 'v315-localized-answer-next-in-place';
+  window.__MED_NYKUTO_CASE_INSTANT_RENDER__ = 'v316-distinct-quick-full-feedback';
 
   var moved = false;
   var sx = 0;
@@ -74,10 +74,16 @@
     return 'No es la mejor opción porque no conecta de forma completa el dato clínico principal con el mecanismo y la consecuencia esperada.';
   }
   function shortExplanation(item, record){
-    var s = firstText(item, ['explanationShort','shortExplanation','briefExplanation','rationaleShort','explanation']);
-    if(s && s.length > 220) s = s.slice(0,220).replace(/\s+\S*$/,'') + '…';
-    if(s) return s;
-    return record && record.correct ? 'La opción elegida corresponde al razonamiento clínico central del caso.' : 'La clave es relacionar el dato clínico con el mecanismo fisiopatológico principal.';
+    var s = firstText(item, ['explanationShort','shortExplanation','briefExplanation','rationaleShort']);
+    var full = longExplanation(item);
+    if(s && clean(s) !== clean(full)){
+      if(s.length > 220) s = s.slice(0,220).replace(/\s+\S*$/,'') + '…';
+      return s;
+    }
+    var answer = Number(item && item.answerIndex || 0);
+    var option = clean(item && item.options && item.options[answer] || '');
+    if(option) return 'Clave clínica: ' + letter(answer) + ' — ' + option;
+    return record && record.correct ? 'La opción elegida corresponde al razonamiento clínico central del caso.' : 'Abre la explicación completa para revisar el razonamiento clínico.';
   }
   function longExplanation(item){ return firstText(item, ['explanationLong','longExplanation','detailedExplanation','rationale','explanation']) || 'Para resolver el caso, primero identifica el dato clínico dominante, luego relaciónalo con el mecanismo del módulo y finalmente descarta las opciones que cambian la secuencia causal.'; }
   function takeaway(item){ return firstText(item, ['takeaway','keyPoint','memoryTip']) || 'En un caso clínico, la mejor respuesta suele ser la que une dato clave → mecanismo → consecuencia, sin saltar pasos.'; }

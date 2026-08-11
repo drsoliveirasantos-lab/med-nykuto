@@ -40,6 +40,9 @@ test.describe('Casos clínicos critical behavior', () => {
     await expect(panel).toContainText('Justificación rápida');
     await expect(panel).toContainText('Por qué las otras respuestas son falsas');
     await expect(panel).not.toContainText(/Justification|Pourquoi|À retenir/);
+    const quickText = (await panel.locator('.case-feedback-short p').innerText()).trim();
+    const fullText = (await panel.locator('.case-feedback-details p').first().innerText()).trim();
+    expect(quickText).not.toBe(fullText);
     await expect.poll(() => visibleCardCount(page), { timeout: 5000 }).toBeGreaterThan(0);
     expect(page.url()).toBe(initialUrl);
 

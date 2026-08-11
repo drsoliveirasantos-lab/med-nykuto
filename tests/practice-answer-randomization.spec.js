@@ -34,6 +34,9 @@ test('physiology module batches mix A-D answers without remapping errors', async
   else await expect(correction.locator('.qcm-feedback-pill')).toContainText('Incorrecta');
   const mentionedLetters = (await correction.innerText()).match(/respuesta correcta (?:es|:)\s*([A-D])/gi) || [];
   mentionedLetters.forEach((mention) => expect(mention.toUpperCase()).toContain(String.fromCharCode(65 + displayedCorrect)));
+  const quickText = (await correction.locator('.qcm-feedback-short p').innerText()).trim();
+  const fullText = (await correction.locator('.qcm-feedback-long p').innerText()).trim();
+  expect(quickText).not.toBe(fullText);
 
   const counts = [0, 0, 0, 0];
   positions.forEach((position) => { counts[position] += 1; });

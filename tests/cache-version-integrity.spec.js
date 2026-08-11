@@ -13,16 +13,16 @@ test.describe('Cache and version integrity', () => {
     await page.goto('/qcm.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
     const sources = await scriptSources(page);
     expect(hasSource(sources, /app\.bundle\.js\?v=372/)).toBeTruthy();
-    expect(hasSource(sources, /qcm-tap-guard-v309\.js\?v=320/)).toBeTruthy();
+    expect(hasSource(sources, /qcm-tap-guard-v309\.js\?v=321/)).toBeTruthy();
     expect(hasSource(sources, /site-global-polish-v310\.js\?v=379/)).toBeTruthy();
     await page.waitForFunction(() => window.__MED_NYKUTO_QCM_INSTANT_RENDER__, null, { timeout: 20000 });
-    await expect.poll(() => page.evaluate(() => window.__MED_NYKUTO_QCM_INSTANT_RENDER__)).toMatch(/^v320-/);
+    await expect.poll(() => page.evaluate(() => window.__MED_NYKUTO_QCM_INSTANT_RENDER__)).toMatch(/^v321-/);
   });
 
   test('Casos clínicos loads native instant renderer and no legacy premium overlay', async ({ page }) => {
     await page.goto('/cas-cliniques.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
     const sources = await scriptSources(page);
-    expect(hasSource(sources, /practice-tap-guard-v313\.js\?v=316/)).toBeTruthy();
+    expect(hasSource(sources, /practice-tap-guard-v313\.js\?v=317/)).toBeTruthy();
     expect(hasSource(sources, /premium-correction-v313\.js/)).toBeFalsy();
     await page.waitForFunction(() => window.__MED_NYKUTO_CASE_INSTANT_RENDER__, null, { timeout: 20000 });
   });
@@ -31,7 +31,7 @@ test.describe('Cache and version integrity', () => {
     await page.goto('/vrai-faux.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
     const sources = await scriptSources(page);
     expect(hasSource(sources, /premium-correction-v313\.js\?v=315/)).toBeTruthy();
-    expect(hasSource(sources, /practice-tap-guard-v313\.js\?v=316/)).toBeTruthy();
+    expect(hasSource(sources, /practice-tap-guard-v313\.js\?v=317/)).toBeTruthy();
     await page.waitForFunction(() => window.__MED_NYKUTO_PREMIUM_PRACTICE_CORRECTION__, null, { timeout: 20000 });
     await expect.poll(() => page.evaluate(() => window.__MED_NYKUTO_PREMIUM_PRACTICE_CORRECTION__)).toMatch(/^v315-/);
   });
