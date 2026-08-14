@@ -251,7 +251,7 @@ test.describe('Class hub', () => {
     await expect(page.getByText('Clase estimada · 10 ago. · confirmar')).toBeVisible();
     await expect(page.getByRole('row', { name: /Trichophyton Sí Sí Sí/ })).toBeVisible();
     await expect(page.getByText('Tiña capitis y tiña del cuero cabelludo son el mismo diagnóstico.')).toBeVisible();
-    await expect(page.getByText('El KOH muestra hifas o artroconidios', { exact: false })).toBeVisible();
+    await expect(page.getByText('El hidróxido de potasio aclara queratina y permite ver hifas septadas o artroconidios', { exact: false })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Tres micosis subcutáneas para la próxima clase' })).toBeVisible();
     await expect(page.getByText('Esporotricosis linfocutánea', { exact: true })).toBeVisible();
     await expect(page.getByText('Cromoblastomicosis', { exact: true })).toBeVisible();
