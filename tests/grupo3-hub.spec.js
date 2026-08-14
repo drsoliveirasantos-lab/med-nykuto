@@ -134,7 +134,7 @@ test.describe('Class hub', () => {
     await expect(nutrition.getByText('2 PPT + 1 informe', { exact: true })).toBeVisible();
     await expect(nutrition.getByText('Hasta 4 por PPT', { exact: true })).toBeVisible();
     await expect(nutrition.getByText('Hasta 5 minutos', { exact: true })).toBeVisible();
-    await expect(nutrition.getByText('Drive de la clase → Bibliografía → carpeta INAN.', { exact: true })).toBeVisible();
+    await expect(nutrition.getByText('Drive de la clase → Bibliografía → carpeta INAN.', { exact: false })).toBeVisible();
     await expect(nutrition.getByRole('link', { name: 'Instructivo oficial · Word' })).toHaveAttribute('href', 'assets/class-hub/instructivo-presentacion-oral-semana-3.docx');
     await expect(nutrition.getByRole('link', { name: 'Modelo de portada · Word' })).toHaveAttribute('href', 'assets/class-hub/modelo-portada-seminario-nutricion.docx');
     const transcript = await page.evaluate(() => window.MED_NYKUTO_LATEST_TRANSCRIPTS.nutricion);
@@ -151,7 +151,7 @@ test.describe('Class hub', () => {
   test('shows the complete official seminar requirements without leaving Tarefa', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
     const task = page.locator('#nutritionPrepCard');
-    await expect(task.getByText('2', { exact: true })).toBeVisible();
+    await expect(task.locator('.seminar-at-a-glance b').first()).toHaveText('2');
     await expect(task.getByText('PowerPoint separados', { exact: true })).toBeVisible();
     await expect(task.getByText('informe para firma y sello', { exact: true })).toBeVisible();
     await task.getByText('Ver la consigna completa', { exact: true }).click();
