@@ -8,7 +8,7 @@
   <meta name="description" content="Espacio académico no oficial de 4.º E: horario, pendientes y revisiones de Nutrición, Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología organizadas en un solo lugar." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=410" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=411" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -28,62 +28,63 @@
   </header>
 
   <main id="contenido" class="class-app">
-    <section class="class-hero" aria-labelledby="class-title">
-      <div class="class-hero-copy">
-        <div class="hero-meta">
-          <span class="status-dot"><i aria-hidden="true"></i> Espacio activo</span>
-          <span>Iniciativa estudiantil no oficial</span>
-        </div>
-        <p class="section-kicker">4.º E · Integral · 2026/2</p>
-        <h1 id="class-title">Todo lo importante, en el orden correcto.</h1>
-        <p class="hero-lead">Clases, revisión y pendientes reunidos para que sepas qué estudiar ahora sin buscar entre mensajes y archivos.</p>
-        <div class="hero-actions">
-          <a class="action-button action-primary" href="#nutricion">Abrir Nutrición</a>
-          <a class="action-button action-secondary" href="#horario">Ver horario</a>
-        </div>
-        <div class="hero-trust" aria-label="Información del espacio">
-          <span><strong id="lastUpdated">Actualizado hoy</strong><small>Última organización</small></span>
-          <span><strong>Gratuito</strong><small>Para 4.º E</small></span>
-          <span><strong>Estados claros</strong><small>Confirmado o estimado</small></span>
-        </div>
-      </div>
-
-      <aside class="next-class-card" aria-labelledby="next-class-title">
-        <div class="card-topline"><span>ÚLTIMO CURSO</span><span class="live-badge">NUTRICIÓN · 13 AGO. EST.</span></div>
-        <h2 id="next-class-title">Leyes de la alimentación</h2>
-        <p>Cantidad, calidad, armonía, adecuación y variedad aplicadas a la evaluación clínica de la alimentación.</p>
-        <div class="class-context">
-          <span>Últimas transcripciones recibidas: 14 ago. 2026</span>
-          <strong>Seminario de la próxima semana identificado</strong>
-        </div>
-        <a class="card-link" href="#nutricion">Abrir el curso más reciente <span aria-hidden="true">→</span></a>
-      </aside>
-    </section>
-
-    <nav class="quick-nav" aria-label="Accesos rápidos">
-      <a href="#horario"><span class="quick-code">AGE</span><strong>Horario</strong><small>Próxima clase</small></a>
-      <a href="#pendientes"><span class="quick-code">TAR</span><strong>Pendientes</strong><small>Fechas y estado</small></a>
-      <a href="#nutricion"><span class="quick-code">NUT</span><strong>Nutrición</strong><small>Leyes y seminario</small></a>
-      <a href="#fisiologia"><span class="quick-code">FIS</span><strong>Fisiología</strong><small>Control respiratorio</small></a>
-      <a href="#bioquimica"><span class="quick-code">BIO</span><strong>Bioquímica</strong><small>Glucólisis</small></a>
-      <a href="#epidemiologia"><span class="quick-code">EPI</span><strong>Epidemiología</strong><small>APS y triage</small></a>
-      <a href="#microbiologia-teorica"><span class="quick-code">MIC</span><strong>Micro teórica</strong><small>Dermatofitosis</small></a>
-      <a href="#microbiologia-practica"><span class="quick-code">LAB</span><strong>Micro práctica</strong><small>Hongos y Sabouraud</small></a>
-      <a href="#delegado"><span class="quick-code">DUD</span><strong>Enviar una duda</strong><small>Preparar el mensaje</small></a>
+    <nav class="workspace-nav" aria-label="Secciones del espacio de clase">
+      <a href="#inicio" data-view-link="inicio" aria-current="page"><span>INI</span><strong>Inicio</strong><small>Ahora</small></a>
+      <a href="#horario" data-view-link="horario"><span>AGE</span><strong>Horario</strong><small>Semana</small></a>
+      <a href="#pendientes" data-view-link="pendientes"><span>TAR</span><strong>Pendientes</strong><small>Fechas</small></a>
+      <a href="#materias" data-view-link="cursos"><span>CUR</span><strong>Cursos</strong><small>6 materias</small></a>
+      <a href="#plan-estudio" data-view-link="plan"><span>PLA</span><strong>Plan</strong><small>Seminario</small></a>
+      <a href="#delegado" data-view-link="dudas"><span>DUD</span><strong>Dudas</strong><small>Mensaje</small></a>
     </nav>
 
-    <section id="horario" class="content-section schedule-section" aria-labelledby="schedule-title">
+    <section id="inicio" class="class-dashboard" data-view="inicio" aria-labelledby="class-title">
+      <div class="dashboard-heading">
+        <div>
+          <div class="hero-meta"><span class="status-dot"><i aria-hidden="true"></i> Espacio activo</span><span>4.º E · Semestre 4</span></div>
+          <p class="section-kicker">Panel de estudio</p>
+          <h1 id="class-title">Tu semana, de un vistazo.</h1>
+          <p>Primero el horario y lo urgente. Después, abre solo la materia o el contenido que necesitas.</p>
+        </div>
+        <span class="dashboard-updated" id="lastUpdated">Actualizado hoy</span>
+      </div>
+
+      <div class="dashboard-grid">
+        <article class="dashboard-next" aria-live="polite">
+          <div class="dashboard-card-top"><span>PRÓXIMA CLASE</span><span>Hora de Paraguay</span></div>
+          <h2 id="nextScheduleSubject">Calculando…</h2>
+          <strong id="nextScheduleWhen">Horario de Paraguay</strong>
+          <small id="nextScheduleTeacher"></small>
+          <a href="#horario">Abrir el horario completo <span aria-hidden="true">→</span></a>
+        </article>
+
+        <aside class="dashboard-status" aria-label="Resumen de la semana">
+          <div><span>EN PORTADA</span><strong>3 prioridades</strong><small>Dos actividades confirmadas y un repaso recomendado.</small></div>
+          <div><span>ÚLTIMA CLASE</span><strong>Nutrición</strong><small>Leyes de la alimentación · 13 ago. estimado</small></div>
+          <a href="#pendientes">Ver todos los pendientes</a>
+        </aside>
+      </div>
+
+      <div class="dashboard-priorities" aria-label="Prioridades actuales">
+        <a class="priority-card priority-main" href="#micro-proxima-clase"><span>PRIORIDAD 01 · MICRO</span><strong>Preparar tres micosis subcutáneas</strong><small>Esporotricosis, cromoblastomicosis y micetoma eumicótico.</small><b>Abrir preparación →</b></a>
+        <a class="priority-card" href="#nutrition-seminar"><span>SEMINARIO · NUTRICIÓN</span><strong>Guías de Paraguay + regiones de Brasil</strong><small>Presentación breve y trabajo escrito impreso.</small><b>Abrir consigna →</b></a>
+        <a class="priority-card" href="#nutricion"><span>ÚLTIMO CONTENIDO</span><strong>Leyes de la alimentación</strong><small>Cantidad, calidad, armonía, adecuación y variedad.</small><b>Abrir curso →</b></a>
+      </div>
+    </section>
+
+    <noscript><style>[data-view][hidden], [data-course-detail][hidden]{display:block!important}</style></noscript>
+
+    <section id="horario" class="content-section schedule-section" data-view="horario" aria-labelledby="schedule-title" hidden>
       <div class="section-heading">
         <div><p class="section-kicker">Agenda oficial</p><h2 id="schedule-title">Horario de 4.º E</h2></div>
         <span class="source-pill">Hora de Paraguay · KM 8</span>
       </div>
 
       <div class="agenda-summary">
-        <article class="next-schedule-card" aria-live="polite">
-          <span>PRÓXIMA CLASE</span>
-          <h3 id="nextScheduleSubject">Calculando…</h3>
-          <strong id="nextScheduleWhen">Horario de Paraguay</strong>
-          <small id="nextScheduleTeacher"></small>
+        <article class="schedule-guide-card">
+          <span>LECTURA RÁPIDA</span>
+          <h3>Cuatro días presenciales</h3>
+          <p>Lunes, miércoles, jueves y viernes. El bloque azul marca el día de la próxima clase calculada.</p>
+          <a href="#pendientes">Cruzar horario con pendientes →</a>
         </article>
 
         <aside class="personal-lab-card">
@@ -127,7 +128,7 @@
       <p class="schedule-note">Martes y sábado no presentan clases en el horario recibido. Cualquier modificación oficial debe prevalecer sobre esta vista.</p>
     </section>
 
-    <section id="pendientes" class="content-section pending-section" aria-labelledby="pending-title">
+    <section id="pendientes" class="content-section pending-section" data-view="pendientes" aria-labelledby="pending-title" hidden>
       <div class="section-heading pending-heading">
         <div><p class="section-kicker">Transcripciones y tareas</p><h2 id="pending-title">Pendientes con fecha clara</h2></div>
         <div class="status-legend" aria-label="Estados de las fechas"><span class="status-confirmed">Confirmada</span><span class="status-estimated">Estimada</span><span class="status-check">Verificar</span></div>
@@ -187,34 +188,22 @@
       </div>
     </section>
 
-    <section id="semana" class="content-section" aria-labelledby="week-title">
+    <section id="materias" class="content-section course-hub" data-view="cursos" aria-labelledby="courses-title" hidden>
       <div class="section-heading">
-        <div><p class="section-kicker">Vista rápida</p><h2 id="week-title">Esta semana</h2></div>
-        <p>La información pendiente aparece como pendiente. Nunca como una fecha confirmada.</p>
+        <div><p class="section-kicker">Biblioteca de 4.º E</p><h2 id="courses-title">Elige una materia</h2></div>
+        <p>Se muestra un solo curso a la vez. Dentro de cada materia puedes elegir una ficha rápida o abrir la clase completa.</p>
       </div>
-      <div class="week-grid">
-        <article class="week-card week-primary">
-          <div class="week-card-head"><span class="week-label">PRIORIDAD 01</span><span class="availability">Microbiología teórica</span></div>
-          <h3>Preparar las micosis subcutáneas</h3>
-          <p>Comparar esporotricosis linfocutánea, cromoblastomicosis y micetoma eumicótico; repasar primero el mapa de las tiñas.</p>
-          <a href="#micro-proxima-clase">Abrir preparación</a>
-        </article>
-        <article class="week-card">
-          <div class="week-card-head"><span class="week-label">SEMINARIO</span><span>Jueves · estimado</span></div>
-          <h3>Preparar Nutrición</h3>
-          <p>Organizar los dos temas, crear la presentación breve, ensayar y llevar el trabajo escrito impreso.</p>
-          <a href="#nutrition-seminar">Abrir la consigna</a>
-        </article>
-        <article class="week-card">
-          <div class="week-card-head"><span class="week-label">TEORÍA</span><span>Miércoles</span></div>
-          <h3>Bioquímica + Epidemiología</h3>
-          <p>Repasar regulación de la glucólisis y preparar el triage por colores para las próximas clases.</p>
-          <a href="#pendientes">Ver ambos pendientes</a>
-        </article>
+      <div class="course-selector" aria-label="Materias disponibles">
+        <a href="#nutricion" data-course-target="nutricion" aria-current="true"><span>NUT</span><strong>Nutrición</strong><small>Leyes de la alimentación</small><b>13 AGO · EST.</b></a>
+        <a href="#fisiologia" data-course-target="fisiologia"><span>FIS</span><strong>Fisiología II</strong><small>Control respiratorio</small><b>13 AGO</b></a>
+        <a href="#bioquimica" data-course-target="bioquimica"><span>BIO</span><strong>Bioquímica II</strong><small>Glucólisis</small><b>14 AGO</b></a>
+        <a href="#epidemiologia" data-course-target="epidemiologia"><span>EPI</span><strong>Epidemiología</strong><small>APS, sectorización y triage</small><b>2 BLOQUES</b></a>
+        <a href="#microbiologia-teorica" data-course-target="microbiologia-teorica"><span>MIC</span><strong>Micro teórica</strong><small>Dermatofitosis</small><b>10 AGO · EST.</b></a>
+        <a href="#microbiologia-practica" data-course-target="microbiologia-practica"><span>LAB</span><strong>Micro práctica</strong><small>Hongos y Sabouraud</small><b>GRUPO 3</b></a>
       </div>
     </section>
 
-    <section id="nutricion" class="content-section subject-section nutrition-subject" aria-labelledby="nutrition-title">
+    <section id="nutricion" class="content-section subject-section nutrition-subject" data-view="cursos" aria-labelledby="nutrition-title" hidden>
       <div class="subject-heading">
         <div>
           <p class="section-kicker">Nutrición · nueva transcripción · una sola clase</p>
@@ -228,7 +217,9 @@
         <article class="history-entry history-current"><span>13 AGO · ESTIMADA</span><div><strong>Cantidad, calidad, armonía, adecuación y variedad</strong><small>Cómo analizar una alimentación, adaptarla al paciente y distinguir alimentos fuente, protectores, enriquecidos y fortificados.</small></div><span>ACTUAL</span></article>
       </div>
 
-      <section class="nutrition-lesson" aria-labelledby="nutrition-core-title">
+      <button class="course-detail-toggle" type="button" data-detail-toggle aria-controls="nutrition-detail" aria-expanded="false"><span>CLASE COMPLETA</span><strong>Abrir desarrollo completo</strong><small>Conceptos, leyes, plato, caso clínico, correcciones y seminario.</small><b aria-hidden="true">+</b></button>
+
+      <section id="nutrition-detail" class="nutrition-lesson" data-course-detail aria-labelledby="nutrition-core-title" hidden>
         <div class="nutrition-core">
           <div><span>IDEA CENTRAL</span><h3 id="nutrition-core-title">Una dieta no se juzga solo por sus calorías</h3><p>La evaluación clínica combina suficiencia energética, densidad nutricional, proporciones, contexto individual y variedad. Una dimensión aislada no basta.</p></div>
           <ol aria-label="Secuencia de evaluación nutricional"><li><span>01</span><strong>Cuánto</strong><small>Cantidad</small></li><li><span>02</span><strong>Qué</strong><small>Calidad</small></li><li><span>03</span><strong>En qué proporción</strong><small>Armonía</small></li><li><span>04</span><strong>Para quién</strong><small>Adecuación</small></li><li><span>05</span><strong>Con qué diversidad</strong><small>Variedad</small></li></ol>
@@ -324,7 +315,7 @@
       </article>
     </section>
 
-    <section id="fisiologia" class="content-section subject-section fisio-subject" aria-labelledby="fisio-title">
+    <section id="fisiologia" class="content-section subject-section fisio-subject" data-view="cursos" aria-labelledby="fisio-title" hidden>
       <div class="subject-heading">
         <div>
           <p class="section-kicker">Fisiología II · transcripción acumulada · 2 bloques</p>
@@ -340,7 +331,9 @@
       </div>
       <p class="course-note transcription-rule-note"><b>Regla aplicada:</b> el contenido anterior a «jueves 13» pertenece al bloque previo. La lectura sobre regulación nerviosa era la preparación para el curso del 13 y, por tanto, ya no se muestra como tarea pendiente.</p>
 
-      <section class="fisio-lesson" aria-labelledby="fisio-core-title">
+      <button class="course-detail-toggle" type="button" data-detail-toggle aria-controls="fisio-detail" aria-expanded="false"><span>CLASE COMPLETA</span><strong>Abrir desarrollo completo</strong><small>Centros, sensores, transporte de gases, EPOC y correcciones.</small><b aria-hidden="true">+</b></button>
+
+      <section id="fisio-detail" class="fisio-lesson" data-course-detail aria-labelledby="fisio-core-title" hidden>
         <div class="resp-control-hero">
           <div><span>IDEA CENTRAL</span><h3 id="fisio-core-title">La ventilación se regula por retroalimentación</h3><p>El sistema detecta cambios químicos o mecánicos, los integra en el tronco encefálico y modifica la frecuencia y la profundidad respiratorias.</p></div>
           <ol class="control-loop" aria-label="Bucle de control respiratorio">
@@ -423,7 +416,7 @@
       </article>
     </section>
 
-    <section id="bioquimica" class="content-section subject-section" aria-labelledby="bio-title">
+    <section id="bioquimica" class="content-section subject-section" data-view="cursos" aria-labelledby="bio-title" hidden>
       <div class="subject-heading">
         <div>
           <p class="section-kicker">Bioquímica · 3 transcripciones</p>
@@ -439,7 +432,9 @@
         <article class="history-entry"><span>FECHA NO DICHA</span><div><strong>Bases del metabolismo</strong><small>Carbohidratos, rutas metabólicas, glicación y conexiones clínicas.</small></div></article>
       </div>
 
-      <section class="glycolysis-lesson" aria-labelledby="glycolysis-core-title">
+      <button class="course-detail-toggle" type="button" data-detail-toggle aria-controls="bio-detail" aria-expanded="false"><span>CLASE COMPLETA</span><strong>Abrir desarrollo completo</strong><small>Fases, diez reacciones, balance, regulación y correcciones.</small><b aria-hidden="true">+</b></button>
+
+      <section id="bio-detail" class="glycolysis-lesson" data-course-detail aria-labelledby="glycolysis-core-title" hidden>
         <div class="lesson-intro">
           <div><span>OBJETIVO DE LA VÍA COMÚN</span><h3 id="glycolysis-core-title">Convertir una glucosa en dos piruvatos</h3><p>También se denomina vía glicolítica o vía de Embden–Meyerhof–Parnas (EMP). Ocurre en el citosol y puede continuar aunque no haya suficiente oxígeno. El O₂ no es un sustrato directo: modifica el destino posterior del piruvato y del NADH.</p></div>
           <div class="net-balance"><span>BALANCE NETO POR GLUCOSA</span><strong>2 piruvatos + 2 ATP + 2 NADH</strong><small>También se forman 2 H₂O y 2 H⁺. Se consumen 2 ATP y después se producen 4 ATP.</small></div>
@@ -506,7 +501,7 @@
       </article>
     </section>
 
-    <section id="epidemiologia" class="content-section subject-section" aria-labelledby="epi-title">
+    <section id="epidemiologia" class="content-section subject-section" data-view="cursos" aria-labelledby="epi-title" hidden>
       <div class="subject-heading">
         <div>
           <p class="section-kicker">Epidemiología y Salud Pública · transcripción acumulada</p>
@@ -522,7 +517,9 @@
       </div>
       <p class="course-note transcription-rule-note"><b>Regla aplicada:</b> en las transcripciones antiguas que reúnen varias clases, la parte final se considera siempre la más reciente. Una fecha dicha dentro del audio inicia un nuevo bloque; nunca se aplica hacia atrás.</p>
 
-      <section class="epi-lesson" aria-labelledby="epi-core-title">
+      <button class="course-detail-toggle" type="button" data-detail-toggle aria-controls="epi-detail" aria-expanded="false"><span>CLASE COMPLETA</span><strong>Abrir desarrollo completo</strong><small>APS, familia, sectorización, triage, urgencia y emergencia.</small><b aria-hidden="true">+</b></button>
+
+      <section id="epi-detail" class="epi-lesson" data-course-detail aria-labelledby="epi-core-title" hidden>
         <div class="exam-focus">
           <div><span>ENFOQUE DECLARADO PARA LA EVALUACIÓN</span><h3 id="epi-core-title">Lo que la profesora señaló que puede preguntar</h3><p>Prioriza definiciones cortas, diferencias y listas esenciales. No hace falta reproducir párrafos completos.</p></div>
           <ol><li><b>1978:</b> Declaración de Alma-Ata.</li><li><b>2008:</b> implementación de la estrategia APS en Paraguay.</li><li>Definición, servicios y principios de la APS.</li><li>Significado concreto frente a abstracto.</li><li>Integralidad y sus cuatro dimensiones.</li><li>Etapas del ciclo familiar.</li><li>Objetivo de la sectorización.</li><li>Urgencia frente a emergencia.</li></ol>
@@ -614,7 +611,7 @@
       </article>
     </section>
 
-    <section id="microbiologia-teorica" class="content-section subject-section micro-theory-subject" aria-labelledby="micro-theory-title">
+    <section id="microbiologia-teorica" class="content-section subject-section micro-theory-subject" data-view="cursos" aria-labelledby="micro-theory-title" hidden>
       <div class="subject-heading">
         <div>
           <p class="section-kicker">Microbiología II teórica · nueva transcripción · una clase</p>
@@ -628,7 +625,9 @@
         <article class="history-entry history-current"><span>FECHA ESTIMADA</span><div><strong>Dermatofitosis y tiñas</strong><small>Clasificación, transmisión, localización, diagnóstico, antifúngicos y caso de tiña capitis inflamatoria.</small></div><span>ACTUAL</span></article>
       </div>
 
-      <section class="micro-theory-lesson" aria-labelledby="micro-theory-core-title">
+      <button class="course-detail-toggle" type="button" data-detail-toggle aria-controls="micro-theory-detail" aria-expanded="false"><span>CLASE COMPLETA</span><strong>Abrir desarrollo completo</strong><small>Dermatofitos, tiñas, diagnóstico, tratamiento y próxima clase.</small><b aria-hidden="true">+</b></button>
+
+      <section id="micro-theory-detail" class="micro-theory-lesson" data-course-detail aria-labelledby="micro-theory-core-title" hidden>
         <div class="mycosis-core">
           <div><span>IDEA CENTRAL</span><h3 id="micro-theory-core-title">Primero identifica el nivel, después el sitio</h3><p>Las dermatofitosis son micosis cutáneas producidas por hongos que colonizan tejidos queratinizados. El nombre de la tiña indica la región anatómica afectada y orienta la toma de muestra y el tratamiento.</p></div>
           <ol aria-label="Secuencia de razonamiento en dermatofitosis"><li><span>01</span><strong>Nivel</strong><small>Superficial, cutáneo o profundo</small></li><li><span>02</span><strong>Sitio</strong><small>Piel, pelo o uña</small></li><li><span>03</span><strong>Confirmación</strong><small>KOH, cultivo o prueba dirigida</small></li></ol>
@@ -738,7 +737,7 @@
       </article>
     </section>
 
-    <section id="microbiologia-practica" class="content-section subject-section micro-subject" aria-labelledby="micro-title">
+    <section id="microbiologia-practica" class="content-section subject-section micro-subject" data-view="cursos" aria-labelledby="micro-title" hidden>
       <div class="subject-heading">
         <div>
           <p class="section-kicker">Microbiología II práctica · personal · Grupo 3</p>
@@ -752,7 +751,9 @@
         <article class="history-entry history-current"><span>FECHA ESTIMADA</span><div><strong>Hongos y preparación del agar Sabouraud</strong><small>Levaduras, mohos, dimorfismo, estructuras microscópicas y demostración del medio de cultivo.</small></div><span>ACTUAL</span></article>
       </div>
 
-      <section class="micro-lesson" aria-labelledby="micro-core-title">
+      <button class="course-detail-toggle" type="button" data-detail-toggle aria-controls="micro-detail" aria-expanded="false"><span>CLASE COMPLETA</span><strong>Abrir desarrollo completo</strong><small>Muestra, morfología, agar Sabouraud y bioseguridad.</small><b aria-hidden="true">+</b></button>
+
+      <section id="micro-detail" class="micro-lesson" data-course-detail aria-labelledby="micro-core-title" hidden>
         <div class="micro-objectives">
           <div><span>OBJETIVO DE LA PRÁCTICA</span><h3 id="micro-core-title">Cultivar, observar y diferenciar hongos</h3><p>La docente quiere que relaciones la forma macroscópica de una colonia con sus estructuras microscópicas y que expliques por qué el agar Sabouraud favorece el crecimiento fúngico.</p></div>
           <ol><li>Diferenciar levadura, moho y hongo dimórfico.</li><li>Reconocer hifas, micelio, conidios y esporangios.</li><li>Comprender la función del agar Sabouraud.</li><li>Preparar una muestra alimentaria para la próxima práctica.</li></ol>
@@ -835,7 +836,7 @@
       </article>
     </section>
 
-    <section id="plan-estudio" class="content-section plan-section" aria-labelledby="plan-title">
+    <section id="plan-estudio" class="content-section plan-section" data-view="plan" aria-labelledby="plan-title" hidden>
       <div class="section-heading">
         <div><p class="section-kicker">Antes del jueves 20 · fecha estimada</p><h2 id="plan-title">Plan del seminario</h2></div>
         <div class="plan-progress" aria-label="Progreso del plan"><strong id="planCount">0/4</strong><span><i id="planProgressBar"></i></span></div>
@@ -848,7 +849,7 @@
       </div>
     </section>
 
-    <section id="delegado" class="content-section delegate-section" aria-labelledby="delegate-title">
+    <section id="delegado" class="content-section delegate-section" data-view="dudas" aria-labelledby="delegate-title" hidden>
       <div class="delegate-copy">
         <p class="section-kicker">Canal de la clase</p>
         <h2 id="delegate-title">¿Qué debemos preguntar o aclarar?</h2>
@@ -870,16 +871,15 @@
   </footer>
 
   <nav class="mobile-bottom-nav" aria-label="Navegación de clase">
-    <a href="#horario"><span>AGE</span><strong>Agenda</strong></a>
-    <a href="#pendientes"><span>TAR</span><strong>Tareas</strong></a>
-    <a href="#nutricion"><span>NUT</span><strong>Nutri</strong></a>
-    <a href="#bioquimica"><span>BIO</span><strong>Bio</strong></a>
-    <a href="#epidemiologia"><span>EPI</span><strong>Epi</strong></a>
-    <a href="#microbiologia-teorica"><span>MIC</span><strong>Micro</strong></a>
+    <a href="#inicio" data-view-link="inicio" aria-current="page"><span>INI</span><strong>Inicio</strong></a>
+    <a href="#horario" data-view-link="horario"><span>AGE</span><strong>Agenda</strong></a>
+    <a href="#pendientes" data-view-link="pendientes"><span>TAR</span><strong>Tareas</strong></a>
+    <a href="#materias" data-view-link="cursos"><span>CUR</span><strong>Cursos</strong></a>
+    <a href="#delegado" data-view-link="dudas"><span>DUD</span><strong>Dudas</strong></a>
   </nav>
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=403"></script>
-  <script src="grupo-3-v401.js?v=410"></script>
+  <script src="grupo-3-v401.js?v=411"></script>
 </body>
 </html>

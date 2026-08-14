@@ -546,6 +546,74 @@
     renderSchedule();
   }
 
+  var courseIds = ['nutricion','fisiologia','bioquimica','epidemiologia','microbiologia-teorica','microbiologia-practica'];
+  var activeCourseId = 'nutricion';
+
+  function setCourseDetail(detail, expanded){
+    if(!detail) return;
+    detail.hidden = !expanded;
+    var button = document.querySelector('[data-detail-toggle][aria-controls="' + detail.id + '"]');
+    if(!button) return;
+    button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    var label = button.querySelector('strong');
+    if(label) label.textContent = expanded ? 'Cerrar desarrollo completo' : 'Abrir desarrollo completo';
+  }
+
+  function activateCourse(courseId){
+    if(courseIds.indexOf(courseId) === -1) courseId = activeCourseId;
+    activeCourseId = courseId;
+    document.querySelectorAll('.subject-section[data-view="cursos"]').forEach(function(section){
+      section.hidden = section.id !== courseId;
+    });
+    document.querySelectorAll('[data-course-target]').forEach(function(link){
+      var active = link.dataset.courseTarget === courseId;
+      link.setAttribute('aria-current', active ? 'true' : 'false');
+    });
+  }
+
+  function activateView(view, courseId){
+    var validViews = ['inicio','horario','pendientes','cursos','plan','dudas'];
+    if(validViews.indexOf(view) === -1) view = 'inicio';
+
+    document.querySelectorAll('[data-view]').forEach(function(panel){
+      panel.hidden = panel.dataset.view !== view;
+    });
+
+    if(view === 'cursos'){
+      var courseHub = document.getElementById('materias');
+      if(courseHub) courseHub.hidden = false;
+      activateCourse(courseId || activeCourseId);
+    }
+
+    document.querySelectorAll('[data-view-link]').forEach(function(link){
+      var active = link.dataset.viewLink === view;
+      if(active) link.setAttribute('aria-current','page');
+      else link.removeAttribute('aria-current');
+    });
+    document.body.dataset.activeView = view;
+  }
+
+  function routeFromHash(shouldScroll){
+    var hashId = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : 'inicio';
+    var target = document.getElementById(hashId);
+    var subject = target && (target.classList.contains('subject-section') ? target : target.closest('.subject-section'));
+    var viewPanel = target && (target.hasAttribute('data-view') ? target : target.closest('[data-view]'));
+    var view = subject ? 'cursos' : (viewPanel ? viewPanel.dataset.view : 'inicio');
+
+    activateView(view, subject ? subject.id : null);
+
+    if(target){
+      var detail = target.hasAttribute('data-course-detail') ? target : target.closest('[data-course-detail]');
+      if(detail) setCourseDetail(detail,true);
+    }
+
+    if(shouldScroll && target){
+      window.requestAnimationFrame(function(){target.scrollIntoView({behavior:'auto',block:'start'});});
+    }else if(!window.location.hash){
+      window.scrollTo(0,0);
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', function(){
     renderPreview('completo');
     renderEpiPreview('completo');
@@ -556,6 +624,17 @@
     restorePlan();
     restorePersonalSchedule();
     setUpdatedDate();
+
+    document.querySelectorAll('[data-detail-toggle]').forEach(function(button){
+      button.addEventListener('click',function(){
+        var detail = document.getElementById(button.getAttribute('aria-controls'));
+        var expanded = button.getAttribute('aria-expanded') === 'true';
+        setCourseDetail(detail,!expanded);
+      });
+    });
+
+    routeFromHash(Boolean(window.location.hash));
+    window.addEventListener('hashchange',function(){routeFromHash(true);});
 
     document.querySelectorAll('[data-study-mode]').forEach(function(button){
       button.addEventListener('click', function(){
