@@ -558,6 +558,19 @@ img{display:block;max-width:100%}
 .fisio-corrections{border-color:rgba(255,154,154,.26);background:linear-gradient(145deg,rgba(255,154,154,.055),rgba(4,13,23,.48))}
 .fisio-corrections>div>span{color:#ffc1c1}
 
+.course-photo-feature{--feature-accent:111,216,255;position:relative;min-height:340px;margin:0;border:1px solid rgba(var(--feature-accent),.3);border-radius:var(--radius-lg);background:#07111f;box-shadow:inset 0 0 0 1px rgba(255,255,255,.025);overflow:hidden;isolation:isolate}
+.course-photo-feature::after{content:"";position:absolute;z-index:1;inset:0;background:linear-gradient(90deg,rgba(4,11,20,.88) 0,rgba(4,11,20,.44) 45%,rgba(4,11,20,.04) 76%),linear-gradient(0deg,rgba(4,11,20,.68),transparent 54%);pointer-events:none}
+.course-photo-feature img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .55s ease}
+.course-photo-feature:hover img{transform:scale(1.018)}
+.course-photo-feature figcaption{position:absolute;z-index:2;left:clamp(20px,4vw,38px);bottom:clamp(20px,4vw,34px);width:min(430px,calc(100% - 40px));display:grid;gap:4px}
+.course-photo-feature figcaption span{color:rgb(var(--feature-accent));font-size:.64rem;font-weight:950;letter-spacing:.12em}
+.course-photo-feature figcaption strong{font-size:clamp(1.3rem,3vw,2.25rem);line-height:1.02;letter-spacing:-.035em;text-wrap:balance}
+.course-photo-feature figcaption small{max-width:380px;color:var(--muted-strong);font-size:.75rem;line-height:1.4}
+.course-photo-feature--biochemistry{--feature-accent:242,198,109}
+.course-photo-feature--epidemiology{--feature-accent:114,224,171}
+.course-photo-feature--microbiology{--feature-accent:180,136,255}
+.course-photo-feature--laboratory{--feature-accent:114,224,171}
+
 .nutrition-subject{background:radial-gradient(circle at 94% 4%,rgba(255,184,92,.13),transparent 25rem),linear-gradient(150deg,rgba(20,34,49,.96),rgba(7,18,31,.9))}
 .nutrition-core{display:grid;grid-template-columns:.78fr 1.22fr;gap:24px;padding:25px;border:1px solid rgba(255,184,92,.3);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(255,184,92,.075),rgba(4,13,23,.52))}
 .nutrition-core>div>span,.nutrition-definitions span,.nutrition-laws article>span,.nutrition-balance>div>span,.plate-notes span,.food-functions span,.enrichment-grid span,.clinical-adaptation>div>span,.nutrition-case>div>span,.nutrition-seminar>div:first-child>span,.seminar-topics span{color:#ffd3a0;font-size:.64rem;font-weight:950;letter-spacing:.11em}
@@ -574,12 +587,17 @@ img{display:block;max-width:100%}
 .nutrition-definitions strong{margin-top:auto;font-size:1rem}
 .nutrition-definitions p{margin:7px 0 0;color:var(--muted);font-size:.72rem;line-height:1.42}
 .nutrition-laws{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.nutrition-laws article{min-height:220px;display:flex;flex-direction:column;padding:21px;border:1px solid var(--line);border-radius:var(--radius-lg);background:rgba(255,255,255,.02)}
+.nutrition-laws article{min-height:220px;display:flex;flex-direction:column;padding:17px;border:1px solid var(--line);border-radius:var(--radius-lg);background:rgba(255,255,255,.02);overflow:hidden}
 .nutrition-laws article:nth-child(2),.nutrition-laws article:nth-child(4){border-color:rgba(114,224,171,.23)}
-.nutrition-laws strong{margin-top:24px;font-size:1.05rem}
+.nutrition-law-photo{position:relative;aspect-ratio:16/9;margin:13px 0 0;border:1px solid var(--line);border-radius:15px;background:#07111f;overflow:hidden}
+.nutrition-law-photo::after{content:"";position:absolute;inset:0;box-shadow:inset 0 -34px 60px rgba(4,11,20,.22);pointer-events:none}
+.nutrition-law-photo img{width:100%;height:100%;object-fit:cover;transition:transform .55s ease}
+.nutrition-laws article:hover .nutrition-law-photo img{transform:scale(1.025)}
+.nutrition-laws strong{margin-top:16px;font-size:1.05rem}
 .nutrition-laws p{margin:8px 0 0;color:var(--muted);font-size:.76rem}
 .nutrition-laws small{margin-top:auto;padding-top:17px;color:var(--muted-strong);font-size:.68rem}
 .nutrition-laws .nutrition-variety{grid-column:1/-1;min-height:175px;border-color:rgba(111,216,255,.27)}
+.nutrition-variety .nutrition-law-photo{aspect-ratio:3/1}
 .nutrition-balance{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center;padding:23px;border:1px solid rgba(111,216,255,.25);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(111,216,255,.055),rgba(4,13,23,.5))}
 .nutrition-balance>div>span{color:var(--cyan)}
 .energy-equation{display:grid;grid-template-columns:1fr auto 1fr auto 1.15fr;align-items:center;gap:8px}
@@ -587,10 +605,11 @@ img{display:block;max-width:100%}
 .energy-equation b{color:var(--gold-soft);font-size:1.35rem}
 .energy-equation strong{border-color:rgba(114,224,171,.3);color:#b8f5d5}
 .plate-method{display:grid;grid-template-columns:1.25fr .75fr;gap:15px}
-.plate-visual{min-height:390px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:7px;padding:12px;border:1px solid var(--line);border-radius:42px;background:rgba(4,13,23,.5);overflow:hidden}
-.plate-visual>div{display:flex;flex-direction:column;justify-content:center;padding:24px;border:1px solid var(--line);background:rgba(255,255,255,.025)}
-.plate-produce{grid-row:1/3;border-radius:30px 12px 12px 30px!important;background:linear-gradient(145deg,rgba(114,224,171,.17),rgba(114,224,171,.045))!important}
-.plate-protein{border-radius:12px 30px 12px 12px;background:linear-gradient(145deg,rgba(255,184,92,.14),rgba(255,184,92,.04))!important}
+.plate-visual{min-height:600px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:minmax(270px,1.25fr) 1fr 1fr;gap:7px;padding:12px;border:1px solid var(--line);border-radius:42px;background:rgba(4,13,23,.5);overflow:hidden}
+.plate-photo{grid-column:1/-1;grid-row:1;width:100%;height:100%;min-height:270px;object-fit:cover;border-radius:30px 30px 12px 12px}
+.plate-visual>div{display:flex;flex-direction:column;justify-content:center;padding:20px;border:1px solid var(--line);background:rgba(255,255,255,.025)}
+.plate-produce{grid-row:2/4;border-radius:12px 12px 12px 30px!important;background:linear-gradient(145deg,rgba(114,224,171,.17),rgba(114,224,171,.045))!important}
+.plate-protein{border-radius:12px;background:linear-gradient(145deg,rgba(255,184,92,.14),rgba(255,184,92,.04))!important}
 .plate-carbs{border-radius:12px 12px 30px 12px;background:linear-gradient(145deg,rgba(111,216,255,.14),rgba(111,216,255,.04))!important}
 .plate-visual span{color:var(--gold-soft);font-size:1.7rem;font-weight:950}
 .plate-visual strong{margin-top:auto;font-size:1.05rem}
@@ -759,6 +778,18 @@ img{display:block;max-width:100%}
 .plan-progress strong{color:var(--gold-soft)}
 .plan-progress span{height:7px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
 .plan-progress i{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--gold),var(--green));transition:width .25s ease}
+.plan-seminar-brief{display:grid;grid-template-columns:minmax(280px,.82fr) minmax(0,1.18fr);margin-top:26px;border:1px solid rgba(242,198,109,.24);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(242,198,109,.05),rgba(4,13,23,.55));overflow:hidden}
+.plan-seminar-photo{position:relative;min-height:510px;margin:0;background:#07111f;overflow:hidden}
+.plan-seminar-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,11,20,.92),rgba(4,11,20,.08) 68%),linear-gradient(90deg,transparent 72%,rgba(4,11,20,.5));pointer-events:none}
+.plan-seminar-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% center}
+.plan-seminar-photo figcaption{position:absolute;z-index:1;left:24px;right:24px;bottom:24px;display:grid;gap:4px}
+.plan-seminar-photo figcaption span,.plan-group-card>span{color:var(--gold-soft);font-size:.63rem;font-weight:950;letter-spacing:.12em}
+.plan-seminar-photo figcaption strong{font-size:clamp(1.25rem,2.6vw,1.85rem);line-height:1.05}
+.plan-seminar-photo figcaption small{color:var(--muted-strong);font-size:.73rem}
+.plan-group-card{display:flex;flex-direction:column;padding:clamp(22px,3.5vw,34px)}
+.plan-group-card h3{max-width:580px;margin:10px 0 8px;font-size:clamp(1.45rem,3vw,2.25rem);line-height:1.04;letter-spacing:-.035em;text-wrap:balance}
+.plan-group-card>p{max-width:620px;margin:0;color:var(--muted);font-size:.82rem}
+.nutrition-group-picker-plan{margin-top:24px;padding:16px;background:rgba(180,136,255,.055)}
 .study-checklist{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
 .study-checklist label{min-height:98px;display:flex;align-items:flex-start;gap:14px;padding:17px;border:1px solid var(--line);border-radius:var(--radius-md);background:rgba(255,255,255,.025);cursor:pointer}
 .study-checklist label:has(input:checked){border-color:rgba(114,224,171,.32);background:rgba(114,224,171,.055)}
@@ -795,6 +826,8 @@ img{display:block;max-width:100%}
   .dashboard-priorities{grid-template-columns:1fr 1fr}
   .priority-main{grid-column:1/-1}
   .course-selector{grid-template-columns:1fr 1fr}
+  .plan-seminar-brief{grid-template-columns:1fr}
+  .plan-seminar-photo{min-height:320px}
   .class-hero{grid-template-columns:1fr}
   .class-hero-copy{min-height:auto}
   .class-context{margin-top:45px}
@@ -912,10 +945,20 @@ img{display:block;max-width:100%}
   .practice-actions{display:grid;grid-template-columns:1fr}
   .practice-actions button{width:100%}
   .nutrition-laws .nutrition-variety{grid-column:auto}
+  .nutrition-variety .nutrition-law-photo{aspect-ratio:16/9}
   .energy-equation b{transform:rotate(90deg)}
-  .plate-visual{min-height:auto;border-radius:24px}
+  .plate-visual{min-height:auto;grid-template-rows:auto;border-radius:24px}
+  .plate-photo{grid-column:auto;grid-row:auto;min-height:210px;border-radius:16px}
   .plate-produce{grid-row:auto}
   .plate-visual>div,.plate-produce,.plate-protein,.plate-carbs{border-radius:16px!important}
+  .course-photo-feature{min-height:270px}
+  .course-photo-feature::after{background:linear-gradient(0deg,rgba(4,11,20,.92),rgba(4,11,20,.08) 76%)}
+  .course-photo-feature figcaption{left:18px;right:18px;bottom:18px;width:auto}
+  .course-photo-feature figcaption small{font-size:.7rem}
+  .plan-seminar-photo{min-height:255px}
+  .plan-seminar-photo figcaption{left:18px;right:18px;bottom:18px}
+  .plan-group-card{padding:20px 16px}
+  .nutrition-group-picker-plan{margin-top:18px;padding:13px}
   .control-loop li:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-14px;transform:translateX(-50%)}
   .history-current,.regulation-grid article:first-child{grid-column:auto}
   .week-primary{grid-column:auto}

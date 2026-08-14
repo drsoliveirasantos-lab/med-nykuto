@@ -125,6 +125,9 @@ test.describe('Class hub', () => {
     const nutrition = page.locator('#nutricion');
     await expect(nutrition.getByText('Clase estimada · 13 ago. · confirmar')).toBeVisible();
     await expect(page.locator('.nutrition-laws article')).toHaveCount(5);
+    await expect(page.locator('.nutrition-law-photo img')).toHaveCount(5);
+    await expect(page.locator('.plate-photo')).toBeVisible();
+    await expect.poll(() => page.locator('.nutrition-law-photo img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0))).toBe(true);
     await expect(page.getByText('Una dieta no se juzga solo por sus calorías')).toBeVisible();
     await expect(page.getByText('Paraguay difunde 12 mensajes alimentarios oficiales, no 10.')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Seminario / presentación oral' })).toBeVisible();
@@ -151,6 +154,40 @@ test.describe('Class hub', () => {
     await page.reload();
     await expect(selector).toHaveValue('3');
     await expect(output.getByText('Región Sudeste de Brasil', { exact: true })).toBeVisible();
+  });
+
+  test('syncs the Nutrition group and exact topics with the seminar plan', async ({ page }) => {
+    await page.goto('/clase.html#plan-estudio');
+    const planSelector = page.locator('#nutritionGroupPlanSelect');
+    await expect(planSelector).toBeVisible();
+    await planSelector.selectOption('6');
+    const planOutput = page.locator('#plan-estudio [data-nutrition-group-output]');
+    await expect(planOutput.getByText('Guías Alimentarias del Paraguay', { exact: true })).toBeVisible();
+    await expect(planOutput.getByText('Platos típicos del Paraguay', { exact: true })).toBeVisible();
+    await expect(page.locator('#studyChecklist input[value="nutrition-group"]')).toBeChecked();
+    await expect(page.locator('#planCount')).toHaveText('1/4');
+
+    await page.goto('/clase.html#pendientes');
+    await expect(page.locator('#nutritionGroupTaskSelect')).toHaveValue('6');
+    await expect(page.locator('#nutritionPrepCard [data-nutrition-group-output]').getByText('Platos típicos del Paraguay', { exact: true })).toBeVisible();
+  });
+
+  test('loads a useful photographic visual in every non-Nutrition course', async ({ page }) => {
+    const courseVisuals = [
+      ['fisio-detail', '.course-photo-feature--physiology img'],
+      ['bio-detail', '.course-photo-feature--biochemistry img'],
+      ['epi-detail', '.course-photo-feature--epidemiology img'],
+      ['micro-theory-detail', '.course-photo-feature--microbiology img'],
+      ['micro-detail', '.course-photo-feature--laboratory img']
+    ];
+
+    for (const [hash, selector] of courseVisuals) {
+      await page.goto(`/clase.html#${hash}`);
+      const image = page.locator(selector);
+      await expect(image).toBeVisible();
+      await expect(image).not.toHaveAttribute('alt', '');
+      await expect.poll(() => image.evaluate(node => node.complete && node.naturalWidth > 0)).toBe(true);
+    }
   });
 
   test('archives completed activities by subject and counts personal signed copies', async ({ page }) => {

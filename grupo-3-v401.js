@@ -420,6 +420,11 @@
   function renderNutritionGroup(groupId){
     document.querySelectorAll('[data-nutrition-group-select]').forEach(function(select){select.value = nutritionSeminarGroups[groupId] ? groupId : '';});
     document.querySelectorAll('[data-nutrition-group-output]').forEach(function(output){output.innerHTML = nutritionGroupMarkup(groupId);});
+    var planStep = document.querySelector('#studyChecklist input[value="nutrition-group"]');
+    if(planStep && nutritionSeminarGroups[groupId] && !planStep.checked){
+      planStep.checked = true;
+      savePlan();
+    }
   }
 
   function restoreNutritionGroup(){
