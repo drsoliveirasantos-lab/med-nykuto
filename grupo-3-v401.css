@@ -62,10 +62,11 @@ img{display:block;max-width:100%}
 .class-dashboard,.course-hub{border:1px solid var(--line);border-radius:var(--radius-xl);background:linear-gradient(145deg,rgba(17,34,56,.96),rgba(7,18,31,.91));box-shadow:var(--shadow)}
 .class-dashboard{padding:clamp(25px,4vw,42px);overflow:hidden;position:relative}
 .class-dashboard::after{content:"";position:absolute;width:420px;height:420px;right:-230px;top:-245px;border-radius:50%;background:radial-gradient(circle,rgba(111,216,255,.16),transparent 68%);pointer-events:none}
-.dashboard-heading{position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;gap:30px}
+.dashboard-heading{position:relative;z-index:1;display:grid}
+.dashboard-heading-top{display:flex;align-items:center;justify-content:space-between;gap:18px}
 .dashboard-heading .section-kicker{margin:20px 0 8px}
 .dashboard-heading h1{max-width:760px;margin:0;font-size:clamp(2.25rem,5.5vw,4.4rem);line-height:.98;letter-spacing:-.052em;text-wrap:balance}
-.dashboard-heading>div>p:last-child{max-width:690px;margin:16px 0 0;color:var(--muted-strong);font-size:1rem}
+.dashboard-intro{max-width:690px;margin:16px 0 0;color:var(--muted-strong);font-size:1rem}
 .dashboard-updated{display:inline-flex;align-items:center;min-height:34px;padding:7px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted-strong);background:rgba(255,255,255,.03);font-size:.7rem;font-weight:850;white-space:nowrap}
 .dashboard-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(255px,.7fr);gap:12px;margin-top:28px}
 .dashboard-next,.dashboard-status{min-height:190px;border:1px solid var(--line);border-radius:var(--radius-lg);background:rgba(4,13,23,.5)}
@@ -229,6 +230,13 @@ img{display:block;max-width:100%}
 .assignment-top{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--muted);font-size:.68rem;font-weight:850}
 .assignment-card h3{margin:28px 0 10px;font-size:1.35rem;line-height:1.12}
 .assignment-card p{margin:0;color:var(--muted);font-size:.85rem}
+.assignment-week-range{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:center;width:100%;margin:0 0 13px;padding:9px 11px;border:1px solid rgba(111,216,255,.22);border-radius:14px;background:rgba(111,216,255,.055)}
+.assignment-week-range>.nav-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;color:var(--cyan);background:rgba(111,216,255,.08)}
+.assignment-week-range>.nav-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.assignment-week-range>span:last-child{display:grid;gap:2px}
+.assignment-week-range small{color:var(--cyan);font-size:.58rem;font-weight:950;letter-spacing:.11em}
+.assignment-week-range strong{display:flex;align-items:center;gap:7px;color:var(--ink);font-size:.76rem;line-height:1.2}
+.assignment-week-range i{color:var(--muted);font-style:normal}
 .assignment-estimated{border-color:rgba(242,198,109,.28);background:linear-gradient(150deg,rgba(242,198,109,.07),rgba(4,13,23,.55))}
 .assignment-personal{border-color:rgba(111,216,255,.3);background:linear-gradient(150deg,rgba(111,216,255,.085),rgba(4,13,23,.55))}
 .assignment-date{width:100%;display:grid;gap:3px;margin-top:20px;padding:13px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -438,6 +446,23 @@ img{display:block;max-width:100%}
 .signature-control small{color:var(--muted);font-size:.65rem}
 
 .glycolysis-lesson,.epi-lesson,.micro-lesson,.micro-theory-lesson,.fisio-lesson{display:grid;gap:13px;margin-top:16px}
+.bio-board-synthesis{display:grid;gap:14px;padding:24px;border:1px solid rgba(242,198,109,.27);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(242,198,109,.075),rgba(4,13,23,.58));overflow:hidden;position:relative}
+.bio-board-synthesis::after{content:"";position:absolute;width:240px;height:240px;right:-130px;top:-150px;border-radius:50%;background:radial-gradient(circle,rgba(242,198,109,.14),transparent 70%);pointer-events:none}
+.bio-board-synthesis>header{position:relative;z-index:1;max-width:760px}
+.bio-board-synthesis>header>span,.bio-board-route article>span,.bio-board-keys article>span{color:var(--gold-soft);font-size:.62rem;font-weight:950;letter-spacing:.12em}
+.bio-board-synthesis h3{margin:8px 0 7px;font-size:clamp(1.55rem,3vw,2.35rem);line-height:1.03;letter-spacing:-.035em}
+.bio-board-synthesis header p{margin:0;color:var(--muted);font-size:.8rem}
+.bio-board-route{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto 1fr auto 1.2fr auto 1.35fr;gap:8px;align-items:stretch}
+.bio-board-route article{min-width:0;display:grid;align-content:center;gap:4px;min-height:104px;padding:14px;border:1px solid rgba(242,198,109,.17);border-radius:16px;background:rgba(4,13,23,.55)}
+.bio-board-route article:last-of-type{border-color:rgba(114,224,171,.3);background:rgba(114,224,171,.055)}
+.bio-board-route article:last-of-type>span{color:#b8f5d5}
+.bio-board-route strong{font-size:.9rem;line-height:1.2}
+.bio-board-route small{color:var(--muted);font-size:.66rem;line-height:1.35}
+.bio-board-route>i{align-self:center;color:var(--gold-soft);font-style:normal;font-weight:950}
+.bio-board-keys{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.bio-board-keys article{display:grid;align-content:start;gap:5px;padding:14px;border-top:1px solid rgba(197,215,239,.13);background:rgba(255,255,255,.012)}
+.bio-board-keys strong{font-size:.78rem;line-height:1.3}
+.bio-board-keys small{color:var(--muted);font-size:.67rem;line-height:1.4}
 .lesson-intro{display:grid;grid-template-columns:1.25fr .75fr;gap:13px}
 .lesson-intro>div{padding:24px;border:1px solid var(--line);border-radius:var(--radius-lg);background:rgba(4,13,23,.5)}
 .lesson-intro>div:first-child>span,.net-balance>span,.lesson-subheading>span,.phase-card header>span,.regulation-grid article>span,.science-note>div>span{color:var(--gold-soft);font-size:.65rem;font-weight:950;letter-spacing:.12em}
@@ -983,29 +1008,30 @@ body.answer-modal-open{overflow:hidden}
 }
 
 @media(max-width:680px){
-  html{scroll-padding-top:84px}
-  body{padding-bottom:82px}
+  html{scroll-padding-top:72px}
+  body{padding-bottom:76px}
   body::before{opacity:.1;background-size:56px 56px}
-  .class-header-inner{width:min(calc(100% - 24px),var(--content));min-height:68px;grid-template-columns:1fr auto}
-  .class-brand img{width:44px;height:44px}
+  .class-header-inner{width:min(calc(100% - 16px),var(--content));min-height:60px;grid-template-columns:1fr auto}
+  .class-brand img{width:40px;height:40px;border-radius:12px}
   .class-brand span{display:none}
   .class-scope{justify-self:start;padding:7px 11px;font-size:.72rem}
   .header-back{display:none}
-  .class-app{width:min(calc(100% - 24px),var(--content));padding-top:12px}
-  .workspace-nav{position:static;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(106px,1fr);grid-template-columns:none;gap:5px;margin:0 -2px 12px;padding:5px;overflow-x:auto;scrollbar-width:none}
-  .workspace-nav::-webkit-scrollbar{display:none}
-  .workspace-nav a{min-height:54px;padding:8px}
-  .workspace-nav a>span{width:30px;height:30px}
-  .workspace-nav a>.nav-icon svg{width:17px;height:17px}
-  .class-dashboard,.course-hub,.class-hero-copy,.next-class-card,.schedule-section,.pending-section,.subject-section,.plan-section,.delegate-section{border-radius:24px}
-  .class-dashboard{padding:22px 16px}
-  .dashboard-heading{display:grid;gap:14px}
-  .dashboard-heading .section-kicker{margin-top:20px}
-  .dashboard-heading h1{font-size:clamp(2.35rem,12vw,3.45rem)}
-  .dashboard-updated{justify-self:start}
-  .dashboard-grid{margin-top:22px}
+  .class-app{width:min(calc(100% - 16px),var(--content));padding-top:8px}
+  .workspace-nav{display:none}
+  .class-dashboard,.course-hub,.class-hero-copy,.next-class-card,.schedule-section,.pending-section,.subject-section,.plan-section,.delegate-section{border-radius:22px}
+  .class-dashboard{padding:18px 14px}
+  .dashboard-heading{gap:0}
+  .dashboard-heading-top{align-items:center;gap:10px}
+  .dashboard-heading-top .hero-meta>span:last-child{display:none}
+  .dashboard-heading .section-kicker{margin:14px 0 6px}
+  .dashboard-heading h1{font-size:clamp(2.15rem,10.5vw,2.85rem);line-height:1}
+  .dashboard-intro{margin-top:9px;font-size:.83rem;line-height:1.4}
+  .dashboard-updated{min-height:30px;padding:5px 8px;font-size:.61rem}
+  .dashboard-grid{margin-top:15px}
   .dashboard-next,.dashboard-status{min-height:auto}
-  .dashboard-next{min-height:220px;padding:18px}
+  .dashboard-next{min-height:174px;padding:16px}
+  .dashboard-next h2{margin:15px 0 3px;font-size:1.75rem}
+  .dashboard-next>a{padding-top:12px}
   .dashboard-status{grid-template-columns:1fr;grid-template-rows:auto}
   .dashboard-status>a{grid-column:auto}
   .dashboard-priorities,.course-selector{grid-template-columns:1fr}
@@ -1044,7 +1070,8 @@ body.answer-modal-open{overflow:hidden}
   .content-section{margin-top:12px}
   .section-heading,.subject-heading{align-items:flex-start;flex-direction:column;gap:12px}
   .section-heading>p{font-size:.86rem}
-  .agenda-summary,.agenda-grid,.pending-grid,.archive-subject-grid,.week-grid,.class-history,.lesson-intro,.phase-grid,.reaction-list,.regulation-grid,.science-note,.resource-grid,.study-map,.study-checklist,.delegate-section,.exam-focus,.epi-map-grid,.timeline-row,.two-column-notes,.compare-cards,.dispensary-grid,.family-cycle,.dimension-flow,.process-strip,.triage-first-look,.triage-colors,.micro-objectives,.sample-grid,.sample-check,.morphology-grid,.sabouraud-panel,.sabouraud-facts,.lab-workflow,.lab-safety-card,.resp-control-hero,.control-loop,.resp-centers,.resp-modulators,.gas-core-grid,.gas-memory-strip,.bohr-haldane,.clinical-bridge,.nutrition-core,.nutrition-core ol,.nutrition-definitions,.nutrition-laws,.nutrition-balance,.energy-equation,.plate-method,.plate-visual,.plate-notes,.food-functions,.enrichment-grid,.clinical-adaptation,.adaptation-grid,.nutrition-case,.nutrition-group-picker-full,.nutrition-group-output,.seminar-rules,.seminar-delivery-route,.seminar-content-grid,.seminar-report-layout,.seminar-rubric-grid,.seminar-organization-grid,.plan-deliverables,.mycosis-core,.mycosis-core ol,.mycosis-split,.transmission-grid,.site-grid,.case-teaching-card,.diagnostic-flow,.therapy-grid,.next-mycology-grid{grid-template-columns:1fr}
+  .agenda-summary,.agenda-grid,.pending-grid,.archive-subject-grid,.week-grid,.class-history,.lesson-intro,.phase-grid,.reaction-list,.regulation-grid,.science-note,.resource-grid,.study-map,.study-checklist,.delegate-section,.exam-focus,.epi-map-grid,.timeline-row,.two-column-notes,.compare-cards,.dispensary-grid,.family-cycle,.dimension-flow,.process-strip,.triage-first-look,.triage-colors,.micro-objectives,.sample-grid,.sample-check,.morphology-grid,.sabouraud-panel,.sabouraud-facts,.lab-workflow,.lab-safety-card,.resp-control-hero,.control-loop,.resp-centers,.resp-modulators,.gas-core-grid,.gas-memory-strip,.bohr-haldane,.clinical-bridge,.nutrition-core,.nutrition-core ol,.nutrition-definitions,.nutrition-laws,.nutrition-balance,.energy-equation,.plate-method,.plate-visual,.plate-notes,.food-functions,.enrichment-grid,.clinical-adaptation,.adaptation-grid,.nutrition-case,.nutrition-group-picker-full,.nutrition-group-output,.seminar-rules,.seminar-delivery-route,.seminar-content-grid,.seminar-report-layout,.seminar-rubric-grid,.seminar-organization-grid,.plan-deliverables,.mycosis-core,.mycosis-core ol,.mycosis-split,.transmission-grid,.site-grid,.case-teaching-card,.diagnostic-flow,.therapy-grid,.next-mycology-grid,.bio-board-route,.bio-board-keys{grid-template-columns:1fr}
+  .bio-board-route>i{justify-self:center;line-height:1;transform:rotate(90deg)}
   .seminar-at-a-glance,.seminar-mini-route{grid-template-columns:1fr}
   .seminar-delivery-route article:last-child{grid-column:auto}
   .seminar-source-actions,.plan-official-files{grid-template-columns:1fr}
@@ -1100,7 +1127,7 @@ body.answer-modal-open{overflow:hidden}
   .history-current,.regulation-grid article:first-child{grid-column:auto}
   .week-primary{grid-column:auto}
   .week-card{min-height:230px}
-  .schedule-section,.pending-section,.subject-section,.plan-section,.delegate-section{padding:22px 16px}
+  .schedule-section,.pending-section,.subject-section,.plan-section,.delegate-section{padding:20px 15px}
   .agenda-grid{gap:8px}
   .next-schedule-card,.schedule-guide-card,.personal-lab-card{min-height:auto}
   .assignment-card,.inference-card{min-height:auto}
@@ -1139,13 +1166,50 @@ body.answer-modal-open{overflow:hidden}
   .delegate-section{gap:26px}
   .question-builder{padding:15px}
   .class-footer{display:none}
-  .mobile-bottom-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);left:10px;right:10px;bottom:10px;z-index:60;border:1px solid var(--line-strong);border-radius:20px;background:rgba(6,15,26,.94);box-shadow:0 20px 55px rgba(0,0,0,.45);backdrop-filter:blur(18px);overflow:hidden}
-  .mobile-bottom-nav a{min-height:60px;display:grid;place-items:center;align-content:center;gap:2px;color:var(--muted);font-size:.64rem}
+  .mobile-bottom-nav{position:fixed;display:grid;grid-template-columns:repeat(6,1fr);left:6px;right:6px;bottom:max(6px,env(safe-area-inset-bottom));z-index:60;border:1px solid var(--line-strong);border-radius:18px;background:rgba(6,15,26,.94);box-shadow:0 20px 55px rgba(0,0,0,.45);backdrop-filter:blur(18px);overflow:hidden}
+  .mobile-bottom-nav a{min-height:56px;display:grid;place-items:center;align-content:center;gap:1px;color:var(--muted);font-size:.62rem}
   .mobile-bottom-nav a[aria-current="page"]{color:var(--ink);background:rgba(242,198,109,.1)}
   .mobile-bottom-nav span{color:var(--gold-soft);font-size:.6rem;font-weight:950;letter-spacing:.08em}
-  .mobile-bottom-nav .nav-icon svg{width:19px;height:19px}
-  .mobile-bottom-nav strong{font-size:.67rem}
-  .toast{bottom:86px;border-radius:16px;text-align:center}
+  .mobile-bottom-nav .nav-icon svg{width:18px;height:18px}
+  .mobile-bottom-nav strong{font-size:.61rem}
+  .toast{bottom:76px;border-radius:16px;text-align:center}
+}
+
+@media(max-width:480px){
+  .class-scope{gap:7px;padding:6px 10px;font-size:.68rem}
+  .class-dashboard{padding:15px 12px}
+  .dashboard-heading-top{align-items:flex-start}
+  .dashboard-heading .section-kicker{margin-top:12px;font-size:.62rem}
+  .dashboard-heading h1{font-size:2.25rem;max-width:330px}
+  .dashboard-intro{max-width:340px;font-size:.79rem}
+  .dashboard-card-top{font-size:.57rem}
+  .dashboard-card-top span:last-child{letter-spacing:.04em}
+  .dashboard-next{min-height:164px;padding:14px}
+  .dashboard-next h2{font-size:1.62rem}
+  .dashboard-next>strong{font-size:.83rem}
+  .dashboard-next>a{font-size:.7rem}
+  .dashboard-status{padding:14px}
+  .dashboard-status>div{padding:7px 0}
+  .dashboard-priorities{gap:8px;margin-top:8px}
+  .priority-card{min-height:128px;padding:14px}
+  .priority-card strong{margin-top:9px;font-size:.91rem}
+  .priority-card small{font-size:.68rem}
+  .course-hub,.schedule-section,.pending-section,.subject-section,.plan-section,.delegate-section{padding:17px 12px;border-radius:20px}
+  .section-heading h2,.subject-heading h2,.delegate-copy h2{font-size:1.75rem}
+  .section-heading,.subject-heading{gap:9px}
+  .section-kicker{margin-top:18px;font-size:.65rem;letter-spacing:.14em}
+  .assignment-card,.inference-card{padding:16px;border-radius:17px}
+  .assignment-card h3{margin-top:22px;font-size:1.2rem}
+  .assignment-week-range{grid-template-columns:32px 1fr;padding:8px 9px}
+  .assignment-week-range>.nav-icon{width:30px;height:30px}
+  .assignment-week-range strong{font-size:.7rem}
+  .bio-board-synthesis{padding:17px 13px;border-radius:18px}
+  .bio-board-synthesis h3{font-size:1.5rem}
+  .bio-board-route article{min-height:88px;padding:12px}
+  .bio-board-keys article{padding:12px}
+  .course-photo-feature{min-height:220px}
+  .resource-card{min-height:96px;padding:11px;grid-template-columns:42px 1fr auto}
+  .resource-icon{width:40px;height:40px}
 }
 
 @media(max-width:390px){
