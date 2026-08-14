@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#07111f" />
   <title>4.º E · Semestre 4 | Med Nykuto</title>
-  <meta name="description" content="Espacio académico no oficial de 4.º E: horario, pendientes y revisiones de Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología práctica organizadas en un solo lugar." />
+  <meta name="description" content="Espacio académico no oficial de 4.º E: horario, pendientes y revisiones de Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología organizadas en un solo lugar." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=408" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=409" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -38,7 +38,7 @@
         <h1 id="class-title">Todo lo importante, en el orden correcto.</h1>
         <p class="hero-lead">Clases, revisión y pendientes reunidos para que sepas qué estudiar ahora sin buscar entre mensajes y archivos.</p>
         <div class="hero-actions">
-          <a class="action-button action-primary" href="#fisiologia">Abrir Fisiología</a>
+          <a class="action-button action-primary" href="#microbiologia-teorica">Abrir Microbiología</a>
           <a class="action-button action-secondary" href="#horario">Ver horario</a>
         </div>
         <div class="hero-trust" aria-label="Información del espacio">
@@ -49,14 +49,14 @@
       </div>
 
       <aside class="next-class-card" aria-labelledby="next-class-title">
-        <div class="card-topline"><span>ÚLTIMO CURSO</span><span class="live-badge">FISIOLOGÍA · 13 AGO.</span></div>
-        <h2 id="next-class-title">Control de la respiración</h2>
-        <p>Quimiorreceptores, grupos respiratorios bulbo-pontinos, reflejos pulmonares y aplicación clínica en EPOC.</p>
+        <div class="card-topline"><span>ÚLTIMO CURSO</span><span class="live-badge">MICROBIOLOGÍA · FECHA EST.</span></div>
+        <h2 id="next-class-title">Dermatofitosis y tiñas</h2>
+        <p>Queratina, géneros dermatofitos, transmisión, localización, diagnóstico, tratamiento y caso de tiña capitis inflamatoria.</p>
         <div class="class-context">
           <span>Últimas transcripciones recibidas: 14 ago. 2026</span>
-          <strong>Dos bloques de Fisiología separados</strong>
+          <strong>Nueva clase teórica organizada y corregida</strong>
         </div>
-        <a class="card-link" href="#fisiologia">Abrir el curso más reciente <span aria-hidden="true">→</span></a>
+        <a class="card-link" href="#microbiologia-teorica">Abrir el curso más reciente <span aria-hidden="true">→</span></a>
       </aside>
     </section>
 
@@ -66,6 +66,7 @@
       <a href="#fisiologia"><span class="quick-code">FIS</span><strong>Fisiología</strong><small>Control respiratorio</small></a>
       <a href="#bioquimica"><span class="quick-code">BIO</span><strong>Bioquímica</strong><small>Glucólisis</small></a>
       <a href="#epidemiologia"><span class="quick-code">EPI</span><strong>Epidemiología</strong><small>APS y triage</small></a>
+      <a href="#microbiologia-teorica"><span class="quick-code">MIC</span><strong>Micro teórica</strong><small>Dermatofitosis</small></a>
       <a href="#microbiologia-practica"><span class="quick-code">LAB</span><strong>Micro práctica</strong><small>Hongos y Sabouraud</small></a>
       <a href="#delegado"><span class="quick-code">DUD</span><strong>Enviar una duda</strong><small>Preparar el mensaje</small></a>
     </nav>
@@ -131,6 +132,14 @@
         <div class="status-legend" aria-label="Estados de las fechas"><span class="status-confirmed">Confirmada</span><span class="status-estimated">Estimada</span><span class="status-check">Verificar</span></div>
       </div>
       <div class="pending-grid">
+        <article class="assignment-card assignment-estimated" id="microTheoryPrepCard">
+          <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Microbiología II teórica</span></div>
+          <h3>Preparar tiñas y tres micosis subcutáneas</h3>
+          <p>Repasar las tiñas y estudiar esporotricosis linfocutánea, cromoblastomicosis y micetoma eumicótico para iniciar la próxima clase con casos clínicos.</p>
+          <div class="assignment-date"><span>Próxima clase estimada</span><strong id="microTheoryEstimatedDate">Próxima clase de Microbiología II</strong></div>
+          <small>La consigna fue explícita. La fecha no fue pronunciada y se calcula con el horario habitual del lunes; debe confirmarse.</small>
+          <label class="completion-control"><input type="checkbox" id="microTheoryPrepDone" /><span>Marcar preparación como realizada</span></label>
+        </article>
         <article class="assignment-card assignment-personal" id="microPrepCard">
           <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Personal · Grupo 3</span></div>
           <h3>Llevar una muestra de alimento con moho</h3>
@@ -176,10 +185,10 @@
       </div>
       <div class="week-grid">
         <article class="week-card week-primary">
-          <div class="week-card-head"><span class="week-label">PRIORIDAD 01</span><span class="availability">Grupo 3</span></div>
-          <h3>Preparar la muestra para el laboratorio</h3>
-          <p>Elegir un alimento sólido con moho, cerrarlo, rotularlo y llevarlo sin manipularlo fuera del laboratorio.</p>
-          <a href="#micro-preparacion">Ver lista de preparación</a>
+          <div class="week-card-head"><span class="week-label">PRIORIDAD 01</span><span class="availability">Microbiología teórica</span></div>
+          <h3>Preparar las micosis subcutáneas</h3>
+          <p>Comparar esporotricosis linfocutánea, cromoblastomicosis y micetoma eumicótico; repasar primero el mapa de las tiñas.</p>
+          <a href="#micro-proxima-clase">Abrir preparación</a>
         </article>
         <article class="week-card">
           <div class="week-card-head"><span class="week-label">TEORÍA</span><span>Miércoles</span></div>
@@ -486,6 +495,130 @@
       </article>
     </section>
 
+    <section id="microbiologia-teorica" class="content-section subject-section micro-theory-subject" aria-labelledby="micro-theory-title">
+      <div class="subject-heading">
+        <div>
+          <p class="section-kicker">Microbiología II teórica · nueva transcripción · una clase</p>
+          <h2 id="micro-theory-title">Dermatofitosis: de la queratina al caso clínico</h2>
+          <p>La fecha no fue pronunciada. Por el horario habitual y la fecha de recepción, la clase se estima el lunes 10 de agosto de 2026 y permanece por confirmar.</p>
+        </div>
+        <span class="source-pill status-estimated">Clase estimada · 10 ago. · confirmar</span>
+      </div>
+
+      <div class="class-history class-history-single" aria-label="Historial de Microbiología teórica">
+        <article class="history-entry history-current"><span>FECHA ESTIMADA</span><div><strong>Dermatofitosis y tiñas</strong><small>Clasificación, transmisión, localización, diagnóstico, antifúngicos y caso de tiña capitis inflamatoria.</small></div><span>ACTUAL</span></article>
+      </div>
+
+      <section class="micro-theory-lesson" aria-labelledby="micro-theory-core-title">
+        <div class="mycosis-core">
+          <div><span>IDEA CENTRAL</span><h3 id="micro-theory-core-title">Primero identifica el nivel, después el sitio</h3><p>Las dermatofitosis son micosis cutáneas producidas por hongos que colonizan tejidos queratinizados. El nombre de la tiña indica la región anatómica afectada y orienta la toma de muestra y el tratamiento.</p></div>
+          <ol aria-label="Secuencia de razonamiento en dermatofitosis"><li><span>01</span><strong>Nivel</strong><small>Superficial, cutáneo o profundo</small></li><li><span>02</span><strong>Sitio</strong><small>Piel, pelo o uña</small></li><li><span>03</span><strong>Confirmación</strong><small>KOH, cultivo o prueba dirigida</small></li></ol>
+        </div>
+
+        <div class="mycosis-split" aria-label="Comparación entre micosis superficial y dermatofitosis">
+          <article><span>MICOSIS SUPERFICIAL</span><h3>Estrato córneo o tallo piloso</h3><p>La invasión se limita a las capas más externas y suele generar poca inflamación. Incluye entidades como pitiriasis versicolor y piedras; no equivale automáticamente a dermatofitosis.</p><small>Ejemplo orientador: consulta estética con pocos o ningún síntoma.</small></article>
+          <article><span>MICOSIS CUTÁNEA · TIÑA</span><h3>Tejido queratinizado</h3><p>Los dermatofitos utilizan queratina y afectan piel, pelo o uñas. Prurito, descamación e inflamación son variables y dependen del hongo, el sitio y la respuesta del huésped.</p><small>Agentes clásicos: <i>Trichophyton</i>, <i>Microsporum</i> y <i>Epidermophyton</i>.</small></article>
+        </div>
+
+        <div class="lesson-subheading"><span>TRES GÉNEROS CLÁSICOS</span><strong>Qué tejido puede infectar cada dermatofito.</strong></div>
+        <div class="table-scroll" role="region" aria-label="Comparación de géneros dermatofitos" tabindex="0">
+          <table class="fungi-table dermatophyte-table">
+            <thead><tr><th>Género</th><th>Piel</th><th>Pelo</th><th>Uña</th><th>Clave</th></tr></thead>
+            <tbody>
+              <tr><th><i>Trichophyton</i></th><td>Sí</td><td>Sí</td><td>Sí</td><td>Puede afectar los tres tejidos queratinizados.</td></tr>
+              <tr><th><i>Microsporum</i></th><td>Sí</td><td>Sí</td><td>No habitual</td><td><i>M. canis</i> es una causa zoofílica importante de tiña capitis.</td></tr>
+              <tr><th><i>Epidermophyton</i></th><td>Sí</td><td>No</td><td>Sí</td><td>No invade el pelo.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="course-note"><b>No mezclar nombres:</b> <i>Pityrosporum/Malassezia</i> se relaciona con pitiriasis versicolor y no integra los tres géneros clásicos de dermatofitos.</p>
+
+        <div class="transmission-grid" aria-label="Reservorios y transmisión de dermatofitos">
+          <article><span>ANTROPOFÍLICO</span><strong>Humano → humano</strong><small>Contacto directo o fómites como toallas, ropa, ropa de cama, peines y calzado.</small></article>
+          <article><span>ZOOFÍLICO</span><strong>Animal → humano</strong><small>Perros, gatos u otros animales; con frecuencia produce una respuesta inflamatoria intensa.</small></article>
+          <article><span>GEOFÍLICO</span><strong>Suelo → humano</strong><small>Contacto con tierra contaminada; suele requerir exposición directa de la piel.</small></article>
+        </div>
+
+        <div class="lesson-subheading"><span>MAPA DE LAS TIÑAS</span><strong>El segundo término nombra el sitio, no una especie.</strong></div>
+        <div class="site-grid" aria-label="Tiñas según localización anatómica">
+          <article><span>CABEZA</span><strong>Tinea capitis</strong><small>Cuero cabelludo y pelo: descamación, pelos rotos, alopecia en placas o querion.</small></article>
+          <article><span>BARBA</span><strong>Tinea barbae</strong><small>Área de barba y bigote; puede ser folicular e inflamatoria.</small></article>
+          <article><span>TRONCO / EXTREMIDADES</span><strong>Tinea corporis</strong><small>Placa anular descamativa con borde activo; el aclaramiento central puede faltar.</small></article>
+          <article><span>INGLE</span><strong>Tinea cruris</strong><small>Pliegue inguinal y región proximal del muslo.</small></article>
+          <article><span>PIE / MANO</span><strong>Tinea pedis / manuum</strong><small>Forma interdigital, plantar o vesicular; la humedad y el calzado oclusivo favorecen persistencia.</small></article>
+          <article><span>UÑA</span><strong>Tinea unguium</strong><small>Onicomicosis por dermatofito. “Onicomicosis” también incluye levaduras y mohos no dermatofitos.</small></article>
+        </div>
+
+        <div class="case-teaching-card">
+          <div><span>CASO DISCUTIDO EN CLASE</span><h3>Preescolar + alopecia en placa + pelos fracturados + perro con lesión</h3><p>El conjunto orienta a <b>tiña capitis inflamatoria</b>; una placa dolorosa, blanda o pustulosa corresponde a un <b>querion</b>. La exposición al perro hace pensar en un dermatofito zoofílico, especialmente <i>Microsporum canis</i>, pero la especie requiere confirmación.</p></div>
+          <ol><li><b>Localizar:</b> cuero cabelludo y tallos pilosos.</li><li><b>Reconocer:</b> descamación, pelos rotos, alopecia en placas y posible adenopatía.</li><li><b>Muestrear:</b> escamas y pelos afectados antes del antifúngico cuando sea posible.</li><li><b>Tratar la fuente:</b> evaluar al animal con veterinaria y reducir fómites compartidos.</li></ol>
+        </div>
+
+        <div class="diagnostic-flow" aria-label="Flujo diagnóstico de una dermatofitosis">
+          <article><span>01</span><strong>Sospecha clínica</strong><small>Sitio, borde activo, descamación, pelo roto, uña alterada y exposición.</small></article>
+          <article><span>02</span><strong>Muestra correcta</strong><small>Raspado del borde activo; pelo/escama en capitis; recorte y detrito subungueal en uñas.</small></article>
+          <article><span>03</span><strong>Examen con KOH</strong><small>El hidróxido de potasio aclara queratina y permite ver hifas septadas o artroconidios; no define por sí solo la especie.</small></article>
+          <article><span>04</span><strong>Cultivo / identificación</strong><small>Sabouraud u otro medio apropiado, morfología y pruebas adicionales para identificar el agente.</small></article>
+        </div>
+        <p class="course-note"><b>Lámpara de Wood:</b> es una ayuda, no una prueba universal. Algunos <i>Microsporum</i> producen fluorescencia verde; muchas infecciones por <i>Trichophyton</i> no fluorescen. El azul de lactofenol se utiliza principalmente para observar estructuras de cultivos de mohos.</p>
+
+        <div class="therapy-grid" aria-label="Tratamiento según localización">
+          <article><span>PIEL LOCALIZADA</span><strong>Frecuentemente tópico</strong><p>Azol o alilamina según el diagnóstico, el sitio y la guía local. Evitar corticoide tópico aislado porque puede enmascarar y agravar la tiña.</p></article>
+          <article><span>CUERO CABELLUDO / PELO</span><strong>Tratamiento sistémico</strong><p>La tiña capitis necesita un antifúngico oral para alcanzar el folículo. El champú antifúngico es adyuvante para reducir transmisión, no monoterapia.</p></article>
+          <article><span>UÑA, EXTENSA O RECIDIVANTE</span><strong>Confirmar y individualizar</strong><p>Puede requerir terapia sistémica; primero se confirma la etiología y se revisan interacciones, función hepática y factores predisponentes.</p></article>
+        </div>
+
+        <div class="table-scroll" role="region" aria-label="Mecanismos principales de antifúngicos" tabindex="0">
+          <table class="fungi-table antifungal-table">
+            <thead><tr><th>Grupo</th><th>Diana principal</th><th>Lectura práctica</th></tr></thead>
+            <tbody>
+              <tr><th>Azoles</th><td>Inhiben la 14-α-desmetilasa y reducen la síntesis de ergosterol.</td><td>Tópicos o sistémicos según molécula e indicación.</td></tr>
+              <tr><th>Terbinafina</th><td>Inhibe la escualeno epoxidasa.</td><td>Alilamina útil en varias dermatofitosis; la vía depende del sitio.</td></tr>
+              <tr><th>Polienos</th><td>Se unen al ergosterol y alteran la membrana.</td><td>Anfotericina B se reserva sobre todo para micosis invasivas graves; no es tratamiento rutinario de una tiña.</td></tr>
+              <tr><th>Griseofulvina</th><td>Altera microtúbulos y mitosis; se deposita en queratina nueva.</td><td>Opción sistémica clásica para tiña capitis, especialmente por <i>Microsporum</i>.</td></tr>
+              <tr><th>Equinocandinas</th><td>Inhiben la síntesis de β-(1,3)-D-glucano de la pared.</td><td>Se usan principalmente en micosis invasivas, no como primera línea de dermatofitosis.</td></tr>
+              <tr><th>Flucitosina</th><td>Interfiere con síntesis de ADN y ARN fúngicos.</td><td>Se usa en indicaciones invasivas seleccionadas y normalmente combinada; no es la respuesta a una tiña recidivante.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <aside class="science-note micro-theory-corrections">
+          <div><span>CORRECCIONES IMPORTANTES</span><strong>Qué no debes memorizar literalmente de la grabación</strong></div>
+          <ul><li><b>No todas las micosis son queratinofílicas.</b> Esa afinidad caracteriza a los hongos de tejidos queratinizados; las micosis subcutáneas y sistémicas tienen otros tropismos.</li><li><b>“Queratinofílico” y “queratinolítico” no separan por sí solos superficial de cutáneo.</b> La clasificación depende de la profundidad, el agente y la respuesta tisular.</li><li><b>Tiña capitis y tiña del cuero cabelludo son el mismo diagnóstico.</b> No existe una división estándar “capilar = alopecia parcial” frente a “cuero cabelludo = total”.</li><li><b>La inflamación no proviene solo del rascado.</b> El querion es una respuesta inflamatoria del huésped al dermatofito; puede coexistir una sobreinfección bacteriana.</li><li><b>No toda micosis cutánea requiere tratamiento sistémico.</b> La piel localizada suele tratarse tópicamente; pelo y muchas infecciones ungueales necesitan terapia oral.</li><li><b>La onicectomía no es el paso inicial rutinario.</b> La onicomicosis se confirma y se trata según extensión, agente, comorbilidades y respuesta; la cirugía queda para casos seleccionados.</li></ul>
+        </aside>
+
+        <div class="next-mycology" id="micro-proxima-clase">
+          <div><span>PREPARACIÓN CONFIRMADA · FECHA ESTIMADA</span><h3>Tres micosis subcutáneas para la próxima clase</h3><p>La docente anunció nuevos casos clínicos. Aprende puerta de entrada, lesión característica y dato diagnóstico de cada entidad.</p></div>
+          <div class="next-mycology-grid">
+            <article><span>01</span><strong>Esporotricosis linfocutánea</strong><small>Inoculación por plantas, suelo o arañazo/mordedura de gato; nódulos que ascienden por trayectos linfáticos.</small></article>
+            <article><span>02</span><strong>Cromoblastomicosis</strong><small>Implantación traumática de hongos pigmentados; lesiones verrugosas crónicas y cuerpos muriformes/escleróticos.</small></article>
+            <article><span>03</span><strong>Micetoma eumicótico</strong><small>Micetoma causado por hongos: masa subcutánea, trayectos fistulosos y granos. Diferenciarlo del actinomicetoma bacteriano.</small></article>
+          </div>
+        </div>
+
+        <div class="reference-links" aria-label="Fuentes de verificación de Microbiología teórica">
+          <span>VERIFICACIÓN</span>
+          <a href="https://www.cdc.gov/ringworm/hcp/clinical-overview/" target="_blank" rel="noopener">CDC · dermatofitosis</a>
+          <a href="https://academic.oup.com/bjd/article/171/3/454/6615682" target="_blank" rel="noopener">Guía BAD · tiña capitis</a>
+          <a href="https://www.cdc.gov/sporotrichosis/about/index.html" target="_blank" rel="noopener">CDC · esporotricosis</a>
+          <a href="https://www.who.int/es/news-room/fact-sheets/detail/chromoblastomycosis" target="_blank" rel="noopener">OMS · cromoblastomicosis</a>
+          <a href="https://www.who.int/es/news-room/fact-sheets/detail/mycetoma" target="_blank" rel="noopener">OMS · micetoma</a>
+        </div>
+      </section>
+
+      <div class="resource-grid" aria-label="Modos de revisión de Microbiología teórica">
+        <button class="resource-card is-active" type="button" data-micro-theory-mode="completo" aria-pressed="true"><span class="resource-time">15 min</span><span class="resource-code">MAP</span><strong>Mapa dermatofitos</strong><small>Nivel, sitio, diagnóstico y terapia</small></button>
+        <button class="resource-card" type="button" data-micro-theory-mode="rapido" aria-pressed="false"><span class="resource-time">5 min</span><span class="resource-code">FIC</span><strong>Ficha rápida MIC</strong><small>Diez ideas esenciales</small></button>
+        <button class="resource-card" type="button" data-micro-theory-mode="sitios" aria-pressed="false"><span class="resource-time">3 min</span><span class="resource-code">TIN</span><strong>Tiñas por sitio</strong><small>Capitis, corporis, pedis y más</small></button>
+        <button class="resource-card" type="button" data-micro-theory-mode="oral" aria-pressed="false"><span class="resource-time">10 preguntas</span><span class="resource-code">ORA</span><strong>Repaso oral MIC</strong><small>Razonamiento como en clase</small></button>
+      </div>
+
+      <article id="micro-theory-repaso" class="study-preview" aria-live="polite" aria-labelledby="micro-theory-preview-title">
+        <div class="study-preview-head"><div><span id="microTheoryPreviewEyebrow">MAPA COMPLETO · FECHA POR CONFIRMAR</span><h3 id="micro-theory-preview-title">De la queratina al diagnóstico y tratamiento</h3></div><span id="microTheoryPreviewDuration">15 min</span></div>
+        <div id="microTheoryPreviewBody" class="study-preview-body"></div>
+      </article>
+    </section>
+
     <section id="microbiologia-practica" class="content-section subject-section micro-subject" aria-labelledby="micro-title">
       <div class="subject-heading">
         <div>
@@ -585,14 +718,14 @@
 
     <section id="plan-estudio" class="content-section plan-section" aria-labelledby="plan-title">
       <div class="section-heading">
-        <div><p class="section-kicker">Antes del miércoles 19</p><h2 id="plan-title">Plan de preparación</h2></div>
+        <div><p class="section-kicker">Antes del lunes 17 · fecha estimada</p><h2 id="plan-title">Plan de preparación</h2></div>
         <div class="plan-progress" aria-label="Progreso del plan"><strong id="planCount">0/4</strong><span><i id="planProgressBar"></i></span></div>
       </div>
       <div class="study-checklist" id="studyChecklist">
-        <label><input type="checkbox" value="reacciones" /><span><strong>Reconstruir las 10 reacciones</strong><small>Sustrato, producto y enzima; marcar las tres irreversibles.</small></span></label>
-        <label><input type="checkbox" value="balance" /><span><strong>Explicar el balance sin mirar</strong><small>−2 ATP, +4 ATP, +2 NADH y +2 piruvatos.</small></span></label>
-        <label><input type="checkbox" value="quinasas" /><span><strong>Comparar hexoquinasa y glucoquinasa</strong><small>Tejido, afinidad, regulación por G6P y control hepático por GKRP.</small></span></label>
-        <label><input type="checkbox" value="regulacion" /><span><strong>Preparar PFK-1 y piruvato quinasa</strong><small>Activadores, inhibidores y efecto de insulina/glucagón.</small></span></label>
+        <label><input type="checkbox" value="micro-nivel" /><span><strong>Distinguir superficial y cutánea</strong><small>Profundidad, agente, queratina e intensidad inflamatoria.</small></span></label>
+        <label><input type="checkbox" value="micro-tinas" /><span><strong>Nombrar tiñas, géneros y transmisión</strong><small>Capitis, corporis, pedis, unguium; Trichophyton, Microsporum y Epidermophyton.</small></span></label>
+        <label><input type="checkbox" value="micro-diagnostico" /><span><strong>Explicar el diagnóstico sin mirar</strong><small>Muestra correcta, KOH, utilidad limitada de Wood y cultivo.</small></span></label>
+        <label><input type="checkbox" value="micro-subcutaneas" /><span><strong>Preparar las tres micosis subcutáneas</strong><small>Esporotricosis linfocutánea, cromoblastomicosis y micetoma eumicótico.</small></span></label>
       </div>
     </section>
 
@@ -604,7 +737,7 @@
         <ul><li>No compartas información clínica identificable.</li><li>Indica materia y tema.</li><li>Formula una sola duda por mensaje.</li></ul>
       </div>
       <form class="question-builder" id="delegateQuestionForm">
-        <label><span>Materia</span><select id="questionSubject"><option>Fisiología II</option><option>Bioquímica</option><option>Epidemiología y Salud Pública</option><option>Microbiología II práctica</option><option>Otra materia</option></select></label>
+        <label><span>Materia</span><select id="questionSubject"><option>Fisiología II</option><option>Bioquímica</option><option>Epidemiología y Salud Pública</option><option>Microbiología II teórica</option><option>Microbiología II práctica</option><option>Otra materia</option></select></label>
         <label><span>Tu duda</span><textarea id="questionText" rows="4" placeholder="Ej.: ¿La glucólisis necesita oxígeno directamente?" required></textarea></label>
         <button class="action-button action-primary" type="submit">Copiar mensaje preparado</button>
         <p class="form-note">El mensaje se copia en tu dispositivo; no se envía automáticamente.</p>
@@ -623,11 +756,11 @@
     <a href="#fisiologia"><span>FIS</span><strong>Fisio</strong></a>
     <a href="#bioquimica"><span>BIO</span><strong>Bio</strong></a>
     <a href="#epidemiologia"><span>EPI</span><strong>Epi</strong></a>
-    <a href="#microbiologia-practica"><span>LAB</span><strong>Micro</strong></a>
+    <a href="#microbiologia-teorica"><span>MIC</span><strong>Micro</strong></a>
   </nav>
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=403"></script>
-  <script src="grupo-3-v401.js?v=408"></script>
+  <script src="grupo-3-v401.js?v=409"></script>
 </body>
 </html>

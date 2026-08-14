@@ -82,6 +82,33 @@
     }
   };
 
+  var microTheoryPreviews = {
+    completo: {
+      eyebrow: 'MAPA COMPLETO MIC · FECHA POR CONFIRMAR',
+      title: 'De la queratina al diagnóstico y tratamiento',
+      duration: '15 min',
+      html: '<ol class="study-map"><li><span>01 · CLASIFICAR</span><strong>Nivel de afectación</strong><small>Superficial, cutáneo o profundo según tejido invadido, agente y respuesta.</small></li><li><span>02 · LOCALIZAR</span><strong>Nombrar la tiña</strong><small>Capitis, barbae, corporis, cruris, pedis, manuum o unguium.</small></li><li><span>03 · EXPOSICIÓN</span><strong>Buscar el reservorio</strong><small>Antropofílico, zoofílico o geofílico; preguntar por fómites y animales.</small></li><li><span>04 · CONFIRMAR</span><strong>KOH + cultivo</strong><small>La microscopía confirma elementos fúngicos; el cultivo ayuda a identificar el agente.</small></li><li><span>05 · TRATAR</span><strong>La localización manda</strong><small>Piel limitada suele admitir tópico; pelo, uña o enfermedad extensa puede requerir vía sistémica.</small></li><li><span>06 · PREVENIR</span><strong>Controlar exposición</strong><small>No compartir fómites y evaluar animales infectados sin olvidar adherencia.</small></li></ol>'
+    },
+    rapido: {
+      eyebrow: 'FICHA RÁPIDA MIC · 10 IDEAS',
+      title: 'Dermatofitosis en cinco minutos',
+      duration: '5 min',
+      html: '<ul class="preview-list"><li>Los dermatofitos colonizan tejidos queratinizados: piel, pelo y uñas.</li><li>Los tres géneros clásicos son Trichophyton, Microsporum y Epidermophyton.</li><li>Trichophyton puede afectar piel, pelo y uñas; Microsporum, piel y pelo; Epidermophyton, piel y uñas.</li><li>La transmisión puede ser antropofílica, zoofílica o geofílica, además de fómites.</li><li>La tiña se nombra por el sitio anatómico afectado.</li><li>Tinea capitis y tiña del cuero cabelludo son el mismo diagnóstico.</li><li>Un querion es una forma inflamatoria de tiña capitis y puede dejar alopecia cicatricial.</li><li>El KOH muestra hifas o artroconidios, pero no identifica por sí solo la especie.</li><li>La lámpara de Wood solo ayuda en especies fluorescentes seleccionadas.</li><li>La piel localizada suele tratarse tópicamente; la tiña capitis necesita tratamiento sistémico.</li></ul>'
+    },
+    sitios: {
+      eyebrow: 'TABLA MENTAL MIC · TIÑAS',
+      title: 'Una palabra para cada localización',
+      duration: '3 min',
+      html: '<ul class="preview-list"><li><strong>Capitis:</strong> cuero cabelludo y pelo; pelos rotos, escamas, placas alopécicas o querion.</li><li><strong>Barbae:</strong> barba y bigote; compromiso folicular frecuente.</li><li><strong>Corporis:</strong> tronco y extremidades; placa anular descamativa.</li><li><strong>Cruris:</strong> ingle y muslo proximal.</li><li><strong>Pedis:</strong> pie, sobre todo espacios interdigitales o planta.</li><li><strong>Manuum:</strong> mano.</li><li><strong>Unguium:</strong> uña por dermatofito; es un subtipo de onicomicosis.</li><li><strong>Faciei:</strong> piel glabra de la cara.</li></ul>'
+    },
+    oral: {
+      eyebrow: 'REPASO ORAL MIC · ESTILO DE CLASE',
+      title: 'Responde y descarta las otras opciones',
+      duration: '10 preguntas',
+      html: '<ol class="oral-list"><li>¿Qué diferencia una micosis superficial de una dermatofitosis?</li><li>¿Qué significan queratinofílico y queratinolítico?</li><li>¿Cuáles son los tres géneros dermatofitos y qué tejidos infecta cada uno?</li><li>¿Qué significan antropofílico, zoofílico y geofílico?</li><li>¿Cómo se nombra una tiña según su localización?</li><li>¿Qué datos hacen pensar en tiña capitis inflamatoria o querion?</li><li>¿Qué muestra se toma y qué aporta el examen con KOH?</li><li>¿Cuándo puede ayudar la lámpara de Wood?</li><li>¿Por qué la tiña capitis no se trata solo con crema o champú?</li><li>¿Qué debes preparar sobre esporotricosis, cromoblastomicosis y eumicetoma?</li></ol>'
+    }
+  };
+
   var microPreviews = {
     completo: {
       eyebrow: 'MAPA DE LA PRÁCTICA · GRUPO 3',
@@ -109,11 +136,12 @@
     }
   };
 
-  var storageKey = 'med-nykuto-grupo3-plan-v404';
+  var storageKey = 'med-nykuto-grupo3-plan-v409';
   var labStorageKey = 'med-nykuto-lab-group-v403';
   var bioPrepStorageKey = 'med-nykuto-bio-prep-v404';
   var epiPrepStorageKey = 'med-nykuto-epi-prep-v405';
   var microPrepStorageKey = 'med-nykuto-micro-prep-v407';
+  var microTheoryPrepStorageKey = 'med-nykuto-micro-theory-prep-v409';
   var toastTimer;
 
   var classSchedule = [
@@ -178,6 +206,18 @@
     estimatedPreparation:{date:'2026-08-20',start:'18:00',end:'20:00'}
   };
 
+  var latestMicroTheoryTranscript = {
+    subject:'Microbiología II',
+    scope:'class-4e',
+    oralDate:null,
+    receivedDate:'2026-08-14',
+    estimatedClassDate:'2026-08-10',
+    sourceMode:'single-class',
+    topic:'Dermatofitosis y tiñas',
+    estimatedPreparation:{date:'2026-08-17',start:'10:10',end:'12:20'},
+    assignedTopics:['Esporotricosis linfocutánea','Cromoblastomicosis','Micetoma eumicótico']
+  };
+
   function renderPreview(mode){
     var data = previews[mode] || previews.completo;
     document.getElementById('studyPreviewEyebrow').textContent = data.eyebrow;
@@ -225,6 +265,19 @@
     document.getElementById('microPreviewBody').innerHTML = data.html;
     document.querySelectorAll('[data-micro-mode]').forEach(function(button){
       var active = button.dataset.microMode === mode;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  }
+
+  function renderMicroTheoryPreview(mode){
+    var data = microTheoryPreviews[mode] || microTheoryPreviews.completo;
+    document.getElementById('microTheoryPreviewEyebrow').textContent = data.eyebrow;
+    document.getElementById('micro-theory-preview-title').textContent = data.title;
+    document.getElementById('microTheoryPreviewDuration').textContent = data.duration;
+    document.getElementById('microTheoryPreviewBody').innerHTML = data.html;
+    document.querySelectorAll('[data-micro-theory-mode]').forEach(function(button){
+      var active = button.dataset.microTheoryMode === mode;
       button.classList.toggle('is-active', active);
       button.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
@@ -374,6 +427,7 @@
     document.getElementById('bioEstimatedDate').textContent = formatEstimatedPreparation(latestTranscript.estimatedPreparation);
     document.getElementById('epiEstimatedDate').textContent = formatEstimatedPreparation(latestEpiTranscript.estimatedPreparation);
     document.getElementById('microEstimatedDate').textContent = formatEstimatedPreparation(latestMicroTranscript.estimatedPreparation);
+    document.getElementById('microTheoryEstimatedDate').textContent = formatEstimatedPreparation(latestMicroTheoryTranscript.estimatedPreparation);
   }
 
   function restorePersonalSchedule(){
@@ -412,6 +466,14 @@
       try{localStorage.setItem(microPrepStorageKey,microPrep.checked ? '1' : '0');}catch(error){}
       document.getElementById('microPrepCard').classList.toggle('is-complete',microPrep.checked);
     });
+
+    var microTheoryPrep = document.getElementById('microTheoryPrepDone');
+    try{microTheoryPrep.checked = localStorage.getItem(microTheoryPrepStorageKey) === '1';}catch(error){}
+    document.getElementById('microTheoryPrepCard').classList.toggle('is-complete',microTheoryPrep.checked);
+    microTheoryPrep.addEventListener('change',function(){
+      try{localStorage.setItem(microTheoryPrepStorageKey,microTheoryPrep.checked ? '1' : '0');}catch(error){}
+      document.getElementById('microTheoryPrepCard').classList.toggle('is-complete',microTheoryPrep.checked);
+    });
     renderSchedule();
   }
 
@@ -419,6 +481,7 @@
     renderPreview('completo');
     renderEpiPreview('completo');
     renderFisioPreview('completo');
+    renderMicroTheoryPreview('completo');
     renderMicroPreview('completo');
     restorePlan();
     restorePersonalSchedule();
@@ -452,6 +515,13 @@
       });
     });
 
+    document.querySelectorAll('[data-micro-theory-mode]').forEach(function(button){
+      button.addEventListener('click', function(){
+        renderMicroTheoryPreview(button.dataset.microTheoryMode);
+        document.getElementById('micro-theory-repaso').scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
     document.getElementById('studyChecklist').addEventListener('change', savePlan);
 
     document.getElementById('delegateQuestionForm').addEventListener('submit', function(event){
@@ -465,11 +535,12 @@
   });
 
   window.MED_NYKUTO_CLASS_SCHEDULE = classSchedule.slice();
-  window.MED_NYKUTO_LATEST_TRANSCRIPT = Object.assign({},latestTranscript);
+  window.MED_NYKUTO_LATEST_TRANSCRIPT = Object.assign({},latestMicroTheoryTranscript);
   window.MED_NYKUTO_LATEST_TRANSCRIPTS = {
     bioquimica:Object.assign({},latestTranscript),
     epidemiologia:Object.assign({},latestEpiTranscript),
     fisiologia:Object.assign({},latestFisioTranscript),
+    microbiologiaTeorica:Object.assign({},latestMicroTheoryTranscript),
     microbiologiaPractica:Object.assign({},latestMicroTranscript)
   };
   window.MED_NYKUTO_TRANSCRIPTION_RULES = {

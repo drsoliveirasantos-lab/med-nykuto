@@ -76,7 +76,7 @@ img{display:block;max-width:100%}
 .class-context strong{color:var(--ink);font-size:.95rem}
 .card-link{min-height:50px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:18px;color:var(--gold-soft);font-weight:850}
 
-.quick-nav{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;margin:18px 0 0;border-radius:var(--radius-lg);overflow:hidden;background:var(--line)}
+.quick-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin:18px 0 0;border-radius:var(--radius-lg);overflow:hidden;background:var(--line)}
 .quick-nav a{min-height:108px;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;align-content:center;gap:2px 13px;padding:20px;background:rgba(12,27,45,.98);transition:background .18s ease}
 .quick-nav a:hover{background:rgba(21,46,73,.98)}
 .quick-code{grid-row:1/3;width:48px;height:48px;display:grid;place-items:center;border:1px solid rgba(242,198,109,.22);border-radius:15px;color:var(--gold-soft);background:rgba(242,198,109,.07);font-size:.72rem;font-weight:950;letter-spacing:.1em}
@@ -171,7 +171,7 @@ img{display:block;max-width:100%}
 .history-current{border-color:rgba(114,224,171,.28);background:linear-gradient(145deg,rgba(114,224,171,.065),rgba(255,255,255,.018))}
 .history-current time{color:#b8f5d5}
 
-.glycolysis-lesson,.epi-lesson,.micro-lesson,.fisio-lesson{display:grid;gap:13px;margin-top:16px}
+.glycolysis-lesson,.epi-lesson,.micro-lesson,.micro-theory-lesson,.fisio-lesson{display:grid;gap:13px;margin-top:16px}
 .lesson-intro{display:grid;grid-template-columns:1.25fr .75fr;gap:13px}
 .lesson-intro>div{padding:24px;border:1px solid var(--line);border-radius:var(--radius-lg);background:rgba(4,13,23,.5)}
 .lesson-intro>div:first-child>span,.net-balance>span,.lesson-subheading>span,.phase-card header>span,.regulation-grid article>span,.science-note>div>span{color:var(--gold-soft);font-size:.65rem;font-weight:950;letter-spacing:.12em}
@@ -334,6 +334,56 @@ img{display:block;max-width:100%}
 .fisio-corrections{border-color:rgba(255,154,154,.26);background:linear-gradient(145deg,rgba(255,154,154,.055),rgba(4,13,23,.48))}
 .fisio-corrections>div>span{color:#ffc1c1}
 
+.micro-theory-subject{background:radial-gradient(circle at 92% 4%,rgba(180,136,255,.12),transparent 25rem),linear-gradient(150deg,rgba(15,31,50,.94),rgba(7,18,31,.9))}
+.mycosis-core{display:grid;grid-template-columns:.82fr 1.18fr;gap:24px;padding:25px;border:1px solid rgba(180,136,255,.3);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(180,136,255,.075),rgba(4,13,23,.52))}
+.mycosis-core>div>span,.mycosis-split>article>span,.transmission-grid span,.site-grid span,.case-teaching-card>div>span,.therapy-grid span,.next-mycology>div:first-child>span{color:#d5bdff;font-size:.64rem;font-weight:950;letter-spacing:.11em}
+.mycosis-core h3,.case-teaching-card h3,.next-mycology h3{margin:10px 0 8px;font-size:clamp(1.45rem,3vw,2.15rem);line-height:1.07;letter-spacing:-.035em}
+.mycosis-core p,.case-teaching-card p,.next-mycology>div:first-child>p{margin:0;color:var(--muted);font-size:.82rem}
+.mycosis-core ol{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0;padding:0;list-style:none}
+.mycosis-core li{min-height:145px;display:flex;flex-direction:column;padding:16px;border:1px solid var(--line);border-radius:var(--radius-md);background:rgba(255,255,255,.022)}
+.mycosis-core li>span{color:var(--gold-soft);font-size:.64rem;font-weight:950}
+.mycosis-core li>strong{margin-top:auto;font-size:.9rem}
+.mycosis-core li>small{margin-top:5px;color:var(--muted);font-size:.66rem;line-height:1.35}
+.mycosis-split{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.mycosis-split article{min-height:220px;display:flex;flex-direction:column;padding:21px;border:1px solid var(--line);border-radius:var(--radius-lg);background:rgba(255,255,255,.02)}
+.mycosis-split article:last-child{border-color:rgba(114,224,171,.26)}
+.mycosis-split h3{margin:14px 0 8px;font-size:1.2rem}
+.mycosis-split p{margin:0;color:var(--muted);font-size:.78rem}
+.mycosis-split small{margin-top:auto;padding-top:18px;color:var(--muted-strong);font-size:.68rem;line-height:1.4}
+.dermatophyte-table{min-width:760px}
+.transmission-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.transmission-grid article{min-height:145px;display:flex;flex-direction:column;padding:17px;border:1px solid var(--line);border-radius:var(--radius-md);background:rgba(255,255,255,.02)}
+.transmission-grid article:nth-child(2){border-color:rgba(242,198,109,.28)}
+.transmission-grid strong{margin-top:auto;font-size:.9rem}
+.transmission-grid small{margin-top:6px;color:var(--muted);font-size:.67rem;line-height:1.38}
+.site-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.site-grid article{min-height:138px;display:flex;flex-direction:column;padding:16px;border:1px solid var(--line);border-radius:var(--radius-md);background:rgba(255,255,255,.018)}
+.site-grid strong{margin-top:auto;font-size:.86rem}
+.site-grid small{margin-top:5px;color:var(--muted);font-size:.66rem;line-height:1.38}
+.case-teaching-card{display:grid;grid-template-columns:1.05fr .95fr;gap:25px;padding:23px;border:1px solid rgba(242,198,109,.3);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(242,198,109,.07),rgba(4,13,23,.5))}
+.case-teaching-card>div>span{color:var(--gold-soft)}
+.case-teaching-card ol{display:grid;gap:8px;margin:0;padding-left:22px;color:var(--muted-strong);font-size:.75rem}
+.diagnostic-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.diagnostic-flow article{min-height:160px;display:flex;flex-direction:column;padding:16px;border:1px solid var(--line);border-radius:var(--radius-md);background:rgba(255,255,255,.018)}
+.diagnostic-flow span{color:var(--cyan);font-size:.63rem;font-weight:950}
+.diagnostic-flow strong{margin-top:auto;font-size:.85rem}
+.diagnostic-flow small{margin-top:6px;color:var(--muted);font-size:.65rem;line-height:1.38}
+.therapy-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.therapy-grid article{min-height:190px;display:flex;flex-direction:column;padding:18px;border:1px solid var(--line);border-radius:var(--radius-lg);background:rgba(255,255,255,.02)}
+.therapy-grid article:nth-child(2){border-color:rgba(114,224,171,.28)}
+.therapy-grid strong{margin-top:auto;font-size:.92rem}
+.therapy-grid p{margin:7px 0 0;color:var(--muted);font-size:.7rem;line-height:1.42}
+.antifungal-table{min-width:860px}
+.micro-theory-corrections{border-color:rgba(255,154,154,.28);background:linear-gradient(145deg,rgba(255,154,154,.06),rgba(4,13,23,.48))}
+.micro-theory-corrections>div>span{color:#ffc1c1}
+.next-mycology{display:grid;gap:18px;padding:23px;border:1px solid rgba(114,224,171,.3);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(114,224,171,.07),rgba(4,13,23,.5))}
+.next-mycology>div:first-child>span{color:#b8f5d5}
+.next-mycology-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.next-mycology-grid article{min-height:150px;display:flex;flex-direction:column;padding:16px;border:1px solid var(--line);border-radius:var(--radius-md);background:rgba(255,255,255,.02)}
+.next-mycology-grid span{color:var(--gold-soft);font-size:.63rem;font-weight:950}
+.next-mycology-grid strong{margin-top:auto;font-size:.86rem}
+.next-mycology-grid small{margin-top:6px;color:var(--muted);font-size:.66rem;line-height:1.38}
+
 .micro-subject{background:radial-gradient(circle at 92% 4%,rgba(114,224,171,.1),transparent 24rem),linear-gradient(150deg,rgba(15,31,50,.94),rgba(7,18,31,.9))}
 .micro-objectives{display:grid;grid-template-columns:.95fr 1.05fr;gap:24px;padding:25px;border:1px solid rgba(114,224,171,.28);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(114,224,171,.075),rgba(4,13,23,.52))}
 .micro-objectives>div>span,.micro-prep-copy>span,.sabouraud-panel>div:first-child>span,.lab-safety-card>div>span{color:#b8f5d5;font-size:.65rem;font-weight:950;letter-spacing:.12em}
@@ -457,6 +507,9 @@ img{display:block;max-width:100%}
   .resp-control-hero,.clinical-bridge{grid-template-columns:1fr}
   .resp-centers{grid-template-columns:1fr}
   .resp-modulators,.gas-core-grid,.gas-memory-strip{grid-template-columns:1fr 1fr}
+  .mycosis-core,.case-teaching-card{grid-template-columns:1fr}
+  .transmission-grid,.site-grid,.therapy-grid,.next-mycology-grid{grid-template-columns:1fr 1fr}
+  .diagnostic-flow{grid-template-columns:1fr 1fr}
   .micro-objectives,.sabouraud-panel,.lab-safety-card{grid-template-columns:1fr}
   .sample-grid,.morphology-grid{grid-template-columns:1fr 1fr}
   .lab-workflow{grid-template-columns:repeat(3,1fr)}
@@ -495,7 +548,7 @@ img{display:block;max-width:100%}
   .content-section{margin-top:56px}
   .section-heading,.subject-heading{align-items:flex-start;flex-direction:column;gap:12px}
   .section-heading>p{font-size:.86rem}
-  .agenda-summary,.agenda-grid,.pending-grid,.week-grid,.class-history,.lesson-intro,.phase-grid,.reaction-list,.regulation-grid,.science-note,.resource-grid,.study-map,.study-checklist,.delegate-section,.exam-focus,.epi-map-grid,.timeline-row,.two-column-notes,.compare-cards,.dispensary-grid,.family-cycle,.dimension-flow,.process-strip,.triage-first-look,.triage-colors,.micro-objectives,.sample-grid,.sample-check,.morphology-grid,.sabouraud-panel,.sabouraud-facts,.lab-workflow,.lab-safety-card,.resp-control-hero,.control-loop,.resp-centers,.resp-modulators,.gas-core-grid,.gas-memory-strip,.bohr-haldane,.clinical-bridge{grid-template-columns:1fr}
+  .agenda-summary,.agenda-grid,.pending-grid,.week-grid,.class-history,.lesson-intro,.phase-grid,.reaction-list,.regulation-grid,.science-note,.resource-grid,.study-map,.study-checklist,.delegate-section,.exam-focus,.epi-map-grid,.timeline-row,.two-column-notes,.compare-cards,.dispensary-grid,.family-cycle,.dimension-flow,.process-strip,.triage-first-look,.triage-colors,.micro-objectives,.sample-grid,.sample-check,.morphology-grid,.sabouraud-panel,.sabouraud-facts,.lab-workflow,.lab-safety-card,.resp-control-hero,.control-loop,.resp-centers,.resp-modulators,.gas-core-grid,.gas-memory-strip,.bohr-haldane,.clinical-bridge,.mycosis-core,.mycosis-core ol,.mycosis-split,.transmission-grid,.site-grid,.case-teaching-card,.diagnostic-flow,.therapy-grid,.next-mycology-grid{grid-template-columns:1fr}
   .control-loop li:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-14px;transform:translateX(-50%)}
   .history-current,.regulation-grid article:first-child{grid-column:auto}
   .week-primary{grid-column:auto}

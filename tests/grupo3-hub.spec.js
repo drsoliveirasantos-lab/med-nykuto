@@ -9,7 +9,7 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Todo lo importante, en el orden correcto.' })).toBeVisible();
     await expect(page.getByText('4.º E', { exact: true }).first()).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Regulación de la glucólisis', exact: true })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Abrir Fisiología' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Abrir Microbiología' })).toBeVisible();
     await expect(page.getByText('Estados claros')).toBeVisible();
   });
 
@@ -101,6 +101,22 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('link', { name: 'HiMedia · Sabouraud y preparación' })).toBeVisible();
   });
 
+  test('organizes theoretical Microbiology into dermatophyte reasoning and next-class preparation', async ({ page }) => {
+    await expect(page.getByRole('heading', { name: 'Dermatofitosis: de la queratina al caso clínico' })).toBeVisible();
+    await expect(page.getByText('Clase estimada · 10 ago. · confirmar')).toBeVisible();
+    await expect(page.getByRole('row', { name: /Trichophyton Sí Sí Sí/ })).toBeVisible();
+    await expect(page.getByText('Tinea capitis y tiña del cuero cabelludo son el mismo diagnóstico.')).toBeVisible();
+    await expect(page.getByText('El KOH muestra hifas o artroconidios', { exact: false })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Tres micosis subcutáneas para la próxima clase' })).toBeVisible();
+    await expect(page.getByText('Esporotricosis linfocutánea', { exact: true })).toBeVisible();
+    await expect(page.getByText('Cromoblastomicosis', { exact: true })).toBeVisible();
+    await expect(page.getByText('Micetoma eumicótico', { exact: true })).toBeVisible();
+    const transcript = await page.evaluate(() => window.MED_NYKUTO_LATEST_TRANSCRIPTS.microbiologiaTeorica);
+    expect(transcript.oralDate).toBeNull();
+    expect(transcript.estimatedClassDate).toBe('2026-08-10');
+    expect(transcript.estimatedPreparation.date).toBe('2026-08-17');
+  });
+
   test('keeps the semester selector available while the page scrolls', async ({ page }) => {
     const switcher = page.getByLabel('Elegir semestre');
     await expect(switcher).toBeVisible();
@@ -136,6 +152,13 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Hongos y Sabouraud en cinco minutos' })).toBeVisible();
     await expect(page.getByText('Los mohos son filamentosos: sus hifas forman un micelio.')).toBeVisible();
     await expect(page.getByRole('button', { name: /Ficha rápida LAB/ })).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  test('switches theoretical Microbiology revision depth independently', async ({ page }) => {
+    await page.getByRole('button', { name: /Ficha rápida MIC/ }).click();
+    await expect(page.getByRole('heading', { name: 'Dermatofitosis en cinco minutos' })).toBeVisible();
+    await expect(page.getByText('Los tres géneros clásicos son Trichophyton, Microsporum y Epidermophyton.')).toBeVisible();
+    await expect(page.getByRole('button', { name: /Ficha rápida MIC/ })).toHaveAttribute('aria-pressed', 'true');
   });
 
   test('saves a simple preparation checklist', async ({ page }) => {
