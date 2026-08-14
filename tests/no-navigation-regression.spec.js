@@ -17,8 +17,16 @@ async function answerFirst(page) {
 
 async function expectNoNavigationAfterClick(page, locator) {
   const before = page.url();
-  await locator.scrollIntoViewIfNeeded();
-  await locator.click({ force: true });
+  await expect.poll(async () => {
+    try {
+      return await locator.evaluate(element => {
+        element.click();
+        return true;
+      });
+    } catch (error) {
+      return false;
+    }
+  }, { timeout: 5000, message: 'The local explanation control should survive a practice-card rerender' }).toBe(true);
   await page.waitForTimeout(250);
   expect(page.url()).toBe(before);
   await expect(page.locator('#practiceList .single-question-card').first()).toBeVisible({ timeout: 5000 });
