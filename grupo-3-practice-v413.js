@@ -836,8 +836,24 @@
       summary.appendChild(createNode('strong','practice-score',percentage + '%'));
       var message = percentage >= 80 ? 'Buen dominio. Revisa solo las explicaciones de tus errores.' : 'Repite el bloque después de revisar la ficha y la clase completa.';
       summary.appendChild(createNode('p','',message));
+      var formatPicker = createNode('div','practice-format-picker');
+      formatPicker.hidden = true;
+      formatPicker.setAttribute('aria-label','Elegir otro formato de entrenamiento');
+      typeOrder.forEach(function(type){
+        var done = answeredCount(state[type]);
+        var choice = createNode('button','practice-format-choice');
+        choice.type = 'button';
+        choice.disabled = type === activeType;
+        choice.appendChild(createNode('strong','',typeLabels[type]));
+        choice.appendChild(createNode('small','',done + '/' + bank[type].length + (done === bank[type].length ? ' · terminado' : ' · continuar')));
+        choice.addEventListener('click',function(){
+          chooseType(type);
+          window.requestAnimationFrame(function(){questionHost.scrollIntoView({behavior:'smooth',block:'start'});});
+        });
+        formatPicker.appendChild(choice);
+      });
       var actions = createNode('div','practice-actions');
-      var repeat = createNode('button','practice-validate','Repetir este bloque');
+      var repeat = createNode('button','practice-validate','Repetir ' + typeLabels[activeType]);
       repeat.type = 'button';
       repeat.addEventListener('click',function(){
         state[activeType] = [];
@@ -845,15 +861,17 @@
         updateProgressLabels();
         currentIndex = 0;
         renderQuestion();
+        window.requestAnimationFrame(function(){questionHost.scrollIntoView({behavior:'smooth',block:'start'});});
       });
       var switchType = createNode('button','practice-next','Elegir otro formato');
       switchType.type = 'button';
       switchType.addEventListener('click',function(){
-        var nextType = typeOrder.find(function(type){return answeredCount(state[type]) < bank[type].length;}) || 'qcm';
-        chooseType(nextType);
+        formatPicker.hidden = !formatPicker.hidden;
+        switchType.textContent = formatPicker.hidden ? 'Elegir otro formato' : 'Ocultar formatos';
       });
       actions.appendChild(repeat);
       actions.appendChild(switchType);
+      summary.appendChild(formatPicker);
       summary.appendChild(actions);
       questionHost.appendChild(summary);
     }
@@ -911,7 +929,9 @@
       var toggle = courseSection.querySelector('[data-detail-toggle]');
       if(!toggle) return;
       var controller = buildPracticeModule(banks[courseId],progress);
-      toggle.insertAdjacentElement('afterend',controller.root);
+      var detail = document.getElementById(toggle.getAttribute('aria-controls'));
+      if(detail) detail.insertAdjacentElement('afterend',controller.root);
+      else toggle.insertAdjacentElement('afterend',controller.root);
       controllers[courseId] = controller;
     });
 
