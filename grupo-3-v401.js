@@ -3,34 +3,34 @@
 
   var previews = {
     completo: {
-      eyebrow: 'CURSO COMPLETO · VISTA PREVIA',
-      title: 'El recorrido que debes comprender',
-      duration: '12 min',
-      html: '<ol class="study-map"><li><span>01 · BASE</span><strong>Metabolismo</strong><small>Precursor, intermediarios, productos y regulación enzimática.</small></li><li><span>02 · ENTRADA</span><strong>Transportadores</strong><small>GLUT, SGLT y señal de insulina para movilizar GLUT4.</small></li><li><span>03 · CRUCE</span><strong>Glucosa-6-P</strong><small>Glucólisis, pentosas fosfato o almacenamiento como glucógeno.</small></li><li><span>04 · CLÍNICA</span><strong>Glicación y G6PD</strong><small>HbA1c, AGE y protección antioxidante del eritrocito.</small></li></ol>'
+      eyebrow: 'MAPA COMPLETO · CLASE DEL 14/08',
+      title: 'La lógica de la glucólisis en cinco bloques',
+      duration: '15 min',
+      html: '<ol class="study-map"><li><span>01 · ENTRADA</span><strong>Glucosa atrapada</strong><small>Hexoquinasa o glucoquinasa forma G6P y consume el primer ATP.</small></li><li><span>02 · INVERSIÓN</span><strong>Preparar y dividir</strong><small>PFK-1 consume otro ATP; la aldolasa produce G3P y DHAP.</small></li><li><span>03 · DUPLICACIÓN</span><strong>Dos moléculas de G3P</strong><small>Desde la reacción 6 todos los productos se cuentan por duplicado.</small></li><li><span>04 · BENEFICIO</span><strong>Recuperar energía</strong><small>Se forman 4 ATP, 2 NADH y 2 piruvatos.</small></li><li><span>05 · CONTROL</span><strong>Tres pasos irreversibles</strong><small>Hexoquinasa/glucoquinasa, PFK-1 y piruvato quinasa.</small></li></ol>'
     },
     rapido: {
       eyebrow: 'FICHA RÁPIDA · 7 IDEAS',
       title: 'El mapa central en cinco minutos',
       duration: '5 min',
-      html: '<ul class="preview-list"><li>Metabolismo = conjunto de reacciones químicas celulares.</li><li>La glucosa necesita transportadores porque es una molécula polar.</li><li>GLUT realiza difusión facilitada; SGLT usa el gradiente de sodio.</li><li>GLUT4 responde a insulina y también a la contracción muscular.</li><li>Glucosa-6-P puede entrar en glucólisis, pentosas o glucogénesis.</li><li>La glucólisis produce 2 piruvatos, 2 ATP netos y 2 NADH.</li><li>G6PD produce NADPH para proteger al eritrocito del estrés oxidativo.</li></ul>'
+      html: '<ul class="preview-list"><li>La glucólisis es la principal vía citosólica de degradación de la glucosa.</li><li>La vía común comprende 10 reacciones desde glucosa hasta piruvato.</li><li>La fase preparatoria consume 2 ATP y genera 2 moléculas de G3P.</li><li>La fase de beneficio produce 4 ATP, 2 NADH y 2 piruvatos.</li><li>La glucólisis produce 2 piruvatos, 2 ATP netos y 2 NADH.</li><li>Los pasos 1, 3 y 10 son irreversibles y regulados.</li><li>La vía no utiliza O₂ directamente; el O₂ determina el destino posterior del piruvato y del NADH.</li></ul>'
     },
     ultra: {
       eyebrow: 'ULTRA RÁPIDA · OBLIGATORIO',
       title: 'Lo que no puedes olvidar',
       duration: '2 min',
-      html: '<ul class="preview-list"><li><strong>GLUT4:</strong> músculo y tejido adiposo; insulina y ejercicio.</li><li><strong>GLUT5:</strong> transporta principalmente fructosa.</li><li><strong>G6P:</strong> punto de cruce entre tres vías principales.</li><li><strong>Glucólisis:</strong> ocurre en el citosol y no consume O₂ directamente.</li><li><strong>Lactato:</strong> permite regenerar NAD⁺ para mantener la glucólisis.</li></ul>'
+      html: '<ul class="preview-list"><li><strong>Lugar:</strong> citosol.</li><li><strong>Balance:</strong> 2 piruvatos + 2 ATP netos + 2 NADH.</li><li><strong>Inversión:</strong> −2 ATP; <strong>producción:</strong> +4 ATP.</li><li><strong>Irreversibles:</strong> hexoquinasa/glucoquinasa, PFK-1 y piruvato quinasa.</li><li><strong>Sin suficiente O₂:</strong> piruvato → lactato para regenerar NAD⁺.</li></ul>'
     },
     oral: {
       eyebrow: 'REPASO ORAL · ESTILO DE CLASE',
       title: 'Responde sin mirar la explicación',
-      duration: '18 preguntas',
-      html: '<ol class="oral-list"><li>¿Qué diferencia existe entre precursor, intermediario y producto?</li><li>¿Por qué la glucosa necesita un transportador?</li><li>¿Cuál es la diferencia entre GLUT y SGLT?</li><li>¿Qué características distinguen GLUT2, GLUT3, GLUT4 y GLUT5?</li><li>¿Cuáles son los tres destinos principales de la glucosa-6-fosfato?</li><li>¿Por qué la deficiencia de G6PD produce anemia hemolítica?</li></ol>'
+      duration: '8 preguntas',
+      html: '<ol class="oral-list"><li>¿Cuál es el objetivo y dónde ocurre la glucólisis?</li><li>¿Qué se consume y qué se obtiene en la fase preparatoria?</li><li>¿Por qué todos los productos se multiplican por dos desde la reacción 6?</li><li>¿Cuál es el balance neto por cada glucosa?</li><li>¿Cuáles son las tres enzimas irreversibles de la vía?</li><li>¿Qué diferencias principales existen entre hexoquinasa y glucoquinasa?</li><li>¿Por qué la glucólisis puede continuar sin consumir oxígeno directamente?</li><li>¿Cómo permite el lactato mantener la glucólisis cuando falta oxígeno?</li></ol>'
     }
   };
 
-  var storageKey = 'med-nykuto-grupo3-plan-v401';
+  var storageKey = 'med-nykuto-grupo3-plan-v404';
   var labStorageKey = 'med-nykuto-lab-group-v403';
-  var bioPrepStorageKey = 'med-nykuto-bio-prep-v403';
+  var bioPrepStorageKey = 'med-nykuto-bio-prep-v404';
   var toastTimer;
 
   var classSchedule = [
@@ -49,6 +49,12 @@
     '1':{day:4,start:'14:00',end:'16:00',subject:'Laboratorio de Microbiología II',teacher:'Dra. Ruth Castillo',group:'Grupo 1'},
     '2':{day:4,start:'16:00',end:'18:00',subject:'Laboratorio de Microbiología II',teacher:'Dra. Ruth Castillo',group:'Grupo 2'},
     '3':{day:4,start:'18:00',end:'20:00',subject:'Laboratorio de Microbiología II',teacher:'Dra. Ruth Castillo',group:'Grupo 3'}
+  };
+
+  var latestTranscript = {
+    subject:'Bioquímica II',
+    oralDate:'2026-08-14',
+    estimatedPreparation:{date:'2026-08-19',start:'09:10',end:'11:10'}
   };
 
   function renderPreview(mode){
@@ -161,6 +167,15 @@
     return dateLabel + ' · ' + occurrence.item.start + '–' + occurrence.item.end;
   }
 
+  function formatEstimatedPreparation(){
+    var parts = latestTranscript.estimatedPreparation.date.split('-').map(Number);
+    var date = new Date(Date.UTC(parts[0],parts[1]-1,parts[2]));
+    return formatOccurrence({
+      date:date,
+      item:{start:latestTranscript.estimatedPreparation.start,end:latestTranscript.estimatedPreparation.end}
+    }) + ' · por confirmar';
+  }
+
   function readLabGroup(){
     try{return localStorage.getItem(labStorageKey) || '';}catch(error){return '';}
   }
@@ -196,8 +211,7 @@
       nextLabNode.textContent = 'Selecciona tu subgrupo';
     }
 
-    var nextBio = nextOccurrence(classSchedule,function(item){return item.subject === 'Bioquímica II';});
-    document.getElementById('bioEstimatedDate').textContent = formatOccurrence(nextBio) + ' · por confirmar';
+    document.getElementById('bioEstimatedDate').textContent = formatEstimatedPreparation();
   }
 
   function restorePersonalSchedule(){
@@ -249,4 +263,5 @@
   });
 
   window.MED_NYKUTO_CLASS_SCHEDULE = classSchedule.slice();
+  window.MED_NYKUTO_LATEST_TRANSCRIPT = Object.assign({},latestTranscript);
 })();

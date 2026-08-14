@@ -8,7 +8,7 @@ test.describe('Class hub', () => {
   test('presents the next useful action before secondary content', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Todo lo importante, en el orden correcto.' })).toBeVisible();
     await expect(page.getByText('4.º E', { exact: true }).first()).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Glucólisis' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Regulación de la glucólisis', exact: true })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Continuar Bioquímica' })).toBeVisible();
     await expect(page.getByText('Estados claros')).toBeVisible();
   });
@@ -34,11 +34,21 @@ test.describe('Class hub', () => {
   test('labels inferred preparation dates instead of presenting them as confirmed homework', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Pendientes con fecha clara' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Sin entregas confirmadas' })).toBeVisible();
+    await expect(page.locator('#bioEstimatedDate')).toContainText('19 ago.');
     await expect(page.locator('#bioEstimatedDate')).toContainText('por confirmar');
-    await expect(page.getByText('Fecha oral no indicada')).toBeVisible();
+    await expect(page.getByText('Fecha oral confirmada · 14 ago.')).toBeVisible();
     await expect(page.getByText('Toda fecha calculada permanece como')).toBeHidden();
     await page.getByText('Cómo se calcula una fecha').click();
     await expect(page.getByText('Toda fecha calculada permanece como')).toBeVisible();
+  });
+
+  test('organizes the 14 August glycolysis lesson with corrected study points', async ({ page }) => {
+    await expect(page.getByRole('heading', { name: 'Glucólisis: vía común y balance energético' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Convertir una glucosa en dos piruvatos' })).toBeVisible();
+    await expect(page.getByText('2 piruvatos + 2 ATP + 2 NADH', { exact: true })).toBeVisible();
+    await expect(page.getByText('PEP → piruvato', { exact: true })).toBeVisible();
+    await expect(page.getByText('La glucoquinasa hepática puede quedar secuestrada en el núcleo')).toBeVisible();
+    await expect(page.getByText('3 clases organizadas')).toBeVisible();
   });
 
   test('keeps the semester selector available while the page scrolls', async ({ page }) => {
