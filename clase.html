@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#07111f" />
   <title>4.º E · Semestre 4 | Med Nykuto</title>
-  <meta name="description" content="Espacio académico no oficial de 4.º E: horario, pendientes y revisiones de Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología organizadas en un solo lugar." />
+  <meta name="description" content="Espacio académico no oficial de 4.º E: horario, pendientes y revisiones de Nutrición, Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología organizadas en un solo lugar." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=409" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=410" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -38,7 +38,7 @@
         <h1 id="class-title">Todo lo importante, en el orden correcto.</h1>
         <p class="hero-lead">Clases, revisión y pendientes reunidos para que sepas qué estudiar ahora sin buscar entre mensajes y archivos.</p>
         <div class="hero-actions">
-          <a class="action-button action-primary" href="#microbiologia-teorica">Abrir Microbiología</a>
+          <a class="action-button action-primary" href="#nutricion">Abrir Nutrición</a>
           <a class="action-button action-secondary" href="#horario">Ver horario</a>
         </div>
         <div class="hero-trust" aria-label="Información del espacio">
@@ -49,20 +49,21 @@
       </div>
 
       <aside class="next-class-card" aria-labelledby="next-class-title">
-        <div class="card-topline"><span>ÚLTIMO CURSO</span><span class="live-badge">MICROBIOLOGÍA · FECHA EST.</span></div>
-        <h2 id="next-class-title">Dermatofitosis y tiñas</h2>
-        <p>Queratina, géneros dermatofitos, transmisión, localización, diagnóstico, tratamiento y caso de tiña capitis inflamatoria.</p>
+        <div class="card-topline"><span>ÚLTIMO CURSO</span><span class="live-badge">NUTRICIÓN · 13 AGO. EST.</span></div>
+        <h2 id="next-class-title">Leyes de la alimentación</h2>
+        <p>Cantidad, calidad, armonía, adecuación y variedad aplicadas a la evaluación clínica de la alimentación.</p>
         <div class="class-context">
           <span>Últimas transcripciones recibidas: 14 ago. 2026</span>
-          <strong>Nueva clase teórica organizada y corregida</strong>
+          <strong>Seminario de la próxima semana identificado</strong>
         </div>
-        <a class="card-link" href="#microbiologia-teorica">Abrir el curso más reciente <span aria-hidden="true">→</span></a>
+        <a class="card-link" href="#nutricion">Abrir el curso más reciente <span aria-hidden="true">→</span></a>
       </aside>
     </section>
 
     <nav class="quick-nav" aria-label="Accesos rápidos">
       <a href="#horario"><span class="quick-code">AGE</span><strong>Horario</strong><small>Próxima clase</small></a>
       <a href="#pendientes"><span class="quick-code">TAR</span><strong>Pendientes</strong><small>Fechas y estado</small></a>
+      <a href="#nutricion"><span class="quick-code">NUT</span><strong>Nutrición</strong><small>Leyes y seminario</small></a>
       <a href="#fisiologia"><span class="quick-code">FIS</span><strong>Fisiología</strong><small>Control respiratorio</small></a>
       <a href="#bioquimica"><span class="quick-code">BIO</span><strong>Bioquímica</strong><small>Glucólisis</small></a>
       <a href="#epidemiologia"><span class="quick-code">EPI</span><strong>Epidemiología</strong><small>APS y triage</small></a>
@@ -132,6 +133,14 @@
         <div class="status-legend" aria-label="Estados de las fechas"><span class="status-confirmed">Confirmada</span><span class="status-estimated">Estimada</span><span class="status-check">Verificar</span></div>
       </div>
       <div class="pending-grid">
+        <article class="assignment-card assignment-estimated" id="nutritionPrepCard">
+          <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Nutrición</span></div>
+          <h3>Seminario: guías de Paraguay y alimentación regional de Brasil</h3>
+          <p>Preparar en grupo los dos temas anunciados: Guías Alimentarias del Paraguay y alimentación o platos típicos de las regiones de Brasil.</p>
+          <div class="assignment-date"><span>Próxima clase estimada</span><strong id="nutritionEstimatedDate">Próxima clase de Nutrición</strong></div>
+          <small>La entrega y exposición fueron confirmadas para «la próxima semana». La fecha se calcula con el horario del jueves y debe confirmarse en el documento que la docente prometió subir al Drive.</small>
+          <label class="completion-control"><input type="checkbox" id="nutritionPrepDone" /><span>Marcar presentación y trabajo como preparados</span></label>
+        </article>
         <article class="assignment-card assignment-estimated" id="microTheoryPrepCard">
           <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Microbiología II teórica</span></div>
           <h3>Preparar tiñas y tres micosis subcutáneas</h3>
@@ -191,18 +200,128 @@
           <a href="#micro-proxima-clase">Abrir preparación</a>
         </article>
         <article class="week-card">
+          <div class="week-card-head"><span class="week-label">SEMINARIO</span><span>Jueves · estimado</span></div>
+          <h3>Preparar Nutrición</h3>
+          <p>Organizar los dos temas, crear la presentación breve, ensayar y llevar el trabajo escrito impreso.</p>
+          <a href="#nutrition-seminar">Abrir la consigna</a>
+        </article>
+        <article class="week-card">
           <div class="week-card-head"><span class="week-label">TEORÍA</span><span>Miércoles</span></div>
           <h3>Bioquímica + Epidemiología</h3>
           <p>Repasar regulación de la glucólisis y preparar el triage por colores para las próximas clases.</p>
           <a href="#pendientes">Ver ambos pendientes</a>
         </article>
-        <article class="week-card week-muted">
-          <div class="week-card-head"><span class="week-label">EVALUACIONES</span><span>Por confirmar</span></div>
-          <h3>Sin fecha publicada</h3>
-          <p>La fecha aparecerá aquí cuando sea comunicada oficialmente al grupo.</p>
-          <span class="text-link-disabled">Ninguna acción necesaria</span>
-        </article>
       </div>
+    </section>
+
+    <section id="nutricion" class="content-section subject-section nutrition-subject" aria-labelledby="nutrition-title">
+      <div class="subject-heading">
+        <div>
+          <p class="section-kicker">Nutrición · nueva transcripción · una sola clase</p>
+          <h2 id="nutrition-title">Leyes de la alimentación y evaluación del paciente</h2>
+          <p>La sesión se estima el jueves 13 de agosto de 2026 por el horario recibido. La fecha no fue pronunciada y permanece por confirmar.</p>
+        </div>
+        <span class="source-pill status-estimated">Clase estimada · 13 ago. · confirmar</span>
+      </div>
+
+      <div class="class-history class-history-single" aria-label="Historial de Nutrición">
+        <article class="history-entry history-current"><span>13 AGO · ESTIMADA</span><div><strong>Cantidad, calidad, armonía, adecuación y variedad</strong><small>Cómo analizar una alimentación, adaptarla al paciente y distinguir alimentos fuente, protectores, enriquecidos y fortificados.</small></div><span>ACTUAL</span></article>
+      </div>
+
+      <section class="nutrition-lesson" aria-labelledby="nutrition-core-title">
+        <div class="nutrition-core">
+          <div><span>IDEA CENTRAL</span><h3 id="nutrition-core-title">Una dieta no se juzga solo por sus calorías</h3><p>La evaluación clínica combina suficiencia energética, densidad nutricional, proporciones, contexto individual y variedad. Una dimensión aislada no basta.</p></div>
+          <ol aria-label="Secuencia de evaluación nutricional"><li><span>01</span><strong>Cuánto</strong><small>Cantidad</small></li><li><span>02</span><strong>Qué</strong><small>Calidad</small></li><li><span>03</span><strong>En qué proporción</strong><small>Armonía</small></li><li><span>04</span><strong>Para quién</strong><small>Adecuación</small></li><li><span>05</span><strong>Con qué diversidad</strong><small>Variedad</small></li></ol>
+        </div>
+
+        <div class="nutrition-definitions" aria-label="Diferencias entre alimentación, nutrición y dieta">
+          <article><span>VOLUNTARIA</span><strong>Alimentación</strong><p>Elección, preparación e ingestión de alimentos: qué, cuándo y cómo comemos.</p></article>
+          <article><span>FISIOLÓGICA</span><strong>Nutrición</strong><p>Digestión, absorción, transporte, metabolismo y utilización de nutrientes.</p></article>
+          <article><span>PATRÓN</span><strong>Dieta</strong><p>Conjunto habitual de alimentos y bebidas. Toda persona tiene una dieta, sea adecuada o no.</p></article>
+        </div>
+
+        <div class="lesson-subheading"><span>MARCO DE PEDRO ESCUDERO</span><strong>Cuatro leyes clásicas; la variedad amplía su aplicación práctica.</strong></div>
+        <div class="nutrition-laws">
+          <article><span>01 · CANTIDAD</span><strong>Suficiente, sin déficit ni exceso</strong><p>La energía y los nutrientes deben cubrir necesidades que cambian con edad, sexo, tamaño corporal, actividad, estado fisiológico y enfermedad.</p><small>Pregunta clínica: ¿la ingesta corresponde al gasto y al objetivo?</small></article>
+          <article><span>02 · CALIDAD</span><strong>Todos los nutrientes necesarios</strong><p>No basta alcanzar calorías. Hay que revisar proteínas, carbohidratos, grasas, fibra, agua, vitaminas y minerales.</p><small>Pregunta clínica: ¿qué alimentos construyen esas calorías?</small></article>
+          <article><span>03 · ARMONÍA</span><strong>Proporción y equilibrio</strong><p>Los grupos de alimentos deben guardar relación entre sí; ni una ensalada sola ni un plato dominado por almidones es completo.</p><small>Pregunta clínica: ¿qué grupo ocupa demasiado o falta?</small></article>
+          <article><span>04 · ADECUACIÓN</span><strong>Adaptada a la persona real</strong><p>Considera etapa de vida, patología, cultura, preferencias, economía, disponibilidad, dentición, deglución y capacidad para preparar alimentos.</p><small>Pregunta clínica: ¿el plan se puede comer, pagar y sostener?</small></article>
+          <article class="nutrition-variety"><span>PRINCIPIO COMPLEMENTARIO · VARIEDAD</span><strong>Rotar alimentos dentro y entre grupos</strong><p>La diversidad semanal reduce monotonía y amplía la probabilidad de cubrir micronutrientes. Los colores ayudan a enseñar, pero no reemplazan una evaluación nutricional.</p><small>Estrategia de clase: introducir cambios graduales, no pasar de cero a cien.</small></article>
+        </div>
+
+        <div class="nutrition-balance">
+          <div><span>BALANCE ENERGÉTICO</span><h3>La tendencia del peso depende del balance acumulado</h3><p>Si la ingesta energética supera de forma sostenida al gasto, se favorece el almacenamiento; si queda por debajo, se movilizan reservas. El peso diario también cambia por agua, glucógeno, contenido intestinal y adaptación metabólica.</p></div>
+          <div class="energy-equation" aria-label="Relación entre ingesta y gasto"><span>INGESTA</span><b>−</b><span>GASTO</span><b>=</b><strong>BALANCE</strong></div>
+        </div>
+
+        <div class="lesson-subheading"><span>TÉCNICA DEL PLATO</span><strong>Guía visual, no prescripción universal.</strong></div>
+        <div class="plate-method">
+          <div class="plate-visual" aria-label="Modelo educativo de distribución del plato"><div class="plate-produce"><span>½</span><strong>Verduras y frutas</strong><small>Priorizar variedad; en comidas principales suele predominar la verdura.</small></div><div class="plate-protein"><span>¼</span><strong>Proteínas</strong><small>Animal o vegetal.</small></div><div class="plate-carbs"><span>¼</span><strong>Cereales o tubérculos</strong><small>Preferir opciones menos refinadas cuando sea posible.</small></div></div>
+          <div class="plate-notes"><article><span>AGUA</span><strong>Bebida principal</strong><small>Ajustar por clima, actividad, dieta y condición clínica.</small></article><article><span>GRASAS</span><strong>Preferir insaturadas</strong><small>Aceite, aguacate, maní, nueces o semillas en cantidad acorde al objetivo.</small></article><article><span>CONTEXTO LOCAL</span><strong>Adaptar sin borrar la cultura</strong><small>Mandioca, arroz, porotos, carnes y preparaciones regionales pueden reorganizarse en proporciones útiles.</small></article></div>
+        </div>
+
+        <div class="food-functions" aria-label="Clasificación funcional de alimentos">
+          <article><span>ENERGÉTICOS</span><strong>Principalmente carbohidratos y grasas</strong><small>Pan, arroz, mandioca, avena y aceites. Su función predominante no elimina sus demás nutrientes.</small></article>
+          <article><span>CONSTRUCTORES</span><strong>Alimentos ricos en proteínas</strong><small>Carnes, huevos, lácteos y legumbres; sostienen síntesis y reparación tisular.</small></article>
+          <article><span>REGULADORES / PROTECTORES</span><strong>Frutas, verduras, legumbres y agua</strong><small>Aportan fibra, vitaminas, minerales y compuestos bioactivos; no “curan” por sí solos.</small></article>
+          <article><span>AFECTIVOS</span><strong>La comida también tiene significado</strong><small>Placer, memoria y cultura influyen en adherencia. El objetivo es negociar porciones y combinaciones, no prohibir automáticamente.</small></article>
+        </div>
+
+        <div class="table-scroll" role="region" aria-label="Alimentos fuente y nutrientes predominantes" tabindex="0">
+          <table class="fungi-table nutrition-table">
+            <thead><tr><th>Alimento o grupo</th><th>Nutriente destacado</th><th>Lectura correcta</th></tr></thead>
+            <tbody><tr><th>Lácteos</th><td>Calcio y proteína</td><td>“Fuente” indica un aporte característico, no que sea el único nutriente presente.</td></tr><tr><th>Carnes y vísceras</th><td>Proteína, hierro hemo y vitamina B12</td><td>El hígado es muy concentrado en micronutrientes; frecuencia y porción se individualizan.</td></tr><tr><th>Cítricos</th><td>Vitamina C</td><td>La vitamina C también mejora la absorción del hierro no hemo de la misma comida.</td></tr><tr><th>Banana</th><td>Potasio</td><td>No es la única fuente de potasio; legumbres, tubérculos y otras frutas también aportan.</td></tr><tr><th>Maíz para palomitas</th><td>Carbohidrato integral y fibra</td><td>La densidad energética final depende del aceite, manteca, azúcar y sal añadidos.</td></tr></tbody>
+          </table>
+        </div>
+
+        <div class="enrichment-grid">
+          <article><span>DEFINICIÓN DIDÁCTICA</span><strong>Enriquecido</strong><p>En clase se usa para describir la reposición de nutrientes perdidos durante el procesamiento, como vitaminas del grupo B y hierro en harinas refinadas.</p></article>
+          <article><span>DEFINICIÓN DIDÁCTICA</span><strong>Fortificado</strong><p>Adición deliberada de uno o más micronutrientes para elevar el valor nutricional o responder a un problema de salud pública, estén o no originalmente en el alimento.</p></article>
+          <article><span>NO CONFUNDIR</span><strong>Biofortificado</strong><p>El cultivo aumenta su contenido nutricional durante el crecimiento mediante selección, mejoramiento o prácticas agronómicas, no por adición posterior en fábrica.</p></article>
+        </div>
+
+        <div class="clinical-adaptation">
+          <div><span>ADECUACIÓN EN LA PRÁCTICA</span><h3>El mismo consejo no sirve para todos</h3><p>Antes de prescribir, identifica el problema nutricional, la capacidad funcional y el contexto del paciente.</p></div>
+          <div class="adaptation-grid"><article><strong>Embarazo</strong><small>Objetivo de ganancia según IMC pregestacional, evolución fetal y control obstétrico; vigilar hierro, folato y otros requerimientos.</small></article><article><strong>Adolescencia</strong><small>Alta demanda por crecimiento; cuidar energía, proteína, calcio, hierro y hábitos sin estigmatizar.</small></article><article><strong>Adulto mayor</strong><small>Revisar apetito, dentición, sarcopenia, comorbilidades, fármacos, hidratación y deglución.</small></article><article><strong>Disfagia</strong><small>Textura y viscosidad se adaptan tras evaluación; vigilar aspiración y densidad nutricional.</small></article></div>
+        </div>
+
+        <div class="nutrition-case">
+          <div><span>CASO DE CLASE · RAZONAMIENTO</span><h3>Café azucarado y pan como base del día</h3><p>Con una historia incompleta no se puede afirmar si la cantidad energética es suficiente. Sí puede sospecharse mala calidad, escasa armonía y variedad, y falta de adecuación a necesidades clínicas.</p></div>
+          <ol><li>Cuantificar porciones, horarios y bebidas de todo el día.</li><li>Buscar proteínas, frutas, verduras, fibra y agua.</li><li>Preguntar por economía, preferencias, actividad y enfermedades.</li><li>Negociar uno o dos cambios posibles y revisarlos después.</li></ol>
+        </div>
+
+        <aside class="science-note nutrition-corrections">
+          <div><span>CORRECCIONES IMPORTANTES</span><strong>Qué no debes memorizar literalmente del audio</strong></div>
+          <ul><li><b>Las cuatro “leyes” son un marco didáctico, no leyes biológicas absolutas.</b> La valoración clínica actual añade evidencia, antropometría, historia dietaria y contexto.</li><li><b>El café no bloquea todo el hierro por la cafeína.</b> Los polifenoles de café y té reducen sobre todo la absorción de hierro no hemo; el impacto importa más en personas con riesgo de deficiencia. No existe un intervalo universal de 20–30 minutos.</li><li><b>El jugo no equivale a la fruta entera.</b> Puede ser una transición conductual, pero aporta menos estructura/fibra y sus azúcares cuentan como libres.</li><li><b>No es obligatorio añadir grasa a cada comida.</b> La grasa dietaria es esencial y facilita vitaminas A, D, E y K, pero deben priorizarse fuentes insaturadas y porciones adecuadas.</li><li><b>El “medio plato” es una herramienta educativa.</b> Se adapta a edad, gasto, enfermedad, cultura y objetivo terapéutico.</li><li><b>Enriquecido y fortificado no tienen una frontera universal.</b> La OMS incluye dentro de fortificación tanto aumentar micronutrientes como restaurar pérdidas; la terminología depende de la norma local.</li><li><b>El embarazo no implica mantener el peso para todas.</b> Se busca una ganancia gestacional individualizada; perder o ganar menos requiere seguimiento materno-fetal.</li><li><b>Paraguay difunde 12 mensajes alimentarios oficiales, no 10.</b> Esa es la lista que conviene usar para el seminario salvo instrucción diferente de la docente.</li></ul>
+        </aside>
+
+        <div class="nutrition-seminar" id="nutrition-seminar">
+          <div><span>ACTIVIDAD CONFIRMADA · PRÓXIMA SEMANA</span><h3>Seminario oral + trabajo escrito impreso</h3><p>La docente anunció que enviará al Drive la consigna exacta y ejemplos de semestres anteriores. Usa este esquema para comenzar sin inventar la distribución de los grupos.</p></div>
+          <div class="seminar-topics"><article><span>TEMA A</span><strong>Guías Alimentarias del Paraguay</strong><small>Trabajar con los 12 mensajes oficiales y la Olla Nutricional.</small></article><article><span>TEMA B</span><strong>Alimentación por regiones de Brasil</strong><small>Ubicar alimentos y preparaciones típicas de la región que sea asignada.</small></article></div>
+          <ol class="seminar-checklist"><li><strong>Grupos:</strong> la grabación menciona seis grupos y una división interna; confirmar número exacto de integrantes.</li><li><strong>Tiempo:</strong> máximo 5 minutos por tema.</li><li><strong>Diapositivas:</strong> máximo 4 según la consigna oral; confirmar si el límite es por tema o por grupo.</li><li><strong>Entrega:</strong> presentación digital y trabajo escrito impreso.</li><li><strong>Evaluación:</strong> dominio, contenido, organización, apoyo visual, participación y respeto.</li></ol>
+        </div>
+
+        <div class="reference-links" aria-label="Fuentes de verificación de Nutrición">
+          <span>VERIFICACIÓN</span>
+          <a href="https://www.mspbs.gov.py/portal/35262/alimentacion-saludable-para-una-vida-plena.html" target="_blank" rel="noopener">MSPBS/INAN · 12 guías</a>
+          <a href="https://www.who.int/en/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener">OMS · alimentación saludable</a>
+          <a href="https://www.who.int/health-topics/food-fortification" target="_blank" rel="noopener">OMS · fortificación</a>
+          <a href="https://www.who.int/news-room/fact-sheets/detail/anaemia" target="_blank" rel="noopener">OMS · anemia y absorción de hierro</a>
+          <a href="https://www.acog.org/womens-health/experts-and-stories/ask-acog/how-much-weight-should-i-gain-during-pregnancy" target="_blank" rel="noopener">ACOG · ganancia gestacional</a>
+        </div>
+      </section>
+
+      <div class="resource-grid" aria-label="Modos de revisión de Nutrición">
+        <button class="resource-card is-active" type="button" data-nutrition-mode="completo" aria-pressed="true"><span class="resource-time">15 min</span><span class="resource-code">MAP</span><strong>Mapa nutricional</strong><small>Cinco ejes para evaluar una dieta</small></button>
+        <button class="resource-card" type="button" data-nutrition-mode="rapido" aria-pressed="false"><span class="resource-time">5 min</span><span class="resource-code">FIC</span><strong>Ficha rápida NUT</strong><small>Diez ideas esenciales</small></button>
+        <button class="resource-card" type="button" data-nutrition-mode="paciente" aria-pressed="false"><span class="resource-time">3 min</span><span class="resource-code">HIS</span><strong>Preguntas al paciente</strong><small>Historia alimentaria útil</small></button>
+        <button class="resource-card" type="button" data-nutrition-mode="oral" aria-pressed="false"><span class="resource-time">10 preguntas</span><span class="resource-code">ORA</span><strong>Repaso oral NUT</strong><small>Responder como en clase</small></button>
+      </div>
+
+      <article id="nutrition-repaso" class="study-preview" aria-live="polite" aria-labelledby="nutrition-preview-title">
+        <div class="study-preview-head"><div><span id="nutritionPreviewEyebrow">MAPA COMPLETO · 13 AGO. ESTIMADO</span><h3 id="nutrition-preview-title">De la alimentación al consejo individualizado</h3></div><span id="nutritionPreviewDuration">15 min</span></div>
+        <div id="nutritionPreviewBody" class="study-preview-body"></div>
+      </article>
     </section>
 
     <section id="fisiologia" class="content-section subject-section fisio-subject" aria-labelledby="fisio-title">
@@ -718,14 +837,14 @@
 
     <section id="plan-estudio" class="content-section plan-section" aria-labelledby="plan-title">
       <div class="section-heading">
-        <div><p class="section-kicker">Antes del lunes 17 · fecha estimada</p><h2 id="plan-title">Plan de preparación</h2></div>
+        <div><p class="section-kicker">Antes del jueves 20 · fecha estimada</p><h2 id="plan-title">Plan del seminario</h2></div>
         <div class="plan-progress" aria-label="Progreso del plan"><strong id="planCount">0/4</strong><span><i id="planProgressBar"></i></span></div>
       </div>
       <div class="study-checklist" id="studyChecklist">
-        <label><input type="checkbox" value="micro-nivel" /><span><strong>Distinguir superficial y cutánea</strong><small>Profundidad, agente, queratina e intensidad inflamatoria.</small></span></label>
-        <label><input type="checkbox" value="micro-tinas" /><span><strong>Nombrar tiñas, géneros y transmisión</strong><small>Capitis, corporis, pedis, unguium; Trichophyton, Microsporum y Epidermophyton.</small></span></label>
-        <label><input type="checkbox" value="micro-diagnostico" /><span><strong>Explicar el diagnóstico sin mirar</strong><small>Muestra correcta, KOH, utilidad limitada de Wood y cultivo.</small></span></label>
-        <label><input type="checkbox" value="micro-subcutaneas" /><span><strong>Preparar las tres micosis subcutáneas</strong><small>Esporotricosis linfocutánea, cromoblastomicosis y micetoma eumicótico.</small></span></label>
+        <label><input type="checkbox" value="nutrition-group" /><span><strong>Confirmar grupo y tema asignado</strong><small>Verificar integrantes, división interna y región de Brasil.</small></span></label>
+        <label><input type="checkbox" value="nutrition-content" /><span><strong>Extraer el contenido oficial</strong><small>12 guías de Paraguay o alimentos y platos de la región asignada.</small></span></label>
+        <label><input type="checkbox" value="nutrition-slides" /><span><strong>Preparar máximo 4 diapositivas</strong><small>Una idea central por diapositiva, apoyo visual y fuentes.</small></span></label>
+        <label><input type="checkbox" value="nutrition-rehearsal" /><span><strong>Ensayar e imprimir</strong><small>Máximo 5 minutos por tema y trabajo escrito listo.</small></span></label>
       </div>
     </section>
 
@@ -737,7 +856,7 @@
         <ul><li>No compartas información clínica identificable.</li><li>Indica materia y tema.</li><li>Formula una sola duda por mensaje.</li></ul>
       </div>
       <form class="question-builder" id="delegateQuestionForm">
-        <label><span>Materia</span><select id="questionSubject"><option>Fisiología II</option><option>Bioquímica</option><option>Epidemiología y Salud Pública</option><option>Microbiología II teórica</option><option>Microbiología II práctica</option><option>Otra materia</option></select></label>
+        <label><span>Materia</span><select id="questionSubject"><option>Nutrición</option><option>Fisiología II</option><option>Bioquímica</option><option>Epidemiología y Salud Pública</option><option>Microbiología II teórica</option><option>Microbiología II práctica</option><option>Otra materia</option></select></label>
         <label><span>Tu duda</span><textarea id="questionText" rows="4" placeholder="Ej.: ¿La glucólisis necesita oxígeno directamente?" required></textarea></label>
         <button class="action-button action-primary" type="submit">Copiar mensaje preparado</button>
         <p class="form-note">El mensaje se copia en tu dispositivo; no se envía automáticamente.</p>
@@ -753,7 +872,7 @@
   <nav class="mobile-bottom-nav" aria-label="Navegación de clase">
     <a href="#horario"><span>AGE</span><strong>Agenda</strong></a>
     <a href="#pendientes"><span>TAR</span><strong>Tareas</strong></a>
-    <a href="#fisiologia"><span>FIS</span><strong>Fisio</strong></a>
+    <a href="#nutricion"><span>NUT</span><strong>Nutri</strong></a>
     <a href="#bioquimica"><span>BIO</span><strong>Bio</strong></a>
     <a href="#epidemiologia"><span>EPI</span><strong>Epi</strong></a>
     <a href="#microbiologia-teorica"><span>MIC</span><strong>Micro</strong></a>
@@ -761,6 +880,6 @@
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=403"></script>
-  <script src="grupo-3-v401.js?v=409"></script>
+  <script src="grupo-3-v401.js?v=410"></script>
 </body>
 </html>

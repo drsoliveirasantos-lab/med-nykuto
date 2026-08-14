@@ -82,6 +82,33 @@
     }
   };
 
+  var nutritionPreviews = {
+    completo: {
+      eyebrow: 'MAPA COMPLETO NUT · 13 AGO. ESTIMADO',
+      title: 'De la alimentación al consejo individualizado',
+      duration: '15 min',
+      html: '<ol class="study-map"><li><span>01 · CANTIDAD</span><strong>¿Cuánto necesita?</strong><small>Comparar ingesta con gasto, estado fisiológico, enfermedad y objetivo clínico.</small></li><li><span>02 · CALIDAD</span><strong>¿Qué nutrientes aporta?</strong><small>Revisar proteínas, carbohidratos, grasas, fibra, agua, vitaminas y minerales.</small></li><li><span>03 · ARMONÍA</span><strong>¿En qué proporción?</strong><small>Detectar grupos ausentes, platos dominados por un solo alimento y desequilibrios.</small></li><li><span>04 · ADECUACIÓN</span><strong>¿Para quién es?</strong><small>Adaptar a edad, embarazo, patología, cultura, economía, preferencias y función.</small></li><li><span>05 · VARIEDAD</span><strong>¿Qué rota durante la semana?</strong><small>Introducir gradualmente alimentos distintos dentro y entre grupos.</small></li><li><span>06 · INTERVENCIÓN</span><strong>Negociar cambios posibles</strong><small>Priorizar uno o dos objetivos sostenibles, verificar comprensión y reevaluar.</small></li></ol>'
+    },
+    rapido: {
+      eyebrow: 'FICHA RÁPIDA NUT · 10 IDEAS',
+      title: 'Leyes de la alimentación en cinco minutos',
+      duration: '5 min',
+      html: '<ul class="preview-list"><li>Alimentación es la elección e ingestión voluntaria; nutrición reúne procesos fisiológicos posteriores.</li><li>Dieta significa patrón habitual, no necesariamente plan hipocalórico.</li><li>Cantidad busca cubrir necesidades sin carencia ni exceso.</li><li>Calidad exige nutrientes, no solo calorías.</li><li>Armonía evalúa la proporción entre grupos y nutrientes.</li><li>Adecuación adapta el plan a la persona y a su contexto.</li><li>Variedad amplía la diversidad semanal y evita monotonía.</li><li>El plato saludable es una guía visual, no una receta universal.</li><li>Enriquecido suele describir reposición; fortificado, adición deliberada, pero la norma local puede superponer ambos términos.</li><li>La intervención útil es gradual, negociada y clínicamente reevaluada.</li></ul>'
+    },
+    paciente: {
+      eyebrow: 'HISTORIA ALIMENTARIA · PREGUNTAS CLAVE',
+      title: 'Cómo evaluar sin limitarte a “¿come bien?”',
+      duration: '3 min',
+      html: '<ul class="preview-list"><li><strong>Rutina:</strong> ¿qué comió y bebió ayer, a qué hora y en qué cantidad?</li><li><strong>Cantidad:</strong> ¿cambió el apetito, el peso o la actividad?</li><li><strong>Calidad:</strong> ¿hay proteína, frutas, verduras, legumbres, agua y fuentes de grasa?</li><li><strong>Armonía:</strong> ¿qué grupo predomina y cuál falta?</li><li><strong>Variedad:</strong> ¿cuántos alimentos diferentes rota durante la semana?</li><li><strong>Adecuación:</strong> ¿existen embarazo, enfermedad, disfagia, problemas dentales o medicación relevante?</li><li><strong>Contexto:</strong> ¿qué puede comprar, cocinar, conservar y aceptar?</li><li><strong>Significado:</strong> ¿qué alimentos generan placer, memoria o sensación de control?</li><li><strong>Meta:</strong> ¿qué cambio concreto está dispuesto a intentar?</li></ul>'
+    },
+    oral: {
+      eyebrow: 'REPASO ORAL NUT · ESTILO DE CLASE',
+      title: 'Responde aplicándolo a un paciente',
+      duration: '10 preguntas',
+      html: '<ol class="oral-list"><li>¿Cuál es la diferencia entre alimentación, nutrición y dieta?</li><li>¿Qué evalúa cada una de las cuatro leyes de Escudero?</li><li>¿Por qué una dieta puede cubrir calorías y aun ser de mala calidad?</li><li>¿Qué significa armonía y cómo se representa con la técnica del plato?</li><li>¿Qué datos del paciente determinan la adecuación?</li><li>¿Por qué la variedad se evalúa mejor a lo largo de la semana?</li><li>¿Qué funciones predominantes tienen alimentos energéticos, constructores y reguladores?</li><li>¿Cuál es la diferencia didáctica entre enriquecido, fortificado y biofortificado?</li><li>¿Cómo analizarías una dieta basada en café azucarado y pan?</li><li>¿Cuáles son los dos temas y entregables del seminario de la próxima semana?</li></ol>'
+    }
+  };
+
   var microTheoryPreviews = {
     completo: {
       eyebrow: 'MAPA COMPLETO MIC · FECHA POR CONFIRMAR',
@@ -136,12 +163,13 @@
     }
   };
 
-  var storageKey = 'med-nykuto-grupo3-plan-v409';
+  var storageKey = 'med-nykuto-grupo3-plan-v410';
   var labStorageKey = 'med-nykuto-lab-group-v403';
   var bioPrepStorageKey = 'med-nykuto-bio-prep-v404';
   var epiPrepStorageKey = 'med-nykuto-epi-prep-v405';
   var microPrepStorageKey = 'med-nykuto-micro-prep-v407';
   var microTheoryPrepStorageKey = 'med-nykuto-micro-theory-prep-v409';
+  var nutritionPrepStorageKey = 'med-nykuto-nutrition-prep-v410';
   var toastTimer;
 
   var classSchedule = [
@@ -218,6 +246,25 @@
     assignedTopics:['Esporotricosis linfocutánea','Cromoblastomicosis','Micetoma eumicótico']
   };
 
+  var latestNutritionTranscript = {
+    subject:'Nutrición',
+    scope:'class-4e',
+    oralDate:null,
+    receivedDate:'2026-08-14',
+    estimatedClassDate:'2026-08-13',
+    sourceMode:'single-class',
+    topic:'Leyes de la alimentación y clasificación funcional de alimentos',
+    estimatedPreparation:{date:'2026-08-20',start:'07:00',end:'09:40'},
+    assignment:{
+      confirmed:true,
+      topics:['Guías Alimentarias del Paraguay','Alimentación y platos típicos por regiones de Brasil'],
+      maxMinutesPerTopic:5,
+      maxSlides:4,
+      deliverables:['Presentación digital','Trabajo escrito impreso'],
+      ambiguities:['Cantidad exacta de integrantes','Si cuatro diapositivas es por tema o por grupo','Distribución de regiones de Brasil']
+    }
+  };
+
   function renderPreview(mode){
     var data = previews[mode] || previews.completo;
     document.getElementById('studyPreviewEyebrow').textContent = data.eyebrow;
@@ -252,6 +299,19 @@
     document.getElementById('fisioPreviewBody').innerHTML = data.html;
     document.querySelectorAll('[data-fisio-mode]').forEach(function(button){
       var active = button.dataset.fisioMode === mode;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  }
+
+  function renderNutritionPreview(mode){
+    var data = nutritionPreviews[mode] || nutritionPreviews.completo;
+    document.getElementById('nutritionPreviewEyebrow').textContent = data.eyebrow;
+    document.getElementById('nutrition-preview-title').textContent = data.title;
+    document.getElementById('nutritionPreviewDuration').textContent = data.duration;
+    document.getElementById('nutritionPreviewBody').innerHTML = data.html;
+    document.querySelectorAll('[data-nutrition-mode]').forEach(function(button){
+      var active = button.dataset.nutritionMode === mode;
       button.classList.toggle('is-active', active);
       button.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
@@ -428,6 +488,7 @@
     document.getElementById('epiEstimatedDate').textContent = formatEstimatedPreparation(latestEpiTranscript.estimatedPreparation);
     document.getElementById('microEstimatedDate').textContent = formatEstimatedPreparation(latestMicroTranscript.estimatedPreparation);
     document.getElementById('microTheoryEstimatedDate').textContent = formatEstimatedPreparation(latestMicroTheoryTranscript.estimatedPreparation);
+    document.getElementById('nutritionEstimatedDate').textContent = formatEstimatedPreparation(latestNutritionTranscript.estimatedPreparation);
   }
 
   function restorePersonalSchedule(){
@@ -474,6 +535,14 @@
       try{localStorage.setItem(microTheoryPrepStorageKey,microTheoryPrep.checked ? '1' : '0');}catch(error){}
       document.getElementById('microTheoryPrepCard').classList.toggle('is-complete',microTheoryPrep.checked);
     });
+
+    var nutritionPrep = document.getElementById('nutritionPrepDone');
+    try{nutritionPrep.checked = localStorage.getItem(nutritionPrepStorageKey) === '1';}catch(error){}
+    document.getElementById('nutritionPrepCard').classList.toggle('is-complete',nutritionPrep.checked);
+    nutritionPrep.addEventListener('change',function(){
+      try{localStorage.setItem(nutritionPrepStorageKey,nutritionPrep.checked ? '1' : '0');}catch(error){}
+      document.getElementById('nutritionPrepCard').classList.toggle('is-complete',nutritionPrep.checked);
+    });
     renderSchedule();
   }
 
@@ -481,6 +550,7 @@
     renderPreview('completo');
     renderEpiPreview('completo');
     renderFisioPreview('completo');
+    renderNutritionPreview('completo');
     renderMicroTheoryPreview('completo');
     renderMicroPreview('completo');
     restorePlan();
@@ -505,6 +575,13 @@
       button.addEventListener('click', function(){
         renderFisioPreview(button.dataset.fisioMode);
         document.getElementById('fisio-repaso').scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
+    document.querySelectorAll('[data-nutrition-mode]').forEach(function(button){
+      button.addEventListener('click', function(){
+        renderNutritionPreview(button.dataset.nutritionMode);
+        document.getElementById('nutrition-repaso').scrollIntoView({behavior:'smooth',block:'start'});
       });
     });
 
@@ -535,11 +612,12 @@
   });
 
   window.MED_NYKUTO_CLASS_SCHEDULE = classSchedule.slice();
-  window.MED_NYKUTO_LATEST_TRANSCRIPT = Object.assign({},latestMicroTheoryTranscript);
+  window.MED_NYKUTO_LATEST_TRANSCRIPT = Object.assign({},latestNutritionTranscript);
   window.MED_NYKUTO_LATEST_TRANSCRIPTS = {
     bioquimica:Object.assign({},latestTranscript),
     epidemiologia:Object.assign({},latestEpiTranscript),
     fisiologia:Object.assign({},latestFisioTranscript),
+    nutricion:Object.assign({},latestNutritionTranscript),
     microbiologiaTeorica:Object.assign({},latestMicroTheoryTranscript),
     microbiologiaPractica:Object.assign({},latestMicroTranscript)
   };

@@ -76,7 +76,7 @@ img{display:block;max-width:100%}
 .class-context strong{color:var(--ink);font-size:.95rem}
 .card-link{min-height:50px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:18px;color:var(--gold-soft);font-weight:850}
 
-.quick-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin:18px 0 0;border-radius:var(--radius-lg);overflow:hidden;background:var(--line)}
+.quick-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin:18px 0 0;border-radius:var(--radius-lg);overflow:hidden;background:var(--line)}
 .quick-nav a{min-height:108px;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;align-content:center;gap:2px 13px;padding:20px;background:rgba(12,27,45,.98);transition:background .18s ease}
 .quick-nav a:hover{background:rgba(21,46,73,.98)}
 .quick-code{grid-row:1/3;width:48px;height:48px;display:grid;place-items:center;border:1px solid rgba(242,198,109,.22);border-radius:15px;color:var(--gold-soft);background:rgba(242,198,109,.07);font-size:.72rem;font-weight:950;letter-spacing:.1em}
@@ -334,6 +334,77 @@ img{display:block;max-width:100%}
 .fisio-corrections{border-color:rgba(255,154,154,.26);background:linear-gradient(145deg,rgba(255,154,154,.055),rgba(4,13,23,.48))}
 .fisio-corrections>div>span{color:#ffc1c1}
 
+.nutrition-subject{background:radial-gradient(circle at 94% 4%,rgba(255,184,92,.13),transparent 25rem),linear-gradient(150deg,rgba(20,34,49,.96),rgba(7,18,31,.9))}
+.nutrition-core{display:grid;grid-template-columns:.78fr 1.22fr;gap:24px;padding:25px;border:1px solid rgba(255,184,92,.3);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(255,184,92,.075),rgba(4,13,23,.52))}
+.nutrition-core>div>span,.nutrition-definitions span,.nutrition-laws article>span,.nutrition-balance>div>span,.plate-notes span,.food-functions span,.enrichment-grid span,.clinical-adaptation>div>span,.nutrition-case>div>span,.nutrition-seminar>div:first-child>span,.seminar-topics span{color:#ffd3a0;font-size:.64rem;font-weight:950;letter-spacing:.11em}
+.nutrition-core h3,.nutrition-balance h3,.clinical-adaptation h3,.nutrition-case h3,.nutrition-seminar h3{margin:10px 0 8px;font-size:clamp(1.45rem,3vw,2.15rem);line-height:1.07;letter-spacing:-.035em}
+.nutrition-core p,.nutrition-balance p,.clinical-adaptation>div>p,.nutrition-case p,.nutrition-seminar>div:first-child>p{margin:0;color:var(--muted);font-size:.82rem}
+.nutrition-core ol{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:0;padding:0;list-style:none}
+.nutrition-core li{min-height:150px;display:flex;flex-direction:column;padding:15px;border:1px solid var(--line);border-radius:var(--radius-md);background:rgba(255,255,255,.022)}
+.nutrition-core li>span{color:var(--gold-soft);font-size:.62rem;font-weight:950}
+.nutrition-core li>strong{margin-top:auto;font-size:.82rem;line-height:1.22}
+.nutrition-core li>small{margin-top:4px;color:var(--muted);font-size:.63rem}
+.nutrition-definitions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.nutrition-definitions article{min-height:160px;display:flex;flex-direction:column;padding:18px;border:1px solid var(--line);border-radius:var(--radius-lg);background:rgba(255,255,255,.02)}
+.nutrition-definitions article:nth-child(2){border-color:rgba(114,224,171,.26)}
+.nutrition-definitions strong{margin-top:auto;font-size:1rem}
+.nutrition-definitions p{margin:7px 0 0;color:var(--muted);font-size:.72rem;line-height:1.42}
+.nutrition-laws{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.nutrition-laws article{min-height:220px;display:flex;flex-direction:column;padding:21px;border:1px solid var(--line);border-radius:var(--radius-lg);background:rgba(255,255,255,.02)}
+.nutrition-laws article:nth-child(2),.nutrition-laws article:nth-child(4){border-color:rgba(114,224,171,.23)}
+.nutrition-laws strong{margin-top:24px;font-size:1.05rem}
+.nutrition-laws p{margin:8px 0 0;color:var(--muted);font-size:.76rem}
+.nutrition-laws small{margin-top:auto;padding-top:17px;color:var(--muted-strong);font-size:.68rem}
+.nutrition-laws .nutrition-variety{grid-column:1/-1;min-height:175px;border-color:rgba(111,216,255,.27)}
+.nutrition-balance{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center;padding:23px;border:1px solid rgba(111,216,255,.25);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(111,216,255,.055),rgba(4,13,23,.5))}
+.nutrition-balance>div>span{color:var(--cyan)}
+.energy-equation{display:grid;grid-template-columns:1fr auto 1fr auto 1.15fr;align-items:center;gap:8px}
+.energy-equation span,.energy-equation strong{min-height:82px;display:grid;place-items:center;padding:10px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025);font-size:.75rem;text-align:center}
+.energy-equation b{color:var(--gold-soft);font-size:1.35rem}
+.energy-equation strong{border-color:rgba(114,224,171,.3);color:#b8f5d5}
+.plate-method{display:grid;grid-template-columns:1.25fr .75fr;gap:15px}
+.plate-visual{min-height:390px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:7px;padding:12px;border:1px solid var(--line);border-radius:42px;background:rgba(4,13,23,.5);overflow:hidden}
+.plate-visual>div{display:flex;flex-direction:column;justify-content:center;padding:24px;border:1px solid var(--line);background:rgba(255,255,255,.025)}
+.plate-produce{grid-row:1/3;border-radius:30px 12px 12px 30px!important;background:linear-gradient(145deg,rgba(114,224,171,.17),rgba(114,224,171,.045))!important}
+.plate-protein{border-radius:12px 30px 12px 12px;background:linear-gradient(145deg,rgba(255,184,92,.14),rgba(255,184,92,.04))!important}
+.plate-carbs{border-radius:12px 12px 30px 12px;background:linear-gradient(145deg,rgba(111,216,255,.14),rgba(111,216,255,.04))!important}
+.plate-visual span{color:var(--gold-soft);font-size:1.7rem;font-weight:950}
+.plate-visual strong{margin-top:auto;font-size:1.05rem}
+.plate-visual small{margin-top:5px;color:var(--muted);font-size:.68rem;line-height:1.38}
+.plate-notes{display:grid;gap:8px}
+.plate-notes article{min-height:118px;display:flex;flex-direction:column;padding:16px;border:1px solid var(--line);border-radius:var(--radius-md);background:rgba(255,255,255,.018)}
+.plate-notes strong{margin-top:auto;font-size:.86rem}
+.plate-notes small{margin-top:5px;color:var(--muted);font-size:.66rem;line-height:1.35}
+.food-functions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.food-functions article{min-height:175px;display:flex;flex-direction:column;padding:17px;border:1px solid var(--line);border-radius:var(--radius-lg);background:rgba(255,255,255,.018)}
+.food-functions article:last-child{border-color:rgba(180,136,255,.28)}
+.food-functions strong{margin-top:auto;font-size:.88rem;line-height:1.25}
+.food-functions small{margin-top:6px;color:var(--muted);font-size:.66rem;line-height:1.4}
+.nutrition-table{min-width:820px}
+.enrichment-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.enrichment-grid article{min-height:200px;display:flex;flex-direction:column;padding:19px;border:1px solid var(--line);border-radius:var(--radius-lg);background:rgba(255,255,255,.02)}
+.enrichment-grid article:nth-child(2){border-color:rgba(242,198,109,.3)}
+.enrichment-grid strong{margin-top:auto;font-size:1rem}
+.enrichment-grid p{margin:7px 0 0;color:var(--muted);font-size:.72rem;line-height:1.42}
+.clinical-adaptation{display:grid;grid-template-columns:.75fr 1.25fr;gap:23px;padding:23px;border:1px solid rgba(114,224,171,.26);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(114,224,171,.055),rgba(4,13,23,.5))}
+.clinical-adaptation>div>span{color:#b8f5d5}
+.adaptation-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.adaptation-grid article{min-height:112px;display:flex;flex-direction:column;padding:15px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.02)}
+.adaptation-grid strong{font-size:.84rem}
+.adaptation-grid small{margin-top:auto;color:var(--muted);font-size:.65rem;line-height:1.37}
+.nutrition-case{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;padding:23px;border:1px solid rgba(242,198,109,.3);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(242,198,109,.065),rgba(4,13,23,.5))}
+.nutrition-case>div>span{color:var(--gold-soft)}
+.nutrition-case ol{display:grid;gap:8px;margin:0;padding-left:22px;color:var(--muted-strong);font-size:.75rem}
+.nutrition-corrections{border-color:rgba(255,154,154,.28);background:linear-gradient(145deg,rgba(255,154,154,.06),rgba(4,13,23,.48))}
+.nutrition-corrections>div>span{color:#ffc1c1}
+.nutrition-seminar{display:grid;gap:18px;padding:24px;border:1px solid rgba(180,136,255,.32);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(180,136,255,.075),rgba(4,13,23,.5))}
+.nutrition-seminar>div:first-child>span,.seminar-topics span{color:#d5bdff}
+.seminar-topics{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.seminar-topics article{min-height:145px;display:flex;flex-direction:column;padding:17px;border:1px solid var(--line);border-radius:var(--radius-md);background:rgba(255,255,255,.02)}
+.seminar-topics strong{margin-top:auto;font-size:.9rem}
+.seminar-topics small{margin-top:6px;color:var(--muted);font-size:.67rem;line-height:1.38}
+.seminar-checklist{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;margin:0;padding-left:22px;color:var(--muted-strong);font-size:.74rem}
+
 .micro-theory-subject{background:radial-gradient(circle at 92% 4%,rgba(180,136,255,.12),transparent 25rem),linear-gradient(150deg,rgba(15,31,50,.94),rgba(7,18,31,.9))}
 .mycosis-core{display:grid;grid-template-columns:.82fr 1.18fr;gap:24px;padding:25px;border:1px solid rgba(180,136,255,.3);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(180,136,255,.075),rgba(4,13,23,.52))}
 .mycosis-core>div>span,.mycosis-split>article>span,.transmission-grid span,.site-grid span,.case-teaching-card>div>span,.therapy-grid span,.next-mycology>div:first-child>span{color:#d5bdff;font-size:.64rem;font-weight:950;letter-spacing:.11em}
@@ -507,6 +578,9 @@ img{display:block;max-width:100%}
   .resp-control-hero,.clinical-bridge{grid-template-columns:1fr}
   .resp-centers{grid-template-columns:1fr}
   .resp-modulators,.gas-core-grid,.gas-memory-strip{grid-template-columns:1fr 1fr}
+  .nutrition-core,.nutrition-balance,.plate-method,.clinical-adaptation,.nutrition-case{grid-template-columns:1fr}
+  .nutrition-definitions,.food-functions,.enrichment-grid{grid-template-columns:1fr 1fr}
+  .nutrition-core ol{grid-template-columns:repeat(3,1fr)}
   .mycosis-core,.case-teaching-card{grid-template-columns:1fr}
   .transmission-grid,.site-grid,.therapy-grid,.next-mycology-grid{grid-template-columns:1fr 1fr}
   .diagnostic-flow{grid-template-columns:1fr 1fr}
@@ -548,7 +622,12 @@ img{display:block;max-width:100%}
   .content-section{margin-top:56px}
   .section-heading,.subject-heading{align-items:flex-start;flex-direction:column;gap:12px}
   .section-heading>p{font-size:.86rem}
-  .agenda-summary,.agenda-grid,.pending-grid,.week-grid,.class-history,.lesson-intro,.phase-grid,.reaction-list,.regulation-grid,.science-note,.resource-grid,.study-map,.study-checklist,.delegate-section,.exam-focus,.epi-map-grid,.timeline-row,.two-column-notes,.compare-cards,.dispensary-grid,.family-cycle,.dimension-flow,.process-strip,.triage-first-look,.triage-colors,.micro-objectives,.sample-grid,.sample-check,.morphology-grid,.sabouraud-panel,.sabouraud-facts,.lab-workflow,.lab-safety-card,.resp-control-hero,.control-loop,.resp-centers,.resp-modulators,.gas-core-grid,.gas-memory-strip,.bohr-haldane,.clinical-bridge,.mycosis-core,.mycosis-core ol,.mycosis-split,.transmission-grid,.site-grid,.case-teaching-card,.diagnostic-flow,.therapy-grid,.next-mycology-grid{grid-template-columns:1fr}
+  .agenda-summary,.agenda-grid,.pending-grid,.week-grid,.class-history,.lesson-intro,.phase-grid,.reaction-list,.regulation-grid,.science-note,.resource-grid,.study-map,.study-checklist,.delegate-section,.exam-focus,.epi-map-grid,.timeline-row,.two-column-notes,.compare-cards,.dispensary-grid,.family-cycle,.dimension-flow,.process-strip,.triage-first-look,.triage-colors,.micro-objectives,.sample-grid,.sample-check,.morphology-grid,.sabouraud-panel,.sabouraud-facts,.lab-workflow,.lab-safety-card,.resp-control-hero,.control-loop,.resp-centers,.resp-modulators,.gas-core-grid,.gas-memory-strip,.bohr-haldane,.clinical-bridge,.nutrition-core,.nutrition-core ol,.nutrition-definitions,.nutrition-laws,.nutrition-balance,.energy-equation,.plate-method,.plate-visual,.plate-notes,.food-functions,.enrichment-grid,.clinical-adaptation,.adaptation-grid,.nutrition-case,.seminar-topics,.seminar-checklist,.mycosis-core,.mycosis-core ol,.mycosis-split,.transmission-grid,.site-grid,.case-teaching-card,.diagnostic-flow,.therapy-grid,.next-mycology-grid{grid-template-columns:1fr}
+  .nutrition-laws .nutrition-variety{grid-column:auto}
+  .energy-equation b{transform:rotate(90deg)}
+  .plate-visual{min-height:auto;border-radius:24px}
+  .plate-produce{grid-row:auto}
+  .plate-visual>div,.plate-produce,.plate-protein,.plate-carbs{border-radius:16px!important}
   .control-loop li:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-14px;transform:translateX(-50%)}
   .history-current,.regulation-grid article:first-child{grid-column:auto}
   .week-primary{grid-column:auto}

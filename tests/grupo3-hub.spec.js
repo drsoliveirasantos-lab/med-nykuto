@@ -9,7 +9,7 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Todo lo importante, en el orden correcto.' })).toBeVisible();
     await expect(page.getByText('4.º E', { exact: true }).first()).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Regulación de la glucólisis', exact: true })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Abrir Microbiología' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Abrir Nutrición' })).toBeVisible();
     await expect(page.getByText('Estados claros')).toBeVisible();
   });
 
@@ -42,6 +42,9 @@ test.describe('Class hub', () => {
     await expect(page.locator('#epiEstimatedDate')).toContainText('19 ago.');
     await expect(page.locator('#epiEstimatedDate')).toContainText('11:20–13:20');
     await expect(page.locator('#epiEstimatedDate')).toContainText('por confirmar');
+    await expect(page.locator('#nutritionEstimatedDate')).toContainText('20 ago.');
+    await expect(page.locator('#nutritionEstimatedDate')).toContainText('07:00–09:40');
+    await expect(page.locator('#nutritionEstimatedDate')).toContainText('por confirmar');
     await expect(page.getByText('Fecha oral confirmada · 14 ago.')).toBeVisible();
     await expect(page.getByText('Último bloque · fecha por confirmar')).toBeVisible();
     await expect(page.getByText('Toda fecha calculada permanece como')).toBeHidden();
@@ -75,6 +78,24 @@ test.describe('Class hub', () => {
     expect(transcript.segments[0].estimatedDate).toBe('2026-08-10');
   });
 
+  test('turns the Nutrition transcript into a patient-evaluation framework and seminar brief', async ({ page }) => {
+    await expect(page.getByRole('heading', { name: 'Leyes de la alimentación y evaluación del paciente' })).toBeVisible();
+    const nutrition = page.locator('#nutricion');
+    await expect(nutrition.getByText('Clase estimada · 13 ago. · confirmar')).toBeVisible();
+    await expect(page.locator('.nutrition-laws article')).toHaveCount(5);
+    await expect(page.getByText('Una dieta no se juzga solo por sus calorías')).toBeVisible();
+    await expect(page.getByText('Paraguay difunde 12 mensajes alimentarios oficiales, no 10.')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Seminario oral + trabajo escrito impreso' })).toBeVisible();
+    const seminar = nutrition.locator('.seminar-topics');
+    await expect(seminar.getByText('Guías Alimentarias del Paraguay', { exact: true })).toBeVisible();
+    await expect(seminar.getByText('Alimentación por regiones de Brasil', { exact: true })).toBeVisible();
+    const transcript = await page.evaluate(() => window.MED_NYKUTO_LATEST_TRANSCRIPTS.nutricion);
+    expect(transcript.oralDate).toBeNull();
+    expect(transcript.estimatedClassDate).toBe('2026-08-13');
+    expect(transcript.estimatedPreparation.date).toBe('2026-08-20');
+    expect(transcript.assignment.maxMinutesPerTopic).toBe(5);
+  });
+
   test('organizes Epidemiology into exam points, APS and triage preparation', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Sectorización, triage, urgencia y emergencia' })).toBeVisible();
     await expect(page.getByText('APS y modelo de atención integral', { exact: true })).toBeVisible();
@@ -90,7 +111,7 @@ test.describe('Class hub', () => {
 
   test('turns the Group 3 practical transcript into a safe fungal culture guide', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Cultivo de hongos en agar Sabouraud' })).toBeVisible();
-    await expect(page.getByText('Clase estimada · 13 ago. · confirmar')).toBeVisible();
+    await expect(page.locator('#microbiologia-practica').getByText('Clase estimada · 13 ago. · confirmar')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Lleva una muestra sólida con moho' })).toBeVisible();
     await expect(page.getByText('Pan duro con moho', { exact: true })).toBeVisible();
     await expect(page.getByRole('row', { name: /Levadura Principalmente unicelular/ })).toBeVisible();
@@ -127,10 +148,17 @@ test.describe('Class hub', () => {
   });
 
   test('switches revision depth without leaving the page', async ({ page }) => {
-    await page.getByRole('button', { name: /Ficha rápida/ }).click();
+    await page.locator('[data-study-mode="rapido"]').click();
     await expect(page.getByRole('heading', { name: 'El mapa central en cinco minutos' })).toBeVisible();
     await expect(page.getByText('La glucólisis produce 2 piruvatos, 2 ATP netos y 2 NADH.')).toBeVisible();
-    await expect(page.getByRole('button', { name: /Ficha rápida/ })).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('[data-study-mode="rapido"]')).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  test('switches Nutrition revision depth independently', async ({ page }) => {
+    await page.getByRole('button', { name: /Ficha rápida NUT/ }).click();
+    await expect(page.getByRole('heading', { name: 'Leyes de la alimentación en cinco minutos' })).toBeVisible();
+    await expect(page.getByText('Dieta significa patrón habitual, no necesariamente plan hipocalórico.')).toBeVisible();
+    await expect(page.getByRole('button', { name: /Ficha rápida NUT/ })).toHaveAttribute('aria-pressed', 'true');
   });
 
   test('switches Epidemiology revision depth independently', async ({ page }) => {
