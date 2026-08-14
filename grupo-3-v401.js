@@ -163,6 +163,79 @@
     }
   };
 
+  var oralAnswers = {
+    bioquimica:[
+      'La glucólisis transforma una glucosa en dos piruvatos para obtener energía e intermediarios metabólicos. Sus diez reacciones ocurren en el citosol.',
+      'La fase preparatoria consume 2 ATP y divide la hexosa en dos triosas; al final quedan dos moléculas de gliceraldehído-3-fosfato.',
+      'La aldolasa genera G3P y DHAP, y la triosa-fosfato isomerasa convierte el DHAP en otro G3P. Por eso cada reacción desde el paso 6 ocurre dos veces por glucosa.',
+      'El balance neto es 2 piruvatos, 2 ATP netos, 2 NADH y 2 moléculas de agua por cada glucosa.',
+      'Las enzimas de los pasos irreversibles son hexoquinasa o glucoquinasa, fosfofructoquinasa-1 y piruvato quinasa.',
+      'La hexoquinasa está en la mayoría de los tejidos, tiene alta afinidad y se inhibe por G6P. La glucoquinasa predomina en hígado y célula beta, tiene mayor capacidad y no se inhibe por G6P.',
+      'La vía no utiliza oxígeno como reactivo. Para continuar necesita regenerar NAD+, lo que puede lograrse por la cadena respiratoria o mediante formación de lactato.',
+      'La lactato deshidrogenasa reduce piruvato a lactato y oxida NADH a NAD+. Ese NAD+ permite que continúe la reacción de la gliceraldehído-3-fosfato deshidrogenasa.'
+    ],
+    epidemiologia:[
+      'La Atención Primaria de la Salud es una estrategia integral y el primer contacto accesible entre la población y el sistema, con participación comunitaria, continuidad, promoción, prevención, atención y rehabilitación.',
+      'En 1978 se adoptó la Declaración de Alma-Ata. En Paraguay, la estrategia de APS mediante Equipos y Unidades de Salud de la Familia comenzó a implementarse en 2008.',
+      'Grupo I: aparentemente sanos; Grupo II: personas con factores de riesgo; Grupo III: enfermos; Grupo IV: personas con discapacidad o secuelas que requieren seguimiento.',
+      'Entre sus principios están equidad, accesibilidad, cobertura universal, participación comunitaria, trabajo multidisciplinario, continuidad e intersectorialidad.',
+      'El significado concreto describe la forma operativa que adopta la APS dentro de un sistema. El abstracto expresa sus valores, como derecho a la salud, equidad y participación.',
+      'Las cuatro dimensiones son persona, familia, comunidad y ambiente.',
+      'Las etapas didácticas son formación, expansión, dispersión y contracción de la familia.',
+      'Sectorizar es delimitar un territorio y asignar población y responsables. Sirve para conocer riesgos, recursos, barreras y planificar seguimiento y acciones.',
+      'Se observan motivo de consulta, signos vitales, estado mental, dolor, perfusión, respiración y riesgo de deterioro para decidir la prioridad; no se establece todavía el diagnóstico definitivo.',
+      'Una urgencia requiere atención pronta. Una emergencia amenaza de forma inmediata la vida o un órgano y exige estabilización sin demora.'
+    ],
+    fisiologia:[
+      'El bucle incluye sensores o receptores, un centro integrador y efectores respiratorios.',
+      'El GRD participa sobre todo en inspiración e integración sensorial; el GRV se recluta más en respiración forzada e incluye el generador de ritmo; el grupo pontino modula la transición entre inspiración y espiración.',
+      'El complejo pre-Bötzinger se localiza en el bulbo ventrolateral, dentro de la región del GRV, y participa de forma esencial en la generación del ritmo respiratorio.',
+      'Detectan principalmente el descenso del pH del líquido cefalorraquídeo producido cuando el CO2 atraviesa la barrera hematoencefálica y genera H+.',
+      'Los cuerpos carotídeos están en la bifurcación carotídea y envían información por el IX par; los aórticos están en el arco aórtico y lo hacen por el X par.',
+      'El estímulo hipóxico más importante es una disminución marcada de la PaO2 arterial, especialmente por debajo de aproximadamente 60 mmHg.',
+      'La distensión pulmonar activa receptores que, por vía vagal, limitan la inspiración y favorecen el cambio a espiración para evitar sobredistensión.',
+      'Al inicio intervienen comando central y señales propioceptivas de músculos y articulaciones; después se suman ajustes químicos y térmicos.',
+      'El O2 viaja sobre todo unido a hemoglobina. El CO2 se transporta principalmente como bicarbonato, además de unido a proteínas y disuelto.',
+      'El CO2 retenido forma ácido carbónico y aumenta H+, por lo que baja el pH y aparece acidosis respiratoria.'
+    ],
+    nutricion:[
+      'Alimentación es la selección, preparación e ingesta voluntaria; nutrición son los procesos fisiológicos posteriores; dieta es el patrón habitual de alimentos y bebidas, sea terapéutico o no.',
+      'Cantidad evalúa suficiencia; calidad, presencia de nutrientes; armonía, proporciones; y adecuación, adaptación a la persona. La variedad complementa el análisis a lo largo del tiempo.',
+      'Porque alcanzar energía no garantiza proteínas, fibra, vitaminas, minerales ni una calidad adecuada de grasas y carbohidratos.',
+      'Armonía es la relación equilibrada entre grupos y nutrientes. El plato la representa de forma educativa con aproximadamente medio plato de verduras/frutas y dos cuartos para proteínas y cereales o tubérculos, siempre con adaptación clínica.',
+      'Edad, sexo, actividad, estado fisiológico, enfermedad, medicación, función, cultura, economía, disponibilidad, preferencias y capacidad para preparar y consumir alimentos.',
+      'Una comida aislada no muestra la rotación habitual. Observar varios días permite saber qué alimentos y grupos se repiten, alternan o faltan.',
+      'Los energéticos aportan sobre todo carbohidratos y grasas; los constructores, proteínas para síntesis y reparación; los reguladores, fibra, agua, vitaminas, minerales y compuestos bioactivos.',
+      'Enriquecido suele referirse a reponer nutrientes perdidos; fortificado, a añadirlos deliberadamente; biofortificado, a aumentar el contenido durante el crecimiento del cultivo. La norma local puede superponer términos.',
+      'Primero cuantificaría todo el día y el contexto. Luego revisaría calidad, proporciones, variedad y adecuación, y negociaría uno o dos cambios posibles en vez de concluir solo por ese desayuno.',
+      'Los dos temas exactos aparecen al seleccionar el grupo. La entrega común es: un PowerPoint independiente para el Trabajo 1, otro para el Trabajo 2 y un informe breve para firma y sello.'
+    ],
+    'microbiologia-teorica':[
+      'Una micosis superficial se limita a capas externas o al tallo piloso y suele causar poca inflamación. La dermatofitosis invade tejidos queratinizados —piel, pelo o uñas— mediante dermatofitos.',
+      'Queratinofílico significa afinidad por la queratina; queratinolítico, capacidad de degradarla y utilizarla como nutriente.',
+      'Trichophyton afecta piel, pelo y uñas; Microsporum, piel y pelo; Epidermophyton, piel y uñas.',
+      'Antropofílico indica reservorio humano; zoofílico, animal; geofílico, suelo. El origen ayuda a comprender transmisión e intensidad inflamatoria.',
+      'Se usa tinea seguida del sitio: capitis, barbae, corporis, cruris, pedis, manuum, unguium o faciei.',
+      'Placas dolorosas y muy inflamadas, pústulas, costras, secreción, pelos rotos y alopecia orientan a querion, con riesgo de cicatriz.',
+      'Se raspa el borde activo de piel, se toman pelos afectados o material ungueal. El KOH aclara la queratina y permite observar hifas o artroconidios.',
+      'Puede apoyar cuando la especie produce fluorescencia, sobre todo en algunas infecciones por Microsporum. Una lámpara negativa no excluye la tiña.',
+      'El hongo compromete tallo y folículo; los tópicos no alcanzan adecuadamente esa localización, por lo que suele requerirse tratamiento sistémico.',
+      'Debes comparar vía de inoculación, lesión típica, agente y diagnóstico: cadena linfangítica en esporotricosis, cuerpos escleróticos en cromoblastomicosis y granos/fístulas en eumicetoma.'
+    ],
+    'microbiologia-practica':[
+      'La levadura es principalmente unicelular y suele reproducirse por gemación; el moho crece como filamentos o hifas que forman un micelio.',
+      'Una hifa es un filamento fúngico individual. El micelio es la red o conjunto de hifas.',
+      'Significa que puede cambiar de forma según las condiciones ambientales; en hongos de importancia médica, la temperatura es una señal frecuente.',
+      'El conidio es una espora asexual externa. El conidióforo es la estructura especializada que la produce o sostiene.',
+      'El esporangio es un saco que contiene esporas; el esporangióforo es el tallo que lo sostiene.',
+      'Los rizoides ayudan a fijar el hongo al sustrato y pueden participar en la absorción de nutrientes.',
+      'Sus componentes básicos son peptonas, glucosa o dextrosa, agar y agua, con un pH ácido cercano a 5,6.',
+      'El pH ácido limita parte del crecimiento bacteriano y favorece el aislamiento de muchos hongos, aunque no reemplaza la técnica aséptica.',
+      'Porque la concentración y formulación cambian entre fabricantes y presentaciones; la etiqueta define gramos por litro, esterilización y aditivos.',
+      'Transportar la muestra cerrada, identificada y separada de alimentos; no abrir, oler ni tocar en casa; manipularla solo con indicación docente y eliminarla según protocolo.'
+    ]
+  };
+
   var storageKey = 'med-nykuto-grupo3-plan-v416';
   var labStorageKey = 'med-nykuto-lab-group-v403';
   var bioPrepStorageKey = 'med-nykuto-bio-prep-v404';
@@ -173,6 +246,7 @@
   var nutritionGroupStorageKey = 'med-nykuto-nutrition-seminar-group-v412';
   var signedAssignmentsStorageKey = 'med-nykuto-signed-assignments-v412';
   var toastTimer;
+  var answerLastFocus = null;
 
   var classSchedule = [
     {day:1,start:'07:00',end:'10:10',subject:'Fisiología II',teacher:'Dra. Giselle Vert'},
@@ -299,12 +373,91 @@
     }
   };
 
+  function closeStudyAnswer(){
+    var modal = document.getElementById('studyAnswerModal');
+    if(!modal || modal.hidden) return;
+    modal.hidden = true;
+    modal.setAttribute('aria-hidden','true');
+    document.body.classList.remove('answer-modal-open');
+    if(answerLastFocus && typeof answerLastFocus.focus === 'function') answerLastFocus.focus();
+    answerLastFocus = null;
+  }
+
+  function openStudyAnswer(kind,title,answer,trigger){
+    var modal = document.getElementById('studyAnswerModal');
+    if(!modal) return;
+    answerLastFocus = trigger || document.activeElement;
+    document.getElementById('studyAnswerKind').textContent = kind;
+    document.getElementById('studyAnswerTitle').textContent = title;
+    document.getElementById('studyAnswerText').textContent = answer;
+    modal.hidden = false;
+    modal.setAttribute('aria-hidden','false');
+    document.body.classList.add('answer-modal-open');
+    var sheet = modal.querySelector('.study-answer-sheet');
+    if(sheet) sheet.focus();
+  }
+
+  function setupStudyAnswerModal(){
+    document.querySelectorAll('[data-answer-close]').forEach(function(button){
+      button.addEventListener('click',closeStudyAnswer);
+    });
+    document.addEventListener('keydown',function(event){
+      if(event.key === 'Escape') closeStudyAnswer();
+    });
+  }
+
+  function answerTrigger(step,title,hint,kind,answer){
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'preview-answer-trigger';
+    button.setAttribute('aria-haspopup','dialog');
+    if(step){
+      var stepNode = document.createElement('span');
+      stepNode.textContent = step;
+      button.appendChild(stepNode);
+    }
+    var titleNode = document.createElement('strong');
+    titleNode.textContent = title;
+    button.appendChild(titleNode);
+    var hintNode = document.createElement('small');
+    hintNode.className = 'preview-answer-hint';
+    hintNode.textContent = hint;
+    button.appendChild(hintNode);
+    button.addEventListener('click',function(){openStudyAnswer(kind,title,answer,button);});
+    return button;
+  }
+
+  function enhanceStudyPreview(body,courseId,mode){
+    if(!body) return;
+    body.querySelectorAll('.study-map li').forEach(function(item){
+      var step = item.querySelector('span');
+      var title = item.querySelector('strong');
+      var detail = item.querySelector('small');
+      if(!title || !detail) return;
+      var trigger = answerTrigger(step ? step.textContent.trim() : '',title.textContent.trim(),'Ver explicación','EXPLICACIÓN DEL MAPA',detail.textContent.trim());
+      item.innerHTML = '';
+      item.classList.add('is-answer-card');
+      item.appendChild(trigger);
+    });
+
+    if(mode !== 'oral') return;
+    var answers = oralAnswers[courseId] || [];
+    body.querySelectorAll('.oral-list li').forEach(function(item,index){
+      var question = item.textContent.trim();
+      var answer = answers[index] || 'Revisa el mapa y la ficha rápida de este curso para construir la respuesta.';
+      item.innerHTML = '';
+      item.classList.add('is-answer-card');
+      item.appendChild(answerTrigger('',question,'Ver respuesta','RESPUESTA DEL REPASO',answer));
+    });
+  }
+
   function renderPreview(mode){
     var data = previews[mode] || previews.completo;
     document.getElementById('studyPreviewEyebrow').textContent = data.eyebrow;
     document.getElementById('study-preview-title').textContent = data.title;
     document.getElementById('studyPreviewDuration').textContent = data.duration;
     document.getElementById('studyPreviewBody').innerHTML = data.html;
+    enhanceStudyPreview(document.getElementById('studyPreviewBody'),'bioquimica',mode);
     document.querySelectorAll('[data-study-mode]').forEach(function(button){
       var active = button.dataset.studyMode === mode;
       button.classList.toggle('is-active', active);
@@ -318,6 +471,7 @@
     document.getElementById('epi-preview-title').textContent = data.title;
     document.getElementById('epiPreviewDuration').textContent = data.duration;
     document.getElementById('epiPreviewBody').innerHTML = data.html;
+    enhanceStudyPreview(document.getElementById('epiPreviewBody'),'epidemiologia',mode);
     document.querySelectorAll('[data-epi-mode]').forEach(function(button){
       var active = button.dataset.epiMode === mode;
       button.classList.toggle('is-active', active);
@@ -331,6 +485,7 @@
     document.getElementById('fisio-preview-title').textContent = data.title;
     document.getElementById('fisioPreviewDuration').textContent = data.duration;
     document.getElementById('fisioPreviewBody').innerHTML = data.html;
+    enhanceStudyPreview(document.getElementById('fisioPreviewBody'),'fisiologia',mode);
     document.querySelectorAll('[data-fisio-mode]').forEach(function(button){
       var active = button.dataset.fisioMode === mode;
       button.classList.toggle('is-active', active);
@@ -344,6 +499,7 @@
     document.getElementById('nutrition-preview-title').textContent = data.title;
     document.getElementById('nutritionPreviewDuration').textContent = data.duration;
     document.getElementById('nutritionPreviewBody').innerHTML = data.html;
+    enhanceStudyPreview(document.getElementById('nutritionPreviewBody'),'nutricion',mode);
     document.querySelectorAll('[data-nutrition-mode]').forEach(function(button){
       var active = button.dataset.nutritionMode === mode;
       button.classList.toggle('is-active', active);
@@ -357,6 +513,7 @@
     document.getElementById('micro-preview-title').textContent = data.title;
     document.getElementById('microPreviewDuration').textContent = data.duration;
     document.getElementById('microPreviewBody').innerHTML = data.html;
+    enhanceStudyPreview(document.getElementById('microPreviewBody'),'microbiologia-practica',mode);
     document.querySelectorAll('[data-micro-mode]').forEach(function(button){
       var active = button.dataset.microMode === mode;
       button.classList.toggle('is-active', active);
@@ -370,6 +527,7 @@
     document.getElementById('micro-theory-preview-title').textContent = data.title;
     document.getElementById('microTheoryPreviewDuration').textContent = data.duration;
     document.getElementById('microTheoryPreviewBody').innerHTML = data.html;
+    enhanceStudyPreview(document.getElementById('microTheoryPreviewBody'),'microbiologia-teorica',mode);
     document.querySelectorAll('[data-micro-theory-mode]').forEach(function(button){
       var active = button.dataset.microTheoryMode === mode;
       button.classList.toggle('is-active', active);
@@ -748,6 +906,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', function(){
+    setupStudyAnswerModal();
     renderPreview('completo');
     renderEpiPreview('completo');
     renderFisioPreview('completo');

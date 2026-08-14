@@ -135,8 +135,8 @@ test.describe('Class hub', () => {
     await expect(nutrition.getByText('Hasta 4 por PPT', { exact: true })).toBeVisible();
     await expect(nutrition.getByText('Hasta 5 minutos', { exact: true })).toBeVisible();
     await expect(nutrition.getByText('Drive de la clase → Bibliografía → carpeta INAN.', { exact: false })).toBeVisible();
-    await expect(nutrition.getByRole('link', { name: 'Instructivo oficial · Word' })).toHaveAttribute('href', 'assets/class-hub/instructivo-presentacion-oral-semana-3.docx');
-    await expect(nutrition.getByRole('link', { name: 'Modelo de portada · Word' })).toHaveAttribute('href', 'assets/class-hub/modelo-portada-seminario-nutricion.docx');
+    await expect(nutrition.getByRole('link', { name: 'Vista previa · Instructivo' })).toHaveAttribute('href', 'documentos-seminario.html#instructivo');
+    await expect(nutrition.getByRole('link', { name: 'Vista previa · Portada' })).toHaveAttribute('href', 'documentos-seminario.html#modelo-portada');
     const transcript = await page.evaluate(() => window.MED_NYKUTO_LATEST_TRANSCRIPTS.nutricion);
     expect(transcript.oralDate).toBeNull();
     expect(transcript.estimatedClassDate).toBe('2026-08-13');
@@ -158,8 +158,8 @@ test.describe('Class hub', () => {
     await expect(task.getByText('Trabajo 1 · Guías Alimentarias', { exact: true })).toBeVisible();
     await expect(task.getByText('Trabajo 2 · Platos típicos / regiones', { exact: true })).toBeVisible();
     await expect(task.getByText('aproximadamente hasta 5 minutos por grupo', { exact: false })).toBeVisible();
-    await expect(task.getByRole('link', { name: 'Descargar instructivo oficial' })).toHaveAttribute('download', '');
-    await expect(task.getByRole('link', { name: 'Descargar modelo de portada' })).toHaveAttribute('download', '');
+    await expect(task.getByRole('link', { name: 'Ver instructivo y descargar' })).toHaveAttribute('href', 'documentos-seminario.html#instructivo');
+    await expect(task.getByRole('link', { name: 'Ver modelo de portada' })).toHaveAttribute('href', 'documentos-seminario.html#modelo-portada');
   });
 
   test('organizes seminar content, signed report and five-point rubric in accordions', async ({ page }) => {
@@ -270,6 +270,79 @@ test.describe('Class hub', () => {
     for (const code of ['NUT', 'FIS', 'BIO', 'EPI', 'MIC', 'LAB']) {
       await expect(page.locator('.course-selector').getByText(code, { exact: true })).toHaveCount(0);
     }
+    await expect(page.locator('.resource-grid .resource-icon svg')).toHaveCount(24);
+    await expect(page.locator('.resource-grid .resource-code')).toHaveCount(0);
+  });
+
+  test('opens map explanations and oral answers in a closable answer sheet', async ({ page }) => {
+    await page.goto('/clase.html#nutricion');
+    const nutrition = page.locator('#nutricion');
+    await nutrition.locator('[data-nutrition-mode="completo"]').click();
+    await nutrition.locator('.study-map .preview-answer-trigger').first().click();
+    const modal = page.locator('#studyAnswerModal');
+    await expect(modal).toBeVisible();
+    await expect(page.locator('#studyAnswerTitle')).toHaveText('¿Cuánto necesita?');
+    await expect(page.locator('#studyAnswerText')).toContainText('Comparar ingesta con gasto');
+    await modal.getByRole('button', { name: 'Cerrar respuesta', exact: true }).last().click();
+    await expect(modal).toBeHidden();
+
+    await nutrition.locator('[data-nutrition-mode="oral"]').click();
+    await nutrition.locator('.oral-list .preview-answer-trigger').first().click();
+    await expect(modal).toBeVisible();
+    await expect(page.locator('#studyAnswerTitle')).toContainText('diferencia entre alimentación, nutrición y dieta');
+    await expect(page.locator('#studyAnswerText')).toContainText('Alimentación es la selección');
+    await page.keyboard.press('Escape');
+    await expect(modal).toBeHidden();
+  });
+
+  test('shows the complete lesson before training when the course is expanded', async ({ page }) => {
+    await page.goto('/clase.html#nutrition-detail');
+    const order = await page.evaluate(() => {
+      const detail = document.querySelector('#nutrition-detail');
+      const practice = document.querySelector('#practice-nutricion');
+      return Boolean(detail && practice && (detail.compareDocumentPosition(practice) & Node.DOCUMENT_POSITION_FOLLOWING));
+    });
+    expect(order).toBe(true);
+    await expect(page.locator('#nutrition-detail')).toBeVisible();
+    await expect(page.locator('#practice-nutricion')).toBeVisible();
+  });
+
+  test('opens a real format chooser after a completed training block', async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem('med-nykuto-class-practice-v413', JSON.stringify({
+        nutricion:{
+          qcm:Array.from({ length:7 }, () => ({ selected:0, correct:true })),
+          vf:[],
+          cases:[]
+        }
+      }));
+    });
+    await page.goto('/clase.html#practice-nutricion');
+    const practice = page.locator('#practice-nutricion');
+    await expect(practice.getByText('QCM · BLOQUE TERMINADO')).toBeVisible();
+    await practice.getByRole('button', { name: 'Elegir otro formato' }).click();
+    const picker = practice.locator('.practice-format-picker');
+    await expect(picker).toBeVisible();
+    await expect(picker.locator('.practice-format-choice')).toHaveCount(3);
+    await picker.getByRole('button', { name: /Verdadero \/ Falso/ }).click();
+    await expect(practice.getByRole('heading', { name: 'Si una dieta aporta las calorías necesarias, su calidad nutricional está automáticamente garantizada.' })).toBeVisible();
+
+    await page.reload();
+    await practice.getByRole('button', { name: 'Repetir QCM' }).click();
+    await expect(practice.getByRole('heading', { name: '¿Cuál opción diferencia correctamente alimentación, nutrición y dieta?' })).toBeVisible();
+  });
+
+  test('previews both seminar Word documents before download', async ({ page }) => {
+    await page.goto('/documentos-seminario.html#modelo-portada');
+    await expect(page.getByRole('heading', { name: 'Modelo de portada y desarrollo' })).toBeVisible();
+    await expect(page.locator('[data-document-panel="modelo-portada"] img')).toHaveCount(2);
+    await expect(page.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/modelo-portada-seminario-nutricion.docx');
+    await expect.poll(() => page.locator('[data-document-panel="modelo-portada"] img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0))).toBe(true);
+
+    await page.getByRole('link', { name: /Instructivo oficial/ }).click();
+    await expect(page.getByRole('heading', { name: 'Instructivo de presentación oral' })).toBeVisible();
+    await expect(page.locator('[data-document-panel="instructivo"] img')).toHaveCount(3);
+    await expect(page.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/instructivo-presentacion-oral-semana-3.docx');
   });
 
   test('offers explained QCM, true-false and clinical cases for every current course', async ({ page }) => {
