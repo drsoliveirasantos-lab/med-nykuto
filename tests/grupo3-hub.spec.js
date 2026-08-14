@@ -1,8 +1,8 @@
 const { test, expect } = require('@playwright/test');
 
-test.describe('Grupo 3 class hub', () => {
+test.describe('Class hub', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/grupo-3.html');
+    await page.goto('/clase.html');
   });
 
   test('presents the next useful action before secondary content', async ({ page }) => {

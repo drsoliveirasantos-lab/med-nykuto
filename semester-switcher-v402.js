@@ -6,7 +6,7 @@
   window.__MED_NYKUTO_SEMESTER_SWITCHER_V402__ = true;
 
   var page = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
-  var currentSemester = page === 'grupo-3.html' ? '4' : '3';
+  var currentSemester = page === 'clase.html' || page === 'grupo-3.html' ? '4' : '3';
 
   function installStyles() {
     if (document.getElementById('semesterSwitcherV402Styles')) return;
@@ -63,7 +63,7 @@
       if (semester === currentSemester) return;
 
       try { localStorage.setItem('medNykutoSemester', semester); } catch (error) {}
-      window.location.assign(semester === '4' ? 'grupo-3.html' : 'index.html');
+      window.location.assign(semester === '4' ? 'clase.html' : 'index.html');
     });
   }
 
