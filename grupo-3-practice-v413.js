@@ -605,7 +605,7 @@
     icon.innerHTML = '<svg><use href="#' + bank.icon + '"></use></svg>';
     var copy = createNode('div','practice-heading-copy');
     copy.appendChild(createNode('span','practice-eyebrow','ENTRENAMIENTO DEL CURSO'));
-    var title = createNode('h3','',bank.title);
+    var title = createNode('h3','','Entrenamiento · ' + bank.title);
     title.id = root.id + '-title';
     copy.appendChild(title);
     copy.appendChild(createNode('p','',bank.description));

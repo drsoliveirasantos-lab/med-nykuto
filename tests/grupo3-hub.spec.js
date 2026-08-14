@@ -104,7 +104,7 @@ test.describe('Class hub', () => {
 
   test('separates the two Physiology blocks and prioritizes the 13 August class', async ({ page }) => {
     await page.goto('/clase.html#fisio-detail');
-    await expect(page.getByRole('heading', { name: 'Control nervioso y químico de la respiración' })).toBeVisible();
+    await expect(page.locator('#fisio-title')).toHaveText('Control nervioso y químico de la respiración');
     await expect(page.getByText('Fecha oral interpretada · 13 ago.')).toBeVisible();
     await expect(page.getByText('Regulación nerviosa de la respiración', { exact: true })).toBeVisible();
     await expect(page.getByText('Difusión y transporte de gases', { exact: true })).toBeVisible();
@@ -221,7 +221,7 @@ test.describe('Class hub', () => {
     await page.goto('/clase.html#epi-detail');
     await expect(page.getByRole('heading', { name: 'Sectorización, triage, urgencia y emergencia' })).toBeVisible();
     await expect(page.getByText('APS y modelo de atención integral', { exact: true })).toBeVisible();
-    await expect(page.getByText('Regla aplicada:')).toBeVisible();
+    await expect(page.locator('#epidemiologia .transcription-rule-note').getByText('Regla aplicada:')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Lo que la profesora señaló que puede preguntar' })).toBeVisible();
     await expect(page.getByText('2008: implementación de la estrategia APS en Paraguay.')).toBeVisible();
     await page.locator('#epidemiologia .lesson-accordion').nth(3).locator('summary').click();
@@ -250,7 +250,7 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Dermatofitosis: de la queratina al caso clínico' })).toBeVisible();
     await expect(page.getByText('Clase estimada · 10 ago. · confirmar')).toBeVisible();
     await expect(page.getByRole('row', { name: /Trichophyton Sí Sí Sí/ })).toBeVisible();
-    await expect(page.getByText('Tinea capitis y tiña del cuero cabelludo son el mismo diagnóstico.')).toBeVisible();
+    await expect(page.getByText('Tiña capitis y tiña del cuero cabelludo son el mismo diagnóstico.')).toBeVisible();
     await expect(page.getByText('El KOH muestra hifas o artroconidios', { exact: false })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Tres micosis subcutáneas para la próxima clase' })).toBeVisible();
     await expect(page.getByText('Esporotricosis linfocutánea', { exact: true })).toBeVisible();
