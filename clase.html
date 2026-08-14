@@ -4,11 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#07111f" />
-  <title>La clase · Semestre 4 | Med Nykuto</title>
-  <meta name="description" content="Espacio académico no oficial de la clase: agenda, clases, fichas de revisión y preguntas organizadas en un solo lugar." />
+  <title>4.º E · Semestre 4 | Med Nykuto</title>
+  <meta name="description" content="Espacio académico no oficial de 4.º E: horario, próximas clases, pendientes y materiales de revisión organizados en un solo lugar." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=401" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=403" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -20,8 +20,8 @@
         <span><strong>Med Nykuto</strong><small>Espacio de clase</small></span>
       </a>
       <div class="class-scope" aria-label="Espacio actual">
-        <span>4.º semestre</span>
-        <strong>La clase</strong>
+        <span>Semestre 4</span>
+        <strong>4.º E</strong>
       </div>
       <a class="header-back" href="index.html">Volver</a>
     </div>
@@ -34,17 +34,17 @@
           <span class="status-dot"><i aria-hidden="true"></i> Espacio activo</span>
           <span>Iniciativa estudiantil no oficial</span>
         </div>
-        <p class="section-kicker">Tu semana académica</p>
+        <p class="section-kicker">4.º E · Integral · 2026/2</p>
         <h1 id="class-title">Todo lo importante, en el orden correcto.</h1>
         <p class="hero-lead">Clases, revisión y pendientes reunidos para que sepas qué estudiar ahora sin buscar entre mensajes y archivos.</p>
         <div class="hero-actions">
           <a class="action-button action-primary" href="#bioquimica">Continuar Bioquímica</a>
-          <a class="action-button action-secondary" href="#semana">Ver mi semana</a>
+          <a class="action-button action-secondary" href="#horario">Ver horario</a>
         </div>
         <div class="hero-trust" aria-label="Información del espacio">
           <span><strong id="lastUpdated">Actualizado hoy</strong><small>Última organización</small></span>
-          <span><strong>Gratuito</strong><small>Para la clase</small></span>
-          <span><strong>Sin datos inventados</strong><small>Solo información confirmada</small></span>
+          <span><strong>Gratuito</strong><small>Para 4.º E</small></span>
+          <span><strong>Estados claros</strong><small>Confirmado o estimado</small></span>
         </div>
       </div>
 
@@ -61,11 +61,98 @@
     </section>
 
     <nav class="quick-nav" aria-label="Accesos rápidos">
-      <a href="#semana"><span class="quick-code">HOY</span><strong>Mi semana</strong><small>Ver prioridades</small></a>
+      <a href="#horario"><span class="quick-code">AGE</span><strong>Horario</strong><small>Próxima clase</small></a>
+      <a href="#pendientes"><span class="quick-code">TAR</span><strong>Pendientes</strong><small>Fechas y estado</small></a>
       <a href="#bioquimica"><span class="quick-code">BIO</span><strong>Última clase</strong><small>Curso y fichas</small></a>
-      <a href="#repaso"><span class="quick-code">REP</span><strong>Repasar</strong><small>Entrenamiento activo</small></a>
       <a href="#delegado"><span class="quick-code">DUD</span><strong>Enviar una duda</strong><small>Preparar el mensaje</small></a>
     </nav>
+
+    <section id="horario" class="content-section schedule-section" aria-labelledby="schedule-title">
+      <div class="section-heading">
+        <div><p class="section-kicker">Agenda oficial</p><h2 id="schedule-title">Horario de 4.º E</h2></div>
+        <span class="source-pill">Hora de Paraguay · KM 8</span>
+      </div>
+
+      <div class="agenda-summary">
+        <article class="next-schedule-card" aria-live="polite">
+          <span>PRÓXIMA CLASE</span>
+          <h3 id="nextScheduleSubject">Calculando…</h3>
+          <strong id="nextScheduleWhen">Horario de Paraguay</strong>
+          <small id="nextScheduleTeacher"></small>
+        </article>
+
+        <aside class="personal-lab-card">
+          <div><span>PREFERENCIA PERSONAL</span><h3>Mi laboratorio</h3></div>
+          <label for="labGroupSelect">Mi subgrupo de Microbiología II</label>
+          <select id="labGroupSelect">
+            <option value="">Seleccionar subgrupo</option>
+            <option value="1">Grupo 1 · jueves 14:00–16:00</option>
+            <option value="2">Grupo 2 · jueves 16:00–18:00</option>
+            <option value="3">Grupo 3 · jueves 18:00–20:00</option>
+          </select>
+          <p>Se guarda solo en este dispositivo; no cambia el horario de la clase.</p>
+          <div class="lab-next"><span>Próximo laboratorio</span><strong id="nextLabWhen">Selecciona tu subgrupo</strong></div>
+        </aside>
+      </div>
+
+      <div class="agenda-grid" id="weeklyAgenda" aria-label="Horario semanal">
+        <article class="agenda-day" data-schedule-day="1">
+          <header><span>LUN</span><strong>Lunes</strong></header>
+          <div class="schedule-slot"><time>07:00–10:10</time><strong>Fisiología II</strong><small>Dra. Giselle Vert</small></div>
+          <div class="schedule-slot"><time>10:10–12:20</time><strong>Microbiología II</strong><small>Dr. Alexander Acuña</small></div>
+          <div class="schedule-slot schedule-online"><time>15:00–17:00</time><strong>Bioética · plataforma</strong><small>Lic. Silvia Nuarte</small></div>
+        </article>
+        <article class="agenda-day" data-schedule-day="3">
+          <header><span>MIÉ</span><strong>Miércoles</strong></header>
+          <div class="schedule-slot"><time>09:10–11:10</time><strong>Bioquímica II</strong><small>Dra. Andrea López</small></div>
+          <div class="schedule-slot"><time>11:20–13:20</time><strong>Epidemiología y Salud Pública</strong><small>Dra. Andrea Isasi</small></div>
+        </article>
+        <article class="agenda-day" data-schedule-day="4">
+          <header><span>JUE</span><strong>Jueves</strong></header>
+          <div class="schedule-slot"><time>07:00–09:40</time><strong>Nutrición</strong><small>Lic. Johana Leguizamón</small></div>
+          <div class="schedule-slot"><time>09:40–12:20</time><strong>Fisiología II</strong><small>Dra. Giselle Vert</small></div>
+          <div class="schedule-slot schedule-lab" id="labScheduleSlot"><time id="labScheduleTime">G1 14:00 · G2 16:00 · G3 18:00</time><strong>Laboratorio de Microbiología II</strong><small id="labScheduleGroup">Selecciona tu subgrupo</small></div>
+        </article>
+        <article class="agenda-day" data-schedule-day="5">
+          <header><span>VIE</span><strong>Viernes</strong></header>
+          <div class="schedule-slot"><time>07:00–09:00</time><strong>Epidemiología y Salud Pública</strong><small>Dra. Andrea Isasi</small></div>
+          <div class="schedule-slot"><time>09:10–11:10</time><strong>Bioquímica II</strong><small>Dra. Andrea López</small></div>
+        </article>
+      </div>
+      <p class="schedule-note">Martes y sábado no presentan clases en el horario recibido. Cualquier modificación oficial debe prevalecer sobre esta vista.</p>
+    </section>
+
+    <section id="pendientes" class="content-section pending-section" aria-labelledby="pending-title">
+      <div class="section-heading pending-heading">
+        <div><p class="section-kicker">Transcripciones y tareas</p><h2 id="pending-title">Pendientes con fecha clara</h2></div>
+        <div class="status-legend" aria-label="Estados de las fechas"><span class="status-confirmed">Confirmada</span><span class="status-estimated">Estimada</span><span class="status-check">Verificar</span></div>
+      </div>
+      <div class="pending-grid">
+        <article class="assignment-card assignment-empty">
+          <span class="assignment-status status-confirmed">CONFIRMADAS</span>
+          <h3>Sin entregas confirmadas</h3>
+          <p>Una fecha aparecerá aquí únicamente cuando el profesor la diga o la escriba de forma explícita.</p>
+        </article>
+        <article class="assignment-card assignment-estimated" id="bioPrepCard">
+          <div class="assignment-top"><span class="assignment-status status-estimated">ESTIMADA</span><span>Bioquímica II</span></div>
+          <h3>Preparar glucólisis</h3>
+          <p>Revisar la vía común y los destinos aeróbico y anaeróbico antes del próximo encuentro.</p>
+          <div class="assignment-date"><span>Fecha propuesta</span><strong id="bioEstimatedDate">Próxima clase de Bioquímica</strong></div>
+          <small>Motivo: el siguiente tema fue anunciado, pero no se registró una entrega obligatoria con fecha explícita.</small>
+          <label class="completion-control"><input type="checkbox" id="bioPrepDone" /><span>Marcar preparación como realizada</span></label>
+        </article>
+        <details class="inference-card">
+          <summary>Cómo se calcula una fecha</summary>
+          <ol>
+            <li>La fecha de entrega dicha por el profesor tiene prioridad.</li>
+            <li>La fecha oral al inicio de la transcripción identifica el curso correcto.</li>
+            <li>Sin entrega explícita, se propone la próxima sesión de la materia.</li>
+            <li>La modificación del archivo se usa solo como referencia secundaria.</li>
+          </ol>
+          <p>Toda fecha calculada permanece como <strong>estimada</strong> hasta su confirmación.</p>
+        </details>
+      </div>
+    </section>
 
     <section id="semana" class="content-section" aria-labelledby="week-title">
       <div class="section-heading">
@@ -97,11 +184,11 @@
     <section id="bioquimica" class="content-section subject-section" aria-labelledby="bio-title">
       <div class="subject-heading">
         <div>
-          <p class="section-kicker">Bioquímica · Clases 1 y 2</p>
+          <p class="section-kicker">Bioquímica · 2 transcripciones</p>
           <h2 id="bio-title">Metabolismo de los carbohidratos</h2>
           <p>El mismo contenido en cuatro profundidades. Elige según el tiempo que tienes.</p>
         </div>
-        <span class="verified-pill">Contenido revisado</span>
+        <span class="source-pill status-check">Fecha oral no indicada</span>
       </div>
 
       <div class="resource-grid" aria-label="Modos de revisión">
@@ -162,19 +249,19 @@
   </main>
 
   <footer class="class-footer">
-    <div><strong>Med Nykuto</strong><span>Apoyo académico no oficial · La clase</span></div>
+    <div><strong>Med Nykuto</strong><span>Apoyo académico no oficial · 4.º E</span></div>
     <a href="mentions.html">Aviso legal</a>
   </footer>
 
   <nav class="mobile-bottom-nav" aria-label="Navegación de clase">
-    <a href="#contenido"><span>INI</span><strong>Inicio</strong></a>
-    <a href="#semana"><span>HOY</span><strong>Semana</strong></a>
+    <a href="#horario"><span>AGE</span><strong>Agenda</strong></a>
+    <a href="#pendientes"><span>TAR</span><strong>Tareas</strong></a>
     <a href="#bioquimica"><span>BIO</span><strong>Clase</strong></a>
     <a href="#delegado"><span>DUD</span><strong>Dudas</strong></a>
   </nav>
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=402"></script>
-  <script src="grupo-3-v401.js?v=401"></script>
+  <script src="grupo-3-v401.js?v=403"></script>
 </body>
 </html>

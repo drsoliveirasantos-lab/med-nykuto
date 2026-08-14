@@ -7,9 +7,38 @@ test.describe('Class hub', () => {
 
   test('presents the next useful action before secondary content', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Todo lo importante, en el orden correcto.' })).toBeVisible();
+    await expect(page.getByText('4.º E', { exact: true }).first()).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Glucólisis' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Continuar Bioquímica' })).toBeVisible();
-    await expect(page.getByText('Sin datos inventados')).toBeVisible();
+    await expect(page.getByText('Estados claros')).toBeVisible();
+  });
+
+  test('shows the shared timetable and calculates the next class', async ({ page }) => {
+    await expect(page.getByRole('heading', { name: 'Horario de 4.º E' })).toBeVisible();
+    await expect(page.locator('#nextScheduleSubject')).not.toHaveText('Calculando…');
+    await expect(page.locator('#nextScheduleWhen')).toContainText('·');
+    await expect(page.getByText('Martes y sábado no presentan clases')).toBeVisible();
+  });
+
+  test('keeps the personal lab group separate and local to the device', async ({ page }) => {
+    const groupSelector = page.getByLabel('Mi subgrupo de Microbiología II');
+    await expect(groupSelector).toHaveValue('');
+    await groupSelector.selectOption('3');
+    await expect(page.locator('#labScheduleGroup')).toContainText('Grupo 3');
+    await expect(page.locator('#labScheduleTime')).toHaveText('18:00–20:00');
+    await page.reload();
+    await expect(groupSelector).toHaveValue('3');
+    await expect(page.locator('#labScheduleGroup')).toContainText('Grupo 3');
+  });
+
+  test('labels inferred preparation dates instead of presenting them as confirmed homework', async ({ page }) => {
+    await expect(page.getByRole('heading', { name: 'Pendientes con fecha clara' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Sin entregas confirmadas' })).toBeVisible();
+    await expect(page.locator('#bioEstimatedDate')).toContainText('por confirmar');
+    await expect(page.getByText('Fecha oral no indicada')).toBeVisible();
+    await expect(page.getByText('Toda fecha calculada permanece como')).toBeHidden();
+    await page.getByText('Cómo se calcula una fecha').click();
+    await expect(page.getByText('Toda fecha calculada permanece como')).toBeVisible();
   });
 
   test('keeps the semester selector available while the page scrolls', async ({ page }) => {
