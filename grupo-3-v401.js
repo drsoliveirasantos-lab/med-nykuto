@@ -549,6 +549,22 @@
     }) + ' · por confirmar';
   }
 
+  function formatHomePreparation(preparation){
+    var parts = preparation.date.split('-').map(Number);
+    var date = new Date(Date.UTC(parts[0],parts[1]-1,parts[2]));
+    var label = new Intl.DateTimeFormat('es-PY',{
+      weekday:'short',day:'numeric',month:'short',timeZone:'UTC'
+    }).format(date);
+    label = label.charAt(0).toUpperCase() + label.slice(1);
+    return label + ' · estimada';
+  }
+
+  function renderHomePreparation(nodeId,preparation){
+    var node = document.getElementById(nodeId);
+    node.dateTime = preparation.date;
+    node.textContent = formatHomePreparation(preparation);
+  }
+
   function readLabGroup(){
     try{return localStorage.getItem(labStorageKey) || '';}catch(error){return '';}
   }
@@ -589,6 +605,9 @@
     document.getElementById('microEstimatedDate').textContent = formatEstimatedPreparation(latestMicroTranscript.estimatedPreparation);
     document.getElementById('microTheoryEstimatedDate').textContent = formatEstimatedPreparation(latestMicroTheoryTranscript.estimatedPreparation);
     document.getElementById('nutritionEstimatedDate').textContent = formatEstimatedPreparation(latestNutritionTranscript.estimatedPreparation);
+    renderHomePreparation('homeMicroTheoryDate',latestMicroTheoryTranscript.estimatedPreparation);
+    renderHomePreparation('homeNutritionDate',latestNutritionTranscript.estimatedPreparation);
+    renderHomePreparation('homeBioDate',latestTranscript.estimatedPreparation);
   }
 
   function restorePersonalSchedule(){
@@ -706,7 +725,11 @@
       var detail = target.hasAttribute('data-course-detail') ? target : target.closest('[data-course-detail]');
       if(detail) setCourseDetail(detail,true);
       var assignmentHistory = target.matches('[data-assignment-history]') ? target : target.closest('[data-assignment-history]');
-      if(assignmentHistory) assignmentHistory.open = true;
+      if(assignmentHistory){
+        assignmentHistory.open = true;
+        var archiveSubject = assignmentHistory.closest('[data-archive-subject]');
+        if(archiveSubject) archiveSubject.open = true;
+      }
     }
 
     if(shouldScroll && target){

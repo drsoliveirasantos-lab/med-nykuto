@@ -11,6 +11,13 @@ test.describe('Class hub', () => {
     await expect(page.locator('#nextScheduleSubject')).not.toHaveText('Calculando…');
     await expect(page.getByRole('link', { name: /Preparar tres micosis subcutáneas/ })).toBeVisible();
     await expect(page.getByRole('link', { name: /Guías \+ regiones y platos/ })).toBeVisible();
+    await expect(page.locator('#homeMicroTheoryDate')).toContainText('17 ago');
+    await expect(page.locator('#homeNutritionDate')).toContainText('20 ago');
+    await expect(page.locator('#homeBioDate')).toContainText('19 ago');
+    await expect(page.locator('#homeMicroTheoryDate')).toHaveAttribute('datetime', '2026-08-17');
+    await expect(page.locator('#homeNutritionDate')).toHaveAttribute('datetime', '2026-08-20');
+    await expect(page.locator('#homeBioDate')).toHaveAttribute('datetime', '2026-08-19');
+    await expect(page.locator('.priority-card-head time')).toHaveCount(3);
     await expect(page.locator('#horario')).toBeHidden();
     await expect(page.locator('#materias')).toBeHidden();
   });
@@ -150,21 +157,29 @@ test.describe('Class hub', () => {
     await page.goto('/clase.html#pendientes');
     await expect(page.getByRole('heading', { name: 'Actividades ya realizadas' })).toBeVisible();
     await expect(page.locator('#signedAssignmentCount')).toHaveText('0/2 copias firmadas');
+    await expect(page.locator('[data-archive-subject]')).toHaveCount(6);
 
-    await page.getByRole('link', { name: /Actividad 1 · GLUT4 y ejercicio/ }).click();
+    const bioGroup = page.locator('[data-archive-subject]').filter({ hasText: 'BIOQUÍMICA II' });
+    await bioGroup.locator(':scope > summary').click();
+    await page.locator('#bio-tarea-glut4 > summary').click();
     await expect(page.locator('#bio-tarea-glut4')).toHaveAttribute('open', '');
+    await expect(page.locator('#pendientes')).toBeVisible();
+    await expect(page.locator('#materias')).toBeHidden();
     await expect(page.getByText('Diseña el proceso de funcionamiento dependiente de insulina del GLUT4.')).toBeVisible();
     const bioSignature = page.locator('[data-signed-assignment="bio-glut4"]');
     await bioSignature.check();
     await expect(page.locator('#bio-tarea-glut4 [data-signed-mirror="bio-glut4"]')).toHaveText('Copia firmada');
 
-    await page.reload();
+    await page.goto('/clase.html#bio-tarea-glut4');
+    await expect(bioGroup).toHaveAttribute('open', '');
     await expect(page.locator('#bio-tarea-glut4')).toHaveAttribute('open', '');
     await expect(bioSignature).toBeChecked();
     await page.goto('/clase.html#pendientes');
     await expect(page.locator('#signedAssignmentCount')).toHaveText('1/2 copias firmadas');
 
-    await page.getByRole('link', { name: /Salud, sistemas sanitarios y USF/ }).click();
+    const epiGroup = page.locator('[data-archive-subject]').filter({ hasText: 'EPIDEMIOLOGÍA Y SALUD PÚBLICA' });
+    await epiGroup.locator(':scope > summary').click();
+    await page.locator('#epi-tarea-salud > summary').click();
     await expect(page.locator('#epi-tarea-salud')).toHaveAttribute('open', '');
     await expect(page.locator('#epi-tarea-salud .subject-assignment-body li')).toHaveCount(11);
   });
@@ -174,6 +189,32 @@ test.describe('Class hub', () => {
     await expect(page.locator('.workspace-nav .nav-icon svg')).toHaveCount(6);
     await expect(page.locator('.workspace-nav').getByText('INI', { exact: true })).toHaveCount(0);
     await expect(page.locator('.workspace-nav').getByText('Tarefa', { exact: true })).toBeVisible();
+    await page.goto('/clase.html#materias');
+    await expect(page.locator('.course-selector .course-icon svg')).toHaveCount(6);
+    for (const code of ['NUT', 'FIS', 'BIO', 'EPI', 'MIC', 'LAB']) {
+      await expect(page.locator('.course-selector').getByText(code, { exact: true })).toHaveCount(0);
+    }
+  });
+
+  test('offers explained QCM, true-false and clinical cases for every current course', async ({ page }) => {
+    await page.goto('/clase.html#nutricion');
+    await expect(page.locator('[data-practice-root]')).toHaveCount(6);
+    const practice = page.locator('#practice-nutricion');
+    await expect(practice.getByText('7QCM', { exact: false })).toBeVisible();
+    await expect(practice.getByText('4Verdadero / Falso', { exact: false })).toBeVisible();
+    await expect(practice.getByText('2Casos clínicos', { exact: false })).toBeVisible();
+    await practice.getByRole('button', { name: 'Comenzar entrenamiento' }).click();
+    await expect(practice.getByRole('heading', { name: '¿Cuál opción diferencia correctamente alimentación, nutrición y dieta?' })).toBeVisible();
+    await expect(practice.locator('.practice-feedback')).toHaveCount(0);
+    await practice.getByRole('radio', { name: /Alimentación: elección e ingesta/ }).click();
+    await practice.getByRole('button', { name: 'Validar mi respuesta' }).click();
+    await expect(practice.locator('.practice-feedback')).toContainText('Respuesta correcta');
+    await expect(practice.locator('.practice-feedback')).toContainText('digestión, absorción, metabolismo');
+
+    await page.goto('/clase.html#practice-bioquimica');
+    await expect(page.locator('#bioquimica')).toBeVisible();
+    await expect(page.locator('#practice-bioquimica .practice-workspace')).toBeVisible();
+    await expect(page.locator('#practice-bioquimica .practice-tab')).toHaveCount(3);
   });
 
   test('organizes Epidemiology into exam points, APS and triage preparation', async ({ page }) => {

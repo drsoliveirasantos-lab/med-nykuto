@@ -44,6 +44,8 @@ jobs:
         run: node scripts/validate-site-manifest.js || echo "Manifest validator reported warnings; continuing."
       - name: Validate strict HTML/JS references
         run: node scripts/validate-strict-html-js-health.js
+      - name: Validate class practice bank quality
+        run: node scripts/validate-class-practice-bank.js
       - name: Ensure protected bank files were not changed accidentally
         run: node scripts/protected-data-guard.js
       - name: Validate SEO, sitemap and visible branding
@@ -108,6 +110,7 @@ jobs:
             tests/course-module-integrity.spec.js \
             tests/no-blank-page-matrix.spec.js \
             tests/console-error-guard.spec.js \
+            tests/grupo3-hub.spec.js \
             --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/desktop-core --reporter=json > desktop-core.json
           code=$?
           node scripts/print-playwright-summary.js desktop-core.json
