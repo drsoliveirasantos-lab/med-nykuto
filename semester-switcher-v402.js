@@ -1,4 +1,4 @@
-/* v402 — Persistent semester switcher shared across Med Nykuto. */
+/* v403 — Persistent semester switcher shared across Med Nykuto. */
 (function () {
   'use strict';
 
@@ -6,7 +6,8 @@
   window.__MED_NYKUTO_SEMESTER_SWITCHER_V402__ = true;
 
   var page = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
-  var currentSemester = page === 'clase.html' || page === 'grupo-3.html' ? '4' : '3';
+  var semesterFourPages = ['clase', 'clase.html', 'grupo-3', 'grupo-3.html'];
+  var currentSemester = semesterFourPages.indexOf(page) !== -1 ? '4' : '3';
 
   function installStyles() {
     if (document.getElementById('semesterSwitcherV402Styles')) return;
