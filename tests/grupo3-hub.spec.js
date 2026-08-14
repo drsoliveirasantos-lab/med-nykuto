@@ -1,5 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
+const CLASS_DRIVE_URL = 'https://drive.google.com/drive/u/0/mobile/folders/1AE16HsBFgPw80tQYS_O5lQf3hsz9CFdy/1FWhE0vQoc7dNILKqa0qMrGfoF68ZElij?sort=13&direction=a';
+
 test.describe('Class hub', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/clase.html');
@@ -38,6 +40,25 @@ test.describe('Class hub', () => {
     await toggle.click();
     await expect(toggle).toHaveAttribute('aria-expanded', 'true');
     await expect(page.locator('#fisio-detail')).toBeVisible();
+  });
+
+  test('opens the shared class Drive from Courses, Nutrition and the seminar plan', async ({ page }) => {
+    await page.goto('/clase.html#materias');
+    const centralDrive = page.getByRole('link', { name: /Abrir los materiales compartidos de la clase/ });
+    await expect(centralDrive).toBeVisible();
+    await expect(centralDrive).toHaveAttribute('href', CLASS_DRIVE_URL);
+    await expect(centralDrive).toHaveAttribute('target', '_blank');
+    await expect(centralDrive).toHaveAttribute('rel', /noopener/);
+    await expect(centralDrive).toHaveAttribute('rel', /noreferrer/);
+
+    const driveLinks = page.locator('[data-class-drive-link]');
+    await expect(driveLinks).toHaveCount(3);
+    expect(await driveLinks.evaluateAll((links, driveUrl) => links.every((link) => link.getAttribute('href') === driveUrl), CLASS_DRIVE_URL)).toBe(true);
+
+    await page.goto('/clase.html#nutrition-seminar');
+    await expect(page.locator('#nutrition-seminar').getByRole('link', { name: /Materiales en Drive/ })).toBeVisible();
+    await page.goto('/clase.html#plan-estudio');
+    await expect(page.locator('#plan-estudio').getByRole('link', { name: /Abrir Drive/ })).toBeVisible();
   });
 
   test('keeps deep links working and opens the required class detail', async ({ page }) => {
