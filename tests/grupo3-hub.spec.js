@@ -308,7 +308,7 @@ test.describe('Class hub', () => {
   });
 
   test('opens a real format chooser after a completed training block', async ({ page }) => {
-    await page.addInitScript(() => {
+    await page.evaluate(() => {
       localStorage.setItem('med-nykuto-class-practice-v413', JSON.stringify({
         nutricion:{
           qcm:Array.from({ length:7 }, () => ({ selected:0, correct:true })),
@@ -318,6 +318,7 @@ test.describe('Class hub', () => {
       }));
     });
     await page.goto('/clase.html#practice-nutricion');
+    await page.reload();
     const practice = page.locator('#practice-nutricion');
     await expect(practice.getByText('QCM · BLOQUE TERMINADO')).toBeVisible();
     await practice.getByRole('button', { name: 'Elegir otro formato' }).click();
@@ -431,42 +432,47 @@ test.describe('Class hub', () => {
 
   test('switches Nutrition revision depth independently', async ({ page }) => {
     await page.goto('/clase.html#nutricion');
-    await page.getByRole('button', { name: /Ficha rápida NUT/ }).click();
+    const quickView = page.locator('#nutricion [data-nutrition-mode="rapido"]');
+    await quickView.click();
     await expect(page.getByRole('heading', { name: 'Leyes de la alimentación en cinco minutos' })).toBeVisible();
     await expect(page.getByText('Dieta significa patrón habitual, no necesariamente plan hipocalórico.')).toBeVisible();
-    await expect(page.getByRole('button', { name: /Ficha rápida NUT/ })).toHaveAttribute('aria-pressed', 'true');
+    await expect(quickView).toHaveAttribute('aria-pressed', 'true');
   });
 
   test('switches Epidemiology revision depth independently', async ({ page }) => {
     await page.goto('/clase.html#epidemiologia');
-    await page.getByRole('button', { name: /Ficha rápida EPI/ }).click();
+    const quickView = page.locator('#epidemiologia [data-epi-mode="rapido"]');
+    await quickView.click();
     await expect(page.getByRole('heading', { name: 'Lo esencial de Epidemiología en cinco minutos' })).toBeVisible();
     await expect(page.getByText('Alma-Ata se celebró en 1978; Paraguay implementó su estrategia APS en 2008.')).toBeVisible();
-    await expect(page.getByRole('button', { name: /Ficha rápida EPI/ })).toHaveAttribute('aria-pressed', 'true');
+    await expect(quickView).toHaveAttribute('aria-pressed', 'true');
   });
 
   test('switches Physiology revision depth independently', async ({ page }) => {
     await page.goto('/clase.html#fisiologia');
-    await page.getByRole('button', { name: /Ficha rápida FIS/ }).click();
+    const quickView = page.locator('#fisiologia [data-fisio-mode="rapido"]');
+    await quickView.click();
     await expect(page.getByRole('heading', { name: 'Control respiratorio en cinco minutos' })).toBeVisible();
     await expect(page.getByText('El complejo pre-Bötzinger es esencial para generar el ritmo respiratorio.')).toBeVisible();
-    await expect(page.getByRole('button', { name: /Ficha rápida FIS/ })).toHaveAttribute('aria-pressed', 'true');
+    await expect(quickView).toHaveAttribute('aria-pressed', 'true');
   });
 
   test('switches Microbiology practical revision depth independently', async ({ page }) => {
     await page.goto('/clase.html#microbiologia-practica');
-    await page.getByRole('button', { name: /Ficha rápida LAB/ }).click();
+    const quickView = page.locator('#microbiologia-practica [data-micro-mode="rapido"]');
+    await quickView.click();
     await expect(page.getByRole('heading', { name: 'Hongos y Sabouraud en cinco minutos' })).toBeVisible();
     await expect(page.getByText('Los mohos son filamentosos: sus hifas forman un micelio.')).toBeVisible();
-    await expect(page.getByRole('button', { name: /Ficha rápida LAB/ })).toHaveAttribute('aria-pressed', 'true');
+    await expect(quickView).toHaveAttribute('aria-pressed', 'true');
   });
 
   test('switches theoretical Microbiology revision depth independently', async ({ page }) => {
     await page.goto('/clase.html#microbiologia-teorica');
-    await page.getByRole('button', { name: /Ficha rápida MIC/ }).click();
+    const quickView = page.locator('#microbiologia-teorica [data-micro-theory-mode="rapido"]');
+    await quickView.click();
     await expect(page.getByRole('heading', { name: 'Dermatofitosis en cinco minutos' })).toBeVisible();
     await expect(page.getByText('Los tres géneros clásicos son Trichophyton, Microsporum y Epidermophyton.')).toBeVisible();
-    await expect(page.getByRole('button', { name: /Ficha rápida MIC/ })).toHaveAttribute('aria-pressed', 'true');
+    await expect(quickView).toHaveAttribute('aria-pressed', 'true');
   });
 
   test('saves a simple preparation checklist', async ({ page }) => {
