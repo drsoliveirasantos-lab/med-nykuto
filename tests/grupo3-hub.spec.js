@@ -53,7 +53,7 @@ test.describe('Class hub', () => {
 
     const driveLinks = page.locator('[data-class-drive-link]');
     await expect(driveLinks).toHaveCount(3);
-    expect(await driveLinks.evaluateAll((links) => links.every((link) => link.getAttribute('href') === CLASS_DRIVE_URL))).toBe(true);
+    expect(await driveLinks.evaluateAll((links, driveUrl) => links.every((link) => link.getAttribute('href') === driveUrl), CLASS_DRIVE_URL)).toBe(true);
 
     await page.goto('/clase.html#nutrition-seminar');
     await expect(page.locator('#nutrition-seminar').getByRole('link', { name: /Materiales en Drive/ })).toBeVisible();
