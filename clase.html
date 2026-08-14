@@ -5,13 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#07111f" />
   <title>4.º E · Semestre 4 | Med Nykuto</title>
-  <meta name="description" content="Espacio académico no oficial de 4.º E: horario, pendientes y revisiones de Nutrición, Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología organizadas en un solo lugar." />
+  <meta name="description" content="Espacio académico no oficial de 4.º E: horario, tarefas, historial de actividades y revisiones de Nutrición, Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología organizadas en un solo lugar." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=411" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=412" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
+
+  <svg class="class-icon-sprite" aria-hidden="true">
+    <symbol id="class-icon-home" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10.5V20h14v-9.5"/><path d="M9 20v-6h6v6"/></symbol>
+    <symbol id="class-icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></symbol>
+    <symbol id="class-icon-task" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M8.5 12l2 2 4.5-5M8.5 18h7"/></symbol>
+    <symbol id="class-icon-book" viewBox="0 0 24 24"><path d="M3 5.5c3-1.2 6-.8 9 1.2v13c-3-2-6-2.4-9-1.2zM21 5.5c-3-1.2-6-.8-9 1.2v13c3-2 6-2.4 9-1.2z"/></symbol>
+    <symbol id="class-icon-plan" viewBox="0 0 24 24"><path d="m3.5 6 1.5 1.5L8 4.5M10 6h10M3.5 12 5 13.5l3-3M10 12h10M3.5 18 5 19.5l3-3M10 18h10"/></symbol>
+    <symbol id="class-icon-question" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-9 8.5 9.7 9.7 0 0 1-4-.9L3 21l1.6-4.2A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9.6 9a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1.1.9-1.1 1.7M12 16.5h.01"/></symbol>
+  </svg>
 
   <header class="class-header">
     <div class="class-header-inner">
@@ -29,12 +38,12 @@
 
   <main id="contenido" class="class-app">
     <nav class="workspace-nav" aria-label="Secciones del espacio de clase">
-      <a href="#inicio" data-view-link="inicio" aria-current="page"><span>INI</span><strong>Inicio</strong><small>Ahora</small></a>
-      <a href="#horario" data-view-link="horario"><span>AGE</span><strong>Horario</strong><small>Semana</small></a>
-      <a href="#pendientes" data-view-link="pendientes"><span>TAR</span><strong>Pendientes</strong><small>Fechas</small></a>
-      <a href="#materias" data-view-link="cursos"><span>CUR</span><strong>Cursos</strong><small>6 materias</small></a>
-      <a href="#plan-estudio" data-view-link="plan"><span>PLA</span><strong>Plan</strong><small>Seminario</small></a>
-      <a href="#delegado" data-view-link="dudas"><span>DUD</span><strong>Dudas</strong><small>Mensaje</small></a>
+      <a href="#inicio" data-view-link="inicio" aria-current="page"><span class="nav-icon"><svg><use href="#class-icon-home"></use></svg></span><strong>Inicio</strong><small>Ahora</small></a>
+      <a href="#horario" data-view-link="horario"><span class="nav-icon"><svg><use href="#class-icon-calendar"></use></svg></span><strong>Horario</strong><small>Semana</small></a>
+      <a href="#pendientes" data-view-link="pendientes"><span class="nav-icon"><svg><use href="#class-icon-task"></use></svg></span><strong>Tarefa</strong><small>Actual + archivo</small></a>
+      <a href="#materias" data-view-link="cursos"><span class="nav-icon"><svg><use href="#class-icon-book"></use></svg></span><strong>Cursos</strong><small>6 materias</small></a>
+      <a href="#plan-estudio" data-view-link="plan"><span class="nav-icon"><svg><use href="#class-icon-plan"></use></svg></span><strong>Plan</strong><small>Seminario</small></a>
+      <a href="#delegado" data-view-link="dudas"><span class="nav-icon"><svg><use href="#class-icon-question"></use></svg></span><strong>Dudas</strong><small>Mensaje</small></a>
     </nav>
 
     <section id="inicio" class="class-dashboard" data-view="inicio" aria-labelledby="class-title">
@@ -60,13 +69,13 @@
         <aside class="dashboard-status" aria-label="Resumen de la semana">
           <div><span>EN PORTADA</span><strong>3 prioridades</strong><small>Dos actividades confirmadas y un repaso recomendado.</small></div>
           <div><span>ÚLTIMA CLASE</span><strong>Nutrición</strong><small>Leyes de la alimentación · 13 ago. estimado</small></div>
-          <a href="#pendientes">Ver todos los pendientes</a>
+          <a href="#pendientes">Abrir Tarefa y el historial</a>
         </aside>
       </div>
 
       <div class="dashboard-priorities" aria-label="Prioridades actuales">
         <a class="priority-card priority-main" href="#micro-proxima-clase"><span>PRIORIDAD 01 · MICRO</span><strong>Preparar tres micosis subcutáneas</strong><small>Esporotricosis, cromoblastomicosis y micetoma eumicótico.</small><b>Abrir preparación →</b></a>
-        <a class="priority-card" href="#nutrition-seminar"><span>SEMINARIO · NUTRICIÓN</span><strong>Guías de Paraguay + regiones de Brasil</strong><small>Presentación breve y trabajo escrito impreso.</small><b>Abrir consigna →</b></a>
+        <a class="priority-card" href="#nutrition-seminar"><span>SEMINARIO · NUTRICIÓN</span><strong>Guías + regiones y platos</strong><small>Dos presentaciones diferentes según el grupo asignado.</small><b>Ver mis temas →</b></a>
         <a class="priority-card" href="#nutricion"><span>ÚLTIMO CONTENIDO</span><strong>Leyes de la alimentación</strong><small>Cantidad, calidad, armonía, adecuación y variedad.</small><b>Abrir curso →</b></a>
       </div>
     </section>
@@ -84,7 +93,7 @@
           <span>LECTURA RÁPIDA</span>
           <h3>Cuatro días presenciales</h3>
           <p>Lunes, miércoles, jueves y viernes. El bloque azul marca el día de la próxima clase calculada.</p>
-          <a href="#pendientes">Cruzar horario con pendientes →</a>
+          <a href="#pendientes">Cruzar horario con Tarefa →</a>
         </article>
 
         <aside class="personal-lab-card">
@@ -130,17 +139,27 @@
 
     <section id="pendientes" class="content-section pending-section" data-view="pendientes" aria-labelledby="pending-title" hidden>
       <div class="section-heading pending-heading">
-        <div><p class="section-kicker">Transcripciones y tareas</p><h2 id="pending-title">Pendientes con fecha clara</h2></div>
+        <div><p class="section-kicker">Por hacer + archivo</p><h2 id="pending-title">Tarefa de la clase</h2><p class="section-intro">Primero aparecen las actividades actuales. Debajo queda el historial por materia para recuperar las consignas y contar tus copias firmadas.</p></div>
         <div class="status-legend" aria-label="Estados de las fechas"><span class="status-confirmed">Confirmada</span><span class="status-estimated">Estimada</span><span class="status-check">Verificar</span></div>
       </div>
+      <div class="task-block-heading"><span>POR HACER</span><strong>Actividades y preparaciones actuales</strong></div>
       <div class="pending-grid">
         <article class="assignment-card assignment-estimated" id="nutritionPrepCard">
           <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Nutrición</span></div>
-          <h3>Seminario: guías de Paraguay y alimentación regional de Brasil</h3>
-          <p>Preparar en grupo los dos temas anunciados: Guías Alimentarias del Paraguay y alimentación o platos típicos de las regiones de Brasil.</p>
+          <h3>Semana 3: seminario y presentación oral</h3>
+          <p>Cada grupo recibe un tema de Guías Alimentarias y otro de Regiones y Platos. Selecciona tu grupo para ver los dos títulos exactos.</p>
+          <div class="nutrition-group-picker nutrition-group-picker-compact">
+            <label for="nutritionGroupTaskSelect"><span>MI GRUPO</span><strong>¿Qué temas me corresponden?</strong></label>
+            <select id="nutritionGroupTaskSelect" data-nutrition-group-select>
+              <option value="">Seleccionar grupo</option>
+              <option value="1">Grupo 1</option><option value="2">Grupo 2</option><option value="3">Grupo 3</option>
+              <option value="4">Grupo 4</option><option value="5">Grupo 5</option><option value="6">Grupo 6</option>
+            </select>
+            <div class="nutrition-group-output" data-nutrition-group-output aria-live="polite"><p>Selecciona del Grupo 1 al Grupo 6 para mostrar tus dos temas.</p></div>
+          </div>
           <div class="assignment-date"><span>Próxima clase estimada</span><strong id="nutritionEstimatedDate">Próxima clase de Nutrición</strong></div>
-          <small>La entrega y exposición fueron confirmadas para «la próxima semana». La fecha se calcula con el horario del jueves y debe confirmarse en el documento que la docente prometió subir al Drive.</small>
-          <label class="completion-control"><input type="checkbox" id="nutritionPrepDone" /><span>Marcar presentación y trabajo como preparados</span></label>
+          <small>Consigna oficial: 5 minutos como máximo, hasta 4 diapositivas por grupo y entrega en la plataforma en PPT, PDF o Canva. La fecha exacta permanece por confirmar.</small>
+          <label class="completion-control"><input type="checkbox" id="nutritionPrepDone" /><span>Marcar contenido y presentación como preparados</span></label>
         </article>
         <article class="assignment-card assignment-estimated" id="microTheoryPrepCard">
           <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Microbiología II teórica</span></div>
@@ -186,6 +205,25 @@
           <p>Toda fecha calculada permanece como <strong>estimada</strong> hasta su confirmación.</p>
         </details>
       </div>
+
+      <section class="assignment-archive" aria-labelledby="assignment-archive-title">
+        <div class="assignment-archive-heading">
+          <div><span>HISTORIAL POR MATERIA</span><h3 id="assignment-archive-title">Actividades ya realizadas</h3><p>Las consignas quedan guardadas aunque ya no estén pendientes. Marca solo tus propias hojas firmadas; el dato permanece en este dispositivo.</p></div>
+          <strong id="signedAssignmentCount" aria-live="polite">0/2 copias firmadas</strong>
+        </div>
+        <div class="archive-subject-grid">
+          <a href="#bio-tarea-glut4" class="archive-subject-card">
+            <span class="archive-subject-icon"><svg><use href="#class-icon-task"></use></svg></span>
+            <span><b>BIOQUÍMICA II</b><strong>Actividad 1 · GLUT4 y ejercicio</strong><small>3 consignas registradas · realizada en clase</small></span>
+            <em data-signed-mirror="bio-glut4">Firma sin marcar</em>
+          </a>
+          <a href="#epi-tarea-salud" class="archive-subject-card">
+            <span class="archive-subject-icon"><svg><use href="#class-icon-task"></use></svg></span>
+            <span><b>EPIDEMIOLOGÍA Y SALUD PÚBLICA</b><strong>Salud, sistemas sanitarios y USF</strong><small>11 preguntas registradas · realizada en clase</small></span>
+            <em data-signed-mirror="epi-salud">Firma sin marcar</em>
+          </a>
+        </div>
+      </section>
     </section>
 
     <section id="materias" class="content-section course-hub" data-view="cursos" aria-labelledby="courses-title" hidden>
@@ -287,9 +325,23 @@
         </aside>
 
         <div class="nutrition-seminar" id="nutrition-seminar">
-          <div><span>ACTIVIDAD CONFIRMADA · PRÓXIMA SEMANA</span><h3>Seminario oral + trabajo escrito impreso</h3><p>La docente anunció que enviará al Drive la consigna exacta y ejemplos de semestres anteriores. Usa este esquema para comenzar sin inventar la distribución de los grupos.</p></div>
-          <div class="seminar-topics"><article><span>TEMA A</span><strong>Guías Alimentarias del Paraguay</strong><small>Trabajar con los 12 mensajes oficiales y la Olla Nutricional.</small></article><article><span>TEMA B</span><strong>Alimentación por regiones de Brasil</strong><small>Ubicar alimentos y preparaciones típicas de la región que sea asignada.</small></article></div>
-          <ol class="seminar-checklist"><li><strong>Grupos:</strong> la grabación menciona seis grupos y una división interna; confirmar número exacto de integrantes.</li><li><strong>Tiempo:</strong> máximo 5 minutos por tema.</li><li><strong>Diapositivas:</strong> máximo 4 según la consigna oral; confirmar si el límite es por tema o por grupo.</li><li><strong>Entrega:</strong> presentación digital y trabajo escrito impreso.</li><li><strong>Evaluación:</strong> dominio, contenido, organización, apoyo visual, participación y respeto.</li></ol>
+          <div><span>CONSIGNA OFICIAL · SEMANA 3</span><h3>Seminario / presentación oral</h3><p>Son dos presentaciones diferentes. Elige tu grupo para obtener directamente el título exacto de la Presentación 1 y de la Presentación 2.</p></div>
+          <div class="nutrition-group-picker nutrition-group-picker-full">
+            <label for="nutritionGroupCourseSelect"><span>GRUPO DE NUTRICIÓN</span><strong>Mostrar mis dos temas</strong></label>
+            <select id="nutritionGroupCourseSelect" data-nutrition-group-select>
+              <option value="">Seleccionar grupo</option>
+              <option value="1">Grupo 1</option><option value="2">Grupo 2</option><option value="3">Grupo 3</option>
+              <option value="4">Grupo 4</option><option value="5">Grupo 5</option><option value="6">Grupo 6</option>
+            </select>
+            <div class="nutrition-group-output" data-nutrition-group-output aria-live="polite"><p>Selecciona del Grupo 1 al Grupo 6 para mostrar tus dos temas.</p></div>
+          </div>
+          <div class="seminar-rules" aria-label="Reglas oficiales del seminario">
+            <article><span>DURACIÓN</span><strong>5 minutos</strong><small>Tiempo máximo por grupo.</small></article>
+            <article><span>RECURSOS</span><strong>4 diapositivas</strong><small>Máximo por grupo.</small></article>
+            <article><span>ENTREGA</span><strong>Plataforma</strong><small>PPT, PDF o Canva.</small></article>
+            <article><span>EVALUACIÓN</span><strong>Claridad y dominio</strong><small>Contenido, organización, apoyo visual, participación y respeto del tiempo.</small></article>
+          </div>
+          <ul class="seminar-checklist"><li>Cada grupo elige un tema de la lista correspondiente a cada presentación.</li><li>Puede haber varios grupos con el mismo tema si la cantidad de alumnos lo requiere.</li><li>El mismo grupo elige un tema de Guías Alimentarias y un tema de Regiones/Platos, salvo que la clase se divida en dos mitades según lo acordado.</li><li><strong>Importante:</strong> no es necesario relacionar las Guías Alimentarias con los platos típicos o las regiones en una misma exposición.</li></ul>
         </div>
 
         <div class="reference-links" aria-label="Fuentes de verificación de Nutrición">
@@ -432,6 +484,23 @@
         <article class="history-entry"><span>FECHA NO DICHA</span><div><strong>Bases del metabolismo</strong><small>Carbohidratos, rutas metabólicas, glicación y conexiones clínicas.</small></div></article>
       </div>
 
+      <details id="bio-tarea-glut4" class="subject-assignment-history" data-assignment-history>
+        <summary>
+          <span class="subject-task-mark"><svg><use href="#class-icon-task"></use></svg></span>
+          <span><b>HISTORIAL DE TAREFAS · 1 ACTIVIDAD</b><strong>Actividad 1: GLUT4, ejercicio y glucemia</strong><small>Realizada en clase · abre para recuperar las 3 consignas.</small></span>
+          <em data-signed-mirror="bio-glut4">Firma sin marcar</em>
+        </summary>
+        <div class="subject-assignment-body">
+          <div class="subject-assignment-meta"><span>REALIZADA EN CLASE</span><strong>Conservar la hoja para cuando la docente solicite todas las actividades.</strong></div>
+          <ol>
+            <li>Diseña el proceso de funcionamiento dependiente de insulina del GLUT4.</li>
+            <li>Explica bioquímicamente por qué el ejercicio físico es beneficioso para pacientes con resistencia a la insulina y diabetes tipo 1 y 2.</li>
+            <li>Si el ejercicio activa la entrada de glucosa al músculo a través de GLUT4 y por lógica debería bajar la glicemia, ¿por qué un paciente con diabetes tipo 1 que hizo un entrenamiento de pesas muy pesado o ejercicios de alta intensidad puede terminar con la glucosa más alta que cuando empezó? ¿Qué vía hormonal y hepática se activó que le ganó la carrera a los GLUT4?</li>
+          </ol>
+          <label class="signature-control"><input type="checkbox" data-signed-assignment="bio-glut4" /><span><strong>Mi copia está firmada por la docente</strong><small>Marca únicamente tu hoja personal. Se guarda solo en este dispositivo.</small></span></label>
+        </div>
+      </details>
+
       <button class="course-detail-toggle" type="button" data-detail-toggle aria-controls="bio-detail" aria-expanded="false"><span>CLASE COMPLETA</span><strong>Abrir desarrollo completo</strong><small>Fases, diez reacciones, balance, regulación y correcciones.</small><b aria-hidden="true">+</b></button>
 
       <section id="bio-detail" class="glycolysis-lesson" data-course-detail aria-labelledby="glycolysis-core-title" hidden>
@@ -515,6 +584,31 @@
         <article class="history-entry history-current"><span>ÚLTIMO BLOQUE</span><div><strong>Sectorización, triage, urgencia y emergencia</strong><small>Vigilancia territorial, clasificación de riesgo, observación inicial, signos vitales y prioridad asistencial.</small></div><span>ACTUAL</span></article>
         <article class="history-entry"><span>BLOQUE ANTERIOR</span><div><strong>APS y modelo de atención integral</strong><small>Alma-Ata, implementación en Paraguay, principios, dimensiones y ciclo familiar.</small></div></article>
       </div>
+
+      <details id="epi-tarea-salud" class="subject-assignment-history" data-assignment-history>
+        <summary>
+          <span class="subject-task-mark"><svg><use href="#class-icon-task"></use></svg></span>
+          <span><b>HISTORIAL DE TAREFAS · 1 ACTIVIDAD</b><strong>Salud, sistemas sanitarios y Unidad de Salud Familiar</strong><small>Realizada en clase · abre para recuperar las 11 preguntas.</small></span>
+          <em data-signed-mirror="epi-salud">Firma sin marcar</em>
+        </summary>
+        <div class="subject-assignment-body">
+          <div class="subject-assignment-meta"><span>REALIZADA EN CLASE</span><strong>Conservar la hoja para el examen o la entrega acumulada que indique la docente.</strong></div>
+          <ol>
+            <li>¿Qué es la salud según la OMS?</li>
+            <li>¿Qué es la salud según Terris?</li>
+            <li>¿Qué es la salud pública?</li>
+            <li>¿Cómo está formada una Unidad de Salud Familiar?</li>
+            <li>Tipos de USF.</li>
+            <li>Tipos de sistemas sanitarios.</li>
+            <li>Diferencia entre medicina social e individual.</li>
+            <li>La salud de la persona depende de…</li>
+            <li>El sistema de salud debe ser…</li>
+            <li>¿Cuáles son los niveles de prevención en salud pública?</li>
+            <li>Cita enfoques de la USF.</li>
+          </ol>
+          <label class="signature-control"><input type="checkbox" data-signed-assignment="epi-salud" /><span><strong>Mi copia está firmada por la docente</strong><small>Marca únicamente tu hoja personal. Se guarda solo en este dispositivo.</small></span></label>
+        </div>
+      </details>
       <p class="course-note transcription-rule-note"><b>Regla aplicada:</b> en las transcripciones antiguas que reúnen varias clases, la parte final se considera siempre la más reciente. Una fecha dicha dentro del audio inicia un nuevo bloque; nunca se aplica hacia atrás.</p>
 
       <button class="course-detail-toggle" type="button" data-detail-toggle aria-controls="epi-detail" aria-expanded="false"><span>CLASE COMPLETA</span><strong>Abrir desarrollo completo</strong><small>APS, familia, sectorización, triage, urgencia y emergencia.</small><b aria-hidden="true">+</b></button>
@@ -842,10 +936,10 @@
         <div class="plan-progress" aria-label="Progreso del plan"><strong id="planCount">0/4</strong><span><i id="planProgressBar"></i></span></div>
       </div>
       <div class="study-checklist" id="studyChecklist">
-        <label><input type="checkbox" value="nutrition-group" /><span><strong>Confirmar grupo y tema asignado</strong><small>Verificar integrantes, división interna y región de Brasil.</small></span></label>
-        <label><input type="checkbox" value="nutrition-content" /><span><strong>Extraer el contenido oficial</strong><small>12 guías de Paraguay o alimentos y platos de la región asignada.</small></span></label>
-        <label><input type="checkbox" value="nutrition-slides" /><span><strong>Preparar máximo 4 diapositivas</strong><small>Una idea central por diapositiva, apoyo visual y fuentes.</small></span></label>
-        <label><input type="checkbox" value="nutrition-rehearsal" /><span><strong>Ensayar e imprimir</strong><small>Máximo 5 minutos por tema y trabajo escrito listo.</small></span></label>
+        <label><input type="checkbox" value="nutrition-group" /><span><strong>Seleccionar el grupo</strong><small>Comprobar en Tarefa los dos temas exactos: Presentación 1 y Presentación 2.</small></span></label>
+        <label><input type="checkbox" value="nutrition-content" /><span><strong>Preparar ambos contenidos</strong><small>Desarrollar Guías Alimentarias y Regiones/Platos como presentaciones diferentes.</small></span></label>
+        <label><input type="checkbox" value="nutrition-slides" /><span><strong>Preparar hasta 4 diapositivas</strong><small>Máximo por grupo, con contenido claro, organizado y apoyo visual.</small></span></label>
+        <label><input type="checkbox" value="nutrition-rehearsal" /><span><strong>Ensayar y subir a la plataforma</strong><small>Máximo 5 minutos por grupo; entregar en PPT, PDF o Canva.</small></span></label>
       </div>
     </section>
 
@@ -871,15 +965,15 @@
   </footer>
 
   <nav class="mobile-bottom-nav" aria-label="Navegación de clase">
-    <a href="#inicio" data-view-link="inicio" aria-current="page"><span>INI</span><strong>Inicio</strong></a>
-    <a href="#horario" data-view-link="horario"><span>AGE</span><strong>Agenda</strong></a>
-    <a href="#pendientes" data-view-link="pendientes"><span>TAR</span><strong>Tareas</strong></a>
-    <a href="#materias" data-view-link="cursos"><span>CUR</span><strong>Cursos</strong></a>
-    <a href="#delegado" data-view-link="dudas"><span>DUD</span><strong>Dudas</strong></a>
+    <a href="#inicio" data-view-link="inicio" aria-current="page"><span class="nav-icon"><svg><use href="#class-icon-home"></use></svg></span><strong>Inicio</strong></a>
+    <a href="#horario" data-view-link="horario"><span class="nav-icon"><svg><use href="#class-icon-calendar"></use></svg></span><strong>Horario</strong></a>
+    <a href="#pendientes" data-view-link="pendientes"><span class="nav-icon"><svg><use href="#class-icon-task"></use></svg></span><strong>Tarefa</strong></a>
+    <a href="#materias" data-view-link="cursos"><span class="nav-icon"><svg><use href="#class-icon-book"></use></svg></span><strong>Cursos</strong></a>
+    <a href="#delegado" data-view-link="dudas"><span class="nav-icon"><svg><use href="#class-icon-question"></use></svg></span><strong>Dudas</strong></a>
   </nav>
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=403"></script>
-  <script src="grupo-3-v401.js?v=411"></script>
+  <script src="grupo-3-v401.js?v=412"></script>
 </body>
 </html>

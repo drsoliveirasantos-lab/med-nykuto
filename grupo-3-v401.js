@@ -170,6 +170,8 @@
   var microPrepStorageKey = 'med-nykuto-micro-prep-v407';
   var microTheoryPrepStorageKey = 'med-nykuto-micro-theory-prep-v409';
   var nutritionPrepStorageKey = 'med-nykuto-nutrition-prep-v410';
+  var nutritionGroupStorageKey = 'med-nykuto-nutrition-seminar-group-v412';
+  var signedAssignmentsStorageKey = 'med-nykuto-signed-assignments-v412';
   var toastTimer;
 
   var classSchedule = [
@@ -246,6 +248,33 @@
     assignedTopics:['Esporotricosis linfocutánea','Cromoblastomicosis','Micetoma eumicótico']
   };
 
+  var nutritionSeminarGroups = {
+    '1':{
+      presentation1:{code:'P1 (5)',title:'Guía Alimentaria para la Población Brasileña',detail:'Qué es, objetivos, estructura y características principales.'},
+      presentation2:{code:'P2 (3)',title:'Región Nordeste de Brasil',detail:'Contexto cultural y 3 platos típicos.'}
+    },
+    '2':{
+      presentation1:{code:'P1 (3)',title:'Mensajes/Guías 5 al 8 del Paraguay',detail:'Explicación y ejemplos prácticos.'},
+      presentation2:{code:'P2 (4)',title:'Región Centro-Oeste de Brasil',detail:'Contexto cultural y 3 platos típicos.'}
+    },
+    '3':{
+      presentation1:{code:'P1 (4)',title:'Mensajes/Guías 9 al 12 del Paraguay',detail:'Explicación y ejemplos prácticos.'},
+      presentation2:{code:'P2 (5)',title:'Región Sudeste de Brasil',detail:'Contexto cultural y 3 platos típicos.'}
+    },
+    '4':{
+      presentation1:{code:'P1 (2)',title:'Mensajes/Guías 1 al 4 del Paraguay',detail:'Explicación y ejemplos prácticos.'},
+      presentation2:{code:'P2 (6)',title:'Región Sur de Brasil',detail:'Contexto cultural y 3 platos típicos.'}
+    },
+    '5':{
+      presentation1:{code:'P1 (6)',title:'Guía Alimentaria para la Población Brasileña',detail:'Recomendaciones principales y aplicación práctica.'},
+      presentation2:{code:'P2 (2)',title:'Región Norte de Brasil',detail:'Contexto cultural y 3 platos típicos.'}
+    },
+    '6':{
+      presentation1:{code:'P1 (1)',title:'Guías Alimentarias del Paraguay',detail:'Qué son, objetivos, estructura general y representación gráfica.'},
+      presentation2:{code:'P2 (1)',title:'Platos típicos del Paraguay',detail:'Presentación de platos típicos del país.'}
+    }
+  };
+
   var latestNutritionTranscript = {
     subject:'Nutrición',
     scope:'class-4e',
@@ -257,11 +286,13 @@
     estimatedPreparation:{date:'2026-08-20',start:'07:00',end:'09:40'},
     assignment:{
       confirmed:true,
-      topics:['Guías Alimentarias del Paraguay','Alimentación y platos típicos por regiones de Brasil'],
-      maxMinutesPerTopic:5,
-      maxSlides:4,
-      deliverables:['Presentación digital','Trabajo escrito impreso'],
-      ambiguities:['Cantidad exacta de integrantes','Si cuatro diapositivas es por tema o por grupo','Distribución de regiones de Brasil']
+      source:'Consigna oficial · Semana 3',
+      groups:nutritionSeminarGroups,
+      maxMinutesPerGroup:5,
+      maxSlidesPerGroup:4,
+      deliverables:['Subir la presentación a la plataforma en PPT, PDF o Canva'],
+      evaluation:['Claridad','Dominio del tema','Contenido','Organización','Apoyo visual','Participación','Respeto del tiempo'],
+      important:'Son dos presentaciones diferentes; no es necesario relacionar las Guías Alimentarias con las regiones o los platos típicos en una misma exposición.'
     }
   };
 
@@ -372,6 +403,75 @@
     var saved = readPlan();
     document.querySelectorAll('#studyChecklist input').forEach(function(input){input.checked = saved.indexOf(input.value) !== -1;});
     updatePlanProgress();
+  }
+
+  function readNutritionGroup(){
+    try{return localStorage.getItem(nutritionGroupStorageKey) || '';}catch(error){return '';}
+  }
+
+  function nutritionGroupMarkup(groupId){
+    var group = nutritionSeminarGroups[groupId];
+    if(!group) return '<p>Selecciona del Grupo 1 al Grupo 6 para mostrar tus dos temas.</p>';
+    return '<div class="nutrition-group-result-head"><span>GRUPO ' + groupId + '</span><strong>Dos presentaciones diferentes</strong></div>' +
+      '<article><span>PRESENTACIÓN 1 · ' + group.presentation1.code + '</span><strong>' + group.presentation1.title + '</strong><small>' + group.presentation1.detail + '</small></article>' +
+      '<article><span>PRESENTACIÓN 2 · ' + group.presentation2.code + '</span><strong>' + group.presentation2.title + '</strong><small>' + group.presentation2.detail + '</small></article>';
+  }
+
+  function renderNutritionGroup(groupId){
+    document.querySelectorAll('[data-nutrition-group-select]').forEach(function(select){select.value = nutritionSeminarGroups[groupId] ? groupId : '';});
+    document.querySelectorAll('[data-nutrition-group-output]').forEach(function(output){output.innerHTML = nutritionGroupMarkup(groupId);});
+  }
+
+  function restoreNutritionGroup(){
+    var saved = readNutritionGroup();
+    renderNutritionGroup(saved);
+    document.querySelectorAll('[data-nutrition-group-select]').forEach(function(select){
+      select.addEventListener('change',function(){
+        var groupId = select.value;
+        try{
+          if(nutritionSeminarGroups[groupId]) localStorage.setItem(nutritionGroupStorageKey,groupId);
+          else localStorage.removeItem(nutritionGroupStorageKey);
+        }catch(error){}
+        renderNutritionGroup(groupId);
+        if(nutritionSeminarGroups[groupId]) showToast('Grupo ' + groupId + ' guardado en este dispositivo.');
+      });
+    });
+  }
+
+  function readSignedAssignments(){
+    try{
+      var saved = JSON.parse(localStorage.getItem(signedAssignmentsStorageKey) || '[]');
+      return Array.isArray(saved) ? saved : [];
+    }catch(error){return [];}
+  }
+
+  function updateSignedAssignments(){
+    var inputs = Array.from(document.querySelectorAll('[data-signed-assignment]'));
+    var signed = inputs.filter(function(input){return input.checked;});
+    var count = document.getElementById('signedAssignmentCount');
+    if(count) count.textContent = signed.length + '/' + inputs.length + ' copias firmadas';
+    inputs.forEach(function(input){
+      var key = input.dataset.signedAssignment;
+      document.querySelectorAll('[data-signed-mirror="' + key + '"]').forEach(function(mirror){
+        mirror.textContent = input.checked ? 'Copia firmada' : 'Firma sin marcar';
+        mirror.classList.toggle('is-signed',input.checked);
+      });
+    });
+  }
+
+  function saveSignedAssignments(){
+    var signed = Array.from(document.querySelectorAll('[data-signed-assignment]:checked')).map(function(input){return input.dataset.signedAssignment;});
+    try{localStorage.setItem(signedAssignmentsStorageKey,JSON.stringify(signed));}catch(error){}
+    updateSignedAssignments();
+  }
+
+  function restoreSignedAssignments(){
+    var saved = readSignedAssignments();
+    document.querySelectorAll('[data-signed-assignment]').forEach(function(input){
+      input.checked = saved.indexOf(input.dataset.signedAssignment) !== -1;
+      input.addEventListener('change',saveSignedAssignments);
+    });
+    updateSignedAssignments();
   }
 
   function copyText(text){
@@ -605,6 +705,8 @@
     if(target){
       var detail = target.hasAttribute('data-course-detail') ? target : target.closest('[data-course-detail]');
       if(detail) setCourseDetail(detail,true);
+      var assignmentHistory = target.matches('[data-assignment-history]') ? target : target.closest('[data-assignment-history]');
+      if(assignmentHistory) assignmentHistory.open = true;
     }
 
     if(shouldScroll && target){
@@ -623,6 +725,8 @@
     renderMicroPreview('completo');
     restorePlan();
     restorePersonalSchedule();
+    restoreNutritionGroup();
+    restoreSignedAssignments();
     setUpdatedDate();
 
     document.querySelectorAll('[data-detail-toggle]').forEach(function(button){
@@ -691,6 +795,7 @@
   });
 
   window.MED_NYKUTO_CLASS_SCHEDULE = classSchedule.slice();
+  window.MED_NYKUTO_NUTRITION_SEMINAR_GROUPS = Object.assign({},nutritionSeminarGroups);
   window.MED_NYKUTO_LATEST_TRANSCRIPT = Object.assign({},latestNutritionTranscript);
   window.MED_NYKUTO_LATEST_TRANSCRIPTS = {
     bioquimica:Object.assign({},latestTranscript),

@@ -30,6 +30,8 @@ img{display:block;max-width:100%}
 .skip-link{position:fixed;left:16px;top:10px;z-index:1000;padding:10px 14px;border-radius:10px;color:#07111f;background:var(--gold-soft);font-weight:800;transform:translateY(-160%)}
 .skip-link:focus{transform:translateY(0)}
 :focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.class-icon-sprite{position:absolute;width:0;height:0;overflow:hidden}
+.nav-icon svg,.archive-subject-icon svg,.subject-task-mark svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 
 .class-header{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);background:rgba(5,11,20,.84);backdrop-filter:blur(18px) saturate(1.1)}
 .class-header-inner{width:min(calc(100% - 36px),var(--content));min-height:76px;margin:auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:18px}
@@ -52,6 +54,8 @@ img{display:block;max-width:100%}
 .workspace-nav a:hover{color:var(--ink);background:rgba(255,255,255,.045);transform:translateY(-1px)}
 .workspace-nav a[aria-current="page"]{color:var(--ink);border-color:rgba(242,198,109,.3);background:linear-gradient(145deg,rgba(242,198,109,.13),rgba(111,216,255,.06))}
 .workspace-nav a>span{grid-row:1/3;width:34px;height:34px;display:grid;place-items:center;border:1px solid rgba(242,198,109,.22);border-radius:11px;color:var(--gold-soft);font-size:.58rem;font-weight:950;letter-spacing:.08em}
+.workspace-nav a>.nav-icon{background:rgba(242,198,109,.055)}
+.workspace-nav a>.nav-icon svg{width:18px;height:18px}
 .workspace-nav strong{align-self:end;font-size:.78rem;line-height:1.15}
 .workspace-nav small{align-self:start;font-size:.63rem;line-height:1.15}
 
@@ -148,6 +152,7 @@ img{display:block;max-width:100%}
 .section-heading .section-kicker,.subject-heading .section-kicker{margin-top:0}
 .section-heading h2,.subject-heading h2,.delegate-copy h2{margin:0;font-size:clamp(2rem,4.2vw,3.4rem);line-height:1.02;letter-spacing:-.045em}
 .section-heading>p,.subject-heading>div>p:last-child{max-width:520px;margin:0;color:var(--muted)}
+.section-intro{max-width:690px!important;margin:11px 0 0!important;color:var(--muted)!important;font-size:.82rem}
 .week-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px}
 .week-card{min-height:270px;display:flex;flex-direction:column;padding:24px;border-radius:var(--radius-lg);background:linear-gradient(155deg,rgba(17,34,56,.92),rgba(9,22,37,.88))}
 .week-card-head{color:var(--muted);font-size:.7rem;font-weight:800}
@@ -196,6 +201,8 @@ img{display:block;max-width:100%}
 .schedule-note{margin:14px 0 0;color:var(--muted);font-size:.72rem}
 
 .pending-heading{align-items:center}
+.task-block-heading{display:flex;align-items:center;gap:11px;margin:4px 0 12px;color:var(--muted-strong);font-size:.76rem}
+.task-block-heading span{padding:5px 8px;border:1px solid rgba(242,198,109,.26);border-radius:999px;color:var(--gold-soft);background:rgba(242,198,109,.065);font-size:.59rem;font-weight:950;letter-spacing:.11em}
 .status-legend{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:7px}
 .status-legend span,.assignment-status{display:inline-flex;align-items:center;min-height:28px;padding:5px 9px;border:1px solid var(--line);border-radius:999px;font-size:.62rem;font-weight:950;letter-spacing:.08em}
 .status-confirmed{color:#b8f5d5!important;border-color:rgba(114,224,171,.28)!important;background:rgba(114,224,171,.07)!important}
@@ -222,6 +229,40 @@ img{display:block;max-width:100%}
 .inference-card p{margin:18px 0 0;color:var(--muted-strong);font-size:.76rem}
 .inference-card[open]{border-color:rgba(111,216,255,.22)}
 
+.nutrition-group-picker{width:100%;display:grid;gap:10px;margin-top:18px;padding:14px;border:1px solid rgba(180,136,255,.26);border-radius:16px;background:rgba(180,136,255,.045)}
+.nutrition-group-picker label{display:grid;gap:2px}
+.nutrition-group-picker label>span{color:#d5bdff;font-size:.6rem;font-weight:950;letter-spacing:.11em}
+.nutrition-group-picker label>strong{font-size:.82rem}
+.nutrition-group-picker select{width:100%;min-height:46px;padding:0 38px 0 12px;border:1px solid rgba(180,136,255,.34);border-radius:13px;color:var(--ink);background:#0b1a2b;outline:none;color-scheme:dark}
+.nutrition-group-picker select:focus{border-color:#d5bdff;box-shadow:0 0 0 3px rgba(180,136,255,.1)}
+.nutrition-group-output{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.nutrition-group-output>p{grid-column:1/-1;margin:0!important;color:var(--muted)!important;font-size:.72rem!important}
+.nutrition-group-output article{min-height:118px;display:flex;flex-direction:column;padding:13px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.025)}
+.nutrition-group-output article>span{color:#d5bdff;font-size:.57rem;font-weight:950;letter-spacing:.08em}
+.nutrition-group-output article>strong{margin-top:auto;font-size:.76rem;line-height:1.3}
+.nutrition-group-output article>small{margin-top:6px;color:var(--muted);font-size:.62rem;line-height:1.35}
+.nutrition-group-output .nutrition-group-result-head{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.nutrition-group-result-head span{color:var(--gold-soft);font-size:.61rem;font-weight:950;letter-spacing:.1em}
+.nutrition-group-result-head strong{font-size:.72rem}
+.nutrition-group-picker-compact{padding:13px}
+
+.assignment-archive{margin-top:28px;padding-top:25px;border-top:1px solid var(--line)}
+.assignment-archive-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.assignment-archive-heading>div>span{color:var(--gold-soft);font-size:.63rem;font-weight:950;letter-spacing:.13em}
+.assignment-archive-heading h3{margin:7px 0 5px;font-size:clamp(1.5rem,3vw,2.25rem);line-height:1.06;letter-spacing:-.03em}
+.assignment-archive-heading p{max-width:700px;margin:0;color:var(--muted);font-size:.78rem}
+.assignment-archive-heading>strong{flex:none;min-height:36px;display:inline-flex;align-items:center;padding:7px 11px;border:1px solid rgba(114,224,171,.25);border-radius:999px;color:#b8f5d5;background:rgba(114,224,171,.07);font-size:.7rem}
+.archive-subject-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.archive-subject-card{min-height:130px;display:grid;grid-template-columns:42px 1fr;grid-template-rows:1fr auto;gap:9px 13px;padding:17px;border:1px solid var(--line);border-radius:18px;background:rgba(4,13,23,.48);transition:transform .18s ease,border-color .18s ease,background .18s ease}
+.archive-subject-card:hover{transform:translateY(-2px);border-color:rgba(111,216,255,.34);background:rgba(111,216,255,.045)}
+.archive-subject-icon{grid-row:1/3;width:42px;height:42px;display:grid;place-items:center;border:1px solid rgba(242,198,109,.25);border-radius:13px;color:var(--gold-soft);background:rgba(242,198,109,.06)}
+.archive-subject-card>span:nth-child(2){display:grid;align-content:center;gap:3px}
+.archive-subject-card b{color:var(--gold-soft);font-size:.58rem;letter-spacing:.1em}
+.archive-subject-card strong{font-size:.86rem;line-height:1.25}
+.archive-subject-card small{color:var(--muted);font-size:.66rem}
+.archive-subject-card em{grid-column:2;justify-self:start;padding:4px 7px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.6rem;font-style:normal;font-weight:850}
+.archive-subject-card em.is-signed{color:#b8f5d5;border-color:rgba(114,224,171,.28);background:rgba(114,224,171,.07)}
+
 .subject-heading{align-items:start}
 .verified-pill{flex:none;margin-top:4px}
 .class-history{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:9px;margin:26px 0}
@@ -233,6 +274,29 @@ img{display:block;max-width:100%}
 .history-entry>span:last-child{grid-column:1/-1;width:max-content;padding:4px 7px;border-radius:999px;color:#b8f5d5;background:rgba(114,224,171,.08)}
 .history-current{border-color:rgba(114,224,171,.28);background:linear-gradient(145deg,rgba(114,224,171,.065),rgba(255,255,255,.018))}
 .history-current time{color:#b8f5d5}
+
+.subject-assignment-history{margin:14px 0;border:1px solid rgba(242,198,109,.24);border-radius:18px;background:linear-gradient(145deg,rgba(242,198,109,.055),rgba(4,13,23,.42));overflow:hidden}
+.subject-assignment-history summary{display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center;padding:15px 16px;cursor:pointer;list-style:none}
+.subject-assignment-history summary::-webkit-details-marker{display:none}
+.subject-task-mark{width:42px;height:42px;display:grid;place-items:center;border:1px solid rgba(242,198,109,.25);border-radius:13px;color:var(--gold-soft);background:rgba(242,198,109,.065)}
+.subject-assignment-history summary>span:nth-child(2){display:grid;gap:2px}
+.subject-assignment-history summary b{color:var(--gold-soft);font-size:.58rem;letter-spacing:.1em}
+.subject-assignment-history summary strong{font-size:.84rem;line-height:1.24}
+.subject-assignment-history summary small{color:var(--muted);font-size:.66rem}
+.subject-assignment-history summary em{padding:5px 8px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.61rem;font-style:normal;font-weight:850;white-space:nowrap}
+.subject-assignment-history summary em.is-signed{color:#b8f5d5;border-color:rgba(114,224,171,.28);background:rgba(114,224,171,.07)}
+.subject-assignment-history[open]{border-color:rgba(114,224,171,.28)}
+.subject-assignment-history[open] summary{border-bottom:1px solid var(--line)}
+.subject-assignment-body{padding:18px}
+.subject-assignment-meta{display:grid;gap:4px;padding:13px;border:1px solid rgba(114,224,171,.2);border-radius:14px;background:rgba(114,224,171,.045)}
+.subject-assignment-meta span{color:#b8f5d5;font-size:.6rem;font-weight:950;letter-spacing:.1em}
+.subject-assignment-meta strong{font-size:.76rem}
+.subject-assignment-body ol{display:grid;gap:9px;margin:16px 0 0;padding-left:22px;color:var(--muted-strong);font-size:.76rem}
+.signature-control{display:flex;align-items:flex-start;gap:11px;margin-top:17px;padding:14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025);cursor:pointer}
+.signature-control input{flex:none;width:21px;height:21px;margin-top:2px;accent-color:var(--green)}
+.signature-control>span{display:grid;gap:2px}
+.signature-control strong{font-size:.78rem}
+.signature-control small{color:var(--muted);font-size:.65rem}
 
 .glycolysis-lesson,.epi-lesson,.micro-lesson,.micro-theory-lesson,.fisio-lesson{display:grid;gap:13px;margin-top:16px}
 .lesson-intro{display:grid;grid-template-columns:1.25fr .75fr;gap:13px}
@@ -461,12 +525,16 @@ img{display:block;max-width:100%}
 .nutrition-corrections{border-color:rgba(255,154,154,.28);background:linear-gradient(145deg,rgba(255,154,154,.06),rgba(4,13,23,.48))}
 .nutrition-corrections>div>span{color:#ffc1c1}
 .nutrition-seminar{display:grid;gap:18px;padding:24px;border:1px solid rgba(180,136,255,.32);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(180,136,255,.075),rgba(4,13,23,.5))}
-.nutrition-seminar>div:first-child>span,.seminar-topics span{color:#d5bdff}
-.seminar-topics{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.seminar-topics article{min-height:145px;display:flex;flex-direction:column;padding:17px;border:1px solid var(--line);border-radius:var(--radius-md);background:rgba(255,255,255,.02)}
-.seminar-topics strong{margin-top:auto;font-size:.9rem}
-.seminar-topics small{margin-top:6px;color:var(--muted);font-size:.67rem;line-height:1.38}
-.seminar-checklist{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;margin:0;padding-left:22px;color:var(--muted-strong);font-size:.74rem}
+.nutrition-seminar>div:first-child>span{color:#d5bdff}
+.nutrition-group-picker-full{grid-template-columns:minmax(210px,.72fr) minmax(210px,.58fr);align-items:end;padding:17px}
+.nutrition-group-picker-full .nutrition-group-output{grid-column:1/-1}
+.seminar-rules{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.seminar-rules article{min-height:120px;display:flex;flex-direction:column;padding:15px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.022)}
+.seminar-rules span{color:#d5bdff;font-size:.57rem;font-weight:950;letter-spacing:.09em}
+.seminar-rules strong{margin-top:auto;font-size:.82rem}
+.seminar-rules small{margin-top:4px;color:var(--muted);font-size:.62rem;line-height:1.35}
+.seminar-checklist{display:grid;grid-template-columns:1fr 1fr;gap:9px 26px;margin:0;padding:16px 16px 16px 34px;border:1px solid var(--line);border-radius:16px;color:var(--muted-strong);background:rgba(4,13,23,.35);font-size:.72rem}
+.seminar-checklist li:last-child{color:var(--gold-soft)}
 
 .micro-theory-subject{background:radial-gradient(circle at 92% 4%,rgba(180,136,255,.12),transparent 25rem),linear-gradient(150deg,rgba(15,31,50,.94),rgba(7,18,31,.9))}
 .mycosis-core{display:grid;grid-template-columns:.82fr 1.18fr;gap:24px;padding:25px;border:1px solid rgba(180,136,255,.3);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(180,136,255,.075),rgba(4,13,23,.52))}
@@ -651,6 +719,7 @@ img{display:block;max-width:100%}
   .nutrition-core,.nutrition-balance,.plate-method,.clinical-adaptation,.nutrition-case{grid-template-columns:1fr}
   .nutrition-definitions,.food-functions,.enrichment-grid{grid-template-columns:1fr 1fr}
   .nutrition-core ol{grid-template-columns:repeat(3,1fr)}
+  .seminar-rules{grid-template-columns:1fr 1fr}
   .mycosis-core,.case-teaching-card{grid-template-columns:1fr}
   .transmission-grid,.site-grid,.therapy-grid,.next-mycology-grid{grid-template-columns:1fr 1fr}
   .diagnostic-flow{grid-template-columns:1fr 1fr}
@@ -674,6 +743,7 @@ img{display:block;max-width:100%}
   .workspace-nav::-webkit-scrollbar{display:none}
   .workspace-nav a{min-height:54px;padding:8px}
   .workspace-nav a>span{width:30px;height:30px}
+  .workspace-nav a>.nav-icon svg{width:17px;height:17px}
   .class-dashboard,.course-hub,.class-hero-copy,.next-class-card,.schedule-section,.pending-section,.subject-section,.plan-section,.delegate-section{border-radius:24px}
   .class-dashboard{padding:22px 16px}
   .dashboard-heading{display:grid;gap:14px}
@@ -716,7 +786,13 @@ img{display:block;max-width:100%}
   .content-section{margin-top:12px}
   .section-heading,.subject-heading{align-items:flex-start;flex-direction:column;gap:12px}
   .section-heading>p{font-size:.86rem}
-  .agenda-summary,.agenda-grid,.pending-grid,.week-grid,.class-history,.lesson-intro,.phase-grid,.reaction-list,.regulation-grid,.science-note,.resource-grid,.study-map,.study-checklist,.delegate-section,.exam-focus,.epi-map-grid,.timeline-row,.two-column-notes,.compare-cards,.dispensary-grid,.family-cycle,.dimension-flow,.process-strip,.triage-first-look,.triage-colors,.micro-objectives,.sample-grid,.sample-check,.morphology-grid,.sabouraud-panel,.sabouraud-facts,.lab-workflow,.lab-safety-card,.resp-control-hero,.control-loop,.resp-centers,.resp-modulators,.gas-core-grid,.gas-memory-strip,.bohr-haldane,.clinical-bridge,.nutrition-core,.nutrition-core ol,.nutrition-definitions,.nutrition-laws,.nutrition-balance,.energy-equation,.plate-method,.plate-visual,.plate-notes,.food-functions,.enrichment-grid,.clinical-adaptation,.adaptation-grid,.nutrition-case,.seminar-topics,.seminar-checklist,.mycosis-core,.mycosis-core ol,.mycosis-split,.transmission-grid,.site-grid,.case-teaching-card,.diagnostic-flow,.therapy-grid,.next-mycology-grid{grid-template-columns:1fr}
+  .agenda-summary,.agenda-grid,.pending-grid,.archive-subject-grid,.week-grid,.class-history,.lesson-intro,.phase-grid,.reaction-list,.regulation-grid,.science-note,.resource-grid,.study-map,.study-checklist,.delegate-section,.exam-focus,.epi-map-grid,.timeline-row,.two-column-notes,.compare-cards,.dispensary-grid,.family-cycle,.dimension-flow,.process-strip,.triage-first-look,.triage-colors,.micro-objectives,.sample-grid,.sample-check,.morphology-grid,.sabouraud-panel,.sabouraud-facts,.lab-workflow,.lab-safety-card,.resp-control-hero,.control-loop,.resp-centers,.resp-modulators,.gas-core-grid,.gas-memory-strip,.bohr-haldane,.clinical-bridge,.nutrition-core,.nutrition-core ol,.nutrition-definitions,.nutrition-laws,.nutrition-balance,.energy-equation,.plate-method,.plate-visual,.plate-notes,.food-functions,.enrichment-grid,.clinical-adaptation,.adaptation-grid,.nutrition-case,.nutrition-group-picker-full,.nutrition-group-output,.seminar-rules,.seminar-checklist,.mycosis-core,.mycosis-core ol,.mycosis-split,.transmission-grid,.site-grid,.case-teaching-card,.diagnostic-flow,.therapy-grid,.next-mycology-grid{grid-template-columns:1fr}
+  .nutrition-group-picker-full .nutrition-group-output,.nutrition-group-output .nutrition-group-result-head,.nutrition-group-output>p{grid-column:auto}
+  .assignment-archive-heading{align-items:flex-start;flex-direction:column;gap:13px}
+  .subject-assignment-history summary{grid-template-columns:38px 1fr;gap:10px;padding:14px}
+  .subject-task-mark{width:38px;height:38px}
+  .subject-assignment-history summary em{grid-column:2;justify-self:start;margin-top:5px}
+  .subject-assignment-body{padding:14px}
   .nutrition-laws .nutrition-variety{grid-column:auto}
   .energy-equation b{transform:rotate(90deg)}
   .plate-visual{min-height:auto;border-radius:24px}
@@ -765,6 +841,7 @@ img{display:block;max-width:100%}
   .mobile-bottom-nav a{min-height:60px;display:grid;place-items:center;align-content:center;gap:2px;color:var(--muted);font-size:.64rem}
   .mobile-bottom-nav a[aria-current="page"]{color:var(--ink);background:rgba(242,198,109,.1)}
   .mobile-bottom-nav span{color:var(--gold-soft);font-size:.6rem;font-weight:950;letter-spacing:.08em}
+  .mobile-bottom-nav .nav-icon svg{width:19px;height:19px}
   .mobile-bottom-nav strong{font-size:.67rem}
   .toast{bottom:86px;border-radius:16px;text-align:center}
 }

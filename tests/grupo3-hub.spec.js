@@ -10,7 +10,7 @@ test.describe('Class hub', () => {
     await expect(page.getByText('4.º E', { exact: true }).first()).toBeVisible();
     await expect(page.locator('#nextScheduleSubject')).not.toHaveText('Calculando…');
     await expect(page.getByRole('link', { name: /Preparar tres micosis subcutáneas/ })).toBeVisible();
-    await expect(page.getByRole('link', { name: /Guías de Paraguay \+ regiones de Brasil/ })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Guías \+ regiones y platos/ })).toBeVisible();
     await expect(page.locator('#horario')).toBeHidden();
     await expect(page.locator('#materias')).toBeHidden();
   });
@@ -39,7 +39,7 @@ test.describe('Class hub', () => {
     await expect(page.locator('#nutricion')).toBeVisible();
     await expect(page.locator('#nutrition-detail')).toBeVisible();
     await expect(page.locator('#nutricion [data-detail-toggle]')).toHaveAttribute('aria-expanded', 'true');
-    await expect(page.getByRole('heading', { name: 'Seminario oral + trabajo escrito impreso' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Seminario / presentación oral' })).toBeVisible();
   });
 
   test('shows the shared timetable and calculates the next class', async ({ page }) => {
@@ -64,7 +64,7 @@ test.describe('Class hub', () => {
 
   test('labels inferred preparation dates instead of presenting them as confirmed homework', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
-    await expect(page.getByRole('heading', { name: 'Pendientes con fecha clara' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Tarefa de la clase' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Llevar una muestra de alimento con moho' })).toBeVisible();
     await expect(page.locator('#microEstimatedDate')).toContainText('20 ago.');
     await expect(page.locator('#microEstimatedDate')).toContainText('18:00–20:00');
@@ -120,15 +120,60 @@ test.describe('Class hub', () => {
     await expect(page.locator('.nutrition-laws article')).toHaveCount(5);
     await expect(page.getByText('Una dieta no se juzga solo por sus calorías')).toBeVisible();
     await expect(page.getByText('Paraguay difunde 12 mensajes alimentarios oficiales, no 10.')).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Seminario oral + trabajo escrito impreso' })).toBeVisible();
-    const seminar = nutrition.locator('.seminar-topics');
-    await expect(seminar.getByText('Guías Alimentarias del Paraguay', { exact: true })).toBeVisible();
-    await expect(seminar.getByText('Alimentación por regiones de Brasil', { exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Seminario / presentación oral' })).toBeVisible();
+    await expect(nutrition.getByText('5 minutos', { exact: true })).toBeVisible();
+    await expect(nutrition.getByText('4 diapositivas', { exact: true })).toBeVisible();
+    await expect(nutrition.getByText('PPT, PDF o Canva.', { exact: true })).toBeVisible();
     const transcript = await page.evaluate(() => window.MED_NYKUTO_LATEST_TRANSCRIPTS.nutricion);
     expect(transcript.oralDate).toBeNull();
     expect(transcript.estimatedClassDate).toBe('2026-08-13');
     expect(transcript.estimatedPreparation.date).toBe('2026-08-20');
-    expect(transcript.assignment.maxMinutesPerTopic).toBe(5);
+    expect(transcript.assignment.maxMinutesPerGroup).toBe(5);
+    expect(Object.keys(transcript.assignment.groups)).toHaveLength(6);
+  });
+
+  test('shows exact Nutrition topics after selecting a group and remembers the choice', async ({ page }) => {
+    await page.goto('/clase.html#pendientes');
+    const selector = page.locator('#nutritionGroupTaskSelect');
+    await selector.selectOption('3');
+    const output = page.locator('#nutritionPrepCard [data-nutrition-group-output]');
+    await expect(output.getByText('Mensajes/Guías 9 al 12 del Paraguay', { exact: true })).toBeVisible();
+    await expect(output.getByText('Región Sudeste de Brasil', { exact: true })).toBeVisible();
+    await expect(output.getByText('PRESENTACIÓN 1 · P1 (4)', { exact: true })).toBeVisible();
+    await expect(output.getByText('PRESENTACIÓN 2 · P2 (5)', { exact: true })).toBeVisible();
+    await page.reload();
+    await expect(selector).toHaveValue('3');
+    await expect(output.getByText('Región Sudeste de Brasil', { exact: true })).toBeVisible();
+  });
+
+  test('archives completed activities by subject and counts personal signed copies', async ({ page }) => {
+    await page.goto('/clase.html#pendientes');
+    await expect(page.getByRole('heading', { name: 'Actividades ya realizadas' })).toBeVisible();
+    await expect(page.locator('#signedAssignmentCount')).toHaveText('0/2 copias firmadas');
+
+    await page.getByRole('link', { name: /Actividad 1 · GLUT4 y ejercicio/ }).click();
+    await expect(page.locator('#bio-tarea-glut4')).toHaveAttribute('open', '');
+    await expect(page.getByText('Diseña el proceso de funcionamiento dependiente de insulina del GLUT4.')).toBeVisible();
+    const bioSignature = page.locator('[data-signed-assignment="bio-glut4"]');
+    await bioSignature.check();
+    await expect(page.locator('#bio-tarea-glut4 [data-signed-mirror="bio-glut4"]')).toHaveText('Copia firmada');
+
+    await page.reload();
+    await expect(page.locator('#bio-tarea-glut4')).toHaveAttribute('open', '');
+    await expect(bioSignature).toBeChecked();
+    await page.goto('/clase.html#pendientes');
+    await expect(page.locator('#signedAssignmentCount')).toHaveText('1/2 copias firmadas');
+
+    await page.getByRole('link', { name: /Salud, sistemas sanitarios y USF/ }).click();
+    await expect(page.locator('#epi-tarea-salud')).toHaveAttribute('open', '');
+    await expect(page.locator('#epi-tarea-salud .subject-assignment-body li')).toHaveCount(11);
+  });
+
+  test('uses pictograms instead of navigation abbreviations', async ({ page }) => {
+    await expect(page.locator('.workspace-nav .nav-icon')).toHaveCount(6);
+    await expect(page.locator('.workspace-nav .nav-icon svg')).toHaveCount(6);
+    await expect(page.locator('.workspace-nav').getByText('INI', { exact: true })).toHaveCount(0);
+    await expect(page.locator('.workspace-nav').getByText('Tarefa', { exact: true })).toBeVisible();
   });
 
   test('organizes Epidemiology into exam points, APS and triage preparation', async ({ page }) => {
