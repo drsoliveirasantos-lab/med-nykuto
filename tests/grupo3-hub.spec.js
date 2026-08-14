@@ -9,7 +9,7 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Todo lo importante, en el orden correcto.' })).toBeVisible();
     await expect(page.getByText('4.º E', { exact: true }).first()).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Regulación de la glucólisis', exact: true })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Continuar Bioquímica' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Abrir Epidemiología' })).toBeVisible();
     await expect(page.getByText('Estados claros')).toBeVisible();
   });
 
@@ -36,7 +36,11 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Sin entregas confirmadas' })).toBeVisible();
     await expect(page.locator('#bioEstimatedDate')).toContainText('19 ago.');
     await expect(page.locator('#bioEstimatedDate')).toContainText('por confirmar');
+    await expect(page.locator('#epiEstimatedDate')).toContainText('19 ago.');
+    await expect(page.locator('#epiEstimatedDate')).toContainText('11:20–13:20');
+    await expect(page.locator('#epiEstimatedDate')).toContainText('por confirmar');
     await expect(page.getByText('Fecha oral confirmada · 14 ago.')).toBeVisible();
+    await expect(page.getByText('Fecha oral no dicha · recibida 14 ago.')).toBeVisible();
     await expect(page.getByText('Toda fecha calculada permanece como')).toBeHidden();
     await page.getByText('Cómo se calcula una fecha').click();
     await expect(page.getByText('Toda fecha calculada permanece como')).toBeVisible();
@@ -48,7 +52,18 @@ test.describe('Class hub', () => {
     await expect(page.getByText('2 piruvatos + 2 ATP + 2 NADH', { exact: true })).toBeVisible();
     await expect(page.getByText('PEP → piruvato', { exact: true })).toBeVisible();
     await expect(page.getByText('La glucoquinasa hepática puede quedar secuestrada en el núcleo')).toBeVisible();
-    await expect(page.getByText('3 clases organizadas')).toBeVisible();
+    await expect(page.getByText('Bioquímica · 3 transcripciones')).toBeVisible();
+  });
+
+  test('organizes Epidemiology into exam points, APS and triage preparation', async ({ page }) => {
+    await expect(page.getByRole('heading', { name: 'APS, atención integral, sectorización y urgencias' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Lo que la profesora señaló que puede preguntar' })).toBeVisible();
+    await expect(page.getByText('2008: implementación de la estrategia APS en Paraguay.')).toBeVisible();
+    await page.locator('.lesson-accordion').nth(3).locator('summary').click();
+    await expect(page.getByText('URGENCIA', { exact: true })).toBeVisible();
+    await expect(page.getByText('EMERGENCIA', { exact: true })).toBeVisible();
+    await expect(page.getByText('No existe una regla de “máximo seis horas” para la intubación.')).toBeVisible();
+    await expect(page.locator('.triage-colors article')).toHaveCount(5);
   });
 
   test('keeps the semester selector available while the page scrolls', async ({ page }) => {
@@ -65,6 +80,13 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'El mapa central en cinco minutos' })).toBeVisible();
     await expect(page.getByText('La glucólisis produce 2 piruvatos, 2 ATP netos y 2 NADH.')).toBeVisible();
     await expect(page.getByRole('button', { name: /Ficha rápida/ })).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  test('switches Epidemiology revision depth independently', async ({ page }) => {
+    await page.getByRole('button', { name: /Ficha rápida EPI/ }).click();
+    await expect(page.getByRole('heading', { name: 'Lo esencial de Epidemiología en cinco minutos' })).toBeVisible();
+    await expect(page.getByText('Alma-Ata se celebró en 1978; Paraguay implementó su estrategia APS en 2008.')).toBeVisible();
+    await expect(page.getByRole('button', { name: /Ficha rápida EPI/ })).toHaveAttribute('aria-pressed', 'true');
   });
 
   test('saves a simple preparation checklist', async ({ page }) => {

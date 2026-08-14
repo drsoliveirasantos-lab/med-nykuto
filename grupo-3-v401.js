@@ -28,9 +28,37 @@
     }
   };
 
+  var epiPreviews = {
+    completo: {
+      eyebrow: 'MAPA COMPLETO · FECHA POR CONFIRMAR',
+      title: 'De la APS al triage en seis bloques',
+      duration: '15 min',
+      html: '<ol class="study-map"><li><span>01 · APS</span><strong>Primer contacto</strong><small>Asistencia esencial, accesible, participativa, sostenible y próxima a la comunidad.</small></li><li><span>02 · PARAGUAY</span><strong>Implementación en 2008</strong><small>La estrategia se ejecuta mediante Equipos y Unidades de Salud de la Familia.</small></li><li><span>03 · INTEGRALIDAD</span><strong>Cuatro dimensiones</strong><small>Persona, familia, comunidad y ambiente con enfoque biopsicosocial.</small></li><li><span>04 · FAMILIA</span><strong>Cuatro etapas</strong><small>Formación, expansión, dispersión y contracción.</small></li><li><span>05 · SECTOR</span><strong>Territorio y vigilancia</strong><small>Delimitar, mapear, clasificar riesgos, asignar responsables y seguir.</small></li><li><span>06 · TRIAGE</span><strong>Prioridad clínica</strong><small>Urgencia requiere atención pronta; emergencia exige acción inmediata.</small></li></ol>'
+    },
+    rapido: {
+      eyebrow: 'FICHA RÁPIDA · 10 IDEAS',
+      title: 'Lo esencial de Epidemiología en cinco minutos',
+      duration: '5 min',
+      html: '<ul class="preview-list"><li>La APS es el primer contacto de la persona, familia y comunidad con el sistema de salud.</li><li>Alma-Ata se celebró en 1978; Paraguay implementó su estrategia APS en 2008.</li><li>Principios: equidad, cobertura, participación, trabajo multidisciplinario y acción multisectorial.</li><li>Significado concreto: operativo y dependiente del sistema; abstracto: ideológico y ligado al derecho a la salud.</li><li>Integralidad: persona, familia, comunidad y ambiente.</li><li>La atención integral incluye promoción, prevención, recuperación y rehabilitación.</li><li>Ciclo familiar: formación, expansión, dispersión y contracción.</li><li>Sectorizar es dividir el territorio y asignar responsables para identificar y vigilar riesgos.</li><li>El triage clasifica por gravedad y posibilidad de deterioro, no por orden de llegada.</li><li>Urgencia = pronta; emergencia = inmediata por amenaza vital o de órgano.</li></ul>'
+    },
+    ultra: {
+      eyebrow: 'ULTRA RÁPIDA · OBLIGATORIO',
+      title: 'Fechas y diferencias que no puedes confundir',
+      duration: '2 min',
+      html: '<ul class="preview-list"><li><strong>1978:</strong> Alma-Ata.</li><li><strong>2008:</strong> implementación de la APS en Paraguay.</li><li><strong>Concreto:</strong> operativo · <strong>abstracto:</strong> ideológico.</li><li><strong>4 dimensiones:</strong> persona, familia, comunidad, ambiente.</li><li><strong>4 etapas familiares:</strong> formación, expansión, dispersión, contracción.</li><li><strong>Sectorización:</strong> territorio + responsables + vigilancia + recursos.</li><li><strong>Urgencia:</strong> atención pronta · <strong>emergencia:</strong> inmediata.</li></ul>'
+    },
+    oral: {
+      eyebrow: 'REPASO ORAL · ESTILO DE CLASE',
+      title: 'Responde sin mirar la explicación',
+      duration: '10 preguntas',
+      html: '<ol class="oral-list"><li>¿Qué es la Atención Primaria de la Salud?</li><li>¿Qué ocurrió en 1978 y qué ocurrió en Paraguay en 2008?</li><li>¿Cuáles son los cuatro grupos de dispensarización?</li><li>¿Qué principios de la APS puedes citar?</li><li>¿Cuál es la diferencia entre el significado concreto y el abstracto?</li><li>¿Cuáles son las cuatro dimensiones de la integralidad?</li><li>¿Cuáles son las etapas del ciclo familiar?</li><li>¿Qué es la sectorización y cuál es su objetivo?</li><li>¿Qué se observa y mide durante la recepción y el triage?</li><li>¿Cuál es la diferencia entre urgencia y emergencia?</li></ol>'
+    }
+  };
+
   var storageKey = 'med-nykuto-grupo3-plan-v404';
   var labStorageKey = 'med-nykuto-lab-group-v403';
   var bioPrepStorageKey = 'med-nykuto-bio-prep-v404';
+  var epiPrepStorageKey = 'med-nykuto-epi-prep-v405';
   var toastTimer;
 
   var classSchedule = [
@@ -57,6 +85,13 @@
     estimatedPreparation:{date:'2026-08-19',start:'09:10',end:'11:10'}
   };
 
+  var latestEpiTranscript = {
+    subject:'Epidemiología y Salud Pública',
+    oralDate:null,
+    receivedDate:'2026-08-14',
+    estimatedPreparation:{date:'2026-08-19',start:'11:20',end:'13:20'}
+  };
+
   function renderPreview(mode){
     var data = previews[mode] || previews.completo;
     document.getElementById('studyPreviewEyebrow').textContent = data.eyebrow;
@@ -65,6 +100,19 @@
     document.getElementById('studyPreviewBody').innerHTML = data.html;
     document.querySelectorAll('[data-study-mode]').forEach(function(button){
       var active = button.dataset.studyMode === mode;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  }
+
+  function renderEpiPreview(mode){
+    var data = epiPreviews[mode] || epiPreviews.completo;
+    document.getElementById('epiPreviewEyebrow').textContent = data.eyebrow;
+    document.getElementById('epi-preview-title').textContent = data.title;
+    document.getElementById('epiPreviewDuration').textContent = data.duration;
+    document.getElementById('epiPreviewBody').innerHTML = data.html;
+    document.querySelectorAll('[data-epi-mode]').forEach(function(button){
+      var active = button.dataset.epiMode === mode;
       button.classList.toggle('is-active', active);
       button.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
@@ -167,12 +215,12 @@
     return dateLabel + ' · ' + occurrence.item.start + '–' + occurrence.item.end;
   }
 
-  function formatEstimatedPreparation(){
-    var parts = latestTranscript.estimatedPreparation.date.split('-').map(Number);
+  function formatEstimatedPreparation(preparation){
+    var parts = preparation.date.split('-').map(Number);
     var date = new Date(Date.UTC(parts[0],parts[1]-1,parts[2]));
     return formatOccurrence({
       date:date,
-      item:{start:latestTranscript.estimatedPreparation.start,end:latestTranscript.estimatedPreparation.end}
+      item:{start:preparation.start,end:preparation.end}
     }) + ' · por confirmar';
   }
 
@@ -211,7 +259,8 @@
       nextLabNode.textContent = 'Selecciona tu subgrupo';
     }
 
-    document.getElementById('bioEstimatedDate').textContent = formatEstimatedPreparation();
+    document.getElementById('bioEstimatedDate').textContent = formatEstimatedPreparation(latestTranscript.estimatedPreparation);
+    document.getElementById('epiEstimatedDate').textContent = formatEstimatedPreparation(latestEpiTranscript.estimatedPreparation);
   }
 
   function restorePersonalSchedule(){
@@ -234,11 +283,20 @@
       try{localStorage.setItem(bioPrepStorageKey,prep.checked ? '1' : '0');}catch(error){}
       document.getElementById('bioPrepCard').classList.toggle('is-complete',prep.checked);
     });
+
+    var epiPrep = document.getElementById('epiPrepDone');
+    try{epiPrep.checked = localStorage.getItem(epiPrepStorageKey) === '1';}catch(error){}
+    document.getElementById('epiPrepCard').classList.toggle('is-complete',epiPrep.checked);
+    epiPrep.addEventListener('change',function(){
+      try{localStorage.setItem(epiPrepStorageKey,epiPrep.checked ? '1' : '0');}catch(error){}
+      document.getElementById('epiPrepCard').classList.toggle('is-complete',epiPrep.checked);
+    });
     renderSchedule();
   }
 
   document.addEventListener('DOMContentLoaded', function(){
     renderPreview('completo');
+    renderEpiPreview('completo');
     restorePlan();
     restorePersonalSchedule();
     setUpdatedDate();
@@ -247,6 +305,13 @@
       button.addEventListener('click', function(){
         renderPreview(button.dataset.studyMode);
         document.getElementById('repaso').scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
+    document.querySelectorAll('[data-epi-mode]').forEach(function(button){
+      button.addEventListener('click', function(){
+        renderEpiPreview(button.dataset.epiMode);
+        document.getElementById('epi-repaso').scrollIntoView({behavior:'smooth',block:'start'});
       });
     });
 
@@ -264,4 +329,8 @@
 
   window.MED_NYKUTO_CLASS_SCHEDULE = classSchedule.slice();
   window.MED_NYKUTO_LATEST_TRANSCRIPT = Object.assign({},latestTranscript);
+  window.MED_NYKUTO_LATEST_TRANSCRIPTS = {
+    bioquimica:Object.assign({},latestTranscript),
+    epidemiologia:Object.assign({},latestEpiTranscript)
+  };
 })();
