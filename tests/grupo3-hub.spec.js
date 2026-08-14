@@ -9,7 +9,7 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Todo lo importante, en el orden correcto.' })).toBeVisible();
     await expect(page.getByText('4.º E', { exact: true }).first()).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Regulación de la glucólisis', exact: true })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Abrir Microbiología práctica' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Abrir Fisiología' })).toBeVisible();
     await expect(page.getByText('Estados claros')).toBeVisible();
   });
 
@@ -59,6 +59,22 @@ test.describe('Class hub', () => {
     await expect(page.getByText('Bioquímica · 3 transcripciones')).toBeVisible();
   });
 
+  test('separates the two Physiology blocks and prioritizes the 13 August class', async ({ page }) => {
+    await expect(page.getByRole('heading', { name: 'Control nervioso y químico de la respiración' })).toBeVisible();
+    await expect(page.getByText('Fecha oral interpretada · 13 ago.')).toBeVisible();
+    await expect(page.getByText('Regulación nerviosa de la respiración', { exact: true })).toBeVisible();
+    await expect(page.getByText('Difusión y transporte de gases', { exact: true })).toBeVisible();
+    await expect(page.getByText('La lectura sobre regulación nerviosa era la preparación para el curso del 13')).toBeVisible();
+    await expect(page.locator('.control-loop li')).toHaveCount(3);
+    await expect(page.getByText('complejo pre-Bötzinger', { exact: false }).first()).toBeVisible();
+    await expect(page.getByRole('row', { name: /Quimiorreceptor central/ })).toBeVisible();
+    await expect(page.getByText('EFECTO BOHR', { exact: true })).toBeVisible();
+    await expect(page.getByText('Una SpO₂ de 100 % puede ser normal.')).toBeVisible();
+    const transcript = await page.evaluate(() => window.MED_NYKUTO_LATEST_TRANSCRIPTS.fisiologia);
+    expect(transcript.resolvedDate).toBe('2026-08-13');
+    expect(transcript.segments[0].estimatedDate).toBe('2026-08-10');
+  });
+
   test('organizes Epidemiology into exam points, APS and triage preparation', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Sectorización, triage, urgencia y emergencia' })).toBeVisible();
     await expect(page.getByText('APS y modelo de atención integral', { exact: true })).toBeVisible();
@@ -106,6 +122,13 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Lo esencial de Epidemiología en cinco minutos' })).toBeVisible();
     await expect(page.getByText('Alma-Ata se celebró en 1978; Paraguay implementó su estrategia APS en 2008.')).toBeVisible();
     await expect(page.getByRole('button', { name: /Ficha rápida EPI/ })).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  test('switches Physiology revision depth independently', async ({ page }) => {
+    await page.getByRole('button', { name: /Ficha rápida FIS/ }).click();
+    await expect(page.getByRole('heading', { name: 'Control respiratorio en cinco minutos' })).toBeVisible();
+    await expect(page.getByText('El complejo pre-Bötzinger es esencial para generar el ritmo respiratorio.')).toBeVisible();
+    await expect(page.getByRole('button', { name: /Ficha rápida FIS/ })).toHaveAttribute('aria-pressed', 'true');
   });
 
   test('switches Microbiology practical revision depth independently', async ({ page }) => {

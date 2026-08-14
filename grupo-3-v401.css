@@ -76,7 +76,7 @@ img{display:block;max-width:100%}
 .class-context strong{color:var(--ink);font-size:.95rem}
 .card-link{min-height:50px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:18px;color:var(--gold-soft);font-weight:850}
 
-.quick-nav{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;margin:18px 0 0;border-radius:var(--radius-lg);overflow:hidden;background:var(--line)}
+.quick-nav{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;margin:18px 0 0;border-radius:var(--radius-lg);overflow:hidden;background:var(--line)}
 .quick-nav a{min-height:108px;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;align-content:center;gap:2px 13px;padding:20px;background:rgba(12,27,45,.98);transition:background .18s ease}
 .quick-nav a:hover{background:rgba(21,46,73,.98)}
 .quick-code{grid-row:1/3;width:48px;height:48px;display:grid;place-items:center;border:1px solid rgba(242,198,109,.22);border-radius:15px;color:var(--gold-soft);background:rgba(242,198,109,.07);font-size:.72rem;font-weight:950;letter-spacing:.1em}
@@ -171,7 +171,7 @@ img{display:block;max-width:100%}
 .history-current{border-color:rgba(114,224,171,.28);background:linear-gradient(145deg,rgba(114,224,171,.065),rgba(255,255,255,.018))}
 .history-current time{color:#b8f5d5}
 
-.glycolysis-lesson,.epi-lesson,.micro-lesson{display:grid;gap:13px;margin-top:16px}
+.glycolysis-lesson,.epi-lesson,.micro-lesson,.fisio-lesson{display:grid;gap:13px;margin-top:16px}
 .lesson-intro{display:grid;grid-template-columns:1.25fr .75fr;gap:13px}
 .lesson-intro>div{padding:24px;border:1px solid var(--line);border-radius:var(--radius-lg);background:rgba(4,13,23,.5)}
 .lesson-intro>div:first-child>span,.net-balance>span,.lesson-subheading>span,.phase-card header>span,.regulation-grid article>span,.science-note>div>span{color:var(--gold-soft);font-size:.65rem;font-weight:950;letter-spacing:.12em}
@@ -213,6 +213,7 @@ img{display:block;max-width:100%}
 .science-note ul{display:grid;gap:8px;margin:0;padding-left:18px;color:var(--muted-strong);font-size:.76rem}
 
 .class-history-single{grid-template-columns:1fr}
+.class-history-two{grid-template-columns:1.2fr 1fr}
 .class-history-single .history-entry{grid-template-columns:auto 1fr auto}
 .class-history-single .history-entry>span:last-child{grid-column:auto}
 .exam-focus{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;padding:25px;border:1px solid rgba(242,198,109,.28);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(242,198,109,.075),rgba(4,13,23,.52))}
@@ -293,6 +294,45 @@ img{display:block;max-width:100%}
 .reference-links>span{margin-right:auto}
 .reference-links a{padding:7px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted-strong);font-size:.67rem;font-weight:800}
 .reference-links a:hover{border-color:rgba(111,216,255,.35);color:var(--ink)}
+
+.fisio-subject{background:radial-gradient(circle at 94% 3%,rgba(111,216,255,.1),transparent 25rem),linear-gradient(150deg,rgba(15,31,50,.94),rgba(7,18,31,.9))}
+.resp-control-hero{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;padding:25px;border:1px solid rgba(111,216,255,.28);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(111,216,255,.075),rgba(4,13,23,.52))}
+.resp-control-hero>div>span,.resp-centers span,.resp-modulators span,.gas-core-grid span,.bohr-haldane span,.clinical-bridge>div>span{color:var(--cyan);font-size:.64rem;font-weight:950;letter-spacing:.11em}
+.resp-control-hero h3,.clinical-bridge h3{margin:10px 0 8px;font-size:clamp(1.45rem,3vw,2.2rem);line-height:1.06;letter-spacing:-.035em}
+.resp-control-hero p,.clinical-bridge p{margin:0;color:var(--muted);font-size:.82rem}
+.control-loop{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0;padding:0;list-style:none}
+.control-loop li{position:relative;min-height:158px;display:flex;flex-direction:column;padding:17px;border:1px solid var(--line);border-radius:var(--radius-md);background:rgba(255,255,255,.025)}
+.control-loop li:not(:last-child)::after{content:"→";position:absolute;right:-9px;top:50%;z-index:2;color:var(--gold-soft);font-weight:950;transform:translateY(-50%)}
+.control-loop span{color:var(--gold-soft);font-size:.65rem;font-weight:950}
+.control-loop strong{margin-top:auto;font-size:.95rem}
+.control-loop small{margin-top:5px;color:var(--muted);font-size:.67rem;line-height:1.32}
+.resp-centers{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.resp-centers article{min-height:185px;display:flex;flex-direction:column;padding:19px;border:1px solid var(--line);border-radius:var(--radius-lg);background:rgba(255,255,255,.02)}
+.resp-centers article:nth-child(2){border-color:rgba(242,198,109,.28)}
+.resp-centers strong{margin-top:auto;font-size:1rem;line-height:1.18}
+.resp-centers p{margin:8px 0 0;color:var(--muted);font-size:.72rem;line-height:1.4}
+.fisio-table{min-width:840px}
+.resp-modulators{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.resp-modulators article{min-height:136px;display:flex;flex-direction:column;padding:16px;border:1px solid var(--line);border-radius:var(--radius-md);background:rgba(255,255,255,.018)}
+.resp-modulators strong{margin-top:auto;font-size:.84rem}
+.resp-modulators small{margin-top:5px;color:var(--muted);font-size:.66rem;line-height:1.35}
+.gas-review{margin-top:2px}
+.gas-core-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.gas-core-grid article{min-height:125px;display:flex;flex-direction:column;padding:15px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.018)}
+.gas-core-grid strong{margin-top:auto;font-size:.84rem}
+.gas-core-grid small{margin-top:5px;color:var(--muted);font-size:.65rem;line-height:1.35}
+.gas-memory-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.gas-memory-strip span{padding:11px;border:1px solid rgba(242,198,109,.2);border-radius:12px;color:var(--muted-strong);background:rgba(242,198,109,.04);font-size:.69rem;text-align:center}
+.gas-memory-strip b{color:var(--gold-soft)}
+.bohr-haldane{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.bohr-haldane article{padding:17px;border:1px solid var(--line);border-radius:var(--radius-md);background:rgba(255,255,255,.018)}
+.bohr-haldane strong{display:block;margin-top:8px;font-size:.86rem;line-height:1.3}
+.bohr-haldane small{display:block;margin-top:6px;color:var(--muted);font-size:.68rem}
+.clinical-bridge{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;padding:23px;border:1px solid rgba(255,164,92,.28);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(255,164,92,.06),rgba(4,13,23,.5))}
+.clinical-bridge>div>span{color:#ffd0a8}
+.clinical-bridge ol{display:grid;gap:8px;margin:0;padding-left:22px;color:var(--muted-strong);font-size:.76rem}
+.fisio-corrections{border-color:rgba(255,154,154,.26);background:linear-gradient(145deg,rgba(255,154,154,.055),rgba(4,13,23,.48))}
+.fisio-corrections>div>span{color:#ffc1c1}
 
 .micro-subject{background:radial-gradient(circle at 92% 4%,rgba(114,224,171,.1),transparent 24rem),linear-gradient(150deg,rgba(15,31,50,.94),rgba(7,18,31,.9))}
 .micro-objectives{display:grid;grid-template-columns:.95fr 1.05fr;gap:24px;padding:25px;border:1px solid rgba(114,224,171,.28);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(114,224,171,.075),rgba(4,13,23,.52))}
@@ -414,6 +454,9 @@ img{display:block;max-width:100%}
   .epi-map-grid{grid-template-columns:1fr 1fr}
   .process-strip{grid-template-columns:repeat(3,1fr)}
   .triage-colors{grid-template-columns:repeat(3,1fr)}
+  .resp-control-hero,.clinical-bridge{grid-template-columns:1fr}
+  .resp-centers{grid-template-columns:1fr}
+  .resp-modulators,.gas-core-grid,.gas-memory-strip{grid-template-columns:1fr 1fr}
   .micro-objectives,.sabouraud-panel,.lab-safety-card{grid-template-columns:1fr}
   .sample-grid,.morphology-grid{grid-template-columns:1fr 1fr}
   .lab-workflow{grid-template-columns:repeat(3,1fr)}
@@ -452,7 +495,8 @@ img{display:block;max-width:100%}
   .content-section{margin-top:56px}
   .section-heading,.subject-heading{align-items:flex-start;flex-direction:column;gap:12px}
   .section-heading>p{font-size:.86rem}
-  .agenda-summary,.agenda-grid,.pending-grid,.week-grid,.class-history,.lesson-intro,.phase-grid,.reaction-list,.regulation-grid,.science-note,.resource-grid,.study-map,.study-checklist,.delegate-section,.exam-focus,.epi-map-grid,.timeline-row,.two-column-notes,.compare-cards,.dispensary-grid,.family-cycle,.dimension-flow,.process-strip,.triage-first-look,.triage-colors,.micro-objectives,.sample-grid,.sample-check,.morphology-grid,.sabouraud-panel,.sabouraud-facts,.lab-workflow,.lab-safety-card{grid-template-columns:1fr}
+  .agenda-summary,.agenda-grid,.pending-grid,.week-grid,.class-history,.lesson-intro,.phase-grid,.reaction-list,.regulation-grid,.science-note,.resource-grid,.study-map,.study-checklist,.delegate-section,.exam-focus,.epi-map-grid,.timeline-row,.two-column-notes,.compare-cards,.dispensary-grid,.family-cycle,.dimension-flow,.process-strip,.triage-first-look,.triage-colors,.micro-objectives,.sample-grid,.sample-check,.morphology-grid,.sabouraud-panel,.sabouraud-facts,.lab-workflow,.lab-safety-card,.resp-control-hero,.control-loop,.resp-centers,.resp-modulators,.gas-core-grid,.gas-memory-strip,.bohr-haldane,.clinical-bridge{grid-template-columns:1fr}
+  .control-loop li:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-14px;transform:translateX(-50%)}
   .history-current,.regulation-grid article:first-child{grid-column:auto}
   .week-primary{grid-column:auto}
   .week-card{min-height:230px}
@@ -491,7 +535,7 @@ img{display:block;max-width:100%}
   .delegate-section{gap:26px}
   .question-builder{padding:15px}
   .class-footer{display:none}
-  .mobile-bottom-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);left:10px;right:10px;bottom:10px;z-index:60;border:1px solid var(--line-strong);border-radius:20px;background:rgba(6,15,26,.94);box-shadow:0 20px 55px rgba(0,0,0,.45);backdrop-filter:blur(18px);overflow:hidden}
+  .mobile-bottom-nav{position:fixed;display:grid;grid-template-columns:repeat(6,1fr);left:10px;right:10px;bottom:10px;z-index:60;border:1px solid var(--line-strong);border-radius:20px;background:rgba(6,15,26,.94);box-shadow:0 20px 55px rgba(0,0,0,.45);backdrop-filter:blur(18px);overflow:hidden}
   .mobile-bottom-nav a{min-height:60px;display:grid;place-items:center;align-content:center;gap:2px;color:var(--muted);font-size:.64rem}
   .mobile-bottom-nav span{color:var(--gold-soft);font-size:.6rem;font-weight:950;letter-spacing:.08em}
   .mobile-bottom-nav strong{font-size:.67rem}

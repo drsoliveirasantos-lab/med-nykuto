@@ -55,6 +55,33 @@
     }
   };
 
+  var fisioPreviews = {
+    completo: {
+      eyebrow: 'MAPA COMPLETO · JUEVES 13',
+      title: 'Del cambio químico a la respuesta ventilatoria',
+      duration: '12 min',
+      html: '<ol class="study-map"><li><span>01 · CAMBIO</span><strong>CO₂, O₂, pH o distensión</strong><small>El sistema respiratorio recibe una alteración química o mecánica.</small></li><li><span>02 · SENSORES</span><strong>Quimio y mecanorreceptores</strong><small>Los cuerpos carotídeos/aórticos y los receptores pulmonares generan aferencias.</small></li><li><span>03 · INTEGRACIÓN</span><strong>Bulbo y puente</strong><small>GRD, GRV con complejo pre-Bötzinger y grupo pontino organizan el patrón.</small></li><li><span>04 · SALIDA</span><strong>Nervios motores</strong><small>La señal llega al diafragma y a otros músculos respiratorios.</small></li><li><span>05 · RESPUESTA</span><strong>Frecuencia + profundidad</strong><small>La ventilación alveolar cambia para corregir gases y pH.</small></li><li><span>06 · CLÍNICA</span><strong>EPOC e hipercapnia</strong><small>La obstrucción reduce la ventilación efectiva y puede causar acidosis respiratoria.</small></li></ol>'
+    },
+    rapido: {
+      eyebrow: 'FICHA RÁPIDA FIS · 10 IDEAS',
+      title: 'Control respiratorio en cinco minutos',
+      duration: '5 min',
+      html: '<ul class="preview-list"><li>La regulación sigue el circuito sensor → controlador → efector.</li><li>El complejo pre-Bötzinger es esencial para generar el ritmo respiratorio.</li><li>El GRD es sobre todo inspiratorio e integra aferencias en el núcleo del tracto solitario.</li><li>El GRV contiene neuronas inspiratorias y espiratorias y se recluta más con demanda elevada.</li><li>El grupo pontino ajusta el cambio entre inspiración y espiración.</li><li>Los quimiorreceptores centrales responden al pH del LCR producido por cambios de PaCO₂.</li><li>Los cuerpos carotídeos son los sensores periféricos más importantes de PaO₂ baja.</li><li>La inspiración tranquila es activa y la espiración tranquila, principalmente pasiva.</li><li>El ejercicio aumenta la ventilación mediante comando central y propiocepción antes de grandes cambios químicos.</li><li>En EPOC, hipoventilación alveolar e hipercapnia pueden producir acidosis respiratoria.</li></ul>'
+    },
+    centros: {
+      eyebrow: 'TABLA MENTAL · CENTROS Y SENSORES',
+      title: 'Qué detecta cada uno y qué hace después',
+      duration: '3 min',
+      html: '<ul class="preview-list"><li><strong>GRD:</strong> bulbo dorsal · inspiración e integración sensorial.</li><li><strong>GRV:</strong> bulbo ventrolateral · inspiración/espiración forzada; incluye pre-Bötzinger.</li><li><strong>Grupo pontino:</strong> puente · modula duración y transición de las fases.</li><li><strong>Central:</strong> bulbo ventrolateral · pH del LCR dependiente de CO₂.</li><li><strong>Carotídeo:</strong> bifurcación carotídea · PaO₂, PaCO₂ y pH · nervio IX.</li><li><strong>Aórtico:</strong> arco aórtico · gases y pH · nervio X.</li><li><strong>Estiramiento:</strong> vía aérea · distensión · reflejo de Hering–Breuer.</li><li><strong>Irritantes/J:</strong> irritantes o líquido intersticial · tos, broncoconstricción o taquipnea.</li></ul>'
+    },
+    oral: {
+      eyebrow: 'REPASO ORAL FIS · ESTILO DE CLASE',
+      title: 'Responde sin mirar el esquema',
+      duration: '10 preguntas',
+      html: '<ol class="oral-list"><li>¿Cuáles son los tres componentes del bucle de control respiratorio?</li><li>¿Qué funciones cumplen el GRD, el GRV y el grupo pontino?</li><li>¿Dónde está el complejo pre-Bötzinger y por qué es importante?</li><li>¿Qué detectan realmente los quimiorreceptores centrales?</li><li>¿Dónde están los cuerpos carotídeos y aórticos y por qué nervios informan?</li><li>¿Cuál es el principal estímulo hipóxico de los quimiorreceptores periféricos?</li><li>¿Qué provoca el reflejo de Hering–Breuer?</li><li>¿Cómo aumenta la ventilación al comenzar el ejercicio?</li><li>¿Cómo se transportan O₂ y CO₂ en sangre?</li><li>¿Por qué la retención de CO₂ puede causar acidosis respiratoria?</li></ol>'
+    }
+  };
+
   var microPreviews = {
     completo: {
       eyebrow: 'MAPA DE LA PRÁCTICA · GRUPO 3',
@@ -128,6 +155,19 @@
     estimatedPreparation:{date:'2026-08-19',start:'11:20',end:'13:20'}
   };
 
+  var latestFisioTranscript = {
+    subject:'Fisiología II',
+    oralMarker:'jueves 13',
+    resolvedDate:'2026-08-13',
+    receivedDate:'2026-08-14',
+    sourceMode:'legacy-cumulative',
+    dateResolution:'weekday-and-day-matched-to-schedule',
+    segments:[
+      {position:'previous',estimatedDate:'2026-08-10',topic:'Difusión y transporte de gases'},
+      {position:'latest',resolvedDate:'2026-08-13',topic:'Control nervioso y químico de la respiración'}
+    ]
+  };
+
   var latestMicroTranscript = {
     subject:'Laboratorio de Microbiología II',
     scope:'personal-group-3',
@@ -159,6 +199,19 @@
     document.getElementById('epiPreviewBody').innerHTML = data.html;
     document.querySelectorAll('[data-epi-mode]').forEach(function(button){
       var active = button.dataset.epiMode === mode;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  }
+
+  function renderFisioPreview(mode){
+    var data = fisioPreviews[mode] || fisioPreviews.completo;
+    document.getElementById('fisioPreviewEyebrow').textContent = data.eyebrow;
+    document.getElementById('fisio-preview-title').textContent = data.title;
+    document.getElementById('fisioPreviewDuration').textContent = data.duration;
+    document.getElementById('fisioPreviewBody').innerHTML = data.html;
+    document.querySelectorAll('[data-fisio-mode]').forEach(function(button){
+      var active = button.dataset.fisioMode === mode;
       button.classList.toggle('is-active', active);
       button.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
@@ -365,6 +418,7 @@
   document.addEventListener('DOMContentLoaded', function(){
     renderPreview('completo');
     renderEpiPreview('completo');
+    renderFisioPreview('completo');
     renderMicroPreview('completo');
     restorePlan();
     restorePersonalSchedule();
@@ -381,6 +435,13 @@
       button.addEventListener('click', function(){
         renderEpiPreview(button.dataset.epiMode);
         document.getElementById('epi-repaso').scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
+    document.querySelectorAll('[data-fisio-mode]').forEach(function(button){
+      button.addEventListener('click', function(){
+        renderFisioPreview(button.dataset.fisioMode);
+        document.getElementById('fisio-repaso').scrollIntoView({behavior:'smooth',block:'start'});
       });
     });
 
@@ -408,6 +469,7 @@
   window.MED_NYKUTO_LATEST_TRANSCRIPTS = {
     bioquimica:Object.assign({},latestTranscript),
     epidemiologia:Object.assign({},latestEpiTranscript),
+    fisiologia:Object.assign({},latestFisioTranscript),
     microbiologiaPractica:Object.assign({},latestMicroTranscript)
   };
   window.MED_NYKUTO_TRANSCRIPTION_RULES = {
