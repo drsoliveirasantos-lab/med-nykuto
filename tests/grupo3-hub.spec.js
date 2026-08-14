@@ -20,6 +20,8 @@ test.describe('Class hub', () => {
     await expect(page.locator('#homeNutritionDate')).toHaveAttribute('datetime', '2026-08-20');
     await expect(page.locator('#homeBioDate')).toHaveAttribute('datetime', '2026-08-19');
     await expect(page.locator('.priority-card-head time')).toHaveCount(3);
+    await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', /^2026-08-14T\d{2}:\d{2}:\d{2}-03:00$/);
+    await expect(page.locator('#lastUpdated')).toHaveText(/^Actualizado 14 ago\.? · \d{2}:\d{2} PY$/);
     await expect(page.locator('#horario')).toBeHidden();
     await expect(page.locator('#materias')).toBeHidden();
   });
@@ -106,6 +108,10 @@ test.describe('Class hub', () => {
     await expect(page.locator('#nutritionEstimatedDate')).toContainText('07:00–09:40');
     await expect(page.locator('#nutritionEstimatedDate')).toContainText('por confirmar');
     await expect(page.locator('#nutritionPrepCard .assignment-status')).toHaveText('ACTIVIDAD CONFIRMADA');
+    await expect(page.getByLabel('Semana 3, del 17 al 23 de agosto de 2026')).toBeVisible();
+    await expect(page.locator('#nutritionPrepCard time')).toHaveCount(2);
+    await expect(page.locator('#nutritionPrepCard time').first()).toHaveAttribute('datetime', '2026-08-17');
+    await expect(page.locator('#nutritionPrepCard time').last()).toHaveAttribute('datetime', '2026-08-23');
     await expect(page.locator('#bioPrepCard .assignment-status')).toHaveText('ESTIMADA');
     await expect(page.getByText('Toda fecha calculada permanece como')).toBeHidden();
     await page.getByText('Cómo se calcula una fecha').click();
@@ -120,6 +126,10 @@ test.describe('Class hub', () => {
     await expect(page.getByText('2 piruvatos + 2 ATP + 2 NADH', { exact: true })).toBeVisible();
     await expect(page.getByText('PEP → piruvato', { exact: true })).toBeVisible();
     await expect(page.getByText('La glucoquinasa hepática puede quedar secuestrada en el núcleo')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'La glucólisis en una sola mirada' })).toBeVisible();
+    await expect(page.locator('.bio-board-route article')).toHaveCount(4);
+    await expect(page.getByText('Malato–aspartato: ≈2,5 ATP/NADH; glicerol-3-fosfato: ≈1,5 ATP/NADH.')).toBeVisible();
+    await expect(page.getByText('su rendimiento oxidativo no es siempre 2,5 ATP por NADH', { exact: false })).toBeVisible();
     await expect(page.getByText('Bioquímica · 3 transcripciones')).toBeVisible();
   });
 
@@ -517,8 +527,26 @@ test.describe('Class hub', () => {
     const bottomNavigation = page.locator('.mobile-bottom-nav');
     if (testInfo.project.name === 'mobile-safari-shape') {
       await expect(bottomNavigation).toBeVisible();
-      await expect(bottomNavigation.getByRole('link')).toHaveCount(5);
+      await expect(bottomNavigation.getByRole('link')).toHaveCount(6);
+      await expect(bottomNavigation.getByRole('link', { name: 'Plan' })).toBeVisible();
       await expect(page.locator('.header-back')).toBeHidden();
+      await expect(page.locator('.workspace-nav')).toBeHidden();
+
+      const mobileLayout = await page.evaluate(() => {
+        const next = document.querySelector('.dashboard-next').getBoundingClientRect();
+        const switcher = document.querySelector('#semesterSwitcherV402').getBoundingClientRect();
+        const bottom = document.querySelector('.mobile-bottom-nav').getBoundingClientRect();
+        return {
+          viewportHeight: window.innerHeight,
+          nextTop: next.top,
+          switcherWidth: switcher.width,
+          switcherBottom: switcher.bottom,
+          bottomTop: bottom.top
+        };
+      });
+      expect(mobileLayout.nextTop).toBeLessThan(mobileLayout.viewportHeight * 0.78);
+      expect(mobileLayout.switcherWidth).toBeLessThanOrEqual(150);
+      expect(mobileLayout.switcherBottom).toBeLessThanOrEqual(mobileLayout.bottomTop);
     } else {
       await expect(bottomNavigation).toBeHidden();
     }
