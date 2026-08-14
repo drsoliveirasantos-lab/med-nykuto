@@ -163,7 +163,7 @@
     }
   };
 
-  var storageKey = 'med-nykuto-grupo3-plan-v410';
+  var storageKey = 'med-nykuto-grupo3-plan-v416';
   var labStorageKey = 'med-nykuto-lab-group-v403';
   var bioPrepStorageKey = 'med-nykuto-bio-prep-v404';
   var epiPrepStorageKey = 'med-nykuto-epi-prep-v405';
@@ -289,9 +289,12 @@
       source:'Consigna oficial · Semana 3',
       groups:nutritionSeminarGroups,
       maxMinutesPerGroup:5,
-      maxSlidesPerGroup:4,
-      deliverables:['Subir la presentación a la plataforma en PPT, PDF o Canva'],
-      evaluation:['Claridad','Dominio del tema','Contenido','Organización','Apoyo visual','Participación','Respeto del tiempo'],
+      maxSlidesPerPresentation:4,
+      deliverables:['PowerPoint independiente del Trabajo 1','PowerPoint independiente del Trabajo 2','Informe breve para firma y sello'],
+      evaluation:{
+        totalPoints:5,
+        criteria:['Investigación bibliográfica','Calidad del informe escrito','Exposición oral','Plato típico o apoyo visual equivalente','Análisis nutricional y conclusiones']
+      },
       important:'Son dos presentaciones diferentes; no es necesario relacionar las Guías Alimentarias con las regiones o los platos típicos en una misma exposición.'
     }
   };
@@ -412,9 +415,9 @@
   function nutritionGroupMarkup(groupId){
     var group = nutritionSeminarGroups[groupId];
     if(!group) return '<p>Selecciona del Grupo 1 al Grupo 6 para mostrar tus dos temas.</p>';
-    return '<div class="nutrition-group-result-head"><span>GRUPO ' + groupId + '</span><strong>Dos presentaciones diferentes</strong></div>' +
-      '<article><span>PRESENTACIÓN 1 · ' + group.presentation1.code + '</span><strong>' + group.presentation1.title + '</strong><small>' + group.presentation1.detail + '</small></article>' +
-      '<article><span>PRESENTACIÓN 2 · ' + group.presentation2.code + '</span><strong>' + group.presentation2.title + '</strong><small>' + group.presentation2.detail + '</small></article>';
+    return '<div class="nutrition-group-result-head"><span>GRUPO ' + groupId + '</span><strong>Dos PowerPoint independientes</strong></div>' +
+      '<article><span>TRABAJO 1 · ' + group.presentation1.code + '</span><strong>' + group.presentation1.title + '</strong><small>' + group.presentation1.detail + '</small></article>' +
+      '<article><span>TRABAJO 2 · ' + group.presentation2.code + '</span><strong>' + group.presentation2.title + '</strong><small>' + group.presentation2.detail + '</small></article>';
   }
 
   function renderNutritionGroup(groupId){

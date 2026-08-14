@@ -131,15 +131,51 @@ test.describe('Class hub', () => {
     await expect(page.getByText('Una dieta no se juzga solo por sus calorías')).toBeVisible();
     await expect(page.getByText('Paraguay difunde 12 mensajes alimentarios oficiales, no 10.')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Seminario / presentación oral' })).toBeVisible();
-    await expect(nutrition.getByText('5 minutos', { exact: true })).toBeVisible();
-    await expect(nutrition.getByText('4 diapositivas', { exact: true })).toBeVisible();
-    await expect(nutrition.getByText('PPT, PDF o Canva.', { exact: true })).toBeVisible();
+    await expect(nutrition.getByText('2 PPT + 1 informe', { exact: true })).toBeVisible();
+    await expect(nutrition.getByText('Hasta 4 por PPT', { exact: true })).toBeVisible();
+    await expect(nutrition.getByText('Hasta 5 minutos', { exact: true })).toBeVisible();
+    await expect(nutrition.getByText('Drive de la clase → Bibliografía → carpeta INAN.', { exact: false })).toBeVisible();
+    await expect(nutrition.getByRole('link', { name: 'Instructivo oficial · Word' })).toHaveAttribute('href', 'assets/class-hub/instructivo-presentacion-oral-semana-3.docx');
+    await expect(nutrition.getByRole('link', { name: 'Modelo de portada · Word' })).toHaveAttribute('href', 'assets/class-hub/modelo-portada-seminario-nutricion.docx');
     const transcript = await page.evaluate(() => window.MED_NYKUTO_LATEST_TRANSCRIPTS.nutricion);
     expect(transcript.oralDate).toBeNull();
     expect(transcript.estimatedClassDate).toBe('2026-08-13');
     expect(transcript.estimatedPreparation.date).toBe('2026-08-20');
     expect(transcript.assignment.maxMinutesPerGroup).toBe(5);
+    expect(transcript.assignment.maxSlidesPerPresentation).toBe(4);
+    expect(transcript.assignment.deliverables).toHaveLength(3);
+    expect(transcript.assignment.evaluation.totalPoints).toBe(5);
     expect(Object.keys(transcript.assignment.groups)).toHaveLength(6);
+  });
+
+  test('shows the complete official seminar requirements without leaving Tarefa', async ({ page }) => {
+    await page.goto('/clase.html#pendientes');
+    const task = page.locator('#nutritionPrepCard');
+    await expect(task.locator('.seminar-at-a-glance b').first()).toHaveText('2');
+    await expect(task.getByText('PowerPoint separados', { exact: true })).toBeVisible();
+    await expect(task.getByText('informe para firma y sello', { exact: true })).toBeVisible();
+    await task.getByText('Ver la consigna completa', { exact: true }).click();
+    await expect(task.getByText('Trabajo 1 · Guías Alimentarias', { exact: true })).toBeVisible();
+    await expect(task.getByText('Trabajo 2 · Platos típicos / regiones', { exact: true })).toBeVisible();
+    await expect(task.getByText('aproximadamente hasta 5 minutos por grupo', { exact: false })).toBeVisible();
+    await expect(task.getByRole('link', { name: 'Descargar instructivo oficial' })).toHaveAttribute('download', '');
+    await expect(task.getByRole('link', { name: 'Descargar modelo de portada' })).toHaveAttribute('download', '');
+  });
+
+  test('organizes seminar content, signed report and five-point rubric in accordions', async ({ page }) => {
+    await page.goto('/clase.html#nutrition-seminar');
+    const seminar = page.locator('#nutrition-seminar');
+    await expect(seminar.getByText('Objetivo o mensaje principal.', { exact: true })).toBeVisible();
+    await expect(seminar.getByText('Análisis nutricional breve y conclusión.', { exact: true })).toBeVisible();
+
+    await seminar.getByText('Informe para firma y sello', { exact: true }).click();
+    await expect(seminar.getByText('Nombres y matrícula/código de los integrantes.', { exact: true })).toBeVisible();
+    await expect(seminar.getByText('Lic. Johana Belén Leguizamón Vera.', { exact: false })).toBeVisible();
+
+    await seminar.getByText('Rúbrica de calificación · 5 puntos', { exact: true }).click();
+    await expect(seminar.locator('.seminar-rubric-grid article')).toHaveCount(5);
+    await expect(seminar.getByText('Investigación bibliográfica', { exact: true })).toBeVisible();
+    await expect(seminar.getByText('Análisis y conclusión', { exact: true })).toBeVisible();
   });
 
   test('shows exact Nutrition topics after selecting a group and remembers the choice', async ({ page }) => {
@@ -149,8 +185,8 @@ test.describe('Class hub', () => {
     const output = page.locator('#nutritionPrepCard [data-nutrition-group-output]');
     await expect(output.getByText('Mensajes/Guías 9 al 12 del Paraguay', { exact: true })).toBeVisible();
     await expect(output.getByText('Región Sudeste de Brasil', { exact: true })).toBeVisible();
-    await expect(output.getByText('PRESENTACIÓN 1 · P1 (4)', { exact: true })).toBeVisible();
-    await expect(output.getByText('PRESENTACIÓN 2 · P2 (5)', { exact: true })).toBeVisible();
+    await expect(output.getByText('TRABAJO 1 · P1 (4)', { exact: true })).toBeVisible();
+    await expect(output.getByText('TRABAJO 2 · P2 (5)', { exact: true })).toBeVisible();
     await page.reload();
     await expect(selector).toHaveValue('3');
     await expect(output.getByText('Región Sudeste de Brasil', { exact: true })).toBeVisible();
@@ -165,7 +201,10 @@ test.describe('Class hub', () => {
     await expect(planOutput.getByText('Guías Alimentarias del Paraguay', { exact: true })).toBeVisible();
     await expect(planOutput.getByText('Platos típicos del Paraguay', { exact: true })).toBeVisible();
     await expect(page.locator('#studyChecklist input[value="nutrition-group"]')).toBeChecked();
-    await expect(page.locator('#planCount')).toHaveText('1/4');
+    await expect(page.locator('#planCount')).toHaveText('1/6');
+    await expect(page.locator('#studyChecklist input')).toHaveCount(6);
+    await expect(page.getByText('PowerPoint · Trabajo 1', { exact: true })).toBeVisible();
+    await expect(page.getByText('Informe breve', { exact: true }).last()).toBeVisible();
 
     await page.goto('/clase.html#pendientes');
     await expect(page.locator('#nutritionGroupTaskSelect')).toHaveValue('6');
@@ -361,7 +400,7 @@ test.describe('Class hub', () => {
     await page.goto('/clase.html#plan-estudio');
     const firstTask = page.locator('#studyChecklist input').first();
     await firstTask.check();
-    await expect(page.locator('#planCount')).toHaveText('1/4');
+    await expect(page.locator('#planCount')).toHaveText('1/6');
     await page.reload();
     await expect(firstTask).toBeChecked();
   });
