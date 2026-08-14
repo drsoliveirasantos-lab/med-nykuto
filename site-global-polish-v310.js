@@ -299,8 +299,10 @@
   function loadHomeLinkFix(){ appendScript('homeLinkFixV303', 'home-link-fix-v303.js?v=365', '__MED_NYKUTO_HOME_LINK_FIX_LOADER__'); }
   function loadOptionalAuth(){ appendScript('authOptionalV101', 'auth-optional-v101.js?v=101', '__MED_NYKUTO_AUTH_OPTIONAL_LOADER__'); }
   function loadCourseImageZoom(){ appendScript('courseImageZoomV101', 'course-image-zoom-v101.js?v=102', '__MED_NYKUTO_COURSE_IMAGE_ZOOM_LOADER__'); }
+  function loadSemesterSwitcher(){ appendScript('semesterSwitcherV402', 'semester-switcher-v402.js?v=402', '__MED_NYKUTO_SEMESTER_SWITCHER_LOADER__'); }
 
   function loadGlobalRepairLayers(){
+    loadSemesterSwitcher();
     if(isQuietPage()){
       window.__MED_NYKUTO_GLOBAL_POLISH_LIGHT_MODE__ = 'v377-skip-forced-repair-layers';
       if(isModuleReaderPage()) loadCourseImageZoom();
