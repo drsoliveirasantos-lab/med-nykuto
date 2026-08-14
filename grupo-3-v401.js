@@ -30,8 +30,8 @@
 
   var epiPreviews = {
     completo: {
-      eyebrow: 'MAPA COMPLETO · FECHA POR CONFIRMAR',
-      title: 'De la APS al triage en seis bloques',
+      eyebrow: 'MAPA COMPLETO · TRANSCRIPCIÓN ACUMULADA',
+      title: 'Del bloque anterior al último curso',
       duration: '15 min',
       html: '<ol class="study-map"><li><span>01 · APS</span><strong>Primer contacto</strong><small>Asistencia esencial, accesible, participativa, sostenible y próxima a la comunidad.</small></li><li><span>02 · PARAGUAY</span><strong>Implementación en 2008</strong><small>La estrategia se ejecuta mediante Equipos y Unidades de Salud de la Familia.</small></li><li><span>03 · INTEGRALIDAD</span><strong>Cuatro dimensiones</strong><small>Persona, familia, comunidad y ambiente con enfoque biopsicosocial.</small></li><li><span>04 · FAMILIA</span><strong>Cuatro etapas</strong><small>Formación, expansión, dispersión y contracción.</small></li><li><span>05 · SECTOR</span><strong>Territorio y vigilancia</strong><small>Delimitar, mapear, clasificar riesgos, asignar responsables y seguir.</small></li><li><span>06 · TRIAGE</span><strong>Prioridad clínica</strong><small>Urgencia requiere atención pronta; emergencia exige acción inmediata.</small></li></ol>'
     },
@@ -82,6 +82,8 @@
   var latestTranscript = {
     subject:'Bioquímica II',
     oralDate:'2026-08-14',
+    sourceMode:'legacy-cumulative',
+    latestSegment:'tail',
     estimatedPreparation:{date:'2026-08-19',start:'09:10',end:'11:10'}
   };
 
@@ -89,6 +91,12 @@
     subject:'Epidemiología y Salud Pública',
     oralDate:null,
     receivedDate:'2026-08-14',
+    sourceMode:'legacy-cumulative',
+    latestSegment:'tail',
+    segments:[
+      {position:'previous',oralDate:null,topic:'APS y modelo de atención integral'},
+      {position:'latest',oralDate:null,topic:'Sectorización, triage, urgencia y emergencia'}
+    ],
     estimatedPreparation:{date:'2026-08-19',start:'11:20',end:'13:20'}
   };
 
@@ -332,5 +340,10 @@
   window.MED_NYKUTO_LATEST_TRANSCRIPTS = {
     bioquimica:Object.assign({},latestTranscript),
     epidemiologia:Object.assign({},latestEpiTranscript)
+  };
+  window.MED_NYKUTO_TRANSCRIPTION_RULES = {
+    legacyCumulative:'Cada fecha oral inicia un nuevo bloque y el tramo final es siempre la clase más reciente.',
+    newTranscripts:'Una transcripción nueva corresponde a una sola clase.',
+    missingLatestDate:'El último bloque queda por confirmar y no hereda una fecha anterior.'
   };
 })();

@@ -8,7 +8,7 @@
   <meta name="description" content="Espacio académico no oficial de 4.º E: horario, pendientes y revisiones de Bioquímica, Epidemiología y Salud Pública organizadas en un solo lugar." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=405" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=406" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -154,9 +154,10 @@
           <summary>Cómo se calcula una fecha</summary>
           <ol>
             <li>La fecha de entrega dicha por el profesor tiene prioridad.</li>
-            <li>La fecha oral al inicio de la transcripción identifica el curso correcto.</li>
-            <li>Sin entrega explícita, se propone la próxima sesión de la materia.</li>
-            <li>La modificación del archivo se usa solo como referencia secundaria.</li>
+            <li>En una transcripción antigua acumulada, cada fecha pronunciada abre un nuevo bloque de clase.</li>
+            <li>El contenido final siempre corresponde al curso más reciente, aunque la fecha aparezca en medio del archivo.</li>
+            <li>Si el último bloque no contiene una fecha oral, queda «por confirmar» y no hereda la fecha del bloque anterior.</li>
+            <li>Desde ahora, cada nueva transcripción recibida corresponde a una sola clase.</li>
           </ol>
           <p>Toda fecha calculada permanece como <strong>estimada</strong> hasta su confirmación.</p>
         </details>
@@ -276,16 +277,18 @@
     <section id="epidemiologia" class="content-section subject-section" aria-labelledby="epi-title">
       <div class="subject-heading">
         <div>
-          <p class="section-kicker">Epidemiología y Salud Pública · 1 transcripción extensa</p>
-          <h2 id="epi-title">APS, atención integral, sectorización y urgencias</h2>
-          <p>Transcripción recibida el 14 de agosto de 2026. La fecha exacta del aula no fue pronunciada y queda pendiente de confirmación.</p>
+          <p class="section-kicker">Epidemiología y Salud Pública · transcripción acumulada</p>
+          <h2 id="epi-title">Sectorización, triage, urgencia y emergencia</h2>
+          <p>El último tramo corresponde al curso más reciente. Los contenidos de APS y atención integral pertenecen al bloque anterior de la misma transcripción.</p>
         </div>
-        <span class="source-pill status-check">Fecha oral no dicha · recibida 14 ago.</span>
+        <span class="source-pill status-check">Último bloque · fecha por confirmar</span>
       </div>
 
-      <div class="class-history class-history-single" aria-label="Historial de transcripciones de Epidemiología y Salud Pública">
-        <article class="history-entry history-current"><span>FECHA POR CONFIRMAR</span><div><strong>Atención Primaria de la Salud y organización sanitaria</strong><small>APS, modelo integral, ciclo familiar, sectorización, triage, urgencia y emergencia.</small></div><span>ACTUAL</span></article>
+      <div class="class-history" aria-label="Historial de bloques de Epidemiología y Salud Pública">
+        <article class="history-entry history-current"><span>ÚLTIMO BLOQUE</span><div><strong>Sectorización, triage, urgencia y emergencia</strong><small>Vigilancia territorial, clasificación de riesgo, observación inicial, signos vitales y prioridad asistencial.</small></div><span>ACTUAL</span></article>
+        <article class="history-entry"><span>BLOQUE ANTERIOR</span><div><strong>APS y modelo de atención integral</strong><small>Alma-Ata, implementación en Paraguay, principios, dimensiones y ciclo familiar.</small></div></article>
       </div>
+      <p class="course-note transcription-rule-note"><b>Regla aplicada:</b> en las transcripciones antiguas que reúnen varias clases, la parte final se considera siempre la más reciente. Una fecha dicha dentro del audio inicia un nuevo bloque; nunca se aplica hacia atrás.</p>
 
       <section class="epi-lesson" aria-labelledby="epi-core-title">
         <div class="exam-focus">
@@ -422,6 +425,6 @@
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=403"></script>
-  <script src="grupo-3-v401.js?v=405"></script>
+  <script src="grupo-3-v401.js?v=406"></script>
 </body>
 </html>

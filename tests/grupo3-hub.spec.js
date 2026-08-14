@@ -40,10 +40,11 @@ test.describe('Class hub', () => {
     await expect(page.locator('#epiEstimatedDate')).toContainText('11:20–13:20');
     await expect(page.locator('#epiEstimatedDate')).toContainText('por confirmar');
     await expect(page.getByText('Fecha oral confirmada · 14 ago.')).toBeVisible();
-    await expect(page.getByText('Fecha oral no dicha · recibida 14 ago.')).toBeVisible();
+    await expect(page.getByText('Último bloque · fecha por confirmar')).toBeVisible();
     await expect(page.getByText('Toda fecha calculada permanece como')).toBeHidden();
     await page.getByText('Cómo se calcula una fecha').click();
     await expect(page.getByText('Toda fecha calculada permanece como')).toBeVisible();
+    await expect(page.getByText('El contenido final siempre corresponde al curso más reciente')).toBeVisible();
   });
 
   test('organizes the 14 August glycolysis lesson with corrected study points', async ({ page }) => {
@@ -56,7 +57,9 @@ test.describe('Class hub', () => {
   });
 
   test('organizes Epidemiology into exam points, APS and triage preparation', async ({ page }) => {
-    await expect(page.getByRole('heading', { name: 'APS, atención integral, sectorización y urgencias' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Sectorización, triage, urgencia y emergencia' })).toBeVisible();
+    await expect(page.getByText('APS y modelo de atención integral', { exact: true })).toBeVisible();
+    await expect(page.getByText('Regla aplicada:')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Lo que la profesora señaló que puede preguntar' })).toBeVisible();
     await expect(page.getByText('2008: implementación de la estrategia APS en Paraguay.')).toBeVisible();
     await page.locator('.lesson-accordion').nth(3).locator('summary').click();
