@@ -55,10 +55,38 @@
     }
   };
 
+  var microPreviews = {
+    completo: {
+      eyebrow: 'MAPA DE LA PRÁCTICA · GRUPO 3',
+      title: 'Del alimento al reconocimiento microscópico',
+      duration: '12 min',
+      html: '<ol class="study-map"><li><span>01 · MUESTRA</span><strong>Alimento sólido con moho</strong><small>Preferir pan duro; transportarlo cerrado y abrirlo solo bajo indicación docente.</small></li><li><span>02 · CULTIVO</span><strong>Agar dextrosa Sabouraud</strong><small>Peptonas, glucosa, agar y pH ácido favorecen el crecimiento fúngico.</small></li><li><span>03 · COLONIA</span><strong>Observar la forma macroscópica</strong><small>Registrar textura, relieve, color y aspecto sin oler ni agitar el cultivo.</small></li><li><span>04 · MICROSCOPIO</span><strong>Reconocer estructuras</strong><small>Distinguir gemación, hifas, micelio, conidios, esporangios y rizoides.</small></li><li><span>05 · INTERPRETACIÓN</span><strong>Levadura, moho o dimórfico</strong><small>Integrar organización celular, morfología y condiciones de crecimiento.</small></li><li><span>06 · CIERRE</span><strong>Desecho seguro</strong><small>Mantener y eliminar la muestra según el protocolo institucional.</small></li></ol>'
+    },
+    rapido: {
+      eyebrow: 'FICHA RÁPIDA LAB · 8 IDEAS',
+      title: 'Hongos y Sabouraud en cinco minutos',
+      duration: '5 min',
+      html: '<ul class="preview-list"><li>Las levaduras son principalmente unicelulares y suelen reproducirse por gemación.</li><li>Los mohos son filamentosos: sus hifas forman un micelio.</li><li>Un hongo dimórfico cambia de forma según las condiciones; la temperatura es una señal frecuente, no una regla absoluta.</li><li>Los conidios son esporas asexuales externas sostenidas por conidióforos.</li><li>El esporangio es un saco de esporas sostenido por un esporangióforo.</li><li>El agar Sabouraud aporta peptonas, glucosa y agar, con un pH ácido cercano a 5,6.</li><li>La fórmula y la esterilización se ejecutan según el fabricante y el protocolo del laboratorio.</li><li>Una colonia visible orienta, pero no identifica por sí sola una especie.</li></ul>'
+    },
+    checklist: {
+      eyebrow: 'CHECKLIST · PRÓXIMA PRÁCTICA',
+      title: 'Muestra preparada sin riesgo innecesario',
+      duration: '1 min',
+      html: '<ul class="preview-list"><li><strong>Elegir:</strong> pan duro con crecimiento visible; como alternativa, una fruta o queso aún sólidos.</li><li><strong>Evitar:</strong> alimentos totalmente líquidos, deshechos o con derrames.</li><li><strong>Cerrar:</strong> colocar la muestra en un recipiente o bolsa resistente y sellada.</li><li><strong>Identificar:</strong> escribir nombre y tipo de muestra por fuera.</li><li><strong>Transportar:</strong> separada de alimentos, bebidas y objetos personales.</li><li><strong>No manipular:</strong> no abrir, oler, tocar ni agitar en casa.</li><li><strong>En el laboratorio:</strong> esperar la indicación docente y cumplir el protocolo de bioseguridad.</li></ul>'
+    },
+    oral: {
+      eyebrow: 'REPASO ORAL LAB · ESTILO DE CLASE',
+      title: 'Responde antes de mirar al microscopio',
+      duration: '10 preguntas',
+      html: '<ol class="oral-list"><li>¿Cuál es la diferencia central entre una levadura y un moho?</li><li>¿Qué es una hifa y qué es un micelio?</li><li>¿Qué significa que un hongo sea dimórfico?</li><li>¿Cuál es la diferencia entre conidio y conidióforo?</li><li>¿Cuál es la diferencia entre esporangio y esporangióforo?</li><li>¿Qué función pueden cumplir los rizoides?</li><li>¿Qué componentes básicos tiene el agar dextrosa Sabouraud?</li><li>¿Por qué su pH ácido favorece el aislamiento de hongos?</li><li>¿Por qué la preparación debe seguir la etiqueta del fabricante?</li><li>¿Qué medidas de bioseguridad debes respetar con la muestra?</li></ol>'
+    }
+  };
+
   var storageKey = 'med-nykuto-grupo3-plan-v404';
   var labStorageKey = 'med-nykuto-lab-group-v403';
   var bioPrepStorageKey = 'med-nykuto-bio-prep-v404';
   var epiPrepStorageKey = 'med-nykuto-epi-prep-v405';
+  var microPrepStorageKey = 'med-nykuto-micro-prep-v407';
   var toastTimer;
 
   var classSchedule = [
@@ -100,6 +128,16 @@
     estimatedPreparation:{date:'2026-08-19',start:'11:20',end:'13:20'}
   };
 
+  var latestMicroTranscript = {
+    subject:'Laboratorio de Microbiología II',
+    scope:'personal-group-3',
+    oralDate:null,
+    receivedDate:'2026-08-14',
+    estimatedClassDate:'2026-08-13',
+    sourceMode:'single-class',
+    estimatedPreparation:{date:'2026-08-20',start:'18:00',end:'20:00'}
+  };
+
   function renderPreview(mode){
     var data = previews[mode] || previews.completo;
     document.getElementById('studyPreviewEyebrow').textContent = data.eyebrow;
@@ -121,6 +159,19 @@
     document.getElementById('epiPreviewBody').innerHTML = data.html;
     document.querySelectorAll('[data-epi-mode]').forEach(function(button){
       var active = button.dataset.epiMode === mode;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  }
+
+  function renderMicroPreview(mode){
+    var data = microPreviews[mode] || microPreviews.completo;
+    document.getElementById('microPreviewEyebrow').textContent = data.eyebrow;
+    document.getElementById('micro-preview-title').textContent = data.title;
+    document.getElementById('microPreviewDuration').textContent = data.duration;
+    document.getElementById('microPreviewBody').innerHTML = data.html;
+    document.querySelectorAll('[data-micro-mode]').forEach(function(button){
+      var active = button.dataset.microMode === mode;
       button.classList.toggle('is-active', active);
       button.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
@@ -269,6 +320,7 @@
 
     document.getElementById('bioEstimatedDate').textContent = formatEstimatedPreparation(latestTranscript.estimatedPreparation);
     document.getElementById('epiEstimatedDate').textContent = formatEstimatedPreparation(latestEpiTranscript.estimatedPreparation);
+    document.getElementById('microEstimatedDate').textContent = formatEstimatedPreparation(latestMicroTranscript.estimatedPreparation);
   }
 
   function restorePersonalSchedule(){
@@ -299,12 +351,21 @@
       try{localStorage.setItem(epiPrepStorageKey,epiPrep.checked ? '1' : '0');}catch(error){}
       document.getElementById('epiPrepCard').classList.toggle('is-complete',epiPrep.checked);
     });
+
+    var microPrep = document.getElementById('microPrepDone');
+    try{microPrep.checked = localStorage.getItem(microPrepStorageKey) === '1';}catch(error){}
+    document.getElementById('microPrepCard').classList.toggle('is-complete',microPrep.checked);
+    microPrep.addEventListener('change',function(){
+      try{localStorage.setItem(microPrepStorageKey,microPrep.checked ? '1' : '0');}catch(error){}
+      document.getElementById('microPrepCard').classList.toggle('is-complete',microPrep.checked);
+    });
     renderSchedule();
   }
 
   document.addEventListener('DOMContentLoaded', function(){
     renderPreview('completo');
     renderEpiPreview('completo');
+    renderMicroPreview('completo');
     restorePlan();
     restorePersonalSchedule();
     setUpdatedDate();
@@ -320,6 +381,13 @@
       button.addEventListener('click', function(){
         renderEpiPreview(button.dataset.epiMode);
         document.getElementById('epi-repaso').scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
+    document.querySelectorAll('[data-micro-mode]').forEach(function(button){
+      button.addEventListener('click', function(){
+        renderMicroPreview(button.dataset.microMode);
+        document.getElementById('micro-repaso').scrollIntoView({behavior:'smooth',block:'start'});
       });
     });
 
@@ -339,7 +407,8 @@
   window.MED_NYKUTO_LATEST_TRANSCRIPT = Object.assign({},latestTranscript);
   window.MED_NYKUTO_LATEST_TRANSCRIPTS = {
     bioquimica:Object.assign({},latestTranscript),
-    epidemiologia:Object.assign({},latestEpiTranscript)
+    epidemiologia:Object.assign({},latestEpiTranscript),
+    microbiologiaPractica:Object.assign({},latestMicroTranscript)
   };
   window.MED_NYKUTO_TRANSCRIPTION_RULES = {
     legacyCumulative:'Cada fecha oral inicia un nuevo bloque y el tramo final es siempre la clase más reciente.',

@@ -9,7 +9,7 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Todo lo importante, en el orden correcto.' })).toBeVisible();
     await expect(page.getByText('4.º E', { exact: true }).first()).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Regulación de la glucólisis', exact: true })).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Abrir Epidemiología' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Abrir Microbiología práctica' })).toBeVisible();
     await expect(page.getByText('Estados claros')).toBeVisible();
   });
 
@@ -33,7 +33,10 @@ test.describe('Class hub', () => {
 
   test('labels inferred preparation dates instead of presenting them as confirmed homework', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Pendientes con fecha clara' })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Sin entregas confirmadas' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Llevar una muestra de alimento con moho' })).toBeVisible();
+    await expect(page.locator('#microEstimatedDate')).toContainText('20 ago.');
+    await expect(page.locator('#microEstimatedDate')).toContainText('18:00–20:00');
+    await expect(page.locator('#microEstimatedDate')).toContainText('por confirmar');
     await expect(page.locator('#bioEstimatedDate')).toContainText('19 ago.');
     await expect(page.locator('#bioEstimatedDate')).toContainText('por confirmar');
     await expect(page.locator('#epiEstimatedDate')).toContainText('19 ago.');
@@ -69,6 +72,19 @@ test.describe('Class hub', () => {
     await expect(page.locator('.triage-colors article')).toHaveCount(5);
   });
 
+  test('turns the Group 3 practical transcript into a safe fungal culture guide', async ({ page }) => {
+    await expect(page.getByRole('heading', { name: 'Cultivo de hongos en agar Sabouraud' })).toBeVisible();
+    await expect(page.getByText('Clase estimada · 13 ago. · confirmar')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Lleva una muestra sólida con moho' })).toBeVisible();
+    await expect(page.getByText('Pan duro con moho', { exact: true })).toBeVisible();
+    await expect(page.getByRole('row', { name: /Levadura Principalmente unicelular/ })).toBeVisible();
+    await expect(page.getByText('Conidióforo + conidios', { exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Agar dextrosa Sabouraud' })).toBeVisible();
+    await expect(page.getByText('La dosis del medio no es universal.')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'La muestra permanece cerrada hasta que la docente indique abrirla' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'HiMedia · Sabouraud y preparación' })).toBeVisible();
+  });
+
   test('keeps the semester selector available while the page scrolls', async ({ page }) => {
     const switcher = page.getByLabel('Elegir semestre');
     await expect(switcher).toBeVisible();
@@ -90,6 +106,13 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Lo esencial de Epidemiología en cinco minutos' })).toBeVisible();
     await expect(page.getByText('Alma-Ata se celebró en 1978; Paraguay implementó su estrategia APS en 2008.')).toBeVisible();
     await expect(page.getByRole('button', { name: /Ficha rápida EPI/ })).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  test('switches Microbiology practical revision depth independently', async ({ page }) => {
+    await page.getByRole('button', { name: /Ficha rápida LAB/ }).click();
+    await expect(page.getByRole('heading', { name: 'Hongos y Sabouraud en cinco minutos' })).toBeVisible();
+    await expect(page.getByText('Los mohos son filamentosos: sus hifas forman un micelio.')).toBeVisible();
+    await expect(page.getByRole('button', { name: /Ficha rápida LAB/ })).toHaveAttribute('aria-pressed', 'true');
   });
 
   test('saves a simple preparation checklist', async ({ page }) => {

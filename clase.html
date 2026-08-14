@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#07111f" />
   <title>4.º E · Semestre 4 | Med Nykuto</title>
-  <meta name="description" content="Espacio académico no oficial de 4.º E: horario, pendientes y revisiones de Bioquímica, Epidemiología y Salud Pública organizadas en un solo lugar." />
+  <meta name="description" content="Espacio académico no oficial de 4.º E: horario, pendientes y revisiones de Bioquímica, Epidemiología, Salud Pública y Microbiología práctica organizadas en un solo lugar." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=406" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=407" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -38,7 +38,7 @@
         <h1 id="class-title">Todo lo importante, en el orden correcto.</h1>
         <p class="hero-lead">Clases, revisión y pendientes reunidos para que sepas qué estudiar ahora sin buscar entre mensajes y archivos.</p>
         <div class="hero-actions">
-          <a class="action-button action-primary" href="#epidemiologia">Abrir Epidemiología</a>
+          <a class="action-button action-primary" href="#microbiologia-practica">Abrir Microbiología práctica</a>
           <a class="action-button action-secondary" href="#horario">Ver horario</a>
         </div>
         <div class="hero-trust" aria-label="Información del espacio">
@@ -49,14 +49,14 @@
       </div>
 
       <aside class="next-class-card" aria-labelledby="next-class-title">
-        <div class="card-topline"><span>PRÓXIMA PREPARACIÓN</span><span class="live-badge">BIOQUÍMICA</span></div>
-        <h2 id="next-class-title">Regulación de la glucólisis</h2>
-        <p>Hexoquinasa frente a glucoquinasa, PFK-1, piruvato quinasa y destinos del piruvato.</p>
+        <div class="card-topline"><span>ACTIVIDAD PERSONAL</span><span class="live-badge">LAB · GRUPO 3</span></div>
+        <h2 id="next-class-title">Cultivo de hongos</h2>
+        <p>Llevar una muestra sólida de alimento con moho, bien cerrada y rotulada, para sembrarla en agar Sabouraud.</p>
         <div class="class-context">
           <span>Últimas transcripciones recibidas: 14 ago. 2026</span>
-          <strong>Bioquímica + Epidemiología organizadas</strong>
+          <strong>Microbiología práctica añadida</strong>
         </div>
-        <a class="card-link" href="#plan-estudio">Empezar el plan de preparación <span aria-hidden="true">→</span></a>
+        <a class="card-link" href="#micro-preparacion">Abrir la lista para la práctica <span aria-hidden="true">→</span></a>
       </aside>
     </section>
 
@@ -65,6 +65,7 @@
       <a href="#pendientes"><span class="quick-code">TAR</span><strong>Pendientes</strong><small>Fechas y estado</small></a>
       <a href="#bioquimica"><span class="quick-code">BIO</span><strong>Bioquímica</strong><small>Glucólisis</small></a>
       <a href="#epidemiologia"><span class="quick-code">EPI</span><strong>Epidemiología</strong><small>APS y triage</small></a>
+      <a href="#microbiologia-practica"><span class="quick-code">LAB</span><strong>Micro práctica</strong><small>Hongos y Sabouraud</small></a>
       <a href="#delegado"><span class="quick-code">DUD</span><strong>Enviar una duda</strong><small>Preparar el mensaje</small></a>
     </nav>
 
@@ -129,10 +130,13 @@
         <div class="status-legend" aria-label="Estados de las fechas"><span class="status-confirmed">Confirmada</span><span class="status-estimated">Estimada</span><span class="status-check">Verificar</span></div>
       </div>
       <div class="pending-grid">
-        <article class="assignment-card assignment-empty">
-          <span class="assignment-status status-confirmed">CONFIRMADAS</span>
-          <h3>Sin entregas confirmadas</h3>
-          <p>Una fecha aparecerá aquí únicamente cuando el profesor la diga o la escriba de forma explícita.</p>
+        <article class="assignment-card assignment-personal" id="microPrepCard">
+          <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Personal · Grupo 3</span></div>
+          <h3>Llevar una muestra de alimento con moho</h3>
+          <p>Preferir pan duro con crecimiento visible. También se mencionaron naranja sólida, tomate, banana o queso; evitar muestras totalmente líquidas.</p>
+          <div class="assignment-date"><span>Próxima práctica estimada</span><strong id="microEstimatedDate">Próximo laboratorio del Grupo 3</strong></div>
+          <small>La consigna fue explícita, pero la fecha no se pronunció. Llevar la muestra cerrada y no abrirla ni olerla fuera del laboratorio.</small>
+          <label class="completion-control"><input type="checkbox" id="microPrepDone" /><span>Marcar muestra como preparada</span></label>
         </article>
         <article class="assignment-card assignment-estimated" id="bioPrepCard">
           <div class="assignment-top"><span class="assignment-status status-estimated">ESTIMADA</span><span>Bioquímica II</span></div>
@@ -171,16 +175,16 @@
       </div>
       <div class="week-grid">
         <article class="week-card week-primary">
-          <div class="week-card-head"><span class="week-label">PRIORIDAD 01</span><span class="availability">Disponible</span></div>
-          <h3>Preparar la regulación de la glucólisis</h3>
-          <p>Dominar el balance neto, las tres reacciones irreversibles y la diferencia entre hexoquinasa y glucoquinasa.</p>
-          <a href="#plan-estudio">Ver preparación recomendada</a>
+          <div class="week-card-head"><span class="week-label">PRIORIDAD 01</span><span class="availability">Grupo 3</span></div>
+          <h3>Preparar la muestra para el laboratorio</h3>
+          <p>Elegir un alimento sólido con moho, cerrarlo, rotularlo y llevarlo sin manipularlo fuera del laboratorio.</p>
+          <a href="#micro-preparacion">Ver lista de preparación</a>
         </article>
         <article class="week-card">
-          <div class="week-card-head"><span class="week-label">ÚLTIMAS CLASES</span><span>3 clases</span></div>
-          <h3>Preparar triage por colores</h3>
-          <p>Revisar tiempos máximos, nivel de prioridad y motivos de consulta antes de la próxima clase.</p>
-          <a href="#epi-preparacion">Abrir preparación</a>
+          <div class="week-card-head"><span class="week-label">TEORÍA</span><span>Miércoles</span></div>
+          <h3>Bioquímica + Epidemiología</h3>
+          <p>Repasar regulación de la glucólisis y preparar el triage por colores para las próximas clases.</p>
+          <a href="#pendientes">Ver ambos pendientes</a>
         </article>
         <article class="week-card week-muted">
           <div class="week-card-head"><span class="week-label">EVALUACIONES</span><span>Por confirmar</span></div>
@@ -382,6 +386,103 @@
       </article>
     </section>
 
+    <section id="microbiologia-practica" class="content-section subject-section micro-subject" aria-labelledby="micro-title">
+      <div class="subject-heading">
+        <div>
+          <p class="section-kicker">Microbiología II práctica · personal · Grupo 3</p>
+          <h2 id="micro-title">Cultivo de hongos en agar Sabouraud</h2>
+          <p>Nueva transcripción de una sola clase. Por el horario del Grupo 3, la sesión se estima el jueves 13 de agosto; la fecha no fue pronunciada y debe confirmarse.</p>
+        </div>
+        <span class="source-pill status-estimated">Clase estimada · 13 ago. · confirmar</span>
+      </div>
+
+      <div class="class-history class-history-single" aria-label="Historial de Microbiología práctica">
+        <article class="history-entry history-current"><span>FECHA ESTIMADA</span><div><strong>Hongos y preparación del agar Sabouraud</strong><small>Levaduras, mohos, dimorfismo, estructuras microscópicas y demostración del medio de cultivo.</small></div><span>ACTUAL</span></article>
+      </div>
+
+      <section class="micro-lesson" aria-labelledby="micro-core-title">
+        <div class="micro-objectives">
+          <div><span>OBJETIVO DE LA PRÁCTICA</span><h3 id="micro-core-title">Cultivar, observar y diferenciar hongos</h3><p>La docente quiere que relaciones la forma macroscópica de una colonia con sus estructuras microscópicas y que expliques por qué el agar Sabouraud favorece el crecimiento fúngico.</p></div>
+          <ol><li>Diferenciar levadura, moho y hongo dimórfico.</li><li>Reconocer hifas, micelio, conidios y esporangios.</li><li>Comprender la función del agar Sabouraud.</li><li>Preparar una muestra alimentaria para la próxima práctica.</li></ol>
+        </div>
+
+        <div class="micro-prep-panel" id="micro-preparacion">
+          <div class="micro-prep-copy"><span>PARA LA PRÓXIMA CLASE</span><h3>Lleva una muestra sólida con moho</h3><p>La tarea es personal para el Grupo 3. La profesora priorizó el pan porque permite obtener una muestra firme y fácil de manipular.</p></div>
+          <div class="sample-grid">
+            <article class="sample-best"><span>PREFERIDO</span><strong>Pan duro con moho</strong><small>Déjalo dentro de un recipiente o bolsa cerrada.</small></article>
+            <article><span>ALTERNATIVAS</span><strong>Naranja, tomate o banana</strong><small>Solo si conservan consistencia sólida.</small></article>
+            <article><span>OTRA OPCIÓN</span><strong>Queso con crecimiento visible</strong><small>Separado de alimentos destinados al consumo.</small></article>
+            <article class="sample-avoid"><span>EVITAR</span><strong>Muestra líquida o deshecha</strong><small>No abrir, oler ni tocar el crecimiento en casa.</small></article>
+          </div>
+          <div class="sample-check"><span>01 · RECIPIENTE CERRADO</span><span>02 · NOMBRE Y MUESTRA</span><span>03 · TRANSPORTE SEGURO</span><span>04 · ABRIR SOLO EN EL LABORATORIO</span></div>
+        </div>
+
+        <div class="lesson-subheading"><span>COMPARACIÓN CENTRAL</span><strong>La forma de crecimiento orienta la identificación.</strong></div>
+        <div class="table-scroll" role="region" aria-label="Comparación entre levadura, moho y hongo dimórfico" tabindex="0">
+          <table class="fungi-table">
+            <thead><tr><th>Forma</th><th>Organización</th><th>Aspecto habitual</th><th>Estructura clave</th></tr></thead>
+            <tbody>
+              <tr><th>Levadura</th><td>Principalmente unicelular</td><td>Colonias cremosas; células redondas u ovales</td><td>Gemación; algunas forman pseudohifas</td></tr>
+              <tr><th>Moho</th><td>Filamentoso y multicelular</td><td>Colonia algodonosa, pulverulenta o vellosa</td><td>Hifas que forman un micelio</td></tr>
+              <tr><th>Dimórfico</th><td>Cambia de morfología según las condiciones</td><td>Forma ambiental y forma tisular diferentes</td><td>Con frecuencia moho a menor temperatura y forma tisular a 35–37 °C</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="morphology-grid" aria-label="Estructuras fúngicas que deben reconocerse">
+          <article><span>01</span><strong>Hifa</strong><small>Filamento individual; puede ser septado o cenocítico.</small></article>
+          <article><span>02</span><strong>Micelio</strong><small>Conjunto de hifas que constituye el cuerpo vegetativo.</small></article>
+          <article><span>03</span><strong>Conidióforo + conidios</strong><small>Tallo especializado que sostiene esporas asexuales externas.</small></article>
+          <article><span>04</span><strong>Esporangióforo + esporangio</strong><small>Tallo que sostiene un saco donde se forman esporangiosporas.</small></article>
+          <article><span>05</span><strong>Rizoides</strong><small>Hifas semejantes a raíces que fijan el hongo al sustrato.</small></article>
+          <article><span>06</span><strong>Macroconidios / microconidios</strong><small>Conidios diferenciados por tamaño, forma y número de células.</small></article>
+        </div>
+
+        <div class="sabouraud-panel">
+          <div><span>MEDIO DE CULTIVO</span><h3>Agar dextrosa Sabouraud</h3><p>Contiene peptonas, glucosa y agar. Su concentración elevada de glucosa y su pH ácido, cercano a 5,6 en formulaciones clásicas, favorecen levaduras y mohos e inhiben muchas bacterias.</p></div>
+          <div class="sabouraud-facts"><article><span>NUTRIENTES</span><strong>Peptonas + glucosa</strong></article><article><span>SOPORTE</span><strong>Agar</strong></article><article><span>SELECTIVIDAD</span><strong>pH ácido</strong></article><article><span>OBJETIVO</span><strong>Hongos y levaduras</strong></article></div>
+        </div>
+
+        <div class="lab-workflow" aria-label="Secuencia observada durante la práctica">
+          <article><span>01</span><strong>Pesar</strong><small>La demostración utilizó 10 g de polvo.</small></article>
+          <article><span>02</span><strong>Mezclar</strong><small>Se añadieron 100 mL de agua destilada.</small></article>
+          <article><span>03</span><strong>Disolver</strong><small>Agitación con varilla evitando golpear el recipiente.</small></article>
+          <article><span>04</span><strong>Calentar</strong><small>La clase indicó aproximadamente 20 minutos.</small></article>
+          <article><span>05</span><strong>Sembrar después</strong><small>La inoculación y la observación microscópica continuarán en la próxima práctica.</small></article>
+        </div>
+
+        <aside class="science-note micro-corrections">
+          <div><span>CORRECCIONES IMPORTANTES</span><strong>Qué debes entender sin copiar errores del audio</strong></div>
+          <ul><li><b>La dosis del medio no es universal.</b> La clase empleó 10 g/100 mL, pero formulaciones comerciales clásicas indican 65 g/L. Se sigue siempre la etiqueta del producto y el protocolo del laboratorio.</li><li><b>Calentar no sustituye automáticamente la esterilización.</b> Muchos fabricantes indican autoclavar a 121 °C durante 15 minutos; la preparación exacta depende del medio utilizado.</li><li><b>“Moho en frío y levadura en calor” es una regla orientativa, no absoluta.</b> Describe a varios hongos dimórficos; existen excepciones y otras formas tisulares.</li><li><b>Una colonia visible no identifica por sí sola la especie.</b> Se integran aspecto macroscópico, estructuras microscópicas y, cuando corresponde, pruebas adicionales.</li></ul>
+        </aside>
+
+        <aside class="lab-safety-card">
+          <div><span>BIOSEGURIDAD</span><h3>La muestra permanece cerrada hasta que la docente indique abrirla</h3></div>
+          <ul><li>No comer, beber ni aplicar cosméticos en el laboratorio.</li><li>Usar bata y guantes; protección ocular si existe riesgo de salpicadura.</li><li>No oler una placa ni agitar un cultivo: las esporas pueden aerosolizarse.</li><li>Manipular, incubar y desechar únicamente según el protocolo institucional.</li></ul>
+        </aside>
+
+        <div class="reference-links" aria-label="Fuentes de verificación de Microbiología práctica">
+          <span>VERIFICACIÓN</span>
+          <a href="https://www.himedialabs.com/us/microbiology/dehydrated-culture-media/mh063-sabouraud-dextrose-agar.html" target="_blank" rel="noopener">HiMedia · Sabouraud y preparación</a>
+          <a href="https://www.cdc.gov/training/quicklearns/biosafety/" target="_blank" rel="noopener">CDC · prácticas de bioseguridad</a>
+          <a href="https://www.cdc.gov/niosh/histoplasmosis/hcp/lab-safety/index.html" target="_blank" rel="noopener">CDC/NIOSH · seguridad con hongos</a>
+          <a href="https://wwwnc.cdc.gov/eid/article/27/9/21-0461_article" target="_blank" rel="noopener">CDC · dimorfismo de Paracoccidioides</a>
+        </div>
+      </section>
+
+      <div class="resource-grid" aria-label="Modos de revisión de Microbiología práctica">
+        <button class="resource-card is-active" type="button" data-micro-mode="completo" aria-pressed="true"><span class="resource-time">12 min</span><span class="resource-code">LAB</span><strong>Mapa de la práctica</strong><small>Muestra, formas, estructuras y Sabouraud</small></button>
+        <button class="resource-card" type="button" data-micro-mode="rapido" aria-pressed="false"><span class="resource-time">5 min</span><span class="resource-code">FIC</span><strong>Ficha rápida LAB</strong><small>Ocho conceptos esenciales</small></button>
+        <button class="resource-card" type="button" data-micro-mode="checklist" aria-pressed="false"><span class="resource-time">1 min</span><span class="resource-code">CHK</span><strong>Checklist de muestra</strong><small>Qué llevar y qué evitar</small></button>
+        <button class="resource-card" type="button" data-micro-mode="oral" aria-pressed="false"><span class="resource-time">10 preguntas</span><span class="resource-code">ORA</span><strong>Repaso oral LAB</strong><small>Responder antes del microscopio</small></button>
+      </div>
+
+      <article id="micro-repaso" class="study-preview" aria-live="polite" aria-labelledby="micro-preview-title">
+        <div class="study-preview-head"><div><span id="microPreviewEyebrow">MAPA DE LA PRÁCTICA · GRUPO 3</span><h3 id="micro-preview-title">Del alimento al reconocimiento microscópico</h3></div><span id="microPreviewDuration">12 min</span></div>
+        <div id="microPreviewBody" class="study-preview-body"></div>
+      </article>
+    </section>
+
     <section id="plan-estudio" class="content-section plan-section" aria-labelledby="plan-title">
       <div class="section-heading">
         <div><p class="section-kicker">Antes del miércoles 19</p><h2 id="plan-title">Plan de preparación</h2></div>
@@ -403,7 +504,7 @@
         <ul><li>No compartas información clínica identificable.</li><li>Indica materia y tema.</li><li>Formula una sola duda por mensaje.</li></ul>
       </div>
       <form class="question-builder" id="delegateQuestionForm">
-        <label><span>Materia</span><select id="questionSubject"><option>Bioquímica</option><option>Epidemiología y Salud Pública</option><option>Otra materia</option></select></label>
+        <label><span>Materia</span><select id="questionSubject"><option>Bioquímica</option><option>Epidemiología y Salud Pública</option><option>Microbiología II práctica</option><option>Otra materia</option></select></label>
         <label><span>Tu duda</span><textarea id="questionText" rows="4" placeholder="Ej.: ¿La glucólisis necesita oxígeno directamente?" required></textarea></label>
         <button class="action-button action-primary" type="submit">Copiar mensaje preparado</button>
         <p class="form-note">El mensaje se copia en tu dispositivo; no se envía automáticamente.</p>
@@ -421,10 +522,11 @@
     <a href="#pendientes"><span>TAR</span><strong>Tareas</strong></a>
     <a href="#bioquimica"><span>BIO</span><strong>Bio</strong></a>
     <a href="#epidemiologia"><span>EPI</span><strong>Epi</strong></a>
+    <a href="#microbiologia-practica"><span>LAB</span><strong>Micro</strong></a>
   </nav>
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=403"></script>
-  <script src="grupo-3-v401.js?v=406"></script>
+  <script src="grupo-3-v401.js?v=407"></script>
 </body>
 </html>
