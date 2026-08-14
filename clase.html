@@ -8,7 +8,7 @@
   <meta name="description" content="Espacio académico no oficial de 4.º E: horario, tarefas, historial de actividades y revisiones de Nutrición, Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología organizadas en un solo lugar." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=415" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=416" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -81,7 +81,7 @@
 
       <div class="dashboard-priorities" aria-label="Prioridades actuales">
         <a class="priority-card priority-main" href="#microTheoryPrepCard"><div class="priority-card-head"><span>MICROBIOLOGÍA II</span><time id="homeMicroTheoryDate">Fecha estimada</time></div><strong>Preparar tres micosis subcutáneas</strong><small>Esporotricosis, cromoblastomicosis y micetoma eumicótico.</small><b>Abrir Tarefa →</b></a>
-        <a class="priority-card" href="#nutritionPrepCard"><div class="priority-card-head"><span>NUTRICIÓN · SEMINARIO</span><time id="homeNutritionDate">Fecha estimada</time></div><strong>Guías + regiones y platos</strong><small>Dos presentaciones diferentes según el grupo asignado.</small><b>Ver mis temas →</b></a>
+        <a class="priority-card" href="#nutritionPrepCard"><div class="priority-card-head"><span>NUTRICIÓN · SEMINARIO</span><time id="homeNutritionDate">Fecha estimada</time></div><strong>Guías + regiones y platos</strong><small>2 PowerPoint independientes + 1 informe para firma y sello.</small><b>Ver mi grupo y los entregables →</b></a>
         <a class="priority-card" href="#bioPrepCard"><div class="priority-card-head"><span>BIOQUÍMICA II</span><time id="homeBioDate">Fecha estimada</time></div><strong>Completar regulación de la glucólisis</strong><small>Hexoquinasa, glucoquinasa, PFK-1, piruvato quinasa y destinos del piruvato.</small><b>Abrir Tarefa →</b></a>
       </div>
     </section>
@@ -153,7 +153,12 @@
         <article class="assignment-card assignment-estimated" id="nutritionPrepCard">
           <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Nutrición</span></div>
           <h3>Semana 3: seminario y presentación oral</h3>
-          <p>Cada grupo recibe un tema de Guías Alimentarias y otro de Regiones y Platos. Selecciona tu grupo para ver los dos títulos exactos.</p>
+          <p>Cada grupo debe preparar dos trabajos independientes y un informe breve. Selecciona tu grupo para ver los dos títulos exactos.</p>
+          <div class="seminar-at-a-glance" aria-label="Resumen de los entregables del seminario">
+            <span><b>2</b><small>PowerPoint separados</small></span>
+            <span><b>4</b><small>diapositivas máximo por PowerPoint</small></span>
+            <span><b>1</b><small>informe para firma y sello</small></span>
+          </div>
           <div class="nutrition-group-picker nutrition-group-picker-compact">
             <label for="nutritionGroupTaskSelect"><span>MI GRUPO</span><strong>¿Qué temas me corresponden?</strong></label>
             <select id="nutritionGroupTaskSelect" data-nutrition-group-select>
@@ -164,8 +169,23 @@
             <div class="nutrition-group-output" data-nutrition-group-output aria-live="polite"><p>Selecciona del Grupo 1 al Grupo 6 para mostrar tus dos temas.</p></div>
           </div>
           <div class="assignment-date"><span>Próxima clase estimada</span><strong id="nutritionEstimatedDate">Próxima clase de Nutrición</strong></div>
-          <small>Consigna oficial: 5 minutos como máximo, hasta 4 diapositivas por grupo y entrega en la plataforma en PPT, PDF o Canva. La fecha exacta permanece por confirmar.</small>
-          <label class="completion-control"><input type="checkbox" id="nutritionPrepDone" /><span>Marcar contenido y presentación como preparados</span></label>
+          <details class="seminar-task-details">
+            <summary><span><strong>Ver la consigna completa</strong><small>Los 3 entregables, el informe y la organización</small></span></summary>
+            <div class="seminar-task-details-body">
+              <ol class="seminar-mini-route">
+                <li><span>01</span><div><strong>Trabajo 1 · Guías Alimentarias</strong><small>PowerPoint independiente de hasta 4 diapositivas.</small></div></li>
+                <li><span>02</span><div><strong>Trabajo 2 · Platos típicos / regiones</strong><small>Otro PowerPoint independiente de hasta 4 diapositivas.</small></div></li>
+                <li><span>03</span><div><strong>Informe breve</strong><small>Portada, integrantes, ambos desarrollos y bibliografía; llevar para firma y sello.</small></div></li>
+              </ol>
+              <p class="seminar-task-note"><strong>Exposición:</strong> aproximadamente hasta 5 minutos por grupo. La comida es opcional y puede reemplazarse por imágenes claras.</p>
+              <div class="seminar-file-links" aria-label="Documentos oficiales del seminario">
+                <a href="assets/class-hub/instructivo-presentacion-oral-semana-3.docx" download>Descargar instructivo oficial</a>
+                <a href="assets/class-hub/modelo-portada-seminario-nutricion.docx" download>Descargar modelo de portada</a>
+              </div>
+            </div>
+          </details>
+          <small>La actividad está confirmada. La fecha del jueves 20 se calcula con el horario habitual y permanece por confirmar.</small>
+          <label class="completion-control"><input type="checkbox" id="nutritionPrepDone" /><span>Marcar los 2 PowerPoint y el informe como preparados</span></label>
         </article>
         <article class="assignment-card assignment-estimated" id="microTheoryPrepCard">
           <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Microbiología II teórica</span></div>
@@ -416,7 +436,7 @@
         </aside>
 
         <div class="nutrition-seminar" id="nutrition-seminar">
-          <div><span>CONSIGNA OFICIAL · SEMANA 3</span><h3>Seminario / presentación oral</h3><p>Son dos presentaciones diferentes. Elige tu grupo para obtener directamente el título exacto de la Presentación 1 y de la Presentación 2.</p></div>
+          <div class="seminar-heading"><span>CONSIGNA OFICIAL · SEMANA 3</span><h3>Seminario / presentación oral</h3><p>La actividad tiene tres entregables: dos PowerPoint independientes y un informe breve para firma y sello. Elige tu grupo para mostrar los dos temas exactos.</p></div>
           <div class="nutrition-group-picker nutrition-group-picker-full">
             <label for="nutritionGroupCourseSelect"><span>GRUPO DE NUTRICIÓN</span><strong>Mostrar mis dos temas</strong></label>
             <select id="nutritionGroupCourseSelect" data-nutrition-group-select>
@@ -427,12 +447,80 @@
             <div class="nutrition-group-output" data-nutrition-group-output aria-live="polite"><p>Selecciona del Grupo 1 al Grupo 6 para mostrar tus dos temas.</p></div>
           </div>
           <div class="seminar-rules" aria-label="Reglas oficiales del seminario">
-            <article><span>DURACIÓN</span><strong>5 minutos</strong><small>Tiempo máximo por grupo.</small></article>
-            <article><span>RECURSOS</span><strong>4 diapositivas</strong><small>Máximo por grupo.</small></article>
-            <article><span>ENTREGA</span><strong>Plataforma</strong><small>PPT, PDF o Canva.</small></article>
-            <article><span>EVALUACIÓN</span><strong>Claridad y dominio</strong><small>Contenido, organización, apoyo visual, participación y respeto del tiempo.</small></article>
+            <article><span>ENTREGABLES</span><strong>2 PPT + 1 informe</strong><small>Tres archivos o documentos claramente separados.</small></article>
+            <article><span>DIAPOSITIVAS</span><strong>Hasta 4 por PPT</strong><small>El límite sugerido se aplica a cada PowerPoint.</small></article>
+            <article><span>DURACIÓN</span><strong>Hasta 5 minutos</strong><small>Exposición breve por grupo, según la organización de clase.</small></article>
+            <article><span>COMIDA</span><strong>Opcional</strong><small>Puede sustituirse por imágenes claras; no es necesario gastar de más.</small></article>
           </div>
-          <ul class="seminar-checklist"><li>Cada grupo elige un tema de la lista correspondiente a cada presentación.</li><li>Puede haber varios grupos con el mismo tema si la cantidad de alumnos lo requiere.</li><li>El mismo grupo elige un tema de Guías Alimentarias y un tema de Regiones/Platos, salvo que la clase se divida en dos mitades según lo acordado.</li><li><strong>Importante:</strong> no es necesario relacionar las Guías Alimentarias con los platos típicos o las regiones en una misma exposición.</li></ul>
+
+          <div class="seminar-delivery-route" aria-label="Ruta de los tres entregables">
+            <article><span>01 · TRABAJO 1</span><strong>Guías Alimentarias</strong><p>PowerPoint independiente con el tema asignado.</p><small>Fuente Paraguay: Drive de la clase → Bibliografía → carpeta INAN.</small></article>
+            <article><span>02 · TRABAJO 2</span><strong>Platos típicos / regiones</strong><p>Segundo PowerPoint independiente con investigación del grupo.</p><small>Incluir contexto cultural y un análisis nutricional breve.</small></article>
+            <article><span>03 · CONSTANCIA</span><strong>Informe breve</strong><p>Portada, integrantes, desarrollo de ambos trabajos y bibliografía.</p><small>Presentarlo para firma y sello; podrá subirse a la plataforma.</small></article>
+          </div>
+
+          <div class="seminar-source-actions" aria-label="Descargas oficiales del seminario">
+            <div><span>DOCUMENTOS DE LA DOCENTE</span><strong>Usa los archivos oficiales para preparar y entregar</strong></div>
+            <a href="assets/class-hub/instructivo-presentacion-oral-semana-3.docx" download>Instructivo oficial · Word</a>
+            <a href="assets/class-hub/modelo-portada-seminario-nutricion.docx" download>Modelo de portada · Word</a>
+          </div>
+
+          <div class="seminar-accordion-stack">
+            <details class="seminar-accordion" open>
+              <summary><span><b>01</b><strong>Qué debe contener cada trabajo</strong><small>Guía práctica para no olvidar ningún apartado</small></span></summary>
+              <div class="seminar-accordion-body seminar-content-grid">
+                <article>
+                  <span>TRABAJO 1 · GUÍAS ALIMENTARIAS</span>
+                  <h4>Explicar el mensaje y su aplicación</h4>
+                  <ul><li>Tema asignado.</li><li>Objetivo o mensaje principal.</li><li>Público al que va dirigido.</li><li>Puntos más importantes.</li><li>Ejemplos o aplicaciones prácticas.</li><li>Fuente principal: Bibliografía → INAN.</li></ul>
+                </article>
+                <article>
+                  <span>TRABAJO 2 · PLATOS / REGIONES</span>
+                  <h4>Relacionar cultura y nutrición</h4>
+                  <ul><li>Región o plato asignado.</li><li>Contexto cultural o tradicional.</li><li>Ingredientes y preparación general.</li><li>Importancia cultural.</li><li>Imagen o plato preparado, si es posible.</li><li>Análisis nutricional breve y conclusión.</li></ul>
+                </article>
+              </div>
+            </details>
+
+            <details class="seminar-accordion">
+              <summary><span><b>02</b><strong>Informe para firma y sello</strong><small>La constancia que debe conservar el grupo</small></span></summary>
+              <div class="seminar-accordion-body seminar-report-layout">
+                <div>
+                  <span>ESTRUCTURA OBLIGATORIA</span>
+                  <h4>Un informe corto que reúna los dos trabajos</h4>
+                  <ol><li>Portada institucional.</li><li>Desarrollo breve del Trabajo 1.</li><li>Desarrollo breve del Trabajo 2.</li><li>Bibliografía o fuentes consultadas.</li></ol>
+                </div>
+                <aside>
+                  <strong>La portada debe incluir</strong>
+                  <ul><li>Universidad, carrera y materia.</li><li>Sección, grupo y fecha.</li><li>Títulos de los dos trabajos.</li><li>Nombres y matrícula/código de los integrantes.</li><li>Docente: Lic. Johana Belén Leguizamón Vera.</li></ul>
+                  <p><b>Final:</b> entregar impreso o digital para la firma y el sello de la docente. Ese documento sirve como constancia y podrá utilizarse en la plataforma.</p>
+                </aside>
+              </div>
+            </details>
+
+            <details class="seminar-accordion">
+              <summary><span><b>03</b><strong>Rúbrica de calificación · 5 puntos</strong><small>Cinco criterios de 1 punto cada uno</small></span></summary>
+              <div class="seminar-accordion-body">
+                <div class="seminar-rubric-grid">
+                  <article><span>1 PUNTO</span><strong>Investigación bibliográfica</strong><small>Fuentes científicas u oficiales, actuales y pertinentes.</small></article>
+                  <article><span>1 PUNTO</span><strong>Informe escrito</strong><small>Organización, coherencia, redacción, ortografía y presentación.</small></article>
+                  <article><span>1 PUNTO</span><strong>Exposición oral</strong><small>Dominio, claridad, seguridad y participación equilibrada.</small></article>
+                  <article><span>1 PUNTO</span><strong>Plato o apoyo visual</strong><small>Representatividad, organización e higiene/estética.</small></article>
+                  <article><span>1 PUNTO</span><strong>Análisis y conclusión</strong><small>Explicación nutricional breve, correcta y fundamentada.</small></article>
+                </div>
+                <p class="seminar-score-scale"><strong>Escala:</strong> 4,50–5 excelente · 4,00–4,49 muy bueno · 3,00–3,99 bueno · 2,00–2,99 regular · menos de 2 insuficiente.</p>
+              </div>
+            </details>
+
+            <details class="seminar-accordion">
+              <summary><span><b>04</b><strong>Organización y presentación</strong><small>Cómo repartir el trabajo sin perder puntos</small></span></summary>
+              <div class="seminar-accordion-body seminar-organization-grid">
+                <article><span>GRUPO</span><strong>Mismo grupo o división interna</strong><p>El grupo puede mantener a los mismos integrantes para ambos trabajos o repartirse internamente. Todos los temas deben presentarse y todos los integrantes deben participar de alguna forma.</p></article>
+                <article><span>POWERPOINT</span><strong>Breve, visual y entendible</strong><p>Usar palabras clave, imágenes claras y poco texto. No leer párrafos largos. Se evalúa la explicación, no la cantidad de diapositivas.</p></article>
+                <article><span>IMPORTANTE</span><strong>Los trabajos son independientes</strong><p>No es necesario relacionar las Guías Alimentarias con los platos típicos o las regiones en una misma exposición.</p></article>
+              </div>
+            </details>
+          </div>
         </div>
 
         <div class="reference-links" aria-label="Fuentes de verificación de Nutrición">
@@ -1011,12 +1099,12 @@
     <section id="plan-estudio" class="content-section plan-section" data-view="plan" aria-labelledby="plan-title" hidden>
       <div class="section-heading">
         <div><p class="section-kicker">Antes del jueves 20 · fecha estimada</p><h2 id="plan-title">Plan del seminario</h2></div>
-        <div class="plan-progress" aria-label="Progreso del plan"><strong id="planCount">0/4</strong><span><i id="planProgressBar"></i></span></div>
+        <div class="plan-progress" aria-label="Progreso del plan"><strong id="planCount">0/6</strong><span><i id="planProgressBar"></i></span></div>
       </div>
       <div class="plan-seminar-brief">
         <figure class="plan-seminar-photo">
           <img src="assets/class-hub/nutrition-variety-v415.webp" width="1280" height="853" loading="lazy" decoding="async" alt="Alimentos variados organizados para ilustrar el seminario de Nutrición." />
-          <figcaption><span>SEMINARIO · SEMANA 3</span><strong>Dos presentaciones diferentes</strong><small>Guías Alimentarias + Regiones y Platos</small></figcaption>
+          <figcaption><span>SEMINARIO · SEMANA 3</span><strong>2 PowerPoint + 1 informe</strong><small>Guías Alimentarias · Regiones y Platos · Constancia firmada</small></figcaption>
         </figure>
         <div class="plan-group-card">
           <span>GRUPO Y TEMAS</span>
@@ -1033,11 +1121,23 @@
           </div>
         </div>
       </div>
+      <div class="plan-deliverables" aria-label="Entregables del plan">
+        <article><span>01</span><div><strong>PowerPoint · Trabajo 1</strong><small>Guías Alimentarias · hasta 4 diapositivas.</small></div></article>
+        <article><span>02</span><div><strong>PowerPoint · Trabajo 2</strong><small>Platos típicos / regiones · hasta 4 diapositivas.</small></div></article>
+        <article><span>03</span><div><strong>Informe breve</strong><small>Portada, 2 desarrollos, bibliografía, firma y sello.</small></div></article>
+      </div>
       <div class="study-checklist" id="studyChecklist">
         <label><input type="checkbox" value="nutrition-group" /><span><strong>Grupo y temas confirmados</strong><small>Este paso se completa automáticamente al seleccionar un grupo.</small></span></label>
-        <label><input type="checkbox" value="nutrition-content" /><span><strong>Preparar ambos contenidos</strong><small>Desarrollar Guías Alimentarias y Regiones/Platos como presentaciones diferentes.</small></span></label>
-        <label><input type="checkbox" value="nutrition-slides" /><span><strong>Preparar hasta 4 diapositivas</strong><small>Máximo por grupo, con contenido claro, organizado y apoyo visual.</small></span></label>
-        <label><input type="checkbox" value="nutrition-rehearsal" /><span><strong>Ensayar y subir a la plataforma</strong><small>Máximo 5 minutos por grupo; entregar en PPT, PDF o Canva.</small></span></label>
+        <label><input type="checkbox" value="nutrition-work-1" /><span><strong>Desarrollar el Trabajo 1</strong><small>Objetivo, público, puntos clave, ejemplos y fuente INAN cuando corresponda.</small></span></label>
+        <label><input type="checkbox" value="nutrition-work-2" /><span><strong>Desarrollar el Trabajo 2</strong><small>Contexto, ingredientes, preparación, importancia cultural, análisis y conclusión.</small></span></label>
+        <label><input type="checkbox" value="nutrition-powerpoints" /><span><strong>Crear los 2 PowerPoint</strong><small>Dos archivos independientes; hasta 4 diapositivas por cada uno, poco texto e imágenes claras.</small></span></label>
+        <label><input type="checkbox" value="nutrition-report" /><span><strong>Completar el informe</strong><small>Portada, integrantes, ambos desarrollos y bibliografía; preparar para firma y sello.</small></span></label>
+        <label><input type="checkbox" value="nutrition-rehearsal" /><span><strong>Ensayar y revisar la entrega</strong><small>Aproximadamente hasta 5 minutos; comprobar archivos, participación y apoyo visual.</small></span></label>
+      </div>
+      <div class="plan-official-files">
+        <div><span>ARCHIVOS LISTOS</span><strong>Descarga la base oficial antes de empezar</strong></div>
+        <a href="assets/class-hub/instructivo-presentacion-oral-semana-3.docx" download>Instructivo</a>
+        <a href="assets/class-hub/modelo-portada-seminario-nutricion.docx" download>Modelo de portada</a>
       </div>
     </section>
 
@@ -1073,6 +1173,6 @@
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=403"></script>
   <script src="grupo-3-practice-v413.js?v=414"></script>
-  <script src="grupo-3-v401.js?v=415"></script>
+  <script src="grupo-3-v401.js?v=416"></script>
 </body>
 </html>
