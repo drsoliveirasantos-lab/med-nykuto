@@ -1,4 +1,4 @@
-/* v403 — Persistent semester switcher shared across Med Nykuto. */
+/* v404 — Persistent semester switcher shared across Med Nykuto. */
 (function () {
   'use strict';
 
@@ -25,7 +25,7 @@
       '.semester-switcher-v402 select:focus-visible{outline:3px solid rgba(113,218,255,.28);outline-offset:2px;border-color:#71daff}',
       '.semester-switcher-v402[data-semester="4"]{border-color:rgba(114,224,171,.28)}',
       '.semester-switcher-v402[data-semester="4"] select{border-color:rgba(114,224,171,.35)}',
-      '@media(max-width:680px){.semester-switcher-v402{left:10px;bottom:max(10px,env(safe-area-inset-bottom));min-height:48px;padding:5px 6px 5px 11px;border-radius:15px}.semester-switcher-v402>span strong{font-size:.56rem}.semester-switcher-v402>span small{font-size:.66rem}.semester-switcher-v402 select{min-width:112px;min-height:40px;padding-left:9px;font-size:.73rem}body.has-class-bottom-nav-v402 .semester-switcher-v402{bottom:82px}}',
+      '@media(max-width:680px){.semester-switcher-v402{left:auto;right:max(8px,env(safe-area-inset-right));bottom:max(8px,env(safe-area-inset-bottom));grid-template-columns:1fr;min-height:42px;padding:4px;border-radius:14px}.semester-switcher-v402>span{display:none}.semester-switcher-v402 select{width:124px;min-width:0;min-height:38px;padding:0 28px 0 9px;font-size:.72rem}body.has-class-bottom-nav-v402 .semester-switcher-v402{bottom:72px}}',
       '@media(max-width:370px){.semester-switcher-v402>span{display:none}.semester-switcher-v402{grid-template-columns:1fr;padding-left:6px}.semester-switcher-v402 select{min-width:126px}}',
       '@media print{.semester-switcher-v402{display:none!important}}'
     ].join('\n');
