@@ -22,7 +22,7 @@ async function dismissSemesterPicker(page) {
   const modal = page.locator('#homeSemesterModal.open');
   const opened = await modal.waitFor({ state: 'visible', timeout: 1500 }).then(() => true).catch(() => false);
   if (!opened) return;
-  await modal.locator('[data-semester-close]').click();
+  await modal.locator('[data-semester-select="s4"]').click();
   await expect(modal).toBeHidden({ timeout: 5000 });
 }
 
