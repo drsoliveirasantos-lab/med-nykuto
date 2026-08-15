@@ -1308,6 +1308,7 @@ img{display:block;max-width:100%}
   .dashboard-next{min-height:130px;padding:12px}
   .dashboard-next h2{font-size:1.4rem}
   .dashboard-next>strong{font-size:.83rem}
+  .dashboard-next>small{display:none}
   .dashboard-next>a{font-size:.7rem}
   .dashboard-status{padding:9px 10px}
   .dashboard-priorities{gap:6px;margin-top:6px}
