@@ -38,7 +38,7 @@
         var nav = document.getElementById('navLinks') || document.querySelector('.nav-links');
         if(!nav) return;
         event.preventDefault();
-        event.stopPropagation();
+        // This handler is the mobile source of truth. Stop the legacy\n        // app.bundle listener on the same button from toggling the menu a\n        // second time and immediately closing it again (notably in WebKit).\n        event.stopImmediatePropagation();
         var open = !nav.classList.contains('open');
         nav.classList.toggle('open', open);
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
