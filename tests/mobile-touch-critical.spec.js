@@ -125,7 +125,8 @@ test.describe('Mobile critical paths', () => {
     });
     expect(dashboard.height).toBeLessThan(720);
     expect(dashboard.titleSize).toBeLessThan(32);
-    expect(dashboard.navHeight).toBeLessThanOrEqual(52);
+    expect(dashboard.navHeight).toBeGreaterThanOrEqual(56);
+    expect(dashboard.navHeight).toBeLessThanOrEqual(62);
     expect(dashboard.overflow).toBeLessThanOrEqual(1);
 
     await page.goto('/clase.html#materias', { waitUntil: 'domcontentloaded' });
@@ -162,6 +163,45 @@ test.describe('Mobile critical paths', () => {
     expect(course.countTops).toBe(1);
     expect(course.countMaxHeight).toBeLessThan(48);
     expect(course.overflow).toBeLessThanOrEqual(1);
+
+    const map = await page.evaluate(() => {
+      const list = document.querySelector('#nutricion .study-map');
+      const rows = Array.from(list.querySelectorAll(':scope > li'));
+      const summaries = rows.map(row => row.querySelector('summary').getBoundingClientRect());
+      const nav = document.querySelector('.mobile-bottom-nav').getBoundingClientRect();
+      const navItems = Array.from(document.querySelectorAll('.mobile-bottom-nav a')).map(item => item.getBoundingClientRect());
+      const navIcon = document.querySelector('.mobile-bottom-nav .nav-icon svg').getBoundingClientRect();
+      return {
+        rowCount:rows.length,
+        maxClosedRowHeight:Math.max(...rows.map(row => row.getBoundingClientRect().height)),
+        maxSummaryHeight:Math.max(...summaries.map(summary => summary.height)),
+        listHeight:list.getBoundingClientRect().height,
+        navHeight:nav.height,
+        navItemMinHeight:Math.min(...navItems.map(item => item.height)),
+        navIconWidth:navIcon.width,
+        bodyBottomPadding:parseFloat(getComputedStyle(document.body).paddingBottom),
+        overflow:document.documentElement.scrollWidth - document.documentElement.clientWidth
+      };
+    });
+    expect(map.rowCount).toBeGreaterThanOrEqual(5);
+    expect(map.maxClosedRowHeight).toBeLessThan(80);
+    expect(map.maxSummaryHeight).toBeLessThan(80);
+    expect(map.listHeight).toBeLessThan(460);
+    expect(map.navHeight).toBeGreaterThanOrEqual(56);
+    expect(map.navItemMinHeight).toBeGreaterThanOrEqual(56);
+    expect(map.navIconWidth).toBeGreaterThanOrEqual(19);
+    expect(map.bodyBottomPadding).toBeGreaterThanOrEqual(map.navHeight + 12);
+    expect(map.overflow).toBeLessThanOrEqual(1);
+
+    const firstMapAnswer = page.locator('#nutricion .study-map .preview-answer-disclosure').first();
+    const closedHeight = await firstMapAnswer.evaluate(node => node.parentElement.getBoundingClientRect().height);
+    await firstMapAnswer.locator(':scope > summary').click();
+    await expect(firstMapAnswer).toHaveAttribute('open', '');
+    await expect(firstMapAnswer.locator('.preview-answer-inline')).toBeVisible();
+    const openHeight = await firstMapAnswer.evaluate(node => node.parentElement.getBoundingClientRect().height);
+    expect(openHeight).toBeGreaterThan(closedHeight);
+    await firstMapAnswer.locator(':scope > summary').click();
+    await expect(firstMapAnswer).not.toHaveAttribute('open', '');
 
     await page.goto('/clase.html#plan-estudio', { waitUntil: 'domcontentloaded' });
     const plan = await page.evaluate(() => {
