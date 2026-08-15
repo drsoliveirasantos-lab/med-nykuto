@@ -162,6 +162,25 @@ expect((html.match(/assets\/class-hub\/previews\/modelo-portada\/page-/g) || [])
 expect(runtime.includes('function prepareSeminarDocumentPreview()'), 'The same-page document preview runtime is missing.');
 expect(runtime.includes("dialog.showModal()"), 'The seminar preview is not opened as a native dialog.');
 expect(css.includes('.seminar-document-dialog'), 'The document dialog styling is missing.');
+expect(html.includes('id="bioBoardArchive"'), 'The Bioquímica board archive dialog is missing.');
+expect((html.match(/data-board-archive-slide=/g) || []).length === 7, 'The board archive must expose exactly seven ordered slides.');
+expect(runtime.includes('function prepareBoardArchive()'), 'The board archive runtime is missing.');
+expect(runtime.includes("imageFrame.addEventListener('touchend'"), 'The board archive swipe navigation is missing.');
+expect(css.includes('.board-archive-dialog'), 'The board archive dialog styling is missing.');
+expect(css.includes('.board-archive-thumbnails'), 'The board archive thumbnail navigation styling is missing.');
+expect(i18n.includes("'Ver las 7 láminas':'Ver as 7 lâminas'"), 'The Portuguese board archive call to action is missing.');
+expect(i18n.includes("'Cerrar archivo de la pizarra':'Fechar arquivo da lousa'"), 'The Portuguese board archive close label is missing.');
+[
+  '01-mapa-general.svg',
+  '02-fase-preparatoria-1-3.svg',
+  '03-fase-preparatoria-4-5.svg',
+  '04-fase-beneficio-6-10.svg',
+  '05-balance-final.svg',
+  '06-regulacion-hexo-glucoquinasa.svg',
+  '07-regulacion-pfk1-piruvato-quinasa.svg'
+].forEach((file) => {
+  expect(fs.existsSync(path.join(root, 'assets', 'class-hub', 'board-archive', 'bioquimica-2026-08-14', file)), `The board archive asset ${file} is missing.`);
+});
 expect(html.includes('<strong>Materias</strong>'), 'The visible class navigation is not labeled Materias.');
 expect(!html.includes('<strong>Cursos</strong>'), 'The obsolete visible Cursos navigation label remains.');
 expect(css.includes('.course-selector{grid-template-columns:1fr 1fr;gap:6px}'), 'The two-column iPhone subject library is missing.');

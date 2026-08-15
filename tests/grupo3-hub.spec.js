@@ -202,6 +202,37 @@ test.describe('Class hub', () => {
     await expect(page.getByText('Bioquímica · 3 clases')).toBeVisible();
   });
 
+  test('opens the reconstructed glycolysis board archive in its teaching order', async ({ page }) => {
+    await page.goto('/clase.html#bioquimica');
+    const openArchive = page.getByRole('button', { name: /Ver las 7 láminas/ });
+    await expect(openArchive).toBeVisible();
+    await openArchive.click();
+
+    const dialog = page.locator('#bioBoardArchive');
+    await expect(dialog).toBeVisible();
+    await expect(dialog.locator('[data-board-archive-slide]')).toHaveCount(7);
+    await expect(page.locator('#boardArchiveCounter')).toHaveText('LÁMINA 1 DE 7');
+    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /01-mapa-general\.svg$/);
+    await expect(page.locator('#boardArchiveSlideTitle')).toHaveText('Mapa general');
+    await expect(dialog.locator('[data-board-archive-previous]')).toBeDisabled();
+
+    await dialog.locator('[data-board-archive-next]').click();
+    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /02-fase-preparatoria-1-3\.svg$/);
+    await expect(page.locator('#boardArchiveCounter')).toHaveText('LÁMINA 2 DE 7');
+
+    await dialog.locator('[data-board-archive-slide="6"]').click();
+    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /07-regulacion-pfk1-piruvato-quinasa\.svg$/);
+    await expect(dialog.locator('[data-board-archive-next]')).toBeDisabled();
+    await dialog.press('Home');
+    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /01-mapa-general\.svg$/);
+    await dialog.press('ArrowRight');
+    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /02-fase-preparatoria-1-3\.svg$/);
+
+    await dialog.press('Escape');
+    await expect(dialog).toBeHidden();
+    await expect(openArchive).toBeFocused();
+  });
+
   test('opens the 10 and 13 August Physiology lessons independently', async ({ page }) => {
     await page.goto('/clase.html#fisiologia-2026-08-13');
     await expect(page.locator('#fisio-title')).toHaveText('Control nervioso y químico de la respiración');

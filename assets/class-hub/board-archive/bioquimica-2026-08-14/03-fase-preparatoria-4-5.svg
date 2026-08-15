@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Fase preparatoria, reacciones 4 y 5</title>
+  <desc id="desc">División de la fructosa 1,6-bisfosfato y formación de dos moléculas de gliceraldehído 3-fosfato.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#142b44"/><stop offset="1" stop-color="#07111f"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#f2c66d"/><stop offset="1" stop-color="#6fd8ff"/></linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#8eb6d8" stroke-opacity=".055"/></pattern>
+    <style><![CDATA[
+      text{font-family:Inter,Arial,sans-serif}.k{fill:#ffe2a3;font-size:23px;font-weight:800;letter-spacing:5px}.page{fill:#6fd8ff;font-size:22px;font-weight:800}.h1{fill:#f7f9fc;font-size:65px;font-weight:800;letter-spacing:-2px}.sub{fill:#aebbd0;font-size:29px}.label{fill:#6fd8ff;font-size:22px;font-weight:800;letter-spacing:3px}.mol{fill:#f7f9fc;font-size:32px;font-weight:800}.meta{fill:#aebbd0;font-size:24px}.step{fill:#07111f;font-size:28px;font-weight:900}.big{fill:#f7f9fc;font-size:48px;font-weight:900}.small{fill:#ced7e5;font-size:26px}.dark{fill:#07111f;font-size:31px;font-weight:900}
+    ]]></style>
+  </defs>
+  <rect width="1080" height="1350" rx="50" fill="url(#bg)"/><rect width="1080" height="1350" rx="50" fill="url(#grid)"/>
+  <circle cx="40" cy="1280" r="230" fill="#72e0ab" opacity=".05"/>
+  <g transform="translate(72 70)">
+    <text class="k" y="26">ARCHIVO DE LA PIZARRA</text><text class="page" x="936" y="26" text-anchor="end">03 / 07</text><rect y="55" width="936" height="3" rx="2" fill="url(#accent)"/>
+    <text class="h1" y="146">Fase preparatoria II</text><text class="sub" y="196">Reacciones 4–5 · una hexosa se divide en dos triosas</text>
+
+    <g transform="translate(0 254)">
+      <rect width="936" height="660" rx="38" fill="#0a192a" stroke="#c5d7ef" stroke-opacity=".18"/>
+      <circle cx="64" cy="65" r="31" fill="#f2c66d"/><text class="step" x="64" y="75" text-anchor="middle">4</text>
+      <text class="label" x="112" y="57">ALDOLASA · RUPTURA DEL ENLACE C–C</text>
+      <g transform="translate(233 102)">
+        <rect width="470" height="114" rx="27" fill="#142c45" stroke="#f2c66d" stroke-opacity=".38"/>
+        <text class="mol" x="235" y="52" text-anchor="middle">Fructosa-1,6-bisfosfato</text><text class="meta" x="235" y="87" text-anchor="middle">6 carbonos</text>
+      </g>
+      <path d="M468 225v75M468 300 242 392M468 300l226 92" fill="none" stroke="#ffe2a3" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <g transform="translate(38 390)">
+        <rect width="390" height="132" rx="28" fill="#10253c" stroke="#6fd8ff" stroke-opacity=".28"/>
+        <text class="mol" x="195" y="54" text-anchor="middle">DHAP</text><text class="meta" x="195" y="89" text-anchor="middle">dihidroxiacetona fosfato · 3 C</text>
+      </g>
+      <g transform="translate(508 390)">
+        <rect width="390" height="132" rx="28" fill="#10253c" stroke="#72e0ab" stroke-opacity=".32"/>
+        <text class="mol" x="195" y="54" text-anchor="middle">G3P</text><text class="meta" x="195" y="89" text-anchor="middle">gliceraldehído-3-fosfato · 3 C</text>
+      </g>
+      <path d="M232 540v54h450v-54" fill="none" stroke="#6fd8ff" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="64" cy="594" r="31" fill="#6fd8ff"/><text class="step" x="64" y="604" text-anchor="middle">5</text>
+      <text class="label" x="112" y="603">TRIOSA FOSFATO ISOMERASA</text>
+      <path d="M412 590h130" stroke="#6fd8ff" stroke-width="5" stroke-linecap="round"/><path d="m528 576 18 14-18 14" fill="none" stroke="#6fd8ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <g transform="translate(0 944)">
+      <rect width="936" height="160" rx="32" fill="#112a42" stroke="#72e0ab" stroke-opacity=".38"/>
+      <text class="label" x="468" y="45" text-anchor="middle" fill="#72e0ab">RESULTADO DE LA FASE PREPARATORIA</text>
+      <text class="big" x="468" y="104" text-anchor="middle">2 moléculas de G3P</text>
+      <text class="meta" x="468" y="137" text-anchor="middle">A partir de aquí, cada reacción ocurre dos veces.</text>
+    </g>
+    <g transform="translate(0 1135)">
+      <rect width="936" height="104" rx="28" fill="url(#accent)"/>
+      <text class="dark" x="468" y="64" text-anchor="middle">GLUCOSA ACTIVADA Y DIVIDIDA · LISTA PARA PRODUCIR ENERGÍA</text>
+    </g>
+  </g>
+</svg>

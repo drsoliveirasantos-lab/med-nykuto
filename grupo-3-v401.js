@@ -1009,6 +1009,101 @@
     dialog.addEventListener('cancel',function(){document.body.classList.remove('is-document-preview-open');});
   }
 
+  function prepareBoardArchive(){
+    var dialog = document.getElementById('bioBoardArchive');
+    var openButton = document.querySelector('[data-board-archive-open]');
+    if(!dialog || !openButton) return;
+    var thumbnails = Array.from(dialog.querySelectorAll('[data-board-archive-slide]'));
+    var image = document.getElementById('boardArchiveImage');
+    var title = document.getElementById('boardArchiveSlideTitle');
+    var description = document.getElementById('boardArchiveSlideDescription');
+    var counter = document.getElementById('boardArchiveCounter');
+    var current = dialog.querySelector('[data-board-archive-current]');
+    var previous = dialog.querySelector('[data-board-archive-previous]');
+    var next = dialog.querySelector('[data-board-archive-next]');
+    var closeButton = dialog.querySelector('[data-board-archive-close]');
+    var imageFrame = dialog.querySelector('.board-archive-image-frame');
+    var activeIndex = 0;
+    var returnFocus = null;
+    var touchStart = null;
+
+    function language(){
+      return window.MedNykutoClassI18n && window.MedNykutoClassI18n.getLang ? window.MedNykutoClassI18n.getLang() : 'es';
+    }
+
+    function selectSlide(index,moveFocus){
+      if(!thumbnails.length) return;
+      activeIndex = Math.max(0,Math.min(index,thumbnails.length - 1));
+      var selected = thumbnails[activeIndex];
+      var preview = selected.querySelector('img');
+      var selectedTitle = selected.querySelector('strong');
+      var selectedDescription = selected.querySelector('small');
+      thumbnails.forEach(function(button,itemIndex){button.setAttribute('aria-pressed',itemIndex === activeIndex ? 'true' : 'false');});
+      if(image && preview){
+        image.src = preview.getAttribute('src');
+        image.alt = selected.getAttribute('aria-label') || '';
+      }
+      if(title && selectedTitle) title.textContent = selectedTitle.textContent;
+      if(description && selectedDescription) description.textContent = selectedDescription.textContent;
+      if(counter) counter.textContent = (language() === 'br' ? 'LÂMINA ' : 'LÁMINA ') + (activeIndex + 1) + (language() === 'br' ? ' DE ' : ' DE ') + thumbnails.length;
+      if(current) current.textContent = String(activeIndex + 1);
+      if(previous) previous.disabled = activeIndex === 0;
+      if(next) next.disabled = activeIndex === thumbnails.length - 1;
+      if(moveFocus) selected.focus({preventScroll:true});
+      if(dialog.open || dialog.hasAttribute('open')) selected.scrollIntoView({block:'nearest',inline:'nearest'});
+    }
+
+    function closeArchive(){
+      if(typeof dialog.close === 'function' && dialog.open) dialog.close();
+      else{
+        dialog.removeAttribute('open');
+        document.body.classList.remove('is-board-archive-open');
+        if(returnFocus) returnFocus.focus();
+      }
+    }
+
+    openButton.addEventListener('click',function(){
+      returnFocus = openButton;
+      selectSlide(0,false);
+      document.body.classList.add('is-board-archive-open');
+      if(typeof dialog.showModal === 'function') dialog.showModal();
+      else dialog.setAttribute('open','');
+      window.requestAnimationFrame(function(){if(closeButton) closeButton.focus();});
+    });
+    thumbnails.forEach(function(button,index){button.addEventListener('click',function(){selectSlide(index,false);});});
+    if(previous) previous.addEventListener('click',function(){selectSlide(activeIndex - 1,false);});
+    if(next) next.addEventListener('click',function(){selectSlide(activeIndex + 1,false);});
+    if(closeButton) closeButton.addEventListener('click',closeArchive);
+    dialog.addEventListener('click',function(event){if(event.target === dialog) closeArchive();});
+    dialog.addEventListener('keydown',function(event){
+      if(event.key === 'ArrowLeft'){event.preventDefault();selectSlide(activeIndex - 1,true);}
+      if(event.key === 'ArrowRight'){event.preventDefault();selectSlide(activeIndex + 1,true);}
+      if(event.key === 'Home'){event.preventDefault();selectSlide(0,true);}
+      if(event.key === 'End'){event.preventDefault();selectSlide(thumbnails.length - 1,true);}
+    });
+    if(imageFrame){
+      imageFrame.addEventListener('touchstart',function(event){
+        var touch = event.changedTouches && event.changedTouches[0];
+        touchStart = touch ? {x:touch.clientX,y:touch.clientY} : null;
+      },{passive:true});
+      imageFrame.addEventListener('touchend',function(event){
+        var touch = event.changedTouches && event.changedTouches[0];
+        if(!touchStart || !touch) return;
+        var deltaX = touch.clientX - touchStart.x;
+        var deltaY = touch.clientY - touchStart.y;
+        touchStart = null;
+        if(Math.abs(deltaX) < 45 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+        selectSlide(deltaX < 0 ? activeIndex + 1 : activeIndex - 1,false);
+      },{passive:true});
+    }
+    dialog.addEventListener('close',function(){
+      document.body.classList.remove('is-board-archive-open');
+      if(returnFocus) returnFocus.focus();
+    });
+    dialog.addEventListener('cancel',function(){document.body.classList.remove('is-board-archive-open');});
+    selectSlide(0,false);
+  }
+
   var courseIds = ['nutricion','fisiologia','bioquimica','epidemiologia','microbiologia-teorica','microbiologia-practica'];
   var activeCourseId = 'nutricion';
   var activeLessonByCourse = {fisiologia:'fisiologia-2026-08-13'};
@@ -1168,6 +1263,7 @@
     prepareCurrentAssignments();
     prepareMobileTables();
     prepareSeminarDocumentPreview();
+    prepareBoardArchive();
     setUpdatedDate();
 
     document.querySelectorAll('[data-detail-toggle]').forEach(function(button){

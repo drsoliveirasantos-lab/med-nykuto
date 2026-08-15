@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Fase de beneficio, reacciones 6 a 10</title>
+  <desc id="desc">Las cinco reacciones finales de la glucólisis, que forman ATP, NADH y piruvato.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#112b43"/><stop offset="1" stop-color="#07111f"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#72e0ab"/><stop offset=".52" stop-color="#6fd8ff"/><stop offset="1" stop-color="#f2c66d"/></linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#8eb6d8" stroke-opacity=".055"/></pattern>
+    <style><![CDATA[
+      text{font-family:Inter,Arial,sans-serif}.k{fill:#ffe2a3;font-size:23px;font-weight:800;letter-spacing:5px}.page{fill:#6fd8ff;font-size:22px;font-weight:800}.h1{fill:#f7f9fc;font-size:67px;font-weight:800;letter-spacing:-2px}.sub{fill:#aebbd0;font-size:29px}.num{fill:#07111f;font-size:25px;font-weight:900}.enzyme{fill:#6fd8ff;font-size:20px;font-weight:850;letter-spacing:1.6px}.rx{fill:#f7f9fc;font-size:27px;font-weight:800}.meta{fill:#aebbd0;font-size:22px}.co{fill:#ffe2a3;font-size:21px;font-weight:800}.balance{fill:#07111f;font-size:30px;font-weight:900}
+    ]]></style>
+  </defs>
+  <rect width="1080" height="1350" rx="50" fill="url(#bg)"/><rect width="1080" height="1350" rx="50" fill="url(#grid)"/>
+  <circle cx="1030" cy="1240" r="270" fill="#72e0ab" opacity=".055"/>
+  <g transform="translate(72 70)">
+    <text class="k" y="26">ARCHIVO DE LA PIZARRA</text><text class="page" x="936" y="26" text-anchor="end">04 / 07</text><rect y="55" width="936" height="3" rx="2" fill="url(#accent)"/>
+    <text class="h1" y="146">Fase de beneficio</text><text class="sub" y="196">Reacciones 6–10 · cada paso ocurre ×2 por cada glucosa</text>
+
+    <g transform="translate(0 244)">
+      <g><rect width="936" height="156" rx="27" fill="#0a1a2b" stroke="#72e0ab" stroke-opacity=".27"/><circle cx="56" cy="51" r="27" fill="#72e0ab"/><text class="num" x="56" y="60" text-anchor="middle">6</text><text class="enzyme" x="100" y="45">G3P DESHIDROGENASA</text><text class="rx" x="38" y="102">G3P + Pi + NAD⁺  →  1,3-BPG + NADH + H⁺</text><text class="meta" x="732" y="133">oxidación · ×2</text></g>
+      <g transform="translate(0 174)"><rect width="936" height="156" rx="27" fill="#0a1a2b" stroke="#f2c66d" stroke-opacity=".27"/><circle cx="56" cy="51" r="27" fill="#f2c66d"/><text class="num" x="56" y="60" text-anchor="middle">7</text><text class="enzyme" x="100" y="45">FOSFOGLICERATO QUINASA</text><text class="rx" x="38" y="102">1,3-BPG + ADP  →  3-PG + ATP</text><text class="meta" x="553" y="133">ATP a nivel de sustrato · ×2</text></g>
+      <g transform="translate(0 348)"><rect width="936" height="142" rx="27" fill="#0a1a2b" stroke="#6fd8ff" stroke-opacity=".25"/><circle cx="56" cy="51" r="27" fill="#6fd8ff"/><text class="num" x="56" y="60" text-anchor="middle">8</text><text class="enzyme" x="100" y="45">FOSFOGLICERATO MUTASA</text><text class="rx" x="38" y="101">3-fosfoglicerato  ⇄  2-fosfoglicerato</text><text class="meta" x="638" y="128">mueve el fosfato</text></g>
+      <g transform="translate(0 508)"><rect width="936" height="142" rx="27" fill="#0a1a2b" stroke="#6fd8ff" stroke-opacity=".25"/><circle cx="56" cy="51" r="27" fill="#6fd8ff"/><text class="num" x="56" y="60" text-anchor="middle">9</text><text class="enzyme" x="100" y="45">ENOLASA</text><text class="rx" x="38" y="101">2-fosfoglicerato  →  PEP + H₂O</text><text class="meta" x="622" y="128">deshidratación</text></g>
+      <g transform="translate(0 668)"><rect width="936" height="156" rx="27" fill="#0a1a2b" stroke="#f2c66d" stroke-opacity=".32"/><circle cx="56" cy="51" r="27" fill="#f2c66d"/><text class="num" x="56" y="60" text-anchor="middle">10</text><text class="enzyme" x="100" y="45">PIRUVATO QUINASA</text><text class="rx" x="38" y="102">PEP + ADP  →  Piruvato + ATP</text><text class="meta" x="543" y="133">irreversible · ATP a nivel de sustrato · ×2</text></g>
+    </g>
+
+    <g transform="translate(0 1100)">
+      <rect width="936" height="116" rx="29" fill="url(#accent)"/>
+      <text class="balance" x="468" y="49" text-anchor="middle">PRODUCCIÓN DE LA FASE</text><text class="balance" x="468" y="86" text-anchor="middle">+4 ATP  ·  +2 NADH  ·  2 PIRUVATOS</text>
+    </g>
+    <text class="co" x="468" y="1260" text-anchor="middle">El factor ×2 comienza porque la fase preparatoria dejó 2 G3P.</text>
+  </g>
+</svg>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Fase preparatoria, reacciones 1 a 3</title>
+  <desc id="desc">Las tres primeras reacciones de la glucólisis y la inversión de dos ATP.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#152c44"/><stop offset="1" stop-color="#07111f"/></linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#f2c66d"/><stop offset="1" stop-color="#6fd8ff"/></linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#8eb6d8" stroke-opacity=".055"/></pattern>
+    <style><![CDATA[
+      text{font-family:Inter,Arial,sans-serif}.k{fill:#ffe2a3;font-size:23px;font-weight:800;letter-spacing:5px}.page{fill:#6fd8ff;font-size:22px;font-weight:800}.h1{fill:#f7f9fc;font-size:65px;font-weight:800;letter-spacing:-2px}.sub{fill:#aebbd0;font-size:29px}.n{fill:#07111f;font-size:28px;font-weight:900}.enzyme{fill:#6fd8ff;font-size:22px;font-weight:800;letter-spacing:2px}.mol{fill:#f7f9fc;font-size:33px;font-weight:800}.meta{fill:#aebbd0;font-size:24px}.tag{fill:#ffe2a3;font-size:21px;font-weight:800}.note{fill:#ced7e5;font-size:25px}.balance{fill:#07111f;font-size:36px;font-weight:900}
+    ]]></style>
+  </defs>
+  <rect width="1080" height="1350" rx="50" fill="url(#bg)"/><rect width="1080" height="1350" rx="50" fill="url(#grid)"/>
+  <circle cx="1020" cy="150" r="250" fill="#f2c66d" opacity=".055"/>
+  <g transform="translate(72 70)">
+    <text class="k" y="26">ARCHIVO DE LA PIZARRA</text><text class="page" x="936" y="26" text-anchor="end">02 / 07</text><rect y="55" width="936" height="3" rx="2" fill="url(#line)"/>
+    <text class="h1" y="146">Fase preparatoria I</text><text class="sub" y="196">Reacciones 1–3 · invertir ATP para activar la glucosa</text>
+
+    <g transform="translate(0 250)">
+      <rect width="936" height="248" rx="32" fill="#0b1b2d" stroke="#f2c66d" stroke-opacity=".3"/>
+      <circle cx="58" cy="58" r="30" fill="#f2c66d"/><text class="n" x="58" y="68" text-anchor="middle">1</text>
+      <text class="enzyme" x="106" y="51">HEXOQUINASA / GLUCOQUINASA</text>
+      <text class="mol" x="54" y="123">Glucosa</text><path d="M255 112h290" stroke="#ffe2a3" stroke-width="5" stroke-linecap="round"/><path d="m531 98 18 14-18 14" fill="none" stroke="#ffe2a3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><text class="mol" x="585" y="123">Glucosa-6-fosfato</text>
+      <g transform="translate(280 145)"><rect width="150" height="50" rx="25" fill="#f2c66d" fill-opacity=".13" stroke="#f2c66d" stroke-opacity=".35"/><text class="tag" x="75" y="33" text-anchor="middle">ATP → ADP</text></g>
+      <text class="meta" x="54" y="218">Irreversible · la glucosa queda atrapada dentro de la célula</text>
+    </g>
+
+    <g transform="translate(0 526)">
+      <rect width="936" height="224" rx="32" fill="#0b1b2d" stroke="#6fd8ff" stroke-opacity=".28"/>
+      <circle cx="58" cy="58" r="30" fill="#6fd8ff"/><text class="n" x="58" y="68" text-anchor="middle">2</text>
+      <text class="enzyme" x="106" y="51">FOSFOGLUCOSA ISOMERASA</text>
+      <text class="mol" x="54" y="127">Glucosa-6-fosfato</text><path d="M388 116h188" stroke="#6fd8ff" stroke-width="5" stroke-linecap="round"/><path d="m562 102 18 14-18 14" fill="none" stroke="#6fd8ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><text class="mol" x="614" y="127">Fructosa-6-fosfato</text>
+      <text class="meta" x="54" y="184">Reversible · reorganiza una aldosa en una cetosa</text>
+    </g>
+
+    <g transform="translate(0 778)">
+      <rect width="936" height="248" rx="32" fill="#0b1b2d" stroke="#f2c66d" stroke-opacity=".3"/>
+      <circle cx="58" cy="58" r="30" fill="#f2c66d"/><text class="n" x="58" y="68" text-anchor="middle">3</text>
+      <text class="enzyme" x="106" y="51">FOSFOFRUCTOQUINASA-1 · PFK-1</text>
+      <text class="mol" x="54" y="123">Fructosa-6-fosfato</text><path d="M380 112h190" stroke="#ffe2a3" stroke-width="5" stroke-linecap="round"/><path d="m556 98 18 14-18 14" fill="none" stroke="#ffe2a3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><text class="mol" x="604" y="123">Fructosa-1,6-BP</text>
+      <g transform="translate(386 145)"><rect width="150" height="50" rx="25" fill="#f2c66d" fill-opacity=".13" stroke="#f2c66d" stroke-opacity=".35"/><text class="tag" x="75" y="33" text-anchor="middle">ATP → ADP</text></g>
+      <text class="meta" x="54" y="218">Irreversible · paso comprometido y principal control de la vía</text>
+    </g>
+
+    <g transform="translate(0 1057)">
+      <rect width="936" height="112" rx="28" fill="url(#line)"/><text class="balance" x="468" y="69" text-anchor="middle">INVERSIÓN ACUMULADA: −2 ATP</text>
+    </g>
+    <g transform="translate(0 1202)"><circle cx="18" cy="16" r="16" fill="#72e0ab" opacity=".2"/><text x="18" y="24" text-anchor="middle" font-family="Inter,Arial" font-size="22" font-weight="900" fill="#72e0ab">✓</text><text class="note" x="52" y="25">Una quinasa transfiere un grupo fosfato; no siempre fabrica ATP.</text></g>
+  </g>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Regulación por PFK-1 y piruvato quinasa</title>
+  <desc id="desc">Activadores e inhibidores de PFK-1 y piruvato quinasa, los principales controles de los pasos 3 y 10.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#132d45"/><stop offset="1" stop-color="#07111f"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#72e0ab"/><stop offset=".5" stop-color="#6fd8ff"/><stop offset="1" stop-color="#f2c66d"/></linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#8eb6d8" stroke-opacity=".055"/></pattern>
+    <style><![CDATA[
+      text{font-family:Inter,Arial,sans-serif}.k{fill:#ffe2a3;font-size:23px;font-weight:800;letter-spacing:5px}.page{fill:#6fd8ff;font-size:22px;font-weight:800}.h1{fill:#f7f9fc;font-size:59px;font-weight:800;letter-spacing:-2px}.sub{fill:#aebbd0;font-size:28px}.label{fill:#6fd8ff;font-size:21px;font-weight:850;letter-spacing:2.5px}.cardh{fill:#f7f9fc;font-size:36px;font-weight:900}.yes{fill:#72e0ab;font-size:24px;font-weight:850}.no{fill:#ff9a9a;font-size:24px;font-weight:850}.body{fill:#ced7e5;font-size:23px}.meta{fill:#aebbd0;font-size:22px}.dark{fill:#07111f;font-size:27px;font-weight:900}
+    ]]></style>
+  </defs>
+  <rect width="1080" height="1350" rx="50" fill="url(#bg)"/><rect width="1080" height="1350" rx="50" fill="url(#grid)"/>
+  <circle cx="50" cy="1240" r="250" fill="#6fd8ff" opacity=".05"/>
+  <g transform="translate(72 70)">
+    <text class="k" y="26">ARCHIVO DE LA PIZARRA</text><text class="page" x="936" y="26" text-anchor="end">07 / 07</text><rect y="55" width="936" height="3" rx="2" fill="url(#accent)"/>
+    <text class="h1" y="142">Puntos de decisión</text><text class="sub" y="191">Dos pasos irreversibles responden al estado energético</text>
+
+    <g transform="translate(0 246)">
+      <rect width="936" height="390" rx="36" fill="#0a1a2b" stroke="#f2c66d" stroke-opacity=".3"/>
+      <text class="label" x="34" y="48">PASO 3 · PRINCIPAL CONTROL DE LA VÍA</text><text class="cardh" x="34" y="102">PFK-1</text><text class="body" x="34" y="143">Fructosa-6-P → fructosa-1,6-bisfosfato</text>
+      <g transform="translate(34 178)"><rect width="410" height="166" rx="28" fill="#102a2b" stroke="#72e0ab" stroke-opacity=".3"/><text class="yes" x="28" y="42">ACELERAN</text><text class="body" x="28" y="82">AMP / ADP</text><text class="body" x="28" y="116">Fructosa-2,6-bisfosfato</text><text class="body" x="28" y="150">Señal de insulina en hígado</text></g>
+      <g transform="translate(482 178)"><rect width="420" height="166" rx="28" fill="#261d29" stroke="#ff9a9a" stroke-opacity=".3"/><text class="no" x="28" y="42">FRENAN</text><text class="body" x="28" y="82">ATP · citrato</text><text class="body" x="28" y="116">H⁺ / pH bajo</text><text class="body" x="28" y="150">Señal de glucagón en hígado</text></g>
+    </g>
+
+    <g transform="translate(0 666)">
+      <rect width="936" height="368" rx="36" fill="#0a1a2b" stroke="#6fd8ff" stroke-opacity=".28"/>
+      <text class="label" x="34" y="48">PASO 10 · SALIDA IRREVERSIBLE</text><text class="cardh" x="34" y="102">Piruvato quinasa</text><text class="body" x="34" y="143">PEP → piruvato + ATP</text>
+      <g transform="translate(34 178)"><rect width="410" height="144" rx="28" fill="#102a2b" stroke="#72e0ab" stroke-opacity=".3"/><text class="yes" x="28" y="42">ACELERAN</text><text class="body" x="28" y="84">Fructosa-1,6-bisfosfato</text><text class="body" x="28" y="118">Desfosforilación hepática</text></g>
+      <g transform="translate(482 178)"><rect width="420" height="144" rx="28" fill="#261d29" stroke="#ff9a9a" stroke-opacity=".3"/><text class="no" x="28" y="42">FRENAN</text><text class="body" x="28" y="84">ATP · alanina</text><text class="body" x="28" y="118">Glucagón / fosforilación hepática</text></g>
+    </g>
+
+    <g transform="translate(0 1066)">
+      <rect width="936" height="170" rx="32" fill="url(#accent)"/>
+      <text class="dark" x="468" y="51" text-anchor="middle">LECTURA RÁPIDA</text>
+      <text class="dark" x="468" y="91" text-anchor="middle">POCA ENERGÍA → LA VÍA ACELERA</text>
+      <text class="dark" x="468" y="132" text-anchor="middle">ENERGÍA ABUNDANTE O ACIDEZ → LA VÍA FRENA</text>
+    </g>
+  </g>
+</svg>
