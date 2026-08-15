@@ -219,7 +219,7 @@ test.describe('Mobile critical paths', () => {
     expect(plan.checklistFirstRow).toBe(1);
     expect(plan.overflow).toBeLessThanOrEqual(1);
 
-    await page.locator('#plan-estudio').getByRole('link', { name: 'Ver instructivo', exact: true }).click();
+    await page.locator('#plan-estudio').getByRole('link', { name: 'Ver las instrucciones', exact: true }).click();
     const modal = page.locator('#seminarDocumentPreview');
     await expect(modal).toBeVisible();
     const modalLayout = await modal.evaluate((node) => {
