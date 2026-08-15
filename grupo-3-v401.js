@@ -924,6 +924,18 @@
     renderSchedule();
   }
 
+  function prepareCurrentAssignments(){
+    var assignments = Array.from(document.querySelectorAll('[data-current-assignment]'));
+    assignments.forEach(function(assignment){
+      assignment.addEventListener('toggle',function(){
+        if(!assignment.open) return;
+        assignments.forEach(function(other){
+          if(other !== assignment && other.open) other.open = false;
+        });
+      });
+    });
+  }
+
   var courseIds = ['nutricion','fisiologia','bioquimica','epidemiologia','microbiologia-teorica','microbiologia-practica'];
   var activeCourseId = 'nutricion';
   var activeLessonByCourse = {fisiologia:'fisiologia-2026-08-13'};
@@ -1039,6 +1051,8 @@
     if(target){
       var detail = target.hasAttribute('data-course-detail') ? target : target.closest('[data-course-detail]');
       if(detail) setCourseDetail(detail,true);
+      var currentAssignment = target.matches('[data-current-assignment]') ? target : target.closest('[data-current-assignment]');
+      if(currentAssignment) currentAssignment.open = true;
       var assignmentHistory = target.matches('[data-assignment-history]') ? target : target.closest('[data-assignment-history]');
       if(assignmentHistory){
         assignmentHistory.open = true;
@@ -1066,6 +1080,7 @@
     restorePersonalSchedule();
     restoreNutritionGroup();
     restoreSignedAssignments();
+    prepareCurrentAssignments();
     setUpdatedDate();
 
     document.querySelectorAll('[data-detail-toggle]').forEach(function(button){

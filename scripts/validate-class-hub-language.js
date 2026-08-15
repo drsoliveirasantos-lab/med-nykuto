@@ -59,8 +59,12 @@ expect(runtime.includes('renderScheduleWeekDates(next && next.date)'), 'The upco
 expect(semesterSwitcher.includes("classScope.replaceWith(wrapper)"), 'The semester selector is not embedded in the class header.');
 expect(semesterSwitcher.includes('is-class-header-v402'), 'The embedded semester selector styling hook is missing.');
 
-expect((html.match(/class="assignment-card assignment-compact/g) || []).length === 4, 'The four regular current tasks are not rendered as compact rows.');
-expect((html.match(/class="assignment-pictogram"/g) || []).length === 4, 'The compact current tasks do not all have pictograms.');
+expect((html.match(/data-current-assignment/g) || []).length === 5, 'The five current tasks are not rendered as expandable rows.');
+expect((html.match(/class="current-assignment-summary"/g) || []).length === 5, 'Every current task must expose a compact summary row.');
+expect((html.match(/class="assignment-pictogram"/g) || []).length === 5, 'The current tasks do not all have pictograms.');
+expect((html.match(/class="current-assignment-date/g) || []).length === 5, 'Every current task must show its date before expansion.');
+expect(runtime.includes("target.matches('[data-current-assignment]')"), 'Direct links do not automatically expand the selected current task.');
+expect(runtime.includes("document.querySelectorAll('[data-current-assignment]')"), 'The exclusive current-task accordion behavior is missing.');
 expect(html.includes('Estudiar las tiñas y tres micosis subcutáneas'), 'The Microbiology study task title is not action-oriented.');
 expect(!html.includes('Preparar tiñas y tres micosis subcutáneas'), 'The misleading Microbiology preparation title is still present.');
 expect(!html.includes('id="studyAnswerModal"'), 'The obsolete full-page review answer modal is still present.');
