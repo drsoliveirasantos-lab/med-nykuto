@@ -276,6 +276,7 @@
     'Ver respuesta':'Ver resposta',
     'Ocultar respuesta':'Ocultar resposta',
     'RESPUESTA DEL REPASO':'RESPOSTA DA REVISÃO',
+    'Revisa el mapa y el resumen rápido de este curso para construir la respuesta.':'Revise o esquema e o resumo rápido desta matéria para construir a resposta.',
     '¿De dónde sale esta fecha?':'De onde vem esta data?',
     'Si el profesor dio una fecha, usamos esa fecha.':'Se o professor informou uma data, usamos essa data.',
     'Si no dio una fecha, usamos el horario habitual de la materia.':'Se não informou uma data, usamos o horário habitual da matéria.',

@@ -480,15 +480,17 @@
       item.appendChild(disclosure);
     });
 
-    if(mode !== 'oral') return;
-    var answers = oralAnswers[courseId] || [];
-    body.querySelectorAll('.oral-list li').forEach(function(item,index){
-      var question = item.textContent.trim();
-      var answer = answers[index] || 'Revisa el mapa y la ficha rápida de este curso para construir la respuesta.';
-      item.innerHTML = '';
-      item.classList.add('is-answer-card');
-      item.appendChild(answerDisclosure('',question,'Ver respuesta','RESPUESTA DEL REPASO',answer));
-    });
+    if(mode === 'oral'){
+      var answers = oralAnswers[courseId] || [];
+      body.querySelectorAll('.oral-list li').forEach(function(item,index){
+        var question = item.textContent.trim();
+        var answer = answers[index] || 'Revisa el mapa y el resumen rápido de este curso para construir la respuesta.';
+        item.innerHTML = '';
+        item.classList.add('is-answer-card');
+        item.appendChild(answerDisclosure('',question,'Ver respuesta','RESPUESTA DEL REPASO',answer));
+      });
+    }
+    refreshLanguage(body.closest('.study-preview') || body);
   }
 
   function renderPreview(mode){

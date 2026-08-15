@@ -258,7 +258,7 @@ test.describe('Class hub', () => {
     await expect(seminar.getByText('Nombres y matrícula/código de los integrantes.', { exact: true })).toBeVisible();
     await expect(seminar.getByText('Lic. Johana Belén Leguizamón Vera.', { exact: false })).toBeVisible();
 
-    await seminar.getByText('Rúbrica de calificación · 5 puntos', { exact: true }).click();
+    await seminar.getByText('Cómo se califica · 5 puntos', { exact: true }).click();
     await expect(seminar.locator('.seminar-rubric-grid article')).toHaveCount(5);
     await expect(seminar.getByText('Investigación bibliográfica', { exact: true })).toBeVisible();
     await expect(seminar.getByText('Análisis y conclusión', { exact: true })).toBeVisible();
@@ -444,7 +444,7 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/modelo-portada-seminario-nutricion.docx');
     await expect.poll(() => page.locator('[data-document-panel="modelo-portada"] img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0))).toBe(true);
 
-    await page.getByRole('link', { name: 'Instrucciones', exact: true }).click();
+    await page.locator('[data-document-tab="instructivo"]').click();
     await expect(page.getByRole('heading', { name: 'Instrucciones para la presentación oral' })).toBeVisible();
     await expect(page.locator('[data-document-panel="instructivo"] img')).toHaveCount(3);
     await expect(page.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/instructivo-presentacion-oral-semana-3.docx');
