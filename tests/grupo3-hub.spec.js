@@ -110,6 +110,10 @@ test.describe('Class hub', () => {
     await expect(page.locator('#weeklyAgenda')).toContainText('PRÁTICA');
     await expect(page.locator('#weeklyAgenda').getByText('Tarefa', { exact: true })).toBeVisible();
 
+    await page.goto('/clase.html#nutricion');
+    await page.locator('[data-nutrition-mode="rapido"]').click();
+    await expect(page.locator('#nutritionPreviewEyebrow')).toHaveText('RESUMO RÁPIDO · 10 IDEIAS');
+
     await page.goto('/clase.html#plan-estudio');
     await expect(page.getByText('ARQUIVOS PARA COMEÇAR', { exact: true })).toBeVisible();
     await expect(page.getByText('Ver exemplo da primeira página', { exact: true })).toBeVisible();
@@ -375,6 +379,7 @@ test.describe('Class hub', () => {
     await page.goto('/clase.html#nutricion');
     const nutrition = page.locator('#nutricion');
     await nutrition.locator('[data-nutrition-mode="completo"]').click();
+    await expect(page.locator('#nutritionPreviewEyebrow')).toHaveText('RESUMEN COMPLETO · 13 AGO. ESTIMADO');
     const mapAnswer = nutrition.locator('.study-map .preview-answer-disclosure').first();
     await expect(mapAnswer.locator('strong')).toHaveText('¿Cuánto necesita?');
     await mapAnswer.locator('summary').click();
