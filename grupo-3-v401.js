@@ -22,25 +22,25 @@
 
   var previews = {
     completo: {
-      eyebrow: 'MAPA COMPLETO · CLASE DEL 14/08',
+      eyebrow: 'RESUMEN COMPLETO · CLASE DEL 14/08',
       title: 'La lógica de la glucólisis en cinco bloques',
       duration: '15 min',
       html: '<ol class="study-map"><li><span>01 · ENTRADA</span><strong>Glucosa atrapada</strong><small>Hexoquinasa o glucoquinasa forma G6P y consume el primer ATP.</small></li><li><span>02 · INVERSIÓN</span><strong>Preparar y dividir</strong><small>PFK-1 consume otro ATP; la aldolasa produce G3P y DHAP.</small></li><li><span>03 · DUPLICACIÓN</span><strong>Dos moléculas de G3P</strong><small>Desde la reacción 6 todos los productos se cuentan por duplicado.</small></li><li><span>04 · BENEFICIO</span><strong>Recuperar energía</strong><small>Se forman 4 ATP, 2 NADH y 2 piruvatos.</small></li><li><span>05 · CONTROL</span><strong>Tres pasos irreversibles</strong><small>Hexoquinasa/glucoquinasa, PFK-1 y piruvato quinasa.</small></li></ol>'
     },
     rapido: {
-      eyebrow: 'FICHA RÁPIDA · 7 IDEAS',
+      eyebrow: 'RESUMEN RÁPIDO · 7 IDEAS',
       title: 'El mapa central en cinco minutos',
       duration: '5 min',
       html: '<ul class="preview-list"><li>La glucólisis es la principal vía citosólica de degradación de la glucosa.</li><li>La vía común comprende 10 reacciones desde glucosa hasta piruvato.</li><li>La fase preparatoria consume 2 ATP y genera 2 moléculas de G3P.</li><li>La fase de beneficio produce 4 ATP, 2 NADH y 2 piruvatos.</li><li>La glucólisis produce 2 piruvatos, 2 ATP netos y 2 NADH.</li><li>Los pasos 1, 3 y 10 son irreversibles y regulados.</li><li>La vía no utiliza O₂ directamente; el O₂ determina el destino posterior del piruvato y del NADH.</li></ul>'
     },
     ultra: {
-      eyebrow: 'ULTRA RÁPIDA · OBLIGATORIO',
+      eyebrow: 'LO MÁS IMPORTANTE',
       title: 'Lo que no puedes olvidar',
       duration: '2 min',
       html: '<ul class="preview-list"><li><strong>Lugar:</strong> citosol.</li><li><strong>Balance:</strong> 2 piruvatos + 2 ATP netos + 2 NADH.</li><li><strong>Inversión:</strong> −2 ATP; <strong>producción:</strong> +4 ATP.</li><li><strong>Irreversibles:</strong> hexoquinasa/glucoquinasa, PFK-1 y piruvato quinasa.</li><li><strong>Sin suficiente O₂:</strong> piruvato → lactato para regenerar NAD⁺.</li></ul>'
     },
     oral: {
-      eyebrow: 'REPASO ORAL · ESTILO DE CLASE',
+      eyebrow: 'PREGUNTAS PARA REPASAR',
       title: 'Responde sin mirar la explicación',
       duration: '8 preguntas',
       html: '<ol class="oral-list"><li>¿Cuál es el objetivo y dónde ocurre la glucólisis?</li><li>¿Qué se consume y qué se obtiene en la fase preparatoria?</li><li>¿Por qué todos los productos se multiplican por dos desde la reacción 6?</li><li>¿Cuál es el balance neto por cada glucosa?</li><li>¿Cuáles son las tres enzimas irreversibles de la vía?</li><li>¿Qué diferencias principales existen entre hexoquinasa y glucoquinasa?</li><li>¿Por qué la glucólisis puede continuar sin consumir oxígeno directamente?</li><li>¿Cómo permite el lactato mantener la glucólisis cuando falta oxígeno?</li></ol>'
@@ -49,25 +49,25 @@
 
   var epiPreviews = {
     completo: {
-      eyebrow: 'MAPA COMPLETO · TRANSCRIPCIÓN ACUMULADA',
+      eyebrow: 'RESUMEN COMPLETO · CLASES ANTERIORES',
       title: 'Del bloque anterior al último curso',
       duration: '15 min',
       html: '<ol class="study-map"><li><span>01 · APS</span><strong>Primer contacto</strong><small>Asistencia esencial, accesible, participativa, sostenible y próxima a la comunidad.</small></li><li><span>02 · PARAGUAY</span><strong>Implementación en 2008</strong><small>La estrategia se ejecuta mediante Equipos y Unidades de Salud de la Familia.</small></li><li><span>03 · INTEGRALIDAD</span><strong>Cuatro dimensiones</strong><small>Persona, familia, comunidad y ambiente con enfoque biopsicosocial.</small></li><li><span>04 · FAMILIA</span><strong>Cuatro etapas</strong><small>Formación, expansión, dispersión y contracción.</small></li><li><span>05 · SECTOR</span><strong>Territorio y vigilancia</strong><small>Delimitar, mapear, clasificar riesgos, asignar responsables y seguir.</small></li><li><span>06 · TRIAGE</span><strong>Prioridad clínica</strong><small>Urgencia requiere atención pronta; emergencia exige acción inmediata.</small></li></ol>'
     },
     rapido: {
-      eyebrow: 'FICHA RÁPIDA · 10 IDEAS',
+      eyebrow: 'RESUMEN RÁPIDO · 10 IDEAS',
       title: 'Lo esencial de Epidemiología en cinco minutos',
       duration: '5 min',
       html: '<ul class="preview-list"><li>La APS es el primer contacto de la persona, familia y comunidad con el sistema de salud.</li><li>Alma-Ata se celebró en 1978; Paraguay implementó su estrategia APS en 2008.</li><li>Principios: equidad, cobertura, participación, trabajo multidisciplinario y acción multisectorial.</li><li>Significado concreto: operativo y dependiente del sistema; abstracto: ideológico y ligado al derecho a la salud.</li><li>Integralidad: persona, familia, comunidad y ambiente.</li><li>La atención integral incluye promoción, prevención, recuperación y rehabilitación.</li><li>Ciclo familiar: formación, expansión, dispersión y contracción.</li><li>Sectorizar es dividir el territorio y asignar responsables para identificar y vigilar riesgos.</li><li>El triage clasifica por gravedad y posibilidad de deterioro, no por orden de llegada.</li><li>Urgencia = pronta; emergencia = inmediata por amenaza vital o de órgano.</li></ul>'
     },
     ultra: {
-      eyebrow: 'ULTRA RÁPIDA · OBLIGATORIO',
+      eyebrow: 'LO MÁS IMPORTANTE',
       title: 'Fechas y diferencias que no puedes confundir',
       duration: '2 min',
       html: '<ul class="preview-list"><li><strong>1978:</strong> Alma-Ata.</li><li><strong>2008:</strong> implementación de la APS en Paraguay.</li><li><strong>Concreto:</strong> operativo · <strong>abstracto:</strong> ideológico.</li><li><strong>4 dimensiones:</strong> persona, familia, comunidad, ambiente.</li><li><strong>4 etapas familiares:</strong> formación, expansión, dispersión, contracción.</li><li><strong>Sectorización:</strong> territorio + responsables + vigilancia + recursos.</li><li><strong>Urgencia:</strong> atención pronta · <strong>emergencia:</strong> inmediata.</li></ul>'
     },
     oral: {
-      eyebrow: 'REPASO ORAL · ESTILO DE CLASE',
+      eyebrow: 'PREGUNTAS PARA REPASAR',
       title: 'Responde sin mirar la explicación',
       duration: '10 preguntas',
       html: '<ol class="oral-list"><li>¿Qué es la Atención Primaria de la Salud?</li><li>¿Qué ocurrió en 1978 y qué ocurrió en Paraguay en 2008?</li><li>¿Cuáles son los cuatro grupos de dispensarización?</li><li>¿Qué principios de la APS puedes citar?</li><li>¿Cuál es la diferencia entre el significado concreto y el abstracto?</li><li>¿Cuáles son las cuatro dimensiones de la integralidad?</li><li>¿Cuáles son las etapas del ciclo familiar?</li><li>¿Qué es la sectorización y cuál es su objetivo?</li><li>¿Qué se observa y mide durante la recepción y el triage?</li><li>¿Cuál es la diferencia entre urgencia y emergencia?</li></ol>'
@@ -76,25 +76,25 @@
 
   var fisioPreviews = {
     completo: {
-      eyebrow: 'MAPA COMPLETO · JUEVES 13',
+      eyebrow: 'RESUMEN COMPLETO · JUEVES 13',
       title: 'Del cambio químico a la respuesta ventilatoria',
       duration: '12 min',
       html: '<ol class="study-map"><li><span>01 · CAMBIO</span><strong>CO₂, O₂, pH o distensión</strong><small>El sistema respiratorio recibe una alteración química o mecánica.</small></li><li><span>02 · SENSORES</span><strong>Quimio y mecanorreceptores</strong><small>Los cuerpos carotídeos/aórticos y los receptores pulmonares generan aferencias.</small></li><li><span>03 · INTEGRACIÓN</span><strong>Bulbo y puente</strong><small>GRD, GRV con complejo pre-Bötzinger y grupo pontino organizan el patrón.</small></li><li><span>04 · SALIDA</span><strong>Nervios motores</strong><small>La señal llega al diafragma y a otros músculos respiratorios.</small></li><li><span>05 · RESPUESTA</span><strong>Frecuencia + profundidad</strong><small>La ventilación alveolar cambia para corregir gases y pH.</small></li><li><span>06 · CLÍNICA</span><strong>EPOC e hipercapnia</strong><small>La obstrucción reduce la ventilación efectiva y puede causar acidosis respiratoria.</small></li></ol>'
     },
     rapido: {
-      eyebrow: 'FICHA RÁPIDA FIS · 10 IDEAS',
+      eyebrow: 'RESUMEN RÁPIDO · 10 IDEAS',
       title: 'Control respiratorio en cinco minutos',
       duration: '5 min',
       html: '<ul class="preview-list"><li>La regulación sigue el circuito sensor → controlador → efector.</li><li>El complejo pre-Bötzinger es esencial para generar el ritmo respiratorio.</li><li>El GRD es sobre todo inspiratorio e integra aferencias en el núcleo del tracto solitario.</li><li>El GRV contiene neuronas inspiratorias y espiratorias y se recluta más con demanda elevada.</li><li>El grupo pontino ajusta el cambio entre inspiración y espiración.</li><li>Los quimiorreceptores centrales responden al pH del LCR producido por cambios de PaCO₂.</li><li>Los cuerpos carotídeos son los sensores periféricos más importantes de PaO₂ baja.</li><li>La inspiración tranquila es activa y la espiración tranquila, principalmente pasiva.</li><li>El ejercicio aumenta la ventilación mediante comando central y propiocepción antes de grandes cambios químicos.</li><li>En EPOC, hipoventilación alveolar e hipercapnia pueden producir acidosis respiratoria.</li></ul>'
     },
     centros: {
-      eyebrow: 'TABLA MENTAL · CENTROS Y SENSORES',
+      eyebrow: 'CENTROS Y SENSORES · RESUMEN',
       title: 'Qué detecta cada uno y qué hace después',
       duration: '3 min',
       html: '<ul class="preview-list"><li><strong>GRD:</strong> bulbo dorsal · inspiración e integración sensorial.</li><li><strong>GRV:</strong> bulbo ventrolateral · inspiración/espiración forzada; incluye pre-Bötzinger.</li><li><strong>Grupo pontino:</strong> puente · modula duración y transición de las fases.</li><li><strong>Central:</strong> bulbo ventrolateral · pH del LCR dependiente de CO₂.</li><li><strong>Carotídeo:</strong> bifurcación carotídea · PaO₂, PaCO₂ y pH · nervio IX.</li><li><strong>Aórtico:</strong> arco aórtico · gases y pH · nervio X.</li><li><strong>Estiramiento:</strong> vía aérea · distensión · reflejo de Hering–Breuer.</li><li><strong>Irritantes/J:</strong> irritantes o líquido intersticial · tos, broncoconstricción o taquipnea.</li></ul>'
     },
     oral: {
-      eyebrow: 'REPASO ORAL FIS · ESTILO DE CLASE',
+      eyebrow: 'PREGUNTAS PARA REPASAR',
       title: 'Responde sin mirar el esquema',
       duration: '10 preguntas',
       html: '<ol class="oral-list"><li>¿Cuáles son los tres componentes del bucle de control respiratorio?</li><li>¿Qué funciones cumplen el GRD, el GRV y el grupo pontino?</li><li>¿Dónde está el complejo pre-Bötzinger y por qué es importante?</li><li>¿Qué detectan realmente los quimiorreceptores centrales?</li><li>¿Dónde están los cuerpos carotídeos y aórticos y por qué nervios informan?</li><li>¿Cuál es el principal estímulo hipóxico de los quimiorreceptores periféricos?</li><li>¿Qué provoca el reflejo de Hering–Breuer?</li><li>¿Cómo aumenta la ventilación al comenzar el ejercicio?</li><li>¿Qué diferencia los receptores de estiramiento de los receptores irritantes?</li><li>¿Por qué la retención de CO₂ puede causar acidosis respiratoria?</li></ol>'
@@ -103,25 +103,25 @@
 
   var fisioGasPreviews = {
     completo: {
-      eyebrow: 'MAPA COMPLETO · 10 AGO.',
+      eyebrow: 'RESUMEN COMPLETO · 10 AGO.',
       title: 'Del alvéolo a los tejidos',
       duration: '12 min',
       html: '<ol class="study-map"><li><span>01 · VENTILACIÓN</span><strong>Aire hasta los alvéolos</strong><small>Los gradientes de presión mueven el aire entre atmósfera y alvéolo.</small></li><li><span>02 · DIFUSIÓN</span><strong>Cruzar la barrera</strong><small>Área, gradiente, grosor y propiedades del gas determinan el flujo.</small></li><li><span>03 · PERFUSIÓN</span><strong>Sangre disponible</strong><small>El intercambio eficaz exige acoplar ventilación alveolar y flujo capilar.</small></li><li><span>04 · OXÍGENO</span><strong>Principalmente unido a Hb</strong><small>PaO₂, saturación y contenido arterial describen variables diferentes.</small></li><li><span>05 · DIÓXIDO DE CARBONO</span><strong>Principalmente bicarbonato</strong><small>También viaja unido a proteínas y en forma disuelta.</small></li><li><span>06 · TEJIDOS</span><strong>Bohr descarga O₂</strong><small>CO₂, H⁺, temperatura y 2,3-BPG desplazan la curva a la derecha.</small></li></ol>'
     },
     rapido: {
-      eyebrow: 'FICHA RÁPIDA · CLASE DEL 10/08',
+      eyebrow: 'RESUMEN RÁPIDO · CLASE DEL 10/08',
       title: 'Difusión y transporte en cinco minutos',
       duration: '5 min',
       html: '<ul class="preview-list"><li>Ventilación, difusión, perfusión y transporte son procesos distintos y encadenados.</li><li>La difusión aumenta con el área y el gradiente de presión parcial.</li><li>La difusión disminuye cuando aumenta el grosor de la barrera.</li><li>El enfisema reduce área; el edema y la fibrosis aumentan distancia de difusión.</li><li>Una región con V/Q baja recibe sangre pero poco aire.</li><li>Una región con V/Q alta recibe aire pero poco flujo sanguíneo.</li><li>El O₂ viaja sobre todo unido a la hemoglobina.</li><li>El CO₂ viaja sobre todo como bicarbonato.</li><li>El efecto Bohr facilita la descarga de O₂ en tejidos activos.</li><li>El efecto Haldane facilita la captación de CO₂ por la Hb desoxigenada y su eliminación pulmonar.</li></ul>'
     },
     comparar: {
-      eyebrow: 'COMPARACIÓN ACTIVA · BOHR / HALDANE',
+      eyebrow: 'COMPARACIÓN · BOHR / HALDANE',
       title: 'Dos efectos, dos preguntas diferentes',
       duration: '3 min',
       html: '<ul class="preview-list"><li><strong>Bohr pregunta:</strong> ¿cómo modifican CO₂ y H⁺ la afinidad de la Hb por el O₂?</li><li><strong>Bohr en tejidos:</strong> ↑CO₂ y ↑H⁺ reducen afinidad y favorecen liberación de O₂.</li><li><strong>Haldane pregunta:</strong> ¿cómo modifica la oxigenación de la Hb el transporte de CO₂ y H⁺?</li><li><strong>Haldane en tejidos:</strong> la Hb desoxigenada acepta mejor CO₂ y H⁺.</li><li><strong>Haldane en pulmón:</strong> la oxigenación de la Hb favorece la liberación de CO₂.</li><li><strong>No confundir:</strong> el desplazamiento de cloruro acompaña el transporte de bicarbonato, pero no define el efecto Haldane.</li></ul>'
     },
     oral: {
-      eyebrow: 'REPASO ORAL · CLASE DEL 10/08',
+      eyebrow: 'PREGUNTAS PARA REPASAR · CLASE DEL 10/08',
       title: 'Responde sin mezclarlo con regulación respiratoria',
       duration: '10 preguntas',
       html: '<ol class="oral-list"><li>¿Qué diferencia ventilación, difusión, perfusión y transporte?</li><li>¿Qué variables de la ley de Fick favorecen o dificultan la difusión?</li><li>¿Qué estructuras forman la barrera alveolocapilar?</li><li>¿Qué significa una relación V/Q baja y una V/Q alta?</li><li>¿Por qué el ápice tiene una V/Q relativamente mayor que la base?</li><li>¿Cómo se transporta la mayor parte del oxígeno?</li><li>¿Cómo se transporta la mayor parte del dióxido de carbono?</li><li>¿Qué representa la P50?</li><li>¿Qué es el efecto Bohr?</li><li>¿Qué es el efecto Haldane?</li></ol>'
@@ -130,52 +130,52 @@
 
   var nutritionPreviews = {
     completo: {
-      eyebrow: 'MAPA COMPLETO NUT · 13 AGO. ESTIMADO',
+      eyebrow: 'RESUMEN COMPLETO · 13 AGO. ESTIMADO',
       title: 'De la alimentación al consejo individualizado',
       duration: '15 min',
       html: '<ol class="study-map"><li><span>01 · CANTIDAD</span><strong>¿Cuánto necesita?</strong><small>Comparar ingesta con gasto, estado fisiológico, enfermedad y objetivo clínico.</small></li><li><span>02 · CALIDAD</span><strong>¿Qué nutrientes aporta?</strong><small>Revisar proteínas, carbohidratos, grasas, fibra, agua, vitaminas y minerales.</small></li><li><span>03 · ARMONÍA</span><strong>¿En qué proporción?</strong><small>Detectar grupos ausentes, platos dominados por un solo alimento y desequilibrios.</small></li><li><span>04 · ADECUACIÓN</span><strong>¿Para quién es?</strong><small>Adaptar a edad, embarazo, patología, cultura, economía, preferencias y función.</small></li><li><span>05 · VARIEDAD</span><strong>¿Qué rota durante la semana?</strong><small>Introducir gradualmente alimentos distintos dentro y entre grupos.</small></li><li><span>06 · INTERVENCIÓN</span><strong>Negociar cambios posibles</strong><small>Priorizar uno o dos objetivos sostenibles, verificar comprensión y reevaluar.</small></li></ol>'
     },
     rapido: {
-      eyebrow: 'FICHA RÁPIDA NUT · 10 IDEAS',
+      eyebrow: 'RESUMEN RÁPIDO · 10 IDEAS',
       title: 'Leyes de la alimentación en cinco minutos',
       duration: '5 min',
       html: '<ul class="preview-list"><li>Alimentación es la elección e ingestión voluntaria; nutrición reúne procesos fisiológicos posteriores.</li><li>Dieta significa patrón habitual, no necesariamente plan hipocalórico.</li><li>Cantidad busca cubrir necesidades sin carencia ni exceso.</li><li>Calidad exige nutrientes, no solo calorías.</li><li>Armonía evalúa la proporción entre grupos y nutrientes.</li><li>Adecuación adapta el plan a la persona y a su contexto.</li><li>Variedad amplía la diversidad semanal y evita monotonía.</li><li>El plato saludable es una guía visual, no una receta universal.</li><li>Enriquecido suele describir reposición; fortificado, adición deliberada, pero la norma local puede superponer ambos términos.</li><li>La intervención útil es gradual, negociada y clínicamente reevaluada.</li></ul>'
     },
     paciente: {
-      eyebrow: 'HISTORIA ALIMENTARIA · PREGUNTAS CLAVE',
+      eyebrow: 'PREGUNTAS IMPORTANTES AL PACIENTE',
       title: 'Cómo evaluar sin limitarte a “¿come bien?”',
       duration: '3 min',
       html: '<ul class="preview-list"><li><strong>Rutina:</strong> ¿qué comió y bebió ayer, a qué hora y en qué cantidad?</li><li><strong>Cantidad:</strong> ¿cambió el apetito, el peso o la actividad?</li><li><strong>Calidad:</strong> ¿hay proteína, frutas, verduras, legumbres, agua y fuentes de grasa?</li><li><strong>Armonía:</strong> ¿qué grupo predomina y cuál falta?</li><li><strong>Variedad:</strong> ¿cuántos alimentos diferentes rota durante la semana?</li><li><strong>Adecuación:</strong> ¿existen embarazo, enfermedad, disfagia, problemas dentales o medicación relevante?</li><li><strong>Contexto:</strong> ¿qué puede comprar, cocinar, conservar y aceptar?</li><li><strong>Significado:</strong> ¿qué alimentos generan placer, memoria o sensación de control?</li><li><strong>Meta:</strong> ¿qué cambio concreto está dispuesto a intentar?</li></ul>'
     },
     oral: {
-      eyebrow: 'REPASO ORAL NUT · ESTILO DE CLASE',
+      eyebrow: 'PREGUNTAS PARA REPASAR',
       title: 'Responde aplicándolo a un paciente',
       duration: '10 preguntas',
-      html: '<ol class="oral-list"><li>¿Cuál es la diferencia entre alimentación, nutrición y dieta?</li><li>¿Qué evalúa cada una de las cuatro leyes de Escudero?</li><li>¿Por qué una dieta puede cubrir calorías y aun ser de mala calidad?</li><li>¿Qué significa armonía y cómo se representa con la técnica del plato?</li><li>¿Qué datos del paciente determinan la adecuación?</li><li>¿Por qué la variedad se evalúa mejor a lo largo de la semana?</li><li>¿Qué funciones predominantes tienen alimentos energéticos, constructores y reguladores?</li><li>¿Cuál es la diferencia didáctica entre enriquecido, fortificado y biofortificado?</li><li>¿Cómo analizarías una dieta basada en café azucarado y pan?</li><li>¿Cuáles son los dos temas y entregables del seminario de la próxima semana?</li></ol>'
+      html: '<ol class="oral-list"><li>¿Cuál es la diferencia entre alimentación, nutrición y dieta?</li><li>¿Qué evalúa cada una de las cuatro leyes de Escudero?</li><li>¿Por qué una dieta puede cubrir calorías y aun ser de mala calidad?</li><li>¿Qué significa armonía y cómo se representa con la técnica del plato?</li><li>¿Qué datos del paciente determinan la adecuación?</li><li>¿Por qué la variedad se evalúa mejor a lo largo de la semana?</li><li>¿Qué funciones predominantes tienen alimentos energéticos, constructores y reguladores?</li><li>¿Cuál es la diferencia didáctica entre enriquecido, fortificado y biofortificado?</li><li>¿Cómo analizarías una dieta basada en café azucarado y pan?</li><li>¿Cuáles son los dos temas y qué hay que entregar en el seminario de la próxima semana?</li></ol>'
     }
   };
 
   var microTheoryPreviews = {
     completo: {
-      eyebrow: 'MAPA COMPLETO MIC · FECHA POR CONFIRMAR',
+      eyebrow: 'RESUMEN COMPLETO · FECHA POR CONFIRMAR',
       title: 'De la queratina al diagnóstico y tratamiento',
       duration: '15 min',
       html: '<ol class="study-map"><li><span>01 · CLASIFICAR</span><strong>Nivel de afectación</strong><small>Superficial, cutáneo o profundo según tejido invadido, agente y respuesta.</small></li><li><span>02 · LOCALIZAR</span><strong>Nombrar la tiña</strong><small>Capitis, barbae, corporis, cruris, pedis, manuum o unguium.</small></li><li><span>03 · EXPOSICIÓN</span><strong>Buscar el reservorio</strong><small>Antropofílico, zoofílico o geofílico; preguntar por fómites y animales.</small></li><li><span>04 · CONFIRMAR</span><strong>KOH + cultivo</strong><small>La microscopía confirma elementos fúngicos; el cultivo ayuda a identificar el agente.</small></li><li><span>05 · TRATAR</span><strong>La localización manda</strong><small>Piel limitada suele admitir tópico; pelo, uña o enfermedad extensa puede requerir vía sistémica.</small></li><li><span>06 · PREVENIR</span><strong>Controlar exposición</strong><small>No compartir fómites y evaluar animales infectados sin olvidar adherencia.</small></li></ol>'
     },
     rapido: {
-      eyebrow: 'FICHA RÁPIDA MIC · 10 IDEAS',
+      eyebrow: 'RESUMEN RÁPIDO · 10 IDEAS',
       title: 'Dermatofitosis en cinco minutos',
       duration: '5 min',
       html: '<ul class="preview-list"><li>Los dermatofitos colonizan tejidos queratinizados: piel, pelo y uñas.</li><li>Los tres géneros clásicos son Trichophyton, Microsporum y Epidermophyton.</li><li>Trichophyton puede afectar piel, pelo y uñas; Microsporum, piel y pelo; Epidermophyton, piel y uñas.</li><li>La transmisión puede ser antropofílica, zoofílica o geofílica, además de fómites.</li><li>La tiña se nombra por el sitio anatómico afectado.</li><li>Tinea capitis y tiña del cuero cabelludo son el mismo diagnóstico.</li><li>Un querion es una forma inflamatoria de tiña capitis y puede dejar alopecia cicatricial.</li><li>El KOH muestra hifas o artroconidios, pero no identifica por sí solo la especie.</li><li>La lámpara de Wood solo ayuda en especies fluorescentes seleccionadas.</li><li>La piel localizada suele tratarse tópicamente; la tiña capitis necesita tratamiento sistémico.</li></ul>'
     },
     sitios: {
-      eyebrow: 'TABLA MENTAL MIC · TIÑAS',
+      eyebrow: 'TIÑAS POR ZONA DEL CUERPO',
       title: 'Una palabra para cada localización',
       duration: '3 min',
       html: '<ul class="preview-list"><li><strong>Capitis:</strong> cuero cabelludo y pelo; pelos rotos, escamas, placas alopécicas o querion.</li><li><strong>Barbae:</strong> barba y bigote; compromiso folicular frecuente.</li><li><strong>Corporis:</strong> tronco y extremidades; placa anular descamativa.</li><li><strong>Cruris:</strong> ingle y muslo proximal.</li><li><strong>Pedis:</strong> pie, sobre todo espacios interdigitales o planta.</li><li><strong>Manuum:</strong> mano.</li><li><strong>Unguium:</strong> uña por dermatofito; es un subtipo de onicomicosis.</li><li><strong>Faciei:</strong> piel glabra de la cara.</li></ul>'
     },
     oral: {
-      eyebrow: 'REPASO ORAL MIC · ESTILO DE CLASE',
+      eyebrow: 'PREGUNTAS PARA REPASAR',
       title: 'Responde y descarta las otras opciones',
       duration: '10 preguntas',
       html: '<ol class="oral-list"><li>¿Qué diferencia una micosis superficial de una dermatofitosis?</li><li>¿Qué significan queratinofílico y queratinolítico?</li><li>¿Cuáles son los tres géneros dermatofitos y qué tejidos infecta cada uno?</li><li>¿Qué significan antropofílico, zoofílico y geofílico?</li><li>¿Cómo se nombra una tiña según su localización?</li><li>¿Qué datos hacen pensar en tiña capitis inflamatoria o querion?</li><li>¿Qué muestra se toma y qué aporta el examen con KOH?</li><li>¿Cuándo puede ayudar la lámpara de Wood?</li><li>¿Por qué la tiña capitis no se trata solo con crema o champú?</li><li>¿Qué debes preparar sobre esporotricosis, cromoblastomicosis y eumicetoma?</li></ol>'
@@ -184,25 +184,25 @@
 
   var microPreviews = {
     completo: {
-      eyebrow: 'MAPA DE LA PRÁCTICA · GRUPO 3',
+      eyebrow: 'RESUMEN DE LA PRÁCTICA · GRUPO 3',
       title: 'Del alimento al reconocimiento microscópico',
       duration: '12 min',
       html: '<ol class="study-map"><li><span>01 · MUESTRA</span><strong>Alimento sólido con moho</strong><small>Preferir pan duro; transportarlo cerrado y abrirlo solo bajo indicación docente.</small></li><li><span>02 · CULTIVO</span><strong>Agar dextrosa Sabouraud</strong><small>Peptonas, glucosa, agar y pH ácido favorecen el crecimiento fúngico.</small></li><li><span>03 · COLONIA</span><strong>Observar la forma macroscópica</strong><small>Registrar textura, relieve, color y aspecto sin oler ni agitar el cultivo.</small></li><li><span>04 · MICROSCOPIO</span><strong>Reconocer estructuras</strong><small>Distinguir gemación, hifas, micelio, conidios, esporangios y rizoides.</small></li><li><span>05 · INTERPRETACIÓN</span><strong>Levadura, moho o dimórfico</strong><small>Integrar organización celular, morfología y condiciones de crecimiento.</small></li><li><span>06 · CIERRE</span><strong>Desecho seguro</strong><small>Mantener y eliminar la muestra según el protocolo institucional.</small></li></ol>'
     },
     rapido: {
-      eyebrow: 'FICHA RÁPIDA LAB · 8 IDEAS',
+      eyebrow: 'RESUMEN RÁPIDO · 8 IDEAS',
       title: 'Hongos y Sabouraud en cinco minutos',
       duration: '5 min',
       html: '<ul class="preview-list"><li>Las levaduras son principalmente unicelulares y suelen reproducirse por gemación.</li><li>Los mohos son filamentosos: sus hifas forman un micelio.</li><li>Un hongo dimórfico cambia de forma según las condiciones; la temperatura es una señal frecuente, no una regla absoluta.</li><li>Los conidios son esporas asexuales externas sostenidas por conidióforos.</li><li>El esporangio es un saco de esporas sostenido por un esporangióforo.</li><li>El agar Sabouraud aporta peptonas, glucosa y agar, con un pH ácido cercano a 5,6.</li><li>La fórmula y la esterilización se ejecutan según el fabricante y el protocolo del laboratorio.</li><li>Una colonia visible orienta, pero no identifica por sí sola una especie.</li></ul>'
     },
     checklist: {
-      eyebrow: 'CHECKLIST · PRÓXIMA PRÁCTICA',
+      eyebrow: 'QUÉ LLEVAR · PRÓXIMA PRÁCTICA',
       title: 'Muestra preparada sin riesgo innecesario',
       duration: '1 min',
       html: '<ul class="preview-list"><li><strong>Elegir:</strong> pan duro con crecimiento visible; como alternativa, una fruta o queso aún sólidos.</li><li><strong>Evitar:</strong> alimentos totalmente líquidos, deshechos o con derrames.</li><li><strong>Cerrar:</strong> colocar la muestra en un recipiente o bolsa resistente y sellada.</li><li><strong>Identificar:</strong> escribir nombre y tipo de muestra por fuera.</li><li><strong>Transportar:</strong> separada de alimentos, bebidas y objetos personales.</li><li><strong>No manipular:</strong> no abrir, oler, tocar ni agitar en casa.</li><li><strong>En el laboratorio:</strong> esperar la indicación docente y cumplir el protocolo de bioseguridad.</li></ul>'
     },
     oral: {
-      eyebrow: 'REPASO ORAL LAB · ESTILO DE CLASE',
+      eyebrow: 'PREGUNTAS PARA REPASAR',
       title: 'Responde antes de mirar al microscopio',
       duration: '10 preguntas',
       html: '<ol class="oral-list"><li>¿Cuál es la diferencia central entre una levadura y un moho?</li><li>¿Qué es una hifa y qué es un micelio?</li><li>¿Qué significa que un hongo sea dimórfico?</li><li>¿Cuál es la diferencia entre conidio y conidióforo?</li><li>¿Cuál es la diferencia entre esporangio y esporangióforo?</li><li>¿Qué función pueden cumplir los rizoides?</li><li>¿Qué componentes básicos tiene el agar dextrosa Sabouraud?</li><li>¿Por qué su pH ácido favorece el aislamiento de hongos?</li><li>¿Por qué la preparación debe seguir la etiqueta del fabricante?</li><li>¿Qué medidas de bioseguridad debes respetar con la muestra?</li></ol>'
@@ -417,7 +417,7 @@
     estimatedPreparation:{date:'2026-08-20',start:'07:00',end:'09:40'},
     assignment:{
       confirmed:true,
-      source:'Consigna oficial · Semana 3 · 17–23 ago. 2026',
+      source:'Tarea oficial · Semana 3 · 17–23 ago. 2026',
       groups:nutritionSeminarGroups,
       maxMinutesPerGroup:5,
       maxSlidesPerPresentation:4,
@@ -474,21 +474,23 @@
       var title = item.querySelector('strong');
       var detail = item.querySelector('small');
       if(!title || !detail) return;
-      var disclosure = answerDisclosure(step ? step.textContent.trim() : '',title.textContent.trim(),'Ver explicación','EXPLICACIÓN DEL MAPA',detail.textContent.trim());
+      var disclosure = answerDisclosure(step ? step.textContent.trim() : '',title.textContent.trim(),'Ver explicación','EXPLICACIÓN',detail.textContent.trim());
       item.innerHTML = '';
       item.classList.add('is-answer-card');
       item.appendChild(disclosure);
     });
 
-    if(mode !== 'oral') return;
-    var answers = oralAnswers[courseId] || [];
-    body.querySelectorAll('.oral-list li').forEach(function(item,index){
-      var question = item.textContent.trim();
-      var answer = answers[index] || 'Revisa el mapa y la ficha rápida de este curso para construir la respuesta.';
-      item.innerHTML = '';
-      item.classList.add('is-answer-card');
-      item.appendChild(answerDisclosure('',question,'Ver respuesta','RESPUESTA DEL REPASO',answer));
-    });
+    if(mode === 'oral'){
+      var answers = oralAnswers[courseId] || [];
+      body.querySelectorAll('.oral-list li').forEach(function(item,index){
+        var question = item.textContent.trim();
+        var answer = answers[index] || 'Revisa el mapa y el resumen rápido de este curso para construir la respuesta.';
+        item.innerHTML = '';
+        item.classList.add('is-answer-card');
+        item.appendChild(answerDisclosure('',question,'Ver respuesta','RESPUESTA DEL REPASO',answer));
+      });
+    }
+    refreshLanguage(body.closest('.study-preview') || body);
   }
 
   function renderPreview(mode){

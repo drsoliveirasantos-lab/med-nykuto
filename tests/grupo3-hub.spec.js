@@ -8,7 +8,9 @@ test.describe('Class hub', () => {
   });
 
   test('presents the next useful action before secondary content', async ({ page }) => {
-    await expect(page.getByRole('heading', { name: 'Tu semana, de un vistazo.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Tu semana', exact: true })).toBeVisible();
+    await expect(page.getByText('PARA ESTA SEMANA', { exact: true })).toBeVisible();
+    await expect(page.locator('#inicio')).not.toContainText(/de un vistazo|EN PORTADA|Panel de estudio/);
     await expect(page.getByText('4.º E', { exact: true }).first()).toBeVisible();
     await expect(page.locator('#nextScheduleSubject')).not.toHaveText('Calculando…');
     await expect(page.getByRole('link', { name: /Estudiar tres micosis subcutáneas/ })).toBeVisible();
@@ -77,7 +79,7 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Horario del 4.º E' })).toBeVisible();
     await expect(page.locator('#nextScheduleSubject')).not.toHaveText('Calculando…');
     await expect(page.locator('#nextScheduleWhen')).toContainText('·');
-    await expect(page.getByText('Martes y sábado no presentan clases')).toBeVisible();
+    await expect(page.getByText('No hay clases el martes ni el sábado')).toBeVisible();
     await expect(page.locator('#scheduleWeekRange')).toContainText(/Semana del \d+/);
     for (const day of ['1','3','4','5']) {
       await expect(page.locator(`[data-week-date="${day}"]`)).toHaveText(/\d{1,2} [a-záéíóú]+\.?/i);
@@ -95,7 +97,9 @@ test.describe('Class hub', () => {
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
     await expect(page.locator('#classLanguageSelect')).toHaveValue('br');
-    await expect(page.getByRole('heading', { name: 'Sua semana em um relance.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Sua semana', exact: true })).toBeVisible();
+    await expect(page.getByText('PARA ESTA SEMANA', { exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Ver todas as tarefas' })).toBeVisible();
     await expect(page.locator('.mobile-bottom-nav').getByText('Tarefas', { exact: true })).toBeAttached();
 
     await page.goto('/clase.html#horario');
@@ -106,15 +110,24 @@ test.describe('Class hub', () => {
     await expect(page.locator('#weeklyAgenda')).toContainText('PRÁTICA');
     await expect(page.locator('#weeklyAgenda').getByText('Tarefa', { exact: true })).toBeVisible();
 
+    await page.goto('/clase.html#nutricion');
+    await page.locator('[data-nutrition-mode="rapido"]').click();
+    await expect(page.locator('#nutritionPreviewEyebrow')).toHaveText('RESUMO RÁPIDO · 10 IDEIAS');
+
+    await page.goto('/clase.html#plan-estudio');
+    await expect(page.getByText('ARQUIVOS PARA COMEÇAR', { exact: true })).toBeVisible();
+    await expect(page.locator('#plan-estudio').getByRole('link', { name: 'Ver exemplo da primeira página', exact: true })).toBeVisible();
+    await expect(page.locator('#plan-estudio')).not.toContainText(/Primera página|Documento firmado|Este paso se completa/);
+
     await page.locator('#classLanguageSelect').selectOption('es');
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('html')).toHaveAttribute('lang', 'es');
-    await expect(page.getByRole('heading', { name: 'Horario del 4.º E' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Plan del seminario' })).toBeVisible();
   });
 
   test('keeps the personal lab group separate and local to the device', async ({ page }) => {
     await page.goto('/clase.html#horario');
-    const groupSelector = page.getByLabel('Mi subgrupo de Microbiología II · Práctica');
+    const groupSelector = page.getByLabel('Mi grupo de Microbiología II · Práctica');
     await expect(groupSelector).toHaveValue('');
     await groupSelector.selectOption('3');
     await expect(page.locator('#labScheduleGroup')).toContainText('Grupo 3');
@@ -145,10 +158,10 @@ test.describe('Class hub', () => {
     await expect(page.locator('#nutritionPrepCard time').first()).toHaveAttribute('datetime', '2026-08-17');
     await expect(page.locator('#nutritionPrepCard time').last()).toHaveAttribute('datetime', '2026-08-23');
     await expect(page.locator('#bioPrepCard .assignment-status')).toHaveText('ESTIMADA');
-    await expect(page.getByText('Toda fecha calculada permanece como')).toBeHidden();
-    await page.getByText('Cómo se calcula una fecha').click();
-    await expect(page.getByText('Toda fecha calculada permanece como')).toBeVisible();
-    await expect(page.getByText('El contenido final siempre corresponde al curso más reciente')).toBeVisible();
+    await expect(page.getByText('Comprueba siempre los avisos oficiales de la facultad.')).toBeHidden();
+    await page.getByText('¿De dónde sale esta fecha?').click();
+    await expect(page.getByText('Comprueba siempre los avisos oficiales de la facultad.')).toBeVisible();
+    await expect(page.getByText('Si no dio una fecha, usamos el horario habitual de la materia.')).toBeVisible();
   });
 
   test('organizes the 14 August glycolysis lesson with corrected study points', async ({ page }) => {
@@ -162,7 +175,7 @@ test.describe('Class hub', () => {
     await expect(page.locator('.bio-board-route article')).toHaveCount(4);
     await expect(page.getByText('Malato–aspartato: ≈2,5 ATP/NADH; glicerol-3-fosfato: ≈1,5 ATP/NADH.')).toBeVisible();
     await expect(page.getByText('su rendimiento oxidativo no es siempre 2,5 ATP por NADH', { exact: false })).toBeVisible();
-    await expect(page.getByText('Bioquímica · 3 transcripciones')).toBeVisible();
+    await expect(page.getByText('Bioquímica · 3 clases')).toBeVisible();
   });
 
   test('opens the 10 and 13 August Physiology lessons independently', async ({ page }) => {
@@ -208,8 +221,8 @@ test.describe('Class hub', () => {
     await expect(nutrition.getByText('Hasta 4 por PPT', { exact: true })).toBeVisible();
     await expect(nutrition.getByText('Hasta 5 minutos', { exact: true })).toBeVisible();
     await expect(nutrition.getByText('Drive de la clase → Bibliografía → carpeta INAN.', { exact: false })).toBeVisible();
-    await expect(nutrition.getByRole('link', { name: 'Vista previa · Instructivo' })).toHaveAttribute('href', 'documentos-seminario.html#instructivo');
-    await expect(nutrition.getByRole('link', { name: 'Vista previa · Portada' })).toHaveAttribute('href', 'documentos-seminario.html#modelo-portada');
+    await expect(nutrition.getByRole('link', { name: 'Ver las instrucciones' })).toHaveAttribute('href', 'documentos-seminario.html#instructivo');
+    await expect(nutrition.getByRole('link', { name: 'Ver ejemplo de la primera página' })).toHaveAttribute('href', 'documentos-seminario.html#modelo-portada');
     const transcript = await page.evaluate(() => window.MED_NYKUTO_LATEST_TRANSCRIPTS.nutricion);
     expect(transcript.oralDate).toBeNull();
     expect(transcript.estimatedClassDate).toBe('2026-08-13');
@@ -227,12 +240,12 @@ test.describe('Class hub', () => {
     await expect(task.locator('.seminar-at-a-glance b').first()).toHaveText('2');
     await expect(task.getByText('presentaciones PowerPoint separadas', { exact: true })).toBeVisible();
     await expect(task.getByText('informe para firma y sello', { exact: true })).toBeVisible();
-    await task.getByText('Ver la consigna completa', { exact: true }).click();
+    await task.getByText('Ver todos los detalles', { exact: true }).click();
     await expect(task.getByText('Trabajo 1 · Guías Alimentarias', { exact: true })).toBeVisible();
     await expect(task.getByText('Trabajo 2 · Platos típicos / regiones', { exact: true })).toBeVisible();
     await expect(task.getByText('aproximadamente hasta 5 minutos por grupo', { exact: false })).toBeVisible();
-    await expect(task.getByRole('link', { name: 'Ver instructivo y descargar' })).toHaveAttribute('href', 'documentos-seminario.html#instructivo');
-    await expect(task.getByRole('link', { name: 'Ver modelo de portada' })).toHaveAttribute('href', 'documentos-seminario.html#modelo-portada');
+    await expect(task.getByRole('link', { name: 'Ver las instrucciones y descargar' })).toHaveAttribute('href', 'documentos-seminario.html#instructivo');
+    await expect(task.getByRole('link', { name: 'Ver ejemplo de la primera página' })).toHaveAttribute('href', 'documentos-seminario.html#modelo-portada');
   });
 
   test('organizes seminar content, signed report and five-point rubric in accordions', async ({ page }) => {
@@ -245,9 +258,9 @@ test.describe('Class hub', () => {
     await expect(seminar.getByText('Nombres y matrícula/código de los integrantes.', { exact: true })).toBeVisible();
     await expect(seminar.getByText('Lic. Johana Belén Leguizamón Vera.', { exact: false })).toBeVisible();
 
-    await seminar.getByText('Rúbrica de calificación · 5 puntos', { exact: true }).click();
+    await seminar.getByText('Cómo se califica · 5 puntos', { exact: true }).click();
     await expect(seminar.locator('.seminar-rubric-grid article')).toHaveCount(5);
-    await expect(seminar.getByText('Investigación bibliográfica', { exact: true })).toBeVisible();
+    await expect(seminar.getByText('Fuentes utilizadas', { exact: true })).toBeVisible();
     await expect(seminar.getByText('Análisis y conclusión', { exact: true })).toBeVisible();
   });
 
@@ -304,7 +317,7 @@ test.describe('Class hub', () => {
 
   test('archives completed activities by subject and counts personal signed copies', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
-    await expect(page.getByRole('heading', { name: 'Actividades ya realizadas' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Tareas anteriores' })).toBeVisible();
     await expect(page.locator('#signedAssignmentCount')).toHaveText('0/2 copias firmadas');
     await expect(page.locator('[data-archive-subject]')).toHaveCount(6);
 
@@ -359,13 +372,14 @@ test.describe('Class hub', () => {
     await expect(reason).not.toHaveAttribute('open', '');
     await reason.locator('summary').click();
     await expect(reason).toHaveAttribute('open', '');
-    await expect(reason.locator('p')).toContainText('La consigna fue explícita');
+    await expect(reason.locator('p')).toContainText('La profesora pidió esta tarea');
   });
 
   test('opens map explanations and oral answers as small inline disclosures', async ({ page }) => {
     await page.goto('/clase.html#nutricion');
     const nutrition = page.locator('#nutricion');
     await nutrition.locator('[data-nutrition-mode="completo"]').click();
+    await expect(page.locator('#nutritionPreviewEyebrow')).toHaveText('RESUMEN COMPLETO · 13 AGO. ESTIMADO');
     const mapAnswer = nutrition.locator('.study-map .preview-answer-disclosure').first();
     await expect(mapAnswer.locator('strong')).toHaveText('¿Cuánto necesita?');
     await mapAnswer.locator('summary').click();
@@ -425,13 +439,13 @@ test.describe('Class hub', () => {
 
   test('previews both seminar Word documents before download', async ({ page }) => {
     await page.goto('/documentos-seminario.html#modelo-portada');
-    await expect(page.getByRole('heading', { name: 'Modelo de portada y desarrollo' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Ejemplo de la primera página y del desarrollo' })).toBeVisible();
     await expect(page.locator('[data-document-panel="modelo-portada"] img')).toHaveCount(2);
     await expect(page.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/modelo-portada-seminario-nutricion.docx');
     await expect.poll(() => page.locator('[data-document-panel="modelo-portada"] img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0))).toBe(true);
 
-    await page.getByRole('link', { name: /Instructivo oficial/ }).click();
-    await expect(page.getByRole('heading', { name: 'Instructivo de presentación oral' })).toBeVisible();
+    await page.locator('[data-document-tab="instructivo"]').click();
+    await expect(page.getByRole('heading', { name: 'Instrucciones para la presentación oral' })).toBeVisible();
     await expect(page.locator('[data-document-panel="instructivo"] img')).toHaveCount(3);
     await expect(page.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/instructivo-presentacion-oral-semana-3.docx');
   });
@@ -467,7 +481,7 @@ test.describe('Class hub', () => {
     await page.goto('/clase.html#epi-detail');
     await expect(page.getByRole('heading', { name: 'Sectorización, triage, urgencia y emergencia' })).toBeVisible();
     await expect(page.getByText('APS y modelo de atención integral', { exact: true })).toBeVisible();
-    await expect(page.locator('#epidemiologia .transcription-rule-note').getByText('Regla aplicada:')).toBeVisible();
+    await expect(page.locator('#epidemiologia .transcription-rule-note').getByText('Cómo se separaron las clases:')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Lo que la profesora señaló que puede preguntar' })).toBeVisible();
     await expect(page.getByText('2008: implementación de la estrategia APS en Paraguay.')).toBeVisible();
     await page.locator('#epidemiologia .lesson-accordion').nth(3).locator('summary').click();
