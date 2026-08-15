@@ -823,6 +823,26 @@
     node.textContent = formatHomePreparation(preparation);
   }
 
+  function sortHomePreparations(){
+    var list = document.querySelector('.dashboard-priorities');
+    if(!list) return;
+    var cards = Array.from(list.querySelectorAll('.priority-card'));
+    var initialOrder = new Map(cards.map(function(card,index){return [card,index];}));
+    cards.sort(function(first,second){
+      var firstTime = first.querySelector('time[datetime]');
+      var secondTime = second.querySelector('time[datetime]');
+      var firstDate = firstTime && firstTime.getAttribute('datetime') || '9999-12-31';
+      var secondDate = secondTime && secondTime.getAttribute('datetime') || '9999-12-31';
+      return firstDate.localeCompare(secondDate) || initialOrder.get(first) - initialOrder.get(second);
+    });
+    cards.forEach(function(card,index){
+      card.classList.toggle('priority-main',index === 0);
+      list.appendChild(card);
+    });
+    var count = document.getElementById('homeHomeworkCount');
+    if(count) count.textContent = tr('homeworkCount',{count:cards.length});
+  }
+
   function readLabGroup(){
     try{return localStorage.getItem(labStorageKey) || '';}catch(error){return '';}
   }
@@ -866,6 +886,7 @@
     renderHomePreparation('homeMicroTheoryDate',latestMicroTheoryTranscript.estimatedPreparation);
     renderHomePreparation('homeNutritionDate',latestNutritionTranscript.estimatedPreparation);
     renderHomePreparation('homeBioDate',latestTranscript.estimatedPreparation);
+    sortHomePreparations();
     renderScheduleWeekDates(next && next.date);
     refreshLanguage(document.getElementById('horario'));
     refreshLanguage(document.getElementById('inicio'));
