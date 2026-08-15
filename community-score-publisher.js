@@ -138,7 +138,7 @@
     field.appendChild(input);
     form.appendChild(field);
     var button = element('button','community-publish-button',text.submit);
-    button.type = 'submit';
+    button.type = 'button';
     form.appendChild(button);
     panel.appendChild(form);
 
@@ -151,7 +151,7 @@
     link.href = 'comunidade.html';
     panel.appendChild(link);
 
-    form.addEventListener('submit',function(event){
+    function publishScore(event){
       event.preventDefault();
       var nickname = input.value.normalize('NFKC').replace(/\s+/g,' ').trim();
       if(!validNickname(nickname)){
@@ -195,6 +195,12 @@
         button.disabled = false;
         button.textContent = text.submit;
       });
+    }
+
+    button.addEventListener('click',publishScore);
+    input.addEventListener('keydown',function(event){
+      if(event.key !== 'Enter') return;
+      publishScore(event);
     });
 
     card.appendChild(panel);
