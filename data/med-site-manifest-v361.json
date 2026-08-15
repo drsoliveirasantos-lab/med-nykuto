@@ -29,6 +29,7 @@
     "data/med-practice-bank-loader.js",
     "data/practice-bank-functional-fallback-v360.js",
     "data/practice-bank-runtime-quality-patch-v371.js",
+    "semester-scope-guard-v401.js",
     "site-global-polish-v310.js",
     "med-nykuto-global-fix-v358.js",
     "med-nykuto-runtime-guard-v361.js"

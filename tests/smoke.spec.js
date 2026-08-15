@@ -123,10 +123,10 @@ test.describe('Med Nykuto smoke navigation', () => {
     await page.goto('/index.html');
     await page.evaluate(() => localStorage.setItem('medNykuto:studentSemester', 's4'));
     await page.goto('/qcm.html?course=fisiologia');
-    await expect(page).toHaveURL(/index\.html\?semestre=s4&contenido=proximamente/);
-    await expect(page.locator('#statModules')).toHaveText('0');
-    await expect(page.locator('#subjectProgressGrid')).toContainText('Fisiología II');
-    await expect(page.locator('#subjectProgressGrid')).not.toContainText('Genética');
+    await expect(page).toHaveURL(/clase\.html/);
+    await expect(page.getByRole('heading', { name: 'Tu semana, de un vistazo.' })).toBeVisible();
+    await expect(page.locator('body')).toContainText('Fisiología II');
+    await expect(page.locator('body')).not.toContainText('Genética');
   });
 
   test('Spanish is the coherent default when no language preference is stored', async ({ page }) => {
