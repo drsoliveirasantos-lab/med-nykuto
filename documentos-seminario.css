@@ -1,0 +1,37 @@
+:root{--bg:#050d18;--panel:#091625;--ink:#f5f7fb;--muted:#9aa9ba;--line:rgba(179,204,229,.16);--gold:#f2c66d;--cyan:#6fd8ff;--shadow:0 24px 70px rgba(0,0,0,.34)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);background:radial-gradient(circle at 10% 0,rgba(111,216,255,.09),transparent 30%),linear-gradient(180deg,#07111f,var(--bg));font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:inherit;text-decoration:none}
+.skip-link{position:fixed;z-index:20;left:16px;top:12px;padding:9px 13px;border-radius:10px;color:#07111f;background:var(--gold);transform:translateY(-150%)}
+.skip-link:focus{transform:none}
+.document-header{position:sticky;z-index:10;top:0;min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px max(24px,calc((100vw - 1180px)/2));border-bottom:1px solid var(--line);background:rgba(5,13,24,.9);backdrop-filter:blur(18px)}
+.document-brand{display:flex;align-items:center;gap:11px}
+.document-brand img{width:48px;height:48px;object-fit:contain}
+.document-brand span{display:grid;gap:1px}
+.document-brand strong{font-size:.98rem}
+.document-brand small{color:var(--muted);font-size:.68rem}
+.back-link,.download-button{min-height:42px;display:inline-flex;align-items:center;justify-content:center;padding:10px 15px;border:1px solid var(--line);border-radius:999px;font-size:.72rem;font-weight:850}
+.back-link:hover{border-color:rgba(111,216,255,.42);color:var(--cyan)}
+.document-tabs{width:min(1180px,calc(100% - 32px));display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:24px auto}
+.document-tabs a{display:grid;grid-template-columns:40px 1fr auto;gap:11px;align-items:center;padding:13px 15px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.025)}
+.document-tabs a[aria-current="page"]{border-color:rgba(242,198,109,.48);background:linear-gradient(145deg,rgba(242,198,109,.1),rgba(111,216,255,.045))}
+.document-tabs a>span{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;color:var(--gold);background:rgba(242,198,109,.08);font-size:.68rem;font-weight:900}
+.document-tabs a>strong{font-size:.82rem}
+.document-tabs a>small{color:var(--muted);font-size:.66rem}
+.document-shell{width:min(1180px,calc(100% - 32px));margin:0 auto 48px}
+.document-panel{scroll-margin-top:110px}
+.document-intro{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;padding:26px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,rgba(111,216,255,.055),rgba(255,255,255,.018))}
+.document-intro>div{display:grid;gap:5px}
+.document-intro span{color:var(--gold);font-size:.64rem;font-weight:900;letter-spacing:.12em}
+.document-intro h1{margin:0;font-size:clamp(1.75rem,4.8vw,3.5rem);line-height:1.02}
+.document-intro p{max-width:760px;margin:6px 0 0;color:var(--muted);line-height:1.55}
+.download-button{border-color:rgba(242,198,109,.48);color:#07111f;background:linear-gradient(135deg,var(--gold),#ffe2a1);box-shadow:0 12px 30px rgba(242,198,109,.15)}
+.document-pages{display:grid;gap:30px;margin-top:26px}
+.document-pages figure{width:min(100%,940px);margin:0 auto;padding:14px;border:1px solid var(--line);border-radius:22px;background:#0a1726;box-shadow:var(--shadow)}
+.document-pages figcaption{padding:2px 3px 12px;color:var(--muted);font-size:.67rem;font-weight:800;text-align:center;letter-spacing:.08em}
+.document-pages img{display:block;width:100%;height:auto;border-radius:11px;background:#fff}
+.document-footer{width:min(1180px,calc(100% - 32px));display:flex;justify-content:space-between;gap:18px;margin:0 auto 36px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.7rem}
+.document-footer a{color:var(--cyan);font-weight:800}
+[hidden]{display:none!important}
+@media(max-width:700px){.document-header{min-height:68px;padding:10px 16px}.document-brand img{width:42px;height:42px}.back-link{padding:9px 12px}.document-tabs{grid-template-columns:1fr;margin:16px auto}.document-tabs a{grid-template-columns:40px 1fr auto}.document-intro{grid-template-columns:1fr;padding:19px}.download-button{width:100%}.document-pages{gap:18px;margin-top:18px}.document-pages figure{padding:8px;border-radius:16px}.document-pages img{border-radius:9px}.document-footer{flex-direction:column}}

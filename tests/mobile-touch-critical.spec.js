@@ -15,6 +15,41 @@ async function answerFirstVisibleOption(page) {
 }
 
 test.describe('Mobile critical paths', () => {
+  test('class schedule remains compact and unobstructed on iPhone', async ({ page }) => {
+    await page.goto('/clase.html#horario', { waitUntil: 'domcontentloaded' });
+    await expect(page.getByRole('heading', { name: 'Horario del 4.º E' })).toBeVisible({ timeout: 10000 });
+
+    const layout = await page.evaluate(() => {
+      const guide = document.querySelector('.schedule-guide-card').getBoundingClientRect();
+      const day = document.querySelector('.agenda-day').getBoundingClientRect();
+      const firstSlot = document.querySelector('.schedule-slot').getBoundingClientRect();
+      const switcher = document.querySelector('#semesterSwitcherV402').getBoundingClientRect();
+      const header = document.querySelector('.class-header').getBoundingClientRect();
+      const highlighted = document.querySelector('.agenda-day.is-next-day [data-week-date]');
+      return {
+        guideHeight: guide.height,
+        dayHeight: day.height,
+        slotHeight: firstSlot.height,
+        switcherTop: switcher.top,
+        switcherBottom: switcher.bottom,
+        headerTop: header.top,
+        headerBottom: header.bottom,
+        highlightedDate: highlighted ? highlighted.getAttribute('datetime') : null,
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth
+      };
+    });
+
+    expect(layout.guideHeight).toBeLessThan(150);
+    expect(layout.dayHeight).toBeLessThan(250);
+    expect(layout.slotHeight).toBeLessThan(90);
+    expect(layout.switcherTop).toBeGreaterThanOrEqual(layout.headerTop);
+    expect(layout.switcherBottom).toBeLessThanOrEqual(layout.headerBottom + 1);
+    expect(layout.highlightedDate).toMatch(/^2026-\d{2}-\d{2}$/);
+    expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
+    await expect(page.locator('.schedule-slot[data-subject]')).toHaveCount(10);
+  });
+
   test('mobile navigation and practice controls remain usable', async ({ page }) => {
     await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
     const toggle = page.locator('#menuToggle, .menu-toggle').first();
