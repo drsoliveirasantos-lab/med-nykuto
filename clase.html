@@ -8,7 +8,7 @@
   <meta name="description" content="Espacio académico no oficial de 4.º E: horario, tarefas, historial de actividades y revisiones de Nutrición, Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología organizadas en un solo lugar." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=418" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=419" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -55,13 +55,13 @@
 
     <section id="inicio" class="class-dashboard" data-view="inicio" aria-labelledby="class-title">
       <div class="dashboard-heading">
-        <div>
+        <div class="dashboard-heading-top">
           <div class="hero-meta"><span class="status-dot"><i aria-hidden="true"></i> Espacio activo</span><span>4.º E · Semestre 4</span></div>
-          <p class="section-kicker">Panel de estudio</p>
-          <h1 id="class-title">Tu semana, de un vistazo.</h1>
-          <p>Primero el horario y lo urgente. Después, abre solo la materia o el contenido que necesitas.</p>
+          <time class="dashboard-updated" id="lastUpdated" datetime="2026-08-14T20:57:00-03:00" title="Última actualización · hora de Paraguay">Actualizado 14 ago. · 20:57 PY</time>
         </div>
-        <span class="dashboard-updated" id="lastUpdated">Actualizado hoy</span>
+        <p class="section-kicker">Panel de estudio</p>
+        <h1 id="class-title">Tu semana, de un vistazo.</h1>
+        <p class="dashboard-intro">Primero el horario y lo urgente. Después, abre solo la materia o el contenido que necesitas.</p>
       </div>
 
       <div class="dashboard-grid">
@@ -153,7 +153,11 @@
       <div class="pending-grid">
         <article class="assignment-card assignment-estimated" id="nutritionPrepCard">
           <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Nutrición</span></div>
-          <h3>Semana 3: seminario y presentación oral</h3>
+          <h3>Seminario y presentación oral</h3>
+          <div class="assignment-week-range" aria-label="Semana 3, del 17 al 23 de agosto de 2026">
+            <span class="nav-icon" aria-hidden="true"><svg><use href="#class-icon-calendar"></use></svg></span>
+            <span><small>SEMANA 3</small><strong><time datetime="2026-08-17">17 ago.</time><i aria-hidden="true">—</i><time datetime="2026-08-23">23 ago. 2026</time></strong></span>
+          </div>
           <p>Cada grupo debe preparar dos trabajos independientes y un informe breve. Selecciona tu grupo para ver los dos títulos exactos.</p>
           <div class="seminar-at-a-glance" aria-label="Resumen de los entregables del seminario">
             <span><b>2</b><small>PowerPoint separados</small></span>
@@ -442,7 +446,7 @@
         </aside>
 
         <div class="nutrition-seminar" id="nutrition-seminar">
-          <div class="seminar-heading"><span>CONSIGNA OFICIAL · SEMANA 3</span><h3>Seminario / presentación oral</h3><p>La actividad tiene tres entregables: dos PowerPoint independientes y un informe breve para firma y sello. Elige tu grupo para mostrar los dos temas exactos.</p></div>
+          <div class="seminar-heading"><span>CONSIGNA OFICIAL · SEMANA 3 · 17–23 AGO. 2026</span><h3>Seminario / presentación oral</h3><p>La actividad tiene tres entregables: dos PowerPoint independientes y un informe breve para firma y sello. Elige tu grupo para mostrar los dos temas exactos.</p></div>
           <div class="nutrition-group-picker nutrition-group-picker-full">
             <label for="nutritionGroupCourseSelect"><span>GRUPO DE NUTRICIÓN</span><strong>Mostrar mis dos temas</strong></label>
             <select id="nutritionGroupCourseSelect" data-nutrition-group-select>
@@ -690,6 +694,28 @@
           <figcaption><span>REPASO VISUAL</span><strong>Una molécula, dos fases energéticas</strong><small>Inversión de ATP, división de la glucosa y fase de beneficio.</small></figcaption>
         </figure>
 
+        <section class="bio-board-synthesis" aria-labelledby="bio-board-title">
+          <header>
+            <span>PIZARRA RECONSTRUIDA · CLASE DEL 14/08</span>
+            <h3 id="bio-board-title">La glucólisis en una sola mirada</h3>
+            <p>Las fotos de clase se reorganizan aquí como un recorrido continuo: dónde ocurre, qué se invierte, qué se gana y dónde se regula.</p>
+          </header>
+          <div class="bio-board-route" aria-label="Recorrido resumido de la glucólisis">
+            <article><span>INICIO</span><strong>Glucosa</strong><small>6 carbonos · citosol</small></article>
+            <i aria-hidden="true">→</i>
+            <article><span>PREPARATORIA</span><strong>−2 ATP</strong><small>Fosforilar y dividir</small></article>
+            <i aria-hidden="true">→</i>
+            <article><span>BENEFICIO · ×2</span><strong>+4 ATP · +2 NADH</strong><small>Desde 2 G3P</small></article>
+            <i aria-hidden="true">→</i>
+            <article><span>BALANCE NETO</span><strong>2 piruvatos · +2 ATP</strong><small>Más 2 NADH citosólicos</small></article>
+          </div>
+          <div class="bio-board-keys">
+            <article><span>3 PUERTAS</span><strong>Hexo/glucoquinasa · PFK-1 · piruvato quinasa</strong><small>Son los pasos irreversibles y los principales puntos de regulación.</small></article>
+            <article><span>OXÍGENO</span><strong>La vía no consume O₂ directamente</strong><small>El O₂ determina el destino posterior del piruvato y la reoxidación del NADH.</small></article>
+            <article><span>NADH CITOSÓLICO</span><strong>Necesita una lanzadera para entrar en la cadena respiratoria</strong><small>Malato–aspartato: ≈2,5 ATP/NADH; glicerol-3-fosfato: ≈1,5 ATP/NADH.</small></article>
+          </div>
+        </section>
+
         <div class="phase-grid">
           <article class="phase-card phase-investment"><header><span>REACCIONES 1–5</span><strong>Fase preparatoria</strong></header><p>La célula invierte energía, fosforila la glucosa y la divide en dos triosas.</p><ul><li><b>−2 ATP</b> invertidos</li><li>1 glucosa de 6 C → <b>2 G3P de 3 C</b></li><li>Incluye hexoquinasa/glucoquinasa y PFK-1</li></ul></article>
           <article class="phase-card phase-payoff"><header><span>REACCIONES 6–10</span><strong>Fase de beneficio</strong></header><p>Cada G3P se oxida y genera energía; por eso todos los resultados de esta fase se multiplican por dos.</p><ul><li><b>+4 ATP</b> producidos</li><li><b>+2 NADH</b> producidos</li><li><b>+2 piruvatos</b> como productos finales</li></ul></article>
@@ -712,14 +738,14 @@
         </div>
 
         <div class="regulation-grid" aria-label="Puntos de regulación de la glucólisis">
-          <article><span>PUNTO 1</span><h4>Hexoquinasa / glucoquinasa</h4><p><b>Hexoquinasa:</b> mayoría de tejidos, alta afinidad e inhibición por G6P. <b>Glucoquinasa:</b> hígado y célula β, alta capacidad y sin inhibición por G6P.</p></article>
-          <article><span>PUNTO 2 · PREPARAR</span><h4>PFK-1</h4><p>Paso limitante. Se activa por AMP y fructosa-2,6-bisfosfato; se inhibe por ATP, citrato y pH bajo.</p></article>
-          <article><span>PUNTO 3 · PREPARAR</span><h4>Piruvato quinasa</h4><p>Se activa por fructosa-1,6-bisfosfato y se inhibe por ATP y alanina. En hígado también responde a insulina y glucagón.</p></article>
+          <article><span>PUNTO 1</span><h4>Hexoquinasa / glucoquinasa</h4><p><b>Hexoquinasa:</b> mayoría de tejidos, alta afinidad e inhibición por G6P. <b>Glucoquinasa:</b> hígado y célula β, alta capacidad y sin inhibición por G6P; GKRP puede secuestrarla en el núcleo hepático.</p></article>
+          <article><span>PUNTO 2 · PREPARAR</span><h4>PFK-1</h4><p>Paso limitante. Se activa por AMP/ADP y fructosa-2,6-bisfosfato; se inhibe por ATP, citrato y pH bajo. Insulina y glucagón actúan de forma indirecta en hígado al modificar la F2,6BP.</p></article>
+          <article><span>PUNTO 3 · PREPARAR</span><h4>Piruvato quinasa</h4><p>Se activa por fructosa-1,6-bisfosfato y se inhibe por ATP y alanina. En hígado, glucagón favorece su fosforilación e inhibición; insulina favorece la desfosforilación.</p></article>
         </div>
 
         <aside class="science-note">
           <div><span>CORRECCIÓN CIENTÍFICA</span><strong>Qué conviene aprender para no arrastrar errores de audio</strong></div>
-          <ul><li><b>GLUT4</b> es el transportador insulinodependiente clásico de músculo y tejido adiposo; GLUT8 y GLUT12 tienen funciones más contextuales.</li><li><b>GLUT5 transporta principalmente fructosa</b>, no glucosa.</li><li>La glucoquinasa hepática puede quedar secuestrada en el núcleo por <b>GKRP</b>; no se almacena en vesículas.</li><li>La glucólisis <b>no consume O₂ directamente</b>. Con poco O₂, el piruvato se reduce a lactato para regenerar NAD⁺.</li></ul>
+          <ul><li><b>GLUT4</b> es el transportador insulinodependiente clásico de músculo y tejido adiposo; GLUT8 y GLUT12 tienen funciones más contextuales.</li><li><b>GLUT5 transporta principalmente fructosa</b>, no glucosa.</li><li>La glucoquinasa hepática puede quedar secuestrada en el núcleo por <b>GKRP</b>; no se almacena en vesículas.</li><li>La glucólisis <b>no consume O₂ directamente</b>. Con poco O₂, el piruvato se reduce a lactato para regenerar NAD⁺.</li><li>Los 2 NADH producidos son <b>citosólicos</b>: su rendimiento oxidativo no es siempre 2,5 ATP por NADH, porque depende de la lanzadera usada para transferir sus electrones a la mitocondria.</li></ul>
         </aside>
       </section>
 
@@ -1105,13 +1131,13 @@
 
     <section id="plan-estudio" class="content-section plan-section" data-view="plan" aria-labelledby="plan-title" hidden>
       <div class="section-heading">
-        <div><p class="section-kicker">Antes del jueves 20 · fecha estimada</p><h2 id="plan-title">Plan del seminario</h2></div>
+        <div><p class="section-kicker">Semana 3 · 17–23 ago. 2026 · entrega estimada el jueves 20</p><h2 id="plan-title">Plan del seminario</h2></div>
         <div class="plan-progress" aria-label="Progreso del plan"><strong id="planCount">0/6</strong><span><i id="planProgressBar"></i></span></div>
       </div>
       <div class="plan-seminar-brief">
         <figure class="plan-seminar-photo">
           <img src="assets/class-hub/nutrition-variety-v415.webp" width="1280" height="853" loading="lazy" decoding="async" alt="Alimentos variados organizados para ilustrar el seminario de Nutrición." />
-          <figcaption><span>SEMINARIO · SEMANA 3</span><strong>2 PowerPoint + 1 informe</strong><small>Guías Alimentarias · Regiones y Platos · Constancia firmada</small></figcaption>
+          <figcaption><span>SEMINARIO · SEMANA 3 · 17–23 AGO.</span><strong>2 PowerPoint + 1 informe</strong><small>Guías Alimentarias · Regiones y Platos · Constancia firmada</small></figcaption>
         </figure>
         <div class="plan-group-card">
           <span>GRUPO Y TEMAS</span>
@@ -1175,6 +1201,7 @@
     <a href="#horario" data-view-link="horario"><span class="nav-icon"><svg><use href="#class-icon-calendar"></use></svg></span><strong>Horario</strong></a>
     <a href="#pendientes" data-view-link="pendientes"><span class="nav-icon"><svg><use href="#class-icon-task"></use></svg></span><strong>Tarefa</strong></a>
     <a href="#materias" data-view-link="cursos"><span class="nav-icon"><svg><use href="#class-icon-book"></use></svg></span><strong>Cursos</strong></a>
+    <a href="#plan-estudio" data-view-link="plan"><span class="nav-icon"><svg><use href="#class-icon-plan"></use></svg></span><strong>Plan</strong></a>
     <a href="#delegado" data-view-link="dudas"><span class="nav-icon"><svg><use href="#class-icon-question"></use></svg></span><strong>Dudas</strong></a>
   </nav>
 
@@ -1190,8 +1217,8 @@
   </div>
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
-  <script src="semester-switcher-v402.js?v=403"></script>
+  <script src="semester-switcher-v402.js?v=404"></script>
   <script src="grupo-3-practice-v413.js?v=417"></script>
-  <script src="grupo-3-v401.js?v=417"></script>
+  <script src="grupo-3-v401.js?v=419"></script>
 </body>
 </html>

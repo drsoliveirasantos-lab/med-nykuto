@@ -360,7 +360,7 @@
     estimatedPreparation:{date:'2026-08-20',start:'07:00',end:'09:40'},
     assignment:{
       confirmed:true,
-      source:'Consigna oficial · Semana 3',
+      source:'Consigna oficial · Semana 3 · 17–23 ago. 2026',
       groups:nutritionSeminarGroups,
       maxMinutesPerGroup:5,
       maxSlidesPerPresentation:4,
@@ -657,10 +657,14 @@
 
   function setUpdatedDate(){
     var node = document.getElementById('lastUpdated');
+    if(!node) return;
     try{
-      var label = new Intl.DateTimeFormat('es-PY',{day:'numeric',month:'short',timeZone:'America/Asuncion'}).format(new Date());
-      node.textContent = 'Actualizado ' + label;
-    }catch(error){node.textContent = 'Actualizado hoy';}
+      var updatedAt = new Date(node.getAttribute('datetime'));
+      if(Number.isNaN(updatedAt.getTime())) throw new Error('Invalid update timestamp');
+      var dateLabel = new Intl.DateTimeFormat('es-PY',{day:'numeric',month:'short',timeZone:'America/Asuncion'}).format(updatedAt);
+      var timeLabel = new Intl.DateTimeFormat('es-PY',{hour:'2-digit',minute:'2-digit',hourCycle:'h23',timeZone:'America/Asuncion'}).format(updatedAt);
+      node.textContent = 'Actualizado ' + dateLabel + ' · ' + timeLabel + ' PY';
+    }catch(error){node.textContent = 'Actualizado 14 ago. · 20:57 PY';}
   }
 
   function getParaguayWallClock(){
