@@ -85,6 +85,15 @@ test.describe('Class hub', () => {
     }
     await expect(page.locator('#weeklyAgenda .course-type-badge')).toHaveText(['TEÓRICA','PRÁCTICA']);
     await expect(page.locator('#weeklyAgenda .schedule-task-badge')).toHaveCount(5);
+    await expect(page.locator('.agenda-day')).toHaveCount(4);
+    await expect(page.locator('.schedule-guide-card')).toBeVisible();
+    const desktopOrder = await page.evaluate(() => {
+      const summary = document.querySelector('.agenda-summary').getBoundingClientRect();
+      const grid = document.querySelector('#weeklyAgenda').getBoundingClientRect();
+      return { summaryTop: summary.top, gridTop: grid.top };
+    });
+    expect(desktopOrder.summaryTop).toBeLessThan(desktopOrder.gridTop);
+    await expect(page.locator('.schedule-slot small').first()).toBeVisible();
     await expect(page.getByText('KM 8', { exact: true })).toHaveCount(0);
   });
 
@@ -629,20 +638,27 @@ test.describe('Class hub', () => {
     }
   });
 
-  test('renders the phone timetable as a compact color-coded timeline', async ({ page }, testInfo) => {
+  test('renders the phone timetable as a complete four-column mini-week', async ({ page }, testInfo) => {
     test.skip(testInfo.project.name !== 'mobile-safari-shape', 'Mobile layout assertion');
     await page.goto('/clase.html#horario');
     const layout = await page.evaluate(() => {
-      const guide = document.querySelector('.schedule-guide-card').getBoundingClientRect();
-      const day = document.querySelector('.agenda-day').getBoundingClientRect();
+      const grid = document.querySelector('#weeklyAgenda').getBoundingClientRect();
+      const days = Array.from(document.querySelectorAll('.agenda-day')).map(day => day.getBoundingClientRect());
       const firstSlot = document.querySelector('.schedule-slot').getBoundingClientRect();
+      const firstTeacher = document.querySelector('.schedule-slot small');
+      const summary = document.querySelector('.agenda-summary').getBoundingClientRect();
       const switcher = document.querySelector('#semesterSwitcherV402').getBoundingClientRect();
       const header = document.querySelector('.class-header').getBoundingClientRect();
       const highlighted = document.querySelector('.agenda-day.is-next-day [data-week-date]');
       return {
-        guideHeight:guide.height,
-        dayHeight:day.height,
+        columnCount:getComputedStyle(document.querySelector('#weeklyAgenda')).gridTemplateColumns.split(' ').length,
+        visibleDays:days.filter(day => day.width > 0 && day.height > 0).length,
+        alignedDayTops:new Set(days.map(day => Math.round(day.top))).size,
+        gridHeight:grid.height,
+        gridBottom:grid.bottom,
+        summaryTop:summary.top,
         slotHeight:firstSlot.height,
+        teacherDisplay:getComputedStyle(firstTeacher).display,
         switcherTop:switcher.top,
         switcherBottom:switcher.bottom,
         headerTop:header.top,
@@ -652,13 +668,19 @@ test.describe('Class hub', () => {
         clientWidth:document.documentElement.clientWidth
       };
     });
-    expect(layout.guideHeight).toBeLessThan(150);
-    expect(layout.dayHeight).toBeLessThan(250);
-    expect(layout.slotHeight).toBeLessThan(90);
+    expect(layout.columnCount).toBe(4);
+    expect(layout.visibleDays).toBe(4);
+    expect(layout.alignedDayTops).toBe(1);
+    expect(layout.gridHeight).toBeLessThan(340);
+    expect(layout.gridBottom).toBeLessThanOrEqual(layout.summaryTop);
+    expect(layout.slotHeight).toBeLessThan(125);
+    expect(layout.teacherDisplay).toBe('none');
     expect(layout.switcherTop).toBeGreaterThanOrEqual(layout.headerTop);
     expect(layout.switcherBottom).toBeLessThanOrEqual(layout.headerBottom + 1);
     expect(layout.highlightedDate).toMatch(/^2026-\d{2}-\d{2}$/);
     expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
     await expect(page.locator('.schedule-slot[data-subject]')).toHaveCount(10);
+    await expect(page.locator('.agenda-day')).toHaveCount(4);
+    await expect(page.locator('#weeklyAgenda .schedule-task-badge')).toHaveCount(5);
   });
 });
