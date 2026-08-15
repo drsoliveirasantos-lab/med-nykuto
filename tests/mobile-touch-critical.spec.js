@@ -116,11 +116,21 @@ test.describe('Mobile critical paths', () => {
       const panel = document.querySelector('.class-dashboard').getBoundingClientRect();
       const title = document.querySelector('.dashboard-heading h1');
       const navItem = document.querySelector('.mobile-bottom-nav a').getBoundingClientRect();
+      const prioritiesGrid = document.querySelector('.dashboard-priorities');
+      const prioritiesGridRect = prioritiesGrid.getBoundingClientRect();
+      const priorities = Array.from(prioritiesGrid.querySelectorAll('.priority-card')).map((card) => {
+        const rect = card.getBoundingClientRect();
+        return { left:rect.left, right:rect.right, width:rect.width };
+      });
       return {
         height:panel.height,
         titleSize:parseFloat(getComputedStyle(title).fontSize),
         navHeight:navItem.height,
-        overflow:document.documentElement.scrollWidth - document.documentElement.clientWidth
+        overflow:document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        columns:getComputedStyle(prioritiesGrid).gridTemplateColumns.split(' ').length,
+        priorities,
+        prioritiesGrid:{ left:prioritiesGridRect.left, right:prioritiesGridRect.right, width:prioritiesGridRect.width },
+        appBottomPadding:parseFloat(getComputedStyle(document.querySelector('.class-app')).paddingBottom)
       };
     });
     expect(dashboard.height).toBeLessThan(720);
@@ -128,6 +138,13 @@ test.describe('Mobile critical paths', () => {
     expect(dashboard.navHeight).toBeGreaterThanOrEqual(56);
     expect(dashboard.navHeight).toBeLessThanOrEqual(62);
     expect(dashboard.overflow).toBeLessThanOrEqual(1);
+    expect(dashboard.columns).toBe(1);
+    expect(dashboard.appBottomPadding).toBeLessThanOrEqual(12);
+    for (const card of dashboard.priorities) {
+      expect(card.left).toBeGreaterThanOrEqual(dashboard.prioritiesGrid.left - 1);
+      expect(card.right).toBeLessThanOrEqual(dashboard.prioritiesGrid.right + 1);
+      expect(card.width).toBeGreaterThanOrEqual(dashboard.prioritiesGrid.width - 1);
+    }
 
     await page.goto('/clase.html#materias', { waitUntil: 'domcontentloaded' });
     const library = await page.evaluate(() => {
