@@ -116,7 +116,7 @@ test.describe('Class hub', () => {
 
     await page.goto('/clase.html#plan-estudio');
     await expect(page.getByText('ARQUIVOS PARA COMEÇAR', { exact: true })).toBeVisible();
-    await expect(page.getByText('Ver exemplo da primeira página', { exact: true })).toBeVisible();
+    await expect(page.locator('#plan-estudio').getByRole('link', { name: 'Ver exemplo da primeira página', exact: true })).toBeVisible();
     await expect(page.locator('#plan-estudio')).not.toContainText(/Primera página|Documento firmado|Este paso se completa/);
 
     await page.locator('#classLanguageSelect').selectOption('es');
@@ -260,7 +260,7 @@ test.describe('Class hub', () => {
 
     await seminar.getByText('Cómo se califica · 5 puntos', { exact: true }).click();
     await expect(seminar.locator('.seminar-rubric-grid article')).toHaveCount(5);
-    await expect(seminar.getByText('Investigación bibliográfica', { exact: true })).toBeVisible();
+    await expect(seminar.getByText('Fuentes utilizadas', { exact: true })).toBeVisible();
     await expect(seminar.getByText('Análisis y conclusión', { exact: true })).toBeVisible();
   });
 
