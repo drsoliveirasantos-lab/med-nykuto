@@ -89,7 +89,12 @@ test.describe('Med Nykuto smoke navigation', () => {
   });
 
   test('homepage asks for the semester, persists it and shows the publication period', async ({ page }) => {
-    await page.addInitScript(() => localStorage.removeItem('medNykuto:studentSemester'));
+    await page.addInitScript(() => {
+      const testKey = 'medNykuto:test:semester-cleared';
+      if(sessionStorage.getItem(testKey)) return;
+      localStorage.removeItem('medNykuto:studentSemester');
+      sessionStorage.setItem(testKey, '1');
+    });
     await page.goto('/index.html');
     await expect(page.locator('#homeSemesterModal.open')).toBeVisible();
     await expect(page.locator('[data-semester-select]')).toHaveCount(3);
@@ -115,12 +120,13 @@ test.describe('Med Nykuto smoke navigation', () => {
   });
 
   test('semester 4 cannot open semester 3 courses or practice by direct URL', async ({ page }) => {
-    await page.addInitScript(() => localStorage.setItem('medNykuto:studentSemester', 's4'));
+    await page.goto('/index.html');
+    await page.evaluate(() => localStorage.setItem('medNykuto:studentSemester', 's4'));
     await page.goto('/qcm.html?course=fisiologia');
-    await expect(page).toHaveURL(/index\.html\?semestre=s4&contenido=proximamente/);
-    await expect(page.locator('#statModules')).toHaveText('0');
-    await expect(page.locator('#subjectProgressGrid')).toContainText('Fisiología II');
-    await expect(page.locator('#subjectProgressGrid')).not.toContainText('Genética');
+    await expect(page).toHaveURL(/clase\.html/);
+    await expect(page.getByRole('heading', { name: 'Tu semana, de un vistazo.' })).toBeVisible();
+    await expect(page.locator('body')).toContainText('Fisiología II');
+    await expect(page.locator('body')).not.toContainText('Genética');
   });
 
   test('Spanish is the coherent default when no language preference is stored', async ({ page }) => {
@@ -180,6 +186,7 @@ test.describe('Med Nykuto smoke navigation', () => {
   });
 
   test('Biofísica is absent or disabled safely', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('medNykuto:studentSemester', 's3'));
     await page.goto('/index.html');
     await page.waitForFunction((version) => window.__MED_NYKUTO_RUNTIME_GUARD__ === version, CURRENT_RUNTIME_GUARD, { timeout: 20000 });
     const biofisica = page.locator('.subject-progress-card', { hasText: /Biofísica/ }).first();

@@ -457,6 +457,10 @@
   ensureSemesterExperience();
   ensureModal();
   markTriggers();
+  window.addEventListener('pageshow', updateSemesterCard);
+  window.setTimeout(updateSemesterCard, 250);
+  window.setTimeout(updateSemesterCard, 800);
+  window.setTimeout(updateSemesterCard, 1800);
   window.setTimeout(markTriggers, 350);
   window.setTimeout(markTriggers, 1200);
 })();
