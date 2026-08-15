@@ -233,6 +233,87 @@ test.describe('Mobile critical paths', () => {
     expect(modalLayout.closeHeight).toBeGreaterThanOrEqual(44);
   });
 
+  test('complete lessons stay compact across every subject on iPhone', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    const lessons = [
+      { hash: 'nutrition-detail', detail: '#nutrition-detail', cards: '.nutrition-definitions article,.food-functions article,.enrichment-grid article' },
+      { hash: 'fisio-detail', detail: '#fisio-detail', cards: '.control-loop li,.resp-centers article,.resp-modulators article' },
+      { hash: 'fisio-detail-2026-08-10', detail: '#fisio-detail-2026-08-10', cards: '.gas-core-grid article,.bohr-haldane article' },
+      { hash: 'bio-detail', detail: '#bio-detail', cards: '.bio-board-route article,.regulation-grid article' },
+      { hash: 'epi-detail', detail: '#epi-detail', cards: '.epi-map-grid article,.dispensary-grid article,.process-strip article,.triage-colors article' },
+      { hash: 'micro-theory-detail', detail: '#micro-theory-detail', cards: '.mycosis-core li,.transmission-grid article,.site-grid article,.diagnostic-flow article,.therapy-grid article,.next-mycology-grid article' },
+      { hash: 'micro-detail', detail: '#micro-detail', cards: '.sample-grid article,.morphology-grid article,.sabouraud-facts article,.lab-workflow article' }
+    ];
+
+    for (const lesson of lessons) {
+      await page.goto(`/clase.html#${lesson.hash}`, { waitUntil: 'domcontentloaded' });
+      await expect(page.locator(lesson.detail)).toBeVisible({ timeout: 10000 });
+      const layout = await page.locator(lesson.detail).evaluate((detail, cardsSelector) => {
+        const cards = Array.from(detail.querySelectorAll(cardsSelector));
+        const boxes = cards.map((card) => card.getBoundingClientRect());
+        return {
+          cardCount: cards.length,
+          maxCardHeight: Math.max(...boxes.map((box) => box.height)),
+          fixedMinHeights: cards.map((card) => parseFloat(getComputedStyle(card).minHeight) || 0),
+          detailGap: parseFloat(getComputedStyle(detail).gap) || 0,
+          overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+        };
+      }, lesson.cards);
+
+      expect(layout.cardCount).toBeGreaterThan(0);
+      expect(Math.max(...layout.fixedMinHeights)).toBe(0);
+      expect(layout.maxCardHeight).toBeLessThan(230);
+      expect(layout.detailGap).toBeLessThanOrEqual(10);
+      expect(layout.overflow).toBeLessThanOrEqual(1);
+    }
+
+    await page.goto('/clase.html#nutrition-detail', { waitUntil: 'domcontentloaded' });
+    const nutrition = await page.evaluate(() => {
+      const equation = document.querySelector('.energy-equation');
+      const functions = Array.from(document.querySelectorAll('.food-functions article')).map((item) => item.getBoundingClientRect());
+      const disclosure = document.querySelector('#nutrition-detail .mobile-table-disclosure');
+      const summary = disclosure.querySelector('summary').getBoundingClientRect();
+      return {
+        equationColumns: getComputedStyle(equation).gridTemplateColumns.split(' ').length,
+        equationHeight: equation.getBoundingClientRect().height,
+        functionColumns: getComputedStyle(document.querySelector('.food-functions')).gridTemplateColumns.split(' ').length,
+        functionFirstRow: Math.abs(functions[0].top - functions[1].top) < 1,
+        disclosureOpen: disclosure.open,
+        summaryHeight: summary.height,
+        tableDisplay: getComputedStyle(disclosure.querySelector('.table-scroll')).display
+      };
+    });
+
+    expect(nutrition.equationColumns).toBe(5);
+    expect(nutrition.equationHeight).toBeLessThan(70);
+    expect(nutrition.functionColumns).toBe(2);
+    expect(nutrition.functionFirstRow).toBe(true);
+    expect(nutrition.disclosureOpen).toBe(false);
+    expect(nutrition.summaryHeight).toBeLessThan(70);
+    expect(nutrition.tableDisplay).toBe('none');
+
+    const tableDisclosure = page.locator('#nutrition-detail .mobile-table-disclosure');
+    await tableDisclosure.locator(':scope > summary').click();
+    await expect(tableDisclosure).toHaveAttribute('open', '');
+    await expect(tableDisclosure.locator('.table-scroll')).toBeVisible();
+    const openTable = await tableDisclosure.evaluate((disclosure) => {
+      const scroller = disclosure.querySelector('.table-scroll');
+      const table = disclosure.querySelector('table');
+      return {
+        tableWiderThanViewport: table.scrollWidth > scroller.clientWidth,
+        pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+      };
+    });
+    expect(openTable.tableWiderThanViewport).toBe(true);
+    expect(openTable.pageOverflow).toBeLessThanOrEqual(1);
+
+    await page.setViewportSize({ width: 1024, height: 768 });
+    await page.goto('/clase.html#nutrition-detail', { waitUntil: 'domcontentloaded' });
+    const desktopTable = page.locator('#nutrition-detail .mobile-table-disclosure').first();
+    await expect(desktopTable.locator(':scope > summary')).toBeHidden();
+    await expect(desktopTable.locator('.table-scroll')).toBeVisible();
+  });
+
   test('mobile navigation and practice controls remain usable', async ({ page }) => {
     await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
     await dismissSemesterPicker(page);
