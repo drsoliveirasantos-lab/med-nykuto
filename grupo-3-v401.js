@@ -304,7 +304,6 @@
   var nutritionGroupStorageKey = 'med-nykuto-nutrition-seminar-group-v412';
   var signedAssignmentsStorageKey = 'med-nykuto-signed-assignments-v412';
   var toastTimer;
-  var answerLastFocus = null;
 
   var classSchedule = [
     {day:1,start:'07:00',end:'10:10',subject:'Fisiología II',teacher:'Dra. Giselle Vert'},
@@ -431,58 +430,41 @@
     }
   };
 
-  function closeStudyAnswer(){
-    var modal = document.getElementById('studyAnswerModal');
-    if(!modal || modal.hidden) return;
-    modal.hidden = true;
-    modal.setAttribute('aria-hidden','true');
-    document.body.classList.remove('answer-modal-open');
-    if(answerLastFocus && typeof answerLastFocus.focus === 'function') answerLastFocus.focus();
-    answerLastFocus = null;
-  }
-
-  function openStudyAnswer(kind,title,answer,trigger){
-    var modal = document.getElementById('studyAnswerModal');
-    if(!modal) return;
-    answerLastFocus = trigger || document.activeElement;
-    document.getElementById('studyAnswerKind').textContent = kind;
-    document.getElementById('studyAnswerTitle').textContent = title;
-    document.getElementById('studyAnswerText').textContent = answer;
-    modal.hidden = false;
-    modal.setAttribute('aria-hidden','false');
-    document.body.classList.add('answer-modal-open');
-    var sheet = modal.querySelector('.study-answer-sheet');
-    if(sheet) sheet.focus();
-  }
-
-  function setupStudyAnswerModal(){
-    document.querySelectorAll('[data-answer-close]').forEach(function(button){
-      button.addEventListener('click',closeStudyAnswer);
-    });
-    document.addEventListener('keydown',function(event){
-      if(event.key === 'Escape') closeStudyAnswer();
-    });
-  }
-
-  function answerTrigger(step,title,hint,kind,answer){
-    var button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'preview-answer-trigger';
-    button.setAttribute('aria-haspopup','dialog');
+  function answerDisclosure(step,title,hint,kind,answer){
+    var disclosure = document.createElement('details');
+    disclosure.className = 'preview-answer-disclosure';
+    var summary = document.createElement('summary');
     if(step){
       var stepNode = document.createElement('span');
       stepNode.textContent = step;
-      button.appendChild(stepNode);
+      summary.appendChild(stepNode);
     }
     var titleNode = document.createElement('strong');
     titleNode.textContent = title;
-    button.appendChild(titleNode);
+    summary.appendChild(titleNode);
     var hintNode = document.createElement('small');
     hintNode.className = 'preview-answer-hint';
-    hintNode.textContent = hint;
-    button.appendChild(hintNode);
-    button.addEventListener('click',function(){openStudyAnswer(kind,title,answer,button);});
-    return button;
+    hintNode.textContent = localizeText(hint);
+    summary.appendChild(hintNode);
+
+    var answerNode = document.createElement('div');
+    answerNode.className = 'preview-answer-inline';
+    answerNode.setAttribute('role','region');
+    answerNode.setAttribute('aria-label',localizeText(kind) + ' · ' + localizeText(title));
+    var kindNode = document.createElement('span');
+    kindNode.textContent = localizeText(kind);
+    answerNode.appendChild(kindNode);
+    var textNode = document.createElement('p');
+    textNode.textContent = localizeText(answer);
+    answerNode.appendChild(textNode);
+
+    disclosure.appendChild(summary);
+    disclosure.appendChild(answerNode);
+    disclosure.addEventListener('toggle',function(){
+      var closedLabel = hint === 'Ver explicación' ? 'Ocultar explicación' : 'Ocultar respuesta';
+      hintNode.textContent = localizeText(disclosure.open ? closedLabel : hint);
+    });
+    return disclosure;
   }
 
   function enhanceStudyPreview(body,courseId,mode){
@@ -492,10 +474,10 @@
       var title = item.querySelector('strong');
       var detail = item.querySelector('small');
       if(!title || !detail) return;
-      var trigger = answerTrigger(step ? step.textContent.trim() : '',title.textContent.trim(),'Ver explicación','EXPLICACIÓN DEL MAPA',detail.textContent.trim());
+      var disclosure = answerDisclosure(step ? step.textContent.trim() : '',title.textContent.trim(),'Ver explicación','EXPLICACIÓN DEL MAPA',detail.textContent.trim());
       item.innerHTML = '';
       item.classList.add('is-answer-card');
-      item.appendChild(trigger);
+      item.appendChild(disclosure);
     });
 
     if(mode !== 'oral') return;
@@ -505,7 +487,7 @@
       var answer = answers[index] || 'Revisa el mapa y la ficha rápida de este curso para construir la respuesta.';
       item.innerHTML = '';
       item.classList.add('is-answer-card');
-      item.appendChild(answerTrigger('',question,'Ver respuesta','RESPUESTA DEL REPASO',answer));
+      item.appendChild(answerDisclosure('',question,'Ver respuesta','RESPUESTA DEL REPASO',answer));
     });
   }
 
@@ -1065,7 +1047,6 @@
   }
 
   document.addEventListener('DOMContentLoaded', function(){
-    setupStudyAnswerModal();
     renderPreview('completo');
     renderEpiPreview('completo');
     renderFisioPreview('completo');

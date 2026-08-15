@@ -49,10 +49,21 @@ expect(i18n.includes("'Horario del 4.º E':'Horário do 4.º E'"), 'The Portugue
 expect(css.includes('.class-language-switcher'), 'The compact language selector styling is missing.');
 expect(css.includes('.schedule-task-badge'), 'The schedule task badge styling is missing.');
 
+expect((html.match(/class="assignment-card assignment-compact/g) || []).length === 4, 'The four regular current tasks are not rendered as compact rows.');
+expect((html.match(/class="assignment-pictogram"/g) || []).length === 4, 'The compact current tasks do not all have pictograms.');
+expect(html.includes('Estudiar las tiñas y tres micosis subcutáneas'), 'The Microbiology study task title is not action-oriented.');
+expect(!html.includes('Preparar tiñas y tres micosis subcutáneas'), 'The misleading Microbiology preparation title is still present.');
+expect(!html.includes('id="studyAnswerModal"'), 'The obsolete full-page review answer modal is still present.');
+expect(runtime.includes("disclosure.className = 'preview-answer-disclosure'"), 'Inline review answer disclosures are missing from the runtime.');
+expect(runtime.includes("answerNode.className = 'preview-answer-inline'"), 'Inline review answer panels are missing from the runtime.');
+expect(!runtime.includes('openStudyAnswer'), 'The obsolete modal answer opener is still present.');
+expect(css.includes('.preview-answer-inline'), 'Inline review answer styling is missing.');
+expect(!css.includes('.study-answer-modal'), 'Obsolete full-page review answer modal styling is still present.');
+
 if (failures.length) {
   console.error('Class hub language/schedule validation failed:');
   failures.forEach((failure) => console.error(` - ${failure}`));
   process.exit(1);
 }
 
-console.log('Class hub language/schedule validation OK: ES/PT-BR, dated week, task shortcuts and Microbiology labels.');
+console.log('Class hub validation OK: ES/PT-BR, dated week, compact tasks, inline answers and Microbiology labels.');

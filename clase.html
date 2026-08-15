@@ -8,7 +8,7 @@
   <meta name="description" content="Espacio académico no oficial del 4.º E: horario, tareas, historial de actividades y revisiones de Nutrición, Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología organizadas en un solo lugar." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=421" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=422" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -64,7 +64,7 @@
       <div class="dashboard-heading">
         <div class="dashboard-heading-top">
           <div class="hero-meta"><span class="status-dot"><i aria-hidden="true"></i> Espacio activo</span><span>4.º E · Semestre 4</span></div>
-          <time class="dashboard-updated" id="lastUpdated" datetime="2026-08-14T22:38:00-03:00" title="Última actualización · hora de Paraguay">Actualizado 14 ago. · 22:38 PY</time>
+          <time class="dashboard-updated" id="lastUpdated" datetime="2026-08-14T23:11:00-03:00" title="Última actualización · hora de Paraguay">Actualizado 14 ago. · 23:11 PY</time>
         </div>
         <p class="section-kicker">Panel de estudio</p>
         <h1 id="class-title">Tu semana, de un vistazo.</h1>
@@ -88,7 +88,7 @@
       </div>
 
       <div class="dashboard-priorities" aria-label="Prioridades actuales">
-        <a class="priority-card priority-main" href="#microTheoryPrepCard"><div class="priority-card-head"><span>MICROBIOLOGÍA II · TEÓRICA</span><time id="homeMicroTheoryDate">Fecha estimada</time></div><strong>Preparar tres micosis subcutáneas</strong><small>Esporotricosis, cromoblastomicosis y micetoma eumicótico.</small><b>Abrir Tareas →</b></a>
+        <a class="priority-card priority-main" href="#microTheoryPrepCard"><div class="priority-card-head"><span>MICROBIOLOGÍA II · TEÓRICA</span><time id="homeMicroTheoryDate">Fecha estimada</time></div><strong>Estudiar tres micosis subcutáneas</strong><small>Esporotricosis, cromoblastomicosis y micetoma eumicótico.</small><b>Abrir Tareas →</b></a>
         <a class="priority-card" href="#nutritionPrepCard"><div class="priority-card-head"><span>NUTRICIÓN · SEMINARIO</span><time id="homeNutritionDate">Fecha estimada</time></div><strong>Guías + regiones y platos</strong><small>2 presentaciones PowerPoint independientes + 1 informe para firma y sello.</small><b>Ver mi grupo y los entregables →</b></a>
         <a class="priority-card" href="#bioPrepCard"><div class="priority-card-head"><span>BIOQUÍMICA II</span><time id="homeBioDate">Fecha estimada</time></div><strong>Completar la regulación de la glucólisis</strong><small>Hexoquinasa, glucoquinasa, PFK-1, piruvato quinasa y destinos del piruvato.</small><b>Abrir Tareas →</b></a>
       </div>
@@ -158,7 +158,7 @@
       </div>
       <div class="task-block-heading"><span>POR HACER</span><strong>Actividades y preparaciones actuales</strong></div>
       <div class="pending-grid">
-        <article class="assignment-card assignment-estimated" id="nutritionPrepCard">
+        <article class="assignment-card assignment-featured assignment-estimated" id="nutritionPrepCard">
           <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Nutrición</span></div>
           <h3>Seminario y presentación oral</h3>
           <div class="assignment-week-range" aria-label="Semana 3, del 17 al 23 de agosto de 2026">
@@ -199,37 +199,57 @@
           <small>La actividad está confirmada. La fecha del jueves 20 se calcula con el horario habitual y permanece por confirmar.</small>
           <label class="completion-control"><input type="checkbox" id="nutritionPrepDone" /><span>Marcar las 2 presentaciones y el informe como preparados</span></label>
         </article>
-        <article class="assignment-card assignment-estimated" id="microTheoryPrepCard">
-          <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Microbiología II · Teórica</span></div>
-          <h3>Preparar tiñas y tres micosis subcutáneas</h3>
-          <p>Repasar las tiñas y estudiar esporotricosis linfocutánea, cromoblastomicosis y micetoma eumicótico para iniciar la próxima clase con casos clínicos.</p>
-          <div class="assignment-date"><span>Próxima clase estimada</span><strong id="microTheoryEstimatedDate">Próxima clase de Microbiología II</strong></div>
-          <small>La consigna fue explícita. La fecha no fue pronunciada y se calcula con el horario habitual del lunes; debe confirmarse.</small>
-          <label class="completion-control"><input type="checkbox" id="microTheoryPrepDone" /><span>Marcar preparación como realizada</span></label>
+        <article class="assignment-card assignment-compact assignment-estimated" id="microTheoryPrepCard">
+          <span class="assignment-pictogram" aria-hidden="true"><svg><use href="#class-icon-microbiology"></use></svg></span>
+          <div class="assignment-body">
+            <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Microbiología II · Teórica</span></div>
+            <h3>Estudiar las tiñas y tres micosis subcutáneas</h3>
+            <p>Repasar las tiñas y estudiar esporotricosis linfocutánea, cromoblastomicosis y micetoma eumicótico para iniciar la próxima clase con casos clínicos.</p>
+            <details class="assignment-why"><summary>¿Por qué aparece aquí?</summary><p>La consigna fue explícita. La fecha no fue pronunciada y se calcula con el horario habitual del lunes; debe confirmarse.</p></details>
+          </div>
+          <div class="assignment-side">
+            <div class="assignment-date"><span>Próxima clase estimada</span><strong id="microTheoryEstimatedDate">Próxima clase de Microbiología II</strong></div>
+            <label class="completion-control"><input type="checkbox" id="microTheoryPrepDone" /><span>Marcar estudio como realizado</span></label>
+          </div>
         </article>
-        <article class="assignment-card assignment-personal" id="microPrepCard">
-          <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Microbiología II · Práctica · Grupo 3</span></div>
-          <h3>Llevar una muestra de alimento con moho</h3>
-          <p>Preferir pan duro con crecimiento visible. También se mencionaron naranja sólida, tomate, banana o queso; evitar muestras totalmente líquidas.</p>
-          <div class="assignment-date"><span>Próxima práctica estimada</span><strong id="microEstimatedDate">Próximo laboratorio del Grupo 3</strong></div>
-          <small>La consigna fue explícita, pero la fecha no se pronunció. Llevar la muestra cerrada y no abrirla ni olerla fuera del laboratorio.</small>
-          <label class="completion-control"><input type="checkbox" id="microPrepDone" /><span>Marcar muestra como preparada</span></label>
+        <article class="assignment-card assignment-compact assignment-personal" id="microPrepCard">
+          <span class="assignment-pictogram" aria-hidden="true"><svg><use href="#class-icon-lab"></use></svg></span>
+          <div class="assignment-body">
+            <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Microbiología II · Práctica · Grupo 3</span></div>
+            <h3>Llevar una muestra de alimento con moho</h3>
+            <p>Preferir pan duro con crecimiento visible. También se mencionaron naranja sólida, tomate, banana o queso; evitar muestras totalmente líquidas.</p>
+            <details class="assignment-why"><summary>¿Por qué aparece aquí?</summary><p>La consigna fue explícita, pero la fecha no se pronunció. Llevar la muestra cerrada y no abrirla ni olerla fuera del laboratorio.</p></details>
+          </div>
+          <div class="assignment-side">
+            <div class="assignment-date"><span>Próxima práctica estimada</span><strong id="microEstimatedDate">Próximo laboratorio del Grupo 3</strong></div>
+            <label class="completion-control"><input type="checkbox" id="microPrepDone" /><span>Marcar muestra como preparada</span></label>
+          </div>
         </article>
-        <article class="assignment-card assignment-estimated" id="bioPrepCard">
-          <div class="assignment-top"><span class="assignment-status status-estimated">ESTIMADA</span><span>Bioquímica II</span></div>
-          <h3>Completar la regulación de la glucólisis</h3>
-          <p>Comparar hexoquinasa y glucoquinasa; revisar PFK-1, piruvato quinasa y los destinos del piruvato.</p>
-          <div class="assignment-date"><span>Fecha propuesta</span><strong id="bioEstimatedDate">Próxima clase de Bioquímica</strong></div>
-          <small>Motivo: el 14/08 la profesora indicó estudiar la regulación durante el fin de semana, pero no anunció una entrega obligatoria ni una fecha formal.</small>
-          <label class="completion-control"><input type="checkbox" id="bioPrepDone" /><span>Marcar preparación como realizada</span></label>
+        <article class="assignment-card assignment-compact assignment-estimated" id="bioPrepCard">
+          <span class="assignment-pictogram" aria-hidden="true"><svg><use href="#class-icon-biochemistry"></use></svg></span>
+          <div class="assignment-body">
+            <div class="assignment-top"><span class="assignment-status status-estimated">ESTIMADA</span><span>Bioquímica II</span></div>
+            <h3>Completar la regulación de la glucólisis</h3>
+            <p>Comparar hexoquinasa y glucoquinasa; revisar PFK-1, piruvato quinasa y los destinos del piruvato.</p>
+            <details class="assignment-why"><summary>¿Por qué aparece aquí?</summary><p>El 14/08 la profesora indicó estudiar la regulación durante el fin de semana, pero no anunció una entrega obligatoria ni una fecha formal.</p></details>
+          </div>
+          <div class="assignment-side">
+            <div class="assignment-date"><span>Fecha propuesta</span><strong id="bioEstimatedDate">Próxima clase de Bioquímica</strong></div>
+            <label class="completion-control"><input type="checkbox" id="bioPrepDone" /><span>Marcar revisión como realizada</span></label>
+          </div>
         </article>
-        <article class="assignment-card assignment-estimated" id="epiPrepCard">
-          <div class="assignment-top"><span class="assignment-status status-estimated">ESTIMADA</span><span>Epidemiología y Salud Pública</span></div>
-          <h3>Leer el triage por colores</h3>
-          <p>Preparar amarillo, naranja, verde y azul: prioridad, tiempo máximo y motivos de consulta que requieren atención rápida.</p>
-          <div class="assignment-date"><span>Próxima sesión propuesta</span><strong id="epiEstimatedDate">Próxima clase de Epidemiología</strong></div>
-          <small>Motivo: la profesora pidió leer el material por colores para la próxima clase. La transcripción no indica la fecha exacta, por eso permanece estimada.</small>
-          <label class="completion-control"><input type="checkbox" id="epiPrepDone" /><span>Marcar lectura como realizada</span></label>
+        <article class="assignment-card assignment-compact assignment-estimated" id="epiPrepCard">
+          <span class="assignment-pictogram" aria-hidden="true"><svg><use href="#class-icon-epidemiology"></use></svg></span>
+          <div class="assignment-body">
+            <div class="assignment-top"><span class="assignment-status status-estimated">ESTIMADA</span><span>Epidemiología y Salud Pública</span></div>
+            <h3>Leer el triage por colores</h3>
+            <p>Revisar los niveles amarillo, naranja, verde y azul: prioridad, tiempo máximo y motivos de consulta que requieren atención rápida.</p>
+            <details class="assignment-why"><summary>¿Por qué aparece aquí?</summary><p>La profesora pidió leer el material por colores para la próxima clase. La transcripción no indica la fecha exacta, por eso permanece estimada.</p></details>
+          </div>
+          <div class="assignment-side">
+            <div class="assignment-date"><span>Próxima sesión propuesta</span><strong id="epiEstimatedDate">Próxima clase de Epidemiología</strong></div>
+            <label class="completion-control"><input type="checkbox" id="epiPrepDone" /><span>Marcar lectura como realizada</span></label>
+          </div>
         </article>
         <details class="inference-card">
           <summary>Cómo se calcula una fecha</summary>
@@ -1257,22 +1277,11 @@
     <a href="#delegado" data-view-link="dudas"><span class="nav-icon"><svg><use href="#class-icon-question"></use></svg></span><strong>Dudas</strong></a>
   </nav>
 
-  <div class="study-answer-modal" id="studyAnswerModal" hidden aria-hidden="true">
-    <button class="study-answer-backdrop" type="button" data-answer-close aria-label="Cerrar respuesta"></button>
-    <section class="study-answer-sheet" role="dialog" aria-modal="true" aria-labelledby="studyAnswerTitle" aria-describedby="studyAnswerText" tabindex="-1">
-      <button class="study-answer-close" type="button" data-answer-close aria-label="Cerrar respuesta">×</button>
-      <span id="studyAnswerKind">EXPLICACIÓN</span>
-      <h3 id="studyAnswerTitle">Respuesta</h3>
-      <p id="studyAnswerText"></p>
-      <button class="study-answer-done" type="button" data-answer-close>Cerrar respuesta</button>
-    </section>
-  </div>
-
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=404"></script>
-  <script src="grupo-3-i18n-v421.js?v=421"></script>
-  <script src="grupo-3-practice-v413.js?v=421"></script>
-  <script src="grupo-3-practice-expansion-v420.js?v=421"></script>
-  <script src="grupo-3-v401.js?v=421"></script>
+  <script src="grupo-3-i18n-v421.js?v=422"></script>
+  <script src="grupo-3-practice-v413.js?v=422"></script>
+  <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
+  <script src="grupo-3-v401.js?v=422"></script>
 </body>
 </html>

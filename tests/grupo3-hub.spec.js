@@ -11,7 +11,7 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Tu semana, de un vistazo.' })).toBeVisible();
     await expect(page.getByText('4.º E', { exact: true }).first()).toBeVisible();
     await expect(page.locator('#nextScheduleSubject')).not.toHaveText('Calculando…');
-    await expect(page.getByRole('link', { name: /Preparar tres micosis subcutáneas/ })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Estudiar tres micosis subcutáneas/ })).toBeVisible();
     await expect(page.getByRole('link', { name: /Guías \+ regiones y platos/ })).toBeVisible();
     await expect(page.locator('#homeMicroTheoryDate')).toContainText('17 ago');
     await expect(page.locator('#homeNutritionDate')).toContainText('20 ago');
@@ -347,25 +347,42 @@ test.describe('Class hub', () => {
     await expect(page.locator('.resource-grid .resource-code')).toHaveCount(0);
   });
 
-  test('opens map explanations and oral answers in a closable answer sheet', async ({ page }) => {
+  test('shows current homework as compact tactile rows', async ({ page }) => {
+    await page.goto('/clase.html#pendientes');
+    await expect(page.locator('.pending-grid > .assignment-featured')).toHaveCount(1);
+    await expect(page.locator('.pending-grid > .assignment-compact')).toHaveCount(4);
+    await expect(page.locator('.assignment-compact .assignment-pictogram svg')).toHaveCount(4);
+    await expect(page.getByRole('heading', { name: 'Estudiar las tiñas y tres micosis subcutáneas' })).toBeVisible();
+    await expect(page.getByText('Preparar tiñas y tres micosis subcutáneas', { exact: true })).toHaveCount(0);
+
+    const reason = page.locator('#microTheoryPrepCard .assignment-why');
+    await expect(reason).not.toHaveAttribute('open', '');
+    await reason.locator('summary').click();
+    await expect(reason).toHaveAttribute('open', '');
+    await expect(reason.locator('p')).toContainText('La consigna fue explícita');
+  });
+
+  test('opens map explanations and oral answers as small inline disclosures', async ({ page }) => {
     await page.goto('/clase.html#nutricion');
     const nutrition = page.locator('#nutricion');
     await nutrition.locator('[data-nutrition-mode="completo"]').click();
-    await nutrition.locator('.study-map .preview-answer-trigger').first().click();
-    const modal = page.locator('#studyAnswerModal');
-    await expect(modal).toBeVisible();
-    await expect(page.locator('#studyAnswerTitle')).toHaveText('¿Cuánto necesita?');
-    await expect(page.locator('#studyAnswerText')).toContainText('Comparar ingesta con gasto');
-    await modal.getByRole('button', { name: 'Cerrar respuesta', exact: true }).last().click();
-    await expect(modal).toBeHidden();
+    const mapAnswer = nutrition.locator('.study-map .preview-answer-disclosure').first();
+    await expect(mapAnswer.locator('strong')).toHaveText('¿Cuánto necesita?');
+    await mapAnswer.locator('summary').click();
+    await expect(mapAnswer).toHaveAttribute('open', '');
+    await expect(mapAnswer.locator('.preview-answer-inline')).toContainText('Comparar ingesta con gasto');
+    await expect(page.locator('#studyAnswerModal')).toHaveCount(0);
+    await mapAnswer.locator('summary').click();
+    await expect(mapAnswer).not.toHaveAttribute('open', '');
 
     await nutrition.locator('[data-nutrition-mode="oral"]').click();
-    await nutrition.locator('.oral-list .preview-answer-trigger').first().click();
-    await expect(modal).toBeVisible();
-    await expect(page.locator('#studyAnswerTitle')).toContainText('diferencia entre alimentación, nutrición y dieta');
-    await expect(page.locator('#studyAnswerText')).toContainText('Alimentación es la selección');
-    await page.keyboard.press('Escape');
-    await expect(modal).toBeHidden();
+    const oralAnswer = nutrition.locator('.oral-list .preview-answer-disclosure').first();
+    await expect(oralAnswer.locator('strong')).toContainText('diferencia entre alimentación, nutrición y dieta');
+    await oralAnswer.locator('summary').click();
+    await expect(oralAnswer).toHaveAttribute('open', '');
+    await expect(oralAnswer.locator('.preview-answer-inline')).toContainText('Alimentación es la selección');
+    await oralAnswer.locator('summary').click();
+    await expect(oralAnswer).not.toHaveAttribute('open', '');
   });
 
   test('shows the complete lesson before training when the course is expanded', async ({ page }) => {
