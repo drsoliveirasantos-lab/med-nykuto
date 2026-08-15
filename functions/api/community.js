@@ -333,7 +333,7 @@ export async function onRequest(context) {
     return errorResponse(405, 'method_not_allowed', 'Método no permitido.');
   }
 
-  const db = context.env?.MED_NYKUTO_DB;
+  const db = context.env?.MED_NYKUTO_DB || context.env?.DB;
   if (!db) {
     return errorResponse(
       503,

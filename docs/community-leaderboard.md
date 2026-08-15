@@ -13,11 +13,11 @@ Le système repose volontairement sur la confiance : sans authentification, un u
 
 ## Activation Cloudflare Pages
 
-Le code serveur se trouve dans `functions/api/community.js` et attend une liaison D1 nommée `MED_NYKUTO_DB`.
+Le code serveur se trouve dans `functions/api/community.js` et utilise de préférence une liaison D1 nommée `MED_NYKUTO_DB`. La liaison courte `DB`, déjà utilisée sur certains déploiements, reste également acceptée.
 
-1. Dans Cloudflare, créer une base D1, par exemple `med-nykuto-community`.
+1. Dans Cloudflare, créer une base D1, par exemple `med-nykuto-community`, ou réutiliser la base existante `med-nykuto-db`.
 2. Ouvrir le projet Pages Med Nykuto, puis **Settings → Bindings → D1 database bindings**.
-3. Ajouter la variable `MED_NYKUTO_DB` et sélectionner la base créée.
+3. Ajouter la variable `MED_NYKUTO_DB` et sélectionner la base créée. Si le projet expose déjà cette base sous le nom `DB`, aucune nouvelle liaison n'est nécessaire.
 4. Configurer au minimum l'environnement Preview, puis Production au moment de la promotion.
 5. Relancer un déploiement.
 
