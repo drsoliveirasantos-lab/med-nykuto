@@ -575,14 +575,14 @@ test.describe('Class hub', () => {
     const originalUrl = page.url();
     const dialog = page.locator('#seminarDocumentPreview');
 
-    await page.locator('#plan-estudio').getByRole('link', { name: 'Ver instructivo', exact: true }).click();
+    await page.locator('#plan-estudio').getByRole('link', { name: 'Ver las instrucciones', exact: true }).click();
     await expect(dialog).toBeVisible();
     expect(page.url()).toBe(originalUrl);
     await expect(dialog.locator('[data-document-preview-panel="instructivo"]')).toBeVisible();
     await expect(dialog.locator('[data-document-preview-panel="instructivo"] img')).toHaveCount(3);
     await expect(dialog.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/instructivo-presentacion-oral-semana-3.docx');
 
-    await dialog.getByRole('button', { name: 'Modelo de portada' }).click();
+    await dialog.getByRole('button', { name: 'Ejemplo de la primera página' }).click();
     await expect(dialog.locator('[data-document-preview-panel="modelo-portada"]')).toBeVisible();
     await expect(dialog.locator('[data-document-preview-panel="modelo-portada"] img')).toHaveCount(2);
     await expect(dialog.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/modelo-portada-seminario-nutricion.docx');

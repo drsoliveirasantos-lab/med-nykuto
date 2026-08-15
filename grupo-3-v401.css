@@ -1400,8 +1400,7 @@ img{display:block;max-width:100%}
   .priority-card-head time{padding:2px 4px;font-size:.46rem}
   .priority-card>span,.priority-card-head>span{font-size:.5rem}
   .priority-card strong{margin-top:0;font-size:.76rem}
-  .priority-card small{display:-webkit-box;margin-top:3px;font-size:.57rem;line-height:1.3;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .priority-card b{padding-top:6px;font-size:.56rem}
+  .priority-card small,.priority-card b{display:none}
   .course-hub,.schedule-section,.pending-section,.subject-section,.plan-section,.delegate-section{padding:11px 8px;border-radius:18px}
   .course-hub{padding:11px 8px}
   .section-heading,.subject-heading{gap:6px;margin-bottom:11px}
