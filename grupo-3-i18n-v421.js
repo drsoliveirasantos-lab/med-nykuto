@@ -131,6 +131,8 @@
     '6 materias':'6 matérias',
     'Plan':'Plano',
     'Seminario':'Seminário',
+    'Comunidad':'Turma',
+    'Desafío':'Desafio',
     'Dudas':'Dúvidas',
     'Mensaje':'Mensagem',
     'Espacio activo':'Espaço ativo',

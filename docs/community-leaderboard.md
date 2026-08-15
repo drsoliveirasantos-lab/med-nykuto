@@ -1,0 +1,30 @@
+# Classement hebdomadaire du 4.º E
+
+## Fonctionnement
+
+- La page publique de la classe est `comunidade.html`.
+- À la fin d'un QCM lié à une matière ou à un module, l'étudiant peut publier volontairement son résultat sous un pseudonyme.
+- Pour chaque semaine, navigateur et matière/module, seul le meilleur résultat est conservé.
+- Le classement additionne les bonnes réponses et utilise la précision pour départager les égalités.
+- Le défi collectif vise 1 000 bonnes réponses. Il est remis à zéro chaque lundi selon l'heure du Paraguay.
+- Aucun email, mot de passe, nom réel ou temps de réponse n'est stocké par l'application.
+
+Le système repose volontairement sur la confiance : sans authentification, un utilisateur déterminé peut changer l'identifiant local de son navigateur. Le classement doit donc rester un outil amical, jamais un registre académique.
+
+## Activation Cloudflare Pages
+
+Le code serveur se trouve dans `functions/api/community.js` et attend une liaison D1 nommée `MED_NYKUTO_DB`.
+
+1. Dans Cloudflare, créer une base D1, par exemple `med-nykuto-community`.
+2. Ouvrir le projet Pages Med Nykuto, puis **Settings → Bindings → D1 database bindings**.
+3. Ajouter la variable `MED_NYKUTO_DB` et sélectionner la base créée.
+4. Configurer au minimum l'environnement Preview, puis Production au moment de la promotion.
+5. Relancer un déploiement.
+
+La table et son index sont créés automatiquement lors de la première requête. Aucune migration manuelle n'est nécessaire.
+
+Sans cette liaison, les QCM continuent de fonctionner et la page affiche un état d'activation explicite ; aucun résultat local n'est supprimé.
+
+## Vérification rapide
+
+Après déploiement, `GET /api/community` doit répondre avec `ok: true`, une semaine, un défi et un tableau `ranking`. Terminer ensuite un QCM depuis une URL contenant `course` ou `module`, publier un score et vérifier qu'il apparaît dans `comunidade.html`.
