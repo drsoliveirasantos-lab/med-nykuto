@@ -1337,7 +1337,7 @@ img{display:block;max-width:100%}
 
 @media(max-width:480px){
   html{scroll-padding-top:60px}
-  body{padding-bottom:68px}
+  body{padding-bottom:78px}
   .class-header-inner{width:min(calc(100% - 8px),var(--content));min-height:54px;gap:4px}
   .class-brand img{width:34px;height:34px;border-radius:10px}
   .class-scope{gap:7px;padding:6px 10px;font-size:.68rem}
@@ -1454,6 +1454,16 @@ img{display:block;max-width:100%}
   .study-preview-head span{font-size:.5rem}
   .study-preview-head h3{font-size:.78rem}
   .study-preview-body{padding:10px}
+  .study-map{gap:5px}
+  .study-map li.is-answer-card{min-height:0;border-radius:12px}
+  .study-map li.is-answer-card:hover{transform:none}
+  .study-map .preview-answer-disclosure>summary{min-height:60px;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;gap:3px 8px;align-items:end;padding:8px 10px}
+  .study-map .preview-answer-disclosure>summary>span:first-child{grid-column:1/-1;grid-row:1;align-self:center;margin:0;font-size:.5rem;line-height:1.15;letter-spacing:.08em}
+  .study-map .preview-answer-disclosure>summary strong{grid-column:1;grid-row:2;align-self:end;font-size:.67rem;line-height:1.18}
+  .study-map .preview-answer-hint{grid-column:2;grid-row:2;align-self:end;margin:0!important;padding:0;font-size:.5rem!important;line-height:1.18;white-space:nowrap}
+  .study-map .preview-answer-inline{gap:3px;margin:0 7px 7px;padding:7px 9px;border-radius:9px}
+  .study-map .preview-answer-inline>span{font-size:.48rem}
+  .study-map .preview-answer-inline p{font-size:.59rem;line-height:1.36}
   .lesson-accordions{gap:6px}
   .lesson-accordion{border-radius:14px}
   .lesson-accordion summary{grid-template-columns:30px 1fr auto;gap:8px;min-height:54px;padding:8px 9px}
@@ -1499,10 +1509,10 @@ img{display:block;max-width:100%}
   .question-builder select,.question-builder textarea{padding:9px;border-radius:10px;font-size:.68rem}
   .question-builder textarea{min-height:76px}
   .form-note{font-size:.55rem}
-  .mobile-bottom-nav{left:4px;right:4px;bottom:max(4px,env(safe-area-inset-bottom));border-radius:15px}
-  .mobile-bottom-nav a{min-height:50px;font-size:.55rem}
-  .mobile-bottom-nav .nav-icon svg{width:16px;height:16px}
-  .mobile-bottom-nav strong{font-size:.54rem}
+  .mobile-bottom-nav{left:4px;right:4px;bottom:max(4px,env(safe-area-inset-bottom));border-radius:16px}
+  .mobile-bottom-nav a{min-height:58px;padding:4px 1px;font-size:.61rem}
+  .mobile-bottom-nav .nav-icon svg{width:20px;height:20px}
+  .mobile-bottom-nav strong{font-size:.61rem;line-height:1.1}
   .assignment-card,.inference-card{padding:16px;border-radius:17px}
   .current-assignment>.assignment-card{padding:13px 11px;border-radius:0}
   .current-assignment>summary{grid-template-columns:36px minmax(0,1fr) 24px;gap:8px;min-height:78px;padding:9px 8px}

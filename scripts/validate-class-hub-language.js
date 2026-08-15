@@ -87,6 +87,10 @@ expect(!html.includes('<strong>Cursos</strong>'), 'The obsolete visible Cursos n
 expect(css.includes('.course-selector{grid-template-columns:1fr 1fr;gap:6px}'), 'The two-column iPhone subject library is missing.');
 expect(css.includes('.practice-counts{grid-template-columns:repeat(3,1fr);gap:4px'), 'The compact three-column iPhone training summary is missing.');
 expect(css.includes('.resource-grid{grid-template-columns:1fr 1fr;gap:6px'), 'The two-column iPhone review library is missing.');
+expect(css.includes('.study-map .preview-answer-disclosure>summary{min-height:60px;display:grid'), 'The compact iPhone study-map rows are missing.');
+expect(css.includes('.study-map .preview-answer-hint{grid-column:2;grid-row:2'), 'The compact study-map answer hint alignment is missing.');
+expect(css.includes('.mobile-bottom-nav a{min-height:58px'), 'The enlarged iPhone bottom navigation touch targets are missing.');
+expect(css.includes('.mobile-bottom-nav .nav-icon svg{width:20px;height:20px}'), 'The enlarged iPhone bottom navigation icons are missing.');
 
 if (failures.length) {
   console.error('Class hub language/schedule validation failed:');
