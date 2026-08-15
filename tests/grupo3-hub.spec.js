@@ -8,7 +8,9 @@ test.describe('Class hub', () => {
   });
 
   test('presents the next useful action before secondary content', async ({ page }) => {
-    await expect(page.getByRole('heading', { name: 'Tu semana, de un vistazo.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Tu semana', exact: true })).toBeVisible();
+    await expect(page.getByText('PARA ESTA SEMANA', { exact: true })).toBeVisible();
+    await expect(page.locator('#inicio')).not.toContainText(/de un vistazo|EN PORTADA|Panel de estudio/);
     await expect(page.getByText('4.º E', { exact: true }).first()).toBeVisible();
     await expect(page.locator('#nextScheduleSubject')).not.toHaveText('Calculando…');
     await expect(page.getByRole('link', { name: /Estudiar tres micosis subcutáneas/ })).toBeVisible();
@@ -95,7 +97,9 @@ test.describe('Class hub', () => {
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
     await expect(page.locator('#classLanguageSelect')).toHaveValue('br');
-    await expect(page.getByRole('heading', { name: 'Sua semana em um relance.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Sua semana', exact: true })).toBeVisible();
+    await expect(page.getByText('PARA ESTA SEMANA', { exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Ver todas as tarefas' })).toBeVisible();
     await expect(page.locator('.mobile-bottom-nav').getByText('Tarefas', { exact: true })).toBeAttached();
 
     await page.goto('/clase.html#horario');
@@ -114,7 +118,7 @@ test.describe('Class hub', () => {
 
   test('keeps the personal lab group separate and local to the device', async ({ page }) => {
     await page.goto('/clase.html#horario');
-    const groupSelector = page.getByLabel('Mi subgrupo de Microbiología II · Práctica');
+    const groupSelector = page.getByLabel('Mi grupo de Microbiología II · Práctica');
     await expect(groupSelector).toHaveValue('');
     await groupSelector.selectOption('3');
     await expect(page.locator('#labScheduleGroup')).toContainText('Grupo 3');
@@ -162,7 +166,7 @@ test.describe('Class hub', () => {
     await expect(page.locator('.bio-board-route article')).toHaveCount(4);
     await expect(page.getByText('Malato–aspartato: ≈2,5 ATP/NADH; glicerol-3-fosfato: ≈1,5 ATP/NADH.')).toBeVisible();
     await expect(page.getByText('su rendimiento oxidativo no es siempre 2,5 ATP por NADH', { exact: false })).toBeVisible();
-    await expect(page.getByText('Bioquímica · 3 transcripciones')).toBeVisible();
+    await expect(page.getByText('Bioquímica · 3 clases')).toBeVisible();
   });
 
   test('opens the 10 and 13 August Physiology lessons independently', async ({ page }) => {
@@ -227,7 +231,7 @@ test.describe('Class hub', () => {
     await expect(task.locator('.seminar-at-a-glance b').first()).toHaveText('2');
     await expect(task.getByText('presentaciones PowerPoint separadas', { exact: true })).toBeVisible();
     await expect(task.getByText('informe para firma y sello', { exact: true })).toBeVisible();
-    await task.getByText('Ver la consigna completa', { exact: true }).click();
+    await task.getByText('Ver todos los detalles', { exact: true }).click();
     await expect(task.getByText('Trabajo 1 · Guías Alimentarias', { exact: true })).toBeVisible();
     await expect(task.getByText('Trabajo 2 · Platos típicos / regiones', { exact: true })).toBeVisible();
     await expect(task.getByText('aproximadamente hasta 5 minutos por grupo', { exact: false })).toBeVisible();
@@ -304,7 +308,7 @@ test.describe('Class hub', () => {
 
   test('archives completed activities by subject and counts personal signed copies', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
-    await expect(page.getByRole('heading', { name: 'Actividades ya realizadas' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Tareas anteriores' })).toBeVisible();
     await expect(page.locator('#signedAssignmentCount')).toHaveText('0/2 copias firmadas');
     await expect(page.locator('[data-archive-subject]')).toHaveCount(6);
 
@@ -467,7 +471,7 @@ test.describe('Class hub', () => {
     await page.goto('/clase.html#epi-detail');
     await expect(page.getByRole('heading', { name: 'Sectorización, triage, urgencia y emergencia' })).toBeVisible();
     await expect(page.getByText('APS y modelo de atención integral', { exact: true })).toBeVisible();
-    await expect(page.locator('#epidemiologia .transcription-rule-note').getByText('Regla aplicada:')).toBeVisible();
+    await expect(page.locator('#epidemiologia .transcription-rule-note').getByText('Cómo se separaron las clases:')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Lo que la profesora señaló que puede preguntar' })).toBeVisible();
     await expect(page.getByText('2008: implementación de la estrategia APS en Paraguay.')).toBeVisible();
     await page.locator('#epidemiologia .lesson-accordion').nth(3).locator('summary').click();

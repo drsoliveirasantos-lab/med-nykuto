@@ -20,6 +20,33 @@ expect(html.includes('id="classLanguageSelect"'), 'The ES/PT-BR language selecto
 expect(html.includes('<option value="es">ES · Español</option>'), 'The Spanish language option is missing.');
 expect(html.includes('<option value="br">PT-BR · Português</option>'), 'The Brazilian Portuguese language option is missing.');
 
+[
+  'Tu semana',
+  'PARA ESTA SEMANA',
+  '3 cosas importantes',
+  'Ver todas las tareas',
+  'TAREAS ACTUALES',
+  'TAREAS ANTERIORES',
+  '¿Qué quieres preguntar?'
+].forEach((label) => {
+  expect(html.includes(label), `The simplified class label “${label}” is missing.`);
+});
+
+[
+  'Tu semana, de un vistazo.',
+  'EN PORTADA',
+  'Panel de estudio',
+  'Por hacer + archivo',
+  'Ver la consigna completa',
+  'HISTORIAL POR MATERIA',
+  'Canal de la clase',
+  'Seleccionar subgrupo',
+  'nueva transcripción · una sola clase',
+  'transcripción acumulada'
+].forEach((label) => {
+  expect(!html.includes(label), `The confusing class label “${label}” is still visible.`);
+});
+
 ['1', '3', '4', '5'].forEach((day) => {
   expect(html.includes(`data-week-date="${day}"`), `The visible date for schedule day ${day} is missing.`);
 });
@@ -47,6 +74,9 @@ expect(i18nIndex >= 0 && i18nIndex < practiceIndex && practiceIndex < runtimeInd
 expect(i18n.includes("htmlLangByLang = {es:'es',br:'pt-BR'}"), 'The Portuguese document language is not configured as pt-BR.');
 expect(i18n.includes("'Tareas':'Tarefas'"), 'The Portuguese task navigation translation is missing.');
 expect(i18n.includes("'Horario del 4.º E':'Horário do 4.º E'"), 'The Portuguese schedule heading translation is missing.');
+expect(i18n.includes("'Tu semana':'Sua semana'"), 'The simplified Portuguese dashboard heading is missing.');
+expect(i18n.includes("'Ver todas las tareas':'Ver todas as tarefas'"), 'The simplified Portuguese task link is missing.');
+expect(i18n.includes("'TAREAS ANTERIORES':'TAREFAS ANTERIORES'"), 'The simplified Portuguese previous-task label is missing.');
 expect(css.includes('.class-language-switcher'), 'The compact language selector styling is missing.');
 expect(css.includes('.schedule-task-badge'), 'The schedule task badge styling is missing.');
 expect((html.match(/class="schedule-slot/g) || []).length === 10, 'The weekly schedule no longer exposes all ten class slots.');
