@@ -1142,10 +1142,10 @@ img{display:block;max-width:100%}
   .section-heading,.subject-heading{align-items:flex-start;flex-direction:column;gap:12px}
   .section-heading>p{font-size:.86rem}
   .agenda-summary,.agenda-grid,.pending-grid,.archive-subject-grid,.week-grid,.class-history,.lesson-intro,.phase-grid,.reaction-list,.regulation-grid,.science-note,.resource-grid,.study-map,.study-checklist,.delegate-section,.exam-focus,.epi-map-grid,.timeline-row,.two-column-notes,.compare-cards,.dispensary-grid,.family-cycle,.dimension-flow,.process-strip,.triage-first-look,.triage-colors,.micro-objectives,.sample-grid,.sample-check,.morphology-grid,.sabouraud-panel,.sabouraud-facts,.lab-workflow,.lab-safety-card,.resp-control-hero,.control-loop,.resp-centers,.resp-modulators,.gas-core-grid,.gas-memory-strip,.bohr-haldane,.clinical-bridge,.nutrition-core,.nutrition-core ol,.nutrition-definitions,.nutrition-laws,.nutrition-balance,.energy-equation,.plate-method,.plate-visual,.plate-notes,.food-functions,.enrichment-grid,.clinical-adaptation,.adaptation-grid,.nutrition-case,.nutrition-group-picker-full,.nutrition-group-output,.seminar-rules,.seminar-delivery-route,.seminar-content-grid,.seminar-report-layout,.seminar-rubric-grid,.seminar-organization-grid,.plan-deliverables,.mycosis-core,.mycosis-core ol,.mycosis-split,.transmission-grid,.site-grid,.case-teaching-card,.diagnostic-flow,.therapy-grid,.next-mycology-grid,.bio-board-route,.bio-board-keys{grid-template-columns:1fr}
-  .nutrition-core{gap:13px;padding:15px 13px;border-radius:20px}
+  .nutrition-core{gap:10px;padding:12px 13px;border-radius:20px}
   .nutrition-core>div>span{font-size:.57rem}
-  .nutrition-core h3{margin:7px 0 6px;font-size:1.34rem;line-height:1.05}
-  .nutrition-core p{font-size:.72rem;line-height:1.42}
+  .nutrition-core h3{margin:5px 0 4px;font-size:1.28rem;line-height:1.04}
+  .nutrition-core p{font-size:.7rem;line-height:1.35}
   .nutrition-core ol{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
   .nutrition-core li{min-height:68px;display:grid;grid-template-columns:25px minmax(0,1fr);grid-template-rows:auto auto;align-content:center;gap:1px 7px;padding:8px 9px;border-radius:13px}
   .nutrition-core li:last-child{grid-column:1/-1}
