@@ -1,4 +1,4 @@
-/* v404 — Persistent semester switcher shared across Med Nykuto. */
+/* v405 — Persistent semester switcher shared across Med Nykuto. */
 (function () {
   'use strict';
 
@@ -27,6 +27,11 @@
       '.semester-switcher-v402[data-semester="4"] select{border-color:rgba(114,224,171,.35)}',
       '@media(max-width:680px){.semester-switcher-v402{left:auto;right:max(8px,env(safe-area-inset-right));bottom:max(8px,env(safe-area-inset-bottom));grid-template-columns:1fr;min-height:42px;padding:4px;border-radius:14px}.semester-switcher-v402>span{display:none}.semester-switcher-v402 select{width:124px;min-width:0;min-height:38px;padding:0 28px 0 9px;font-size:.72rem}body.has-class-bottom-nav-v402 .semester-switcher-v402{bottom:72px}}',
       '@media(max-width:370px){.semester-switcher-v402>span{display:none}.semester-switcher-v402{grid-template-columns:1fr;padding-left:6px}.semester-switcher-v402 select{min-width:126px}}',
+      '.semester-switcher-v402.is-class-header-v402{position:static;inset:auto;z-index:auto;display:flex;grid-template-columns:none;gap:6px;min-height:0;padding:4px 5px;border-radius:999px;background:rgba(255,255,255,.035);box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}',
+      '.semester-switcher-v402.is-class-header-v402>span{display:none}',
+      '.semester-switcher-v402.is-class-header-v402 select{width:auto;min-width:112px;min-height:32px;padding:0 24px 0 9px;border:0;border-radius:999px;background:#0d1b2c;font-size:.7rem}',
+      '.semester-switcher-v402 .semester-class-v402{display:inline-flex;align-items:center;min-height:28px;padding:0 8px;border-left:1px solid rgba(198,218,244,.16);color:#ffe2a3;font-size:.68rem;font-weight:900;white-space:nowrap}',
+      '@media(max-width:680px){.semester-switcher-v402.is-class-header-v402{position:static;right:auto;bottom:auto;padding:3px 4px}.semester-switcher-v402.is-class-header-v402 select{width:92px;min-width:92px;min-height:30px;padding-left:7px;font-size:.62rem}.semester-switcher-v402 .semester-class-v402{min-height:26px;padding:0 6px;font-size:.61rem}}',
       '@media print{.semester-switcher-v402{display:none!important}}'
     ].join('\n');
     document.head.appendChild(style);
@@ -36,7 +41,9 @@
     if (!document.body || document.getElementById('semesterSwitcherV402')) return;
 
     installStyles();
-    if (document.querySelector('.mobile-bottom-nav')) {
+    var classScope = document.querySelector('.class-header-inner .class-scope');
+    var useClassHeader = !!classScope;
+    if (!useClassHeader && document.querySelector('.mobile-bottom-nav')) {
       document.body.classList.add('has-class-bottom-nav-v402');
     }
 
@@ -52,10 +59,16 @@
       '<option value="3">3.º semestre</option>',
       '<option value="4">4.º semestre</option>',
       '<option value="5" disabled>5.º · próximamente</option>',
-      '</select>'
+      '</select>',
+      useClassHeader ? '<strong class="semester-class-v402">4.º E</strong>' : ''
     ].join('');
 
-    document.body.appendChild(wrapper);
+    if (useClassHeader) {
+      wrapper.classList.add('is-class-header-v402');
+      classScope.replaceWith(wrapper);
+    } else {
+      document.body.appendChild(wrapper);
+    }
     var select = wrapper.querySelector('select');
     select.value = currentSemester;
 

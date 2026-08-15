@@ -196,6 +196,8 @@ img{display:block;max-width:100%}
 .next-schedule-card>small{margin-top:7px;color:var(--muted)}
 .schedule-guide-card p{max-width:520px;margin:0;color:var(--muted-strong)}
 .schedule-guide-card a{margin-top:auto;padding-top:16px;color:var(--cyan);font-size:.78rem;font-weight:850}
+.schedule-day-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px}
+.schedule-day-strip span{min-height:28px;display:grid;place-items:center;border:1px solid rgba(111,216,255,.18);border-radius:9px;color:var(--cyan);background:rgba(111,216,255,.045);font-size:.58rem;font-weight:950;letter-spacing:.08em}
 .personal-lab-card{display:grid;align-content:start;gap:11px}
 .personal-lab-card h3{margin-top:7px;font-size:1.55rem}
 .personal-lab-card label{color:var(--muted-strong);font-size:.76rem;font-weight:850}
@@ -212,7 +214,14 @@ img{display:block;max-width:100%}
 .agenda-day header span{color:var(--gold-soft);font-size:.67rem;font-weight:950;letter-spacing:.12em}
 .agenda-day header strong{display:grid;justify-items:end;font-size:.83rem;line-height:1.15}
 .agenda-day header strong time{margin-top:4px;color:var(--cyan);font-size:.61rem;font-weight:850}
-.schedule-slot{display:grid;gap:3px;padding:14px;border-bottom:1px solid rgba(197,215,239,.09)}
+.schedule-slot{--slot-accent:var(--cyan);position:relative;display:grid;gap:3px;padding:14px;border-bottom:1px solid rgba(197,215,239,.09)}
+.schedule-slot::before{content:"";position:absolute;left:0;top:13px;bottom:13px;width:3px;border-radius:0 999px 999px 0;background:var(--slot-accent);opacity:.78}
+.schedule-slot[data-subject="physiology"]{--slot-accent:#6fd8ff}
+.schedule-slot[data-subject="microbiology"]{--slot-accent:#b494ff}
+.schedule-slot[data-subject="biochemistry"]{--slot-accent:#f2c66d}
+.schedule-slot[data-subject="epidemiology"]{--slot-accent:#72e0ab}
+.schedule-slot[data-subject="nutrition"]{--slot-accent:#ff9f8b}
+.schedule-slot[data-subject="bioethics"]{--slot-accent:#82a9ff}
 .schedule-slot:last-child{border-bottom:0}
 .schedule-slot time{color:var(--cyan);font-size:.68rem;font-weight:900}
 .schedule-slot strong{font-size:.82rem;line-height:1.25}
@@ -1177,8 +1186,55 @@ img{display:block;max-width:100%}
   .week-primary{grid-column:auto}
   .week-card{min-height:230px}
   .schedule-section,.pending-section,.subject-section,.plan-section,.delegate-section{padding:20px 15px}
-  .agenda-grid{gap:8px}
+  .schedule-section{padding:14px 10px 18px;border-radius:20px;background:linear-gradient(155deg,rgba(12,27,44,.96),rgba(6,16,28,.94))}
+  .schedule-section .section-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:7px 10px;margin-bottom:12px}
+  .schedule-section .section-heading>div{min-width:0}
+  .schedule-section .section-heading .section-kicker{margin:0 0 4px;font-size:.56rem;letter-spacing:.14em}
+  .schedule-section .section-heading h2{font-size:1.48rem;line-height:1.05}
+  .schedule-section .schedule-week-range{margin-top:5px;font-size:.65rem;line-height:1.3}
+  .schedule-section .source-pill{min-height:27px;padding:4px 7px;font-size:.55rem}
+  .agenda-summary{gap:8px}
   .next-schedule-card,.schedule-guide-card,.personal-lab-card{min-height:auto}
+  .schedule-guide-card,.personal-lab-card{padding:13px;border-radius:16px}
+  .schedule-guide-card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:5px 10px;justify-content:stretch}
+  .schedule-guide-card>span{grid-column:1;grid-row:1;font-size:.54rem}
+  .schedule-guide-card h3{grid-column:1;grid-row:2;margin:0;font-size:1.02rem;letter-spacing:-.02em}
+  .schedule-guide-card p{grid-column:1/-1;grid-row:3;font-size:.66rem;line-height:1.35}
+  .schedule-guide-card a{grid-column:2;grid-row:1/3;align-self:center;margin:0;padding:6px 8px;border:1px solid rgba(111,216,255,.2);border-radius:10px;background:rgba(111,216,255,.05);font-size:.62rem;white-space:nowrap}
+  .schedule-day-strip{grid-column:1/-1;grid-row:4;gap:5px;margin-top:3px}
+  .schedule-day-strip span{min-height:24px;border-radius:8px;font-size:.52rem}
+  .personal-lab-card{gap:7px}
+  .personal-lab-card>div:first-child{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .personal-lab-card h3{margin:0;font-size:1.05rem}
+  .personal-lab-card>div>span{font-size:.53rem}
+  .personal-lab-card label{font-size:.64rem;line-height:1.35}
+  .personal-lab-card select{min-height:42px;border-radius:12px;font-size:.78rem}
+  .personal-lab-card>p{font-size:.61rem;line-height:1.35}
+  .lab-next{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:8px}
+  .lab-next span{font-size:.59rem}
+  .lab-next strong{font-size:.68rem;text-align:right}
+  .agenda-grid{gap:9px;margin-top:10px}
+  .agenda-day{display:grid;grid-template-columns:54px minmax(0,1fr);border-radius:16px;background:rgba(4,13,23,.38)}
+  .agenda-day header{grid-column:1;grid-row:1/span 8;display:flex;flex-direction:column;justify-content:flex-start;gap:5px;padding:13px 6px;border-right:1px solid var(--line);border-bottom:0;background:rgba(255,255,255,.025)}
+  .agenda-day header span{font-size:.59rem}
+  .agenda-day header strong{justify-items:center;font-size:0}
+  .agenda-day header strong time{margin-top:2px;font-size:.57rem;line-height:1.2;text-align:center}
+  .agenda-day.is-next-day{border-color:rgba(242,198,109,.52);box-shadow:inset 0 0 0 1px rgba(242,198,109,.08),0 10px 30px rgba(0,0,0,.13)}
+  .agenda-day.is-next-day header{background:linear-gradient(180deg,rgba(242,198,109,.14),rgba(242,198,109,.035))}
+  .schedule-slot{grid-column:2;grid-template-columns:74px minmax(0,1fr) auto;grid-template-rows:auto auto;gap:2px 8px;min-height:66px;padding:10px 11px 10px 13px}
+  .schedule-slot::before{top:10px;bottom:10px}
+  .schedule-slot time{grid-column:1;grid-row:1/3;align-self:start;padding-top:1px;font-size:.6rem;white-space:nowrap}
+  .schedule-slot strong{grid-column:2/4;grid-row:1;font-size:.75rem;line-height:1.22}
+  .schedule-slot small{grid-column:2;grid-row:2;font-size:.61rem;line-height:1.25}
+  .schedule-slot .schedule-task-badge{grid-column:3;grid-row:2;align-self:start;margin:0;padding:2px 6px;font-size:.49rem}
+  .schedule-slot .schedule-task-badge::before{width:4px;height:4px}
+  .schedule-slot .course-type-badge{margin-left:3px;padding:2px 5px;font-size:.42rem}
+  .schedule-lab{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto auto;gap:2px 8px}
+  .schedule-lab time{grid-column:1/-1;grid-row:1;padding:0;font-size:.56rem}
+  .schedule-lab strong{grid-column:1/3;grid-row:2}
+  .schedule-lab small{grid-column:1;grid-row:3}
+  .schedule-lab .schedule-task-badge{grid-column:2;grid-row:3}
+  .schedule-note{margin-top:10px;padding:0 3px;font-size:.61rem;line-height:1.4}
   .assignment-card,.inference-card{min-height:auto}
   .completion-control{margin-top:22px}
   .status-legend{justify-content:flex-start}
