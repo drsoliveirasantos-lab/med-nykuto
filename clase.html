@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#07111f" />
   <title>4.º E · Semestre 4 | Med Nykuto</title>
-  <meta name="description" content="Espacio académico no oficial de 4.º E: horario, tarefas, historial de actividades y revisiones de Nutrición, Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología organizadas en un solo lugar." />
+  <meta name="description" content="Espacio académico no oficial del 4.º E: horario, tareas, historial de actividades y revisiones de Nutrición, Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología organizadas en un solo lugar." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=420" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=421" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -39,6 +39,13 @@
         <span>Semestre 4</span>
         <strong>4.º E</strong>
       </div>
+      <div class="class-language-switcher">
+        <label for="classLanguageSelect">Idioma</label>
+        <select id="classLanguageSelect" aria-label="Idioma del espacio de clase">
+          <option value="es">ES · Español</option>
+          <option value="br">PT-BR · Português</option>
+        </select>
+      </div>
       <a class="header-back" href="index.html">Volver</a>
     </div>
   </header>
@@ -47,7 +54,7 @@
     <nav class="workspace-nav" aria-label="Secciones del espacio de clase">
       <a href="#inicio" data-view-link="inicio" aria-current="page"><span class="nav-icon"><svg><use href="#class-icon-home"></use></svg></span><strong>Inicio</strong><small>Ahora</small></a>
       <a href="#horario" data-view-link="horario"><span class="nav-icon"><svg><use href="#class-icon-calendar"></use></svg></span><strong>Horario</strong><small>Semana</small></a>
-      <a href="#pendientes" data-view-link="pendientes"><span class="nav-icon"><svg><use href="#class-icon-task"></use></svg></span><strong>Tarefa</strong><small>Actual + archivo</small></a>
+      <a href="#pendientes" data-view-link="pendientes"><span class="nav-icon"><svg><use href="#class-icon-task"></use></svg></span><strong>Tareas</strong><small>Actuales + archivo</small></a>
       <a href="#materias" data-view-link="cursos"><span class="nav-icon"><svg><use href="#class-icon-book"></use></svg></span><strong>Cursos</strong><small>6 materias</small></a>
       <a href="#plan-estudio" data-view-link="plan"><span class="nav-icon"><svg><use href="#class-icon-plan"></use></svg></span><strong>Plan</strong><small>Seminario</small></a>
       <a href="#delegado" data-view-link="dudas"><span class="nav-icon"><svg><use href="#class-icon-question"></use></svg></span><strong>Dudas</strong><small>Mensaje</small></a>
@@ -57,7 +64,7 @@
       <div class="dashboard-heading">
         <div class="dashboard-heading-top">
           <div class="hero-meta"><span class="status-dot"><i aria-hidden="true"></i> Espacio activo</span><span>4.º E · Semestre 4</span></div>
-          <time class="dashboard-updated" id="lastUpdated" datetime="2026-08-14T21:48:00-03:00" title="Última actualización · hora de Paraguay">Actualizado 14 ago. · 21:48 PY</time>
+          <time class="dashboard-updated" id="lastUpdated" datetime="2026-08-14T22:38:00-03:00" title="Última actualización · hora de Paraguay">Actualizado 14 ago. · 22:38 PY</time>
         </div>
         <p class="section-kicker">Panel de estudio</p>
         <h1 id="class-title">Tu semana, de un vistazo.</h1>
@@ -76,14 +83,14 @@
         <aside class="dashboard-status" aria-label="Resumen de la semana">
           <div><span>EN PORTADA</span><strong>3 prioridades</strong><small>Dos actividades confirmadas y un repaso recomendado.</small></div>
           <div><span>ÚLTIMA CLASE</span><strong>Nutrición</strong><small>Leyes de la alimentación · 13 ago. estimado</small></div>
-          <a href="#pendientes">Abrir Tarefa y el historial</a>
+          <a href="#pendientes">Abrir Tareas y el historial</a>
         </aside>
       </div>
 
       <div class="dashboard-priorities" aria-label="Prioridades actuales">
-        <a class="priority-card priority-main" href="#microTheoryPrepCard"><div class="priority-card-head"><span>MICROBIOLOGÍA II</span><time id="homeMicroTheoryDate">Fecha estimada</time></div><strong>Preparar tres micosis subcutáneas</strong><small>Esporotricosis, cromoblastomicosis y micetoma eumicótico.</small><b>Abrir Tarefa →</b></a>
-        <a class="priority-card" href="#nutritionPrepCard"><div class="priority-card-head"><span>NUTRICIÓN · SEMINARIO</span><time id="homeNutritionDate">Fecha estimada</time></div><strong>Guías + regiones y platos</strong><small>2 PowerPoint independientes + 1 informe para firma y sello.</small><b>Ver mi grupo y los entregables →</b></a>
-        <a class="priority-card" href="#bioPrepCard"><div class="priority-card-head"><span>BIOQUÍMICA II</span><time id="homeBioDate">Fecha estimada</time></div><strong>Completar regulación de la glucólisis</strong><small>Hexoquinasa, glucoquinasa, PFK-1, piruvato quinasa y destinos del piruvato.</small><b>Abrir Tarefa →</b></a>
+        <a class="priority-card priority-main" href="#microTheoryPrepCard"><div class="priority-card-head"><span>MICROBIOLOGÍA II · TEÓRICA</span><time id="homeMicroTheoryDate">Fecha estimada</time></div><strong>Preparar tres micosis subcutáneas</strong><small>Esporotricosis, cromoblastomicosis y micetoma eumicótico.</small><b>Abrir Tareas →</b></a>
+        <a class="priority-card" href="#nutritionPrepCard"><div class="priority-card-head"><span>NUTRICIÓN · SEMINARIO</span><time id="homeNutritionDate">Fecha estimada</time></div><strong>Guías + regiones y platos</strong><small>2 presentaciones PowerPoint independientes + 1 informe para firma y sello.</small><b>Ver mi grupo y los entregables →</b></a>
+        <a class="priority-card" href="#bioPrepCard"><div class="priority-card-head"><span>BIOQUÍMICA II</span><time id="homeBioDate">Fecha estimada</time></div><strong>Completar la regulación de la glucólisis</strong><small>Hexoquinasa, glucoquinasa, PFK-1, piruvato quinasa y destinos del piruvato.</small><b>Abrir Tareas →</b></a>
       </div>
     </section>
 
@@ -91,8 +98,8 @@
 
     <section id="horario" class="content-section schedule-section" data-view="horario" aria-labelledby="schedule-title" hidden>
       <div class="section-heading">
-        <div><p class="section-kicker">Agenda oficial</p><h2 id="schedule-title">Horario de 4.º E</h2></div>
-        <span class="source-pill">Hora de Paraguay · KM 8</span>
+        <div><p class="section-kicker">Agenda oficial</p><h2 id="schedule-title">Horario del 4.º E</h2><p class="schedule-week-range" id="scheduleWeekRange">Semana del 17 al 23 de agosto de 2026</p></div>
+        <span class="source-pill">Hora de Paraguay</span>
       </div>
 
       <div class="agenda-summary">
@@ -100,12 +107,12 @@
           <span>LECTURA RÁPIDA</span>
           <h3>Cuatro días presenciales</h3>
           <p>Lunes, miércoles, jueves y viernes. El bloque azul marca el día de la próxima clase calculada.</p>
-          <a href="#pendientes">Cruzar horario con Tarefa →</a>
+          <a href="#pendientes">Ver tareas de la semana →</a>
         </article>
 
         <aside class="personal-lab-card">
           <div><span>PREFERENCIA PERSONAL</span><h3>Mi laboratorio</h3></div>
-          <label for="labGroupSelect">Mi subgrupo de Microbiología II</label>
+          <label for="labGroupSelect">Mi subgrupo de Microbiología II · Práctica</label>
           <select id="labGroupSelect">
             <option value="">Seleccionar subgrupo</option>
             <option value="1">Grupo 1 · jueves 14:00–16:00</option>
@@ -119,24 +126,24 @@
 
       <div class="agenda-grid" id="weeklyAgenda" aria-label="Horario semanal">
         <article class="agenda-day" data-schedule-day="1">
-          <header><span>LUN</span><strong>Lunes</strong></header>
+          <header><span>LUN</span><strong>Lunes <time data-week-date="1" datetime="2026-08-17">17 ago.</time></strong></header>
           <div class="schedule-slot"><time>07:00–10:10</time><strong>Fisiología II</strong><small>Dra. Giselle Vert</small></div>
-          <div class="schedule-slot"><time>10:10–12:20</time><strong>Microbiología II</strong><small>Dr. Alexander Acuña</small></div>
+          <div class="schedule-slot"><time>10:10–12:20</time><strong>Microbiología II <span class="course-type-badge">TEÓRICA</span></strong><small>Dr. Alexander Acuña</small><a class="schedule-task-badge" href="#microTheoryPrepCard">Tarea</a></div>
           <div class="schedule-slot schedule-online"><time>15:00–17:00</time><strong>Bioética · plataforma</strong><small>Lic. Silvia Nuarte</small></div>
         </article>
         <article class="agenda-day" data-schedule-day="3">
-          <header><span>MIÉ</span><strong>Miércoles</strong></header>
-          <div class="schedule-slot"><time>09:10–11:10</time><strong>Bioquímica II</strong><small>Dra. Andrea López</small></div>
-          <div class="schedule-slot"><time>11:20–13:20</time><strong>Epidemiología y Salud Pública</strong><small>Dra. Andrea Isasi</small></div>
+          <header><span>MIÉ</span><strong>Miércoles <time data-week-date="3" datetime="2026-08-19">19 ago.</time></strong></header>
+          <div class="schedule-slot"><time>09:10–11:10</time><strong>Bioquímica II</strong><small>Dra. Andrea López</small><a class="schedule-task-badge schedule-task-estimated" href="#bioPrepCard">Preparación</a></div>
+          <div class="schedule-slot"><time>11:20–13:20</time><strong>Epidemiología y Salud Pública</strong><small>Dra. Andrea Isasi</small><a class="schedule-task-badge schedule-task-estimated" href="#epiPrepCard">Lectura</a></div>
         </article>
         <article class="agenda-day" data-schedule-day="4">
-          <header><span>JUE</span><strong>Jueves</strong></header>
-          <div class="schedule-slot"><time>07:00–09:40</time><strong>Nutrición</strong><small>Lic. Johana Leguizamón</small></div>
+          <header><span>JUE</span><strong>Jueves <time data-week-date="4" datetime="2026-08-20">20 ago.</time></strong></header>
+          <div class="schedule-slot"><time>07:00–09:40</time><strong>Nutrición</strong><small>Lic. Johana Leguizamón</small><a class="schedule-task-badge" href="#nutritionPrepCard">Seminario</a></div>
           <div class="schedule-slot"><time>09:40–12:20</time><strong>Fisiología II</strong><small>Dra. Giselle Vert</small></div>
-          <div class="schedule-slot schedule-lab" id="labScheduleSlot"><time id="labScheduleTime">G1 14:00 · G2 16:00 · G3 18:00</time><strong>Laboratorio de Microbiología II</strong><small id="labScheduleGroup">Selecciona tu subgrupo</small></div>
+          <div class="schedule-slot schedule-lab" id="labScheduleSlot"><time id="labScheduleTime">G1 14:00 · G2 16:00 · G3 18:00</time><strong>Microbiología II <span class="course-type-badge">PRÁCTICA</span></strong><small id="labScheduleGroup">Selecciona tu subgrupo</small><a class="schedule-task-badge" href="#microPrepCard">Muestra</a></div>
         </article>
         <article class="agenda-day" data-schedule-day="5">
-          <header><span>VIE</span><strong>Viernes</strong></header>
+          <header><span>VIE</span><strong>Viernes <time data-week-date="5" datetime="2026-08-21">21 ago.</time></strong></header>
           <div class="schedule-slot"><time>07:00–09:00</time><strong>Epidemiología y Salud Pública</strong><small>Dra. Andrea Isasi</small></div>
           <div class="schedule-slot"><time>09:10–11:10</time><strong>Bioquímica II</strong><small>Dra. Andrea López</small></div>
         </article>
@@ -146,7 +153,7 @@
 
     <section id="pendientes" class="content-section pending-section" data-view="pendientes" aria-labelledby="pending-title" hidden>
       <div class="section-heading pending-heading">
-        <div><p class="section-kicker">Por hacer + archivo</p><h2 id="pending-title">Tarefa de la clase</h2><p class="section-intro">Primero aparecen las actividades actuales. Debajo queda el historial por materia para recuperar las consignas y contar tus copias firmadas.</p></div>
+        <div><p class="section-kicker">Por hacer + archivo</p><h2 id="pending-title">Tareas de la clase</h2><p class="section-intro">Primero aparecen las actividades actuales. Debajo queda el historial por materia para recuperar las consignas y contar tus copias firmadas.</p></div>
         <div class="status-legend" aria-label="Estados de las fechas"><span class="status-confirmed">Confirmada</span><span class="status-estimated">Estimada</span><span class="status-check">Verificar</span></div>
       </div>
       <div class="task-block-heading"><span>POR HACER</span><strong>Actividades y preparaciones actuales</strong></div>
@@ -160,8 +167,8 @@
           </div>
           <p>Cada grupo debe preparar dos trabajos independientes y un informe breve. Selecciona tu grupo para ver los dos títulos exactos.</p>
           <div class="seminar-at-a-glance" aria-label="Resumen de los entregables del seminario">
-            <span><b>2</b><small>PowerPoint separados</small></span>
-            <span><b>4</b><small>diapositivas máximo por PowerPoint</small></span>
+            <span><b>2</b><small>presentaciones PowerPoint separadas</small></span>
+            <span><b>4</b><small>diapositivas como máximo por presentación</small></span>
             <span><b>1</b><small>informe para firma y sello</small></span>
           </div>
           <div class="nutrition-group-picker nutrition-group-picker-compact">
@@ -178,8 +185,8 @@
             <summary><span><strong>Ver la consigna completa</strong><small>Los 3 entregables, el informe y la organización</small></span></summary>
             <div class="seminar-task-details-body">
               <ol class="seminar-mini-route">
-                <li><span>01</span><div><strong>Trabajo 1 · Guías Alimentarias</strong><small>PowerPoint independiente de hasta 4 diapositivas.</small></div></li>
-                <li><span>02</span><div><strong>Trabajo 2 · Platos típicos / regiones</strong><small>Otro PowerPoint independiente de hasta 4 diapositivas.</small></div></li>
+                <li><span>01</span><div><strong>Trabajo 1 · Guías Alimentarias</strong><small>Presentación PowerPoint independiente de hasta 4 diapositivas.</small></div></li>
+                <li><span>02</span><div><strong>Trabajo 2 · Platos típicos / regiones</strong><small>Otra presentación PowerPoint independiente de hasta 4 diapositivas.</small></div></li>
                 <li><span>03</span><div><strong>Informe breve</strong><small>Portada, integrantes, ambos desarrollos y bibliografía; llevar para firma y sello.</small></div></li>
               </ol>
               <p class="seminar-task-note"><strong>Exposición:</strong> aproximadamente hasta 5 minutos por grupo. La comida es opcional y puede reemplazarse por imágenes claras.</p>
@@ -190,10 +197,10 @@
             </div>
           </details>
           <small>La actividad está confirmada. La fecha del jueves 20 se calcula con el horario habitual y permanece por confirmar.</small>
-          <label class="completion-control"><input type="checkbox" id="nutritionPrepDone" /><span>Marcar los 2 PowerPoint y el informe como preparados</span></label>
+          <label class="completion-control"><input type="checkbox" id="nutritionPrepDone" /><span>Marcar las 2 presentaciones y el informe como preparados</span></label>
         </article>
         <article class="assignment-card assignment-estimated" id="microTheoryPrepCard">
-          <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Microbiología II teórica</span></div>
+          <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Microbiología II · Teórica</span></div>
           <h3>Preparar tiñas y tres micosis subcutáneas</h3>
           <p>Repasar las tiñas y estudiar esporotricosis linfocutánea, cromoblastomicosis y micetoma eumicótico para iniciar la próxima clase con casos clínicos.</p>
           <div class="assignment-date"><span>Próxima clase estimada</span><strong id="microTheoryEstimatedDate">Próxima clase de Microbiología II</strong></div>
@@ -201,7 +208,7 @@
           <label class="completion-control"><input type="checkbox" id="microTheoryPrepDone" /><span>Marcar preparación como realizada</span></label>
         </article>
         <article class="assignment-card assignment-personal" id="microPrepCard">
-          <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Personal · Grupo 3</span></div>
+          <div class="assignment-top"><span class="assignment-status status-confirmed">ACTIVIDAD CONFIRMADA</span><span>Microbiología II · Práctica · Grupo 3</span></div>
           <h3>Llevar una muestra de alimento con moho</h3>
           <p>Preferir pan duro con crecimiento visible. También se mencionaron naranja sólida, tomate, banana o queso; evitar muestras totalmente líquidas.</p>
           <div class="assignment-date"><span>Próxima práctica estimada</span><strong id="microEstimatedDate">Próximo laboratorio del Grupo 3</strong></div>
@@ -221,7 +228,7 @@
           <h3>Leer el triage por colores</h3>
           <p>Preparar amarillo, naranja, verde y azul: prioridad, tiempo máximo y motivos de consulta que requieren atención rápida.</p>
           <div class="assignment-date"><span>Próxima sesión propuesta</span><strong id="epiEstimatedDate">Próxima clase de Epidemiología</strong></div>
-          <small>Motivo: la profesora pidió leer el «libro colorido» para la próxima aula. La transcripción no dice la fecha exacta del curso, por eso la fecha permanece estimada.</small>
+          <small>Motivo: la profesora pidió leer el material por colores para la próxima clase. La transcripción no indica la fecha exacta, por eso permanece estimada.</small>
           <label class="completion-control"><input type="checkbox" id="epiPrepDone" /><span>Marcar lectura como realizada</span></label>
         </article>
         <details class="inference-card">
@@ -344,7 +351,7 @@
 
     <section id="materias" class="content-section course-hub" data-view="cursos" aria-labelledby="courses-title" hidden>
       <div class="section-heading">
-        <div><p class="section-kicker">Biblioteca de 4.º E</p><h2 id="courses-title">Elige una materia</h2></div>
+        <div><p class="section-kicker">Biblioteca del 4.º E</p><h2 id="courses-title">Elige una materia</h2></div>
         <p>Se muestra un solo curso a la vez. Dentro de cada materia puedes elegir una ficha rápida o abrir la clase completa.</p>
       </div>
       <div class="course-selector" aria-label="Materias disponibles">
@@ -352,12 +359,12 @@
         <a href="#fisiologia" data-course-target="fisiologia"><span class="course-icon"><svg><use href="#class-icon-physiology"></use></svg></span><strong>Fisiología II</strong><small>Control respiratorio</small><b>13 AGO</b></a>
         <a href="#bioquimica" data-course-target="bioquimica"><span class="course-icon"><svg><use href="#class-icon-biochemistry"></use></svg></span><strong>Bioquímica II</strong><small>Glucólisis</small><b>14 AGO</b></a>
         <a href="#epidemiologia" data-course-target="epidemiologia"><span class="course-icon"><svg><use href="#class-icon-epidemiology"></use></svg></span><strong>Epidemiología</strong><small>APS, sectorización y triage</small><b>2 BLOQUES</b></a>
-        <a href="#microbiologia-teorica" data-course-target="microbiologia-teorica"><span class="course-icon"><svg><use href="#class-icon-microbiology"></use></svg></span><strong>Micro teórica</strong><small>Dermatofitosis</small><b>10 AGO · EST.</b></a>
-        <a href="#microbiologia-practica" data-course-target="microbiologia-practica"><span class="course-icon"><svg><use href="#class-icon-lab"></use></svg></span><strong>Micro práctica</strong><small>Hongos y Sabouraud</small><b>GRUPO 3</b></a>
+        <a href="#microbiologia-teorica" data-course-target="microbiologia-teorica"><span class="course-icon"><svg><use href="#class-icon-microbiology"></use></svg></span><strong>Microbiología II</strong><small><span class="course-type-badge">TEÓRICA</span> Dermatofitosis</small><b>10 AGO · EST.</b></a>
+        <a href="#microbiologia-practica" data-course-target="microbiologia-practica"><span class="course-icon"><svg><use href="#class-icon-lab"></use></svg></span><strong>Microbiología II</strong><small><span class="course-type-badge">PRÁCTICA</span> Hongos y Sabouraud</small><b>GRUPO 3</b></a>
       </div>
       <a class="class-drive-card" data-class-drive-link href="https://drive.google.com/drive/u/0/mobile/folders/1AE16HsBFgPw80tQYS_O5lQf3hsz9CFdy/1FWhE0vQoc7dNILKqa0qMrGfoF68ZElij?sort=13&amp;direction=a" target="_blank" rel="noopener noreferrer" aria-label="Abrir los materiales compartidos de la clase en Google Drive, en una pestaña nueva">
         <span class="class-drive-icon" aria-hidden="true"><svg><use href="#class-icon-drive"></use></svg></span>
-        <span class="class-drive-copy"><b>DRIVE COMPARTIDO DE 4.º E</b><strong>PDF y PowerPoint del semestre</strong><small>Los archivos se actualizan directamente en Drive, sin volver a cargarlos en este sitio.</small></span>
+        <span class="class-drive-copy"><b>DRIVE COMPARTIDO DEL 4.º E</b><strong>PDF y PowerPoint del semestre</strong><small>Los archivos se actualizan directamente en Drive, sin volver a cargarlos en este sitio.</small></span>
         <span class="class-drive-action"><strong>Abrir Drive</strong><small>Nueva pestaña ↗</small></span>
       </a>
     </section>
@@ -446,7 +453,7 @@
         </aside>
 
         <div class="nutrition-seminar" id="nutrition-seminar">
-          <div class="seminar-heading"><span>CONSIGNA OFICIAL · SEMANA 3 · 17–23 AGO. 2026</span><h3>Seminario / presentación oral</h3><p>La actividad tiene tres entregables: dos PowerPoint independientes y un informe breve para firma y sello. Elige tu grupo para mostrar los dos temas exactos.</p></div>
+          <div class="seminar-heading"><span>CONSIGNA OFICIAL · SEMANA 3 · 17–23 AGO. 2026</span><h3>Seminario / presentación oral</h3><p>La actividad tiene tres entregables: dos presentaciones PowerPoint independientes y un informe breve para firma y sello. Elige tu grupo para mostrar los dos temas exactos.</p></div>
           <div class="nutrition-group-picker nutrition-group-picker-full">
             <label for="nutritionGroupCourseSelect"><span>GRUPO DE NUTRICIÓN</span><strong>Mostrar mis dos temas</strong></label>
             <select id="nutritionGroupCourseSelect" data-nutrition-group-select>
@@ -464,8 +471,8 @@
           </div>
 
           <div class="seminar-delivery-route" aria-label="Ruta de los tres entregables">
-            <article><span>01 · TRABAJO 1</span><strong>Guías Alimentarias</strong><p>PowerPoint independiente con el tema asignado.</p><small>Fuente Paraguay: Drive de la clase → Bibliografía → carpeta INAN.</small></article>
-            <article><span>02 · TRABAJO 2</span><strong>Platos típicos / regiones</strong><p>Segundo PowerPoint independiente con investigación del grupo.</p><small>Incluir contexto cultural y un análisis nutricional breve.</small></article>
+            <article><span>01 · TRABAJO 1</span><strong>Guías Alimentarias</strong><p>Presentación PowerPoint independiente con el tema asignado.</p><small>Fuente Paraguay: Drive de la clase → Bibliografía → carpeta INAN.</small></article>
+            <article><span>02 · TRABAJO 2</span><strong>Platos típicos / regiones</strong><p>Segunda presentación PowerPoint independiente con investigación del grupo.</p><small>Incluir contexto cultural y un análisis nutricional breve.</small></article>
             <article><span>03 · CONSTANCIA</span><strong>Informe breve</strong><p>Portada, integrantes, desarrollo de ambos trabajos y bibliografía.</p><small>Presentarlo para firma y sello; podrá subirse a la plataforma.</small></article>
           </div>
 
@@ -724,7 +731,7 @@
         <article class="history-entry"><span>FECHA NO DICHA</span><div><strong>Bases del metabolismo</strong><small>Carbohidratos, rutas metabólicas, glicación y conexiones clínicas.</small></div></article>
       </div>
 
-      <a class="course-task-link" href="#bio-tarea-glut4"><span class="subject-task-mark"><svg><use href="#class-icon-task"></use></svg></span><span><b>HISTORIAL EN TAREFA</b><strong>Actividad 1: GLUT4, ejercicio y glucemia</strong><small>Abrir la consigna completa sin mezclarla con el curso.</small></span><em>Ver actividad →</em></a>
+      <a class="course-task-link" href="#bio-tarea-glut4"><span class="subject-task-mark"><svg><use href="#class-icon-task"></use></svg></span><span><b>HISTORIAL DE TAREAS</b><strong>Actividad 1: GLUT4, ejercicio y glucemia</strong><small>Abrir la consigna completa sin mezclarla con el curso.</small></span><em>Ver actividad →</em></a>
 
       <button class="course-detail-toggle" type="button" data-detail-toggle aria-controls="bio-detail" aria-expanded="false"><span>CLASE COMPLETA</span><strong>Abrir desarrollo completo</strong><small>Fases, diez reacciones, balance, regulación y correcciones.</small><b aria-hidden="true">+</b></button>
 
@@ -837,7 +844,7 @@
         <article class="history-entry"><span>BLOQUE ANTERIOR</span><div><strong>APS y modelo de atención integral</strong><small>Alma-Ata, implementación en Paraguay, principios, dimensiones y ciclo familiar.</small></div></article>
       </div>
 
-      <a class="course-task-link" href="#epi-tarea-salud"><span class="subject-task-mark"><svg><use href="#class-icon-task"></use></svg></span><span><b>HISTORIAL EN TAREFA</b><strong>Actividad 1: salud, sistemas sanitarios y USF</strong><small>Abrir las 11 preguntas sin salir del archivo de actividades.</small></span><em>Ver actividad →</em></a>
+      <a class="course-task-link" href="#epi-tarea-salud"><span class="subject-task-mark"><svg><use href="#class-icon-task"></use></svg></span><span><b>HISTORIAL DE TAREAS</b><strong>Actividad 1: salud, sistemas sanitarios y USF</strong><small>Abrir las 11 preguntas sin salir del archivo de actividades.</small></span><em>Ver actividad →</em></a>
       <p class="course-note transcription-rule-note"><b>Regla aplicada:</b> en las transcripciones antiguas que reúnen varias clases, la parte final se considera siempre la más reciente. Una fecha dicha dentro del audio inicia un nuevo bloque; nunca se aplica hacia atrás.</p>
 
       <button class="course-detail-toggle" type="button" data-detail-toggle aria-controls="epi-detail" aria-expanded="false"><span>CLASE COMPLETA</span><strong>Abrir desarrollo completo</strong><small>APS, familia, sectorización, triage, urgencia y emergencia.</small><b aria-hidden="true">+</b></button>
@@ -906,7 +913,7 @@
               <div class="compare-cards urgency-compare"><article><span>URGENCIA</span><h4>Atención pronta</h4><p>Problema imprevisto que genera necesidad inminente de atención. Puede ser <b>objetiva</b>, con riesgo real de deterioro, o <b>subjetiva</b>, percibida como urgente sin riesgo inmediato identificado.</p></article><article><span>EMERGENCIA</span><h4>Atención inmediata</h4><p>Existe amenaza vital o de órgano y no puede esperar. Se interrumpe una actividad menos prioritaria para iniciar estabilización y tratamiento.</p></article></div>
               <div class="triage-first-look"><div><span>PRIMERO</span><strong>Observar</strong><small>Color, facies, conciencia, trabajo respiratorio y aspecto general.</small></div><div><span>DESPUÉS</span><strong>Preguntar</strong><small>Motivo, inicio, evolución, episodios y antecedentes.</small></div><div><span>MEDIR</span><strong>Signos vitales</strong><small>Temperatura, PA, FC, FR y SpO₂ cuando haya pulsioxímetro.</small></div><div><span>PRIORIZAR</span><strong>Clasificar</strong><small>Según riesgo y posibilidad de deterioro, no por llegada.</small></div></div>
               <div class="triage-reference" id="epi-preparacion">
-                <div><span>PREPARACIÓN PARA LA PRÓXIMA AULA</span><h4>Colores y tiempos del triage</h4><p>La profesora pidió estudiar el material colorido. Como referencia internacional del Manchester Triage System, confirma estos tiempos con el libro exacto de la cátedra.</p></div>
+                <div><span>PREPARACIÓN PARA LA PRÓXIMA CLASE</span><h4>Colores y tiempos del triage</h4><p>La profesora pidió estudiar el material por colores. Como referencia internacional del Manchester Triage System, confirma estos tiempos con el libro exacto de la cátedra.</p></div>
                 <div class="triage-colors"><article class="triage-red"><span>ROJO</span><strong>Inmediato</strong><small>0 min</small></article><article class="triage-orange"><span>NARANJA</span><strong>Muy urgente</strong><small>10 min</small></article><article class="triage-yellow"><span>AMARILLO</span><strong>Urgente</strong><small>60 min</small></article><article class="triage-green"><span>VERDE</span><strong>Estándar</strong><small>120 min</small></article><article class="triage-blue"><span>AZUL</span><strong>No urgente</strong><small>240 min</small></article></div>
               </div>
             </div>
@@ -942,7 +949,7 @@
     <section id="microbiologia-teorica" class="content-section subject-section micro-theory-subject" data-view="cursos" aria-labelledby="micro-theory-title" hidden>
       <div class="subject-heading">
         <div>
-          <p class="section-kicker">Microbiología II teórica · nueva transcripción · una clase</p>
+          <p class="section-kicker">Microbiología II · Teórica · nueva transcripción · una clase</p>
           <h2 id="micro-theory-title">Dermatofitosis: de la queratina al caso clínico</h2>
           <p>La fecha no fue pronunciada. Por el horario habitual y la fecha de recepción, la clase se estima el lunes 10 de agosto de 2026 y permanece por confirmar.</p>
         </div>
@@ -1073,7 +1080,7 @@
     <section id="microbiologia-practica" class="content-section subject-section micro-subject" data-view="cursos" aria-labelledby="micro-title" hidden>
       <div class="subject-heading">
         <div>
-          <p class="section-kicker">Microbiología II práctica · personal · Grupo 3</p>
+          <p class="section-kicker">Microbiología II · Práctica · personal · Grupo 3</p>
           <h2 id="micro-title">Cultivo de hongos en agar Sabouraud</h2>
           <p>Nueva transcripción de una sola clase. Por el horario del Grupo 3, la sesión se estima el jueves 13 de agosto; la fecha no fue pronunciada y debe confirmarse.</p>
         </div>
@@ -1182,12 +1189,12 @@
       <div class="plan-seminar-brief">
         <figure class="plan-seminar-photo">
           <img src="assets/class-hub/nutrition-variety-v415.webp" width="1280" height="853" loading="lazy" decoding="async" alt="Alimentos variados organizados para ilustrar el seminario de Nutrición." />
-          <figcaption><span>SEMINARIO · SEMANA 3 · 17–23 AGO.</span><strong>2 PowerPoint + 1 informe</strong><small>Guías Alimentarias · Regiones y Platos · Constancia firmada</small></figcaption>
+          <figcaption><span>SEMINARIO · SEMANA 3 · 17–23 AGO.</span><strong>2 presentaciones + 1 informe</strong><small>Guías Alimentarias · Regiones y platos · Constancia firmada</small></figcaption>
         </figure>
         <div class="plan-group-card">
           <span>GRUPO Y TEMAS</span>
           <h3 id="plan-group-title">Ver el nombre exacto de los dos trabajos</h3>
-          <p>La selección queda sincronizada con Tarefa y con el curso de Nutrición en este dispositivo.</p>
+          <p>La selección queda sincronizada con Tareas y con el curso de Nutrición en este dispositivo.</p>
           <div class="nutrition-group-picker nutrition-group-picker-plan">
             <label for="nutritionGroupPlanSelect"><span>GRUPO DE NUTRICIÓN</span><strong>Selecciona del Grupo 1 al Grupo 6</strong></label>
             <select id="nutritionGroupPlanSelect" data-nutrition-group-select aria-describedby="plan-group-title">
@@ -1208,7 +1215,7 @@
         <label><input type="checkbox" value="nutrition-group" /><span><strong>Grupo y temas confirmados</strong><small>Este paso se completa automáticamente al seleccionar un grupo.</small></span></label>
         <label><input type="checkbox" value="nutrition-work-1" /><span><strong>Desarrollar el Trabajo 1</strong><small>Objetivo, público, puntos clave, ejemplos y fuente INAN cuando corresponda.</small></span></label>
         <label><input type="checkbox" value="nutrition-work-2" /><span><strong>Desarrollar el Trabajo 2</strong><small>Contexto, ingredientes, preparación, importancia cultural, análisis y conclusión.</small></span></label>
-        <label><input type="checkbox" value="nutrition-powerpoints" /><span><strong>Crear los 2 PowerPoint</strong><small>Dos archivos independientes; hasta 4 diapositivas por cada uno, poco texto e imágenes claras.</small></span></label>
+        <label><input type="checkbox" value="nutrition-powerpoints" /><span><strong>Crear las 2 presentaciones</strong><small>Dos archivos independientes; hasta 4 diapositivas por presentación, poco texto e imágenes claras.</small></span></label>
         <label><input type="checkbox" value="nutrition-report" /><span><strong>Completar el informe</strong><small>Portada, integrantes, ambos desarrollos y bibliografía; preparar para firma y sello.</small></span></label>
         <label><input type="checkbox" value="nutrition-rehearsal" /><span><strong>Ensayar y revisar la entrega</strong><small>Aproximadamente hasta 5 minutos; comprobar archivos, participación y apoyo visual.</small></span></label>
       </div>
@@ -1228,7 +1235,7 @@
         <ul><li>No compartas información clínica identificable.</li><li>Indica materia y tema.</li><li>Formula una sola duda por mensaje.</li></ul>
       </div>
       <form class="question-builder" id="delegateQuestionForm">
-        <label><span>Materia</span><select id="questionSubject"><option>Nutrición</option><option>Fisiología II</option><option>Bioquímica</option><option>Epidemiología y Salud Pública</option><option>Microbiología II teórica</option><option>Microbiología II práctica</option><option>Otra materia</option></select></label>
+        <label><span>Materia</span><select id="questionSubject"><option>Nutrición</option><option>Fisiología II</option><option>Bioquímica</option><option>Epidemiología y Salud Pública</option><option>Microbiología II · Teórica</option><option>Microbiología II · Práctica</option><option>Otra materia</option></select></label>
         <label><span>Tu duda</span><textarea id="questionText" rows="4" placeholder="Ej.: ¿La glucólisis necesita oxígeno directamente?" required></textarea></label>
         <button class="action-button action-primary" type="submit">Copiar mensaje preparado</button>
         <p class="form-note">El mensaje se copia en tu dispositivo; no se envía automáticamente.</p>
@@ -1244,7 +1251,7 @@
   <nav class="mobile-bottom-nav" aria-label="Navegación de clase">
     <a href="#inicio" data-view-link="inicio" aria-current="page"><span class="nav-icon"><svg><use href="#class-icon-home"></use></svg></span><strong>Inicio</strong></a>
     <a href="#horario" data-view-link="horario"><span class="nav-icon"><svg><use href="#class-icon-calendar"></use></svg></span><strong>Horario</strong></a>
-    <a href="#pendientes" data-view-link="pendientes"><span class="nav-icon"><svg><use href="#class-icon-task"></use></svg></span><strong>Tarefa</strong></a>
+    <a href="#pendientes" data-view-link="pendientes"><span class="nav-icon"><svg><use href="#class-icon-task"></use></svg></span><strong>Tareas</strong></a>
     <a href="#materias" data-view-link="cursos"><span class="nav-icon"><svg><use href="#class-icon-book"></use></svg></span><strong>Cursos</strong></a>
     <a href="#plan-estudio" data-view-link="plan"><span class="nav-icon"><svg><use href="#class-icon-plan"></use></svg></span><strong>Plan</strong></a>
     <a href="#delegado" data-view-link="dudas"><span class="nav-icon"><svg><use href="#class-icon-question"></use></svg></span><strong>Dudas</strong></a>
@@ -1263,8 +1270,9 @@
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=404"></script>
-  <script src="grupo-3-practice-v413.js?v=420"></script>
-  <script src="grupo-3-practice-expansion-v420.js?v=420"></script>
-  <script src="grupo-3-v401.js?v=420"></script>
+  <script src="grupo-3-i18n-v421.js?v=421"></script>
+  <script src="grupo-3-practice-v413.js?v=421"></script>
+  <script src="grupo-3-practice-expansion-v420.js?v=421"></script>
+  <script src="grupo-3-v401.js?v=421"></script>
 </body>
 </html>

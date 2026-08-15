@@ -74,15 +74,47 @@ test.describe('Class hub', () => {
 
   test('shows the shared timetable and calculates the next class', async ({ page }) => {
     await page.goto('/clase.html#horario');
-    await expect(page.getByRole('heading', { name: 'Horario de 4.º E' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Horario del 4.º E' })).toBeVisible();
     await expect(page.locator('#nextScheduleSubject')).not.toHaveText('Calculando…');
     await expect(page.locator('#nextScheduleWhen')).toContainText('·');
     await expect(page.getByText('Martes y sábado no presentan clases')).toBeVisible();
+    await expect(page.locator('#scheduleWeekRange')).toContainText(/Semana del \d+/);
+    for (const day of ['1','3','4','5']) {
+      await expect(page.locator(`[data-week-date="${day}"]`)).toHaveText(/\d{1,2} [a-záéíóú]+\.?/i);
+      await expect(page.locator(`[data-week-date="${day}"]`)).toHaveAttribute('datetime', /^\d{4}-\d{2}-\d{2}$/);
+    }
+    await expect(page.locator('#weeklyAgenda .course-type-badge')).toHaveText(['TEÓRICA','PRÁCTICA']);
+    await expect(page.locator('#weeklyAgenda .schedule-task-badge')).toHaveCount(5);
+    await expect(page.getByText('KM 8', { exact: true })).toHaveCount(0);
+  });
+
+  test('switches the class interface between Spanish and Brazilian Portuguese', async ({ page }) => {
+    const language = page.locator('#classLanguageSelect');
+    await expect(language).toHaveValue('es');
+    await language.selectOption('br');
+    await page.waitForLoadState('domcontentloaded');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
+    await expect(page.locator('#classLanguageSelect')).toHaveValue('br');
+    await expect(page.getByRole('heading', { name: 'Sua semana em um relance.' })).toBeVisible();
+    await expect(page.locator('.mobile-bottom-nav').getByText('Tarefas', { exact: true })).toBeAttached();
+
+    await page.goto('/clase.html#horario');
+    await expect(page.getByRole('heading', { name: 'Horário do 4.º E' })).toBeVisible();
+    await expect(page.locator('[data-week-date="1"]')).toHaveText(/\d{1,2}/);
+    await expect(page.locator('#weeklyAgenda')).toContainText('Microbiologia II');
+    await expect(page.locator('#weeklyAgenda')).toContainText('TEÓRICA');
+    await expect(page.locator('#weeklyAgenda')).toContainText('PRÁTICA');
+    await expect(page.locator('#weeklyAgenda').getByText('Tarefa', { exact: true })).toBeVisible();
+
+    await page.locator('#classLanguageSelect').selectOption('es');
+    await page.waitForLoadState('domcontentloaded');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+    await expect(page.getByRole('heading', { name: 'Horario del 4.º E' })).toBeVisible();
   });
 
   test('keeps the personal lab group separate and local to the device', async ({ page }) => {
     await page.goto('/clase.html#horario');
-    const groupSelector = page.getByLabel('Mi subgrupo de Microbiología II');
+    const groupSelector = page.getByLabel('Mi subgrupo de Microbiología II · Práctica');
     await expect(groupSelector).toHaveValue('');
     await groupSelector.selectOption('3');
     await expect(page.locator('#labScheduleGroup')).toContainText('Grupo 3');
@@ -94,7 +126,7 @@ test.describe('Class hub', () => {
 
   test('labels inferred preparation dates instead of presenting them as confirmed homework', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
-    await expect(page.getByRole('heading', { name: 'Tarefa de la clase' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Tareas de la clase' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Llevar una muestra de alimento con moho' })).toBeVisible();
     await expect(page.locator('#microEstimatedDate')).toContainText('20 ago.');
     await expect(page.locator('#microEstimatedDate')).toContainText('18:00–20:00');
@@ -189,11 +221,11 @@ test.describe('Class hub', () => {
     expect(Object.keys(transcript.assignment.groups)).toHaveLength(6);
   });
 
-  test('shows the complete official seminar requirements without leaving Tarefa', async ({ page }) => {
+  test('shows the complete official seminar requirements without leaving Tareas', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
     const task = page.locator('#nutritionPrepCard');
     await expect(task.locator('.seminar-at-a-glance b').first()).toHaveText('2');
-    await expect(task.getByText('PowerPoint separados', { exact: true })).toBeVisible();
+    await expect(task.getByText('presentaciones PowerPoint separadas', { exact: true })).toBeVisible();
     await expect(task.getByText('informe para firma y sello', { exact: true })).toBeVisible();
     await task.getByText('Ver la consigna completa', { exact: true }).click();
     await expect(task.getByText('Trabajo 1 · Guías Alimentarias', { exact: true })).toBeVisible();
@@ -305,7 +337,7 @@ test.describe('Class hub', () => {
     await expect(page.locator('.workspace-nav .nav-icon')).toHaveCount(6);
     await expect(page.locator('.workspace-nav .nav-icon svg')).toHaveCount(6);
     await expect(page.locator('.workspace-nav').getByText('INI', { exact: true })).toHaveCount(0);
-    await expect(page.locator('.workspace-nav').getByText('Tarefa', { exact: true })).toBeVisible();
+    await expect(page.locator('.workspace-nav').getByText('Tareas', { exact: true })).toBeVisible();
     await page.goto('/clase.html#materias');
     await expect(page.locator('.course-selector .course-icon svg')).toHaveCount(6);
     for (const code of ['NUT', 'FIS', 'BIO', 'EPI', 'MIC', 'LAB']) {

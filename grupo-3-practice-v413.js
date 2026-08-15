@@ -1,6 +1,23 @@
 (function(){
   'use strict';
 
+  var classI18n = window.MedNykutoClassI18n || null;
+
+  function tr(key,variables){
+    return classI18n && typeof classI18n.t === 'function' ? classI18n.t(key,variables) : key;
+  }
+
+  function displayOption(value){
+    if(!classI18n || classI18n.getLang() !== 'br') return value;
+    if(value === 'Verdadero') return 'Verdadeiro';
+    return value;
+  }
+
+  function localizeExact(value){
+    if(classI18n && classI18n.getLang() === 'br' && classI18n.exact && classI18n.exact[value]) return classI18n.exact[value];
+    return value;
+  }
+
   function q(prompt,options,answer,explanation){
     return {prompt:prompt,options:options,answer:answer,explanation:explanation};
   }
@@ -528,9 +545,9 @@
   var storageKey = 'med-nykuto-class-practice-v420';
   var typeOrder = ['qcm','vf','cases'];
   var typeLabels = {
-    qcm:'QCM',
-    vf:'Verdadero / Falso',
-    cases:'Casos clínicos'
+    qcm:tr('qcm'),
+    vf:tr('vf'),
+    cases:tr('cases')
   };
 
   function balanceAnswerPositions(){
@@ -604,11 +621,11 @@
     icon.setAttribute('aria-hidden','true');
     icon.innerHTML = '<svg><use href="#' + bank.icon + '"></use></svg>';
     var copy = createNode('div','practice-heading-copy');
-    copy.appendChild(createNode('span','practice-eyebrow',bank.lessonDateLabel ? 'ENTRENAMIENTO · ' + bank.lessonDateLabel : 'ENTRENAMIENTO DEL CURSO'));
-    var title = createNode('h3','','Entrenamiento · ' + bank.title);
+    copy.appendChild(createNode('span','practice-eyebrow',bank.lessonDateLabel ? tr('practiceLesson',{date:bank.lessonDateLabel}) : tr('practiceCourse')));
+    var title = createNode('h3','',tr('practiceTitle',{title:localizeExact(bank.title)}));
     title.id = root.id + '-title';
     copy.appendChild(title);
-    copy.appendChild(createNode('p','',bank.description));
+    copy.appendChild(createNode('p','',localizeExact(bank.description)));
     heading.appendChild(icon);
     heading.appendChild(copy);
 
@@ -624,7 +641,7 @@
     var totalQuestions = typeOrder.reduce(function(total,type){return total + bank[type].length;},0);
     var progressLabel = createNode('span','practice-total-progress');
     progressLabel.setAttribute('aria-live','polite');
-    var startButton = createNode('button','practice-start','Comenzar entrenamiento');
+    var startButton = createNode('button','practice-start',tr('startPractice'));
     startButton.type = 'button';
     startButton.setAttribute('aria-controls',root.id + '-workspace');
     startButton.setAttribute('aria-expanded','false');
@@ -640,8 +657,8 @@
     var toolbar = createNode('div','practice-toolbar');
     var tabs = createNode('div','practice-tabs');
     tabs.setAttribute('role','tablist');
-    tabs.setAttribute('aria-label','Tipo de entrenamiento');
-    var resetButton = createNode('button','practice-reset','Reiniciar curso');
+    tabs.setAttribute('aria-label',tr('trainingType'));
+    var resetButton = createNode('button','practice-reset',tr('resetCourse'));
     resetButton.type = 'button';
     toolbar.appendChild(tabs);
     toolbar.appendChild(resetButton);
@@ -649,7 +666,7 @@
     var questionHost = createNode('div','practice-question-host');
     questionHost.setAttribute('aria-live','polite');
     var sources = createNode('div','practice-sources');
-    sources.appendChild(createNode('span','','BASE DE VERIFICACIÓN'));
+    sources.appendChild(createNode('span','',tr('verificationBase')));
     bank.sources.forEach(function(source){
       var link = createNode('a','',source.label);
       link.href = source.url;
@@ -676,7 +693,7 @@
 
     function updateProgressLabels(){
       var done = totalAnswered();
-      progressLabel.textContent = done ? done + '/' + totalQuestions + ' preguntas completadas' : totalQuestions + ' preguntas para dominar este curso';
+      progressLabel.textContent = done ? tr('questionsDone',{done:done,total:totalQuestions}) : tr('questionsTotal',{total:totalQuestions});
       typeOrder.forEach(function(type){
         if(!tabButtons[type]) return;
         var complete = answeredCount(state[type]);
@@ -720,13 +737,13 @@
     function renderFeedback(container,question,result){
       var feedback = createNode('div','practice-feedback ' + (result.correct ? 'is-correct' : 'is-incorrect'));
       feedback.setAttribute('role','status');
-      feedback.appendChild(createNode('strong','',result.correct ? 'Respuesta correcta' : 'Respuesta a corregir'));
+      feedback.appendChild(createNode('strong','',result.correct ? tr('correctAnswer') : tr('incorrectAnswer')));
       if(!result.correct){
-        feedback.appendChild(createNode('p','practice-your-answer','Tu respuesta: ' + question.options[result.selected] + '.'));
+        feedback.appendChild(createNode('p','practice-your-answer',tr('yourAnswer',{answer:displayOption(question.options[result.selected])})));
       }
       var correctAnswer = createNode('p','practice-correct-answer');
-      correctAnswer.appendChild(createNode('strong','','Respuesta correcta: '));
-      correctAnswer.appendChild(document.createTextNode(question.options[question.answer] + '.'));
+      correctAnswer.appendChild(createNode('strong','',tr('correctAnswerLabel')));
+      correctAnswer.appendChild(document.createTextNode(displayOption(question.options[question.answer]) + '.'));
       feedback.appendChild(correctAnswer);
       feedback.appendChild(createNode('p','practice-explanation',question.explanation));
       container.appendChild(feedback);
@@ -743,13 +760,13 @@
       var card = createNode('article','practice-question-card');
       var meta = createNode('div','practice-question-meta');
       meta.appendChild(createNode('span','',typeLabels[activeType] + ' · ' + (currentIndex + 1) + '/' + questions.length));
-      var level = activeType === 'cases' ? 'APLICACIÓN CLÍNICA' : 'COMPRENSIÓN ACTIVA';
+      var level = activeType === 'cases' ? tr('clinicalApplication') : tr('activeUnderstanding');
       meta.appendChild(createNode('span','',level));
       card.appendChild(meta);
 
       if(question.scenario){
         var scenario = createNode('div','practice-scenario');
-        scenario.appendChild(createNode('span','','CASO'));
+        scenario.appendChild(createNode('span','',tr('caseLabel')));
         scenario.appendChild(createNode('p','',question.scenario));
         card.appendChild(scenario);
       }
@@ -757,7 +774,7 @@
       card.appendChild(createNode('h4','',question.prompt));
       var optionList = createNode('div','practice-options');
       optionList.setAttribute('role','radiogroup');
-      optionList.setAttribute('aria-label','Opciones de respuesta');
+      optionList.setAttribute('aria-label',tr('answerOptions'));
 
       question.options.forEach(function(optionText,index){
         var option = createNode('button','practice-option');
@@ -765,7 +782,7 @@
         option.setAttribute('role','radio');
         option.setAttribute('aria-checked',selectedIndex === index ? 'true' : 'false');
         option.appendChild(createNode('span','practice-option-letter',optionLetter(index)));
-        option.appendChild(createNode('span','practice-option-text',optionText));
+        option.appendChild(createNode('span','practice-option-text',displayOption(optionText)));
         if(result){
           option.disabled = true;
           option.classList.toggle('is-correct-option',index === question.answer);
@@ -787,10 +804,10 @@
       card.appendChild(optionList);
 
       var actions = createNode('div','practice-actions');
-      var validateButton = createNode('button','practice-validate','Validar mi respuesta');
+      var validateButton = createNode('button','practice-validate',tr('validateAnswer'));
       validateButton.type = 'button';
       validateButton.disabled = selectedIndex === null || Boolean(result);
-      var nextButton = createNode('button','practice-next','Pregunta siguiente →');
+      var nextButton = createNode('button','practice-next',tr('nextQuestion'));
       nextButton.type = 'button';
       nextButton.hidden = !result;
       actions.appendChild(validateButton);
@@ -831,21 +848,21 @@
       var score = correctCount(results);
       var percentage = Math.round((score / questions.length) * 100);
       var summary = createNode('article','practice-summary');
-      summary.appendChild(createNode('span','practice-eyebrow',typeLabels[activeType] + ' · BLOQUE TERMINADO'));
-      summary.appendChild(createNode('h4','',score + '/' + questions.length + ' respuestas correctas'));
+      summary.appendChild(createNode('span','practice-eyebrow',tr('blockDone',{type:typeLabels[activeType]})));
+      summary.appendChild(createNode('h4','',tr('correctCount',{score:score,total:questions.length})));
       summary.appendChild(createNode('strong','practice-score',percentage + '%'));
-      var message = percentage >= 80 ? 'Buen dominio. Revisa solo las explicaciones de tus errores.' : 'Repite el bloque después de revisar la ficha y la clase completa.';
+      var message = percentage >= 80 ? tr('goodResult') : tr('repeatResult');
       summary.appendChild(createNode('p','',message));
       var formatPicker = createNode('div','practice-format-picker');
       formatPicker.hidden = true;
-      formatPicker.setAttribute('aria-label','Elegir otro formato de entrenamiento');
+      formatPicker.setAttribute('aria-label',tr('chooseFormat'));
       typeOrder.forEach(function(type){
         var done = answeredCount(state[type]);
         var choice = createNode('button','practice-format-choice');
         choice.type = 'button';
         choice.disabled = type === activeType;
         choice.appendChild(createNode('strong','',typeLabels[type]));
-        choice.appendChild(createNode('small','',done + '/' + bank[type].length + (done === bank[type].length ? ' · terminado' : ' · continuar')));
+        choice.appendChild(createNode('small','',done + '/' + bank[type].length + ' · ' + (done === bank[type].length ? tr('finished') : tr('continue'))));
         choice.addEventListener('click',function(){
           chooseType(type);
           window.requestAnimationFrame(function(){questionHost.scrollIntoView({behavior:'smooth',block:'start'});});
@@ -853,7 +870,7 @@
         formatPicker.appendChild(choice);
       });
       var actions = createNode('div','practice-actions');
-      var repeat = createNode('button','practice-validate','Repetir ' + typeLabels[activeType]);
+      var repeat = createNode('button','practice-validate',tr('repeatType',{type:typeLabels[activeType]}));
       repeat.type = 'button';
       repeat.addEventListener('click',function(){
         state[activeType] = [];
@@ -863,11 +880,11 @@
         renderQuestion();
         window.requestAnimationFrame(function(){questionHost.scrollIntoView({behavior:'smooth',block:'start'});});
       });
-      var switchType = createNode('button','practice-next','Elegir otro formato');
+      var switchType = createNode('button','practice-next',tr('chooseFormat'));
       switchType.type = 'button';
       switchType.addEventListener('click',function(){
         formatPicker.hidden = !formatPicker.hidden;
-        switchType.textContent = formatPicker.hidden ? 'Elegir otro formato' : 'Ocultar formatos';
+        switchType.textContent = formatPicker.hidden ? tr('chooseFormat') : tr('hideFormats');
       });
       actions.appendChild(repeat);
       actions.appendChild(switchType);
@@ -879,7 +896,7 @@
     function openWorkspace(){
       workspace.hidden = false;
       root.classList.add('is-open');
-      startButton.textContent = 'Cerrar entrenamiento';
+      startButton.textContent = tr('closePractice');
       startButton.setAttribute('aria-expanded','true');
       chooseType(activeType);
     }
@@ -887,7 +904,7 @@
     function closeWorkspace(){
       workspace.hidden = true;
       root.classList.remove('is-open');
-      startButton.textContent = 'Comenzar entrenamiento';
+      startButton.textContent = tr('startPractice');
       startButton.setAttribute('aria-expanded','false');
     }
 
@@ -897,7 +914,7 @@
     });
 
     resetButton.addEventListener('click',function(){
-      if(!window.confirm('¿Reiniciar todo el progreso de este curso?')) return;
+      if(!window.confirm(tr('resetConfirm'))) return;
       state.qcm = [];
       state.vf = [];
       state.cases = [];
