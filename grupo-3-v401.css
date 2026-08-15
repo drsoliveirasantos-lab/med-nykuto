@@ -1395,7 +1395,7 @@ img{display:block;max-width:100%}
   .dashboard-status>a{grid-column:1/-1;padding-top:7px;font-size:.6rem}
   .dashboard-priorities{grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
   .priority-main{grid-column:1/-1}
-  .priority-card{min-height:0;padding:9px 10px;border-radius:14px}
+  .priority-card{min-height:0;padding:8px 10px;border-radius:14px}
   .priority-card-head{flex-direction:row;align-items:center;gap:5px}
   .priority-card-head time{padding:2px 4px;font-size:.46rem}
   .priority-card>span,.priority-card-head>span{font-size:.5rem}
