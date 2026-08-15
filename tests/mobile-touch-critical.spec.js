@@ -130,7 +130,10 @@ test.describe('Mobile critical paths', () => {
         columns:getComputedStyle(prioritiesGrid).gridTemplateColumns.split(' ').length,
         priorities,
         prioritiesGrid:{ left:prioritiesGridRect.left, right:prioritiesGridRect.right, width:prioritiesGridRect.width },
-        appBottomPadding:parseFloat(getComputedStyle(document.querySelector('.class-app')).paddingBottom)
+        appBottomPadding:parseFloat(getComputedStyle(document.querySelector('.class-app')).paddingBottom),
+        homeworkTitle:document.querySelector('.dashboard-priorities-title').textContent.trim(),
+        homeworkCount:document.getElementById('homeHomeworkCount').textContent.trim(),
+        homeworkDates:Array.from(prioritiesGrid.querySelectorAll('.priority-card time')).map(function(time){return time.dateTime;})
       };
     });
     expect(dashboard.height).toBeLessThan(720);
@@ -140,6 +143,9 @@ test.describe('Mobile critical paths', () => {
     expect(dashboard.overflow).toBeLessThanOrEqual(1);
     expect(dashboard.columns).toBe(1);
     expect(dashboard.appBottomPadding).toBeLessThanOrEqual(12);
+    expect(dashboard.homeworkTitle).toBe('TAREAS');
+    expect(dashboard.homeworkCount).toBe('3 tareas');
+    expect(dashboard.homeworkDates).toEqual(['2026-08-17','2026-08-19','2026-08-20']);
     for (const card of dashboard.priorities) {
       expect(card.left).toBeGreaterThanOrEqual(dashboard.prioritiesGrid.left - 1);
       expect(card.right).toBeLessThanOrEqual(dashboard.prioritiesGrid.right + 1);

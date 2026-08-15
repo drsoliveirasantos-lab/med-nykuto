@@ -22,6 +22,9 @@ test.describe('Class hub', () => {
     await expect(page.locator('#homeNutritionDate')).toHaveAttribute('datetime', '2026-08-20');
     await expect(page.locator('#homeBioDate')).toHaveAttribute('datetime', '2026-08-19');
     await expect(page.locator('.priority-card-head time')).toHaveCount(3);
+    await expect(page.getByRole('heading', { name: 'TAREAS', exact: true })).toBeVisible();
+    await expect(page.locator('#homeHomeworkCount')).toHaveText('3 tareas');
+    expect(await page.locator('.dashboard-priorities .priority-card time').evaluateAll((times) => times.map((time) => time.dateTime))).toEqual(['2026-08-17', '2026-08-19', '2026-08-20']);
     await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', /^2026-08-15T\d{2}:\d{2}:\d{2}-03:00$/);
     await expect(page.locator('#lastUpdated')).toHaveText(/^Actualizado 15 ago\.? · \d{2}:\d{2} PY$/);
     await expect(page.locator('#horario')).toBeHidden();
@@ -107,6 +110,8 @@ test.describe('Class hub', () => {
     await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
     await expect(page.locator('#classLanguageSelect')).toHaveValue('br');
     await expect(page.getByRole('heading', { name: 'Sua semana', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'TAREFAS', exact: true })).toBeVisible();
+    await expect(page.locator('#homeHomeworkCount')).toHaveText('3 tarefas');
     await expect(page.getByText('PARA ESTA SEMANA', { exact: true })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Ver todas as tarefas' })).toBeVisible();
     await expect(page.locator('.mobile-bottom-nav').getByText('Tarefas', { exact: true })).toBeAttached();

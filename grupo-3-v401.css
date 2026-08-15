@@ -87,7 +87,8 @@ img{display:block;max-width:100%}
 .dashboard-status strong{font-size:1.06rem}
 .dashboard-status small{color:var(--muted);font-size:.72rem}
 .dashboard-status>a{padding-top:14px;color:var(--cyan);font-size:.75rem;font-weight:850}
-.dashboard-priorities{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.dashboard-priorities-title{position:relative;z-index:1;margin:20px 2px 8px;color:var(--gold-soft);font-size:.66rem;font-weight:950;letter-spacing:.14em;line-height:1}
+.dashboard-priorities{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:0}
 .priority-card{min-width:0;min-height:154px;display:flex;flex-direction:column;padding:18px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.022);transition:transform .18s ease,border-color .18s ease,background .18s ease}
 .priority-card:hover{transform:translateY(-2px);border-color:var(--line-strong);background:rgba(255,255,255,.045)}
 .priority-card>span,.priority-card-head>span{color:var(--gold-soft);font-size:.61rem;font-weight:950;letter-spacing:.1em}
@@ -1122,7 +1123,8 @@ img{display:block;max-width:100%}
   .dashboard-status>div:first-child small,.dashboard-status>div:nth-child(2){display:none}
   .dashboard-status>div:first-child strong{font-size:.88rem}
   .dashboard-status>a{grid-column:2;padding:0;font-size:.68rem;white-space:nowrap}
-  .dashboard-priorities{grid-template-columns:1fr;gap:6px;margin-top:7px}
+  .dashboard-priorities-title{margin:12px 2px 7px;font-size:.6rem}
+  .dashboard-priorities{grid-template-columns:1fr;gap:6px;margin-top:0}
   .priority-main{grid-column:auto}
   .priority-card{min-height:0;display:grid;grid-template-columns:1fr;gap:4px;padding:10px 12px}
   .priority-card-head{align-items:center;flex-direction:row;gap:8px}
@@ -1396,7 +1398,8 @@ img{display:block;max-width:100%}
   .dashboard-status strong{font-size:.78rem}
   .dashboard-status small{font-size:.56rem;line-height:1.25}
   .dashboard-status>a{grid-column:1/-1;padding-top:7px;font-size:.6rem}
-  .dashboard-priorities{grid-template-columns:1fr;gap:6px;margin-top:6px}
+  .dashboard-priorities-title{margin:9px 2px 6px;font-size:.55rem}
+  .dashboard-priorities{grid-template-columns:1fr;gap:6px;margin-top:0}
   .priority-main{grid-column:auto}
   .priority-card{min-height:0;padding:8px 10px;border-radius:14px}
   .priority-card-head{flex-direction:row;align-items:center;gap:5px}

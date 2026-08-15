@@ -25,7 +25,8 @@ expect(html.includes('<option value="br">PT-BR · Português</option>'), 'The Br
 [
   'Tu semana',
   'PARA ESTA SEMANA',
-  '3 cosas importantes',
+  '3 tareas',
+  'Ordenadas por fecha.',
   'Ver todas las tareas',
   'TAREAS ACTUALES',
   'TAREAS ANTERIORES',
@@ -134,6 +135,8 @@ expect(css.includes('grid-template-columns:54px minmax(0,1fr)'), 'The compact mo
 expect(css.includes('.schedule-slot[data-subject="physiology"]'), 'The schedule subject color system is missing.');
 expect(runtime.includes('function mondayOfWeek(date)'), 'The schedule week does not align its dates with the upcoming class.');
 expect(runtime.includes('renderScheduleWeekDates(next && next.date)'), 'The upcoming class is not used to choose the visible schedule week.');
+expect(runtime.includes('function sortHomePreparations()'), 'The home homework cards are not sorted automatically.');
+expect(runtime.includes("firstDate.localeCompare(secondDate)"), 'The home homework cards are not sorted by ISO due date.');
 expect(semesterSwitcher.includes("classScope.replaceWith(wrapper)"), 'The semester selector is not embedded in the class header.');
 expect(semesterSwitcher.includes('is-class-header-v402'), 'The embedded semester selector styling hook is missing.');
 
