@@ -14,6 +14,14 @@ async function answerFirstVisibleOption(page) {
   await option.click({ force: true });
 }
 
+async function dismissSemesterPicker(page) {
+  const modal = page.locator('#homeSemesterModal.open');
+  const opened = await modal.waitFor({ state: 'visible', timeout: 1500 }).then(() => true).catch(() => false);
+  if (!opened) return;
+  await modal.locator('[data-semester-close]').click();
+  await expect(modal).toBeHidden({ timeout: 5000 });
+}
+
 test.describe('Mobile critical paths', () => {
   test('class schedule remains compact and unobstructed on iPhone', async ({ page }) => {
     await page.goto('/clase.html#horario', { waitUntil: 'domcontentloaded' });
@@ -52,6 +60,7 @@ test.describe('Mobile critical paths', () => {
 
   test('mobile navigation and practice controls remain usable', async ({ page }) => {
     await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
+    await dismissSemesterPicker(page);
     const toggle = page.locator('#menuToggle, .menu-toggle').first();
     await expect(toggle).toBeVisible({ timeout: 10000 });
     await toggle.click({ force: true });
