@@ -1120,6 +1120,18 @@
     }
   }
 
+  function prepareMobileTables(){
+    var phoneLayout = window.matchMedia('(max-width: 480px)');
+    var syncTableState = function(){
+      document.querySelectorAll('.mobile-table-disclosure').forEach(function(disclosure){
+        disclosure.open = !phoneLayout.matches;
+      });
+    };
+    syncTableState();
+    if(typeof phoneLayout.addEventListener === 'function') phoneLayout.addEventListener('change',syncTableState);
+    else if(typeof phoneLayout.addListener === 'function') phoneLayout.addListener(syncTableState);
+  }
+
   document.addEventListener('DOMContentLoaded', function(){
     renderPreview('completo');
     renderEpiPreview('completo');
@@ -1133,6 +1145,7 @@
     restoreNutritionGroup();
     restoreSignedAssignments();
     prepareCurrentAssignments();
+    prepareMobileTables();
     prepareSeminarDocumentPreview();
     setUpdatedDate();
 
