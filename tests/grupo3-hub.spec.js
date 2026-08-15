@@ -404,6 +404,31 @@ test.describe('Class hub', () => {
     expect(courseLayout.scrollWidth).toBeLessThanOrEqual(courseLayout.clientWidth + 1);
   });
 
+  test('keeps the nutrition evaluation steps compact on a phone', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/clase.html#nutricion');
+    await page.locator('#nutricion [data-detail-toggle]').click();
+
+    const nutritionLayout = await page.evaluate(() => {
+      const panel = document.querySelector('#nutricion .nutrition-core').getBoundingClientRect();
+      const steps = [...document.querySelectorAll('#nutricion .nutrition-core li')].map((step) => step.getBoundingClientRect());
+      return {
+        panelHeight: panel.height,
+        stepHeights: steps.map((step) => step.height),
+        firstTwoShareRow: Math.abs(steps[0].top - steps[1].top) < 1,
+        fifthStepSpansRow: steps[4].width > steps[0].width * 1.8,
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth
+      };
+    });
+
+    expect(nutritionLayout.panelHeight).toBeLessThan(390);
+    expect(Math.max(...nutritionLayout.stepHeights)).toBeLessThanOrEqual(72);
+    expect(nutritionLayout.firstTwoShareRow).toBe(true);
+    expect(nutritionLayout.fifthStepSpansRow).toBe(true);
+    expect(nutritionLayout.scrollWidth).toBeLessThanOrEqual(nutritionLayout.clientWidth + 1);
+  });
+
   test('shows current homework as compact tactile rows', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
     await expect(page.locator('.pending-grid > .assignment-featured')).toHaveCount(1);
