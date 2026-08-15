@@ -1,6 +1,25 @@
 (function(){
   'use strict';
 
+  var classI18n = window.MedNykutoClassI18n || null;
+
+  function classLang(){
+    return classI18n && typeof classI18n.getLang === 'function' ? classI18n.getLang() : 'es';
+  }
+
+  function tr(key,variables){
+    return classI18n && typeof classI18n.t === 'function' ? classI18n.t(key,variables) : key;
+  }
+
+  function localizeText(value){
+    if(classLang() === 'br' && classI18n && classI18n.exact && classI18n.exact[value]) return classI18n.exact[value];
+    return value;
+  }
+
+  function refreshLanguage(root){
+    if(classI18n && typeof classI18n.refresh === 'function') classI18n.refresh(root || document.body);
+  }
+
   var previews = {
     completo: {
       eyebrow: 'MAPA COMPLETO · CLASE DEL 14/08',
@@ -247,7 +266,7 @@
       'Los energéticos aportan sobre todo carbohidratos y grasas; los constructores, proteínas para síntesis y reparación; los reguladores, fibra, agua, vitaminas, minerales y compuestos bioactivos.',
       'Enriquecido suele referirse a reponer nutrientes perdidos; fortificado, a añadirlos deliberadamente; biofortificado, a aumentar el contenido durante el crecimiento del cultivo. La norma local puede superponer términos.',
       'Primero cuantificaría todo el día y el contexto. Luego revisaría calidad, proporciones, variedad y adecuación, y negociaría uno o dos cambios posibles en vez de concluir solo por ese desayuno.',
-      'Los dos temas exactos aparecen al seleccionar el grupo. La entrega común es: un PowerPoint independiente para el Trabajo 1, otro para el Trabajo 2 y un informe breve para firma y sello.'
+      'Los dos temas exactos aparecen al seleccionar el grupo. La entrega común es una presentación PowerPoint independiente para el Trabajo 1, otra para el Trabajo 2 y un informe breve para firma y sello.'
     ],
     'microbiologia-teorica':[
       'Una micosis superficial se limita a capas externas o al tallo piloso y suele causar poca inflamación. La dermatofitosis invade tejidos queratinizados —piel, pelo o uñas— mediante dermatofitos.',
@@ -289,7 +308,7 @@
 
   var classSchedule = [
     {day:1,start:'07:00',end:'10:10',subject:'Fisiología II',teacher:'Dra. Giselle Vert'},
-    {day:1,start:'10:10',end:'12:20',subject:'Microbiología II',teacher:'Dr. Alexander Acuña'},
+    {day:1,start:'10:10',end:'12:20',subject:'Microbiología II · Teórica',teacher:'Dr. Alexander Acuña'},
     {day:1,start:'15:00',end:'17:00',subject:'Bioética · plataforma',teacher:'Lic. Silvia Nuarte'},
     {day:3,start:'09:10',end:'11:10',subject:'Bioquímica II',teacher:'Dra. Andrea López'},
     {day:3,start:'11:20',end:'13:20',subject:'Epidemiología y Salud Pública',teacher:'Dra. Andrea Isasi'},
@@ -300,9 +319,9 @@
   ];
 
   var labSlots = {
-    '1':{day:4,start:'14:00',end:'16:00',subject:'Laboratorio de Microbiología II',teacher:'Dra. Ruth Castillo',group:'Grupo 1'},
-    '2':{day:4,start:'16:00',end:'18:00',subject:'Laboratorio de Microbiología II',teacher:'Dra. Ruth Castillo',group:'Grupo 2'},
-    '3':{day:4,start:'18:00',end:'20:00',subject:'Laboratorio de Microbiología II',teacher:'Dra. Ruth Castillo',group:'Grupo 3'}
+    '1':{day:4,start:'14:00',end:'16:00',subject:'Microbiología II · Práctica',teacher:'Dra. Ruth Castillo',group:'Grupo 1'},
+    '2':{day:4,start:'16:00',end:'18:00',subject:'Microbiología II · Práctica',teacher:'Dra. Ruth Castillo',group:'Grupo 2'},
+    '3':{day:4,start:'18:00',end:'20:00',subject:'Microbiología II · Práctica',teacher:'Dra. Ruth Castillo',group:'Grupo 3'}
   };
 
   var latestTranscript = {
@@ -340,7 +359,7 @@
   };
 
   var latestMicroTranscript = {
-    subject:'Laboratorio de Microbiología II',
+    subject:'Microbiología II · Práctica',
     scope:'personal-group-3',
     oralDate:null,
     receivedDate:'2026-08-14',
@@ -350,7 +369,7 @@
   };
 
   var latestMicroTheoryTranscript = {
-    subject:'Microbiología II',
+    subject:'Microbiología II · Teórica',
     scope:'class-4e',
     oralDate:null,
     receivedDate:'2026-08-14',
@@ -403,7 +422,7 @@
       groups:nutritionSeminarGroups,
       maxMinutesPerGroup:5,
       maxSlidesPerPresentation:4,
-      deliverables:['PowerPoint independiente del Trabajo 1','PowerPoint independiente del Trabajo 2','Informe breve para firma y sello'],
+      deliverables:['Presentación PowerPoint independiente del Trabajo 1','Presentación PowerPoint independiente del Trabajo 2','Informe breve para firma y sello'],
       evaluation:{
         totalPoints:5,
         criteria:['Investigación bibliográfica','Calidad del informe escrito','Exposición oral','Plato típico o apoyo visual equivalente','Análisis nutricional y conclusiones']
@@ -625,10 +644,11 @@
 
   function nutritionGroupMarkup(groupId){
     var group = nutritionSeminarGroups[groupId];
-    if(!group) return '<p>Selecciona del Grupo 1 al Grupo 6 para mostrar tus dos temas.</p>';
-    return '<div class="nutrition-group-result-head"><span>GRUPO ' + groupId + '</span><strong>Dos PowerPoint independientes</strong></div>' +
-      '<article><span>TRABAJO 1 · ' + group.presentation1.code + '</span><strong>' + group.presentation1.title + '</strong><small>' + group.presentation1.detail + '</small></article>' +
-      '<article><span>TRABAJO 2 · ' + group.presentation2.code + '</span><strong>' + group.presentation2.title + '</strong><small>' + group.presentation2.detail + '</small></article>';
+    var portuguese = classLang() === 'br';
+    if(!group) return '<p>' + (portuguese ? 'Selecione do Grupo 1 ao Grupo 6 para mostrar seus dois temas.' : 'Selecciona del Grupo 1 al Grupo 6 para mostrar tus dos temas.') + '</p>';
+    return '<div class="nutrition-group-result-head"><span>GRUPO ' + groupId + '</span><strong>' + (portuguese ? 'Duas apresentações PowerPoint independentes' : 'Dos presentaciones PowerPoint independientes') + '</strong></div>' +
+      '<article><span>' + (portuguese ? 'TRABALHO' : 'TRABAJO') + ' 1 · ' + group.presentation1.code + '</span><strong>' + group.presentation1.title + '</strong><small>' + group.presentation1.detail + '</small></article>' +
+      '<article><span>' + (portuguese ? 'TRABALHO' : 'TRABAJO') + ' 2 · ' + group.presentation2.code + '</span><strong>' + group.presentation2.title + '</strong><small>' + group.presentation2.detail + '</small></article>';
   }
 
   function renderNutritionGroup(groupId){
@@ -639,6 +659,7 @@
       planStep.checked = true;
       savePlan();
     }
+    document.querySelectorAll('[data-nutrition-group-output]').forEach(function(output){refreshLanguage(output);});
   }
 
   function restoreNutritionGroup(){
@@ -652,7 +673,7 @@
           else localStorage.removeItem(nutritionGroupStorageKey);
         }catch(error){}
         renderNutritionGroup(groupId);
-        if(nutritionSeminarGroups[groupId]) showToast('Grupo ' + groupId + ' guardado en este dispositivo.');
+        if(nutritionSeminarGroups[groupId]) showToast(tr('groupSaved',{group:groupId}));
       });
     });
   }
@@ -668,11 +689,11 @@
     var inputs = Array.from(document.querySelectorAll('[data-signed-assignment]'));
     var signed = inputs.filter(function(input){return input.checked;});
     var count = document.getElementById('signedAssignmentCount');
-    if(count) count.textContent = signed.length + '/' + inputs.length + ' copias firmadas';
+    if(count) count.textContent = tr('signedCount',{signed:signed.length,total:inputs.length});
     inputs.forEach(function(input){
       var key = input.dataset.signedAssignment;
       document.querySelectorAll('[data-signed-mirror="' + key + '"]').forEach(function(mirror){
-        mirror.textContent = input.checked ? 'Copia firmada' : 'Firma sin marcar';
+        mirror.textContent = input.checked ? tr('signed') : tr('unsigned');
         mirror.classList.toggle('is-signed',input.checked);
       });
     });
@@ -714,10 +735,11 @@
     try{
       var updatedAt = new Date(node.getAttribute('datetime'));
       if(Number.isNaN(updatedAt.getTime())) throw new Error('Invalid update timestamp');
-      var dateLabel = new Intl.DateTimeFormat('es-PY',{day:'numeric',month:'short',timeZone:'America/Asuncion'}).format(updatedAt);
-      var timeLabel = new Intl.DateTimeFormat('es-PY',{hour:'2-digit',minute:'2-digit',hourCycle:'h23',timeZone:'America/Asuncion'}).format(updatedAt);
-      node.textContent = 'Actualizado ' + dateLabel + ' · ' + timeLabel + ' PY';
-    }catch(error){node.textContent = 'Actualizado 14 ago. · 20:57 PY';}
+      var locale = classI18n && classI18n.getLocale ? classI18n.getLocale() : 'es-PY';
+      var dateLabel = new Intl.DateTimeFormat(locale,{day:'numeric',month:'short',timeZone:'America/Asuncion'}).format(updatedAt);
+      var timeLabel = new Intl.DateTimeFormat(locale,{hour:'2-digit',minute:'2-digit',hourCycle:'h23',timeZone:'America/Asuncion'}).format(updatedAt);
+      node.textContent = tr('updated',{date:dateLabel,time:timeLabel});
+    }catch(error){node.textContent = tr('updatedFallback');}
   }
 
   function getParaguayWallClock(){
@@ -755,8 +777,9 @@
   }
 
   function formatOccurrence(occurrence){
-    if(!occurrence) return 'Sin próxima fecha disponible';
-    var dateLabel = new Intl.DateTimeFormat('es-PY',{
+    if(!occurrence) return tr('noNextDate');
+    var locale = classI18n && classI18n.getLocale ? classI18n.getLocale() : 'es-PY';
+    var dateLabel = new Intl.DateTimeFormat(locale,{
       weekday:'long',day:'numeric',month:'short',timeZone:'UTC'
     }).format(occurrence.date);
     dateLabel = dateLabel.charAt(0).toUpperCase() + dateLabel.slice(1);
@@ -769,17 +792,37 @@
     return formatOccurrence({
       date:date,
       item:{start:preparation.start,end:preparation.end}
-    }) + ' · por confirmar';
+    }) + ' · ' + tr('toConfirm');
   }
 
   function formatHomePreparation(preparation){
     var parts = preparation.date.split('-').map(Number);
     var date = new Date(Date.UTC(parts[0],parts[1]-1,parts[2]));
-    var label = new Intl.DateTimeFormat('es-PY',{
+    var locale = classI18n && classI18n.getLocale ? classI18n.getLocale() : 'es-PY';
+    var label = new Intl.DateTimeFormat(locale,{
       weekday:'short',day:'numeric',month:'short',timeZone:'UTC'
     }).format(date);
     label = label.charAt(0).toUpperCase() + label.slice(1);
-    return label + ' · estimada';
+    return label + ' · ' + tr('estimated');
+  }
+
+  function renderScheduleWeekDates(){
+    var now = getParaguayWallClock();
+    var weekday = now.getUTCDay();
+    var offsetToMonday = weekday === 0 ? 1 : (weekday === 6 ? 2 : 1 - weekday);
+    var monday = new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate() + offsetToMonday));
+    var sunday = new Date(monday.getTime() + (6 * 86400000));
+    var locale = classI18n && classI18n.getLocale ? classI18n.getLocale() : 'es-PY';
+    var compact = new Intl.DateTimeFormat(locale,{day:'numeric',month:'short',timeZone:'UTC'});
+    var longDate = new Intl.DateTimeFormat(locale,{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
+    document.querySelectorAll('[data-week-date]').forEach(function(node){
+      var day = Number(node.dataset.weekDate);
+      var date = new Date(monday.getTime() + ((day - 1) * 86400000));
+      node.dateTime = date.toISOString().slice(0,10);
+      node.textContent = compact.format(date);
+    });
+    var range = document.getElementById('scheduleWeekRange');
+    if(range) range.textContent = tr('scheduleWeek',{start:compact.format(monday),end:longDate.format(sunday)});
   }
 
   function renderHomePreparation(nodeId,preparation){
@@ -800,7 +843,7 @@
 
     var next = nextOccurrence(items);
     if(next){
-      document.getElementById('nextScheduleSubject').textContent = next.item.subject;
+      document.getElementById('nextScheduleSubject').textContent = localizeText(next.item.subject);
       document.getElementById('nextScheduleWhen').textContent = formatOccurrence(next);
       document.getElementById('nextScheduleTeacher').textContent = (next.item.group ? next.item.group + ' · ' : '') + next.item.teacher;
     }
@@ -819,8 +862,8 @@
       nextLabNode.textContent = formatOccurrence(nextOccurrence([lab]));
     }else{
       timeNode.textContent = 'G1 14:00 · G2 16:00 · G3 18:00';
-      groupNode.textContent = 'Selecciona tu subgrupo';
-      nextLabNode.textContent = 'Selecciona tu subgrupo';
+      groupNode.textContent = tr('selectGroup');
+      nextLabNode.textContent = tr('selectGroup');
     }
 
     document.getElementById('bioEstimatedDate').textContent = formatEstimatedPreparation(latestTranscript.estimatedPreparation);
@@ -831,6 +874,9 @@
     renderHomePreparation('homeMicroTheoryDate',latestMicroTheoryTranscript.estimatedPreparation);
     renderHomePreparation('homeNutritionDate',latestNutritionTranscript.estimatedPreparation);
     renderHomePreparation('homeBioDate',latestTranscript.estimatedPreparation);
+    renderScheduleWeekDates();
+    refreshLanguage(document.getElementById('horario'));
+    refreshLanguage(document.getElementById('inicio'));
   }
 
   function restorePersonalSchedule(){
@@ -843,7 +889,7 @@
         else localStorage.removeItem(labStorageKey);
       }catch(error){}
       renderSchedule();
-      if(select.value) showToast('Subgrupo guardado solo en este dispositivo.');
+      if(select.value) showToast(tr('savedGroup'));
     });
 
     var prep = document.getElementById('bioPrepDone');
@@ -922,7 +968,7 @@
       link.classList.toggle('history-current',active);
       link.setAttribute('aria-current',active ? 'true' : 'false');
       var state = link.querySelector(':scope > span:last-child');
-      if(state) state.textContent = active ? 'SELECCIONADA' : 'ABRIR CLASE';
+      if(state) state.textContent = active ? tr('selectedLesson') : tr('openLesson');
     });
     var meta = datedLessonMeta[lessonId];
     if(!meta) return;
@@ -931,13 +977,14 @@
     var kicker = heading && heading.querySelector('.section-kicker');
     var description = heading && heading.querySelector(':scope > div > p:last-child');
     var status = heading && heading.querySelector('.source-pill');
-    if(title) title.textContent = meta.title;
-    if(kicker) kicker.textContent = meta.kicker;
-    if(description) description.textContent = meta.description;
+    if(title) title.textContent = localizeText(meta.title);
+    if(kicker) kicker.textContent = localizeText(meta.kicker);
+    if(description) description.textContent = localizeText(meta.description);
     if(status){
-      status.textContent = meta.status;
+      status.textContent = localizeText(meta.status);
       status.className = 'source-pill ' + meta.statusClass;
     }
+    refreshLanguage(subject);
   }
 
   function setCourseDetail(detail, expanded){
@@ -947,7 +994,7 @@
     if(!button) return;
     button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     var label = button.querySelector('strong');
-    if(label) label.textContent = expanded ? 'Cerrar desarrollo completo' : 'Abrir desarrollo completo';
+    if(label) label.textContent = expanded ? tr('closeDetail') : tr('openDetail');
   }
 
   function activateCourse(courseId){
@@ -1099,9 +1146,11 @@
       var subject = document.getElementById('questionSubject').value.trim();
       var question = document.getElementById('questionText').value.trim();
       if(!question) return;
-      var message = 'Materia: ' + subject + '\nDuda para transmitir: ' + question;
-      copyText(message).then(function(){showToast('Mensaje copiado. Ya puedes compartirlo.');}).catch(function(){showToast('No se pudo copiar automáticamente.');});
+      var message = tr('questionMessage',{subject:subject,question:question});
+      copyText(message).then(function(){showToast(tr('copied'));}).catch(function(){showToast(tr('copyFailed'));});
     });
+
+    refreshLanguage(document.body);
   });
 
   window.MED_NYKUTO_CLASS_SCHEDULE = classSchedule.slice();
