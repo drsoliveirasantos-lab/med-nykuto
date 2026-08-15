@@ -84,12 +84,13 @@ test.describe('Weekly class challenge', () => {
     });
 
     await page.goto('/qcm.html?course=fisiologia&module=01-fisiologia-01-neurofisiologia-y-potencial-de-accion', { waitUntil: 'domcontentloaded' });
-    await expect(page.locator('#practiceList')).toBeAttached();
+    await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v364', null, { timeout: 20000 });
+    await expect(page.locator('#practiceList .single-question-card').first()).toBeAttached({ timeout: 20000 });
     await page.evaluate(() => {
       const completion = document.createElement('article');
-      completion.className = 'completion-card';
-      completion.innerHTML = '<h2>18/20 respuestas correctas · 90%</h2>';
-      document.getElementById('practiceList').appendChild(completion);
+      completion.className = 'practice-card completion-card';
+      completion.innerHTML = '<p class="eyebrow">Fin de serie</p><h2>18/20 respuestas correctas · 90%</h2><p>Serie terminada.</p>';
+      document.getElementById('practiceList').replaceChildren(completion);
     });
 
     const publisher = page.locator('.community-publish-card').last();
