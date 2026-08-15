@@ -1,9 +1,11 @@
 const path = require('path');
 
 const practicePath = path.resolve(__dirname, '..', 'grupo-3-practice-v413.js');
+const expansionPath = path.resolve(__dirname, '..', 'grupo-3-practice-expansion-v420.js');
 const expectedCourses = [
   'nutricion',
-  'fisiologia',
+  'fisiologia-2026-08-13',
+  'fisiologia-2026-08-10',
   'bioquimica',
   'epidemiologia',
   'microbiologia-teorica',
@@ -26,6 +28,7 @@ global.document = {
 };
 
 require(practicePath);
+require(expansionPath);
 const practice = global.window.MedNykutoClassPractice;
 const banks = practice && practice.banks;
 
@@ -55,11 +58,11 @@ if (!banks || typeof banks !== 'object') {
       });
     }
 
-    const minimums = { qcm: 7, vf: 4, cases: 2 };
+    const expectedCounts = { qcm: 20, vf: 10, cases: 10 };
     types.forEach((type) => {
       const questions = bank[type];
-      if (!Array.isArray(questions) || questions.length < minimums[type]) {
-        errors.push(courseId + '/' + type + ': expected at least ' + minimums[type] + ' questions.');
+      if (!Array.isArray(questions) || questions.length !== expectedCounts[type]) {
+        errors.push(courseId + '/' + type + ': expected exactly ' + expectedCounts[type] + ' questions.');
         return;
       }
 
@@ -107,8 +110,8 @@ if (!banks || typeof banks !== 'object') {
   });
 }
 
-if (totalQuestions < 90) {
-  errors.push('Expected at least 90 total questions, got ' + totalQuestions + '.');
+if (totalQuestions !== expectedCourses.length * 40) {
+  errors.push('Expected exactly ' + (expectedCourses.length * 40) + ' total questions, got ' + totalQuestions + '.');
 }
 
 if (objectiveQuestions) {

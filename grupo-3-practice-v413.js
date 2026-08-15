@@ -525,7 +525,7 @@
     }
   };
 
-  var storageKey = 'med-nykuto-class-practice-v413';
+  var storageKey = 'med-nykuto-class-practice-v420';
   var typeOrder = ['qcm','vf','cases'];
   var typeLabels = {
     qcm:'QCM',
@@ -594,7 +594,7 @@
   function buildPracticeModule(bank,progress){
     var state = courseProgress(progress,bank.courseId);
     var root = createNode('section','practice-module');
-    root.id = 'practice-' + bank.courseId;
+    root.id = bank.rootId || ('practice-' + bank.courseId);
     root.dataset.practiceRoot = bank.courseId;
     root.setAttribute('aria-labelledby',root.id + '-title');
 
@@ -604,7 +604,7 @@
     icon.setAttribute('aria-hidden','true');
     icon.innerHTML = '<svg><use href="#' + bank.icon + '"></use></svg>';
     var copy = createNode('div','practice-heading-copy');
-    copy.appendChild(createNode('span','practice-eyebrow','ENTRENAMIENTO DEL CURSO'));
+    copy.appendChild(createNode('span','practice-eyebrow',bank.lessonDateLabel ? 'ENTRENAMIENTO · ' + bank.lessonDateLabel : 'ENTRENAMIENTO DEL CURSO'));
     var title = createNode('h3','','Entrenamiento · ' + bank.title);
     title.id = root.id + '-title';
     copy.appendChild(title);
@@ -924,13 +924,15 @@
     var progress = loadProgress();
     var controllers = {};
     Object.keys(banks).forEach(function(courseId){
-      var courseSection = document.getElementById(courseId);
+      var courseSection = document.getElementById(banks[courseId].sectionId || courseId);
       if(!courseSection) return;
       var toggle = courseSection.querySelector('[data-detail-toggle]');
       if(!toggle) return;
       var controller = buildPracticeModule(banks[courseId],progress);
+      var slot = document.querySelector('[data-practice-slot="' + courseId + '"]');
       var detail = document.getElementById(toggle.getAttribute('aria-controls'));
-      if(detail) detail.insertAdjacentElement('afterend',controller.root);
+      if(slot) slot.replaceChildren(controller.root);
+      else if(detail) detail.insertAdjacentElement('afterend',controller.root);
       else toggle.insertAdjacentElement('afterend',controller.root);
       controllers[courseId] = controller;
     });
@@ -938,12 +940,18 @@
     function openFromHash(){
       var match = window.location.hash.match(/^#practice-(.+)$/);
       if(match && controllers[match[1]]) controllers[match[1]].open();
+      else if(match && match[1] === 'fisiologia' && controllers['fisiologia-2026-08-13']) controllers['fisiologia-2026-08-13'].open();
     }
 
     openFromHash();
     window.addEventListener('hashchange',openFromHash);
-    window.MedNykutoClassPractice = {banks:banks,controllers:controllers};
+    window.MedNykutoClassPractice = {banks:banks,controllers:controllers,mount:mountPractice};
   }
 
-  mountPractice();
+  window.MedNykutoClassPractice = {banks:banks,controllers:{},mount:mountPractice};
+  if(document && typeof document.addEventListener === 'function' && document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded',mountPractice,{once:true});
+  }else if(document && typeof document.getElementById === 'function'){
+    mountPractice();
+  }
 })();

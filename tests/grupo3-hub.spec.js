@@ -38,7 +38,7 @@ test.describe('Class hub', () => {
     await expect(page.locator('#fisiologia')).toBeVisible();
     await expect(page.locator('#fisio-detail')).toBeHidden();
 
-    const toggle = page.locator('#fisiologia [data-detail-toggle]');
+    const toggle = page.locator('#fisiologia-2026-08-13 [data-detail-toggle]');
     await toggle.click();
     await expect(toggle).toHaveAttribute('aria-expanded', 'true');
     await expect(page.locator('#fisio-detail')).toBeVisible();
@@ -133,18 +133,28 @@ test.describe('Class hub', () => {
     await expect(page.getByText('Bioquímica · 3 transcripciones')).toBeVisible();
   });
 
-  test('separates the two Physiology blocks and prioritizes the 13 August class', async ({ page }) => {
-    await page.goto('/clase.html#fisio-detail');
+  test('opens the 10 and 13 August Physiology lessons independently', async ({ page }) => {
+    await page.goto('/clase.html#fisiologia-2026-08-13');
     await expect(page.locator('#fisio-title')).toHaveText('Control nervioso y químico de la respiración');
     await expect(page.getByText('Fecha oral interpretada · 13 ago.')).toBeVisible();
-    await expect(page.getByText('Regulación nerviosa de la respiración', { exact: true })).toBeVisible();
-    await expect(page.getByText('Difusión y transporte de gases', { exact: true })).toBeVisible();
-    await expect(page.getByText('La lectura sobre regulación nerviosa era la preparación para el curso del 13')).toBeVisible();
-    await expect(page.locator('.control-loop li')).toHaveCount(3);
+    await expect(page.locator('#fisiologia-2026-08-13')).toBeVisible();
+    await expect(page.locator('#fisiologia-2026-08-10')).toBeHidden();
+    await page.locator('#fisiologia-2026-08-13 [data-detail-toggle]').click();
+    await expect(page.locator('#fisiologia-2026-08-13 .control-loop li')).toHaveCount(3);
     await expect(page.getByText('complejo pre-Bötzinger', { exact: false }).first()).toBeVisible();
     await expect(page.getByRole('row', { name: /Quimiorreceptor central/ })).toBeVisible();
-    await expect(page.getByText('EFECTO BOHR', { exact: true })).toBeVisible();
-    await expect(page.getByText('Una SpO₂ de 100 % puede ser normal.')).toBeVisible();
+    await expect(page.locator('#practice-fisiologia-2026-08-13')).toContainText('40 preguntas para dominar este curso');
+    await expect(page.locator('#fisiologia-2026-08-13').getByText('EFECTO BOHR', { exact: true })).toHaveCount(0);
+
+    await page.locator('[data-lesson-target="fisiologia-2026-08-10"]').click();
+    await expect(page.locator('#fisio-title')).toHaveText('Difusión y transporte de gases');
+    await expect(page.locator('#fisiologia-2026-08-13')).toBeHidden();
+    await expect(page.locator('#fisiologia-2026-08-10')).toBeVisible();
+    await expect(page.locator('[data-lesson-target="fisiologia-2026-08-10"]')).toHaveAttribute('aria-current', 'true');
+    await page.locator('#fisiologia-2026-08-10 [data-detail-toggle]').click();
+    await expect(page.locator('#fisiologia-2026-08-10').getByText('EFECTO BOHR', { exact: true })).toBeVisible();
+    await expect(page.getByRole('row', { name: /Barrera alveolocapilar/ })).toBeVisible();
+    await expect(page.locator('#practice-fisiologia-2026-08-10')).toContainText('40 preguntas para dominar este curso');
     const transcript = await page.evaluate(() => window.MED_NYKUTO_LATEST_TRANSCRIPTS.fisiologia);
     expect(transcript.resolvedDate).toBe('2026-08-13');
     expect(transcript.segments[0].estimatedDate).toBe('2026-08-10');
@@ -301,7 +311,7 @@ test.describe('Class hub', () => {
     for (const code of ['NUT', 'FIS', 'BIO', 'EPI', 'MIC', 'LAB']) {
       await expect(page.locator('.course-selector').getByText(code, { exact: true })).toHaveCount(0);
     }
-    await expect(page.locator('.resource-grid .resource-icon svg')).toHaveCount(24);
+    await expect(page.locator('.resource-grid .resource-icon svg')).toHaveCount(28);
     await expect(page.locator('.resource-grid .resource-code')).toHaveCount(0);
   });
 
@@ -340,9 +350,9 @@ test.describe('Class hub', () => {
 
   test('opens a real format chooser after a completed training block', async ({ page }) => {
     await page.evaluate(() => {
-      localStorage.setItem('med-nykuto-class-practice-v413', JSON.stringify({
+      localStorage.setItem('med-nykuto-class-practice-v420', JSON.stringify({
         nutricion:{
-          qcm:Array.from({ length:7 }, () => ({ selected:0, correct:true })),
+          qcm:Array.from({ length:20 }, () => ({ selected:0, correct:true })),
           vf:[],
           cases:[]
         }
@@ -377,13 +387,18 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/instructivo-presentacion-oral-semana-3.docx');
   });
 
-  test('offers explained QCM, true-false and clinical cases for every current course', async ({ page }) => {
+  test('offers exactly 20 QCM, 10 true-false and 10 clinical cases for every dated course', async ({ page }) => {
     await page.goto('/clase.html#nutricion');
-    await expect(page.locator('[data-practice-root]')).toHaveCount(6);
+    await expect(page.locator('[data-practice-root]')).toHaveCount(7);
+    const everyBankHasForty = await page.locator('[data-practice-root]').evaluateAll((roots) => roots.every((root) => {
+      const counts = Array.from(root.querySelectorAll('.practice-counts strong')).map((node) => Number(node.textContent));
+      return counts.join(',') === '20,10,10';
+    }));
+    expect(everyBankHasForty).toBe(true);
     const practice = page.locator('#practice-nutricion');
-    await expect(practice.getByText('7QCM', { exact: false })).toBeVisible();
-    await expect(practice.getByText('4Verdadero / Falso', { exact: false })).toBeVisible();
-    await expect(practice.getByText('2Casos clínicos', { exact: false })).toBeVisible();
+    await expect(practice.getByText('20QCM', { exact: false })).toBeVisible();
+    await expect(practice.getByText('10Verdadero / Falso', { exact: false })).toBeVisible();
+    await expect(practice.getByText('10Casos clínicos', { exact: false })).toBeVisible();
     await practice.getByRole('button', { name: 'Comenzar entrenamiento' }).click();
     await expect(practice.getByRole('heading', { name: '¿Cuál opción diferencia correctamente alimentación, nutrición y dieta?' })).toBeVisible();
     await expect(practice.locator('.practice-feedback')).toHaveCount(0);
@@ -486,6 +501,16 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Control respiratorio en cinco minutos' })).toBeVisible();
     await expect(page.getByText('El complejo pre-Bötzinger es esencial para generar el ritmo respiratorio.')).toBeVisible();
     await expect(quickView).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  test('switches the 10 August gas-exchange revision without exposing the 13 August lesson', async ({ page }) => {
+    await page.goto('/clase.html#fisiologia-2026-08-10');
+    const comparison = page.locator('#fisiologia-2026-08-10 [data-fisio-gas-mode="comparar"]');
+    await comparison.click();
+    await expect(page.getByRole('heading', { name: 'Dos efectos, dos preguntas diferentes' })).toBeVisible();
+    await expect(page.getByText('Haldane en pulmón:', { exact: false })).toBeVisible();
+    await expect(comparison).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#fisiologia-2026-08-13')).toBeHidden();
   });
 
   test('switches Microbiology practical revision depth independently', async ({ page }) => {
