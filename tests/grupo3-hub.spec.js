@@ -254,7 +254,7 @@ test.describe('Class hub', () => {
 
   test('loads a useful photographic visual in every non-Nutrition course', async ({ page }) => {
     const courseVisuals = [
-      ['fisio-detail', '.course-photo-feature--physiology img'],
+      ['fisio-detail', '#fisio-detail .course-photo-feature--physiology img'],
       ['bio-detail', '.course-photo-feature--biochemistry img'],
       ['epi-detail', '.course-photo-feature--epidemiology img'],
       ['micro-theory-detail', '.course-photo-feature--microbiology img'],
@@ -396,9 +396,10 @@ test.describe('Class hub', () => {
     }));
     expect(everyBankHasForty).toBe(true);
     const practice = page.locator('#practice-nutricion');
-    await expect(practice.getByText('20QCM', { exact: false })).toBeVisible();
-    await expect(practice.getByText('10Verdadero / Falso', { exact: false })).toBeVisible();
-    await expect(practice.getByText('10Casos clínicos', { exact: false })).toBeVisible();
+    const overviewCounts = practice.locator('.practice-counts > span');
+    await expect(overviewCounts.nth(0)).toHaveText('20QCM');
+    await expect(overviewCounts.nth(1)).toHaveText('10Verdadero / Falso');
+    await expect(overviewCounts.nth(2)).toHaveText('10Casos clínicos');
     await practice.getByRole('button', { name: 'Comenzar entrenamiento' }).click();
     await expect(practice.getByRole('heading', { name: '¿Cuál opción diferencia correctamente alimentación, nutrición y dieta?' })).toBeVisible();
     await expect(practice.locator('.practice-feedback')).toHaveCount(0);
