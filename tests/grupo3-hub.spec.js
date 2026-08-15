@@ -124,6 +124,8 @@ test.describe('Class hub', () => {
     await page.locator('#classLanguageSelect').selectOption('es');
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+    await expect(page.getByRole('heading', { name: 'Tareas de la clase' })).toBeVisible();
+    await page.goto('/clase.html#horario');
     await expect(page.getByRole('heading', { name: 'Horario del 4.º E' })).toBeVisible();
   });
 
