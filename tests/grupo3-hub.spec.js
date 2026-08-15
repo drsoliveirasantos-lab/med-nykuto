@@ -106,6 +106,7 @@ test.describe('Class hub', () => {
     await expect(page.locator('#classLanguageSelect')).toHaveValue('br');
     await expect(page.getByRole('heading', { name: 'Sua semana em um relance.' })).toBeVisible();
     await expect(page.locator('.mobile-bottom-nav').getByText('Tarefas', { exact: true })).toBeAttached();
+    await expect(page.locator('.mobile-bottom-nav').getByText('Matérias', { exact: true })).toBeAttached();
 
     await page.goto('/clase.html#horario');
     await expect(page.getByRole('heading', { name: 'Horário do 4.º E' })).toBeVisible();
@@ -359,6 +360,7 @@ test.describe('Class hub', () => {
     await expect(page.locator('.workspace-nav .nav-icon svg')).toHaveCount(6);
     await expect(page.locator('.workspace-nav').getByText('INI', { exact: true })).toHaveCount(0);
     await expect(page.locator('.workspace-nav').getByText('Tareas', { exact: true })).toBeVisible();
+    await expect(page.locator('.workspace-nav').getByText('Materias', { exact: true })).toBeVisible();
     await page.goto('/clase.html#materias');
     await expect(page.locator('.course-selector .course-icon svg')).toHaveCount(6);
     for (const code of ['NUT', 'FIS', 'BIO', 'EPI', 'MIC', 'LAB']) {
@@ -469,6 +471,29 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Instructivo de presentación oral' })).toBeVisible();
     await expect(page.locator('[data-document-panel="instructivo"] img')).toHaveCount(3);
     await expect(page.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/instructivo-presentacion-oral-semana-3.docx');
+  });
+
+  test('previews seminar documents in a closable same-page dialog', async ({ page }) => {
+    await page.goto('/clase.html#plan-estudio');
+    const originalUrl = page.url();
+    const dialog = page.locator('#seminarDocumentPreview');
+
+    await page.locator('#plan-estudio').getByRole('link', { name: 'Ver instructivo', exact: true }).click();
+    await expect(dialog).toBeVisible();
+    expect(page.url()).toBe(originalUrl);
+    await expect(dialog.locator('[data-document-preview-panel="instructivo"]')).toBeVisible();
+    await expect(dialog.locator('[data-document-preview-panel="instructivo"] img')).toHaveCount(3);
+    await expect(dialog.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/instructivo-presentacion-oral-semana-3.docx');
+
+    await dialog.getByRole('button', { name: 'Modelo de portada' }).click();
+    await expect(dialog.locator('[data-document-preview-panel="modelo-portada"]')).toBeVisible();
+    await expect(dialog.locator('[data-document-preview-panel="modelo-portada"] img')).toHaveCount(2);
+    await expect(dialog.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/modelo-portada-seminario-nutricion.docx');
+
+    await dialog.getByRole('button', { name: 'Cerrar vista previa' }).click();
+    await expect(dialog).toBeHidden();
+    await expect(page.locator('#plan-estudio')).toBeVisible();
+    expect(page.url()).toBe(originalUrl);
   });
 
   test('offers exactly 20 QCM, 10 true-false and 10 clinical cases for every dated course', async ({ page }) => {

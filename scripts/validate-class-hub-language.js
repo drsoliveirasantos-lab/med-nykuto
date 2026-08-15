@@ -46,6 +46,7 @@ const runtimeIndex = html.indexOf('grupo-3-v401.js');
 expect(i18nIndex >= 0 && i18nIndex < practiceIndex && practiceIndex < runtimeIndex, 'The class i18n runtime must load before practice and class behavior.');
 expect(i18n.includes("htmlLangByLang = {es:'es',br:'pt-BR'}"), 'The Portuguese document language is not configured as pt-BR.');
 expect(i18n.includes("'Tareas':'Tarefas'"), 'The Portuguese task navigation translation is missing.');
+expect(i18n.includes("'Materias':'Matérias'"), 'The Materias/Matérias navigation translation is missing.');
 expect(i18n.includes("'Horario del 4.º E':'Horário do 4.º E'"), 'The Portuguese schedule heading translation is missing.');
 expect(css.includes('.class-language-switcher'), 'The compact language selector styling is missing.');
 expect(css.includes('.schedule-task-badge'), 'The schedule task badge styling is missing.');
@@ -73,6 +74,19 @@ expect(runtime.includes("answerNode.className = 'preview-answer-inline'"), 'Inli
 expect(!runtime.includes('openStudyAnswer'), 'The obsolete modal answer opener is still present.');
 expect(css.includes('.preview-answer-inline'), 'Inline review answer styling is missing.');
 expect(!css.includes('.study-answer-modal'), 'Obsolete full-page review answer modal styling is still present.');
+expect((html.match(/data-document-preview="/g) || []).length === 6, 'Every seminar document shortcut must open the same-page preview.');
+expect(html.includes('id="seminarDocumentPreview"'), 'The seminar document dialog is missing.');
+expect((html.match(/data-document-preview-panel=/g) || []).length === 2, 'The dialog must expose the instructivo and portada panels.');
+expect((html.match(/assets\/class-hub\/previews\/instructivo\/page-/g) || []).length === 3, 'The three instructivo preview pages are missing from the dialog.');
+expect((html.match(/assets\/class-hub\/previews\/modelo-portada\/page-/g) || []).length === 2, 'The two portada preview pages are missing from the dialog.');
+expect(runtime.includes('function prepareSeminarDocumentPreview()'), 'The same-page document preview runtime is missing.');
+expect(runtime.includes("dialog.showModal()"), 'The seminar preview is not opened as a native dialog.');
+expect(css.includes('.seminar-document-dialog'), 'The document dialog styling is missing.');
+expect(html.includes('<strong>Materias</strong>'), 'The visible class navigation is not labeled Materias.');
+expect(!html.includes('<strong>Cursos</strong>'), 'The obsolete visible Cursos navigation label remains.');
+expect(css.includes('.course-selector{grid-template-columns:1fr 1fr;gap:6px}'), 'The two-column iPhone subject library is missing.');
+expect(css.includes('.practice-counts{grid-template-columns:repeat(3,1fr);gap:4px'), 'The compact three-column iPhone training summary is missing.');
+expect(css.includes('.resource-grid{grid-template-columns:1fr 1fr;gap:6px'), 'The two-column iPhone review library is missing.');
 
 if (failures.length) {
   console.error('Class hub language/schedule validation failed:');
@@ -80,4 +94,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Class hub validation OK: ES/PT-BR, dated week, compact tasks, inline answers and Microbiology labels.');
+console.log('Class hub validation OK: ES/PT-BR, compact mobile views, same-page document preview and Microbiology labels.');

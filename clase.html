@@ -8,7 +8,7 @@
   <meta name="description" content="Espacio académico no oficial del 4.º E: horario, tareas, historial de actividades y revisiones de Nutrición, Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología organizadas en un solo lugar." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=425" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=426" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -55,7 +55,7 @@
       <a href="#inicio" data-view-link="inicio" aria-current="page"><span class="nav-icon"><svg><use href="#class-icon-home"></use></svg></span><strong>Inicio</strong><small>Ahora</small></a>
       <a href="#horario" data-view-link="horario"><span class="nav-icon"><svg><use href="#class-icon-calendar"></use></svg></span><strong>Horario</strong><small>Semana</small></a>
       <a href="#pendientes" data-view-link="pendientes"><span class="nav-icon"><svg><use href="#class-icon-task"></use></svg></span><strong>Tareas</strong><small>Actuales + archivo</small></a>
-      <a href="#materias" data-view-link="cursos"><span class="nav-icon"><svg><use href="#class-icon-book"></use></svg></span><strong>Cursos</strong><small>6 materias</small></a>
+      <a href="#materias" data-view-link="cursos"><span class="nav-icon"><svg><use href="#class-icon-book"></use></svg></span><strong>Materias</strong><small>6 materias</small></a>
       <a href="#plan-estudio" data-view-link="plan"><span class="nav-icon"><svg><use href="#class-icon-plan"></use></svg></span><strong>Plan</strong><small>Seminario</small></a>
       <a href="#delegado" data-view-link="dudas"><span class="nav-icon"><svg><use href="#class-icon-question"></use></svg></span><strong>Dudas</strong><small>Mensaje</small></a>
     </nav>
@@ -197,8 +197,8 @@
               </ol>
               <p class="seminar-task-note"><strong>Exposición:</strong> aproximadamente hasta 5 minutos por grupo. La comida es opcional y puede reemplazarse por imágenes claras.</p>
               <div class="seminar-file-links" aria-label="Documentos oficiales del seminario">
-                <a href="documentos-seminario.html#instructivo" target="_blank" rel="noopener">Ver instructivo y descargar</a>
-                <a href="documentos-seminario.html#modelo-portada" target="_blank" rel="noopener">Ver modelo de portada</a>
+                <a href="documentos-seminario.html#instructivo" data-document-preview="instructivo">Ver instructivo y descargar</a>
+                <a href="documentos-seminario.html#modelo-portada" data-document-preview="modelo-portada">Ver modelo de portada</a>
               </div>
             </div>
           </details>
@@ -521,8 +521,8 @@
 
           <div class="seminar-source-actions" aria-label="Descargas oficiales del seminario">
             <div><span>DOCUMENTOS DE LA DOCENTE</span><strong>Usa los archivos oficiales para preparar y entregar</strong></div>
-            <a href="documentos-seminario.html#instructivo" target="_blank" rel="noopener">Vista previa · Instructivo</a>
-            <a href="documentos-seminario.html#modelo-portada" target="_blank" rel="noopener">Vista previa · Portada</a>
+            <a href="documentos-seminario.html#instructivo" data-document-preview="instructivo">Vista previa · Instructivo</a>
+            <a href="documentos-seminario.html#modelo-portada" data-document-preview="modelo-portada">Vista previa · Portada</a>
             <a data-class-drive-link href="https://drive.google.com/drive/u/0/mobile/folders/1AE16HsBFgPw80tQYS_O5lQf3hsz9CFdy/1FWhE0vQoc7dNILKqa0qMrGfoF68ZElij?sort=13&amp;direction=a" target="_blank" rel="noopener noreferrer">Materiales en Drive ↗</a>
           </div>
 
@@ -1264,8 +1264,8 @@
       </div>
       <div class="plan-official-files">
         <div><span>ARCHIVOS LISTOS</span><strong>Descarga la base oficial antes de empezar</strong></div>
-        <a href="documentos-seminario.html#instructivo" target="_blank" rel="noopener">Ver instructivo</a>
-        <a href="documentos-seminario.html#modelo-portada" target="_blank" rel="noopener">Ver portada</a>
+        <a href="documentos-seminario.html#instructivo" data-document-preview="instructivo">Ver instructivo</a>
+        <a href="documentos-seminario.html#modelo-portada" data-document-preview="modelo-portada">Ver portada</a>
         <a data-class-drive-link href="https://drive.google.com/drive/u/0/mobile/folders/1AE16HsBFgPw80tQYS_O5lQf3hsz9CFdy/1FWhE0vQoc7dNILKqa0qMrGfoF68ZElij?sort=13&amp;direction=a" target="_blank" rel="noopener noreferrer">Abrir Drive ↗</a>
       </div>
     </section>
@@ -1295,16 +1295,55 @@
     <a href="#inicio" data-view-link="inicio" aria-current="page"><span class="nav-icon"><svg><use href="#class-icon-home"></use></svg></span><strong>Inicio</strong></a>
     <a href="#horario" data-view-link="horario"><span class="nav-icon"><svg><use href="#class-icon-calendar"></use></svg></span><strong>Horario</strong></a>
     <a href="#pendientes" data-view-link="pendientes"><span class="nav-icon"><svg><use href="#class-icon-task"></use></svg></span><strong>Tareas</strong></a>
-    <a href="#materias" data-view-link="cursos"><span class="nav-icon"><svg><use href="#class-icon-book"></use></svg></span><strong>Cursos</strong></a>
+    <a href="#materias" data-view-link="cursos"><span class="nav-icon"><svg><use href="#class-icon-book"></use></svg></span><strong>Materias</strong></a>
     <a href="#plan-estudio" data-view-link="plan"><span class="nav-icon"><svg><use href="#class-icon-plan"></use></svg></span><strong>Plan</strong></a>
     <a href="#delegado" data-view-link="dudas"><span class="nav-icon"><svg><use href="#class-icon-question"></use></svg></span><strong>Dudas</strong></a>
   </nav>
 
+  <dialog class="seminar-document-dialog" id="seminarDocumentPreview" aria-labelledby="seminarDocumentTitle">
+    <div class="seminar-document-shell">
+      <header class="seminar-document-toolbar">
+        <div>
+          <span>DOCUMENTO OFICIAL</span>
+          <strong id="seminarDocumentTitle">Vista previa del seminario</strong>
+        </div>
+        <button type="button" class="seminar-document-close" data-document-preview-close aria-label="Cerrar vista previa">×</button>
+      </header>
+      <nav class="seminar-document-tabs" aria-label="Documentos del seminario">
+        <button type="button" data-document-preview-tab="instructivo" aria-pressed="true">Instructivo oficial</button>
+        <button type="button" data-document-preview-tab="modelo-portada" aria-pressed="false">Modelo de portada</button>
+      </nav>
+      <div class="seminar-document-scroll">
+        <section class="seminar-document-panel" data-document-preview-panel="instructivo" aria-labelledby="seminarInstructivoTitle">
+          <div class="seminar-document-intro">
+            <div><span>3 PÁGINAS</span><h2 id="seminarInstructivoTitle">Instructivo de presentación oral</h2><p>Consignas, estructura, criterios de evaluación y organización de los dos trabajos.</p></div>
+            <a href="assets/class-hub/instructivo-presentacion-oral-semana-3.docx" download>Descargar Word</a>
+          </div>
+          <div class="seminar-document-pages" aria-label="Tres páginas del instructivo">
+            <figure><span>PÁGINA 1 / 3</span><img src="assets/class-hub/previews/instructivo/page-1.png" alt="Página 1 del instructivo de presentación oral" /></figure>
+            <figure><span>PÁGINA 2 / 3</span><img src="assets/class-hub/previews/instructivo/page-2.png" loading="lazy" alt="Página 2 del instructivo de presentación oral" /></figure>
+            <figure><span>PÁGINA 3 / 3</span><img src="assets/class-hub/previews/instructivo/page-3.png" loading="lazy" alt="Página 3 del instructivo de presentación oral" /></figure>
+          </div>
+        </section>
+        <section class="seminar-document-panel" data-document-preview-panel="modelo-portada" aria-labelledby="seminarPortadaTitle" hidden>
+          <div class="seminar-document-intro">
+            <div><span>2 PÁGINAS</span><h2 id="seminarPortadaTitle">Modelo de portada y desarrollo</h2><p>Base oficial para completar los datos del grupo y presentar el desarrollo del trabajo.</p></div>
+            <a href="assets/class-hub/modelo-portada-seminario-nutricion.docx" download>Descargar Word</a>
+          </div>
+          <div class="seminar-document-pages" aria-label="Dos páginas del modelo de portada">
+            <figure><span>PÁGINA 1 / 2</span><img src="assets/class-hub/previews/modelo-portada/page-1.png" alt="Página 1 del modelo de portada" /></figure>
+            <figure><span>PÁGINA 2 / 2</span><img src="assets/class-hub/previews/modelo-portada/page-2.png" loading="lazy" alt="Página 2 del modelo de portada" /></figure>
+          </div>
+        </section>
+      </div>
+    </div>
+  </dialog>
+
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=405"></script>
-  <script src="grupo-3-i18n-v421.js?v=423"></script>
+  <script src="grupo-3-i18n-v421.js?v=426"></script>
   <script src="grupo-3-practice-v413.js?v=422"></script>
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
-  <script src="grupo-3-v401.js?v=425"></script>
+  <script src="grupo-3-v401.js?v=426"></script>
 </body>
 </html>
