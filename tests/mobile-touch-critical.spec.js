@@ -71,6 +71,45 @@ test.describe('Mobile critical paths', () => {
     await expect(page.locator('#weeklyAgenda .schedule-task-badge')).toHaveCount(5);
   });
 
+  test('current assignments form a compact inline accordion on iPhone', async ({ page }) => {
+    await page.goto('/clase.html#pendientes', { waitUntil: 'domcontentloaded' });
+    await expect(page.getByRole('heading', { name: 'Tareas de la clase' })).toBeVisible({ timeout: 10000 });
+
+    const assignments = page.locator('[data-current-assignment]');
+    const summaries = page.locator('[data-current-assignment] > summary');
+    await expect(assignments).toHaveCount(5);
+    await expect(summaries).toHaveCount(5);
+    await expect(page.locator('.current-assignment-meta > b')).toHaveCount(5);
+    await expect(page.locator('.current-assignment-date > strong')).toHaveCount(5);
+    await expect(page.locator('.current-assignment-copy > [role="heading"]')).toHaveCount(5);
+
+    const layout = await page.evaluate(() => {
+      const list = document.querySelector('.pending-grid').getBoundingClientRect();
+      const rows = Array.from(document.querySelectorAll('[data-current-assignment] > summary')).map(summary => summary.getBoundingClientRect());
+      return {
+        maxRowHeight: Math.max(...rows.map(row => row.height)),
+        listHeight: list.height,
+        openCount: document.querySelectorAll('[data-current-assignment][open]').length,
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth
+      };
+    });
+
+    expect(layout.maxRowHeight).toBeLessThan(120);
+    expect(layout.listHeight).toBeLessThan(620);
+    expect(layout.openCount).toBe(0);
+    expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
+
+    const nutrition = page.locator('#nutritionPrepCard');
+    const microbiology = page.locator('#microTheoryPrepCard');
+    await nutrition.locator(':scope > summary').click();
+    await expect(nutrition).toHaveAttribute('open', '');
+    await expect(nutrition.locator('.current-assignment-body')).toBeVisible();
+    await microbiology.locator(':scope > summary').click();
+    await expect(microbiology).toHaveAttribute('open', '');
+    await expect(nutrition).not.toHaveAttribute('open', '');
+  });
+
   test('mobile navigation and practice controls remain usable', async ({ page }) => {
     await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
     await dismissSemesterPicker(page);

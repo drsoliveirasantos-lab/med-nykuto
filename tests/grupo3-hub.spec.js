@@ -115,9 +115,17 @@ test.describe('Class hub', () => {
     await expect(page.locator('#weeklyAgenda')).toContainText('PRÁTICA');
     await expect(page.locator('#weeklyAgenda').getByText('Tarefa', { exact: true })).toBeVisible();
 
+    await page.goto('/clase.html#pendientes');
+    await expect(page.getByRole('heading', { name: 'Tarefas da turma' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Seminário e apresentação oral' })).toBeVisible();
+    await expect(page.locator('#microTheoryPrepCard')).toContainText('Microbiologia II · Teórica');
+    await expect(page.locator('[data-current-assignment]')).toHaveCount(5);
+
     await page.locator('#classLanguageSelect').selectOption('es');
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+    await expect(page.getByRole('heading', { name: 'Tareas de la clase' })).toBeVisible();
+    await page.goto('/clase.html#horario');
     await expect(page.getByRole('heading', { name: 'Horario del 4.º E' })).toBeVisible();
   });
 
@@ -148,12 +156,12 @@ test.describe('Class hub', () => {
     await expect(page.locator('#nutritionEstimatedDate')).toContainText('20 ago.');
     await expect(page.locator('#nutritionEstimatedDate')).toContainText('07:00–09:40');
     await expect(page.locator('#nutritionEstimatedDate')).toContainText('por confirmar');
-    await expect(page.locator('#nutritionPrepCard .assignment-status')).toHaveText('ACTIVIDAD CONFIRMADA');
+    await expect(page.locator('#nutritionPrepCard .assignment-status')).toHaveText('Confirmada');
     await expect(page.getByLabel('Semana 3, del 17 al 23 de agosto de 2026')).toBeVisible();
     await expect(page.locator('#nutritionPrepCard time')).toHaveCount(2);
     await expect(page.locator('#nutritionPrepCard time').first()).toHaveAttribute('datetime', '2026-08-17');
     await expect(page.locator('#nutritionPrepCard time').last()).toHaveAttribute('datetime', '2026-08-23');
-    await expect(page.locator('#bioPrepCard .assignment-status')).toHaveText('ESTIMADA');
+    await expect(page.locator('#bioPrepCard .assignment-status')).toHaveText('Estimada');
     await expect(page.getByText('Toda fecha calculada permanece como')).toBeHidden();
     await page.getByText('Cómo se calcula una fecha').click();
     await expect(page.getByText('Toda fecha calculada permanece como')).toBeVisible();
@@ -233,6 +241,7 @@ test.describe('Class hub', () => {
   test('shows the complete official seminar requirements without leaving Tareas', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
     const task = page.locator('#nutritionPrepCard');
+    await task.locator(':scope > summary').click();
     await expect(task.locator('.seminar-at-a-glance b').first()).toHaveText('2');
     await expect(task.getByText('presentaciones PowerPoint separadas', { exact: true })).toBeVisible();
     await expect(task.getByText('informe para firma y sello', { exact: true })).toBeVisible();
@@ -262,6 +271,7 @@ test.describe('Class hub', () => {
 
   test('shows exact Nutrition topics after selecting a group and remembers the choice', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
+    await page.locator('#nutritionPrepCard > summary').click();
     const selector = page.locator('#nutritionGroupTaskSelect');
     await selector.selectOption('3');
     const output = page.locator('#nutritionPrepCard [data-nutrition-group-output]');
@@ -270,6 +280,7 @@ test.describe('Class hub', () => {
     await expect(output.getByText('TRABAJO 1 · P1 (4)', { exact: true })).toBeVisible();
     await expect(output.getByText('TRABAJO 2 · P2 (5)', { exact: true })).toBeVisible();
     await page.reload();
+    await page.locator('#nutritionPrepCard > summary').click();
     await expect(selector).toHaveValue('3');
     await expect(output.getByText('Región Sudeste de Brasil', { exact: true })).toBeVisible();
   });
@@ -289,6 +300,7 @@ test.describe('Class hub', () => {
     await expect(page.getByText('Informe breve', { exact: true }).last()).toBeVisible();
 
     await page.goto('/clase.html#pendientes');
+    await page.locator('#nutritionPrepCard > summary').click();
     await expect(page.locator('#nutritionGroupTaskSelect')).toHaveValue('6');
     await expect(page.locator('#nutritionPrepCard [data-nutrition-group-output]').getByText('Platos típicos del Paraguay', { exact: true })).toBeVisible();
   });
@@ -358,17 +370,31 @@ test.describe('Class hub', () => {
 
   test('shows current homework as compact tactile rows', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
+    await expect(page.locator('[data-current-assignment]')).toHaveCount(5);
     await expect(page.locator('.pending-grid > .assignment-featured')).toHaveCount(1);
     await expect(page.locator('.pending-grid > .assignment-compact')).toHaveCount(4);
     await expect(page.locator('.assignment-compact .assignment-pictogram svg')).toHaveCount(4);
     await expect(page.getByRole('heading', { name: 'Estudiar las tiñas y tres micosis subcutáneas' })).toBeVisible();
     await expect(page.getByText('Preparar tiñas y tres micosis subcutáneas', { exact: true })).toHaveCount(0);
 
+    const microTheory = page.locator('#microTheoryPrepCard');
+    const bio = page.locator('#bioPrepCard');
+    await expect(microTheory).not.toHaveAttribute('open', '');
+    await microTheory.locator(':scope > summary').click();
+    await expect(microTheory).toHaveAttribute('open', '');
     const reason = page.locator('#microTheoryPrepCard .assignment-why');
     await expect(reason).not.toHaveAttribute('open', '');
     await reason.locator('summary').click();
     await expect(reason).toHaveAttribute('open', '');
     await expect(reason.locator('p')).toContainText('La consigna fue explícita');
+
+    await bio.locator(':scope > summary').click();
+    await expect(bio).toHaveAttribute('open', '');
+    await expect(microTheory).not.toHaveAttribute('open', '');
+
+    await page.goto('/clase.html#bioPrepCard');
+    await expect(page.locator('#pendientes')).toBeVisible();
+    await expect(page.locator('#bioPrepCard')).toHaveAttribute('open', '');
   });
 
   test('opens map explanations and oral answers as small inline disclosures', async ({ page }) => {
