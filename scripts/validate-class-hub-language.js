@@ -90,6 +90,8 @@ expect(i18n.includes("'TAREAS ANTERIORES':'TAREFAS ANTERIORES'"), 'The simplifie
 expect(i18n.includes("'Ver las instrucciones':'Ver as instruções'"), 'The simplified Portuguese instructions link is missing.');
 expect(i18n.includes("'Ver ejemplo de la primera página':'Ver exemplo da primeira página'"), 'The simplified Portuguese first-page example link is missing.');
 expect(i18n.includes("'Cómo se califica · 5 puntos':'Como será avaliado · 5 pontos'"), 'The simplified Portuguese grading label is missing.');
+expect(i18n.includes("'Guías Alimentarias · Regiones y platos · Documento firmado':'Guias Alimentares · Regiões e pratos · Documento assinado'"), 'The Portuguese seminar summary is incomplete.');
+expect(i18n.includes("'Este paso se completa automáticamente al seleccionar un grupo.':'Esta etapa é concluída automaticamente ao selecionar um grupo.'"), 'The Portuguese seminar checklist is incomplete.');
 expect(css.includes('.class-language-switcher'), 'The compact language selector styling is missing.');
 expect(css.includes('.schedule-task-badge'), 'The schedule task badge styling is missing.');
 expect((html.match(/class="schedule-slot/g) || []).length === 10, 'The weekly schedule no longer exposes all ten class slots.');

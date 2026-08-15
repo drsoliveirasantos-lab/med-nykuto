@@ -110,10 +110,15 @@ test.describe('Class hub', () => {
     await expect(page.locator('#weeklyAgenda')).toContainText('PRÁTICA');
     await expect(page.locator('#weeklyAgenda').getByText('Tarefa', { exact: true })).toBeVisible();
 
+    await page.goto('/clase.html#plan-estudio');
+    await expect(page.getByText('ARQUIVOS PARA COMEÇAR', { exact: true })).toBeVisible();
+    await expect(page.getByText('Ver exemplo da primeira página', { exact: true })).toBeVisible();
+    await expect(page.locator('#plan-estudio')).not.toContainText(/Primera página|Documento firmado|Este paso se completa/);
+
     await page.locator('#classLanguageSelect').selectOption('es');
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('html')).toHaveAttribute('lang', 'es');
-    await expect(page.getByRole('heading', { name: 'Horario del 4.º E' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Plan del seminario' })).toBeVisible();
   });
 
   test('keeps the personal lab group separate and local to the device', async ({ page }) => {
