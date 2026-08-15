@@ -31,6 +31,7 @@ expect(html.includes('<option value="br">PT-BR · Português</option>'), 'The Br
   'Ver ejemplo de la primera página',
   'Cómo se califica · 5 puntos',
   'ARCHIVOS PARA EMPEZAR',
+  'Documento firmado',
   '¿Qué quieres preguntar?'
 ].forEach((label) => {
   expect(html.includes(label), `The simplified class label “${label}” is missing.`);
@@ -49,6 +50,7 @@ expect(html.includes('<option value="br">PT-BR · Português</option>'), 'The Br
   'Vista previa · Portada',
   'Rúbrica de calificación',
   'Descarga la base oficial',
+  'Constancia firmada',
   'nueva transcripción · una sola clase',
   'transcripción acumulada'
 ].forEach((label) => {
