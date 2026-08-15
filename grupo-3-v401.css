@@ -886,6 +886,9 @@ img{display:block;max-width:100%}
 .sample-avoid{border-color:rgba(255,154,154,.32)!important}.sample-avoid span{color:#ffc1c1}
 .sample-check{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
 .sample-check span{padding:10px;border:1px solid var(--line);border-radius:12px;color:var(--muted-strong);background:rgba(255,255,255,.018);font-size:.61rem;font-weight:900;text-align:center}
+.mobile-table-disclosure{min-width:0}
+.mobile-table-disclosure>summary{display:none}
+.mobile-table-disclosure:not([open])>.table-scroll{display:block}
 .table-scroll{max-width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-lg);background:rgba(4,13,23,.48);scrollbar-color:var(--line-strong) transparent}
 .fungi-table{width:100%;min-width:760px;border-collapse:collapse;font-size:.76rem}
 .fungi-table th,.fungi-table td{padding:15px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
@@ -1562,6 +1565,59 @@ img{display:block;max-width:100%}
   .resource-icon{width:27px;height:27px}
   .resource-card strong{padding-right:20px;font-size:.7rem}
   .resource-card small{display:none}
+  [data-course-detail]{display:grid;gap:8px;margin-top:9px}
+  [data-course-detail] article,[data-course-detail] li{min-height:0}
+  [data-course-detail] :is(.lesson-intro>div,.phase-card,.reaction-panel,.regulation-grid article,.science-note,.exam-focus,.definition-card,.timeline-row article,.two-column-notes article,.compare-cards article,.dispensary-grid article,.family-cycle article,.dimension-flow article,.process-strip article,.triage-first-look>div,.triage-reference,.triage-colors article,.resp-control-hero,.control-loop li,.resp-centers article,.resp-modulators article,.gas-core-grid article,.bohr-haldane article,.clinical-bridge,.nutrition-definitions article,.nutrition-laws article,.nutrition-balance,.plate-notes article,.food-functions article,.enrichment-grid article,.clinical-adaptation,.adaptation-grid article,.nutrition-case,.seminar-rules article,.seminar-delivery-route article,.seminar-rubric-grid article,.nutrition-group-output article,.mycosis-core,.mycosis-split article,.transmission-grid article,.site-grid article,.case-teaching-card,.diagnostic-flow article,.therapy-grid article,.next-mycology,.next-mycology-grid article,.micro-objectives,.micro-prep-panel,.sample-grid article,.morphology-grid article,.sabouraud-panel,.sabouraud-facts article,.lab-workflow article,.lab-safety-card){padding:10px 11px;border-radius:14px}
+  [data-course-detail] :is(.nutrition-definitions,.nutrition-laws,.plate-method,.plate-notes,.food-functions,.enrichment-grid,.adaptation-grid,.seminar-rules,.seminar-delivery-route,.seminar-rubric-grid,.epi-map-grid,.timeline-row,.two-column-notes,.compare-cards,.dispensary-grid,.family-cycle,.dimension-flow,.process-strip,.triage-first-look,.triage-colors,.control-loop,.resp-centers,.resp-modulators,.gas-core-grid,.gas-memory-strip,.bohr-haldane,.mycosis-core ol,.mycosis-split,.transmission-grid,.site-grid,.diagnostic-flow,.therapy-grid,.next-mycology-grid,.sample-grid,.sample-check,.morphology-grid,.sabouraud-facts,.lab-workflow){gap:6px}
+  [data-course-detail] :is(.food-functions,.resp-modulators,.gas-core-grid,.gas-memory-strip,.epi-map-grid,.dispensary-grid,.triage-first-look,.triage-colors,.sample-grid,.morphology-grid,.sabouraud-facts){grid-template-columns:repeat(2,minmax(0,1fr))}
+  [data-course-detail] :is(.nutrition-definitions,.enrichment-grid,.control-loop,.resp-centers,.mycosis-core ol,.mycosis-split,.transmission-grid,.site-grid,.diagnostic-flow,.therapy-grid,.next-mycology-grid){grid-template-columns:1fr}
+  [data-course-detail] :is(.lesson-intro h3,.exam-focus h3,.resp-control-hero h3,.clinical-bridge h3,.nutrition-balance h3,.clinical-adaptation h3,.nutrition-case h3,.mycosis-core h3,.case-teaching-card h3,.next-mycology h3,.micro-objectives h3,.micro-prep-copy h3,.sabouraud-panel h3,.lab-safety-card h3){margin:5px 0 4px;font-size:1.08rem;line-height:1.08}
+  [data-course-detail] :is(.lesson-intro p,.exam-focus p,.resp-control-hero p,.clinical-bridge p,.nutrition-balance p,.clinical-adaptation>div>p,.nutrition-case p,.mycosis-core p,.case-teaching-card p,.next-mycology>div:first-child>p,.micro-objectives p,.micro-prep-copy p,.sabouraud-panel p){font-size:.68rem;line-height:1.38}
+  .lesson-subheading{align-items:flex-start;flex-direction:column;gap:2px;margin:2px 0 6px}
+  .lesson-subheading>span{font-size:.53rem}
+  .lesson-subheading strong{font-size:.61rem;text-align:left}
+  .nutrition-laws strong{margin-top:9px;font-size:.8rem}
+  .nutrition-laws p{margin-top:5px;font-size:.62rem;line-height:1.38}
+  .nutrition-laws small{margin-top:7px;padding-top:0;font-size:.57rem;line-height:1.35}
+  .nutrition-law-photo{margin-top:8px;border-radius:10px}
+  .nutrition-definitions strong,.enrichment-grid strong{margin-top:5px;font-size:.78rem}
+  .nutrition-definitions p,.enrichment-grid p{margin-top:3px;font-size:.61rem;line-height:1.35}
+  .food-functions article{padding:9px}
+  .food-functions span{font-size:.49rem;line-height:1.2}
+  .food-functions strong{margin-top:6px;font-size:.68rem;line-height:1.2}
+  .food-functions small{margin-top:4px;font-size:.54rem;line-height:1.3}
+  .nutrition-balance{gap:9px}
+  .energy-equation{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1.15fr);gap:4px}
+  .energy-equation span,.energy-equation strong{min-height:52px;padding:5px;border-radius:10px;font-size:.53rem}
+  .energy-equation b{font-size:.85rem;transform:none}
+  .plate-visual{gap:5px;padding:7px;border-radius:16px}
+  .plate-photo{min-height:145px;border-radius:11px}
+  .plate-visual>div,.plate-produce,.plate-protein,.plate-carbs{padding:8px;border-radius:11px!important}
+  .plate-visual>div strong{font-size:.65rem}
+  .plate-visual>div small{font-size:.52rem;line-height:1.25}
+  .mycosis-split h3{margin:6px 0 4px;font-size:.9rem}
+  .mycosis-split p{font-size:.63rem;line-height:1.4}
+  .mycosis-split small{margin-top:5px;padding-top:0;font-size:.56rem}
+  .course-photo-feature{min-height:150px}
+  .mobile-table-disclosure{min-width:0}
+  .mobile-table-disclosure>summary{min-height:54px;display:grid;grid-template-columns:minmax(0,1fr) 30px;grid-template-rows:auto auto auto;align-items:center;gap:0 8px;padding:8px 10px;border:1px solid rgba(111,216,255,.24);border-radius:13px;cursor:pointer;list-style:none;background:linear-gradient(145deg,rgba(111,216,255,.08),rgba(255,255,255,.018))}
+  .mobile-table-disclosure>summary::-webkit-details-marker{display:none}
+  .mobile-table-disclosure>summary>span{grid-column:1;grid-row:1;color:var(--cyan);font-size:.47rem;font-weight:950;letter-spacing:.1em}
+  .mobile-table-disclosure>summary>strong{grid-column:1;grid-row:2;font-size:.69rem;line-height:1.15}
+  .mobile-table-disclosure>summary>small{grid-column:1;grid-row:3;color:var(--muted);font-size:.51rem;line-height:1.2}
+  .mobile-table-disclosure>summary>b{grid-column:2;grid-row:1/4;width:30px;height:30px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;color:var(--cyan);font-size:1rem;font-weight:500;transition:transform .18s ease}
+  .mobile-table-disclosure[open]>summary{border-color:rgba(242,198,109,.34);background:rgba(242,198,109,.055)}
+  .mobile-table-disclosure[open]>summary>b{color:var(--gold-soft);transform:rotate(45deg)}
+  .mobile-table-disclosure:not([open])>.table-scroll{display:none}
+  .mobile-table-disclosure[open]>.table-scroll{margin-top:6px}
+  .table-scroll{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;border-radius:12px;touch-action:pan-x pan-y}
+  .fungi-table,.nutrition-table,.fisio-table,.dermatophyte-table,.antifungal-table{min-width:580px;table-layout:fixed;font-size:.56rem;line-height:1.28}
+  .nutrition-table,.fisio-table,.antifungal-table{min-width:620px}
+  .fungi-table th,.fungi-table td{padding:7px 6px}
+  .fungi-table thead th{font-size:.48rem;letter-spacing:.05em}
+  .fungi-table tbody th{font-size:.6rem}
+  .fungi-table tr>:first-child{position:sticky;left:0;z-index:1;background:#0a1828}
+  .fungi-table thead tr>:first-child{z-index:2;background:#172334}
 }
 
 @media(max-width:390px){
