@@ -27,6 +27,10 @@ expect(html.includes('<option value="br">PT-BR · Português</option>'), 'The Br
   'Ver todas las tareas',
   'TAREAS ACTUALES',
   'TAREAS ANTERIORES',
+  'Ver las instrucciones',
+  'Ver ejemplo de la primera página',
+  'Cómo se califica · 5 puntos',
+  'ARCHIVOS PARA EMPEZAR',
   '¿Qué quieres preguntar?'
 ].forEach((label) => {
   expect(html.includes(label), `The simplified class label “${label}” is missing.`);
@@ -41,6 +45,10 @@ expect(html.includes('<option value="br">PT-BR · Português</option>'), 'The Br
   'HISTORIAL POR MATERIA',
   'Canal de la clase',
   'Seleccionar subgrupo',
+  'Ver instructivo',
+  'Vista previa · Portada',
+  'Rúbrica de calificación',
+  'Descarga la base oficial',
   'nueva transcripción · una sola clase',
   'transcripción acumulada'
 ].forEach((label) => {
@@ -77,6 +85,9 @@ expect(i18n.includes("'Horario del 4.º E':'Horário do 4.º E'"), 'The Portugue
 expect(i18n.includes("'Tu semana':'Sua semana'"), 'The simplified Portuguese dashboard heading is missing.');
 expect(i18n.includes("'Ver todas las tareas':'Ver todas as tarefas'"), 'The simplified Portuguese task link is missing.');
 expect(i18n.includes("'TAREAS ANTERIORES':'TAREFAS ANTERIORES'"), 'The simplified Portuguese previous-task label is missing.');
+expect(i18n.includes("'Ver las instrucciones':'Ver as instruções'"), 'The simplified Portuguese instructions link is missing.');
+expect(i18n.includes("'Ver ejemplo de la primera página':'Ver exemplo da primeira página'"), 'The simplified Portuguese first-page example link is missing.');
+expect(i18n.includes("'Cómo se califica · 5 puntos':'Como será avaliado · 5 pontos'"), 'The simplified Portuguese grading label is missing.');
 expect(css.includes('.class-language-switcher'), 'The compact language selector styling is missing.');
 expect(css.includes('.schedule-task-badge'), 'The schedule task badge styling is missing.');
 expect((html.match(/class="schedule-slot/g) || []).length === 10, 'The weekly schedule no longer exposes all ten class slots.');

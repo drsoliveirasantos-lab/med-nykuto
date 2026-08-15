@@ -79,7 +79,7 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Horario del 4.º E' })).toBeVisible();
     await expect(page.locator('#nextScheduleSubject')).not.toHaveText('Calculando…');
     await expect(page.locator('#nextScheduleWhen')).toContainText('·');
-    await expect(page.getByText('Martes y sábado no presentan clases')).toBeVisible();
+    await expect(page.getByText('No hay clases el martes ni el sábado')).toBeVisible();
     await expect(page.locator('#scheduleWeekRange')).toContainText(/Semana del \d+/);
     for (const day of ['1','3','4','5']) {
       await expect(page.locator(`[data-week-date="${day}"]`)).toHaveText(/\d{1,2} [a-záéíóú]+\.?/i);
@@ -149,10 +149,10 @@ test.describe('Class hub', () => {
     await expect(page.locator('#nutritionPrepCard time').first()).toHaveAttribute('datetime', '2026-08-17');
     await expect(page.locator('#nutritionPrepCard time').last()).toHaveAttribute('datetime', '2026-08-23');
     await expect(page.locator('#bioPrepCard .assignment-status')).toHaveText('ESTIMADA');
-    await expect(page.getByText('Toda fecha calculada permanece como')).toBeHidden();
-    await page.getByText('Cómo se calcula una fecha').click();
-    await expect(page.getByText('Toda fecha calculada permanece como')).toBeVisible();
-    await expect(page.getByText('El contenido final siempre corresponde al curso más reciente')).toBeVisible();
+    await expect(page.getByText('Comprueba siempre los avisos oficiales de la facultad.')).toBeHidden();
+    await page.getByText('¿De dónde sale esta fecha?').click();
+    await expect(page.getByText('Comprueba siempre los avisos oficiales de la facultad.')).toBeVisible();
+    await expect(page.getByText('Si no dio una fecha, usamos el horario habitual de la materia.')).toBeVisible();
   });
 
   test('organizes the 14 August glycolysis lesson with corrected study points', async ({ page }) => {
@@ -363,7 +363,7 @@ test.describe('Class hub', () => {
     await expect(reason).not.toHaveAttribute('open', '');
     await reason.locator('summary').click();
     await expect(reason).toHaveAttribute('open', '');
-    await expect(reason.locator('p')).toContainText('La consigna fue explícita');
+    await expect(reason.locator('p')).toContainText('La profesora pidió esta tarea');
   });
 
   test('opens map explanations and oral answers as small inline disclosures', async ({ page }) => {
