@@ -110,6 +110,7 @@ test.describe('Med Nykuto broad click audit', () => {
   }
 
   test('main navigation links go to the expected pages', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('medNykuto:studentSemester', 's3'));
     for (const [selector, expectedUrl] of navExpectations) {
       const errors = collectPageErrors(page);
       await page.goto('/index.html');
