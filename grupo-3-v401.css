@@ -1410,7 +1410,7 @@ img{display:block;max-width:100%}
   .section-kicker{margin-top:12px;margin-bottom:5px;font-size:.56rem;letter-spacing:.13em}
   .source-pill{min-height:25px;padding:4px 7px;font-size:.52rem}
   .course-selector{grid-template-columns:1fr 1fr;gap:6px}
-  .course-selector a{min-height:78px;grid-template-columns:32px minmax(0,1fr);gap:1px 7px;padding:8px;border-radius:13px}
+  .course-selector a{min-height:72px;grid-template-columns:32px minmax(0,1fr);gap:1px 7px;padding:8px;border-radius:13px}
   .course-selector a>.course-icon{width:32px;height:32px;border-radius:10px}
   .course-selector .course-icon svg{width:18px;height:18px}
   .course-selector strong{font-size:.7rem;line-height:1.12}
