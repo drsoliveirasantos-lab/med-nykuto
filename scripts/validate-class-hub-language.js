@@ -6,6 +6,7 @@ const html = fs.readFileSync(path.join(root, 'clase.html'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'grupo-3-v401.css'), 'utf8');
 const runtime = fs.readFileSync(path.join(root, 'grupo-3-v401.js'), 'utf8');
 const i18n = fs.readFileSync(path.join(root, 'grupo-3-i18n-v421.js'), 'utf8');
+const semesterSwitcher = fs.readFileSync(path.join(root, 'semester-switcher-v402.js'), 'utf8');
 
 const failures = [];
 const expect = (condition, message) => {
@@ -48,6 +49,15 @@ expect(i18n.includes("'Tareas':'Tarefas'"), 'The Portuguese task navigation tran
 expect(i18n.includes("'Horario del 4.º E':'Horário do 4.º E'"), 'The Portuguese schedule heading translation is missing.');
 expect(css.includes('.class-language-switcher'), 'The compact language selector styling is missing.');
 expect(css.includes('.schedule-task-badge'), 'The schedule task badge styling is missing.');
+expect((html.match(/class="schedule-slot/g) || []).length === 10, 'The weekly schedule no longer exposes all ten class slots.');
+expect((html.match(/data-subject="/g) || []).length === 10, 'The class slots are missing their subject color markers.');
+expect(html.includes('class="schedule-day-strip"'), 'The compact four-day strip is missing from the schedule summary.');
+expect(css.includes('grid-template-columns:54px minmax(0,1fr)'), 'The compact mobile schedule timeline is missing.');
+expect(css.includes('.schedule-slot[data-subject="physiology"]'), 'The schedule subject color system is missing.');
+expect(runtime.includes('function mondayOfWeek(date)'), 'The schedule week does not align its dates with the upcoming class.');
+expect(runtime.includes('renderScheduleWeekDates(next && next.date)'), 'The upcoming class is not used to choose the visible schedule week.');
+expect(semesterSwitcher.includes("classScope.replaceWith(wrapper)"), 'The semester selector is not embedded in the class header.');
+expect(semesterSwitcher.includes('is-class-header-v402'), 'The embedded semester selector styling hook is missing.');
 
 expect((html.match(/class="assignment-card assignment-compact/g) || []).length === 4, 'The four regular current tasks are not rendered as compact rows.');
 expect((html.match(/class="assignment-pictogram"/g) || []).length === 4, 'The compact current tasks do not all have pictograms.');

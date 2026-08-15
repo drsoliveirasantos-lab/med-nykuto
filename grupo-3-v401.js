@@ -788,12 +788,20 @@
     return label + ' · ' + tr('estimated');
   }
 
-  function renderScheduleWeekDates(){
+  function mondayOfWeek(date){
+    var weekday = date.getUTCDay();
+    var daysSinceMonday = (weekday + 6) % 7;
+    return new Date(Date.UTC(date.getUTCFullYear(),date.getUTCMonth(),date.getUTCDate() - daysSinceMonday));
+  }
+
+  function renderScheduleWeekDates(nextDate){
     var now = getParaguayWallClock();
-    var weekday = now.getUTCDay();
-    var offsetToMonday = weekday === 0 ? 1 : (weekday === 6 ? 2 : 1 - weekday);
-    var monday = new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate() + offsetToMonday));
+    var monday = mondayOfWeek(now);
     var sunday = new Date(monday.getTime() + (6 * 86400000));
+    if(nextDate && nextDate.getTime() > sunday.getTime()){
+      monday = mondayOfWeek(nextDate);
+      sunday = new Date(monday.getTime() + (6 * 86400000));
+    }
     var locale = classI18n && classI18n.getLocale ? classI18n.getLocale() : 'es-PY';
     var compact = new Intl.DateTimeFormat(locale,{day:'numeric',month:'short',timeZone:'UTC'});
     var longDate = new Intl.DateTimeFormat(locale,{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
@@ -856,7 +864,7 @@
     renderHomePreparation('homeMicroTheoryDate',latestMicroTheoryTranscript.estimatedPreparation);
     renderHomePreparation('homeNutritionDate',latestNutritionTranscript.estimatedPreparation);
     renderHomePreparation('homeBioDate',latestTranscript.estimatedPreparation);
-    renderScheduleWeekDates();
+    renderScheduleWeekDates(next && next.date);
     refreshLanguage(document.getElementById('horario'));
     refreshLanguage(document.getElementById('inicio'));
   }

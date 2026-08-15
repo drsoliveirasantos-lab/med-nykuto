@@ -20,8 +20,8 @@ test.describe('Class hub', () => {
     await expect(page.locator('#homeNutritionDate')).toHaveAttribute('datetime', '2026-08-20');
     await expect(page.locator('#homeBioDate')).toHaveAttribute('datetime', '2026-08-19');
     await expect(page.locator('.priority-card-head time')).toHaveCount(3);
-    await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', /^2026-08-14T\d{2}:\d{2}:\d{2}-03:00$/);
-    await expect(page.locator('#lastUpdated')).toHaveText(/^Actualizado 14 ago\.? · \d{2}:\d{2} PY$/);
+    await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', /^2026-08-15T\d{2}:\d{2}:\d{2}-03:00$/);
+    await expect(page.locator('#lastUpdated')).toHaveText(/^Actualizado 15 ago\.? · \d{2}:\d{2} PY$/);
     await expect(page.locator('#horario')).toBeHidden();
     await expect(page.locator('#materias')).toBeHidden();
   });
@@ -508,14 +508,16 @@ test.describe('Class hub', () => {
     expect(transcript.estimatedPreparation.date).toBe('2026-08-17');
   });
 
-  test('keeps the semester selector available while the page scrolls', async ({ page }) => {
+  test('keeps the semester selector inside the sticky class header', async ({ page }) => {
     const switcher = page.getByLabel('Elegir semestre');
     await expect(switcher).toBeVisible();
     await expect(switcher).toHaveValue('4');
     await page.goto('/clase.html#delegado');
     await page.locator('#delegado').scrollIntoViewIfNeeded();
     await expect(switcher).toBeVisible();
-    await expect(page.locator('#semesterSwitcherV402')).toHaveCSS('position', 'fixed');
+    await expect(page.locator('#semesterSwitcherV402')).toHaveClass(/is-class-header-v402/);
+    await expect(page.locator('#semesterSwitcherV402')).toHaveCSS('position', 'static');
+    await expect(page.locator('.class-header')).toHaveCSS('position', 'sticky');
   });
 
   test('switches revision depth without leaving the page', async ({ page }) => {
@@ -620,10 +622,43 @@ test.describe('Class hub', () => {
         };
       });
       expect(mobileLayout.nextTop).toBeLessThan(mobileLayout.viewportHeight * 0.78);
-      expect(mobileLayout.switcherWidth).toBeLessThanOrEqual(150);
+      expect(mobileLayout.switcherWidth).toBeLessThanOrEqual(160);
       expect(mobileLayout.switcherBottom).toBeLessThanOrEqual(mobileLayout.bottomTop);
     } else {
       await expect(bottomNavigation).toBeHidden();
     }
+  });
+
+  test('renders the phone timetable as a compact color-coded timeline', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'mobile-safari-shape', 'Mobile layout assertion');
+    await page.goto('/clase.html#horario');
+    const layout = await page.evaluate(() => {
+      const guide = document.querySelector('.schedule-guide-card').getBoundingClientRect();
+      const day = document.querySelector('.agenda-day').getBoundingClientRect();
+      const firstSlot = document.querySelector('.schedule-slot').getBoundingClientRect();
+      const switcher = document.querySelector('#semesterSwitcherV402').getBoundingClientRect();
+      const header = document.querySelector('.class-header').getBoundingClientRect();
+      const highlighted = document.querySelector('.agenda-day.is-next-day [data-week-date]');
+      return {
+        guideHeight:guide.height,
+        dayHeight:day.height,
+        slotHeight:firstSlot.height,
+        switcherTop:switcher.top,
+        switcherBottom:switcher.bottom,
+        headerTop:header.top,
+        headerBottom:header.bottom,
+        highlightedDate:highlighted ? highlighted.getAttribute('datetime') : null,
+        scrollWidth:document.documentElement.scrollWidth,
+        clientWidth:document.documentElement.clientWidth
+      };
+    });
+    expect(layout.guideHeight).toBeLessThan(150);
+    expect(layout.dayHeight).toBeLessThan(250);
+    expect(layout.slotHeight).toBeLessThan(90);
+    expect(layout.switcherTop).toBeGreaterThanOrEqual(layout.headerTop);
+    expect(layout.switcherBottom).toBeLessThanOrEqual(layout.headerBottom + 1);
+    expect(layout.highlightedDate).toMatch(/^2026-\d{2}-\d{2}$/);
+    expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
+    await expect(page.locator('.schedule-slot[data-subject]')).toHaveCount(10);
   });
 });

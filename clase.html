@@ -8,7 +8,7 @@
   <meta name="description" content="Espacio académico no oficial del 4.º E: horario, tareas, historial de actividades y revisiones de Nutrición, Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología organizadas en un solo lugar." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=422" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=423" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -64,7 +64,7 @@
       <div class="dashboard-heading">
         <div class="dashboard-heading-top">
           <div class="hero-meta"><span class="status-dot"><i aria-hidden="true"></i> Espacio activo</span><span>4.º E · Semestre 4</span></div>
-          <time class="dashboard-updated" id="lastUpdated" datetime="2026-08-14T23:11:00-03:00" title="Última actualización · hora de Paraguay">Actualizado 14 ago. · 23:11 PY</time>
+          <time class="dashboard-updated" id="lastUpdated" datetime="2026-08-15T00:05:00-03:00" title="Última actualización · hora de Paraguay">Actualizado 15 ago. · 00:05 PY</time>
         </div>
         <p class="section-kicker">Panel de estudio</p>
         <h1 id="class-title">Tu semana, de un vistazo.</h1>
@@ -105,9 +105,10 @@
       <div class="agenda-summary">
         <article class="schedule-guide-card">
           <span>LECTURA RÁPIDA</span>
-          <h3>Cuatro días presenciales</h3>
-          <p>Lunes, miércoles, jueves y viernes. El bloque azul marca el día de la próxima clase calculada.</p>
-          <a href="#pendientes">Ver tareas de la semana →</a>
+          <h3>4 días de clase</h3>
+          <p>El día resaltado indica la próxima jornada con clases.</p>
+          <div class="schedule-day-strip" aria-label="Días presenciales"><span>LUN</span><span>MIÉ</span><span>JUE</span><span>VIE</span></div>
+          <a href="#pendientes">Ver tareas →</a>
         </article>
 
         <aside class="personal-lab-card">
@@ -127,25 +128,25 @@
       <div class="agenda-grid" id="weeklyAgenda" aria-label="Horario semanal">
         <article class="agenda-day" data-schedule-day="1">
           <header><span>LUN</span><strong>Lunes <time data-week-date="1" datetime="2026-08-17">17 ago.</time></strong></header>
-          <div class="schedule-slot"><time>07:00–10:10</time><strong>Fisiología II</strong><small>Dra. Giselle Vert</small></div>
-          <div class="schedule-slot"><time>10:10–12:20</time><strong>Microbiología II <span class="course-type-badge">TEÓRICA</span></strong><small>Dr. Alexander Acuña</small><a class="schedule-task-badge" href="#microTheoryPrepCard">Tarea</a></div>
-          <div class="schedule-slot schedule-online"><time>15:00–17:00</time><strong>Bioética · plataforma</strong><small>Lic. Silvia Nuarte</small></div>
+          <div class="schedule-slot" data-subject="physiology"><time>07:00–10:10</time><strong>Fisiología II</strong><small>Dra. Giselle Vert</small></div>
+          <div class="schedule-slot" data-subject="microbiology"><time>10:10–12:20</time><strong>Microbiología II <span class="course-type-badge">TEÓRICA</span></strong><small>Dr. Alexander Acuña</small><a class="schedule-task-badge" href="#microTheoryPrepCard">Tarea</a></div>
+          <div class="schedule-slot schedule-online" data-subject="bioethics"><time>15:00–17:00</time><strong>Bioética · plataforma</strong><small>Lic. Silvia Nuarte</small></div>
         </article>
         <article class="agenda-day" data-schedule-day="3">
           <header><span>MIÉ</span><strong>Miércoles <time data-week-date="3" datetime="2026-08-19">19 ago.</time></strong></header>
-          <div class="schedule-slot"><time>09:10–11:10</time><strong>Bioquímica II</strong><small>Dra. Andrea López</small><a class="schedule-task-badge schedule-task-estimated" href="#bioPrepCard">Preparación</a></div>
-          <div class="schedule-slot"><time>11:20–13:20</time><strong>Epidemiología y Salud Pública</strong><small>Dra. Andrea Isasi</small><a class="schedule-task-badge schedule-task-estimated" href="#epiPrepCard">Lectura</a></div>
+          <div class="schedule-slot" data-subject="biochemistry"><time>09:10–11:10</time><strong>Bioquímica II</strong><small>Dra. Andrea López</small><a class="schedule-task-badge schedule-task-estimated" href="#bioPrepCard">Preparación</a></div>
+          <div class="schedule-slot" data-subject="epidemiology"><time>11:20–13:20</time><strong>Epidemiología y Salud Pública</strong><small>Dra. Andrea Isasi</small><a class="schedule-task-badge schedule-task-estimated" href="#epiPrepCard">Lectura</a></div>
         </article>
         <article class="agenda-day" data-schedule-day="4">
           <header><span>JUE</span><strong>Jueves <time data-week-date="4" datetime="2026-08-20">20 ago.</time></strong></header>
-          <div class="schedule-slot"><time>07:00–09:40</time><strong>Nutrición</strong><small>Lic. Johana Leguizamón</small><a class="schedule-task-badge" href="#nutritionPrepCard">Seminario</a></div>
-          <div class="schedule-slot"><time>09:40–12:20</time><strong>Fisiología II</strong><small>Dra. Giselle Vert</small></div>
-          <div class="schedule-slot schedule-lab" id="labScheduleSlot"><time id="labScheduleTime">G1 14:00 · G2 16:00 · G3 18:00</time><strong>Microbiología II <span class="course-type-badge">PRÁCTICA</span></strong><small id="labScheduleGroup">Selecciona tu subgrupo</small><a class="schedule-task-badge" href="#microPrepCard">Muestra</a></div>
+          <div class="schedule-slot" data-subject="nutrition"><time>07:00–09:40</time><strong>Nutrición</strong><small>Lic. Johana Leguizamón</small><a class="schedule-task-badge" href="#nutritionPrepCard">Seminario</a></div>
+          <div class="schedule-slot" data-subject="physiology"><time>09:40–12:20</time><strong>Fisiología II</strong><small>Dra. Giselle Vert</small></div>
+          <div class="schedule-slot schedule-lab" data-subject="microbiology" id="labScheduleSlot"><time id="labScheduleTime">G1 14:00 · G2 16:00 · G3 18:00</time><strong>Microbiología II <span class="course-type-badge">PRÁCTICA</span></strong><small id="labScheduleGroup">Selecciona tu subgrupo</small><a class="schedule-task-badge" href="#microPrepCard">Muestra</a></div>
         </article>
         <article class="agenda-day" data-schedule-day="5">
           <header><span>VIE</span><strong>Viernes <time data-week-date="5" datetime="2026-08-21">21 ago.</time></strong></header>
-          <div class="schedule-slot"><time>07:00–09:00</time><strong>Epidemiología y Salud Pública</strong><small>Dra. Andrea Isasi</small></div>
-          <div class="schedule-slot"><time>09:10–11:10</time><strong>Bioquímica II</strong><small>Dra. Andrea López</small></div>
+          <div class="schedule-slot" data-subject="epidemiology"><time>07:00–09:00</time><strong>Epidemiología y Salud Pública</strong><small>Dra. Andrea Isasi</small></div>
+          <div class="schedule-slot" data-subject="biochemistry"><time>09:10–11:10</time><strong>Bioquímica II</strong><small>Dra. Andrea López</small></div>
         </article>
       </div>
       <p class="schedule-note">Martes y sábado no presentan clases en el horario recibido. Cualquier modificación oficial debe prevalecer sobre esta vista.</p>
@@ -1278,10 +1279,10 @@
   </nav>
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
-  <script src="semester-switcher-v402.js?v=404"></script>
-  <script src="grupo-3-i18n-v421.js?v=422"></script>
+  <script src="semester-switcher-v402.js?v=405"></script>
+  <script src="grupo-3-i18n-v421.js?v=423"></script>
   <script src="grupo-3-practice-v413.js?v=422"></script>
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
-  <script src="grupo-3-v401.js?v=422"></script>
+  <script src="grupo-3-v401.js?v=423"></script>
 </body>
 </html>
