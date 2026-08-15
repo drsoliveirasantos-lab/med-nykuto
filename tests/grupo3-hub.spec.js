@@ -8,7 +8,9 @@ test.describe('Class hub', () => {
   });
 
   test('presents the next useful action before secondary content', async ({ page }) => {
-    await expect(page.getByRole('heading', { name: 'Tu semana, de un vistazo.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Tu semana', exact: true })).toBeVisible();
+    await expect(page.getByText('PARA ESTA SEMANA', { exact: true })).toBeVisible();
+    await expect(page.locator('#inicio')).not.toContainText(/de un vistazo|EN PORTADA|Panel de estudio/);
     await expect(page.getByText('4.º E', { exact: true }).first()).toBeVisible();
     await expect(page.locator('#nextScheduleSubject')).not.toHaveText('Calculando…');
     await expect(page.getByRole('link', { name: /Estudiar tres micosis subcutáneas/ })).toBeVisible();
@@ -77,7 +79,7 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Horario del 4.º E' })).toBeVisible();
     await expect(page.locator('#nextScheduleSubject')).not.toHaveText('Calculando…');
     await expect(page.locator('#nextScheduleWhen')).toContainText('·');
-    await expect(page.getByText('Martes y sábado no presentan clases')).toBeVisible();
+    await expect(page.getByText('No hay clases el martes ni el sábado')).toBeVisible();
     await expect(page.locator('#scheduleWeekRange')).toContainText(/Semana del \d+/);
     for (const day of ['1','3','4','5']) {
       await expect(page.locator(`[data-week-date="${day}"]`)).toHaveText(/\d{1,2} [a-záéíóú]+\.?/i);
@@ -104,7 +106,9 @@ test.describe('Class hub', () => {
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
     await expect(page.locator('#classLanguageSelect')).toHaveValue('br');
-    await expect(page.getByRole('heading', { name: 'Sua semana em um relance.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Sua semana', exact: true })).toBeVisible();
+    await expect(page.getByText('PARA ESTA SEMANA', { exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Ver todas as tarefas' })).toBeVisible();
     await expect(page.locator('.mobile-bottom-nav').getByText('Tarefas', { exact: true })).toBeAttached();
     await expect(page.locator('.mobile-bottom-nav').getByText('Matérias', { exact: true })).toBeAttached();
 
@@ -121,10 +125,20 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'Seminário e apresentação oral' })).toBeVisible();
     await expect(page.locator('#microTheoryPrepCard')).toContainText('Microbiologia II · Teórica');
     await expect(page.locator('[data-current-assignment]')).toHaveCount(5);
+    await page.goto('/clase.html#nutricion');
+    await page.locator('[data-nutrition-mode="rapido"]').click();
+    await expect(page.locator('#nutritionPreviewEyebrow')).toHaveText('RESUMO RÁPIDO · 10 IDEIAS');
+
+    await page.goto('/clase.html#plan-estudio');
+    await expect(page.getByText('ARQUIVOS PARA COMEÇAR', { exact: true })).toBeVisible();
+    await expect(page.locator('#plan-estudio').getByRole('link', { name: 'Ver exemplo da primeira página', exact: true })).toBeVisible();
+    await expect(page.locator('#plan-estudio')).not.toContainText(/Primera página|Documento firmado|Este paso se completa/);
 
     await page.locator('#classLanguageSelect').selectOption('es');
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+    await expect(page.getByRole('heading', { name: 'Plan del seminario' })).toBeVisible();
+    await page.goto('/clase.html#pendientes');
     await expect(page.getByRole('heading', { name: 'Tareas de la clase' })).toBeVisible();
     await page.goto('/clase.html#horario');
     await expect(page.getByRole('heading', { name: 'Horario del 4.º E' })).toBeVisible();
@@ -132,7 +146,7 @@ test.describe('Class hub', () => {
 
   test('keeps the personal lab group separate and local to the device', async ({ page }) => {
     await page.goto('/clase.html#horario');
-    const groupSelector = page.getByLabel('Mi subgrupo de Microbiología II · Práctica');
+    const groupSelector = page.getByLabel('Mi grupo de Microbiología II · Práctica');
     await expect(groupSelector).toHaveValue('');
     await groupSelector.selectOption('3');
     await expect(page.locator('#labScheduleGroup')).toContainText('Grupo 3');
@@ -163,10 +177,10 @@ test.describe('Class hub', () => {
     await expect(page.locator('#nutritionPrepCard time').first()).toHaveAttribute('datetime', '2026-08-17');
     await expect(page.locator('#nutritionPrepCard time').last()).toHaveAttribute('datetime', '2026-08-23');
     await expect(page.locator('#bioPrepCard .assignment-status')).toHaveText('Estimada');
-    await expect(page.getByText('Toda fecha calculada permanece como')).toBeHidden();
-    await page.getByText('Cómo se calcula una fecha').click();
-    await expect(page.getByText('Toda fecha calculada permanece como')).toBeVisible();
-    await expect(page.getByText('El contenido final siempre corresponde al curso más reciente')).toBeVisible();
+    await expect(page.getByText('Comprueba siempre los avisos oficiales de la facultad.')).toBeHidden();
+    await page.getByText('¿De dónde sale esta fecha?').click();
+    await expect(page.getByText('Comprueba siempre los avisos oficiales de la facultad.')).toBeVisible();
+    await expect(page.getByText('Si no dio una fecha, usamos el horario habitual de la materia.')).toBeVisible();
   });
 
   test('organizes the 14 August glycolysis lesson with corrected study points', async ({ page }) => {
@@ -180,7 +194,7 @@ test.describe('Class hub', () => {
     await expect(page.locator('.bio-board-route article')).toHaveCount(4);
     await expect(page.getByText('Malato–aspartato: ≈2,5 ATP/NADH; glicerol-3-fosfato: ≈1,5 ATP/NADH.')).toBeVisible();
     await expect(page.getByText('su rendimiento oxidativo no es siempre 2,5 ATP por NADH', { exact: false })).toBeVisible();
-    await expect(page.getByText('Bioquímica · 3 transcripciones')).toBeVisible();
+    await expect(page.getByText('Bioquímica · 3 clases')).toBeVisible();
   });
 
   test('opens the 10 and 13 August Physiology lessons independently', async ({ page }) => {
@@ -226,8 +240,8 @@ test.describe('Class hub', () => {
     await expect(nutrition.getByText('Hasta 4 por PPT', { exact: true })).toBeVisible();
     await expect(nutrition.getByText('Hasta 5 minutos', { exact: true })).toBeVisible();
     await expect(nutrition.getByText('Drive de la clase → Bibliografía → carpeta INAN.', { exact: false })).toBeVisible();
-    await expect(nutrition.getByRole('link', { name: 'Vista previa · Instructivo' })).toHaveAttribute('href', 'documentos-seminario.html#instructivo');
-    await expect(nutrition.getByRole('link', { name: 'Vista previa · Portada' })).toHaveAttribute('href', 'documentos-seminario.html#modelo-portada');
+    await expect(nutrition.getByRole('link', { name: 'Ver las instrucciones' })).toHaveAttribute('href', 'documentos-seminario.html#instructivo');
+    await expect(nutrition.getByRole('link', { name: 'Ver ejemplo de la primera página' })).toHaveAttribute('href', 'documentos-seminario.html#modelo-portada');
     const transcript = await page.evaluate(() => window.MED_NYKUTO_LATEST_TRANSCRIPTS.nutricion);
     expect(transcript.oralDate).toBeNull();
     expect(transcript.estimatedClassDate).toBe('2026-08-13');
@@ -246,12 +260,12 @@ test.describe('Class hub', () => {
     await expect(task.locator('.seminar-at-a-glance b').first()).toHaveText('2');
     await expect(task.getByText('presentaciones PowerPoint separadas', { exact: true })).toBeVisible();
     await expect(task.getByText('informe para firma y sello', { exact: true })).toBeVisible();
-    await task.getByText('Ver la consigna completa', { exact: true }).click();
+    await task.getByText('Ver todos los detalles', { exact: true }).click();
     await expect(task.getByText('Trabajo 1 · Guías Alimentarias', { exact: true })).toBeVisible();
     await expect(task.getByText('Trabajo 2 · Platos típicos / regiones', { exact: true })).toBeVisible();
     await expect(task.getByText('aproximadamente hasta 5 minutos por grupo', { exact: false })).toBeVisible();
-    await expect(task.getByRole('link', { name: 'Ver instructivo y descargar' })).toHaveAttribute('href', 'documentos-seminario.html#instructivo');
-    await expect(task.getByRole('link', { name: 'Ver modelo de portada' })).toHaveAttribute('href', 'documentos-seminario.html#modelo-portada');
+    await expect(task.getByRole('link', { name: 'Ver las instrucciones y descargar' })).toHaveAttribute('href', 'documentos-seminario.html#instructivo');
+    await expect(task.getByRole('link', { name: 'Ver ejemplo de la primera página' })).toHaveAttribute('href', 'documentos-seminario.html#modelo-portada');
   });
 
   test('organizes seminar content, signed report and five-point rubric in accordions', async ({ page }) => {
@@ -264,9 +278,9 @@ test.describe('Class hub', () => {
     await expect(seminar.getByText('Nombres y matrícula/código de los integrantes.', { exact: true })).toBeVisible();
     await expect(seminar.getByText('Lic. Johana Belén Leguizamón Vera.', { exact: false })).toBeVisible();
 
-    await seminar.getByText('Rúbrica de calificación · 5 puntos', { exact: true }).click();
+    await seminar.getByText('Cómo se califica · 5 puntos', { exact: true }).click();
     await expect(seminar.locator('.seminar-rubric-grid article')).toHaveCount(5);
-    await expect(seminar.getByText('Investigación bibliográfica', { exact: true })).toBeVisible();
+    await expect(seminar.getByText('Fuentes utilizadas', { exact: true })).toBeVisible();
     await expect(seminar.getByText('Análisis y conclusión', { exact: true })).toBeVisible();
   });
 
@@ -326,7 +340,7 @@ test.describe('Class hub', () => {
 
   test('archives completed activities by subject and counts personal signed copies', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
-    await expect(page.getByRole('heading', { name: 'Actividades ya realizadas' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Tareas anteriores' })).toBeVisible();
     await expect(page.locator('#signedAssignmentCount')).toHaveText('0/2 copias firmadas');
     await expect(page.locator('[data-archive-subject]')).toHaveCount(6);
 
@@ -370,6 +384,88 @@ test.describe('Class hub', () => {
     await expect(page.locator('.resource-grid .resource-code')).toHaveCount(0);
   });
 
+  test('keeps the mobile home and course choices compact', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/clase.html#inicio');
+
+    const homeLayout = await page.evaluate(() => {
+      const priorities = [...document.querySelectorAll('.priority-card')].map((card) => card.getBoundingClientRect().height);
+      return {
+        dashboardHeight: document.querySelector('#inicio').getBoundingClientRect().height,
+        nextHeight: document.querySelector('.dashboard-next').getBoundingClientRect().height,
+        priorityHeights: priorities,
+        kickerDisplay: getComputedStyle(document.querySelector('.dashboard-heading .section-kicker')).display,
+        introDisplay: getComputedStyle(document.querySelector('.dashboard-intro')).display,
+        updatedDisplay: getComputedStyle(document.querySelector('.dashboard-updated')).display,
+        lastClassDisplay: getComputedStyle(document.querySelector('.dashboard-status > div:nth-child(2)')).display,
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth
+      };
+    });
+
+    expect(homeLayout.dashboardHeight).toBeLessThan(620);
+    expect(homeLayout.nextHeight).toBeLessThanOrEqual(140);
+    expect(Math.max(...homeLayout.priorityHeights)).toBeLessThan(70);
+    expect(homeLayout.kickerDisplay).toBe('none');
+    expect(homeLayout.introDisplay).toBe('none');
+    expect(homeLayout.updatedDisplay).toBe('none');
+    expect(homeLayout.lastClassDisplay).toBe('none');
+    expect(homeLayout.scrollWidth).toBeLessThanOrEqual(homeLayout.clientWidth + 1);
+
+    await page.goto('/clase.html#materias');
+    const courseLayout = await page.evaluate(() => {
+      const courses = [...document.querySelectorAll('.course-selector a')].map((card) => card.getBoundingClientRect());
+      const resources = [...document.querySelectorAll('#nutricion .resource-card')].map((card) => card.getBoundingClientRect());
+      return {
+        courseHeights: courses.map((card) => card.height),
+        coursesShareFirstRow: Math.abs(courses[0].top - courses[1].top) < 1,
+        thirdCourseStartsNextRow: courses[2].top > courses[0].top,
+        resourceHeights: resources.map((card) => card.height),
+        resourcesShareFirstRow: Math.abs(resources[0].top - resources[1].top) < 1,
+        courseMetaDisplay: getComputedStyle(document.querySelector('.course-selector b')).display,
+        courseIntroDisplay: getComputedStyle(document.querySelector('#materias .section-heading > p')).display,
+        detailToggleHeight: document.querySelector('#nutricion .course-detail-toggle').getBoundingClientRect().height,
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth
+      };
+    });
+
+    expect(Math.max(...courseLayout.courseHeights)).toBeLessThanOrEqual(74);
+    expect(courseLayout.coursesShareFirstRow).toBe(true);
+    expect(courseLayout.thirdCourseStartsNextRow).toBe(true);
+    expect(Math.max(...courseLayout.resourceHeights)).toBeLessThanOrEqual(70);
+    expect(courseLayout.resourcesShareFirstRow).toBe(true);
+    expect(courseLayout.courseMetaDisplay).toBe('none');
+    expect(courseLayout.courseIntroDisplay).toBe('none');
+    expect(courseLayout.detailToggleHeight).toBeLessThanOrEqual(62);
+    expect(courseLayout.scrollWidth).toBeLessThanOrEqual(courseLayout.clientWidth + 1);
+  });
+
+  test('keeps the nutrition evaluation steps compact on a phone', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/clase.html#nutricion');
+    await page.locator('#nutricion [data-detail-toggle]').click();
+
+    const nutritionLayout = await page.evaluate(() => {
+      const panel = document.querySelector('#nutricion .nutrition-core').getBoundingClientRect();
+      const steps = [...document.querySelectorAll('#nutricion .nutrition-core li')].map((step) => step.getBoundingClientRect());
+      return {
+        panelHeight: panel.height,
+        stepHeights: steps.map((step) => step.height),
+        firstTwoShareRow: Math.abs(steps[0].top - steps[1].top) < 1,
+        fifthStepSpansRow: steps[4].width > steps[0].width * 1.8,
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth
+      };
+    });
+
+    expect(nutritionLayout.panelHeight).toBeLessThan(390);
+    expect(Math.max(...nutritionLayout.stepHeights)).toBeLessThanOrEqual(72);
+    expect(nutritionLayout.firstTwoShareRow).toBe(true);
+    expect(nutritionLayout.fifthStepSpansRow).toBe(true);
+    expect(nutritionLayout.scrollWidth).toBeLessThanOrEqual(nutritionLayout.clientWidth + 1);
+  });
+
   test('shows current homework as compact tactile rows', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
     await expect(page.locator('[data-current-assignment]')).toHaveCount(5);
@@ -388,7 +484,7 @@ test.describe('Class hub', () => {
     await expect(reason).not.toHaveAttribute('open', '');
     await reason.locator('summary').click();
     await expect(reason).toHaveAttribute('open', '');
-    await expect(reason.locator('p')).toContainText('La consigna fue explícita');
+    await expect(reason.locator('p')).toContainText('La profesora pidió esta tarea');
 
     await bio.locator(':scope > summary').click();
     await expect(bio).toHaveAttribute('open', '');
@@ -403,6 +499,7 @@ test.describe('Class hub', () => {
     await page.goto('/clase.html#nutricion');
     const nutrition = page.locator('#nutricion');
     await nutrition.locator('[data-nutrition-mode="completo"]').click();
+    await expect(page.locator('#nutritionPreviewEyebrow')).toHaveText('RESUMEN COMPLETO · 13 AGO. ESTIMADO');
     const mapAnswer = nutrition.locator('.study-map .preview-answer-disclosure').first();
     await expect(mapAnswer.locator('strong')).toHaveText('¿Cuánto necesita?');
     await mapAnswer.locator('summary').click();
@@ -462,13 +559,13 @@ test.describe('Class hub', () => {
 
   test('previews both seminar Word documents before download', async ({ page }) => {
     await page.goto('/documentos-seminario.html#modelo-portada');
-    await expect(page.getByRole('heading', { name: 'Modelo de portada y desarrollo' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Ejemplo de la primera página y del desarrollo' })).toBeVisible();
     await expect(page.locator('[data-document-panel="modelo-portada"] img')).toHaveCount(2);
     await expect(page.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/modelo-portada-seminario-nutricion.docx');
     await expect.poll(() => page.locator('[data-document-panel="modelo-portada"] img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0))).toBe(true);
 
-    await page.getByRole('link', { name: /Instructivo oficial/ }).click();
-    await expect(page.getByRole('heading', { name: 'Instructivo de presentación oral' })).toBeVisible();
+    await page.locator('[data-document-tab="instructivo"]').click();
+    await expect(page.getByRole('heading', { name: 'Instrucciones para la presentación oral' })).toBeVisible();
     await expect(page.locator('[data-document-panel="instructivo"] img')).toHaveCount(3);
     await expect(page.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/instructivo-presentacion-oral-semana-3.docx');
   });
@@ -478,14 +575,14 @@ test.describe('Class hub', () => {
     const originalUrl = page.url();
     const dialog = page.locator('#seminarDocumentPreview');
 
-    await page.locator('#plan-estudio').getByRole('link', { name: 'Ver instructivo', exact: true }).click();
+    await page.locator('#plan-estudio').getByRole('link', { name: 'Ver las instrucciones', exact: true }).click();
     await expect(dialog).toBeVisible();
     expect(page.url()).toBe(originalUrl);
     await expect(dialog.locator('[data-document-preview-panel="instructivo"]')).toBeVisible();
     await expect(dialog.locator('[data-document-preview-panel="instructivo"] img')).toHaveCount(3);
     await expect(dialog.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/instructivo-presentacion-oral-semana-3.docx');
 
-    await dialog.getByRole('button', { name: 'Modelo de portada' }).click();
+    await dialog.getByRole('button', { name: 'Ejemplo de la primera página' }).click();
     await expect(dialog.locator('[data-document-preview-panel="modelo-portada"]')).toBeVisible();
     await expect(dialog.locator('[data-document-preview-panel="modelo-portada"] img')).toHaveCount(2);
     await expect(dialog.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/modelo-portada-seminario-nutricion.docx');
@@ -527,7 +624,7 @@ test.describe('Class hub', () => {
     await page.goto('/clase.html#epi-detail');
     await expect(page.getByRole('heading', { name: 'Sectorización, triage, urgencia y emergencia' })).toBeVisible();
     await expect(page.getByText('APS y modelo de atención integral', { exact: true })).toBeVisible();
-    await expect(page.locator('#epidemiologia .transcription-rule-note').getByText('Regla aplicada:')).toBeVisible();
+    await expect(page.locator('#epidemiologia .transcription-rule-note').getByText('Cómo se separaron las clases:')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Lo que la profesora señaló que puede preguntar' })).toBeVisible();
     await expect(page.getByText('2008: implementación de la estrategia APS en Paraguay.')).toBeVisible();
     await page.locator('#epidemiologia .lesson-accordion').nth(3).locator('summary').click();
