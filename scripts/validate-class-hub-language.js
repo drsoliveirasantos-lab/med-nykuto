@@ -7,6 +7,8 @@ const css = fs.readFileSync(path.join(root, 'grupo-3-v401.css'), 'utf8');
 const runtime = fs.readFileSync(path.join(root, 'grupo-3-v401.js'), 'utf8');
 const i18n = fs.readFileSync(path.join(root, 'grupo-3-i18n-v421.js'), 'utf8');
 const semesterSwitcher = fs.readFileSync(path.join(root, 'semester-switcher-v402.js'), 'utf8');
+const seminarDocuments = fs.readFileSync(path.join(root, 'documentos-seminario.html'), 'utf8');
+const seminarDocumentsRuntime = fs.readFileSync(path.join(root, 'documentos-seminario.js'), 'utf8');
 
 const failures = [];
 const expect = (condition, message) => {
@@ -92,6 +94,10 @@ expect(i18n.includes("'Ver ejemplo de la primera página':'Ver exemplo da primei
 expect(i18n.includes("'Cómo se califica · 5 puntos':'Como será avaliado · 5 pontos'"), 'The simplified Portuguese grading label is missing.');
 expect(i18n.includes("'Guías Alimentarias · Regiones y platos · Documento firmado':'Guias Alimentares · Regiões e pratos · Documento assinado'"), 'The Portuguese seminar summary is incomplete.');
 expect(i18n.includes("'Este paso se completa automáticamente al seleccionar un grupo.':'Esta etapa é concluída automaticamente ao selecionar um grupo.'"), 'The Portuguese seminar checklist is incomplete.');
+expect(seminarDocuments.includes('Instrucciones para la presentación oral'), 'The seminar instructions page still uses an unclear heading.');
+expect(seminarDocuments.includes('Ejemplo de la primera página y del desarrollo'), 'The seminar first-page example is not labeled plainly.');
+expect(!/Instructivo oficial|Modelo de portada y desarrollo|rúbrica/.test(seminarDocuments), 'The seminar documents page still contains unexplained formal terms.');
+expect(seminarDocumentsRuntime.includes("'Ejemplo de la primera página' : 'Instrucciones'"), 'The seminar document title is not plain language.');
 expect(css.includes('.class-language-switcher'), 'The compact language selector styling is missing.');
 expect(css.includes('.schedule-task-badge'), 'The schedule task badge styling is missing.');
 expect((html.match(/class="schedule-slot/g) || []).length === 10, 'The weekly schedule no longer exposes all ten class slots.');

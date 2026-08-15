@@ -217,8 +217,8 @@ test.describe('Class hub', () => {
     await expect(nutrition.getByText('Hasta 4 por PPT', { exact: true })).toBeVisible();
     await expect(nutrition.getByText('Hasta 5 minutos', { exact: true })).toBeVisible();
     await expect(nutrition.getByText('Drive de la clase → Bibliografía → carpeta INAN.', { exact: false })).toBeVisible();
-    await expect(nutrition.getByRole('link', { name: 'Vista previa · Instructivo' })).toHaveAttribute('href', 'documentos-seminario.html#instructivo');
-    await expect(nutrition.getByRole('link', { name: 'Vista previa · Portada' })).toHaveAttribute('href', 'documentos-seminario.html#modelo-portada');
+    await expect(nutrition.getByRole('link', { name: 'Ver las instrucciones' })).toHaveAttribute('href', 'documentos-seminario.html#instructivo');
+    await expect(nutrition.getByRole('link', { name: 'Ver ejemplo de la primera página' })).toHaveAttribute('href', 'documentos-seminario.html#modelo-portada');
     const transcript = await page.evaluate(() => window.MED_NYKUTO_LATEST_TRANSCRIPTS.nutricion);
     expect(transcript.oralDate).toBeNull();
     expect(transcript.estimatedClassDate).toBe('2026-08-13');
@@ -240,8 +240,8 @@ test.describe('Class hub', () => {
     await expect(task.getByText('Trabajo 1 · Guías Alimentarias', { exact: true })).toBeVisible();
     await expect(task.getByText('Trabajo 2 · Platos típicos / regiones', { exact: true })).toBeVisible();
     await expect(task.getByText('aproximadamente hasta 5 minutos por grupo', { exact: false })).toBeVisible();
-    await expect(task.getByRole('link', { name: 'Ver instructivo y descargar' })).toHaveAttribute('href', 'documentos-seminario.html#instructivo');
-    await expect(task.getByRole('link', { name: 'Ver modelo de portada' })).toHaveAttribute('href', 'documentos-seminario.html#modelo-portada');
+    await expect(task.getByRole('link', { name: 'Ver las instrucciones y descargar' })).toHaveAttribute('href', 'documentos-seminario.html#instructivo');
+    await expect(task.getByRole('link', { name: 'Ver ejemplo de la primera página' })).toHaveAttribute('href', 'documentos-seminario.html#modelo-portada');
   });
 
   test('organizes seminar content, signed report and five-point rubric in accordions', async ({ page }) => {
@@ -434,13 +434,13 @@ test.describe('Class hub', () => {
 
   test('previews both seminar Word documents before download', async ({ page }) => {
     await page.goto('/documentos-seminario.html#modelo-portada');
-    await expect(page.getByRole('heading', { name: 'Modelo de portada y desarrollo' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Ejemplo de la primera página y del desarrollo' })).toBeVisible();
     await expect(page.locator('[data-document-panel="modelo-portada"] img')).toHaveCount(2);
     await expect(page.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/modelo-portada-seminario-nutricion.docx');
     await expect.poll(() => page.locator('[data-document-panel="modelo-portada"] img').evaluateAll(images => images.every(image => image.complete && image.naturalWidth > 0))).toBe(true);
 
-    await page.getByRole('link', { name: /Instructivo oficial/ }).click();
-    await expect(page.getByRole('heading', { name: 'Instructivo de presentación oral' })).toBeVisible();
+    await page.getByRole('link', { name: 'Instrucciones', exact: true }).click();
+    await expect(page.getByRole('heading', { name: 'Instrucciones para la presentación oral' })).toBeVisible();
     await expect(page.locator('[data-document-panel="instructivo"] img')).toHaveCount(3);
     await expect(page.getByRole('link', { name: 'Descargar Word' })).toHaveAttribute('href', 'assets/class-hub/instructivo-presentacion-oral-semana-3.docx');
   });
