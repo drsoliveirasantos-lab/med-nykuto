@@ -110,6 +110,89 @@ test.describe('Mobile critical paths', () => {
     await expect(nutrition).not.toHaveAttribute('open', '');
   });
 
+  test('dashboard, subjects, training and seminar plan use a tablet-like compact density', async ({ page }) => {
+    await page.goto('/clase.html#inicio', { waitUntil: 'domcontentloaded' });
+    const dashboard = await page.evaluate(() => {
+      const panel = document.querySelector('.class-dashboard').getBoundingClientRect();
+      const title = document.querySelector('.dashboard-heading h1');
+      const navItem = document.querySelector('.mobile-bottom-nav a').getBoundingClientRect();
+      return {
+        height:panel.height,
+        titleSize:parseFloat(getComputedStyle(title).fontSize),
+        navHeight:navItem.height,
+        overflow:document.documentElement.scrollWidth - document.documentElement.clientWidth
+      };
+    });
+    expect(dashboard.height).toBeLessThan(720);
+    expect(dashboard.titleSize).toBeLessThan(32);
+    expect(dashboard.navHeight).toBeLessThanOrEqual(52);
+    expect(dashboard.overflow).toBeLessThanOrEqual(1);
+
+    await page.goto('/clase.html#materias', { waitUntil: 'domcontentloaded' });
+    const library = await page.evaluate(() => {
+      const cards = Array.from(document.querySelectorAll('.course-selector > a')).map(card => card.getBoundingClientRect());
+      return {
+        columns:getComputedStyle(document.querySelector('.course-selector')).gridTemplateColumns.split(' ').length,
+        firstRowTops:new Set(cards.slice(0,2).map(card => Math.round(card.top))).size,
+        maxCardHeight:Math.max(...cards.map(card => card.height)),
+        gridHeight:document.querySelector('.course-selector').getBoundingClientRect().height,
+        overflow:document.documentElement.scrollWidth - document.documentElement.clientWidth
+      };
+    });
+    expect(library.columns).toBe(2);
+    expect(library.firstRowTops).toBe(1);
+    expect(library.maxCardHeight).toBeLessThan(95);
+    expect(library.gridHeight).toBeLessThan(270);
+    expect(library.overflow).toBeLessThanOrEqual(1);
+
+    await page.goto('/clase.html#nutricion', { waitUntil: 'domcontentloaded' });
+    const course = await page.evaluate(() => {
+      const resources = Array.from(document.querySelectorAll('#nutricion .resource-card')).map(card => card.getBoundingClientRect());
+      const counts = Array.from(document.querySelectorAll('#practice-nutricion .practice-counts > span')).map(item => item.getBoundingClientRect());
+      return {
+        resourceColumns:getComputedStyle(document.querySelector('#nutricion .resource-grid')).gridTemplateColumns.split(' ').length,
+        resourceMaxHeight:Math.max(...resources.map(card => card.height)),
+        countTops:new Set(counts.map(item => Math.round(item.top))).size,
+        countMaxHeight:Math.max(...counts.map(item => item.height)),
+        overflow:document.documentElement.scrollWidth - document.documentElement.clientWidth
+      };
+    });
+    expect(course.resourceColumns).toBe(2);
+    expect(course.resourceMaxHeight).toBeLessThan(105);
+    expect(course.countTops).toBe(1);
+    expect(course.countMaxHeight).toBeLessThan(48);
+    expect(course.overflow).toBeLessThanOrEqual(1);
+
+    await page.goto('/clase.html#plan-estudio', { waitUntil: 'domcontentloaded' });
+    const plan = await page.evaluate(() => {
+      const deliverables = Array.from(document.querySelectorAll('.plan-deliverables article')).map(item => item.getBoundingClientRect());
+      const checklist = Array.from(document.querySelectorAll('.study-checklist label')).map(item => item.getBoundingClientRect());
+      return {
+        photoHeight:document.querySelector('.plan-seminar-photo').getBoundingClientRect().height,
+        deliverableTops:new Set(deliverables.map(item => Math.round(item.top))).size,
+        checklistFirstRow:new Set(checklist.slice(0,2).map(item => Math.round(item.top))).size,
+        overflow:document.documentElement.scrollWidth - document.documentElement.clientWidth
+      };
+    });
+    expect(plan.photoHeight).toBeLessThan(200);
+    expect(plan.deliverableTops).toBe(1);
+    expect(plan.checklistFirstRow).toBe(1);
+    expect(plan.overflow).toBeLessThanOrEqual(1);
+
+    await page.locator('#plan-estudio').getByRole('link', { name: 'Ver instructivo', exact: true }).click();
+    const modal = page.locator('#seminarDocumentPreview');
+    await expect(modal).toBeVisible();
+    const modalLayout = await modal.evaluate((node) => {
+      const close = node.querySelector('[data-document-preview-close]').getBoundingClientRect();
+      const box = node.getBoundingClientRect();
+      return {width:box.width,height:box.height,closeWidth:close.width,closeHeight:close.height,viewportWidth:innerWidth,viewportHeight:innerHeight};
+    });
+    expect(modalLayout.width).toBeLessThanOrEqual(modalLayout.viewportWidth);
+    expect(modalLayout.height).toBeLessThanOrEqual(modalLayout.viewportHeight);
+    expect(modalLayout.closeWidth).toBeGreaterThanOrEqual(44);
+    expect(modalLayout.closeHeight).toBeGreaterThanOrEqual(44);
+  });
+
   test('mobile navigation and practice controls remain usable', async ({ page }) => {
     await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
     await dismissSemesterPicker(page);

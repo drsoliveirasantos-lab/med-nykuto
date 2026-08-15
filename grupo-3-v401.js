@@ -936,6 +936,56 @@
     });
   }
 
+  function prepareSeminarDocumentPreview(){
+    var dialog = document.getElementById('seminarDocumentPreview');
+    if(!dialog) return;
+    var triggers = Array.from(document.querySelectorAll('[data-document-preview]'));
+    var tabs = Array.from(dialog.querySelectorAll('[data-document-preview-tab]'));
+    var panels = Array.from(dialog.querySelectorAll('[data-document-preview-panel]'));
+    var closeButton = dialog.querySelector('[data-document-preview-close]');
+    var returnFocus = null;
+
+    function selectDocument(documentId){
+      var selected = panels.some(function(panel){return panel.dataset.documentPreviewPanel === documentId;}) ? documentId : 'instructivo';
+      panels.forEach(function(panel){panel.hidden = panel.dataset.documentPreviewPanel !== selected;});
+      tabs.forEach(function(tab){tab.setAttribute('aria-pressed',tab.dataset.documentPreviewTab === selected ? 'true' : 'false');});
+      var scrollArea = dialog.querySelector('.seminar-document-scroll');
+      if(scrollArea) scrollArea.scrollTop = 0;
+    }
+
+    function closePreview(){
+      if(typeof dialog.close === 'function' && dialog.open) dialog.close();
+      else{
+        dialog.removeAttribute('open');
+        document.body.classList.remove('is-document-preview-open');
+        if(returnFocus) returnFocus.focus();
+      }
+    }
+
+    triggers.forEach(function(trigger){
+      trigger.addEventListener('click',function(event){
+        event.preventDefault();
+        returnFocus = trigger;
+        selectDocument(trigger.dataset.documentPreview);
+        document.body.classList.add('is-document-preview-open');
+        if(typeof dialog.showModal === 'function') dialog.showModal();
+        else dialog.setAttribute('open','');
+        window.requestAnimationFrame(function(){if(closeButton) closeButton.focus();});
+      });
+    });
+
+    tabs.forEach(function(tab){
+      tab.addEventListener('click',function(){selectDocument(tab.dataset.documentPreviewTab);});
+    });
+    if(closeButton) closeButton.addEventListener('click',closePreview);
+    dialog.addEventListener('click',function(event){if(event.target === dialog) closePreview();});
+    dialog.addEventListener('close',function(){
+      document.body.classList.remove('is-document-preview-open');
+      if(returnFocus) returnFocus.focus();
+    });
+    dialog.addEventListener('cancel',function(){document.body.classList.remove('is-document-preview-open');});
+  }
+
   var courseIds = ['nutricion','fisiologia','bioquimica','epidemiologia','microbiologia-teorica','microbiologia-practica'];
   var activeCourseId = 'nutricion';
   var activeLessonByCourse = {fisiologia:'fisiologia-2026-08-13'};
@@ -1081,6 +1131,7 @@
     restoreNutritionGroup();
     restoreSignedAssignments();
     prepareCurrentAssignments();
+    prepareSeminarDocumentPreview();
     setUpdatedDate();
 
     document.querySelectorAll('[data-detail-toggle]').forEach(function(button){
