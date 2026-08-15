@@ -347,6 +347,63 @@ test.describe('Class hub', () => {
     await expect(page.locator('.resource-grid .resource-code')).toHaveCount(0);
   });
 
+  test('keeps the mobile home and course choices compact', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/clase.html#inicio');
+
+    const homeLayout = await page.evaluate(() => {
+      const priorities = [...document.querySelectorAll('.priority-card')].map((card) => card.getBoundingClientRect().height);
+      return {
+        dashboardHeight: document.querySelector('#inicio').getBoundingClientRect().height,
+        nextHeight: document.querySelector('.dashboard-next').getBoundingClientRect().height,
+        priorityHeights: priorities,
+        kickerDisplay: getComputedStyle(document.querySelector('.dashboard-heading .section-kicker')).display,
+        introDisplay: getComputedStyle(document.querySelector('.dashboard-intro')).display,
+        updatedDisplay: getComputedStyle(document.querySelector('.dashboard-updated')).display,
+        lastClassDisplay: getComputedStyle(document.querySelector('.dashboard-status > div:nth-child(2)')).display,
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth
+      };
+    });
+
+    expect(homeLayout.dashboardHeight).toBeLessThan(620);
+    expect(homeLayout.nextHeight).toBeLessThanOrEqual(140);
+    expect(Math.max(...homeLayout.priorityHeights)).toBeLessThan(70);
+    expect(homeLayout.kickerDisplay).toBe('none');
+    expect(homeLayout.introDisplay).toBe('none');
+    expect(homeLayout.updatedDisplay).toBe('none');
+    expect(homeLayout.lastClassDisplay).toBe('none');
+    expect(homeLayout.scrollWidth).toBeLessThanOrEqual(homeLayout.clientWidth + 1);
+
+    await page.goto('/clase.html#materias');
+    const courseLayout = await page.evaluate(() => {
+      const courses = [...document.querySelectorAll('.course-selector a')].map((card) => card.getBoundingClientRect());
+      const resources = [...document.querySelectorAll('#nutricion .resource-card')].map((card) => card.getBoundingClientRect());
+      return {
+        courseHeights: courses.map((card) => card.height),
+        coursesShareFirstRow: Math.abs(courses[0].top - courses[1].top) < 1,
+        thirdCourseStartsNextRow: courses[2].top > courses[0].top,
+        resourceHeights: resources.map((card) => card.height),
+        resourcesShareFirstRow: Math.abs(resources[0].top - resources[1].top) < 1,
+        courseMetaDisplay: getComputedStyle(document.querySelector('.course-selector b')).display,
+        courseIntroDisplay: getComputedStyle(document.querySelector('#materias .section-heading > p')).display,
+        detailToggleHeight: document.querySelector('#nutricion .course-detail-toggle').getBoundingClientRect().height,
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth
+      };
+    });
+
+    expect(Math.max(...courseLayout.courseHeights)).toBeLessThanOrEqual(74);
+    expect(courseLayout.coursesShareFirstRow).toBe(true);
+    expect(courseLayout.thirdCourseStartsNextRow).toBe(true);
+    expect(Math.max(...courseLayout.resourceHeights)).toBeLessThanOrEqual(70);
+    expect(courseLayout.resourcesShareFirstRow).toBe(true);
+    expect(courseLayout.courseMetaDisplay).toBe('none');
+    expect(courseLayout.courseIntroDisplay).toBe('none');
+    expect(courseLayout.detailToggleHeight).toBeLessThanOrEqual(62);
+    expect(courseLayout.scrollWidth).toBeLessThanOrEqual(courseLayout.clientWidth + 1);
+  });
+
   test('shows current homework as compact tactile rows', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
     await expect(page.locator('.pending-grid > .assignment-featured')).toHaveCount(1);
