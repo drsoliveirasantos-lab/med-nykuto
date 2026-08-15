@@ -78,7 +78,34 @@
       eyebrow: 'REPASO ORAL FIS · ESTILO DE CLASE',
       title: 'Responde sin mirar el esquema',
       duration: '10 preguntas',
-      html: '<ol class="oral-list"><li>¿Cuáles son los tres componentes del bucle de control respiratorio?</li><li>¿Qué funciones cumplen el GRD, el GRV y el grupo pontino?</li><li>¿Dónde está el complejo pre-Bötzinger y por qué es importante?</li><li>¿Qué detectan realmente los quimiorreceptores centrales?</li><li>¿Dónde están los cuerpos carotídeos y aórticos y por qué nervios informan?</li><li>¿Cuál es el principal estímulo hipóxico de los quimiorreceptores periféricos?</li><li>¿Qué provoca el reflejo de Hering–Breuer?</li><li>¿Cómo aumenta la ventilación al comenzar el ejercicio?</li><li>¿Cómo se transportan O₂ y CO₂ en sangre?</li><li>¿Por qué la retención de CO₂ puede causar acidosis respiratoria?</li></ol>'
+      html: '<ol class="oral-list"><li>¿Cuáles son los tres componentes del bucle de control respiratorio?</li><li>¿Qué funciones cumplen el GRD, el GRV y el grupo pontino?</li><li>¿Dónde está el complejo pre-Bötzinger y por qué es importante?</li><li>¿Qué detectan realmente los quimiorreceptores centrales?</li><li>¿Dónde están los cuerpos carotídeos y aórticos y por qué nervios informan?</li><li>¿Cuál es el principal estímulo hipóxico de los quimiorreceptores periféricos?</li><li>¿Qué provoca el reflejo de Hering–Breuer?</li><li>¿Cómo aumenta la ventilación al comenzar el ejercicio?</li><li>¿Qué diferencia los receptores de estiramiento de los receptores irritantes?</li><li>¿Por qué la retención de CO₂ puede causar acidosis respiratoria?</li></ol>'
+    }
+  };
+
+  var fisioGasPreviews = {
+    completo: {
+      eyebrow: 'MAPA COMPLETO · 10 AGO.',
+      title: 'Del alvéolo a los tejidos',
+      duration: '12 min',
+      html: '<ol class="study-map"><li><span>01 · VENTILACIÓN</span><strong>Aire hasta los alvéolos</strong><small>Los gradientes de presión mueven el aire entre atmósfera y alvéolo.</small></li><li><span>02 · DIFUSIÓN</span><strong>Cruzar la barrera</strong><small>Área, gradiente, grosor y propiedades del gas determinan el flujo.</small></li><li><span>03 · PERFUSIÓN</span><strong>Sangre disponible</strong><small>El intercambio eficaz exige acoplar ventilación alveolar y flujo capilar.</small></li><li><span>04 · OXÍGENO</span><strong>Principalmente unido a Hb</strong><small>PaO₂, saturación y contenido arterial describen variables diferentes.</small></li><li><span>05 · DIÓXIDO DE CARBONO</span><strong>Principalmente bicarbonato</strong><small>También viaja unido a proteínas y en forma disuelta.</small></li><li><span>06 · TEJIDOS</span><strong>Bohr descarga O₂</strong><small>CO₂, H⁺, temperatura y 2,3-BPG desplazan la curva a la derecha.</small></li></ol>'
+    },
+    rapido: {
+      eyebrow: 'FICHA RÁPIDA · CLASE DEL 10/08',
+      title: 'Difusión y transporte en cinco minutos',
+      duration: '5 min',
+      html: '<ul class="preview-list"><li>Ventilación, difusión, perfusión y transporte son procesos distintos y encadenados.</li><li>La difusión aumenta con el área y el gradiente de presión parcial.</li><li>La difusión disminuye cuando aumenta el grosor de la barrera.</li><li>El enfisema reduce área; el edema y la fibrosis aumentan distancia de difusión.</li><li>Una región con V/Q baja recibe sangre pero poco aire.</li><li>Una región con V/Q alta recibe aire pero poco flujo sanguíneo.</li><li>El O₂ viaja sobre todo unido a la hemoglobina.</li><li>El CO₂ viaja sobre todo como bicarbonato.</li><li>El efecto Bohr facilita la descarga de O₂ en tejidos activos.</li><li>El efecto Haldane facilita la captación de CO₂ por la Hb desoxigenada y su eliminación pulmonar.</li></ul>'
+    },
+    comparar: {
+      eyebrow: 'COMPARACIÓN ACTIVA · BOHR / HALDANE',
+      title: 'Dos efectos, dos preguntas diferentes',
+      duration: '3 min',
+      html: '<ul class="preview-list"><li><strong>Bohr pregunta:</strong> ¿cómo modifican CO₂ y H⁺ la afinidad de la Hb por el O₂?</li><li><strong>Bohr en tejidos:</strong> ↑CO₂ y ↑H⁺ reducen afinidad y favorecen liberación de O₂.</li><li><strong>Haldane pregunta:</strong> ¿cómo modifica la oxigenación de la Hb el transporte de CO₂ y H⁺?</li><li><strong>Haldane en tejidos:</strong> la Hb desoxigenada acepta mejor CO₂ y H⁺.</li><li><strong>Haldane en pulmón:</strong> la oxigenación de la Hb favorece la liberación de CO₂.</li><li><strong>No confundir:</strong> el desplazamiento de cloruro acompaña el transporte de bicarbonato, pero no define el efecto Haldane.</li></ul>'
+    },
+    oral: {
+      eyebrow: 'REPASO ORAL · CLASE DEL 10/08',
+      title: 'Responde sin mezclarlo con regulación respiratoria',
+      duration: '10 preguntas',
+      html: '<ol class="oral-list"><li>¿Qué diferencia ventilación, difusión, perfusión y transporte?</li><li>¿Qué variables de la ley de Fick favorecen o dificultan la difusión?</li><li>¿Qué estructuras forman la barrera alveolocapilar?</li><li>¿Qué significa una relación V/Q baja y una V/Q alta?</li><li>¿Por qué el ápice tiene una V/Q relativamente mayor que la base?</li><li>¿Cómo se transporta la mayor parte del oxígeno?</li><li>¿Cómo se transporta la mayor parte del dióxido de carbono?</li><li>¿Qué representa la P50?</li><li>¿Qué es el efecto Bohr?</li><li>¿Qué es el efecto Haldane?</li></ol>'
     }
   };
 
@@ -195,8 +222,20 @@
       'El estímulo hipóxico más importante es una disminución marcada de la PaO2 arterial, especialmente por debajo de aproximadamente 60 mmHg.',
       'La distensión pulmonar activa receptores que, por vía vagal, limitan la inspiración y favorecen el cambio a espiración para evitar sobredistensión.',
       'Al inicio intervienen comando central y señales propioceptivas de músculos y articulaciones; después se suman ajustes químicos y térmicos.',
-      'El O2 viaja sobre todo unido a hemoglobina. El CO2 se transporta principalmente como bicarbonato, además de unido a proteínas y disuelto.',
+      'Los receptores de estiramiento informan sobre distensión y limitan una inspiración excesiva; los receptores irritantes responden a partículas o sustancias nocivas y favorecen tos, broncoconstricción o cambios del patrón.',
       'El CO2 retenido forma ácido carbónico y aumenta H+, por lo que baja el pH y aparece acidosis respiratoria.'
+    ],
+    'fisiologia-2026-08-10':[
+      'La ventilación mueve aire hasta los alvéolos; la difusión cruza la barrera alveolocapilar; la perfusión aporta sangre capilar; el transporte lleva los gases en la sangre.',
+      'La difusión aumenta con el área, el gradiente de presión parcial y la solubilidad, y disminuye al aumentar el grosor de la barrera y el peso molecular.',
+      'La barrera incluye la película de surfactante, el epitelio alveolar, membranas basales e intersticio, y el endotelio capilar.',
+      'V/Q baja significa perfusión relativamente conservada con ventilación insuficiente; V/Q alta significa ventilación conservada con perfusión insuficiente.',
+      'Ventilación y perfusión disminuyen hacia el ápice, pero la perfusión cae proporcionalmente más; por eso la V/Q apical es relativamente mayor.',
+      'La mayor parte del O2 viaja unida de forma reversible a la hemoglobina; solo una pequeña fracción está disuelta y determina la PaO2.',
+      'La mayor parte del CO2 se convierte en bicarbonato; el resto viaja como compuestos carbamino o disuelto.',
+      'La P50 es la PO2 necesaria para alcanzar 50 % de saturación de hemoglobina y expresa su afinidad: una P50 mayor indica menor afinidad.',
+      'El efecto Bohr es la reducción de afinidad de la hemoglobina por O2 cuando aumentan CO2 y H+, lo que favorece la descarga tisular.',
+      'El efecto Haldane indica que la hemoglobina desoxigenada transporta mejor CO2 y H+; al oxigenarse en pulmón, facilita su liberación.'
     ],
     nutricion:[
       'Alimentación es la selección, preparación e ingesta voluntaria; nutrición son los procesos fisiológicos posteriores; dieta es el patrón habitual de alimentos y bebidas, sea terapéutico o no.',
@@ -488,6 +527,20 @@
     enhanceStudyPreview(document.getElementById('fisioPreviewBody'),'fisiologia',mode);
     document.querySelectorAll('[data-fisio-mode]').forEach(function(button){
       var active = button.dataset.fisioMode === mode;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  }
+
+  function renderFisioGasPreview(mode){
+    var data = fisioGasPreviews[mode] || fisioGasPreviews.completo;
+    document.getElementById('fisioGasPreviewEyebrow').textContent = data.eyebrow;
+    document.getElementById('fisio-gas-preview-title').textContent = data.title;
+    document.getElementById('fisioGasPreviewDuration').textContent = data.duration;
+    document.getElementById('fisioGasPreviewBody').innerHTML = data.html;
+    enhanceStudyPreview(document.getElementById('fisioGasPreviewBody'),'fisiologia-2026-08-10',mode);
+    document.querySelectorAll('[data-fisio-gas-mode]').forEach(function(button){
+      var active = button.dataset.fisioGasMode === mode;
       button.classList.toggle('is-active', active);
       button.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
@@ -837,6 +890,55 @@
 
   var courseIds = ['nutricion','fisiologia','bioquimica','epidemiologia','microbiologia-teorica','microbiologia-practica'];
   var activeCourseId = 'nutricion';
+  var activeLessonByCourse = {fisiologia:'fisiologia-2026-08-13'};
+  var datedLessonMeta = {
+    'fisiologia-2026-08-13':{
+      title:'Control nervioso y químico de la respiración',
+      kicker:'Fisiología II · clase del 13 de agosto',
+      description:'Sesión del jueves 13 de agosto de 2026: centros respiratorios, sensores, respuesta ventilatoria y aplicación clínica.',
+      status:'Fecha oral interpretada · 13 ago.',
+      statusClass:'status-estimated'
+    },
+    'fisiologia-2026-08-10':{
+      title:'Difusión y transporte de gases',
+      kicker:'Fisiología II · clase del 10 de agosto',
+      description:'Sesión estimada del lunes 10 de agosto de 2026: barrera alveolocapilar, relación V/Q y transporte sanguíneo de O₂ y CO₂.',
+      status:'Fecha estimada · 10 ago. · confirmar',
+      statusClass:'status-estimated'
+    }
+  };
+
+  function activateDatedLesson(lessonId){
+    var panel = document.getElementById(lessonId);
+    if(!panel || !panel.hasAttribute('data-lesson-panel')) return;
+    var subject = panel.closest('.subject-section');
+    if(!subject) return;
+    activeLessonByCourse[subject.id] = lessonId;
+    subject.querySelectorAll('[data-lesson-panel]').forEach(function(item){
+      item.hidden = item.id !== lessonId;
+    });
+    subject.querySelectorAll('[data-lesson-target]').forEach(function(link){
+      var active = link.dataset.lessonTarget === lessonId;
+      link.classList.toggle('history-current',active);
+      link.setAttribute('aria-current',active ? 'true' : 'false');
+      var state = link.querySelector(':scope > span:last-child');
+      if(state) state.textContent = active ? 'SELECCIONADA' : 'ABRIR CLASE';
+    });
+    var meta = datedLessonMeta[lessonId];
+    if(!meta) return;
+    var heading = subject.querySelector('.subject-heading');
+    var title = heading && heading.querySelector('h2');
+    var kicker = heading && heading.querySelector('.section-kicker');
+    var description = heading && heading.querySelector(':scope > div > p:last-child');
+    var status = heading && heading.querySelector('.source-pill');
+    if(title) title.textContent = meta.title;
+    if(kicker) kicker.textContent = meta.kicker;
+    if(description) description.textContent = meta.description;
+    if(status){
+      status.textContent = meta.status;
+      status.className = 'source-pill ' + meta.statusClass;
+    }
+  }
 
   function setCourseDetail(detail, expanded){
     if(!detail) return;
@@ -891,6 +993,12 @@
 
     activateView(view, subject ? subject.id : null);
 
+    if(subject){
+      var lessonPanel = target && (target.hasAttribute('data-lesson-panel') ? target : target.closest('[data-lesson-panel]'));
+      if(lessonPanel) activateDatedLesson(lessonPanel.id);
+      else if(activeLessonByCourse[subject.id]) activateDatedLesson(activeLessonByCourse[subject.id]);
+    }
+
     if(target){
       var detail = target.hasAttribute('data-course-detail') ? target : target.closest('[data-course-detail]');
       if(detail) setCourseDetail(detail,true);
@@ -914,6 +1022,7 @@
     renderPreview('completo');
     renderEpiPreview('completo');
     renderFisioPreview('completo');
+    renderFisioGasPreview('completo');
     renderNutritionPreview('completo');
     renderMicroTheoryPreview('completo');
     renderMicroPreview('completo');
@@ -952,6 +1061,13 @@
       button.addEventListener('click', function(){
         renderFisioPreview(button.dataset.fisioMode);
         document.getElementById('fisio-repaso').scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+
+    document.querySelectorAll('[data-fisio-gas-mode]').forEach(function(button){
+      button.addEventListener('click', function(){
+        renderFisioGasPreview(button.dataset.fisioGasMode);
+        document.getElementById('fisio-gas-repaso').scrollIntoView({behavior:'smooth',block:'start'});
       });
     });
 
