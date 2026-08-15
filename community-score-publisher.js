@@ -153,6 +153,7 @@
 
     function publishScore(event){
       event.preventDefault();
+      event.stopPropagation();
       var nickname = input.value.normalize('NFKC').replace(/\s+/g,' ').trim();
       if(!validNickname(nickname)){
         setStatus(status,text.invalid,'error');
