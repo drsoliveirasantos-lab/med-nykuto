@@ -109,6 +109,13 @@ img{display:block;max-width:100%}
 .course-selector strong{align-self:end;font-size:.9rem}
 .course-selector small{color:var(--muted);font-size:.7rem}
 .course-selector b{align-self:start;color:var(--cyan);font-size:.58rem;letter-spacing:.07em;white-space:nowrap}
+.course-practice-shortcut{width:100%;min-height:52px;display:grid;grid-template-columns:34px auto minmax(0,1fr) auto;gap:10px;align-items:center;margin-top:10px;padding:8px 13px;border:1px solid rgba(242,198,109,.32);border-radius:15px;color:var(--ink);text-align:left;background:linear-gradient(145deg,rgba(242,198,109,.09),rgba(111,216,255,.045));transition:transform .18s ease,border-color .18s ease,background .18s ease}
+.course-practice-shortcut:hover{transform:translateY(-1px);border-color:rgba(242,198,109,.55);background:linear-gradient(145deg,rgba(242,198,109,.14),rgba(111,216,255,.075))}
+.course-practice-shortcut-icon{width:34px;height:34px;display:grid;place-items:center;border:1px solid rgba(242,198,109,.27);border-radius:11px;color:var(--gold-soft);background:rgba(242,198,109,.07)}
+.course-practice-shortcut-icon svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.course-practice-shortcut>strong{font-size:.78rem;line-height:1;white-space:nowrap}
+.course-practice-shortcut>small{min-width:0;padding-left:10px;border-left:1px solid var(--line);overflow:hidden;color:var(--muted-strong);font-size:.67rem;font-weight:750;line-height:1.2;text-overflow:ellipsis;white-space:nowrap}
+.course-practice-shortcut>b{color:var(--gold-soft);font-size:1rem}
 .class-drive-card{display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:14px;align-items:center;margin-top:12px;padding:15px 17px;border:1px solid rgba(114,224,171,.26);border-radius:18px;color:var(--ink);background:linear-gradient(145deg,rgba(114,224,171,.085),rgba(111,216,255,.045));text-decoration:none;transition:transform .18s ease,border-color .18s ease,background .18s ease}
 .class-drive-card:hover{transform:translateY(-2px);border-color:rgba(114,224,171,.52);background:linear-gradient(145deg,rgba(114,224,171,.13),rgba(111,216,255,.075))}
 .class-drive-icon{width:54px;height:54px;display:grid;place-items:center;border:1px solid rgba(114,224,171,.3);border-radius:16px;color:#b8f5d5;background:rgba(114,224,171,.08)}
@@ -1506,6 +1513,12 @@ img{display:block;max-width:100%}
   .course-selector strong{font-size:.7rem;line-height:1.12}
   .course-selector small{font-size:.52rem;line-height:1.18}
   .course-selector b{font-size:.45rem;letter-spacing:.035em}
+  .course-practice-shortcut{min-height:46px;grid-template-columns:30px auto minmax(0,1fr) auto;gap:7px;margin-top:7px;padding:6px 9px;border-radius:12px}
+  .course-practice-shortcut-icon{width:30px;height:30px;border-radius:9px}
+  .course-practice-shortcut-icon svg{width:17px;height:17px}
+  .course-practice-shortcut>strong{font-size:.66rem}
+  .course-practice-shortcut>small{padding-left:7px;font-size:.56rem}
+  .course-practice-shortcut>b{font-size:.85rem}
   .course-type-badge{font-size:.39rem}
   .class-drive-card{grid-template-columns:36px 1fr auto;gap:8px;margin-top:7px;padding:8px 9px;border-radius:13px}
   .class-drive-icon{width:36px;height:36px;border-radius:11px}

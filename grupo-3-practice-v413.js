@@ -954,6 +954,50 @@
       controllers[courseId] = controller;
     });
 
+    var shortcut = document.getElementById('coursePracticeShortcut');
+    var shortcutLabel = document.getElementById('coursePracticeShortcutLabel');
+    var shortcutCourse = document.getElementById('coursePracticeShortcutCourse');
+
+    function selectedPracticeId(){
+      var selectedCourse = document.querySelector('[data-course-target][aria-current="true"]');
+      var courseId = selectedCourse && selectedCourse.dataset.courseTarget;
+      if(courseId === 'fisiologia'){
+        var selectedLesson = document.querySelector('#fisiologia [data-lesson-target][aria-current="true"]');
+        if(selectedLesson && controllers[selectedLesson.dataset.lessonTarget]) return selectedLesson.dataset.lessonTarget;
+      }
+      return courseId && controllers[courseId] ? courseId : null;
+    }
+
+    function syncShortcut(){
+      if(!shortcut) return;
+      var practiceId = selectedPracticeId();
+      var selectedCourse = document.querySelector('[data-course-target][aria-current="true"]');
+      var title = selectedCourse && selectedCourse.querySelector('strong');
+      if(!practiceId || !title){
+        shortcut.hidden = true;
+        delete shortcut.dataset.practiceTarget;
+        return;
+      }
+      shortcut.hidden = false;
+      shortcut.dataset.practiceTarget = practiceId;
+      if(shortcutLabel) shortcutLabel.textContent = tr('practiceShortcut');
+      if(shortcutCourse) shortcutCourse.textContent = title.textContent;
+      shortcut.setAttribute('aria-label',tr('practiceShortcutAria',{course:title.textContent}));
+    }
+
+    if(shortcut){
+      shortcut.addEventListener('click',function(){
+        syncShortcut();
+        var controller = controllers[shortcut.dataset.practiceTarget];
+        if(controller) controller.open();
+      });
+      var selector = document.querySelector('.course-selector');
+      if(selector && typeof MutationObserver === 'function'){
+        new MutationObserver(syncShortcut).observe(selector,{subtree:true,attributes:true,attributeFilter:['aria-current']});
+      }
+      syncShortcut();
+    }
+
     function openFromHash(){
       var match = window.location.hash.match(/^#practice-(.+)$/);
       if(match && controllers[match[1]]) controllers[match[1]].open();
@@ -961,7 +1005,10 @@
     }
 
     openFromHash();
-    window.addEventListener('hashchange',openFromHash);
+    window.addEventListener('hashchange',function(){
+      openFromHash();
+      window.setTimeout(syncShortcut,0);
+    });
     window.MedNykutoClassPractice = {banks:banks,controllers:controllers,mount:mountPractice};
   }
 

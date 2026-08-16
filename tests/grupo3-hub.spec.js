@@ -49,6 +49,31 @@ test.describe('Class hub', () => {
     await expect(page.locator('#fisio-detail')).toBeVisible();
   });
 
+  test('keeps a compact training shortcut directly below the selected course grid', async ({ page }) => {
+    await page.goto('/clase.html#materias');
+    const shortcut = page.locator('#coursePracticeShortcut');
+    await expect(shortcut).toBeVisible();
+    await expect(shortcut.locator('#coursePracticeShortcutLabel')).toHaveText('Entrenar');
+    await expect(shortcut.locator('#coursePracticeShortcutCourse')).toHaveText('Nutrición');
+    await expect(shortcut).toHaveAttribute('data-practice-target', 'nutricion');
+
+    const placement = await page.evaluate(() => {
+      const selector = document.querySelector('.course-selector').getBoundingClientRect();
+      const shortcut = document.querySelector('#coursePracticeShortcut').getBoundingClientRect();
+      const drive = document.querySelector('.class-drive-card').getBoundingClientRect();
+      return { selectorBottom:selector.bottom, shortcutTop:shortcut.top, shortcutBottom:shortcut.bottom, driveTop:drive.top, height:shortcut.height };
+    });
+    expect(placement.shortcutTop).toBeGreaterThanOrEqual(placement.selectorBottom);
+    expect(placement.shortcutBottom).toBeLessThanOrEqual(placement.driveTop);
+    expect(placement.height).toBeLessThan(62);
+
+    await page.locator('[data-course-target="bioquimica"]').click();
+    await expect(shortcut.locator('#coursePracticeShortcutCourse')).toHaveText('Bioquímica II');
+    await expect(shortcut).toHaveAttribute('data-practice-target', 'bioquimica');
+    await shortcut.click();
+    await expect(page.locator('#practice-bioquimica .practice-workspace')).toBeVisible();
+  });
+
   test('opens the shared class Drive from Courses, Nutrition and the seminar plan', async ({ page }) => {
     await page.goto('/clase.html#materias');
     const centralDrive = page.getByRole('link', { name: /Abrir los materiales compartidos de la clase/ });

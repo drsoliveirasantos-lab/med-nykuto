@@ -160,6 +160,7 @@ test.describe('Mobile critical paths', () => {
         firstRowTops:new Set(cards.slice(0,2).map(card => Math.round(card.top))).size,
         maxCardHeight:Math.max(...cards.map(card => card.height)),
         gridHeight:document.querySelector('.course-selector').getBoundingClientRect().height,
+        practiceShortcutHeight:document.querySelector('#coursePracticeShortcut').getBoundingClientRect().height,
         overflow:document.documentElement.scrollWidth - document.documentElement.clientWidth
       };
     });
@@ -167,6 +168,7 @@ test.describe('Mobile critical paths', () => {
     expect(library.firstRowTops).toBe(1);
     expect(library.maxCardHeight).toBeLessThan(95);
     expect(library.gridHeight).toBeLessThan(270);
+    expect(library.practiceShortcutHeight).toBeLessThan(52);
     expect(library.overflow).toBeLessThanOrEqual(1);
 
     await page.goto('/clase.html#nutricion', { waitUntil: 'domcontentloaded' });
