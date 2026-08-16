@@ -443,7 +443,7 @@ test.describe('Mobile critical paths', () => {
   test('glycolysis board archive stays inside an iPhone viewport', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/clase.html#bioquimica', { waitUntil: 'domcontentloaded' });
-    const launch = page.locator('.board-archive-launch');
+    const launch = page.locator('#bioquimica .board-archive-launch');
     await expect(launch).toBeVisible();
     await launch.getByRole('button', { name: /Ver las 7 láminas/ }).click();
 
