@@ -23,6 +23,49 @@ async function dismissSemesterPicker(page) {
 }
 
 test.describe('Mobile critical paths', () => {
+  test('dedicated study page stays compact and switches grouped topics on iPhone', async ({ page }) => {
+    await page.route('**/api/community**', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          ok:true,
+          week:{key:'2026-08-10',start:'2026-08-10',end:'2026-08-16'},
+          challenge:{goal:1000,points:0,questions:0,participants:0,records:0,progress:0},
+          ranking:[],
+          currentUser:null
+        })
+      });
+    });
+    await page.goto('/comunidade.html', { waitUntil: 'domcontentloaded' });
+    await expect(page.getByRole('heading', { name: 'Estudia por materia y tema.' })).toBeVisible();
+    await expect(page.locator('#studySubjectPicker .study-subject-option')).toHaveCount(6);
+
+    const initial = await page.evaluate(() => {
+      const subjects = Array.from(document.querySelectorAll('.study-subject-option')).map(node => node.getBoundingClientRect());
+      const picker = document.getElementById('studySubjectPicker');
+      const practice = document.querySelector('#studyPracticeHost .practice-overview').getBoundingClientRect();
+      const counts = Array.from(document.querySelectorAll('#studyPracticeHost .practice-counts > span')).map(node => node.getBoundingClientRect());
+      return {
+        columns:getComputedStyle(picker).gridTemplateColumns.split(' ').length,
+        maxSubjectHeight:Math.max(...subjects.map(item => item.height)),
+        practiceHeight:practice.height,
+        countRows:new Set(counts.map(item => Math.round(item.top))).size,
+        overflow:document.documentElement.scrollWidth - document.documentElement.clientWidth
+      };
+    });
+    expect(initial.columns).toBe(2);
+    expect(initial.maxSubjectHeight).toBeLessThan(72);
+    expect(initial.practiceHeight).toBeLessThan(240);
+    expect(initial.countRows).toBe(1);
+    expect(initial.overflow).toBeLessThanOrEqual(1);
+
+    await page.locator('[data-study-subject="fisiologia"]').click();
+    await expect(page.locator('#studyTopicPicker .study-topic-option')).toHaveCount(2);
+    await page.locator('[data-study-topic="fisiologia-2026-08-10"]').click();
+    await expect(page.locator('#studyPracticeHost #practice-fisiologia-2026-08-10')).toBeVisible();
+  });
+
   test('class schedule shows the complete four-day mini-week on iPhone', async ({ page }) => {
     await page.goto('/clase.html#horario', { waitUntil: 'domcontentloaded' });
     await expect(page.getByRole('heading', { name: 'Horario del 4.º E' })).toBeVisible({ timeout: 10000 });

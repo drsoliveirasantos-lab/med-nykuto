@@ -31,7 +31,11 @@ test.describe('Weekly class challenge', () => {
     });
 
     await page.goto('/comunidade.html');
-    await expect(page.getByRole('heading', { name: 'Un desafío que suma a toda la clase.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Estudia por materia y tema.' })).toBeVisible();
+    await expect(page.locator('#studyTopName')).toHaveText('Nath');
+    await expect(page.locator('#studyTopMeta')).toContainText('92 aciertos');
+    await expect(page.locator('#studyMyScoreValue')).toHaveText('78');
+    await expect(page.locator('#studyMyScoreMeta')).toContainText('#2');
     await expect(page.locator('#challengeScore')).toHaveText('260 / 1.000');
     await expect(page.locator('#challengeProgressBar')).toHaveAttribute('aria-valuenow', '26');
     await expect(page.locator('#communityRanking .ranking-row')).toHaveCount(3);
@@ -41,9 +45,36 @@ test.describe('Weekly class challenge', () => {
 
     await page.locator('#communityLanguage').selectOption('br');
     await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
-    await expect(page.getByRole('heading', { name: 'Um desafio em que toda a turma ganha.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Estude por matéria e tema.' })).toBeVisible();
     await expect(page.locator('#communityRanking .ranking-row.is-current')).toContainText('Você');
+    await expect(page.locator('[data-study-subject="nutricion"]')).toContainText('Nutrição');
     await expect(page.locator('#challengeScore')).toHaveText('260 / 1.000');
+  });
+
+  test('selects a subject and a grouped theme, then reuses the class practice bank', async ({ page }) => {
+    await seedProfile(page);
+    await page.route('**/api/community**', async (route) => {
+      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(API_RESPONSE) });
+    });
+
+    await page.goto('/comunidade.html');
+    await expect(page.locator('#studySubjectPicker .study-subject-option')).toHaveCount(6);
+    await expect(page.locator('[data-study-subject="nutricion"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('[data-study-topic="nutricion"]')).toContainText('Leyes de la alimentación');
+    await expect(page.locator('#studyPracticeHost #practice-nutricion')).toBeVisible();
+
+    await page.locator('[data-study-subject="fisiologia"]').click();
+    await expect(page.locator('#studyTopicPicker .study-topic-option')).toHaveCount(2);
+    await expect(page.locator('[data-study-topic="fisiologia-2026-08-13"]')).toContainText('Control nervioso y químico');
+    await page.locator('[data-study-topic="fisiologia-2026-08-10"]').click();
+    await expect(page.locator('#studyPracticeHost #practice-fisiologia-2026-08-10')).toBeVisible();
+
+    const layout = await page.evaluate(() => ({
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      subjectColumns: getComputedStyle(document.getElementById('studySubjectPicker')).gridTemplateColumns.split(' ').length
+    }));
+    expect(layout.overflow).toBeLessThanOrEqual(1);
+    expect(layout.subjectColumns).toBeGreaterThanOrEqual(2);
   });
 
   test('keeps a clear fallback when the shared database is not bound yet', async ({ page }) => {
@@ -59,7 +90,46 @@ test.describe('Weekly class challenge', () => {
     await page.goto('/comunidade.html');
     await expect(page.locator('#communityError')).toBeVisible();
     await expect(page.locator('#communityError')).toContainText('falta terminar su activación en Cloudflare');
-    await expect(page.getByRole('link', { name: 'Hacer un QCM' })).toBeVisible();
+    await expect(page.locator('#studyPracticeHost #practice-nutricion')).toBeVisible();
+  });
+
+  test('publishes a completed topic result from the dedicated study page', async ({ page }) => {
+    await seedProfile(page);
+    let submitted = null;
+    await page.route('**/api/community**', async (route) => {
+      if (route.request().method() === 'POST') {
+        submitted = route.request().postDataJSON();
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({ ok: true, saved: true, best: { correct: 9, total: 10, percentage: 90 }, challenge: API_RESPONSE.challenge })
+        });
+        return;
+      }
+      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(API_RESPONSE) });
+    });
+
+    await page.goto('/comunidade.html');
+    await page.evaluate(() => {
+      document.dispatchEvent(new CustomEvent('mednykuto:practice-complete', {
+        detail: {
+          courseId: 'nutricion', moduleId: 'nutricion-qcm', topicId: 'nutricion',
+          topicTitle: 'Leyes de la alimentación', type: 'qcm', correct: 9, total: 10, percentage: 90
+        }
+      }));
+    });
+    await expect(page.locator('#studyPublishPanel')).toBeVisible();
+    await expect(page.locator('#studyPublishTitle')).toHaveText('9/10 respuestas correctas');
+    await page.locator('#studyPublishButton').click();
+    await expect(page.locator('#studyPublishStatus')).toHaveText('Resultado publicado.');
+    expect(submitted).toMatchObject({
+      playerId: PLAYER_ID,
+      nickname: 'Baboune',
+      courseId: 'nutricion',
+      moduleId: 'nutricion-qcm',
+      correct: 9,
+      total: 10
+    });
   });
 
   test('offers voluntary score publication when a scoped QCM is completed', async ({ page }) => {
@@ -110,9 +180,10 @@ test.describe('Weekly class challenge', () => {
     });
   });
 
-  test('links the class hub to the challenge on desktop and mobile navigation', async ({ page }) => {
+  test('links the class hub to study on desktop and mobile navigation', async ({ page }) => {
     await page.goto('/clase.html');
-    await expect(page.locator('.workspace-nav a[href="comunidade.html"]')).toContainText('Comunidad');
-    await expect(page.locator('.mobile-bottom-nav a[href="comunidade.html"]')).toContainText('Desafío');
+    await expect(page.locator('.workspace-nav a[href="comunidade.html"]')).toContainText('Estudiar');
+    await expect(page.locator('.workspace-nav a[href="comunidade.html"]')).toContainText('QCM + ranking');
+    await expect(page.locator('.mobile-bottom-nav a[href="comunidade.html"]')).toContainText('Estudiar');
   });
 });

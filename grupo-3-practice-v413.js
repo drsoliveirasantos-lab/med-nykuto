@@ -1,20 +1,25 @@
 (function(){
   'use strict';
 
-  var classI18n = window.MedNykutoClassI18n || null;
+  function classI18n(){
+    return window.MedNykutoClassI18n || null;
+  }
 
   function tr(key,variables){
-    return classI18n && typeof classI18n.t === 'function' ? classI18n.t(key,variables) : key;
+    var service = classI18n();
+    return service && typeof service.t === 'function' ? service.t(key,variables) : key;
   }
 
   function displayOption(value){
-    if(!classI18n || classI18n.getLang() !== 'br') return value;
+    var service = classI18n();
+    if(!service || service.getLang() !== 'br') return value;
     if(value === 'Verdadero') return 'Verdadeiro';
     return value;
   }
 
   function localizeExact(value){
-    if(classI18n && classI18n.getLang() === 'br' && classI18n.exact && classI18n.exact[value]) return classI18n.exact[value];
+    var service = classI18n();
+    if(service && service.getLang() === 'br' && service.exact && service.exact[value]) return service.exact[value];
     return value;
   }
 
@@ -891,6 +896,20 @@
       summary.appendChild(formatPicker);
       summary.appendChild(actions);
       questionHost.appendChild(summary);
+      try{
+        document.dispatchEvent(new CustomEvent('mednykuto:practice-complete',{
+          detail:{
+            courseId:bank.sectionId || bank.courseId,
+            moduleId:bank.courseId + '-' + activeType,
+            topicId:bank.courseId,
+            topicTitle:localizeExact(bank.title),
+            type:activeType,
+            correct:score,
+            total:questions.length,
+            percentage:percentage
+          }
+        }));
+      }catch(error){}
     }
 
     function openWorkspace(){
@@ -935,6 +954,16 @@
         window.requestAnimationFrame(function(){root.scrollIntoView({behavior:'auto',block:'start'});});
       }
     };
+  }
+
+  function mountStandalone(container,courseId,options){
+    var target = typeof container === 'string' ? document.querySelector(container) : container;
+    var bank = banks[courseId];
+    if(!target || !bank) return null;
+    var controller = buildPracticeModule(bank,loadProgress());
+    target.replaceChildren(controller.root);
+    if(options && options.open) controller.open();
+    return controller;
   }
 
   function mountPractice(){
@@ -1009,10 +1038,10 @@
       openFromHash();
       window.setTimeout(syncShortcut,0);
     });
-    window.MedNykutoClassPractice = {banks:banks,controllers:controllers,mount:mountPractice};
+    window.MedNykutoClassPractice = {banks:banks,controllers:controllers,mount:mountPractice,mountStandalone:mountStandalone};
   }
 
-  window.MedNykutoClassPractice = {banks:banks,controllers:{},mount:mountPractice};
+  window.MedNykutoClassPractice = {banks:banks,controllers:{},mount:mountPractice,mountStandalone:mountStandalone};
   if(document && typeof document.addEventListener === 'function' && document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded',mountPractice,{once:true});
   }else if(document && typeof document.getElementById === 'function'){

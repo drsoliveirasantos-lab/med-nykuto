@@ -2,8 +2,10 @@
 
 ## Fonctionnement
 
-- La page publique de la classe est `comunidade.html`.
+- La page publique `comunidade.html` est le centre **Estudiar / Estudar** : l'étudiant choisit d'abord une matière, puis un thème regroupant les cours qui portent sur le même contenu.
+- Les entraînements de cette page réutilisent directement les banques de `grupo-3-practice-v413.js` et `grupo-3-practice-expansion-v420.js` ; les questions ne sont pas recopiées.
 - À la fin d'un QCM lié à une matière ou à un module, l'étudiant peut publier volontairement son résultat sous un pseudonyme.
+- Pour les entraînements de la classe, le thème et le format (`qcm`, `vf` ou `cases`) constituent la portée du meilleur résultat hebdomadaire.
 - Pour chaque semaine, navigateur et matière/module, seul le meilleur résultat est conservé.
 - Le classement additionne les bonnes réponses et utilise la précision pour départager les égalités.
 - Le défi collectif vise 1 000 bonnes réponses. Il est remis à zéro chaque lundi selon l'heure du Paraguay.

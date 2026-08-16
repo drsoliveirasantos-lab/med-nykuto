@@ -8,14 +8,36 @@
 
   var messages = {
     es:{
-      pageTitle:'Desafío del 4.º E | Med Nykuto',
+      pageTitle:'Estudiar · 4.º E | Med Nykuto',
       back:'Volver a la clase',
       language:'Idioma',
       eyebrow:'4.º E · Semestre 4',
-      title:'Un desafío que suma a toda la clase.',
-      intro:'Cada QCM publicado aporta al objetivo común. El ranking es amistoso, semanal y funciona solo con apodos.',
-      start:'Hacer un QCM',
-      choose:'Elegir materia',
+      title:'Estudia por materia y tema.',
+      intro:'Elige lo que viste en clase y entrena con sus QCM, verdadero o falso y casos clínicos.',
+      studyKicker:'ENTRENAMIENTO',
+      selectSubject:'1 · Elige una materia',
+      selectSubjectCopy:'Después verás solamente los temas disponibles de esa materia.',
+      selectTopic:'2 · Elige un tema',
+      selectTopicCopy:'Las clases del mismo contenido quedan agrupadas en un solo tema.',
+      oneTopic:'1 tema',
+      topics:'{count} temas',
+      questionCount:'{count} preguntas',
+      topKicker:'TOP 1 ESTA SEMANA',
+      noLeader:'Todavía sin líder',
+      beFirst:'Sé la primera persona en publicar un resultado.',
+      myScore:'Tu score',
+      noScore:'Sin resultado publicado',
+      rankingLink:'Ver clasificación',
+      publishKicker:'TU RESULTADO',
+      publishTitle:'{score}/{total} respuestas correctas',
+      publishCopy:'Puedes sumarlo al ranking semanal con tu apodo.',
+      publishButton:'Sumar al ranking',
+      publishing:'Publicando…',
+      publishSuccess:'Resultado publicado.',
+      publishKept:'Tu mejor resultado ya era igual o mejor.',
+      nicknameNeeded:'Guarda un apodo antes de publicar.',
+      publishError:'No se pudo publicar. Tu resultado sigue guardado en este dispositivo.',
+      rankingAndChallenge:'CLASIFICACIÓN Y DESAFÍO',
       challengeKicker:'DESAFÍO COLECTIVO',
       challengeTitle:'1.000 respuestas correctas esta semana',
       challengeCopy:'No importa quién queda primero: cada mejor resultado acerca a la clase a la meta.',
@@ -59,17 +81,72 @@
       questions:'¿Tienes una idea para el próximo desafío?',
       questionsLink:'Preparar un mensaje para los delegados',
       footer:'Apoyo académico no oficial · 4.º E',
-      weekRange:'Del {start} al {end}'
+      weekRange:'Del {start} al {end}',
+      practiceCourse:'ENTRENAMIENTO DEL CURSO',
+      practiceLesson:'ENTRENAMIENTO · {date}',
+      practiceTitle:'Entrenamiento · {title}',
+      qcm:'QCM',
+      vf:'Verdadero / Falso',
+      cases:'Casos clínicos',
+      startPractice:'Comenzar entrenamiento',
+      closePractice:'Cerrar entrenamiento',
+      resetCourse:'Reiniciar curso',
+      questionsDone:'{done}/{total} preguntas completadas',
+      questionsTotal:'{total} preguntas para dominar este tema',
+      correctAnswer:'Respuesta correcta',
+      incorrectAnswer:'Respuesta a corregir',
+      yourAnswer:'Tu respuesta: {answer}.',
+      correctAnswerLabel:'Respuesta correcta: ',
+      activeUnderstanding:'COMPRENSIÓN ACTIVA',
+      clinicalApplication:'APLICACIÓN CLÍNICA',
+      caseLabel:'CASO',
+      answerOptions:'Opciones de respuesta',
+      validateAnswer:'Validar mi respuesta',
+      nextQuestion:'Pregunta siguiente →',
+      blockDone:'{type} · BLOQUE TERMINADO',
+      correctCount:'{score}/{total} respuestas correctas',
+      goodResult:'Buen dominio. Revisa solo las explicaciones de tus errores.',
+      repeatResult:'Repite el bloque después de revisar las explicaciones.',
+      chooseFormat:'Elegir otro formato',
+      hideFormats:'Ocultar formatos',
+      repeatType:'Repetir {type}',
+      finished:'terminado',
+      continue:'continuar',
+      resetConfirm:'¿Reiniciar todo el progreso de este tema?',
+      verificationBase:'BASE DE VERIFICACIÓN',
+      trainingType:'Tipo de entrenamiento'
     },
     br:{
-      pageTitle:'Desafio do 4.º E | Med Nykuto',
+      pageTitle:'Estudar · 4.º E | Med Nykuto',
       back:'Voltar para a turma',
       language:'Idioma',
       eyebrow:'4.º E · 4.º semestre',
-      title:'Um desafio em que toda a turma ganha.',
-      intro:'Cada QCM publicado contribui para a meta coletiva. A classificação é amigável, semanal e usa apenas apelidos.',
-      start:'Fazer um QCM',
-      choose:'Escolher matéria',
+      title:'Estude por matéria e tema.',
+      intro:'Escolha o conteúdo visto em aula e treine com QCM, verdadeiro ou falso e casos clínicos.',
+      studyKicker:'TREINO',
+      selectSubject:'1 · Escolha uma matéria',
+      selectSubjectCopy:'Depois você verá somente os temas disponíveis dessa matéria.',
+      selectTopic:'2 · Escolha um tema',
+      selectTopicCopy:'As aulas do mesmo conteúdo ficam agrupadas em um único tema.',
+      oneTopic:'1 tema',
+      topics:'{count} temas',
+      questionCount:'{count} perguntas',
+      topKicker:'TOP 1 NESTA SEMANA',
+      noLeader:'Ainda sem líder',
+      beFirst:'Seja a primeira pessoa a publicar um resultado.',
+      myScore:'Seu score',
+      noScore:'Nenhum resultado publicado',
+      rankingLink:'Ver classificação',
+      publishKicker:'SEU RESULTADO',
+      publishTitle:'{score}/{total} respostas corretas',
+      publishCopy:'Você pode somá-lo à classificação semanal com seu apelido.',
+      publishButton:'Somar à classificação',
+      publishing:'Publicando…',
+      publishSuccess:'Resultado publicado.',
+      publishKept:'Seu melhor resultado já era igual ou maior.',
+      nicknameNeeded:'Salve um apelido antes de publicar.',
+      publishError:'Não foi possível publicar. Seu resultado continua salvo neste dispositivo.',
+      rankingAndChallenge:'CLASSIFICAÇÃO E DESAFIO',
       challengeKicker:'DESAFIO COLETIVO',
       challengeTitle:'1.000 respostas corretas nesta semana',
       challengeCopy:'Não importa quem fica em primeiro: cada melhor resultado aproxima a turma da meta.',
@@ -113,8 +190,58 @@
       questions:'Tem uma ideia para o próximo desafio?',
       questionsLink:'Preparar uma mensagem para os delegados',
       footer:'Apoio acadêmico não oficial · 4.º E',
-      weekRange:'De {start} a {end}'
+      weekRange:'De {start} a {end}',
+      practiceCourse:'TREINO DO CURSO',
+      practiceLesson:'TREINO · {date}',
+      practiceTitle:'Treino · {title}',
+      qcm:'QCM',
+      vf:'Verdadeiro / Falso',
+      cases:'Casos clínicos',
+      startPractice:'Começar treino',
+      closePractice:'Fechar treino',
+      resetCourse:'Reiniciar tema',
+      questionsDone:'{done}/{total} perguntas concluídas',
+      questionsTotal:'{total} perguntas para dominar este tema',
+      correctAnswer:'Resposta correta',
+      incorrectAnswer:'Resposta a corrigir',
+      yourAnswer:'Sua resposta: {answer}.',
+      correctAnswerLabel:'Resposta correta: ',
+      activeUnderstanding:'COMPREENSÃO ATIVA',
+      clinicalApplication:'APLICAÇÃO CLÍNICA',
+      caseLabel:'CASO',
+      answerOptions:'Alternativas de resposta',
+      validateAnswer:'Validar minha resposta',
+      nextQuestion:'Próxima pergunta →',
+      blockDone:'{type} · BLOCO CONCLUÍDO',
+      correctCount:'{score}/{total} respostas corretas',
+      goodResult:'Bom domínio. Revise apenas as explicações dos seus erros.',
+      repeatResult:'Repita o bloco depois de revisar as explicações.',
+      chooseFormat:'Escolher outro formato',
+      hideFormats:'Ocultar formatos',
+      repeatType:'Repetir {type}',
+      finished:'concluído',
+      continue:'continuar',
+      resetConfirm:'Reiniciar todo o progresso deste tema?',
+      verificationBase:'BASE DE VERIFICAÇÃO',
+      trainingType:'Tipo de treino'
     }
+  };
+
+  var practiceExact = {
+    'Leyes de la alimentación':'Leis da alimentação',
+    'Glucólisis y regulación':'Glicólise e regulação',
+    'APS, sectorización y triage':'APS, setorização e triagem',
+    'Dermatofitosis y tiñas':'Dermatofitoses e tinhas',
+    'Hongos y agar Sabouraud':'Fungos e ágar Sabouraud',
+    'Control nervioso y químico de la respiración':'Controle nervoso e químico da respiração',
+    'Difusión y transporte de gases':'Difusão e transporte de gases',
+    'Cantidad, calidad, armonía, adecuación, variedad y aplicación clínica.':'Quantidade, qualidade, harmonia, adequação, variedade e aplicação clínica.',
+    'Atención primaria, integralidad, familia, territorio y prioridad asistencial.':'Atenção primária, integralidade, família, território e prioridade assistencial.',
+    'Agentes, transmisión, localización, diagnóstico y razonamiento terapéutico.':'Agentes, transmissão, localização, diagnóstico e raciocínio terapêutico.',
+    'Muestra, morfología fúngica, cultivo y bioseguridad de laboratorio.':'Amostra, morfologia fúngica, cultura e biossegurança laboratorial.',
+    'Diez reacciones, balance energético, control y conexión con GLUT4.':'Dez reações, balanço energético, controle e ligação com GLUT4.',
+    'Solo la clase del 13 de agosto: centros, sensores, efectores y respuesta clínica.':'Somente a aula de 13 de agosto: centros, sensores, efetores e resposta clínica.',
+    'Solo la clase del 10 de agosto: Fick, barrera, V/Q, O₂, CO₂, Bohr y Haldane.':'Somente a aula de 10 de agosto: Fick, barreira, V/Q, O₂, CO₂, Bohr e Haldane.'
   };
 
   function createPlayerId(){
@@ -163,6 +290,13 @@
     });
     return value;
   }
+
+  window.MedNykutoClassI18n = {
+    getLang:function(){ return lang; },
+    getLocale:function(){ return lang === 'br' ? 'pt-BR' : 'es-PY'; },
+    t:t,
+    exact:practiceExact
+  };
 
   function applyLanguage(){
     document.documentElement.lang = lang === 'br' ? 'pt-BR' : 'es';
@@ -226,6 +360,27 @@
     });
   }
 
+  function renderStudyScores(){
+    var topName = document.getElementById('studyTopName');
+    var topMeta = document.getElementById('studyTopMeta');
+    var myValue = document.getElementById('studyMyScoreValue');
+    var myMeta = document.getElementById('studyMyScoreMeta');
+    if(!topName || !topMeta || !myValue || !myMeta) return;
+
+    var ranking = state.data && Array.isArray(state.data.ranking) ? state.data.ranking : [];
+    var leader = ranking[0] || null;
+    var current = state.data && state.data.currentUser ? state.data.currentUser : null;
+
+    topName.textContent = leader ? leader.nickname : t('noLeader');
+    topMeta.textContent = leader
+      ? formatNumber(leader.points) + ' ' + t('points') + ' · ' + t('accuracy',{value:leader.accuracy})
+      : t('beFirst');
+    myValue.textContent = current ? formatNumber(current.points) : '—';
+    myMeta.textContent = current
+      ? '#' + current.rank + ' · ' + t('accuracy',{value:current.accuracy})
+      : t('noScore');
+  }
+
   function renderData(){
     var loading = document.getElementById('communityLoading');
     var errorBox = document.getElementById('communityError');
@@ -243,6 +398,7 @@
       }else{
         renderRanking([]);
       }
+      renderStudyScores();
       return;
     }
 
@@ -260,6 +416,7 @@
       });
     }
     renderRanking(data.ranking || []);
+    renderStudyScores();
   }
 
   function loadData(){
@@ -286,6 +443,40 @@
       .finally(function(){ state.loading = false; renderData(); });
   }
 
+  function publishScore(result){
+    return fetch(API_URL,{
+      method:'POST',
+      credentials:'same-origin',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify({
+        playerId:profile.playerId,
+        nickname:profile.nickname,
+        courseId:result.courseId,
+        moduleId:result.moduleId,
+        correct:result.correct,
+        total:result.total
+      })
+    }).then(function(response){
+      return response.json().catch(function(){ return {}; }).then(function(data){
+        if(!response.ok){
+          var error = new Error(data.code || 'request_failed');
+          error.code = data.code || '';
+          throw error;
+        }
+        loadData();
+        return data;
+      });
+    });
+  }
+
+  window.MedNykutoCommunity = {
+    getLanguage:function(){ return lang; },
+    getProfile:function(){ return {playerId:profile.playerId,nickname:profile.nickname}; },
+    publishScore:publishScore,
+    refresh:loadData,
+    t:t
+  };
+
   function init(){
     var languageSelect = document.getElementById('communityLanguage');
     var nicknameInput = document.getElementById('communityNickname');
@@ -297,6 +488,9 @@
       lang = supported.indexOf(languageSelect.value) !== -1 ? languageSelect.value : 'es';
       try{ localStorage.setItem('medLang',lang); }catch(error){}
       applyLanguage();
+      if(window.MedNykutoCommunityStudy && typeof window.MedNykutoCommunityStudy.refreshLanguage === 'function'){
+        window.MedNykutoCommunityStudy.refreshLanguage();
+      }
     });
     profileForm.addEventListener('submit',function(event){
       event.preventDefault();
@@ -311,6 +505,9 @@
       saveProfile(profile);
       profileStatus.dataset.state = 'success';
       profileStatus.textContent = t('profileSaved');
+      if(window.MedNykutoCommunityStudy && typeof window.MedNykutoCommunityStudy.profileChanged === 'function'){
+        window.MedNykutoCommunityStudy.profileChanged();
+      }
     });
     document.getElementById('communityRefresh').addEventListener('click',loadData);
     document.getElementById('communityRetry').addEventListener('click',loadData);

@@ -137,6 +137,8 @@
     '6 materias':'6 matérias',
     'Plan':'Plano',
     'Seminario':'Seminário',
+    'Estudiar':'Estudar',
+    'QCM + ranking':'QCM + ranking',
     'Comunidad':'Turma',
     'Desafío':'Desafio',
     'Dudas':'Dúvidas',
