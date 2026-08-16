@@ -817,6 +817,14 @@ test.describe('Class hub', () => {
       return counts.join(',') === '20,10,10';
     }));
     expect(everyBankHasForty).toBe(true);
+    const clinicalStoriesArePatientVignettes = await page.evaluate(() => Object.values(window.MedNykutoClassPractice.banks).every((bank) =>
+      bank.cases.every((item) => {
+        const story = String(item.scenario || '').trim();
+        const sentences = story.split(/[.!?]+/).filter((sentence) => sentence.trim().length >= 12);
+        return /\b(?:pacientes?|personas?|familias?|parejas?|niñ[oa]s?|mujeres?|hombres?)\b/i.test(story) && sentences.length >= 2;
+      })
+    ));
+    expect(clinicalStoriesArePatientVignettes).toBe(true);
     const practice = page.locator('#practice-nutricion');
     const overviewCounts = practice.locator('.practice-counts > span');
     await expect(overviewCounts.nth(0)).toHaveText('20QCM');

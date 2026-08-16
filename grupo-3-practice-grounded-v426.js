@@ -4,7 +4,7 @@
   var practice = window.MedNykutoClassPractice;
   if(!practice || !practice.banks) return;
 
-  var POLICY = 'course-only-v426';
+  var POLICY = 'course-only-v427';
   var banks = practice.banks;
 
   function naturalDistractor(value){
@@ -169,6 +169,102 @@
     }
   };
 
+  var clinicalStories = {
+    nutricion:{
+      alimentacion:'La paciente Lucía consulta porque quiere ordenar su alimentación. Cuenta que elige los alimentos, los compra, prepara sus comidas y decide a qué hora y de qué manera las consume.',
+      cantidad:'Un paciente alterna días con porciones insuficientes y otros con ingestas excesivas. Durante la evaluación se busca cubrir sus necesidades sin quedar por debajo ni superarlas.',
+      calidad:'El paciente Mateo alcanza la cantidad de calorías prevista, pero su alimentación se concentra en pocos alimentos. El equipo revisa proteínas, carbohidratos, grasas, fibra, agua, vitaminas y minerales antes de considerarla adecuada.',
+      armonia:'Una paciente presenta un plato dominado por almidones y con muy poca participación de los otros grupos. Aunque la cantidad total parece suficiente, se analiza la relación entre sus componentes.',
+      adecuacion:'La paciente Rosa necesita una orientación alimentaria, pero tiene dificultad para masticar, presupuesto limitado y preferencias culturales definidas. La indicación debe considerar también su etapa de vida y su capacidad para preparar alimentos.',
+      variedad:'Un paciente come exactamente el mismo menú todos los días porque piensa que repetir un alimento saludable es suficiente. En la consulta se evalúa cómo ampliar su selección sin perder la organización.',
+      balance:'Durante varios meses, la ingesta energética de una paciente ha superado de manera sostenida su gasto. El equipo analiza la tendencia acumulada y no una variación aislada del peso de un solo día.',
+      plato:'Un paciente quiere una guía visual sencilla para organizar su almuerzo. Pregunta qué proporción del plato debería reservar para verduras y frutas antes de completar los demás grupos.',
+      energeticos:'Durante la entrevista alimentaria, un paciente pregunta por la función principal del pan, el arroz y los aceites que consume. El profesional debe ubicar estos alimentos según el aporte que predomina en ellos.',
+      enriquecido:'Una paciente lee que una harina refinada está “enriquecida” después de su procesamiento. Quiere saber si el término indica que se repusieron nutrientes perdidos o que el alimento quedó sin procesar.'
+    },
+    'fisiologia-2026-08-13':{
+      retroalimentacion:'Un paciente presenta un cambio químico que altera su respiración. El organismo detecta el cambio, lo integra en el tronco encefálico y ajusta la frecuencia y la profundidad respiratorias.',
+      grd:'Durante la evaluación de un paciente se estudia el grupo con predominio inspiratorio que recibe e integra aferencias en el núcleo del tracto solitario. Se quiere identificar qué componente contribuye al patrón inspiratorio.',
+      grv:'Un paciente aumenta mucho su demanda ventilatoria. En ese momento participa con mayor intensidad un grupo que contiene neuronas inspiratorias y espiratorias e incluye el complejo pre-Bötzinger.',
+      grp:'En un paciente, la inspiración debe terminar de forma coordinada para dar paso a la espiración. Se analiza el grupo que modula esa transición entre ambas fases respiratorias.',
+      central:'Un paciente presenta aumento de PaCO₂ y el pH de su líquido cefalorraquídeo cambia. Se busca identificar el sensor que responde principalmente a esa variación de pH.',
+      carotideo:'Un paciente desarrolla una PaO₂ arterial baja, acompañada de cambios de PaCO₂ y pH. El equipo analiza qué sensor periférico detecta de manera directa esta combinación.',
+      aortico:'En un paciente se activan los cuerpos aórticos y la señal debe llegar al tronco encefálico. Se pregunta por qué nervio viaja esa aferencia.',
+      hering:'Durante una ventilación con distensión pulmonar marcada, el paciente activa un reflejo protector. La señal aferente se transmite por el nervio vago hacia el tronco encefálico.',
+      voluntario:'Una paciente contiene voluntariamente la respiración durante unos segundos. Con el tiempo, el impulso químico aumenta y termina imponiéndose sobre el control cortical.',
+      epoc:'Un paciente consulta por dificultad respiratoria y presenta espiración prolongada, sibilancias y FEV₁ reducido. El equipo debe reconocer el patrón funcional que reúne estos hallazgos.'
+    },
+    'fisiologia-2026-08-10':{
+      secuencia:'Un paciente recibe aire hasta los alvéolos, pero para oxigenar los tejidos también necesita difusión, perfusión y transporte sanguíneo. El equipo sigue el recorrido completo para localizar dónde podría fallar el intercambio.',
+      fick:'Un paciente presenta una barrera alveolocapilar más gruesa. Aunque existe gradiente, el equipo analiza cómo el aumento del espesor modifica el paso de los gases.',
+      gradiente:'En los alvéolos de un paciente, un gas tiene mayor presión parcial que en la sangre que llega al capilar. Se debe predecir la dirección de su desplazamiento.',
+      enfisema:'Un paciente ha perdido superficie disponible para el intercambio gaseoso por enfisema. El equipo analiza por qué esa pérdida reduce su capacidad de difusión.',
+      grosor:'Un paciente presenta edema que aumenta el espesor de la barrera alveolocapilar. Se evalúa cómo esa mayor distancia afecta la velocidad del intercambio gaseoso.',
+      oxigeno:'En una muestra sanguínea de un paciente se compara el oxígeno unido a hemoglobina con la pequeña fracción disuelta. El equipo debe identificar la forma de transporte predominante.',
+      co2:'En la sangre de un paciente se cuantifican bicarbonato, compuestos carbamino y CO₂ disuelto. Se pregunta cuál de estas formas representa la vía principal de transporte del CO₂.',
+      vq:'Una región pulmonar de un paciente recibe sangre, pero muy poca ventilación. El equipo debe interpretar cómo cambia la relación entre ventilación y perfusión en esa zona.',
+      bohr:'Durante actividad tisular, un paciente necesita facilitar la descarga de oxígeno desde la hemoglobina. Se analiza el desplazamiento de la curva asociado con el efecto Bohr.',
+      haldane:'En los tejidos de un paciente aumenta la proporción de desoxihemoglobina. El equipo evalúa cómo este estado influye en la aceptación de CO₂ y H⁺.'
+    },
+    bioquimica:{
+      objetivo:'Un paciente necesita obtener energía a partir de una molécula de glucosa. El equipo sigue la vía hasta sus productos finales y debe reconocer cuántos piruvatos se forman.',
+      lugar:'Durante un período de baja disponibilidad de oxígeno, las células de un paciente mantienen activa la glucólisis. Se analiza en qué compartimento celular ocurre esta vía.',
+      balance:'En una muestra celular de un paciente se metaboliza una molécula de glucosa completa. El laboratorio debe registrar el balance neto de piruvato, ATP y NADH.',
+      preparatoria:'Al comenzar la glucólisis en las células de un paciente, la glucosa se fosforila y luego se divide. El equipo distingue esta etapa de inversión de la fase que recupera energía.',
+      beneficio:'En una muestra de un paciente ya se formaron dos moléculas de G3P. Ambas avanzan por la fase de beneficio, por lo que los productos de esas reacciones aparecen duplicados.',
+      reaccion1:'En las células de un paciente acaba de entrar glucosa y comienza la primera reacción glucolítica. El equipo debe identificar el producto que se forma tras añadir el primer fosfato.',
+      pfk1:'En una muestra celular de un paciente se estudia la reacción catalizada por PFK-1. Se observa el paso desde F6P hacia el compuesto bisfosforilado correspondiente.',
+      division:'En una muestra de un paciente, la aldolasa actúa sobre F1,6BP. El equipo sigue la división de esa molécula en las dos triosas resultantes.',
+      nadh:'Durante el análisis de la glucólisis de un paciente, el G3P se convierte en 1,3-BPG. El laboratorio quiere identificar qué transportador reducido se forma en ese paso.',
+      atp:'En las células de un paciente, el 1,3-BPG se transforma en 3-PG. El equipo estudia la formación de energía a nivel de sustrato durante esta reacción.'
+    },
+    epidemiologia:{
+      aps:'Una persona con un problema de salud busca por primera vez atención dentro del Sistema Nacional de Salud. La unidad cercana a su comunidad debe funcionar como puerta de entrada y mantener continuidad.',
+      almaata:'Una familia participa en una actividad comunitaria sobre el origen internacional de la atención primaria. El equipo debe ubicar en el tiempo la Declaración de Alma-Ata mencionada en la explicación.',
+      paraguay:'Una paciente pregunta desde cuándo se implementa la estrategia de atención primaria en Paraguay. El profesional debe distinguir esa fecha de la Declaración internacional de 1978.',
+      principios:'Una familia con recursos limitados necesita acceder al mismo sistema de salud que el resto de la comunidad. El equipo analiza qué principios sostienen una atención equitativa y con cobertura universal.',
+      dispensarizacion:'Durante una visita domiciliaria, una persona no presenta una enfermedad diagnosticada, pero sí factores de riesgo que requieren seguimiento. El equipo debe asignarla al grupo correspondiente de dispensarización.',
+      integralidad:'Una paciente consulta por un síntoma, pero su situación también depende de la familia, la comunidad y el ambiente. El equipo organiza una atención que la acompañe a lo largo de la vida.',
+      familia:'Una pareja reciente, todavía sin hijos, solicita orientación en la unidad de salud. Para planificar el acompañamiento se debe reconocer la etapa de su ciclo familiar.',
+      sectorizacion:'En un territorio se identifican varias familias con riesgo sanitario y recursos limitados. El equipo necesita asignar responsables, vigilar esos riesgos y distribuir la atención con equidad.',
+      triage:'Dos pacientes llegan casi al mismo tiempo: uno está estable y el otro presenta mayor gravedad clínica. El personal debe decidir el orden de atención sin basarse solo en quién llegó primero.',
+      emergencia:'Un paciente llega con una amenaza inmediata para la vida o para un órgano. El equipo debe clasificar la situación y actuar sin demora.'
+    },
+    'microbiologia-teorica':{
+      definicion:'Un paciente presenta una micosis limitada a piel, pelo o uñas. El equipo sospecha hongos capaces de colonizar tejidos queratinizados.',
+      generos:'En el estudio de una lesión queratinizada de un paciente se consideran los dermatofitos clásicos. El laboratorio debe reconocer los tres géneros incluidos en ese grupo.',
+      tejidos:'Un paciente presenta lesiones compatibles en piel, pelo y uñas. El laboratorio valora un género de dermatofito capaz de afectar los tres tejidos queratinizados.',
+      transmision:'Un niño desarrolla una lesión después del contacto cercano con un animal infectado. El equipo debe nombrar el tipo de transmisión que va del animal al ser humano.',
+      capitis:'Un niño consulta por descamación del cuero cabelludo, pelos rotos y alopecia en placas. El equipo debe identificar la localización de la tiña que mejor reúne esos datos.',
+      caso:'Un niño presenta alopecia, pelos fracturados y una lesión inflamatoria después de contacto con un perro. El conjunto de antecedentes y hallazgos debe orientar el diagnóstico.',
+      muestra:'Un paciente tiene una lesión en el borde de la piel, otro compromiso del cuero cabelludo y otro alteración ungueal. El laboratorio debe elegir una muestra diferente según cada sitio afectado.',
+      koh:'De una lesión queratinizada de un paciente se obtiene una muestra para examen directo. El laboratorio busca aclarar la queratina y observar hifas septadas o artroconidios sin afirmar todavía la especie.',
+      cultivo:'Después del examen directo de una muestra de un paciente, todavía falta identificar el agente. El laboratorio considera el crecimiento en Sabouraud, la morfología y pruebas adicionales.',
+      tratamiento:'Un niño presenta tinea capitis con afectación del folículo piloso. El equipo debe elegir una vía terapéutica capaz de alcanzar esa localización.'
+    },
+    'microbiologia-practica':{
+      objetivo:'Para comprender un posible hongo aislado de un paciente, el laboratorio organiza una secuencia de cultivo, observación y diferenciación. Se debe reconocer el objetivo general de ese trabajo.',
+      muestra:'Antes de analizar muestras de pacientes, el equipo practica con pan duro con moho. El material debe llegar dentro de un recipiente cerrado y no abrirse para olerlo.',
+      levadura:'En una muestra de un paciente se observa un hongo formado principalmente por células individuales. El equipo debe distinguir esta morfología de una red de filamentos.',
+      moho:'En el cultivo relacionado con un paciente se observan filamentos que se conectan y forman una masa vegetativa. El equipo debe reconocer la organización propia de un moho.',
+      dimorfico:'El hongo estudiado en un paciente cambia de morfología cuando cambian las condiciones. El laboratorio debe identificar cómo se denomina esa capacidad.',
+      hifa:'En la preparación microscópica de una muestra de un paciente se observa un filamento individual, con posibilidad de ser septado o cenocítico. El equipo debe nombrar esa estructura.',
+      micelio:'En el cultivo de una muestra de un paciente se observa el conjunto de numerosos filamentos que constituye el cuerpo vegetativo. Se debe diferenciar el conjunto de cada filamento individual.',
+      conidios:'En un aislamiento de un paciente se observa un tallo especializado con esporas asexuales externas. El equipo debe relacionar el conidióforo con las estructuras que sostiene.',
+      sabouraud:'Para cultivar un posible hongo procedente de un paciente, el laboratorio prepara un medio con peptonas, glucosa y agar. Se debe identificar el medio que reúne esos componentes.',
+      preparacion:'Antes de procesar la muestra de un paciente, el equipo reproduce la preparación observada del medio. Utiliza 10 g de polvo con 100 mL de agua destilada y verifica esa proporción antes de sembrar.'
+    }
+  };
+
+  function clinicalPrompt(courseId,item){
+    if(courseId === 'nutricion') return '¿Qué opción aplica mejor ' + item.label + ' a la evaluación de este paciente?';
+    if(courseId.indexOf('fisiologia-') === 0) return '¿Qué opción explica mejor este caso mediante ' + item.label + '?';
+    if(courseId === 'bioquimica') return '¿Qué opción interpreta correctamente ' + item.label + ' en este paciente?';
+    if(courseId === 'epidemiologia') return '¿Qué opción aplica correctamente ' + item.label + ' a esta situación asistencial?';
+    if(courseId === 'microbiologia-teorica') return '¿Qué opción orienta mejor el caso según ' + item.label + '?';
+    return '¿Qué opción guía correctamente el análisis según ' + item.label + '?';
+  }
+
   function explanationFor(item){
     return 'Dato que justifica la respuesta: «' + item.evidence + '»';
   }
@@ -265,10 +361,12 @@
     return Object.assign(question,metadata(item,topic));
   }
 
-  function application(item,topic){
+  function application(item,topic,courseId){
+    var scenario = clinicalStories[courseId] && clinicalStories[courseId][item.key];
+    if(!scenario) throw new Error('Historia clínica ausente: ' + courseId + '/' + item.key);
     var question = {
-      scenario:'En una discusión sobre ' + item.label + ', se propone esta explicación: «' + item.falseStatement + '»',
-      prompt:'¿Qué opción corrige esa explicación sobre ' + item.label + '?',
+      scenario:scenario,
+      prompt:clinicalPrompt(courseId,item),
       options:balancedOptions(item),
       answer:0,
       explanation:explanationFor(item)
@@ -301,7 +399,7 @@
     });
     topic.facts.forEach(function(item,index){
       bank.vf.push(trueFalse(item,topic,index));
-      bank.cases.push(application(item,topic));
+      bank.cases.push(application(item,topic,courseId));
     });
 
     ['qcm','cases'].forEach(function(type,typeIndex){

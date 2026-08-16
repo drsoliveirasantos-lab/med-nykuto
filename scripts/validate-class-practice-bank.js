@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..');
-const POLICY = 'course-only-v426';
+const POLICY = 'course-only-v427';
 const expectedCourses = [
   'nutricion',
   'fisiologia-2026-08-13',
@@ -15,6 +15,7 @@ const expectedCourses = [
 const types = ['qcm', 'vf', 'cases'];
 const metaQuestionWording = /\b(?:clase|curso|profesor|aula|repaso|repasar|explicad[oa]s?)\b/i;
 const leakedCorrectionWording = /^¿Qué opción corrige esta afirmación:/i;
+const patientStoryWording = /\b(?:pacientes?|personas?|familias?|parejas?|niñ[oa]s?|mujeres?|hombres?)\b/i;
 const errors = [];
 const prompts = new Set();
 const classHtml = fs.readFileSync(path.join(root, 'clase.html'), 'utf8');
@@ -186,7 +187,13 @@ if (!banks || typeof banks !== 'object') {
           });
         }
         expect(Boolean(question.explanation) && question.explanation.trim().length >= 35, `${location}: explanation is missing or too short.`);
-        if (type === 'cases') expect(Boolean(question.scenario) && question.scenario.trim().length >= 55, `${location}: application scenario is missing or too short.`);
+        if (type === 'cases') {
+          const scenario = String(question.scenario || '').trim();
+          const sentenceCount = scenario.split(/[.!?]+/).filter((sentence) => sentence.trim().length >= 12).length;
+          expect(scenario.length >= 90, `${location}: clinical history is missing or too short.`);
+          expect(patientStoryWording.test(scenario), `${location}: clinical history must identify a patient, person or family.`);
+          expect(sentenceCount >= 2, `${location}: clinical history must contain at least two meaningful sentences.`);
+        }
         if (type === 'vf') {
           if (question.answer === 1) {
             expect(!hasObviousDistractorCue(question.prompt), `${location}: false true/false statement contains an obvious absolute-word cue.`);

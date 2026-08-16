@@ -70,7 +70,7 @@
   function readProfile(){
     var profile = {};
     try{ profile = JSON.parse(localStorage.getItem(PROFILE_KEY) || '{}') || {}; }catch(error){}
-    if(!/^[0-9a-f-]{36}$/i.test(profile.playerId || '')) profile.playerId = createPlayerId();
+    if(!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(profile.playerId || '')) profile.playerId = createPlayerId();
     profile.nickname = String(profile.nickname || '').slice(0,24);
     writeProfile(profile);
     return profile;

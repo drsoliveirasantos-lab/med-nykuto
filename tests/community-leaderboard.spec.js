@@ -26,7 +26,9 @@ async function seedProfile(page) {
 test.describe('Weekly class challenge', () => {
   test('shows the shared weekly progress and ranking in both class languages', async ({ page }) => {
     await seedProfile(page);
+    let rankingRequestUrl = '';
     await page.route('**/api/community**', async (route) => {
+      if (route.request().method() === 'GET') rankingRequestUrl = route.request().url();
       await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(API_RESPONSE) });
     });
 
@@ -42,6 +44,7 @@ test.describe('Weekly class challenge', () => {
     await expect(page.locator('#communityRanking .ranking-row.is-current')).toContainText('Baboune');
     await expect(page.locator('#communityRanking .ranking-row.is-current')).toContainText('Tú');
     await expect(page.locator('#challengeWeek')).toContainText('10 ago');
+    expect(new URL(rankingRequestUrl).searchParams.get('nickname')).toBe('Baboune');
 
     await page.locator('#communityLanguage').selectOption('br');
     await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');

@@ -114,21 +114,43 @@ async function ensureSchema(db) {
   return schemaPromise;
 }
 
-async function readRanking(db, week, currentPlayerId = '') {
+async function readRanking(db, week, currentPlayerId = '', currentNickname = '') {
   const result = await db.prepare(`
+    WITH ranked_scopes AS (
+      SELECT
+        LOWER(TRIM(nickname)) AS nickname_key,
+        nickname,
+        player_id,
+        scope_id,
+        correct,
+        total,
+        percentage,
+        updated_at,
+        ROW_NUMBER() OVER (
+          PARTITION BY LOWER(TRIM(nickname)), scope_id
+          ORDER BY percentage DESC, correct DESC, updated_at DESC
+        ) AS scope_rank
+      FROM community_scores
+      WHERE cohort_key = ? AND week_key = ?
+    ),
+    best_scopes AS (
+      SELECT * FROM ranked_scopes WHERE scope_rank = 1
+    )
     SELECT
-      player_id,
+      nickname_key,
       MAX(nickname) AS nickname,
       SUM(correct) AS points,
       SUM(total) AS questions,
       COUNT(*) AS challenges,
-      MAX(updated_at) AS last_activity
-    FROM community_scores
-    WHERE cohort_key = ? AND week_key = ?
-    GROUP BY player_id
+      MAX(updated_at) AS last_activity,
+      MAX(CASE WHEN player_id = ? THEN 1 ELSE 0 END) AS direct_current
+    FROM best_scopes
+    GROUP BY nickname_key
     ORDER BY points DESC, (SUM(correct) * 1.0 / SUM(total)) DESC, last_activity ASC
     LIMIT ?
-  `).bind(COHORT_KEY, week.key, MAX_RANKING_ROWS).all();
+  `).bind(COHORT_KEY, week.key, currentPlayerId, MAX_RANKING_ROWS).all();
+
+  const currentNicknameKey = currentNickname.toLocaleLowerCase('es');
 
   const rows = result.results || [];
   const ranking = rows.map((row, index) => ({
@@ -138,7 +160,10 @@ async function readRanking(db, week, currentPlayerId = '') {
     questions: Number(row.questions) || 0,
     accuracy: row.questions ? Math.round((Number(row.points) / Number(row.questions)) * 100) : 0,
     challenges: Number(row.challenges) || 0,
-    isCurrent: Boolean(currentPlayerId && row.player_id === currentPlayerId)
+    isCurrent: Boolean(
+      (currentPlayerId && Number(row.direct_current) === 1) ||
+      (currentNicknameKey && row.nickname_key === currentNicknameKey)
+    )
   }));
 
   const currentUser = ranking.find((entry) => entry.isCurrent) || null;
@@ -147,13 +172,28 @@ async function readRanking(db, week, currentPlayerId = '') {
 
 async function readChallenge(db, week) {
   const row = await db.prepare(`
+    WITH ranked_scopes AS (
+      SELECT
+        LOWER(TRIM(nickname)) AS nickname_key,
+        scope_id,
+        correct,
+        total,
+        ROW_NUMBER() OVER (
+          PARTITION BY LOWER(TRIM(nickname)), scope_id
+          ORDER BY percentage DESC, correct DESC, updated_at DESC
+        ) AS scope_rank
+      FROM community_scores
+      WHERE cohort_key = ? AND week_key = ?
+    ),
+    best_scopes AS (
+      SELECT * FROM ranked_scopes WHERE scope_rank = 1
+    )
     SELECT
-      COUNT(DISTINCT player_id) AS participants,
+      COUNT(DISTINCT nickname_key) AS participants,
       COUNT(*) AS records,
       COALESCE(SUM(correct), 0) AS points,
       COALESCE(SUM(total), 0) AS questions
-    FROM community_scores
-    WHERE cohort_key = ? AND week_key = ?
+    FROM best_scopes
   `).bind(COHORT_KEY, week.key).first();
 
   const points = Number(row?.points) || 0;
@@ -171,9 +211,10 @@ async function handleGet(request, db) {
   const url = new URL(request.url);
   const requestedPlayer = url.searchParams.get('player') || '';
   const playerId = validPlayerId(requestedPlayer) ? requestedPlayer : '';
+  const nickname = cleanNickname(url.searchParams.get('nickname'));
   const week = currentWeek();
   const [{ ranking, currentUser }, challenge] = await Promise.all([
-    readRanking(db, week, playerId),
+    readRanking(db, week, playerId, nickname),
     readChallenge(db, week)
   ]);
 
@@ -247,15 +288,20 @@ async function handlePost(request, db) {
   const previous = await db.prepare(`
     SELECT correct, total, percentage
     FROM community_scores
-    WHERE cohort_key = ? AND week_key = ? AND player_id = ? AND scope_id = ?
-  `).bind(COHORT_KEY, week.key, playerId, scopeId).first();
+    WHERE cohort_key = ? AND week_key = ?
+      AND LOWER(TRIM(nickname)) = LOWER(TRIM(?))
+      AND scope_id = ?
+    ORDER BY percentage DESC, correct DESC, updated_at DESC
+    LIMIT 1
+  `).bind(COHORT_KEY, week.key, nickname, scopeId).first();
 
   if (!previous) {
     const count = await db.prepare(`
-      SELECT COUNT(*) AS count
+      SELECT COUNT(DISTINCT scope_id) AS count
       FROM community_scores
-      WHERE cohort_key = ? AND week_key = ? AND player_id = ?
-    `).bind(COHORT_KEY, week.key, playerId).first();
+      WHERE cohort_key = ? AND week_key = ?
+        AND LOWER(TRIM(nickname)) = LOWER(TRIM(?))
+    `).bind(COHORT_KEY, week.key, nickname).first();
     if (Number(count?.count) >= MAX_SCOPES_PER_PLAYER) {
       return errorResponse(429, 'weekly_limit', 'Has alcanzado el límite de módulos para esta semana.');
     }
@@ -303,8 +349,12 @@ async function handlePost(request, db) {
     db.prepare(`
       SELECT correct, total, percentage
       FROM community_scores
-      WHERE cohort_key = ? AND week_key = ? AND player_id = ? AND scope_id = ?
-    `).bind(COHORT_KEY, week.key, playerId, scopeId).first(),
+      WHERE cohort_key = ? AND week_key = ?
+        AND LOWER(TRIM(nickname)) = LOWER(TRIM(?))
+        AND scope_id = ?
+      ORDER BY percentage DESC, correct DESC, updated_at DESC
+      LIMIT 1
+    `).bind(COHORT_KEY, week.key, nickname, scopeId).first(),
     readChallenge(db, week)
   ]);
 

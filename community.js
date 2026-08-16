@@ -67,12 +67,12 @@
       accuracy:'{value}% de precisión',
       profileKicker:'TU IDENTIDAD EN EL RETO',
       profileTitle:'Elige un apodo',
-      profileCopy:'Será lo único que verá la clase. Puedes cambiarlo antes de publicar otro resultado.',
+      profileCopy:'Será lo único que verá la clase. Usa siempre el mismo apodo para reunir tus resultados.',
       nickname:'Apodo público',
       nicknamePlaceholder:'Ej.: Baboune',
       save:'Guardar apodo',
       invalidNickname:'Usa entre 2 y 24 letras, números o espacios.',
-      profileSaved:'Apodo guardado en este dispositivo.',
+      profileSaved:'Apodo guardado. Te reconoceremos por este apodo.',
       privacy:'No pedimos email ni nombre real. Participar es opcional.',
       howKicker:'CÓMO PARTICIPAR',
       howTitle:'Tres pasos, sin cuenta',
@@ -185,12 +185,12 @@
       accuracy:'{value}% de precisão',
       profileKicker:'SUA IDENTIDADE NO DESAFIO',
       profileTitle:'Escolha um apelido',
-      profileCopy:'É a única informação que a turma verá. Você pode alterá-lo antes de publicar outro resultado.',
+      profileCopy:'É a única informação que a turma verá. Use sempre o mesmo apelido para reunir seus resultados.',
       nickname:'Apelido público',
       nicknamePlaceholder:'Ex.: Baboune',
       save:'Salvar apelido',
       invalidNickname:'Use entre 2 e 24 letras, números ou espaços.',
-      profileSaved:'Apelido salvo neste dispositivo.',
+      profileSaved:'Apelido salvo. Vamos reconhecer você por este apelido.',
       privacy:'Não pedimos e-mail nem nome real. A participação é opcional.',
       howKicker:'COMO PARTICIPAR',
       howTitle:'Três passos, sem conta',
@@ -442,7 +442,10 @@
     state.loading = true;
     state.error = '';
     renderData();
-    fetch(API_URL + '?player=' + encodeURIComponent(profile.playerId),{credentials:'same-origin'})
+    fetch(
+      API_URL + '?player=' + encodeURIComponent(profile.playerId) + '&nickname=' + encodeURIComponent(profile.nickname),
+      {credentials:'same-origin'}
+    )
       .then(function(response){
         return response.json().catch(function(){ return {}; }).then(function(data){
           if(!response.ok){
