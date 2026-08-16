@@ -47,6 +47,35 @@ test.describe('Global medical glossary', () => {
     await expect(popover.locator('.mn-glossary-definition')).toHaveText('Aumento do CO₂ no sangue.');
   });
 
+  test('shows the complete name and each meaningful part when an acronym is touched', async ({ page }) => {
+    await page.goto('/clase.html#bio-detail', { waitUntil:'domcontentloaded' });
+    const atp = page.locator('.mn-glossary-term[data-glossary-key="atp"]:visible').first();
+    await expect(atp).toBeVisible({ timeout:15000 });
+    await atp.evaluate(node => node.scrollIntoView({ block:'center', inline:'nearest' }));
+    await atp.click();
+
+    const popover = page.locator('#mnMedicalGlossaryPopover');
+    await expect(popover).toBeVisible();
+    await expect(popover).toHaveClass(/mn-glossary-popover--detailed/);
+    await expect(popover.locator('.mn-glossary-expanded-label')).toHaveText('NOMBRE COMPLETO');
+    await expect(popover.locator('.mn-glossary-expanded-name')).toHaveText('Adenosina trifosfato');
+    await expect(popover.locator('.mn-glossary-parts-label')).toHaveText('QUÉ SIGNIFICA CADA LETRA O PARTE');
+    await expect(popover.locator('.mn-glossary-part')).toHaveCount(3);
+    await expect(popover.locator('.mn-glossary-part').nth(0)).toContainText('Adenosina');
+    await expect(popover.locator('.mn-glossary-part').nth(1)).toContainText('Tri = tres');
+    await expect(popover.locator('.mn-glossary-part').nth(2)).toContainText('Fosfato');
+
+    const nadh = page.locator('.mn-glossary-term[data-glossary-key="nadh"]:visible').first();
+    await nadh.evaluate(node => node.scrollIntoView({ block:'center', inline:'nearest' }));
+    await nadh.click();
+    await expect(popover.locator('.mn-glossary-expanded-name')).toHaveText('Dinucleótido de nicotinamida y adenina, forma reducida');
+    await expect(popover.locator('.mn-glossary-part')).toHaveCount(4);
+    await expect(popover.locator('.mn-glossary-part').last()).toContainText('Hidrógeno recibido');
+
+    const f16bp = page.locator('.mn-glossary-term[data-glossary-key="f16bp"]:visible').first();
+    await expect(f16bp).toBeVisible();
+  });
+
   test('keeps a definition visible inside the Microbiology homework dialog on iPhone', async ({ page }) => {
     await page.setViewportSize({ width:390, height:844 });
     await page.goto('/clase.html#microTheoryPrepCard', { waitUntil:'domcontentloaded' });

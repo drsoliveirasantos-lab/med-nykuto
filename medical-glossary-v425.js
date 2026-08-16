@@ -3,7 +3,7 @@
 
   if(window.MedNykutoGlossary) return;
 
-  var VERSION = 'v425-global-medical-glossary';
+  var VERSION = 'v426-global-medical-glossary';
   var POPOVER_ID = 'mnMedicalGlossaryPopover';
   var entries = [
     {key:'increase',forms:['↑'],es:'Aumenta: la cantidad o el valor sube.',br:'Aumenta: a quantidade ou o valor sobe.'},
@@ -119,12 +119,13 @@
     {key:'phosphorylation',forms:['fosforilación','fosforilação'],es:'Adición de un grupo fosfato a una molécula.',br:'Adição de um grupo fosfato a uma molécula.'},
     {key:'oxidation',forms:['oxidación','oxidação'],es:'Pérdida de electrones durante una reacción química.',br:'Perda de elétrons durante uma reação química.'},
     {key:'reduction',forms:['reducción','redução'],es:'Ganancia de electrones durante una reacción química.',br:'Ganho de elétrons durante uma reação química.'},
-    {key:'atp',forms:['ATP'],es:'Principal molécula que entrega energía inmediata a la célula.',br:'Principal molécula que fornece energia imediata à célula.'},
-    {key:'adp',forms:['ADP'],es:'Molécula que puede recibir un fosfato para formar ATP.',br:'Molécula que pode receber um fosfato para formar ATP.'},
-    {key:'amp',forms:['AMP'],es:'Molécula con un fosfato; su aumento puede señalar poca energía celular.',br:'Molécula com um fosfato; seu aumento pode indicar pouca energia celular.'},
-    {key:'nadh',forms:['NADH'],es:'Molécula que transporta electrones ricos en energía.',br:'Molécula que transporta elétrons ricos em energia.'},
-    {key:'nad-plus',forms:['NAD⁺','NAD+'],es:'Forma que acepta electrones y se convierte en NADH.',br:'Forma que recebe elétrons e se transforma em NADH.'},
-    {key:'fadh2',forms:['FADH₂','FADH2'],es:'Molécula que lleva electrones hacia la producción de energía.',br:'Molécula que leva elétrons para a produção de energia.'},
+    {key:'atp',forms:['ATP'],es:'Principal molécula que entrega energía inmediata a la célula.',br:'Principal molécula que fornece energia imediata à célula.',full:{es:'Adenosina trifosfato',br:'Adenosina trifosfato'},parts:{es:[['A','Adenosina'],['T','Tri = tres'],['P','Fosfato']],br:[['A','Adenosina'],['T','Tri = três'],['P','Fosfato']]}},
+    {key:'adp',forms:['ADP'],es:'Molécula que puede recibir un fosfato para formar ATP.',br:'Molécula que pode receber um fosfato para formar ATP.',full:{es:'Adenosina difosfato',br:'Adenosina difosfato'},parts:{es:[['A','Adenosina'],['D','Di = dos'],['P','Fosfato']],br:[['A','Adenosina'],['D','Di = dois'],['P','Fosfato']]}},
+    {key:'amp',forms:['AMP'],es:'Molécula con un fosfato; su aumento puede señalar poca energía celular.',br:'Molécula com um fosfato; seu aumento pode indicar pouca energia celular.',full:{es:'Adenosina monofosfato',br:'Adenosina monofosfato'},parts:{es:[['A','Adenosina'],['M','Mono = uno'],['P','Fosfato']],br:[['A','Adenosina'],['M','Mono = um'],['P','Fosfato']]}},
+    {key:'nadh',forms:['NADH'],es:'Molécula en su forma reducida que transporta electrones ricos en energía.',br:'Molécula em sua forma reduzida que transporta elétrons ricos em energia.',full:{es:'Dinucleótido de nicotinamida y adenina, forma reducida',br:'Dinucleotídeo de nicotinamida e adenina, forma reduzida'},parts:{es:[['N','Nicotinamida'],['A','Adenina'],['D','Dinucleótido'],['H','Hidrógeno recibido']],br:[['N','Nicotinamida'],['A','Adenina'],['D','Dinucleotídeo'],['H','Hidrogênio recebido']]}},
+    {key:'nad-plus',forms:['NAD⁺','NAD+'],es:'Forma oxidada que acepta electrones y se convierte en NADH.',br:'Forma oxidada que recebe elétrons e se transforma em NADH.',full:{es:'Dinucleótido de nicotinamida y adenina, forma oxidada',br:'Dinucleotídeo de nicotinamida e adenina, forma oxidada'},parts:{es:[['N','Nicotinamida'],['A','Adenina'],['D','Dinucleótido'],['+','Forma oxidada']],br:[['N','Nicotinamida'],['A','Adenina'],['D','Dinucleotídeo'],['+','Forma oxidada']]}},
+    {key:'fadh2',forms:['FADH₂','FADH2'],es:'Molécula en su forma reducida que lleva electrones hacia la producción de energía.',br:'Molécula em sua forma reduzida que leva elétrons para a produção de energia.',full:{es:'Dinucleótido de flavina y adenina, forma reducida',br:'Dinucleotídeo de flavina e adenina, forma reduzida'},parts:{es:[['F','Flavina'],['A','Adenina'],['D','Dinucleótido'],['H₂','Dos hidrógenos recibidos']],br:[['F','Flavina'],['A','Adenina'],['D','Dinucleotídeo'],['H₂','Dois hidrogênios recebidos']]}},
+    {key:'pi',forms:['Pi'],es:'Fosfato inorgánico libre que puede participar en una reacción.',br:'Fosfato inorgânico livre que pode participar de uma reação.',full:{es:'Fosfato inorgánico',br:'Fosfato inorgânico'},parts:{es:[['P','Fosfato'],['i','Inorgánico']],br:[['P','Fosfato'],['i','Inorgânico']]}},
     {key:'enzyme',forms:['enzima','enzimas'],es:'Proteína que acelera una reacción sin consumirse en ella.',br:'Proteína que acelera uma reação sem ser consumida nela.'},
     {key:'substrate',forms:['sustrato','substrato'],es:'Molécula sobre la que actúa una enzima.',br:'Molécula sobre a qual uma enzima atua.'},
     {key:'cofactor',forms:['cofactor','coenzima'],es:'Ayudante que una enzima necesita para funcionar; puede ser un ion o una molécula orgánica.',br:'Auxiliar de que uma enzima precisa para funcionar; pode ser um íon ou uma molécula orgânica.'},
@@ -135,14 +136,20 @@
     {key:'lactate',forms:['lactato'],es:'Molécula formada a partir del piruvato para regenerar NAD⁺ cuando es necesario.',br:'Molécula formada a partir do piruvato para regenerar NAD⁺ quando necessário.'},
     {key:'hexokinase',forms:['hexoquinasa','hexoquinase'],es:'Enzima que coloca un fosfato en la glucosa al inicio de la glucólisis.',br:'Enzima que coloca um fosfato na glicose no início da glicólise.'},
     {key:'glucokinase',forms:['glucoquinasa','glicoquinase'],es:'Enzima del hígado y páncreas que fosforila glucosa cuando hay suficiente.',br:'Enzima do fígado e pâncreas que fosforila glicose quando há quantidade suficiente.'},
-    {key:'pfk1',forms:['PFK-1','PFK I'],es:'Enzima reguladora clave que compromete la glucosa con la vía glucolítica.',br:'Enzima reguladora central que direciona a glicose para a glicólise.'},
-    {key:'gkrp',forms:['GKRP'],es:'Proteína que regula la glucoquinasa del hígado y puede retenerla en el núcleo.',br:'Proteína que regula a glicoquinase do fígado e pode retê-la no núcleo.'},
-    {key:'glut4',forms:['GLUT4'],es:'Transportador que lleva glucosa a músculo y tejido adiposo en respuesta a insulina.',br:'Transportador que leva glicose ao músculo e tecido adiposo em resposta à insulina.'},
-    {key:'glut5',forms:['GLUT5'],es:'Transportador que mueve principalmente fructosa.',br:'Transportador que move principalmente frutose.'},
-    {key:'g6p',forms:['G6P'],es:'Glucosa-6-fosfato, glucosa que ya recibió un fosfato dentro de la célula.',br:'Glicose-6-fosfato, glicose que já recebeu um fosfato dentro da célula.'},
-    {key:'f6p',forms:['F6P'],es:'Fructosa-6-fosfato, intermediario de la glucólisis.',br:'Frutose-6-fosfato, intermediário da glicólise.'},
-    {key:'g3p',forms:['G3P'],es:'Gliceraldehído-3-fosfato, molécula de tres carbonos de la glucólisis.',br:'Gliceraldeído-3-fosfato, molécula de três carbonos da glicólise.'},
-    {key:'pep',forms:['PEP'],es:'Fosfoenolpiruvato, intermediario de alta energía antes de formar piruvato.',br:'Fosfoenolpiruvato, intermediário de alta energia antes de formar piruvato.'},
+    {key:'pfk1',forms:['PFK-1','PFK I'],es:'Enzima reguladora clave que compromete la glucosa con la vía glucolítica.',br:'Enzima reguladora central que direciona a glicose para a glicólise.',full:{es:'Fosfofructoquinasa 1',br:'Fosfofrutoquinase 1'},parts:{es:[['P','Fosfo'],['F','Fructosa'],['K','Kinase = quinasa'],['1','Tipo 1']],br:[['P','Fosfo'],['F','Frutose'],['K','Kinase = quinase'],['1','Tipo 1']]}},
+    {key:'gkrp',forms:['GKRP'],es:'Proteína que regula la glucoquinasa del hígado y puede retenerla en el núcleo.',br:'Proteína que regula a glicoquinase do fígado e pode retê-la no núcleo.',full:{es:'Proteína reguladora de la glucoquinasa',br:'Proteína reguladora da glicoquinase'},parts:{es:[['GK','Glucokinase = glucoquinasa'],['R','Regulatory = reguladora'],['P','Protein = proteína']],br:[['GK','Glucokinase = glicoquinase'],['R','Regulatory = reguladora'],['P','Protein = proteína']]}},
+    {key:'glut4',forms:['GLUT4'],es:'Transportador que lleva glucosa a músculo y tejido adiposo en respuesta a insulina.',br:'Transportador que leva glicose ao músculo e tecido adiposo em resposta à insulina.',full:{es:'Transportador de glucosa tipo 4',br:'Transportador de glicose tipo 4'},parts:{es:[['GLU','Glucosa'],['T','Transportador'],['4','Tipo 4']],br:[['GLU','Glicose'],['T','Transportador'],['4','Tipo 4']]}},
+    {key:'glut5',forms:['GLUT5'],es:'Transportador que mueve principalmente fructosa.',br:'Transportador que move principalmente frutose.',full:{es:'Transportador de glucosa tipo 5',br:'Transportador de glicose tipo 5'},parts:{es:[['GLU','Glucosa'],['T','Transportador'],['5','Tipo 5']],br:[['GLU','Glicose'],['T','Transportador'],['5','Tipo 5']]}},
+    {key:'g6p',forms:['G6P'],es:'Glucosa que ya recibió un fosfato dentro de la célula.',br:'Glicose que já recebeu um fosfato dentro da célula.',full:{es:'Glucosa-6-fosfato',br:'Glicose-6-fosfato'},parts:{es:[['G','Glucosa'],['6','Posición del fosfato'],['P','Fosfato']],br:[['G','Glicose'],['6','Posição do fosfato'],['P','Fosfato']]}},
+    {key:'f6p',forms:['F6P'],es:'Intermediario de la glucólisis formado a partir de glucosa-6-fosfato.',br:'Intermediário da glicólise formado a partir de glicose-6-fosfato.',full:{es:'Fructosa-6-fosfato',br:'Frutose-6-fosfato'},parts:{es:[['F','Fructosa'],['6','Posición del fosfato'],['P','Fosfato']],br:[['F','Frutose'],['6','Posição do fosfato'],['P','Fosfato']]}},
+    {key:'f16bp',forms:['F1,6BP'],es:'Intermediario de seis carbonos que después se divide en dos moléculas de tres carbonos.',br:'Intermediário de seis carbonos que depois se divide em duas moléculas de três carbonos.',full:{es:'Fructosa-1,6-bisfosfato',br:'Frutose-1,6-bisfosfato'},parts:{es:[['F','Fructosa'],['1,6','Posiciones de los fosfatos'],['B','Bis = dos'],['P','Fosfato']],br:[['F','Frutose'],['1,6','Posições dos fosfatos'],['B','Bis = dois'],['P','Fosfato']]}},
+    {key:'f26bp',forms:['F2,6BP'],es:'Molécula reguladora que activa PFK-1 y favorece la glucólisis.',br:'Molécula reguladora que ativa a PFK-1 e favorece a glicólise.',full:{es:'Fructosa-2,6-bisfosfato',br:'Frutose-2,6-bisfosfato'},parts:{es:[['F','Fructosa'],['2,6','Posiciones de los fosfatos'],['B','Bis = dos'],['P','Fosfato']],br:[['F','Frutose'],['2,6','Posições dos fosfatos'],['B','Bis = dois'],['P','Fosfato']]}},
+    {key:'dhap',forms:['DHAP'],es:'Molécula de tres carbonos que puede convertirse en G3P durante la glucólisis.',br:'Molécula de três carbonos que pode se transformar em G3P durante a glicólise.',full:{es:'Dihidroxiacetona fosfato',br:'Di-hidroxiacetona fosfato'},parts:{es:[['DHA','Dihydroxyacetone = dihidroxiacetona'],['P','Phosphate = fosfato']],br:[['DHA','Dihydroxyacetone = di-hidroxiacetona'],['P','Phosphate = fosfato']]}},
+    {key:'g3p',forms:['G3P'],es:'Molécula de tres carbonos que continúa por la fase de beneficio de la glucólisis.',br:'Molécula de três carbonos que segue pela fase de retorno da glicólise.',full:{es:'Gliceraldehído-3-fosfato',br:'Gliceraldeído-3-fosfato'},parts:{es:[['G','Gliceraldehído'],['3','Posición del fosfato'],['P','Fosfato']],br:[['G','Gliceraldeído'],['3','Posição do fosfato'],['P','Fosfato']]}},
+    {key:'bpg13',forms:['1,3-BPG'],es:'Intermediario de alta energía que permite formar ATP en el paso siguiente.',br:'Intermediário de alta energia que permite formar ATP na etapa seguinte.',full:{es:'1,3-bisfosfoglicerato',br:'1,3-bisfosfoglicerato'},parts:{es:[['1,3','Posiciones de los fosfatos'],['B','Bis = dos'],['P','Fosfato'],['G','Glicerato']],br:[['1,3','Posições dos fosfatos'],['B','Bis = dois'],['P','Fosfato'],['G','Glicerato']]}},
+    {key:'pg3',forms:['3-PG'],es:'Intermediario de tres carbonos de la fase de beneficio de la glucólisis.',br:'Intermediário de três carbonos da fase de retorno da glicólise.',full:{es:'3-fosfoglicerato',br:'3-fosfoglicerato'},parts:{es:[['3','Posición del fosfato'],['P','Fosfato'],['G','Glicerato']],br:[['3','Posição do fosfato'],['P','Fosfato'],['G','Glicerato']]}},
+    {key:'pg2',forms:['2-PG'],es:'Intermediario que se transforma en PEP antes de formar piruvato.',br:'Intermediário que se transforma em PEP antes de formar piruvato.',full:{es:'2-fosfoglicerato',br:'2-fosfoglicerato'},parts:{es:[['2','Posición del fosfato'],['P','Fosfato'],['G','Glicerato']],br:[['2','Posição do fosfato'],['P','Fosfato'],['G','Glicerato']]}},
+    {key:'pep',forms:['PEP'],es:'Intermediario de alta energía que aparece justo antes de formar piruvato.',br:'Intermediário de alta energia que aparece logo antes de formar piruvato.',full:{es:'Fosfoenolpiruvato',br:'Fosfoenolpiruvato'},parts:{es:[['P','Fosfo'],['E','Enol'],['P','Piruvato']],br:[['P','Fosfo'],['E','Enol'],['P','Piruvato']]}},
 
     {key:'pathogen',forms:['patógeno','patógenos'],es:'Microorganismo o agente capaz de causar enfermedad.',br:'Microrganismo ou agente capaz de causar doença.'},
     {key:'virulence',forms:['virulencia','virulência'],es:'Capacidad de un agente para causar daño o enfermedad grave.',br:'Capacidade de um agente de causar dano ou doença grave.'},
@@ -267,8 +274,8 @@
   ];
 
   var strings = {
-    es:{label:'DEFINICIÓN SIMPLE',close:'Cerrar definición',hint:'Toca un término resaltado para ver qué significa.',title:'Ver definición simple'},
-    br:{label:'EXPLICAÇÃO SIMPLES',close:'Fechar explicação',hint:'Toque em um termo destacado para ver o significado.',title:'Ver explicação simples'}
+    es:{label:'DEFINICIÓN SIMPLE',full:'NOMBRE COMPLETO',parts:'QUÉ SIGNIFICA CADA LETRA O PARTE',close:'Cerrar definición',hint:'Toca un término resaltado para ver qué significa.',title:'Ver definición simple'},
+    br:{label:'EXPLICAÇÃO SIMPLES',full:'NOME COMPLETO',parts:'O QUE CADA LETRA OU PARTE SIGNIFICA',close:'Fechar explicação',hint:'Toque em um termo destacado para ver o significado.',title:'Ver explicação simples'}
   };
   var aliasMap = new Map();
   var aliases = [];
@@ -320,16 +327,26 @@
       '.mn-glossary-term{display:inline!important;width:auto!important;min-width:0!important;min-height:0!important;margin:0;padding:0 .08em;border:0;border-radius:.22em;background:rgba(97,218,251,.08);color:inherit;border-bottom:1.5px dotted currentColor;font:inherit;font-weight:800;line-height:inherit;letter-spacing:inherit;text-align:inherit;white-space:normal;vertical-align:baseline;box-shadow:none!important;cursor:pointer;touch-action:manipulation;-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent;box-decoration-break:clone;-webkit-box-decoration-break:clone}' +
       '.mn-glossary-term:hover,.mn-glossary-term:focus-visible,.mn-glossary-term[aria-expanded="true"]{background:rgba(97,218,251,.18);outline:none;box-shadow:0 0 0 2px rgba(97,218,251,.3)}' +
       '.mn-glossary-popover{position:fixed;z-index:2147483000;width:max-content;max-width:min(350px,calc(100vw - 20px));padding:13px 42px 13px 14px;border:1px solid rgba(111,211,244,.42);border-radius:15px;background:#071321;color:#f7fbff;box-shadow:0 18px 48px rgba(0,0,0,.48);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;line-height:1.42;text-align:left;overflow-wrap:anywhere}' +
+      '.mn-glossary-popover--detailed{width:min(390px,calc(100vw - 20px));max-width:390px}' +
       '.mn-glossary-popover[hidden]{display:none}' +
       '.mn-glossary-popover::after{content:"";position:absolute;left:var(--mn-arrow-left,50%);width:10px;height:10px;background:#071321;border-right:1px solid rgba(111,211,244,.42);border-bottom:1px solid rgba(111,211,244,.42);transform:translateX(-50%) rotate(45deg)}' +
       '.mn-glossary-popover[data-placement="above"]::after{bottom:-6px}' +
       '.mn-glossary-popover[data-placement="below"]::after{top:-6px;transform:translateX(-50%) rotate(225deg)}' +
       '.mn-glossary-label{display:block;margin:0 0 4px;color:#76dcfb;font-size:10px;font-weight:900;letter-spacing:.13em}' +
       '.mn-glossary-title{display:block;margin:0 0 3px;color:#ffe19a;font-size:15px;font-weight:850}' +
+      '.mn-glossary-expanded{display:grid;gap:2px;margin:8px 0 7px;padding:8px 9px;border:1px solid rgba(255,225,154,.2);border-radius:10px;background:rgba(255,225,154,.055)}' +
+      '.mn-glossary-expanded[hidden],.mn-glossary-parts-label[hidden],.mn-glossary-parts[hidden]{display:none}' +
+      '.mn-glossary-expanded-label,.mn-glossary-parts-label{display:block;color:#9eb1c5;font-size:9px;font-weight:900;letter-spacing:.11em}' +
+      '.mn-glossary-expanded-name{display:block;color:#fff4d2;font-size:13px;font-weight:850;line-height:1.28}' +
       '.mn-glossary-definition{display:block;color:#eef5fc}' +
+      '.mn-glossary-parts-label{margin:11px 0 5px;color:#76dcfb}' +
+      '.mn-glossary-parts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}' +
+      '.mn-glossary-part{min-width:0;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:7px;padding:6px 7px;border:1px solid rgba(158,177,197,.16);border-radius:9px;background:rgba(255,255,255,.035)}' +
+      '.mn-glossary-part b{min-width:26px;min-height:26px;display:grid;place-items:center;padding:2px 5px;border-radius:7px;color:#071321;background:#ffe19a;font-size:11px;line-height:1}' +
+      '.mn-glossary-part small{min-width:0;color:#dce8f4;font-size:10px;font-weight:700;line-height:1.2;overflow-wrap:anywhere}' +
       '.mn-glossary-close{position:absolute;top:7px;right:7px;display:grid;place-items:center;width:34px;height:34px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font:700 20px/1 system-ui;cursor:pointer;touch-action:manipulation}' +
       '.mn-glossary-close:hover,.mn-glossary-close:focus-visible{background:rgba(255,255,255,.18);outline:2px solid #76dcfb;outline-offset:1px}' +
-      '@media(max-width:480px){.mn-glossary-popover{max-width:calc(100vw - 16px);padding:11px 40px 11px 12px;border-radius:13px;font-size:13px;line-height:1.38}.mn-glossary-title{font-size:14px}.mn-glossary-close{top:5px;right:5px;width:36px;height:36px}.mn-glossary-term{padding:0 .05em}}' +
+      '@media(max-width:480px){.mn-glossary-popover{max-width:calc(100vw - 16px);padding:11px 40px 11px 12px;border-radius:13px;font-size:13px;line-height:1.38}.mn-glossary-popover--detailed{width:calc(100vw - 16px)}.mn-glossary-title{font-size:14px}.mn-glossary-expanded{margin:7px 0 6px;padding:7px 8px}.mn-glossary-expanded-name{font-size:12px}.mn-glossary-parts-label{margin-top:9px}.mn-glossary-part{gap:5px;padding:5px}.mn-glossary-part b{min-width:24px;min-height:24px}.mn-glossary-part small{font-size:9px}.mn-glossary-close{top:5px;right:5px;width:36px;height:36px}.mn-glossary-term{padding:0 .05em}}' +
       '@media(prefers-reduced-motion:no-preference){.mn-glossary-popover:not([hidden]){animation:mnGlossaryIn .14s ease-out}@keyframes mnGlossaryIn{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}}';
     document.head.appendChild(style);
   }
@@ -350,9 +367,26 @@
     var title = document.createElement('strong');
     title.className = 'mn-glossary-title';
     title.id = POPOVER_ID + 'Title';
+    var expanded = document.createElement('span');
+    expanded.className = 'mn-glossary-expanded';
+    expanded.hidden = true;
+    var expandedLabel = document.createElement('small');
+    expandedLabel.className = 'mn-glossary-expanded-label';
+    var expandedName = document.createElement('strong');
+    expandedName.className = 'mn-glossary-expanded-name';
+    expandedName.id = POPOVER_ID + 'ExpandedName';
+    expanded.appendChild(expandedLabel);
+    expanded.appendChild(expandedName);
     var definition = document.createElement('span');
     definition.className = 'mn-glossary-definition';
     definition.id = POPOVER_ID + 'Definition';
+    var partsLabel = document.createElement('span');
+    partsLabel.className = 'mn-glossary-parts-label';
+    partsLabel.hidden = true;
+    var parts = document.createElement('span');
+    parts.className = 'mn-glossary-parts';
+    parts.id = POPOVER_ID + 'Parts';
+    parts.hidden = true;
     var close = document.createElement('button');
     close.type = 'button';
     close.className = 'mn-glossary-close';
@@ -363,7 +397,10 @@
     });
     popover.appendChild(label);
     popover.appendChild(title);
+    popover.appendChild(expanded);
     popover.appendChild(definition);
+    popover.appendChild(partsLabel);
+    popover.appendChild(parts);
     popover.appendChild(close);
     popover.setAttribute('aria-labelledby', title.id);
     popover.setAttribute('aria-describedby', definition.id);
@@ -430,6 +467,32 @@
     panel.querySelector('.mn-glossary-label').textContent = copy.label;
     panel.querySelector('.mn-glossary-title').textContent = trigger.textContent.trim();
     panel.querySelector('.mn-glossary-definition').textContent = entry[lang];
+    var expanded = panel.querySelector('.mn-glossary-expanded');
+    var expandedName = panel.querySelector('.mn-glossary-expanded-name');
+    var partsLabel = panel.querySelector('.mn-glossary-parts-label');
+    var parts = panel.querySelector('.mn-glossary-parts');
+    var fullName = entry.full && entry.full[lang];
+    var partItems = entry.parts && entry.parts[lang];
+    panel.classList.toggle('mn-glossary-popover--detailed',Boolean(fullName || (partItems && partItems.length)));
+    expanded.hidden = !fullName;
+    expanded.querySelector('.mn-glossary-expanded-label').textContent = copy.full;
+    expandedName.textContent = fullName || '';
+    partsLabel.hidden = !(partItems && partItems.length);
+    partsLabel.textContent = copy.parts;
+    parts.hidden = !(partItems && partItems.length);
+    while(parts.firstChild) parts.removeChild(parts.firstChild);
+    (partItems || []).forEach(function(part){
+      var item = document.createElement('span');
+      item.className = 'mn-glossary-part';
+      var symbol = document.createElement('b');
+      symbol.textContent = part[0];
+      var meaning = document.createElement('small');
+      meaning.textContent = part[1];
+      item.appendChild(symbol);
+      item.appendChild(meaning);
+      parts.appendChild(item);
+    });
+    panel.setAttribute('aria-describedby',fullName ? expandedName.id + ' ' + POPOVER_ID + 'Definition ' + parts.id : POPOVER_ID + 'Definition');
     var close = panel.querySelector('.mn-glossary-close');
     close.setAttribute('aria-label',copy.close);
     close.setAttribute('title',copy.close);

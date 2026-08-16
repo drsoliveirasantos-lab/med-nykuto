@@ -31,6 +31,21 @@ test.describe('Class hub', () => {
     await expect(page.locator('#materias')).toBeHidden();
   });
 
+  test('keeps the official UCP portal and shared class files visible from the home page', async ({ page }) => {
+    const portal = page.getByRole('link', { name:/Abrir el Portal UCP/ });
+    await expect(portal).toBeVisible();
+    await expect(portal).toHaveAttribute('href', 'https://virtual.central.edu.py/auth');
+    await expect(portal).toHaveAttribute('target', '_blank');
+    await expect(portal).toHaveAttribute('rel', /noopener/);
+    await expect(portal).toHaveAttribute('rel', /noreferrer/);
+    await expect(portal).toContainText('Notas y aula virtual');
+
+    const homeDrive = page.locator('.home-quick-links [data-class-drive-link]');
+    await expect(homeDrive).toBeVisible();
+    await expect(homeDrive).toHaveAttribute('href', CLASS_DRIVE_URL);
+    await expect(homeDrive).toContainText('PDF y PowerPoint');
+  });
+
   test('uses clickable views and shows only one course at a time', async ({ page }) => {
     await page.locator('.workspace-nav [data-view-link="cursos"]').click();
     await expect(page.locator('#materias')).toBeVisible();
@@ -84,7 +99,7 @@ test.describe('Class hub', () => {
     await expect(centralDrive).toHaveAttribute('rel', /noreferrer/);
 
     const driveLinks = page.locator('[data-class-drive-link]');
-    await expect(driveLinks).toHaveCount(3);
+    await expect(driveLinks).toHaveCount(4);
     expect(await driveLinks.evaluateAll((links, driveUrl) => links.every((link) => link.getAttribute('href') === driveUrl), CLASS_DRIVE_URL)).toBe(true);
 
     await page.goto('/clase.html#nutrition-seminar');
@@ -224,7 +239,8 @@ test.describe('Class hub', () => {
     await expect(page.locator('.bio-board-route article')).toHaveCount(4);
     await expect(page.getByRole('heading', { name: 'Una glucosa se convierte en dos piruvatos' })).toBeVisible();
     await expect(page.locator('.bio-pathway-node')).toHaveCount(4);
-    await expect(page.locator('.bio-abbrev-card')).toHaveCount(4);
+    await expect(page.locator('.bio-abbrev-guide')).toHaveCount(0);
+    await expect(page.locator('.mn-glossary-term[data-glossary-key="atp"]:visible').first()).toBeVisible();
     await expect(page.getByText('Malato–aspartato: ≈2,5 ATP/NADH; glicerol-3-fosfato: ≈1,5 ATP/NADH.')).toBeVisible();
     await expect(page.getByText('su rendimiento oxidativo no es siempre 2,5 ATP por NADH', { exact: false })).toBeVisible();
     await expect(page.getByText('Bioquímica · 3 clases')).toBeVisible();
@@ -261,7 +277,7 @@ test.describe('Class hub', () => {
     await expect(openArchive).toBeFocused();
   });
 
-  test('keeps the glycolysis diagram and abbreviation decoder compact on iPhone', async ({ page }) => {
+  test('keeps the glycolysis diagram and direct acronym definitions compact on iPhone', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/clase.html#bio-detail');
 
@@ -280,11 +296,23 @@ test.describe('Class hub', () => {
     expect(layout.mapWidth).toBeLessThanOrEqual(layout.sectionWidth);
     expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
 
-    const nadh = page.locator('.bio-abbrev-card').filter({ hasText: 'NADH' }).first();
-    await nadh.locator('summary').click();
-    await expect(nadh).toHaveAttribute('open', '');
-    await expect(nadh.getByText('Nicotinamida', { exact: true })).toBeVisible();
-    await expect(nadh.getByText('Hidrógeno recibido', { exact: true })).toBeVisible();
+    const nadh = page.locator('.mn-glossary-term[data-glossary-key="nadh"]:visible').first();
+    await expect(nadh).toBeVisible({ timeout:15000 });
+    await nadh.evaluate(node => node.scrollIntoView({ block:'center', inline:'nearest' }));
+    await nadh.click();
+    const popover = page.locator('#mnMedicalGlossaryPopover');
+    await expect(popover).toBeVisible();
+    await expect(popover.locator('.mn-glossary-expanded-name')).toContainText('Dinucleótido de nicotinamida y adenina');
+    await expect(popover.getByText('Nicotinamida', { exact:true })).toBeVisible();
+    await expect(popover.getByText('Hidrógeno recibido', { exact:true })).toBeVisible();
+    const popoverBounds = await popover.evaluate(node => {
+      const rect = node.getBoundingClientRect();
+      return { left:rect.left, right:rect.right, top:rect.top, bottom:rect.bottom, width:window.innerWidth, height:window.innerHeight };
+    });
+    expect(popoverBounds.left).toBeGreaterThanOrEqual(0);
+    expect(popoverBounds.right).toBeLessThanOrEqual(popoverBounds.width);
+    expect(popoverBounds.top).toBeGreaterThanOrEqual(0);
+    expect(popoverBounds.bottom).toBeLessThanOrEqual(popoverBounds.height);
   });
 
   test('opens both teacher PDF decks inside the Microbiology archive', async ({ page }) => {
