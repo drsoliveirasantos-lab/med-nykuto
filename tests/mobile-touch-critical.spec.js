@@ -337,6 +337,50 @@ test.describe('Mobile critical paths', () => {
     await expect(desktopTable.locator('.table-scroll')).toBeVisible();
   });
 
+  test('glycolysis board archive stays inside an iPhone viewport', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/clase.html#bioquimica', { waitUntil: 'domcontentloaded' });
+    const launch = page.locator('.board-archive-launch');
+    await expect(launch).toBeVisible();
+    await launch.getByRole('button', { name: /Ver las 7 láminas/ }).click();
+
+    const dialog = page.locator('#bioBoardArchive');
+    await expect(dialog).toBeVisible();
+    const layout = await dialog.evaluate((node) => {
+      const box = node.getBoundingClientRect();
+      const close = node.querySelector('[data-board-archive-close]').getBoundingClientRect();
+      const image = node.querySelector('#boardArchiveImage').getBoundingClientRect();
+      const frame = node.querySelector('.board-archive-image-frame').getBoundingClientRect();
+      const thumbnails = node.querySelector('.board-archive-thumbnails');
+      return {
+        left:box.left,
+        right:box.right,
+        top:box.top,
+        bottom:box.bottom,
+        viewportWidth:innerWidth,
+        viewportHeight:innerHeight,
+        closeWidth:close.width,
+        closeHeight:close.height,
+        imageWidth:image.width,
+        frameWidth:frame.width,
+        thumbnailCount:thumbnails.querySelectorAll('[data-board-archive-slide]').length,
+        documentOverflow:document.documentElement.scrollWidth - document.documentElement.clientWidth
+      };
+    });
+    expect(layout.left).toBeGreaterThanOrEqual(0);
+    expect(layout.right).toBeLessThanOrEqual(layout.viewportWidth);
+    expect(layout.top).toBeGreaterThanOrEqual(0);
+    expect(layout.bottom).toBeLessThanOrEqual(layout.viewportHeight);
+    expect(layout.closeWidth).toBeGreaterThanOrEqual(44);
+    expect(layout.closeHeight).toBeGreaterThanOrEqual(44);
+    expect(layout.imageWidth).toBeLessThanOrEqual(layout.frameWidth);
+    expect(layout.thumbnailCount).toBe(7);
+    expect(layout.documentOverflow).toBeLessThanOrEqual(1);
+
+    await dialog.locator('[data-board-archive-next]').click();
+    await expect(page.locator('#boardArchiveCounter')).toHaveText('LÁMINA 2 DE 7');
+  });
+
   test('mobile navigation and practice controls remain usable', async ({ page }) => {
     await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
     await dismissSemesterPicker(page);

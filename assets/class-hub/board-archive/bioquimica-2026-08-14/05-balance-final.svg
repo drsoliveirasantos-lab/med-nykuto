@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Balance final de la glucólisis</title>
+  <desc id="desc">Balanza de ATP, NADH y destinos de los dos piruvatos formados por cada glucosa.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#122b45"/><stop offset="1" stop-color="#07111f"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#f2c66d"/><stop offset="1" stop-color="#72e0ab"/></linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#8eb6d8" stroke-opacity=".055"/></pattern>
+    <style><![CDATA[
+      text{font-family:Inter,Arial,sans-serif}.k{fill:#ffe2a3;font-size:23px;font-weight:800;letter-spacing:5px}.page{fill:#6fd8ff;font-size:22px;font-weight:800}.h1{fill:#f7f9fc;font-size:68px;font-weight:800;letter-spacing:-2px}.sub{fill:#aebbd0;font-size:29px}.label{fill:#6fd8ff;font-size:22px;font-weight:850;letter-spacing:3px}.math{fill:#f7f9fc;font-size:48px;font-weight:900}.meta{fill:#aebbd0;font-size:25px}.dark{fill:#07111f;font-size:38px;font-weight:900}.cardh{fill:#f7f9fc;font-size:31px;font-weight:850}.body{fill:#ced7e5;font-size:24px}.foot{fill:#ffe2a3;font-size:22px;font-weight:800}
+    ]]></style>
+  </defs>
+  <rect width="1080" height="1350" rx="50" fill="url(#bg)"/><rect width="1080" height="1350" rx="50" fill="url(#grid)"/>
+  <circle cx="50" cy="1300" r="260" fill="#f2c66d" opacity=".05"/>
+  <g transform="translate(72 70)">
+    <text class="k" y="26">ARCHIVO DE LA PIZARRA</text><text class="page" x="936" y="26" text-anchor="end">05 / 07</text><rect y="55" width="936" height="3" rx="2" fill="url(#accent)"/>
+    <text class="h1" y="146">Balance final</text><text class="sub" y="196">Qué queda por cada molécula de glucosa</text>
+
+    <g transform="translate(0 252)">
+      <rect width="936" height="262" rx="36" fill="#0b1b2d" stroke="#f2c66d" stroke-opacity=".3"/>
+      <text class="label" x="468" y="48" text-anchor="middle">ATP DIRECTO</text>
+      <text class="math" x="468" y="116" text-anchor="middle"><tspan fill="#72e0ab">4 producidos</tspan><tspan fill="#aebbd0">  −  </tspan><tspan fill="#ff9a9a">2 invertidos</tspan></text>
+      <rect x="246" y="153" width="444" height="78" rx="28" fill="url(#accent)"/>
+      <text class="dark" x="468" y="203" text-anchor="middle">= 2 ATP NETOS</text>
+    </g>
+
+    <g transform="translate(0 544)">
+      <rect width="936" height="194" rx="32" fill="#0d2136" stroke="#6fd8ff" stroke-opacity=".28"/>
+      <text class="label" x="32" y="48">2 NADH CITOSÓLICOS</text>
+      <text class="cardh" x="32" y="94">Conservan energía en sus electrones</text>
+      <text class="body" x="32" y="133">En condiciones aeróbicas, sus electrones pasan a la cadena respiratoria</text>
+      <text class="body" x="32" y="166">mediante lanzaderas; el rendimiento depende de la lanzadera usada.</text>
+    </g>
+
+    <g transform="translate(0 768)">
+      <text class="label" x="468" y="28" text-anchor="middle">DESTINO DE LOS 2 PIRUVATOS</text>
+      <g transform="translate(0 58)">
+        <rect width="452" height="282" rx="34" fill="#0c2435" stroke="#72e0ab" stroke-opacity=".38"/>
+        <circle cx="48" cy="50" r="25" fill="#72e0ab" opacity=".18"/><path d="m36 50 9 9 17-19" fill="none" stroke="#72e0ab" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <text class="cardh" x="88" y="59">O₂ suficiente</text>
+        <text class="body" x="34" y="116">Piruvato → acetil-CoA</text><text class="body" x="34" y="154">→ ciclo de Krebs</text><text class="body" x="34" y="192">→ cadena respiratoria</text>
+        <text class="foot" x="34" y="246">Oxidación mitocondrial</text>
+      </g>
+      <g transform="translate(484 58)">
+        <rect width="452" height="282" rx="34" fill="#271d29" stroke="#ff9a9a" stroke-opacity=".32"/>
+        <circle cx="48" cy="50" r="25" fill="#ff9a9a" opacity=".16"/><path d="m39 41 18 18m0-18L39 59" stroke="#ff9a9a" stroke-width="6" stroke-linecap="round"/>
+        <text class="cardh" x="88" y="59">O₂ limitado</text>
+        <text class="body" x="34" y="116">O₂ limitado o sin mitocondrias</text><text class="body" x="34" y="154">Piruvato + NADH → lactato</text><text class="body" x="34" y="192">NAD⁺ se regenera</text>
+        <text class="foot" x="34" y="246">Regeneración de NAD⁺</text>
+      </g>
+    </g>
+
+    <g transform="translate(0 1142)"><rect width="936" height="98" rx="26" fill="#11283e" stroke="#f2c66d" stroke-opacity=".24"/><text class="foot" x="468" y="42" text-anchor="middle">IDEA CLAVE</text><text class="body" x="468" y="73" text-anchor="middle">La glucólisis no consume oxígeno de forma directa.</text></g>
+  </g>
+</svg>
