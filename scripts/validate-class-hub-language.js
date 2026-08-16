@@ -171,15 +171,15 @@ expect(css.includes('.board-archive-thumbnails'), 'The board archive thumbnail n
 expect(i18n.includes("'Ver las 7 láminas':'Ver as 7 lâminas'"), 'The Portuguese board archive call to action is missing.');
 expect(i18n.includes("'Cerrar archivo de la pizarra':'Fechar arquivo da lousa'"), 'The Portuguese board archive close label is missing.');
 [
-  '01-mapa-general.svg',
-  '02-fase-preparatoria-1-3.svg',
-  '03-fase-preparatoria-4-5.svg',
-  '04-fase-beneficio-6-10.svg',
-  '05-balance-final.svg',
-  '06-regulacion-hexo-glucoquinasa.svg',
-  '07-regulacion-pfk1-piruvato-quinasa.svg'
+  '01-mapa-general.webp',
+  '02-fase-preparatoria-1-3.webp',
+  '03-fase-preparatoria-4-5.webp',
+  '04-fase-beneficio-6-10.webp',
+  '05-balance-final.webp',
+  '06-regulacion-resumen.webp',
+  '07-regulacion-anotada.webp'
 ].forEach((file) => {
-  expect(fs.existsSync(path.join(root, 'assets', 'class-hub', 'board-archive', 'bioquimica-2026-08-14', file)), `The board archive asset ${file} is missing.`);
+  expect(fs.existsSync(path.join(root, 'assets', 'class-hub', 'board-archive', 'bioquimica-2026-08-14', 'restored', file)), `The restored board archive asset ${file} is missing.`);
 });
 expect(html.includes('<strong>Materias</strong>'), 'The visible class navigation is not labeled Materias.');
 expect(!html.includes('<strong>Cursos</strong>'), 'The obsolete visible Cursos navigation label remains.');

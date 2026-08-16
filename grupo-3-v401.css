@@ -130,8 +130,8 @@ img{display:block;max-width:100%}
 .course-detail-toggle[aria-expanded="true"] b{color:var(--gold-soft);transform:rotate(45deg)}
 .board-archive-launch{display:grid;grid-template-columns:118px minmax(0,1fr) auto;gap:18px;align-items:center;margin:16px 0;padding:14px;border:1px solid rgba(242,198,109,.3);border-radius:20px;background:linear-gradient(145deg,rgba(242,198,109,.08),rgba(111,216,255,.045));overflow:hidden;position:relative}
 .board-archive-launch::after{content:"";position:absolute;width:210px;height:210px;right:-120px;top:-135px;border-radius:50%;background:radial-gradient(circle,rgba(111,216,255,.16),transparent 70%);pointer-events:none}
-.board-archive-cover{width:118px;aspect-ratio:4/5;border:1px solid rgba(197,215,239,.18);border-radius:14px;background:#07111f;box-shadow:0 12px 32px rgba(0,0,0,.3);overflow:hidden;position:relative;z-index:1}
-.board-archive-cover img{width:100%;height:100%;object-fit:cover}
+.board-archive-cover{width:118px;aspect-ratio:4/3;border:1px solid rgba(197,215,239,.18);border-radius:14px;background:#07111f;box-shadow:0 12px 32px rgba(0,0,0,.3);overflow:hidden;position:relative;z-index:1}
+.board-archive-cover img{width:100%;height:100%;object-fit:contain}
 .board-archive-launch-copy{min-width:0;display:grid;gap:4px;position:relative;z-index:1}
 .board-archive-launch-copy>span{color:var(--gold-soft);font-size:.59rem;font-weight:950;letter-spacing:.12em}
 .board-archive-launch-copy h3{margin:0;font-size:1.08rem;line-height:1.18}
@@ -1055,10 +1055,10 @@ img{display:block;max-width:100%}
 .board-archive-controls>span{min-width:58px;text-align:center;color:var(--muted);font-size:.67rem;font-weight:800}
 .board-archive-controls>span b{color:var(--gold-soft)}
 .board-archive-thumbnails{min-height:0;display:grid;align-content:start;gap:6px;padding-right:3px;overflow-y:auto;overscroll-behavior:contain}
-.board-archive-thumbnails button{min-width:0;display:grid;grid-template-columns:43px 23px minmax(0,1fr);gap:8px;align-items:center;padding:7px;border:1px solid var(--line);border-radius:13px;color:var(--ink);text-align:left;background:rgba(255,255,255,.025)}
+.board-archive-thumbnails button{min-width:0;display:grid;grid-template-columns:58px 23px minmax(0,1fr);gap:8px;align-items:center;padding:7px;border:1px solid var(--line);border-radius:13px;color:var(--ink);text-align:left;background:rgba(255,255,255,.025)}
 .board-archive-thumbnails button:hover{background:rgba(255,255,255,.05)}
 .board-archive-thumbnails button[aria-pressed="true"]{border-color:rgba(242,198,109,.46);background:linear-gradient(145deg,rgba(242,198,109,.12),rgba(111,216,255,.06))}
-.board-archive-thumbnails img{width:43px;height:54px;border-radius:7px;object-fit:cover;background:#07111f}
+.board-archive-thumbnails img{width:58px;height:42px;border-radius:7px;object-fit:contain;background:#07111f}
 .board-archive-thumbnails button>span:nth-of-type(1){color:var(--gold-soft);font-size:.58rem;font-weight:950}
 .board-archive-thumbnails button>span:last-child{min-width:0;display:grid;gap:2px}
 .board-archive-thumbnails strong{font-size:.65rem;line-height:1.16}
@@ -1137,8 +1137,8 @@ img{display:block;max-width:100%}
   .board-archive-stage{min-height:620px}
   .board-archive-image-frame img{height:auto;max-height:none;max-width:min(100%,570px)}
   .board-archive-thumbnails{display:flex;flex:none;overflow-x:auto;overflow-y:hidden;padding:0 0 3px}
-  .board-archive-thumbnails button{min-width:184px;grid-template-columns:39px 23px minmax(0,1fr)}
-  .board-archive-thumbnails img{width:39px;height:49px}
+  .board-archive-thumbnails button{min-width:196px;grid-template-columns:54px 23px minmax(0,1fr)}
+  .board-archive-thumbnails img{width:54px;height:39px}
 }
 
 @media(max-width:680px){
@@ -1422,8 +1422,8 @@ img{display:block;max-width:100%}
   .board-archive-controls{gap:5px}
   .board-archive-controls button{min-height:44px;padding:6px 9px;border-radius:11px;font-size:.62rem}
   .board-archive-thumbnails{gap:5px}
-  .board-archive-thumbnails button{min-width:158px;grid-template-columns:35px 20px minmax(0,1fr);gap:6px;padding:5px;border-radius:11px}
-  .board-archive-thumbnails img{width:35px;height:44px;border-radius:6px}
+  .board-archive-thumbnails button{min-width:176px;grid-template-columns:50px 20px minmax(0,1fr);gap:6px;padding:5px;border-radius:11px}
+  .board-archive-thumbnails img{width:50px;height:36px;border-radius:6px}
   .board-archive-thumbnails strong{font-size:.58rem}
   .board-archive-thumbnails small{font-size:.48rem}
   .seminar-document-dialog{width:calc(100% - 10px);max-height:calc(100dvh - 10px);border-radius:19px}
