@@ -153,8 +153,17 @@
     {key:'conidium',forms:['conidia','conidio','conídios'],es:'Espora asexual producida por algunos hongos.',br:'Esporo assexuado produzido por alguns fungos.'},
     {key:'dimorphism',forms:['dimorfismo'],es:'Capacidad de algunos hongos para adoptar dos formas según las condiciones.',br:'Capacidade de alguns fungos de assumir duas formas conforme as condições.'},
     {key:'dermatophyte',forms:['dermatofito','dermatofitos'],es:'Hongo que utiliza queratina y puede infectar piel, pelo o uñas.',br:'Fungo que utiliza queratina e pode infectar pele, cabelo ou unhas.'},
+    {key:'keratin',forms:['queratina'],es:'Proteína resistente que forma gran parte de la piel superficial, el pelo y las uñas.',br:'Proteína resistente que forma grande parte da superfície da pele, dos cabelos e das unhas.'},
     {key:'mycosis',forms:['micosis','micose','micoses'],es:'Infección causada por hongos.',br:'Infecção causada por fungos.'},
     {key:'subcutaneous-mycosis',forms:['micosis subcutánea','micosis subcutáneas','micoses subcutâneas'],es:'Infección por hongos que alcanza piel y tejido debajo de ella, a menudo tras una herida.',br:'Infecção por fungos que atinge a pele e o tecido abaixo dela, muitas vezes após uma ferida.'},
+    {key:'inoculation',forms:['inoculación','inoculação'],es:'Entrada de un microorganismo en el cuerpo, por ejemplo a través de una herida o un pinchazo.',br:'Entrada de um microrganismo no corpo, por exemplo por uma ferida ou perfuração.'},
+    {key:'traumatic-implantation',forms:['implantación traumática','implantação traumática'],es:'Entrada accidental de un agente en el tejido después de una herida, espina, arañazo o golpe que rompe la piel.',br:'Entrada acidental de um agente no tecido após ferida, espinho, arranhão ou trauma que rompe a pele.'},
+    {key:'lymphocutaneous',forms:['linfocutánea','linfocutáneo','linfocutânea','linfocutâneo'],es:'Que afecta la piel y sigue el trayecto de los vasos linfáticos cercanos.',br:'Que afeta a pele e acompanha o trajeto dos vasos linfáticos próximos.'},
+    {key:'verrucous',forms:['verrugosa','verrugoso','verrucosa','verrucoso'],es:'Con superficie elevada, áspera y parecida a una verruga.',br:'Com superfície elevada, áspera e parecida com uma verruga.'},
+    {key:'muriform-bodies',forms:['cuerpos muriformes','cuerpos escleróticos','corpos muriformes','corpos escleróticos'],es:'Células fúngicas oscuras, redondeadas y divididas como pequeños ladrillos; orientan a cromoblastomicosis.',br:'Células fúngicas escuras, arredondadas e divididas como pequenos tijolos; sugerem cromoblastomicose.'},
+    {key:'eumycotic',forms:['eumicótico','eumicótica'],es:'Causado por un hongo. En el micetoma, lo distingue del origen bacteriano.',br:'Causado por fungo. No micetoma, diferencia-o da origem bacteriana.'},
+    {key:'actinomycetoma',forms:['actinomicetoma'],es:'Micetoma causado por bacterias filamentosas, no por hongos.',br:'Micetoma causado por bactérias filamentosas, e não por fungos.'},
+    {key:'fistula',forms:['fístula','fístulas','trayectos fistulosos','trajetos fistulosos'],es:'Conducto anormal que comunica una lesión interna con la piel y puede dejar salir material.',br:'Canal anormal que liga uma lesão interna à pele e pode deixar sair material.'},
     {key:'opportunistic',forms:['oportunista','oportunistas'],es:'Que causa enfermedad sobre todo cuando las defensas están debilitadas.',br:'Que causa doença principalmente quando as defesas estão enfraquecidas.'},
     {key:'koh',forms:['KOH'],es:'Hidróxido de potasio, usado para aclarar una muestra y facilitar la búsqueda de hongos al microscopio.',br:'Hidróxido de potássio, usado para clarear uma amostra e facilitar a busca de fungos no microscópio.'},
     {key:'sabouraud',forms:['agar Sabouraud','ágar Sabouraud'],es:'Medio de laboratorio usado para cultivar hongos.',br:'Meio de laboratório usado para cultivar fungos.'},
@@ -187,6 +196,11 @@
     {key:'outbreak',forms:['brote','surto'],es:'Aumento localizado de casos relacionados entre sí.',br:'Aumento localizado de casos relacionados entre si.'},
     {key:'primary-care',forms:['APS','atención primaria de salud','atenção primária à saúde'],es:'Primer nivel de atención, cercano a la comunidad, que previene, acompaña y resuelve gran parte de los problemas de salud.',br:'Primeiro nível de atenção, perto da comunidade, que previne, acompanha e resolve grande parte dos problemas de saúde.'},
     {key:'triage',forms:['triage','triaje'],es:'Clasificación rápida para atender primero a quien tiene mayor urgencia.',br:'Classificação rápida para atender primeiro quem tem maior urgência.'},
+    {key:'anamnesis',forms:['anamnesis'],es:'Preguntas breves sobre el motivo de consulta, síntomas, evolución y antecedentes.',br:'Perguntas breves sobre o motivo da consulta, sintomas, evolução e antecedentes.'},
+    {key:'resuscitation',forms:['reanimación','reanimação'],es:'Atención inmediata para sostener o recuperar funciones vitales como respiración y circulación.',br:'Atendimento imediato para manter ou recuperar funções vitais como respiração e circulação.'},
+    {key:'sectorization',forms:['sectorización','sectorização'],es:'División de un territorio en zonas para organizar la atención y asignar responsables.',br:'Divisão de um território em áreas para organizar o atendimento e atribuir responsáveis.'},
+    {key:'sector-worker',forms:['sectorista','sectoristas'],es:'Persona del equipo responsable de acompañar una zona o sector determinado.',br:'Pessoa da equipe responsável por acompanhar uma área ou setor definido.'},
+    {key:'intersectoral',forms:['intersectorialidad','intersetorialidade'],es:'Trabajo coordinado entre salud y otros sectores, como educación, municipio o comunidad.',br:'Trabalho coordenado entre saúde e outros setores, como educação, município ou comunidade.'},
     {key:'equity',forms:['equidad','equidade'],es:'Dar a cada persona el apoyo que necesita para tener una oportunidad justa.',br:'Dar a cada pessoa o apoio de que precisa para ter uma oportunidade justa.'},
     {key:'biopsychosocial',forms:['biopsicosocial'],es:'Enfoque que considera juntos el cuerpo, la mente y el entorno social.',br:'Abordagem que considera juntos o corpo, a mente e o ambiente social.'},
     {key:'macronutrient',forms:['macronutriente','macronutrientes'],es:'Nutriente necesario en cantidades grandes, como carbohidratos, proteínas y grasas.',br:'Nutriente necessário em grandes quantidades, como carboidratos, proteínas e gorduras.'},
@@ -367,16 +381,25 @@
     var margin = 8;
     var gap = 9;
     var popRect = popover.getBoundingClientRect();
+    var bounds = {left:margin,right:window.innerWidth - margin,top:margin,bottom:window.innerHeight - margin};
+    var hostDialog = popover.closest('dialog[open]');
+    if(hostDialog){
+      var dialogRect = hostDialog.getBoundingClientRect();
+      bounds.left = Math.max(bounds.left,dialogRect.left + margin);
+      bounds.right = Math.min(bounds.right,dialogRect.right - margin);
+      bounds.top = Math.max(bounds.top,dialogRect.top + margin);
+      bounds.bottom = Math.min(bounds.bottom,dialogRect.bottom - margin);
+    }
     var left = triggerRect.left + triggerRect.width / 2 - popRect.width / 2;
-    left = Math.max(margin,Math.min(window.innerWidth - popRect.width - margin,left));
+    left = Math.max(bounds.left,Math.min(bounds.right - popRect.width,left));
     var above = triggerRect.top - popRect.height - gap;
-    var placement = above >= margin ? 'above' : 'below';
-    var top = placement === 'above' ? above : Math.min(window.innerHeight - popRect.height - margin,triggerRect.bottom + gap);
+    var placement = above >= bounds.top ? 'above' : 'below';
+    var top = placement === 'above' ? above : Math.min(bounds.bottom - popRect.height,triggerRect.bottom + gap);
     var arrow = triggerRect.left + triggerRect.width / 2 - left;
     arrow = Math.max(15,Math.min(popRect.width - 15,arrow));
     popover.dataset.placement = placement;
     popover.style.left = Math.round(left) + 'px';
-    popover.style.top = Math.round(Math.max(margin,top)) + 'px';
+    popover.style.top = Math.round(Math.max(bounds.top,top)) + 'px';
     popover.style.setProperty('--mn-arrow-left',Math.round(arrow) + 'px');
   }
 
@@ -400,6 +423,9 @@
     var lang = currentLang();
     var copy = strings[lang];
     var panel = ensurePopover();
+    var openDialog = trigger.closest('dialog[open]');
+    var host = openDialog || document.body;
+    if(panel.parentNode !== host) host.appendChild(panel);
     trigger.setAttribute('title',copy.title);
     panel.querySelector('.mn-glossary-label').textContent = copy.label;
     panel.querySelector('.mn-glossary-title').textContent = trigger.textContent.trim();

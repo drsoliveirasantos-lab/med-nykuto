@@ -1214,6 +1214,273 @@
     selectSlide(0,false);
   }
 
+  function prepareEpiHomeworkReview(){
+    var dialog = document.getElementById('epiHomeworkReview');
+    var openButtons = Array.from(document.querySelectorAll('[data-epi-review-open]'));
+    if(!dialog || !openButtons.length) return;
+    var closeButton = dialog.querySelector('[data-epi-review-close]');
+    var returnFocus = null;
+
+    function closeReview(){
+      if(typeof dialog.close === 'function' && dialog.open) dialog.close();
+      else{
+        dialog.removeAttribute('open');
+        document.body.classList.remove('is-epi-review-open');
+        if(returnFocus) returnFocus.focus();
+      }
+    }
+
+    openButtons.forEach(function(button){
+      button.addEventListener('click',function(){
+        returnFocus = button;
+        document.body.classList.add('is-epi-review-open');
+        if(typeof dialog.showModal === 'function') dialog.showModal();
+        else dialog.setAttribute('open','');
+        window.requestAnimationFrame(function(){if(closeButton) closeButton.focus();});
+      });
+    });
+    if(closeButton) closeButton.addEventListener('click',closeReview);
+    dialog.addEventListener('click',function(event){if(event.target === dialog) closeReview();});
+    dialog.addEventListener('close',function(){
+      document.body.classList.remove('is-epi-review-open');
+      if(returnFocus && !document.body.classList.contains('is-epi-archive-open')) returnFocus.focus();
+    });
+    dialog.addEventListener('cancel',function(){document.body.classList.remove('is-epi-review-open');});
+  }
+
+  function prepareEpiDocumentArchive(){
+    var dialog = document.getElementById('epiDocumentArchive');
+    var openButtons = Array.from(document.querySelectorAll('[data-epi-archive-open]'));
+    if(!dialog || !openButtons.length) return;
+    var apsSlides = [
+      ['Ficha de la materia','Semestre, sección, cátedra, unidad y tema.'],
+      ['Atención Primaria de la Salud','Título del soporte entregado por la cátedra.'],
+      ['Origen de la APS','Aprobación en 1978 y meta de Salud para Todos.'],
+      ['Definición de Alma-Ata','Asistencia esencial, accesible y con participación comunitaria.'],
+      ['Primer nivel de contacto','La atención se acerca al lugar donde las personas viven y trabajan.'],
+      ['Servicios básicos de la APS','Promoción, agua segura, nutrición, inmunización y atención común.'],
+      ['Componentes estratégicos','Cobertura, trabajo entre sectores, recursos, financiación y cooperación.'],
+      ['Renovación de la APS','Evaluaciones y renovación internacional de la estrategia.'],
+      ['Principios de la APS','Equidad, cobertura, participación y trabajo multisectorial.'],
+      ['Significado concreto','Cómo funciona la APS dentro de un sistema de salud.'],
+      ['Significado abstracto','Derecho a la salud, desarrollo humano y equidad social.'],
+      ['Modelo de atención integral','Marco que organiza la atención de persona, familia y comunidad.'],
+      ['Definición de atención integral','Promoción, prevención, recuperación y rehabilitación continuas.'],
+      ['Dimensiones de la integralidad','Persona, familia, comunidad y ambiente.'],
+      ['Continuidad e intersectorialidad','Acciones coordinadas entre niveles y sectores.'],
+      ['Principios del modelo integral','Solidaridad, acceso, calidad, eficacia y justicia social.'],
+      ['Ejes del modelo integral','Necesidades, prioridades y organización de la atención.'],
+      ['Componentes del modelo','Organización, gestión, financiación y prestación.'],
+      ['Programas por etapas de vida','Niño, adolescente, adulto y adulto mayor.'],
+      ['Ciclo vital de la familia','Formación, expansión, dispersión y contracción.'],
+      ['Cuidados esenciales','Atención, autocuidado, familia y comunidad.'],
+      ['Estrategias sanitarias','Problemas transmisibles, crónicos y salud materno-infantil.'],
+      ['Atención a la persona y la familia','Ingreso, atención, referencia y seguimiento.'],
+      ['Ruta de atención familiar','Riesgo, prestación integral, vigilancia y seguimiento.'],
+      ['Atención a la comunidad','Organización, alianzas y comunidades de alto riesgo.'],
+      ['Sectorización','Dividir el territorio y asignar responsables.'],
+      ['Objetivo de la sectorización','Identificar riesgos y distribuir recursos con equidad.'],
+      ['Comité de sectorización','Representantes de la red, establecimientos y comunidad.'],
+      ['Delimitación de sectores','Dividir el ámbito del establecimiento en espacios definidos.'],
+      ['Criterios para los sectores','Número de viviendas, geografía y tiempo de acceso.'],
+      ['Pasos de sectorización','Delimitar, mapear, señalar y asignar responsables.'],
+      ['Censo comunal','Conocer las características de toda la población del sector.'],
+      ['Mapa del sector','Ubicar población, riesgos y actividades.'],
+      ['Codificación y familias de riesgo','Numerar viviendas y reconocer factores familiares o ambientales.'],
+      ['Clasificación FESE','A: no pobre · B: pobre no extremo · C: pobre extremo.'],
+      ['Fin del soporte','Última diapositiva del archivo original.']
+    ];
+    var documents = {
+      aps:{
+        title:'Atención Primaria de la Salud',
+        description:'36 diapositivas en el orden original.',
+        file:'assets/class-hub/epidemiology/2026-08-16/atencion-primaria-salud.pptx',
+        downloadLabel:'Descargar PowerPoint',
+        base:'assets/class-hub/epidemiology/2026-08-16/aps-slides/',
+        type:'slide',
+        items:apsSlides.map(function(item,index){return {file:String(index + 1).padStart(2,'0') + '.webp',title:item[0],description:item[1]};})
+      },
+      rac:{
+        title:'Manual RAC · Paraguay 2011',
+        description:'Portada y páginas clave del deber. El PDF completo conserva sus 118 páginas.',
+        file:'assets/class-hub/epidemiology/2026-08-16/manual-rac-paraguay-2011.pdf',
+        downloadLabel:'Abrir PDF completo',
+        base:'assets/class-hub/epidemiology/2026-08-16/rac-pages/',
+        type:'page',
+        items:[
+          {file:'01-cover.webp',title:'Portada del Manual RAC',description:'Manual de Recepción, Acogida y Clasificación del MSPBS, Paraguay 2011.'},
+          {file:'02-levels.webp',title:'Cinco niveles y tiempos',description:'Página impresa 15: prioridad I a V y tiempo máximo deseado.'},
+          {file:'03-consultation.webp',title:'Momentos de la consulta RAC',description:'Página impresa 16: impresión general, anamnesis, exploración, signos vitales, dolor y clasificación.'}
+        ]
+      },
+      salud:{
+        title:'Salud Pública · Paraguay',
+        description:'Portada y apartado de APS. El PDF completo conserva sus 324 páginas.',
+        file:'assets/class-hub/epidemiology/2026-08-16/salud-publica-paraguay.pdf',
+        downloadLabel:'Abrir PDF completo',
+        base:'assets/class-hub/epidemiology/2026-08-16/salud-publica-pages/',
+        type:'page',
+        items:[
+          {file:'01-cover.webp',title:'Salud Pública',description:'Introducción y generalidades, edición paraguaya.'},
+          {file:'02-aps-definition.webp',title:'Atención Primaria de la Salud',description:'Página 30: cuatro C, primer contacto y enfoque poblacional.'},
+          {file:'03-aps-values.webp',title:'Valores y principios de la APS',description:'Página 31: solidaridad, equidad, participación y desarrollo en Paraguay.'}
+        ]
+      }
+    };
+    var image = document.getElementById('epiDocumentArchiveImage');
+    var title = document.getElementById('epiDocumentArchiveTitle');
+    var description = document.getElementById('epiDocumentArchiveDescription');
+    var download = document.getElementById('epiDocumentArchiveDownload');
+    var counter = document.getElementById('epiDocumentArchiveCounter');
+    var slideTitle = document.getElementById('epiDocumentArchiveSlideTitle');
+    var slideDescription = document.getElementById('epiDocumentArchiveSlideDescription');
+    var thumbnails = document.getElementById('epiDocumentArchiveThumbnails');
+    var current = dialog.querySelector('[data-epi-archive-current]');
+    var total = dialog.querySelector('[data-epi-archive-total]');
+    var previous = dialog.querySelector('[data-epi-archive-previous]');
+    var next = dialog.querySelector('[data-epi-archive-next]');
+    var closeButton = dialog.querySelector('[data-epi-archive-close]');
+    var documentTabs = Array.from(dialog.querySelectorAll('[data-epi-archive-document]'));
+    var activeDocument = 'aps';
+    var activeIndex = 0;
+    var returnFocus = null;
+    var touchStart = null;
+
+    function currentDocument(){return documents[activeDocument];}
+
+    function renderThumbnails(){
+      var documentData = currentDocument();
+      thumbnails.innerHTML = '';
+      documentData.items.forEach(function(item,index){
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.dataset.epiArchiveSlide = String(index);
+        button.setAttribute('aria-pressed',index === activeIndex ? 'true' : 'false');
+        button.setAttribute('aria-label','Abrir ' + (documentData.type === 'slide' ? 'diapositiva ' : 'página ') + (index + 1) + ': ' + item.title);
+        var thumb = document.createElement('img');
+        thumb.src = documentData.base + item.file;
+        thumb.alt = '';
+        thumb.loading = 'lazy';
+        var number = document.createElement('span');
+        number.textContent = String(index + 1).padStart(2,'0');
+        var copy = document.createElement('span');
+        var strong = document.createElement('strong');
+        strong.textContent = item.title;
+        var small = document.createElement('small');
+        small.textContent = item.description;
+        copy.appendChild(strong);
+        copy.appendChild(small);
+        button.appendChild(thumb);
+        button.appendChild(number);
+        button.appendChild(copy);
+        button.addEventListener('click',function(){selectItem(index,false);});
+        thumbnails.appendChild(button);
+      });
+    }
+
+    function selectItem(index,moveFocus){
+      var documentData = currentDocument();
+      activeIndex = Math.max(0,Math.min(index,documentData.items.length - 1));
+      var item = documentData.items[activeIndex];
+      image.src = documentData.base + item.file;
+      image.alt = (documentData.type === 'slide' ? 'Diapositiva ' : 'Página ') + (activeIndex + 1) + ': ' + item.title;
+      counter.textContent = (documentData.type === 'slide' ? 'DIAPOSITIVA ' : 'PÁGINA ') + (activeIndex + 1) + ' DE ' + documentData.items.length;
+      slideTitle.textContent = item.title;
+      slideDescription.textContent = item.description;
+      current.textContent = String(activeIndex + 1);
+      total.textContent = String(documentData.items.length);
+      previous.disabled = activeIndex === 0;
+      next.disabled = activeIndex === documentData.items.length - 1;
+      Array.from(thumbnails.querySelectorAll('[data-epi-archive-slide]')).forEach(function(button,itemIndex){
+        button.setAttribute('aria-pressed',itemIndex === activeIndex ? 'true' : 'false');
+      });
+      var activeThumb = thumbnails.querySelector('[data-epi-archive-slide="' + activeIndex + '"]');
+      if(activeThumb){
+        activeThumb.scrollIntoView({block:'nearest',inline:'nearest'});
+        if(moveFocus) activeThumb.focus({preventScroll:true});
+      }
+    }
+
+    function selectDocument(key){
+      if(!documents[key]) return;
+      activeDocument = key;
+      activeIndex = 0;
+      var documentData = currentDocument();
+      dialog.dataset.documentType = documentData.type;
+      title.textContent = documentData.title;
+      description.textContent = documentData.description;
+      download.href = documentData.file;
+      download.textContent = documentData.downloadLabel;
+      if(documentData.type === 'slide'){
+        download.setAttribute('download','');
+        download.removeAttribute('target');
+        download.removeAttribute('rel');
+      }else{
+        download.removeAttribute('download');
+        download.target = '_blank';
+        download.rel = 'noopener';
+      }
+      documentTabs.forEach(function(tab){tab.setAttribute('aria-pressed',tab.dataset.epiArchiveDocument === key ? 'true' : 'false');});
+      renderThumbnails();
+      selectItem(0,false);
+    }
+
+    function closeArchive(){
+      if(typeof dialog.close === 'function' && dialog.open) dialog.close();
+      else{
+        dialog.removeAttribute('open');
+        document.body.classList.remove('is-epi-archive-open');
+        if(returnFocus) returnFocus.focus();
+      }
+    }
+
+    openButtons.forEach(function(button){
+      button.addEventListener('click',function(){
+        var reviewDialog = button.closest('#epiHomeworkReview');
+        if(reviewDialog && reviewDialog.open) reviewDialog.close();
+        returnFocus = reviewDialog ? document.querySelector('[data-epi-review-open]') : button;
+        selectDocument(button.dataset.epiArchiveOpen || 'aps');
+        document.body.classList.add('is-epi-archive-open');
+        if(typeof dialog.showModal === 'function') dialog.showModal();
+        else dialog.setAttribute('open','');
+        window.requestAnimationFrame(function(){if(closeButton) closeButton.focus();});
+      });
+    });
+    documentTabs.forEach(function(tab){tab.addEventListener('click',function(){selectDocument(tab.dataset.epiArchiveDocument);});});
+    previous.addEventListener('click',function(){selectItem(activeIndex - 1,false);});
+    next.addEventListener('click',function(){selectItem(activeIndex + 1,false);});
+    if(closeButton) closeButton.addEventListener('click',closeArchive);
+    dialog.addEventListener('click',function(event){if(event.target === dialog) closeArchive();});
+    dialog.addEventListener('keydown',function(event){
+      if(event.key === 'ArrowLeft'){event.preventDefault();selectItem(activeIndex - 1,true);}
+      if(event.key === 'ArrowRight'){event.preventDefault();selectItem(activeIndex + 1,true);}
+      if(event.key === 'Home'){event.preventDefault();selectItem(0,true);}
+      if(event.key === 'End'){event.preventDefault();selectItem(currentDocument().items.length - 1,true);}
+    });
+    var stage = dialog.querySelector('.board-archive-stage');
+    if(stage){
+      stage.addEventListener('touchstart',function(event){
+        var touch = event.changedTouches && event.changedTouches[0];
+        touchStart = touch ? {x:touch.clientX,y:touch.clientY} : null;
+      },{passive:true});
+      stage.addEventListener('touchend',function(event){
+        var touch = event.changedTouches && event.changedTouches[0];
+        if(!touchStart || !touch) return;
+        var deltaX = touch.clientX - touchStart.x;
+        var deltaY = touch.clientY - touchStart.y;
+        touchStart = null;
+        if(Math.abs(deltaX) < 45 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+        selectItem(deltaX < 0 ? activeIndex + 1 : activeIndex - 1,false);
+      },{passive:true});
+    }
+    dialog.addEventListener('close',function(){
+      document.body.classList.remove('is-epi-archive-open');
+      if(returnFocus) returnFocus.focus();
+    });
+    dialog.addEventListener('cancel',function(){document.body.classList.remove('is-epi-archive-open');});
+    selectDocument('aps');
+  }
+
   function prepareMicroSlideArchive(){
     var dialog = document.getElementById('microSlideArchive');
     var openButtons = Array.from(document.querySelectorAll('[data-micro-archive-open]'));
@@ -1556,6 +1823,8 @@
     prepareSeminarDocumentPreview();
     prepareBoardArchive();
     prepareMicroHomeworkReview();
+    prepareEpiHomeworkReview();
+    prepareEpiDocumentArchive();
     prepareMicroSlideArchive();
     setUpdatedDate();
 

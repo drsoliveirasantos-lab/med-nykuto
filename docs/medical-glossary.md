@@ -7,6 +7,7 @@ Le fichier `medical-glossary-v425.js` ajoute une aide de lecture globale aux pag
 - Le glossaire analyse `main` et les fenêtres `dialog`, y compris le contenu ajouté après le chargement.
 - Les liens, boutons, réponses de QCM, champs, tableaux de code et contrôles de formulaire ne sont jamais transformés.
 - La définition apparaît au-dessus du terme quand l’espace le permet, sinon juste en dessous.
+- Dans une fenêtre modale, la définition est insérée dans le même `dialog`. Cela la maintient dans la couche supérieure du navigateur et évite qu’elle soit cachée derrière la fiche de cours.
 - La fenêtre reste ouverte pour laisser le temps de lire. Elle se ferme avec la croix, un clic extérieur ou la touche Échap.
 - Le texte est volontairement simple. Il sert d’aide de lecture et ne remplace pas le cours ni un avis médical.
 

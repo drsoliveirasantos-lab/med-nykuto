@@ -47,6 +47,40 @@ test.describe('Global medical glossary', () => {
     await expect(popover.locator('.mn-glossary-definition')).toHaveText('Aumento do CO₂ no sangue.');
   });
 
+  test('keeps a definition visible inside the Microbiology homework dialog on iPhone', async ({ page }) => {
+    await page.setViewportSize({ width:390, height:844 });
+    await page.goto('/clase.html#microTheoryPrepCard', { waitUntil:'domcontentloaded' });
+    await page.locator('#microTheoryPrepCard [data-micro-review-open]').click();
+    const dialog = page.locator('#microHomeworkReview');
+    await expect(dialog).toBeVisible();
+
+    const term = dialog.locator('.mn-glossary-term[data-glossary-key="keratin"]:visible').first();
+    await expect(term).toBeVisible({ timeout:15000 });
+    await term.click();
+
+    const popover = page.locator('#mnMedicalGlossaryPopover');
+    await expect(popover).toBeVisible();
+    await expect(popover.locator('.mn-glossary-definition')).toContainText('piel superficial');
+    const placement = await page.evaluate(() => {
+      const panel = document.getElementById('mnMedicalGlossaryPopover');
+      const rect = panel.getBoundingClientRect();
+      return {
+        dialog:panel.closest('dialog') && panel.closest('dialog').id,
+        left:rect.left,
+        right:rect.right,
+        top:rect.top,
+        bottom:rect.bottom,
+        width:window.innerWidth,
+        height:window.innerHeight
+      };
+    });
+    expect(placement.dialog).toBe('microHomeworkReview');
+    expect(placement.left).toBeGreaterThanOrEqual(0);
+    expect(placement.right).toBeLessThanOrEqual(placement.width);
+    expect(placement.top).toBeGreaterThanOrEqual(0);
+    expect(placement.bottom).toBeLessThanOrEqual(placement.height);
+  });
+
   test('decorates dynamic study content but never nests controls inside QCM answers or links', async ({ page }) => {
     await page.route('**/api/community**', async route => {
       await route.fulfill({

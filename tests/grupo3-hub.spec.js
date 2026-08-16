@@ -284,6 +284,54 @@ test.describe('Class hub', () => {
     await expect(launchers.first()).toBeFocused();
   });
 
+  test('opens all three teacher documents inside the Epidemiology archive', async ({ page }) => {
+    await page.goto('/clase.html#epidemiologia');
+    await expect(page.locator('.epi-material-archive [data-epi-archive-open]')).toHaveCount(3);
+    const firstLauncher = page.locator('.epi-material-archive [data-epi-archive-open="aps"]');
+    await firstLauncher.click();
+
+    const dialog = page.locator('#epiDocumentArchive');
+    await expect(dialog).toBeVisible();
+    await expect(dialog.locator('[data-epi-archive-slide]')).toHaveCount(36);
+    await expect(page.locator('#epiDocumentArchiveImage')).toHaveAttribute('src', /aps-slides\/01\.webp$/);
+    await expect(page.locator('#epiDocumentArchiveDownload')).toHaveAttribute('href', /atencion-primaria-salud\.pptx$/);
+
+    await dialog.locator('[data-epi-archive-document="rac"]').click();
+    await expect(dialog.locator('[data-epi-archive-slide]')).toHaveCount(3);
+    await expect(page.locator('#epiDocumentArchiveImage')).toHaveAttribute('src', /rac-pages\/01-cover\.webp$/);
+    await expect(page.locator('#epiDocumentArchiveDownload')).toHaveAttribute('href', /manual-rac-paraguay-2011\.pdf$/);
+
+    await dialog.locator('[data-epi-archive-document="salud"]').click();
+    await expect(dialog.locator('[data-epi-archive-slide]')).toHaveCount(3);
+    await expect(page.locator('#epiDocumentArchiveImage')).toHaveAttribute('src', /salud-publica-pages\/01-cover\.webp$/);
+    await expect(page.locator('#epiDocumentArchiveDownload')).toHaveAttribute('href', /salud-publica-paraguay\.pdf$/);
+    await dialog.getByRole('button', { name:'Cerrar archivo de Epidemiología' }).click();
+    await expect(dialog).toBeHidden();
+    await expect(firstLauncher).toBeFocused();
+  });
+
+  test('shows the exact Paraguay RAC levels from the Epidemiology homework', async ({ page }) => {
+    await page.goto('/clase.html#epiPrepCard');
+    const assignment = page.locator('#epiPrepCard');
+    await expect(assignment).toHaveAttribute('open', '');
+    await assignment.locator('[data-epi-review-open]').click();
+
+    const dialog = page.locator('#epiHomeworkReview');
+    await expect(dialog).toBeVisible();
+    await expect(dialog.locator('.rac-levels article')).toHaveCount(5);
+    await expect(dialog.locator('.rac-levels')).toContainText('Inmediato');
+    await expect(dialog.locator('.rac-levels')).toContainText('≤ 10 min');
+    await expect(dialog.locator('.rac-levels')).toContainText('≤ 30 min');
+    await expect(dialog.locator('.rac-levels')).toContainText('≤ 120 min');
+    await expect(dialog.locator('.rac-levels')).toContainText('≤ 180 min');
+    await expect(dialog.locator('.rac-steps li')).toHaveCount(6);
+
+    await dialog.locator('[data-epi-archive-open="rac"]').click();
+    await expect(dialog).toBeHidden();
+    await expect(page.locator('#epiDocumentArchive')).toBeVisible();
+    await expect(page.locator('#epiDocumentArchive [data-epi-archive-slide]')).toHaveCount(3);
+  });
+
   test('opens the homework review and separates PDF content from upcoming topics', async ({ page }) => {
     await page.goto('/clase.html#microTheoryPrepCard');
     const assignment = page.locator('#microTheoryPrepCard');

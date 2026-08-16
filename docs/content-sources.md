@@ -66,6 +66,16 @@ assets/class-hub/microbiology-theory/2026-08-10/micosis-superficiales.pdf
 
 The adjacent `generalidades/` and `micosis-superficiales/` WebP files are page renders used only for the in-site slide viewer. They must preserve the PDF page order and content. The homework review explicitly distinguishes material developed in those PDFs (dermatophytes and tinea) from the three subcutaneous mycoses announced for the following class.
 
+The Epidemiología y Salud Pública archive added on 2026-08-16 keeps the three received teacher files unchanged at:
+
+```txt
+assets/class-hub/epidemiology/2026-08-16/atencion-primaria-salud.pptx
+assets/class-hub/epidemiology/2026-08-16/manual-rac-paraguay-2011.pdf
+assets/class-hub/epidemiology/2026-08-16/salud-publica-paraguay.pdf
+```
+
+The `aps-slides/` directory contains the 36 PowerPoint renders in their original order. The `rac-pages/` and `salud-publica-pages/` directories contain only quick-view renders; the complete PDFs remain available from the archive. The Epidemiology homework card is grounded in the Paraguay RAC manual: printed pages 15 and 16 (PDF pages 17 and 18). The APS quick review uses pages 30 and 31 of the public-health book.
+
 ## Validation
 
 Before merging content changes, run:
