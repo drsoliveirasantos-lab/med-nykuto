@@ -23,6 +23,46 @@ async function dismissSemesterPicker(page) {
 }
 
 test.describe('Mobile critical paths', () => {
+  test('medical definitions stay compact and readable above the tapped word on iPhone', async ({ page }) => {
+    await page.goto('/clase.html#fisiologia', { waitUntil: 'domcontentloaded' });
+    const term = page.locator('.mn-glossary-term[data-glossary-key="hypercapnia"]:visible').first();
+    await expect(term).toBeVisible({ timeout: 15000 });
+    await term.evaluate(node => node.scrollIntoView({ block:'center', inline:'nearest' }));
+    await term.click();
+    const popover = page.locator('#mnMedicalGlossaryPopover');
+    await expect(popover).toBeVisible();
+
+    const layout = await page.evaluate(() => {
+      const trigger = document.querySelector('.mn-glossary-term[data-glossary-key="hypercapnia"][aria-expanded="true"]');
+      const panel = document.getElementById('mnMedicalGlossaryPopover');
+      const close = panel.querySelector('.mn-glossary-close');
+      const triggerRect = trigger.getBoundingClientRect();
+      const panelRect = panel.getBoundingClientRect();
+      const closeRect = close.getBoundingClientRect();
+      return {
+        placement:panel.dataset.placement,
+        panelLeft:panelRect.left,
+        panelRight:panelRect.right,
+        panelBottom:panelRect.bottom,
+        triggerTop:triggerRect.top,
+        panelWidth:panelRect.width,
+        closeWidth:closeRect.width,
+        closeHeight:closeRect.height,
+        viewport:window.innerWidth,
+        overflow:document.documentElement.scrollWidth - document.documentElement.clientWidth
+      };
+    });
+
+    expect(layout.placement).toBe('above');
+    expect(layout.panelLeft).toBeGreaterThanOrEqual(7);
+    expect(layout.panelRight).toBeLessThanOrEqual(layout.viewport - 7);
+    expect(layout.panelBottom).toBeLessThanOrEqual(layout.triggerTop);
+    expect(layout.panelWidth).toBeLessThanOrEqual(layout.viewport - 16);
+    expect(layout.closeWidth).toBeGreaterThanOrEqual(36);
+    expect(layout.closeHeight).toBeGreaterThanOrEqual(36);
+    expect(layout.overflow).toBeLessThanOrEqual(1);
+  });
+
   test('dedicated study page stays compact and switches grouped topics on iPhone', async ({ page }) => {
     await page.route('**/api/community**', async (route) => {
       await route.fulfill({

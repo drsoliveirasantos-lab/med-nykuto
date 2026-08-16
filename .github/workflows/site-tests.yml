@@ -115,6 +115,7 @@ jobs:
             tests/console-error-guard.spec.js \
             tests/grupo3-hub.spec.js \
             tests/community-leaderboard.spec.js \
+            tests/medical-glossary.spec.js \
             --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/desktop-core --reporter=json > desktop-core.json
           code=$?
           node scripts/print-playwright-summary.js desktop-core.json

@@ -194,6 +194,7 @@
   }
 
   function applyAbbreviations(){
+    if(window.MedNykutoGlossary) return;
     const content = document.getElementById('moduleContent');
     if(!contentReady() || !content || content.dataset.mnAbbrApplied === '1') return;
     content.dataset.mnAbbrApplied = '1';
