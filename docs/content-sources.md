@@ -49,6 +49,23 @@ Do not edit it manually. Rebuild it with:
 node scripts/build-courses-data.js
 ```
 
+## Class hub teacher documents
+
+Teacher-provided files displayed in the 4.º E class hub live under:
+
+```txt
+assets/class-hub/
+```
+
+The Microbiología II · Teórica archive added on 2026-08-16 keeps the two received PDFs unchanged at:
+
+```txt
+assets/class-hub/microbiology-theory/2026-08-10/micologia-generalidades.pdf
+assets/class-hub/microbiology-theory/2026-08-10/micosis-superficiales.pdf
+```
+
+The adjacent `generalidades/` and `micosis-superficiales/` WebP files are page renders used only for the in-site slide viewer. They must preserve the PDF page order and content. The homework review explicitly distinguishes material developed in those PDFs (dermatophytes and tinea) from the three subcutaneous mycoses announced for the following class.
+
 ## Validation
 
 Before merging content changes, run:

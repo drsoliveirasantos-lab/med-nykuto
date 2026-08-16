@@ -8,7 +8,7 @@
   <meta name="description" content="Espacio de la clase 4.º E: horario, tareas anteriores y materiales de Nutrición, Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología en un solo lugar." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=438" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=439" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -128,27 +128,30 @@
       </div>
 
       <div class="agenda-grid" id="weeklyAgenda" aria-label="Horario semanal">
+        <div class="schedule-time-axis" aria-hidden="true">
+          <span style="--hour-y:0px">07h</span><span style="--hour-y:21.6px">08h</span><span style="--hour-y:43.2px">09h</span><span style="--hour-y:64.8px">10h</span><span style="--hour-y:86.4px">11h</span><span style="--hour-y:108px">12h</span><span style="--hour-y:129.6px">13h</span><span style="--hour-y:151.2px">14h</span><span style="--hour-y:172.8px">15h</span><span style="--hour-y:194.4px">16h</span><span style="--hour-y:216px">17h</span><span style="--hour-y:237.6px">18h</span><span style="--hour-y:259.2px">19h</span><span style="--hour-y:280.8px">20h</span>
+        </div>
         <article class="agenda-day" data-schedule-day="1">
           <header><span>LUN</span><strong>Lunes <time data-week-date="1" datetime="2026-08-17">17 ago.</time></strong></header>
-          <div class="schedule-slot" data-subject="physiology"><time>07:00–10:10</time><strong>Fisiología II</strong><small>Dra. Giselle Vert</small></div>
-          <div class="schedule-slot" data-subject="microbiology"><time>10:10–12:20</time><strong>Microbiología II <span class="course-type-badge">TEÓRICA</span></strong><small>Dr. Alexander Acuña</small><a class="schedule-task-badge" href="#microTheoryPrepCard">Tarea</a></div>
-          <div class="schedule-slot schedule-online" data-subject="bioethics"><time>15:00–17:00</time><strong>Bioética · plataforma</strong><small>Lic. Silvia Nuarte</small></div>
+          <div class="schedule-slot" data-subject="physiology" data-start="07:00" data-end="10:10"><time>07:00–10:10</time><strong>Fisiología II</strong><small>Dra. Giselle Vert</small></div>
+          <div class="schedule-slot" data-subject="microbiology" data-start="10:10" data-end="12:20"><time>10:10–12:20</time><strong>Microbiología II <span class="course-type-badge">TEÓRICA</span></strong><small>Dr. Alexander Acuña</small><a class="schedule-task-badge" href="#microTheoryPrepCard">Tarea</a></div>
+          <div class="schedule-slot schedule-online" data-subject="bioethics" data-start="15:00" data-end="17:00"><time>15:00–17:00</time><strong>Bioética · plataforma</strong><small>Lic. Silvia Nuarte</small></div>
         </article>
         <article class="agenda-day" data-schedule-day="3">
           <header><span>MIÉ</span><strong>Miércoles <time data-week-date="3" datetime="2026-08-19">19 ago.</time></strong></header>
-          <div class="schedule-slot" data-subject="biochemistry"><time>09:10–11:10</time><strong>Bioquímica II</strong><small>Dra. Andrea López</small><a class="schedule-task-badge schedule-task-estimated" href="#bioPrepCard">Preparación</a></div>
-          <div class="schedule-slot" data-subject="epidemiology"><time>11:20–13:20</time><strong>Epidemiología y Salud Pública</strong><small>Dra. Andrea Isasi</small><a class="schedule-task-badge schedule-task-estimated" href="#epiPrepCard">Lectura</a></div>
+          <div class="schedule-slot" data-subject="biochemistry" data-start="09:10" data-end="11:10"><time>09:10–11:10</time><strong>Bioquímica II</strong><small>Dra. Andrea López</small><a class="schedule-task-badge schedule-task-estimated" href="#bioPrepCard">Preparación</a></div>
+          <div class="schedule-slot" data-subject="epidemiology" data-start="11:20" data-end="13:20"><time>11:20–13:20</time><strong>Epidemiología y Salud Pública</strong><small>Dra. Andrea Isasi</small><a class="schedule-task-badge schedule-task-estimated" href="#epiPrepCard">Lectura</a></div>
         </article>
         <article class="agenda-day" data-schedule-day="4">
           <header><span>JUE</span><strong>Jueves <time data-week-date="4" datetime="2026-08-20">20 ago.</time></strong></header>
-          <div class="schedule-slot" data-subject="nutrition"><time>07:00–09:40</time><strong>Nutrición</strong><small>Lic. Johana Leguizamón</small><a class="schedule-task-badge" href="#nutritionPrepCard">Seminario</a></div>
-          <div class="schedule-slot" data-subject="physiology"><time>09:40–12:20</time><strong>Fisiología II</strong><small>Dra. Giselle Vert</small></div>
-          <div class="schedule-slot schedule-lab" data-subject="microbiology" id="labScheduleSlot"><time id="labScheduleTime">G1 14:00 · G2 16:00 · G3 18:00</time><strong>Microbiología II <span class="course-type-badge">PRÁCTICA</span></strong><small id="labScheduleGroup">Selecciona tu grupo</small><a class="schedule-task-badge" href="#microPrepCard">Muestra</a></div>
+          <div class="schedule-slot" data-subject="nutrition" data-start="07:00" data-end="09:40"><time>07:00–09:40</time><strong>Nutrición</strong><small>Lic. Johana Leguizamón</small><a class="schedule-task-badge" href="#nutritionPrepCard">Seminario</a></div>
+          <div class="schedule-slot" data-subject="physiology" data-start="09:40" data-end="12:20"><time>09:40–12:20</time><strong>Fisiología II</strong><small>Dra. Giselle Vert</small></div>
+          <div class="schedule-slot schedule-lab" data-subject="microbiology" data-start="14:00" data-end="20:00" id="labScheduleSlot"><time id="labScheduleTime">G1 14:00 · G2 16:00 · G3 18:00</time><strong>Microbiología II <span class="course-type-badge">PRÁCTICA</span></strong><small id="labScheduleGroup">Selecciona tu grupo</small><a class="schedule-task-badge" href="#microPrepCard">Muestra</a></div>
         </article>
         <article class="agenda-day" data-schedule-day="5">
           <header><span>VIE</span><strong>Viernes <time data-week-date="5" datetime="2026-08-21">21 ago.</time></strong></header>
-          <div class="schedule-slot" data-subject="epidemiology"><time>07:00–09:00</time><strong>Epidemiología y Salud Pública</strong><small>Dra. Andrea Isasi</small></div>
-          <div class="schedule-slot" data-subject="biochemistry"><time>09:10–11:10</time><strong>Bioquímica II</strong><small>Dra. Andrea López</small></div>
+          <div class="schedule-slot" data-subject="epidemiology" data-start="07:00" data-end="09:00"><time>07:00–09:00</time><strong>Epidemiología y Salud Pública</strong><small>Dra. Andrea Isasi</small></div>
+          <div class="schedule-slot" data-subject="biochemistry" data-start="09:10" data-end="11:10"><time>09:10–11:10</time><strong>Bioquímica II</strong><small>Dra. Andrea López</small></div>
         </article>
       </div>
       <p class="schedule-note">No hay clases el martes ni el sábado. Si la facultad cambia el horario, sigue siempre el horario oficial.</p>
@@ -220,6 +223,7 @@
           <article class="assignment-card current-assignment-body current-assignment-compact-body">
             <div class="assignment-body">
             <p>Repasar las tiñas y estudiar esporotricosis linfocutánea, cromoblastomicosis y micetoma eumicótico para iniciar la próxima clase con casos clínicos.</p>
+            <button type="button" class="assignment-review-open" data-micro-review-open><span>FICHA DE REPASO</span><strong>Repasar ahora</strong><small>Tiñas de los PDF + 3 temas de la próxima clase</small><b aria-hidden="true">→</b></button>
             <details class="assignment-why"><summary>¿Por qué aparece aquí?</summary><p>La profesora pidió esta tarea. Como no dijo la fecha, usamos el horario habitual del lunes. Falta confirmarla.</p></details>
             </div>
             <div class="assignment-side"><label class="completion-control"><input type="checkbox" id="microTheoryPrepDone" /><span>Marcar estudio como realizado</span></label></div>
@@ -1028,6 +1032,36 @@
         <article class="history-entry history-current"><span>FECHA ESTIMADA</span><div><strong>Dermatofitosis y tiñas</strong><small>Clasificación, transmisión, localización, diagnóstico, antifúngicos y caso de tiña capitis inflamatoria.</small></div><span>ACTUAL</span></article>
       </div>
 
+      <section class="micro-slide-archive" aria-labelledby="microSlideArchiveLaunchTitle">
+        <header class="micro-slide-archive-heading">
+          <div><span>ARCHIVO DEL PROFESOR · 2 PDF</span><h3 id="microSlideArchiveLaunchTitle">Diapositivas de Micología</h3></div>
+          <p>Los dos soportes originales están completos y en el mismo orden que los archivos recibidos.</p>
+        </header>
+        <div class="micro-slide-archive-grid">
+          <article class="board-archive-launch micro-slide-archive-card">
+            <div class="board-archive-cover" aria-hidden="true"><img src="assets/class-hub/microbiology-theory/2026-08-10/generalidades/02.webp" loading="lazy" alt="" /></div>
+            <div class="board-archive-launch-copy">
+              <span>11 DIAPOSITIVAS</span>
+              <h3>Micología · Generalidades</h3>
+              <p>Estructura, morfología, clasificación, diagnóstico, virulencia y epidemiología.</p>
+              <a class="micro-slide-download" href="assets/class-hub/microbiology-theory/2026-08-10/micologia-generalidades.pdf" download>Descargar PDF</a>
+            </div>
+            <button type="button" class="board-archive-open" data-micro-archive-open="generalidades">Abrir diapositivas <b aria-hidden="true">→</b></button>
+          </article>
+          <article class="board-archive-launch micro-slide-archive-card">
+            <div class="board-archive-cover" aria-hidden="true"><img src="assets/class-hub/microbiology-theory/2026-08-10/micosis-superficiales/02.webp" loading="lazy" alt="" /></div>
+            <div class="board-archive-launch-copy">
+              <span>11 DIAPOSITIVAS</span>
+              <h3>Micosis superficiales</h3>
+              <p>Dermatofitos, tiñas por zona, diagnóstico, antifúngicos, tratamiento y prevención.</p>
+              <a class="micro-slide-download" href="assets/class-hub/microbiology-theory/2026-08-10/micosis-superficiales.pdf" download>Descargar PDF</a>
+            </div>
+            <button type="button" class="board-archive-open" data-micro-archive-open="superficiales">Abrir diapositivas <b aria-hidden="true">→</b></button>
+          </article>
+        </div>
+        <p class="micro-slide-source-note"><b>Fuente:</b> archivos PDF enviados por el profesor. Las tres micosis subcutáneas de la tarea se anunciaron como siguiente tema; estos dos PDF todavía no las desarrollan.</p>
+      </section>
+
       <button class="course-detail-toggle" type="button" data-detail-toggle aria-controls="micro-theory-detail" aria-expanded="false"><span>CLASE COMPLETA</span><strong>Abrir la clase completa</strong><small>Dermatofitos, tiñas, diagnóstico, tratamiento y próxima clase.</small><b aria-hidden="true">+</b></button>
 
       <section id="micro-theory-detail" class="micro-theory-lesson" data-course-detail aria-labelledby="micro-theory-core-title" hidden>
@@ -1334,6 +1368,115 @@
     <a href="comunidade.html"><span class="nav-icon"><svg><use href="#class-icon-community"></use></svg></span><strong>Estudiar</strong></a>
   </nav>
 
+  <dialog class="board-archive-dialog micro-review-dialog" id="microHomeworkReview" aria-labelledby="microHomeworkReviewTitle" aria-describedby="microHomeworkReviewDescription">
+    <div class="board-archive-shell micro-review-shell">
+      <header class="board-archive-toolbar">
+        <div>
+          <span>FICHA DEL DEBER · MICROBIOLOGÍA II</span>
+          <strong id="microHomeworkReviewTitle">Tiñas y tres micosis subcutáneas</strong>
+          <small id="microHomeworkReviewDescription">4 fichas cortas para repasar sin salir de la tarea.</small>
+        </div>
+        <button type="button" class="board-archive-close" data-micro-review-close aria-label="Cerrar ficha de repaso">×</button>
+      </header>
+      <div class="micro-review-body">
+        <aside class="micro-review-source-alert">
+          <strong>Qué viene de los PDF</strong>
+          <p>Las diapositivas desarrollan las tiñas. Las tres micosis subcutáneas fueron anunciadas para la próxima clase y todavía no están explicadas en estos dos archivos.</p>
+        </aside>
+        <nav class="micro-review-tabs" aria-label="Partes de la ficha de repaso">
+          <button type="button" data-micro-review-slide="0" aria-pressed="true">Tiñas</button>
+          <button type="button" data-micro-review-slide="1" aria-pressed="false">Esporotricosis</button>
+          <button type="button" data-micro-review-slide="2" aria-pressed="false">Cromoblastomicosis</button>
+          <button type="button" data-micro-review-slide="3" aria-pressed="false">Micetoma</button>
+        </nav>
+        <div class="micro-review-stage" aria-live="polite">
+          <article class="micro-review-panel" data-micro-review-panel="0">
+            <span class="micro-review-source">PDF · MICOSIS SUPERFICIALES</span>
+            <h3>Tiñas: reconocer el sitio y confirmar</h3>
+            <p>Los dermatofitos degradan queratina e invaden piel, pelo o uñas. El nombre de la tiña cambia según la zona afectada.</p>
+            <div class="micro-review-facts">
+              <article><span>GÉNEROS</span><strong><i>Trichophyton</i>, <i>Microsporum</i>, <i>Epidermophyton</i></strong><small>Piel, pelo o uña según el género.</small></article>
+              <article><span>LOCALIZACIÓN</span><strong>Capitis · corporis · pedis · unguium</strong><small>Cuero cabelludo, cuerpo, pie y uña.</small></article>
+              <article><span>MUESTRA</span><strong>Borde activo de la lesión</strong><small>KOH 10–20 % para observar hifas septadas y ramificadas.</small></article>
+              <article><span>TRATAMIENTO</span><strong>Local o sistémico según el caso</strong><small>Los casos localizados admiten tópico; tiña capitis y casos extensos requieren tratamiento sistémico.</small></article>
+            </div>
+          </article>
+          <article class="micro-review-panel" data-micro-review-panel="1" hidden>
+            <span class="micro-review-source micro-review-source-next">PRÓXIMO TEMA · NO DESARROLLADO EN LOS PDF</span>
+            <h3>Esporotricosis linfocutánea</h3>
+            <p>Ubícala primero como micosis subcutánea por inoculación traumática.</p>
+            <div class="micro-review-facts micro-review-facts-three">
+              <article><span>ENTRADA</span><strong>Plantas, suelo o gato</strong><small>La puerta de entrada es una lesión por inoculación.</small></article>
+              <article><span>PISTA</span><strong>Nódulos en trayecto linfático</strong><small>Las lesiones pueden ascender desde el punto de entrada.</small></article>
+              <article><span>ESTADO</span><strong>Preparación para la próxima clase</strong><small>El PDF de generalidades solo la cita como ejemplo de micosis subcutánea.</small></article>
+            </div>
+          </article>
+          <article class="micro-review-panel" data-micro-review-panel="2" hidden>
+            <span class="micro-review-source micro-review-source-next">PRÓXIMO TEMA · NO DESARROLLADO EN LOS PDF</span>
+            <h3>Cromoblastomicosis</h3>
+            <p>Ubícala como infección subcutánea crónica causada por hongos pigmentados tras una implantación traumática.</p>
+            <div class="micro-review-facts micro-review-facts-three">
+              <article><span>ENTRADA</span><strong>Implantación traumática</strong><small>El agente entra a través de una lesión de la piel.</small></article>
+              <article><span>PISTA</span><strong>Lesión verrugosa crónica</strong><small>El dato microscópico orientador son los cuerpos muriformes o escleróticos.</small></article>
+              <article><span>ESTADO</span><strong>Preparación para la próxima clase</strong><small>El PDF de generalidades la cita, pero no desarrolla el cuadro clínico.</small></article>
+            </div>
+          </article>
+          <article class="micro-review-panel" data-micro-review-panel="3" hidden>
+            <span class="micro-review-source micro-review-source-next">PRÓXIMO TEMA · NO APARECE EN LOS PDF</span>
+            <h3>Micetoma eumicótico</h3>
+            <p>Es el micetoma causado por hongos. Debe diferenciarse del actinomicetoma, que es bacteriano.</p>
+            <div class="micro-review-facts micro-review-facts-three">
+              <article><span>TRÍADA</span><strong>Masa + fístulas + granos</strong><small>Tres hallazgos que orientan el reconocimiento clínico.</small></article>
+              <article><span>AGENTE</span><strong>Hongo</strong><small>“Eumicótico” lo separa del origen bacteriano.</small></article>
+              <article><span>ESTADO</span><strong>Preparación para la próxima clase</strong><small>El nombre viene de la tarea anunciada; no figura en los dos PDF recibidos.</small></article>
+            </div>
+          </article>
+        </div>
+        <div class="board-archive-controls micro-review-controls">
+          <button type="button" data-micro-review-previous aria-label="Ver la ficha anterior">← <span>Anterior</span></button>
+          <span aria-hidden="true"><b data-micro-review-current>1</b> / 4</span>
+          <button type="button" data-micro-review-next aria-label="Ver la ficha siguiente"><span>Siguiente</span> →</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="board-archive-dialog micro-slide-dialog" id="microSlideArchive" aria-labelledby="microSlideArchiveTitle" aria-describedby="microSlideArchiveDescription">
+    <div class="board-archive-shell">
+      <header class="board-archive-toolbar micro-slide-toolbar">
+        <div>
+          <span>ARCHIVO DEL PROFESOR · MICROBIOLOGÍA II</span>
+          <strong id="microSlideArchiveTitle">Micología · Generalidades</strong>
+          <small id="microSlideArchiveDescription">11 diapositivas originales en su orden.</small>
+        </div>
+        <a id="microSlideArchiveDownload" class="micro-slide-dialog-download" href="assets/class-hub/microbiology-theory/2026-08-10/micologia-generalidades.pdf" download>Descargar PDF</a>
+        <button type="button" class="board-archive-close" data-micro-archive-close aria-label="Cerrar archivo de diapositivas">×</button>
+      </header>
+      <nav class="seminar-document-tabs micro-slide-document-tabs" aria-label="Elegir soporte de Micología">
+        <button type="button" data-micro-archive-document="generalidades" aria-pressed="true">Generalidades</button>
+        <button type="button" data-micro-archive-document="superficiales" aria-pressed="false">Micosis superficiales</button>
+      </nav>
+      <div class="board-archive-body">
+        <section class="board-archive-stage" aria-live="polite">
+          <figure>
+            <div class="board-archive-image-frame"><img id="microSlideArchiveImage" src="assets/class-hub/microbiology-theory/2026-08-10/generalidades/01.webp" width="1440" height="810" alt="Diapositiva 1: ficha de Micología Generalidades" /></div>
+            <figcaption>
+              <span id="microSlideArchiveCounter">DIAPOSITIVA 1 DE 11</span>
+              <strong id="microSlideArchiveSlideTitle">Ficha de la materia</strong>
+              <small id="microSlideArchiveSlideDescription">Sede, semestre, cátedra, unidad y tema del soporte.</small>
+            </figcaption>
+          </figure>
+          <div class="board-archive-controls">
+            <button type="button" data-micro-archive-previous aria-label="Ver la diapositiva anterior">← <span>Anterior</span></button>
+            <span aria-hidden="true"><b data-micro-archive-current>1</b> / 11</span>
+            <button type="button" data-micro-archive-next aria-label="Ver la diapositiva siguiente"><span>Siguiente</span> →</button>
+          </div>
+        </section>
+        <nav class="board-archive-thumbnails" id="microSlideArchiveThumbnails" aria-label="Diapositivas del soporte seleccionado"></nav>
+      </div>
+    </div>
+  </dialog>
+
   <dialog class="board-archive-dialog" id="bioBoardArchive" aria-labelledby="bioBoardArchiveTitle" aria-describedby="bioBoardArchiveDescription">
     <div class="board-archive-shell">
       <header class="board-archive-toolbar">
@@ -1414,11 +1557,11 @@
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=405"></script>
-  <script src="grupo-3-i18n-v421.js?v=436"></script>
+  <script src="grupo-3-i18n-v421.js?v=439"></script>
   <script src="grupo-3-practice-v413.js?v=429"></script>
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
   <script src="grupo-3-practice-grounded-v426.js?v=429"></script>
-  <script src="grupo-3-v401.js?v=431"></script>
+  <script src="grupo-3-v401.js?v=439"></script>
   <script src="medical-glossary-v425.js?v=425"></script>
 </body>
 </html>

@@ -258,6 +258,57 @@ test.describe('Class hub', () => {
     await expect(openArchive).toBeFocused();
   });
 
+  test('opens both teacher PDF decks inside the Microbiology archive', async ({ page }) => {
+    await page.goto('/clase.html#microbiologia-teorica');
+    const launchers = page.locator('[data-micro-archive-open]');
+    await expect(launchers).toHaveCount(2);
+    await expect(launchers.first()).toBeVisible();
+    await launchers.first().click();
+
+    const dialog = page.locator('#microSlideArchive');
+    await expect(dialog).toBeVisible();
+    await expect(dialog.locator('[data-micro-archive-slide]')).toHaveCount(11);
+    await expect(page.locator('#microSlideArchiveCounter')).toHaveText('DIAPOSITIVA 1 DE 11');
+    await expect(page.locator('#microSlideArchiveImage')).toHaveAttribute('src', /generalidades\/01\.webp$/);
+    await expect(page.locator('#microSlideArchiveDownload')).toHaveAttribute('href', /micologia-generalidades\.pdf$/);
+
+    await dialog.locator('[data-micro-archive-document="superficiales"]').click();
+    await expect(dialog.locator('[data-micro-archive-slide]')).toHaveCount(11);
+    await expect(page.locator('#microSlideArchiveImage')).toHaveAttribute('src', /micosis-superficiales\/01\.webp$/);
+    await expect(page.locator('#microSlideArchiveDownload')).toHaveAttribute('href', /micosis-superficiales\.pdf$/);
+    await dialog.locator('[data-micro-archive-next]').click();
+    await expect(page.locator('#microSlideArchiveImage')).toHaveAttribute('src', /micosis-superficiales\/02\.webp$/);
+
+    await dialog.getByRole('button', { name: 'Cerrar archivo de diapositivas' }).click();
+    await expect(dialog).toBeHidden();
+    await expect(launchers.first()).toBeFocused();
+  });
+
+  test('opens the homework review and separates PDF content from upcoming topics', async ({ page }) => {
+    await page.goto('/clase.html#microTheoryPrepCard');
+    const assignment = page.locator('#microTheoryPrepCard');
+    await expect(assignment).toHaveAttribute('open', '');
+    const openReview = assignment.locator('[data-micro-review-open]');
+    await expect(openReview).toBeVisible();
+    await openReview.click();
+
+    const dialog = page.locator('#microHomeworkReview');
+    await expect(dialog).toBeVisible();
+    await expect(dialog.locator('[data-micro-review-panel]')).toHaveCount(4);
+    await expect(dialog.locator('[data-micro-review-panel="0"]')).toBeVisible();
+    await expect(dialog).toContainText('Las diapositivas desarrollan las tiñas');
+    await dialog.locator('[data-micro-review-next]').click();
+    await expect(dialog.locator('[data-micro-review-panel="1"]')).toBeVisible();
+    await expect(dialog).toContainText('NO DESARROLLADO EN LOS PDF');
+    await dialog.press('End');
+    await expect(dialog.locator('[data-micro-review-panel="3"]')).toBeVisible();
+    await expect(dialog).toContainText('NO APARECE EN LOS PDF');
+
+    await dialog.getByRole('button', { name: 'Cerrar ficha de repaso' }).click();
+    await expect(dialog).toBeHidden();
+    await expect(openReview).toBeFocused();
+  });
+
   test('opens the 10 and 13 August Physiology lessons independently', async ({ page }) => {
     await page.goto('/clase.html#fisiologia-2026-08-13');
     await expect(page.locator('#fisio-title')).toHaveText('Control nervioso y químico de la respiración');
@@ -850,7 +901,7 @@ test.describe('Class hub', () => {
     }
   });
 
-  test('renders the phone timetable as a complete four-column mini-week', async ({ page }, testInfo) => {
+  test('renders the phone timetable as a four-day mini-week aligned to a real hour ruler', async ({ page }, testInfo) => {
     test.skip(testInfo.project.name !== 'mobile-safari-shape', 'Mobile layout assertion');
     await page.goto('/clase.html#horario');
     const layout = await page.evaluate(() => {
@@ -858,6 +909,12 @@ test.describe('Class hub', () => {
       const days = Array.from(document.querySelectorAll('.agenda-day')).map(day => day.getBoundingClientRect());
       const firstSlot = document.querySelector('.schedule-slot').getBoundingClientRect();
       const firstTeacher = document.querySelector('.schedule-slot small');
+      const axis = document.querySelector('.schedule-time-axis');
+      const sevenStarts = Array.from(document.querySelectorAll('.schedule-slot[data-start="07:00"]')).map(slot => slot.getBoundingClientRect().top);
+      const firstAtSeven = document.querySelector('.schedule-slot[data-start="07:00"]').getBoundingClientRect();
+      const firstAtNineTen = document.querySelector('.agenda-day[data-schedule-day="3"] .schedule-slot[data-start="09:10"]').getBoundingClientRect();
+      const mondayFirst = document.querySelector('.agenda-day[data-schedule-day="1"] .schedule-slot[data-start="07:00"]').getBoundingClientRect();
+      const mondaySecond = document.querySelector('.agenda-day[data-schedule-day="1"] .schedule-slot[data-start="10:10"]').getBoundingClientRect();
       const summary = document.querySelector('.agenda-summary').getBoundingClientRect();
       const switcher = document.querySelector('#semesterSwitcherV402').getBoundingClientRect();
       const header = document.querySelector('.class-header').getBoundingClientRect();
@@ -871,6 +928,11 @@ test.describe('Class hub', () => {
         summaryTop:summary.top,
         slotHeight:firstSlot.height,
         teacherDisplay:getComputedStyle(firstTeacher).display,
+        axisDisplay:getComputedStyle(axis).display,
+        axisLabels:axis.querySelectorAll('span').length,
+        sevenStartSpread:Math.max(...sevenStarts) - Math.min(...sevenStarts),
+        nineTenOffset:firstAtNineTen.top - firstAtSeven.top,
+        consecutiveGap:Math.abs(mondaySecond.top - mondayFirst.bottom),
         switcherTop:switcher.top,
         switcherBottom:switcher.bottom,
         headerTop:header.top,
@@ -880,13 +942,18 @@ test.describe('Class hub', () => {
         clientWidth:document.documentElement.clientWidth
       };
     });
-    expect(layout.columnCount).toBe(4);
+    expect(layout.columnCount).toBe(5);
     expect(layout.visibleDays).toBe(4);
     expect(layout.alignedDayTops).toBe(1);
     expect(layout.gridHeight).toBeLessThan(340);
     expect(layout.gridBottom).toBeLessThanOrEqual(layout.summaryTop);
     expect(layout.slotHeight).toBeLessThan(125);
     expect(layout.teacherDisplay).toBe('none');
+    expect(layout.axisDisplay).toBe('block');
+    expect(layout.axisLabels).toBe(14);
+    expect(layout.sevenStartSpread).toBeLessThanOrEqual(1);
+    expect(layout.nineTenOffset).toBeGreaterThan(40);
+    expect(layout.consecutiveGap).toBeLessThanOrEqual(1);
     expect(layout.switcherTop).toBeGreaterThanOrEqual(layout.headerTop);
     expect(layout.switcherBottom).toBeLessThanOrEqual(layout.headerBottom + 1);
     expect(layout.highlightedDate).toMatch(/^2026-\d{2}-\d{2}$/);

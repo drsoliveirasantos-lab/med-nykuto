@@ -817,6 +817,24 @@
     if(range) range.textContent = tr('scheduleWeek',{start:compact.format(monday),end:longDate.format(sunday)});
   }
 
+  function scheduleTimelineStep(value){
+    var parts = String(value || '').split(':').map(Number);
+    if(parts.length !== 2 || !Number.isFinite(parts[0]) || !Number.isFinite(parts[1])) return null;
+    return Math.round((((parts[0] * 60) + parts[1]) - (7 * 60)) / 10);
+  }
+
+  function layoutScheduleTimeline(){
+    document.querySelectorAll('#weeklyAgenda .schedule-slot[data-start][data-end]').forEach(function(slot){
+      var start = scheduleTimelineStep(slot.dataset.start);
+      var end = scheduleTimelineStep(slot.dataset.end);
+      if(start === null || end === null || end <= start) return;
+      start = Math.max(0,Math.min(77,start));
+      end = Math.max(start + 1,Math.min(78,end));
+      slot.style.setProperty('--timeline-row',String(start + 2));
+      slot.style.setProperty('--timeline-span',String(end - start));
+    });
+  }
+
   function renderHomePreparation(nodeId,preparation){
     var node = document.getElementById(nodeId);
     node.dateTime = preparation.date;
@@ -867,15 +885,24 @@
     var timeNode = document.getElementById('labScheduleTime');
     var groupNode = document.getElementById('labScheduleGroup');
     var nextLabNode = document.getElementById('nextLabWhen');
+    var labSlotNode = document.getElementById('labScheduleSlot');
     if(group && labSlots[group]){
       var lab = labSlots[group];
       timeNode.textContent = lab.start + '–' + lab.end;
       groupNode.textContent = lab.group + ' · ' + lab.teacher;
       nextLabNode.textContent = formatOccurrence(nextOccurrence([lab]));
+      if(labSlotNode){
+        labSlotNode.dataset.start = lab.start;
+        labSlotNode.dataset.end = lab.end;
+      }
     }else{
       timeNode.textContent = 'G1 14:00 · G2 16:00 · G3 18:00';
       groupNode.textContent = tr('selectGroup');
       nextLabNode.textContent = tr('selectGroup');
+      if(labSlotNode){
+        labSlotNode.dataset.start = '14:00';
+        labSlotNode.dataset.end = '20:00';
+      }
     }
 
     document.getElementById('bioEstimatedDate').textContent = formatEstimatedPreparation(latestTranscript.estimatedPreparation);
@@ -888,6 +915,7 @@
     renderHomePreparation('homeBioDate',latestTranscript.estimatedPreparation);
     sortHomePreparations();
     renderScheduleWeekDates(next && next.date);
+    layoutScheduleTimeline();
     refreshLanguage(document.getElementById('horario'));
     refreshLanguage(document.getElementById('inicio'));
   }
@@ -1104,6 +1132,269 @@
     selectSlide(0,false);
   }
 
+  function prepareMicroHomeworkReview(){
+    var dialog = document.getElementById('microHomeworkReview');
+    var openButtons = Array.from(document.querySelectorAll('[data-micro-review-open]'));
+    if(!dialog || !openButtons.length) return;
+    var tabs = Array.from(dialog.querySelectorAll('[data-micro-review-slide]'));
+    var panels = Array.from(dialog.querySelectorAll('[data-micro-review-panel]'));
+    var stage = dialog.querySelector('.micro-review-stage');
+    var current = dialog.querySelector('[data-micro-review-current]');
+    var previous = dialog.querySelector('[data-micro-review-previous]');
+    var next = dialog.querySelector('[data-micro-review-next]');
+    var closeButton = dialog.querySelector('[data-micro-review-close]');
+    var activeIndex = 0;
+    var returnFocus = null;
+    var touchStart = null;
+
+    function selectSlide(index,moveFocus){
+      activeIndex = Math.max(0,Math.min(index,panels.length - 1));
+      panels.forEach(function(panel,itemIndex){panel.hidden = itemIndex !== activeIndex;});
+      tabs.forEach(function(tab,itemIndex){tab.setAttribute('aria-pressed',itemIndex === activeIndex ? 'true' : 'false');});
+      if(current) current.textContent = String(activeIndex + 1);
+      if(previous) previous.disabled = activeIndex === 0;
+      if(next) next.disabled = activeIndex === panels.length - 1;
+      if(stage) stage.scrollTop = 0;
+      if(tabs[activeIndex]){
+        if(dialog.open || dialog.hasAttribute('open')) tabs[activeIndex].scrollIntoView({block:'nearest',inline:'nearest'});
+        if(moveFocus) tabs[activeIndex].focus({preventScroll:true});
+      }
+    }
+
+    function closeReview(){
+      if(typeof dialog.close === 'function' && dialog.open) dialog.close();
+      else{
+        dialog.removeAttribute('open');
+        document.body.classList.remove('is-micro-review-open');
+        if(returnFocus) returnFocus.focus();
+      }
+    }
+
+    openButtons.forEach(function(button){
+      button.addEventListener('click',function(){
+        returnFocus = button;
+        selectSlide(0,false);
+        document.body.classList.add('is-micro-review-open');
+        if(typeof dialog.showModal === 'function') dialog.showModal();
+        else dialog.setAttribute('open','');
+        window.requestAnimationFrame(function(){if(closeButton) closeButton.focus();});
+      });
+    });
+    tabs.forEach(function(tab,index){tab.addEventListener('click',function(){selectSlide(index,false);});});
+    if(previous) previous.addEventListener('click',function(){selectSlide(activeIndex - 1,false);});
+    if(next) next.addEventListener('click',function(){selectSlide(activeIndex + 1,false);});
+    if(closeButton) closeButton.addEventListener('click',closeReview);
+    dialog.addEventListener('click',function(event){if(event.target === dialog) closeReview();});
+    dialog.addEventListener('keydown',function(event){
+      if(event.key === 'ArrowLeft'){event.preventDefault();selectSlide(activeIndex - 1,true);}
+      if(event.key === 'ArrowRight'){event.preventDefault();selectSlide(activeIndex + 1,true);}
+      if(event.key === 'Home'){event.preventDefault();selectSlide(0,true);}
+      if(event.key === 'End'){event.preventDefault();selectSlide(panels.length - 1,true);}
+    });
+    if(stage){
+      stage.addEventListener('touchstart',function(event){
+        var touch = event.changedTouches && event.changedTouches[0];
+        touchStart = touch ? {x:touch.clientX,y:touch.clientY} : null;
+      },{passive:true});
+      stage.addEventListener('touchend',function(event){
+        var touch = event.changedTouches && event.changedTouches[0];
+        if(!touchStart || !touch) return;
+        var deltaX = touch.clientX - touchStart.x;
+        var deltaY = touch.clientY - touchStart.y;
+        touchStart = null;
+        if(Math.abs(deltaX) < 45 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+        selectSlide(deltaX < 0 ? activeIndex + 1 : activeIndex - 1,false);
+      },{passive:true});
+    }
+    dialog.addEventListener('close',function(){
+      document.body.classList.remove('is-micro-review-open');
+      if(returnFocus) returnFocus.focus();
+    });
+    dialog.addEventListener('cancel',function(){document.body.classList.remove('is-micro-review-open');});
+    selectSlide(0,false);
+  }
+
+  function prepareMicroSlideArchive(){
+    var dialog = document.getElementById('microSlideArchive');
+    var openButtons = Array.from(document.querySelectorAll('[data-micro-archive-open]'));
+    if(!dialog || !openButtons.length) return;
+    var documents = {
+      generalidades:{
+        title:'Micología · Generalidades',
+        pdf:'assets/class-hub/microbiology-theory/2026-08-10/micologia-generalidades.pdf',
+        base:'assets/class-hub/microbiology-theory/2026-08-10/generalidades/',
+        slides:[
+          ['Ficha de la materia','Sede, semestre, cátedra, unidad y tema del soporte.'],
+          ['Generalidades de micosis','Estructura, diferenciación y clasificación de los hongos patógenos.'],
+          ['Introducción a la Micología Médica','Eucariontes, heterótrofos y pared celular de quitina.'],
+          ['Estructura de los hongos','Pared celular, membrana con ergosterol y orgánulos.'],
+          ['Morfología fúngica','Levaduras, mohos y hongos dimórficos.'],
+          ['Ciclos de vida y reproducción','Esporulación, conidios, blastoconidios, gemación y plasmogamia.'],
+          ['Clasificación de las micosis','Superficiales, cutáneas, subcutáneas y sistémicas.'],
+          ['Diferenciación diagnóstica','KOH, agar Sabouraud, pruebas moleculares y antígenos.'],
+          ['Factores de virulencia','Adhesinas, enzimas hidrolíticas y evasión inmune.'],
+          ['Epidemiología','Factores de riesgo y carga de las micosis sistémicas.'],
+          ['Conclusiones y bibliografía','Estructura, dimorfismo y clasificación por invasión.']
+        ]
+      },
+      superficiales:{
+        title:'Micosis superficiales',
+        pdf:'assets/class-hub/microbiology-theory/2026-08-10/micosis-superficiales.pdf',
+        base:'assets/class-hub/microbiology-theory/2026-08-10/micosis-superficiales/',
+        slides:[
+          ['Ficha de la materia','Cátedra, unidad y tema del soporte.'],
+          ['Micosis superficiales','Invasión de la queratina y visión general del tema.'],
+          ['Hongos queratófilos','Definición, afinidad por queratina e impacto clínico.'],
+          ['Triángulo de los dermatofitos','Géneros, fuentes de infección y transmisión por fómites.'],
+          ['Tiñas por localización','Capitis, corporis, pedis y unguium.'],
+          ['Patogenicidad','Queratinasas y reacción de hipersensibilidad a distancia.'],
+          ['Diagnóstico','KOH, lámpara de Wood y toma del borde activo.'],
+          ['Tratamiento y ergosterol','Azoles, alilaminas y polienos.'],
+          ['Otros antifúngicos','Griseofulvina, equinocandinas y 5-fluorocitosina.'],
+          ['Estrategia terapéutica','Tratamiento tópico, sistémico, adherencia y prevención.'],
+          ['Control y prevención','Precisión diagnóstica, terapia y control ambiental.']
+        ]
+      }
+    };
+    var documentTabs = Array.from(dialog.querySelectorAll('[data-micro-archive-document]'));
+    var thumbnailsHost = document.getElementById('microSlideArchiveThumbnails');
+    var image = document.getElementById('microSlideArchiveImage');
+    var title = document.getElementById('microSlideArchiveTitle');
+    var description = document.getElementById('microSlideArchiveDescription');
+    var slideTitle = document.getElementById('microSlideArchiveSlideTitle');
+    var slideDescription = document.getElementById('microSlideArchiveSlideDescription');
+    var counter = document.getElementById('microSlideArchiveCounter');
+    var download = document.getElementById('microSlideArchiveDownload');
+    var current = dialog.querySelector('[data-micro-archive-current]');
+    var previous = dialog.querySelector('[data-micro-archive-previous]');
+    var next = dialog.querySelector('[data-micro-archive-next]');
+    var closeButton = dialog.querySelector('[data-micro-archive-close]');
+    var imageFrame = dialog.querySelector('.board-archive-image-frame');
+    var activeDocument = 'generalidades';
+    var activeIndex = 0;
+    var thumbnails = [];
+    var returnFocus = null;
+    var touchStart = null;
+
+    function language(){
+      return window.MedNykutoClassI18n && window.MedNykutoClassI18n.getLang ? window.MedNykutoClassI18n.getLang() : 'es';
+    }
+
+    function slidePath(documentData,index){
+      return documentData.base + String(index + 1).padStart(2,'0') + '.webp';
+    }
+
+    function buildThumbnails(){
+      var documentData = documents[activeDocument];
+      thumbnailsHost.replaceChildren();
+      thumbnails = documentData.slides.map(function(slide,index){
+        var button = document.createElement('button');
+        var preview = document.createElement('img');
+        var sequence = document.createElement('span');
+        var copy = document.createElement('span');
+        var itemTitle = document.createElement('strong');
+        var itemDescription = document.createElement('small');
+        button.type = 'button';
+        button.dataset.microArchiveSlide = String(index);
+        button.setAttribute('aria-pressed','false');
+        button.setAttribute('aria-label','Abrir diapositiva ' + (index + 1) + ': ' + slide[0]);
+        preview.src = slidePath(documentData,index);
+        preview.alt = '';
+        if(index > 0) preview.loading = 'lazy';
+        sequence.textContent = String(index + 1).padStart(2,'0');
+        itemTitle.textContent = slide[0];
+        itemDescription.textContent = slide[1];
+        copy.append(itemTitle,itemDescription);
+        button.append(preview,sequence,copy);
+        button.addEventListener('click',function(){selectSlide(index,false);});
+        thumbnailsHost.appendChild(button);
+        return button;
+      });
+    }
+
+    function selectSlide(index,moveFocus){
+      var documentData = documents[activeDocument];
+      activeIndex = Math.max(0,Math.min(index,documentData.slides.length - 1));
+      var slide = documentData.slides[activeIndex];
+      thumbnails.forEach(function(button,itemIndex){button.setAttribute('aria-pressed',itemIndex === activeIndex ? 'true' : 'false');});
+      image.src = slidePath(documentData,activeIndex);
+      image.alt = 'Diapositiva ' + (activeIndex + 1) + ': ' + slide[0];
+      slideTitle.textContent = slide[0];
+      slideDescription.textContent = slide[1];
+      counter.textContent = (language() === 'br' ? 'SLIDE ' : 'DIAPOSITIVA ') + (activeIndex + 1) + ' DE ' + documentData.slides.length;
+      current.textContent = String(activeIndex + 1);
+      previous.disabled = activeIndex === 0;
+      next.disabled = activeIndex === documentData.slides.length - 1;
+      if(thumbnails[activeIndex]){
+        if(dialog.open || dialog.hasAttribute('open')) thumbnails[activeIndex].scrollIntoView({block:'nearest',inline:'nearest'});
+        if(moveFocus) thumbnails[activeIndex].focus({preventScroll:true});
+      }
+    }
+
+    function selectDocument(documentId){
+      activeDocument = documents[documentId] ? documentId : 'generalidades';
+      var documentData = documents[activeDocument];
+      documentTabs.forEach(function(tab){tab.setAttribute('aria-pressed',tab.dataset.microArchiveDocument === activeDocument ? 'true' : 'false');});
+      title.textContent = documentData.title;
+      description.textContent = language() === 'br' ? '11 slides originais na ordem do arquivo.' : '11 diapositivas originales en su orden.';
+      download.href = documentData.pdf;
+      buildThumbnails();
+      selectSlide(0,false);
+    }
+
+    function closeArchive(){
+      if(typeof dialog.close === 'function' && dialog.open) dialog.close();
+      else{
+        dialog.removeAttribute('open');
+        document.body.classList.remove('is-micro-slide-open');
+        if(returnFocus) returnFocus.focus();
+      }
+    }
+
+    openButtons.forEach(function(button){
+      button.addEventListener('click',function(){
+        returnFocus = button;
+        selectDocument(button.dataset.microArchiveOpen);
+        document.body.classList.add('is-micro-slide-open');
+        if(typeof dialog.showModal === 'function') dialog.showModal();
+        else dialog.setAttribute('open','');
+        window.requestAnimationFrame(function(){if(closeButton) closeButton.focus();});
+      });
+    });
+    documentTabs.forEach(function(tab){tab.addEventListener('click',function(){selectDocument(tab.dataset.microArchiveDocument);});});
+    previous.addEventListener('click',function(){selectSlide(activeIndex - 1,false);});
+    next.addEventListener('click',function(){selectSlide(activeIndex + 1,false);});
+    if(closeButton) closeButton.addEventListener('click',closeArchive);
+    dialog.addEventListener('click',function(event){if(event.target === dialog) closeArchive();});
+    dialog.addEventListener('keydown',function(event){
+      if(event.key === 'ArrowLeft'){event.preventDefault();selectSlide(activeIndex - 1,true);}
+      if(event.key === 'ArrowRight'){event.preventDefault();selectSlide(activeIndex + 1,true);}
+      if(event.key === 'Home'){event.preventDefault();selectSlide(0,true);}
+      if(event.key === 'End'){event.preventDefault();selectSlide(documents[activeDocument].slides.length - 1,true);}
+    });
+    if(imageFrame){
+      imageFrame.addEventListener('touchstart',function(event){
+        var touch = event.changedTouches && event.changedTouches[0];
+        touchStart = touch ? {x:touch.clientX,y:touch.clientY} : null;
+      },{passive:true});
+      imageFrame.addEventListener('touchend',function(event){
+        var touch = event.changedTouches && event.changedTouches[0];
+        if(!touchStart || !touch) return;
+        var deltaX = touch.clientX - touchStart.x;
+        var deltaY = touch.clientY - touchStart.y;
+        touchStart = null;
+        if(Math.abs(deltaX) < 45 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+        selectSlide(deltaX < 0 ? activeIndex + 1 : activeIndex - 1,false);
+      },{passive:true});
+    }
+    dialog.addEventListener('close',function(){
+      document.body.classList.remove('is-micro-slide-open');
+      if(returnFocus) returnFocus.focus();
+    });
+    dialog.addEventListener('cancel',function(){document.body.classList.remove('is-micro-slide-open');});
+    selectDocument('generalidades');
+  }
+
   var courseIds = ['nutricion','fisiologia','bioquimica','epidemiologia','microbiologia-teorica','microbiologia-practica'];
   var activeCourseId = 'nutricion';
   var activeLessonByCourse = {fisiologia:'fisiologia-2026-08-13'};
@@ -1264,6 +1555,8 @@
     prepareMobileTables();
     prepareSeminarDocumentPreview();
     prepareBoardArchive();
+    prepareMicroHomeworkReview();
+    prepareMicroSlideArchive();
     setUpdatedDate();
 
     document.querySelectorAll('[data-detail-toggle]').forEach(function(button){

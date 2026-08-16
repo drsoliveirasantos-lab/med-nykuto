@@ -137,11 +137,18 @@ expect(css.includes('.class-language-switcher'), 'The compact language selector 
 expect(css.includes('.schedule-task-badge'), 'The schedule task badge styling is missing.');
 expect((html.match(/class="schedule-slot/g) || []).length === 10, 'The weekly schedule no longer exposes all ten class slots.');
 expect((html.match(/data-subject="/g) || []).length === 10, 'The class slots are missing their subject color markers.');
+expect((html.match(/data-start="/g) || []).length === 10, 'Every class slot must expose its exact start time.');
+expect((html.match(/data-end="/g) || []).length === 10, 'Every class slot must expose its exact end time.');
+expect(html.includes('class="schedule-time-axis"'), 'The phone timetable hour ruler is missing.');
+expect((html.match(/--hour-y:/g) || []).length === 14, 'The phone timetable must expose hourly labels from 07h through 20h.');
 expect(html.includes('class="schedule-day-strip"'), 'The compact four-day strip is missing from the schedule summary.');
-expect(css.includes('grid-template-columns:54px minmax(0,1fr)'), 'The compact mobile schedule timeline is missing.');
+expect(css.includes('grid-template-columns:22px repeat(4,minmax(0,1fr))'), 'The compact mobile schedule timeline is missing.');
+expect(css.includes('grid-template-rows:51px repeat(78,3.6px)'), 'The phone schedule is not using the real 10-minute time grid.');
 expect(css.includes('.schedule-slot[data-subject="physiology"]'), 'The schedule subject color system is missing.');
 expect(runtime.includes('function mondayOfWeek(date)'), 'The schedule week does not align its dates with the upcoming class.');
 expect(runtime.includes('renderScheduleWeekDates(next && next.date)'), 'The upcoming class is not used to choose the visible schedule week.');
+expect(runtime.includes('function layoutScheduleTimeline()'), 'The schedule runtime does not position courses from their actual start and end times.');
+expect(runtime.includes("labSlotNode.dataset.start = lab.start"), 'The selected laboratory group does not update its timeline position.');
 expect(runtime.includes('function sortHomePreparations()'), 'The home homework cards are not sorted automatically.');
 expect(runtime.includes("firstDate.localeCompare(secondDate)"), 'The home homework cards are not sorted by ISO due date.');
 expect(semesterSwitcher.includes("classScope.replaceWith(wrapper)"), 'The semester selector is not embedded in the class header.');
@@ -177,6 +184,26 @@ expect(css.includes('.board-archive-dialog'), 'The board archive dialog styling 
 expect(css.includes('.board-archive-thumbnails'), 'The board archive thumbnail navigation styling is missing.');
 expect(i18n.includes("'Ver las 7 láminas':'Ver as 7 lâminas'"), 'The Portuguese board archive call to action is missing.');
 expect(i18n.includes("'Cerrar archivo de la pizarra':'Fechar arquivo da lousa'"), 'The Portuguese board archive close label is missing.');
+expect(html.includes('id="microHomeworkReview"'), 'The Microbiology homework review dialog is missing.');
+expect((html.match(/data-micro-review-panel=/g) || []).length === 4, 'The Microbiology homework review must expose four ordered cards.');
+expect(runtime.includes('function prepareMicroHomeworkReview()'), 'The Microbiology homework review runtime is missing.');
+expect(html.includes('id="microSlideArchive"'), 'The Microbiology teacher-slide archive dialog is missing.');
+expect((html.match(/data-micro-archive-open=/g) || []).length === 2, 'Both Microbiology PDF launch buttons are required.');
+expect(runtime.includes('function prepareMicroSlideArchive()'), 'The Microbiology slide archive runtime is missing.');
+expect(runtime.includes("String(index + 1).padStart(2,'0') + '.webp'"), 'The slide archive does not preserve the ordered page assets.');
+expect(i18n.includes("'Abrir diapositivas':'Abrir slides'"), 'The Portuguese teacher-slide archive label is missing.');
+[
+  'micologia-generalidades.pdf',
+  'micosis-superficiales.pdf'
+].forEach((file) => {
+  expect(fs.existsSync(path.join(root, 'assets', 'class-hub', 'microbiology-theory', '2026-08-10', file)), `The teacher PDF ${file} is missing.`);
+});
+['generalidades','micosis-superficiales'].forEach((folder) => {
+  for (let index = 1; index <= 11; index += 1) {
+    const file = `${String(index).padStart(2,'0')}.webp`;
+    expect(fs.existsSync(path.join(root, 'assets', 'class-hub', 'microbiology-theory', '2026-08-10', folder, file)), `The ordered ${folder} slide ${file} is missing.`);
+  }
+});
 [
   '01-mapa-general.webp',
   '02-fase-preparatoria-1-3.webp',
