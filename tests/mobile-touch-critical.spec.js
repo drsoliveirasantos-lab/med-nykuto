@@ -25,6 +25,8 @@ async function dismissSemesterPicker(page) {
 test.describe('Mobile critical paths', () => {
   test('medical definitions stay compact and readable above the tapped word on iPhone', async ({ page }) => {
     await page.goto('/clase.html#fisiologia', { waitUntil: 'domcontentloaded' });
+    await page.locator('[data-detail-toggle][aria-controls="fisio-detail"]').click();
+    await expect(page.locator('#fisio-detail')).toBeVisible();
     const term = page.locator('.mn-glossary-term[data-glossary-key="hypercapnia"]:visible').first();
     await expect(term).toBeVisible({ timeout: 15000 });
     await term.evaluate(node => node.scrollIntoView({ block:'center', inline:'nearest' }));
