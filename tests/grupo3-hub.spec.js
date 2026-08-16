@@ -509,10 +509,9 @@ test.describe('Class hub', () => {
     await expect(page.locator('#nutritionPrepCard [data-nutrition-group-output]').getByText('Platos típicos del Paraguay', { exact: true })).toBeVisible();
   });
 
-  test('loads a useful photographic visual in every non-Nutrition course', async ({ page }) => {
+  test('loads a useful photographic visual in courses that still use photography', async ({ page }) => {
     const courseVisuals = [
       ['fisio-detail', '#fisio-detail .course-photo-feature--physiology img'],
-      ['bio-detail', '.course-photo-feature--biochemistry img'],
       ['epi-detail', '.course-photo-feature--epidemiology img'],
       ['micro-theory-detail', '.course-photo-feature--microbiology img'],
       ['micro-detail', '.course-photo-feature--laboratory img']
