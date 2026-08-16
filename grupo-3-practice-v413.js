@@ -547,7 +547,7 @@
     }
   };
 
-  var storageKey = 'med-nykuto-class-practice-v420';
+  var storageKey = 'med-nykuto-class-practice-v426';
   var typeOrder = ['qcm','vf','cases'];
   var typeLabels = {
     qcm:tr('qcm'),
@@ -630,7 +630,7 @@
     var title = createNode('h3','',tr('practiceTitle',{title:localizeExact(bank.title)}));
     title.id = root.id + '-title';
     copy.appendChild(title);
-    copy.appendChild(createNode('p','',localizeExact(bank.description)));
+    copy.appendChild(createNode('p','',bank.descriptionKey ? tr(bank.descriptionKey) : localizeExact(bank.description)));
     heading.appendChild(icon);
     heading.appendChild(copy);
 
@@ -671,12 +671,14 @@
     var questionHost = createNode('div','practice-question-host');
     questionHost.setAttribute('aria-live','polite');
     var sources = createNode('div','practice-sources');
-    sources.appendChild(createNode('span','',tr('verificationBase')));
+    sources.appendChild(createNode('span','',bank.grounding ? tr('courseOnlyBase') : tr('verificationBase')));
     bank.sources.forEach(function(source){
-      var link = createNode('a','',source.label);
+      var link = createNode('a','',source.labelKey ? tr(source.labelKey) : source.label);
       link.href = source.url;
-      link.target = '_blank';
-      link.rel = 'noopener';
+      if(/^https:\/\//.test(source.url || '')){
+        link.target = '_blank';
+        link.rel = 'noopener';
+      }
       sources.appendChild(link);
     });
 
@@ -1038,7 +1040,13 @@
       openFromHash();
       window.setTimeout(syncShortcut,0);
     });
-    window.MedNykutoClassPractice = {banks:banks,controllers:controllers,mount:mountPractice,mountStandalone:mountStandalone};
+    window.MedNykutoClassPractice = {
+      banks:banks,
+      controllers:controllers,
+      mount:mountPractice,
+      mountStandalone:mountStandalone,
+      groundingPolicy:window.MedNykutoClassPractice && window.MedNykutoClassPractice.groundingPolicy
+    };
   }
 
   window.MedNykutoClassPractice = {banks:banks,controllers:{},mount:mountPractice,mountStandalone:mountStandalone};

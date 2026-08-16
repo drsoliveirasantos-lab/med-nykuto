@@ -106,8 +106,15 @@ expect(runtime.includes("subject:'Microbiología II · Práctica'"), 'Runtime sc
 
 const i18nIndex = html.indexOf('grupo-3-i18n-v421.js');
 const practiceIndex = html.indexOf('grupo-3-practice-v413.js');
+const expansionIndex = html.indexOf('grupo-3-practice-expansion-v420.js');
+const groundedIndex = html.indexOf('grupo-3-practice-grounded-v426.js');
 const runtimeIndex = html.indexOf('grupo-3-v401.js');
-expect(i18nIndex >= 0 && i18nIndex < practiceIndex && practiceIndex < runtimeIndex, 'The class i18n runtime must load before practice and class behavior.');
+expect(
+  i18nIndex >= 0 && i18nIndex < practiceIndex && practiceIndex < expansionIndex && expansionIndex < groundedIndex && groundedIndex < runtimeIndex,
+  'The class i18n, practice, expansion and course-only bank must load in that order before class behavior.'
+);
+expect(i18n.includes("courseOnlyBase:'SOLO CONTENIDO DE LA CLASE'"), 'The Spanish course-only practice label is missing.');
+expect(i18n.includes("courseOnlyBase:'SÓ CONTEÚDO DA AULA'"), 'The Portuguese course-only practice label is missing.');
 expect(i18n.includes("htmlLangByLang = {es:'es',br:'pt-BR'}"), 'The Portuguese document language is not configured as pt-BR.');
 expect(i18n.includes("'Tareas':'Tarefas'"), 'The Portuguese task navigation translation is missing.');
 expect(i18n.includes("'Materias':'Matérias'"), 'The Materias/Matérias navigation translation is missing.');

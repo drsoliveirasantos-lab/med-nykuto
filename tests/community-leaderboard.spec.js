@@ -62,6 +62,10 @@ test.describe('Weekly class challenge', () => {
     await expect(page.locator('[data-study-subject="nutricion"]')).toHaveAttribute('aria-pressed', 'true');
     await expect(page.locator('[data-study-topic="nutricion"]')).toContainText('Leyes de la alimentación');
     await expect(page.locator('#studyPracticeHost #practice-nutricion')).toBeVisible();
+    await expect(page.locator('#studyPracticeHost #practice-nutricion')).toContainText('40 preguntas hechas únicamente con el contenido de esta clase.');
+    await page.locator('#studyPracticeHost #practice-nutricion').getByRole('button', { name: 'Comenzar entrenamiento' }).click();
+    await expect(page.locator('#studyPracticeHost #practice-nutricion .practice-sources')).toContainText('SOLO CONTENIDO DE LA CLASE');
+    await expect(page.locator('#studyPracticeHost #practice-nutricion .practice-sources a')).toHaveAttribute('href', 'clase.html#nutrition-detail');
 
     await page.locator('[data-study-subject="fisiologia"]').click();
     await expect(page.locator('#studyTopicPicker .study-topic-option')).toHaveCount(2);

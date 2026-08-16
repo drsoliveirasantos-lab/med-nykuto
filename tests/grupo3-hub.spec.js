@@ -594,7 +594,7 @@ test.describe('Class hub', () => {
 
   test('opens a real format chooser after a completed training block', async ({ page }) => {
     await page.evaluate(() => {
-      localStorage.setItem('med-nykuto-class-practice-v420', JSON.stringify({
+      localStorage.setItem('med-nykuto-class-practice-v426', JSON.stringify({
         nutricion:{
           qcm:Array.from({ length:20 }, () => ({ selected:0, correct:true })),
           vf:[],
@@ -611,11 +611,11 @@ test.describe('Class hub', () => {
     await expect(picker).toBeVisible();
     await expect(picker.locator('.practice-format-choice')).toHaveCount(3);
     await picker.getByRole('button', { name: /Verdadero \/ Falso/ }).click();
-    await expect(practice.getByRole('heading', { name: 'Si una dieta aporta las calorías necesarias, su calidad nutricional está automáticamente garantizada.' })).toBeVisible();
+    await expect(practice.getByRole('heading', { name: 'La alimentación incluye elegir, preparar e ingerir alimentos.' })).toBeVisible();
 
     await page.reload();
     await practice.getByRole('button', { name: 'Repetir QCM' }).click();
-    await expect(practice.getByRole('heading', { name: '¿Cuál opción diferencia correctamente alimentación, nutrición y dieta?' })).toBeVisible();
+    await expect(practice.getByRole('heading', { name: 'Según la clase, ¿qué afirmación sobre la alimentación es correcta?' })).toBeVisible();
   });
 
   test('previews both seminar Word documents before download', async ({ page }) => {
@@ -668,12 +668,15 @@ test.describe('Class hub', () => {
     await expect(overviewCounts.nth(1)).toHaveText('10Verdadero / Falso');
     await expect(overviewCounts.nth(2)).toHaveText('10Casos clínicos');
     await practice.getByRole('button', { name: 'Comenzar entrenamiento' }).click();
-    await expect(practice.getByRole('heading', { name: '¿Cuál opción diferencia correctamente alimentación, nutrición y dieta?' })).toBeVisible();
+    await expect(practice).toContainText('40 preguntas hechas únicamente con el contenido de esta clase.');
+    await expect(practice.getByRole('heading', { name: 'Según la clase, ¿qué afirmación sobre la alimentación es correcta?' })).toBeVisible();
     await expect(practice.locator('.practice-feedback')).toHaveCount(0);
-    await practice.getByRole('radio', { name: /Alimentación: elección e ingesta/ }).click();
+    await practice.getByRole('radio', { name: 'La alimentación incluye elegir, preparar e ingerir alimentos.' }).click();
     await practice.getByRole('button', { name: 'Validar mi respuesta' }).click();
     await expect(practice.locator('.practice-feedback')).toContainText('Respuesta correcta');
-    await expect(practice.locator('.practice-feedback')).toContainText('digestión, absorción, metabolismo');
+    await expect(practice.locator('.practice-feedback')).toContainText('Elección, preparación e ingestión de alimentos');
+    await expect(practice.locator('.practice-sources')).toContainText('SOLO CONTENIDO DE LA CLASE');
+    await expect(practice.locator('.practice-sources a')).toHaveAttribute('href', 'clase.html#nutrition-detail');
 
     await page.goto('/clase.html#practice-bioquimica');
     await expect(page.locator('#bioquimica')).toBeVisible();

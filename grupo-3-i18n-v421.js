@@ -61,6 +61,9 @@
       continue:'continuar',
       resetConfirm:'¿Reiniciar todo el progreso de este curso?',
       verificationBase:'BASE DE VERIFICACIÓN',
+      courseOnlyBase:'SOLO CONTENIDO DE LA CLASE',
+      courseSource:'Ver la clase usada',
+      practiceCourseOnlyDescription:'40 preguntas hechas únicamente con el contenido de esta clase.',
       trainingType:'Tipo de entrenamiento'
     },
     br:{
@@ -118,6 +121,9 @@
       continue:'continuar',
       resetConfirm:'Reiniciar todo o progresso deste curso?',
       verificationBase:'BASE DE VERIFICAÇÃO',
+      courseOnlyBase:'SÓ CONTEÚDO DA AULA',
+      courseSource:'Ver a aula usada',
+      practiceCourseOnlyDescription:'40 perguntas feitas somente com o conteúdo desta aula.',
       trainingType:'Tipo de treino'
     }
   };
