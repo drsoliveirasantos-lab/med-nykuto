@@ -13,6 +13,7 @@ const expectedCourses = [
   'microbiologia-practica'
 ];
 const types = ['qcm', 'vf', 'cases'];
+const metaQuestionWording = /\b(?:clase|curso|profesor|aula|repaso|repasar|explicad[oa]s?)\b/i;
 const errors = [];
 const prompts = new Set();
 const classHtml = fs.readFileSync(path.join(root, 'clase.html'), 'utf8');
@@ -44,6 +45,14 @@ function normalizeText(value) {
     .replace(/\s+([,.;:])/g, '$1')
     .trim()
     .toLocaleLowerCase('es');
+}
+
+function hasObviousDistractorCue(value) {
+  const folded = String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+  return /\b(?:siempre|nunca|unicamente|solamente|exclusivamente|obligatoriamente|exclusiv[oa]s?|obligatori[oa]s?|solo|sola|solos|solas|todos?|todas?|ningun|ninguna|ninguno|nada|cualquier|exactamente)\b|por si sol[oa]s?|sin (?:ninguna )?excepcion/.test(folded);
 }
 
 function extractElementById(html, id) {
@@ -125,6 +134,11 @@ if (!banks || typeof banks !== 'object') {
         if (!question.prompt || question.prompt.trim().length < 12) errors.push(`${location}: prompt is missing or too short.`);
         else if (prompts.has(question.prompt)) errors.push(`${location}: duplicate prompt.`);
         else prompts.add(question.prompt);
+        if (type !== 'vf') {
+          expect(question.prompt.trim().startsWith('¿') && question.prompt.trim().endsWith('?'), `${location}: objective prompt must be written as a direct question.`);
+        }
+        expect(!metaQuestionWording.test(question.prompt || ''), `${location}: prompt refers to the class instead of asking the subject directly.`);
+        expect(!metaQuestionWording.test(question.scenario || ''), `${location}: scenario uses a generic class/review formulation.`);
 
         const expectedOptions = type === 'vf' ? 2 : 4;
         if (!Array.isArray(question.options) || question.options.length !== expectedOptions) {
@@ -135,6 +149,17 @@ if (!banks || typeof banks !== 'object') {
         expect(Number.isInteger(question.answer) && question.answer >= 0 && question.answer < question.options.length, `${location}: answer index is invalid.`);
         expect(Boolean(question.explanation) && question.explanation.trim().length >= 35, `${location}: explanation is missing or too short.`);
         if (type === 'cases') expect(Boolean(question.scenario) && question.scenario.trim().length >= 55, `${location}: application scenario is missing or too short.`);
+        if (type === 'vf') {
+          if (question.answer === 1) {
+            expect(!hasObviousDistractorCue(question.prompt), `${location}: false true/false statement contains an obvious absolute-word cue.`);
+          }
+        } else {
+          question.options.forEach((option, optionIndex) => {
+            if (optionIndex !== question.answer) {
+              expect(!hasObviousDistractorCue(option), `${location}: distractor ${optionIndex + 1} contains an obvious absolute-word cue.`);
+            }
+          });
+        }
 
         expect(question.grounding === POLICY, `${location}: question is not marked as course-only.`);
         expect(question.sourceAnchor === grounding.sourceAnchor, `${location}: question points to the wrong class section.`);
@@ -192,5 +217,6 @@ if (errors.length) {
 console.log(
   `Class practice bank validation OK: ${expectedCourses.length} courses, ${totalQuestions} course-only questions, ` +
   `70 exact evidence items, answer positions ${answerPositions.join('/')}, ` +
-  `${Math.round((strictlyLongestCorrect / objectiveQuestions) * 100)}% uniquely-longest correct options.`
+  `${Math.round((strictlyLongestCorrect / objectiveQuestions) * 100)}% uniquely-longest correct options, ` +
+  `0 class-meta prompts and 0 absolute-word distractor cues.`
 );

@@ -615,7 +615,7 @@ test.describe('Class hub', () => {
 
     await page.reload();
     await practice.getByRole('button', { name: 'Repetir QCM' }).click();
-    await expect(practice.getByRole('heading', { name: 'Según la clase, ¿qué afirmación sobre la alimentación es correcta?' })).toBeVisible();
+    await expect(practice.getByRole('heading', { name: '¿Cuál es la afirmación correcta sobre la alimentación?' })).toBeVisible();
   });
 
   test('previews both seminar Word documents before download', async ({ page }) => {
@@ -669,7 +669,7 @@ test.describe('Class hub', () => {
     await expect(overviewCounts.nth(2)).toHaveText('10Casos clínicos');
     await practice.getByRole('button', { name: 'Comenzar entrenamiento' }).click();
     await expect(practice).toContainText('40 preguntas hechas únicamente con el contenido de esta clase.');
-    await expect(practice.getByRole('heading', { name: 'Según la clase, ¿qué afirmación sobre la alimentación es correcta?' })).toBeVisible();
+    await expect(practice.getByRole('heading', { name: '¿Cuál es la afirmación correcta sobre la alimentación?' })).toBeVisible();
     await expect(practice.locator('.practice-feedback')).toHaveCount(0);
     await practice.getByRole('radio', { name: 'La alimentación incluye elegir, preparar e ingerir alimentos.' }).click();
     await practice.getByRole('button', { name: 'Validar mi respuesta' }).click();
