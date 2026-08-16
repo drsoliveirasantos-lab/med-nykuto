@@ -363,6 +363,7 @@
   font-size:.75rem;
 }
 .community-footer strong{color:#d8e0e5}
+.mobile-bottom-nav{display:none}
 
 .community-page :is(a,button,input,select):focus-visible,
 .community-publish-card :is(a,button,input):focus-visible{outline:3px solid var(--community-cyan);outline-offset:3px}
@@ -580,6 +581,40 @@
   .study-profile-card .community-privacy{grid-column:auto}
 }
 
+@media (max-width:680px){
+  .community-page{padding-bottom:76px}
+  .mobile-bottom-nav{
+    position:fixed;
+    left:6px;
+    right:6px;
+    bottom:max(6px,env(safe-area-inset-bottom));
+    z-index:60;
+    display:grid;
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    overflow:hidden;
+    border:1px solid rgba(168,202,214,.26);
+    border-radius:18px;
+    background:rgba(6,15,26,.94);
+    box-shadow:0 20px 55px rgba(0,0,0,.45);
+    backdrop-filter:blur(18px);
+  }
+  .mobile-bottom-nav a{
+    min-width:0;
+    min-height:56px;
+    display:grid;
+    place-items:center;
+    align-content:center;
+    gap:1px;
+    padding:3px 1px;
+    color:var(--community-muted);
+    text-decoration:none;
+  }
+  .mobile-bottom-nav a[aria-current="page"]{color:var(--community-ink);background:rgba(242,198,109,.1)}
+  .mobile-bottom-nav .nav-icon{display:grid;place-items:center;color:var(--community-gold-soft)}
+  .mobile-bottom-nav .nav-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .mobile-bottom-nav strong{max-width:100%;overflow:hidden;font-size:.61rem;line-height:1.1;text-overflow:ellipsis;white-space:nowrap}
+}
+
 @media (max-width:520px){
   .community-header-inner{width:calc(100% - 16px);min-height:60px;gap:10px}
   .community-brand{min-width:0;gap:9px}
@@ -634,6 +669,10 @@
   .challenge-metrics span{font-size:.6rem}
   .study-how-details{margin-top:8px;padding:14px 16px}
   .study-how-details summary{font-size:.67rem;line-height:1.35}
+  .community-page{padding-bottom:78px}
+  .mobile-bottom-nav{left:4px;right:4px;bottom:max(4px,env(safe-area-inset-bottom));border-radius:16px}
+  .mobile-bottom-nav a{min-height:58px;padding:4px 1px}
+  .mobile-bottom-nav .nav-icon svg{width:20px;height:20px}
 }
 
 @media (prefers-reduced-motion:reduce){

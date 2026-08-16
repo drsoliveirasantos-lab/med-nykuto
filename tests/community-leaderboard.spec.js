@@ -190,4 +190,44 @@ test.describe('Weekly class challenge', () => {
     await expect(page.locator('.workspace-nav a[href="comunidade.html"]')).toContainText('QCM + ranking');
     await expect(page.locator('.mobile-bottom-nav a[href="comunidade.html"]')).toContainText('Estudiar');
   });
+
+  test('keeps the class navigation visible on the iPhone study page', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.route('**/api/community**', async (route) => {
+      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(API_RESPONSE) });
+    });
+
+    await page.goto('/comunidade.html', { waitUntil: 'domcontentloaded' });
+    const navigation = page.locator('.mobile-bottom-nav');
+    await expect(navigation).toBeVisible();
+    await expect(navigation.locator('a')).toHaveCount(6);
+    await expect(navigation.locator('a[aria-current="page"]')).toHaveAttribute('href', 'comunidade.html');
+    await expect(navigation.locator('a[href="clase.html#inicio"]')).toContainText('Inicio');
+    await expect(navigation.locator('a[href="clase.html#horario"]')).toContainText('Horario');
+    await expect(navigation.locator('a[href="clase.html#pendientes"]')).toContainText('Tareas');
+    await expect(navigation.locator('a[href="clase.html#materias"]')).toContainText('Materias');
+    await expect(navigation.locator('a[href="clase.html#plan-estudio"]')).toContainText('Plan');
+
+    const layout = await page.evaluate(() => {
+      const nav = document.querySelector('.mobile-bottom-nav').getBoundingClientRect();
+      const items = Array.from(document.querySelectorAll('.mobile-bottom-nav a')).map((item) => item.getBoundingClientRect());
+      return {
+        navHeight: nav.height,
+        navBottom: window.innerHeight - nav.bottom,
+        minItemHeight: Math.min(...items.map((item) => item.height)),
+        bodyBottomPadding: parseFloat(getComputedStyle(document.body).paddingBottom),
+        overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+      };
+    });
+    expect(layout.navHeight).toBeGreaterThanOrEqual(58);
+    expect(layout.navBottom).toBeGreaterThanOrEqual(3);
+    expect(layout.minItemHeight).toBeGreaterThanOrEqual(58);
+    expect(layout.bodyBottomPadding).toBeGreaterThanOrEqual(layout.navHeight + 12);
+    expect(layout.overflow).toBeLessThanOrEqual(1);
+
+    await page.locator('#communityLanguage').selectOption('br');
+    await expect(navigation.locator('a[href="clase.html#pendientes"]')).toContainText('Tarefas');
+    await expect(navigation.locator('a[href="clase.html#materias"]')).toContainText('Matérias');
+    await expect(navigation.locator('a[aria-current="page"]')).toContainText('Estudar');
+  });
 });
