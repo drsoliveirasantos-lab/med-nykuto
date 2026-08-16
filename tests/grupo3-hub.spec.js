@@ -222,6 +222,9 @@ test.describe('Class hub', () => {
     await expect(page.getByText('La glucoquinasa hepática puede quedar secuestrada en el núcleo')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'La glucólisis en una sola mirada' })).toBeVisible();
     await expect(page.locator('.bio-board-route article')).toHaveCount(4);
+    await expect(page.getByRole('heading', { name: 'Una glucosa se convierte en dos piruvatos' })).toBeVisible();
+    await expect(page.locator('.bio-pathway-node')).toHaveCount(4);
+    await expect(page.locator('.bio-abbrev-card')).toHaveCount(4);
     await expect(page.getByText('Malato–aspartato: ≈2,5 ATP/NADH; glicerol-3-fosfato: ≈1,5 ATP/NADH.')).toBeVisible();
     await expect(page.getByText('su rendimiento oxidativo no es siempre 2,5 ATP por NADH', { exact: false })).toBeVisible();
     await expect(page.getByText('Bioquímica · 3 clases')).toBeVisible();
@@ -237,25 +240,51 @@ test.describe('Class hub', () => {
     await expect(dialog).toBeVisible();
     await expect(dialog.locator('[data-board-archive-slide]')).toHaveCount(7);
     await expect(page.locator('#boardArchiveCounter')).toHaveText('LÁMINA 1 DE 7');
-    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /restored\/01-mapa-general\.webp$/);
+    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /whiteboard-v2\/01-mapa-general\.webp$/);
     await expect(page.locator('#boardArchiveSlideTitle')).toHaveText('Mapa general');
     await expect(dialog.locator('[data-board-archive-previous]')).toBeDisabled();
 
     await dialog.locator('[data-board-archive-next]').click();
-    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /restored\/02-fase-preparatoria-1-3\.webp$/);
+    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /whiteboard-v2\/02-fase-preparatoria-1-3\.webp$/);
     await expect(page.locator('#boardArchiveCounter')).toHaveText('LÁMINA 2 DE 7');
 
     await dialog.locator('[data-board-archive-slide="6"]').click();
-    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /restored\/07-regulacion-anotada\.webp$/);
+    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /whiteboard-v2\/07-regulacion-anotada\.webp$/);
     await expect(dialog.locator('[data-board-archive-next]')).toBeDisabled();
     await dialog.press('Home');
-    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /restored\/01-mapa-general\.webp$/);
+    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /whiteboard-v2\/01-mapa-general\.webp$/);
     await dialog.press('ArrowRight');
-    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /restored\/02-fase-preparatoria-1-3\.webp$/);
+    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /whiteboard-v2\/02-fase-preparatoria-1-3\.webp$/);
 
     await dialog.press('Escape');
     await expect(dialog).toBeHidden();
     await expect(openArchive).toBeFocused();
+  });
+
+  test('keeps the glycolysis diagram and abbreviation decoder compact on iPhone', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/clase.html#bio-detail');
+
+    const layout = await page.evaluate(() => {
+      const map = document.querySelector('.bio-pathway-map').getBoundingClientRect();
+      return {
+        mapHeight: map.height,
+        mapWidth: map.width,
+        sectionWidth: document.querySelector('.bio-visual-lesson').getBoundingClientRect().width,
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth
+      };
+    });
+
+    expect(layout.mapHeight).toBeLessThan(125);
+    expect(layout.mapWidth).toBeLessThanOrEqual(layout.sectionWidth);
+    expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
+
+    const nadh = page.locator('.bio-abbrev-card').filter({ hasText: 'NADH' }).first();
+    await nadh.locator('summary').click();
+    await expect(nadh).toHaveAttribute('open', '');
+    await expect(nadh.getByText('Nicotinamida', { exact: true })).toBeVisible();
+    await expect(nadh.getByText('Hidrógeno recibido', { exact: true })).toBeVisible();
   });
 
   test('opens both teacher PDF decks inside the Microbiology archive', async ({ page }) => {

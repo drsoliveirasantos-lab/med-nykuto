@@ -76,6 +76,14 @@ assets/class-hub/epidemiology/2026-08-16/salud-publica-paraguay.pdf
 
 The `aps-slides/` directory contains the 36 PowerPoint renders in their original order. The `rac-pages/` and `salud-publica-pages/` directories contain only quick-view renders; the complete PDFs remain available from the archive. The Epidemiology homework card is grounded in the Paraguay RAC manual: printed pages 15 and 16 (PDF pages 17 and 18). The APS quick review uses pages 30 and 31 of the public-health book.
 
+The Bioquímica II glycolysis board archive is rendered at:
+
+```txt
+assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/
+```
+
+These seven WebP files are clean whiteboard reconstructions of the seven board screenshots supplied for the 14 August class. They preserve the teacher's teaching order, arrows, relative layout, color roles and side annotations. They are derivative viewing assets, not an independent scientific source. The adjacent HTML lesson remains the verified study layer and explicitly clarifies the net balance, the cytosolic NADH shuttle caveat and the direct role of oxygen. The older `restored/` renders remain non-runtime history and must not replace `whiteboard-v2/` without a new visual review.
+
 ## Validation
 
 Before merging content changes, run:

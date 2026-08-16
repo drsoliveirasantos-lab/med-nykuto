@@ -8,7 +8,7 @@
   <meta name="description" content="Espacio de la clase 4.º E: horario, tareas anteriores y materiales de Nutrición, Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología en un solo lugar." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=440" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=441" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -798,11 +798,11 @@
       </div>
 
       <section class="board-archive-launch" aria-labelledby="boardArchiveLaunchTitle">
-        <div class="board-archive-cover" aria-hidden="true"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/restored/01-mapa-general.webp" loading="lazy" alt="" /></div>
+        <div class="board-archive-cover" aria-hidden="true"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/01-mapa-general.webp" loading="lazy" alt="" /></div>
         <div class="board-archive-launch-copy">
           <span>ARCHIVO DE LA PIZARRA · 7 LÁMINAS</span>
-          <h3 id="boardArchiveLaunchTitle">La pizarra original, más fácil de leer</h3>
-          <p>La escritura, los colores y los esquemas del profesor se conservaron; solo se mejoraron el encuadre, la luz y la nitidez.</p>
+          <h3 id="boardArchiveLaunchTitle">La pizarra del profesor, reconstruida en limpio</h3>
+          <p>Mismas posiciones, flechas, colores y anotaciones; ahora sobre un verdadero tablero blanco digital, sin aspecto de hoja ni foto.</p>
         </div>
         <button type="button" class="board-archive-open" data-board-archive-open>Ver las 7 láminas <b aria-hidden="true">→</b></button>
       </section>
@@ -817,10 +817,65 @@
           <div class="net-balance"><span>BALANCE NETO POR GLUCOSA</span><strong>2 piruvatos + 2 ATP + 2 NADH</strong><small>También se forman 2 H₂O y 2 H⁺. Se consumen 2 ATP y después se producen 4 ATP.</small></div>
         </div>
 
-        <figure class="course-photo-feature course-photo-feature--biochemistry">
-          <img src="assets/class-hub/biochemistry-glycolysis-v415.webp" width="1280" height="853" loading="lazy" decoding="async" alt="Material de laboratorio y modelos moleculares que representan la transformación energética de la glucosa." />
-          <figcaption><span>REPASO VISUAL</span><strong>Una molécula, dos fases energéticas</strong><small>Inversión de ATP, división de la glucosa y fase de beneficio.</small></figcaption>
-        </figure>
+        <section class="bio-visual-lesson" aria-labelledby="bioVisualLessonTitle">
+          <header>
+            <span>PRIMERO, MIRA LA RUTA</span>
+            <h3 id="bioVisualLessonTitle">Una glucosa se convierte en dos piruvatos</h3>
+            <p>El dibujo muestra el número de carbonos y la energía. Debajo queda la explicación corta de cada cambio.</p>
+          </header>
+          <div class="bio-pathway-map" aria-label="Esquema de la glucólisis desde una glucosa hasta dos piruvatos">
+            <article class="bio-pathway-node bio-pathway-glucose">
+              <svg viewBox="0 0 92 72" role="img" aria-label="Esquema simplificado de una glucosa con seis carbonos"><polygon points="28,10 64,10 82,36 64,62 28,62 10,36"/><circle cx="28" cy="10" r="4"/><circle cx="64" cy="10" r="4"/><circle cx="82" cy="36" r="4"/><circle cx="64" cy="62" r="4"/><circle cx="28" cy="62" r="4"/><circle cx="10" cy="36" r="4"/><text x="46" y="41">6 C</text></svg>
+              <span>INICIO</span><strong>1 glucosa</strong><small>6 carbonos</small>
+            </article>
+            <div class="bio-pathway-arrow"><b>−2 ATP</b><i aria-hidden="true">→</i><small>Hexo/glucoquinasa · PFK-1</small></div>
+            <article class="bio-pathway-node">
+              <svg viewBox="0 0 92 72" role="img" aria-label="Fructosa-1,6-bisfosfato antes de dividirse"><polygon points="28,10 64,10 82,36 64,62 28,62 10,36"/><path d="M18 14 8 4M74 14 84 4"/><circle cx="8" cy="4" r="5"/><circle cx="84" cy="4" r="5"/><text x="46" y="41">6 C</text></svg>
+              <span>PASO 3</span><strong>F1,6BP</strong><small>Glucosa activada</small>
+            </article>
+            <div class="bio-pathway-arrow"><b>Aldolasa</b><i aria-hidden="true">→</i><small>Divide 6 C en 3 C + 3 C</small></div>
+            <article class="bio-pathway-node bio-pathway-pair">
+              <svg viewBox="0 0 92 72" role="img" aria-label="Dos moléculas de G3P con tres carbonos cada una"><path d="M8 24h32M52 24h32"/><circle cx="10" cy="24" r="5"/><circle cx="24" cy="24" r="5"/><circle cx="38" cy="24" r="5"/><circle cx="54" cy="24" r="5"/><circle cx="68" cy="24" r="5"/><circle cx="82" cy="24" r="5"/><text x="24" y="52">3 C</text><text x="68" y="52">3 C</text></svg>
+              <span>PASO 5</span><strong>2 G3P</strong><small>Desde aquí, todo ×2</small>
+            </article>
+            <div class="bio-pathway-arrow bio-pathway-gain"><b>+4 ATP · +2 NADH</b><i aria-hidden="true">→</i><small>Reacciones 6–10</small></div>
+            <article class="bio-pathway-node bio-pathway-result">
+              <svg viewBox="0 0 92 72" role="img" aria-label="Dos piruvatos con tres carbonos cada uno"><path d="M8 20h32M52 20h32"/><circle cx="10" cy="20" r="5"/><circle cx="24" cy="20" r="5"/><circle cx="38" cy="20" r="5"/><circle cx="54" cy="20" r="5"/><circle cx="68" cy="20" r="5"/><circle cx="82" cy="20" r="5"/><path d="M24 29v16M68 29v16"/><text x="24" y="61">Pyr</text><text x="68" y="61">Pyr</text></svg>
+              <span>FINAL</span><strong>2 piruvatos</strong><small>Balance neto: +2 ATP + 2 NADH</small>
+            </article>
+          </div>
+          <div class="bio-pathway-explain">
+            <p><b>1 · Preparar.</b> La célula gasta 2 ATP para añadir fosfatos y volver la glucosa más reactiva.</p>
+            <p><b>2 · Dividir.</b> La aldolasa separa los 6 carbonos; al final quedan dos G3P de 3 carbonos.</p>
+            <p><b>3 · Recuperar.</b> Cada G3P recorre los mismos cinco pasos: por eso la ganancia se cuenta dos veces.</p>
+          </div>
+          <small class="bio-pathway-caption">Esquema de carbonos simplificado: ayuda a seguir la ruta, no representa la estructura química completa.</small>
+        </section>
+
+        <section class="bio-abbrev-guide" aria-labelledby="bioAbbrevTitle">
+          <header><span>SIGLAS SIN MISTERIO</span><h3 id="bioAbbrevTitle">Toca una sigla para saber qué significa cada letra</h3><p>Las tarjetas se abren sin salir del curso.</p></header>
+          <div class="bio-abbrev-grid">
+            <details class="bio-abbrev-card">
+              <summary><span>NADH</span><strong>N · A · D · H</strong><b aria-hidden="true">+</b></summary>
+              <div class="bio-letter-grid"><p><b>N</b><span>Nicotinamida</span></p><p><b>A</b><span>Adenina</span></p><p><b>D</b><span>Dinucleótido</span></p><p><b>H</b><span>Hidrógeno recibido</span></p></div>
+              <p class="bio-abbrev-note"><b>En palabras simples:</b> NAD⁺ acepta electrones y un hidrógeno; entonces pasa a su forma reducida, NADH. La H representa en realidad un hidruro: 2 electrones + 1 protón.</p>
+            </details>
+            <details class="bio-abbrev-card">
+              <summary><span>ATP</span><strong>A · T · P</strong><b aria-hidden="true">+</b></summary>
+              <div class="bio-letter-grid bio-letter-grid-three"><p><b>A</b><span>Adenosina</span></p><p><b>T</b><span>Tri = tres</span></p><p><b>P</b><span>Fosfato</span></p></div>
+              <p class="bio-abbrev-note"><b>En palabras simples:</b> ATP es adenosina trifosfato: una molécula de adenosina con tres grupos fosfato que puede transferir energía.</p>
+            </details>
+            <details class="bio-abbrev-card">
+              <summary><span>ADP · Pi</span><strong>Dos piezas usadas en la ruta</strong><b aria-hidden="true">+</b></summary>
+              <div class="bio-letter-grid bio-letter-grid-three"><p><b>A</b><span>Adenosina</span></p><p><b>D</b><span>Di = dos</span></p><p><b>P</b><span>Fosfato</span></p></div>
+              <p class="bio-abbrev-note"><b>ADP</b> significa adenosina difosfato. <b>Pi</b> significa fosfato inorgánico: P = fosfato e i = inorgánico.</p>
+            </details>
+            <details class="bio-abbrev-card">
+              <summary><span>G6P → PEP</span><strong>Las abreviaturas de los 10 pasos</strong><b aria-hidden="true">+</b></summary>
+              <div class="bio-route-dictionary"><p><b>G6P</b><span>Glucosa-6-fosfato</span></p><p><b>F6P</b><span>Fructosa-6-fosfato</span></p><p><b>F1,6BP</b><span>Fructosa-1,6-bisfosfato</span></p><p><b>DHAP</b><span>Dihidroxiacetona fosfato</span></p><p><b>G3P</b><span>Gliceraldehído-3-fosfato</span></p><p><b>1,3-BPG</b><span>1,3-bisfosfoglicerato</span></p><p><b>3-PG / 2-PG</b><span>3- o 2-fosfoglicerato</span></p><p><b>PEP</b><span>Fosfoenolpiruvato</span></p></div>
+            </details>
+          </div>
+        </section>
 
         <section class="bio-board-synthesis" aria-labelledby="bio-board-title">
           <header>
@@ -1608,14 +1663,14 @@
         <div>
           <span>ARCHIVO DE LA PIZARRA · BIOQUÍMICA II</span>
           <strong id="bioBoardArchiveTitle">Glucólisis · clase del 14/08</strong>
-          <small id="bioBoardArchiveDescription">7 fotos restauradas sin cambiar el trabajo del profesor.</small>
+          <small id="bioBoardArchiveDescription">7 pizarras blancas reconstruidas sin cambiar el recorrido del profesor.</small>
         </div>
         <button type="button" class="board-archive-close" data-board-archive-close aria-label="Cerrar archivo de la pizarra">×</button>
       </header>
       <div class="board-archive-body">
         <section class="board-archive-stage" aria-live="polite">
           <figure>
-            <div class="board-archive-image-frame"><img id="boardArchiveImage" src="assets/class-hub/board-archive/bioquimica-2026-08-14/restored/01-mapa-general.webp" width="1175" height="850" alt="Abrir lámina 1: mapa general de la glucólisis" /></div>
+            <div class="board-archive-image-frame"><img id="boardArchiveImage" src="assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/01-mapa-general.webp" width="1448" height="1086" alt="Abrir lámina 1: mapa general de la glucólisis" /></div>
             <figcaption>
               <span id="boardArchiveCounter">LÁMINA 1 DE 7</span>
               <strong id="boardArchiveSlideTitle">Mapa general de la glucólisis</strong>
@@ -1629,13 +1684,13 @@
           </div>
         </section>
         <nav class="board-archive-thumbnails" aria-label="Láminas de la clase de glucólisis">
-          <button type="button" data-board-archive-slide="0" aria-pressed="true" aria-label="Abrir lámina 1: mapa general de la glucólisis"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/restored/01-mapa-general.webp" alt="" /><span>01</span><span><strong>Mapa general</strong><small>Ubicación, fases, balance y destinos del piruvato.</small></span></button>
-          <button type="button" data-board-archive-slide="1" aria-pressed="false" aria-label="Abrir lámina 2: fase preparatoria, reacciones 1 a 3"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/restored/02-fase-preparatoria-1-3.webp" loading="lazy" alt="" /><span>02</span><span><strong>Preparación I</strong><small>Reacciones 1–3 e inversión de dos ATP.</small></span></button>
-          <button type="button" data-board-archive-slide="2" aria-pressed="false" aria-label="Abrir lámina 3: fase preparatoria, reacciones 4 y 5"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/restored/03-fase-preparatoria-4-5.webp" loading="lazy" alt="" /><span>03</span><span><strong>Preparación II</strong><small>Reacciones 4–5 y formación de dos G3P.</small></span></button>
-          <button type="button" data-board-archive-slide="3" aria-pressed="false" aria-label="Abrir lámina 4: fase de beneficio, reacciones 6 a 10"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/restored/04-fase-beneficio-6-10.webp" loading="lazy" alt="" /><span>04</span><span><strong>Beneficio</strong><small>Reacciones 6–10 y producción de energía.</small></span></button>
-          <button type="button" data-board-archive-slide="4" aria-pressed="false" aria-label="Abrir lámina 5: balance final de la glucólisis"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/restored/05-balance-final.webp" loading="lazy" alt="" /><span>05</span><span><strong>Balance final</strong><small>ATP, NADH y destinos del piruvato.</small></span></button>
-          <button type="button" data-board-archive-slide="5" aria-pressed="false" aria-label="Abrir lámina 6: resumen de la regulación de la glucólisis"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/restored/06-regulacion-resumen.webp" loading="lazy" alt="" /><span>06</span><span><strong>Regulación</strong><small>Hexoquinasa, glucoquinasa, GKRP y PFK-1.</small></span></button>
-          <button type="button" data-board-archive-slide="6" aria-pressed="false" aria-label="Abrir lámina 7: regulación con anotaciones del profesor"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/restored/07-regulacion-anotada.webp" loading="lazy" alt="" /><span>07</span><span><strong>Regulación anotada</strong><small>La misma pizarra con las notas laterales del profesor.</small></span></button>
+          <button type="button" data-board-archive-slide="0" aria-pressed="true" aria-label="Abrir lámina 1: mapa general de la glucólisis"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/01-mapa-general.webp" alt="" /><span>01</span><span><strong>Mapa general</strong><small>Ubicación, fases, balance y destinos del piruvato.</small></span></button>
+          <button type="button" data-board-archive-slide="1" aria-pressed="false" aria-label="Abrir lámina 2: fase preparatoria, reacciones 1 a 3"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/02-fase-preparatoria-1-3.webp" loading="lazy" alt="" /><span>02</span><span><strong>Preparación I</strong><small>Reacciones 1–3 e inversión de dos ATP.</small></span></button>
+          <button type="button" data-board-archive-slide="2" aria-pressed="false" aria-label="Abrir lámina 3: fase preparatoria, reacciones 4 y 5"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/03-fase-preparatoria-4-5.webp" loading="lazy" alt="" /><span>03</span><span><strong>Preparación II</strong><small>Reacciones 4–5 y formación de dos G3P.</small></span></button>
+          <button type="button" data-board-archive-slide="3" aria-pressed="false" aria-label="Abrir lámina 4: fase de beneficio, reacciones 6 a 10"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/04-fase-beneficio-6-10.webp" loading="lazy" alt="" /><span>04</span><span><strong>Beneficio</strong><small>Reacciones 6–10 y producción de energía.</small></span></button>
+          <button type="button" data-board-archive-slide="4" aria-pressed="false" aria-label="Abrir lámina 5: balance final de la glucólisis"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/05-balance-final.webp" loading="lazy" alt="" /><span>05</span><span><strong>Balance final</strong><small>ATP, NADH y destinos del piruvato.</small></span></button>
+          <button type="button" data-board-archive-slide="5" aria-pressed="false" aria-label="Abrir lámina 6: resumen de la regulación de la glucólisis"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/06-regulacion-resumen.webp" loading="lazy" alt="" /><span>06</span><span><strong>Regulación</strong><small>Hexoquinasa, glucoquinasa, GKRP y PFK-1.</small></span></button>
+          <button type="button" data-board-archive-slide="6" aria-pressed="false" aria-label="Abrir lámina 7: regulación con anotaciones del profesor"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/07-regulacion-anotada.webp" loading="lazy" alt="" /><span>07</span><span><strong>Regulación anotada</strong><small>La misma pizarra con las notas laterales del profesor.</small></span></button>
         </nav>
       </div>
     </div>
@@ -1682,7 +1737,7 @@
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=405"></script>
-  <script src="grupo-3-i18n-v421.js?v=440"></script>
+  <script src="grupo-3-i18n-v421.js?v=441"></script>
   <script src="grupo-3-practice-v413.js?v=429"></script>
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
   <script src="grupo-3-practice-grounded-v426.js?v=429"></script>

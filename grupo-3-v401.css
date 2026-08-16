@@ -572,6 +572,62 @@ img{display:block;max-width:100%}
 .net-balance strong{margin:13px 0 9px;color:var(--cyan);font-size:1.25rem;line-height:1.2}
 .net-balance small{color:var(--muted);font-size:.72rem}
 
+.bio-visual-lesson{display:grid;gap:15px;padding:22px;border:1px solid rgba(111,216,255,.28);border-radius:var(--radius-lg);color:#0a1a2b;background:linear-gradient(145deg,#fbfcfd,#edf3f7);box-shadow:0 20px 48px rgba(0,0,0,.18);overflow:hidden}
+.bio-visual-lesson>header{display:grid;gap:5px;max-width:760px}
+.bio-visual-lesson>header>span,.bio-abbrev-guide>header>span{color:#9a6d16;font-size:.62rem;font-weight:950;letter-spacing:.13em}
+.bio-visual-lesson h3,.bio-abbrev-guide h3{margin:0;font-size:clamp(1.35rem,2.7vw,2.05rem);line-height:1.05;letter-spacing:-.03em}
+.bio-visual-lesson>header p,.bio-abbrev-guide>header p{margin:0;color:#536579;font-size:.74rem;line-height:1.4}
+.bio-pathway-map{display:grid;grid-template-columns:1fr .58fr 1fr .58fr 1fr .72fr 1fr;gap:7px;align-items:stretch;padding:12px;border:1px solid rgba(10,42,70,.12);border-radius:18px;background:rgba(255,255,255,.76)}
+.bio-pathway-node{min-width:0;min-height:152px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:10px 8px;border:1px solid rgba(20,54,82,.13);border-radius:15px;text-align:center;background:#fff;box-shadow:0 8px 24px rgba(34,67,92,.07)}
+.bio-pathway-node svg{width:min(82px,100%);height:64px;overflow:visible}
+.bio-pathway-node svg polygon,.bio-pathway-node svg path{fill:none;stroke:#2a668a;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.bio-pathway-node svg circle{fill:#f2c66d;stroke:#fff;stroke-width:1.5}
+.bio-pathway-node svg text{fill:#173a55;font-size:14px;font-weight:900;text-anchor:middle;font-family:Inter,Arial,sans-serif}
+.bio-pathway-node>span{color:#8c671e;font-size:.5rem;font-weight:950;letter-spacing:.12em}
+.bio-pathway-node>strong{font-size:.84rem;line-height:1.1}
+.bio-pathway-node>small{color:#66798c;font-size:.58rem;line-height:1.25}
+.bio-pathway-result{border-color:rgba(32,139,90,.26);background:#f6fffa}
+.bio-pathway-result svg circle{fill:#72e0ab}
+.bio-pathway-arrow{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;text-align:center;color:#566b7d}
+.bio-pathway-arrow>b{color:#a77212;font-size:.65rem;line-height:1.2}
+.bio-pathway-arrow>i{color:#2a668a;font-size:1.45rem;font-style:normal;font-weight:950;line-height:1}
+.bio-pathway-arrow>small{font-size:.49rem;line-height:1.25}
+.bio-pathway-gain>b{color:#167b50}
+.bio-pathway-explain{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.bio-pathway-explain p{margin:0;padding:10px 11px;border-left:3px solid #6fd8ff;border-radius:0 11px 11px 0;color:#536579;background:rgba(255,255,255,.65);font-size:.65rem;line-height:1.4}
+.bio-pathway-explain p:nth-child(2){border-left-color:#f2c66d}.bio-pathway-explain p:nth-child(3){border-left-color:#72e0ab}
+.bio-pathway-explain b{color:#173a55}
+.bio-pathway-caption{color:#6a7a89;font-size:.57rem;line-height:1.35}
+
+.bio-abbrev-guide{display:grid;gap:13px;padding:22px;border:1px solid rgba(180,148,255,.25);border-radius:var(--radius-lg);background:linear-gradient(145deg,rgba(180,148,255,.07),rgba(4,13,23,.54))}
+.bio-abbrev-guide>header{display:grid;gap:5px}
+.bio-abbrev-guide>header>span{color:#d5bdff}
+.bio-abbrev-guide>header p{color:var(--muted)}
+.bio-abbrev-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bio-abbrev-card{min-width:0;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.025);overflow:hidden}
+.bio-abbrev-card[open]{grid-column:1/-1;border-color:rgba(111,216,255,.32);background:rgba(111,216,255,.045)}
+.bio-abbrev-card summary{min-height:68px;display:grid;grid-template-columns:auto 1fr 28px;gap:10px;align-items:center;padding:11px 13px;cursor:pointer;list-style:none}
+.bio-abbrev-card summary::-webkit-details-marker{display:none}
+.bio-abbrev-card summary>span{min-width:68px;color:var(--gold-soft);font-size:1rem;font-weight:950;letter-spacing:.02em}
+.bio-abbrev-card summary>strong{font-size:.7rem;line-height:1.25}
+.bio-abbrev-card summary>b{width:28px;height:28px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;color:var(--cyan);font-size:1rem;font-weight:500}
+.bio-abbrev-card[open] summary>b{transform:rotate(45deg)}
+.bio-letter-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:0 13px 11px}
+.bio-letter-grid-three{grid-template-columns:repeat(3,1fr)}
+.bio-letter-grid p{min-width:0;display:grid;grid-template-columns:30px 1fr;gap:7px;align-items:center;margin:0;padding:8px;border:1px solid rgba(197,215,239,.1);border-radius:11px;background:rgba(4,13,23,.42)}
+.bio-letter-grid p>b{width:30px;height:30px;display:grid;place-items:center;border-radius:9px;color:#07111f;background:var(--gold-soft);font-size:.72rem}
+.bio-letter-grid p>span{min-width:0;color:var(--muted-strong);font-size:.61rem;line-height:1.2;overflow-wrap:anywhere}
+.bio-abbrev-note{margin:0;padding:11px 13px 13px;border-top:1px solid rgba(197,215,239,.08);color:var(--muted);font-size:.66rem;line-height:1.45}
+.bio-abbrev-note b{color:var(--ink)}
+.bio-route-dictionary{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:0 13px 13px}
+.bio-route-dictionary p{display:grid;gap:2px;margin:0;padding:9px;border:1px solid rgba(197,215,239,.1);border-radius:11px;background:rgba(4,13,23,.42)}
+.bio-route-dictionary b{color:var(--cyan);font-size:.66rem}.bio-route-dictionary span{color:var(--muted);font-size:.57rem;line-height:1.25}
+
+#bioquimica .board-archive-cover{border-color:rgba(111,216,255,.32);background:#f4f7f9}
+#bioBoardArchive .board-archive-image-frame{background:radial-gradient(circle at 50% 35%,#fff,#e7edf1 78%)}
+#bioBoardArchive .board-archive-image-frame img{background:#fff;box-shadow:0 18px 42px rgba(0,0,0,.24)}
+#bioBoardArchive .board-archive-thumbnails img{background:#f7f9fa}
+
 .phase-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
 .phase-card{padding:21px;border:1px solid var(--line);border-radius:var(--radius-lg);background:rgba(255,255,255,.02)}
 .phase-card header{display:grid;gap:5px;padding-bottom:13px;border-bottom:1px solid var(--line)}
@@ -1575,6 +1631,41 @@ img{display:block;max-width:100%}
   .mobile-bottom-nav .nav-icon svg{width:18px;height:18px}
   .mobile-bottom-nav strong{font-size:.61rem}
   .toast{bottom:76px;border-radius:16px;text-align:center}
+  .bio-visual-lesson,.bio-abbrev-guide{padding:14px 10px;border-radius:17px}
+  .bio-visual-lesson{gap:10px}
+  .bio-visual-lesson h3,.bio-abbrev-guide h3{font-size:1.12rem}
+  .bio-visual-lesson>header p,.bio-abbrev-guide>header p{font-size:.62rem}
+  .bio-pathway-map{grid-template-columns:1fr .42fr 1fr .42fr 1fr .52fr 1fr;gap:2px;padding:5px;border-radius:13px}
+  .bio-pathway-node{min-height:94px;gap:1px;padding:5px 2px;border-radius:10px}
+  .bio-pathway-node svg{width:46px;height:38px}
+  .bio-pathway-node svg text{font-size:12px}
+  .bio-pathway-node>span{font-size:.38rem;letter-spacing:.06em}
+  .bio-pathway-node>strong{font-size:.52rem;line-height:1.08}
+  .bio-pathway-node>small{font-size:.42rem;line-height:1.15}
+  .bio-pathway-arrow{gap:2px}
+  .bio-pathway-arrow>b{font-size:.43rem;line-height:1.1}
+  .bio-pathway-arrow>i{font-size:.88rem}
+  .bio-pathway-arrow>small{font-size:.36rem;line-height:1.1}
+  .bio-pathway-explain{grid-template-columns:repeat(3,1fr);gap:4px}
+  .bio-pathway-explain p{padding:6px 5px;border-left-width:2px;border-radius:0 8px 8px 0;font-size:.46rem;line-height:1.3}
+  .bio-pathway-caption{font-size:.48rem}
+  .bio-abbrev-grid{grid-template-columns:1fr 1fr;gap:5px}
+  .bio-abbrev-card summary{min-height:52px;grid-template-columns:auto 1fr 23px;gap:6px;padding:7px 8px}
+  .bio-abbrev-card summary>span{min-width:48px;font-size:.72rem}
+  .bio-abbrev-card summary>strong{font-size:.53rem}
+  .bio-abbrev-card summary>b{width:23px;height:23px;font-size:.82rem}
+  .bio-letter-grid{grid-template-columns:repeat(2,1fr);gap:5px;padding:0 8px 8px}
+  .bio-letter-grid-three{grid-template-columns:repeat(3,1fr)}
+  .bio-letter-grid p{grid-template-columns:23px 1fr;gap:5px;padding:5px;border-radius:8px}
+  .bio-letter-grid p>b{width:23px;height:23px;border-radius:7px;font-size:.58rem}
+  .bio-letter-grid p>span{font-size:.49rem}
+  .bio-abbrev-note{padding:8px;font-size:.54rem;line-height:1.38}
+  .bio-route-dictionary{grid-template-columns:1fr 1fr;gap:5px;padding:0 8px 8px}
+  .bio-route-dictionary p{padding:6px;border-radius:8px}.bio-route-dictionary b{font-size:.55rem}.bio-route-dictionary span{font-size:.48rem}
+  #bioBoardArchive .board-archive-stage{min-height:0}
+  #bioBoardArchive .board-archive-stage figure{flex:none;grid-template-rows:auto auto}
+  #bioBoardArchive .board-archive-image-frame{aspect-ratio:4/3;padding:4px}
+  #bioBoardArchive .board-archive-image-frame img{width:100%;height:auto;max-width:100%;border-radius:9px}
 }
 
 @media(max-width:480px){
@@ -1781,6 +1872,9 @@ img{display:block;max-width:100%}
   .current-assignment-date>strong{font-size:.53rem}
   .status-legend{display:none}
   .task-block-heading{margin:2px 0 9px;font-size:.68rem}
+  .bio-pathway-arrow>small{display:none}
+  .bio-pathway-node>small{font-size:.39rem}
+  .bio-visual-lesson>header>span,.bio-abbrev-guide>header>span{font-size:.49rem}
   .bio-board-synthesis{padding:17px 13px;border-radius:18px}
   .bio-board-synthesis h3{font-size:1.5rem}
   .bio-board-route article{min-height:88px;padding:12px}
