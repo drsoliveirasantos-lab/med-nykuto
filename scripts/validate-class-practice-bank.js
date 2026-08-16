@@ -14,6 +14,7 @@ const expectedCourses = [
 ];
 const types = ['qcm', 'vf', 'cases'];
 const metaQuestionWording = /\b(?:clase|curso|profesor|aula|repaso|repasar|explicad[oa]s?)\b/i;
+const leakedCorrectionWording = /^¿Qué opción corrige esta afirmación:/i;
 const errors = [];
 const prompts = new Set();
 const classHtml = fs.readFileSync(path.join(root, 'clase.html'), 'utf8');
@@ -53,6 +54,19 @@ function hasObviousDistractorCue(value) {
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase();
   return /\b(?:siempre|nunca|unicamente|solamente|exclusivamente|obligatoriamente|exclusiv[oa]s?|obligatori[oa]s?|solo|sola|solos|solas|todos?|todas?|ningun|ninguna|ninguno|nada|cualquier|exactamente)\b|por si sol[oa]s?|sin (?:ninguna )?excepcion/.test(folded);
+}
+
+function normalizedOptionSet(question) {
+  return question.options.map(normalizeText).sort().join('|');
+}
+
+function promptSimilarity(first, second) {
+  const left = new Set(normalizeText(first).split(/\s+/).filter((token) => token.length >= 4));
+  const right = new Set(normalizeText(second).split(/\s+/).filter((token) => token.length >= 4));
+  const union = new Set([...left, ...right]);
+  if (!union.size) return 0;
+  const intersection = [...left].filter((token) => right.has(token)).length;
+  return intersection / union.size;
 }
 
 function extractElementById(html, id) {
@@ -106,6 +120,7 @@ if (!banks || typeof banks !== 'object') {
     const sourceElement = grounding.containerId ? extractElementById(classHtml, grounding.containerId) : '';
     const sourceText = normalizeText(sourceElement);
     const evidenceUsage = new Map();
+    const qcmKindCounts = { statement: 0, concept: 0 };
 
     expect(grounding.policy === POLICY, `${prefix} missing ${POLICY} grounding policy.`);
     expect(Boolean(grounding.containerId), `${prefix} missing course container id.`);
@@ -121,6 +136,14 @@ if (!banks || typeof banks !== 'object') {
     });
 
     const expectedCounts = { qcm: 20, vf: 10, cases: 10 };
+    (bank.qcm || []).forEach((question, index) => {
+      if (index > 0) {
+        expect(
+          question.evidenceId !== bank.qcm[index - 1].evidenceId,
+          `${courseId}/qcm/${index + 1}: repeats the evidence used by the immediately preceding QCM.`
+        );
+      }
+    });
     types.forEach((type) => {
       const questions = bank[type];
       if (!Array.isArray(questions) || questions.length !== expectedCounts[type]) {
@@ -137,6 +160,11 @@ if (!banks || typeof banks !== 'object') {
         if (type !== 'vf') {
           expect(question.prompt.trim().startsWith('¿') && question.prompt.trim().endsWith('?'), `${location}: objective prompt must be written as a direct question.`);
         }
+        if (type === 'qcm') {
+          expect(Object.prototype.hasOwnProperty.call(qcmKindCounts, question.questionKind), `${location}: QCM angle must be statement or concept.`);
+          if (Object.prototype.hasOwnProperty.call(qcmKindCounts, question.questionKind)) qcmKindCounts[question.questionKind] += 1;
+          expect(!leakedCorrectionWording.test(question.prompt), `${location}: legacy correction wording reveals a distractor in the stem.`);
+        }
         expect(!metaQuestionWording.test(question.prompt || ''), `${location}: prompt refers to the class instead of asking the subject directly.`);
         expect(!metaQuestionWording.test(question.scenario || ''), `${location}: scenario uses a generic class/review formulation.`);
 
@@ -147,6 +175,16 @@ if (!banks || typeof banks !== 'object') {
         }
         expect(new Set(question.options).size === question.options.length, `${location}: duplicate options.`);
         expect(Number.isInteger(question.answer) && question.answer >= 0 && question.answer < question.options.length, `${location}: answer index is invalid.`);
+        if (type === 'qcm') {
+          const normalizedPrompt = normalizeText(question.prompt);
+          question.options.forEach((option, optionIndex) => {
+            const normalizedOption = normalizeText(option);
+            expect(
+              !normalizedOption || !normalizedPrompt.includes(normalizedOption),
+              `${location}: option ${optionIndex + 1} is already written verbatim in the prompt.`
+            );
+          });
+        }
         expect(Boolean(question.explanation) && question.explanation.trim().length >= 35, `${location}: explanation is missing or too short.`);
         if (type === 'cases') expect(Boolean(question.scenario) && question.scenario.trim().length >= 55, `${location}: application scenario is missing or too short.`);
         if (type === 'vf') {
@@ -173,9 +211,10 @@ if (!banks || typeof banks !== 'object') {
         expect(!/(?:https?:\/\/|www\.|\b(?:ncbi|cdc|who|paho|aha)\b)/i.test(questionCopy), `${location}: external-source material is forbidden.`);
 
         if (question.evidenceId) {
-          const usage = evidenceUsage.get(question.evidenceId) || { total: 0, qcm: 0, vf: 0, cases: 0, evidence: question.evidence };
+          const usage = evidenceUsage.get(question.evidenceId) || { total: 0, qcm: 0, vf: 0, cases: 0, evidence: question.evidence, qcmQuestions: [] };
           usage.total += 1;
           usage[type] += 1;
+          if (type === 'qcm') usage.qcmQuestions.push(question);
           expect(usage.evidence === question.evidence, `${location}: the same evidence id uses different source text.`);
           evidenceUsage.set(question.evidenceId, usage);
         }
@@ -191,10 +230,21 @@ if (!banks || typeof banks !== 'object') {
       });
     });
 
+    expect(qcmKindCounts.statement === 10, `${prefix} expected 10 direct-statement QCM, got ${qcmKindCounts.statement}.`);
+    expect(qcmKindCounts.concept === 10, `${prefix} expected 10 concept-identification QCM, got ${qcmKindCounts.concept}.`);
     expect(evidenceUsage.size === 10, `${prefix} expected 10 distinct course evidence items, got ${evidenceUsage.size}.`);
     evidenceUsage.forEach((usage, evidenceId) => {
       expect(usage.total === 4, `${courseId}/${evidenceId}: each course idea must produce exactly four questions.`);
       expect(usage.qcm === 2 && usage.vf === 1 && usage.cases === 1, `${courseId}/${evidenceId}: expected 2 QCM, 1 true/false and 1 application.`);
+      if (usage.qcmQuestions.length === 2) {
+        const statement = usage.qcmQuestions.find((question) => question.questionKind === 'statement');
+        const concept = usage.qcmQuestions.find((question) => question.questionKind === 'concept');
+        expect(Boolean(statement && concept), `${courseId}/${evidenceId}: the two QCM must use one statement angle and one concept angle.`);
+        if (statement && concept) {
+          expect(normalizedOptionSet(statement) !== normalizedOptionSet(concept), `${courseId}/${evidenceId}: both QCM reuse the same answer set.`);
+          expect(promptSimilarity(statement.prompt, concept.prompt) < 0.65, `${courseId}/${evidenceId}: both QCM prompts are too similar.`);
+        }
+      }
     });
   });
 }
@@ -218,5 +268,5 @@ console.log(
   `Class practice bank validation OK: ${expectedCourses.length} courses, ${totalQuestions} course-only questions, ` +
   `70 exact evidence items, answer positions ${answerPositions.join('/')}, ` +
   `${Math.round((strictlyLongestCorrect / objectiveQuestions) * 100)}% uniquely-longest correct options, ` +
-  `0 class-meta prompts and 0 absolute-word distractor cues.`
+  `0 adjacent evidence repeats, 0 leaked options and 0 absolute-word distractor cues.`
 );

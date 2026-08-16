@@ -547,7 +547,7 @@
     }
   };
 
-  var storageKey = 'med-nykuto-class-practice-v426';
+  var storageKey = 'med-nykuto-class-practice-v429';
   var typeOrder = ['qcm','vf','cases'];
   var typeLabels = {
     qcm:tr('qcm'),

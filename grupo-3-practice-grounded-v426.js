@@ -177,6 +177,60 @@
     return [item.correct].concat(item.wrong);
   }
 
+  function escapeRegExp(value){
+    return String(value || '').replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  }
+
+  function stripLeadingArticle(value){
+    return String(value || '').replace(/^(?:el|la|los|las|un|una)\s+/i,'').trim();
+  }
+
+  function termPattern(value){
+    return escapeRegExp(value)
+      .replace(/0/g,'[0₀]')
+      .replace(/1/g,'[1₁]')
+      .replace(/2/g,'[2₂]')
+      .replace(/3/g,'[3₃]')
+      .replace(/4/g,'[4₄]')
+      .replace(/5/g,'[5₅]')
+      .replace(/6/g,'[6₆]')
+      .replace(/7/g,'[7₇]')
+      .replace(/8/g,'[8₈]')
+      .replace(/9/g,'[9₉]')
+      .replace(/\s+/g,'\\s+');
+  }
+
+  function maskTerm(value,term){
+    if(!term || term.length < 2) return value;
+    return value.replace(new RegExp(termPattern(term),'gi'),'_____');
+  }
+
+  function conceptDescription(item){
+    var description = item.correct;
+    var coreLabel = stripLeadingArticle(item.label);
+    var terms = [coreLabel];
+    if(item.key && item.key.length <= 12) terms.push(item.key);
+    (coreLabel.match(/[A-ZÁÉÍÓÚÜÑ0-9]+(?:[-–—][A-ZÁÉÍÓÚÜÑ0-9]+)*/g) || []).forEach(function(token){
+      if(token.length >= 2) terms.push(token);
+    });
+    terms
+      .filter(Boolean)
+      .sort(function(a,b){ return b.length - a.length; })
+      .forEach(function(term){ description = maskTerm(description,term); });
+    return description
+      .replace(/(?:_____\s*){2,}/g,'_____ ')
+      .replace(/\s+/g,' ')
+      .replace(/\s+([,.;:])/g,'$1')
+      .trim();
+  }
+
+  function conceptOptions(topic,index){
+    var offsets = [0,1,2,3];
+    return offsets.map(function(offset){
+      return topic.facts[(index + offset) % topic.facts.length].label;
+    });
+  }
+
   function metadata(item,topic){
     return {
       grounding:POLICY,
@@ -186,12 +240,14 @@
     };
   }
 
-  function qcm(item,topic,variant){
+  function qcm(item,topic,variant,index){
+    var identifiesConcept = variant === 1;
     var question = {
-      prompt:variant === 0
+      questionKind:identifiesConcept ? 'concept' : 'statement',
+      prompt:!identifiesConcept
         ? '¿Cuál es la afirmación correcta sobre ' + item.label + '?'
-        : '¿Qué opción corrige esta afirmación: «' + item.falseStatement.replace(/\.$/,'') + '»?',
-      options:balancedOptions(item),
+        : '¿A qué concepto corresponde esta descripción: «' + conceptDescription(item).replace(/\.$/,'') + '»?',
+      options:identifiesConcept ? conceptOptions(topic,index) : balancedOptions(item),
       answer:0,
       explanation:explanationFor(item)
     };
@@ -238,8 +294,12 @@
     bank.cases = [];
 
     topic.facts.forEach(function(item,index){
-      bank.qcm.push(qcm(item,topic,0));
-      bank.qcm.push(qcm(item,topic,1));
+      bank.qcm.push(qcm(item,topic,0,index));
+    });
+    topic.facts.forEach(function(item,index){
+      bank.qcm.push(qcm(item,topic,1,index));
+    });
+    topic.facts.forEach(function(item,index){
       bank.vf.push(trueFalse(item,topic,index));
       bank.cases.push(application(item,topic));
     });

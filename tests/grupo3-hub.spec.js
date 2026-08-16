@@ -594,7 +594,7 @@ test.describe('Class hub', () => {
 
   test('opens a real format chooser after a completed training block', async ({ page }) => {
     await page.evaluate(() => {
-      localStorage.setItem('med-nykuto-class-practice-v426', JSON.stringify({
+      localStorage.setItem('med-nykuto-class-practice-v429', JSON.stringify({
         nutricion:{
           qcm:Array.from({ length:20 }, () => ({ selected:0, correct:true })),
           vf:[],
