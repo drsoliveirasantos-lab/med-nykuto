@@ -25,8 +25,8 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('heading', { name: 'TAREAS', exact: true })).toBeVisible();
     await expect(page.locator('#homeHomeworkCount')).toHaveText('3 tareas');
     expect(await page.locator('.dashboard-priorities .priority-card time').evaluateAll((times) => times.map((time) => time.dateTime))).toEqual(['2026-08-17', '2026-08-19', '2026-08-20']);
-    await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', /^2026-08-15T\d{2}:\d{2}:\d{2}-03:00$/);
-    await expect(page.locator('#lastUpdated')).toHaveText(/^Actualizado 15 ago\.? · \d{2}:\d{2} PY$/);
+    await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', /^2026-08-17T\d{2}:\d{2}:\d{2}-03:00$/);
+    await expect(page.locator('#lastUpdated')).toHaveText(/^Actualizado 17 ago\.? · \d{2}:\d{2} PY$/);
     await expect(page.locator('#horario')).toBeHidden();
     await expect(page.locator('#materias')).toBeHidden();
   });
@@ -442,8 +442,29 @@ test.describe('Class hub', () => {
     await expect(page.getByRole('row', { name: /Barrera alveolocapilar/ })).toBeVisible();
     await expect(page.locator('#practice-fisiologia-2026-08-10')).toContainText('40 preguntas para dominar este curso');
     const transcript = await page.evaluate(() => window.MED_NYKUTO_LATEST_TRANSCRIPTS.fisiologia);
-    expect(transcript.resolvedDate).toBe('2026-08-13');
+    expect(transcript.resolvedDate).toBe('2026-08-17');
     expect(transcript.segments[0].estimatedDate).toBe('2026-08-10');
+  });
+
+  test('opens the 17 August Physiology and Microbiology class archives', async ({ page }) => {
+    await page.goto('/clase.html#fisiologia-2026-08-17');
+    await expect(page.locator('#fisio-title')).toHaveText('Organización, sinapsis y receptores');
+    await expect(page.locator('#practice-fisiologia-2026-08-17')).toContainText('40 preguntas para dominar este curso');
+
+    const archive = page.locator('#sessionArchiveDialog');
+    await page.locator('[data-session-archive-open="fisio-17-slides"]').click();
+    await expect(archive).toBeVisible();
+    await expect(archive.locator('#sessionArchiveThumbnails button')).toHaveCount(35);
+    await expect(archive.locator('[data-session-archive-total]')).toHaveText('35');
+    await archive.locator('[data-session-archive-close]').click();
+
+    await page.goto('/clase.html#microbiologia-teorica-2026-08-17');
+    await expect(page.locator('#micro-theory-title')).toHaveText('Micosis por profundidad y casos clínicos');
+    await expect(page.locator('#practice-microbiologia-teorica-2026-08-17')).toContainText('40 preguntas para dominar este curso');
+    await page.locator('[data-session-archive-open="micro-17-cases"]').click();
+    await expect(archive).toBeVisible();
+    await expect(archive.locator('#sessionArchiveThumbnails button')).toHaveCount(8);
+    await expect(archive.locator('[data-session-archive-total]')).toHaveText('8');
   });
 
   test('turns the Nutrition transcript into a patient-evaluation framework and seminar brief', async ({ page }) => {
@@ -816,7 +837,7 @@ test.describe('Class hub', () => {
 
   test('offers exactly 20 QCM, 10 true-false and 10 clinical cases for every dated course', async ({ page }) => {
     await page.goto('/clase.html#nutricion');
-    await expect(page.locator('[data-practice-root]')).toHaveCount(7);
+    await expect(page.locator('[data-practice-root]')).toHaveCount(9);
     const everyBankHasForty = await page.locator('[data-practice-root]').evaluateAll((roots) => roots.every((root) => {
       const counts = Array.from(root.querySelectorAll('.practice-counts strong')).map((node) => Number(node.textContent));
       return counts.join(',') === '20,10,10';
@@ -893,8 +914,9 @@ test.describe('Class hub', () => {
     await expect(nextMycology.getByText('Cromoblastomicosis', { exact: true })).toBeVisible();
     await expect(nextMycology.getByText('Micetoma eumicótico', { exact: true })).toBeVisible();
     const transcript = await page.evaluate(() => window.MED_NYKUTO_LATEST_TRANSCRIPTS.microbiologiaTeorica);
-    expect(transcript.oralDate).toBeNull();
-    expect(transcript.estimatedClassDate).toBe('2026-08-10');
+    expect(transcript.oralDate).toBe('2026-08-17');
+    expect(transcript.resolvedDate).toBe('2026-08-17');
+    expect(transcript.estimatedClassDate).toBeNull();
     expect(transcript.estimatedPreparation.date).toBe('2026-08-17');
   });
 

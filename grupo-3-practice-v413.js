@@ -1054,8 +1054,8 @@
     function selectedPracticeId(){
       var selectedCourse = document.querySelector('[data-course-target][aria-current="true"]');
       var courseId = selectedCourse && selectedCourse.dataset.courseTarget;
-      if(courseId === 'fisiologia'){
-        var selectedLesson = document.querySelector('#fisiologia [data-lesson-target][aria-current="true"]');
+      if(courseId){
+        var selectedLesson = document.querySelector('#' + courseId + ' [data-lesson-target][aria-current="true"]');
         if(selectedLesson && controllers[selectedLesson.dataset.lessonTarget]) return selectedLesson.dataset.lessonTarget;
       }
       return courseId && controllers[courseId] ? courseId : null;
@@ -1094,7 +1094,8 @@
     function openFromHash(){
       var match = window.location.hash.match(/^#practice-(.+)$/);
       if(match && controllers[match[1]]) controllers[match[1]].open();
-      else if(match && match[1] === 'fisiologia' && controllers['fisiologia-2026-08-13']) controllers['fisiologia-2026-08-13'].open();
+      else if(match && match[1] === 'fisiologia' && controllers['fisiologia-2026-08-17']) controllers['fisiologia-2026-08-17'].open();
+      else if(match && match[1] === 'microbiologia-teorica' && controllers['microbiologia-teorica-2026-08-17']) controllers['microbiologia-teorica-2026-08-17'].open();
     }
 
     openFromHash();

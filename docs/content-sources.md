@@ -84,6 +84,22 @@ assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/
 
 These seven WebP files are clean whiteboard reconstructions of the seven board screenshots supplied for the 14 August class. They preserve the teacher's teaching order, arrows, relative layout, color roles and side annotations. They are derivative viewing assets, not an independent scientific source. The adjacent HTML lesson remains the verified study layer and explicitly clarifies the net balance, the cytosolic NADH shuttle caveat and the direct role of oxygen. The older `restored/` renders remain non-runtime history and must not replace `whiteboard-v2/` without a new visual review.
 
+The Fisiología II class from 2026-08-17 keeps the teacher PDF unchanged at:
+
+```txt
+assets/class-hub/physiology/2026-08-17/organizacion-sinapsis-receptores.pdf
+```
+
+The adjacent `slides/` directory contains the 35 PDF pages rendered in their original order. The `board/` directory contains the supplied board photograph and one clean computer reconstruction that preserves the teacher's spatial organization, arrows and teaching sequence. The linked PhET neuron simulator is a class resource, but the lesson text and training bank are grounded only in the teacher PDF, board and supplied class transcription.
+
+The Microbiología II · Teórica class from 2026-08-17 uses eight supplied photographs of the two clinical cases. Their ordered, cropped quick-view copies live at:
+
+```txt
+assets/class-hub/microbiology-theory/2026-08-17/cases/
+```
+
+The first case is pityriasis versicolor associated with `Malassezia spp.`; the second is tinea corporis associated with `Microsporum canis`. The same class transcription is the source for the comparison by depth and the three subcutaneous mycoses. Training questions for this date must not introduce facts absent from these teacher materials.
+
 ## Validation
 
 Before merging content changes, run:

@@ -346,14 +346,16 @@
 
   var latestFisioTranscript = {
     subject:'Fisiología II',
-    oralMarker:'jueves 13',
-    resolvedDate:'2026-08-13',
-    receivedDate:'2026-08-14',
-    sourceMode:'legacy-cumulative',
-    dateResolution:'weekday-and-day-matched-to-schedule',
+    oralMarker:'lunes 17',
+    resolvedDate:'2026-08-17',
+    receivedDate:'2026-08-17',
+    sourceMode:'single-class',
+    dateResolution:'date-supplied-with-session',
+    topic:'Organización, sinapsis y receptores',
     segments:[
       {position:'previous',estimatedDate:'2026-08-10',topic:'Difusión y transporte de gases'},
-      {position:'latest',resolvedDate:'2026-08-13',topic:'Control nervioso y químico de la respiración'}
+      {position:'previous',resolvedDate:'2026-08-13',topic:'Control nervioso y químico de la respiración'},
+      {position:'latest',resolvedDate:'2026-08-17',topic:'Organización, sinapsis y receptores'}
     ]
   };
 
@@ -370,13 +372,14 @@
   var latestMicroTheoryTranscript = {
     subject:'Microbiología II · Teórica',
     scope:'class-4e',
-    oralDate:null,
-    receivedDate:'2026-08-14',
-    estimatedClassDate:'2026-08-10',
+    oralDate:'2026-08-17',
+    receivedDate:'2026-08-17',
+    resolvedDate:'2026-08-17',
+    estimatedClassDate:null,
     sourceMode:'single-class',
-    topic:'Dermatofitosis y tiñas',
+    topic:'Micosis por profundidad y casos clínicos',
     estimatedPreparation:{date:'2026-08-17',start:'10:10',end:'12:20'},
-    assignedTopics:['Esporotricosis linfocutánea','Cromoblastomicosis','Micetoma eumicótico']
+    coveredTopics:['Pitiriasis versicolor','Tiña corporal por Microsporum canis','Esporotricosis linfocutánea','Cromoblastomicosis','Micetoma eumicótico']
   };
 
   var nutritionSeminarGroups = {
@@ -1664,8 +1667,18 @@
 
   var courseIds = ['nutricion','fisiologia','bioquimica','epidemiologia','microbiologia-teorica','microbiologia-practica'];
   var activeCourseId = 'nutricion';
-  var activeLessonByCourse = {fisiologia:'fisiologia-2026-08-13'};
+  var activeLessonByCourse = {
+    fisiologia:'fisiologia-2026-08-17',
+    'microbiologia-teorica':'microbiologia-teorica-2026-08-17'
+  };
   var datedLessonMeta = {
+    'fisiologia-2026-08-17':{
+      title:'Organización, sinapsis y receptores',
+      kicker:'Fisiología II · clase del 17 de agosto',
+      description:'Clase del lunes 17 de agosto de 2026: organización funcional del sistema nervioso, neurona, sinapsis, neurotransmisores, receptores sensitivos y circuitos.',
+      status:'Clase confirmada · 17 ago.',
+      statusClass:'status-confirmed'
+    },
     'fisiologia-2026-08-13':{
       title:'Control nervioso y químico de la respiración',
       kicker:'Fisiología II · clase del 13 de agosto',
@@ -1678,6 +1691,20 @@
       kicker:'Fisiología II · clase del 10 de agosto',
       description:'Sesión estimada del lunes 10 de agosto de 2026: barrera alveolocapilar, relación V/Q y transporte sanguíneo de O₂ y CO₂.',
       status:'Fecha estimada · 10 ago. · confirmar',
+      statusClass:'status-estimated'
+    },
+    'microbiologia-teorica-2026-08-17':{
+      title:'Micosis por profundidad y casos clínicos',
+      kicker:'Microbiología II · Teórica · clase del 17 de agosto',
+      description:'Clase del lunes 17 de agosto de 2026: micosis superficiales, cutáneas y subcutáneas, con dos casos clínicos resueltos paso a paso.',
+      status:'Clase confirmada · 17 ago.',
+      statusClass:'status-confirmed'
+    },
+    'microbiologia-teorica-2026-08-10':{
+      title:'Dermatofitosis: de la queratina al caso clínico',
+      kicker:'Microbiología II · Teórica · clase estimada del 10 de agosto',
+      description:'Clase estimada del lunes 10 de agosto de 2026: clasificación, transmisión, localización, diagnóstico y tratamiento de dermatofitosis.',
+      status:'Clase estimada · 10 ago. · confirmar',
       statusClass:'status-estimated'
     }
   };

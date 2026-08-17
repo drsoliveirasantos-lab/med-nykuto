@@ -12,6 +12,11 @@ const expectedCourses = [
   'microbiologia-teorica',
   'microbiologia-practica'
 ];
+const datedCourses = [
+  'fisiologia-2026-08-17',
+  'microbiologia-teorica-2026-08-17'
+];
+const allExpectedCourses = expectedCourses.concat(datedCourses);
 const types = ['qcm', 'vf', 'cases'];
 const metaQuestionWording = /\b(?:clase|curso|profesor|aula|repaso|repasar|explicad[oa]s?)\b/i;
 const leakedCorrectionWording = /^¿Qué opción corrige esta afirmación:/i;
@@ -101,6 +106,7 @@ global.document = { getElementById() { return null; } };
 require(path.join(root, 'grupo-3-practice-v413.js'));
 require(path.join(root, 'grupo-3-practice-expansion-v420.js'));
 require(path.join(root, 'grupo-3-practice-grounded-v426.js'));
+require(path.join(root, 'grupo-3-practice-2026-08-17-v432.js'));
 const practice = global.window.MedNykutoClassPractice;
 const banks = practice && practice.banks;
 
@@ -112,8 +118,8 @@ if (!banks || typeof banks !== 'object') {
 } else {
   expect(practice.groundingPolicy === POLICY, `Expected global grounding policy ${POLICY}.`);
   expect(
-    JSON.stringify(Object.keys(banks).sort()) === JSON.stringify(expectedCourses.slice().sort()),
-    'The active challenge does not expose exactly the seven expected class topics.'
+    JSON.stringify(Object.keys(banks).sort()) === JSON.stringify(allExpectedCourses.slice().sort()),
+    'The active challenge does not expose exactly the nine expected class topics.'
   );
 
   expectedCourses.forEach((courseId) => {
@@ -273,9 +279,97 @@ if (!banks || typeof banks !== 'object') {
       }
     });
   });
+
+  datedCourses.forEach((courseId) => {
+    const bank = banks[courseId];
+    if (!bank) return;
+    const prefix = `${courseId}:`;
+    const sourceElement = extractElementById(classHtml, courseId);
+    const sourceUrl = `clase.html#${courseId}`;
+    const objectiveOptionSets = new Set();
+
+    expect(bank.courseId === courseId, `${prefix} course id is inconsistent.`);
+    expect(bank.grounding === 'course-only', `${prefix} must be marked as course-only.`);
+    expect(Boolean(sourceElement), `${prefix} exact dated lesson was not found in clase.html.`);
+    expect(Array.isArray(bank.sources) && bank.sources.length === 1, `${prefix} must expose one internal class source.`);
+    expect(bank.sources && bank.sources[0] && bank.sources[0].url === sourceUrl, `${prefix} source must point to its exact dated lesson.`);
+    expect(!/^https?:\/\//i.test((bank.sources && bank.sources[0] && bank.sources[0].url) || ''), `${prefix} external sources are forbidden in the question bank.`);
+
+    const expectedCounts = { qcm: 20, vf: 10, cases: 10 };
+    types.forEach((type) => {
+      const questions = bank[type];
+      if (!Array.isArray(questions) || questions.length !== expectedCounts[type]) {
+        errors.push(`${courseId}/${type}: expected exactly ${expectedCounts[type]} questions.`);
+        return;
+      }
+
+      questions.forEach((question, index) => {
+        totalQuestions += 1;
+        const location = `${courseId}/${type}/${index + 1}`;
+        const prompt = String(question.prompt || '').trim();
+        if (prompt.length < 12) errors.push(`${location}: prompt is missing or too short.`);
+        else if (prompts.has(prompt)) errors.push(`${location}: duplicate prompt.`);
+        else prompts.add(prompt);
+
+        if (type !== 'vf') {
+          expect(prompt.startsWith('¿') && prompt.endsWith('?'), `${location}: objective prompt must be a direct question.`);
+          expect(!leakedCorrectionWording.test(prompt), `${location}: correction wording reveals the answer structure.`);
+          expect(!genericQuestionWording.test(prompt), `${location}: generic or fill-in-the-blank wording is forbidden.`);
+        }
+        expect(!metaQuestionWording.test(prompt), `${location}: prompt refers to the class instead of the subject.`);
+        expect(!metaQuestionWording.test(question.scenario || ''), `${location}: scenario refers to a class or review.`);
+
+        const expectedOptions = type === 'vf' ? 2 : 4;
+        if (!Array.isArray(question.options) || question.options.length !== expectedOptions) {
+          errors.push(`${location}: expected ${expectedOptions} options.`);
+          return;
+        }
+        expect(new Set(question.options).size === question.options.length, `${location}: duplicate options.`);
+        expect(Number.isInteger(question.answer) && question.answer >= 0 && question.answer < question.options.length, `${location}: answer index is invalid.`);
+        expect(Boolean(question.explanation) && question.explanation.trim().length >= 35, `${location}: explanation is missing or too short.`);
+
+        if (type === 'qcm') {
+          const normalizedPrompt = normalizeText(prompt);
+          question.options.forEach((option, optionIndex) => {
+            const normalizedOption = normalizeText(option);
+            expect(!normalizedOption || !normalizedPrompt.includes(normalizedOption), `${location}: option ${optionIndex + 1} is already written verbatim in the prompt.`);
+          });
+        }
+        if (type === 'cases') {
+          const scenario = String(question.scenario || '').trim();
+          const sentenceCount = scenario.split(/[.!?]+/).filter((sentence) => sentence.trim().length >= 12).length;
+          expect(scenario.length >= 90, `${location}: clinical history is missing or too short.`);
+          expect(patientStoryWording.test(scenario), `${location}: clinical history must identify a patient or person.`);
+          expect(sentenceCount >= 2, `${location}: clinical history must contain at least two meaningful sentences.`);
+        }
+        if (type === 'vf') {
+          if (question.answer === 1) expect(!hasObviousDistractorCue(prompt), `${location}: false statement contains an obvious absolute-word cue.`);
+        } else {
+          question.options.forEach((option, optionIndex) => {
+            if (optionIndex !== question.answer) expect(!hasObviousDistractorCue(option), `${location}: distractor ${optionIndex + 1} contains an obvious absolute-word cue.`);
+          });
+          const optionSet = normalizedOptionSet(question);
+          expect(!objectiveOptionSets.has(optionSet), `${location}: repeats an answer set used by another objective question.`);
+          objectiveOptionSets.add(optionSet);
+        }
+
+        const questionCopy = [prompt, question.scenario, question.explanation].concat(question.options || []).join(' ');
+        expect(!/(?:https?:\/\/|www\.|\b(?:ncbi|cdc|who|paho|aha)\b)/i.test(questionCopy), `${location}: external-source material is forbidden.`);
+
+        if (type !== 'vf' && Number.isInteger(question.answer)) {
+          objectiveQuestions += 1;
+          answerPositions[question.answer] += 1;
+          const lengths = question.options.map((option) => option.length);
+          const correctLength = lengths[question.answer];
+          const maximum = Math.max(...lengths);
+          if (correctLength === maximum && lengths.filter((length) => length === maximum).length === 1) strictlyLongestCorrect += 1;
+        }
+      });
+    });
+  });
 }
 
-expect(totalQuestions === expectedCourses.length * 40, `Expected exactly ${expectedCourses.length * 40} total questions, got ${totalQuestions}.`);
+expect(totalQuestions === allExpectedCourses.length * 40, `Expected exactly ${allExpectedCourses.length * 40} total questions, got ${totalQuestions}.`);
 if (objectiveQuestions) {
   const minimumPositionCount = Math.floor(objectiveQuestions / 8);
   answerPositions.forEach((count, index) => {
@@ -291,8 +385,8 @@ if (errors.length) {
 }
 
 console.log(
-  `Class practice bank validation OK: ${expectedCourses.length} courses, ${totalQuestions} course-only questions, ` +
-  `70 exact evidence items, answer positions ${answerPositions.join('/')}, ` +
+  `Class practice bank validation OK: ${allExpectedCourses.length} courses, ${totalQuestions} course-only questions, ` +
+  `70 exact evidence items plus 80 questions anchored to the two dated lessons, answer positions ${answerPositions.join('/')}, ` +
   `${Math.round((strictlyLongestCorrect / objectiveQuestions) * 100)}% uniquely-longest correct options, ` +
   `0 adjacent evidence repeats, 0 generic stems, 0 repeated cross-format answer sets and 0 absolute-word distractor cues.`
 );
