@@ -67,8 +67,10 @@ test.describe('Weekly class challenge', () => {
     await expect(page.locator('#studyPracticeHost #practice-nutricion')).toBeVisible();
     await expect(page.locator('#studyPracticeHost #practice-nutricion')).toContainText('40 preguntas hechas únicamente con el contenido de esta clase.');
     await page.locator('#studyPracticeHost #practice-nutricion').getByRole('button', { name: 'Comenzar entrenamiento' }).click();
+    await expect(page.locator('#practice-nutricion-dialog')).toHaveAttribute('open', '');
     await expect(page.locator('#studyPracticeHost #practice-nutricion .practice-sources')).toContainText('SOLO CONTENIDO DE LA CLASE');
     await expect(page.locator('#studyPracticeHost #practice-nutricion .practice-sources a')).toHaveAttribute('href', 'clase.html#nutrition-detail');
+    await page.locator('#practice-nutricion-dialog .practice-dialog-close').click();
 
     await page.locator('[data-study-subject="fisiologia"]').click();
     await expect(page.locator('#studyTopicPicker .study-topic-option')).toHaveCount(2);
@@ -136,6 +138,48 @@ test.describe('Weekly class challenge', () => {
       moduleId: 'nutricion-qcm',
       correct: 9,
       total: 10
+    });
+  });
+
+  test('publishes a completed result launched from Materias with the same profile', async ({ page }) => {
+    await seedProfile(page);
+    await page.addInitScript(() => {
+      localStorage.setItem('med-nykuto-class-practice-v431', JSON.stringify({
+        nutricion:{
+          qcm:Array.from({ length:20 }, () => ({ selected:0, correct:true })),
+          vf:[],
+          cases:[]
+        }
+      }));
+    });
+    let submitted = null;
+    await page.route('**/api/community**', async (route) => {
+      if (route.request().method() === 'POST') {
+        submitted = route.request().postDataJSON();
+        await route.fulfill({
+          status:200,
+          contentType:'application/json',
+          body:JSON.stringify({ ok:true, saved:true, best:{ correct:20, total:20, percentage:100 } })
+        });
+        return;
+      }
+      await route.fulfill({ status:200, contentType:'application/json', body:JSON.stringify(API_RESPONSE) });
+    });
+
+    await page.goto('/clase.html#practice-nutricion');
+    const dialog = page.locator('#practice-nutricion-dialog');
+    await expect(dialog).toHaveAttribute('open', '');
+    await expect(dialog.locator('.class-practice-publish')).toBeVisible();
+    await expect(dialog.locator('.class-practice-publish-field input')).toHaveValue('Baboune');
+    await dialog.getByRole('button', { name:'Sumar mis puntos' }).click();
+    await expect(dialog.locator('.class-practice-publish-status')).toContainText('Resultado publicado');
+    expect(submitted).toMatchObject({
+      playerId:PLAYER_ID,
+      nickname:'Baboune',
+      courseId:'nutricion',
+      moduleId:'nutricion-qcm',
+      correct:20,
+      total:20
     });
   });
 

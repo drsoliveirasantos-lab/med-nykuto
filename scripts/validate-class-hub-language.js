@@ -7,6 +7,7 @@ const css = fs.readFileSync(path.join(root, 'grupo-3-v401.css'), 'utf8');
 const runtime = fs.readFileSync(path.join(root, 'grupo-3-v401.js'), 'utf8');
 const i18n = fs.readFileSync(path.join(root, 'grupo-3-i18n-v421.js'), 'utf8');
 const glossary = fs.readFileSync(path.join(root, 'medical-glossary-v425.js'), 'utf8');
+const classRanking = fs.readFileSync(path.join(root, 'class-practice-ranking-v431.js'), 'utf8');
 const semesterSwitcher = fs.readFileSync(path.join(root, 'semester-switcher-v402.js'), 'utf8');
 const seminarDocuments = fs.readFileSync(path.join(root, 'documentos-seminario.html'), 'utf8');
 const seminarDocumentsRuntime = fs.readFileSync(path.join(root, 'documentos-seminario.js'), 'utf8');
@@ -109,11 +110,15 @@ const i18nIndex = html.indexOf('grupo-3-i18n-v421.js');
 const practiceIndex = html.indexOf('grupo-3-practice-v413.js');
 const expansionIndex = html.indexOf('grupo-3-practice-expansion-v420.js');
 const groundedIndex = html.indexOf('grupo-3-practice-grounded-v426.js');
+const classRankingIndex = html.indexOf('class-practice-ranking-v431.js');
 const runtimeIndex = html.indexOf('grupo-3-v401.js');
 expect(
-  i18nIndex >= 0 && i18nIndex < practiceIndex && practiceIndex < expansionIndex && expansionIndex < groundedIndex && groundedIndex < runtimeIndex,
-  'The class i18n, practice, expansion and course-only bank must load in that order before class behavior.'
+  i18nIndex >= 0 && i18nIndex < practiceIndex && practiceIndex < expansionIndex && expansionIndex < groundedIndex && groundedIndex < classRankingIndex && classRankingIndex < runtimeIndex,
+  'The class i18n, practice, expansion, course-only bank and ranking publisher must load in that order before class behavior.'
 );
+expect(classRanking.includes("document.addEventListener('mednykuto:practice-complete'"), 'Materias does not listen for completed training results.');
+expect(classRanking.includes("PROFILE_KEY = 'medNykutoCommunityProfile:v1'"), 'Materias does not reuse the shared anonymous ranking profile.');
+expect(classRanking.includes("API_URL = '/api/community'"), 'Materias does not publish through the shared ranking endpoint.');
 expect(i18n.includes("courseOnlyBase:'SOLO CONTENIDO DE LA CLASE'"), 'The Spanish course-only practice label is missing.');
 expect(i18n.includes("courseOnlyBase:'SÓ CONTEÚDO DA AULA'"), 'The Portuguese course-only practice label is missing.');
 expect(i18n.includes("htmlLangByLang = {es:'es',br:'pt-BR'}"), 'The Portuguese document language is not configured as pt-BR.');
@@ -229,6 +234,9 @@ expect(html.includes('<strong>Materias</strong>'), 'The visible class navigation
 expect(!html.includes('<strong>Cursos</strong>'), 'The obsolete visible Cursos navigation label remains.');
 expect(css.includes('.course-selector{grid-template-columns:1fr 1fr;gap:6px}'), 'The two-column iPhone subject library is missing.');
 expect(css.includes('.practice-counts{grid-template-columns:repeat(3,1fr);gap:4px'), 'The compact three-column iPhone training summary is missing.');
+expect(css.includes('.practice-dialog{position:fixed;inset:0;z-index:1000'), 'The focused training dialog is missing.');
+expect(css.includes('.practice-dialog .practice-question-host{min-height:0'), 'The training dialog does not keep scrolling inside the question window.');
+expect(css.includes('.class-practice-publish-form'), 'The Materias ranking publication form is missing.');
 expect(css.includes('.resource-grid{grid-template-columns:1fr 1fr;gap:6px'), 'The two-column iPhone review library is missing.');
 expect(css.includes('.study-map .preview-answer-disclosure>summary{min-height:60px;display:grid'), 'The compact iPhone study-map rows are missing.');
 expect(css.includes('.study-map .preview-answer-hint{grid-column:2;grid-row:2'), 'The compact study-map answer hint alignment is missing.');

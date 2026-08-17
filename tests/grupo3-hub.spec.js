@@ -86,7 +86,12 @@ test.describe('Class hub', () => {
     await expect(shortcut.locator('#coursePracticeShortcutCourse')).toHaveText('Bioquímica II');
     await expect(shortcut).toHaveAttribute('data-practice-target', 'bioquimica');
     await shortcut.click();
+    await expect(page.locator('#practice-bioquimica-dialog')).toHaveAttribute('open', '');
     await expect(page.locator('#practice-bioquimica .practice-workspace')).toBeVisible();
+    await expect(page.locator('body')).toHaveClass(/practice-modal-open/);
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#practice-bioquimica-dialog')).not.toHaveAttribute('open', '');
+    await expect(page.locator('body')).not.toHaveClass(/practice-modal-open/);
   });
 
   test('opens the shared class Drive from Courses, Nutrition and the seminar plan', async ({ page }) => {
@@ -749,7 +754,7 @@ test.describe('Class hub', () => {
 
   test('opens a real format chooser after a completed training block', async ({ page }) => {
     await page.evaluate(() => {
-      localStorage.setItem('med-nykuto-class-practice-v429', JSON.stringify({
+      localStorage.setItem('med-nykuto-class-practice-v431', JSON.stringify({
         nutricion:{
           qcm:Array.from({ length:20 }, () => ({ selected:0, correct:true })),
           vf:[],
@@ -766,11 +771,11 @@ test.describe('Class hub', () => {
     await expect(picker).toBeVisible();
     await expect(picker.locator('.practice-format-choice')).toHaveCount(3);
     await picker.getByRole('button', { name: /Verdadero \/ Falso/ }).click();
-    await expect(practice.getByRole('heading', { name: 'La alimentación incluye elegir, preparar e ingerir alimentos.' })).toBeVisible();
+    await expect(practice.getByRole('heading', { name: /Es correcto afirmar que, en la alimentación/i })).toBeVisible();
 
     await page.reload();
     await practice.getByRole('button', { name: 'Repetir QCM' }).click();
-    await expect(practice.getByRole('heading', { name: '¿Cuál es la afirmación correcta sobre la alimentación?' })).toBeVisible();
+    await expect(practice.getByRole('heading', { name: '¿Qué acciones forman parte de la alimentación?' })).toBeVisible();
   });
 
   test('previews both seminar Word documents before download', async ({ page }) => {
@@ -832,7 +837,7 @@ test.describe('Class hub', () => {
     await expect(overviewCounts.nth(2)).toHaveText('10Casos clínicos');
     await practice.getByRole('button', { name: 'Comenzar entrenamiento' }).click();
     await expect(practice).toContainText('40 preguntas hechas únicamente con el contenido de esta clase.');
-    await expect(practice.getByRole('heading', { name: '¿Cuál es la afirmación correcta sobre la alimentación?' })).toBeVisible();
+    await expect(practice.getByRole('heading', { name: '¿Qué acciones forman parte de la alimentación?' })).toBeVisible();
     await expect(practice.locator('.practice-feedback')).toHaveCount(0);
     await practice.getByRole('radio', { name: 'La alimentación incluye elegir, preparar e ingerir alimentos.' }).click();
     await practice.getByRole('button', { name: 'Validar mi respuesta' }).click();

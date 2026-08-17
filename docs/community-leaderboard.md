@@ -3,10 +3,11 @@
 ## Fonctionnement
 
 - La page publique `comunidade.html` est le centre **Estudiar / Estudar** : l'étudiant choisit d'abord une matière, puis un thème regroupant les cours qui portent sur le même contenu.
-- Les entraînements de cette page chargent les banques de base puis les remplacent par `grupo-3-practice-grounded-v426.js` ; la banque active `course-only-v427` contient uniquement des questions rattachées à un passage précis de `clase.html`.
+- Les entraînements de cette page chargent les banques de base puis les remplacent par `grupo-3-practice-grounded-v426.js` ; la banque active `course-only-v431` contient uniquement des questions rattachées à un passage précis de `clase.html`.
 - Les dix cas de chaque thème sont de vraies mini-vignettes : patient, histoire ou contexte en deux phrases, puis une question ciblée. Le scénario sert uniquement à appliquer l'élément vérifié du cours.
 - Chaque question possède `grounding`, `evidence`, `evidenceId` et `sourceAnchor`. La validation bloque la publication si une preuve n'est pas retrouvée dans la section exacte du cours.
-- À la fin d'un QCM lié à une matière ou à un module, l'étudiant peut publier volontairement son résultat sous un pseudonyme.
+- À la fin d'un bloc lié à une matière ou à un module, l'étudiant peut publier volontairement son résultat sous un pseudonyme, aussi bien depuis **Estudiar** que depuis **Matières**.
+- L'exercice se déroule dans une fenêtre de focus qui bloque le défilement de la page derrière. Le bouton de fermeture ramène au menu précédent.
 - Pour les entraînements de la classe, le thème et le format (`qcm`, `vf` ou `cases`) constituent la portée du meilleur résultat hebdomadaire.
 - Le pseudonyme normalisé est l'identité anonyme du classement. Si le navigateur privé recrée son identifiant local, reprendre exactement le même pseudonyme réunit les résultats sur une seule ligne.
 - Pour chaque semaine, pseudonyme et matière/module, seul le meilleur résultat est conservé.

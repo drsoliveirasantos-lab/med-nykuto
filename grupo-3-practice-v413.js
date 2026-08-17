@@ -1,6 +1,8 @@
 (function(){
   'use strict';
 
+  var activePracticeClose = null;
+
   function classI18n(){
     return window.MedNykutoClassI18n || null;
   }
@@ -547,7 +549,7 @@
     }
   };
 
-  var storageKey = 'med-nykuto-class-practice-v429';
+  var storageKey = 'med-nykuto-class-practice-v431';
   var typeOrder = ['qcm','vf','cases'];
   var typeLabels = {
     qcm:tr('qcm'),
@@ -648,13 +650,30 @@
     progressLabel.setAttribute('aria-live','polite');
     var startButton = createNode('button','practice-start',tr('startPractice'));
     startButton.type = 'button';
-    startButton.setAttribute('aria-controls',root.id + '-workspace');
+    startButton.setAttribute('aria-controls',root.id + '-dialog');
     startButton.setAttribute('aria-expanded','false');
     overviewFooter.appendChild(progressLabel);
     overviewFooter.appendChild(startButton);
     overview.appendChild(heading);
     overview.appendChild(counts);
     overview.appendChild(overviewFooter);
+
+    var dialog = createNode('dialog','practice-dialog');
+    dialog.id = root.id + '-dialog';
+    dialog.setAttribute('aria-labelledby',root.id + '-dialog-title');
+    var dialogShell = createNode('div','practice-dialog-shell');
+    var dialogHeader = createNode('div','practice-dialog-header');
+    var dialogHeading = createNode('div','practice-dialog-heading');
+    dialogHeading.appendChild(createNode('span','practice-eyebrow',tr('trainingType')));
+    var dialogTitle = createNode('strong','',localizeExact(bank.title));
+    dialogTitle.id = root.id + '-dialog-title';
+    dialogHeading.appendChild(dialogTitle);
+    var dialogClose = createNode('button','practice-dialog-close',tr('closePractice'));
+    dialogClose.type = 'button';
+    dialogClose.setAttribute('aria-label',tr('closePractice'));
+    dialogClose.innerHTML = '<span aria-hidden="true">\u00d7</span><b>' + tr('closePractice') + '</b>';
+    dialogHeader.appendChild(dialogHeading);
+    dialogHeader.appendChild(dialogClose);
 
     var workspace = createNode('div','practice-workspace');
     workspace.id = root.id + '-workspace';
@@ -685,8 +704,11 @@
     workspace.appendChild(toolbar);
     workspace.appendChild(questionHost);
     workspace.appendChild(sources);
+    dialogShell.appendChild(dialogHeader);
+    dialogShell.appendChild(workspace);
+    dialog.appendChild(dialogShell);
     root.appendChild(overview);
-    root.appendChild(workspace);
+    root.appendChild(dialog);
 
     var activeType = 'qcm';
     var currentIndex = 0;
@@ -724,6 +746,12 @@
         currentIndex = next;
         renderQuestion();
       }
+    }
+
+    function scrollQuestionTop(){
+      window.requestAnimationFrame(function(){
+        questionHost.scrollTop = 0;
+      });
     }
 
     typeOrder.forEach(function(type){
@@ -841,6 +869,7 @@
           currentIndex = next;
           selectedIndex = null;
           renderQuestion();
+          scrollQuestionTop();
         }
       });
 
@@ -872,7 +901,7 @@
         choice.appendChild(createNode('small','',done + '/' + bank[type].length + ' · ' + (done === bank[type].length ? tr('finished') : tr('continue'))));
         choice.addEventListener('click',function(){
           chooseType(type);
-          window.requestAnimationFrame(function(){questionHost.scrollIntoView({behavior:'smooth',block:'start'});});
+          scrollQuestionTop();
         });
         formatPicker.appendChild(choice);
       });
@@ -885,7 +914,7 @@
         updateProgressLabels();
         currentIndex = 0;
         renderQuestion();
-        window.requestAnimationFrame(function(){questionHost.scrollIntoView({behavior:'smooth',block:'start'});});
+        scrollQuestionTop();
       });
       var switchType = createNode('button','practice-next',tr('chooseFormat'));
       switchType.type = 'button';
@@ -908,30 +937,63 @@
             type:activeType,
             correct:score,
             total:questions.length,
-            percentage:percentage
+            percentage:percentage,
+            summaryElement:summary
           }
         }));
       }catch(error){}
+      scrollQuestionTop();
     }
 
     function openWorkspace(){
+      if(activePracticeClose && activePracticeClose !== closeWorkspace) activePracticeClose({restoreFocus:false});
+      activePracticeClose = closeWorkspace;
       workspace.hidden = false;
       root.classList.add('is-open');
       startButton.textContent = tr('closePractice');
       startButton.setAttribute('aria-expanded','true');
       chooseType(activeType);
+      document.documentElement.classList.add('practice-modal-open');
+      document.body.classList.add('practice-modal-open');
+      try{
+        if(typeof dialog.showModal === 'function') dialog.showModal();
+        else dialog.setAttribute('open','');
+      }catch(error){
+        dialog.setAttribute('open','');
+      }
+      scrollQuestionTop();
+      window.requestAnimationFrame(function(){ dialogClose.focus(); });
     }
 
-    function closeWorkspace(){
+    function finishClose(restoreFocus){
       workspace.hidden = true;
       root.classList.remove('is-open');
       startButton.textContent = tr('startPractice');
       startButton.setAttribute('aria-expanded','false');
+      if(activePracticeClose === closeWorkspace) activePracticeClose = null;
+      document.documentElement.classList.remove('practice-modal-open');
+      document.body.classList.remove('practice-modal-open');
+      if(restoreFocus !== false) window.requestAnimationFrame(function(){ startButton.focus(); });
+    }
+
+    function closeWorkspace(options){
+      var restoreFocus = !options || options.restoreFocus !== false;
+      if(dialog.open && typeof dialog.close === 'function') dialog.close();
+      else dialog.removeAttribute('open');
+      finishClose(restoreFocus);
     }
 
     startButton.addEventListener('click',function(){
-      if(workspace.hidden) openWorkspace();
+      if(!dialog.open && !dialog.hasAttribute('open')) openWorkspace();
       else closeWorkspace();
+    });
+    dialogClose.addEventListener('click',function(){ closeWorkspace(); });
+    dialog.addEventListener('cancel',function(event){
+      event.preventDefault();
+      closeWorkspace();
+    });
+    dialog.addEventListener('close',function(){
+      if(!workspace.hidden) finishClose(true);
     });
 
     resetButton.addEventListener('click',function(){
@@ -953,8 +1015,8 @@
       root:root,
       open:function(){
         openWorkspace();
-        window.requestAnimationFrame(function(){root.scrollIntoView({behavior:'auto',block:'start'});});
-      }
+      },
+      close:closeWorkspace
     };
   }
 

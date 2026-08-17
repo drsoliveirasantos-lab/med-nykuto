@@ -4,7 +4,7 @@
   var practice = window.MedNykutoClassPractice;
   if(!practice || !practice.banks) return;
 
-  var POLICY = 'course-only-v427';
+  var POLICY = 'course-only-v431';
   var banks = practice.banks;
 
   function naturalDistractor(value){
@@ -169,6 +169,103 @@
     }
   };
 
+  var directPrompts = {
+    nutricion:{
+      alimentacion:'¿Qué acciones forman parte de la alimentación?',
+      cantidad:'¿Qué debe comprobarse al aplicar la ley de cantidad?',
+      calidad:'¿Qué falta revisar para valorar la calidad cuando las calorías son suficientes?',
+      armonia:'¿Cómo deben relacionarse los grupos de alimentos para cumplir la armonía?',
+      adecuacion:'¿Qué elementos obligan a adaptar una recomendación alimentaria?',
+      variedad:'¿Qué práctica mejora realmente la variedad de la dieta?',
+      balance:'¿Qué ocurre cuando la ingesta y el gasto se mantienen desequilibrados en el tiempo?',
+      plato:'¿Qué grupo ocupa la mitad en la técnica del plato?',
+      energeticos:'¿Qué nutrientes predominan en los alimentos energéticos?',
+      enriquecido:'¿Qué significa «enriquecido» en el uso presentado para una harina refinada?'
+    },
+    'fisiologia-2026-08-13':{
+      retroalimentacion:'¿Cómo responde el organismo ante un cambio químico o mecánico que altera la respiración?',
+      grd:'¿Qué función cumple el grupo respiratorio dorsal?',
+      grv:'¿Cuándo participa más el grupo respiratorio ventral y qué neuronas contiene?',
+      grp:'¿Qué transición respiratoria ayuda a coordinar el grupo pontino?',
+      central:'¿Qué cambio detecta principalmente el quimiorreceptor central?',
+      carotideo:'¿Ante qué cambios arteriales responde el cuerpo carotídeo?',
+      aortico:'¿Por qué nervio llegan al tronco las aferencias del cuerpo aórtico?',
+      hering:'¿Qué vía aferente interviene en el reflejo de Hering–Breuer?',
+      voluntario:'¿Hasta dónde puede imponerse el control voluntario sobre la respiración?',
+      epoc:'¿Qué patrón sugieren una espiración prolongada, sibilancias y un FEV₁ reducido?'
+    },
+    'fisiologia-2026-08-10':{
+      secuencia:'¿Qué función corresponde a ventilación, difusión, perfusión y transporte?',
+      fick:'¿Cómo modifican el área, el gradiente y el grosor la difusión gaseosa?',
+      gradiente:'¿En qué dirección se desplaza un gas según su presión parcial?',
+      enfisema:'¿Por qué el enfisema reduce la capacidad de difusión?',
+      grosor:'¿Qué efecto tienen el edema o la fibrosis sobre el intercambio gaseoso?',
+      oxigeno:'¿Cómo se transporta la mayor parte del O₂ en la sangre?',
+      co2:'¿Cuál es la forma principal de transporte del CO₂ y cuáles la acompañan?',
+      vq:'¿Cómo cambia la relación V/Q en una región perfundida pero poco ventilada?',
+      bohr:'¿Qué efecto tiene el fenómeno de Bohr sobre la liberación de O₂?',
+      haldane:'¿Qué acepta mejor la desoxihemoglobina en el efecto Haldane?'
+    },
+    bioquimica:{
+      objetivo:'¿Qué productos carbonados se obtienen de una glucosa al terminar la glucólisis?',
+      lugar:'¿Dónde ocurre la glucólisis y qué sucede si hay poco oxígeno?',
+      balance:'¿Cuál es el balance neto de una molécula de glucosa?',
+      preparatoria:'¿Qué ocurre con la glucosa durante la fase preparatoria?',
+      beneficio:'¿Por qué los productos de la fase de beneficio aparecen duplicados?',
+      reaccion1:'¿Qué producto se forma en la primera reacción de la glucólisis?',
+      pfk1:'¿Qué transformación cataliza la PFK-1?',
+      division:'¿Qué moléculas produce la aldolasa al dividir F1,6BP?',
+      nadh:'¿En qué paso de la vía se forma NADH?',
+      atp:'¿Qué ocurre al pasar de 1,3-BPG a 3-PG?'
+    },
+    epidemiologia:{
+      aps:'¿Qué lugar ocupa la APS dentro del sistema de salud?',
+      almaata:'¿En qué año se firmó la Declaración de Alma-Ata?',
+      paraguay:'¿En qué año comenzó la estrategia de APS en Paraguay?',
+      principios:'¿Qué principios garantizan que la APS llegue a toda la población?',
+      dispensarizacion:'¿A quién corresponde el Grupo II de dispensarización?',
+      integralidad:'¿Qué dimensiones incluye una atención verdaderamente integral?',
+      familia:'¿Qué situación identifica la etapa de formación del ciclo familiar?',
+      sectorizacion:'¿Para qué sirve dividir un territorio en sectores sanitarios?',
+      triage:'¿Qué criterio determina primero el orden de atención en el triage?',
+      emergencia:'¿Qué hallazgo convierte una situación en emergencia?'
+    },
+    'microbiologia-teorica':{
+      definicion:'¿Qué tejidos colonizan los hongos que producen dermatofitosis?',
+      generos:'¿Cuáles son los tres géneros clásicos de dermatofitos?',
+      tejidos:'¿Qué tejidos queratinizados puede afectar Trichophyton?',
+      transmision:'¿Qué significa que un dermatofito tenga transmisión zoofílica?',
+      capitis:'¿Qué zona afecta la tinea capitis?',
+      caso:'¿Qué diagnóstico reúne alopecia, pelos fracturados, inflamación y contacto con un perro?',
+      muestra:'¿Cómo debe elegirse la muestra según el sitio afectado?',
+      koh:'¿Para qué sirve el examen directo con KOH y cuál es su límite?',
+      cultivo:'¿Qué información aporta el cultivo junto con la morfología?',
+      tratamiento:'¿Por qué la tinea capitis necesita un antifúngico por vía oral?'
+    },
+    'microbiologia-practica':{
+      objetivo:'¿Cuál es el objetivo de la práctica con hongos?',
+      muestra:'¿Cómo debe transportarse la muestra de pan con moho?',
+      levadura:'¿Qué organización celular caracteriza a una levadura?',
+      moho:'¿Qué estructuras forman el cuerpo vegetativo de un moho?',
+      dimorfico:'¿Qué significa que un hongo sea dimórfico?',
+      hifa:'¿Qué es una hifa y qué formas puede presentar?',
+      micelio:'¿Qué relación existe entre el micelio y las hifas?',
+      conidios:'¿Qué estructuras sostiene un conidióforo?',
+      sabouraud:'¿Qué componentes forman el agar Sabouraud?',
+      preparacion:'¿Qué proporción se utilizó para preparar el medio observado?'
+    }
+  };
+
+  var casePairIndexes = {
+    nutricion:[4,6,5,7,2,3,1,3,2,2],
+    'fisiologia-2026-08-13':[4,3,9,1,5,6,5,8,4,2],
+    'fisiologia-2026-08-10':[1,4,1,1,1,8,9,0,5,6],
+    bioquimica:[2,0,4,7,2,6,7,4,4,4],
+    epidemiologia:[3,0,0,0,5,7,7,4,9,8],
+    'microbiologia-teorica':[1,2,4,5,6,4,7,8,9,4],
+    'microbiologia-practica':[8,9,3,6,2,6,5,3,9,8]
+  };
+
   var clinicalStories = {
     nutricion:{
       alimentacion:'La paciente Lucía consulta porque quiere ordenar su alimentación. Cuenta que elige los alimentos, los compra, prepara sus comidas y decide a qué hora y de qué manera las consume.',
@@ -256,122 +353,154 @@
     }
   };
 
-  function clinicalPrompt(courseId,item){
-    if(courseId === 'nutricion') return '¿Qué opción aplica mejor ' + item.label + ' a la evaluación de este paciente?';
-    if(courseId.indexOf('fisiologia-') === 0) return '¿Qué opción explica mejor este caso mediante ' + item.label + '?';
-    if(courseId === 'bioquimica') return '¿Qué opción interpreta correctamente ' + item.label + ' en este paciente?';
-    if(courseId === 'epidemiologia') return '¿Qué opción aplica correctamente ' + item.label + ' a esta situación asistencial?';
-    if(courseId === 'microbiologia-teorica') return '¿Qué opción orienta mejor el caso según ' + item.label + '?';
-    return '¿Qué opción guía correctamente el análisis según ' + item.label + '?';
+  function cleanSentence(value){
+    return String(value || '').replace(/[.;:]\s*$/,'').trim();
   }
 
-  function explanationFor(item){
-    return 'Dato que justifica la respuesta: «' + item.evidence + '»';
+  function lowerStart(value){
+    var text = cleanSentence(value);
+    return text ? text.charAt(0).toLocaleLowerCase('es') + text.slice(1) : text;
+  }
+
+  function upperStart(value){
+    var text = cleanSentence(value);
+    return text ? text.charAt(0).toLocaleUpperCase('es') + text.slice(1) : text;
+  }
+
+  function combine(left,right,connector){
+    return cleanSentence(left) + '. ' + connector + ', ' + lowerStart(right) + '.';
+  }
+
+  function explanationFor(item,partner){
+    var explanation = 'Dato que justifica la respuesta: «' + item.evidence + '»';
+    if(partner) explanation += ' Relación utilizada: «' + partner.evidence + '»';
+    return explanation;
   }
 
   function balancedOptions(item){
     return [item.correct].concat(item.wrong);
   }
 
-  function escapeRegExp(value){
-    return String(value || '').replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  function pairedOptions(item,partner,mode,index){
+    var comparisonConnectors = [
+      'Además','A la vez','En paralelo','Junto con esto','Por otra parte',
+      'En esa misma comparación','Como dato complementario','En relación con el segundo punto','Al integrar ambas ideas','De forma simultánea'
+    ];
+    var caseConnectors = [
+      'Para completar la interpretación','En la misma decisión','Al valorar el caso','Como segundo dato','Para orientar la conducta',
+      'Dentro del mismo razonamiento clínico','Al integrar el otro hallazgo','Como parte de la valoración','Para cerrar el análisis','En la conducta propuesta'
+    ];
+    var connectors = mode === 'case' ? caseConnectors : comparisonConnectors;
+    var connector = connectors[index % connectors.length];
+    return [
+      combine(item.correct,partner.correct,connector),
+      combine(item.wrong[0],partner.correct,connector),
+      combine(item.correct,partner.wrong[1],connector),
+      combine(item.wrong[2],partner.wrong[2],connector)
+    ];
   }
 
-  function stripLeadingArticle(value){
-    return String(value || '').replace(/^(?:el|la|los|las|un|una)\s+/i,'').trim();
+  function comparisonPrompt(item,partner,index){
+    var prompts = [
+      '¿Qué opción relaciona correctamente ' + item.label + ' con ' + partner.label + '?',
+      '¿Qué combinación es correcta al comparar ' + item.label + ' y ' + partner.label + '?',
+      '¿Qué relación entre ' + item.label + ' y ' + partner.label + ' mantiene correctos los dos datos?',
+      '¿Cómo se conectan correctamente ' + item.label + ' y ' + partner.label + '?',
+      '¿Qué respuesta distingue sin confundir ' + item.label + ' y ' + partner.label + '?',
+      '¿Cuál es la asociación correcta entre ' + item.label + ' y ' + partner.label + '?',
+      '¿Qué comparación conserva la función de ' + item.label + ' y la de ' + partner.label + '?',
+      '¿Qué opción presenta correctamente tanto ' + item.label + ' como ' + partner.label + '?',
+      '¿Cuál de estas relaciones permite diferenciar ' + item.label + ' de ' + partner.label + '?',
+      '¿Qué par de afirmaciones describe bien ' + item.label + ' y ' + partner.label + '?'
+    ];
+    return prompts[index % prompts.length];
   }
 
-  function termPattern(value){
-    return escapeRegExp(value)
-      .replace(/0/g,'[0₀]')
-      .replace(/1/g,'[1₁]')
-      .replace(/2/g,'[2₂]')
-      .replace(/3/g,'[3₃]')
-      .replace(/4/g,'[4₄]')
-      .replace(/5/g,'[5₅]')
-      .replace(/6/g,'[6₆]')
-      .replace(/7/g,'[7₇]')
-      .replace(/8/g,'[8₈]')
-      .replace(/9/g,'[9₉]')
-      .replace(/\s+/g,'\\s+');
+  function clinicalPrompt(item,index){
+    var prompts = [
+      '¿Qué interpretación reúne mejor los hallazgos del caso al analizar ' + item.label + '?',
+      '¿Cómo debe razonarse ante esta situación al evaluar ' + item.label + '?',
+      '¿Qué conclusión es correcta para este caso en relación con ' + item.label + '?',
+      '¿Qué respuesta explica mejor los hallazgos vinculados con ' + item.label + '?',
+      '¿Qué decisión integra los datos del caso al considerar ' + item.label + '?',
+      '¿Qué interpretación clínica corresponde a los datos observados sobre ' + item.label + '?',
+      '¿Cuál es la mejor explicación del caso al valorar ' + item.label + '?',
+      '¿Qué opción permite resolver este caso usando correctamente ' + item.label + '?',
+      '¿Qué conclusión orienta mejor la valoración de ' + item.label + ' en este paciente?',
+      '¿Cómo se aplicaría correctamente ' + item.label + ' a la situación descrita?'
+    ];
+    return prompts[index % prompts.length];
   }
 
-  function maskTerm(value,term){
-    if(!term || term.length < 2) return value;
-    return value.replace(new RegExp(termPattern(term),'gi'),'_____');
-  }
-
-  function conceptDescription(item){
-    var description = item.correct;
-    var coreLabel = stripLeadingArticle(item.label);
-    var terms = [coreLabel];
-    if(item.key && item.key.length <= 12) terms.push(item.key);
-    (coreLabel.match(/[A-ZÁÉÍÓÚÜÑ0-9]+(?:[-–—][A-ZÁÉÍÓÚÜÑ0-9]+)*/g) || []).forEach(function(token){
-      if(token.length >= 2) terms.push(token);
-    });
-    terms
-      .filter(Boolean)
-      .sort(function(a,b){ return b.length - a.length; })
-      .forEach(function(term){ description = maskTerm(description,term); });
-    return description
-      .replace(/(?:_____\s*){2,}/g,'_____ ')
-      .replace(/\s+/g,' ')
-      .replace(/\s+([,.;:])/g,'$1')
-      .trim();
-  }
-
-  function conceptOptions(topic,index){
-    var offsets = [0,1,2,3];
-    return offsets.map(function(offset){
-      return topic.facts[(index + offset) % topic.facts.length].label;
-    });
-  }
-
-  function metadata(item,topic){
-    return {
+  function metadata(item,topic,angle,partner){
+    var result = {
       grounding:POLICY,
       evidenceId:topic.containerId + ':' + item.key,
       evidence:item.evidence,
-      sourceAnchor:topic.anchor
+      sourceAnchor:topic.anchor,
+      learningAngle:angle
     };
+    if(partner) result.supportingEvidenceId = topic.containerId + ':' + partner.key;
+    return result;
   }
 
-  function qcm(item,topic,variant,index){
-    var identifiesConcept = variant === 1;
+  function qcm(item,topic,courseId,variant,index){
+    var relational = variant === 1;
+    var partner = relational ? topic.facts[(index + 1) % topic.facts.length] : null;
+    var prompt = relational
+      ? comparisonPrompt(item,partner,index)
+      : directPrompts[courseId] && directPrompts[courseId][item.key];
+    if(!prompt) throw new Error('Pregunta directa ausente: ' + courseId + '/' + item.key);
     var question = {
-      questionKind:identifiesConcept ? 'concept' : 'statement',
-      prompt:!identifiesConcept
-        ? '¿Cuál es la afirmación correcta sobre ' + item.label + '?'
-        : '¿A qué concepto corresponde esta descripción: «' + conceptDescription(item).replace(/\.$/,'') + '»?',
-      options:identifiesConcept ? conceptOptions(topic,index) : balancedOptions(item),
+      questionKind:relational ? 'relation' : 'direct',
+      prompt:prompt,
+      options:relational ? pairedOptions(item,partner,'comparison',index) : balancedOptions(item),
       answer:0,
-      explanation:explanationFor(item)
+      explanation:explanationFor(item,partner)
     };
-    return Object.assign(question,metadata(item,topic));
+    return Object.assign(question,metadata(item,topic,relational ? 'relation' : 'direct',partner));
   }
 
   function trueFalse(item,topic,index){
     var isTrue = index % 2 === 0;
+    var trueStems = [
+      'Es correcto afirmar que, en ' + item.label + ', ' + lowerStart(item.evidence) + '.',
+      upperStart(item.label) + ' se caracteriza por lo siguiente: ' + cleanSentence(item.evidence) + '.',
+      'Al analizar ' + item.label + ', debe cumplirse esta relación: ' + cleanSentence(item.evidence) + '.',
+      'Respecto a ' + item.label + ', el dato correcto es: ' + cleanSentence(item.evidence) + '.',
+      'En ' + item.label + ', la relación propuesta es: ' + cleanSentence(item.evidence) + '.'
+    ];
+    var falseStems = [
+      'Es correcto afirmar que, en ' + item.label + ', ' + lowerStart(item.falseStatement) + '.',
+      upperStart(item.label) + ' se define así: ' + cleanSentence(item.falseStatement) + '.',
+      'Al analizar ' + item.label + ', se obtiene esta conclusión: ' + cleanSentence(item.falseStatement) + '.',
+      'Respecto a ' + item.label + ', se propone que ' + lowerStart(item.falseStatement) + '.',
+      'En ' + item.label + ', se cumple que ' + lowerStart(item.falseStatement) + '.'
+    ];
+    var statement = (isTrue ? trueStems : falseStems)[index % 5];
     var question = {
-      prompt:isTrue ? item.correct : item.falseStatement,
+      prompt:statement,
       options:['Verdadero','Falso'],
       answer:isTrue ? 0 : 1,
       explanation:explanationFor(item)
     };
-    return Object.assign(question,metadata(item,topic));
+    return Object.assign(question,metadata(item,topic,'verification'));
   }
 
-  function application(item,topic,courseId){
+  function application(item,topic,courseId,index){
     var scenario = clinicalStories[courseId] && clinicalStories[courseId][item.key];
     if(!scenario) throw new Error('Historia clínica ausente: ' + courseId + '/' + item.key);
+    var pairIndexes = casePairIndexes[courseId];
+    var partner = topic.facts[pairIndexes[index]];
+    if(!partner) throw new Error('Relación clínica ausente: ' + courseId + '/' + item.key);
     var question = {
       scenario:scenario,
-      prompt:clinicalPrompt(courseId,item),
-      options:balancedOptions(item),
+      prompt:clinicalPrompt(item,index),
+      options:pairedOptions(item,partner,'case',index),
       answer:0,
-      explanation:explanationFor(item)
+      explanation:explanationFor(item,partner)
     };
-    return Object.assign(question,metadata(item,topic));
+    return Object.assign(question,metadata(item,topic,'clinical-integration',partner));
   }
 
   Object.keys(topics).forEach(function(courseId,courseIndex){
@@ -392,14 +521,14 @@
     bank.cases = [];
 
     topic.facts.forEach(function(item,index){
-      bank.qcm.push(qcm(item,topic,0,index));
+      bank.qcm.push(qcm(item,topic,courseId,0,index));
     });
     topic.facts.forEach(function(item,index){
-      bank.qcm.push(qcm(item,topic,1,index));
+      bank.qcm.push(qcm(item,topic,courseId,1,index));
     });
     topic.facts.forEach(function(item,index){
       bank.vf.push(trueFalse(item,topic,index));
-      bank.cases.push(application(item,topic,courseId));
+      bank.cases.push(application(item,topic,courseId,index));
     });
 
     ['qcm','cases'].forEach(function(type,typeIndex){
