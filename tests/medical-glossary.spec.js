@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('Global medical glossary', () => {
   test('opens a simple definition above a difficult course term and closes accessibly', async ({ page }) => {
-    await page.goto('/clase.html#fisiologia', { waitUntil: 'domcontentloaded' });
+    await page.goto('/clase.html#fisiologia-2026-08-13', { waitUntil: 'domcontentloaded' });
     await page.locator('[data-detail-toggle][aria-controls="fisio-detail"]').click();
     await expect(page.locator('#fisio-detail')).toBeVisible();
     const term = page.locator('.mn-glossary-term[data-glossary-key="hypercapnia"]:visible').first();
@@ -33,7 +33,7 @@ test.describe('Global medical glossary', () => {
   });
 
   test('uses the active Portuguese language without a second internet search', async ({ page }) => {
-    await page.goto('/clase.html#fisiologia', { waitUntil: 'domcontentloaded' });
+    await page.goto('/clase.html#fisiologia-2026-08-13', { waitUntil: 'domcontentloaded' });
     await page.locator('#classLanguageSelect').selectOption('br');
     await page.locator('[data-detail-toggle][aria-controls="fisio-detail"]').click();
     await expect(page.locator('#fisio-detail')).toBeVisible();
