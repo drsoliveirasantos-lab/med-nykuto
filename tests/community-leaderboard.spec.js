@@ -73,7 +73,8 @@ test.describe('Weekly class challenge', () => {
     await page.locator('#practice-nutricion-dialog .practice-dialog-close').click();
 
     await page.locator('[data-study-subject="fisiologia"]').click();
-    await expect(page.locator('#studyTopicPicker .study-topic-option')).toHaveCount(2);
+    await expect(page.locator('#studyTopicPicker .study-topic-option')).toHaveCount(3);
+    await expect(page.locator('[data-study-topic="fisiologia-2026-08-17"]')).toBeVisible();
     await expect(page.locator('[data-study-topic="fisiologia-2026-08-13"]')).toContainText('Control nervioso y químico');
     await page.locator('[data-study-topic="fisiologia-2026-08-10"]').click();
     await expect(page.locator('#studyPracticeHost #practice-fisiologia-2026-08-10')).toBeVisible();
