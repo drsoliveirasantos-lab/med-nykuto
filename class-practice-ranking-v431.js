@@ -59,4 +59,5 @@
     copyButton.addEventListener('click',function(){var done=function(){copyButton.textContent='Clave copiada';setTimeout(function(){copyButton.textContent='Copiar clave Pix';},1800);};if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(key).then(done).catch(function(){});else{var area=document.createElement('textarea');area.value=key;document.body.appendChild(area);area.select();try{document.execCommand('copy');done();}catch(error){}area.remove();}});
   }
 
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',preparePixSupport,{once
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',preparePixSupport,{once:true});else preparePixSupport();
+})();
