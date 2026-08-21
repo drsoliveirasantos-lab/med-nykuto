@@ -130,6 +130,10 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(page.locator('#' + id + ' [data-lesson-tabs] button')).toHaveCount(6);
       await expect(page.locator('#practice-' + id)).toContainText('40 preguntas');
       await expect(page.locator('#' + id)).toContainText(title.split(':')[0]);
+      const fullCourse = page.locator('#' + id + ' [data-lesson-tab-panel="curso"]');
+      await expect(fullCourse).toHaveClass(/course-chapter-2026/);
+      await expect(fullCourse.locator('.course-chapter-section')).not.toHaveCount(0);
+      await expect(fullCourse.locator('.concept-card-2026')).toHaveCount(0);
     }
   });
 

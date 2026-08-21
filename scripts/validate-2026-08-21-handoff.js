@@ -41,6 +41,9 @@ lessons.forEach((id) => {
   expect((block.match(/data-lesson-tab="/g) || []).length === 6, `${id} must expose the six lesson tabs.`);
   expect(block.includes(`data-practice-slot="${id}"`), `${id} is missing its isolated practice slot.`);
   ['curso', 'rapida', 'ultra', 'training', 'material', 'ia'].forEach((tab) => expect(block.includes(`data-lesson-tab-panel="${tab}"`), `${id} is missing the ${tab} panel.`));
+  expect(block.includes('course-chapter-2026'), `${id} must present Curso completo as a continuous chapter.`);
+  expect((block.match(/course-chapter-section/g) || []).length >= 6, `${id} must develop at least six narrative course sections.`);
+  expect(!block.includes('concept-grid-2026'), `${id} still presents Curso completo as a concept-card grid.`);
 });
 
 [
