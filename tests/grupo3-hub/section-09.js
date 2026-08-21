@@ -81,8 +81,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.getByRole('heading', { name: 'Lo que la profesora señaló que puede preguntar' })).toBeVisible();
     await expect(page.getByText('2008: implementación de la estrategia APS en Paraguay.')).toBeVisible();
     await page.locator('#epidemiologia .lesson-accordion').nth(3).locator('summary').click();
-    await expect(page.getByText('URGENCIA', { exact: true })).toBeVisible();
-    await expect(page.getByText('EMERGENCIA', { exact: true })).toBeVisible();
+    const urgencyCompare = page.locator('#epidemiologia-bloque-anterior .urgency-compare');
+    await expect(urgencyCompare.getByText('URGENCIA', { exact: true })).toBeVisible();
+    await expect(urgencyCompare.getByText('EMERGENCIA', { exact: true })).toBeVisible();
     await expect(page.getByText('No existe una regla de “máximo seis horas” para la intubación.')).toBeVisible();
     await expect(page.locator('.triage-colors article')).toHaveCount(5);
   });
