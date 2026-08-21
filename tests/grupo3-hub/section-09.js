@@ -73,9 +73,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#practice-bioquimica .practice-tab')).toHaveCount(3);
   });
 
-  test('organizes Epidemiology into exam points, APS and triage preparation', async ({ page }) => {
-    await page.goto('/clase.html#epi-detail');
-    await expect(page.getByRole('heading', { name: 'Sectorización, triage, urgencia y emergencia' })).toBeVisible();
+  test('keeps the previous Epidemiology block organized around APS and triage', async ({ page }) => {
+    await page.goto('/clase.html#epidemiologia-bloque-anterior');
+    await expect(page.getByRole('heading', { name: 'APS, sectorización y triage', exact: true })).toBeVisible();
     await expect(page.getByText('APS y modelo de atención integral', { exact: true })).toBeVisible();
     await expect(page.locator('#epidemiologia .transcription-rule-note').getByText('Cómo se separaron las clases:')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Lo que la profesora señaló que puede preguntar' })).toBeVisible();

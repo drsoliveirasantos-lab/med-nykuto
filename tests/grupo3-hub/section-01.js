@@ -5,8 +5,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#inicio')).not.toContainText(/de un vistazo|EN PORTADA|Panel de estudio/);
     await expect(page.getByText('4.º E', { exact: true }).first()).toBeVisible();
     await expect(page.locator('#nextScheduleSubject')).not.toHaveText('Calculando…');
-    await expect(page.getByRole('link', { name: /Preparar la exposición grupal/ })).toBeVisible();
-    await expect(page.getByRole('link', { name: /Imprimir actividades 3 y 4/ })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Exposición grupal de enfermedad sorteada/ })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Actividades 3 y 4 impresas y manuscritas/ })).toBeVisible();
     await expect(page.locator('.priority-card-head time')).toHaveCount(3);
     await expect(page.getByRole('heading', { name: 'TAREAS', exact: true })).toBeVisible();
     await expect(page.locator('#homeHomeworkCount')).toHaveText('2 tareas');

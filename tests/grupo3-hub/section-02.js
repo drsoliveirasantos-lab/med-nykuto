@@ -42,7 +42,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#classLanguageSelect')).toHaveValue('br');
     await expect(page.getByRole('heading', { name: 'Sua semana', exact: true })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'TAREFAS', exact: true })).toBeVisible();
-    await expect(page.locator('#homeHomeworkCount')).toHaveText('3 tarefas');
+    await expect(page.locator('#homeHomeworkCount')).toHaveText('2 tarefas');
     await expect(page.getByText('PARA ESTA SEMANA', { exact: true })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Ver todas as tarefas' })).toBeVisible();
     await expect(page.locator('.mobile-bottom-nav').getByText('Tarefas', { exact: true })).toBeAttached();

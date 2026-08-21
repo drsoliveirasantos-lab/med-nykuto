@@ -948,6 +948,13 @@
     function openWorkspace(){
       if(activePracticeClose && activePracticeClose !== closeWorkspace) activePracticeClose({restoreFocus:false});
       activePracticeClose = closeWorkspace;
+      var containingPanel = root.closest('[data-lesson-tab-panel]');
+      if(containingPanel && containingPanel.hidden){
+        var lesson = containingPanel.closest('[data-lesson-panel]');
+        var trainingTab = lesson && lesson.querySelector('[data-lesson-tab="' + containingPanel.dataset.lessonTabPanel + '"]');
+        if(trainingTab) trainingTab.click();
+        else containingPanel.hidden = false;
+      }
       workspace.hidden = false;
       root.classList.add('is-open');
       startButton.textContent = tr('closePractice');

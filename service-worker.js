@@ -1,18 +1,18 @@
-const CACHE = 'med-nykuto-class-v440';
+const CACHE = 'med-nykuto-class-v441';
 const SHELL = [
   '/clase.html',
   '/comunidade.html',
   '/grupo-3-v401.css?v=443',
   '/class-courses-2026-08-17-v432.css?v=432',
-  '/class-hub-2026-08-21-v440.css?v=440',
+  '/class-hub-2026-08-21-v440.css?v=441',
   '/grupo-3-i18n-v421.js?v=442',
-  '/grupo-3-practice-v413.js?v=431',
+  '/grupo-3-practice-v413.js?v=441',
   '/grupo-3-practice-expansion-v420.js?v=422',
   '/grupo-3-practice-grounded-v426.js?v=431',
   '/grupo-3-practice-2026-08-17-v432.js?v=432',
   '/grupo-3-practice-2026-08-21-v440.js?v=440',
   '/grupo-3-v401.js?v=440',
-  '/class-hub-runtime-v440.js?v=440',
+  '/class-hub-runtime-v440.js?v=441',
   '/assets/pwa-icon-192.png',
   '/assets/pwa-icon-512.png'
 ];

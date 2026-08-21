@@ -1,8 +1,8 @@
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('turns the Group 3 practical transcript into a safe fungal culture guide', async ({ page }) => {
-    await page.goto('/clase.html#micro-detail');
+    await page.goto('/clase.html#microbiologia-practica-anterior');
     await expect(page.getByRole('heading', { name: 'Cultivo de hongos en agar Sabouraud' })).toBeVisible();
-    await expect(page.locator('#microbiologia-practica').getByText('Clase estimada · 13 ago. · confirmar')).toBeVisible();
+    await expect(page.locator('#microbiologia-practica .subject-heading .source-pill')).toHaveText('Clase anterior · fecha por confirmar');
     await expect(page.getByRole('heading', { name: 'Lleva una muestra sólida con moho' })).toBeVisible();
     await expect(page.getByText('Pan duro con moho', { exact: true })).toBeVisible();
     await expect(page.getByRole('row', { name: /Levadura Principalmente unicelular/ })).toBeVisible();

@@ -30,7 +30,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.goto('/clase.html#bio-detail');
     await expect(page.getByRole('heading', { name: 'Glucólisis: vía común y balance energético' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Convertir una glucosa en dos piruvatos' })).toBeVisible();
-    await expect(page.getByText('2 piruvatos + 2 ATP + 2 NADH', { exact: true })).toBeVisible();
+    await expect(page.locator('#bio-detail .net-balance strong')).toHaveText('2 piruvatos + 2 ATP + 2 NADH');
     await expect(page.getByText('PEP → piruvato', { exact: true })).toBeVisible();
     await expect(page.getByText('La glucoquinasa hepática puede quedar secuestrada en el núcleo')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'La glucólisis en una sola mirada' })).toBeVisible();
