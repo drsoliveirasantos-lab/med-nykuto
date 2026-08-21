@@ -94,6 +94,8 @@ expect(api.includes('hub_audit'), 'Audit log schema is missing.');
 expect(api.includes('UNIQUE(activity_id, student_hash)'), 'One-student-per-activity server constraint is missing.');
 expect(api.includes('COUNT(*) FROM hub_memberships') && api.includes('MIN(a.capacity,g.capacity)'), 'Atomic group capacity guard is missing.');
 expect(api.includes('cleanUrl') && api.includes("['http:', 'https:']"), 'Managed file URLs are not restricted to HTTP(S).');
+expect(api.includes('hub_rate_limits') && api.includes('rate_limited'), 'Public and management routes are missing server-side abuse limits.');
+expect(api.includes('waitUntil(pushJob)'), 'Push delivery is not delegated to a Pages background task.');
 expect(api.includes("['important', 'urgent']"), 'Important and urgent push dispatch is missing.');
 expect(!/\b(?:csv|xlsx|excel)\b/i.test(management), 'Management offers a forbidden CSV/Excel export.');
 expect(management.includes('Copiar para WhatsApp') && management.includes('Exportar en PDF'), 'WhatsApp and PDF group exports are missing.');

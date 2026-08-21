@@ -9,6 +9,7 @@ La page protegee `gestion.html` permet de publier sans redesploiement les taches
 - Les etats disponibles sont `draft`, `published` et `archived`.
 - Les invitations sont a usage unique, limitees dans le temps et revocables.
 - Les groupes imposent cote serveur une seule inscription par activite, la capacite du groupe et de l'activite, ainsi qu'une composition finale apres fermeture ou congelation.
+- Les tentatives d'acces, d'inscription, d'activation d'invitation et d'abonnement push sont limitees par fenetre cote serveur; seules des empreintes pseudonymes de reseau sont conservees pour ce controle.
 - Aucune adresse electronique, compte permanent ou identifiant sensible d'etudiant n'est demande. La cle aleatoire du navigateur n'est conservee sur le serveur que sous forme de condensat SHA-256.
 - Les exports de groupes sont limites a une copie adaptee a WhatsApp et a l'impression PDF.
 
@@ -16,8 +17,9 @@ La page protegee `gestion.html` permet de publier sans redesploiement les taches
 
 1. Dans le projet Pages, lier une base D1 sous le nom `MED_NYKUTO_DB`. La liaison existante `DB` reste compatible.
 2. Ajouter un secret de production `MED_NYKUTO_OWNER_TOKEN` long, aleatoire et reserve au proprietaire.
-3. Redeployer. Les tables, index, deux taches actives, les alertes initiales et les emplacements de groupes vides sont crees automatiquement a la premiere requete.
-4. Ouvrir `/gestion.html`, entrer le token proprietaire, puis creer si necessaire une invitation d'editeur.
+3. Ajouter de preference un second secret aleatoire `MED_NYKUTO_RATE_SALT` pour isoler les empreintes utilisees par la limitation d'abus.
+4. Redeployer. Les tables, index, deux taches actives, les alertes initiales et les emplacements de groupes vides sont crees automatiquement a la premiere requete.
+5. Ouvrir `/gestion.html`, entrer le token proprietaire, puis creer si necessaire une invitation d'editeur.
 
 Sans D1, la page publique conserve ses donnees statiques de secours. La gestion protegee et les inscriptions de groupe restent volontairement indisponibles.
 
