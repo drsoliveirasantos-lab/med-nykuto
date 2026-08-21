@@ -76,7 +76,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('keeps the previous Epidemiology block organized around APS and triage', async ({ page }) => {
     await page.goto('/clase.html#epi-detail');
     await expect(page.getByRole('heading', { name: 'APS, sectorización y triage', exact: true })).toBeVisible();
-    await expect(page.getByText('APS y modelo de atención integral', { exact: true })).toBeVisible();
+    await expect(page.locator('#epidemiologia-bloque-anterior').getByRole('heading', { name: 'Atención Primaria de la Salud', exact: true })).toBeVisible();
     await expect(page.locator('#epidemiologia .transcription-rule-note').getByText('Cómo se separaron las clases:')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Lo que la profesora señaló que puede preguntar' })).toBeVisible();
     await expect(page.getByText('2008: implementación de la estrategia APS en Paraguay.')).toBeVisible();
