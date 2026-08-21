@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Cetogénesis y acidosis</title><desc id="desc">Ruta hepática desde ácidos grasos hasta cuerpos cetónicos y acidosis metabólica.</desc>
+  <rect width="1200" height="760" rx="36" fill="#071521"/>
+  <text x="64" y="78" fill="#fbbf24" font-family="Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="3">CETOACIDOSIS DIABÉTICA · MAPA METABÓLICO</text>
+  <text x="64" y="132" fill="#f8fafc" font-family="Arial,sans-serif" font-size="42" font-weight="800">Del adipocito a los cuerpos cetónicos</text>
+  <g font-family="Arial,sans-serif" text-anchor="middle">
+    <rect x="60" y="245" width="190" height="120" rx="22" fill="#12392c" stroke="#34d399" stroke-width="3"/><text x="155" y="292" fill="#a7f3d0" font-size="18" font-weight="700">TEJIDO ADIPOSO</text><text x="155" y="330" fill="#fff" font-size="25" font-weight="800">Lipólisis ↑</text>
+    <path d="M270 305h100" stroke="#fbbf24" stroke-width="7"/><path d="m356 286 28 19-28 19" fill="none" stroke="#fbbf24" stroke-width="7"/>
+    <rect x="395" y="245" width="190" height="120" rx="22" fill="#112b3c" stroke="#38bdf8" stroke-width="3"/><text x="490" y="292" fill="#bae6fd" font-size="18" font-weight="700">HÍGADO</text><text x="490" y="330" fill="#fff" font-size="24" font-weight="800">β-oxidación</text>
+    <path d="M605 305h100" stroke="#fbbf24" stroke-width="7"/><path d="m691 286 28 19-28 19" fill="none" stroke="#fbbf24" stroke-width="7"/>
+    <rect x="730" y="245" width="190" height="120" rx="22" fill="#222052" stroke="#818cf8" stroke-width="3"/><text x="825" y="292" fill="#c7d2fe" font-size="18" font-weight="700">MITOCONDRIA</text><text x="825" y="330" fill="#fff" font-size="24" font-weight="800">Acetil-CoA ↑</text>
+    <path d="M940 305h80" stroke="#fbbf24" stroke-width="7"/><path d="m1006 286 28 19-28 19" fill="none" stroke="#fbbf24" stroke-width="7"/>
+    <rect x="1035" y="245" width="120" height="120" rx="22" fill="#4c1427" stroke="#fb7185" stroke-width="3"/><text x="1095" y="292" fill="#fecdd3" font-size="16" font-weight="700">CETONAS</text><text x="1095" y="330" fill="#fff" font-size="21" font-weight="800">↑</text>
+  </g>
+  <g font-family="Arial,sans-serif">
+    <rect x="90" y="445" width="1020" height="190" rx="28" fill="#101d2c" stroke="#334155" stroke-width="2"/>
+    <text x="125" y="492" fill="#fff" font-size="25" font-weight="800">Tres cuerpos cetónicos</text>
+    <text x="125" y="542" fill="#fbbf24" font-size="23" font-weight="700">Acetoacetato</text><text x="395" y="542" fill="#fb7185" font-size="23" font-weight="700">β-hidroxibutirato</text><text x="750" y="542" fill="#a78bfa" font-size="23" font-weight="700">Acetona</text>
+    <text x="125" y="582" fill="#cbd5e1" font-size="18">Ácido cetónico</text><text x="395" y="582" fill="#cbd5e1" font-size="18">Predomina en CAD grave</text><text x="750" y="582" fill="#cbd5e1" font-size="18">Volátil · aliento afrutado</text>
+  </g>
+  <text x="600" y="700" fill="#fecdd3" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" font-weight="800">H⁺ ↑ → HCO₃⁻ ↓ → pH ↓ · respiración de Kussmaul como compensación</text>
+</svg>

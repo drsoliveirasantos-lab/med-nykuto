@@ -29,10 +29,9 @@
     'fisio-17-board':{
       eyebrow:'PIZARRA · FISIOLOGÍA II · 17 AGO.',
       title:'Sinapsis, excitación e inhibición',
-      description:'Reproducción limpia y fotografía original de la pizarra.',
+      description:'Reproducción limpia y ampliable de la pizarra.',
       slides:[
-        {src:'assets/class-hub/physiology/2026-08-17/board/01-sinapsis-excitacion-inhibicion.webp',title:'Pizarra reconstruida en limpio',description:'Misma organización: terminal presináptica, calcio, receptores, excitación e inhibición.'},
-        {src:'assets/class-hub/physiology/2026-08-17/board/00-photo-original.webp',title:'Fotografía original',description:'Referencia original tomada durante la clase.'}
+        {src:'assets/class-hub/physiology/2026-08-17/board/01-sinapsis-excitacion-inhibicion.webp',title:'Pizarra reconstruida en limpio',description:'Misma organización: terminal presináptica, calcio, receptores, excitación e inhibición.'}
       ]
     },
     'micro-17-cases':{

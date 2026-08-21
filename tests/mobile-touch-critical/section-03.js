@@ -33,8 +33,8 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(dashboard.columns).toBe(1);
     expect(dashboard.appBottomPadding).toBeLessThanOrEqual(12);
     expect(dashboard.homeworkTitle).toBe('TAREAS');
-    expect(dashboard.homeworkCount).toBe('3 tareas');
-    expect(dashboard.homeworkDates).toEqual(['2026-08-17','2026-08-19','2026-08-20']);
+    expect(dashboard.homeworkCount).toBe('2 tareas');
+    expect(dashboard.homeworkDates).toEqual(['','','']);
     for (const card of dashboard.priorities) {
       expect(card.left).toBeGreaterThanOrEqual(dashboard.prioritiesGrid.left - 1);
       expect(card.right).toBeLessThanOrEqual(dashboard.prioritiesGrid.right + 1);

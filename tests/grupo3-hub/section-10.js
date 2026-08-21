@@ -45,7 +45,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   });
 
   test('switches revision depth without leaving the page', async ({ page }) => {
-    await page.goto('/clase.html#bioquimica');
+    await page.goto('/clase.html#bioquimica-2026-08-14');
     await page.locator('[data-study-mode="rapido"]').click();
     await expect(page.getByRole('heading', { name: 'El mapa central en cinco minutos' })).toBeVisible();
     await expect(page.getByText('La glucólisis produce 2 piruvatos, 2 ATP netos y 2 NADH.')).toBeVisible();
@@ -62,7 +62,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   });
 
   test('switches Epidemiology revision depth independently', async ({ page }) => {
-    await page.goto('/clase.html#epidemiologia');
+    await page.goto('/clase.html#epidemiologia-bloque-anterior');
     const quickView = page.locator('#epidemiologia [data-epi-mode="rapido"]');
     await quickView.click();
     await expect(page.getByRole('heading', { name: 'Lo esencial de Epidemiología en cinco minutos' })).toBeVisible();
@@ -90,7 +90,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   });
 
   test('switches Microbiology practical revision depth independently', async ({ page }) => {
-    await page.goto('/clase.html#microbiologia-practica');
+    await page.goto('/clase.html#microbiologia-practica-anterior');
     const quickView = page.locator('#microbiologia-practica [data-micro-mode="rapido"]');
     await quickView.click();
     await expect(page.getByRole('heading', { name: 'Hongos y Sabouraud en cinco minutos' })).toBeVisible();

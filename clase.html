@@ -4,12 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#07111f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>4.º E · Semestre 4 | Med Nykuto</title>
   <meta name="description" content="Espacio de la clase 4.º E: horario, tareas anteriores y materiales de Nutrición, Fisiología, Bioquímica, Epidemiología, Salud Pública y Microbiología en un solo lugar." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
+  <link rel="apple-touch-icon" href="assets/logo-medcursos-icon.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="grupo-3-v401.css?v=443" />
   <link rel="stylesheet" href="class-courses-2026-08-17-v432.css?v=432" />
+  <link rel="stylesheet" href="class-hub-2026-08-21-v440.css?v=440" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -49,6 +54,12 @@
           <option value="br">PT-BR · Português</option>
         </select>
       </div>
+      <div class="class-header-actions" aria-label="Alertas y gestión">
+        <button class="class-header-action notice-bell" id="noticeBell" type="button" aria-label="Abrir alertas">🔔</button>
+        <button class="class-header-action install-app-button" id="installAppButton" type="button" hidden aria-label="Instalar Med Nykuto">＋</button>
+        <a class="class-header-action manage-link" href="profesores.html"><span class="manage-label">Docentes</span><span aria-hidden="true">◎</span></a>
+        <a class="class-header-action manage-link" href="gestion.html"><span class="manage-label">Gestión</span><span aria-hidden="true">⚙</span></a>
+      </div>
       <a class="header-back" href="index.html">Volver</a>
     </div>
   </header>
@@ -67,7 +78,7 @@
       <div class="dashboard-heading">
         <div class="dashboard-heading-top">
           <div class="hero-meta"><span class="status-dot"><i aria-hidden="true"></i> Espacio activo</span><span>4.º E · Semestre 4</span></div>
-          <time class="dashboard-updated" id="lastUpdated" datetime="2026-08-17T18:45:00-03:00" title="Última actualización · hora de Paraguay">Actualizado 17 ago. · 18:45 PY</time>
+          <time class="dashboard-updated" id="lastUpdated" datetime="2026-08-21" title="Última actualización de contenidos">Actualizado 21 ago. 2026</time>
         </div>
         <p class="section-kicker">Resumen de la semana</p>
         <h1 id="class-title">Tu semana</h1>
@@ -84,8 +95,8 @@
         </article>
 
         <aside class="dashboard-status" aria-label="Resumen de la semana">
-          <div><span>PARA ESTA SEMANA</span><strong id="homeHomeworkCount">3 tareas</strong><small>Ordenadas por fecha.</small></div>
-          <div><span>ÚLTIMAS CLASES</span><strong>Fisiología + Microbiología</strong><small>Sinapsis y micosis · 17 ago.</small></div>
+          <div><span>PARA ESTA SEMANA</span><strong id="homeHomeworkCount">2 tareas activas</strong><small>Epidemiología + Bioquímica.</small></div>
+          <div><span>ÚLTIMAS CLASES</span><strong>Bioquímica + Fisiología</strong><small>CAD y sistema nervioso · 20–21 ago.</small></div>
           <a href="#pendientes">Ver todas las tareas</a>
         </aside>
       </div>
@@ -105,9 +116,9 @@
 
       <h2 class="dashboard-priorities-title">TAREAS</h2>
       <div class="dashboard-priorities" aria-label="Tareas importantes de la semana">
-        <a class="priority-card priority-main" href="#microTheoryPrepCard"><div class="priority-card-head"><span>MICROBIOLOGÍA II · TEÓRICA</span><time id="homeMicroTheoryDate">Fecha estimada</time></div><strong>Estudiar tres micosis subcutáneas</strong><small>Esporotricosis, cromoblastomicosis y micetoma eumicótico.</small><b>Abrir Tareas →</b></a>
-        <a class="priority-card" href="#nutritionPrepCard"><div class="priority-card-head"><span>NUTRICIÓN · SEMINARIO</span><time id="homeNutritionDate">Fecha estimada</time></div><strong>Guías + regiones y platos</strong><small>2 presentaciones PowerPoint independientes + 1 informe para firma y sello.</small><b>Ver mi grupo y qué hay que entregar →</b></a>
-        <a class="priority-card" href="#bioPrepCard"><div class="priority-card-head"><span>BIOQUÍMICA II</span><time id="homeBioDate">Fecha estimada</time></div><strong>Completar la regulación de la glucólisis</strong><small>Hexoquinasa, glucoquinasa, PFK-1, piruvato quinasa y destinos del piruvato.</small><b>Abrir Tareas →</b></a>
+        <a class="priority-card priority-main" data-homework data-task-id="epi-presentation" href="#epi19-tarea"><div class="priority-card-head"><span>EPIDEMIOLOGÍA</span><time>SEMANA SIGUIENTE</time></div><strong>Preparar la exposición grupal</strong><small>Máximo 10, tema sorteado, diapositivas, uniforme y evaluación individual.</small><b>Abrir consigna y grupos →</b></a>
+        <a class="priority-card" data-homework data-task-id="bio-activities" href="#bioquimica-2026-08-21"><div class="priority-card-head"><span>BIOQUÍMICA II</span><time>PRÁCTICO</time></div><strong>Imprimir actividades 3 y 4</strong><small>Completar a mano; cinco actividades y presencia obligatoria.</small><b>Descargar el DOCX →</b></a>
+        <a class="priority-card" href="#materias"><div class="priority-card-head"><span>NUEVOS MATERIALES</span><time>19–21 AGO.</time></div><strong>Cinco clases organizadas</strong><small>57 diapositivas, 13 páginas, 5 pizarras y 200 preguntas nuevas.</small><b>Ver Materias →</b></a>
       </div>
     </section>
 
@@ -454,6 +465,7 @@
       <div class="class-history class-history-single" aria-label="Clases anteriores de Nutrición">
         <article class="history-entry history-current"><span>13 AGO · ESTIMADA</span><div><strong>Cantidad, calidad, armonía, adecuación y variedad</strong><small>Cómo analizar una alimentación, adaptarla al paciente y distinguir alimentos fuente, protectores, enriquecidos y fortificados.</small></div><span>ACTUAL</span></article>
       </div>
+      <p class="no-new-nutrition"><span aria-hidden="true">ℹ</span><span><strong>Sin nueva clase en el material del 19–21 de agosto.</strong><br>Se conserva la última sesión disponible; no se creó contenido ni fecha por inferencia.</span></p>
 
       <button class="course-detail-toggle" type="button" data-detail-toggle aria-controls="nutrition-detail" aria-expanded="false"><span>CLASE COMPLETA</span><strong>Abrir la clase completa</strong><small>Conceptos, leyes, plato, caso clínico, correcciones y seminario.</small><b aria-hidden="true">+</b></button>
 
@@ -642,20 +654,49 @@
     <section id="fisiologia" class="content-section subject-section fisio-subject" data-view="cursos" aria-labelledby="fisio-title" hidden>
       <div class="subject-heading">
         <div>
-          <p class="section-kicker">Fisiología II · clase del 17 de agosto</p>
-          <h2 id="fisio-title">Organización, sinapsis y receptores</h2>
-          <p>Clase del lunes 17 de agosto de 2026: organización funcional del sistema nervioso, neurona, sinapsis, neurotransmisores, receptores sensitivos y circuitos.</p>
+          <p class="section-kicker">Fisiología II · clase del 20 de agosto</p>
+          <h2 id="fisio-title">Ejercicios integradores del sistema nervioso</h2>
+          <p>Clase del jueves 20 de agosto de 2026: potencial de acción, sinapsis, receptores, transducción y aplicaciones clínicas.</p>
         </div>
-        <span class="source-pill status-confirmed">Clase confirmada · 17 ago.</span>
+        <span class="source-pill status-confirmed">Clase confirmada · 20 ago.</span>
       </div>
 
       <nav class="class-history lesson-date-picker" aria-label="Elegir una clase de Fisiología II">
-        <a class="history-entry history-current" href="#fisiologia-2026-08-17" data-lesson-target="fisiologia-2026-08-17" aria-current="true"><time datetime="2026-08-17">17 AGO 2026</time><div><strong>Organización, sinapsis y receptores</strong><small>Potencial de acción, transmisión sináptica, excitación, inhibición, receptores sensitivos y circuitos.</small></div><span>SELECCIONADA</span></a>
+        <a class="history-entry history-current" href="#fisiologia-2026-08-20" data-lesson-target="fisiologia-2026-08-20" aria-current="true"><time datetime="2026-08-20">20 AGO 2026</time><div><strong>Ejercicios integradores del sistema nervioso</strong><small>Potencial de acción, sinapsis, receptores, transducción y casos de quemadura y lidocaína.</small></div><span>SELECCIONADA</span></a>
+        <a class="history-entry" href="#fisiologia-2026-08-17" data-lesson-target="fisiologia-2026-08-17" aria-current="false"><time datetime="2026-08-17">17 AGO 2026</time><div><strong>Organización, sinapsis y receptores</strong><small>Potencial de acción, transmisión sináptica, excitación, inhibición, receptores sensitivos y circuitos.</small></div><span>ABRIR CLASE</span></a>
         <a class="history-entry" href="#fisiologia-2026-08-13" data-lesson-target="fisiologia-2026-08-13" aria-current="false"><time datetime="2026-08-13">13 AGO 2026</time><div><strong>Regulación nerviosa de la respiración</strong><small>Centros respiratorios, quimiorreceptores, mecanorreceptores, ejercicio y caso de EPOC.</small></div><span>ABRIR CLASE</span></a>
         <a class="history-entry" href="#fisiologia-2026-08-10" data-lesson-target="fisiologia-2026-08-10"><time datetime="2026-08-10">10 AGO · ESTIMADA</time><div><strong>Difusión y transporte de gases</strong><small>Barrera alveolocapilar, V/Q, P50, efectos Bohr y Haldane y transporte de CO₂.</small></div><span>ABRIR CLASE</span></a>
       </nav>
 
-      <div id="fisiologia-2026-08-17" class="dated-lesson-panel session-lesson" data-lesson-panel="fisiologia-2026-08-17" data-lesson-title="Organización, sinapsis y receptores">
+      <div id="fisiologia-2026-08-20" class="dated-lesson-panel lesson-2026" data-lesson-panel="fisiologia-2026-08-20" data-lesson-title="Ejercicios integradores del sistema nervioso" style="--lesson-accent:#38bdf8">
+        <section class="lesson-hero-2026">
+          <div><span>FISIOLOGÍA II · 20 AGO. 2026</span><h3>Del potencial de acción a la percepción</h3><p>Resolución razonada de los ejercicios de fijación: organización del sistema nervioso, conducción, sinapsis, receptores sensitivos y dos aplicaciones clínicas.</p></div>
+          <div class="lesson-hero-facts"><div><small>SOPORTE</small><strong>PDF de la cátedra · 13 páginas</strong></div><div><small>MÉTODO</small><strong>Relacionar mecanismo → efecto</strong></div><div><small>ENTRENAMIENTO</small><strong>20 QCM · 10 V/F · 10 casos</strong></div></div>
+        </section>
+        <nav class="lesson-section-tabs" data-lesson-tabs aria-label="Partes de la clase de Fisiología del 20 de agosto">
+          <button type="button" data-lesson-tab="curso" aria-selected="true">Curso completo</button><button type="button" data-lesson-tab="rapida" aria-selected="false">Ficha rápida</button><button type="button" data-lesson-tab="ultra" aria-selected="false">Ficha ultra rápida</button><button type="button" data-lesson-tab="training" aria-selected="false">Entrenamiento</button><button type="button" data-lesson-tab="material" aria-selected="false">Material de la clase</button><button type="button" data-lesson-tab="ia" aria-selected="false">Recursos IA</button>
+        </nav>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="curso">
+          <header><span>CURSO COMPLETO</span><h3>Seis conexiones que resuelven la guía</h3></header>
+          <ol class="mini-toc"><li><a href="#fisio20-organizacion">Organización</a></li><li><a href="#fisio20-potencial">Potencial</a></li><li><a href="#fisio20-sinapsis">Sinapsis</a></li><li><a href="#fisio20-sensibilidad">Sensibilidad</a></li><li><a href="#fisio20-casos">Casos</a></li></ol>
+          <div class="concept-grid-2026">
+            <article class="concept-card-2026" id="fisio20-organizacion"><span>01 · ORGANIZACIÓN</span><h4>SNC integra; SNP comunica</h4><p>Encéfalo y médula forman el SNC. Nervios y ganglios forman el SNP; sus vías aferentes llevan información sensitiva y las eferentes producen respuestas somáticas o autónomas.</p></article>
+            <article class="concept-card-2026" id="fisio20-potencial"><span>02 · POTENCIAL DE ACCIÓN</span><h4>Umbral, Na⁺ y K⁺</h4><p>La entrada de Na⁺ despolariza y la salida de K⁺ repolariza. El fenómeno es de todo o nada; la intensidad se codifica sobre todo por frecuencia, no por amplitud.</p></article>
+            <article class="concept-card-2026"><span>03 · CONDUCCIÓN</span><h4>Diámetro y mielina aceleran</h4><p>La mielina concentra la regeneración del potencial en los nodos de Ranvier. La conducción saltatoria es más rápida y energéticamente eficiente.</p></article>
+            <article class="concept-card-2026" id="fisio20-sinapsis"><span>04 · SINAPSIS</span><h4>El Ca²⁺ libera neurotransmisor</h4><p>En la sinapsis química el potencial abre canales de Ca²⁺, ocurre exocitosis y el transmisor activa receptores ionotrópicos o metabotrópicos. EPSP e IPSP se suman.</p></article>
+            <article class="concept-card-2026" id="fisio20-sensibilidad"><span>05 · TRANSDUCCIÓN</span><h4>El receptor convierte energía en señal</h4><p>Mecano-, termo-, nocicep-, quimio- y fotorreceptores responden a modalidades distintas. Los receptores tónicos se adaptan lentamente; los fásicos destacan cambios.</p></article>
+            <article class="concept-card-2026" id="fisio20-casos"><span>06 · APLICACIÓN</span><h4>Quemadura y lidocaína</h4><p>Una quemadura activa nociceptores y vías aferentes; la lidocaína bloquea canales de Na⁺ dependientes de voltaje, impidiendo que el potencial se propague.</p></article>
+          </div>
+          <p class="lesson-source-note"><b>Base exacta:</b> «Ejercicios de fijación sistema nervioso», 13 páginas. La explicación ordena las consignas sin atribuir contenido a otra sesión.</p>
+        </section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="rapida" hidden><header><span>FICHA RÁPIDA · 5 MIN</span><h3>Mapa para responder sin memorizar frases</h3></header><div class="quick-sheet"><article><span>SEÑAL</span><strong>Na⁺ entra · K⁺ sale</strong><small>Despolarización y repolarización del potencial.</small></article><article><span>VELOCIDAD</span><strong>Mielina + diámetro</strong><small>La conducción saltatoria acelera la propagación.</small></article><article><span>SINAPSIS</span><strong>Ca²⁺ → exocitosis</strong><small>El receptor define excitación o inhibición.</small></article><article><span>TRANSDUCCIÓN</span><strong>Estímulo → potencial receptor</strong><small>La modalidad depende del receptor activado.</small></article><article><span>ADAPTACIÓN</span><strong>Tónico vs fásico</strong><small>Persistencia frente a detección del cambio.</small></article><article><span>LIDOCAÍNA</span><strong>Bloquea canal de Na⁺</strong><small>Interrumpe la propagación del impulso doloroso.</small></article></div></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="ultra" hidden><header><span>FICHA ULTRA RÁPIDA · 90 S</span><h3>Lo que no debes confundir</h3></header><ol class="ultra-sheet"><li>Aferencia entra al SNC; eferencia sale hacia el efector.</li><li>El potencial mantiene su amplitud; cambia la frecuencia de descarga.</li><li>Ca²⁺ presináptico desencadena la liberación del neurotransmisor.</li><li>Ionotrópico es directo y rápido; metabotrópico usa intermediarios.</li><li>Lidocaína bloquea Na⁺ voltaje-dependiente, no el receptor sensitivo.</li></ol></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="training" hidden><header><span>ENTRENAMIENTO</span><h3>40 preguntas ancladas a esta guía</h3></header><div data-practice-slot="fisiologia-2026-08-20"></div></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="material" hidden><header><span>MATERIAL DE LA CLASE</span><h3>PDF original y vista página por página</h3></header><div class="lesson-materials"><article class="lesson-file-card"><img src="assets/class-hub/physiology/2026-08-20/pages/01.webp" alt="Primera página de los ejercicios de sistema nervioso"><div><span>13 PÁGINAS · PDF</span><strong>Ejercicios de fijación</strong><small>Archivo original de la cátedra, sin modificaciones.</small><a href="assets/class-hub/physiology/2026-08-20/ejercicios-fijacion-sistema-nervioso.pdf" target="_blank" rel="noopener">Abrir PDF</a><a href="assets/class-hub/physiology/2026-08-20/ejercicios-fijacion-sistema-nervioso.pdf" download>Descargar</a></div></article><article class="lesson-file-card"><img src="assets/class-hub/physiology/2026-08-20/pages/06.webp" alt="Página con ejercicio sobre sinapsis"><div><span>VISTA GUIADA</span><strong>Sinapsis y receptores</strong><small>Abre las páginas como galería táctil.</small><button type="button" data-hub-gallery="fisio20">Ver 13 páginas</button></div></article></div></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="ia" hidden><header><span>RECURSOS IA</span><h3>Contexto público limpio para estudiar</h3></header><div class="ai-resource-grid"><details open><summary>Transcripción reconstruida</summary><p>La sesión se organiza alrededor de consignas: definir divisiones del sistema nervioso, explicar potencial y conducción, comparar sinapsis, asociar neurotransmisores y receptores, y aplicar la transducción a casos.</p></details><details><summary>Perfil docente · Giselle Vert</summary><p>La guía observable favorece respuestas causales y comparaciones cortas. Estado: tendencia de método, todavía acumulativa.</p><span class="confidence-chip">CONFIANZA MEDIA · TENDENCIA</span></details><details><summary>Estilo probable de preguntas</summary><ul><li>Relacionar canal iónico con fase del potencial.</li><li>Comparar sinapsis química y eléctrica.</li><li>Explicar un caso desde el mecanismo.</li></ul></details><details class="ai-prompt"><summary>Prompt personalizado</summary><pre>Actúa como tutora de Fisiología II. Usa solo la clase del 20/08/2026. Hazme primero una pregunta causal, espera mi respuesta, corrige con mecanismo iónico y termina con una aplicación clínica breve. No mezcles respiración ni otras fechas.</pre></details></div></section>
+      </div>
+
+      <div id="fisiologia-2026-08-17" class="dated-lesson-panel session-lesson" data-lesson-panel="fisiologia-2026-08-17" data-lesson-title="Organización, sinapsis y receptores" hidden>
         <p class="course-note transcription-rule-note"><b>Clase seleccionada · 17 de agosto:</b> esta ficha y sus preguntas usan el PDF del profesor, la pizarra y la transcripción de esta sesión. No se mezclan con las clases respiratorias anteriores.</p>
 
         <div data-practice-slot="fisiologia-2026-08-17"></div>
@@ -861,18 +902,51 @@
     <section id="bioquimica" class="content-section subject-section" data-view="cursos" aria-labelledby="bio-title" hidden>
       <div class="subject-heading">
         <div>
-          <p class="section-kicker">Bioquímica · 3 clases</p>
-          <h2 id="bio-title">Glucólisis: vía común y balance energético</h2>
-          <p>Curso del viernes 14 de agosto de 2026, organizado y corregido para estudiar.</p>
+          <p class="section-kicker">Bioquímica II · clase del 21 de agosto</p>
+          <h2 id="bio-title">Cetoacidosis diabética: mecanismo y corrección</h2>
+          <p>Clase del viernes 21 de agosto de 2026 reconstruida a partir de la transcripción y de tres pizarras.</p>
         </div>
-        <span class="source-pill status-confirmed">Fecha oral confirmada · 14 ago.</span>
+        <span class="source-pill status-confirmed">Clase confirmada · 21 ago.</span>
       </div>
 
-      <div class="class-history" aria-label="Clases de Bioquímica">
-        <article class="history-entry history-current"><time datetime="2026-08-14">14 AGO 2026</time><div><strong>Glucólisis</strong><small>Vía común, fases, diez reacciones, balance y regulación inicial.</small></div><span>ACTUAL</span></article>
+      <nav class="class-history lesson-date-picker" aria-label="Clases de Bioquímica">
+        <a class="history-entry history-current" href="#bioquimica-2026-08-21" data-lesson-target="bioquimica-2026-08-21" aria-current="true"><time datetime="2026-08-21">21 AGO 2026</time><div><strong>Cetoacidosis diabética</strong><small>Déficit de insulina, cetogénesis, acidosis, osmolaridad y vigilancia cerebral.</small></div><span>SELECCIONADA</span></a>
+        <a class="history-entry" href="#bioquimica-2026-08-19" data-lesson-target="bioquimica-2026-08-19" aria-current="false"><time datetime="2026-08-19">19 AGO 2026</time><div><strong>Glucólisis, piruvato y complejo PDH</strong><small>Regulación, destinos del piruvato, cofactores y conexión mitocondrial.</small></div><span>ABRIR CLASE</span></a>
+        <a class="history-entry" href="#bioquimica-2026-08-14" data-lesson-target="bioquimica-2026-08-14" aria-current="false"><time datetime="2026-08-14">14 AGO 2026</time><div><strong>Glucólisis</strong><small>Vía común, fases, diez reacciones, balance y regulación inicial.</small></div><span>ABRIR CLASE</span></a>
         <article class="history-entry"><span>FECHA NO DICHA</span><div><strong>Transportadores y destinos de la G6P</strong><small>GLUT, SGLT, insulina, pentosas fosfato y respiración celular.</small></div></article>
         <article class="history-entry"><span>FECHA NO DICHA</span><div><strong>Bases del metabolismo</strong><small>Carbohidratos, rutas metabólicas, glicación y conexiones clínicas.</small></div></article>
+      </nav>
+
+      <div id="bioquimica-2026-08-21" class="dated-lesson-panel lesson-2026" data-lesson-panel="bioquimica-2026-08-21" data-lesson-title="Cetoacidosis diabética" style="--lesson-accent:#fb7185">
+        <section class="lesson-hero-2026"><div><span>BIOQUÍMICA II · 21 AGO. 2026</span><h3>Cetoacidosis diabética: del déficit hormonal al cerebro</h3><p>Una secuencia causal única conecta hiperglucemia, pérdida de agua y electrolitos, lipólisis, cetogénesis, acidosis metabólica y riesgo neurológico durante la corrección.</p></div><div class="lesson-hero-facts"><div><small>PIZARRAS</small><strong>3 reconstrucciones científicas</strong></div><div><small>TRABAJO</small><strong>Actividades 3 y 4 impresas y manuscritas</strong></div><div><small>ENTRENAMIENTO</small><strong>20 QCM · 10 V/F · 10 casos</strong></div></div></section>
+        <nav class="lesson-section-tabs" data-lesson-tabs aria-label="Partes de la clase de Bioquímica del 21 de agosto"><button type="button" data-lesson-tab="curso" aria-selected="true">Curso completo</button><button type="button" data-lesson-tab="rapida" aria-selected="false">Ficha rápida</button><button type="button" data-lesson-tab="ultra" aria-selected="false">Ficha ultra rápida</button><button type="button" data-lesson-tab="training" aria-selected="false">Entrenamiento</button><button type="button" data-lesson-tab="material" aria-selected="false">Material de la clase</button><button type="button" data-lesson-tab="ia" aria-selected="false">Recursos IA</button></nav>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="curso"><header><span>CURSO COMPLETO</span><h3>Cadena fisiopatológica y decisiones de vigilancia</h3></header><ol class="mini-toc"><li><a href="#cad-insulina">Insulina</a></li><li><a href="#cad-glucosa">Glucosa</a></li><li><a href="#cad-cetonas">Cetonas</a></li><li><a href="#cad-potasio">Potasio</a></li><li><a href="#cad-cerebro">Cerebro</a></li></ol><div class="concept-grid-2026">
+          <article class="concept-card-2026" id="cad-insulina"><span>01 · DISPARADOR</span><h4>Insulina efectiva baja</h4><p>Con hormonas contrarreguladoras elevadas, disminuye la captación periférica de glucosa y aumentan gluconeogénesis, glucogenólisis, lipólisis y proteólisis.</p></article>
+          <article class="concept-card-2026" id="cad-glucosa"><span>02 · HIPERGLUCEMIA</span><h4>Glucosuria y diuresis osmótica</h4><p>Cuando la carga filtrada supera la reabsorción tubular, la glucosa arrastra agua y electrolitos. El resultado es deshidratación y menor perfusión renal.</p></article>
+          <article class="concept-card-2026" id="cad-cetonas"><span>03 · CETOGÉNESIS</span><h4>Ácidos grasos → acetil-CoA → cetonas</h4><p>El hígado forma acetoacetato y β-hidroxibutirato; la acetona es volátil. La acumulación de ácidos consume bicarbonato y abre la brecha aniónica.</p></article>
+          <article class="concept-card-2026"><span>04 · COMPENSACIÓN</span><h4>Respiración de Kussmaul</h4><p>La hiperventilación reduce PaCO₂ para compensar la acidosis. Es una respuesta respiratoria, no la causa metabólica del trastorno.</p></article>
+          <article class="concept-card-2026" id="cad-potasio"><span>05 · POTASIO</span><h4>El sérum puede engañar</h4><p>Antes del tratamiento, el K⁺ sérico puede ser normal o alto pese a un déficit corporal total. Insulina y corrección de la acidosis desplazan K⁺ a la célula.</p></article>
+          <article class="concept-card-2026" id="cad-cerebro"><span>06 · OSMOLARIDAD</span><h4>Vigilar la adaptación cerebral</h4><p>El cerebro genera osmoles idiogénicos en la hiperosmolaridad. Un cambio osmótico rápido favorece entrada de agua; se controla estado neurológico y osmolalidad efectiva.</p></article>
+        </div><div class="board-gallery" aria-label="Pizarras reconstruidas de cetoacidosis"><button type="button" data-image-lightbox="assets/class-hub/biochemistry/2026-08-21/board/01-deficit-insulina.svg"><img src="assets/class-hub/biochemistry/2026-08-21/board/01-deficit-insulina.svg" alt="Cadena causal del déficit de insulina"><span>Ampliar · déficit de insulina</span></button><button type="button" data-image-lightbox="assets/class-hub/biochemistry/2026-08-21/board/02-cetogenesis-acidosis.svg"><img src="assets/class-hub/biochemistry/2026-08-21/board/02-cetogenesis-acidosis.svg" alt="Cetogénesis y acidosis"><span>Ampliar · cetogénesis</span></button><button type="button" data-image-lightbox="assets/class-hub/biochemistry/2026-08-21/board/03-cerebro-osmoles.svg"><img src="assets/class-hub/biochemistry/2026-08-21/board/03-cerebro-osmoles.svg" alt="Adaptación cerebral y riesgo osmótico"><span>Ampliar · cerebro y osmoles</span></button></div><p class="lesson-source-note"><b>Seguridad:</b> esta ficha explica mecanismos y vigilancia; no reemplaza el protocolo clínico institucional ni prescribe velocidades de corrección.</p></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="rapida" hidden><header><span>FICHA RÁPIDA · 5 MIN</span><h3>La CAD en seis relaciones</h3></header><div class="quick-sheet"><article><span>INSULINA ↓</span><strong>Glucosa y lipólisis ↑</strong><small>Dos rutas paralelas generan deshidratación y cetosis.</small></article><article><span>RIÑÓN</span><strong>Glucosuria → agua ↓</strong><small>Diuresis osmótica y déficit electrolítico.</small></article><article><span>HÍGADO</span><strong>β-oxidación → cetonas</strong><small>Acetoacetato y β-hidroxibutirato consumen HCO₃⁻.</small></article><article><span>PULMÓN</span><strong>Kussmaul → CO₂ ↓</strong><small>Compensación respiratoria de la acidosis.</small></article><article><span>K⁺</span><strong>Déficit total oculto</strong><small>El valor sérico inicial no refleja las reservas.</small></article><article><span>CEREBRO</span><strong>Osmoles adaptativos</strong><small>La evolución neurológica debe vigilarse.</small></article></div></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="ultra" hidden><header><span>FICHA ULTRA RÁPIDA · 90 S</span><h3>Secuencia obligatoria</h3></header><ol class="ultra-sheet"><li>Insulina baja + contrarregulación alta.</li><li>Hiperglucemia → glucosuria → diuresis osmótica.</li><li>Lipólisis → β-oxidación → cuerpos cetónicos.</li><li>HCO₃⁻ baja; Kussmaul compensa.</li><li>K⁺ sérico no equivale al potasio corporal total.</li><li>Fluidos, insulina, K⁺ y neurología se monitorizan juntos.</li></ol></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="training" hidden><header><span>ENTRENAMIENTO</span><h3>40 preguntas sobre la cadena fisiopatológica</h3></header><div data-practice-slot="bioquimica-2026-08-21"></div></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="material" hidden><header><span>MATERIAL DE LA CLASE</span><h3>Pizarras limpias y actividades 3–4</h3></header><div class="lesson-materials"><article class="lesson-file-card"><img src="assets/class-hub/biochemistry/2026-08-21/task-pages/01.webp" alt="Primera página de las actividades 3 y 4"><div><span>4 PÁGINAS · DOCX</span><strong>Actividades 3 y 4</strong><small>Imprimir y completar a mano. El práctico contiene cinco actividades y la presencia es obligatoria.</small><a href="assets/class-hub/biochemistry/2026-08-21/actividades-3-y-4-bioquimica-ii.docx" download>Descargar DOCX</a><button type="button" data-hub-gallery="bioTask">Ver 4 páginas</button></div></article></div></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="ia" hidden><header><span>RECURSOS IA</span><h3>Transcripción pública y método de estudio</h3></header><div class="ai-resource-grid"><details open><summary>Transcripción reconstruida</summary><p>La explicación parte del déficit de insulina, sigue la producción hepática de glucosa y la lipólisis, después relaciona la cetogénesis con la acidosis. La pizarra final introduce los osmoles cerebrales y el riesgo durante la corrección.</p></details><details><summary>Perfil docente · Andrea López</summary><p>La tendencia observable prioriza cadenas causales, balances y conexiones clínicas. Los trabajos requieren una respuesta desarrollada a mano.</p><span class="confidence-chip">CONFIANZA MEDIA · TENDENCIA</span></details><details><summary>Estilo probable de preguntas</summary><ul><li>Ordenar una cadena metabólica.</li><li>Distinguir concentración sérica y déficit corporal.</li><li>Explicar la compensación de un trastorno ácido-base.</li></ul></details><details class="ai-prompt"><summary>Prompt personalizado</summary><pre>Enséñame la CAD con una cadena causal. Usa solo la clase del 21/08/2026. Presenta un caso de dos frases, pregúntame cuál es el siguiente mecanismo y corrige sin dar protocolos terapéuticos inventados.</pre></details></div></section>
       </div>
+
+      <div id="bioquimica-2026-08-19" class="dated-lesson-panel lesson-2026" data-lesson-panel="bioquimica-2026-08-19" data-lesson-title="Glucólisis, piruvato y complejo PDH" style="--lesson-accent:#34d399" hidden>
+        <section class="lesson-hero-2026"><div><span>BIOQUÍMICA II · 19 AGO. 2026</span><h3>Glucólisis regulada y destino oxidativo del piruvato</h3><p>La vía citosólica entrega piruvato; el complejo PDH lo convierte en acetil-CoA dentro de la mitocondria y enlaza con el ciclo de Krebs.</p></div><div class="lesson-hero-facts"><div><small>PIZARRAS</small><strong>2 reconstrucciones científicas</strong></div><div><small>EJE</small><strong>Regulación + cofactores</strong></div><div><small>ENTRENAMIENTO</small><strong>20 QCM · 10 V/F · 10 casos</strong></div></div></section>
+        <nav class="lesson-section-tabs" data-lesson-tabs aria-label="Partes de la clase de Bioquímica del 19 de agosto"><button type="button" data-lesson-tab="curso" aria-selected="true">Curso completo</button><button type="button" data-lesson-tab="rapida" aria-selected="false">Ficha rápida</button><button type="button" data-lesson-tab="ultra" aria-selected="false">Ficha ultra rápida</button><button type="button" data-lesson-tab="training" aria-selected="false">Entrenamiento</button><button type="button" data-lesson-tab="material" aria-selected="false">Material de la clase</button><button type="button" data-lesson-tab="ia" aria-selected="false">Recursos IA</button></nav>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="curso"><header><span>CURSO COMPLETO</span><h3>De la glucosa al acetil-CoA</h3></header><ol class="mini-toc"><li><a href="#bio19-balance">Balance</a></li><li><a href="#bio19-control">Control</a></li><li><a href="#bio19-piruvato">Piruvato</a></li><li><a href="#bio19-pdh">PDH</a></li></ol><div class="concept-grid-2026"><article class="concept-card-2026" id="bio19-balance"><span>01 · BALANCE</span><h4>2 piruvatos + 2 ATP + 2 NADH</h4><p>La glucólisis ocurre en el citosol; consume dos ATP y genera cuatro, con ganancia neta de dos ATP por glucosa.</p></article><article class="concept-card-2026" id="bio19-control"><span>02 · REGULACIÓN</span><h4>Hexo/glucoquinasa, PFK-1 y piruvato quinasa</h4><p>PFK-1 es el paso limitante: AMP y F2,6BP la activan; ATP, citrato y pH bajo frenan el flujo.</p></article><article class="concept-card-2026" id="bio19-piruvato"><span>03 · DESTINOS</span><h4>Lactato, alanina, oxalacetato o acetil-CoA</h4><p>El contexto redox, el tejido y la disponibilidad mitocondrial determinan el destino. En eritrocitos, el lactato regenera NAD⁺.</p></article><article class="concept-card-2026" id="bio19-pdh"><span>04 · COMPLEJO PDH</span><h4>Descarboxilación oxidativa irreversible</h4><p>E1, E2 y E3 usan TPP, lipoato, CoA, FAD y NAD⁺ para formar acetil-CoA, CO₂ y NADH.</p></article><article class="concept-card-2026"><span>05 · CONTROL PDH</span><h4>Fosforilación inhibe</h4><p>PDH quinasa inhibe el complejo; PDH fosfatasa lo reactiva. ATP, NADH y acetil-CoA señalan abundancia energética.</p></article><article class="concept-card-2026"><span>06 · CLÍNICA</span><h4>Déficit de tiamina limita E1</h4><p>La TPP proviene de vitamina B1. Su déficit compromete la oxidación del piruvato y favorece acumulación de lactato.</p></article></div><div class="board-gallery"><button type="button" data-image-lightbox="assets/class-hub/biochemistry/2026-08-19/board/01-pdh-cofactores.svg"><img src="assets/class-hub/biochemistry/2026-08-19/board/01-pdh-cofactores.svg" alt="Complejo PDH y cinco cofactores"><span>Ampliar · PDH</span></button><button type="button" data-image-lightbox="assets/class-hub/biochemistry/2026-08-19/board/02-regulacion-glucolisis.svg"><img src="assets/class-hub/biochemistry/2026-08-19/board/02-regulacion-glucolisis.svg" alt="Tres pasos reguladores de la glucólisis"><span>Ampliar · regulación</span></button></div><p class="lesson-source-note"><b>Corrección integrada:</b> el O₂ no es sustrato directo de la glucólisis; condiciona la reoxidación del NADH y el destino del piruvato.</p></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="rapida" hidden><header><span>FICHA RÁPIDA · 5 MIN</span><h3>Seis anclas metabólicas</h3></header><div class="quick-sheet"><article><span>LUGAR</span><strong>Citosol</strong><small>La glucólisis no usa O₂ directamente.</small></article><article><span>BALANCE</span><strong>2 ATP + 2 NADH</strong><small>Por una glucosa y dos piruvatos.</small></article><article><span>CONTROL</span><strong>PFK-1</strong><small>Paso limitante y sensible al estado energético.</small></article><article><span>ERITROCITO</span><strong>Piruvato → lactato</strong><small>LDH regenera NAD⁺.</small></article><article><span>PDH</span><strong>3C → 2C + CO₂</strong><small>Forma acetil-CoA y NADH.</small></article><article><span>COFACTORES</span><strong>B1, lipoato, B5, B2, B3</strong><small>TPP · lipoato · CoA · FAD · NAD⁺.</small></article></div></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="ultra" hidden><header><span>FICHA ULTRA RÁPIDA · 90 S</span><h3>No confundas</h3></header><ol class="ultra-sheet"><li>Glucólisis: citosol; PDH: matriz mitocondrial.</li><li>PFK-1 controla el flujo; F2,6BP la activa.</li><li>Lactato regenera NAD⁺ cuando no se oxida el NADH.</li><li>PDH es irreversible y produce CO₂ + NADH.</li><li>TPP proviene de B1; CoA proviene de B5.</li></ol></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="training" hidden><header><span>ENTRENAMIENTO</span><h3>40 preguntas de regulación y PDH</h3></header><div data-practice-slot="bioquimica-2026-08-19"></div></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="material" hidden><header><span>MATERIAL DE LA CLASE</span><h3>Pizarras reconstruidas</h3></header><div class="lesson-materials"><article class="lesson-file-card"><img src="assets/class-hub/biochemistry/2026-08-19/board/01-pdh-cofactores.svg" alt="Miniatura del complejo PDH"><div><span>SVG CIENTÍFICO</span><strong>PDH y cofactores</strong><small>Redibujo vectorial legible y ampliable.</small><a href="assets/class-hub/biochemistry/2026-08-19/board/01-pdh-cofactores.svg" download>Descargar SVG</a></div></article><article class="lesson-file-card"><img src="assets/class-hub/biochemistry/2026-08-19/board/02-regulacion-glucolisis.svg" alt="Miniatura de regulación de glucólisis"><div><span>SVG CIENTÍFICO</span><strong>Tres puertas de control</strong><small>Activadores e inhibidores esenciales.</small><a href="assets/class-hub/biochemistry/2026-08-19/board/02-regulacion-glucolisis.svg" download>Descargar SVG</a></div></article></div></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="ia" hidden><header><span>RECURSOS IA</span><h3>Contexto de estudio limpio</h3></header><div class="ai-resource-grid"><details open><summary>Transcripción reconstruida</summary><p>El hilo pasa de la regulación de la glucólisis a los destinos del piruvato y termina con el complejo PDH, sus enzimas y cinco cofactores.</p></details><details><summary>Perfil docente · Andrea López</summary><p>Privilegia conexiones entre rutas, balance energético y consecuencias clínicas. Estado: tendencia acumulativa.</p><span class="confidence-chip">CONFIANZA MEDIA · TENDENCIA</span></details><details><summary>Estilo probable de preguntas</summary><ul><li>Completar una ruta con enzima y producto.</li><li>Explicar por qué cambia el flujo.</li><li>Vincular vitamina, cofactor y reacción.</li></ul></details><details class="ai-prompt"><summary>Prompt personalizado</summary><pre>Repasa conmigo la clase de Bioquímica II del 19/08/2026. Alterna una pregunta de regulación con otra sobre PDH. Exige que justifique cada respuesta por estado energético o cofactor y no mezcles la CAD del 21/08.</pre></details></div></section>
+      </div>
+
+      <div id="bioquimica-2026-08-14" class="dated-lesson-panel" data-lesson-panel="bioquimica-2026-08-14" data-lesson-title="Glucólisis: vía común y balance energético" hidden>
 
       <section class="board-archive-launch" aria-labelledby="boardArchiveLaunchTitle">
         <div class="board-archive-cover" aria-hidden="true"><img src="assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/01-mapa-general.webp" loading="lazy" alt="" /></div>
@@ -1010,22 +1084,47 @@
         </div>
         <div id="studyPreviewBody" class="study-preview-body"></div>
       </article>
+      </div>
     </section>
 
     <section id="epidemiologia" class="content-section subject-section" data-view="cursos" aria-labelledby="epi-title" hidden>
       <div class="subject-heading">
         <div>
-          <p class="section-kicker">Epidemiología y Salud Pública · clases anteriores</p>
-          <h2 id="epi-title">Sectorización, triage, urgencia y emergencia</h2>
-          <p>La última parte corresponde a la clase más reciente. Los contenidos de APS y atención integral pertenecen a la clase anterior.</p>
+          <p class="section-kicker">Epidemiología y Salud Pública · clase del 19 de agosto</p>
+          <h2 id="epi-title">Organización de urgencias y emergencias</h2>
+          <p>Clase del miércoles 19 de agosto de 2026 basada en las 57 diapositivas entregadas por la cátedra.</p>
         </div>
-        <span class="source-pill status-check">Última clase · fecha por confirmar</span>
+        <span class="source-pill status-confirmed">Clase confirmada · 19 ago.</span>
       </div>
 
-      <div class="class-history" aria-label="Clases de Epidemiología y Salud Pública">
-        <article class="history-entry history-current"><span>ÚLTIMA CLASE</span><div><strong>Sectorización, triage, urgencia y emergencia</strong><small>Vigilancia territorial, clasificación de riesgo, observación inicial, signos vitales y prioridad asistencial.</small></div><span>ACTUAL</span></article>
-        <article class="history-entry"><span>BLOQUE ANTERIOR</span><div><strong>APS y modelo de atención integral</strong><small>Alma-Ata, implementación en Paraguay, principios, dimensiones y ciclo familiar.</small></div></article>
+      <nav class="class-history lesson-date-picker" aria-label="Clases de Epidemiología y Salud Pública">
+        <a class="history-entry history-current" href="#epidemiologia-2026-08-19" data-lesson-target="epidemiologia-2026-08-19" aria-current="true"><time datetime="2026-08-19">19 AGO 2026</time><div><strong>Organización de urgencias y emergencias</strong><small>SIUE, regulación, transporte, triage de cinco niveles y múltiples víctimas.</small></div><span>SELECCIONADA</span></a>
+        <a class="history-entry" href="#epidemiologia-bloque-anterior" data-lesson-target="epidemiologia-bloque-anterior" aria-current="false"><span>BLOQUE ANTERIOR</span><div><strong>APS, sectorización y triage</strong><small>Alma-Ata, modelo integral, territorio, signos vitales y prioridad asistencial.</small></div><span>ABRIR CLASE</span></a>
+      </nav>
+
+      <div id="epidemiologia-2026-08-19" class="dated-lesson-panel lesson-2026" data-lesson-panel="epidemiologia-2026-08-19" data-lesson-title="Organización de urgencias y emergencias" style="--lesson-accent:#fbbf24">
+        <section class="lesson-hero-2026"><div><span>EPIDEMIOLOGÍA · 19 AGO. 2026</span><h3>Un sistema que prioriza, regula y traslada</h3><p>La atención urgente no es una sala aislada: integra ciudadanía, primer nivel, centro coordinador, transporte, hospital y retorno a la red.</p></div><div class="lesson-hero-facts"><div><small>SOPORTE</small><strong>PowerPoint original · 57 diapositivas</strong></div><div><small>TAREA</small><strong>Exposición grupal · máximo 10</strong></div><div><small>ENTRENAMIENTO</small><strong>20 QCM · 10 V/F · 10 casos</strong></div></div></section>
+        <nav class="lesson-section-tabs" data-lesson-tabs aria-label="Partes de la clase de Epidemiología del 19 de agosto"><button type="button" data-lesson-tab="curso" aria-selected="true">Curso completo</button><button type="button" data-lesson-tab="rapida" aria-selected="false">Ficha rápida</button><button type="button" data-lesson-tab="ultra" aria-selected="false">Ficha ultra rápida</button><button type="button" data-lesson-tab="training" aria-selected="false">Entrenamiento</button><button type="button" data-lesson-tab="material" aria-selected="false">Material de la clase</button><button type="button" data-lesson-tab="ia" aria-selected="false">Recursos IA</button></nav>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="curso"><header><span>CURSO COMPLETO</span><h3>De la demanda al nivel correcto de atención</h3></header><ol class="mini-toc"><li><a href="#epi19-conceptos">Conceptos</a></li><li><a href="#epi19-siue">SIUE</a></li><li><a href="#epi19-triage">Triage</a></li><li><a href="#epi19-catastrofe">Catástrofe</a></li><li><a href="#epi19-tarea">Tarea</a></li></ol><div class="concept-grid-2026">
+          <article class="concept-card-2026" id="epi19-conceptos"><span>01 · DEMANDA</span><h4>Urgencia real o subjetiva; emergencia vital</h4><p>La urgencia puede expresar riesgo objetivo o percepción del usuario. La emergencia implica peligro inmediato para la vida, un órgano o una función.</p></article>
+          <article class="concept-card-2026" id="epi19-siue"><span>02 · SIUE</span><h4>Componentes coordinados</h4><p>Incluye acceso ciudadano, centro coordinador de urgencias, atención prehospitalaria, transporte de soporte vital básico o avanzado y respuesta hospitalaria.</p></article>
+          <article class="concept-card-2026"><span>03 · CENTRO COORDINADOR</span><h4>Recibir, clasificar y movilizar</h4><p>La regulación evalúa la demanda, ofrece orientación, decide el recurso y mantiene comunicación con el destino. Evita traslados sin coordinación.</p></article>
+          <article class="concept-card-2026"><span>04 · TRANSPORTE</span><h4>SVB y SVA según complejidad</h4><p>El traslado forma parte de la asistencia. Personal, equipamiento y destino deben corresponder al riesgo y al soporte requerido.</p></article>
+          <article class="concept-card-2026" id="epi19-triage"><span>05 · TRIAGE</span><h4>Prioriza; no diagnostica</h4><p>Una primera observación, motivo de consulta, signos vitales y riesgo de deterioro asignan uno de cinco niveles. Se reevalúa si la situación cambia.</p></article>
+          <article class="concept-card-2026"><span>06 · HOSPITAL</span><h4>Flujo, áreas y saturación</h4><p>Recepción, clasificación, reanimación, consulta, observación y salida requieren circuitos claros. La saturación compromete tiempos y seguridad.</p></article>
+          <article class="concept-card-2026" id="epi19-catastrofe"><span>07 · MÚLTIPLES VÍCTIMAS</span><h4>La lógica cambia al mayor bien posible</h4><p>Cuando los recursos no alcanzan para todos a la vez, métodos rápidos como SHORT o START ordenan prioridad, tratamiento inicial y evacuación.</p></article>
+          <article class="concept-card-2026"><span>08 · RED</span><h4>Fortalezas y debilidades</h4><p>La atención primaria aporta proximidad y continuidad, pero necesita recursos, referencia y contrarreferencia. El hospital resuelve alta complejidad y puede saturarse.</p></article>
+        </div>
+        <div class="group-activity-card" id="epi19-tarea" data-group-activity="epi-2026-08-19"><header><div><span class="lesson-kicker">TRABAJO PRÁCTICO · SEMANA SIGUIENTE</span><h4>Exposición sobre una enfermedad asignada por sorteo</h4></div><strong>Máx. 10 por grupo</strong></header><p>Trabajo original, presentación puntual con diapositivas y uniforme; la evaluación es individual. Temas del documento: VSR, influenza, sarampión, meningitis viral o bacteriana, neumonía, sífilis, hepatitis B, tuberculosis, dengue, malaria y COVID-19. Sugerencias: Murray y protocolos vigentes de Paraguay.</p><div data-group-runtime><p>No se recibieron integrantes consolidados: los grupos comienzan sin miembros inventados.</p></div></div>
+        <p class="lesson-source-note"><b>Base exacta:</b> «Organización Urg y Emergencias», 57 diapositivas, más la consigna docente de trabajo práctico.</p></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="rapida" hidden><header><span>FICHA RÁPIDA · 5 MIN</span><h3>Ocho piezas del sistema</h3></header><div class="quick-sheet"><article><span>URGENCIA</span><strong>Atención pronta</strong><small>Riesgo real o necesidad percibida.</small></article><article><span>EMERGENCIA</span><strong>Atención inmediata</strong><small>Amenaza vital, orgánica o funcional.</small></article><article><span>CCU</span><strong>Regula la demanda</strong><small>Clasifica, orienta y moviliza recursos.</small></article><article><span>TRANSPORTE</span><strong>SVB o SVA</strong><small>El soporte se ajusta al riesgo.</small></article><article><span>TRIAGE</span><strong>Prioridad, no diagnóstico</strong><small>Cinco niveles y reevaluación.</small></article><article><span>HOSPITAL</span><strong>Circuitos diferenciados</strong><small>Reanimación, consulta y observación.</small></article></div></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="ultra" hidden><header><span>FICHA ULTRA RÁPIDA · 90 S</span><h3>Las reglas de decisión</h3></header><ol class="ultra-sheet"><li>Emergencia amenaza vida u órgano y no espera.</li><li>El CCU coordina el recurso y el destino.</li><li>El traslado es asistencia, no simple transporte.</li><li>El triage ordena por riesgo y debe reevaluar.</li><li>Cinco niveles separan reanimación de atención no urgente.</li><li>En catástrofe se prioriza el beneficio colectivo posible.</li></ol></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="training" hidden><header><span>ENTRENAMIENTO</span><h3>40 preguntas sobre el sistema de urgencias</h3></header><div data-practice-slot="epidemiologia-2026-08-19"></div></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="material" hidden><header><span>MATERIAL DE LA CLASE</span><h3>57 diapositivas y consigna de exposición</h3></header><div class="lesson-materials"><article class="lesson-file-card"><img src="assets/class-hub/epidemiology/2026-08-19/slides/01.webp" alt="Portada del PowerPoint de organización de urgencias"><div><span>57 DIAPOSITIVAS · PPTX</span><strong>Organización Urg y Emergencias</strong><small>Archivo original de la cátedra con vista táctil.</small><a href="assets/class-hub/epidemiology/2026-08-19/organizacion-urgencias-emergencias.pptx" download>Descargar PPTX</a><button type="button" data-hub-gallery="epi19">Ver 57 diapositivas</button></div></article><article class="lesson-file-card"><img src="assets/class-hub/epidemiology/2026-08-19/task-pages/01.webp" alt="Consigna del trabajo práctico de Epidemiología"><div><span>1 PÁGINA · DOCX</span><strong>Trabajo práctico</strong><small>Temas, criterios de la presentación y bibliografía sugerida.</small><a href="assets/class-hub/epidemiology/2026-08-19/trabajo-practico-salud-publica-epidemiologia.docx" download>Descargar DOCX</a><button type="button" data-hub-gallery="epiTask">Ampliar</button></div></article></div></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="ia" hidden><header><span>RECURSOS IA</span><h3>Estudiar con la organización de la cátedra</h3></header><div class="ai-resource-grid"><details open><summary>Transcripción reconstruida</summary><p>La sesión avanza desde definiciones de demanda urgente hasta componentes del SIUE, regulación, transporte, organización hospitalaria, triage de cinco niveles y situaciones con múltiples víctimas.</p></details><details><summary>Perfil docente · Andrea Isasi</summary><p>La tendencia observable favorece definiciones operativas, comparaciones, secuencias del sistema y listas de criterios. La exposición agrega evaluación individual.</p><span class="confidence-chip">CONFIANZA ALTA · OBSERVACIÓN REPETIDA</span></details><details><summary>Estilo probable de preguntas</summary><ul><li>Diferenciar urgencia y emergencia.</li><li>Ordenar componentes y funciones.</li><li>Asignar prioridad sin convertir el triage en diagnóstico.</li></ul></details><details class="ai-prompt"><summary>Prompt personalizado</summary><pre>Evalúame sobre la clase de Epidemiología del 19/08/2026. Alterna definiciones, secuencias del SIUE y mini-casos de triage. Después de cada respuesta, distingue prioridad, recurso y destino.</pre></details></div></section>
       </div>
+
+      <div id="epidemiologia-bloque-anterior" class="dated-lesson-panel" data-lesson-panel="epidemiologia-bloque-anterior" data-lesson-title="APS, sectorización y triage" hidden>
 
       <section class="micro-slide-archive epi-material-archive" aria-labelledby="epiMaterialArchiveTitle">
         <header class="micro-slide-archive-heading">
@@ -1167,6 +1266,7 @@
         <div class="study-preview-head"><div><span id="epiPreviewEyebrow">RESUMEN COMPLETO · FECHA POR CONFIRMAR</span><h3 id="epi-preview-title">De la APS al triage en seis bloques</h3></div><span id="epiPreviewDuration">15 min</span></div>
         <div id="epiPreviewBody" class="study-preview-body"></div>
       </article>
+      </div>
     </section>
 
     <section id="microbiologia-teorica" class="content-section subject-section micro-theory-subject" data-view="cursos" aria-labelledby="micro-theory-title" hidden>
@@ -1393,16 +1493,37 @@
     <section id="microbiologia-practica" class="content-section subject-section micro-subject" data-view="cursos" aria-labelledby="micro-title" hidden>
       <div class="subject-heading">
         <div>
-          <p class="section-kicker">Microbiología II · Práctica · personal · Grupo 3</p>
-          <h2 id="micro-title">Cultivo de hongos en agar Sabouraud</h2>
-          <p>La fecha no fue mencionada. Según el horario del Grupo 3, esta clase sería el jueves 13 de agosto. Falta confirmar la fecha.</p>
+          <p class="section-kicker">Microbiología II · Práctica · 20 de agosto</p>
+          <h2 id="micro-title">Diagnóstico práctico de micosis superficiales</h2>
+          <p>Clase del jueves 20 de agosto de 2026: toma de muestra, examen directo, lámpara de Wood, cultivo y morfología.</p>
         </div>
-        <span class="source-pill status-estimated">Clase estimada · 13 ago. · confirmar</span>
+        <span class="source-pill status-confirmed">Clase confirmada · 20 ago.</span>
       </div>
 
-      <div class="class-history class-history-single" aria-label="Clases anteriores de Microbiología práctica">
-        <article class="history-entry history-current"><span>FECHA ESTIMADA</span><div><strong>Hongos y preparación del agar Sabouraud</strong><small>Levaduras, mohos, dimorfismo, estructuras microscópicas y demostración del medio de cultivo.</small></div><span>ACTUAL</span></article>
+      <nav class="class-history lesson-date-picker" aria-label="Clases anteriores de Microbiología práctica">
+        <a class="history-entry history-current" href="#microbiologia-practica-2026-08-20" data-lesson-target="microbiologia-practica-2026-08-20" aria-current="true"><time datetime="2026-08-20">20 AGO 2026</time><div><strong>Micosis superficiales: diagnóstico práctico</strong><small>KOH, lámpara de Wood, azul de lactofenol, cultivo y lectura morfológica.</small></div><span>SELECCIONADA</span></a>
+        <a class="history-entry" href="#microbiologia-practica-anterior" data-lesson-target="microbiologia-practica-anterior" aria-current="false"><span>CLASE ANTERIOR</span><div><strong>Hongos y agar Sabouraud</strong><small>Levaduras, mohos, dimorfismo, estructuras y preparación del medio.</small></div><span>ABRIR CLASE</span></a>
+      </nav>
+
+      <div id="microbiologia-practica-2026-08-20" class="dated-lesson-panel lesson-2026" data-lesson-panel="microbiologia-practica-2026-08-20" data-lesson-title="Diagnóstico práctico de micosis superficiales" style="--lesson-accent:#a78bfa">
+        <section class="lesson-hero-2026"><div><span>MICROBIOLOGÍA PRÁCTICA · 20 AGO. 2026</span><h3>De la lesión a la identificación micológica</h3><p>El diagnóstico práctico integra una muestra bien tomada, examen directo, fluorescencia orientadora, cultivo y descripción macro- y microscópica.</p></div><div class="lesson-hero-facts"><div><small>MÉTODOS</small><strong>KOH · Wood · lactofenol · cultivo</strong></div><div><small>ALCANCE</small><strong>Micosis superficiales y dermatofitos</strong></div><div><small>ENTRENAMIENTO</small><strong>20 QCM · 10 V/F · 10 casos</strong></div></div></section>
+        <nav class="lesson-section-tabs" data-lesson-tabs aria-label="Partes de la práctica de Microbiología del 20 de agosto"><button type="button" data-lesson-tab="curso" aria-selected="true">Curso completo</button><button type="button" data-lesson-tab="rapida" aria-selected="false">Ficha rápida</button><button type="button" data-lesson-tab="ultra" aria-selected="false">Ficha ultra rápida</button><button type="button" data-lesson-tab="training" aria-selected="false">Entrenamiento</button><button type="button" data-lesson-tab="material" aria-selected="false">Material de la clase</button><button type="button" data-lesson-tab="ia" aria-selected="false">Recursos IA</button></nav>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="curso"><header><span>CURSO COMPLETO</span><h3>Un resultado válido empieza antes del microscopio</h3></header><ol class="mini-toc"><li><a href="#micro20-muestra">Muestra</a></li><li><a href="#micro20-koh">KOH</a></li><li><a href="#micro20-wood">Wood</a></li><li><a href="#micro20-cultivo">Cultivo</a></li><li><a href="#micro20-morfologia">Morfología</a></li></ol><div class="concept-grid-2026">
+          <article class="concept-card-2026" id="micro20-muestra"><span>01 · TOMA DE MUESTRA</span><h4>Borde activo, pelo o uña afectados</h4><p>La zona se limpia según el protocolo y se obtiene material representativo con instrumental adecuado. Etiqueta, sitio anatómico y fecha acompañan la muestra.</p></article>
+          <article class="concept-card-2026" id="micro20-koh"><span>02 · EXAMEN DIRECTO</span><h4>KOH aclara la queratina</h4><p>El hidróxido de potasio facilita observar hifas, artroconidios o células levaduriformes. Un examen negativo no descarta por sí solo una micosis.</p></article>
+          <article class="concept-card-2026" id="micro20-wood"><span>03 · LÁMPARA DE WOOD</span><h4>Fluorescencia orientadora</h4><p>Algunas especies y lesiones fluorescen bajo luz ultravioleta; la ausencia de fluorescencia no excluye dermatofitosis.</p></article>
+          <article class="concept-card-2026"><span>04 · AZUL DE LACTOFENOL</span><h4>Montaje de estructuras del cultivo</h4><p>Conserva y colorea elementos fúngicos para estudiar hifas y conidios. Se usa sobre material apropiado, siguiendo bioseguridad.</p></article>
+          <article class="concept-card-2026" id="micro20-cultivo"><span>05 · CULTIVO</span><h4>Sabouraud y condiciones controladas</h4><p>El medio favorece crecimiento fúngico; tiempo, temperatura y aditivos dependen del protocolo. La colonia se observa sin generar aerosoles.</p></article>
+          <article class="concept-card-2026" id="micro20-morfologia"><span>06 · INTEGRACIÓN</span><h4>Macro + micro + clínica</h4><p>Color anverso y reverso, textura, velocidad, hifas y tipos de conidios orientan el género. Ningún rasgo aislado identifica de forma segura.</p></article>
+        </div><div class="quick-sheet"><article><span>PITIRIASIS VERSICOLOR</span><strong>Levaduras + hifas cortas</strong><small>Examen directo orienta a <i>Malassezia</i>.</small></article><article><span>TIÑA</span><strong>Hifas septadas / artroconidios</strong><small>El sitio anatómico guía el muestreo.</small></article><article><span>PIEDRA</span><strong>Nódulos sobre el pelo</strong><small>Blanca o negra según el agente y aspecto.</small></article></div><aside class="lab-safety-card"><div><span>BIOSEGURIDAD</span><h3>La preparación se realiza bajo supervisión</h3></div><ul><li>No oler cultivos ni abrir placas fuera de la práctica.</li><li>Usar bata, guantes y protección indicada.</li><li>Desinfectar el área y eliminar residuos según protocolo.</li><li>La conversación privada sobre vivienda fue excluida del material público.</li></ul></aside><p class="lesson-source-note"><b>Base exacta:</b> transcripción académica reconstruida de la práctica del 20/08. Se eliminó la conversación ajena al contenido docente.</p></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="rapida" hidden><header><span>FICHA RÁPIDA · 5 MIN</span><h3>La secuencia del laboratorio</h3></header><div class="quick-sheet"><article><span>1</span><strong>Muestra representativa</strong><small>Borde activo, pelo o uña según lesión.</small></article><article><span>2</span><strong>KOH</strong><small>Aclara queratina para examen directo.</small></article><article><span>3</span><strong>Wood</strong><small>Orienta en especies que fluorescen.</small></article><article><span>4</span><strong>Cultivo</strong><small>Aísla y permite observar la colonia.</small></article><article><span>5</span><strong>Lactofenol</strong><small>Muestra estructuras microscópicas.</small></article><article><span>6</span><strong>Integrar</strong><small>Clínica, macro y micro juntas.</small></article></div></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="ultra" hidden><header><span>FICHA ULTRA RÁPIDA · 90 S</span><h3>Cinco límites importantes</h3></header><ol class="ultra-sheet"><li>KOH negativo no descarta la infección.</li><li>Wood negativa no descarta una tiña.</li><li>La colonia sola no confirma la especie.</li><li>Lactofenol describe estructuras del material adecuado.</li><li>La bioseguridad continúa durante lectura y descarte.</li></ol></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="training" hidden><header><span>ENTRENAMIENTO</span><h3>40 preguntas de método e interpretación</h3></header><div data-practice-slot="microbiologia-practica-2026-08-20"></div></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="material" hidden><header><span>MATERIAL DE LA CLASE</span><h3>Ficha operativa reconstruida</h3></header><div class="lesson-materials"><article class="lesson-file-card"><div><span>PROTOCOLO DE ESTUDIO</span><strong>Muestra → directo → cultivo → identificación</strong><small>La cátedra no entregó un archivo independiente para esta sesión. La ficha pública conserva únicamente el contenido académico útil y verificable.</small><button type="button" data-print-lesson>Imprimir ficha</button></div></article></div></section>
+        <section class="lesson-tab-panel" data-lesson-tab-panel="ia" hidden><header><span>RECURSOS IA</span><h3>Contexto limpio de la práctica</h3></header><div class="ai-resource-grid"><details open><summary>Transcripción reconstruida</summary><p>La práctica enlaza la selección de muestra con KOH, lámpara de Wood, montaje con azul de lactofenol, cultivo y lectura de la morfología. Se conservó solo el diálogo docente.</p></details><details><summary>Perfil docente · Ruth Castillo</summary><p>La tendencia observable insiste en técnica, orden del procedimiento, reconocimiento de estructuras y bioseguridad.</p><span class="confidence-chip">CONFIANZA MEDIA · OBSERVACIÓN</span></details><details><summary>Estilo probable de preguntas</summary><ul><li>Elegir la muestra y el sitio correctos.</li><li>Interpretar un directo o una fluorescencia.</li><li>Relacionar colonia con estructura microscópica.</li></ul></details><details class="ai-prompt"><summary>Prompt personalizado</summary><pre>Simula una estación de laboratorio basada solo en la práctica del 20/08/2026. Dame un hallazgo por vez y pregúntame el siguiente paso, su objetivo y una precaución de bioseguridad.</pre></details></div></section>
       </div>
+
+      <div id="microbiologia-practica-anterior" class="dated-lesson-panel" data-lesson-panel="microbiologia-practica-anterior" data-lesson-title="Hongos y preparación del agar Sabouraud" hidden>
 
       <button class="course-detail-toggle" type="button" data-detail-toggle aria-controls="micro-detail" aria-expanded="false"><span>CLASE COMPLETA</span><strong>Abrir la clase completa</strong><small>Muestra, morfología, agar Sabouraud y bioseguridad.</small><b aria-hidden="true">+</b></button>
 
@@ -1495,6 +1616,7 @@
         <div class="study-preview-head"><div><span id="microPreviewEyebrow">RESUMEN DE LA PRÁCTICA · GRUPO 3</span><h3 id="micro-preview-title">Del alimento al reconocimiento microscópico</h3></div><span id="microPreviewDuration">12 min</span></div>
         <div id="microPreviewBody" class="study-preview-body"></div>
       </article>
+      </div>
     </section>
 
     <section id="plan-estudio" class="content-section plan-section" data-view="plan" aria-labelledby="plan-title" hidden>
@@ -1561,6 +1683,8 @@
 
   <footer class="class-footer">
     <div><strong>Med Nykuto</strong><span>Apoyo académico no oficial · 4.º E</span></div>
+    <a href="archivos.html">Archivos</a>
+    <a href="profesores.html">Perfiles docentes</a>
     <a href="mentions.html">Aviso legal</a>
   </footer>
 
@@ -1868,9 +1992,11 @@
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
   <script src="grupo-3-practice-grounded-v426.js?v=431"></script>
   <script src="grupo-3-practice-2026-08-17-v432.js?v=432"></script>
+  <script src="grupo-3-practice-2026-08-21-v440.js?v=440"></script>
   <script src="class-practice-ranking-v431.js?v=431"></script>
   <script src="grupo-3-v401.js?v=440"></script>
   <script src="class-session-archive-v432.js?v=432"></script>
   <script src="medical-glossary-v425.js?v=432"></script>
+  <script src="class-hub-runtime-v440.js?v=440"></script>
 </body>
 </html>

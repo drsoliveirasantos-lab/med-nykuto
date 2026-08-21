@@ -48,6 +48,8 @@ jobs:
         run: node scripts/validate-class-practice-bank.js
       - name: Validate class hub language and schedule
         run: node scripts/validate-class-hub-language.js
+      - name: Validate 21 August handoff deliverables
+        run: node scripts/validate-2026-08-21-handoff.js
       - name: Ensure protected bank files were not changed accidentally
         run: node scripts/protected-data-guard.js
       - name: Validate SEO, sitemap and visible branding

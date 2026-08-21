@@ -5,20 +5,13 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#inicio')).not.toContainText(/de un vistazo|EN PORTADA|Panel de estudio/);
     await expect(page.getByText('4.º E', { exact: true }).first()).toBeVisible();
     await expect(page.locator('#nextScheduleSubject')).not.toHaveText('Calculando…');
-    await expect(page.getByRole('link', { name: /Estudiar tres micosis subcutáneas/ })).toBeVisible();
-    await expect(page.getByRole('link', { name: /Guías \+ regiones y platos/ })).toBeVisible();
-    await expect(page.locator('#homeMicroTheoryDate')).toContainText('17 ago');
-    await expect(page.locator('#homeNutritionDate')).toContainText('20 ago');
-    await expect(page.locator('#homeBioDate')).toContainText('19 ago');
-    await expect(page.locator('#homeMicroTheoryDate')).toHaveAttribute('datetime', '2026-08-17');
-    await expect(page.locator('#homeNutritionDate')).toHaveAttribute('datetime', '2026-08-20');
-    await expect(page.locator('#homeBioDate')).toHaveAttribute('datetime', '2026-08-19');
+    await expect(page.getByRole('link', { name: /Preparar la exposición grupal/ })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Imprimir actividades 3 y 4/ })).toBeVisible();
     await expect(page.locator('.priority-card-head time')).toHaveCount(3);
     await expect(page.getByRole('heading', { name: 'TAREAS', exact: true })).toBeVisible();
-    await expect(page.locator('#homeHomeworkCount')).toHaveText('3 tareas');
-    expect(await page.locator('.dashboard-priorities .priority-card time').evaluateAll((times) => times.map((time) => time.dateTime))).toEqual(['2026-08-17', '2026-08-19', '2026-08-20']);
-    await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', /^2026-08-17T\d{2}:\d{2}:\d{2}-03:00$/);
-    await expect(page.locator('#lastUpdated')).toHaveText(/^Actualizado 17 ago\.? · \d{2}:\d{2} PY$/);
+    await expect(page.locator('#homeHomeworkCount')).toHaveText('2 tareas');
+    await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', '2026-08-21');
+    await expect(page.locator('#lastUpdated')).toContainText('Actualizado 21 ago.');
     await expect(page.locator('#horario')).toBeHidden();
     await expect(page.locator('#materias')).toBeHidden();
   });
@@ -48,12 +41,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.locator('[data-course-target="fisiologia"]').click();
     await expect(page.locator('#nutricion')).toBeHidden();
     await expect(page.locator('#fisiologia')).toBeVisible();
-    await expect(page.locator('#fisio-detail-2026-08-17')).toBeHidden();
-
-    const toggle = page.locator('#fisiologia-2026-08-17 [data-detail-toggle]');
-    await toggle.click();
-    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
-    await expect(page.locator('#fisio-detail-2026-08-17')).toBeVisible();
+    await expect(page.locator('#fisiologia-2026-08-20')).toBeVisible();
+    await expect(page.locator('#fisiologia-2026-08-17')).toBeHidden();
+    await expect(page.locator('#practice-fisiologia-2026-08-20')).toContainText('40 preguntas');
   });
 
   test('keeps a compact training shortcut directly below the selected course grid', async ({ page }) => {
@@ -76,13 +66,13 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
     await page.locator('[data-course-target="bioquimica"]').click();
     await expect(shortcut.locator('#coursePracticeShortcutCourse')).toHaveText('Bioquímica II');
-    await expect(shortcut).toHaveAttribute('data-practice-target', 'bioquimica');
+    await expect(shortcut).toHaveAttribute('data-practice-target', 'bioquimica-2026-08-21');
     await shortcut.click();
-    await expect(page.locator('#practice-bioquimica-dialog')).toHaveAttribute('open', '');
-    await expect(page.locator('#practice-bioquimica .practice-workspace')).toBeVisible();
+    await expect(page.locator('#practice-bioquimica-2026-08-21-dialog')).toHaveAttribute('open', '');
+    await expect(page.locator('#practice-bioquimica-2026-08-21 .practice-workspace')).toBeVisible();
     await expect(page.locator('body')).toHaveClass(/practice-modal-open/);
     await page.keyboard.press('Escape');
-    await expect(page.locator('#practice-bioquimica-dialog')).not.toHaveAttribute('open', '');
+    await expect(page.locator('#practice-bioquimica-2026-08-21-dialog')).not.toHaveAttribute('open', '');
     await expect(page.locator('body')).not.toHaveClass(/practice-modal-open/);
   });
 

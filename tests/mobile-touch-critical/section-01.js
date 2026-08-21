@@ -79,7 +79,8 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(initial.overflow).toBeLessThanOrEqual(1);
 
     await page.locator('[data-study-subject="fisiologia"]').click();
-    await expect(page.locator('#studyTopicPicker .study-topic-option')).toHaveCount(3);
+    await expect(page.locator('#studyTopicPicker .study-topic-option')).toHaveCount(4);
+    await expect(page.locator('[data-study-topic="fisiologia-2026-08-20"]')).toBeVisible();
     await expect(page.locator('[data-study-topic="fisiologia-2026-08-17"]')).toBeVisible();
     await page.locator('[data-study-topic="fisiologia-2026-08-10"]').click();
     await expect(page.locator('#studyPracticeHost #practice-fisiologia-2026-08-10')).toBeVisible();

@@ -10,3 +10,10 @@
 
 /*.css
   Cache-Control: no-cache, max-age=0, must-revalidate
+
+/service-worker.js
+  Cache-Control: no-cache, max-age=0, must-revalidate
+  Service-Worker-Allowed: /
+
+/manifest.webmanifest
+  Cache-Control: no-cache, max-age=0, must-revalidate

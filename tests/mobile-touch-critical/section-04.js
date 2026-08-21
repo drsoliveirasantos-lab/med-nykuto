@@ -82,7 +82,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
 
   test('glycolysis board archive stays inside an iPhone viewport', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/clase.html#bioquimica', { waitUntil: 'domcontentloaded' });
+    await page.goto('/clase.html#bioquimica-2026-08-14', { waitUntil: 'domcontentloaded' });
     const launch = page.locator('#bioquimica .board-archive-launch');
     await expect(launch).toBeVisible();
     await launch.getByRole('button', { name: /Ver las 7 láminas/ }).click();

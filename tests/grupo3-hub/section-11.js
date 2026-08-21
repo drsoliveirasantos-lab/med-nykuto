@@ -115,4 +115,57 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('.agenda-day')).toHaveCount(4);
     await expect(page.locator('#weeklyAgenda .schedule-task-badge')).toHaveCount(5);
   });
+
+  test('publishes the five dated lessons with isolated forty-question training', async ({ page }) => {
+    const lessons = [
+      ['bioquimica-2026-08-19', 'Glucólisis, piruvato y complejo PDH'],
+      ['epidemiologia-2026-08-19', 'Organización de urgencias y emergencias'],
+      ['fisiologia-2026-08-20', 'Ejercicios integradores del sistema nervioso'],
+      ['microbiologia-practica-2026-08-20', 'Diagnóstico práctico de micosis superficiales'],
+      ['bioquimica-2026-08-21', 'Cetoacidosis diabética']
+    ];
+    for (const [id, title] of lessons) {
+      await page.goto('/clase.html#' + id);
+      await expect(page.locator('#' + id)).toBeVisible();
+      await expect(page.locator('#' + id + ' [data-lesson-tabs] button')).toHaveCount(6);
+      await expect(page.locator('#practice-' + id)).toContainText('40 preguntas');
+      await expect(page.locator('#' + id)).toContainText(title.split(':')[0]);
+    }
+  });
+
+  test('opens course files and progress through the four-part workspace', async ({ page }) => {
+    await page.goto('/clase.html#bioquimica-2026-08-21');
+    const workspace = page.locator('#bioquimica .course-workspace');
+    await expect(workspace.getByRole('button')).toHaveCount(4);
+    await workspace.getByRole('button', { name: 'Archivos' }).click();
+    await expect(page.locator('#bioquimica .workspace-file-row')).not.toHaveCount(0);
+    await workspace.getByRole('button', { name: 'Progreso' }).click();
+    const first = page.locator('#bioquimica .workspace-progress-row input').first();
+    await first.check();
+    await expect(page.locator('#bioquimica .workspace-progress-summary')).toContainText('1 de');
+    await workspace.getByRole('button', { name: 'Cuaderno' }).click();
+    await expect(page.locator('#bioquimica-2026-08-21')).toBeVisible();
+  });
+
+  test('keeps the new lesson shell inside 320 to 430 pixel viewports', async ({ page }) => {
+    for (const width of [320, 375, 390, 430]) {
+      await page.setViewportSize({ width, height: 844 });
+      await page.goto('/clase.html#fisiologia-2026-08-20');
+      const dimensions = await page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth }));
+      expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
+      await expect(page.locator('#fisiologia-2026-08-20 [data-lesson-tabs] button').first()).toHaveCSS('min-height', /4[24]px/);
+    }
+  });
+
+  test('exposes management, teacher profiles and install metadata without student accounts', async ({ page }) => {
+    await page.goto('/gestion.html');
+    await expect(page.getByRole('heading', { name: 'Med Nykuto Gestión' })).toBeVisible();
+    await expect(page.locator('#authCard')).toContainText('No se guarda de forma permanente');
+    await page.goto('/profesores.html');
+    await expect(page.locator('.teacher-card')).toHaveCount(4);
+    await expect(page.locator('[data-state="observed"]').first()).toBeVisible();
+    await page.goto('/clase.html');
+    await expect(page.locator('link[rel="manifest"]')).toHaveAttribute('href', 'manifest.webmanifest');
+    await expect(page.locator('#noticeBell')).toBeVisible();
+  });
 };

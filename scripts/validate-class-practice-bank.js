@@ -14,7 +14,12 @@ const expectedCourses = [
 ];
 const datedCourses = [
   'fisiologia-2026-08-17',
-  'microbiologia-teorica-2026-08-17'
+  'microbiologia-teorica-2026-08-17',
+  'bioquimica-2026-08-19',
+  'epidemiologia-2026-08-19',
+  'fisiologia-2026-08-20',
+  'microbiologia-practica-2026-08-20',
+  'bioquimica-2026-08-21'
 ];
 const allExpectedCourses = expectedCourses.concat(datedCourses);
 const types = ['qcm', 'vf', 'cases'];
@@ -107,6 +112,7 @@ require(path.join(root, 'grupo-3-practice-v413.js'));
 require(path.join(root, 'grupo-3-practice-expansion-v420.js'));
 require(path.join(root, 'grupo-3-practice-grounded-v426.js'));
 require(path.join(root, 'grupo-3-practice-2026-08-17-v432.js'));
+require(path.join(root, 'grupo-3-practice-2026-08-21-v440.js'));
 const practice = global.window.MedNykutoClassPractice;
 const banks = practice && practice.banks;
 
@@ -119,7 +125,7 @@ if (!banks || typeof banks !== 'object') {
   expect(practice.groundingPolicy === POLICY, `Expected global grounding policy ${POLICY}.`);
   expect(
     JSON.stringify(Object.keys(banks).sort()) === JSON.stringify(allExpectedCourses.slice().sort()),
-    'The active challenge does not expose exactly the nine expected class topics.'
+    `The active challenge does not expose exactly the ${allExpectedCourses.length} expected class topics.`
   );
 
   expectedCourses.forEach((courseId) => {
@@ -386,7 +392,7 @@ if (errors.length) {
 
 console.log(
   `Class practice bank validation OK: ${allExpectedCourses.length} courses, ${totalQuestions} course-only questions, ` +
-  `70 exact evidence items plus 80 questions anchored to the two dated lessons, answer positions ${answerPositions.join('/')}, ` +
+  `70 exact evidence items plus ${datedCourses.length * 40} questions anchored to ${datedCourses.length} dated lessons, answer positions ${answerPositions.join('/')}, ` +
   `${Math.round((strictlyLongestCorrect / objectiveQuestions) * 100)}% uniquely-longest correct options, ` +
   `0 adjacent evidence repeats, 0 generic stems, 0 repeated cross-format answer sets and 0 absolute-word distractor cues.`
 );

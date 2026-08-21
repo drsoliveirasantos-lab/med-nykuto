@@ -90,7 +90,7 @@ The Fisiología II class from 2026-08-17 keeps the teacher PDF unchanged at:
 assets/class-hub/physiology/2026-08-17/organizacion-sinapsis-receptores.pdf
 ```
 
-The adjacent `slides/` directory contains the 35 PDF pages rendered in their original order. The `board/` directory contains the supplied board photograph and one clean computer reconstruction that preserves the teacher's spatial organization, arrows and teaching sequence. The linked PhET neuron simulator is a class resource, but the lesson text and training bank are grounded only in the teacher PDF, board and supplied class transcription.
+The adjacent `slides/` directory contains the 35 PDF pages rendered in their original order. The `board/` directory publishes only the clean computer reconstruction that preserves the teacher's spatial organization, arrows and teaching sequence; the raw board photograph is intentionally excluded from the public runtime. The linked PhET neuron simulator is a class resource, but the lesson text and training bank are grounded only in the teacher PDF, reconstructed board and supplied class transcription.
 
 The Microbiología II · Teórica class from 2026-08-17 uses eight supplied photographs of the two clinical cases. Their ordered, cropped quick-view copies live at:
 
@@ -99,6 +99,25 @@ assets/class-hub/microbiology-theory/2026-08-17/cases/
 ```
 
 The first case is pityriasis versicolor associated with `Malassezia spp.`; the second is tinea corporis associated with `Microsporum canis`. The same class transcription is the source for the comparison by depth and the three subcutaneous mycoses. Training questions for this date must not introduce facts absent from these teacher materials.
+
+The 19–21 August 2026 handoff adds five dated lessons. Original teacher documents remain byte-for-byte unchanged at:
+
+```txt
+assets/class-hub/epidemiology/2026-08-19/organizacion-urgencias-emergencias.pptx
+assets/class-hub/epidemiology/2026-08-19/trabajo-practico-salud-publica-epidemiologia.docx
+assets/class-hub/physiology/2026-08-20/ejercicios-fijacion-sistema-nervioso.pdf
+assets/class-hub/biochemistry/2026-08-21/actividades-3-y-4-bioquimica-ii.docx
+```
+
+The Epidemiology `slides/` directory preserves all 57 PowerPoint pages in order. The Physiology `pages/` directory preserves all 13 PDF pages in order. The two `task-pages/` directories are quick-view renders of the received DOCX assignments.
+
+The dated Biochemistry `board/` directories publish two clean SVG reconstructions for 19 August and three for 21 August. These diagrams are grounded in the supplied board material and reconstructed transcription; raw board photographs and private-message captures are not published. The Microbiology practical lesson uses the public laboratory transcription only and excludes the unrelated private conversation. No new Nutrition lesson is inferred from this handoff.
+
+Each of the five lessons owns an isolated 40-question bank (20 QCM, 10 true/false and 10 clinical/application cases) in:
+
+```txt
+grupo-3-practice-2026-08-21-v440.js
+```
 
 ## Validation
 

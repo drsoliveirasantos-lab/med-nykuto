@@ -64,7 +64,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   });
 
   test('opens all three teacher documents inside the Epidemiology archive', async ({ page }) => {
-    await page.goto('/clase.html#epidemiologia');
+    await page.goto('/clase.html#epidemiologia-bloque-anterior');
     await expect(page.locator('.epi-material-archive [data-epi-archive-open]')).toHaveCount(3);
     const firstLauncher = page.locator('.epi-material-archive [data-epi-archive-open="aps"]');
     await firstLauncher.click();

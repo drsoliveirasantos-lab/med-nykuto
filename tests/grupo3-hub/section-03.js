@@ -45,7 +45,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   });
 
   test('opens the reconstructed glycolysis board archive in its teaching order', async ({ page }) => {
-    await page.goto('/clase.html#bioquimica');
+    await page.goto('/clase.html#bioquimica-2026-08-14');
     const openArchive = page.getByRole('button', { name: /Ver las 7 láminas/ });
     await expect(openArchive).toBeVisible();
     await openArchive.click();

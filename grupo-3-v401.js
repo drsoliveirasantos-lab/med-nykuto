@@ -840,6 +840,7 @@
 
   function renderHomePreparation(nodeId,preparation){
     var node = document.getElementById(nodeId);
+    if(!node) return;
     node.dateTime = preparation.date;
     node.textContent = formatHomePreparation(preparation);
   }
@@ -861,7 +862,7 @@
       list.appendChild(card);
     });
     var count = document.getElementById('homeHomeworkCount');
-    if(count) count.textContent = tr('homeworkCount',{count:cards.length});
+    if(count) count.textContent = tr('homeworkCount',{count:list.querySelectorAll('[data-homework]').length || cards.length});
   }
 
   function readLabGroup(){
@@ -1668,10 +1669,20 @@
   var courseIds = ['nutricion','fisiologia','bioquimica','epidemiologia','microbiologia-teorica','microbiologia-practica'];
   var activeCourseId = 'nutricion';
   var activeLessonByCourse = {
-    fisiologia:'fisiologia-2026-08-17',
-    'microbiologia-teorica':'microbiologia-teorica-2026-08-17'
+    fisiologia:'fisiologia-2026-08-20',
+    bioquimica:'bioquimica-2026-08-21',
+    epidemiologia:'epidemiologia-2026-08-19',
+    'microbiologia-teorica':'microbiologia-teorica-2026-08-17',
+    'microbiologia-practica':'microbiologia-practica-2026-08-20'
   };
   var datedLessonMeta = {
+    'fisiologia-2026-08-20':{
+      title:'Ejercicios integradores del sistema nervioso',
+      kicker:'Fisiología II · clase del 20 de agosto',
+      description:'Clase del jueves 20 de agosto de 2026: potencial de acción, sinapsis, receptores, transducción y aplicaciones clínicas.',
+      status:'Clase confirmada · 20 ago.',
+      statusClass:'status-confirmed'
+    },
     'fisiologia-2026-08-17':{
       title:'Organización, sinapsis y receptores',
       kicker:'Fisiología II · clase del 17 de agosto',
@@ -1693,6 +1704,41 @@
       status:'Fecha estimada · 10 ago. · confirmar',
       statusClass:'status-estimated'
     },
+    'bioquimica-2026-08-21':{
+      title:'Cetoacidosis diabética: mecanismo y corrección',
+      kicker:'Bioquímica II · clase del 21 de agosto',
+      description:'Clase del viernes 21 de agosto de 2026 reconstruida a partir de la transcripción y de tres pizarras.',
+      status:'Clase confirmada · 21 ago.',
+      statusClass:'status-confirmed'
+    },
+    'bioquimica-2026-08-19':{
+      title:'Glucólisis, piruvato y complejo PDH',
+      kicker:'Bioquímica II · clase del 19 de agosto',
+      description:'Clase del miércoles 19 de agosto de 2026: regulación glucolítica, destinos del piruvato, complejo PDH y cofactores.',
+      status:'Clase confirmada · 19 ago.',
+      statusClass:'status-confirmed'
+    },
+    'bioquimica-2026-08-14':{
+      title:'Glucólisis: vía común y balance energético',
+      kicker:'Bioquímica II · clase del 14 de agosto',
+      description:'Clase del viernes 14 de agosto de 2026: fases, reacciones, balance energético y regulación de la glucólisis.',
+      status:'Clase confirmada · 14 ago.',
+      statusClass:'status-confirmed'
+    },
+    'epidemiologia-2026-08-19':{
+      title:'Organización de urgencias y emergencias',
+      kicker:'Epidemiología y Salud Pública · clase del 19 de agosto',
+      description:'Clase del miércoles 19 de agosto de 2026 basada en las 57 diapositivas entregadas por la cátedra.',
+      status:'Clase confirmada · 19 ago.',
+      statusClass:'status-confirmed'
+    },
+    'epidemiologia-bloque-anterior':{
+      title:'APS, sectorización y triage',
+      kicker:'Epidemiología y Salud Pública · bloque anterior',
+      description:'Atención Primaria de la Salud, modelo integral, sectorización, signos vitales y prioridad asistencial.',
+      status:'Bloque anterior · fecha por confirmar',
+      statusClass:'status-check'
+    },
     'microbiologia-teorica-2026-08-17':{
       title:'Micosis por profundidad y casos clínicos',
       kicker:'Microbiología II · Teórica · clase del 17 de agosto',
@@ -1705,6 +1751,20 @@
       kicker:'Microbiología II · Teórica · clase estimada del 10 de agosto',
       description:'Clase estimada del lunes 10 de agosto de 2026: clasificación, transmisión, localización, diagnóstico y tratamiento de dermatofitosis.',
       status:'Clase estimada · 10 ago. · confirmar',
+      statusClass:'status-estimated'
+    },
+    'microbiologia-practica-2026-08-20':{
+      title:'Diagnóstico práctico de micosis superficiales',
+      kicker:'Microbiología II · Práctica · 20 de agosto',
+      description:'Clase del jueves 20 de agosto de 2026: toma de muestra, examen directo, lámpara de Wood, cultivo y morfología.',
+      status:'Clase confirmada · 20 ago.',
+      statusClass:'status-confirmed'
+    },
+    'microbiologia-practica-anterior':{
+      title:'Cultivo de hongos en agar Sabouraud',
+      kicker:'Microbiología II · Práctica · clase anterior',
+      description:'Levaduras, mohos, dimorfismo, estructuras microscópicas y preparación del medio de cultivo.',
+      status:'Clase anterior · fecha por confirmar',
       statusClass:'status-estimated'
     }
   };

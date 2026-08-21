@@ -27,8 +27,8 @@ expect(html.includes('<option value="br">PT-BR · Português</option>'), 'The Br
 [
   'Tu semana',
   'PARA ESTA SEMANA',
-  '3 tareas',
-  'Ordenadas por fecha.',
+  '2 tareas activas',
+  'Epidemiología + Bioquímica.',
   'Ver todas las tareas',
   'TAREAS ACTUALES',
   'TAREAS ANTERIORES',
