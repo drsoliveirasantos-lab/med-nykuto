@@ -1,10 +1,10 @@
-const CACHE = 'med-nykuto-class-v443';
+const CACHE = 'med-nykuto-class-v444';
 const SHELL = [
   '/clase.html',
   '/comunidade.html',
   '/grupo-3-v401.css?v=443',
   '/class-courses-2026-08-17-v432.css?v=432',
-  '/class-hub-2026-08-21-v440.css?v=443',
+  '/class-hub-2026-08-21-v440.css?v=444',
   '/grupo-3-i18n-v421.js?v=442',
   '/grupo-3-practice-v413.js?v=441',
   '/grupo-3-practice-expansion-v420.js?v=422',
