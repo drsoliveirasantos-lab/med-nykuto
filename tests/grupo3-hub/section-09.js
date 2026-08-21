@@ -74,7 +74,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   });
 
   test('keeps the previous Epidemiology block organized around APS and triage', async ({ page }) => {
-    await page.goto('/clase.html#epidemiologia-bloque-anterior');
+    await page.goto('/clase.html#epi-detail');
     await expect(page.getByRole('heading', { name: 'APS, sectorización y triage', exact: true })).toBeVisible();
     await expect(page.getByText('APS y modelo de atención integral', { exact: true })).toBeVisible();
     await expect(page.locator('#epidemiologia .transcription-rule-note').getByText('Cómo se separaron las clases:')).toBeVisible();

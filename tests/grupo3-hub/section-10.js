@@ -1,6 +1,6 @@
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('turns the Group 3 practical transcript into a safe fungal culture guide', async ({ page }) => {
-    await page.goto('/clase.html#microbiologia-practica-anterior');
+    await page.goto('/clase.html#micro-detail');
     await expect(page.getByRole('heading', { name: 'Cultivo de hongos en agar Sabouraud' })).toBeVisible();
     await expect(page.locator('#microbiologia-practica .subject-heading .source-pill')).toHaveText('Clase anterior · fecha por confirmar');
     await expect(page.getByRole('heading', { name: 'Lleva una muestra sólida con moho' })).toBeVisible();
