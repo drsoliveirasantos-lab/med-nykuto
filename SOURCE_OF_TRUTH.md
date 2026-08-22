@@ -100,3 +100,19 @@ If a historical file must be kept, place it under `docs/archive/` and mark it cl
 3. Run validation.
 4. Open a small PR.
 5. Merge only after checks are green.
+
+## 4.º E notebook and teacher-audit model
+
+The dated classroom notebook is driven by:
+
+```txt
+academic-model-v445.js
+class-notebook-v445.js
+teacher-question-profile-v445.js
+```
+
+`academic-model-v445.js` is the authoritative mapping for the six 4.º E subjects, fourteen dated lessons, chapter status and six cumulative teacher profiles. A new lesson must extend the relevant evidence timeline; it must not overwrite prior evidence or invent a class date. Each practice bank remains isolated by lesson and is annotated at runtime with the matching teacher profile and reasoning angle.
+
+The Nutrition seminar on 20 August 2026 was a completed presentation, not a new theory lesson. The only current Nutrition notebook lesson is the 13 August session until a later theory class is documented.
+
+The shared Google Drive entry belongs on Home only. `Materias` must not duplicate it.
