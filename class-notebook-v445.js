@@ -543,7 +543,8 @@
     Object.keys(model.subjects).forEach(initSubject);
     window.addEventListener('hashchange', handleHash);
     document.documentElement.classList.add('academic-notebook-ready');
-    revealDeepTarget();
+    if (window.location.hash) window.dispatchEvent(new Event('hashchange'));
+    else revealDeepTarget();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
