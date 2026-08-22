@@ -1,29 +1,13 @@
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
-  test('labels inferred preparation dates instead of presenting them as confirmed homework', async ({ page }) => {
+  test('shows only published active tasks and removes completed static homework', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
-    await expect(page.getByRole('heading', { name: 'Tareas de la clase' })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Llevar una muestra de alimento con moho' })).toBeVisible();
-    await expect(page.locator('#microEstimatedDate')).toContainText('20 ago.');
-    await expect(page.locator('#microEstimatedDate')).toContainText('18:00–20:00');
-    await expect(page.locator('#microEstimatedDate')).toContainText('por confirmar');
-    await expect(page.locator('#bioEstimatedDate')).toContainText('19 ago.');
-    await expect(page.locator('#bioEstimatedDate')).toContainText('por confirmar');
-    await expect(page.locator('#epiEstimatedDate')).toContainText('19 ago.');
-    await expect(page.locator('#epiEstimatedDate')).toContainText('11:20–13:20');
-    await expect(page.locator('#epiEstimatedDate')).toContainText('por confirmar');
-    await expect(page.locator('#nutritionEstimatedDate')).toContainText('20 ago.');
-    await expect(page.locator('#nutritionEstimatedDate')).toContainText('07:00–09:40');
-    await expect(page.locator('#nutritionEstimatedDate')).toContainText('por confirmar');
-    await expect(page.locator('#nutritionPrepCard .assignment-status')).toHaveText('Confirmada');
-    await expect(page.getByLabel('Semana 3, del 17 al 23 de agosto de 2026')).toBeVisible();
-    await expect(page.locator('#nutritionPrepCard time')).toHaveCount(2);
-    await expect(page.locator('#nutritionPrepCard time').first()).toHaveAttribute('datetime', '2026-08-17');
-    await expect(page.locator('#nutritionPrepCard time').last()).toHaveAttribute('datetime', '2026-08-23');
-    await expect(page.locator('#bioPrepCard .assignment-status')).toHaveText('Estimada');
-    await expect(page.getByText('Comprueba siempre los avisos oficiales de la facultad.')).toBeHidden();
-    await page.getByText('¿De dónde sale esta fecha?').click();
-    await expect(page.getByText('Comprueba siempre los avisos oficiales de la facultad.')).toBeVisible();
-    await expect(page.getByText('Si no dio una fecha, usamos el horario habitual de la materia.')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Tareas activas' })).toBeVisible();
+    const active = page.locator('#classHubLiveTasks .live-task');
+    await expect(active).toHaveCount(2);
+    await expect(active).toContainText(['Exposición grupal de enfermedad sorteada', 'Actividades 3 y 4 impresas y manuscritas']);
+    await expect(page.locator('.pending-grid')).toBeHidden();
+    await expect(page.locator('.assignment-archive')).toBeHidden();
+    await expect(page.locator('#nutritionPrepCard')).toBeHidden();
   });
 
   test('organizes the 14 August glycolysis lesson with corrected study points', async ({ page }) => {
