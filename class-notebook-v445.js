@@ -524,12 +524,24 @@
     if (target.closest('.practice-module')) tab = 'training';
     var tabButton = lessonPanel.querySelector('[data-lesson-tab="' + tab + '"]');
     if (tabButton) tabButton.click();
+    var legacyDetail = target.matches('[data-course-detail]') ? target : target.closest('[data-course-detail]');
+    if (legacyDetail) {
+      legacyDetail.hidden = false;
+      var legacyToggle = lessonPanel.querySelector('[data-detail-toggle][aria-controls="' + legacyDetail.id + '"]');
+      if (legacyToggle) legacyToggle.setAttribute('aria-expanded', 'true');
+    }
     window.history.replaceState(null, '', '#' + hashId);
+    window.requestAnimationFrame(function () { target.scrollIntoView({ block: 'start', inline: 'nearest' }); });
+  }
+
+  function handleHash() {
+    syncHash();
+    revealDeepTarget();
   }
 
   function init() {
     Object.keys(model.subjects).forEach(initSubject);
-    window.addEventListener('hashchange', syncHash);
+    window.addEventListener('hashchange', handleHash);
     document.documentElement.classList.add('academic-notebook-ready');
     revealDeepTarget();
   }
