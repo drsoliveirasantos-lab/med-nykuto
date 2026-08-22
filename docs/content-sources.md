@@ -111,6 +111,14 @@ assets/class-hub/biochemistry/2026-08-21/actividades-3-y-4-bioquimica-ii.docx
 
 The Epidemiology `slides/` directory preserves all 57 PowerPoint pages in order. The Physiology `pages/` directory preserves all 13 PDF pages in order. The two `task-pages/` directories are quick-view renders of the received DOCX assignments.
 
+The Epidemiology project also keeps the teacher's follow-up clarification unchanged at:
+
+```txt
+assets/class-hub/epidemiology/2026-08-19/teacher-guidance/0746E8D5-EFF3-46DF-99C4-CD3D83376F7A.jpeg
+```
+
+It confirms that every group member speaks, the deck has at most 15 slides, no separate written report is required, and one shared notebook/file is recommended to avoid compatibility problems. The image is displayed as an original teacher message and must not be redesigned or silently replaced.
+
 The three SVGs in `assets/class-hub/biochemistry/2026-08-21/board/` are semantic vector reconstructions of the three board photographs supplied again on 22 August. Each hand-drawn object is first identified from the photographed board and the class chain (cell, adipocytes, skeletal muscle, liver, hepatocyte, mitochondrion, vessel, lungs, cerebral cell, normal brain and edematous brain), then redrawn clearly without changing the teacher's relative positions, arrow directions, causal connections, functional colors or teaching sequence. They must remain recognizable as the teacher's boards: do not reorganize them into editorial cards or generic infographics. The raw photographs are internal comparison sources and are not published.
 
 Runtime visuals that do not have a directly comparable teacher-board photograph are explicitly presented as `ESQUEMA EXPLICATIVO DEL CURSO`, never as a reconstructed pizarra. This provenance distinction applies to every dated lesson: a contextual diagram can clarify the verified lesson text, but must not imitate or claim the professor's authorship.

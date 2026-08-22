@@ -73,3 +73,77 @@
   .course-chapter-index li{flex:0 0 min(190px,72vw);scroll-snap-align:start}
   .lesson-materials{grid-template-columns:1fr}
 }
+
+/* v452 — le travail d'Epidémiologie devient un projet actif, durable et visible avant les cours datés. */
+.epidemiology-project{scroll-margin-top:92px;margin:18px 0 22px;padding:clamp(18px,3vw,28px);border-color:rgba(56,189,248,.34);border-radius:26px;background:radial-gradient(circle at 100% 0,rgba(52,211,153,.11),transparent 34%),linear-gradient(145deg,#102b3e,#091b29);box-shadow:0 22px 54px rgba(1,8,16,.22)}
+.epidemiology-project-heading{display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:22px!important}
+.epidemiology-project-heading>div:first-child{max-width:760px}
+.epidemiology-project-status{display:inline-flex;align-items:center;gap:8px;color:#7dd3fc;font:900 11px/1.2 system-ui;letter-spacing:.13em}
+.epidemiology-project-status:before{content:"";width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 0 5px rgba(52,211,153,.12)}
+.epidemiology-project-heading h3{max-width:22ch;margin:10px 0 9px!important;color:#fff;font-size:clamp(27px,4vw,42px);line-height:1.07;letter-spacing:-.025em}
+.epidemiology-project-heading p{max-width:68ch;margin:0;color:#cbd5e1;font-size:15px;line-height:1.58}
+.epidemiology-project-date{min-width:142px;padding:13px 15px;border:1px solid rgba(56,189,248,.27);border-radius:16px;background:rgba(7,21,33,.7);text-align:right}
+.epidemiology-project-date small{display:block;color:#7dd3fc;font:850 9px/1 system-ui;letter-spacing:.11em}
+.epidemiology-project-date time{display:block;margin-top:7px;color:#fff;font:850 16px/1.2 system-ui}
+.epidemiology-project-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,280px);gap:20px;margin-top:23px}
+.epidemiology-project-main{min-width:0}
+.epidemiology-project-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.epidemiology-project-facts article{min-width:0;padding:14px;border:1px solid var(--hub-line);border-radius:15px;background:rgba(7,21,33,.68)}
+.epidemiology-project-facts strong{display:block;color:#fff;font-size:clamp(18px,2vw,24px);line-height:1}
+.epidemiology-project-facts span{display:block;margin-top:7px;color:#94a3b8;font-size:10px;line-height:1.35}
+.epidemiology-project-route{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:14px 0 0;padding:0;list-style:none}
+.epidemiology-project-route li{display:grid;grid-template-columns:32px minmax(0,1fr);gap:10px;align-items:start;padding:12px;border:1px solid rgba(148,163,184,.16);border-radius:14px;background:rgba(8,26,40,.54)}
+.epidemiology-project-route li>span{display:grid;place-items:center;width:30px;height:30px;border-radius:10px;background:rgba(56,189,248,.12);color:#7dd3fc;font:900 9px/1 system-ui}
+.epidemiology-project-route strong{display:block;color:#e2e8f0;font-size:12px;line-height:1.25}
+.epidemiology-project-route small{display:block;margin-top:4px;color:#94a3b8;font-size:10px;line-height:1.4}
+.epidemiology-project-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.epidemiology-project-actions a,.course-project-link>a{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 14px;border:1px solid rgba(56,189,248,.3);border-radius:12px;background:#143247;color:#e0f2fe;font:800 11px/1.2 system-ui;text-decoration:none}
+.epidemiology-project-actions a:first-child{background:#38bdf8;color:#06131d}
+.epidemiology-project-guidance{overflow:hidden;border:1px solid var(--hub-line);border-radius:18px;background:#071521}
+.epidemiology-project-guidance>button{position:relative;display:block;width:100%;height:280px;overflow:hidden;border:0!important;border-radius:0!important;background:#050b11!important;padding:0!important;cursor:zoom-in}
+.epidemiology-project-guidance img{display:block;width:100%;height:100%;object-fit:contain}
+.epidemiology-project-guidance>button>span{position:absolute;left:10px;bottom:10px;padding:7px 9px;border-radius:9px;background:rgba(7,21,33,.9);color:#fff;font:800 9px/1 system-ui}
+.epidemiology-project-guidance>div{padding:14px}
+.epidemiology-project-guidance>div>span{color:#7dd3fc;font:900 9px/1 system-ui;letter-spacing:.12em}
+.epidemiology-project-guidance>div>strong{display:block;margin:7px 0;color:#fff;font-size:13px;line-height:1.3}
+.epidemiology-project-guidance>div>small{display:block;color:#94a3b8;font-size:10px;line-height:1.4}
+.epidemiology-project-groups{margin-top:18px;border:1px solid rgba(56,189,248,.25);border-radius:18px;background:rgba(7,21,33,.58)}
+.epidemiology-project-groups>summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:74px;padding:14px 16px;cursor:pointer;list-style:none}
+.epidemiology-project-groups>summary::-webkit-details-marker{display:none}
+.epidemiology-project-groups>summary>span{display:grid;gap:4px}
+.epidemiology-project-groups>summary b{color:#7dd3fc;font:900 9px/1 system-ui;letter-spacing:.12em}
+.epidemiology-project-groups>summary strong{color:#fff;font-size:14px}
+.epidemiology-project-groups>summary small{color:#94a3b8;font-size:10px}
+.epidemiology-project-groups>summary>i{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:#143247;color:#bae6fd;font:normal 22px/1 system-ui;transition:transform .18s}
+.epidemiology-project-groups[open]>summary>i{transform:rotate(45deg)}
+.epidemiology-project-groups>[data-group-runtime]{padding:0 14px 16px}
+.course-project-link{margin-top:8px;padding:34px 20px!important;border:1px solid rgba(56,189,248,.22)!important;border-radius:18px;background:linear-gradient(145deg,rgba(20,50,71,.56),rgba(8,26,40,.45))}
+.course-project-link>a{margin-top:17px}
+@media(max-width:860px){
+  .epidemiology-project-layout{grid-template-columns:1fr}
+  .epidemiology-project-guidance{display:grid;grid-template-columns:150px minmax(0,1fr)}
+  .epidemiology-project-guidance>button{height:190px}
+  .epidemiology-project-guidance>div{align-self:center}
+}
+@media(max-width:560px){
+  .epidemiology-project{scroll-margin-top:78px;margin:12px 0 18px;padding:15px;border-radius:19px}
+  .epidemiology-project-heading{grid-template-columns:1fr;gap:13px!important}
+  .epidemiology-project-heading h3{font-size:27px}
+  .epidemiology-project-heading p{display:block!important;margin:0!important;font-size:13px!important;line-height:1.52!important;-webkit-line-clamp:unset!important}
+  .epidemiology-project-date{justify-self:start;min-width:0;text-align:left}
+  .epidemiology-project-layout{gap:13px;margin-top:17px}
+  .epidemiology-project-facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  .epidemiology-project-facts article{padding:11px}
+  .epidemiology-project-route{grid-template-columns:1fr;gap:6px}
+  .epidemiology-project-route li{padding:10px}
+  .epidemiology-project-actions{display:grid;grid-template-columns:1fr}
+  .epidemiology-project-actions a{width:100%;font-size:10px}
+  .epidemiology-project-guidance{grid-template-columns:96px minmax(0,1fr);border-radius:14px}
+  .epidemiology-project-guidance>button{height:132px}
+  .epidemiology-project-guidance>button>span{display:none}
+  .epidemiology-project-guidance>div{padding:11px}
+  .epidemiology-project-groups{margin-top:13px;border-radius:14px}
+  .epidemiology-project-groups>summary{min-height:68px;padding:12px}
+  .epidemiology-project-groups>summary small{max-width:28ch;line-height:1.35}
+  .epidemiology-project-groups>[data-group-runtime]{padding:0 8px 12px}
+}
