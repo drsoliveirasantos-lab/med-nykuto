@@ -1,33 +1,19 @@
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
-  test('opens the homework review and separates PDF content from upcoming topics', async ({ page }) => {
-    await page.goto('/clase.html#microTheoryPrepCard');
-    const assignment = page.locator('#microTheoryPrepCard');
-    await expect(assignment).toHaveAttribute('open', '');
-    const openReview = assignment.locator('[data-micro-review-open]');
-    await expect(openReview).toBeVisible();
-    await openReview.click();
+  test('removes the completed Microbiology homework and keeps the dated course available', async ({ page }) => {
+    await page.goto('/clase.html#pendientes');
+    await expect(page.locator('#microTheoryPrepCard')).toBeHidden();
+    await expect(page.locator('#classHubLiveTasks')).not.toContainText('Micosis superficiales y dermatofitosis');
 
-    const dialog = page.locator('#microHomeworkReview');
-    await expect(dialog).toBeVisible();
-    await expect(dialog.locator('[data-micro-review-panel]')).toHaveCount(4);
-    await expect(dialog.locator('[data-micro-review-panel="0"]')).toBeVisible();
-    await expect(dialog).toContainText('Las diapositivas desarrollan las tiñas');
-    await dialog.locator('[data-micro-review-next]').click();
-    await expect(dialog.locator('[data-micro-review-panel="1"]')).toBeVisible();
-    await expect(dialog).toContainText('NO DESARROLLADO EN LOS PDF');
-    await dialog.press('End');
-    await expect(dialog.locator('[data-micro-review-panel="3"]')).toBeVisible();
-    await expect(dialog).toContainText('NO APARECE EN LOS PDF');
-
-    await dialog.getByRole('button', { name: 'Cerrar ficha de repaso' }).click();
-    await expect(dialog).toBeHidden();
-    await expect(openReview).toBeFocused();
+    await page.goto('/clase.html#microbiologia-teorica-2026-08-10');
+    await expect(page.locator('#microbiologia-teorica .notebook-current-title')).toContainText('Dermatofitosis y tiñas');
+    await expect(page.locator('#microbiologia-teorica-2026-08-10 .course-chapter-section')).toHaveCount(8);
   });
 
   test('opens the 10 and 13 August Physiology lessons independently', async ({ page }) => {
     await page.goto('/clase.html#fisiologia-2026-08-13');
     await expect(page.locator('#fisiologia .notebook-current-title')).toContainText('Control nervioso y químico de la respiración');
-    await expect(page.getByText('Fecha oral interpretada · 13 ago.')).toBeVisible();
+    await expect(page.locator('#fisiologia .notebook-date[aria-current="date"]')).toContainText('13 AGO.');
+    await expect(page.locator('#fisiologia .chapter-state')).toHaveText('Capítulo terminado');
     await expect(page.locator('#fisiologia-2026-08-13')).toBeVisible();
     await expect(page.locator('#fisiologia-2026-08-10')).toBeHidden();
     await page.locator('#fisiologia-2026-08-13 [data-lesson-tab="material"]').click();
