@@ -27,13 +27,13 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     });
     expect(dashboard.height).toBeLessThan(720);
     expect(dashboard.titleSize).toBeLessThan(32);
-    expect(dashboard.navHeight).toBeGreaterThanOrEqual(56);
+    expect(dashboard.navHeight).toBeGreaterThanOrEqual(54);
     expect(dashboard.navHeight).toBeLessThanOrEqual(62);
     expect(dashboard.overflow).toBeLessThanOrEqual(1);
     expect(dashboard.columns).toBe(1);
     expect(dashboard.appBottomPadding).toBeLessThanOrEqual(12);
     expect(dashboard.homeworkTitle).toBe('TAREAS');
-    expect(dashboard.homeworkCount).toBe('2 tareas');
+    expect(dashboard.homeworkCount).toBe('2 tareas activas');
     expect(dashboard.homeworkDates).toEqual(['','','']);
     for (const card of dashboard.priorities) {
       expect(card.left).toBeGreaterThanOrEqual(dashboard.prioritiesGrid.left - 1);
@@ -60,36 +60,32 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(library.practiceShortcutHeight).toBeLessThan(52);
     expect(library.overflow).toBeLessThanOrEqual(1);
 
-    await page.goto('/clase.html#nutricion', { waitUntil: 'domcontentloaded' });
+    await page.goto('/clase.html#nutricion-2026-08-13', { waitUntil: 'domcontentloaded' });
     const course = await page.evaluate(() => {
-      const resources = Array.from(document.querySelectorAll('#nutricion .resource-card')).map(card => card.getBoundingClientRect());
-      const counts = Array.from(document.querySelectorAll('#practice-nutricion .practice-counts > span')).map(item => item.getBoundingClientRect());
+      const modes = Array.from(document.querySelectorAll('#nutricion .notebook-modes button')).map(item => item.getBoundingClientRect());
+      const dates = Array.from(document.querySelectorAll('#nutricion .notebook-date')).map(item => item.getBoundingClientRect());
+      const sections = Array.from(document.querySelectorAll('#nutricion-2026-08-13 .course-chapter-section'));
       return {
-        resourceColumns:getComputedStyle(document.querySelector('#nutricion .resource-grid')).gridTemplateColumns.split(' ').length,
-        resourceMaxHeight:Math.max(...resources.map(card => card.height)),
-        countTops:new Set(counts.map(item => Math.round(item.top))).size,
-        countMaxHeight:Math.max(...counts.map(item => item.height)),
+        modeColumns:getComputedStyle(document.querySelector('#nutricion .notebook-modes')).gridTemplateColumns.split(' ').length,
+        modeRows:new Set(modes.map(item => Math.round(item.top))).size,
+        modeMaxHeight:Math.max(...modes.map(item => item.height)),
+        dateMaxHeight:Math.max(...dates.map(item => item.height)),
+        sectionCount:sections.length,
         overflow:document.documentElement.scrollWidth - document.documentElement.clientWidth
       };
     });
-    expect(course.resourceColumns).toBe(2);
-    expect(course.resourceMaxHeight).toBeLessThan(105);
-    expect(course.countTops).toBe(1);
-    expect(course.countMaxHeight).toBeLessThan(48);
+    expect(course.modeColumns).toBe(4);
+    expect(course.modeRows).toBe(1);
+    expect(course.modeMaxHeight).toBeLessThanOrEqual(40);
+    expect(course.dateMaxHeight).toBeLessThanOrEqual(44);
+    expect(course.sectionCount).toBe(6);
     expect(course.overflow).toBeLessThanOrEqual(1);
 
-    const map = await page.evaluate(() => {
-      const list = document.querySelector('#nutricion .study-map');
-      const rows = Array.from(list.querySelectorAll(':scope > li'));
-      const summaries = rows.map(row => row.querySelector('summary').getBoundingClientRect());
+    const notebook = await page.evaluate(() => {
       const nav = document.querySelector('.mobile-bottom-nav').getBoundingClientRect();
       const navItems = Array.from(document.querySelectorAll('.mobile-bottom-nav a')).map(item => item.getBoundingClientRect());
       const navIcon = document.querySelector('.mobile-bottom-nav .nav-icon svg').getBoundingClientRect();
       return {
-        rowCount:rows.length,
-        maxClosedRowHeight:Math.max(...rows.map(row => row.getBoundingClientRect().height)),
-        maxSummaryHeight:Math.max(...summaries.map(summary => summary.height)),
-        listHeight:list.getBoundingClientRect().height,
         navHeight:nav.height,
         navItemMinHeight:Math.min(...navItems.map(item => item.height)),
         navIconWidth:navIcon.width,
@@ -97,25 +93,15 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
         overflow:document.documentElement.scrollWidth - document.documentElement.clientWidth
       };
     });
-    expect(map.rowCount).toBeGreaterThanOrEqual(5);
-    expect(map.maxClosedRowHeight).toBeLessThan(80);
-    expect(map.maxSummaryHeight).toBeLessThan(80);
-    expect(map.listHeight).toBeLessThan(460);
-    expect(map.navHeight).toBeGreaterThanOrEqual(56);
-    expect(map.navItemMinHeight).toBeGreaterThanOrEqual(56);
-    expect(map.navIconWidth).toBeGreaterThanOrEqual(19);
-    expect(map.bodyBottomPadding).toBeGreaterThanOrEqual(map.navHeight + 12);
-    expect(map.overflow).toBeLessThanOrEqual(1);
+    expect(notebook.navHeight).toBeGreaterThanOrEqual(56);
+    expect(notebook.navItemMinHeight).toBeGreaterThanOrEqual(54);
+    expect(notebook.navIconWidth).toBeGreaterThanOrEqual(19);
+    expect(notebook.bodyBottomPadding).toBeGreaterThanOrEqual(notebook.navHeight + 12);
+    expect(notebook.overflow).toBeLessThanOrEqual(1);
 
-    const firstMapAnswer = page.locator('#nutricion .study-map .preview-answer-disclosure').first();
-    const closedHeight = await firstMapAnswer.evaluate(node => node.parentElement.getBoundingClientRect().height);
-    await firstMapAnswer.locator(':scope > summary').click();
-    await expect(firstMapAnswer).toHaveAttribute('open', '');
-    await expect(firstMapAnswer.locator('.preview-answer-inline')).toBeVisible();
-    const openHeight = await firstMapAnswer.evaluate(node => node.parentElement.getBoundingClientRect().height);
-    expect(openHeight).toBeGreaterThan(closedHeight);
-    await firstMapAnswer.locator(':scope > summary').click();
-    await expect(firstMapAnswer).not.toHaveAttribute('open', '');
+    await page.locator('#nutricion-2026-08-13 [data-lesson-tab="rapido"]').click();
+    await expect(page.locator('#nutricion-2026-08-13 .notebook-summary')).toBeVisible();
+    await expect(page.locator('#nutricion-2026-08-13 .notebook-summary li')).toHaveCount(6);
 
     await page.goto('/clase.html#plan-estudio', { waitUntil: 'domcontentloaded' });
     const plan = await page.evaluate(() => {

@@ -32,6 +32,8 @@ jobs:
         run: npm install
       - name: Validate split course sources and module counters
         run: node scripts/validate-course-sources.js
+      - name: Validate notebook, lessons and cumulative teacher model
+        run: node scripts/validate-academic-model.js
       - name: Validate repository hygiene and stale files
         run: node scripts/validate-no-stale-files.js
       - name: Validate static links and release markers
@@ -154,6 +156,8 @@ jobs:
           code=$?
           node scripts/print-playwright-summary.js mobile-touch.json
           exit $code
+      - name: Audit compact notebook on iPhone widths and WebKit
+        run: npm run audit:notebook-ui
       - name: Upload mobile touch evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -163,6 +167,7 @@ jobs:
           path: |
             mobile-touch.json
             test-results/mobile-touch/**
+            test-results/notebook-audit/**
             playwright-report/**
 
   browser-deployed-visual-a11y:

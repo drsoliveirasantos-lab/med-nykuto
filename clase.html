@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="grupo-3-v401.css?v=443" />
   <link rel="stylesheet" href="class-courses-2026-08-17-v432.css?v=432" />
   <link rel="stylesheet" href="class-hub-2026-08-21-v440.css?v=444" />
+  <link rel="stylesheet" href="class-notebook-v445.css?v=445" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -70,7 +71,6 @@
       <a href="#horario" data-view-link="horario"><span class="nav-icon"><svg><use href="#class-icon-calendar"></use></svg></span><strong>Horario</strong><small>Semana</small></a>
       <a href="#pendientes" data-view-link="pendientes"><span class="nav-icon"><svg><use href="#class-icon-task"></use></svg></span><strong>Tareas</strong><small>Ahora + anteriores</small></a>
       <a href="#materias" data-view-link="cursos"><span class="nav-icon"><svg><use href="#class-icon-book"></use></svg></span><strong>Materias</strong><small>6 materias</small></a>
-      <a href="#plan-estudio" data-view-link="plan"><span class="nav-icon"><svg><use href="#class-icon-plan"></use></svg></span><strong>Plan</strong><small>Seminario</small></a>
       <a href="comunidade.html"><span class="nav-icon"><svg><use href="#class-icon-community"></use></svg></span><strong>Estudiar</strong><small>QCM + ranking</small></a>
     </nav>
 
@@ -78,7 +78,7 @@
       <div class="dashboard-heading">
         <div class="dashboard-heading-top">
           <div class="hero-meta"><span class="status-dot"><i aria-hidden="true"></i> Espacio activo</span><span>4.º E · Semestre 4</span></div>
-          <time class="dashboard-updated" id="lastUpdated" datetime="2026-08-21" title="Última actualización de contenidos">Actualizado 21 ago. 2026</time>
+          <time class="dashboard-updated" id="lastUpdated" datetime="2026-08-22" title="Última actualización de contenidos">Actualizado 22 ago. 2026</time>
         </div>
         <p class="section-kicker">Resumen de la semana</p>
         <h1 id="class-title">Tu semana</h1>
@@ -170,7 +170,7 @@
         </article>
         <article class="agenda-day" data-schedule-day="4">
           <header><span>JUE</span><strong>Jueves <time data-week-date="4" datetime="2026-08-20">20 ago.</time></strong></header>
-          <div class="schedule-slot" data-subject="nutrition" data-start="07:00" data-end="09:40"><time>07:00–09:40</time><strong>Nutrición</strong><small>Lic. Johana Leguizamón</small><a class="schedule-task-badge" href="#nutritionPrepCard">Seminario</a></div>
+          <div class="schedule-slot" data-subject="nutrition" data-start="07:00" data-end="09:40"><time>07:00–09:40</time><strong>Nutrición</strong><small>Presentación realizada · sin clase teórica nueva</small></div>
           <div class="schedule-slot" data-subject="physiology" data-start="09:40" data-end="12:20"><time>09:40–12:20</time><strong>Fisiología II</strong><small>Dra. Giselle Vert</small></div>
           <div class="schedule-slot schedule-lab" data-subject="microbiology" data-start="14:00" data-end="20:00" id="labScheduleSlot"><time id="labScheduleTime">G1 14:00 · G2 16:00 · G3 18:00</time><strong>Microbiología II <span class="course-type-badge">PRÁCTICA</span></strong><small id="labScheduleGroup">Selecciona tu grupo</small><a class="schedule-task-badge" href="#microPrepCard">Muestra</a></div>
         </article>
@@ -185,11 +185,11 @@
 
     <section id="pendientes" class="content-section pending-section" data-view="pendientes" aria-labelledby="pending-title" hidden>
       <div class="section-heading pending-heading">
-        <div><p class="section-kicker">Tareas</p><h2 id="pending-title">Tareas de la clase</h2><p class="section-intro">Primero ves lo que tienes que hacer. Más abajo puedes consultar las tareas anteriores de cada materia.</p></div>
+        <div><p class="section-kicker">Tareas</p><h2 id="pending-title">Tareas activas</h2><p class="section-intro">Aquí aparecen únicamente las tareas publicadas que todavía están activas.</p></div>
         <div class="status-legend" aria-label="Estados de las fechas"><span class="status-confirmed">Confirmada</span><span class="status-estimated">Fecha estimada</span><span class="status-check">Por confirmar</span></div>
       </div>
       <div class="task-block-heading"><span>TAREAS ACTUALES</span><strong>Lo que tienes que hacer ahora</strong></div>
-      <div class="pending-grid">
+      <div class="pending-grid" hidden aria-hidden="true">
         <details class="current-assignment assignment-featured assignment-estimated" id="nutritionPrepCard" data-current-assignment>
           <summary class="current-assignment-summary">
             <span class="assignment-pictogram" aria-hidden="true"><svg><use href="#class-icon-nutrition"></use></svg></span>
@@ -321,7 +321,7 @@
         </details>
       </div>
 
-      <section class="assignment-archive" aria-labelledby="assignment-archive-title">
+      <section class="assignment-archive" aria-labelledby="assignment-archive-title" hidden aria-hidden="true">
         <div class="assignment-archive-heading">
           <div><span>TAREAS ANTERIORES</span><h3 id="assignment-archive-title">Tareas anteriores</h3><p>Aquí puedes volver a ver las tareas antiguas. Marca solo tus propias hojas firmadas; se guarda en este dispositivo.</p></div>
           <strong id="signedAssignmentCount" aria-live="polite">0/2 copias firmadas</strong>
@@ -428,16 +428,16 @@
 
     <section id="materias" class="content-section course-hub" data-view="cursos" aria-labelledby="courses-title" hidden>
       <div class="section-heading">
-        <div><p class="section-kicker">Cursos del 4.º E</p><h2 id="courses-title">Elige una materia</h2></div>
-        <p>Elige una materia. Después puedes ver un resumen o abrir la clase completa.</p>
+        <div><p class="section-kicker">4.º E</p><h2 id="courses-title">Materias</h2></div>
+        <p>Abre una materia y continúa directamente en su cuaderno.</p>
       </div>
       <div class="course-selector" aria-label="Materias disponibles">
         <a href="#nutricion" data-course-target="nutricion" aria-current="true"><span class="course-icon"><svg><use href="#class-icon-nutrition"></use></svg></span><strong>Nutrición</strong><small>Leyes de la alimentación</small><b>13 AGO · EST.</b></a>
-        <a href="#fisiologia" data-course-target="fisiologia"><span class="course-icon"><svg><use href="#class-icon-physiology"></use></svg></span><strong>Fisiología II</strong><small>Sinapsis y receptores</small><b>17 AGO</b></a>
-        <a href="#bioquimica" data-course-target="bioquimica"><span class="course-icon"><svg><use href="#class-icon-biochemistry"></use></svg></span><strong>Bioquímica II</strong><small>Glucólisis</small><b>14 AGO</b></a>
+        <a href="#fisiologia" data-course-target="fisiologia"><span class="course-icon"><svg><use href="#class-icon-physiology"></use></svg></span><strong>Fisiología II</strong><small>Sistema nervioso</small><b>20 AGO</b></a>
+        <a href="#bioquimica" data-course-target="bioquimica"><span class="course-icon"><svg><use href="#class-icon-biochemistry"></use></svg></span><strong>Bioquímica II</strong><small>Cetoacidosis</small><b>21 AGO</b></a>
         <a href="#epidemiologia" data-course-target="epidemiologia"><span class="course-icon"><svg><use href="#class-icon-epidemiology"></use></svg></span><strong>Epidemiología</strong><small>APS, sectorización y triage</small><b>2 BLOQUES</b></a>
         <a href="#microbiologia-teorica" data-course-target="microbiologia-teorica"><span class="course-icon"><svg><use href="#class-icon-microbiology"></use></svg></span><strong>Microbiología II</strong><small><span class="course-type-badge">TEÓRICA</span> Micosis y casos</small><b>17 AGO</b></a>
-        <a href="#microbiologia-practica" data-course-target="microbiologia-practica"><span class="course-icon"><svg><use href="#class-icon-lab"></use></svg></span><strong>Microbiología II</strong><small><span class="course-type-badge">PRÁCTICA</span> Hongos y Sabouraud</small><b>GRUPO 3</b></a>
+        <a href="#microbiologia-practica" data-course-target="microbiologia-practica"><span class="course-icon"><svg><use href="#class-icon-lab"></use></svg></span><strong>Microbiología II</strong><small><span class="course-type-badge">PRÁCTICA</span> Diagnóstico micológico</small><b>20 AGO</b></a>
       </div>
       <button class="course-practice-shortcut" id="coursePracticeShortcut" type="button" hidden>
         <span class="course-practice-shortcut-icon" aria-hidden="true"><svg><use href="#class-icon-question"></use></svg></span>
@@ -445,11 +445,6 @@
         <small id="coursePracticeShortcutCourse">Nutrición</small>
         <b aria-hidden="true">→</b>
       </button>
-      <a class="class-drive-card" data-class-drive-link href="https://drive.google.com/drive/u/0/mobile/folders/1AE16HsBFgPw80tQYS_O5lQf3hsz9CFdy/1FWhE0vQoc7dNILKqa0qMrGfoF68ZElij?sort=13&amp;direction=a" target="_blank" rel="noopener noreferrer" aria-label="Abrir los materiales compartidos de la clase en Google Drive, en una pestaña nueva">
-        <span class="class-drive-icon" aria-hidden="true"><svg><use href="#class-icon-drive"></use></svg></span>
-        <span class="class-drive-copy"><b>DRIVE COMPARTIDO DEL 4.º E</b><strong>PDF y PowerPoint del semestre</strong><small>Los archivos se actualizan directamente en Drive, sin volver a cargarlos en este sitio.</small></span>
-        <span class="class-drive-action"><strong>Abrir Drive</strong><small>Nueva pestaña ↗</small></span>
-      </a>
     </section>
 
     <section id="nutricion" class="content-section subject-section nutrition-subject" data-view="cursos" aria-labelledby="nutrition-title" hidden>
@@ -465,7 +460,7 @@
       <div class="class-history class-history-single" aria-label="Clases anteriores de Nutrición">
         <article class="history-entry history-current"><span>13 AGO · ESTIMADA</span><div><strong>Cantidad, calidad, armonía, adecuación y variedad</strong><small>Cómo analizar una alimentación, adaptarla al paciente y distinguir alimentos fuente, protectores, enriquecidos y fortificados.</small></div><span>ACTUAL</span></article>
       </div>
-      <p class="no-new-nutrition"><span aria-hidden="true">ℹ</span><span><strong>Sin nueva clase en el material del 19–21 de agosto.</strong><br>Se conserva la última sesión disponible; no se creó contenido ni fecha por inferencia.</span></p>
+      <p class="no-new-nutrition"><span aria-hidden="true">✓</span><span><strong>Seminario presentado el 20 de agosto.</strong><br>No hubo una nueva clase teórica de Nutrición; el cuaderno conserva la sesión del 13 de agosto.</span></p>
 
       <button class="course-detail-toggle" type="button" data-detail-toggle aria-controls="nutrition-detail" aria-expanded="false"><span>CLASE COMPLETA</span><strong>Abrir la clase completa</strong><small>Conceptos, leyes, plato, caso clínico, correcciones y seminario.</small><b aria-hidden="true">+</b></button>
 
@@ -558,7 +553,7 @@
           </div>
 
           <div class="seminar-delivery-route" aria-label="Las tres cosas que hay que entregar">
-            <article><span>01 · TRABAJO 1</span><strong>Guías Alimentarias</strong><p>Presentación PowerPoint independiente con el tema asignado.</p><small>Fuente Paraguay: Drive de la clase → Bibliografía → carpeta INAN.</small></article>
+            <article><span>01 · TRABAJO 1</span><strong>Guías Alimentarias</strong><p>Presentación PowerPoint independiente con el tema asignado.</p><small>Fuente oficial: materiales bibliográficos del INAN entregados para el seminario.</small></article>
             <article><span>02 · TRABAJO 2</span><strong>Platos típicos / regiones</strong><p>Segunda presentación PowerPoint independiente con investigación del grupo.</p><small>Incluir contexto cultural y un análisis nutricional breve.</small></article>
             <article><span>03 · DOCUMENTO FINAL</span><strong>Informe breve</strong><p>Primera página con título e integrantes, desarrollo de los dos trabajos y fuentes utilizadas.</p><small>Presentarlo para firma y sello; podrá subirse a la plataforma.</small></article>
           </div>
@@ -567,7 +562,6 @@
             <div><span>DOCUMENTOS DE LA DOCENTE</span><strong>Usa los archivos oficiales para preparar y entregar</strong></div>
             <a href="documentos-seminario.html#instructivo" data-document-preview="instructivo">Ver las instrucciones</a>
             <a href="documentos-seminario.html#modelo-portada" data-document-preview="modelo-portada">Ver ejemplo de la primera página</a>
-            <a data-class-drive-link href="https://drive.google.com/drive/u/0/mobile/folders/1AE16HsBFgPw80tQYS_O5lQf3hsz9CFdy/1FWhE0vQoc7dNILKqa0qMrGfoF68ZElij?sort=13&amp;direction=a" target="_blank" rel="noopener noreferrer">Materiales en Drive ↗</a>
           </div>
 
           <div class="seminar-accordion-stack">
@@ -1669,7 +1663,6 @@
         <div><span>ARCHIVOS PARA EMPEZAR</span><strong>Descarga estos archivos antes de empezar</strong></div>
         <a href="documentos-seminario.html#instructivo" data-document-preview="instructivo">Ver las instrucciones</a>
         <a href="documentos-seminario.html#modelo-portada" data-document-preview="modelo-portada">Ver ejemplo de la primera página</a>
-        <a data-class-drive-link href="https://drive.google.com/drive/u/0/mobile/folders/1AE16HsBFgPw80tQYS_O5lQf3hsz9CFdy/1FWhE0vQoc7dNILKqa0qMrGfoF68ZElij?sort=13&amp;direction=a" target="_blank" rel="noopener noreferrer">Abrir Drive ↗</a>
       </div>
     </section>
 
@@ -1701,7 +1694,6 @@
     <a href="#horario" data-view-link="horario"><span class="nav-icon"><svg><use href="#class-icon-calendar"></use></svg></span><strong>Horario</strong></a>
     <a href="#pendientes" data-view-link="pendientes"><span class="nav-icon"><svg><use href="#class-icon-task"></use></svg></span><strong>Tareas</strong></a>
     <a href="#materias" data-view-link="cursos"><span class="nav-icon"><svg><use href="#class-icon-book"></use></svg></span><strong>Materias</strong></a>
-    <a href="#plan-estudio" data-view-link="plan"><span class="nav-icon"><svg><use href="#class-icon-plan"></use></svg></span><strong>Plan</strong></a>
     <a href="comunidade.html"><span class="nav-icon"><svg><use href="#class-icon-community"></use></svg></span><strong>Estudiar</strong></a>
   </nav>
 
@@ -1996,15 +1988,18 @@
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=405"></script>
   <script src="grupo-3-i18n-v421.js?v=442"></script>
-  <script src="grupo-3-practice-v413.js?v=441"></script>
+  <script src="academic-model-v445.js?v=445"></script>
+  <script src="grupo-3-practice-v413.js?v=445"></script>
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
   <script src="grupo-3-practice-grounded-v426.js?v=431"></script>
   <script src="grupo-3-practice-2026-08-17-v432.js?v=432"></script>
   <script src="grupo-3-practice-2026-08-21-v440.js?v=440"></script>
+  <script src="teacher-question-profile-v445.js?v=445"></script>
   <script src="class-practice-ranking-v431.js?v=441"></script>
   <script src="grupo-3-v401.js?v=440"></script>
   <script src="class-session-archive-v432.js?v=432"></script>
   <script src="medical-glossary-v425.js?v=432"></script>
-  <script src="class-hub-runtime-v440.js?v=441"></script>
+  <script src="class-hub-runtime-v440.js?v=445"></script>
+  <script src="class-notebook-v445.js?v=446"></script>
 </body>
 </html>

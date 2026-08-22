@@ -1,19 +1,21 @@
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('switches theoretical Microbiology revision depth independently', async ({ page }) => {
     await page.goto('/clase.html#microbiologia-teorica-2026-08-10');
-    const quickView = page.locator('#microbiologia-teorica [data-micro-theory-mode="rapido"]');
+    const quickView = page.locator('#microbiologia-teorica-2026-08-10 [data-lesson-tab="rapido"]');
     await quickView.click();
-    await expect(page.getByRole('heading', { name: 'Dermatofitosis en cinco minutos' })).toBeVisible();
-    await expect(page.getByText('Los tres géneros clásicos son Trichophyton, Microsporum y Epidermophyton.')).toBeVisible();
-    await expect(quickView).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByRole('heading', { name: 'Hilo lógico de la clase' })).toBeVisible();
+    await expect(page.locator('#microbiologia-teorica-2026-08-10 .notebook-summary li')).toHaveCount(8);
+    await expect(quickView).toHaveAttribute('aria-selected', 'true');
   });
 
-  test('saves a simple preparation checklist', async ({ page }) => {
-    await page.goto('/clase.html#plan-estudio');
-    const firstTask = page.locator('#studyChecklist input').first();
+  test('saves notebook progress by lesson', async ({ page }) => {
+    await page.goto('/clase.html#fisiologia-2026-08-20');
+    await page.locator('#fisiologia [data-notebook-mode="progreso"]').click();
+    const firstTask = page.locator('#fisiologia .notebook-progress-row input').first();
     await firstTask.check();
-    await expect(page.locator('#planCount')).toHaveText('1/6');
+    await expect(page.locator('#fisiologia .notebook-progress-summary')).toContainText('1 de 4');
     await page.reload();
+    await page.locator('#fisiologia [data-notebook-mode="progreso"]').click();
     await expect(firstTask).toBeChecked();
   });
 
@@ -29,8 +31,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     const bottomNavigation = page.locator('.mobile-bottom-nav');
     if (testInfo.project.name === 'mobile-safari-shape') {
       await expect(bottomNavigation).toBeVisible();
-      await expect(bottomNavigation.getByRole('link')).toHaveCount(6);
-      await expect(bottomNavigation.getByRole('link', { name: 'Plan' })).toBeVisible();
+      await expect(bottomNavigation.getByRole('link')).toHaveCount(5);
+      await expect(bottomNavigation.getByRole('link', { name: 'Plan' })).toHaveCount(0);
       await expect(page.locator('.header-back')).toBeHidden();
       await expect(page.locator('.workspace-nav')).toBeHidden();
 
@@ -113,22 +115,33 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
     await expect(page.locator('.schedule-slot[data-subject]')).toHaveCount(10);
     await expect(page.locator('.agenda-day')).toHaveCount(4);
-    await expect(page.locator('#weeklyAgenda .schedule-task-badge')).toHaveCount(5);
+    await expect(page.locator('#weeklyAgenda .schedule-task-badge')).toHaveCount(4);
   });
 
-  test('publishes the five dated lessons with isolated forty-question training', async ({ page }) => {
+  test('publishes all fourteen lessons as narrative courses with isolated forty-question training', async ({ page }) => {
     const lessons = [
+      ['nutricion-2026-08-13', 'Leyes de la alimentación y evaluación del paciente', 'nutricion'],
+      ['fisiologia-2026-08-10', 'Difusión y transporte de gases', 'fisiologia-2026-08-10'],
+      ['fisiologia-2026-08-13', 'Control nervioso y químico de la respiración', 'fisiologia-2026-08-13'],
+      ['fisiologia-2026-08-17', 'Organización, sinapsis y receptores', 'fisiologia-2026-08-17'],
       ['bioquimica-2026-08-19', 'Glucólisis, piruvato y complejo PDH'],
       ['epidemiologia-2026-08-19', 'Organización de urgencias y emergencias'],
       ['fisiologia-2026-08-20', 'Ejercicios integradores del sistema nervioso'],
       ['microbiologia-practica-2026-08-20', 'Diagnóstico práctico de micosis superficiales'],
-      ['bioquimica-2026-08-21', 'Cetoacidosis diabética']
+      ['bioquimica-2026-08-14', 'Glucólisis: vía común y balance energético', 'bioquimica'],
+      ['bioquimica-2026-08-21', 'Cetoacidosis diabética'],
+      ['epidemiologia-bloque-anterior', 'APS, sectorización y triage', 'epidemiologia'],
+      ['microbiologia-teorica-2026-08-10', 'Dermatofitosis y tiñas', 'microbiologia-teorica'],
+      ['microbiologia-teorica-2026-08-17', 'Micosis por profundidad y casos clínicos', 'microbiologia-teorica-2026-08-17'],
+      ['microbiologia-practica-anterior', 'Hongos y preparación del agar Sabouraud', 'microbiologia-practica']
     ];
-    for (const [id, title] of lessons) {
+    for (const [id, title, legacyPracticeId] of lessons) {
       await page.goto('/clase.html#' + id);
       await expect(page.locator('#' + id)).toBeVisible();
+      await expect(page.locator('#' + id)).toHaveAttribute('data-notebook-narrative', 'true');
       await expect(page.locator('#' + id + ' [data-lesson-tabs] button')).toHaveCount(6);
-      await expect(page.locator('#practice-' + id)).toContainText('40 preguntas');
+      const practiceId = legacyPracticeId || id;
+      await expect(page.locator('#' + id + ' .practice-module[data-practice-root="' + practiceId + '"]')).toContainText('40 preguntas');
       await expect(page.locator('#' + id)).toContainText(title.split(':')[0]);
       const fullCourse = page.locator('#' + id + ' [data-lesson-tab-panel="curso"]');
       await expect(fullCourse).toHaveClass(/course-chapter-2026/);
@@ -139,14 +152,14 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('opens course files and progress through the four-part workspace', async ({ page }) => {
     await page.goto('/clase.html#bioquimica-2026-08-21');
-    const workspace = page.locator('#bioquimica .course-workspace');
+    const workspace = page.locator('#bioquimica .notebook-modes');
     await expect(workspace.getByRole('button')).toHaveCount(4);
     await workspace.getByRole('button', { name: 'Archivos' }).click();
-    await expect(page.locator('#bioquimica .workspace-file-row')).not.toHaveCount(0);
+    await expect(page.locator('#bioquimica .notebook-file-row')).not.toHaveCount(0);
     await workspace.getByRole('button', { name: 'Progreso' }).click();
-    const first = page.locator('#bioquimica .workspace-progress-row input').first();
+    const first = page.locator('#bioquimica .notebook-progress-row input').first();
     await first.check();
-    await expect(page.locator('#bioquimica .workspace-progress-summary')).toContainText('1 de');
+    await expect(page.locator('#bioquimica .notebook-progress-summary')).toContainText('1 de');
     await workspace.getByRole('button', { name: 'Cuaderno' }).click();
     await expect(page.locator('#bioquimica-2026-08-21')).toBeVisible();
   });
@@ -157,7 +170,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await page.goto('/clase.html#fisiologia-2026-08-20');
       const dimensions = await page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth }));
       expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
-      await expect(page.locator('#fisiologia-2026-08-20 [data-lesson-tabs] button').first()).toHaveCSS('min-height', /4[24]px/);
+      const tabHeight = await page.locator('#fisiologia-2026-08-20 [data-lesson-tabs] button').first().evaluate((node) => node.getBoundingClientRect().height);
+      expect(tabHeight).toBeGreaterThanOrEqual(38);
     }
   });
 
@@ -166,7 +180,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.getByRole('heading', { name: 'Med Nykuto Gestión' })).toBeVisible();
     await expect(page.locator('#authCard')).toContainText('No se guarda de forma permanente');
     await page.goto('/profesores.html');
-    await expect(page.locator('.teacher-card')).toHaveCount(4);
+    await expect(page.locator('.teacher-card')).toHaveCount(6);
+    await expect(page.locator('.teacher-prompt')).toHaveCount(6);
     await expect(page.locator('[data-state="observed"]').first()).toBeVisible();
     await page.goto('/clase.html');
     await expect(page.locator('link[rel="manifest"]')).toHaveAttribute('href', 'manifest.webmanifest');

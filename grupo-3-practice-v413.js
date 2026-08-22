@@ -633,6 +633,12 @@
     title.id = root.id + '-title';
     copy.appendChild(title);
     copy.appendChild(createNode('p','',bank.descriptionKey ? tr(bank.descriptionKey) : localizeExact(bank.description)));
+    if(bank.teacherProfileLabel){
+      var teacherChip = createNode('a','practice-teacher-chip','Perfil docente · '+bank.teacherProfileLabel);
+      teacherChip.href = 'profesores.html#' + bank.teacherProfileId;
+      teacherChip.setAttribute('aria-label','Abrir la auditoría del perfil docente de '+bank.teacherProfileLabel);
+      copy.appendChild(teacherChip);
+    }
     heading.appendChild(icon);
     heading.appendChild(copy);
 
@@ -797,6 +803,9 @@
       meta.appendChild(createNode('span','',typeLabels[activeType] + ' · ' + (currentIndex + 1) + '/' + questions.length));
       var level = activeType === 'cases' ? tr('clinicalApplication') : tr('activeUnderstanding');
       meta.appendChild(createNode('span','',level));
+      if(question.teacherAngleLabel){
+        meta.appendChild(createNode('span','practice-teacher-angle',(bank.teacherProfileName || 'Perfil docente') + ' · ' + question.teacherAngleLabel));
+      }
       card.appendChild(meta);
 
       if(question.scenario){

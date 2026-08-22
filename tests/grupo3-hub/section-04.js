@@ -39,7 +39,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('opens both teacher PDF decks inside the Microbiology archive', async ({ page }) => {
     await page.goto('/clase.html#microbiologia-teorica-2026-08-10');
-    const launchers = page.locator('[data-micro-archive-open]');
+    await page.locator('#microbiologia-teorica-2026-08-10 [data-lesson-tab="material"]').click();
+    const launchers = page.locator('#microbiologia-teorica-2026-08-10 [data-micro-archive-open]');
     await expect(launchers).toHaveCount(2);
     await expect(launchers.first()).toBeVisible();
     await launchers.first().click();
@@ -65,6 +66,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('opens all three teacher documents inside the Epidemiology archive', async ({ page }) => {
     await page.goto('/clase.html#epidemiologia-bloque-anterior');
+    await page.locator('#epidemiologia-bloque-anterior [data-lesson-tab="material"]').click();
     await expect(page.locator('.epi-material-archive [data-epi-archive-open]')).toHaveCount(3);
     const firstLauncher = page.locator('.epi-material-archive [data-epi-archive-open="aps"]');
     await firstLauncher.click();
@@ -89,25 +91,13 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(firstLauncher).toBeFocused();
   });
 
-  test('shows the exact Paraguay RAC levels from the Epidemiology homework', async ({ page }) => {
-    await page.goto('/clase.html#epiPrepCard');
-    const assignment = page.locator('#epiPrepCard');
-    await expect(assignment).toHaveAttribute('open', '');
-    await assignment.locator('[data-epi-review-open]').click();
+  test('keeps the completed RAC homework out of active tasks while preserving its course source', async ({ page }) => {
+    await page.goto('/clase.html#pendientes');
+    await expect(page.locator('#epiPrepCard')).toBeHidden();
+    await expect(page.locator('#classHubLiveTasks')).not.toContainText('Clasificación de riesgo RAC');
 
-    const dialog = page.locator('#epiHomeworkReview');
-    await expect(dialog).toBeVisible();
-    await expect(dialog.locator('.rac-levels article')).toHaveCount(5);
-    await expect(dialog.locator('.rac-levels')).toContainText('Inmediato');
-    await expect(dialog.locator('.rac-levels')).toContainText('≤ 10 min');
-    await expect(dialog.locator('.rac-levels')).toContainText('≤ 30 min');
-    await expect(dialog.locator('.rac-levels')).toContainText('≤ 120 min');
-    await expect(dialog.locator('.rac-levels')).toContainText('≤ 180 min');
-    await expect(dialog.locator('.rac-steps li')).toHaveCount(6);
-
-    await dialog.locator('[data-epi-archive-open="rac"]').click();
-    await expect(dialog).toBeHidden();
-    await expect(page.locator('#epiDocumentArchive')).toBeVisible();
-    await expect(page.locator('#epiDocumentArchive [data-epi-archive-slide]')).toHaveCount(3);
+    await page.goto('/clase.html#epidemiologia-bloque-anterior');
+    await page.locator('#epidemiologia-bloque-anterior [data-lesson-tab="material"]').click();
+    await expect(page.locator('.epi-material-archive [data-epi-archive-open="rac"]')).toBeVisible();
   });
 };

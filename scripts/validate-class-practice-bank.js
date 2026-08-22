@@ -108,11 +108,14 @@ function expect(condition, message) {
 global.window = { location: { hash: '' }, addEventListener() {} };
 global.document = { getElementById() { return null; } };
 
+require(path.join(root, 'academic-model-v445.js'));
 require(path.join(root, 'grupo-3-practice-v413.js'));
 require(path.join(root, 'grupo-3-practice-expansion-v420.js'));
 require(path.join(root, 'grupo-3-practice-grounded-v426.js'));
 require(path.join(root, 'grupo-3-practice-2026-08-17-v432.js'));
 require(path.join(root, 'grupo-3-practice-2026-08-21-v440.js'));
+require(path.join(root, 'teacher-question-profile-v445.js'));
+const academicModel = global.window.MedNykutoAcademicModel;
 const practice = global.window.MedNykutoClassPractice;
 const banks = practice && practice.banks;
 
@@ -375,6 +378,33 @@ if (!banks || typeof banks !== 'object') {
   });
 }
 
+if (!academicModel || !academicModel.teachers || !academicModel.subjects) {
+  errors.push('Academic model did not expose teachers and subjects.');
+} else if (banks) {
+  expect(Object.keys(academicModel.teachers).length === 6, 'Teacher audit must expose exactly six teacher profiles.');
+  allExpectedCourses.forEach((courseId) => {
+    const bank = banks[courseId];
+    if (!bank) return;
+    const profile = academicModel.teachers[bank.teacherProfileId];
+    expect(Boolean(profile), `${courseId}: missing a valid teacher profile.`);
+    expect(bank.teacherProfileVersion === academicModel.version, `${courseId}: teacher profile version is stale.`);
+    expect(Boolean(bank.academicLessonId), `${courseId}: missing academic lesson mapping.`);
+    if (!profile) return;
+    const seenAngles = new Set();
+    types.forEach((type) => {
+      (bank[type] || []).forEach((question, index) => {
+        const location = `${courseId}/${type}/${index + 1}`;
+        expect(question.teacherProfileId === profile.id, `${location}: question is not linked to its teacher profile.`);
+        expect(profile.questionAngles.includes(question.teacherAngle), `${location}: teacher question angle is invalid.`);
+        expect(Boolean(question.teacherAngleLabel), `${location}: teacher question angle has no visible label.`);
+        expect(question.academicLessonId === bank.academicLessonId, `${location}: academic lesson mapping is inconsistent.`);
+        seenAngles.add(question.teacherAngle);
+      });
+    });
+    profile.questionAngles.forEach((angle) => expect(seenAngles.has(angle), `${courseId}: teacher angle “${angle}” is not represented.`));
+  });
+}
+
 expect(totalQuestions === allExpectedCourses.length * 40, `Expected exactly ${allExpectedCourses.length * 40} total questions, got ${totalQuestions}.`);
 if (objectiveQuestions) {
   const minimumPositionCount = Math.floor(objectiveQuestions / 8);
@@ -394,5 +424,5 @@ console.log(
   `Class practice bank validation OK: ${allExpectedCourses.length} courses, ${totalQuestions} course-only questions, ` +
   `70 exact evidence items plus ${datedCourses.length * 40} questions anchored to ${datedCourses.length} dated lessons, answer positions ${answerPositions.join('/')}, ` +
   `${Math.round((strictlyLongestCorrect / objectiveQuestions) * 100)}% uniquely-longest correct options, ` +
-  `0 adjacent evidence repeats, 0 generic stems, 0 repeated cross-format answer sets and 0 absolute-word distractor cues.`
+  `6 teacher profiles applied to all questions, 0 adjacent evidence repeats, 0 generic stems, 0 repeated cross-format answer sets and 0 absolute-word distractor cues.`
 );

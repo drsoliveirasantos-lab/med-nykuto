@@ -1,9 +1,7 @@
 module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismissSemesterPicker }) => {
   test('medical definitions stay compact and readable above the tapped word on iPhone', async ({ page }) => {
     await page.goto('/clase.html#fisiologia-2026-08-13', { waitUntil: 'domcontentloaded' });
-    await page.locator('[data-detail-toggle][aria-controls="fisio-detail"]').click();
-    await expect(page.locator('#fisio-detail')).toBeVisible();
-    const term = page.locator('.mn-glossary-term[data-glossary-key="hypercapnia"]:visible').first();
+    const term = page.locator('#fisiologia-2026-08-13 [data-lesson-tab-panel="curso"] .mn-glossary-term[data-glossary-key="hypercapnia"]:visible').first();
     await expect(term).toBeVisible({ timeout: 15000 });
     await term.evaluate(node => node.scrollIntoView({ block:'center', inline:'nearest' }));
     await term.click();

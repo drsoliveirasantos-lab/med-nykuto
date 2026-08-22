@@ -60,45 +60,32 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
     await expect(page.locator('.schedule-slot[data-subject]')).toHaveCount(10);
     await expect(page.locator('.agenda-day')).toHaveCount(4);
-    await expect(page.locator('#weeklyAgenda .schedule-task-badge')).toHaveCount(5);
+    await expect(page.locator('#weeklyAgenda .schedule-task-badge')).toHaveCount(4);
   });
 
-  test('current assignments form a compact inline accordion on iPhone', async ({ page }) => {
+  test('active API assignments form compact rows on iPhone', async ({ page }) => {
     await page.goto('/clase.html#pendientes', { waitUntil: 'domcontentloaded' });
-    await expect(page.getByRole('heading', { name: 'Tareas de la clase' })).toBeVisible({ timeout: 10000 });
-
-    const assignments = page.locator('[data-current-assignment]');
-    const summaries = page.locator('[data-current-assignment] > summary');
-    await expect(assignments).toHaveCount(5);
-    await expect(summaries).toHaveCount(5);
-    await expect(page.locator('.current-assignment-meta > b')).toHaveCount(5);
-    await expect(page.locator('.current-assignment-date > strong')).toHaveCount(5);
-    await expect(page.locator('.current-assignment-copy > [role="heading"]')).toHaveCount(5);
+    await expect(page.getByRole('heading', { name: 'Tareas activas' })).toBeVisible({ timeout: 10000 });
+    const assignments = page.locator('#classHubLiveTasks .live-task');
+    await expect(assignments).toHaveCount(2);
 
     const layout = await page.evaluate(() => {
-      const list = document.querySelector('.pending-grid').getBoundingClientRect();
-      const rows = Array.from(document.querySelectorAll('[data-current-assignment] > summary')).map(summary => summary.getBoundingClientRect());
+      const list = document.querySelector('#classHubLiveTasks').getBoundingClientRect();
+      const rows = Array.from(document.querySelectorAll('#classHubLiveTasks .live-task')).map(card => card.getBoundingClientRect());
       return {
         maxRowHeight: Math.max(...rows.map(row => row.height)),
         listHeight: list.height,
-        openCount: document.querySelectorAll('[data-current-assignment][open]').length,
+        staleDisplay: getComputedStyle(document.querySelector('.pending-grid')).display,
         scrollWidth: document.documentElement.scrollWidth,
         clientWidth: document.documentElement.clientWidth
       };
     });
 
-    expect(layout.maxRowHeight).toBeLessThan(120);
-    expect(layout.listHeight).toBeLessThan(620);
-    expect(layout.openCount).toBe(0);
+    expect(layout.maxRowHeight).toBeLessThan(105);
+    expect(layout.listHeight).toBeLessThan(220);
+    expect(layout.staleDisplay).toBe('none');
     expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
-
-    const nutrition = page.locator('#nutritionPrepCard');
-    const microbiology = page.locator('#microTheoryPrepCard');
-    await nutrition.locator(':scope > summary').click();
-    await expect(nutrition).toHaveAttribute('open', '');
-    await expect(nutrition.locator('.current-assignment-body')).toBeVisible();
-    await microbiology.locator(':scope > summary').click();
-    await expect(microbiology).toHaveAttribute('open', '');
-    await expect(nutrition).not.toHaveAttribute('open', '');
+    await expect(assignments.nth(0)).toContainText('Epidemiología');
+    await expect(assignments.nth(1)).toContainText('Bioquímica II');
   });
 };

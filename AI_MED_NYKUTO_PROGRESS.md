@@ -6,7 +6,7 @@ Document permanent de suivi du travail Med Nykuto. À lire avec `AI_MED_NYKUTO_R
 
 ## État général actuel
 
-Branche de travail : `preview`
+Branche de travail : `feat/compact-notebook-teacher-audit` (publication ciblée sur `main` après CI)
 
 Repo : `drsoliveirasantos-lab/med-nykuto`
 
@@ -18,6 +18,17 @@ Méthode technique actuelle :
 - remplacer les questions existantes sans gonfler les totaux ;
 - vérifier le loader après chaque patch ;
 - préserver les patchs existants des autres matières.
+
+### Refonte du 22 août 2026
+
+- 6 matières présentées dans un sélecteur mobile compact ;
+- 14 séances transformées en cours narratifs continus avec sommaire, résumé, ultra, QCM, fichiers et audit enseignant ;
+- cuaderno chronologique par date, navigation précédente/suivante et statut de chapitre ;
+- 6 profils enseignants cumulatifs et sourcés, reliés aux 560 questions de séance ;
+- tâches actives alimentées par l'API, anciennes tâches masquées ;
+- séminaire de Nutrition du 20 août marqué comme présentation terminée, sans création d'un faux cours théorique ;
+- Drive partagé conservé uniquement sur l'accueil ;
+- vues Temas, Archivos et Progreso compactées pour iPhone.
 
 ---
 
