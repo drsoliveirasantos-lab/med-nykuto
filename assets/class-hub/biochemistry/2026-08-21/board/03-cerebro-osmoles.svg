@@ -12,7 +12,7 @@
   </defs>
   <rect class="board" x="3" y="3" width="1594" height="994" rx="18"/>
 
-  <!-- A célula irregular e o sistema de defesa, como no canto superior esquerdo --> 
+  <!-- A célula irregular e o sistema de defesa, como no canto superior esquerdo -->
   <path class="ink line" d="M90 50q45 87 115 92l29 55q28 34 79 17l51 54q38 37 84 0l54 30q38 19 56-26l4-84q-27-28-20-88m-418 45q-26 38-8 85l-40 67q-20 42 17 69l75 14q23 17 53 9"/>
   <ellipse class="ink thin" cx="278" cy="209" rx="46" ry="30"/>
   <g class="green"><circle cx="333" cy="205" r="6"/><circle cx="361" cy="229" r="6"/><circle cx="322" cy="243" r="6"/><circle cx="375" cy="257" r="6"/><circle cx="344" cy="277" r="6"/></g>
@@ -36,12 +36,12 @@
   <text class="green" x="936" y="524">Paro cardíaco</text>
   <text class="blue small" x="1007" y="558">muerte por paro</text><text class="blue small" x="1000" y="585">cardiorrespiratorio</text>
 
-  <!-- Primeiro perfil craniano --> 
+  <!-- Primeiro perfil craniano -->
   <path class="ink line" d="M155 640q19-58 90-78 87-26 157 30 42 34 53 94l-12 139q-7 41-7 94m-268-5q-10-69 3-109l-26-2q-24-1-22-23l11-42-21-21q-10-14 7-29l23-18q-2-19 12-30z"/>
   <path class="ink thin" d="M201 625q48-47 114-27 51 16 70 69-30-22-52-5 3-35-36-41-15 20-40 6-7 31-40 17-6 21-16 44 29 11 32 43 32-20 57 1 29-35 60-10"/>
   <path class="green line" d="M469 746h171" marker-end="url(#c-green)"/>
 
-  <!-- Segundo perfil e edema, mantendo o desenho do professor --> 
+  <!-- Segundo perfil e edema, mantendo o desenho do professor -->
   <path class="ink line" d="M663 640q20-58 90-78 87-26 158 30 41 34 52 94l-12 139q-7 41-7 94m-267-5q-10-69 2-109l-25-2q-24-1-22-23l11-42-21-21q-10-14 7-29l23-18q-2-19 11-30z"/>
   <path class="ink thin" d="M709 624q48-46 114-26 51 16 70 68-30-21-52-4 3-35-36-41-15 20-40 6-7 31-40 17-6 21-16 44 29 11 32 43 32-20 57 1 29-35 60-10"/>
   <text class="blue" x="746" y="548">Edema</text>
