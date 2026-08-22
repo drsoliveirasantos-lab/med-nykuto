@@ -1,22 +1,82 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
-  <title id="title">Cetogénesis y acidosis</title><desc id="desc">Ruta hepática desde ácidos grasos hasta cuerpos cetónicos y acidosis metabólica.</desc>
-  <rect width="1200" height="760" rx="36" fill="#071521"/>
-  <text x="64" y="78" fill="#fbbf24" font-family="Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="3">CETOACIDOSIS DIABÉTICA · MAPA METABÓLICO</text>
-  <text x="64" y="132" fill="#f8fafc" font-family="Arial,sans-serif" font-size="42" font-weight="800">Del adipocito a los cuerpos cetónicos</text>
-  <g font-family="Arial,sans-serif" text-anchor="middle">
-    <rect x="60" y="245" width="190" height="120" rx="22" fill="#12392c" stroke="#34d399" stroke-width="3"/><text x="155" y="292" fill="#a7f3d0" font-size="18" font-weight="700">TEJIDO ADIPOSO</text><text x="155" y="330" fill="#fff" font-size="25" font-weight="800">Lipólisis ↑</text>
-    <path d="M270 305h100" stroke="#fbbf24" stroke-width="7"/><path d="m356 286 28 19-28 19" fill="none" stroke="#fbbf24" stroke-width="7"/>
-    <rect x="395" y="245" width="190" height="120" rx="22" fill="#112b3c" stroke="#38bdf8" stroke-width="3"/><text x="490" y="292" fill="#bae6fd" font-size="18" font-weight="700">HÍGADO</text><text x="490" y="330" fill="#fff" font-size="24" font-weight="800">β-oxidación</text>
-    <path d="M605 305h100" stroke="#fbbf24" stroke-width="7"/><path d="m691 286 28 19-28 19" fill="none" stroke="#fbbf24" stroke-width="7"/>
-    <rect x="730" y="245" width="190" height="120" rx="22" fill="#222052" stroke="#818cf8" stroke-width="3"/><text x="825" y="292" fill="#c7d2fe" font-size="18" font-weight="700">MITOCONDRIA</text><text x="825" y="330" fill="#fff" font-size="24" font-weight="800">Acetil-CoA ↑</text>
-    <path d="M940 305h80" stroke="#fbbf24" stroke-width="7"/><path d="m1006 286 28 19-28 19" fill="none" stroke="#fbbf24" stroke-width="7"/>
-    <rect x="1035" y="245" width="120" height="120" rx="22" fill="#4c1427" stroke="#fb7185" stroke-width="3"/><text x="1095" y="292" fill="#fecdd3" font-size="16" font-weight="700">CETONAS</text><text x="1095" y="330" fill="#fff" font-size="21" font-weight="800">↑</text>
-  </g>
-  <g font-family="Arial,sans-serif">
-    <rect x="90" y="445" width="1020" height="190" rx="28" fill="#101d2c" stroke="#334155" stroke-width="2"/>
-    <text x="125" y="492" fill="#fff" font-size="25" font-weight="800">Tres cuerpos cetónicos</text>
-    <text x="125" y="542" fill="#fbbf24" font-size="23" font-weight="700">Acetoacetato</text><text x="395" y="542" fill="#fb7185" font-size="23" font-weight="700">β-hidroxibutirato</text><text x="750" y="542" fill="#a78bfa" font-size="23" font-weight="700">Acetona</text>
-    <text x="125" y="582" fill="#cbd5e1" font-size="18">Ácido cetónico</text><text x="395" y="582" fill="#cbd5e1" font-size="18">Predomina en CAD grave</text><text x="750" y="582" fill="#cbd5e1" font-size="18">Volátil · aliento afrutado</text>
-  </g>
-  <text x="600" y="700" fill="#fecdd3" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" font-weight="800">H⁺ ↑ → HCO₃⁻ ↓ → pH ↓ · respiración de Kussmaul como compensación</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Metabolismo hepático, cetogénesis y cetoacidosis</title>
+  <desc id="desc">Reconstrucción fiel de la pizarra: adiposo y músculo aportan ácidos grasos y alanina al hepatocito; beta-oxidación, acetil-CoA, gluconeogénesis, cuerpos cetónicos, acidosis y mecanismos compensatorios.</desc>
+  <defs>
+    <marker id="b-blue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="#315cc3" stroke-width="1.8"/></marker>
+    <marker id="b-red" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="#ce4c68" stroke-width="1.8"/></marker>
+    <marker id="b-green" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="#2d9a55" stroke-width="1.8"/></marker>
+    <marker id="b-ink" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="#263039" stroke-width="1.8"/></marker>
+    <style>
+      .board{fill:#fcfcf8;stroke:#d7d9d5;stroke-width:5}.ink{fill:#263039;stroke:#263039}.blue{fill:#315cc3;stroke:#315cc3}.red{fill:#ce4c68;stroke:#ce4c68}.green{fill:#2d9a55;stroke:#2d9a55}.orange{fill:#d98738;stroke:#d98738}.purple{fill:#8a54b8;stroke:#8a54b8}
+      text{font-family:"Segoe Print","Bradley Hand","Comic Sans MS",cursive;font-size:24px;font-weight:600;stroke:none}.small{font-size:18px}.tiny{font-size:15px}.title{font-size:27px;font-weight:700}.line{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.thin{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+  <rect class="board" x="3" y="3" width="1594" height="994" rx="18"/>
+
+  <text class="red small" x="395" y="42">Dentro de los</text><text class="red small" x="395" y="68">hepatocitos</text>
+  <ellipse class="red line" cx="472" cy="270" rx="174" ry="202"/>
+  <ellipse class="red thin" cx="449" cy="359" rx="59" ry="26"/>
+  <ellipse class="orange thin" cx="553" cy="196" rx="25" ry="13"/><path class="orange thin" d="M536 196h35m-28-8 18 16"/>
+
+  <text class="orange" x="62" y="151">Adiposo</text><text class="ink" x="179" y="151">↑ lipólisis</text>
+  <path class="orange thin" d="M60 169h286" marker-end="url(#b-red)"/><text class="ink" x="355" y="177">FFA</text>
+  <text class="blue small" x="454" y="141">β-oxidación</text><text class="blue small" x="487" y="167">de AG</text>
+  <path class="blue line" d="M389 174h258" marker-end="url(#b-blue)"/>
+  <text class="red tiny" x="624" y="122" transform="rotate(-18 624 122)">cadenas pares</text>
+  <text class="red tiny" x="628" y="192" transform="rotate(20 628 192)">cadenas impares</text>
+  <text class="red" x="675" y="144">↑↑ Acetil-CoA</text>
+
+  <text class="red small" x="47" y="295">Músculo</text><text class="ink" x="153" y="295">↑ proteólisis</text>
+  <path class="red thin" d="M50 315h315" marker-end="url(#b-red)"/><text class="ink" x="372" y="321">alanina</text>
+  <text class="blue" x="494" y="326">↑ Glc</text>
+  <path class="blue line" d="M436 320q103 35 199 34" marker-end="url(#b-blue)"/>
+  <path class="blue line" d="M640 318l32 39m-10-42 10 42m-28 1-37 32" marker-end="url(#b-blue)"/>
+  <text class="purple tiny" x="641" y="382" transform="rotate(38 641 382)">GLUT2</text>
+
+  <path class="ink line" d="M815 136h104" marker-end="url(#b-ink)"/>
+  <circle class="ink thin" cx="965" cy="136" r="38"/><text class="ink" x="941" y="145">TCA</text>
+  <path class="ink thin" d="M1004 136h87" marker-end="url(#b-ink)"/><text class="ink" x="1106" y="145">CTE / FO</text>
+  <path class="ink thin" d="M1227 136h119" marker-end="url(#b-ink)"/><text class="ink title" x="1366" y="145">↑↑ ATP</text>
+
+  <text class="ink" x="700" y="216">Propionil-CoA</text>
+  <path class="blue thin" d="M767 227v88" marker-end="url(#b-blue)"/>
+  <text class="purple" x="698" y="365">Gluconeogénesis</text>
+  <text class="purple small" x="704" y="391">(formación de nueva glucosa)</text><text class="ink small" x="928" y="391">− 6 ATP</text>
+  <path class="blue line" d="M730 405q-100 24-157 47" marker-end="url(#b-blue)"/>
+  <text class="blue small" x="394" y="484">↑ Glc sérica</text>
+  <text class="red" x="330" y="523">Empeora la hiperglucemia</text>
+
+  <path class="ink line" d="M801 156q138 34 185 116" marker-end="url(#b-ink)"/>
+  <text class="ink title" x="1025" y="254">CETOGÉNESIS</text>
+  <text class="ink small" x="1031" y="285">formación de los</text><text class="ink small" x="1056" y="311">cuerpos cetónicos</text>
+  <path class="red thin" d="M1138 328v51" marker-end="url(#b-red)"/>
+
+  <text class="red" x="1039" y="424">• Acetona</text><text class="red tiny" x="1176" y="424">(volátil)</text>
+  <text class="red" x="1039" y="472">• Acetoacetato</text>
+  <text class="red" x="1039" y="520">• β-hidroxibutirato</text>
+  <path class="green thin" d="M1262 416h162m-139 48h139m-116 48h116" marker-end="url(#b-green)"/>
+  <path class="red line" d="M1439 358h60v250h-60m0-250q-17 18 0 34m0 182q-17 18 0 34"/>
+  <path class="red line" d="M1487 603q30 70 67 81" marker-end="url(#b-red)"/>
+  <text class="red small" x="1464" y="703">Pulmones</text><text class="red small" x="1452" y="736">aliento cetónico</text>
+
+  <text class="ink small" x="760" y="492">Fuente de energía en tejidos</text><text class="ink small" x="778" y="520">extrahepáticos y moléculas</text><text class="ink small" x="819" y="548">de carácter ácido</text>
+  <path class="ink thin" d="M923 558v64" marker-end="url(#b-ink)"/>
+  <text class="ink title" x="796" y="665">↑↑↑ H⁺</text><text class="ink" x="942" y="665">↓ pH</text>
+  <text class="red" x="723" y="711">Cetoacidosis</text><text class="red small" x="711" y="737">(acidosis metabólica)</text>
+
+  <text class="blue small" x="63" y="623">Tampón bicarbonato</text>
+  <text class="blue small" x="42" y="762">Proteínas · antiporte</text><text class="blue small" x="102" y="789">H⁺ / K⁺</text>
+  <path class="blue line" d="M248 621l138 46m-156 97 156-78" marker-end="url(#b-blue)"/>
+  <text class="blue" x="385" y="675">compensación</text>
+  <path class="blue thin" d="M531 668h126"/>
+  <text class="ink small" x="424" y="710">H⁺ H⁺ H⁺ H⁺</text>
+  <path class="ink thin" d="M540 711q26 34 34 63" marker-end="url(#b-ink)"/>
+  <text class="ink small" x="515" y="804">↑ frecuencia</text><text class="ink small" x="519" y="829">respiratoria</text>
+  <text class="red tiny" x="430" y="850">rompe enlaces de estabilidad</text><text class="red tiny" x="448" y="874">(enlaces débiles)</text>
+  <path class="ink thin" d="M631 852h150" marker-end="url(#b-ink)"/>
+  <text class="ink" x="798" y="860">Desnaturalización</text><text class="ink small" x="839" y="887">proteica</text>
+  <path class="ink thin" d="M1011 860h130" marker-end="url(#b-ink)"/>
+  <text class="ink" x="1160" y="860">Cambio metabólico</text>
+  <path class="ink thin" d="M1270 875v52" marker-end="url(#b-ink)"/>
+  <text class="ink" x="1224" y="965">↓ ATP</text><path class="red thin" d="M1320 956h105" marker-end="url(#b-red)"/><text class="red small" x="1440" y="964">muerte celular</text>
 </svg>

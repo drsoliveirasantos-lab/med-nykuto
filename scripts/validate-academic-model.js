@@ -69,6 +69,11 @@ if (model) {
   expect(/Ficha rápida/.test(notebookJs) && /Ficha ultra rápida/.test(notebookJs), 'Notebook tabs do not use the canonical study-format labels.');
   expect(/standardizeLessonTabs/.test(notebookJs), 'Notebook does not standardize the tab bar across old and new lessons.');
   expect(/course-inline-figure/.test(notebookCss) && /course-diagram-dialog/.test(notebookCss), 'Inline lesson diagrams or their enlarged view are not styled.');
+  expect(!/<nav class="(?:course-chapter-index|notebook-course-index)"/.test(html), 'The removed course summary navigation is still present in the class page.');
+  expect(/querySelectorAll\('\.course-chapter-index, \.notebook-course-index'\)/.test(notebookJs), 'Generated legacy summary navigation is not removed at runtime.');
+  expect((notebookJs.match(/type:\s*'board'/g) || []).length >= 3, 'The 21 August lesson must expose the three faithful teacher boards.');
+  expect(/whiteboard-v2/.test(notebookJs), 'The 14 August lesson is not using the reviewed faithful whiteboard series.');
+  expect(/course-diagram-dialog[^}]*[\s\S]{0,1800}object-fit:contain/.test(notebookCss), 'The enlarged board view does not guarantee contain fitting.');
 
   lessons.forEach(({ lesson }) => {
     const narrative = model.narratives[lesson.id];
