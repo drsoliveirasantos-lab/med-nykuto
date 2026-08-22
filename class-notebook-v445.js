@@ -184,36 +184,23 @@
       note: 'La bomba Na⁺/K⁺ mantiene los gradientes; no dibuja por sí sola cada fase rápida.'
     }],
     'bioquimica-2026-08-14': [{
-      section: 3,
-      type: 'pathway',
-      wide: true,
-      kicker: 'GLUCÓLISIS · MAPA DE CARBONOS Y ENERGÍA',
-      title: 'De una glucosa a dos piruvatos',
-      caption: 'La inversión ocurre antes de la división; desde dos G3P, cada reacción sucede dos veces.',
-      nodes: [
-        { title: ['Glucosa'], detail: ['6 C'] },
-        { title: ['Glucosa-6-P'], detail: ['ATP → ADP'] },
-        { title: ['Fructosa-1,6-BP'], detail: ['ATP → ADP'] },
-        { title: ['2 × G3P'], detail: ['3 C + 3 C'] },
-        { title: ['2 × Piruvato'], detail: ['3 C + 3 C'] }
-      ],
-      edges: ['hexo/glucoquinasa', 'PFK-1', 'aldolasa', '+4 ATP · +2 NADH'],
-      note: 'BALANCE NETO · 2 ATP + 2 NADH + 2 piruvatos por glucosa'
+      section: 1,
+      type: 'board',
+      src: 'assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/01-mapa-general.webp',
+      title: 'Mapa original de la glucólisis',
+      caption: 'Composición, colores, flechas y anotaciones del profesor, repasados en limpio.'
+    }, {
+      section: 2,
+      type: 'board',
+      src: 'assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/02-fase-preparatoria-1-3.webp',
+      title: 'Fase preparatoria · reacciones 1 a 3',
+      caption: 'El orden visual del tablero se conserva sin convertirlo en una infografía nueva.'
     }, {
       section: 6,
-      type: 'flow',
-      kicker: 'TRES PUERTAS IRREVERSIBLES',
-      title: 'Los puntos de control ordenan el flujo de la vía',
-      caption: 'PFK-1 es la puerta principal y responde al estado energético celular.',
-      nodes: [
-        { title: ['Glucosa'], detail: ['hexo/glucoquinasa'] },
-        { title: ['F-6-P'], detail: ['PFK-1'] },
-        { title: ['F-1,6-BP'], detail: ['compromiso'] },
-        { title: ['PEP'], detail: ['piruvato quinasa'] },
-        { title: ['Piruvato'], detail: ['salida'] }
-      ],
-      edges: ['puerta 1', 'puerta 2', 'flujo', 'puerta 3'],
-      note: 'ATP y citrato frenan PFK-1; AMP y fructosa-2,6-BP la favorecen.'
+      type: 'board',
+      src: 'assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/06-regulacion-resumen.webp',
+      title: 'Puntos de regulación',
+      caption: 'Hexoquinasa, glucoquinasa, GKRP y PFK-1 según la pizarra original.'
     }],
     'bioquimica-2026-08-19': [{
       target: '#bio19-piruvato',
@@ -230,20 +217,23 @@
       ]
     }],
     'bioquimica-2026-08-21': [{
+      target: '#cad-insulina',
+      type: 'board',
+      src: 'assets/class-hub/biochemistry/2026-08-21/board/01-deficit-insulina.svg',
+      title: 'Insulina, glucosa y combustibles',
+      caption: 'Pizarra 1 repasada en limpio: misma disposición, dibujos, flechas y función de los colores.'
+    }, {
       target: '#cad-cetonas',
-      type: 'flow',
-      kicker: 'CADENA DE LA CETOACIDOSIS',
-      title: 'La falta de insulina libera grasa y acumula ácidos',
-      caption: 'La clínica se entiende siguiendo la cadena hormonal, metabólica y ácido-base.',
-      nodes: [
-        { title: ['Insulina ↓'], detail: ['glucagón ↑'] },
-        { title: ['Lipólisis ↑'], detail: ['ácidos grasos'] },
-        { title: ['Hígado'], detail: ['β-oxidación'] },
-        { title: ['Cetonas ↑'], detail: ['ácidos'] },
-        { title: ['Acidosis'], detail: ['Kussmaul'] }
-      ],
-      edges: ['desinhibe', 'transporta', 'cetogénesis', 'consume HCO₃⁻'],
-      note: 'En paralelo, la hiperglucemia causa diuresis osmótica y deshidratación.'
+      type: 'board',
+      src: 'assets/class-hub/biochemistry/2026-08-21/board/02-cetogenesis-acidosis.svg',
+      title: 'Hepatocito, cetogénesis y acidosis',
+      caption: 'Pizarra 2 repasada en limpio, desde los precursores hasta la compensación.'
+    }, {
+      target: '#cad-cerebro',
+      type: 'board',
+      src: 'assets/class-hub/biochemistry/2026-08-21/board/03-cerebro-osmoles.svg',
+      title: 'Osmoles cerebrales y edema',
+      caption: 'Pizarra 3 repasada en limpio: adaptación osmótica, edema y herniación.'
     }],
     'epidemiologia-bloque-anterior': [{
       section: 4,
@@ -488,6 +478,16 @@
     return svg;
   }
 
+  function diagramVisual(definition) {
+    if (definition.type !== 'board') return diagramSvg(definition);
+    var image = el('img', 'course-inline-image');
+    image.src = definition.src;
+    image.alt = definition.title;
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    return image;
+  }
+
   function closeDiagramDialog(dialog) {
     document.body.classList.remove('course-diagram-open');
     if (typeof dialog.close === 'function') dialog.close();
@@ -522,8 +522,10 @@
 
   function openDiagram(definition) {
     var dialog = ensureDiagramDialog();
+    dialog.classList.toggle('is-teacher-board', definition.type === 'board');
+    dialog.querySelector('header span').textContent = definition.type === 'board' ? 'PIZARRA DE LA CLASE' : 'ESQUEMA DE LA CLASE';
     dialog.querySelector('header strong').textContent = definition.title;
-    dialog.querySelector('.course-diagram-dialog-stage').replaceChildren(diagramSvg(definition));
+    dialog.querySelector('.course-diagram-dialog-stage').replaceChildren(diagramVisual(definition));
     dialog.querySelector('.course-diagram-dialog-caption').textContent = definition.caption;
     document.body.classList.add('course-diagram-open');
     if (typeof dialog.showModal === 'function') dialog.showModal();
@@ -531,11 +533,11 @@
   }
 
   function diagramFigure(definition, compact) {
-    var figure = el('figure', 'course-inline-figure' + (definition.wide ? ' is-wide' : '') + (compact ? ' is-summary' : ''));
+    var figure = el('figure', 'course-inline-figure' + (definition.wide ? ' is-wide' : '') + (definition.type === 'board' ? ' is-teacher-board' : '') + (compact ? ' is-summary' : ''));
     var trigger = el('button', 'course-inline-diagram-trigger');
     trigger.type = 'button';
     trigger.setAttribute('aria-label', 'Ampliar esquema: ' + definition.title);
-    trigger.appendChild(diagramSvg(definition));
+    trigger.appendChild(diagramVisual(definition));
     var caption = el('figcaption');
     caption.appendChild(el('strong', '', definition.title));
     caption.appendChild(el('span', '', definition.caption));
@@ -614,19 +616,6 @@
     header.appendChild(el('h3', '', narrative.title));
     header.appendChild(el('p', '', narrative.lead));
     article.appendChild(header);
-
-    var index = el('nav', 'course-chapter-index notebook-course-index');
-    index.setAttribute('aria-label', 'Índice del curso completo');
-    var ol = el('ol');
-    narrative.sections.forEach(function (section, sectionIndex) {
-      var li = el('li');
-      var link = el('a', '', section[0]);
-      link.href = '#' + entry.lesson.id + '-section-' + (sectionIndex + 1);
-      li.appendChild(link);
-      ol.appendChild(li);
-    });
-    index.appendChild(ol);
-    article.appendChild(index);
 
     var body = el('div', 'course-chapter-body');
     narrative.sections.forEach(function (section, sectionIndex) {
@@ -720,6 +709,7 @@
   }
 
   function enhanceNarrativeLesson(panel, entry, teacher) {
+    panel.querySelectorAll('.course-chapter-index, .notebook-course-index').forEach(function (index) { index.remove(); });
     var nav = panel.querySelector('[data-lesson-tabs]');
     standardizeLessonTabs(panel, nav);
     decorateCourseVisuals(panel.querySelector('[data-lesson-tab-panel="curso"]'), entry.lesson.id);

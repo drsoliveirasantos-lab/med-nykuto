@@ -111,7 +111,11 @@ assets/class-hub/biochemistry/2026-08-21/actividades-3-y-4-bioquimica-ii.docx
 
 The Epidemiology `slides/` directory preserves all 57 PowerPoint pages in order. The Physiology `pages/` directory preserves all 13 PDF pages in order. The two `task-pages/` directories are quick-view renders of the received DOCX assignments.
 
-The dated Biochemistry `board/` directories publish two clean SVG reconstructions for 19 August and three for 21 August. These diagrams are grounded in the supplied board material and reconstructed transcription; raw board photographs and private-message captures are not published. The Microbiology practical lesson uses the public laboratory transcription only and excludes the unrelated private conversation. No new Nutrition lesson is inferred from this handoff.
+The three SVGs in `assets/class-hub/biochemistry/2026-08-21/board/` are clean vector tracings of the three board photographs supplied again on 22 August. They preserve the teacher's original spatial layout, arrow directions, color roles, cell and organ drawings, and teaching sequence. They must remain recognizable as the teacher's boards: do not reorganize them into editorial cards or generic infographics. The raw photographs are not published.
+
+The two older SVGs in `assets/class-hub/biochemistry/2026-08-19/board/` are retained only as non-runtime history. They are no longer presented as teacher-board reconstructions because the exact original photographs were not available for a faithful visual comparison. Re-enable or replace them only after the corresponding source photographs are supplied and reviewed.
+
+The Microbiology practical lesson uses the public laboratory transcription only and excludes the unrelated private conversation. No new Nutrition lesson is inferred from this handoff.
 
 Each of the five lessons owns an isolated 40-question bank (20 QCM, 10 true/false and 10 clinical/application cases) in:
 

@@ -1,24 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
-  <title id="title">Osmoles cerebrales y corrección de la cetoacidosis</title><desc id="desc">Comparación entre adaptación cerebral a la hiperosmolaridad y riesgo de edema por descenso osmótico rápido.</desc>
-  <rect width="1200" height="760" rx="36" fill="#071521"/>
-  <text x="64" y="78" fill="#a78bfa" font-family="Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="3">CAD · PIZARRA RECONSTRUIDA</text>
-  <text x="64" y="132" fill="#f8fafc" font-family="Arial,sans-serif" font-size="42" font-weight="800">El cerebro se adapta: la corrección debe vigilarse</text>
-  <g font-family="Arial,sans-serif">
-    <rect x="64" y="190" width="500" height="430" rx="30" fill="#112b3c" stroke="#38bdf8" stroke-width="3"/>
-    <text x="104" y="245" fill="#7dd3fc" font-size="21" font-weight="700">ANTES DEL TRATAMIENTO</text>
-    <text x="104" y="294" fill="#fff" font-size="28" font-weight="800">Hiperglucemia → plasma hiperosmolar</text>
-    <circle cx="314" cy="430" r="108" fill="#172554" stroke="#818cf8" stroke-width="6"/>
-    <circle cx="270" cy="400" r="12" fill="#fbbf24"/><circle cx="330" cy="375" r="12" fill="#fbbf24"/><circle cx="360" cy="455" r="12" fill="#fbbf24"/><circle cx="275" cy="475" r="12" fill="#fbbf24"/>
-    <text x="314" y="430" text-anchor="middle" fill="#fff" font-size="21" font-weight="800">Osmoles</text><text x="314" y="459" text-anchor="middle" fill="#c7d2fe" font-size="18">idiogénicos ↑</text>
-    <text x="104" y="580" fill="#bae6fd" font-size="18">Ayudan a conservar agua dentro de la célula cerebral.</text>
-    <rect x="636" y="190" width="500" height="430" rx="30" fill="#391725" stroke="#fb7185" stroke-width="3"/>
-    <text x="676" y="245" fill="#fda4af" font-size="21" font-weight="700">DURANTE LA CORRECCIÓN</text>
-    <text x="676" y="294" fill="#fff" font-size="28" font-weight="800">Osmolalidad efectiva desciende</text>
-    <circle cx="886" cy="430" r="132" fill="#312e81" stroke="#a78bfa" stroke-width="8"/>
-    <path d="M705 365h80M987 365h80M705 495h80M987 495h80" stroke="#7dd3fc" stroke-width="7"/>
-    <path d="m772 347 25 18-25 18m202-36-25 18 25 18m-202 94 25 18-25 18m202-36-25 18 25 18" fill="none" stroke="#7dd3fc" stroke-width="7"/>
-    <text x="886" y="422" text-anchor="middle" fill="#fff" font-size="24" font-weight="800">Agua entra</text><text x="886" y="456" text-anchor="middle" fill="#fecdd3" font-size="20">edema cerebral</text>
-    <text x="676" y="580" fill="#fecdd3" font-size="18">Riesgo clínico que exige monitorización neurológica estrecha.</text>
-  </g>
-  <text x="64" y="690" fill="#fcd34d" font-family="Arial,sans-serif" font-size="21" font-weight="700">Vigilar: estado mental, cefalea, vómitos, bradicardia y cambios neurológicos. Seguir el protocolo institucional.</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Adaptación cerebral, osmoles idiogénicos y edema</title>
+  <desc id="desc">Reconstrucción fiel de la pizarra: célula cerebral deshidratada, síntesis de osmoles idiogénicos, solución salina e insulina, edema cerebral, herniación por el foramen magno y paro cardiorrespiratorio.</desc>
+  <defs>
+    <marker id="c-blue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="#315cc3" stroke-width="1.8"/></marker>
+    <marker id="c-red" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="#ce4c68" stroke-width="1.8"/></marker>
+    <marker id="c-green" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="#2d9a55" stroke-width="1.8"/></marker>
+    <style>
+      .board{fill:#fcfcf8;stroke:#d7d9d5;stroke-width:5}.ink{fill:#263039;stroke:#263039}.blue{fill:#315cc3;stroke:#315cc3}.red{fill:#ce4c68;stroke:#ce4c68}.green{fill:#2d9a55;stroke:#2d9a55}.orange{fill:#d98738;stroke:#d98738}
+      text{font-family:"Segoe Print","Bradley Hand","Comic Sans MS",cursive;font-size:24px;font-weight:600;stroke:none}.small{font-size:18px}.tiny{font-size:15px}.title{font-size:27px;font-weight:700}.line{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.thin{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+  <rect class="board" x="3" y="3" width="1594" height="994" rx="18"/>
+
+  <!-- A célula irregular e o sistema de defesa, como no canto superior esquerdo --> 
+  <path class="ink line" d="M90 50q45 87 115 92l29 55q28 34 79 17l51 54q38 37 84 0l54 30q38 19 56-26l4-84q-27-28-20-88m-418 45q-26 38-8 85l-40 67q-20 42 17 69l75 14q23 17 53 9"/>
+  <ellipse class="ink thin" cx="278" cy="209" rx="46" ry="30"/>
+  <g class="green"><circle cx="333" cy="205" r="6"/><circle cx="361" cy="229" r="6"/><circle cx="322" cy="243" r="6"/><circle cx="375" cy="257" r="6"/><circle cx="344" cy="277" r="6"/></g>
+  <text class="blue small" x="284" y="279">↑ soluto</text><text class="blue small" x="298" y="306">↓ agua</text>
+  <path class="blue line" d="M371 321q-18 55-3 109m30-105q-20 55-4 111m30-110q-20 55-4 109" marker-end="url(#c-blue)"/>
+  <text class="ink small" x="130" y="417">↓ soluto</text><text class="ink small" x="137" y="444">↑ agua</text>
+
+  <path class="green thin" d="M445 219h118" marker-end="url(#c-green)"/>
+  <text class="green title" x="582" y="191">Biosíntesis</text><text class="green title" x="582" y="226">OSMOLES</text><text class="green title" x="582" y="261">IDIOGÉNICOS</text>
+  <text class="green small" x="789" y="196">mioinositol · sorbitol</text><text class="blue small" x="791" y="230">glutamato · glutamina</text><text class="orange small" x="791" y="264">taurina</text>
+  <path class="red thin" d="M1006 183q27 8 42 25m-42 67q27-7 42-25"/>
+  <text class="red small" x="1062" y="208">formación → 24–48 h</text><text class="red small" x="1062" y="249">degradación progresiva</text>
+  <path class="green thin" d="M650 288v55" marker-end="url(#c-green)"/>
+  <text class="red" x="486" y="377">Sistema de defensa</text><text class="red" x="501" y="408">frente a la deshidratación</text>
+
+  <text class="ink" x="90" y="535">• solución salina 0,9 % (normal)</text>
+  <text class="blue" x="92" y="590">• insulina brusca → ↓ K⁺</text>
+  <path class="blue thin" d="M545 580q84 21 131 65" marker-end="url(#c-blue)"/>
+  <text class="blue" x="692" y="664">arritmias</text>
+  <path class="green thin" d="M786 655q72-79 135-123" marker-end="url(#c-green)"/>
+  <text class="green" x="936" y="524">Paro cardíaco</text>
+  <text class="blue small" x="1007" y="558">muerte por paro</text><text class="blue small" x="1000" y="585">cardiorrespiratorio</text>
+
+  <!-- Primeiro perfil craniano --> 
+  <path class="ink line" d="M155 640q19-58 90-78 87-26 157 30 42 34 53 94l-12 139q-7 41-7 94m-268-5q-10-69 3-109l-26-2q-24-1-22-23l11-42-21-21q-10-14 7-29l23-18q-2-19 12-30z"/>
+  <path class="ink thin" d="M201 625q48-47 114-27 51 16 70 69-30-22-52-5 3-35-36-41-15 20-40 6-7 31-40 17-6 21-16 44 29 11 32 43 32-20 57 1 29-35 60-10"/>
+  <path class="green line" d="M469 746h171" marker-end="url(#c-green)"/>
+
+  <!-- Segundo perfil e edema, mantendo o desenho do professor --> 
+  <path class="ink line" d="M663 640q20-58 90-78 87-26 158 30 41 34 52 94l-12 139q-7 41-7 94m-267-5q-10-69 2-109l-25-2q-24-1-22-23l11-42-21-21q-10-14 7-29l23-18q-2-19 11-30z"/>
+  <path class="ink thin" d="M709 624q48-46 114-26 51 16 70 68-30-21-52-4 3-35-36-41-15 20-40 6-7 31-40 17-6 21-16 44 29 11 32 43 32-20 57 1 29-35 60-10"/>
+  <text class="blue" x="746" y="548">Edema</text>
+  <path class="blue line" d="M848 707q-4 67 7 104t23 75" marker-end="url(#c-blue)"/>
+  <text class="ink small" x="905" y="802">foramen</text><text class="ink small" x="905" y="830">magno</text>
+  <text class="ink small" x="902" y="895">invaginación o</text><text class="ink small" x="902" y="922">herniación cerebral</text>
+
+  <text class="blue" x="1030" y="712">centro respiratorio</text>
+  <path class="blue line" d="M986 745q74 9 118 50" marker-end="url(#c-blue)"/>
+  <text class="blue" x="1134" y="822">cardiovascular</text>
+  <path class="blue line" d="M1090 830l-63-42m53 58 15-10m8-78v-69m210 110v-112" marker-end="url(#c-blue)"/>
+  <text class="green title" x="1250" y="649">Paro cardíaco</text>
+  <text class="blue small" x="1276" y="685">muerte por paro</text><text class="blue small" x="1262" y="712">cardiorrespiratorio</text>
 </svg>

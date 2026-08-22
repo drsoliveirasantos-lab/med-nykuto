@@ -1,18 +1,90 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
-  <title id="title">Cadena causal del déficit de insulina</title><desc id="desc">Esquema de cetoacidosis diabética desde déficit de insulina hasta hiperglucemia, deshidratación, lipólisis y cetosis.</desc>
-  <rect width="1200" height="760" rx="36" fill="#08131f"/>
-  <text x="64" y="78" fill="#fb7185" font-family="Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="3">BIOQUÍMICA II · 21 AGO. 2026</text>
-  <text x="64" y="132" fill="#f8fafc" font-family="Arial,sans-serif" font-size="42" font-weight="800">Déficit de insulina: dos rutas que convergen</text>
-  <g font-family="Arial,sans-serif" text-anchor="middle">
-    <rect x="425" y="178" width="350" height="92" rx="22" fill="#4c1427" stroke="#fb7185" stroke-width="3"/><text x="600" y="218" fill="#fecdd3" font-size="19" font-weight="700">INSULINA EFECTIVA ↓</text><text x="600" y="250" fill="#fff" font-size="24" font-weight="800">Glucagón y catecolaminas ↑</text>
-    <path d="M520 275 335 350M680 275 865 350" stroke="#94a3b8" stroke-width="6" fill="none"/>
-    <rect x="80" y="350" width="510" height="250" rx="28" fill="#102c3e" stroke="#38bdf8" stroke-width="3"/>
-    <text x="335" y="395" fill="#7dd3fc" font-size="21" font-weight="700">RUTA DE LA GLUCOSA</text>
-    <text x="335" y="445" fill="#fff" font-size="25" font-weight="800">Captación ↓ + producción hepática ↑</text><text x="335" y="492" fill="#bae6fd" font-size="23">Hiperglucemia → glucosuria</text><text x="335" y="538" fill="#bae6fd" font-size="23">Diuresis osmótica → deshidratación</text><text x="335" y="575" fill="#fcd34d" font-size="18" font-weight="700">Pérdida de agua y electrolitos</text>
-    <rect x="610" y="350" width="510" height="250" rx="28" fill="#35220e" stroke="#fbbf24" stroke-width="3"/>
-    <text x="865" y="395" fill="#fcd34d" font-size="21" font-weight="700">RUTA DE LAS GRASAS</text>
-    <text x="865" y="445" fill="#fff" font-size="25" font-weight="800">Lipólisis ↑ → ácidos grasos libres</text><text x="865" y="492" fill="#fde68a" font-size="23">β-oxidación → acetil-CoA</text><text x="865" y="538" fill="#fde68a" font-size="23">Cetogénesis → H⁺</text><text x="865" y="575" fill="#fb7185" font-size="18" font-weight="700">Acidosis metabólica con brecha aniónica</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Condiciones fisiológicas y patológicas del uso de glucosa</title>
+  <desc id="desc">Reconstrucción fiel de la pizarra: célula con receptores de insulina, respiración celular y, ante déficit de insulina, lipólisis adiposa, proteólisis muscular y llegada de precursores al hígado.</desc>
+  <defs>
+    <marker id="a-blue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="#315cc3" stroke-width="1.8"/></marker>
+    <marker id="a-red" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="#ce4c68" stroke-width="1.8"/></marker>
+    <marker id="a-green" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="#2d9a55" stroke-width="1.8"/></marker>
+    <style>
+      .board{fill:#fcfcf8;stroke:#d7d9d5;stroke-width:5}.ink{fill:#263039;stroke:#263039}.blue{fill:#315cc3;stroke:#315cc3}.red{fill:#ce4c68;stroke:#ce4c68}.green{fill:#2d9a55;stroke:#2d9a55}.orange{fill:#d98738;stroke:#d98738}.purple{fill:#8a54b8;stroke:#8a54b8}
+      text{font-family:"Segoe Print","Bradley Hand","Comic Sans MS",cursive;font-size:24px;font-weight:600;stroke:none}.small{font-size:18px}.tiny{font-size:15px}.title{font-size:27px;font-weight:700}.label{font-size:20px}.line{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.thin{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+  <rect class="board" x="3" y="3" width="1594" height="994" rx="18"/>
+
+  <text class="blue title" x="72" y="67">Condiciones fisiológicas</text>
+  <text class="blue" x="82" y="125">↑ Glc</text>
+  <text class="blue small" x="90" y="177">Glc</text><text class="blue small" x="154" y="151">Glc</text>
+  <text class="blue small" x="204" y="188">Glc</text><text class="blue small" x="139" y="218">Glc</text>
+  <text class="orange small" x="64" y="315">páncreas</text>
+  <text class="green" x="168" y="315">↑ insulina</text>
+  <circle class="green" cx="167" cy="345" r="7"/><circle class="green" cx="207" cy="329" r="7"/><circle class="green" cx="235" cy="354" r="7"/><circle class="green" cx="191" cy="375" r="7"/>
+
+  <ellipse class="ink line" cx="425" cy="196" rx="145" ry="132"/>
+  <ellipse class="ink thin" cx="400" cy="116" rx="42" ry="20"/>
+  <path class="orange thin" d="M430 220q32 12 52-2m-48 17q32 12 52-2m-49 17q31 12 51-2m-45 17q27 10 44-2"/>
+  <g class="purple"><rect x="279" y="165" width="12" height="28" rx="3"/><rect x="287" y="158" width="11" height="28" rx="3"/><rect x="528" y="295" width="12" height="28" rx="3" transform="rotate(16 534 309)"/></g>
+  <circle class="green" cx="292" cy="145" r="7"/><circle class="green" cx="555" cy="292" r="7"/>
+  <text class="red tiny" x="318" y="171">vía señal ins.</text>
+  <text class="green tiny" x="335" y="285">prot. de</text><text class="green tiny" x="350" y="306">señal</text>
+  <text class="blue small" x="391" y="205">Glc</text><text class="blue small" x="482" y="165">Glc</text><text class="blue small" x="483" y="230">Glc</text>
+  <path class="blue line" d="M548 137q48-10 78-34" marker-end="url(#a-blue)"/>
+  <text class="blue label" x="635" y="105">dentro de la célula</text>
+  <text class="blue small" x="542" y="339">Receptor de insulina</text>
+
+  <text class="red title" x="963" y="73">Respiración celular</text>
+  <text class="ink" x="654" y="156">Glc</text><path class="ink thin" d="M708 148h104"/><text class="ink tiny" x="755" y="133">glucólisis</text>
+  <text class="ink" x="824" y="156">Piruvato</text><path class="ink thin" d="M930 148h93"/><text class="ink tiny" x="954" y="132">PDH</text>
+  <text class="ink" x="1034" y="156">Acetil-CoA</text><path class="ink thin" d="M1168 148h54"/>
+  <circle class="ink thin" cx="1265" cy="147" r="47"/><text class="ink" x="1241" y="155">TCA</text><text class="ink tiny" x="1231" y="211">(Krebs)</text>
+  <path class="ink thin" d="M1312 148h77"/><text class="ink" x="1403" y="156">CTE / FO</text>
+  <path class="red thin" d="M1465 170v45" marker-end="url(#a-red)"/><text class="red" x="1428" y="251">↑ ATP</text>
+
+  <text class="red title" x="70" y="451">Condiciones patológicas</text>
+  <text class="blue" x="82" y="508">↑ Glc</text>
+  <text class="blue small" x="92" y="565">Glc</text><text class="blue small" x="156" y="535">Glc</text><text class="blue small" x="213" y="574">Glc</text><text class="blue small" x="146" y="610">Glc</text>
+  <text class="orange small" x="57" y="680">páncreas</text><path class="red line" d="M169 650l26 44m0-44-26 44"/>
+  <text class="red" x="211" y="681">insulina</text>
+
+  <ellipse class="ink line" cx="476" cy="591" rx="151" ry="149"/>
+  <ellipse class="ink thin" cx="449" cy="505" rx="43" ry="21"/>
+  <path class="red line" d="M332 513l19 28m0-28-19 28M591 527l19 28m0-28-19 28M365 700l19 28m0-28-19 28M575 673l19 28m0-28-19 28"/>
+  <text class="blue" x="439" y="573">↓ Glc</text><text class="blue" x="440" y="610">↓ ATP</text>
+  <text class="green label" x="389" y="647">mecanismos de</text><text class="green label" x="409" y="675">compensación</text>
+
+  <path class="orange line" d="M595 470q70-68 132-85" marker-end="url(#a-red)"/>
+  <text class="orange" x="703" y="398">tejido adiposo</text>
+  <g class="orange thin">
+    <ellipse cx="982" cy="332" rx="55" ry="24" transform="rotate(-25 982 332)"/><ellipse cx="1047" cy="307" rx="55" ry="24" transform="rotate(-18 1047 307)"/>
+    <ellipse cx="1114" cy="306" rx="55" ry="24" transform="rotate(-18 1114 306)"/><ellipse cx="1019" cy="360" rx="55" ry="24" transform="rotate(-22 1019 360)"/>
+    <ellipse cx="1091" cy="351" rx="55" ry="24" transform="rotate(-19 1091 351)"/><ellipse cx="1152" cy="345" rx="55" ry="24" transform="rotate(-18 1152 345)"/>
+    <ellipse cx="1058" cy="397" rx="55" ry="24" transform="rotate(-19 1058 397)"/><ellipse cx="1128" cy="392" rx="55" ry="24" transform="rotate(-20 1128 392)"/>
   </g>
-  <path d="M335 610 520 680M865 610 680 680" stroke="#a78bfa" stroke-width="6" fill="none"/>
-  <text x="600" y="708" fill="#ddd6fe" text-anchor="middle" font-family="Arial,sans-serif" font-size="26" font-weight="800">CETOACIDOSIS DIABÉTICA · emergencia metabólica</text>
+  <text class="ink label" x="1215" y="348">HSL</text>
+  <text class="ink small" x="1203" y="378">lipasa sensible a hormona</text>
+  <text class="green" x="1220" y="414">↑ lipólisis</text>
+  <path class="purple thin" d="M1304 425v42" marker-end="url(#a-red)"/>
+  <text class="red" x="1197" y="502">Ruptura de TAG</text><text class="red tiny" x="1391" y="502">(triacilglicerol)</text>
+  <path class="blue thin" d="M1320 519l-69 50m78-50 84 49" marker-end="url(#a-blue)"/>
+  <text class="blue" x="1195" y="603">3 AG</text><text class="green small" x="1156" y="634">FFA · ácidos grasos libres</text>
+  <text class="blue" x="1400" y="603">glicerol</text>
+  <text class="red small" x="729" y="453">Objetivo: romper AG para formar</text><text class="red small" x="790" y="482">acetil-CoA y producir ATP</text>
+
+  <path class="red line" d="M587 720q86 80 179 76" marker-end="url(#a-red)"/>
+  <text class="red" x="754" y="782">tejido muscular</text>
+  <path class="ink line" d="M490 775q135-29 254 5M488 815q125 28 254 2"/>
+  <text class="ink" x="807" y="817">↑ proteólisis</text>
+  <path class="green thin" d="M876 832v39" marker-end="url(#a-green)"/>
+  <text class="green" x="778" y="904">ruptura de proteínas</text>
+  <text class="red small" x="504" y="894">Objetivo: obtener precursores para la</text><text class="green" x="542" y="928">gluconeogénesis</text>
+  <path class="green thin" d="M1031 885v42" marker-end="url(#a-green)"/>
+  <text class="green" x="962" y="963">aminoácidos</text>
+  <text class="green small" x="1148" y="885">NH₃ + H⁺ → NH₄⁺</text>
+  <text class="red small" x="1226" y="925">alanina</text>
+
+  <path class="red line" d="M1138 648q104 44 165 151" marker-end="url(#a-red)"/>
+  <path class="red line" d="M1275 923q49 17 83-29" marker-end="url(#a-red)"/>
+  <path class="red line" d="M1332 705q86-25 180 12l-31 62q-28 58-121 61l-66-39q42-13 38-96z"/>
+  <path class="red thin" d="M1395 716q31 44 80 42"/>
+  <text class="red" x="1373" y="775">hígado</text>
 </svg>

@@ -156,8 +156,41 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(fullCourse).toHaveClass(/course-chapter-2026/);
       await expect(fullCourse.locator('.course-chapter-section')).not.toHaveCount(0);
       await expect(fullCourse.locator('.course-inline-figure')).not.toHaveCount(0);
+      await expect(fullCourse.locator('.course-chapter-index, .notebook-course-index')).toHaveCount(0);
       await expect(fullCourse.locator('.concept-card-2026')).toHaveCount(0);
     }
+  });
+
+  test('keeps the three 21 August teacher boards miniature and fully visible when enlarged', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/clase.html#bioquimica-2026-08-21');
+    const course = page.locator('#bioquimica-2026-08-21 [data-lesson-tab-panel="curso"]');
+    const boards = course.locator('.course-inline-figure.is-teacher-board');
+    await expect(boards).toHaveCount(3);
+    await expect(boards.nth(0).locator('img')).toHaveAttribute('src', /01-deficit-insulina\.svg$/);
+    await expect(boards.nth(1).locator('img')).toHaveAttribute('src', /02-cetogenesis-acidosis\.svg$/);
+    await expect(boards.nth(2).locator('img')).toHaveAttribute('src', /03-cerebro-osmoles\.svg$/);
+
+    const miniatureWidth = await boards.first().evaluate((node) => node.getBoundingClientRect().width);
+    expect(miniatureWidth).toBeLessThanOrEqual(145);
+    const paragraphAlignment = await course.locator('.course-chapter-section p:not(.course-chapter-step)').first().evaluate((node) => getComputedStyle(node).textAlign);
+    expect(paragraphAlignment).toBe('justify');
+
+    await boards.first().locator('button').click();
+    const dialog = page.locator('.course-diagram-dialog');
+    await expect(dialog).toBeVisible();
+    await expect(dialog).toContainText('PIZARRA DE LA CLASE');
+    const fit = await dialog.evaluate((node) => {
+      const stage = node.querySelector('.course-diagram-stage').getBoundingClientRect();
+      const image = node.querySelector('.course-inline-image').getBoundingClientRect();
+      return {
+        withinWidth: image.width <= stage.width + 1,
+        withinHeight: image.height <= stage.height + 1,
+        viewportWidth: node.getBoundingClientRect().width <= window.innerWidth,
+        viewportHeight: node.getBoundingClientRect().height <= window.innerHeight
+      };
+    });
+    expect(fit).toEqual({ withinWidth: true, withinHeight: true, viewportWidth: true, viewportHeight: true });
   });
 
   test('opens course files and progress through the four-part workspace', async ({ page }) => {
