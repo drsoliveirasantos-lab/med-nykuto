@@ -181,7 +181,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(dialog).toBeVisible();
     await expect(dialog).toContainText('PIZARRA DE LA CLASE');
     const fit = await dialog.evaluate((node) => {
-      const stage = node.querySelector('.course-diagram-stage').getBoundingClientRect();
+      const stage = node.querySelector('.course-diagram-dialog-stage').getBoundingClientRect();
       const image = node.querySelector('.course-inline-image').getBoundingClientRect();
       return {
         withinWidth: image.width <= stage.width + 1,
