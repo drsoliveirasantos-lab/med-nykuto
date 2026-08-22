@@ -112,6 +112,501 @@
     show('curso', false);
   }
 
+  var svgNamespace = 'http://www.w3.org/2000/svg';
+  var lessonVisuals = {
+    'nutricion-2026-08-13': [{
+      section: 5,
+      type: 'grid',
+      kicker: 'LEY DE ADECUACIÓN',
+      title: 'La dieta se construye alrededor de la persona',
+      caption: 'Necesidades, ingesta, gasto y contexto deben leerse juntos antes de ajustar el plan.',
+      center: ['PACIENTE', 'plan posible'],
+      nodes: [
+        { title: ['Necesidades'], detail: ['edad · clínica'] },
+        { title: ['Ingesta'], detail: ['cantidad · calidad'] },
+        { title: ['Gasto'], detail: ['actividad · metabolismo'] },
+        { title: ['Contexto'], detail: ['hábitos · acceso'] }
+      ]
+    }],
+    'fisiologia-2026-08-10': [{
+      section: 2,
+      type: 'flow',
+      kicker: 'DIFUSIÓN ALVEOLOCAPILAR',
+      title: 'El flujo aumenta con área y gradiente, y cae con el espesor',
+      caption: 'Lectura visual de la ley de Fick aplicada al paso de O₂ desde el alvéolo hasta la sangre.',
+      nodes: [
+        { title: ['Alvéolo'], detail: ['PAO₂ alta'] },
+        { title: ['Membrana'], detail: ['área ↑', 'espesor ↓'] },
+        { title: ['Plasma'], detail: ['O₂ disuelto'] },
+        { title: ['Eritrocito'], detail: ['O₂ + Hb'] }
+      ],
+      edges: ['gradiente', 'difusión', 'captación'],
+      note: 'CO₂ recorre el sentido opuesto y difunde con gran facilidad.'
+    }],
+    'fisiologia-2026-08-13': [{
+      section: 1,
+      type: 'flow',
+      kicker: 'RETROCONTROL RESPIRATORIO',
+      title: 'La ventilación cambia para corregir la variable detectada',
+      caption: 'El circuito integra señal química, centros respiratorios y músculos ventilatorios.',
+      nodes: [
+        { title: ['PaCO₂ / pH'], detail: ['variable'] },
+        { title: ['Quimiorreceptor'], detail: ['sensor'] },
+        { title: ['Bulbo + puente'], detail: ['controlador'] },
+        { title: ['Músculos'], detail: ['efector'] },
+        { title: ['Ventilación'], detail: ['respuesta'] }
+      ],
+      edges: ['detecta', 'informa', 'activa', 'modifica'],
+      cycle: true,
+      note: 'La respuesta vuelve a modificar PaCO₂ y pH: eso cierra el circuito.'
+    }],
+    'fisiologia-2026-08-17': [{
+      section: 2,
+      type: 'neuron',
+      kicker: 'DIRECCIÓN FUNCIONAL',
+      title: 'La forma de la neurona acompaña el recorrido de la señal',
+      caption: 'Dendritas y soma integran; el axón conduce; la terminal comunica con la célula siguiente.'
+    }],
+    'fisiologia-2026-08-20': [{
+      target: '#fisio20-potencial',
+      type: 'flow',
+      kicker: 'POTENCIAL DE ACCIÓN',
+      title: 'Cada fase depende de un movimiento iónico concreto',
+      caption: 'Secuencia mínima para no confundir despolarización, repolarización y periodo refractario.',
+      nodes: [
+        { title: ['Reposo'], detail: ['gradientes listos'] },
+        { title: ['Umbral'], detail: ['abre Na⁺'] },
+        { title: ['Despolariza'], detail: ['Na⁺ entra'] },
+        { title: ['Repolariza'], detail: ['K⁺ sale'] },
+        { title: ['Refractario'], detail: ['ordena la señal'] }
+      ],
+      edges: ['estímulo', 'canal', 'inactivación', 'recuperación'],
+      note: 'La bomba Na⁺/K⁺ mantiene los gradientes; no dibuja por sí sola cada fase rápida.'
+    }],
+    'bioquimica-2026-08-14': [{
+      section: 3,
+      type: 'pathway',
+      wide: true,
+      kicker: 'GLUCÓLISIS · MAPA DE CARBONOS Y ENERGÍA',
+      title: 'De una glucosa a dos piruvatos',
+      caption: 'La inversión ocurre antes de la división; desde dos G3P, cada reacción sucede dos veces.',
+      nodes: [
+        { title: ['Glucosa'], detail: ['6 C'] },
+        { title: ['Glucosa-6-P'], detail: ['ATP → ADP'] },
+        { title: ['Fructosa-1,6-BP'], detail: ['ATP → ADP'] },
+        { title: ['2 × G3P'], detail: ['3 C + 3 C'] },
+        { title: ['2 × Piruvato'], detail: ['3 C + 3 C'] }
+      ],
+      edges: ['hexo/glucoquinasa', 'PFK-1', 'aldolasa', '+4 ATP · +2 NADH'],
+      note: 'BALANCE NETO · 2 ATP + 2 NADH + 2 piruvatos por glucosa'
+    }, {
+      section: 6,
+      type: 'flow',
+      kicker: 'TRES PUERTAS IRREVERSIBLES',
+      title: 'Los puntos de control ordenan el flujo de la vía',
+      caption: 'PFK-1 es la puerta principal y responde al estado energético celular.',
+      nodes: [
+        { title: ['Glucosa'], detail: ['hexo/glucoquinasa'] },
+        { title: ['F-6-P'], detail: ['PFK-1'] },
+        { title: ['F-1,6-BP'], detail: ['compromiso'] },
+        { title: ['PEP'], detail: ['piruvato quinasa'] },
+        { title: ['Piruvato'], detail: ['salida'] }
+      ],
+      edges: ['puerta 1', 'puerta 2', 'flujo', 'puerta 3'],
+      note: 'ATP y citrato frenan PFK-1; AMP y fructosa-2,6-BP la favorecen.'
+    }],
+    'bioquimica-2026-08-19': [{
+      target: '#bio19-piruvato',
+      type: 'branch',
+      kicker: 'CRUCE METABÓLICO',
+      title: 'El piruvato cambia de destino según la necesidad celular',
+      caption: 'Oxidación, regeneración de NAD⁺ y anaplerosis parten del mismo intermediario.',
+      center: ['PIRUVATO', '3 carbonos'],
+      nodes: [
+        { title: ['Acetil-CoA'], detail: ['PDH · CO₂ + NADH'] },
+        { title: ['Lactato'], detail: ['regenera NAD⁺'] },
+        { title: ['Oxalacetato'], detail: ['piruvato carboxilasa'] },
+        { title: ['Alanina'], detail: ['transaminación'] }
+      ]
+    }],
+    'bioquimica-2026-08-21': [{
+      target: '#cad-cetonas',
+      type: 'flow',
+      kicker: 'CADENA DE LA CETOACIDOSIS',
+      title: 'La falta de insulina libera grasa y acumula ácidos',
+      caption: 'La clínica se entiende siguiendo la cadena hormonal, metabólica y ácido-base.',
+      nodes: [
+        { title: ['Insulina ↓'], detail: ['glucagón ↑'] },
+        { title: ['Lipólisis ↑'], detail: ['ácidos grasos'] },
+        { title: ['Hígado'], detail: ['β-oxidación'] },
+        { title: ['Cetonas ↑'], detail: ['ácidos'] },
+        { title: ['Acidosis'], detail: ['Kussmaul'] }
+      ],
+      edges: ['desinhibe', 'transporta', 'cetogénesis', 'consume HCO₃⁻'],
+      note: 'En paralelo, la hiperglucemia causa diuresis osmótica y deshidratación.'
+    }],
+    'epidemiologia-bloque-anterior': [{
+      section: 4,
+      type: 'flow',
+      kicker: 'CONTINUIDAD DE LA RED',
+      title: 'Referir lleva al recurso; contrarreferir devuelve el plan',
+      caption: 'La información debe viajar en ambos sentidos para que el cuidado no se fragmente.',
+      nodes: [
+        { title: ['Territorio'], detail: ['persona + familia'] },
+        { title: ['APS'], detail: ['acceso · seguimiento'] },
+        { title: ['Referencia'], detail: ['motivo + datos'] },
+        { title: ['Hospital'], detail: ['mayor complejidad'] },
+        { title: ['Contrarreferencia'], detail: ['conducta + control'] }
+      ],
+      edges: ['detecta', 'deriva', 'recibe', 'devuelve'],
+      cycle: true,
+      note: 'La continuidad termina de nuevo en el territorio y en el seguimiento.'
+    }],
+    'epidemiologia-2026-08-19': [{
+      target: '#epi19-triage',
+      type: 'triage',
+      wide: true,
+      kicker: 'TRIAGE DE CINCO NIVELES',
+      title: 'Prioridad clínica, no orden de llegada',
+      caption: 'El color resume riesgo y tiempo de respuesta; cualquier espera exige reevaluación.',
+      nodes: [
+        { title: ['I · ROJO'], detail: ['reanimación · inmediato'] },
+        { title: ['II · NARANJA'], detail: ['emergencia · muy urgente'] },
+        { title: ['III · AMARILLO'], detail: ['urgente · vigilancia'] },
+        { title: ['IV · VERDE'], detail: ['menor urgencia'] },
+        { title: ['V · AZUL'], detail: ['no urgente'] }
+      ],
+      note: 'Si el estado cambia, se vuelve a clasificar.'
+    }],
+    'microbiologia-teorica-2026-08-10': [{
+      section: 1,
+      type: 'layers',
+      kicker: 'MAPA POR PROFUNDIDAD',
+      title: 'La profundidad decide la muestra y el tratamiento',
+      caption: 'Superficial, cutánea y subcutánea no son sinónimos: ocupan tejidos distintos.',
+      nodes: [
+        { title: ['SUPERFICIAL'], detail: ['estrato córneo · tallo piloso'] },
+        { title: ['CUTÁNEA'], detail: ['piel · pelo · uña queratinizados'] },
+        { title: ['SUBCUTÁNEA'], detail: ['dermis profunda · inoculación'] }
+      ],
+      note: 'A mayor profundidad, la muestra suele necesitar mayor profundidad y el tratamiento deja de ser solo local.'
+    }],
+    'microbiologia-teorica-2026-08-17': [{
+      section: 4,
+      type: 'compare',
+      kicker: 'DOS CASOS · DOS PROFUNDIDADES',
+      title: 'La lesión guía el sitio de la muestra',
+      caption: 'Pitiriasis versicolor y tiña corporal se separan por tejido, patrón y hallazgo directo.',
+      nodes: [
+        { title: ['Pitiriasis versicolor'], detail: ['máculas + escama fina', 'Malassezia spp.', 'levaduras + hifas cortas'] },
+        { title: ['Tiña corporal'], detail: ['placa + borde activo', 'Microsporum canis', 'hifas septadas'] }
+      ]
+    }],
+    'microbiologia-practica-anterior': [{
+      section: 5,
+      type: 'flow',
+      kicker: 'PREPARACIÓN DEL SABOURAUD',
+      title: 'Cada gesto prepara el siguiente sin confundir calor y esterilidad',
+      caption: 'La concentración se toma de la fórmula utilizada y la esterilización sigue el protocolo.',
+      nodes: [
+        { title: ['Pesar'], detail: ['fórmula exacta'] },
+        { title: ['Añadir agua'], detail: ['destilada'] },
+        { title: ['Mezclar'], detail: ['homogeneizar'] },
+        { title: ['Calentar'], detail: ['disolver'] },
+        { title: ['Esterilizar'], detail: ['según protocolo'] }
+      ],
+      edges: ['medir', 'incorporar', 'disolver', 'no equivale a'],
+      note: 'Ejemplo observado: 10 g / 100 mL. No se generaliza a otras formulaciones.'
+    }],
+    'microbiologia-practica-2026-08-20': [{
+      target: '#micro20-morfologia',
+      type: 'flow',
+      kicker: 'SECUENCIA DIAGNÓSTICA',
+      title: 'Ningún hallazgo aislado identifica de forma segura',
+      caption: 'La conclusión nace de integrar el sitio, el examen directo, el cultivo y la morfología.',
+      nodes: [
+        { title: ['Muestra'], detail: ['piel · pelo · uña'] },
+        { title: ['Directo'], detail: ['KOH / Wood'] },
+        { title: ['Cultivo'], detail: ['Sabouraud'] },
+        { title: ['Morfología'], detail: ['macro + micro'] },
+        { title: ['Integración'], detail: ['clínica + laboratorio'] }
+      ],
+      edges: ['selecciona', 'orienta', 'describe', 'concluye'],
+      note: 'Bioseguridad y trazabilidad acompañan todas las etapas.'
+    }]
+  };
+
+  function svgEl(tag, attrs, textValue) {
+    var node = document.createElementNS(svgNamespace, tag);
+    Object.keys(attrs || {}).forEach(function (name) { node.setAttribute(name, attrs[name]); });
+    if (textValue !== undefined) node.textContent = textValue;
+    return node;
+  }
+
+  function svgText(svg, x, y, lines, className, anchor) {
+    var textNode = svgEl('text', { x: x, y: y, class: className || '', 'text-anchor': anchor || 'middle' });
+    (Array.isArray(lines) ? lines : [lines]).forEach(function (line, index) {
+      var span = svgEl('tspan', { x: x, dy: index ? 19 : 0 }, line);
+      textNode.appendChild(span);
+    });
+    svg.appendChild(textNode);
+    return textNode;
+  }
+
+  function drawArrow(svg, x1, y1, x2, y2, label, labelY) {
+    svg.appendChild(svgEl('line', { x1: x1, y1: y1, x2: x2 - 9, y2: y2, class: 'diagram-arrow' }));
+    svg.appendChild(svgEl('path', { d: 'M ' + (x2 - 10) + ' ' + (y2 - 5) + ' L ' + x2 + ' ' + y2 + ' L ' + (x2 - 10) + ' ' + (y2 + 5) + ' Z', class: 'diagram-arrow-head' }));
+    if (label) svgText(svg, (x1 + x2) / 2, labelY === undefined ? y1 - 13 : labelY, label, 'diagram-edge-label');
+  }
+
+  function drawCard(svg, x, y, width, height, node, index) {
+    svg.appendChild(svgEl('rect', { x: x, y: y, width: width, height: height, rx: 16, class: 'diagram-card diagram-card-' + (index % 5) }));
+    svgText(svg, x + width / 2, y + 34, node.title, 'diagram-card-title');
+    if (node.detail) svgText(svg, x + width / 2, y + 64, node.detail, 'diagram-card-detail');
+  }
+
+  function drawFlow(svg, definition) {
+    var nodes = definition.nodes || [];
+    var gap = 22;
+    var margin = 28;
+    var width = (800 - (margin * 2) - (gap * (nodes.length - 1))) / nodes.length;
+    var y = 68;
+    nodes.forEach(function (node, index) {
+      var x = margin + index * (width + gap);
+      drawCard(svg, x, y, width, 104, node, index);
+      if (index < nodes.length - 1) drawArrow(svg, x + width + 3, y + 52, x + width + gap - 3, y + 52, (definition.edges || [])[index], 51);
+    });
+    if (definition.cycle && nodes.length > 1) {
+      svg.appendChild(svgEl('path', { d: 'M 738 178 C 738 225, 62 225, 62 178', class: 'diagram-feedback' }));
+      svg.appendChild(svgEl('path', { d: 'M 57 183 L 62 173 L 67 183 Z', class: 'diagram-arrow-head' }));
+    }
+    if (definition.note) svgText(svg, 400, 226, definition.note, 'diagram-note');
+  }
+
+  function drawGrid(svg, definition) {
+    var positions = [[44, 55], [526, 55], [44, 182], [526, 182]];
+    (definition.nodes || []).forEach(function (node, index) {
+      drawCard(svg, positions[index][0], positions[index][1], 230, 84, node, index);
+      var x1 = positions[index][0] < 400 ? positions[index][0] + 230 : positions[index][0];
+      var y1 = positions[index][1] + 42;
+      var x2 = positions[index][0] < 400 ? 344 : 456;
+      var y2 = index < 2 ? 117 : 223;
+      svg.appendChild(svgEl('line', { x1: x1, y1: y1, x2: x2, y2: y2, class: 'diagram-grid-link' }));
+    });
+    svg.appendChild(svgEl('circle', { cx: 400, cy: 170, r: 66, class: 'diagram-center' }));
+    svgText(svg, 400, 158, definition.center[0], 'diagram-center-title');
+    svgText(svg, 400, 184, definition.center[1], 'diagram-center-detail');
+  }
+
+  function drawLayers(svg, definition) {
+    (definition.nodes || []).forEach(function (node, index) {
+      var y = 55 + index * 62;
+      svg.appendChild(svgEl('rect', { x: 42, y: y, width: 716, height: 50, rx: 12, class: 'diagram-layer diagram-layer-' + index }));
+      svgText(svg, 66, y + 22, node.title, 'diagram-layer-title', 'start');
+      svgText(svg, 330, y + 22, node.detail, 'diagram-layer-detail', 'start');
+    });
+    if (definition.note) svgText(svg, 400, 260, definition.note, 'diagram-note');
+  }
+
+  function drawCompare(svg, definition) {
+    (definition.nodes || []).slice(0, 2).forEach(function (node, index) {
+      var x = index ? 414 : 42;
+      svg.appendChild(svgEl('rect', { x: x, y: 55, width: 344, height: 166, rx: 18, class: 'diagram-compare-card diagram-card-' + index }));
+      svgText(svg, x + 172, 90, node.title, 'diagram-compare-title');
+      (node.detail || []).forEach(function (line, lineIndex) {
+        svg.appendChild(svgEl('circle', { cx: x + 37, cy: 125 + lineIndex * 29, r: 4, class: 'diagram-bullet' }));
+        svgText(svg, x + 54, 130 + lineIndex * 29, line, 'diagram-compare-detail', 'start');
+      });
+    });
+    svgText(svg, 400, 248, 'comparar tejido · lesión · muestra · hallazgo', 'diagram-note');
+  }
+
+  function drawBranch(svg, definition) {
+    svg.appendChild(svgEl('rect', { x: 38, y: 100, width: 196, height: 82, rx: 18, class: 'diagram-center-card' }));
+    svgText(svg, 136, 130, definition.center[0], 'diagram-center-title');
+    svgText(svg, 136, 157, definition.center[1], 'diagram-center-detail');
+    (definition.nodes || []).forEach(function (node, index) {
+      var x = index % 2 ? 568 : 300;
+      var y = index < 2 ? 48 : 174;
+      svg.appendChild(svgEl('path', { d: 'M 234 141 C 266 141, 265 ' + (y + 43) + ', ' + (x - 10) + ' ' + (y + 43), class: 'diagram-branch-line' }));
+      drawCard(svg, x, y, 198, 86, node, index);
+    });
+  }
+
+  function drawNeuron(svg) {
+    [[72, 68, 155, 110], [58, 134, 155, 124], [82, 205, 155, 140], [112, 37, 166, 104], [112, 228, 166, 148]].forEach(function (line) {
+      svg.appendChild(svgEl('line', { x1: line[0], y1: line[1], x2: line[2], y2: line[3], class: 'diagram-neuron-line' }));
+    });
+    svg.appendChild(svgEl('circle', { cx: 190, cy: 126, r: 48, class: 'diagram-neuron-soma' }));
+    svg.appendChild(svgEl('circle', { cx: 190, cy: 126, r: 15, class: 'diagram-neuron-nucleus' }));
+    svg.appendChild(svgEl('line', { x1: 238, y1: 126, x2: 708, y2: 126, class: 'diagram-neuron-axon' }));
+    [282, 374, 466, 558].forEach(function (x) { svg.appendChild(svgEl('rect', { x: x, y: 104, width: 68, height: 44, rx: 20, class: 'diagram-neuron-myelin' })); });
+    [[708, 126, 757, 82], [708, 126, 765, 126], [708, 126, 757, 174]].forEach(function (line) { svg.appendChild(svgEl('line', { x1: line[0], y1: line[1], x2: line[2], y2: line[3], class: 'diagram-neuron-terminal' })); });
+    svgText(svg, 92, 26, 'DENDRITAS', 'diagram-label');
+    svgText(svg, 190, 196, 'SOMA · INTEGRA', 'diagram-label');
+    svgText(svg, 465, 78, 'AXÓN MIELINIZADO · CONDUCE', 'diagram-label');
+    svgText(svg, 728, 220, 'TERMINAL · COMUNICA', 'diagram-label');
+    drawArrow(svg, 244, 184, 690, 184, 'dirección de la información', 211);
+  }
+
+  function drawTriage(svg, definition) {
+    (definition.nodes || []).forEach(function (node, index) {
+      var y = 52 + index * 50;
+      var width = 700 - index * 62;
+      svg.appendChild(svgEl('rect', { x: 50, y: y, width: width, height: 38, rx: 10, class: 'diagram-triage-level diagram-triage-' + index }));
+      svgText(svg, 69, y + 24, node.title, 'diagram-triage-title', 'start');
+      svgText(svg, 330, y + 24, node.detail, 'diagram-triage-detail', 'start');
+    });
+    if (definition.note) svgText(svg, 400, 318, definition.note, 'diagram-note');
+  }
+
+  function drawPathway(svg, definition) {
+    drawFlow(svg, Object.assign({}, definition, { note: '' }));
+    svg.appendChild(svgEl('rect', { x: 164, y: 244, width: 472, height: 36, rx: 18, class: 'diagram-balance' }));
+    svgText(svg, 400, 267, definition.note, 'diagram-balance-text');
+  }
+
+  function diagramSvg(definition) {
+    var heights = { grid: 310, layers: 285, compare: 270, branch: 280, neuron: 250, triage: 335, pathway: 295 };
+    var height = heights[definition.type] || 250;
+    var svg = svgEl('svg', {
+      viewBox: '0 0 800 ' + height,
+      role: 'img',
+      'aria-label': definition.title,
+      class: 'course-inline-svg diagram-' + definition.type,
+      preserveAspectRatio: 'xMidYMid meet'
+    });
+    svgText(svg, 400, 25, definition.kicker, 'diagram-kicker');
+    if (definition.type === 'grid') drawGrid(svg, definition);
+    else if (definition.type === 'layers') drawLayers(svg, definition);
+    else if (definition.type === 'compare') drawCompare(svg, definition);
+    else if (definition.type === 'branch') drawBranch(svg, definition);
+    else if (definition.type === 'neuron') drawNeuron(svg);
+    else if (definition.type === 'triage') drawTriage(svg, definition);
+    else if (definition.type === 'pathway') drawPathway(svg, definition);
+    else drawFlow(svg, definition);
+    return svg;
+  }
+
+  function closeDiagramDialog(dialog) {
+    document.body.classList.remove('course-diagram-open');
+    if (typeof dialog.close === 'function') dialog.close();
+    else dialog.removeAttribute('open');
+  }
+
+  function ensureDiagramDialog() {
+    var existing = document.getElementById('courseDiagramDialog');
+    if (existing) return existing;
+    var dialog = el('dialog', 'course-diagram-dialog');
+    dialog.id = 'courseDiagramDialog';
+    var shell = el('div', 'course-diagram-dialog-shell');
+    var header = el('header');
+    var copy = el('div');
+    copy.appendChild(el('span', '', 'ESQUEMA DE LA CLASE'));
+    copy.appendChild(el('strong', '', ''));
+    var close = el('button', '', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Cerrar esquema');
+    header.appendChild(copy);
+    header.appendChild(close);
+    shell.appendChild(header);
+    shell.appendChild(el('div', 'course-diagram-dialog-stage'));
+    shell.appendChild(el('p', 'course-diagram-dialog-caption', ''));
+    dialog.appendChild(shell);
+    close.addEventListener('click', function () { closeDiagramDialog(dialog); });
+    dialog.addEventListener('cancel', function () { document.body.classList.remove('course-diagram-open'); });
+    dialog.addEventListener('click', function (event) { if (event.target === dialog) closeDiagramDialog(dialog); });
+    document.body.appendChild(dialog);
+    return dialog;
+  }
+
+  function openDiagram(definition) {
+    var dialog = ensureDiagramDialog();
+    dialog.querySelector('header strong').textContent = definition.title;
+    dialog.querySelector('.course-diagram-dialog-stage').replaceChildren(diagramSvg(definition));
+    dialog.querySelector('.course-diagram-dialog-caption').textContent = definition.caption;
+    document.body.classList.add('course-diagram-open');
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else dialog.setAttribute('open', '');
+  }
+
+  function diagramFigure(definition, compact) {
+    var figure = el('figure', 'course-inline-figure' + (definition.wide ? ' is-wide' : '') + (compact ? ' is-summary' : ''));
+    var trigger = el('button', 'course-inline-diagram-trigger');
+    trigger.type = 'button';
+    trigger.setAttribute('aria-label', 'Ampliar esquema: ' + definition.title);
+    trigger.appendChild(diagramSvg(definition));
+    var caption = el('figcaption');
+    caption.appendChild(el('strong', '', definition.title));
+    caption.appendChild(el('span', '', definition.caption));
+    caption.appendChild(el('small', '', 'Toca para ampliar'));
+    figure.appendChild(trigger);
+    figure.appendChild(caption);
+    trigger.addEventListener('click', function () { openDiagram(definition); });
+    return figure;
+  }
+
+  function firstParagraph(section) {
+    return Array.prototype.slice.call(section.children).find(function (child) {
+      return child.tagName === 'P' && !child.classList.contains('course-chapter-step');
+    });
+  }
+
+  function decorateCourseVisuals(courseRoot, lessonId) {
+    if (!courseRoot || courseRoot.dataset.lessonVisuals === 'true') return;
+    var definitions = lessonVisuals[lessonId] || [];
+    var sections = Array.prototype.slice.call(courseRoot.querySelectorAll('.course-chapter-section'));
+    definitions.forEach(function (definition) {
+      var target = definition.target ? courseRoot.querySelector(definition.target) : sections[(definition.section || 1) - 1];
+      if (!target) return;
+      var figure = diagramFigure(definition, false);
+      var paragraph = firstParagraph(target);
+      if (paragraph) paragraph.insertAdjacentElement('afterend', figure);
+      else target.appendChild(figure);
+    });
+    courseRoot.dataset.lessonVisuals = 'true';
+  }
+
+  function addUltraVisual(panel, lessonId) {
+    if (!panel || panel.querySelector('.course-inline-figure.is-summary')) return;
+    var definition = (lessonVisuals[lessonId] || [])[0];
+    if (!definition) return;
+    var header = panel.querySelector(':scope > header');
+    var visual = diagramFigure(definition, true);
+    if (header) header.insertAdjacentElement('afterend', visual);
+    else panel.prepend(visual);
+  }
+
+  function standardizeLessonTabs(panel, nav) {
+    if (!nav) return;
+    var labels = {
+      curso: 'Curso completo',
+      rapida: 'Ficha rápida',
+      rapido: 'Ficha rápida',
+      ultra: 'Ficha ultra rápida',
+      training: 'Entrenamiento',
+      material: 'Material de la clase',
+      ia: 'Recursos IA'
+    };
+    nav.setAttribute('role', 'tablist');
+    nav.querySelectorAll('[data-lesson-tab]').forEach(function (button) {
+      var tabId = button.dataset.lessonTab === 'rapido' ? 'rapida' : button.dataset.lessonTab;
+      if (button.dataset.lessonTab === 'rapido') button.dataset.lessonTab = tabId;
+      button.textContent = labels[tabId] || button.textContent;
+      button.setAttribute('role', 'tab');
+      button.id = panel.id + '-tab-' + tabId;
+      button.setAttribute('aria-controls', panel.id + '-panel-' + tabId);
+    });
+    panel.querySelectorAll('[data-lesson-tab-panel]').forEach(function (tabPanel) {
+      var tabId = tabPanel.dataset.lessonTabPanel === 'rapido' ? 'rapida' : tabPanel.dataset.lessonTabPanel;
+      if (tabPanel.dataset.lessonTabPanel === 'rapido') tabPanel.dataset.lessonTabPanel = tabId;
+      tabPanel.id = panel.id + '-panel-' + tabId;
+      tabPanel.setAttribute('role', 'tabpanel');
+      tabPanel.setAttribute('aria-labelledby', panel.id + '-tab-' + tabId);
+    });
+    if (panel.firstElementChild !== nav) panel.insertBefore(nav, panel.firstElementChild);
+  }
+
   function narrativeCourse(narrative, entry, subjectModel) {
     var article = el('article', 'course-chapter-2026 notebook-course-flow');
     var header = el('header', 'notebook-course-intro');
@@ -143,18 +638,24 @@
       body.appendChild(sectionNode);
     });
     article.appendChild(body);
+    decorateCourseVisuals(article, entry.lesson.id);
     return article;
   }
 
-  function summaryPanel(narrative, ultra) {
+  function summaryPanel(narrative, ultra, entry) {
     var panel = el('div', ultra ? 'notebook-ultra' : 'notebook-summary');
-    panel.appendChild(el('h3', '', ultra ? 'La clase en un vistazo' : 'Hilo lógico de la clase'));
-    panel.appendChild(el('p', '', ultra ? 'Para recordar antes de un QCM.' : narrative.lead));
-    var list = el(ultra ? 'ul' : 'ol');
-    narrative.sections.forEach(function (section) {
+    var header = el('header', 'notebook-sheet-head');
+    header.appendChild(el('span', '', ultra ? 'FICHA ULTRA RÁPIDA · 90 S' : 'FICHA RÁPIDA · 5 MIN'));
+    header.appendChild(el('h3', '', ultra ? 'La clase en una sola ruta' : 'El hilo lógico para repasar'));
+    header.appendChild(el('p', '', ultra ? 'Mira el esquema, recorre las ideas y comprueba la relación entre ellas.' : narrative.lead));
+    panel.appendChild(header);
+    if (ultra) addUltraVisual(panel, entry.lesson.id);
+    var list = el('ol', ultra ? 'ultra-sheet notebook-ultra-sheet' : 'quick-sheet notebook-quick-sheet');
+    narrative.sections.forEach(function (section, index) {
       var item = el('li');
-      item.appendChild(el('strong', '', section[0] + ' · ' + section[1]));
-      if (!ultra) item.appendChild(el('p', '', section[2]));
+      if (!ultra) item.appendChild(el('span', '', String(index + 1).padStart(2, '0')));
+      item.appendChild(el('strong', '', ultra ? section[1] : section[0]));
+      if (!ultra) item.appendChild(el('small', '', section[1] + '. ' + section[2].split('. ')[0] + '.'));
       list.appendChild(item);
     });
     panel.appendChild(list);
@@ -166,21 +667,16 @@
     Array.prototype.slice.call(panel.children).forEach(function (child) { original.appendChild(child); });
     var practice = original.querySelector('.practice-module[data-practice-root="' + entry.lesson.practiceId + '"]') || original.querySelector('.practice-module');
 
-    var head = el('header', 'notebook-lesson-head');
-    head.appendChild(el('span', '', subjectModel.label + ' · ' + entry.lesson.dateLong));
-    head.appendChild(el('h3', '', narrative.title));
-    head.appendChild(el('p', '', narrative.lead));
-
     var nav = el('nav', 'lesson-section-tabs notebook-lesson-tabs');
     nav.dataset.lessonTabs = '';
     nav.setAttribute('aria-label', 'Formatos de la clase');
     var definitions = [
       ['curso', 'Curso completo'],
-      ['rapido', 'Resumen'],
-      ['ultra', 'Ultra'],
-      ['training', 'QCM'],
-      ['material', 'Archivos'],
-      ['ia', 'Docente + IA']
+      ['rapida', 'Ficha rápida'],
+      ['ultra', 'Ficha ultra rápida'],
+      ['training', 'Entrenamiento'],
+      ['material', 'Material de la clase'],
+      ['ia', 'Recursos IA']
     ];
     definitions.forEach(function (definition, index) {
       var button = el('button', '', definition[1]);
@@ -201,10 +697,10 @@
       return tab;
     }
 
-    panel.replaceChildren(head, nav);
+    panel.replaceChildren(nav);
     panel.appendChild(tabPanel('curso', narrativeCourse(narrative, entry, subjectModel)));
-    panel.appendChild(tabPanel('rapido', summaryPanel(narrative, false)));
-    panel.appendChild(tabPanel('ultra', summaryPanel(narrative, true)));
+    panel.appendChild(tabPanel('rapida', summaryPanel(narrative, false, entry)));
+    panel.appendChild(tabPanel('ultra', summaryPanel(narrative, true, entry)));
 
     var training = el('div', 'notebook-training');
     if (practice) training.appendChild(practice);
@@ -217,20 +713,22 @@
     panel.appendChild(tabPanel('material', material));
     panel.appendChild(tabPanel('ia', teacherAuditContent(teacher, entry.lesson)));
     panel.dataset.notebookNarrative = 'true';
+    panel.classList.add('lesson-notebook-standard');
+    if (!panel.style.getPropertyValue('--lesson-accent') && teacher && teacher.accent) panel.style.setProperty('--lesson-accent', teacher.accent);
+    standardizeLessonTabs(panel, nav);
     wireLessonTabs(nav, panels);
   }
 
   function enhanceNarrativeLesson(panel, entry, teacher) {
     var nav = panel.querySelector('[data-lesson-tabs]');
-    if (nav) {
-      var labels = ['Curso completo', 'Resumen', 'Ultra', 'QCM', 'Archivos', 'Docente + IA'];
-      nav.querySelectorAll('[data-lesson-tab]').forEach(function (button, index) {
-        if (labels[index]) button.textContent = labels[index];
-      });
-    }
+    standardizeLessonTabs(panel, nav);
+    decorateCourseVisuals(panel.querySelector('[data-lesson-tab-panel="curso"]'), entry.lesson.id);
+    addUltraVisual(panel.querySelector('[data-lesson-tab-panel="ultra"]'), entry.lesson.id);
     var ia = panel.querySelector('[data-lesson-tab-panel="ia"]');
     if (ia) ia.replaceChildren(teacherAuditContent(teacher, entry.lesson));
     panel.dataset.notebookNarrative = 'true';
+    panel.classList.add('lesson-notebook-standard');
+    if (!panel.style.getPropertyValue('--lesson-accent') && teacher && teacher.accent) panel.style.setProperty('--lesson-accent', teacher.accent);
   }
 
   function collectFiles(subject) {
