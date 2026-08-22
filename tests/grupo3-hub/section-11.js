@@ -224,7 +224,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       boardOverflow: document.querySelector('.group-roster-board').scrollWidth - document.querySelector('.group-roster-board').clientWidth
     }));
     expect(dimensions.pageOverflow).toBeLessThanOrEqual(1);
-    expect(dimensions.boardOverflow).toBeLessThanOrEqual(1);
+    expect(dimensions.boardOverflow).toBeGreaterThan(100);
+    const firstColumnWidth = await roster.locator('.group-roster-column').first().evaluate((node) => node.getBoundingClientRect().width);
+    expect(firstColumnWidth).toBeGreaterThanOrEqual(110);
   });
 
   test('exposes management, teacher profiles and install metadata without student accounts', async ({ page }) => {

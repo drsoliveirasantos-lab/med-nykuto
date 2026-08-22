@@ -1970,3 +1970,30 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
   html{scroll-behavior:auto}
   *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.001ms!important;animation-duration:.001ms!important;animation-iteration-count:1!important}
 }
+
+/* Homepage: tasks share the weekly summary instead of leaving an empty side card. */
+.dashboard-week-tasks{display:grid;grid-template-rows:auto 1fr auto;gap:10px;padding:16px}
+.dashboard-week-heading{padding:0 0 10px!important;border-bottom:1px solid var(--line)!important}
+.dashboard-week-tasks .dashboard-priorities{grid-template-columns:1fr 1fr;gap:7px}
+.dashboard-week-tasks .priority-card{min-height:0;padding:11px;border-radius:14px}
+.dashboard-week-tasks .priority-card strong{margin-top:8px;font-size:.82rem}
+.dashboard-week-tasks .priority-card small{font-size:.63rem}
+.dashboard-week-tasks .priority-card b{padding-top:8px;font-size:.63rem}
+.dashboard-week-tasks .priority-card-head{display:grid;justify-items:start;gap:5px}
+.dashboard-week-tasks .priority-card-head time{padding:3px 6px}
+.dashboard-all-tasks{padding-top:0!important}
+.home-quick-link-portal{border-color:rgba(20,50,110,.55);background:linear-gradient(135deg,rgba(16,45,99,.34),rgba(243,198,79,.08))}
+.home-quick-link-portal .brand-icon{box-shadow:inset 0 0 0 2px rgba(243,198,79,.28)}
+@media(max-width:760px){
+  .dashboard-grid{grid-template-columns:1fr}
+  .dashboard-week-tasks{gap:8px;padding:11px}
+  .dashboard-week-heading{display:flex!important;align-items:center;justify-content:space-between;gap:8px;padding-bottom:8px!important}
+  .dashboard-week-heading small{display:none}
+  .dashboard-week-tasks .dashboard-priorities{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .dashboard-week-tasks .priority-card{display:flex;min-width:0;padding:9px}
+  .dashboard-week-tasks .priority-card-head{display:flex;flex-wrap:wrap;align-items:center;gap:4px}
+  .dashboard-week-tasks .priority-card-head time{font-size:.48rem}
+  .dashboard-week-tasks .priority-card strong{margin-top:6px;font-size:.72rem}
+  .dashboard-week-tasks .priority-card small,.dashboard-week-tasks .priority-card b{display:none}
+  .dashboard-all-tasks{justify-self:end;font-size:.62rem!important}
+}

@@ -12,9 +12,9 @@
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
   <link rel="apple-touch-icon" href="assets/logo-medcursos-icon.png" />
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=443" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=449" />
   <link rel="stylesheet" href="class-courses-2026-08-17-v432.css?v=432" />
-  <link rel="stylesheet" href="class-hub-2026-08-21-v440.css?v=448" />
+  <link rel="stylesheet" href="class-hub-2026-08-21-v440.css?v=449" />
   <link rel="stylesheet" href="class-notebook-v445.css?v=445" />
 </head>
 <body>
@@ -94,10 +94,13 @@
           <a href="#horario">Abrir el horario completo <span aria-hidden="true">→</span></a>
         </article>
 
-        <aside class="dashboard-status" aria-label="Resumen de la semana">
-          <div><span>PARA ESTA SEMANA</span><strong id="homeHomeworkCount">2 tareas activas</strong><small>Epidemiología + Bioquímica.</small></div>
-          <div><span>ÚLTIMAS CLASES</span><strong>Bioquímica + Fisiología</strong><small>CAD y sistema nervioso · 20–21 ago.</small></div>
-          <a href="#pendientes">Ver todas las tareas</a>
+        <aside class="dashboard-status dashboard-week-tasks" aria-label="Tareas de esta semana">
+          <div class="dashboard-week-heading"><span>PARA ESTA SEMANA</span><strong id="homeHomeworkCount">2 tareas activas</strong><small>Epidemiología + Bioquímica.</small></div>
+          <div class="dashboard-priorities" aria-label="Tareas importantes de la semana">
+            <a class="priority-card priority-main" data-homework data-task-id="epi-presentation" href="#epi19-tarea"><div class="priority-card-head"><span>EPIDEMIOLOGÍA</span><time datetime="2026-08-26">MIÉ. 26 AGO.</time></div><strong>Preparar la exposición grupal</strong><small>Máximo 10, tema sorteado, diapositivas, uniforme y evaluación individual.</small><b>Abrir consigna y grupos →</b></a>
+            <a class="priority-card" data-homework data-task-id="bio-activities" href="#bioquimica-2026-08-21"><div class="priority-card-head"><span>BIOQUÍMICA II</span><time datetime="2026-08-21">VIE. 21 AGO.</time></div><strong>Imprimir actividades 3 y 4</strong><small>Completar a mano; cinco actividades y presencia obligatoria.</small><b>Descargar el DOCX →</b></a>
+          </div>
+          <a class="dashboard-all-tasks" href="#pendientes">Ver todas las tareas →</a>
         </aside>
       </div>
 
@@ -114,12 +117,6 @@
         </a>
       </div>
 
-      <h2 class="dashboard-priorities-title">TAREAS</h2>
-      <div class="dashboard-priorities" aria-label="Tareas importantes de la semana">
-        <a class="priority-card priority-main" data-homework data-task-id="epi-presentation" href="#epi19-tarea"><div class="priority-card-head"><span>EPIDEMIOLOGÍA</span><time>SEMANA SIGUIENTE</time></div><strong>Preparar la exposición grupal</strong><small>Máximo 10, tema sorteado, diapositivas, uniforme y evaluación individual.</small><b>Abrir consigna y grupos →</b></a>
-        <a class="priority-card" data-homework data-task-id="bio-activities" href="#bioquimica-2026-08-21"><div class="priority-card-head"><span>BIOQUÍMICA II</span><time>PRÁCTICO</time></div><strong>Imprimir actividades 3 y 4</strong><small>Completar a mano; cinco actividades y presencia obligatoria.</small><b>Descargar el DOCX →</b></a>
-        <a class="priority-card" href="#materias"><div class="priority-card-head"><span>NUEVOS MATERIALES</span><time>19–21 AGO.</time></div><strong>Cinco clases organizadas</strong><small>57 diapositivas, 13 páginas, 5 pizarras y 200 preguntas nuevas.</small><b>Ver Materias →</b></a>
-      </div>
     </section>
 
     <noscript><style>[data-view][hidden], [data-course-detail][hidden]{display:block!important}</style></noscript>
@@ -1995,11 +1992,11 @@
   <script src="grupo-3-practice-2026-08-17-v432.js?v=432"></script>
   <script src="grupo-3-practice-2026-08-21-v440.js?v=440"></script>
   <script src="teacher-question-profile-v445.js?v=445"></script>
-  <script src="class-practice-ranking-v431.js?v=448"></script>
+  <script src="class-practice-ranking-v431.js?v=449"></script>
   <script src="grupo-3-v401.js?v=448"></script>
   <script src="class-session-archive-v432.js?v=432"></script>
   <script src="medical-glossary-v425.js?v=432"></script>
-  <script src="class-hub-runtime-v440.js?v=448"></script>
+  <script src="class-hub-runtime-v440.js?v=449"></script>
   <script src="class-notebook-v445.js?v=446"></script>
 </body>
 </html>

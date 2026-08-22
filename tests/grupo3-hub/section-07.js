@@ -59,11 +59,11 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
     expect(homeLayout.dashboardHeight).toBeLessThan(620);
     expect(homeLayout.nextHeight).toBeLessThanOrEqual(140);
-    expect(Math.max(...homeLayout.priorityHeights)).toBeLessThan(70);
+    expect(Math.max(...homeLayout.priorityHeights)).toBeLessThan(110);
     expect(homeLayout.kickerDisplay).toBe('none');
     expect(homeLayout.introDisplay).toBe('none');
     expect(homeLayout.updatedDisplay).toBe('none');
-    expect(homeLayout.lastClassDisplay).toBe('none');
+    expect(homeLayout.lastClassDisplay).toBe('grid');
     expect(homeLayout.scrollWidth).toBeLessThanOrEqual(homeLayout.clientWidth + 1);
 
     await page.goto('/clase.html#materias');

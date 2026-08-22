@@ -111,7 +111,7 @@
     previous.addEventListener('click',function(){if(index>1){index-=1;show();}});next.addEventListener('click',function(){if(index<active.count){index+=1;show();}});close.addEventListener('click',function(){dialog.close();});dialog.addEventListener('click',function(event){if(event.target===dialog)dialog.close();});dialog.addEventListener('close',function(){image.removeAttribute('src');if(returnFocus)returnFocus.focus();});
   }
 
-  function fallbackPublic(){return {notices:[{id:'week-2026-08-21',priority:'normal',title:'Cursos del 19 al 21 de agosto disponibles',body:'Bioquímica, Epidemiología, Fisiología y Microbiología práctica ya están organizadas.'},{id:'tasks-2026-08-21',priority:'important',title:'Dos trabajos activos',body:'Epidemiología: exposición grupal. Bioquímica: imprimir y completar a mano las actividades 3 y 4.'}],tasks:[{id:'epi-presentation',course:'Epidemiología',title:'Exposición grupal de enfermedad sorteada',status:'published',dueLabel:'Semana siguiente'},{id:'bio-activities',course:'Bioquímica II',title:'Actividades 3 y 4 impresas y manuscritas',status:'published',dueLabel:'Práctico · presencia obligatoria'}],activities:[{id:'epi-2026-08-19',title:'Exposición de Epidemiología',capacity:10,status:'published'}],groups:[],members:[],files:[],dates:[]};}
+  function fallbackPublic(){return {notices:[{id:'week-2026-08-21',priority:'normal',title:'Cursos del 19 al 21 de agosto disponibles',body:'Bioquímica, Epidemiología, Fisiología y Microbiología práctica ya están organizadas.'},{id:'tasks-2026-08-21',priority:'important',title:'Dos trabajos activos',body:'Epidemiología: exposición grupal. Bioquímica: imprimir y completar a mano las actividades 3 y 4.'}],tasks:[{id:'epi-presentation',course:'Epidemiología',title:'Exposición grupal de enfermedad sorteada',status:'published',dueLabel:'Mié. 26 ago.',dueAt:'2026-08-26T11:20:00-03:00'},{id:'bio-activities',course:'Bioquímica II',title:'Actividades 3 y 4 impresas y manuscritas',status:'published',dueLabel:'Vie. 21 ago.',dueAt:'2026-08-21T09:10:00-03:00'}],activities:[{id:'epi-2026-08-19',title:'Exposición de Epidemiología',capacity:10,status:'published'}],groups:[],members:[],files:[],dates:[]};}
   function vapidBytes(value){var padding='='.repeat((4-value.length%4)%4),base64=(value+padding).replace(/-/g,'+').replace(/_/g,'/'),raw=atob(base64),output=new Uint8Array(raw.length);for(var index=0;index<raw.length;index+=1)output[index]=raw.charCodeAt(index);return output;}
   function enablePush(button){
     if(!('serviceWorker'in navigator)||!('PushManager'in window)||!('Notification'in window)){button.textContent='Push no disponible en este navegador';button.disabled=true;return;}
@@ -135,7 +135,7 @@
       if(!task)return;
       var course=card.querySelector('.priority-card-head span'),due=card.querySelector('.priority-card-head time'),title=card.querySelector(':scope > strong'),description=card.querySelector(':scope > small');
       if(course)course.textContent=task.course||'CLASE';
-      if(due)due.textContent=task.dueLabel||'POR CONFIRMAR';
+      if(due){due.textContent=task.dueLabel||'POR CONFIRMAR';if(task.dueAt)due.dateTime=task.dueAt;}
       if(title)title.textContent=task.title;
       if(description)description.textContent=task.description||'';
     });

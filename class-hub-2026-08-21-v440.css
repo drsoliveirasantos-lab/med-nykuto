@@ -19,3 +19,35 @@
 @media(max-width:340px){.group-roster-list li>span{display:none}.group-roster-list li{grid-template-columns:minmax(0,1fr)}.group-roster-list li>strong{font-size:6.5px}}
 .group-roster-board{grid-template-columns:repeat(var(--group-count,10),minmax(0,1fr));gap:4px}
 @media(max-width:560px){.group-roster-board{gap:1px}.group-roster-list li{grid-template-columns:minmax(0,1fr)}.group-roster-list li>span{display:none}.group-roster-list li>strong{font-size:6px}}
+
+/* Mobile roster: readable cards with native horizontal swipe and snap. */
+@media(max-width:560px){
+  .group-roster-board{display:flex;gap:8px;max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;padding:2px 16px 10px 1px;scroll-padding-inline:1px;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#38bdf8 rgba(148,163,184,.12);touch-action:pan-x pan-y}
+  .group-roster-board:after{content:"";flex:0 0 1px}
+  .group-roster-column{flex:0 0 clamp(112px,31vw,132px);overflow:hidden;border-radius:12px;scroll-snap-align:start;scroll-snap-stop:normal;box-shadow:0 8px 22px rgba(2,8,16,.22)}
+  .group-activity-card .group-roster-choice{display:flex;justify-content:space-between;min-height:42px;padding:0 9px}
+  .group-activity-card .group-roster-choice strong{font-size:11px}
+  .group-activity-card .group-roster-choice span{font-size:9px}
+  .group-roster-list{padding:4px}
+  .group-roster-list li{grid-template-columns:15px minmax(0,1fr);gap:4px;min-height:29px;padding:3px}
+  .group-roster-list li>span{display:block;font-size:7px}
+  .group-roster-list li>strong{font-size:9px;line-height:1.15}
+  .group-join-heading:after{content:"Desliza los grupos ↔";justify-self:start;margin-top:4px;padding:4px 7px;border-radius:999px;background:rgba(56,189,248,.1);color:#7dd3fc;font:800 8px/1 system-ui;letter-spacing:.04em}
+}
+
+/* Notebook-like summary rail and finished material cards. */
+.course-chapter-index{position:relative;border:0}
+.course-chapter-index:before{content:"SOMARIO";display:block;margin-bottom:10px;color:var(--lesson-accent,var(--hub-cyan));font:850 10px/1 system-ui;letter-spacing:.16em}
+.course-chapter-index ol{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.course-chapter-index li{min-width:0;align-items:center;padding:11px 12px;border:1px solid var(--hub-line);border-radius:13px;background:linear-gradient(145deg,rgba(20,50,71,.78),rgba(8,26,40,.8))}
+.course-chapter-index a{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lesson-materials{align-items:stretch}
+.lesson-file-card{box-shadow:0 16px 36px rgba(1,7,14,.2)}
+.lesson-file-card div{display:flex;min-height:190px;flex-direction:column}
+.lesson-file-card a,.lesson-file-card button{margin-top:auto}
+@media(max-width:780px){
+  .course-chapter-index{overflow:hidden}
+  .course-chapter-index ol{display:flex;gap:8px;overflow-x:auto;padding:0 16px 8px 0;scroll-snap-type:x proximity;scrollbar-width:none}
+  .course-chapter-index li{flex:0 0 min(190px,72vw);scroll-snap-align:start}
+  .lesson-materials{grid-template-columns:1fr}
+}

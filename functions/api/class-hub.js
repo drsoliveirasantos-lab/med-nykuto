@@ -26,8 +26,8 @@ const DEFAULT_PUBLIC = {
     { id: 'tasks-2026-08-21', priority: 'important', title: 'Dos trabajos activos', body: 'Epidemiología: exposición grupal. Bioquímica: imprimir y completar a mano las actividades 3 y 4.', status: 'published' }
   ],
   tasks: [
-    { id: 'epi-presentation', course: 'Epidemiología', title: 'Exposición grupal de enfermedad sorteada', description: 'Máximo 10 integrantes, diapositivas, uniforme, puntualidad y evaluación individual.', dueLabel: 'Semana siguiente', status: 'published' },
-    { id: 'bio-activities', course: 'Bioquímica II', title: 'Actividades 3 y 4 impresas y manuscritas', description: 'El práctico contiene cinco actividades y la presencia es obligatoria.', dueLabel: 'Práctico', status: 'published' }
+    { id: 'epi-presentation', course: 'Epidemiología', title: 'Exposición grupal de enfermedad sorteada', description: 'Máximo 10 integrantes, diapositivas, uniforme, puntualidad y evaluación individual.', dueLabel: 'Mié. 26 ago.', dueAt: '2026-08-26T11:20:00-03:00', status: 'published' },
+    { id: 'bio-activities', course: 'Bioquímica II', title: 'Actividades 3 y 4 impresas y manuscritas', description: 'El práctico contiene cinco actividades y la presencia es obligatoria.', dueLabel: 'Vie. 21 ago.', dueAt: '2026-08-21T09:10:00-03:00', status: 'published' }
   ],
   activities: [{ id: 'epi-2026-08-19', title: 'Exposición de Epidemiología', capacity: 10, status: 'published', frozen: false }],
   groups: [],
@@ -99,6 +99,10 @@ async function ensureSchema(db) {
       ...EPIDEMIOLOGY_ROSTER.map((_, index) => db.prepare(`INSERT OR IGNORE INTO hub_groups (id,activity_id,name,capacity,frozen,created_by,created_at,updated_at) VALUES (?, 'epi-2026-08-19', ?, 10, 0, 'system', ?, ?)`).bind(`epi-2026-08-19-g${index + 1}`, `Grupo ${index + 1}`, created, created))
     ]);
     await db.batch(EPIDEMIOLOGY_ROSTER.flatMap((names, groupIndex) => names.map((displayName, memberIndex) => db.prepare(`INSERT OR IGNORE INTO hub_memberships (id,activity_id,group_id,student_hash,display_name,joined_at,updated_at) VALUES (?, 'epi-2026-08-19', ?, ?, ?, ?, ?)`).bind(`roster-g${groupIndex + 1}-m${memberIndex + 1}`, `epi-2026-08-19-g${groupIndex + 1}`, `roster:g${groupIndex + 1}:m${memberIndex + 1}`, displayName, created, created))));
+    await db.batch([
+      db.prepare(`UPDATE hub_tasks SET due_label='Mié. 26 ago.',due_at='2026-08-26T11:20:00-03:00',updated_at=? WHERE id='epi-presentation'`).bind(created),
+      db.prepare(`UPDATE hub_tasks SET due_label='Vie. 21 ago.',due_at='2026-08-21T09:10:00-03:00',updated_at=? WHERE id='bio-activities'`).bind(created)
+    ]);
   }).catch((error) => { schemaPromise = null; throw error; });
   return schemaPromise;
 }
