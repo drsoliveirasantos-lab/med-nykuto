@@ -53,6 +53,7 @@ lessons.forEach((id) => {
 [
   'assets/class-hub/epidemiology/2026-08-19/organizacion-urgencias-emergencias.pptx',
   'assets/class-hub/epidemiology/2026-08-19/trabajo-practico-salud-publica-epidemiologia.docx',
+  'assets/class-hub/epidemiology/2026-08-19/teacher-guidance/0746E8D5-EFF3-46DF-99C4-CD3D83376F7A.jpeg',
   'assets/class-hub/physiology/2026-08-20/ejercicios-fijacion-sistema-nervioso.pdf',
   'assets/class-hub/biochemistry/2026-08-21/actividades-3-y-4-bioquimica-ii.docx',
   'manifest.webmanifest', 'service-worker.js', 'gestion.html', 'profesores.html', 'archivos.html'
@@ -61,6 +62,7 @@ lessons.forEach((id) => {
 const originalHashes = {
   'assets/class-hub/epidemiology/2026-08-19/organizacion-urgencias-emergencias.pptx': 'bbd160a577240b11de4357f32123d59e2464c8a653e3aa9a5c1ce7bc79f49428',
   'assets/class-hub/epidemiology/2026-08-19/trabajo-practico-salud-publica-epidemiologia.docx': '44cbcc560a6533358a99e2d8576103296cabacc1165c3ce83aa5c3b1280fbbae',
+  'assets/class-hub/epidemiology/2026-08-19/teacher-guidance/0746E8D5-EFF3-46DF-99C4-CD3D83376F7A.jpeg': '8650767e09c0b8ab2e136bf40b449d1703afb064323ef9fd8323f2d44eca5de7',
   'assets/class-hub/physiology/2026-08-20/ejercicios-fijacion-sistema-nervioso.pdf': 'd799b39823b886101634e6407c9298ebe11e98479b666e26ae787ec819388110',
   'assets/class-hub/biochemistry/2026-08-21/actividades-3-y-4-bioquimica-ii.docx': '26780a5fe86ee056d438b2e4889a6315d3f9a0d127573759aa6e81e008c6077e'
 };
@@ -84,8 +86,15 @@ function walk(directory) {
   });
 }
 const classAssets = walk(path.join(root, 'assets', 'class-hub')).map((file) => path.relative(root, file));
-expect(!classAssets.some((file) => /whatsapp|photo-original|\.(?:jpe?g)$/i.test(file)), 'Raw board photos or WhatsApp captures remain in the published class assets.');
+const teacherGuidance = 'assets/class-hub/epidemiology/2026-08-19/teacher-guidance/0746E8D5-EFF3-46DF-99C4-CD3D83376F7A.jpeg';
+expect(!classAssets.some((file) => /whatsapp|photo-original/i.test(file) || (/\.(?:jpe?g)$/i.test(file) && file !== teacherGuidance)), 'Unapproved raw board photos or message captures remain in the published class assets.');
 expect(!/apartamento|número de teléfono|whatsapp/i.test(html), 'Private off-topic conversation leaked into the public class page.');
+const epidemiologyStart = html.indexOf('<section id="epidemiologia"');
+const epidemiologyLesson = html.indexOf('id="epidemiologia-2026-08-19"', epidemiologyStart);
+const epidemiologyProject = html.indexOf('id="epi19-tarea"', epidemiologyStart);
+expect(epidemiologyProject > epidemiologyStart && epidemiologyProject < epidemiologyLesson, 'The active Epidemiology project must appear before the dated lessons.');
+expect(html.includes('<strong>TODOS</strong><span>los integrantes deben hablar</span>') && html.includes('diapositivas como máximo') && html.includes('notebook para toda la sala'), 'The teacher clarification is not summarized in the active project.');
+expect(html.includes(`data-image-lightbox="${teacherGuidance}"`), 'The original teacher clarification is not available from the project card.');
 
 ['Cuaderno', 'Temas', 'Archivos', 'Progreso'].forEach((label) => expect(runtime.includes(label), `Course workspace is missing ${label}.`));
 expect(runtime.includes('data-image-lightbox'), 'Tap-to-enlarge scientific boards are not wired.');

@@ -1,4 +1,4 @@
-const CACHE = 'med-nykuto-class-v457';
+const CACHE = 'med-nykuto-class-v458';
 const SHELL = [
   '/clase.html',
   '/comunidade.html',
@@ -6,12 +6,12 @@ const SHELL = [
   '/archivos.html',
   '/grupo-3-v401.css?v=452',
   '/class-courses-2026-08-17-v432.css?v=432',
-  '/class-hub-2026-08-21-v440.css?v=455',
+  '/class-hub-2026-08-21-v440.css?v=456',
   '/class-notebook-v445.css?v=457',
   '/profesores-v445.css?v=445',
   '/archivos-v445.css?v=445',
   '/academic-model-v445.js?v=448',
-  '/grupo-3-i18n-v421.js?v=442',
+  '/grupo-3-i18n-v421.js?v=443',
   '/grupo-3-practice-v413.js?v=445',
   '/grupo-3-practice-expansion-v420.js?v=422',
   '/grupo-3-practice-grounded-v426.js?v=431',
@@ -24,7 +24,8 @@ const SHELL = [
   '/teacher-profiles-v445.js?v=445',
   '/archivos-v440.js?v=440',
   '/assets/pwa-icon-192.png',
-  '/assets/pwa-icon-512.png'
+  '/assets/pwa-icon-512.png',
+  '/assets/class-hub/epidemiology/2026-08-19/teacher-guidance/0746E8D5-EFF3-46DF-99C4-CD3D83376F7A.jpeg'
 ];
 
 self.addEventListener('install', (event) => {

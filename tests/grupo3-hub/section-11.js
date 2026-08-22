@@ -277,6 +277,19 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.locator('.mobile-bottom-nav [data-view-link="cursos"]').click();
     await page.locator('[data-course-target="epidemiologia"]').click();
 
+    const project = page.locator('#epi19-tarea');
+    await expect(project).toBeVisible();
+    await expect(project.getByRole('heading', { name: 'Proyecto grupal: exposición sobre una enfermedad' })).toBeVisible();
+    await expect(project).toContainText(/TODOS\s*los integrantes deben hablar/i);
+    await expect(project.locator('[data-image-lightbox]')).toHaveAttribute('data-image-lightbox', /teacher-guidance\/0746E8D5/);
+    const projectPosition = await page.evaluate(() => {
+      const projectNode = document.querySelector('#epi19-tarea');
+      const datedLesson = document.querySelector('#epidemiologia-2026-08-19');
+      return Boolean(projectNode.compareDocumentPosition(datedLesson) & Node.DOCUMENT_POSITION_FOLLOWING);
+    });
+    expect(projectPosition).toBe(true);
+    await project.locator('.epidemiology-project-groups > summary').click();
+
     const roster = page.locator('#epi19-tarea .group-roster-board');
     await expect(roster).toBeVisible();
     await expect(roster.locator('.group-roster-column')).toHaveCount(10);
