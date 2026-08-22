@@ -51,7 +51,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       })
     ));
     expect(clinicalStoriesArePatientVignettes).toBe(true);
-    await page.goto('/clase.html#practice-nutricion');
+    await page.goto('/clase.html#nutricion-2026-08-13');
+    await page.locator('#nutricion-2026-08-13 [data-lesson-tab="training"]').click();
     const practice = page.locator('#practice-nutricion');
     const overviewCounts = practice.locator('.practice-counts > span');
     await expect(overviewCounts.nth(0)).toHaveText('20QCM');
@@ -76,7 +77,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('keeps the previous Epidemiology block organized around APS and triage', async ({ page }) => {
     await page.goto('/clase.html#epi-detail');
-    await expect(page.getByRole('heading', { name: 'APS, sectorización y triage', exact: true })).toBeVisible();
+    await expect(page.locator('#epidemiologia .notebook-current-title')).toContainText('APS, sectorización y triage');
     await expect(page.locator('#epidemiologia-bloque-anterior').getByRole('heading', { name: 'Atención Primaria de la Salud', exact: true })).toBeVisible();
     await expect(page.locator('#epidemiologia .transcription-rule-note').getByText('Cómo se separaron las clases:')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Lo que la profesora señaló que puede preguntar' })).toBeVisible();
