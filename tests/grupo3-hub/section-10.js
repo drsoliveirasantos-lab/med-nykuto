@@ -1,8 +1,8 @@
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('turns the Group 3 practical transcript into a safe fungal culture guide', async ({ page }) => {
     await page.goto('/clase.html#micro-detail');
-    await expect(page.getByRole('heading', { name: 'Cultivo de hongos en agar Sabouraud' })).toBeVisible();
-    await expect(page.locator('#microbiologia-practica .subject-heading .source-pill')).toHaveText('Clase anterior · fecha por confirmar');
+    await expect(page.locator('#microbiologia-practica .notebook-current-title')).toContainText('Hongos y preparación del agar Sabouraud');
+    await expect(page.locator('#microbiologia-practica .notebook-date[aria-current="date"]')).toContainText('S/F');
     await expect(page.getByRole('heading', { name: 'Lleva una muestra sólida con moho' })).toBeVisible();
     await expect(page.getByText('Pan duro con moho', { exact: true })).toBeVisible();
     await expect(page.getByRole('row', { name: /Levadura Principalmente unicelular/ })).toBeVisible();
@@ -15,8 +15,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('organizes theoretical Microbiology into dermatophyte reasoning and next-class preparation', async ({ page }) => {
     await page.goto('/clase.html#micro-theory-detail');
-    await expect(page.getByRole('heading', { name: 'Dermatofitosis: de la queratina al caso clínico' })).toBeVisible();
-    await expect(page.getByText('Clase estimada · 10 ago. · confirmar')).toBeVisible();
+    await expect(page.locator('#microbiologia-teorica .notebook-current-title')).toContainText('Dermatofitosis y tiñas');
+    await expect(page.locator('#microbiologia-teorica .notebook-date[aria-current="date"]')).toContainText('10 AGO.');
     await expect(page.getByRole('row', { name: /Trichophyton Sí Sí Sí/ })).toBeVisible();
     await expect(page.getByText('Tiña capitis y tiña del cuero cabelludo son el mismo diagnóstico.')).toBeVisible();
     await expect(page.getByText('El hidróxido de potasio aclara queratina y permite ver hifas septadas o artroconidios', { exact: false })).toBeVisible();
