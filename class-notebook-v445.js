@@ -509,6 +509,25 @@
     });
   }
 
+  function revealSubject(subject) {
+    document.querySelectorAll('[data-view]').forEach(function (panel) {
+      panel.hidden = panel.dataset.view !== 'cursos';
+    });
+    var hub = document.getElementById('materias');
+    if (hub) hub.hidden = false;
+    document.querySelectorAll('.subject-section[data-view="cursos"]').forEach(function (section) {
+      section.hidden = section !== subject;
+    });
+    document.querySelectorAll('[data-view-link]').forEach(function (link) {
+      if (link.dataset.viewLink === 'cursos') link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+    document.querySelectorAll('[data-course-target]').forEach(function (link) {
+      link.setAttribute('aria-current', link.dataset.courseTarget === subject.id ? 'true' : 'false');
+    });
+    document.body.dataset.activeView = 'cursos';
+  }
+
   function revealDeepTarget() {
     var hashId = window.location.hash.slice(1);
     if (!hashId) return;
@@ -517,6 +536,7 @@
     var lessonPanel = target.closest('[data-lesson-panel]');
     var subject = target.closest('.subject-section');
     if (!lessonPanel || !subject || !subject.classList.contains('notebook-ready')) return;
+    revealSubject(subject);
     var date = subject.querySelector('.notebook-date[data-lesson-id="' + lessonPanel.id + '"]');
     if (date) date.click();
     var tab = 'curso';
