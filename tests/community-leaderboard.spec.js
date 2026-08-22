@@ -249,13 +249,13 @@ test.describe('Weekly class challenge', () => {
     await page.goto('/comunidade.html', { waitUntil: 'domcontentloaded' });
     const navigation = page.locator('.mobile-bottom-nav');
     await expect(navigation).toBeVisible();
-    await expect(navigation.locator('a')).toHaveCount(6);
+    await expect(navigation.locator('a')).toHaveCount(5);
     await expect(navigation.locator('a[aria-current="page"]')).toHaveAttribute('href', 'comunidade.html');
     await expect(navigation.locator('a[href="clase.html#inicio"]')).toContainText('Inicio');
     await expect(navigation.locator('a[href="clase.html#horario"]')).toContainText('Horario');
     await expect(navigation.locator('a[href="clase.html#pendientes"]')).toContainText('Tareas');
     await expect(navigation.locator('a[href="clase.html#materias"]')).toContainText('Materias');
-    await expect(navigation.locator('a[href="clase.html#plan-estudio"]')).toContainText('Plan');
+    await expect(navigation.locator('a[href="clase.html#plan-estudio"]')).toHaveCount(0);
 
     const layout = await page.evaluate(() => {
       const nav = document.querySelector('.mobile-bottom-nav').getBoundingClientRect();
