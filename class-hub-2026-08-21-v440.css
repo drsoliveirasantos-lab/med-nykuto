@@ -147,3 +147,43 @@
   .epidemiology-project-groups>summary small{max-width:28ch;line-height:1.35}
   .epidemiology-project-groups>[data-group-runtime]{padding:0 8px 12px}
 }
+
+
+/* v457 — las tareas se leen y gestionan sin salir de la vista Tareas. */
+.class-hub-live .live-task-details{padding:0;overflow:hidden;scroll-margin-top:112px;transition:border-color .2s ease,background .2s ease}
+.class-hub-live .live-task-details[open]{border-color:rgba(56,189,248,.48);background:#0d2435}
+.live-task-summary{min-height:76px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px;padding:14px 16px;list-style:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.live-task-summary::-webkit-details-marker{display:none}
+.live-task-summary-copy{min-width:0}
+.live-task-summary .live-task-meta{display:block;margin:0 0 7px;color:#7dd3fc;font:800 11px/1.2 system-ui;letter-spacing:.04em}
+.live-task-summary strong{display:block;margin:0;color:#fff;font-size:15px;line-height:1.28}
+.live-task-action{min-width:64px;min-height:38px;display:inline-grid;place-items:center;border:1px solid rgba(125,211,252,.32);border-radius:999px;background:rgba(14,165,233,.1);color:#bae6fd;font:850 11px/1 system-ui}
+.live-task-details[open] .live-task-action{background:#17354a;color:#fff}
+.live-task-summary:focus-visible,.notice-item-link:focus-visible,.live-task-download:focus-visible{outline:3px solid #38bdf8;outline-offset:3px}
+.live-task-body{padding:18px;border-top:1px solid rgba(148,163,184,.18);background:linear-gradient(180deg,rgba(8,29,44,.35),rgba(7,21,33,.15))}
+.live-task-body .live-task-intro{margin:0;color:#dbeafe;line-height:1.6}
+.live-task-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:16px 0}
+.live-task-facts>div{min-width:0;padding:12px;border:1px solid rgba(125,211,252,.16);border-radius:14px;background:rgba(8,27,41,.72)}
+.live-task-facts strong{margin:0 0 5px;color:#e0f2fe;font-size:17px}
+.live-task-facts small{display:block;color:#a8bfd0;font-size:11px;line-height:1.35}
+.live-task-body h4{margin:20px 0 10px;color:#fff;font-size:14px}
+.live-task-steps{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.live-task-steps li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:11px;align-items:start;padding:11px;border:1px solid rgba(148,163,184,.14);border-radius:14px;background:rgba(15,39,56,.72)}
+.live-task-steps li>span{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:#16384f;color:#7dd3fc;font:900 11px/1 system-ui}
+.live-task-steps strong{margin:1px 0 4px;color:#f8fafc;font-size:13px}
+.live-task-steps small{display:block;color:#afc2d0;font-size:12px;line-height:1.45}
+.live-task-body .live-task-note{margin:14px 0 0;padding:12px 14px;border-left:3px solid #38bdf8;border-radius:0 12px 12px 0;background:rgba(14,165,233,.08);color:#dbeafe;line-height:1.5}
+.live-task-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.live-task-download{min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:0 15px;border:1px solid rgba(52,211,153,.32);border-radius:12px;background:rgba(16,185,129,.12);color:#d1fae5;font-weight:850;text-decoration:none}
+.notice-item-link{display:block;color:inherit;text-decoration:none;cursor:pointer;transition:transform .18s ease,border-color .18s ease,background .18s ease}
+.notice-item-link:hover{transform:translateY(-1px);border-color:#38bdf8;background:#102638}
+.notice-item .notice-item-action{display:block;margin-top:12px;color:#7dd3fc;font:850 12px/1.2 system-ui;letter-spacing:0}
+@media(max-width:560px){
+  .live-task-summary{min-height:72px;padding:13px 12px;gap:10px}
+  .live-task-summary strong{font-size:14px}
+  .live-task-action{min-width:58px}
+  .live-task-body{padding:14px 12px}
+  .live-task-facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .live-task-download{width:100%}
+}
+@media(prefers-reduced-motion:reduce){.class-hub-live .live-task-details,.notice-item-link{transition:none}}
