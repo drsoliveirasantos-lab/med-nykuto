@@ -7,6 +7,18 @@ const NOTICE_PRIORITIES = new Set(['normal', 'important', 'urgent']);
 const ID_PATTERN = /^[a-z0-9][a-z0-9._-]{0,79}$/;
 const MAX_BODY = 65536;
 let schemaPromise;
+const EPIDEMIOLOGY_ROSTER = [
+  ['Alicia Vieira dos Santos','Ziz Emanuelly Barros Ramos','Nathália Amabile','Emanuelle Teixeira Keller','Guilherme Henrique Cisotto Marques','João Vitor Dalcin Portela','Hiago Cotrim Friedrich','Yanick Modesto Ribeiro','Manuela Ribeiro Quanz'],
+  ['Camila de Jesus Maciel','Murillo Gabriel Batista de Oliveira','Luana Dos Santos','Igor Matheus Moraes Fedrici','Ana Luiza Ribeiro dos Santos','Bruna Carolina Vanderley Lima','Maria Luísa Rostelato','João Victor Paulino','Vitoria Hidaka de Souza','Maria Eduarda Hidaka Coelho'],
+  ['Ester Moya','Kamyla Valêncio','Ayandra Alves de Souza','Camila Ferreira Lima Morais','Emily Eduarda Martins Borba','Tayssa Rodrigues','Nicolle Vitoria Ortiz Adriano','Ronise Lima','Djangler Rocha','Mateus Pacheco'],
+  ['Giovanna de Oliveira Alves','Adriane de Castro Silva Alencar','Letícia Cristo Galvão','Yan Hubner Augusto','Anna Beatriz Lessa Oliveira','José Antônio Ferreira de Souza','Gabriel Lourenço Diniz','Giovani Barcellos','Fabiane Letícia','Victor Habner Rodrigues'],
+  ['Byanka Gomes Barros','Pamela Larissa Gomes de Lima','Hugo Vinícius Pereira Silva','Lara Daronch','Geovani Garcia de Oliveira','Beatriz Gomes Barros','Julia Miriam Vilela','Francieli Aparecida Zerbato','Gabriele Alice Gelmi Fregati','Tiago Ferreira Araújo'],
+  ['Barbara Jullian Amaral de Paula','Samanta Nunes de Miranda Amaral','Vinícius da Costa Jardim','Elielton Arquimedes de Oliveira Silva','Amanda Carolina Ludvichak Rodrigues','Gilcimar Alves Silva','Kathleen Rafaely Ferreira Lopes','Silvane Maria Costa','Carlos Aparecido da Silva Santos','Samuel Batista dos Santos'],
+  ['Ianna Tamiña Batista Leite Ruiz','Anne Karoline Martins Fernandes de Melo','Renata Coltro','Bruno Chevi','Anderson do Nascimento','Andreza Andrade Nascimento','Geovana Mendonça','Dantom Oliveira de Farias','Mauro Lino Teixeira Barbosa'],
+  ['Ana Clara Ferraz Guimarães','Karen Beatriz Melo Piva','Paolla de Paiva Pinto','Daniele Lourdes Domingues Maia','Camila Idilia Rodrigues Correa Maria','Clayve de Oliveira Santos','Daniel Santana Ramos de Ataides','Ana Paula Vicente','Paulo Renato Lima Araújo'],
+  ['Adna Juliana Nunes Silva Pinheiro','Layssa Karoline Barbosa','Stephany Januario Matos','Maria Vitória Teles Fernandes','Maryanna Araujo da Silva','Maslow Gabriel Neis Pontes','Giovana Sabatke','Camila Alencar Delmutti','Thallys Gabriel Rigo'],
+  ['Mariellen Ayane de Freitas','Michael da Silva de Mesquita','Marizely L de Freitas Veras','Marcos Dhemerson Ferreira Feitosa','Danilo Evandro Silva Lima','José Maria de Souza Neto','Davi Mateus Vasconcelos','Clara Oliveira Santos','Diego Oliveira Santos','Ellen Cordeiro Nunes']
+];
 
 const DEFAULT_PUBLIC = {
   notices: [
@@ -18,7 +30,8 @@ const DEFAULT_PUBLIC = {
     { id: 'bio-activities', course: 'Bioquímica II', title: 'Actividades 3 y 4 impresas y manuscritas', description: 'El práctico contiene cinco actividades y la presencia es obligatoria.', dueLabel: 'Práctico', status: 'published' }
   ],
   activities: [{ id: 'epi-2026-08-19', title: 'Exposición de Epidemiología', capacity: 10, status: 'published', frozen: false }],
-  groups: []
+  groups: [],
+  members: []
 };
 
 function json(body, status = 200, headers = {}) {
@@ -83,8 +96,9 @@ async function ensureSchema(db) {
       db.prepare(`INSERT OR IGNORE INTO hub_notices (id,title,body,priority,status,push_mode,created_by,created_at,updated_at,published_at) VALUES (?,?,?,'normal','published',0,'system',?,?,?)`).bind('week-2026-08-21', 'Cursos del 19 al 21 de agosto disponibles', 'Bioquímica, Epidemiología, Fisiología y Microbiología práctica ya están organizadas.', created, created, created),
       db.prepare(`INSERT OR IGNORE INTO hub_notices (id,title,body,priority,status,push_mode,created_by,created_at,updated_at,published_at) VALUES (?,?,?,'important','published',0,'system',?,?,?)`).bind('tasks-2026-08-21', 'Dos trabajos activos', 'Epidemiología: exposición grupal. Bioquímica: imprimir y completar a mano las actividades 3 y 4.', created, created, created),
       db.prepare(`INSERT OR IGNORE INTO hub_activities (id,title,capacity,status,frozen,created_by,created_at,updated_at) VALUES ('epi-2026-08-19','Exposición de Epidemiología',10,'published',0,'system',?,?)`).bind(created, created),
-      ...[1, 2, 3, 4, 5, 6].map((number) => db.prepare(`INSERT OR IGNORE INTO hub_groups (id,activity_id,name,capacity,frozen,created_by,created_at,updated_at) VALUES (?, 'epi-2026-08-19', ?, 10, 0, 'system', ?, ?)`).bind(`epi-2026-08-19-g${number}`, `Grupo ${number}`, created, created))
+      ...EPIDEMIOLOGY_ROSTER.map((_, index) => db.prepare(`INSERT OR IGNORE INTO hub_groups (id,activity_id,name,capacity,frozen,created_by,created_at,updated_at) VALUES (?, 'epi-2026-08-19', ?, 10, 0, 'system', ?, ?)`).bind(`epi-2026-08-19-g${index + 1}`, `Grupo ${index + 1}`, created, created))
     ]);
+    await db.batch(EPIDEMIOLOGY_ROSTER.flatMap((names, groupIndex) => names.map((displayName, memberIndex) => db.prepare(`INSERT OR IGNORE INTO hub_memberships (id,activity_id,group_id,student_hash,display_name,joined_at,updated_at) VALUES (?, 'epi-2026-08-19', ?, ?, ?, ?, ?)`).bind(`roster-g${groupIndex + 1}-m${memberIndex + 1}`, `epi-2026-08-19-g${groupIndex + 1}`, `roster:g${groupIndex + 1}:m${memberIndex + 1}`, displayName, created, created))));
   }).catch((error) => { schemaPromise = null; throw error; });
   return schemaPromise;
 }
@@ -103,15 +117,16 @@ async function authenticate(request, env, db) {
 async function audit(db, actor, action, entityType, entityId, details = {}) { await db.prepare(`INSERT INTO hub_audit (actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,?,?,?,?,?)`).bind(actor.id, actor.role, action, entityType, entityId, JSON.stringify(details).slice(0, 2000), nowIso()).run(); }
 
 async function readPublic(db) {
-  const [notices, tasks, activities, groups, files, dates] = await Promise.all([
+  const [notices, tasks, activities, groups, members, files, dates] = await Promise.all([
     db.prepare(`SELECT id,title,body,priority,status,published_at AS publishedAt FROM hub_notices WHERE status='published' ORDER BY CASE priority WHEN 'urgent' THEN 0 WHEN 'important' THEN 1 ELSE 2 END, COALESCE(published_at,updated_at) DESC`).all(),
     db.prepare(`SELECT id,course,title,description,due_label AS dueLabel,due_at AS dueAt,status FROM hub_tasks WHERE status='published' ORDER BY COALESCE(due_at,'9999') ASC, updated_at DESC`).all(),
     db.prepare(`SELECT id,title,capacity,closes_at AS closesAt,status,CASE WHEN frozen=1 OR (closes_at IS NOT NULL AND closes_at<=?) THEN 1 ELSE 0 END AS frozen FROM hub_activities WHERE status='published' ORDER BY updated_at DESC`).bind(nowIso()).all(),
-    db.prepare(`SELECT g.id,g.activity_id AS activityId,g.name,g.capacity,CASE WHEN g.frozen=1 OR a.frozen=1 OR (a.closes_at IS NOT NULL AND a.closes_at<=?) THEN 1 ELSE 0 END AS frozen,COUNT(m.id) AS memberCount FROM hub_groups g LEFT JOIN hub_memberships m ON m.group_id=g.id JOIN hub_activities a ON a.id=g.activity_id WHERE a.status='published' GROUP BY g.id ORDER BY g.activity_id,g.name`).bind(nowIso()).all(),
+    db.prepare(`SELECT g.id,g.activity_id AS activityId,g.name,g.capacity,CASE WHEN g.frozen=1 OR a.frozen=1 OR (a.closes_at IS NOT NULL AND a.closes_at<=?) THEN 1 ELSE 0 END AS frozen,COUNT(m.id) AS memberCount FROM hub_groups g LEFT JOIN hub_memberships m ON m.group_id=g.id JOIN hub_activities a ON a.id=g.activity_id WHERE a.status='published' GROUP BY g.id ORDER BY g.activity_id,CAST(SUBSTR(g.name,7) AS INTEGER)`).bind(nowIso()).all(),
+    db.prepare(`SELECT m.activity_id AS activityId,m.group_id AS groupId,m.display_name AS displayName,m.joined_at AS joinedAt FROM hub_memberships m JOIN hub_activities a ON a.id=m.activity_id WHERE a.status='published' ORDER BY m.activity_id,m.group_id,m.joined_at,m.display_name`).all(),
     db.prepare(`SELECT id,course,lesson_date AS lessonDate,title,url,file_type AS fileType,status FROM hub_files WHERE status='published' ORDER BY updated_at DESC`).all(),
     db.prepare(`SELECT id,label,starts_at AS startsAt,status FROM hub_dates WHERE status='published' ORDER BY starts_at`).all()
   ]);
-  return { ok: true, notices: notices.results || [], tasks: tasks.results || [], activities: (activities.results || []).map((item) => ({ ...item, frozen: Boolean(item.frozen) })), groups: (groups.results || []).map((item) => ({ ...item, frozen: Boolean(item.frozen), memberCount: Number(item.memberCount) || 0 })), files: files.results || [], dates: dates.results || [], generatedAt: nowIso() };
+  return { ok: true, notices: notices.results || [], tasks: tasks.results || [], activities: (activities.results || []).map((item) => ({ ...item, frozen: Boolean(item.frozen) })), groups: (groups.results || []).map((item) => ({ ...item, frozen: Boolean(item.frozen), memberCount: Number(item.memberCount) || 0 })), members: members.results || [], files: files.results || [], dates: dates.results || [], generatedAt: nowIso() };
 }
 
 async function adminSnapshot(db, actor) {

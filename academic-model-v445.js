@@ -411,7 +411,7 @@
       teacherId: 'ruth-castillo',
       chapters: [
         { id: 'microbiologia-practica-capitulo-1', number: 1, title: 'Cultivo e identificación micológica', status: 'current', lessons: [
-          { id: 'microbiologia-practica-anterior', practiceId: 'microbiologia-practica', date: 'S/F', dateLong: 'Clase anterior · fecha por confirmar', title: 'Hongos y preparación del agar Sabouraud', status: 'undated' },
+          { id: 'microbiologia-practica-anterior', practiceId: 'microbiologia-practica', date: '13 AGO.', dateLong: '13 de agosto de 2026', title: 'Hongos y preparación del agar Sabouraud', status: 'confirmed' },
           { id: 'microbiologia-practica-2026-08-20', practiceId: 'microbiologia-practica-2026-08-20', date: '20 AGO.', dateLong: '20 de agosto de 2026', title: 'Diagnóstico práctico de micosis superficiales', status: 'confirmed' }
         ] }
       ]

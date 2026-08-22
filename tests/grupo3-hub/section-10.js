@@ -2,7 +2,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('turns the Group 3 practical transcript into a safe fungal culture guide', async ({ page }) => {
     await page.goto('/clase.html#micro-detail');
     await expect(page.locator('#microbiologia-practica .notebook-current-title')).toContainText('Hongos y preparación del agar Sabouraud');
-    await expect(page.locator('#microbiologia-practica .notebook-date[aria-current="date"]')).toContainText('S/F');
+    await expect(page.locator('#microbiologia-practica .notebook-date[aria-current="date"]')).toContainText('13 AGO.');
     await expect(page.getByRole('heading', { name: 'Lleva una muestra sólida con moho' })).toBeVisible();
     await expect(page.getByText('Pan duro con moho', { exact: true })).toBeVisible();
     await expect(page.getByRole('row', { name: /Levadura Principalmente unicelular/ })).toBeVisible();

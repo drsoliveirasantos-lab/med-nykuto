@@ -92,6 +92,7 @@ expect(runtime.includes('data-image-lightbox'), 'Tap-to-enlarge scientific board
 expect(runtime.includes('serviceWorker.register'), 'PWA registration is missing.');
 expect(runtime.includes('push.subscribe'), 'Optional push subscription is missing.');
 expect(runtime.includes("action:'group.join'") && runtime.includes("action:'group.leave'"), 'Student group join/leave controls are incomplete.');
+expect(runtime.includes('group-roster-board') && runtime.includes('group-roster-column') && runtime.includes('activityMembers') && runtime.includes('--group-count'), 'The public multi-column group roster is missing.');
 
 expect(api.includes("role: 'owner'"), 'Owner authorization is missing.');
 expect(api.includes("role: 'editor'"), 'Editor authorization is missing.');
@@ -100,6 +101,7 @@ expect(api.includes('invite.create') && api.includes('invite.revoke') && api.inc
 expect(api.includes('hub_audit'), 'Audit log schema is missing.');
 expect(api.includes('UNIQUE(activity_id, student_hash)'), 'One-student-per-activity server constraint is missing.');
 expect(api.includes('COUNT(*) FROM hub_memberships') && api.includes('MIN(a.capacity,g.capacity)'), 'Atomic group capacity guard is missing.');
+expect(api.includes('m.display_name AS displayName') && api.includes('members: members.results || []'), 'Published group rosters do not expose their recorded display names.');
 expect(api.includes('cleanUrl') && api.includes("['http:', 'https:']"), 'Managed file URLs are not restricted to HTTP(S).');
 expect(api.includes('hub_rate_limits') && api.includes('rate_limited'), 'Public and management routes are missing server-side abuse limits.');
 expect(api.includes('waitUntil(pushJob)'), 'Push delivery is not delegated to a Pages background task.');
