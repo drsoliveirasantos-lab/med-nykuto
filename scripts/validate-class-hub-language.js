@@ -94,11 +94,11 @@ expect(html.includes('<option value="br">PT-BR · Português</option>'), 'The Br
   '#microTheoryPrepCard',
   '#bioPrepCard',
   '#epiPrepCard',
-  '#nutritionPrepCard',
   '#microPrepCard'
 ].forEach((target) => {
   expect(html.includes(`class="schedule-task-badge`) && html.includes(`href="${target}"`), `The schedule task shortcut ${target} is missing.`);
 });
+expect(!html.includes('href="#nutritionPrepCard"'), 'The completed Nutrition seminar is still shown as an active schedule task.');
 
 expect((html.match(/course-type-badge/g) || []).length >= 4, 'Theory/practice badges are not present in both schedule and course selector.');
 expect(html.includes('Microbiología II · Teórica'), 'Microbiología teórica is not labeled explicitly.');
