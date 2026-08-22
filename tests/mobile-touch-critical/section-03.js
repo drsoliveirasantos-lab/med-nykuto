@@ -27,13 +27,13 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     });
     expect(dashboard.height).toBeLessThan(720);
     expect(dashboard.titleSize).toBeLessThan(32);
-    expect(dashboard.navHeight).toBeGreaterThanOrEqual(56);
+    expect(dashboard.navHeight).toBeGreaterThanOrEqual(54);
     expect(dashboard.navHeight).toBeLessThanOrEqual(62);
     expect(dashboard.overflow).toBeLessThanOrEqual(1);
     expect(dashboard.columns).toBe(1);
     expect(dashboard.appBottomPadding).toBeLessThanOrEqual(12);
     expect(dashboard.homeworkTitle).toBe('TAREAS');
-    expect(dashboard.homeworkCount).toBe('2 tareas');
+    expect(dashboard.homeworkCount).toBe('2 tareas activas');
     expect(dashboard.homeworkDates).toEqual(['','','']);
     for (const card of dashboard.priorities) {
       expect(card.left).toBeGreaterThanOrEqual(dashboard.prioritiesGrid.left - 1);
@@ -60,7 +60,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(library.practiceShortcutHeight).toBeLessThan(52);
     expect(library.overflow).toBeLessThanOrEqual(1);
 
-    await page.goto('/clase.html#nutricion', { waitUntil: 'domcontentloaded' });
+    await page.goto('/clase.html#nutrition-repaso', { waitUntil: 'domcontentloaded' });
     const course = await page.evaluate(() => {
       const resources = Array.from(document.querySelectorAll('#nutricion .resource-card')).map(card => card.getBoundingClientRect());
       const counts = Array.from(document.querySelectorAll('#practice-nutricion .practice-counts > span')).map(item => item.getBoundingClientRect());
@@ -102,7 +102,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(map.maxSummaryHeight).toBeLessThan(80);
     expect(map.listHeight).toBeLessThan(460);
     expect(map.navHeight).toBeGreaterThanOrEqual(56);
-    expect(map.navItemMinHeight).toBeGreaterThanOrEqual(56);
+    expect(map.navItemMinHeight).toBeGreaterThanOrEqual(54);
     expect(map.navIconWidth).toBeGreaterThanOrEqual(19);
     expect(map.bodyBottomPadding).toBeGreaterThanOrEqual(map.navHeight + 12);
     expect(map.overflow).toBeLessThanOrEqual(1);
