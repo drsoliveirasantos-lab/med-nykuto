@@ -11,6 +11,9 @@ const classRanking = fs.readFileSync(path.join(root, 'class-practice-ranking-v43
 const semesterSwitcher = fs.readFileSync(path.join(root, 'semester-switcher-v402.js'), 'utf8');
 const seminarDocuments = fs.readFileSync(path.join(root, 'documentos-seminario.html'), 'utf8');
 const seminarDocumentsRuntime = fs.readFileSync(path.join(root, 'documentos-seminario.js'), 'utf8');
+const classHubRuntime = fs.readFileSync(path.join(root, 'class-hub-runtime-v440.js'), 'utf8');
+const classHubCss = fs.readFileSync(path.join(root, 'class-hub-2026-08-21-v440.css'), 'utf8');
+const classHubApi = fs.readFileSync(path.join(root, 'functions', 'api', 'class-hub.js'), 'utf8');
 
 const failures = [];
 const expect = (condition, message) => {
@@ -127,6 +130,24 @@ expect(i18n.includes("'Materias':'Matérias'"), 'The Materias/Matérias navigati
 expect(i18n.includes("'Horario del 4.º E':'Horário do 4.º E'"), 'The Portuguese schedule heading translation is missing.');
 expect(i18n.includes("'Tu semana':'Sua semana'"), 'The simplified Portuguese dashboard heading is missing.');
 expect(i18n.includes("'Ver todas las tareas':'Ver todas as tarefas'"), 'The simplified Portuguese task link is missing.');
+[
+  'Virus sincitial respiratorio · Bronquiolitis',
+  'Influenza',
+  'Tuberculosis',
+  'Sarampión',
+  'Meningitis bacteriana',
+  'Dengue',
+  'COVID-19',
+  'Sífilis',
+  'Hepatitis B',
+  'Malaria'
+].forEach((topic) => {
+  expect(classHubApi.includes(`'${topic}'`), `The Epidemiology group topic “${topic}” is missing from the public source.`);
+});
+expect(classHubApi.includes('leader: EPIDEMIOLOGY_ROSTER[index][0]'), 'Epidemiology group leaders are not tied to the confirmed first member.');
+expect(classHubRuntime.includes("el('span','','TEMA')"), 'The Epidemiology roster does not render the assigned topic.');
+expect(classHubRuntime.includes("el('span','','RESPONSABLE')"), 'The Epidemiology roster does not render the group leader.');
+expect(classHubCss.includes('.group-roster-assignment'), 'The Epidemiology topic and leader card styling is missing.');
 expect(html.includes('href="https://virtual.central.edu.py/auth"'), 'The official UCP portal shortcut is missing from the class home page.');
 expect(html.includes('class="home-quick-links"'), 'The compact useful-links strip is missing from the class home page.');
 expect(css.includes('.home-quick-link'), 'The compact home shortcut styling is missing.');
