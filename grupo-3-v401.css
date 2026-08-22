@@ -1989,7 +1989,7 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
   .dashboard-week-tasks{gap:8px;padding:11px}
   .dashboard-week-heading{display:flex!important;align-items:center;justify-content:space-between;gap:8px;padding-bottom:8px!important}
   .dashboard-week-heading small{display:none}
-  .dashboard-week-tasks .dashboard-priorities{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .dashboard-week-tasks .dashboard-priorities{display:grid!important;grid-template-columns:1fr 1fr;gap:6px}
   .dashboard-week-tasks .priority-card{display:flex;min-width:0;padding:9px}
   .dashboard-week-tasks .priority-card-head{display:flex;flex-wrap:wrap;align-items:center;gap:4px}
   .dashboard-week-tasks .priority-card-head time{font-size:.48rem}
