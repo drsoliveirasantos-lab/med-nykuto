@@ -175,8 +175,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     }
   });
 
-  test('shows all six Epidemiology groups in a compact iPhone roster', async ({ page }) => {
-    const groups = Array.from({ length: 6 }, (_, index) => ({
+  test('shows all ten Epidemiology groups in a compact iPhone roster', async ({ page }) => {
+    const groups = Array.from({ length: 10 }, (_, index) => ({
       id: `epi-2026-08-19-g${index + 1}`,
       activityId: 'epi-2026-08-19',
       name: `Grupo ${index + 1}`,
@@ -207,8 +207,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
     const roster = page.locator('#epi19-tarea .group-roster-board');
     await expect(roster).toBeVisible();
-    await expect(roster.locator('.group-roster-column')).toHaveCount(6);
-    await expect(roster.locator('.group-roster-list li')).toHaveCount(60);
+    await expect(roster.locator('.group-roster-column')).toHaveCount(10);
+    await expect(roster.locator('.group-roster-list li')).toHaveCount(100);
     await expect(roster).toContainText('Ana Pérez');
     await expect(roster).toContainText('María Silva');
     await expect(page.getByRole('button', { name: 'Añadir mi nombre' })).toBeVisible();

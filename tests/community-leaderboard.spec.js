@@ -219,7 +219,7 @@ test.describe('Weekly class challenge', () => {
     const publisher = page.locator('.community-publish-card').last();
     await expect(publisher).toBeVisible();
     await expect(publisher.getByRole('heading', { name: '¿Te sumas al desafío del 4.º E?' })).toBeVisible();
-    await expect(publisher.getByLabel('Apodo público')).toHaveValue('Baboune');
+    await expect(publisher.getByLabel('4RAC o apodo')).toHaveValue('Baboune');
     await publisher.getByRole('button', { name: 'Sumar mi resultado' }).click();
     await expect(publisher.locator('.community-publish-status')).toHaveText('Resultado añadido: 18/20.');
 

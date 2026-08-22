@@ -92,7 +92,7 @@ expect(runtime.includes('data-image-lightbox'), 'Tap-to-enlarge scientific board
 expect(runtime.includes('serviceWorker.register'), 'PWA registration is missing.');
 expect(runtime.includes('push.subscribe'), 'Optional push subscription is missing.');
 expect(runtime.includes("action:'group.join'") && runtime.includes("action:'group.leave'"), 'Student group join/leave controls are incomplete.');
-expect(runtime.includes('group-roster-board') && runtime.includes('group-roster-column') && runtime.includes('activityMembers'), 'The public six-column group roster is missing.');
+expect(runtime.includes('group-roster-board') && runtime.includes('group-roster-column') && runtime.includes('activityMembers') && runtime.includes('--group-count'), 'The public multi-column group roster is missing.');
 
 expect(api.includes("role: 'owner'"), 'Owner authorization is missing.');
 expect(api.includes("role: 'editor'"), 'Editor authorization is missing.');

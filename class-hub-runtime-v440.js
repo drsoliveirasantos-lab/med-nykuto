@@ -189,7 +189,7 @@
       var join=el('button','group-join-button','Añadir mi nombre'),leave=el('button','group-leave-button','Retirar mi nombre'),status=el('p','group-membership-status');join.type=leave.type='button';leave.hidden=true;
       fields.appendChild(join);fields.appendChild(leave);composer.appendChild(fields);composer.appendChild(status);host.appendChild(composer);
 
-      var board=el('div','group-roster-board');board.setAttribute('role','list');board.setAttribute('aria-label','Composición de los seis grupos');host.appendChild(board);
+      var board=el('div','group-roster-board');board.style.setProperty('--group-count',String(groups.length||1));board.setAttribute('role','list');board.setAttribute('aria-label','Composición de los diez grupos');host.appendChild(board);
       var choiceButtons=[];
       groups.forEach(function(group,index){
         var capacity=Math.min(group.capacity||10,activity.capacity||10),groupMembers=members.filter(function(member){return member.groupId===group.id;});

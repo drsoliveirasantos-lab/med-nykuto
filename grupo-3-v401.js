@@ -1762,10 +1762,10 @@
     },
     'microbiologia-practica-anterior':{
       title:'Cultivo de hongos en agar Sabouraud',
-      kicker:'Microbiología II · Práctica · clase anterior',
+      kicker:'Microbiología II · Práctica · 13 de agosto',
       description:'Levaduras, mohos, dimorfismo, estructuras microscópicas y preparación del medio de cultivo.',
-      status:'Clase anterior · fecha por confirmar',
-      statusClass:'status-estimated'
+      status:'Clase confirmada · 13 ago.',
+      statusClass:'status-confirmed'
     }
   };
 
