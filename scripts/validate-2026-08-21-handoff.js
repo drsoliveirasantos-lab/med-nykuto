@@ -10,6 +10,10 @@ const html = read('clase.html');
 const runtime = read('class-hub-runtime-v440.js');
 const api = read('functions/api/class-hub.js');
 const management = read('gestion.html') + read('gestion-v440.js');
+global.window = {};
+require(path.join(root, 'academic-model-v445.js'));
+const academicModel = global.window.MedNykutoAcademicModel;
+delete global.window;
 
 const lessons = [
   'bioquimica-2026-08-19',
@@ -102,11 +106,12 @@ expect(api.includes('waitUntil(pushJob)'), 'Push delivery is not delegated to a 
 expect(api.includes("['important', 'urgent']"), 'Important and urgent push dispatch is missing.');
 expect(!/\b(?:csv|xlsx|excel)\b/i.test(management), 'Management offers a forbidden CSV/Excel export.');
 expect(management.includes('Copiar para WhatsApp') && management.includes('Exportar en PDF'), 'WhatsApp and PDF group exports are missing.');
-expect(read('profesores.html').match(/class="teacher-card"/g)?.length === 4, 'Exactly four cumulative teacher profiles are required.');
+expect(Boolean(academicModel) && Object.keys(academicModel.teachers || {}).length === 6, 'Exactly six cumulative teacher audits are required.');
+expect(read('profesores.html').includes('id="teacherProfiles"'), 'Teacher audits must be rendered from the cumulative academic model.');
 
 if (failures.length) {
   console.error('21 August handoff validation failed:');
   failures.forEach((failure) => console.error(` - ${failure}`));
   process.exit(1);
 }
-console.log('21 August handoff validation OK: 5 lessons, 57+13 source previews, 5 clean boards, CMS/RBAC/groups/PWA and 4 teacher profiles.');
+console.log('21 August handoff validation OK: 5 original handoff lessons, 57+13 source previews, 5 clean boards, CMS/RBAC/groups/PWA and 6 cumulative teacher audits.');
