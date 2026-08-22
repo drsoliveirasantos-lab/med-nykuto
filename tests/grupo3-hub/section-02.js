@@ -20,7 +20,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(page.locator(`[data-week-date="${day}"]`)).toHaveAttribute('datetime', /^\d{4}-\d{2}-\d{2}$/);
     }
     await expect(page.locator('#weeklyAgenda .course-type-badge')).toHaveText(['TEÓRICA','PRÁCTICA']);
-    await expect(page.locator('#weeklyAgenda .schedule-task-badge')).toHaveCount(5);
+    await expect(page.locator('#weeklyAgenda .schedule-task-badge')).toHaveCount(4);
+    await expect(page.locator('.schedule-slot[data-subject="nutrition"]')).toContainText('sin clase teórica nueva');
     await expect(page.locator('.agenda-day')).toHaveCount(4);
     await expect(page.locator('.schedule-guide-card')).toBeVisible();
     const desktopOrder = await page.evaluate(() => {
@@ -42,7 +43,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#classLanguageSelect')).toHaveValue('br');
     await expect(page.getByRole('heading', { name: 'Sua semana', exact: true })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'TAREFAS', exact: true })).toBeVisible();
-    await expect(page.locator('#homeHomeworkCount')).toHaveText('2 tarefas');
+    await expect(page.locator('#homeHomeworkCount')).toHaveText('2 tarefas ativas');
     await expect(page.getByText('PARA ESTA SEMANA', { exact: true })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Ver todas as tarefas' })).toBeVisible();
     await expect(page.locator('.mobile-bottom-nav').getByText('Tarefas', { exact: true })).toBeAttached();
@@ -57,10 +58,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#weeklyAgenda').getByText('Tarefa', { exact: true })).toBeVisible();
 
     await page.goto('/clase.html#pendientes');
-    await expect(page.getByRole('heading', { name: 'Tarefas da turma' })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Seminário e apresentação oral' })).toBeVisible();
-    await expect(page.locator('#microTheoryPrepCard')).toContainText('Microbiologia II · Teórica');
-    await expect(page.locator('[data-current-assignment]')).toHaveCount(5);
+    await expect(page.getByRole('heading', { name: 'Tarefas ativas' })).toBeVisible();
+    await expect(page.locator('#classHubLiveTasks .live-task')).toHaveCount(2);
+    await expect(page.locator('#nutritionPrepCard')).toBeHidden();
     await page.goto('/clase.html#nutricion');
     await page.locator('[data-nutrition-mode="rapido"]').click();
     await expect(page.locator('#nutritionPreviewEyebrow')).toHaveText('RESUMO RÁPIDO · 10 IDEIAS');
@@ -75,7 +75,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('html')).toHaveAttribute('lang', 'es');
     await expect(page.getByRole('heading', { name: 'Plan del seminario' })).toBeVisible();
     await page.goto('/clase.html#pendientes');
-    await expect(page.getByRole('heading', { name: 'Tareas de la clase' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Tareas activas' })).toBeVisible();
     await page.goto('/clase.html#horario');
     await expect(page.getByRole('heading', { name: 'Horario del 4.º E' })).toBeVisible();
   });
