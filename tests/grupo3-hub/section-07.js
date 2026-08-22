@@ -16,40 +16,16 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     }
   });
 
-  test('archives completed activities by subject and counts personal signed copies', async ({ page }) => {
+  test('keeps completed activities out of the active task page', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
-    await expect(page.getByRole('heading', { name: 'Tareas anteriores' })).toBeVisible();
-    await expect(page.locator('#signedAssignmentCount')).toHaveText('0/2 copias firmadas');
-    await expect(page.locator('[data-archive-subject]')).toHaveCount(6);
-
-    const bioGroup = page.locator('[data-archive-subject]').filter({ hasText: 'BIOQUÍMICA II' });
-    await bioGroup.locator(':scope > summary').click();
-    await page.locator('#bio-tarea-glut4 > summary').click();
-    await expect(page.locator('#bio-tarea-glut4')).toHaveAttribute('open', '');
-    await expect(page.locator('#pendientes')).toBeVisible();
-    await expect(page.locator('#materias')).toBeHidden();
-    await expect(page.getByText('Diseña el proceso de funcionamiento dependiente de insulina del GLUT4.')).toBeVisible();
-    const bioSignature = page.locator('[data-signed-assignment="bio-glut4"]');
-    await bioSignature.check();
-    await expect(page.locator('#bio-tarea-glut4 [data-signed-mirror="bio-glut4"]')).toHaveText('Copia firmada');
-
-    await page.goto('/clase.html#bio-tarea-glut4');
-    await expect(bioGroup).toHaveAttribute('open', '');
-    await expect(page.locator('#bio-tarea-glut4')).toHaveAttribute('open', '');
-    await expect(bioSignature).toBeChecked();
-    await page.goto('/clase.html#pendientes');
-    await expect(page.locator('#signedAssignmentCount')).toHaveText('1/2 copias firmadas');
-
-    const epiGroup = page.locator('[data-archive-subject]').filter({ hasText: 'EPIDEMIOLOGÍA Y SALUD PÚBLICA' });
-    await epiGroup.locator(':scope > summary').click();
-    await page.locator('#epi-tarea-salud > summary').click();
-    await expect(page.locator('#epi-tarea-salud')).toHaveAttribute('open', '');
-    await expect(page.locator('#epi-tarea-salud .subject-assignment-body li')).toHaveCount(11);
+    await expect(page.locator('#classHubLiveTasks .live-task')).toHaveCount(2);
+    await expect(page.locator('.assignment-archive')).toBeHidden();
+    await expect(page.getByRole('heading', { name: 'Tareas anteriores' })).toBeHidden();
   });
 
   test('uses pictograms instead of navigation abbreviations', async ({ page }) => {
-    await expect(page.locator('.workspace-nav .nav-icon')).toHaveCount(6);
-    await expect(page.locator('.workspace-nav .nav-icon svg')).toHaveCount(6);
+    await expect(page.locator('.workspace-nav .nav-icon')).toHaveCount(5);
+    await expect(page.locator('.workspace-nav .nav-icon svg')).toHaveCount(5);
     await expect(page.locator('.workspace-nav').getByText('INI', { exact: true })).toHaveCount(0);
     await expect(page.locator('.workspace-nav').getByText('Tareas', { exact: true })).toBeVisible();
     await expect(page.locator('.workspace-nav').getByText('Materias', { exact: true })).toBeVisible();
