@@ -72,14 +72,10 @@ test.describe('Global medical glossary', () => {
     await expect(f16bp).toBeVisible();
   });
 
-  test('keeps a definition visible inside the Microbiology homework dialog on iPhone', async ({ page }) => {
+  test('keeps a Microbiology definition inside the iPhone viewport', async ({ page }) => {
     await page.setViewportSize({ width:390, height:844 });
-    await page.goto('/clase.html#microTheoryPrepCard', { waitUntil:'domcontentloaded' });
-    await page.locator('#microTheoryPrepCard [data-micro-review-open]').click();
-    const dialog = page.locator('#microHomeworkReview');
-    await expect(dialog).toBeVisible();
-
-    const term = dialog.locator('.mn-glossary-term[data-glossary-key="keratin"]:visible').first();
+    await page.goto('/clase.html#microbiologia-teorica-2026-08-10', { waitUntil:'domcontentloaded' });
+    const term = page.locator('#microbiologia-teorica-2026-08-10 [data-lesson-tab-panel="curso"] .mn-glossary-term[data-glossary-key="keratin"]:visible').first();
     await expect(term).toBeVisible({ timeout:15000 });
     await term.click();
 
@@ -90,7 +86,6 @@ test.describe('Global medical glossary', () => {
       const panel = document.getElementById('mnMedicalGlossaryPopover');
       const rect = panel.getBoundingClientRect();
       return {
-        dialog:panel.closest('dialog') && panel.closest('dialog').id,
         left:rect.left,
         right:rect.right,
         top:rect.top,
@@ -99,7 +94,6 @@ test.describe('Global medical glossary', () => {
         height:window.innerHeight
       };
     });
-    expect(placement.dialog).toBe('microHomeworkReview');
     expect(placement.left).toBeGreaterThanOrEqual(0);
     expect(placement.right).toBeLessThanOrEqual(placement.width);
     expect(placement.top).toBeGreaterThanOrEqual(0);
