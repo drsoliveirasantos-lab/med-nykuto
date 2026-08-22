@@ -23,15 +23,57 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     expect(nutritionLayout.scrollWidth).toBeLessThanOrEqual(nutritionLayout.clientWidth + 1);
   });
 
-  test('shows current API homework as compact tactile rows', async ({ page }) => {
+  test('keeps homework compact and expands each brief inside Tareas', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/clase.html#pendientes');
-    const tasks = page.locator('#classHubLiveTasks .live-task');
+    const tasks = page.locator('#classHubLiveTasks .live-task-details');
     await expect(tasks).toHaveCount(2);
     await expect(tasks.nth(0)).toContainText('Epidemiología');
     await expect(tasks.nth(1)).toContainText('Bioquímica II');
     const heights = await tasks.evaluateAll((cards) => cards.map((card) => card.getBoundingClientRect().height));
     expect(Math.max(...heights)).toBeLessThan(100);
+    await tasks.nth(0).locator('summary').click();
+    await expect(tasks.nth(0)).toHaveAttribute('open', '');
+    await expect(page.locator('#pendientes')).toBeVisible();
+    await expect(page.locator('#materias')).toBeHidden();
+    await expect(tasks.nth(0)).toContainText('15 diapositivas como máximo');
+    await expect(tasks.nth(0)).toContainText('Solo se entregan las diapositivas');
+    await expect(tasks.nth(0).getByRole('link', { name: /Descargar la consigna en DOCX/ })).toHaveAttribute('href', /trabajo-practico-salud-publica-epidemiologia\.docx$/);
     await expect(page.locator('.pending-grid')).toBeHidden();
+  });
+
+  test('opens the selected homework from Home without entering a course', async ({ page }) => {
+    await page.goto('/clase.html#inicio');
+    const epidemiologyCard = page.locator('[data-task-id="epi-presentation"]');
+    await expect(epidemiologyCard).toHaveAttribute('href', '#task-epi-presentation');
+    await epidemiologyCard.click();
+    await expect(page.locator('#pendientes')).toBeVisible();
+    await expect(page.locator('#task-epi-presentation')).toHaveAttribute('open', '');
+    await expect(page.locator('#epidemiologia')).toBeHidden();
+    await expect(page).toHaveURL(/#task-epi-presentation$/);
+  });
+
+  test('takes task notifications to Tareas and unfolds the active briefs', async ({ page }) => {
+    await page.goto('/clase.html#inicio');
+    await page.locator('#noticeBell').click();
+    const taskNotice = page.locator('#noticeDrawer .notice-item-link').filter({ hasText: 'Dos trabajos activos' });
+    await expect(taskNotice).toBeVisible();
+    await taskNotice.click();
+    await expect(page.locator('#noticeDrawer')).not.toHaveAttribute('open', '');
+    await expect(page.locator('#pendientes')).toBeVisible();
+    await expect(page.locator('#classHubLiveTasks .live-task-details[open]')).toHaveCount(2);
+    await expect(page).toHaveURL(/#pendientes$/);
+  });
+
+  test('publishes the previous Epidemiology class as Wednesday 12 August', async ({ page }) => {
+    await page.goto('/clase.html#epidemiologia-bloque-anterior');
+    const historyDate = page.locator('[data-lesson-target="epidemiologia-bloque-anterior"] time');
+    await expect(historyDate).toHaveAttribute('datetime', '2026-08-12');
+    await expect(historyDate).toHaveText('12 AGO 2026');
+    await expect(page.locator('#epidemiologia .source-pill')).toContainText('Clase confirmada · 12 ago.');
+    const lesson = await page.evaluate(() => window.MedNykutoAcademicModel.subjects.epidemiologia.chapters[0].lessons[0]);
+    expect(lesson.dateLong).toBe('12 de agosto de 2026');
+    expect(lesson.status).toBe('confirmed');
   });
 
   test('opens map explanations and oral answers as small inline disclosures', async ({ page }) => {

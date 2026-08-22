@@ -69,6 +69,8 @@ if (model) {
   });
 
   expect(lessons.length === 14, `Expected 14 lesson dates/blocks, found ${lessons.length}.`);
+  const previousEpidemiology = lessons.find((entry) => entry.lesson.id === 'epidemiologia-bloque-anterior');
+  expect(previousEpidemiology && previousEpidemiology.lesson.dateLong === '12 de agosto de 2026' && previousEpidemiology.lesson.status === 'confirmed', 'The previous Epidemiology lesson must be confirmed as 12 August 2026.');
   expect(practiceIds.size === 14, `Expected 14 unique practice mappings, found ${practiceIds.size}.`);
   expect(Object.keys(model.narratives || {}).length === 9, `Expected 9 generated legacy narratives, found ${Object.keys(model.narratives || {}).length}.`);
   expect(!lessons.some((entry) => entry.subjectId === 'nutricion' && /2026-08-20/.test(entry.lesson.id)), 'A false Nutrition theory class was created for 20 August.');

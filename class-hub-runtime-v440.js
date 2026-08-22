@@ -119,14 +119,74 @@
     button.disabled=true;button.textContent='Activando…';
     Promise.all([navigator.serviceWorker.ready,fetch(API+'?resource=push-key').then(function(response){return response.json();})]).then(function(results){var registration=results[0],key=results[1].publicKey;if(!key)throw new Error('El servicio push todavía no tiene una clave pública configurada.');return Notification.requestPermission().then(function(permission){if(permission!=='granted')throw new Error('Permiso de notificaciones no concedido.');return registration.pushManager.getSubscription().then(function(existing){return existing||registration.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:vapidBytes(key)});});});}).then(function(subscription){return fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'push.subscribe',subscription:subscription.toJSON()})});}).then(function(response){if(!response.ok)throw new Error('No se pudo guardar la suscripción.');button.textContent='Alertas importantes activadas';}).catch(function(error){button.textContent=error.message;button.disabled=false;});
   }
+  var taskGuides={
+    'epi-presentation':{
+      summary:'Máximo 10 integrantes, 15 diapositivas, participación de todos y evaluación individual.',
+      intro:'Prepara con tu grupo una exposición sobre la enfermedad asignada por sorteo. La consigna completa queda aquí para consultarla mientras trabajas.',
+      facts:[['10','integrantes como máximo'],['15','diapositivas como máximo'],['TODOS','deben hablar'],['1','notebook para toda la sala']],
+      steps:[
+        ['Organizar el grupo','Confirmen el tema sorteado y repartan las partes para que todos participen.'],
+        ['Construir el contenido','Incluyan introducción, epidemiología, clínica, confirmación diagnóstica, prevención, promoción y avances en Paraguay y Brasil.'],
+        ['Unificar las diapositivas','Una persona reúne los aportes en un solo archivo, con un máximo de 15 diapositivas.'],
+        ['Preparar la exposición','Ensayen la participación de cada integrante y vistan el uniforme azul completo.']
+      ],
+      note:'Solo se entregan las diapositivas; no hay un trabajo escrito separado. La evaluación es individual.',
+      file:{href:'assets/class-hub/epidemiology/2026-08-19/trabajo-practico-salud-publica-epidemiologia.docx',label:'Descargar la consigna en DOCX'}
+    },
+    'bio-activities':{
+      summary:'Imprime las actividades 3 y 4, complétalas a mano y llévalas a la clase práctica.',
+      intro:'Las actividades 3 y 4 forman parte de una serie de cinco actividades prácticas. Descarga el documento, imprímelo y responde a mano.',
+      facts:[['4','páginas para imprimir'],['2','actividades: 3 y 4'],['A MANO','forma de entrega'],['5','actividades en total']],
+      steps:[
+        ['Descargar e imprimir','Usa el archivo original de cuatro páginas disponible abajo.'],
+        ['Completar las respuestas','Resuelve las actividades 3 y 4 a mano, con letra legible.'],
+        ['Conservar la serie','Guarda estas páginas junto con las otras actividades del bloque práctico.'],
+        ['Asistir a la práctica','La presencia en la clase práctica es obligatoria.']
+      ],
+      note:'Lleva las hojas impresas y completadas. No sustituyas el documento por respuestas digitales.',
+      file:{href:'assets/class-hub/biochemistry/2026-08-21/actividades-3-y-4-bioquimica-ii.docx',label:'Descargar actividades 3 y 4'}
+    }
+  };
+  function taskDomId(taskId){return 'task-'+String(taskId||'').toLowerCase().replace(/[^a-z0-9-]+/g,'-');}
+  function isTaskNotice(notice){var text=[notice.id,notice.title,notice.body].join(' ').toLowerCase();return /(?:task|tarea|trabajo|deber)/.test(text);}
+  function setTaskToggleLabel(card){var label=card.querySelector('[data-task-toggle-label]');if(label)label.textContent=card.open?'Cerrar':'Abrir';}
+  function expandLiveTasks(){document.querySelectorAll('#classHubLiveTasks [data-live-task-id]').forEach(function(card){card.open=true;setTaskToggleLabel(card);});}
+  function renderTaskBody(task,guide){
+    var body=el('div','live-task-body');
+    body.appendChild(el('p','live-task-intro',(guide&&guide.intro)||task.description||'Consulta aquí la consigna publicada.'));
+    if(guide&&guide.facts){
+      var facts=el('div','live-task-facts');facts.setAttribute('aria-label','Datos esenciales');
+      guide.facts.forEach(function(fact){var item=el('div');item.appendChild(el('strong','',fact[0]));item.appendChild(el('small','',fact[1]));facts.appendChild(item);});
+      body.appendChild(facts);
+    }
+    if(guide&&guide.steps){
+      body.appendChild(el('h4','','Qué tienes que hacer'));
+      var steps=el('ol','live-task-steps');
+      guide.steps.forEach(function(step,index){var item=el('li');item.appendChild(el('span','',String(index+1).padStart(2,'0')));var copy=el('div');copy.appendChild(el('strong','',step[0]));copy.appendChild(el('small','',step[1]));item.appendChild(copy);steps.appendChild(item);});
+      body.appendChild(steps);
+    }
+    if(guide&&guide.note){var note=el('p','live-task-note',guide.note);body.appendChild(note);}
+    if(guide&&guide.file){
+      var actions=el('div','live-task-actions');
+      var download=el('a','live-task-download',guide.file.label+' ↓');download.href=guide.file.href;download.setAttribute('download','');actions.appendChild(download);body.appendChild(actions);
+    }
+    return body;
+  }
   function renderNotices(){
     var bell=document.getElementById('noticeBell');if(!bell)return;var drawer=document.getElementById('noticeDrawer');if(!drawer){drawer=el('dialog','notice-drawer');drawer.id='noticeDrawer';var head=el('header');head.appendChild(el('strong','','Alertas de la clase'));var close=el('button','','×');close.type='button';close.setAttribute('aria-label','Cerrar alertas');head.appendChild(close);drawer.appendChild(head);drawer.appendChild(el('div','notice-list'));document.body.appendChild(drawer);close.addEventListener('click',function(){drawer.close();});}
     var list=drawer.querySelector('.notice-list');list.replaceChildren();if(!publicData.notices.length)list.appendChild(el('p','notice-empty','No hay alertas publicadas.'));
-    publicData.notices.forEach(function(notice){var item=el('article','notice-item');item.dataset.priority=notice.priority||'normal';item.appendChild(el('span','',(notice.priority||'normal').toUpperCase()));item.appendChild(el('strong','',notice.title));item.appendChild(el('p','',notice.body||''));list.appendChild(item);});
+    publicData.notices.forEach(function(notice){
+      var clickable=isTaskNotice(notice),item=el(clickable?'a':'article','notice-item'+(clickable?' notice-item-link':''));
+      item.dataset.priority=notice.priority||'normal';
+      if(clickable){item.href='#pendientes';item.addEventListener('click',function(){drawer.close();expandLiveTasks();});}
+      item.appendChild(el('span','',(notice.priority||'normal').toUpperCase()));item.appendChild(el('strong','',notice.title));item.appendChild(el('p','',notice.body||''));
+      if(clickable)item.appendChild(el('b','notice-item-action','Ver tareas →'));
+      list.appendChild(item);
+    });
     var pushButton=el('button','class-header-action','Activar alertas importantes');pushButton.type='button';pushButton.style.width='100%';pushButton.addEventListener('click',function(){enablePush(pushButton);});list.appendChild(pushButton);
     var important=publicData.notices.filter(function(notice){return notice.priority==='important'||notice.priority==='urgent';}).length;if(important)bell.dataset.count=String(important);else bell.removeAttribute('data-count');
     var urgent=publicData.notices.find(function(notice){return notice.priority==='urgent';});var banner=document.getElementById('urgentNoticeBanner');if(urgent&&!sessionStorage.getItem('dismissed-urgent-'+urgent.id)){if(!banner){banner=el('div','urgent-notice-banner');banner.id='urgentNoticeBanner';var copy=el('span');var dismiss=el('button','','×');dismiss.type='button';banner.appendChild(copy);banner.appendChild(dismiss);document.body.insertBefore(banner,document.body.firstChild);dismiss.addEventListener('click',function(){banner.hidden=true;sessionStorage.setItem('dismissed-urgent-'+urgent.id,'1');});}banner.firstChild.textContent=urgent.title+(urgent.body?' · '+urgent.body:'');banner.hidden=false;}
-    bell.addEventListener('click',function(){drawer.showModal();});
+    if(!bell.dataset.noticeBound){bell.dataset.noticeBound='true';bell.addEventListener('click',function(){drawer.showModal();});}
   }
   function renderLiveTasks(){
     var activeTasks=publicData.tasks.filter(function(task){return task.status==='published'||!task.status;});
@@ -134,11 +194,13 @@
       var id=card.dataset.taskId,task=activeTasks.find(function(item){return item.id===id;});
       card.hidden=!task;
       if(!task)return;
-      var course=card.querySelector('.priority-card-head span'),due=card.querySelector('.priority-card-head time'),title=card.querySelector(':scope > strong'),description=card.querySelector(':scope > small');
+      var course=card.querySelector('.priority-card-head span'),due=card.querySelector('.priority-card-head time'),title=card.querySelector(':scope > strong'),description=card.querySelector(':scope > small'),action=card.querySelector(':scope > b'),guide=taskGuides[task.id];
+      card.href='#'+taskDomId(task.id);
       if(course)course.textContent=task.course||'CLASE';
       if(due){due.textContent=task.dueLabel||'POR CONFIRMAR';if(task.dueAt)due.dateTime=task.dueAt;}
       if(title)title.textContent=task.title;
-      if(description)description.textContent=task.description||'';
+      if(description)description.textContent=task.description||(guide&&guide.summary)||'';
+      if(action)action.textContent='Ver tarea →';
     });
     var host=document.getElementById('classHubLiveTasks');
     if(!host){
@@ -149,19 +211,24 @@
       if(heading)heading.insertAdjacentElement('afterend',host);else section.prepend(host);
     }
     host.replaceChildren();
-    var targets={'epi-presentation':'#epi19-tarea','bio-activities':'#bioquimica-2026-08-21'};
     activeTasks.forEach(function(task){
-      var card=el('a','live-task');
-      card.href=task.url||targets[task.id]||'#pendientes';
-      card.appendChild(el('span','',(task.course||'CLASE')+' · '+(task.dueLabel||'FECHA POR CONFIRMAR')));
-      card.appendChild(el('strong','',task.title));
-      if(task.description)card.appendChild(el('p','',task.description));
-      card.appendChild(el('b','live-task-action','Abrir →'));
+      var guide=taskGuides[task.id],card=el('details','live-task live-task-details');
+      card.id=taskDomId(task.id);card.setAttribute('data-live-task-id',task.id);
+      var summary=el('summary','live-task-summary'),copy=el('div','live-task-summary-copy');
+      copy.appendChild(el('span','live-task-meta',(task.course||'CLASE')+' · '+(task.dueLabel||'FECHA POR CONFIRMAR')));
+      copy.appendChild(el('strong','',task.title));
+      summary.appendChild(copy);summary.appendChild(el('b','live-task-action','Abrir'));
+      summary.lastChild.dataset.taskToggleLabel='true';
+      card.appendChild(summary);card.appendChild(renderTaskBody(task,guide));
+      card.addEventListener('toggle',function(){setTaskToggleLabel(card);});
       host.appendChild(card);
     });
     if(!activeTasks.length)host.appendChild(el('p','notice-empty','No hay tareas activas. Las tareas terminadas ya no aparecen aquí.'));
     var count=document.getElementById('homeHomeworkCount');
     if(count){var total=activeTasks.length,isPortuguese=/^pt(?:-|$)/i.test(document.documentElement.lang),noun=isPortuguese?(total===1?'tarefa':'tarefas'):(total===1?'tarea':'tareas');count.textContent=String(total)+' '+noun+(isPortuguese?' ativas':' activas');}
+    if(window.MedNykutoClassI18n&&window.MedNykutoClassI18n.refresh)window.MedNykutoClassI18n.refresh(host);
+    var hash=decodeURIComponent(window.location.hash.slice(1));
+    if(hash.indexOf('task-')===0&&document.getElementById(hash)){document.getElementById(hash).open=true;window.dispatchEvent(new Event('hashchange'));}
   }
   function renderDynamicResources(){var section=document.getElementById('pendientes');if(!section)return;var host=document.getElementById('classHubDynamicResources');if(!host){host=el('div','class-hub-live');host.id='classHubDynamicResources';var tasks=document.getElementById('classHubLiveTasks');if(tasks)tasks.insertAdjacentElement('afterend',host);else section.appendChild(host);}host.replaceChildren();(publicData.dates||[]).forEach(function(date){var card=el('article','live-task');card.appendChild(el('span','','FECHA PUBLICADA'));card.appendChild(el('strong','',date.label));card.appendChild(el('p','',date.startsAt));host.appendChild(card);});(publicData.files||[]).forEach(function(file){var card=el('a','live-task');card.href=file.url;card.target='_blank';card.rel='noopener';card.appendChild(el('span','',(file.course||'ARCHIVO')+(file.lessonDate?' · '+file.lessonDate:'')));card.appendChild(el('strong','',file.title));card.appendChild(el('p','',(file.fileType||'Archivo').toUpperCase()+' · Abrir →'));host.appendChild(card);});}
   function activityGroups(activityId){return (publicData.groups||[]).filter(function(group){return group.activityId===activityId;});}
@@ -225,7 +292,7 @@
     if(button&&!standalone){button.hidden=false;button.addEventListener('click',function(){if(deferred){deferred.prompt();deferred.userChoice.finally(function(){deferred=null;button.hidden=true;});return;}if(isIos){var guide=el('aside','ios-install-guide');guide.appendChild(el('strong','','Instalar en iPhone'));guide.appendChild(el('p','','En Safari, toca Compartir y luego “Añadir a pantalla de inicio”.'));var close=el('button','','×');close.type='button';close.addEventListener('click',function(){guide.remove();});guide.appendChild(close);document.body.appendChild(guide);}else{button.title='Usa el menú del navegador y elige Instalar aplicación.';}});}
   }
   function initPrint(){document.querySelectorAll('[data-print-lesson]').forEach(function(button){button.addEventListener('click',function(){window.print();});});}
-  function updateStamp(){var stamp=document.getElementById('lastUpdated');if(stamp){stamp.dateTime='2026-08-22';stamp.textContent='Actualizado 22 ago. · contenido revisado';}}
+  function updateStamp(){var stamp=document.getElementById('lastUpdated');if(stamp){stamp.dateTime='2026-08-23';stamp.textContent='Actualizado 23 ago. · contenido revisado';}}
   function init(){initLessonTabs();initCourseWorkspaces();initGallery();initPrint();initPwa();updateStamp();loadPublic();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();

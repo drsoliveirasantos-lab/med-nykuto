@@ -34,6 +34,7 @@ expect(html.includes('<option value="br">PT-BR · Português</option>'), 'The Br
   'Epidemiología + Bioquímica.',
   'Ver todas las tareas',
   'TAREAS ACTUALES',
+  'Toca una tarea para ver qué hacer',
   'TAREAS ANTERIORES',
   'Ver las instrucciones',
   'Ver ejemplo de la primera página',
@@ -195,6 +196,9 @@ expect((html.match(/class="current-assignment-summary"/g) || []).length === 5, '
 expect((html.match(/class="assignment-pictogram"/g) || []).length === 5, 'The current tasks do not all have pictograms.');
 expect((html.match(/class="current-assignment-date/g) || []).length === 5, 'Every current task must show its date before expansion.');
 expect(runtime.includes("target.matches('[data-current-assignment]')"), 'Direct links do not automatically expand the selected current task.');
+expect(runtime.includes("target.matches('[data-live-task-id]')"), 'Direct links do not automatically expand the selected live task.');
+expect(classHubRuntime.includes("el('details','live-task live-task-details')"), 'Published tasks do not stay inside the Tareas view.');
+expect(classHubRuntime.includes("item.href='#pendientes'") && classHubRuntime.includes('expandLiveTasks'), 'Task alerts do not lead to the Tareas view.');
 expect(runtime.includes("document.querySelectorAll('[data-current-assignment]')"), 'The exclusive current-task accordion behavior is missing.');
 expect(html.includes('Estudiar las tiñas y tres micosis subcutáneas'), 'The Microbiology study task title is not action-oriented.');
 expect(!html.includes('Preparar tiñas y tres micosis subcutáneas'), 'The misleading Microbiology preparation title is still present.');

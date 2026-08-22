@@ -391,7 +391,7 @@
       teacherId: 'andrea-isasi',
       chapters: [
         { id: 'epidemiologia-capitulo-1', number: 1, title: 'APS y organización de urgencias', status: 'current', lessons: [
-          { id: 'epidemiologia-bloque-anterior', practiceId: 'epidemiologia', date: 'S/F', dateLong: 'Bloque anterior · fecha por confirmar', title: 'APS, sectorización y triage', status: 'undated' },
+          { id: 'epidemiologia-bloque-anterior', practiceId: 'epidemiologia', date: '12 AGO.', dateLong: '12 de agosto de 2026', title: 'APS, sectorización y triage', status: 'confirmed' },
           { id: 'epidemiologia-2026-08-19', practiceId: 'epidemiologia-2026-08-19', date: '19 AGO.', dateLong: '19 de agosto de 2026', title: 'Organización de urgencias y emergencias', status: 'confirmed' }
         ] }
       ]

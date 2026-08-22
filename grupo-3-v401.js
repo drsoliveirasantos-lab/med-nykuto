@@ -49,8 +49,8 @@
 
   var epiPreviews = {
     completo: {
-      eyebrow: 'RESUMEN COMPLETO · CLASES ANTERIORES',
-      title: 'Del bloque anterior al último curso',
+      eyebrow: 'RESUMEN COMPLETO · 12 + 19 AGO.',
+      title: 'Del 12 al 19 de agosto',
       duration: '15 min',
       html: '<ol class="study-map"><li><span>01 · APS</span><strong>Primer contacto</strong><small>Asistencia esencial, accesible, participativa, sostenible y próxima a la comunidad.</small></li><li><span>02 · PARAGUAY</span><strong>Implementación en 2008</strong><small>La estrategia se ejecuta mediante Equipos y Unidades de Salud de la Familia.</small></li><li><span>03 · INTEGRALIDAD</span><strong>Cuatro dimensiones</strong><small>Persona, familia, comunidad y ambiente con enfoque biopsicosocial.</small></li><li><span>04 · FAMILIA</span><strong>Cuatro etapas</strong><small>Formación, expansión, dispersión y contracción.</small></li><li><span>05 · SECTOR</span><strong>Territorio y vigilancia</strong><small>Delimitar, mapear, clasificar riesgos, asignar responsables y seguir.</small></li><li><span>06 · TRIAGE</span><strong>Prioridad clínica</strong><small>Urgencia requiere atención pronta; emergencia exige acción inmediata.</small></li></ol>'
     },
@@ -1734,10 +1734,10 @@
     },
     'epidemiologia-bloque-anterior':{
       title:'APS, sectorización y triage',
-      kicker:'Epidemiología y Salud Pública · bloque anterior',
-      description:'Atención Primaria de la Salud, modelo integral, sectorización, signos vitales y prioridad asistencial.',
-      status:'Bloque anterior · fecha por confirmar',
-      statusClass:'status-check'
+      kicker:'Epidemiología y Salud Pública · clase del 12 de agosto',
+      description:'Clase del miércoles 12 de agosto de 2026: Atención Primaria de la Salud, modelo integral, sectorización, signos vitales y prioridad asistencial.',
+      status:'Clase confirmada · 12 ago.',
+      statusClass:'status-confirmed'
     },
     'microbiologia-teorica-2026-08-17':{
       title:'Micosis por profundidad y casos clínicos',
@@ -1866,6 +1866,8 @@
       if(detail) setCourseDetail(detail,true);
       var currentAssignment = target.matches('[data-current-assignment]') ? target : target.closest('[data-current-assignment]');
       if(currentAssignment) currentAssignment.open = true;
+      var liveTask = target.matches('[data-live-task-id]') ? target : target.closest('[data-live-task-id]');
+      if(liveTask) liveTask.open = true;
       var assignmentHistory = target.matches('[data-assignment-history]') ? target : target.closest('[data-assignment-history]');
       if(assignmentHistory){
         assignmentHistory.open = true;
