@@ -55,6 +55,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('takes task notifications to Tareas and unfolds the active briefs', async ({ page }) => {
     await page.goto('/clase.html#inicio');
+    await expect(page.locator('#classHubLiveTasks .live-task-details')).toHaveCount(2);
     await page.locator('#noticeBell').click();
     const taskNotice = page.locator('#noticeDrawer .notice-item-link').filter({ hasText: 'Dos trabajos activos' });
     await expect(taskNotice).toBeVisible();

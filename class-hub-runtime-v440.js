@@ -148,8 +148,8 @@
     }
   };
   function taskDomId(taskId){return 'task-'+String(taskId||'').toLowerCase().replace(/[^a-z0-9-]+/g,'-');}
-  function isTaskNotice(notice){var text=[notice.id,notice.title,notice.body].join(' ').toLowerCase();return /(?:task|tarea|trabajo|deber)/.test(text);}
-  function setTaskToggleLabel(card){var label=card.querySelector('[data-task-toggle-label]');if(label)label.textContent=card.open?'Cerrar':'Abrir';}
+  function isTaskNotice(notice){var text=[notice.id,notice.title,notice.body].join(' ').toLowerCase();return /(?:task|tarea|tarefa|trabajo|deber)/.test(text);}
+  function setTaskToggleLabel(card){var label=card.querySelector('[data-task-toggle-label]'),isPortuguese=/^pt(?:-|$)/i.test(document.documentElement.lang);if(label)label.textContent=card.open?(isPortuguese?'Fechar':'Cerrar'):'Abrir';}
   function expandLiveTasks(){document.querySelectorAll('#classHubLiveTasks [data-live-task-id]').forEach(function(card){card.open=true;setTaskToggleLabel(card);});}
   function renderTaskBody(task,guide){
     var body=el('div','live-task-body');
@@ -293,6 +293,6 @@
   }
   function initPrint(){document.querySelectorAll('[data-print-lesson]').forEach(function(button){button.addEventListener('click',function(){window.print();});});}
   function updateStamp(){var stamp=document.getElementById('lastUpdated');if(stamp){stamp.dateTime='2026-08-23';stamp.textContent='Actualizado 23 ago. · contenido revisado';}}
-  function init(){initLessonTabs();initCourseWorkspaces();initGallery();initPrint();initPwa();updateStamp();loadPublic();}
+  function init(){initLessonTabs();initCourseWorkspaces();initGallery();initPrint();initPwa();updateStamp();renderNotices();loadPublic();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
