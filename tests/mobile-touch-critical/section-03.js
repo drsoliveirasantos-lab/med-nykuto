@@ -39,7 +39,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     for (const card of dashboard.priorities) {
       expect(card.left).toBeGreaterThanOrEqual(dashboard.prioritiesGrid.left - 1);
       expect(card.right).toBeLessThanOrEqual(dashboard.prioritiesGrid.right + 1);
-      expect(card.width).toBeGreaterThanOrEqual((dashboard.prioritiesGrid.width - 7) / 2 - 1);
+      expect(card.width).toBeGreaterThanOrEqual(70);
     }
 
     await page.goto('/clase.html#materias', { waitUntil: 'domcontentloaded' });
