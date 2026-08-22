@@ -35,8 +35,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   });
 
   test('opens map explanations and oral answers as small inline disclosures', async ({ page }) => {
-    await page.goto('/clase.html#nutrition-repaso');
+    await page.goto('/clase.html#nutricion-2026-08-13');
     const nutrition = page.locator('#nutricion');
+    await page.locator('#nutricion-2026-08-13 [data-lesson-tab="material"]').click();
     await nutrition.locator('[data-nutrition-mode="completo"]').click();
     await expect(page.locator('#nutritionPreviewEyebrow')).toHaveText('RESUMEN COMPLETO · 13 AGO. ESTIMADO');
     const mapAnswer = nutrition.locator('.study-map .preview-answer-disclosure').first();
