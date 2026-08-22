@@ -51,6 +51,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       })
     ));
     expect(clinicalStoriesArePatientVignettes).toBe(true);
+    await page.goto('/clase.html#practice-nutricion');
     const practice = page.locator('#practice-nutricion');
     const overviewCounts = practice.locator('.practice-counts > span');
     await expect(overviewCounts.nth(0)).toHaveText('20QCM');
