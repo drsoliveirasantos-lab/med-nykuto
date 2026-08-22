@@ -62,6 +62,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#classHubLiveTasks .live-task')).toHaveCount(2);
     await expect(page.locator('#nutritionPrepCard')).toBeHidden();
     await page.goto('/clase.html#nutricion');
+    await page.locator('#nutricion-2026-08-13 [data-lesson-tab="material"]').click();
     await page.locator('[data-nutrition-mode="rapido"]').click();
     await expect(page.locator('#nutritionPreviewEyebrow')).toHaveText('RESUMO RÁPIDO · 10 IDEIAS');
 
