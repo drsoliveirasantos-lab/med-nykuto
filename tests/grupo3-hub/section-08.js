@@ -1,8 +1,7 @@
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('keeps the nutrition evaluation steps compact on a phone', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/clase.html#nutricion');
-    await page.locator('#nutricion [data-detail-toggle]').click();
+    await page.goto('/clase.html#nutrition-detail');
 
     const nutritionLayout = await page.evaluate(() => {
       const panel = document.querySelector('#nutricion .nutrition-core').getBoundingClientRect();
@@ -24,37 +23,19 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     expect(nutritionLayout.scrollWidth).toBeLessThanOrEqual(nutritionLayout.clientWidth + 1);
   });
 
-  test('shows current homework as compact tactile rows', async ({ page }) => {
+  test('shows current API homework as compact tactile rows', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
-    await expect(page.locator('[data-current-assignment]')).toHaveCount(5);
-    await expect(page.locator('.pending-grid > .assignment-featured')).toHaveCount(1);
-    await expect(page.locator('.pending-grid > .assignment-compact')).toHaveCount(4);
-    await expect(page.locator('.assignment-compact .assignment-pictogram svg')).toHaveCount(4);
-    await expect(page.getByRole('heading', { name: 'Estudiar las tiñas y tres micosis subcutáneas' })).toBeVisible();
-    await expect(page.getByText('Preparar tiñas y tres micosis subcutáneas', { exact: true })).toHaveCount(0);
-
-    const microTheory = page.locator('#microTheoryPrepCard');
-    const bio = page.locator('#bioPrepCard');
-    await expect(microTheory).not.toHaveAttribute('open', '');
-    await microTheory.locator(':scope > summary').click();
-    await expect(microTheory).toHaveAttribute('open', '');
-    const reason = page.locator('#microTheoryPrepCard .assignment-why');
-    await expect(reason).not.toHaveAttribute('open', '');
-    await reason.locator('summary').click();
-    await expect(reason).toHaveAttribute('open', '');
-    await expect(reason.locator('p')).toContainText('La profesora pidió esta tarea');
-
-    await bio.locator(':scope > summary').click();
-    await expect(bio).toHaveAttribute('open', '');
-    await expect(microTheory).not.toHaveAttribute('open', '');
-
-    await page.goto('/clase.html#bioPrepCard');
-    await expect(page.locator('#pendientes')).toBeVisible();
-    await expect(page.locator('#bioPrepCard')).toHaveAttribute('open', '');
+    const tasks = page.locator('#classHubLiveTasks .live-task');
+    await expect(tasks).toHaveCount(2);
+    await expect(tasks.nth(0)).toContainText('Epidemiología');
+    await expect(tasks.nth(1)).toContainText('Bioquímica II');
+    const heights = await tasks.evaluateAll((cards) => cards.map((card) => card.getBoundingClientRect().height));
+    expect(Math.max(...heights)).toBeLessThan(100);
+    await expect(page.locator('.pending-grid')).toBeHidden();
   });
 
   test('opens map explanations and oral answers as small inline disclosures', async ({ page }) => {
-    await page.goto('/clase.html#nutricion');
+    await page.goto('/clase.html#nutrition-repaso');
     const nutrition = page.locator('#nutricion');
     await nutrition.locator('[data-nutrition-mode="completo"]').click();
     await expect(page.locator('#nutritionPreviewEyebrow')).toHaveText('RESUMEN COMPLETO · 13 AGO. ESTIMADO');
@@ -77,15 +58,13 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(oralAnswer).not.toHaveAttribute('open', '');
   });
 
-  test('shows the complete lesson before training when the course is expanded', async ({ page }) => {
-    await page.goto('/clase.html#nutrition-detail');
-    const order = await page.evaluate(() => {
-      const detail = document.querySelector('#nutrition-detail');
-      const practice = document.querySelector('#practice-nutricion');
-      return Boolean(detail && practice && (detail.compareDocumentPosition(practice) & Node.DOCUMENT_POSITION_FOLLOWING));
-    });
-    expect(order).toBe(true);
-    await expect(page.locator('#nutrition-detail')).toBeVisible();
+  test('separates the complete narrative, original material and training into compact tabs', async ({ page }) => {
+    await page.goto('/clase.html#nutricion-2026-08-13');
+    await expect(page.locator('#nutricion-2026-08-13 [data-lesson-tab="curso"]')).toBeVisible();
+    await expect(page.locator('#nutricion-2026-08-13 .course-chapter-section')).toHaveCount(6);
+    await page.locator('#nutricion-2026-08-13 [data-lesson-tab="material"]').click();
+    await expect(page.locator('#nutrition-detail')).toBeAttached();
+    await page.locator('#nutricion-2026-08-13 [data-lesson-tab="training"]').click();
     await expect(page.locator('#practice-nutricion')).toBeVisible();
   });
 
