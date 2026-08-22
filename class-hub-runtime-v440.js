@@ -156,7 +156,7 @@
     body.appendChild(el('p','live-task-intro',(guide&&guide.intro)||task.description||'Consulta aquí la consigna publicada.'));
     if(guide&&guide.facts){
       var facts=el('div','live-task-facts');facts.setAttribute('aria-label','Datos esenciales');
-      guide.facts.forEach(function(fact){var item=el('div');item.appendChild(el('strong','',fact[0]));item.appendChild(el('small','',fact[1]));facts.appendChild(item);});
+      guide.facts.forEach(function(fact){var item=el('div');item.appendChild(el('strong','',fact[0]+' '));item.appendChild(el('small','',fact[1]));facts.appendChild(item);});
       body.appendChild(facts);
     }
     if(guide&&guide.steps){
