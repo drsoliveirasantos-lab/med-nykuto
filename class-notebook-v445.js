@@ -353,10 +353,10 @@
     return textNode;
   }
 
-  function drawArrow(svg, x1, y1, x2, y2, label) {
+  function drawArrow(svg, x1, y1, x2, y2, label, labelY) {
     svg.appendChild(svgEl('line', { x1: x1, y1: y1, x2: x2 - 9, y2: y2, class: 'diagram-arrow' }));
     svg.appendChild(svgEl('path', { d: 'M ' + (x2 - 10) + ' ' + (y2 - 5) + ' L ' + x2 + ' ' + y2 + ' L ' + (x2 - 10) + ' ' + (y2 + 5) + ' Z', class: 'diagram-arrow-head' }));
-    if (label) svgText(svg, (x1 + x2) / 2, y1 - 13, label, 'diagram-edge-label');
+    if (label) svgText(svg, (x1 + x2) / 2, labelY === undefined ? y1 - 13 : labelY, label, 'diagram-edge-label');
   }
 
   function drawCard(svg, x, y, width, height, node, index) {
@@ -374,7 +374,7 @@
     nodes.forEach(function (node, index) {
       var x = margin + index * (width + gap);
       drawCard(svg, x, y, width, 104, node, index);
-      if (index < nodes.length - 1) drawArrow(svg, x + width + 3, y + 52, x + width + gap - 3, y + 52, (definition.edges || [])[index]);
+      if (index < nodes.length - 1) drawArrow(svg, x + width + 3, y + 52, x + width + gap - 3, y + 52, (definition.edges || [])[index], 51);
     });
     if (definition.cycle && nodes.length > 1) {
       svg.appendChild(svgEl('path', { d: 'M 738 178 C 738 225, 62 225, 62 178', class: 'diagram-feedback' }));
@@ -446,7 +446,7 @@
     svgText(svg, 190, 196, 'SOMA · INTEGRA', 'diagram-label');
     svgText(svg, 465, 78, 'AXÓN MIELINIZADO · CONDUCE', 'diagram-label');
     svgText(svg, 728, 220, 'TERMINAL · COMUNICA', 'diagram-label');
-    drawArrow(svg, 244, 184, 690, 184, 'dirección de la información');
+    drawArrow(svg, 244, 184, 690, 184, 'dirección de la información', 211);
   }
 
   function drawTriage(svg, definition) {
