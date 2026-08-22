@@ -81,7 +81,7 @@ expect(html.includes('<option value="br">PT-BR · Português</option>'), 'The Br
 });
 
 [
-  'RESUMEN COMPLETO · CLASES ANTERIORES',
+  'RESUMEN COMPLETO · 12 + 19 AGO.',
   'RESUMEN RÁPIDO · 10 IDEAS',
   'LO MÁS IMPORTANTE',
   'PREGUNTAS PARA REPASAR',
