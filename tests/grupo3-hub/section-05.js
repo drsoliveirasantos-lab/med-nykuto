@@ -26,10 +26,11 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('opens the 10 and 13 August Physiology lessons independently', async ({ page }) => {
     await page.goto('/clase.html#fisiologia-2026-08-13');
-    await expect(page.locator('#fisio-title')).toHaveText('Control nervioso y químico de la respiración');
+    await expect(page.locator('#fisiologia .notebook-current-title')).toContainText('Control nervioso y químico de la respiración');
     await expect(page.getByText('Fecha oral interpretada · 13 ago.')).toBeVisible();
     await expect(page.locator('#fisiologia-2026-08-13')).toBeVisible();
     await expect(page.locator('#fisiologia-2026-08-10')).toBeHidden();
+    await page.locator('#fisiologia-2026-08-13 [data-lesson-tab="material"]').click();
     await page.locator('#fisiologia-2026-08-13 [data-detail-toggle]').click();
     await expect(page.locator('#fisiologia-2026-08-13 .control-loop li')).toHaveCount(3);
     await expect(page.getByText('complejo pre-Bötzinger', { exact: false }).first()).toBeVisible();
@@ -37,11 +38,12 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#practice-fisiologia-2026-08-13')).toContainText('40 preguntas para dominar este curso');
     await expect(page.locator('#fisiologia-2026-08-13').getByText('EFECTO BOHR', { exact: true })).toHaveCount(0);
 
-    await page.locator('[data-lesson-target="fisiologia-2026-08-10"]').click();
-    await expect(page.locator('#fisio-title')).toHaveText('Difusión y transporte de gases');
+    await page.locator('#fisiologia .notebook-date[data-lesson-id="fisiologia-2026-08-10"]').click();
+    await expect(page.locator('#fisiologia .notebook-current-title')).toContainText('Difusión y transporte de gases');
     await expect(page.locator('#fisiologia-2026-08-13')).toBeHidden();
     await expect(page.locator('#fisiologia-2026-08-10')).toBeVisible();
-    await expect(page.locator('[data-lesson-target="fisiologia-2026-08-10"]')).toHaveAttribute('aria-current', 'true');
+    await expect(page.locator('#fisiologia .notebook-date[data-lesson-id="fisiologia-2026-08-10"]')).toHaveAttribute('aria-current', 'date');
+    await page.locator('#fisiologia-2026-08-10 [data-lesson-tab="material"]').click();
     await page.locator('#fisiologia-2026-08-10 [data-detail-toggle]').click();
     await expect(page.locator('#fisiologia-2026-08-10').getByText('EFECTO BOHR', { exact: true })).toBeVisible();
     await expect(page.getByRole('row', { name: /Barrera alveolocapilar/ })).toBeVisible();
@@ -53,8 +55,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('opens the 17 August Physiology and Microbiology class archives', async ({ page }) => {
     await page.goto('/clase.html#fisiologia-2026-08-17');
-    await expect(page.locator('#fisio-title')).toHaveText('Organización, sinapsis y receptores');
+    await expect(page.locator('#fisiologia .notebook-current-title')).toContainText('Organización, sinapsis y receptores');
     await expect(page.locator('#practice-fisiologia-2026-08-17')).toContainText('40 preguntas para dominar este curso');
+    await page.locator('#fisiologia-2026-08-17 [data-lesson-tab="material"]').click();
 
     const archive = page.locator('#sessionArchiveDialog');
     await page.locator('[data-session-archive-open="fisio-17-slides"]').click();
@@ -64,8 +67,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await archive.locator('[data-session-archive-close]').click();
 
     await page.goto('/clase.html#microbiologia-teorica-2026-08-17');
-    await expect(page.locator('#micro-theory-title')).toHaveText('Micosis por profundidad y casos clínicos');
+    await expect(page.locator('#microbiologia-teorica .notebook-current-title')).toContainText('Micosis por profundidad y casos clínicos');
     await expect(page.locator('#practice-microbiologia-teorica-2026-08-17')).toContainText('40 preguntas para dominar este curso');
+    await page.locator('#microbiologia-teorica-2026-08-17 [data-lesson-tab="material"]').click();
     await page.locator('[data-session-archive-open="micro-17-cases"]').click();
     await expect(archive).toBeVisible();
     await expect(archive.locator('#sessionArchiveThumbnails button')).toHaveCount(8);
