@@ -127,7 +127,41 @@
     var urgent=publicData.notices.find(function(notice){return notice.priority==='urgent';});var banner=document.getElementById('urgentNoticeBanner');if(urgent&&!sessionStorage.getItem('dismissed-urgent-'+urgent.id)){if(!banner){banner=el('div','urgent-notice-banner');banner.id='urgentNoticeBanner';var copy=el('span');var dismiss=el('button','','×');dismiss.type='button';banner.appendChild(copy);banner.appendChild(dismiss);document.body.insertBefore(banner,document.body.firstChild);dismiss.addEventListener('click',function(){banner.hidden=true;sessionStorage.setItem('dismissed-urgent-'+urgent.id,'1');});}banner.firstChild.textContent=urgent.title+(urgent.body?' · '+urgent.body:'');banner.hidden=false;}
     bell.addEventListener('click',function(){drawer.showModal();});
   }
-  function renderLiveTasks(){var staticIds=[];document.querySelectorAll('[data-task-id]').forEach(function(card){var id=card.dataset.taskId,task=publicData.tasks.find(function(item){return item.id===id;});staticIds.push(id);card.hidden=!task;if(!task)return;var course=card.querySelector('.priority-card-head span'),due=card.querySelector('.priority-card-head time'),title=card.querySelector(':scope > strong'),description=card.querySelector(':scope > small');if(course)course.textContent=task.course||'CLASE';if(due)due.textContent=task.dueLabel||'SIN FECHA';if(title)title.textContent=task.title;if(description)description.textContent=task.description||'';});var host=document.getElementById('classHubLiveTasks');if(!host){var section=document.getElementById('pendientes');var heading=section&&section.querySelector('.section-heading');if(!section)return;host=el('div','class-hub-live');host.id='classHubLiveTasks';if(heading)heading.insertAdjacentElement('afterend',host);else section.prepend(host);}host.replaceChildren();publicData.tasks.filter(function(task){return (task.status==='published'||!task.status)&&staticIds.indexOf(task.id)===-1;}).forEach(function(task){var card=el('article','live-task');card.appendChild(el('span','',(task.course||'CLASE')+(task.dueLabel?' · '+task.dueLabel:'')));card.appendChild(el('strong','',task.title));if(task.description)card.appendChild(el('p','',task.description));host.appendChild(card);});var count=document.getElementById('homeHomeworkCount');if(count){var total=publicData.tasks.length,isPortuguese=/^pt(?:-|$)/i.test(document.documentElement.lang),noun=isPortuguese?(total===1?'tarefa':'tarefas'):(total===1?'tarea':'tareas');count.textContent=String(total)+' '+noun;}}
+  function renderLiveTasks(){
+    var activeTasks=publicData.tasks.filter(function(task){return task.status==='published'||!task.status;});
+    document.querySelectorAll('[data-task-id]').forEach(function(card){
+      var id=card.dataset.taskId,task=activeTasks.find(function(item){return item.id===id;});
+      card.hidden=!task;
+      if(!task)return;
+      var course=card.querySelector('.priority-card-head span'),due=card.querySelector('.priority-card-head time'),title=card.querySelector(':scope > strong'),description=card.querySelector(':scope > small');
+      if(course)course.textContent=task.course||'CLASE';
+      if(due)due.textContent=task.dueLabel||'POR CONFIRMAR';
+      if(title)title.textContent=task.title;
+      if(description)description.textContent=task.description||'';
+    });
+    var host=document.getElementById('classHubLiveTasks');
+    if(!host){
+      var section=document.getElementById('pendientes');
+      var heading=section&&section.querySelector('.task-block-heading');
+      if(!section)return;
+      host=el('div','class-hub-live');host.id='classHubLiveTasks';
+      if(heading)heading.insertAdjacentElement('afterend',host);else section.prepend(host);
+    }
+    host.replaceChildren();
+    var targets={'epi-presentation':'#epi19-tarea','bio-activities':'#bioquimica-2026-08-21'};
+    activeTasks.forEach(function(task){
+      var card=el('a','live-task');
+      card.href=task.url||targets[task.id]||'#pendientes';
+      card.appendChild(el('span','',(task.course||'CLASE')+' · '+(task.dueLabel||'FECHA POR CONFIRMAR')));
+      card.appendChild(el('strong','',task.title));
+      if(task.description)card.appendChild(el('p','',task.description));
+      card.appendChild(el('b','live-task-action','Abrir →'));
+      host.appendChild(card);
+    });
+    if(!activeTasks.length)host.appendChild(el('p','notice-empty','No hay tareas activas. Las tareas terminadas ya no aparecen aquí.'));
+    var count=document.getElementById('homeHomeworkCount');
+    if(count){var total=activeTasks.length,isPortuguese=/^pt(?:-|$)/i.test(document.documentElement.lang),noun=isPortuguese?(total===1?'tarefa':'tarefas'):(total===1?'tarea':'tareas');count.textContent=String(total)+' '+noun+(isPortuguese?' ativas':' activas');}
+  }
   function renderDynamicResources(){var section=document.getElementById('pendientes');if(!section)return;var host=document.getElementById('classHubDynamicResources');if(!host){host=el('div','class-hub-live');host.id='classHubDynamicResources';var tasks=document.getElementById('classHubLiveTasks');if(tasks)tasks.insertAdjacentElement('afterend',host);else section.appendChild(host);}host.replaceChildren();(publicData.dates||[]).forEach(function(date){var card=el('article','live-task');card.appendChild(el('span','','FECHA PUBLICADA'));card.appendChild(el('strong','',date.label));card.appendChild(el('p','',date.startsAt));host.appendChild(card);});(publicData.files||[]).forEach(function(file){var card=el('a','live-task');card.href=file.url;card.target='_blank';card.rel='noopener';card.appendChild(el('span','',(file.course||'ARCHIVO')+(file.lessonDate?' · '+file.lessonDate:'')));card.appendChild(el('strong','',file.title));card.appendChild(el('p','',(file.fileType||'Archivo').toUpperCase()+' · Abrir →'));host.appendChild(card);});}
   function activityGroups(activityId){return (publicData.groups||[]).filter(function(group){return group.activityId===activityId;});}
   function renderGroups(){
