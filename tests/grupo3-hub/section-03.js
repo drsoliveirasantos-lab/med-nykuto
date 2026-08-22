@@ -28,7 +28,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#bioquimica .lesson-date-picker .history-entry')).toHaveCount(5);
   });
 
-  test('opens the reconstructed glycolysis board archive in its teaching order', async ({ page }) => {
+  test('opens the faithful glycolysis board archive in its teaching order', async ({ page }) => {
     await page.goto('/clase.html#bioquimica-2026-08-14');
     await page.locator('#bioquimica-2026-08-14 [data-lesson-tab="material"]').click();
     const openArchive = page.locator('#bioquimica-2026-08-14').getByRole('button', { name: /Ver las 7 láminas/ });
@@ -39,21 +39,21 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(dialog).toBeVisible();
     await expect(dialog.locator('[data-board-archive-slide]')).toHaveCount(7);
     await expect(page.locator('#boardArchiveCounter')).toHaveText('LÁMINA 1 DE 7');
-    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /restored\/01-mapa-general\.webp$/);
+    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /whiteboard-v2\/01-mapa-general\.webp$/);
     await expect(page.locator('#boardArchiveSlideTitle')).toHaveText('Mapa general');
     await expect(dialog.locator('[data-board-archive-previous]')).toBeDisabled();
 
     await dialog.locator('[data-board-archive-next]').click();
-    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /restored\/02-fase-preparatoria-1-3\.webp$/);
+    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /whiteboard-v2\/02-fase-preparatoria-1-3\.webp$/);
     await expect(page.locator('#boardArchiveCounter')).toHaveText('LÁMINA 2 DE 7');
 
     await dialog.locator('[data-board-archive-slide="6"]').click();
-    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /restored\/07-regulacion-anotada\.webp$/);
+    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /whiteboard-v2\/07-regulacion-anotada\.webp$/);
     await expect(dialog.locator('[data-board-archive-next]')).toBeDisabled();
     await dialog.press('Home');
-    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /restored\/01-mapa-general\.webp$/);
+    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /whiteboard-v2\/01-mapa-general\.webp$/);
     await dialog.press('ArrowRight');
-    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /restored\/02-fase-preparatoria-1-3\.webp$/);
+    await expect(page.locator('#boardArchiveImage')).toHaveAttribute('src', /whiteboard-v2\/02-fase-preparatoria-1-3\.webp$/);
 
     await dialog.press('Escape');
     await expect(dialog).toBeHidden();
