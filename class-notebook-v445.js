@@ -193,7 +193,7 @@
 
     var panels = [];
     function tabPanel(id, content) {
-      var tab = el('section', 'lesson-tab-panel');
+      var tab = el('section', id === 'curso' ? 'lesson-tab-panel course-chapter-2026' : 'lesson-tab-panel');
       tab.dataset.lessonTabPanel = id;
       if (id !== 'curso') tab.hidden = true;
       tab.appendChild(content);
@@ -543,8 +543,7 @@
     Object.keys(model.subjects).forEach(initSubject);
     window.addEventListener('hashchange', handleHash);
     document.documentElement.classList.add('academic-notebook-ready');
-    if (window.location.hash) window.dispatchEvent(new Event('hashchange'));
-    else revealDeepTarget();
+    revealDeepTarget();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
