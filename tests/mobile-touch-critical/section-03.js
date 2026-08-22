@@ -20,7 +20,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
         priorities,
         prioritiesGrid:{ left:prioritiesGridRect.left, right:prioritiesGridRect.right, width:prioritiesGridRect.width },
         appBottomPadding:parseFloat(getComputedStyle(document.querySelector('.class-app')).paddingBottom),
-        homeworkTitle:document.querySelector('.dashboard-priorities-title').textContent.trim(),
+        homeworkTitle:document.querySelector('.dashboard-week-heading span').textContent.trim(),
         homeworkCount:document.getElementById('homeHomeworkCount').textContent.trim(),
         homeworkDates:Array.from(prioritiesGrid.querySelectorAll('.priority-card time')).map(function(time){return time.dateTime;})
       };
@@ -30,15 +30,16 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(dashboard.navHeight).toBeGreaterThanOrEqual(54);
     expect(dashboard.navHeight).toBeLessThanOrEqual(62);
     expect(dashboard.overflow).toBeLessThanOrEqual(1);
-    expect(dashboard.columns).toBe(1);
+    expect(dashboard.columns).toBe(2);
     expect(dashboard.appBottomPadding).toBeLessThanOrEqual(12);
-    expect(dashboard.homeworkTitle).toBe('TAREAS');
+    expect(dashboard.homeworkTitle).toBe('PARA ESTA SEMANA');
     expect(dashboard.homeworkCount).toBe('2 tareas activas');
-    expect(dashboard.homeworkDates).toEqual(['','','']);
+    expect(dashboard.homeworkDates).toContain('2026-08-21T09:10:00-03:00');
+    expect(dashboard.homeworkDates.every(Boolean)).toBe(true);
     for (const card of dashboard.priorities) {
       expect(card.left).toBeGreaterThanOrEqual(dashboard.prioritiesGrid.left - 1);
       expect(card.right).toBeLessThanOrEqual(dashboard.prioritiesGrid.right + 1);
-      expect(card.width).toBeGreaterThanOrEqual(dashboard.prioritiesGrid.width - 1);
+      expect(card.width).toBeGreaterThanOrEqual(70);
     }
 
     await page.goto('/clase.html#materias', { waitUntil: 'domcontentloaded' });

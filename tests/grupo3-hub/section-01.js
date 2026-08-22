@@ -7,8 +7,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#nextScheduleSubject')).not.toHaveText('Calculando…');
     await expect(page.getByRole('link', { name: /Exposición grupal de enfermedad sorteada/ })).toBeVisible();
     await expect(page.getByRole('link', { name: /Actividades 3 y 4 impresas y manuscritas/ })).toBeVisible();
-    await expect(page.locator('.priority-card-head time')).toHaveCount(3);
-    await expect(page.getByRole('heading', { name: 'TAREAS', exact: true })).toBeVisible();
+    await expect(page.locator('.priority-card-head time')).toHaveCount(2);
     await expect(page.locator('#homeHomeworkCount')).toHaveText('2 tareas activas');
     await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', '2026-08-22');
     await expect(page.locator('#lastUpdated')).toContainText('Actualizado 22 ago.');
@@ -29,6 +28,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(homeDrive).toBeVisible();
     await expect(homeDrive).toHaveAttribute('href', CLASS_DRIVE_URL);
     await expect(homeDrive).toContainText('PDF y PowerPoint');
+    await expect(page.getByRole('button', { name:/Apoyar el proyecto/ })).toBeVisible();
   });
 
   test('uses clickable views and shows only one course at a time', async ({ page }) => {
