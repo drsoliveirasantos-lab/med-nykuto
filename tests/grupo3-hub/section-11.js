@@ -175,6 +175,56 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     }
   });
 
+  test('shows all six Epidemiology groups in a compact iPhone roster', async ({ page }) => {
+    const groups = Array.from({ length: 6 }, (_, index) => ({
+      id: `epi-2026-08-19-g${index + 1}`,
+      activityId: 'epi-2026-08-19',
+      name: `Grupo ${index + 1}`,
+      capacity: 10,
+      frozen: false,
+      memberCount: index === 0 ? 2 : index === 3 ? 1 : 0
+    }));
+    await page.route('**/api/class-hub?resource=public', (route) => route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        ok: true,
+        notices: [],
+        tasks: [],
+        activities: [{ id: 'epi-2026-08-19', title: 'Exposición de Epidemiología', capacity: 10, status: 'published', frozen: false }],
+        groups,
+        members: [
+          { activityId: 'epi-2026-08-19', groupId: 'epi-2026-08-19-g1', displayName: 'Ana Pérez', joinedAt: '2026-08-22T09:00:00Z' },
+          { activityId: 'epi-2026-08-19', groupId: 'epi-2026-08-19-g1', displayName: 'Luis Gómez', joinedAt: '2026-08-22T09:01:00Z' },
+          { activityId: 'epi-2026-08-19', groupId: 'epi-2026-08-19-g4', displayName: 'María Silva', joinedAt: '2026-08-22T09:02:00Z' }
+        ],
+        files: [],
+        dates: []
+      })
+    }));
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/clase.html#epidemiologia-2026-08-19');
+
+    const roster = page.locator('#epi19-tarea .group-roster-board');
+    await expect(roster).toBeVisible();
+    await expect(roster.locator('.group-roster-column')).toHaveCount(6);
+    await expect(roster.locator('.group-roster-list li')).toHaveCount(60);
+    await expect(roster).toContainText('Ana Pérez');
+    await expect(roster).toContainText('María Silva');
+    await expect(page.getByRole('button', { name: 'Añadir mi nombre' })).toBeVisible();
+
+    await roster.locator('[data-group-choice="epi-2026-08-19-g4"]').click();
+    await expect(page.locator('#epi19-tarea select[aria-label="Elegir grupo"]')).toHaveValue('epi-2026-08-19-g4');
+    await expect(roster.locator('[data-group-id="epi-2026-08-19-g4"]')).toHaveClass(/is-selected/);
+
+    const dimensions = await page.evaluate(() => ({
+      pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      boardOverflow: document.querySelector('.group-roster-board').scrollWidth - document.querySelector('.group-roster-board').clientWidth
+    }));
+    expect(dimensions.pageOverflow).toBeLessThanOrEqual(1);
+    expect(dimensions.boardOverflow).toBeLessThanOrEqual(1);
+  });
+
   test('exposes management, teacher profiles and install metadata without student accounts', async ({ page }) => {
     await page.goto('/gestion.html');
     await expect(page.getByRole('heading', { name: 'Med Nykuto Gestión' })).toBeVisible();

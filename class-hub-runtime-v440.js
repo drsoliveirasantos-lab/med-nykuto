@@ -3,7 +3,7 @@
   var API='/api/class-hub';
   var progressKey='med-nykuto-course-progress-v440';
   var studentKey='med-nykuto-student-device-v440';
-  var publicData={notices:[],tasks:[],activities:[],groups:[],files:[],dates:[]};
+  var publicData={notices:[],tasks:[],activities:[],groups:[],members:[],files:[],dates:[]};
 
   function el(tag,className,text){var node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
   function readJson(key,fallback){try{return JSON.parse(localStorage.getItem(key)||'')||fallback;}catch(error){return fallback;}}
@@ -111,7 +111,7 @@
     previous.addEventListener('click',function(){if(index>1){index-=1;show();}});next.addEventListener('click',function(){if(index<active.count){index+=1;show();}});close.addEventListener('click',function(){dialog.close();});dialog.addEventListener('click',function(event){if(event.target===dialog)dialog.close();});dialog.addEventListener('close',function(){image.removeAttribute('src');if(returnFocus)returnFocus.focus();});
   }
 
-  function fallbackPublic(){return {notices:[{id:'week-2026-08-21',priority:'normal',title:'Cursos del 19 al 21 de agosto disponibles',body:'Bioquímica, Epidemiología, Fisiología y Microbiología práctica ya están organizadas.'},{id:'tasks-2026-08-21',priority:'important',title:'Dos trabajos activos',body:'Epidemiología: exposición grupal. Bioquímica: imprimir y completar a mano las actividades 3 y 4.'}],tasks:[{id:'epi-presentation',course:'Epidemiología',title:'Exposición grupal de enfermedad sorteada',status:'published',dueLabel:'Semana siguiente'},{id:'bio-activities',course:'Bioquímica II',title:'Actividades 3 y 4 impresas y manuscritas',status:'published',dueLabel:'Práctico · presencia obligatoria'}],activities:[{id:'epi-2026-08-19',title:'Exposición de Epidemiología',capacity:10,status:'published'}],groups:[],files:[],dates:[]};}
+  function fallbackPublic(){return {notices:[{id:'week-2026-08-21',priority:'normal',title:'Cursos del 19 al 21 de agosto disponibles',body:'Bioquímica, Epidemiología, Fisiología y Microbiología práctica ya están organizadas.'},{id:'tasks-2026-08-21',priority:'important',title:'Dos trabajos activos',body:'Epidemiología: exposición grupal. Bioquímica: imprimir y completar a mano las actividades 3 y 4.'}],tasks:[{id:'epi-presentation',course:'Epidemiología',title:'Exposición grupal de enfermedad sorteada',status:'published',dueLabel:'Semana siguiente'},{id:'bio-activities',course:'Bioquímica II',title:'Actividades 3 y 4 impresas y manuscritas',status:'published',dueLabel:'Práctico · presencia obligatoria'}],activities:[{id:'epi-2026-08-19',title:'Exposición de Epidemiología',capacity:10,status:'published'}],groups:[],members:[],files:[],dates:[]};}
   function vapidBytes(value){var padding='='.repeat((4-value.length%4)%4),base64=(value+padding).replace(/-/g,'+').replace(/_/g,'/'),raw=atob(base64),output=new Uint8Array(raw.length);for(var index=0;index<raw.length;index+=1)output[index]=raw.charCodeAt(index);return output;}
   function enablePush(button){
     if(!('serviceWorker'in navigator)||!('PushManager'in window)||!('Notification'in window)){button.textContent='Push no disponible en este navegador';button.disabled=true;return;}
@@ -164,27 +164,52 @@
   }
   function renderDynamicResources(){var section=document.getElementById('pendientes');if(!section)return;var host=document.getElementById('classHubDynamicResources');if(!host){host=el('div','class-hub-live');host.id='classHubDynamicResources';var tasks=document.getElementById('classHubLiveTasks');if(tasks)tasks.insertAdjacentElement('afterend',host);else section.appendChild(host);}host.replaceChildren();(publicData.dates||[]).forEach(function(date){var card=el('article','live-task');card.appendChild(el('span','','FECHA PUBLICADA'));card.appendChild(el('strong','',date.label));card.appendChild(el('p','',date.startsAt));host.appendChild(card);});(publicData.files||[]).forEach(function(file){var card=el('a','live-task');card.href=file.url;card.target='_blank';card.rel='noopener';card.appendChild(el('span','',(file.course||'ARCHIVO')+(file.lessonDate?' · '+file.lessonDate:'')));card.appendChild(el('strong','',file.title));card.appendChild(el('p','',(file.fileType||'Archivo').toUpperCase()+' · Abrir →'));host.appendChild(card);});}
   function activityGroups(activityId){return (publicData.groups||[]).filter(function(group){return group.activityId===activityId;});}
+  function activityMembers(activityId){return (publicData.members||[]).filter(function(member){return member.activityId===activityId;});}
   function renderGroups(){
     document.querySelectorAll('[data-group-activity]').forEach(function(card){
       var host=card.querySelector('[data-group-runtime]');
       if(!host)return;
       var activity=(publicData.activities||[]).find(function(item){return item.id===card.dataset.groupActivity;});
       if(!activity){host.replaceChildren(el('p','','La actividad está publicada; la inscripción en grupos estará disponible cuando se active la base compartida.'));return;}
-      var groups=activityGroups(activity.id),membership=readJson('med-nykuto-membership-v440',null);
+      var groups=activityGroups(activity.id),members=activityMembers(activity.id),membership=readJson('med-nykuto-membership-v440',null);
       if(!membership||membership.activityId!==activity.id)membership=null;
       host.replaceChildren();
-      var name=el('input');name.type='text';name.maxLength=40;name.placeholder='Nombre o alias de clase';name.autocomplete='nickname';name.setAttribute('aria-label','Nombre o alias de clase');
-      var select=el('select');select.setAttribute('aria-label','Elegir grupo');var initial=el('option','','Elegir un grupo');initial.value='';select.appendChild(initial);
+      var composer=el('section','group-join-composer'),composerHead=el('div','group-join-heading');
+      composerHead.appendChild(el('span','','ELIGE TU GRUPO'));
+      composerHead.appendChild(el('strong','','Escribe tu nombre y toca el grupo que quieres integrar.'));
+      composerHead.appendChild(el('small','','La plancha se actualiza para toda la clase; cada grupo admite hasta 10 integrantes y el nombre añadido queda visible aquí.'));
+      composer.appendChild(composerHead);
+      var fields=el('div','group-join-fields'),nameLabel=el('label'),name=el('input');
+      nameLabel.appendChild(el('span','','Tu nombre'));
+      name.type='text';name.maxLength=40;name.placeholder='Nombre o alias de clase';name.autocomplete='nickname';name.setAttribute('aria-label','Nombre o alias de clase');
+      nameLabel.appendChild(name);
+      var selectLabel=el('label'),select=el('select');selectLabel.appendChild(el('span','','Grupo elegido'));select.setAttribute('aria-label','Elegir grupo');var initial=el('option','','Elegir grupo');initial.value='';select.appendChild(initial);
       groups.forEach(function(group){var option=el('option','',group.name+' · '+(group.memberCount||0)+'/'+Math.min(group.capacity||10,activity.capacity||10));option.value=group.id;option.disabled=Boolean(activity.frozen||group.frozen)||(group.memberCount||0)>=Math.min(group.capacity||10,activity.capacity||10);select.appendChild(option);});
-      var join=el('button','','Unirme'),leave=el('button','group-leave-button','Salir de mi grupo'),status=el('p','');join.type=leave.type='button';leave.hidden=true;
-      host.appendChild(name);host.appendChild(select);host.appendChild(join);host.appendChild(leave);host.appendChild(status);
-      function applyMembership(){var active=Boolean(membership);name.disabled=select.disabled=join.disabled=active||Boolean(activity.frozen)||!groups.length;leave.hidden=!active;leave.disabled=Boolean(activity.frozen);if(active){name.value=membership.displayName||'';status.textContent='Inscripción confirmada en '+(membership.groupName||'el grupo')+'. Para cambiar, sal primero de este grupo.';}else if(activity.frozen){status.textContent='La composición de los grupos ya es final.';}else if(!groups.length){status.textContent='No hay grupos abiertos. Un editor puede crearlos sin volver a desplegar el sitio.';}else status.textContent='';}
+      selectLabel.appendChild(select);fields.appendChild(nameLabel);fields.appendChild(selectLabel);
+      var join=el('button','group-join-button','Añadir mi nombre'),leave=el('button','group-leave-button','Retirar mi nombre'),status=el('p','group-membership-status');join.type=leave.type='button';leave.hidden=true;
+      fields.appendChild(join);fields.appendChild(leave);composer.appendChild(fields);composer.appendChild(status);host.appendChild(composer);
+
+      var board=el('div','group-roster-board');board.setAttribute('role','list');board.setAttribute('aria-label','Composición de los seis grupos');host.appendChild(board);
+      var choiceButtons=[];
+      groups.forEach(function(group,index){
+        var capacity=Math.min(group.capacity||10,activity.capacity||10),groupMembers=members.filter(function(member){return member.groupId===group.id;});
+        var column=el('article','group-roster-column');column.dataset.groupId=group.id;column.setAttribute('role','listitem');
+        var choice=el('button','group-roster-choice');choice.type='button';choice.dataset.groupChoice=group.id;choice.setAttribute('aria-pressed','false');choice.setAttribute('aria-label','Elegir '+group.name+', '+groupMembers.length+' de '+capacity+' integrantes');
+        choice.appendChild(el('strong','',group.name.replace('Grupo ','G')));choice.appendChild(el('span','',groupMembers.length+'/'+capacity));column.appendChild(choice);choiceButtons.push(choice);
+        var list=el('ol','group-roster-list');
+        for(var slot=0;slot<capacity;slot+=1){var member=groupMembers[slot],item=el('li',member?'has-member':'is-open');item.appendChild(el('span','',String(slot+1).padStart(2,'0')));var memberName=el('strong','',member?member.displayName:'Libre');if(member){memberName.title=member.displayName;item.setAttribute('aria-label',(slot+1)+'. '+member.displayName);}else item.setAttribute('aria-label',(slot+1)+'. Plaza libre');item.appendChild(memberName);list.appendChild(item);}
+        column.appendChild(list);board.appendChild(column);
+        choice.addEventListener('click',function(){if(choice.disabled)return;select.value=group.id;updateSelectedGroup();name.focus({preventScroll:true});});
+      });
+      function updateSelectedGroup(){var selected=membership&&membership.groupId?membership.groupId:select.value;choiceButtons.forEach(function(button){var active=button.dataset.groupChoice===selected;button.setAttribute('aria-pressed',active?'true':'false');button.closest('.group-roster-column').classList.toggle('is-selected',active);});}
+      select.addEventListener('change',updateSelectedGroup);
+      function applyMembership(){var active=Boolean(membership),locked=Boolean(activity.frozen)||!groups.length;name.disabled=select.disabled=join.disabled=active||locked;leave.hidden=!active;leave.disabled=Boolean(activity.frozen);choiceButtons.forEach(function(button){var group=groups.find(function(item){return item.id===button.dataset.groupChoice;})||{},capacity=Math.min(group.capacity||10,activity.capacity||10);button.disabled=active||locked||Boolean(group.frozen)||(group.memberCount||0)>=capacity;});if(active){name.value=membership.displayName||'';select.value=membership.groupId||'';status.textContent='Inscripción confirmada en '+(membership.groupName||'el grupo')+'. Para cambiar, retira primero tu nombre.';}else if(activity.frozen){status.textContent='La composición de los grupos ya es final.';}else if(!groups.length){status.textContent='No hay grupos abiertos. Un editor puede crearlos sin volver a desplegar el sitio.';}else status.textContent='';updateSelectedGroup();}
       applyMembership();
-      join.addEventListener('click',function(){if(!name.value.trim()||!select.value){status.textContent='Escribe un nombre o alias y elige un grupo.';return;}join.disabled=true;status.textContent='Guardando…';fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'group.join',activityId:activity.id,groupId:select.value,displayName:name.value.trim(),studentKey:deviceId()})}).then(function(response){return response.json().then(function(body){if(!response.ok)throw new Error(body.error||'No se pudo unir.');return body;});}).then(function(body){membership=body;writeJson('med-nykuto-membership-v440',body);applyMembership();}).catch(function(error){status.textContent=error.message;join.disabled=false;});});
+      join.addEventListener('click',function(){if(!name.value.trim()||!select.value){status.textContent='Escribe tu nombre y elige un grupo.';return;}join.disabled=true;status.textContent='Guardando…';fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'group.join',activityId:activity.id,groupId:select.value,displayName:name.value.trim(),studentKey:deviceId()})}).then(function(response){return response.json().then(function(body){if(!response.ok)throw new Error(body.error||'No se pudo unir.');return body;});}).then(function(body){membership=body;writeJson('med-nykuto-membership-v440',body);return loadPublic();}).catch(function(error){status.textContent=error.message;join.disabled=false;});});
       leave.addEventListener('click',function(){leave.disabled=true;status.textContent='Actualizando…';fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'group.leave',activityId:activity.id,studentKey:deviceId()})}).then(function(response){return response.json().then(function(body){if(!response.ok)throw new Error(body.error||'No se pudo salir del grupo.');return body;});}).then(function(){localStorage.removeItem('med-nykuto-membership-v440');membership=null;return loadPublic();}).catch(function(error){status.textContent=error.message;leave.disabled=false;});});
     });
   }
-  function loadPublic(){return fetch(API+'?resource=public',{headers:{accept:'application/json'}}).then(function(response){if(!response.ok)throw new Error('offline');return response.json();}).catch(function(){return fallbackPublic();}).then(function(data){var fallback=fallbackPublic();publicData={notices:Array.isArray(data.notices)?data.notices:fallback.notices,tasks:Array.isArray(data.tasks)?data.tasks:fallback.tasks,activities:Array.isArray(data.activities)?data.activities:fallback.activities,groups:Array.isArray(data.groups)?data.groups:[],files:Array.isArray(data.files)?data.files:[],dates:Array.isArray(data.dates)?data.dates:[]};renderNotices();renderLiveTasks();renderDynamicResources();renderGroups();});}
+  function loadPublic(){return fetch(API+'?resource=public',{headers:{accept:'application/json'}}).then(function(response){if(!response.ok)throw new Error('offline');return response.json();}).catch(function(){return fallbackPublic();}).then(function(data){var fallback=fallbackPublic();publicData={notices:Array.isArray(data.notices)?data.notices:fallback.notices,tasks:Array.isArray(data.tasks)?data.tasks:fallback.tasks,activities:Array.isArray(data.activities)?data.activities:fallback.activities,groups:Array.isArray(data.groups)?data.groups:[],members:Array.isArray(data.members)?data.members:[],files:Array.isArray(data.files)?data.files:[],dates:Array.isArray(data.dates)?data.dates:[]};renderNotices();renderLiveTasks();renderDynamicResources();renderGroups();});}
 
   function initPwa(){
     var button=document.getElementById('installAppButton'),deferred=null,isIos=/iphone|ipad|ipod/i.test(navigator.userAgent),standalone=window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
