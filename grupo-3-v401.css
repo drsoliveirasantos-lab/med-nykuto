@@ -651,6 +651,8 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
 #bioBoardArchive .board-archive-image-frame{background:radial-gradient(circle at 50% 35%,#fff,#e7edf1 78%)}
 #bioBoardArchive .board-archive-image-frame img{background:#fff;box-shadow:0 18px 42px rgba(0,0,0,.24)}
 #bioBoardArchive .board-archive-thumbnails img{background:#f7f9fa}
+.bio-lesson-standard{--lesson-accent:#38bdf8}
+.bio-lesson-standard .board-archive-launch,.bio-lesson-standard .course-detail-toggle,.bio-lesson-standard .lesson-intro,.bio-lesson-standard .lesson-tab-panel,.bio-lesson-standard .lesson-hero-2026{border-color:rgba(56,189,248,.22)}
 
 .phase-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
 .phase-card{padding:21px;border:1px solid var(--line);border-radius:var(--radius-lg);background:rgba(255,255,255,.02)}
@@ -1685,6 +1687,7 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
   #bioBoardArchive .board-archive-stage figure{flex:none;grid-template-rows:auto auto}
   #bioBoardArchive .board-archive-image-frame{aspect-ratio:4/3;padding:4px}
   #bioBoardArchive .board-archive-image-frame img{width:100%;height:auto;max-width:100%;border-radius:9px}
+  #bioBoardArchive .board-archive-image-frame{overflow:auto;touch-action:pan-x pan-y;cursor:zoom-in}
 }
 
 @media(max-width:480px){
