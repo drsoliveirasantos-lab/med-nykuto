@@ -12,7 +12,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('organizes the 14 August glycolysis lesson with corrected study points', async ({ page }) => {
     await page.goto('/clase.html#bio-detail');
-    await expect(page.getByRole('heading', { name: 'Glucólisis: vía común y balance energético' })).toBeVisible();
+    await expect(page.locator('#bioquimica .notebook-current-title')).toContainText('Glucólisis: vía común y balance energético');
     await expect(page.getByRole('heading', { name: 'Convertir una glucosa en dos piruvatos' })).toBeVisible();
     await expect(page.locator('#bio-detail .net-balance strong')).toHaveText('2 piruvatos + 2 ATP + 2 NADH');
     await expect(page.getByText('PEP → piruvato', { exact: true })).toBeVisible();
