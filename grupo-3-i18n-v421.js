@@ -130,6 +130,7 @@
 
   var ptByEs = {
     'Ir al contenido':'Ir para o conteúdo',
+    'Actualizado 22 ago. · contenido revisado':'Atualizado em 22 ago. · conteúdo revisado',
     'Espacio de clase':'Espaço da turma',
     'Semestre 4':'4.º semestre',
     'Volver':'Voltar',
