@@ -19,8 +19,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.locator('#fisiologia-2026-08-13 [data-lesson-tab="material"]').click();
     await page.locator('#fisiologia-2026-08-13 [data-detail-toggle]').click();
     await expect(page.locator('#fisiologia-2026-08-13 .control-loop li')).toHaveCount(3);
-    await expect(page.getByText('complejo pre-Bötzinger', { exact: false }).first()).toBeVisible();
-    await expect(page.getByRole('row', { name: /Quimiorreceptor central/ })).toBeVisible();
+    const physiology13 = page.locator('#fisiologia-2026-08-13');
+    await expect(physiology13.locator('[data-course-detail]').getByText('complejo pre-Bötzinger', { exact: false }).first()).toBeVisible();
+    await expect(physiology13.getByRole('row', { name: /Quimiorreceptor central/ })).toBeVisible();
     await expect(page.locator('#practice-fisiologia-2026-08-13')).toContainText('40 preguntas para dominar este curso');
     await expect(page.locator('#fisiologia-2026-08-13').getByText('EFECTO BOHR', { exact: true })).toHaveCount(0);
 
@@ -32,7 +33,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.locator('#fisiologia-2026-08-10 [data-lesson-tab="material"]').click();
     await page.locator('#fisiologia-2026-08-10 [data-detail-toggle]').click();
     await expect(page.locator('#fisiologia-2026-08-10').getByText('EFECTO BOHR', { exact: true })).toBeVisible();
-    await expect(page.getByRole('row', { name: /Barrera alveolocapilar/ })).toBeVisible();
+    await expect(page.locator('#fisiologia-2026-08-10').getByRole('row', { name: /Barrera alveolocapilar/ })).toBeVisible();
     await expect(page.locator('#practice-fisiologia-2026-08-10')).toContainText('40 preguntas para dominar este curso');
     const transcript = await page.evaluate(() => window.MED_NYKUTO_LATEST_TRANSCRIPTS.fisiologia);
     expect(transcript.resolvedDate).toBe('2026-08-17');
