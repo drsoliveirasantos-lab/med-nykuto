@@ -203,7 +203,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       })
     }));
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/clase.html#epidemiologia');
+    await page.goto('/clase.html');
+    await page.locator('.mobile-bottom-nav [data-view-link="cursos"]').click();
+    await page.locator('[data-course-target="epidemiologia"]').click();
 
     const roster = page.locator('#epi19-tarea .group-roster-board');
     await expect(roster).toBeVisible();
