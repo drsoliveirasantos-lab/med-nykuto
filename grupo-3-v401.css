@@ -2000,3 +2000,26 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
   .dashboard-week-tasks .priority-card small,.dashboard-week-tasks .priority-card b{display:none}
   .dashboard-all-tasks{justify-self:end;font-size:.62rem!important}
 }
+
+/* v452 — compact home task cards on narrow iPhone screens. */
+@media(max-width:430px){
+  .dashboard-week-tasks{min-width:0;gap:6px;padding:9px;-webkit-text-size-adjust:100%}
+  .dashboard-week-heading{min-width:0;gap:3px}
+  .dashboard-week-heading>span{font-size:.46rem;letter-spacing:.08em}
+  .dashboard-week-heading>strong{font-size:.72rem;line-height:1.08;white-space:nowrap}
+  .dashboard-week-tasks .dashboard-priorities{min-width:0;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+  .dashboard-week-tasks .priority-card{min-width:0;max-width:100%;overflow:hidden;padding:6px;border-radius:10px}
+  .dashboard-week-tasks .priority-card-head{display:grid;min-width:0;grid-template-columns:minmax(0,1fr);justify-items:start;gap:2px}
+  .dashboard-week-tasks .priority-card-head>span{display:block;max-width:100%;overflow:hidden;font-size:.41rem;letter-spacing:.025em;text-overflow:ellipsis;white-space:nowrap}
+  .dashboard-week-tasks .priority-card-head time{max-width:100%;padding:2px 3px;font-size:.39rem;letter-spacing:0}
+  .dashboard-week-tasks .priority-card strong{display:-webkit-box;overflow:hidden;margin-top:3px;font-size:.57rem;line-height:1.12;overflow-wrap:anywhere;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+  .dashboard-week-tasks .priority-card small,.dashboard-week-tasks .priority-card b{display:none}
+  .dashboard-all-tasks{font-size:.52rem!important}
+}
+@media(max-width:350px){
+  .dashboard-week-tasks{padding:7px}
+  .dashboard-week-tasks .dashboard-priorities{gap:3px}
+  .dashboard-week-tasks .priority-card{padding:5px}
+  .dashboard-week-tasks .priority-card strong{font-size:.52rem}
+  .dashboard-week-tasks .priority-card-head>span,.dashboard-week-tasks .priority-card-head time{font-size:.36rem}
+}

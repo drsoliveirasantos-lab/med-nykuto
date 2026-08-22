@@ -9,7 +9,15 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
       const prioritiesGridRect = prioritiesGrid.getBoundingClientRect();
       const priorities = Array.from(prioritiesGrid.querySelectorAll('.priority-card')).map((card) => {
         const rect = card.getBoundingClientRect();
-        return { left:rect.left, right:rect.right, width:rect.width };
+        const title = card.querySelector('strong');
+        return {
+          left:rect.left,
+          right:rect.right,
+          width:rect.width,
+          overflow:card.scrollWidth-card.clientWidth,
+          titleSize:parseFloat(getComputedStyle(title).fontSize),
+          titleLines:Math.round(title.getBoundingClientRect().height/parseFloat(getComputedStyle(title).lineHeight))
+        };
       });
       return {
         height:panel.height,
@@ -40,6 +48,9 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
       expect(card.left).toBeGreaterThanOrEqual(dashboard.prioritiesGrid.left - 1);
       expect(card.right).toBeLessThanOrEqual(dashboard.prioritiesGrid.right + 1);
       expect(card.width).toBeGreaterThanOrEqual(70);
+      expect(card.overflow).toBeLessThanOrEqual(1);
+      expect(card.titleSize).toBeLessThanOrEqual(10);
+      expect(card.titleLines).toBeLessThanOrEqual(2);
     }
 
     await page.goto('/clase.html#materias', { waitUntil: 'domcontentloaded' });
