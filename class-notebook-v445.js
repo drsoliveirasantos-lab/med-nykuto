@@ -940,7 +940,7 @@
     shell.insertAdjacentElement('afterend', viewPanel);
 
     Array.prototype.slice.call(subject.children).forEach(function (child) {
-      if (child === heading || child === shell || child === viewPanel || child.hasAttribute('data-lesson-panel')) return;
+      if (child === heading || child === shell || child === viewPanel || child.hasAttribute('data-lesson-panel') || child.hasAttribute('data-notebook-persistent')) return;
       child.hidden = true;
       child.dataset.notebookLegacy = 'true';
     });
@@ -1043,8 +1043,13 @@
     if (!target) return;
     var lessonPanel = target.closest('[data-lesson-panel]');
     var subject = target.closest('.subject-section');
-    if (!lessonPanel || !subject || !subject.classList.contains('notebook-ready')) return;
+    if (!subject || !subject.classList.contains('notebook-ready')) return;
     revealSubject(subject);
+    if (!lessonPanel) {
+      window.history.replaceState(null, '', '#' + hashId);
+      window.requestAnimationFrame(function () { target.scrollIntoView({ block: 'start', inline: 'nearest' }); });
+      return;
+    }
     var date = subject.querySelector('.notebook-date[data-lesson-id="' + lessonPanel.id + '"]');
     if (date) date.click();
     var tab = 'curso';

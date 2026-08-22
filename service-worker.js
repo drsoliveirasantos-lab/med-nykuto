@@ -1,4 +1,4 @@
-const CACHE = 'med-nykuto-class-v458';
+const CACHE = 'med-nykuto-class-v459';
 const SHELL = [
   '/clase.html',
   '/comunidade.html',
@@ -20,7 +20,7 @@ const SHELL = [
   '/teacher-question-profile-v445.js?v=445',
   '/grupo-3-v401.js?v=448',
   '/class-hub-runtime-v440.js?v=455',
-  '/class-notebook-v445.js?v=457',
+  '/class-notebook-v445.js?v=458',
   '/teacher-profiles-v445.js?v=445',
   '/archivos-v440.js?v=440',
   '/assets/pwa-icon-192.png',
