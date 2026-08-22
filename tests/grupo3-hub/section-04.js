@@ -39,7 +39,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('opens both teacher PDF decks inside the Microbiology archive', async ({ page }) => {
     await page.goto('/clase.html#microbiologia-teorica-2026-08-10');
-    const launchers = page.locator('[data-micro-archive-open]');
+    await page.locator('#microbiologia-teorica-2026-08-10 [data-lesson-tab="material"]').click();
+    const launchers = page.locator('#microbiologia-teorica-2026-08-10 [data-micro-archive-open]');
     await expect(launchers).toHaveCount(2);
     await expect(launchers.first()).toBeVisible();
     await launchers.first().click();
@@ -65,6 +66,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('opens all three teacher documents inside the Epidemiology archive', async ({ page }) => {
     await page.goto('/clase.html#epidemiologia-bloque-anterior');
+    await page.locator('#epidemiologia-bloque-anterior [data-lesson-tab="material"]').click();
     await expect(page.locator('.epi-material-archive [data-epi-archive-open]')).toHaveCount(3);
     const firstLauncher = page.locator('.epi-material-archive [data-epi-archive-open="aps"]');
     await firstLauncher.click();
