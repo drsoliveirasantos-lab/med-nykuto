@@ -19,6 +19,29 @@ const EPIDEMIOLOGY_ROSTER = [
   ['Adna Juliana Nunes Silva Pinheiro','Layssa Karoline Barbosa','Stephany Januario Matos','Maria Vitória Teles Fernandes','Maryanna Araujo da Silva','Maslow Gabriel Neis Pontes','Giovana Sabatke','Camila Alencar Delmutti','Thallys Gabriel Rigo'],
   ['Mariellen Ayane de Freitas','Michael da Silva de Mesquita','Marizely L de Freitas Veras','Marcos Dhemerson Ferreira Feitosa','Danilo Evandro Silva Lima','José Maria de Souza Neto','Davi Mateus Vasconcelos','Clara Oliveira Santos','Diego Oliveira Santos','Ellen Cordeiro Nunes']
 ];
+const EPIDEMIOLOGY_GROUP_TOPICS = [
+  'Virus sincitial respiratorio · Bronquiolitis',
+  'Influenza',
+  'Tuberculosis',
+  'Sarampión',
+  'Meningitis bacteriana',
+  'Dengue',
+  'COVID-19',
+  'Sífilis',
+  'Hepatitis B',
+  'Malaria'
+];
+
+function withEpidemiologyAssignment(group) {
+  const match = /^epi-2026-08-19-g(\d+)$/.exec(String(group?.id || ''));
+  const index = match ? Number(match[1]) - 1 : -1;
+  if (index < 0 || index >= EPIDEMIOLOGY_ROSTER.length) return group;
+  return {
+    ...group,
+    leader: EPIDEMIOLOGY_ROSTER[index][0],
+    topic: EPIDEMIOLOGY_GROUP_TOPICS[index]
+  };
+}
 
 const DEFAULT_PUBLIC = {
   notices: [
@@ -130,7 +153,7 @@ async function readPublic(db) {
     db.prepare(`SELECT id,course,lesson_date AS lessonDate,title,url,file_type AS fileType,status FROM hub_files WHERE status='published' ORDER BY updated_at DESC`).all(),
     db.prepare(`SELECT id,label,starts_at AS startsAt,status FROM hub_dates WHERE status='published' ORDER BY starts_at`).all()
   ]);
-  return { ok: true, notices: notices.results || [], tasks: tasks.results || [], activities: (activities.results || []).map((item) => ({ ...item, frozen: Boolean(item.frozen) })), groups: (groups.results || []).map((item) => ({ ...item, frozen: Boolean(item.frozen), memberCount: Number(item.memberCount) || 0 })), members: members.results || [], files: files.results || [], dates: dates.results || [], generatedAt: nowIso() };
+  return { ok: true, notices: notices.results || [], tasks: tasks.results || [], activities: (activities.results || []).map((item) => ({ ...item, frozen: Boolean(item.frozen) })), groups: (groups.results || []).map((item) => withEpidemiologyAssignment({ ...item, frozen: Boolean(item.frozen), memberCount: Number(item.memberCount) || 0 })), members: members.results || [], files: files.results || [], dates: dates.results || [], generatedAt: nowIso() };
 }
 
 async function adminSnapshot(db, actor) {
