@@ -1,4 +1,4 @@
-const CACHE = 'med-nykuto-class-v456';
+const CACHE = 'med-nykuto-class-v457';
 const SHELL = [
   '/clase.html',
   '/comunidade.html',
@@ -7,7 +7,7 @@ const SHELL = [
   '/grupo-3-v401.css?v=452',
   '/class-courses-2026-08-17-v432.css?v=432',
   '/class-hub-2026-08-21-v440.css?v=455',
-  '/class-notebook-v445.css?v=456',
+  '/class-notebook-v445.css?v=457',
   '/profesores-v445.css?v=445',
   '/archivos-v445.css?v=445',
   '/academic-model-v445.js?v=448',
@@ -20,7 +20,7 @@ const SHELL = [
   '/teacher-question-profile-v445.js?v=445',
   '/grupo-3-v401.js?v=448',
   '/class-hub-runtime-v440.js?v=455',
-  '/class-notebook-v445.js?v=456',
+  '/class-notebook-v445.js?v=457',
   '/teacher-profiles-v445.js?v=445',
   '/archivos-v440.js?v=440',
   '/assets/pwa-icon-192.png',
