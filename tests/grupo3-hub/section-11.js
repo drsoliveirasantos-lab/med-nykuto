@@ -1,9 +1,9 @@
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('switches theoretical Microbiology revision depth independently', async ({ page }) => {
     await page.goto('/clase.html#microbiologia-teorica-2026-08-10');
-    const quickView = page.locator('#microbiologia-teorica-2026-08-10 [data-lesson-tab="rapido"]');
+    const quickView = page.locator('#microbiologia-teorica-2026-08-10 [data-lesson-tab="rapida"]');
     await quickView.click();
-    await expect(page.getByRole('heading', { name: 'Hilo lógico de la clase' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'El hilo lógico para repasar' })).toBeVisible();
     await expect(page.locator('#microbiologia-teorica-2026-08-10 .notebook-summary li')).toHaveCount(8);
     await expect(quickView).toHaveAttribute('aria-selected', 'true');
   });
@@ -140,12 +140,22 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(page.locator('#' + id)).toBeVisible();
       await expect(page.locator('#' + id)).toHaveAttribute('data-notebook-narrative', 'true');
       await expect(page.locator('#' + id + ' [data-lesson-tabs] button')).toHaveCount(6);
+      await expect(page.locator('#' + id + ' > [data-lesson-tabs]')).toBeVisible();
+      expect(await page.locator('#' + id + ' > [data-lesson-tabs] button').allTextContents()).toEqual([
+        'Curso completo',
+        'Ficha rápida',
+        'Ficha ultra rápida',
+        'Entrenamiento',
+        'Material de la clase',
+        'Recursos IA'
+      ]);
       const practiceId = legacyPracticeId || id;
       await expect(page.locator('#' + id + ' .practice-module[data-practice-root="' + practiceId + '"]')).toContainText('40 preguntas');
       await expect(page.locator('#' + id)).toContainText(title.split(':')[0]);
       const fullCourse = page.locator('#' + id + ' [data-lesson-tab-panel="curso"]');
       await expect(fullCourse).toHaveClass(/course-chapter-2026/);
       await expect(fullCourse.locator('.course-chapter-section')).not.toHaveCount(0);
+      await expect(fullCourse.locator('.course-inline-figure')).not.toHaveCount(0);
       await expect(fullCourse.locator('.concept-card-2026')).toHaveCount(0);
     }
   });

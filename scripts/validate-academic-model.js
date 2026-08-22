@@ -4,6 +4,8 @@ const path = require('path');
 const root = path.resolve(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'clase.html'), 'utf8');
 const teacherHtml = fs.readFileSync(path.join(root, 'profesores.html'), 'utf8');
+const notebookJs = fs.readFileSync(path.join(root, 'class-notebook-v445.js'), 'utf8');
+const notebookCss = fs.readFileSync(path.join(root, 'class-notebook-v445.css'), 'utf8');
 const errors = [];
 
 global.window = {};
@@ -64,11 +66,15 @@ if (model) {
   expect(practiceIds.size === 14, `Expected 14 unique practice mappings, found ${practiceIds.size}.`);
   expect(Object.keys(model.narratives || {}).length === 9, `Expected 9 generated legacy narratives, found ${Object.keys(model.narratives || {}).length}.`);
   expect(!lessons.some((entry) => entry.subjectId === 'nutricion' && /2026-08-20/.test(entry.lesson.id)), 'A false Nutrition theory class was created for 20 August.');
+  expect(/Ficha rápida/.test(notebookJs) && /Ficha ultra rápida/.test(notebookJs), 'Notebook tabs do not use the canonical study-format labels.');
+  expect(/standardizeLessonTabs/.test(notebookJs), 'Notebook does not standardize the tab bar across old and new lessons.');
+  expect(/course-inline-figure/.test(notebookCss) && /course-diagram-dialog/.test(notebookCss), 'Inline lesson diagrams or their enlarged view are not styled.');
 
   lessons.forEach(({ lesson }) => {
     const narrative = model.narratives[lesson.id];
     const staticPanel = new RegExp(`id=["']${lesson.id}["'][\\s\\S]{0,2400}data-lesson-tabs`).test(html);
     expect(Boolean(narrative) || staticPanel, `${lesson.id}: neither a generated narrative nor a static full-course narrative exists.`);
+    expect(new RegExp(`['"]${lesson.id}['"]\\s*:`).test(notebookJs), `${lesson.id}: no contextual inline diagram is registered.`);
     if (narrative) {
       expect(narrative.lead.length >= 120, `${lesson.id}: narrative lead is too short.`);
       expect(narrative.sections.length >= 6, `${lesson.id}: narrative needs at least 6 sequential sections.`);
@@ -86,4 +92,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Academic model validation OK: 6 subjects, 6 teacher audits, 14 lesson mappings, 9 generated legacy narratives, no false Nutrition class and no duplicate Drive/Plan navigation.');
+console.log('Academic model validation OK: 6 subjects, 6 teacher audits, 14 lesson mappings, 14 contextual diagram mappings, 9 generated legacy narratives, no false Nutrition class and no duplicate Drive/Plan navigation.');
