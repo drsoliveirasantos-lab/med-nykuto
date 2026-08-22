@@ -46,7 +46,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('switches revision depth without leaving the page', async ({ page }) => {
     await page.goto('/clase.html#bioquimica-2026-08-14');
-    await page.locator('[data-study-mode="rapido"]').click();
+    await page.locator('#bioquimica-2026-08-14 [data-lesson-tab="material"]').click();
+    await page.locator('#bioquimica-2026-08-14 [data-study-mode="rapido"]').click();
     await expect(page.getByRole('heading', { name: 'El mapa central en cinco minutos' })).toBeVisible();
     await expect(page.getByText('La glucólisis produce 2 piruvatos, 2 ATP netos y 2 NADH.')).toBeVisible();
     await expect(page.locator('[data-study-mode="rapido"]')).toHaveAttribute('aria-pressed', 'true');
@@ -54,6 +55,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('switches Nutrition revision depth independently', async ({ page }) => {
     await page.goto('/clase.html#nutricion');
+    await page.locator('#nutricion-2026-08-13 [data-lesson-tab="material"]').click();
     const quickView = page.locator('#nutricion [data-nutrition-mode="rapido"]');
     await quickView.click();
     await expect(page.getByRole('heading', { name: 'Leyes de la alimentación en cinco minutos' })).toBeVisible();
@@ -63,6 +65,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('switches Epidemiology revision depth independently', async ({ page }) => {
     await page.goto('/clase.html#epidemiologia-bloque-anterior');
+    await page.locator('#epidemiologia-bloque-anterior [data-lesson-tab="material"]').click();
     const quickView = page.locator('#epidemiologia [data-epi-mode="rapido"]');
     await quickView.click();
     await expect(page.getByRole('heading', { name: 'Lo esencial de Epidemiología en cinco minutos' })).toBeVisible();
@@ -72,6 +75,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('switches Physiology revision depth independently', async ({ page }) => {
     await page.goto('/clase.html#fisiologia-2026-08-13');
+    await page.locator('#fisiologia-2026-08-13 [data-lesson-tab="material"]').click();
     const quickView = page.locator('#fisiologia [data-fisio-mode="rapido"]');
     await quickView.click();
     await expect(page.getByRole('heading', { name: 'Control respiratorio en cinco minutos' })).toBeVisible();
@@ -81,6 +85,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('switches the 10 August gas-exchange revision without exposing the 13 August lesson', async ({ page }) => {
     await page.goto('/clase.html#fisiologia-2026-08-10');
+    await page.locator('#fisiologia-2026-08-10 [data-lesson-tab="material"]').click();
     const comparison = page.locator('#fisiologia-2026-08-10 [data-fisio-gas-mode="comparar"]');
     await comparison.click();
     await expect(page.getByRole('heading', { name: 'Dos efectos, dos preguntas diferentes' })).toBeVisible();
@@ -91,6 +96,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('switches Microbiology practical revision depth independently', async ({ page }) => {
     await page.goto('/clase.html#microbiologia-practica-anterior');
+    await page.locator('#microbiologia-practica-anterior [data-lesson-tab="material"]').click();
     const quickView = page.locator('#microbiologia-practica [data-micro-mode="rapido"]');
     await quickView.click();
     await expect(page.getByRole('heading', { name: 'Hongos y Sabouraud en cinco minutos' })).toBeVisible();
