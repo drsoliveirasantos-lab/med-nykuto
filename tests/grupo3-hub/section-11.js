@@ -179,7 +179,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await boards.first().locator('button').click();
     const dialog = page.locator('.course-diagram-dialog');
     await expect(dialog).toBeVisible();
-    await expect(dialog).toContainText('PIZARRA DE LA CLASE');
+    await expect(dialog).toContainText('PIZARRA DEL PROFESOR · RECONSTRUIDA');
+    await expect(dialog.getByRole('button', { name: 'Ampliar la pizarra para leer los detalles' })).toBeVisible();
     const fit = await dialog.evaluate((node) => {
       const stage = node.querySelector('.course-diagram-dialog-stage').getBoundingClientRect();
       const image = node.querySelector('.course-inline-image').getBoundingClientRect();
@@ -191,6 +192,19 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       };
     });
     expect(fit).toEqual({ withinWidth: true, withinHeight: true, viewportWidth: true, viewportHeight: true });
+
+    await dialog.getByRole('button', { name: 'Ampliar la pizarra para leer los detalles' }).click();
+    await expect(dialog).toHaveClass(/is-zoomed/);
+    await expect(dialog.getByRole('button', { name: 'Ampliar la pizarra para leer los detalles' })).toHaveText('Ajustar');
+    const zoomed = await dialog.evaluate((node) => {
+      const stage = node.querySelector('.course-diagram-dialog-stage');
+      const image = node.querySelector('.course-inline-image').getBoundingClientRect();
+      return {
+        imageWiderThanStage: image.width > stage.getBoundingClientRect().width,
+        horizontallyScrollable: stage.scrollWidth > stage.clientWidth
+      };
+    });
+    expect(zoomed).toEqual({ imageWiderThanStage: true, horizontallyScrollable: true });
   });
 
   test('opens course files and progress through the four-part workspace', async ({ page }) => {

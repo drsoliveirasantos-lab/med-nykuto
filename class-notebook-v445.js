@@ -221,19 +221,19 @@
       type: 'board',
       src: 'assets/class-hub/biochemistry/2026-08-21/board/01-deficit-insulina.svg',
       title: 'Insulina, glucosa y combustibles',
-      caption: 'Pizarra 1 repasada en limpio: misma disposición, dibujos, flechas y función de los colores.'
+      caption: 'Reconstrucción semántica de la pizarra 1: célula, adipocitos, músculo e hígado reconocibles; posiciones, flechas, relaciones y colores conservados.'
     }, {
       target: '#cad-cetonas',
       type: 'board',
       src: 'assets/class-hub/biochemistry/2026-08-21/board/02-cetogenesis-acidosis.svg',
       title: 'Hepatocito, cetogénesis y acidosis',
-      caption: 'Pizarra 2 repasada en limpio, desde los precursores hasta la compensación.'
+      caption: 'Reconstrucción semántica de la pizarra 2: hepatocito, mitocondria, sangre y pulmones clarificados sin modificar la bifurcación metabólica de la profesora.'
     }, {
       target: '#cad-cerebro',
       type: 'board',
       src: 'assets/class-hub/biochemistry/2026-08-21/board/03-cerebro-osmoles.svg',
       title: 'Osmoles cerebrales y edema',
-      caption: 'Pizarra 3 repasada en limpio: adaptación osmótica, edema y herniación.'
+      caption: 'Reconstrucción semántica de la pizarra 3: célula cerebral, cerebro adaptado y cerebro edematoso identificables; ramas de edema e hipocalemia separadas.'
     }],
     'epidemiologia-bloque-anterior': [{
       section: 4,
@@ -490,6 +490,7 @@
 
   function closeDiagramDialog(dialog) {
     document.body.classList.remove('course-diagram-open');
+    dialog.classList.remove('is-zoomed');
     if (typeof dialog.close === 'function') dialog.close();
     else dialog.removeAttribute('open');
   }
@@ -504,15 +505,29 @@
     var copy = el('div');
     copy.appendChild(el('span', '', 'ESQUEMA DE LA CLASE'));
     copy.appendChild(el('strong', '', ''));
-    var close = el('button', '', '×');
+    var actions = el('div', 'course-diagram-dialog-actions');
+    var zoom = el('button', 'course-diagram-zoom', 'Ampliar');
+    zoom.type = 'button';
+    zoom.hidden = true;
+    zoom.setAttribute('aria-pressed', 'false');
+    zoom.setAttribute('aria-label', 'Ampliar la pizarra para leer los detalles');
+    var close = el('button', 'course-diagram-close', '×');
     close.type = 'button';
     close.setAttribute('aria-label', 'Cerrar esquema');
     header.appendChild(copy);
-    header.appendChild(close);
+    actions.appendChild(zoom);
+    actions.appendChild(close);
+    header.appendChild(actions);
     shell.appendChild(header);
     shell.appendChild(el('div', 'course-diagram-dialog-stage'));
     shell.appendChild(el('p', 'course-diagram-dialog-caption', ''));
     dialog.appendChild(shell);
+    zoom.addEventListener('click', function () {
+      var expanded = dialog.classList.toggle('is-zoomed');
+      zoom.setAttribute('aria-pressed', expanded ? 'true' : 'false');
+      zoom.textContent = expanded ? 'Ajustar' : 'Ampliar';
+      dialog.querySelector('.course-diagram-dialog-stage').scrollTo({ top: 0, left: 0 });
+    });
     close.addEventListener('click', function () { closeDiagramDialog(dialog); });
     dialog.addEventListener('cancel', function () { document.body.classList.remove('course-diagram-open'); });
     dialog.addEventListener('click', function (event) { if (event.target === dialog) closeDiagramDialog(dialog); });
@@ -523,7 +538,12 @@
   function openDiagram(definition) {
     var dialog = ensureDiagramDialog();
     dialog.classList.toggle('is-teacher-board', definition.type === 'board');
-    dialog.querySelector('header span').textContent = definition.type === 'board' ? 'PIZARRA DE LA CLASE' : 'ESQUEMA DE LA CLASE';
+    dialog.classList.remove('is-zoomed');
+    var zoom = dialog.querySelector('.course-diagram-zoom');
+    zoom.hidden = definition.type !== 'board';
+    zoom.textContent = 'Ampliar';
+    zoom.setAttribute('aria-pressed', 'false');
+    dialog.querySelector('header span').textContent = definition.type === 'board' ? 'PIZARRA DEL PROFESOR · RECONSTRUIDA' : 'ESQUEMA EXPLICATIVO DEL CURSO';
     dialog.querySelector('header strong').textContent = definition.title;
     dialog.querySelector('.course-diagram-dialog-stage').replaceChildren(diagramVisual(definition));
     dialog.querySelector('.course-diagram-dialog-caption').textContent = definition.caption;
@@ -536,12 +556,12 @@
     var figure = el('figure', 'course-inline-figure' + (definition.wide ? ' is-wide' : '') + (definition.type === 'board' ? ' is-teacher-board' : '') + (compact ? ' is-summary' : ''));
     var trigger = el('button', 'course-inline-diagram-trigger');
     trigger.type = 'button';
-    trigger.setAttribute('aria-label', 'Ampliar esquema: ' + definition.title);
+    trigger.setAttribute('aria-label', (definition.type === 'board' ? 'Ampliar pizarra: ' : 'Ampliar esquema: ') + definition.title);
     trigger.appendChild(diagramVisual(definition));
     var caption = el('figcaption');
     caption.appendChild(el('strong', '', definition.title));
     caption.appendChild(el('span', '', definition.caption));
-    caption.appendChild(el('small', '', 'Toca para ampliar'));
+    caption.appendChild(el('small', '', definition.type === 'board' ? 'Pizarra del profesor · ampliar' : 'Esquema explicativo · ampliar'));
     figure.appendChild(trigger);
     figure.appendChild(caption);
     trigger.addEventListener('click', function () { openDiagram(definition); });

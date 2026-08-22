@@ -6,6 +6,12 @@ const html = fs.readFileSync(path.join(root, 'clase.html'), 'utf8');
 const teacherHtml = fs.readFileSync(path.join(root, 'profesores.html'), 'utf8');
 const notebookJs = fs.readFileSync(path.join(root, 'class-notebook-v445.js'), 'utf8');
 const notebookCss = fs.readFileSync(path.join(root, 'class-notebook-v445.css'), 'utf8');
+const bioBoardDir = path.join(root, 'assets', 'class-hub', 'biochemistry', '2026-08-21', 'board');
+const bioBoards = [
+  fs.readFileSync(path.join(bioBoardDir, '01-deficit-insulina.svg'), 'utf8'),
+  fs.readFileSync(path.join(bioBoardDir, '02-cetogenesis-acidosis.svg'), 'utf8'),
+  fs.readFileSync(path.join(bioBoardDir, '03-cerebro-osmoles.svg'), 'utf8')
+];
 const errors = [];
 
 global.window = {};
@@ -74,6 +80,12 @@ if (model) {
   expect((notebookJs.match(/type:\s*'board'/g) || []).length >= 3, 'The 21 August lesson must expose the three faithful teacher boards.');
   expect(/whiteboard-v2/.test(notebookJs), 'The 14 August lesson is not using the reviewed faithful whiteboard series.');
   expect(/course-diagram-dialog[^}]*[\s\S]{0,1800}object-fit:contain/.test(notebookCss), 'The enlarged board view does not guarantee contain fitting.');
+  expect(/PIZARRA DEL PROFESOR · RECONSTRUIDA/.test(notebookJs), 'Teacher-board provenance is not explicit in the enlarged viewer.');
+  expect(/ESQUEMA EXPLICATIVO DEL CURSO/.test(notebookJs), 'Contextual diagrams are not distinguished from teacher boards.');
+  expect(/course-diagram-zoom/.test(notebookJs) && /course-diagram-zoom/.test(notebookCss), 'The teacher-board reader is not zoomable on mobile.');
+  expect(/adipocyte[\s\S]*tejido muscular[\s\S]*hígado/i.test(bioBoards[0]), 'Board 1 does not identify adipocytes, muscle and liver semantically.');
+  expect(/hepatocito[\s\S]*mitocondria[\s\S]*vessel[\s\S]*lung/i.test(bioBoards[1]), 'Board 2 does not identify hepatocyte, mitochondrion, vessel and lungs semantically.');
+  expect(/célula cerebral[\s\S]*cerebro adaptado[\s\S]*edema cerebral[\s\S]*herniación/i.test(bioBoards[2]), 'Board 3 does not identify the cerebral cell, adapted brain, edema and herniation semantically.');
 
   lessons.forEach(({ lesson }) => {
     const narrative = model.narratives[lesson.id];

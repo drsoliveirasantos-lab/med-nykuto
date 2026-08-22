@@ -1,90 +1,94 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
   <title id="title">Condiciones fisiológicas y patológicas del uso de glucosa</title>
-  <desc id="desc">Reconstrucción fiel de la pizarra: célula con receptores de insulina, respiración celular y, ante déficit de insulina, lipólisis adiposa, proteólisis muscular y llegada de precursores al hígado.</desc>
+  <desc id="desc">Reconstrucción semántica de la primera pizarra: en fisiología la insulina permite el ingreso de glucosa y la producción de ATP; ante déficit de insulina, la célula usa menos glucosa y el tejido adiposo y el músculo aportan ácidos grasos, glicerol y alanina al hígado.</desc>
   <defs>
-    <marker id="a-blue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="#315cc3" stroke-width="1.8"/></marker>
-    <marker id="a-red" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="#ce4c68" stroke-width="1.8"/></marker>
-    <marker id="a-green" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="#2d9a55" stroke-width="1.8"/></marker>
+    <marker id="a-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#315cc3" stroke-width="2"/></marker>
+    <marker id="a-red" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#ce4c68" stroke-width="2"/></marker>
+    <marker id="a-green" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#2d9a55" stroke-width="2"/></marker>
     <style>
       .board{fill:#fcfcf8;stroke:#d7d9d5;stroke-width:5}.ink{fill:#263039;stroke:#263039}.blue{fill:#315cc3;stroke:#315cc3}.red{fill:#ce4c68;stroke:#ce4c68}.green{fill:#2d9a55;stroke:#2d9a55}.orange{fill:#d98738;stroke:#d98738}.purple{fill:#8a54b8;stroke:#8a54b8}
-      text{font-family:"Segoe Print","Bradley Hand","Comic Sans MS",cursive;font-size:24px;font-weight:600;stroke:none}.small{font-size:18px}.tiny{font-size:15px}.title{font-size:27px;font-weight:700}.label{font-size:20px}.line{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.thin{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+      .cell{fill:#eef7fb;stroke:#263039}.nucleus{fill:#fffdf8;stroke:#263039}.mito{fill:#fff1df;stroke:#d98738}.adipocyte{fill:#fff4dd;stroke:#d98738}.muscle{fill:#fbe8e9;stroke:#ce4c68}.liver{fill:#f7e2e5;stroke:#ce4c68}.pancreas{fill:#fff0da;stroke:#d98738}
+      text{font-family:"Segoe Print","Bradley Hand","Comic Sans MS",cursive;font-size:23px;font-weight:650;stroke:none}.small{font-size:18px}.tiny{font-size:15px}.title{font-size:28px;font-weight:750}.micro{font-family:Arial,sans-serif;font-size:13px;font-weight:800;letter-spacing:1.15px}.line{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.thin{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.hair{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
     </style>
   </defs>
   <rect class="board" x="3" y="3" width="1594" height="994" rx="18"/>
 
-  <text class="blue title" x="72" y="67">Condiciones fisiológicas</text>
-  <text class="blue" x="82" y="125">↑ Glc</text>
-  <text class="blue small" x="90" y="177">Glc</text><text class="blue small" x="154" y="151">Glc</text>
-  <text class="blue small" x="204" y="188">Glc</text><text class="blue small" x="139" y="218">Glc</text>
-  <text class="orange small" x="64" y="315">páncreas</text>
-  <text class="green" x="168" y="315">↑ insulina</text>
-  <circle class="green" cx="167" cy="345" r="7"/><circle class="green" cx="207" cy="329" r="7"/><circle class="green" cx="235" cy="354" r="7"/><circle class="green" cx="191" cy="375" r="7"/>
+  <text class="blue title" x="64" y="58">Condiciones fisiológicas</text>
+  <text class="blue" x="75" y="111">↑ Glc sanguínea</text>
+  <g class="blue"><circle cx="95" cy="152" r="6"/><circle cx="142" cy="136" r="6"/><circle cx="184" cy="160" r="6"/><circle cx="127" cy="186" r="6"/></g>
+  <text class="blue tiny" x="75" y="215">glucosa</text>
 
-  <ellipse class="ink line" cx="425" cy="196" rx="145" ry="132"/>
-  <ellipse class="ink thin" cx="400" cy="116" rx="42" ry="20"/>
-  <path class="orange thin" d="M430 220q32 12 52-2m-48 17q32 12 52-2m-49 17q31 12 51-2m-45 17q27 10 44-2"/>
-  <g class="purple"><rect x="279" y="165" width="12" height="28" rx="3"/><rect x="287" y="158" width="11" height="28" rx="3"/><rect x="528" y="295" width="12" height="28" rx="3" transform="rotate(16 534 309)"/></g>
-  <circle class="green" cx="292" cy="145" r="7"/><circle class="green" cx="555" cy="292" r="7"/>
-  <text class="red tiny" x="318" y="171">vía señal ins.</text>
-  <text class="green tiny" x="335" y="285">prot. de</text><text class="green tiny" x="350" y="306">señal</text>
-  <text class="blue small" x="391" y="205">Glc</text><text class="blue small" x="482" y="165">Glc</text><text class="blue small" x="483" y="230">Glc</text>
-  <path class="blue line" d="M548 137q48-10 78-34" marker-end="url(#a-blue)"/>
-  <text class="blue label" x="635" y="105">dentro de la célula</text>
-  <text class="blue small" x="542" y="339">Receptor de insulina</text>
+  <!-- Páncreas e insulina, a la misma izquierda que en la pizarra. -->
+  <path class="pancreas thin" d="M67 280c27-23 65-29 97-14 26 12 54 8 80-4 25-12 47-3 50 14-13 17-39 21-62 15-35-10-58 18-93 14-29-3-52-9-72-25z"/>
+  <text class="orange small" x="70" y="329">páncreas</text><text class="green" x="177" y="329">↑ insulina</text>
+  <g class="green"><circle cx="177" cy="356" r="7"/><circle cx="212" cy="344" r="7"/><circle cx="243" cy="368" r="7"/><circle cx="203" cy="388" r="7"/></g>
+  <path class="green thin" d="M252 357q48-24 79-51" marker-end="url(#a-green)"/>
 
-  <text class="red title" x="963" y="73">Respiración celular</text>
-  <text class="ink" x="654" y="156">Glc</text><path class="ink thin" d="M708 148h104"/><text class="ink tiny" x="755" y="133">glucólisis</text>
-  <text class="ink" x="824" y="156">Piruvato</text><path class="ink thin" d="M930 148h93"/><text class="ink tiny" x="954" y="132">PDH</text>
-  <text class="ink" x="1034" y="156">Acetil-CoA</text><path class="ink thin" d="M1168 148h54"/>
-  <circle class="ink thin" cx="1265" cy="147" r="47"/><text class="ink" x="1241" y="155">TCA</text><text class="ink tiny" x="1231" y="211">(Krebs)</text>
-  <path class="ink thin" d="M1312 148h77"/><text class="ink" x="1403" y="156">CTE / FO</text>
-  <path class="red thin" d="M1465 170v45" marker-end="url(#a-red)"/><text class="red" x="1428" y="251">↑ ATP</text>
+  <!-- Célula insulinodependiente reconocible: membrana, núcleo, receptores, mitocondria y glucosa. -->
+  <text class="ink micro" x="326" y="63">CÉLULA INSULINODEPENDIENTE</text>
+  <ellipse class="cell line" cx="468" cy="222" rx="165" ry="154"/>
+  <ellipse class="ink hair" cx="468" cy="222" rx="151" ry="140"/>
+  <ellipse class="nucleus thin" cx="423" cy="139" rx="52" ry="31"/>
+  <path class="purple line" d="M315 201h26m-13-17v34m287 62h-25m13-17v34"/>
+  <circle class="green" cx="306" cy="181" r="7"/><circle class="green" cx="624" cy="262" r="7"/>
+  <text class="red tiny" x="345" y="188">señal de insulina</text>
+  <path class="red thin" d="M344 199q47 37 64 70" marker-end="url(#a-red)"/>
+  <path class="mito thin" d="M466 278c23-16 64-12 77 12-15 24-53 31-78 13-10-8-10-18 1-25z"/><path class="orange hair" d="M481 287q12 11 23 0t24 1"/>
+  <text class="green tiny" x="418" y="342">mitocondria · producción de ATP</text>
+  <text class="blue small" x="433" y="228">Glc</text><text class="blue small" x="512" y="190">Glc</text><text class="blue small" x="531" y="247">Glc</text>
+  <path class="blue line" d="M642 123q58-20 94-51" marker-end="url(#a-blue)"/>
+  <text class="blue small" x="749" y="78">glucosa dentro de la célula</text>
+  <text class="purple tiny" x="552" y="331">receptor de insulina</text>
 
-  <text class="red title" x="70" y="451">Condiciones patológicas</text>
-  <text class="blue" x="82" y="508">↑ Glc</text>
-  <text class="blue small" x="92" y="565">Glc</text><text class="blue small" x="156" y="535">Glc</text><text class="blue small" x="213" y="574">Glc</text><text class="blue small" x="146" y="610">Glc</text>
-  <text class="orange small" x="57" y="680">páncreas</text><path class="red line" d="M169 650l26 44m0-44-26 44"/>
-  <text class="red" x="211" y="681">insulina</text>
+  <!-- Respiración celular: la misma cadena horizontal de la profesora. -->
+  <text class="red title" x="1000" y="66">Respiración celular</text>
+  <text class="ink" x="720" y="152">Glc</text><path class="ink thin" d="M765 145h94" marker-end="url(#a-red)"/><text class="ink tiny" x="790" y="126">glucólisis</text>
+  <text class="ink" x="875" y="152">Piruvato</text><path class="ink thin" d="M974 145h80" marker-end="url(#a-red)"/><text class="ink tiny" x="997" y="126">PDH</text>
+  <text class="ink" x="1065" y="152">Acetil-CoA</text><path class="ink thin" d="M1200 145h46" marker-end="url(#a-red)"/>
+  <circle class="ink thin" cx="1292" cy="145" r="42"/><text class="ink" x="1267" y="153">TCA</text><text class="ink tiny" x="1258" y="205">Krebs</text>
+  <path class="ink thin" d="M1334 145h74" marker-end="url(#a-red)"/><text class="ink" x="1421" y="152">CTE/FO</text>
+  <path class="red thin" d="M1483 174v44" marker-end="url(#a-red)"/><text class="red title" x="1428" y="254">↑ ATP</text>
 
-  <ellipse class="ink line" cx="476" cy="591" rx="151" ry="149"/>
-  <ellipse class="ink thin" cx="449" cy="505" rx="43" ry="21"/>
-  <path class="red line" d="M332 513l19 28m0-28-19 28M591 527l19 28m0-28-19 28M365 700l19 28m0-28-19 28M575 673l19 28m0-28-19 28"/>
-  <text class="blue" x="439" y="573">↓ Glc</text><text class="blue" x="440" y="610">↓ ATP</text>
-  <text class="green label" x="389" y="647">mecanismos de</text><text class="green label" x="409" y="675">compensación</text>
+  <text class="red title" x="62" y="442">Condiciones patológicas</text>
+  <text class="blue" x="73" y="493">↑ Glc sanguínea</text>
+  <g class="blue"><circle cx="98" cy="531" r="6"/><circle cx="148" cy="514" r="6"/><circle cx="195" cy="539" r="6"/><circle cx="132" cy="564" r="6"/></g>
+  <path class="pancreas thin" d="M65 624c27-23 65-29 97-14 26 12 54 8 80-4 25-12 47-3 50 14-13 17-39 21-62 15-35-10-58 18-93 14-29-3-52-9-72-25z"/>
+  <text class="orange small" x="66" y="672">páncreas</text><path class="red line" d="M170 648l27 43m1-43-28 43"/><text class="red" x="213" y="676">insulina</text>
 
-  <path class="orange line" d="M595 470q70-68 132-85" marker-end="url(#a-red)"/>
-  <text class="orange" x="703" y="398">tejido adiposo</text>
-  <g class="orange thin">
-    <ellipse cx="982" cy="332" rx="55" ry="24" transform="rotate(-25 982 332)"/><ellipse cx="1047" cy="307" rx="55" ry="24" transform="rotate(-18 1047 307)"/>
-    <ellipse cx="1114" cy="306" rx="55" ry="24" transform="rotate(-18 1114 306)"/><ellipse cx="1019" cy="360" rx="55" ry="24" transform="rotate(-22 1019 360)"/>
-    <ellipse cx="1091" cy="351" rx="55" ry="24" transform="rotate(-19 1091 351)"/><ellipse cx="1152" cy="345" rx="55" ry="24" transform="rotate(-18 1152 345)"/>
-    <ellipse cx="1058" cy="397" rx="55" ry="24" transform="rotate(-19 1058 397)"/><ellipse cx="1128" cy="392" rx="55" ry="24" transform="rotate(-20 1128 392)"/>
+  <ellipse class="cell line" cx="468" cy="620" rx="166" ry="156"/>
+  <ellipse class="ink hair" cx="468" cy="620" rx="152" ry="142"/>
+  <ellipse class="nucleus thin" cx="422" cy="538" rx="51" ry="30"/>
+  <path class="red line" d="M315 551l25 29m0-29-25 29m279-1 25 29m0-29-25 29m-247 145 25 29m0-29-25 29m237-11 25 29m0-29-25 29"/>
+  <text class="blue title" x="423" y="606">↓ Glc</text><text class="blue title" x="423" y="645">↓ ATP</text>
+  <text class="green small" x="384" y="691">mecanismos de compensación</text>
+
+  <!-- Tejido adiposo: adipocitos llenos de lípidos, no simples óvalos. -->
+  <path class="orange line" d="M607 503q72-69 143-92" marker-end="url(#a-red)"/>
+  <text class="orange title" x="730" y="400">tejido adiposo</text>
+  <g>
+    <circle class="adipocyte thin" cx="939" cy="362" r="43"/><circle class="adipocyte thin" cx="1017" cy="343" r="44"/><circle class="adipocyte thin" cx="1097" cy="355" r="43"/>
+    <circle class="adipocyte thin" cx="967" cy="426" r="45"/><circle class="adipocyte thin" cx="1054" cy="418" r="46"/><circle class="adipocyte thin" cx="1138" cy="423" r="43"/>
+    <g class="orange"><circle cx="916" cy="346" r="5"/><circle cx="994" cy="327" r="5"/><circle cx="1074" cy="339" r="5"/><circle cx="944" cy="410" r="5"/><circle cx="1031" cy="402" r="5"/><circle cx="1115" cy="407" r="5"/></g>
   </g>
-  <text class="ink label" x="1215" y="348">HSL</text>
-  <text class="ink small" x="1203" y="378">lipasa sensible a hormona</text>
-  <text class="green" x="1220" y="414">↑ lipólisis</text>
-  <path class="purple thin" d="M1304 425v42" marker-end="url(#a-red)"/>
-  <text class="red" x="1197" y="502">Ruptura de TAG</text><text class="red tiny" x="1391" y="502">(triacilglicerol)</text>
-  <path class="blue thin" d="M1320 519l-69 50m78-50 84 49" marker-end="url(#a-blue)"/>
-  <text class="blue" x="1195" y="603">3 AG</text><text class="green small" x="1156" y="634">FFA · ácidos grasos libres</text>
-  <text class="blue" x="1400" y="603">glicerol</text>
-  <text class="red small" x="729" y="453">Objetivo: romper AG para formar</text><text class="red small" x="790" y="482">acetil-CoA y producir ATP</text>
+  <text class="ink title" x="1204" y="352">HSL</text><text class="ink small" x="1190" y="382">lipasa sensible a hormona</text><text class="green title" x="1210" y="421">↑ lipólisis</text>
+  <path class="purple thin" d="M1308 434v45" marker-end="url(#a-red)"/>
+  <text class="red" x="1182" y="511">TAG (triacilglicerol)</text>
+  <path class="blue thin" d="M1304 525l-67 54m76-54 86 54" marker-end="url(#a-blue)"/>
+  <text class="blue title" x="1170" y="611">3 AG</text><text class="green small" x="1137" y="640">FFA · ácidos grasos libres</text><text class="blue title" x="1390" y="611">glicerol</text>
+  <text class="red small" x="690" y="468">Objetivo: formar acetil-CoA</text><text class="green small" x="742" y="495">y producir ATP</text>
 
-  <path class="red line" d="M587 720q86 80 179 76" marker-end="url(#a-red)"/>
-  <text class="red" x="754" y="782">tejido muscular</text>
-  <path class="ink line" d="M490 775q135-29 254 5M488 815q125 28 254 2"/>
-  <text class="ink" x="807" y="817">↑ proteólisis</text>
-  <path class="green thin" d="M876 832v39" marker-end="url(#a-green)"/>
-  <text class="green" x="778" y="904">ruptura de proteínas</text>
-  <text class="red small" x="504" y="894">Objetivo: obtener precursores para la</text><text class="green" x="542" y="928">gluconeogénesis</text>
-  <path class="green thin" d="M1031 885v42" marker-end="url(#a-green)"/>
-  <text class="green" x="962" y="963">aminoácidos</text>
-  <text class="green small" x="1148" y="885">NH₃ + H⁺ → NH₄⁺</text>
-  <text class="red small" x="1226" y="925">alanina</text>
+  <!-- Músculo esquelético: fascículos estriados, proteólisis y alanina. -->
+  <path class="red line" d="M604 735q72 40 134 43" marker-end="url(#a-red)"/>
+  <text class="red title" x="691" y="749">tejido muscular</text>
+  <g class="muscle thin"><path d="M652 800q94-43 212 0-94 43-212 0z"/><path d="M689 849q96-40 209 0-96 39-209 0z"/></g>
+  <g class="red hair"><path d="M704 781v37m44-47v56m46-54v54m45-47v38m-104 14v36m45-45v52m46-50v47"/></g>
+  <text class="ink" x="915" y="810">↑ proteólisis</text><path class="green thin" d="M991 823v44" marker-end="url(#a-green)"/>
+  <text class="green" x="898" y="900">aminoácidos</text><text class="green small" x="1102" y="866">NH₃ + H⁺ → NH₄⁺</text><text class="red" x="1124" y="910">alanina</text>
+  <text class="red small" x="550" y="918">precursores para la</text><text class="green title" x="558" y="952">gluconeogénesis</text>
 
-  <path class="red line" d="M1138 648q104 44 165 151" marker-end="url(#a-red)"/>
-  <path class="red line" d="M1275 923q49 17 83-29" marker-end="url(#a-red)"/>
-  <path class="red line" d="M1332 705q86-25 180 12l-31 62q-28 58-121 61l-66-39q42-13 38-96z"/>
-  <path class="red thin" d="M1395 716q31 44 80 42"/>
-  <text class="red" x="1373" y="775">hígado</text>
+  <!-- Hígado reconocible y colocado como en la pizarra, recibiendo FFA y alanina. -->
+  <path class="red line" d="M1228 649q103 38 151 97" marker-end="url(#a-red)"/>
+  <path class="red line" d="M1217 916q76 13 121-39" marker-end="url(#a-red)"/>
+  <path class="liver line" d="M1341 737c56-42 145-44 207-7l-28 71c-23 59-83 81-157 70l-70-43c36-20 52-48 48-91z"/>
+  <path class="red thin" d="M1404 744q31 47 103 44"/><text class="red title" x="1400" y="817">HÍGADO</text>
 </svg>

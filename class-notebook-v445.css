@@ -168,3 +168,19 @@
   .course-diagram-dialog-stage .course-inline-image{max-height:calc(100dvh - 116px)!important}
   .course-diagram-dialog-caption{padding:6px 9px 8px;font-size:.62rem;line-height:1.35}
 }
+
+/* v457 — provenance explicite et lecteur de pizarra ajusté/zoomable. */
+.course-diagram-dialog-actions{display:flex;flex:0 0 auto;align-items:center;gap:6px}
+.course-diagram-dialog-actions .course-diagram-zoom{width:auto!important;min-width:72px;padding:0 10px;color:#b9edfb;font-size:.61rem;font-weight:850;letter-spacing:.03em}
+.course-diagram-dialog-actions .course-diagram-zoom[aria-pressed=true]{border-color:rgba(76,201,240,.72);background:#17415a;color:#fff}
+.course-diagram-zoom[hidden]{display:none!important}
+.course-diagram-dialog.is-zoomed .course-diagram-dialog-stage{display:block;place-items:start}
+.course-diagram-dialog.is-zoomed .course-diagram-dialog-stage .course-inline-image{width:1200px!important;max-width:none!important;max-height:none!important;height:auto!important}
+
+@media(max-width:540px){
+  .course-diagram-dialog.is-teacher-board .course-diagram-dialog-shell{height:auto;max-height:calc(100dvh - 10px);grid-template-rows:auto auto auto}
+  .course-diagram-dialog.is-teacher-board .course-diagram-dialog-stage{display:block;min-height:0;max-height:calc(100dvh - 112px);overflow:auto;place-items:start}
+  .course-diagram-dialog.is-teacher-board:not(.is-zoomed) .course-diagram-dialog-stage .course-inline-image{display:block;width:100%!important;max-width:100%!important;max-height:none!important;height:auto!important;margin:0}
+  .course-diagram-dialog.is-teacher-board.is-zoomed .course-diagram-dialog-stage .course-inline-image{width:1100px!important;max-width:none!important;max-height:none!important}
+  .course-diagram-dialog-actions .course-diagram-zoom{min-width:64px;padding:0 7px;font-size:.55rem}
+}

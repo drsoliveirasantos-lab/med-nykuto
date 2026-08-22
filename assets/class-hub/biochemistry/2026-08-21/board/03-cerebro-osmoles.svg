@@ -1,58 +1,71 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
   <title id="title">Adaptación cerebral, osmoles idiogénicos y edema</title>
-  <desc id="desc">Reconstrucción fiel de la pizarra: célula cerebral deshidratada, síntesis de osmoles idiogénicos, solución salina e insulina, edema cerebral, herniación por el foramen magno y paro cardiorrespiratorio.</desc>
+  <desc id="desc">Reconstrucción semántica de la tercera pizarra: una célula cerebral se adapta a la hiperosmolaridad mediante osmoles idiogénicos; una corrección brusca favorece entrada de agua, edema, herniación y compromiso cardiorrespiratorio. La rama de potasio y arritmia se mantiene separada.</desc>
   <defs>
-    <marker id="c-blue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="#315cc3" stroke-width="1.8"/></marker>
-    <marker id="c-red" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="#ce4c68" stroke-width="1.8"/></marker>
-    <marker id="c-green" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10" fill="none" stroke="#2d9a55" stroke-width="1.8"/></marker>
+    <marker id="c-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#315cc3" stroke-width="2"/></marker>
+    <marker id="c-red" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#ce4c68" stroke-width="2"/></marker>
+    <marker id="c-green" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#2d9a55" stroke-width="2"/></marker>
     <style>
       .board{fill:#fcfcf8;stroke:#d7d9d5;stroke-width:5}.ink{fill:#263039;stroke:#263039}.blue{fill:#315cc3;stroke:#315cc3}.red{fill:#ce4c68;stroke:#ce4c68}.green{fill:#2d9a55;stroke:#2d9a55}.orange{fill:#d98738;stroke:#d98738}
-      text{font-family:"Segoe Print","Bradley Hand","Comic Sans MS",cursive;font-size:24px;font-weight:600;stroke:none}.small{font-size:18px}.tiny{font-size:15px}.title{font-size:27px;font-weight:700}.line{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.thin{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+      .cell-fill{fill:#eef7fb;stroke:#263039}.brain-normal{fill:#e7f2fa;stroke:#263039}.brain-edema{fill:#dbeafe;stroke:#315cc3}.swelling{fill:#dbeafe;stroke:#315cc3;opacity:.42}.nucleus{fill:#f8fafc;stroke:#263039}
+      text{font-family:"Segoe Print","Bradley Hand","Comic Sans MS",cursive;font-size:23px;font-weight:650;stroke:none}.small{font-size:18px}.tiny{font-size:15px}.title{font-size:28px;font-weight:750}.micro{font-family:Arial,sans-serif;font-size:13px;font-weight:800;letter-spacing:1.2px}.line{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.thin{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.hair{fill:none;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
     </style>
   </defs>
   <rect class="board" x="3" y="3" width="1594" height="994" rx="18"/>
 
-  <!-- A célula irregular e o sistema de defesa, como no canto superior esquerdo -->
-  <path class="ink line" d="M90 50q45 87 115 92l29 55q28 34 79 17l51 54q38 37 84 0l54 30q38 19 56-26l4-84q-27-28-20-88m-418 45q-26 38-8 85l-40 67q-20 42 17 69l75 14q23 17 53 9"/>
-  <ellipse class="ink thin" cx="278" cy="209" rx="46" ry="30"/>
-  <g class="green"><circle cx="333" cy="205" r="6"/><circle cx="361" cy="229" r="6"/><circle cx="322" cy="243" r="6"/><circle cx="375" cy="257" r="6"/><circle cx="344" cy="277" r="6"/></g>
-  <text class="blue small" x="284" y="279">↑ soluto</text><text class="blue small" x="298" y="306">↓ agua</text>
-  <path class="blue line" d="M371 321q-18 55-3 109m30-105q-20 55-4 111m30-110q-20 55-4 109" marker-end="url(#c-blue)"/>
-  <text class="ink small" x="130" y="417">↓ soluto</text><text class="ink small" x="137" y="444">↑ agua</text>
+  <!-- Mismo primer bloque de la profesora, pero reconocido como célula cerebral/astrocito. -->
+  <text class="blue micro" x="62" y="42">CÉLULA CEREBRAL EN MEDIO HIPEROSMOLAR</text>
+  <path class="cell-fill line" d="M164 86c34 18 55 43 72 73 24-16 52-25 82-19 29 6 51 25 65 50 25-16 55-19 83-6l63-66-19 92c27 20 40 51 37 83-3 28-18 52-40 68l35 86-76-54c-27 16-60 21-92 11-22-7-39-20-52-38-24 16-54 21-83 13-26-7-47-24-60-46l-104 22 79-67c-6-29 0-59 17-83l-57-73z"/>
+  <ellipse class="nucleus thin" cx="278" cy="237" rx="56" ry="38"/>
+  <path class="ink hair" d="M236 234c18-15 37-17 58-5 12 7 26 7 42-1"/>
+  <g class="green"><circle cx="358" cy="212" r="7"/><circle cx="392" cy="238" r="7"/><circle cx="344" cy="266" r="7"/><circle cx="410" cy="284" r="7"/><circle cx="365" cy="309" r="7"/><circle cx="322" cy="298" r="7"/></g>
+  <text class="blue small" x="241" y="307">↑ soluto</text><text class="blue small" x="245" y="334">↓ agua</text>
+  <path class="blue line" d="M455 328q34 40 32 91m-75-67q27 42 20 88m-66-74q19 38 9 78" marker-end="url(#c-blue)"/>
+  <text class="ink small" x="92" y="423">fuera: ↓ soluto</text><text class="ink small" x="130" y="450">↑ agua</text>
 
-  <path class="green thin" d="M445 219h118" marker-end="url(#c-green)"/>
-  <text class="green title" x="582" y="191">Biosíntesis</text><text class="green title" x="582" y="226">OSMOLES</text><text class="green title" x="582" y="261">IDIOGÉNICOS</text>
-  <text class="green small" x="789" y="196">mioinositol · sorbitol</text><text class="blue small" x="791" y="230">glutamato · glutamina</text><text class="orange small" x="791" y="264">taurina</text>
-  <path class="red thin" d="M1006 183q27 8 42 25m-42 67q27-7 42-25"/>
-  <text class="red small" x="1062" y="208">formación → 24–48 h</text><text class="red small" x="1062" y="249">degradación progresiva</text>
-  <path class="green thin" d="M650 288v55" marker-end="url(#c-green)"/>
-  <text class="red" x="486" y="377">Sistema de defensa</text><text class="red" x="501" y="408">frente a la deshidratación</text>
+  <path class="green line" d="M502 237h93" marker-end="url(#c-green)"/>
+  <text class="green title" x="616" y="190">Biosíntesis</text><text class="green title" x="616" y="228">OSMOLES</text><text class="green title" x="616" y="266">IDIOGÉNICOS</text>
+  <text class="green small" x="830" y="198">mioinositol · sorbitol</text><text class="blue small" x="831" y="232">glutamato · glutamina</text><text class="orange small" x="831" y="266">taurina</text>
+  <path class="red thin" d="M1054 184q25 7 43 27m-43 62q25-7 43-27"/>
+  <text class="red small" x="1110" y="210">formación → 24–48 h</text><text class="red small" x="1110" y="250">degradación progresiva</text>
+  <path class="green thin" d="M690 286v54" marker-end="url(#c-green)"/>
+  <text class="red" x="548" y="375">Sistema de defensa</text><text class="red" x="555" y="407">frente a la deshidratación</text>
 
-  <text class="ink" x="90" y="535">• solución salina 0,9 % (normal)</text>
-  <text class="blue" x="92" y="590">• insulina brusca → ↓ K⁺</text>
-  <path class="blue thin" d="M545 580q84 21 131 65" marker-end="url(#c-blue)"/>
-  <text class="blue" x="692" y="664">arritmias</text>
-  <path class="green thin" d="M786 655q72-79 135-123" marker-end="url(#c-green)"/>
-  <text class="green" x="936" y="524">Paro cardíaco</text>
-  <text class="blue small" x="1007" y="558">muerte por paro</text><text class="blue small" x="1000" y="585">cardiorrespiratorio</text>
+  <!-- La profesora separa aquí la rama del potasio de la rama osmótica cerebral. -->
+  <text class="ink" x="62" y="520">• solución salina 0,9 % (isotónica)</text>
+  <text class="blue" x="63" y="574">• insulina brusca → ↓ K⁺</text>
+  <path class="blue line" d="M454 566q60-88 150-83" marker-end="url(#c-blue)"/>
+  <text class="blue title" x="625" y="492">ARRITMIAS</text>
+  <path class="green line" d="M780 482q107 3 194 39" marker-end="url(#c-green)"/>
+  <text class="green title" x="993" y="514">PARO CARDÍACO</text>
+  <text class="blue small" x="995" y="546">rama por hipocalemia</text>
 
-  <!-- Primeiro perfil craniano -->
-  <path class="ink line" d="M155 640q19-58 90-78 87-26 157 30 42 34 53 94l-12 139q-7 41-7 94m-268-5q-10-69 3-109l-26-2q-24-1-22-23l11-42-21-21q-10-14 7-29l23-18q-2-19 12-30z"/>
-  <path class="ink thin" d="M201 625q48-47 114-27 51 16 70 69-30-22-52-5 3-35-36-41-15 20-40 6-7 31-40 17-6 21-16 44 29 11 32 43 32-20 57 1 29-35 60-10"/>
-  <path class="green line" d="M469 746h171" marker-end="url(#c-green)"/>
+  <!-- Cabeza y cerebro normales: el objeto que la profesora dibuja abajo a la izquierda. -->
+  <path class="ink line" d="M127 724c10-76 70-126 151-136 95-12 169 42 188 127l-4 112c-1 38-14 73-14 121m-292-2c-3-54 5-88 0-116l-31-2c-23-1-30-17-21-37l18-39-18-20c-12-14-6-30 11-39l22-12c-5-15-7-31-10-47"/>
+  <path class="brain-normal line" d="M174 691c9-48 54-79 101-74 22-15 57-10 74 10 32-1 58 22 60 51 26 18 29 52 8 75 2 35-32 59-64 48-23 23-61 20-81-4-34 12-67-12-69-45-30-11-39-45-20-68-8-2-10-1-9 7z"/>
+  <g class="ink hair"><path d="M208 690c24-22 48-18 65 3-3-25 18-42 40-34 15 5 21 17 17 33 17-20 48-13 51 12"/><path d="M213 736c22-14 45-9 56 10 12-19 39-26 57-10 14 12 15 29 6 43 18-7 37-2 49 12"/><path d="M292 620c-5 20 4 35 22 43m-103 72c-4 24 8 42 29 52"/></g>
+  <path class="ink thin" d="M390 760q17 22 11 56"/><text class="ink tiny" x="235" y="837">cerebro adaptado · volumen conservado</text>
 
-  <!-- Segundo perfil e edema, mantendo o desenho do professor -->
-  <path class="ink line" d="M663 640q20-58 90-78 87-26 158 30 41 34 52 94l-12 139q-7 41-7 94m-267-5q-10-69 2-109l-25-2q-24-1-22-23l11-42-21-21q-10-14 7-29l23-18q-2-19 11-30z"/>
-  <path class="ink thin" d="M709 624q48-46 114-26 51 16 70 68-30-21-52-4 3-35-36-41-15 20-40 6-7 31-40 17-6 21-16 44 29 11 32 43 32-20 57 1 29-35 60-10"/>
-  <text class="blue" x="746" y="548">Edema</text>
-  <path class="blue line" d="M848 707q-4 67 7 104t23 75" marker-end="url(#c-blue)"/>
-  <text class="ink small" x="905" y="802">foramen</text><text class="ink small" x="905" y="830">magno</text>
-  <text class="ink small" x="902" y="895">invaginación o</text><text class="ink small" x="902" y="922">herniación cerebral</text>
+  <!-- Corrección demasiado rápida: el agua entra al cerebro aún rico en osmoles. -->
+  <path class="green line" d="M482 758h137" marker-end="url(#c-green)"/>
+  <text class="red small" x="498" y="733">corrección rápida</text>
+  <path class="blue thin" d="M603 633q56 28 92 109m-74-147q66 27 103 113" marker-end="url(#c-blue)"/>
+  <text class="blue small" x="538" y="612">agua entra</text>
 
-  <text class="blue" x="1030" y="712">centro respiratorio</text>
-  <path class="blue line" d="M986 745q74 9 118 50" marker-end="url(#c-blue)"/>
-  <text class="blue" x="1134" y="822">cardiovascular</text>
-  <path class="blue line" d="M1090 830l-63-42m53 58 15-10m8-78v-69m210 110v-112" marker-end="url(#c-blue)"/>
-  <text class="green title" x="1250" y="649">Paro cardíaco</text>
-  <text class="blue small" x="1276" y="685">muerte por paro</text><text class="blue small" x="1262" y="712">cardiorrespiratorio</text>
+  <!-- Segundo perfil: cerebro aumentado de volumen, surcos apretados y descenso por foramen magno. -->
+  <text class="blue micro" x="694" y="574">EDEMA CEREBRAL</text>
+  <path class="ink line" d="M655 724c10-76 70-126 151-136 95-12 169 42 188 127l-4 112c-1 38-14 73-14 121m-292-2c-3-54 5-88 0-116l-31-2c-23-1-30-17-21-37l18-39-18-20c-12-14-6-30 11-39l22-12c-5-15-7-31-10-47"/>
+  <path class="swelling line" d="M685 681c14-56 62-93 119-91 28-12 62-5 82 16 48 2 82 40 82 86 20 29 11 69-19 88 0 37-29 68-66 69-26 20-66 18-90-6-46 13-91-17-96-64-36-18-42-66-12-92z"/>
+  <path class="brain-edema line" d="M695 689c14-49 55-79 104-78 23-13 55-6 70 15 41-2 73 29 72 69 25 22 23 62-4 82-4 38-39 63-75 51-25 20-62 15-80-10-40 9-78-18-79-58-31-15-36-55-8-71z"/>
+  <g class="blue hair"><path d="M733 686c22-14 45-11 61 6-1-20 18-34 37-28 13 4 20 16 17 29 20-16 47-8 55 14"/><path d="M731 736c22-12 44-6 56 12 15-18 43-20 59-3 9 10 11 23 6 34 18-6 37 1 47 16"/><path d="M798 616c-3 17 5 30 21 39"/></g>
+  <path class="blue line" d="M874 793q5 43 12 73l15 62" marker-end="url(#c-blue)"/>
+  <path class="red line" d="M891 817q12 31 9 76c0 21 13 38 32 45-2-30-1-55-9-81-6-19-15-32-32-40z"/>
+  <text class="ink small" x="944" y="835">foramen magno</text><text class="red small" x="942" y="875">invaginación /</text><text class="red small" x="942" y="902">herniación cerebral</text>
+
+  <!-- Las consecuencias mantienen la dirección de la pizarra sin duplicar el mismo paro. -->
+  <path class="blue line" d="M1011 754q72 8 107 53" marker-end="url(#c-blue)"/>
+  <text class="blue" x="1124" y="760">centro respiratorio</text><text class="blue" x="1124" y="812">centro cardiovascular</text>
+  <path class="blue line" d="M1331 773v-78m5 111v-96" marker-end="url(#c-blue)"/>
+  <text class="green title" x="1280" y="650">PARO</text><text class="green title" x="1215" y="686">CARDIORRESPIRATORIO</text>
+  <text class="red small" x="1237" y="724">compresión del tronco</text><text class="red small" x="1283" y="749">encefálico</text>
 </svg>
