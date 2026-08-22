@@ -186,13 +186,26 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   });
 
   test('shows all ten Epidemiology groups in a compact iPhone roster', async ({ page }) => {
+    const assignments = [
+      { leader: 'Alicia Vieira dos Santos', topic: 'Virus sincitial respiratorio · Bronquiolitis' },
+      { leader: 'Camila de Jesus Maciel', topic: 'Influenza' },
+      { leader: 'Ester Moya', topic: 'Tuberculosis' },
+      { leader: 'Giovanna de Oliveira Alves', topic: 'Sarampión' },
+      { leader: 'Byanka Gomes Barros', topic: 'Meningitis bacteriana' },
+      { leader: 'Barbara Jullian Amaral de Paula', topic: 'Dengue' },
+      { leader: 'Ianna Tamiña Batista Leite Ruiz', topic: 'COVID-19' },
+      { leader: 'Ana Clara Ferraz Guimarães', topic: 'Sífilis' },
+      { leader: 'Adna Juliana Nunes Silva Pinheiro', topic: 'Hepatitis B' },
+      { leader: 'Mariellen Ayane de Freitas', topic: 'Malaria' }
+    ];
     const groups = Array.from({ length: 10 }, (_, index) => ({
       id: `epi-2026-08-19-g${index + 1}`,
       activityId: 'epi-2026-08-19',
       name: `Grupo ${index + 1}`,
       capacity: 10,
       frozen: false,
-      memberCount: index === 0 ? 2 : index === 3 ? 1 : 0
+      memberCount: index === 0 ? 2 : index === 3 ? 1 : 0,
+      ...assignments[index]
     }));
     await page.route('**/api/class-hub?resource=public', (route) => route.fulfill({
       status: 200,
@@ -220,7 +233,12 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     const roster = page.locator('#epi19-tarea .group-roster-board');
     await expect(roster).toBeVisible();
     await expect(roster.locator('.group-roster-column')).toHaveCount(10);
+    await expect(roster.locator('.group-roster-assignment')).toHaveCount(10);
     await expect(roster.locator('.group-roster-list li')).toHaveCount(100);
+    await expect(roster.locator('.group-roster-column').first()).toContainText('Virus sincitial respiratorio');
+    await expect(roster.locator('.group-roster-column').first()).toContainText('Alicia Vieira dos Santos');
+    await expect(roster.locator('.group-roster-column').last()).toContainText('Malaria');
+    await expect(roster.locator('.group-roster-column').last()).toContainText('Mariellen Ayane de Freitas');
     await expect(roster).toContainText('Ana Pérez');
     await expect(roster).toContainText('María Silva');
     await expect(page.getByRole('button', { name: 'Añadir mi nombre' })).toBeVisible();
