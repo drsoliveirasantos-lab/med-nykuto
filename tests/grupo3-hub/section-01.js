@@ -9,9 +9,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.getByRole('link', { name: /Actividades 3 y 4 impresas y manuscritas/ })).toBeVisible();
     await expect(page.locator('.priority-card-head time')).toHaveCount(3);
     await expect(page.getByRole('heading', { name: 'TAREAS', exact: true })).toBeVisible();
-    await expect(page.locator('#homeHomeworkCount')).toHaveText('2 tareas');
-    await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', '2026-08-21');
-    await expect(page.locator('#lastUpdated')).toContainText('Actualizado 21 ago.');
+    await expect(page.locator('#homeHomeworkCount')).toHaveText('2 tareas activas');
+    await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', '2026-08-22');
+    await expect(page.locator('#lastUpdated')).toContainText('Actualizado 22 ago.');
     await expect(page.locator('#horario')).toBeHidden();
     await expect(page.locator('#materias')).toBeHidden();
   });
@@ -46,52 +46,31 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#practice-fisiologia-2026-08-20')).toContainText('40 preguntas');
   });
 
-  test('keeps a compact training shortcut directly below the selected course grid', async ({ page }) => {
+  test('opens the selected subject directly in its notebook without a duplicate shortcut', async ({ page }) => {
     await page.goto('/clase.html#materias');
     const shortcut = page.locator('#coursePracticeShortcut');
-    await expect(shortcut).toBeVisible();
-    await expect(shortcut.locator('#coursePracticeShortcutLabel')).toHaveText('Entrenar');
-    await expect(shortcut.locator('#coursePracticeShortcutCourse')).toHaveText('Nutrición');
-    await expect(shortcut).toHaveAttribute('data-practice-target', 'nutricion');
-
-    const placement = await page.evaluate(() => {
-      const selector = document.querySelector('.course-selector').getBoundingClientRect();
-      const shortcut = document.querySelector('#coursePracticeShortcut').getBoundingClientRect();
-      const drive = document.querySelector('.class-drive-card').getBoundingClientRect();
-      return { selectorBottom:selector.bottom, shortcutTop:shortcut.top, shortcutBottom:shortcut.bottom, driveTop:drive.top, height:shortcut.height };
-    });
-    expect(placement.shortcutTop).toBeGreaterThanOrEqual(placement.selectorBottom);
-    expect(placement.shortcutBottom).toBeLessThanOrEqual(placement.driveTop);
-    expect(placement.height).toBeLessThan(62);
-
+    await expect(shortcut).toBeHidden();
     await page.locator('[data-course-target="bioquimica"]').click();
-    await expect(shortcut.locator('#coursePracticeShortcutCourse')).toHaveText('Bioquímica II');
-    await expect(shortcut).toHaveAttribute('data-practice-target', 'bioquimica-2026-08-21');
-    await shortcut.click();
+    await expect(page.locator('#bioquimica .notebook-shell')).toBeVisible();
+    await expect(page.locator('#bioquimica .notebook-current-title')).toContainText('Cetoacidosis diabética');
+    await page.locator('#bioquimica-2026-08-21 [data-lesson-tab="training"]').click();
+    await page.locator('#practice-bioquimica-2026-08-21').getByRole('button', { name: 'Comenzar entrenamiento' }).click();
     await expect(page.locator('#practice-bioquimica-2026-08-21-dialog')).toHaveAttribute('open', '');
     await expect(page.locator('#practice-bioquimica-2026-08-21 .practice-workspace')).toBeVisible();
+    await expect(page.locator('#practice-bioquimica-2026-08-21 .practice-teacher-angle')).toContainText('Dra. Andrea López');
     await expect(page.locator('body')).toHaveClass(/practice-modal-open/);
     await page.keyboard.press('Escape');
     await expect(page.locator('#practice-bioquimica-2026-08-21-dialog')).not.toHaveAttribute('open', '');
     await expect(page.locator('body')).not.toHaveClass(/practice-modal-open/);
   });
 
-  test('opens the shared class Drive from Courses, Nutrition and the seminar plan', async ({ page }) => {
+  test('keeps the shared Drive only on Home and removes the duplicate from Materias', async ({ page }) => {
     await page.goto('/clase.html#materias');
-    const centralDrive = page.getByRole('link', { name: /Abrir los materiales compartidos de la clase/ });
-    await expect(centralDrive).toBeVisible();
-    await expect(centralDrive).toHaveAttribute('href', CLASS_DRIVE_URL);
-    await expect(centralDrive).toHaveAttribute('target', '_blank');
-    await expect(centralDrive).toHaveAttribute('rel', /noopener/);
-    await expect(centralDrive).toHaveAttribute('rel', /noreferrer/);
-
     const driveLinks = page.locator('[data-class-drive-link]');
-    await expect(driveLinks).toHaveCount(4);
-    expect(await driveLinks.evaluateAll((links, driveUrl) => links.every((link) => link.getAttribute('href') === driveUrl), CLASS_DRIVE_URL)).toBe(true);
-
-    await page.goto('/clase.html#nutrition-seminar');
-    await expect(page.locator('#nutrition-seminar').getByRole('link', { name: /Materiales en Drive/ })).toBeVisible();
-    await page.goto('/clase.html#plan-estudio');
-    await expect(page.locator('#plan-estudio').getByRole('link', { name: /Abrir Drive/ })).toBeVisible();
+    await expect(driveLinks).toHaveCount(1);
+    await expect(page.locator('#materias [data-class-drive-link], .subject-section [data-class-drive-link]')).toHaveCount(0);
+    await page.goto('/clase.html#inicio');
+    await expect(driveLinks).toBeVisible();
+    await expect(driveLinks).toHaveAttribute('href', CLASS_DRIVE_URL);
   });
 };
