@@ -292,7 +292,14 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       body: JSON.stringify({
         ok: true,
         notices: [],
-        tasks: [],
+        tasks: [{
+          id: 'epi-presentation',
+          course: 'Epidemiología',
+          title: 'Exposición grupal de enfermedad sorteada',
+          status: 'published',
+          dueLabel: 'Mié. 26 ago.',
+          dueAt: '2026-08-26T11:20:00-03:00'
+        }],
         activities: [{ id: 'epi-2026-08-19', title: 'Exposición de Epidemiología', capacity: 10, status: 'published', frozen: false }],
         groups,
         members: [
@@ -320,9 +327,15 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       return Boolean(projectNode.compareDocumentPosition(datedLesson) & Node.DOCUMENT_POSITION_FOLLOWING);
     });
     expect(projectPosition).toBe(true);
-    await project.locator('.epidemiology-project-groups > summary').click();
+    await expect(project.locator('[data-group-runtime]')).toHaveCount(0);
+    const taskLink = project.getByRole('link', { name: 'Ver grupos en Tareas' });
+    await expect(taskLink).toHaveAttribute('href', '#task-epi-presentation');
+    await taskLink.click();
 
-    const roster = page.locator('#epi19-tarea .group-roster-board');
+    const task = page.locator('#task-epi-presentation');
+    await expect(task).toHaveAttribute('open', '');
+    await expect(task.locator('.live-task-groups')).toContainText('Tu grupo, tema e integrantes');
+    const roster = task.locator('.group-roster-board');
     await expect(roster).toBeVisible();
     await expect(roster.locator('.group-roster-column')).toHaveCount(10);
     await expect(roster.locator('.group-roster-assignment')).toHaveCount(10);
@@ -333,15 +346,15 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(roster.locator('.group-roster-column').last()).toContainText('Mariellen Ayane de Freitas');
     await expect(roster).toContainText('Ana Pérez');
     await expect(roster).toContainText('María Silva');
-    await expect(page.getByRole('button', { name: 'Añadir mi nombre' })).toBeVisible();
+    await expect(task.getByRole('button', { name: 'Añadir mi nombre' })).toBeVisible();
 
     await roster.locator('[data-group-choice="epi-2026-08-19-g4"]').click();
-    await expect(page.locator('#epi19-tarea select[aria-label="Elegir grupo"]')).toHaveValue('epi-2026-08-19-g4');
+    await expect(task.locator('select[aria-label="Elegir grupo"]')).toHaveValue('epi-2026-08-19-g4');
     await expect(roster.locator('[data-group-id="epi-2026-08-19-g4"]')).toHaveClass(/is-selected/);
 
     const dimensions = await page.evaluate(() => ({
       pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
-      boardOverflow: document.querySelector('.group-roster-board').scrollWidth - document.querySelector('.group-roster-board').clientWidth
+      boardOverflow: document.querySelector('#task-epi-presentation .group-roster-board').scrollWidth - document.querySelector('#task-epi-presentation .group-roster-board').clientWidth
     }));
     expect(dimensions.pageOverflow).toBeLessThanOrEqual(1);
     expect(dimensions.boardOverflow).toBeGreaterThan(100);
