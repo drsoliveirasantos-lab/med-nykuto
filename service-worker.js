@@ -1,4 +1,4 @@
-const CACHE = 'med-nykuto-class-v462';
+const CACHE = 'med-nykuto-class-v463';
 const SHELL = [
   '/clase.html',
   '/comunidade.html',
@@ -6,12 +6,12 @@ const SHELL = [
   '/archivos.html',
   '/grupo-3-v401.css?v=452',
   '/class-courses-2026-08-17-v432.css?v=432',
-  '/class-hub-2026-08-21-v440.css?v=457',
-  '/class-notebook-v445.css?v=460',
+  '/class-hub-2026-08-21-v440.css?v=461',
+  '/class-notebook-v445.css?v=461',
   '/profesores-v445.css?v=445',
   '/archivos-v445.css?v=445',
   '/academic-model-v445.js?v=449',
-  '/grupo-3-i18n-v421.js?v=444',
+  '/grupo-3-i18n-v421.js?v=461',
   '/grupo-3-practice-v413.js?v=445',
   '/grupo-3-practice-expansion-v420.js?v=422',
   '/grupo-3-practice-grounded-v426.js?v=431',
@@ -19,7 +19,7 @@ const SHELL = [
   '/grupo-3-practice-2026-08-21-v440.js?v=440',
   '/teacher-question-profile-v445.js?v=445',
   '/grupo-3-v401.js?v=449',
-  '/class-hub-runtime-v440.js?v=456',
+  '/class-hub-runtime-v440.js?v=461',
   '/class-notebook-v445.js?v=459',
   '/teacher-profiles-v445.js?v=445',
   '/archivos-v440.js?v=440',
