@@ -11,6 +11,12 @@ Med Nykuto is organized around four layers:
 3. **Validation scripts** — scripts that protect source integrity, counters, links, assets, and runtime behavior.
 4. **Documentation and governance** — files that explain what to edit, what not to edit, and how to validate changes.
 
+The shared operational layer for multiple classes is documented in
+[`docs/multiclass-foundation.md`](multiclass-foundation.md). It uses one generic
+student shell (`turma.html`), one class-aware management shell (`gestion.html`)
+and Cloudflare Functions backed by a tenant-scoped D1 schema. The S3 course
+library and the bespoke 4.º E notebook remain separate source-of-truth surfaces.
+
 ## Branch model
 
 - `preview` is the integration and validation branch.
@@ -77,6 +83,7 @@ scripts/validate-seo-health.js
 scripts/validate-branding-regression-advanced.js
 scripts/validate-content-sanitization.js
 scripts/validate-question-bank-deep-integrity.js
+scripts/validate-multiclass-foundation.js
 ```
 
 The permanent CI workflow is:

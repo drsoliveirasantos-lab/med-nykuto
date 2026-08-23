@@ -1,1 +1,4 @@
-/*    /404.html   404
+/turma /turma/s4-e 302
+/turma/:slug /turma.html?class=:slug 200
+/gestion/:slug /gestion.html?class=:slug 200
+/* /404.html 404

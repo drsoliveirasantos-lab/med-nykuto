@@ -145,9 +145,10 @@ expect(i18n.includes("'Ver todas las tareas':'Ver todas as tarefas'"), 'The simp
 ].forEach((topic) => {
   expect(classHubApi.includes(`'${topic}'`), `The Epidemiology group topic “${topic}” is missing from the public source.`);
 });
-expect(classHubApi.includes('leader: EPIDEMIOLOGY_ROSTER[index][0]'), 'Epidemiology group leaders are not tied to the confirmed first member.');
+expect(!classHubApi.includes('EPIDEMIOLOGY_ROSTER') && !classHubApi.includes('leader:'), 'The public API still embeds student names or group leaders.');
 expect(classHubRuntime.includes("el('span','','TEMA')"), 'The Epidemiology roster does not render the assigned topic.');
-expect(classHubRuntime.includes("el('span','','RESPONSABLE')"), 'The Epidemiology roster does not render the group leader.');
+expect(classHubRuntime.includes("filled?'Ocupado':'Libre'"), 'The Epidemiology roster does not render anonymous occupancy.');
+expect(!classHubRuntime.includes('activityMembers') && !classHubRuntime.includes('group.leader'), 'The student-facing runtime still consumes public names or leaders.');
 expect(classHubCss.includes('.group-roster-assignment'), 'The Epidemiology topic and leader card styling is missing.');
 expect(classHubCss.includes('.live-task-groups') && classHubCss.includes('.live-task-download{min-height:38px'), 'The compact Tareas group workspace styling is missing.');
 expect(html.includes('href="https://virtual.central.edu.py/auth"'), 'The official UCP portal shortcut is missing from the class home page.');

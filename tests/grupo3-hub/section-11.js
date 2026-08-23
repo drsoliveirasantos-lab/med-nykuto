@@ -264,18 +264,18 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     }
   });
 
-  test('shows all ten Epidemiology groups in a compact iPhone roster', async ({ page }) => {
+  test('shows all ten Epidemiology groups anonymously in a compact iPhone roster', async ({ page }) => {
     const assignments = [
-      { leader: 'Alicia Vieira dos Santos', topic: 'Virus sincitial respiratorio · Bronquiolitis' },
-      { leader: 'Camila de Jesus Maciel', topic: 'Influenza' },
-      { leader: 'Ester Moya', topic: 'Tuberculosis' },
-      { leader: 'Giovanna de Oliveira Alves', topic: 'Sarampión' },
-      { leader: 'Byanka Gomes Barros', topic: 'Meningitis bacteriana' },
-      { leader: 'Barbara Jullian Amaral de Paula', topic: 'Dengue' },
-      { leader: 'Ianna Tamiña Batista Leite Ruiz', topic: 'COVID-19' },
-      { leader: 'Ana Clara Ferraz Guimarães', topic: 'Sífilis' },
-      { leader: 'Adna Juliana Nunes Silva Pinheiro', topic: 'Hepatitis B' },
-      { leader: 'Mariellen Ayane de Freitas', topic: 'Malaria' }
+      { topic: 'Virus sincitial respiratorio · Bronquiolitis' },
+      { topic: 'Influenza' },
+      { topic: 'Tuberculosis' },
+      { topic: 'Sarampión' },
+      { topic: 'Meningitis bacteriana' },
+      { topic: 'Dengue' },
+      { topic: 'COVID-19' },
+      { topic: 'Sífilis' },
+      { topic: 'Hepatitis B' },
+      { topic: 'Malaria' }
     ];
     const groups = Array.from({ length: 10 }, (_, index) => ({
       id: `epi-2026-08-19-g${index + 1}`,
@@ -286,7 +286,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       memberCount: index === 0 ? 2 : index === 3 ? 1 : 0,
       ...assignments[index]
     }));
-    await page.route('**/api/class-hub?resource=public', (route) => route.fulfill({
+    await page.route('**/api/class-hub?class=s4-e&resource=public', (route) => route.fulfill({
       status: 200,
       contentType: 'application/json',
       body: JSON.stringify({
@@ -302,11 +302,6 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
         }],
         activities: [{ id: 'epi-2026-08-19', title: 'Exposición de Epidemiología', capacity: 10, status: 'published', frozen: false }],
         groups,
-        members: [
-          { activityId: 'epi-2026-08-19', groupId: 'epi-2026-08-19-g1', displayName: 'Ana Pérez', joinedAt: '2026-08-22T09:00:00Z' },
-          { activityId: 'epi-2026-08-19', groupId: 'epi-2026-08-19-g1', displayName: 'Luis Gómez', joinedAt: '2026-08-22T09:01:00Z' },
-          { activityId: 'epi-2026-08-19', groupId: 'epi-2026-08-19-g4', displayName: 'María Silva', joinedAt: '2026-08-22T09:02:00Z' }
-        ],
         files: [],
         dates: []
       })
@@ -320,7 +315,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(project).toBeVisible();
     await expect(project.getByRole('heading', { name: 'Proyecto grupal: exposición sobre una enfermedad' })).toBeVisible();
     await expect(project).toContainText(/TODOS\s*los integrantes deben hablar/i);
-    await expect(project.locator('[data-image-lightbox]')).toHaveAttribute('data-image-lightbox', /teacher-guidance\/0746E8D5/);
+    await expect(project.locator('[data-image-lightbox]')).toHaveCount(0);
+    await expect(project).toContainText('ACLARACIÓN DOCENTE RESUMIDA');
     const projectPosition = await page.evaluate(() => {
       const projectNode = document.querySelector('#epi19-tarea');
       const datedLesson = document.querySelector('#epidemiologia-2026-08-19');
@@ -334,18 +330,18 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
     const task = page.locator('#task-epi-presentation');
     await expect(task).toHaveAttribute('open', '');
-    await expect(task.locator('.live-task-groups')).toContainText('Tu grupo, tema e integrantes');
+    await expect(task.locator('.live-task-groups')).toContainText('Tu grupo, tema y plazas');
     const roster = task.locator('.group-roster-board');
     await expect(roster).toBeVisible();
     await expect(roster.locator('.group-roster-column')).toHaveCount(10);
     await expect(roster.locator('.group-roster-assignment')).toHaveCount(10);
     await expect(roster.locator('.group-roster-list li')).toHaveCount(100);
     await expect(roster.locator('.group-roster-column').first()).toContainText('Virus sincitial respiratorio');
-    await expect(roster.locator('.group-roster-column').first()).toContainText('Alicia Vieira dos Santos');
     await expect(roster.locator('.group-roster-column').last()).toContainText('Malaria');
-    await expect(roster.locator('.group-roster-column').last()).toContainText('Mariellen Ayane de Freitas');
-    await expect(roster).toContainText('Ana Pérez');
-    await expect(roster).toContainText('María Silva');
+    await expect(roster.getByText('Ocupado', { exact: true })).toHaveCount(3);
+    await expect(roster.getByText('Libre', { exact: true })).toHaveCount(97);
+    await expect(roster).not.toContainText('Alicia Vieira dos Santos');
+    await expect(roster).not.toContainText('Ana Pérez');
     await expect(task.getByRole('button', { name: 'Añadir mi nombre' })).toBeVisible();
 
     await roster.locator('[data-group-choice="epi-2026-08-19-g4"]').click();

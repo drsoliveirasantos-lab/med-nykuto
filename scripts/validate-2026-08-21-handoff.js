@@ -94,7 +94,7 @@ const epidemiologyLesson = html.indexOf('id="epidemiologia-2026-08-19"', epidemi
 const epidemiologyProject = html.indexOf('id="epi19-tarea"', epidemiologyStart);
 expect(epidemiologyProject > epidemiologyStart && epidemiologyProject < epidemiologyLesson, 'The active Epidemiology project must appear before the dated lessons.');
 expect(html.includes('<strong>TODOS</strong><span>los integrantes deben hablar</span>') && html.includes('diapositivas como máximo') && html.includes('notebook para toda la sala'), 'The teacher clarification is not summarized in the active project.');
-expect(html.includes(`data-image-lightbox="${teacherGuidance}"`), 'The original teacher clarification is not available from the project card.');
+expect(!html.includes(`data-image-lightbox="${teacherGuidance}"`) && html.includes('ACLARACIÓN DOCENTE RESUMIDA'), 'The public project card must use the non-nominative text summary, not the original message capture.');
 
 ['Cuaderno', 'Temas', 'Archivos', 'Progreso'].forEach((label) => expect(runtime.includes(label), `Course workspace is missing ${label}.`));
 expect(runtime.includes('data-image-lightbox'), 'Tap-to-enlarge scientific boards are not wired.');
@@ -107,7 +107,8 @@ expect(runtime.includes("groupActivity:'epi-2026-08-19'") && runtime.includes('l
 expect(!html.includes('id="epi-project-groups"') && html.includes('href="#task-epi-presentation">Ver grupos en Tareas</a>'), 'The course still duplicates the interactive roster instead of routing to Tareas.');
 expect(html.includes('<time datetime="2026-08-12">12 AGO 2026</time>'), 'The previous Epidemiology lesson is not dated 12 August 2026.');
 expect(runtime.includes("action:'group.join'") && runtime.includes("action:'group.leave'"), 'Student group join/leave controls are incomplete.');
-expect(runtime.includes('group-roster-board') && runtime.includes('group-roster-column') && runtime.includes('activityMembers') && runtime.includes('--group-count'), 'The public multi-column group roster is missing.');
+expect(runtime.includes('group-roster-board') && runtime.includes('group-roster-column') && runtime.includes('memberCount') && runtime.includes('--group-count'), 'The anonymous public multi-column group roster is missing.');
+expect(!runtime.includes('activityMembers') && runtime.includes("filled?'Ocupado':'Libre'"), 'The public roster still reads or renders student names.');
 
 expect(api.includes("role: 'owner'"), 'Owner authorization is missing.');
 expect(api.includes("role: 'editor'"), 'Editor authorization is missing.');
@@ -116,7 +117,10 @@ expect(api.includes('invite.create') && api.includes('invite.revoke') && api.inc
 expect(api.includes('hub_audit'), 'Audit log schema is missing.');
 expect(api.includes('UNIQUE(activity_id, student_hash)'), 'One-student-per-activity server constraint is missing.');
 expect(api.includes('COUNT(*) FROM hub_memberships') && api.includes('MIN(a.capacity,g.capacity)'), 'Atomic group capacity guard is missing.');
-expect(api.includes('m.display_name AS displayName') && api.includes('members: members.results || []'), 'Published group rosters do not expose their recorded display names.');
+const publicReader = api.slice(api.indexOf('async function readPublic'), api.indexOf('async function adminSnapshot'));
+const adminReader = api.slice(api.indexOf('async function adminSnapshot'), api.indexOf('async function joinGroup'));
+expect(!/display_name|displayName|memberships\s*:/.test(publicReader), 'The public API still exposes recorded student names.');
+expect(/display_name/.test(adminReader) && /memberships\s*:/.test(adminReader), 'The authorized admin snapshot no longer exposes the roster required for group management.');
 expect(api.includes('cleanUrl') && api.includes("['http:', 'https:']"), 'Managed file URLs are not restricted to HTTP(S).');
 expect(api.includes('hub_rate_limits') && api.includes('rate_limited'), 'Public and management routes are missing server-side abuse limits.');
 expect(api.includes('waitUntil(pushJob)'), 'Push delivery is not delegated to a Pages background task.');
