@@ -245,3 +245,29 @@ Validation obligatoire avant publication :
 - tests Playwright des parcours QCM, V/F, cas et banques certifiées.
 
 Prochaine reconstruction prioritaire : cas cliniques Bioquímica puis Inmunología, module par module, selon les limites de `AI_MED_NYKUTO_RULES.md`. Ne jamais réexposer les volumes bruts pour atteindre artificiellement un compteur.
+
+---
+
+## 23 août 2026 — certification conservatrice S3 v462 par source exacte
+
+La v461 est conservée comme historique, mais elle est remplacée au runtime : sa proximité lexicale avec le cours ne suffisait pas à prouver que l'énoncé, la bonne réponse et l'explication décrivaient le même concept. La couche `data/practice-bank-s3-certification-v462.js` reconstruit donc les formats publiés à partir de phrases complètes présentes dans les modules du cours.
+
+| Matière | QCM source exacte | V/F source exacte | cas publiés |
+|---|---:|---:|---:|
+| Fisiología | 80 | 40 | 0 |
+| Microbiología | 104 | 52 | 0 |
+| Genética | 96 | 48 | 0 |
+| Bioquímica | 95 | 48 | 0 |
+| Inmunología | 95 | 48 | 0 |
+| **Total runtime** | **470** | **236** | **0** |
+
+Contrats du runtime v462 :
+
+- les 59 modules disposent de QCM et de V/F dérivés de leur propre contenu ;
+- la bonne réponse d'un QCM est une phrase exacte du module déclaré ;
+- les trois distracteurs sont des phrases exactes d'autres modules de la même matière, avec leur provenance enregistrée ;
+- un V/F vrai reprend exactement sa phrase source ; un V/F faux modifie une relation contrôlée et affiche la formulation source exacte comme correction ;
+- les consignes éditoriales, fragments, titres collés, artefacts techniques et indices de longueur évidents sont refusés automatiquement ;
+- tous les cas cliniques hérités sont bloqués jusqu'à une reconstruction et une relecture manuelles, matière par matière et module par module.
+
+Cette certification prouve la traçabilité textuelle et la cohérence structurelle avec le cours publié. Elle ne constitue pas une validation médicale indépendante de chaque fait. La prochaine étape de contenu est la reconstruction manuelle des cas cliniques, sans réutiliser les anciens pseudo-cas ni viser un volume artificiel.

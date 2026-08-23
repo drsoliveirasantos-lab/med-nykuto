@@ -46,7 +46,7 @@ const coursesCode = nonEmptyJs('data/med-courses-data.js', 'MED_COURSES_DATA');
 const initCode = nonEmptyJs('data/med-practice-bank-init.js', 'MED_PRACTICE_BANK');
 const loader = nonEmptyJs('data/med-practice-bank-loader.js', 'practice-bank-functional-fallback-v360.js');
 if(!/MED_PRACTICE_BANK_LAZY_WANTED/.test(loader)) add('data/med-practice-bank-loader.js: missing lazy wanted marker');
-if(!/v461|VERSION\s*=\s*["']461/.test(loader)) add('data/med-practice-bank-loader.js: cache version is not v461');
+if(!/v462|VERSION\s*=\s*["']462/.test(loader)) add('data/med-practice-bank-loader.js: cache version is not v462');
 
 const fallbackCode = nonEmptyJs('data/practice-bank-functional-fallback-v360.js', 'v360-functional-fallback');
 ['qcm','vf','cases'].forEach(key => { if(!new RegExp(`\\b${key}\\b`).test(fallbackCode)) add(`fallback bank: missing ${key}`); });

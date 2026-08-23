@@ -236,9 +236,11 @@ for (const [courseId, bank] of Object.entries(byCourse)) {
       const id = clean(item.id || `${courseId}-${format}-${index}`);
       const globalId = `${courseId}:${format}:${id}`;
       const baseMeta = { courseId, format, index, id, where };
-      if (bank.certification?.version === 'v461-course-certified') {
+      if (bank.certification?.version === 'v462-exact-course-source') {
         if (item.qualityStatus !== 'certified') fail(`${where}: item bypassed Semester 3 certification`, { ...baseMeta, type: 'uncertified-runtime-item' });
-        if (clean(item.sourceEvidence).length < 12) fail(`${where}: certified item has no usable course evidence`, { ...baseMeta, type: 'missing-course-evidence' });
+        const source = clean(item.sourceStatement);
+        if (source.length < 12 || source !== clean(item.sourceEvidence)) fail(`${where}: exact-source evidence contract is broken`, { ...baseMeta, type: 'missing-course-evidence' });
+        if (item.qualityTier !== 'A-exact-course-source') fail(`${where}: exact-source quality tier is missing`, { ...baseMeta, type: 'wrong-quality-tier' });
       }
       if (!id) fail(`${where}: missing id`, { ...baseMeta, type: 'missing-id' });
       if (globalIds.has(globalId)) fail(`${where}: duplicate id ${id}`, { ...baseMeta, type: 'duplicate-id' });
@@ -258,11 +260,20 @@ for (const [courseId, bank] of Object.entries(byCourse)) {
         if (options.length !== 4) fail(`${where}: QCM must have exactly 4 options`, { ...baseMeta, type: 'invalid-option-count', optionCount: options.length });
         if (answerIndex === null || answerIndex < 0 || answerIndex > 3) fail(`${where}: invalid QCM answer index`, { ...baseMeta, type: 'invalid-answer-index', answerIndex });
         else answerDistribution[answerIndex] += 1;
+        if (bank.certification?.version === 'v462-exact-course-source' && answerIndex !== null && clean(options[answerIndex]) !== clean(item.sourceStatement)) {
+          fail(`${where}: correct QCM option is not the exact course statement`, { ...baseMeta, type: 'wrong-exact-source-answer' });
+        }
       }
 
       if (format === 'vf') {
         if (question.length < 8) warn(`${where}: V/F question is very short`, { ...baseMeta, type: 'short-question' });
         if (answerIndex === null || answerIndex < 0 || answerIndex > 1) fail(`${where}: invalid V/F answer index`, { ...baseMeta, type: 'invalid-answer-index', answerIndex });
+        if (bank.certification?.version === 'v462-exact-course-source') {
+          const assertion = question.replace(/^¿Verdadero o falso\?\s*/i, '');
+          const correction = clean(item.correctionIfFalse).replace(/^Correcci[oó]n:\s*/i, '');
+          if (answerIndex === 0 && clean(assertion) !== clean(item.sourceStatement)) fail(`${where}: true item is not the exact course statement`, { ...baseMeta, type: 'wrong-vf-source-answer' });
+          if (answerIndex === 1 && (clean(assertion) === clean(item.sourceStatement) || correction !== clean(item.sourceStatement))) fail(`${where}: false item does not preserve the exact course correction`, { ...baseMeta, type: 'wrong-vf-source-answer' });
+        }
       }
 
       if (format === 'cases') {
@@ -341,7 +352,7 @@ Object.entries(stats.qualitySignals).forEach(([format, signal]) => {
   }
 });
 
-if (stats.checkedItems < 1000) fail(`Expected to check at least 1000 bank items, got ${stats.checkedItems}`, { type: 'too-few-items', checkedItems: stats.checkedItems });
+if (stats.checkedItems < 650) fail(`Expected to check at least 650 exact-source bank items, got ${stats.checkedItems}`, { type: 'too-few-items', checkedItems: stats.checkedItems });
 
 writeReports();
 

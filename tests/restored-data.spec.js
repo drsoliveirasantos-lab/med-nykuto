@@ -1,15 +1,15 @@
 const { test, expect } = require('@playwright/test');
 
-const CURRENT_PRACTICE_LOADER = 'v461';
+const CURRENT_PRACTICE_LOADER = 'v462';
 const CURRENT_RUNTIME_GUARD = 'v362';
 const EXPECTED_TOTAL_MODULES = 59;
 
 const expectedCourses = {
-  fisiologia: { modules: 10, bankModules: 9, qcm: 170, vf: 90, cases: 70, raw: { qcm: 1800, vf: 450, cases: 450 } },
-  microbiologia: { modules: 13, qcm: 190, vf: 130, cases: 45, raw: { qcm: 2600, vf: 650, cases: 650 } },
-  genetica: { modules: 12, qcm: 180, vf: 120, cases: 10, raw: { qcm: 2400, vf: 600, cases: 600 } },
-  bioquimica: { modules: 12, bankModules: 9, qcm: 15, vf: 6, cases: 0, blockedCases: true, raw: { qcm: 600, vf: 120, cases: 600 } },
-  inmunologia: { modules: 12, qcm: 25, vf: 10, cases: 0, blockedCases: true, raw: { qcm: 600, vf: 120, cases: 600 } }
+  fisiologia: { modules: 10, qcm: 80, vf: 40, cases: 0, blockedCases: true, raw: { qcm: 1800, vf: 450, cases: 450 } },
+  microbiologia: { modules: 13, qcm: 104, vf: 52, cases: 0, blockedCases: true, raw: { qcm: 2600, vf: 650, cases: 650 } },
+  genetica: { modules: 12, qcm: 96, vf: 48, cases: 0, blockedCases: true, raw: { qcm: 2400, vf: 600, cases: 600 } },
+  bioquimica: { modules: 12, qcm: 95, vf: 48, cases: 0, blockedCases: true, raw: { qcm: 600, vf: 120, cases: 600 } },
+  inmunologia: { modules: 12, qcm: 95, vf: 48, cases: 0, blockedCases: true, raw: { qcm: 600, vf: 120, cases: 600 } }
 };
 
 test.describe('Med Nykuto restored data integrity', () => {
@@ -68,7 +68,7 @@ test.describe('Med Nykuto restored data integrity', () => {
       }, courseId);
       expect(data.loader).toBe(CURRENT_PRACTICE_LOADER);
       expect(data.healthOk).toBeTruthy();
-      expect(data.certificationVersion).toBe('v461-course-certified');
+      expect(data.certificationVersion).toBe('v462-exact-course-source');
       expect(data.uncertifiedRuntimeItems).toBe(0);
       expect(data.modules).toBe(expected.modules);
       expect(data.qcm).toBeGreaterThanOrEqual(expected.qcm);
@@ -80,7 +80,7 @@ test.describe('Med Nykuto restored data integrity', () => {
       expect(data.rawCounts.qcm).toBeGreaterThanOrEqual(expected.raw.qcm);
       expect(data.rawCounts.vf).toBeGreaterThanOrEqual(expected.raw.vf);
       expect(data.rawCounts.cases).toBeGreaterThanOrEqual(expected.raw.cases);
-      expect(data.representedModules).toBeGreaterThanOrEqual(expected.bankModules || expected.modules);
+      expect(data.representedModules).toBe(expected.modules);
       expect(data.sampleQcmOptions).toBe(4);
     });
   }

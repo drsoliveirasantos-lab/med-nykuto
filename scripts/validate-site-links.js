@@ -70,8 +70,8 @@ const jsChecks = [
   ['med-nykuto-runtime-guard-v361.js', /__MED_NYKUTO_RUNTIME_GUARD__\s*=\s*VERSION/],
   ['med-nykuto-global-fix-v358.js', /__MED_NYKUTO_GLOBAL_FIX__\s*=\s*VERSION/],
   ['practice-cleanup-v314.js', /__MED_NYKUTO_PRACTICE_CLEANUP__\s*=\s*['"]v362-single-vf-correction['"]/],
-  ['data/med-practice-bank-loader.js', /__MED_NYKUTO_PRACTICE_LOADER__\s*\=\s*['"]v461['"]/],
-  ['data/med-practice-bank-loader.js', /practice-bank-s3-certification-v461\.js/],
+  ['data/med-practice-bank-loader.js', /__MED_NYKUTO_PRACTICE_LOADER__\s*\=\s*['"]v462['"]/],
+  ['data/med-practice-bank-loader.js', /practice-bank-s3-certification-v462\.js/],
   ['data/med-practice-bank-loader.js', /practice-bank-functional-fallback-v360\.js/]
 ];
 jsChecks.forEach(([file, pattern]) => {

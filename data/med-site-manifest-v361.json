@@ -1,6 +1,6 @@
 {
   "siteName": "Med Nykuto",
-  "release": "v461-semester-3-certified",
+  "release": "v462-semester-3-exact-source",
   "branch": "main",
   "generatedAt": "2026-08-23",
   "deployment": {
@@ -29,7 +29,7 @@
     "data/med-practice-bank-loader.js",
     "data/practice-bank-functional-fallback-v360.js",
     "data/practice-bank-runtime-quality-patch-v371.js",
-    "data/practice-bank-s3-certification-v461.js",
+    "data/practice-bank-s3-certification-v462.js",
     "semester-scope-guard-v401.js",
     "semester-3-shell-v460.js",
     "site-global-polish-v310.js",
@@ -48,11 +48,11 @@
       "inmunologia": { "qcm": 600, "vf": 120, "cases": 600 }
     },
     "certifiedRuntimeMinimums": {
-      "fisiologia": { "qcm": 170, "vf": 90, "cases": 70 },
-      "microbiologia": { "qcm": 190, "vf": 130, "cases": 45 },
-      "genetica": { "qcm": 180, "vf": 120, "cases": 10 },
-      "bioquimica": { "qcm": 15, "vf": 6, "cases": 0 },
-      "inmunologia": { "qcm": 25, "vf": 10, "cases": 0 }
+      "fisiologia": { "qcm": 80, "vf": 40, "cases": 0 },
+      "microbiologia": { "qcm": 104, "vf": 52, "cases": 0 },
+      "genetica": { "qcm": 96, "vf": 48, "cases": 0 },
+      "bioquimica": { "qcm": 95, "vf": 48, "cases": 0 },
+      "inmunologia": { "qcm": 95, "vf": 48, "cases": 0 }
     }
   },
   "safeguards": {
@@ -62,10 +62,10 @@
     "runtimeHealthVersion": "v362",
     "contactFallback": "local-copy",
     "questionFeedbackFallback": "local-copy",
-    "practiceLoaderCacheVersion": "v461",
-    "fallbackMode": "certified-course-grounded-only",
-    "questionCertificationVersion": "v461-course-certified",
-    "blockedUntilReconstruction": ["bioquimica.cases", "inmunologia.cases"]
+    "practiceLoaderCacheVersion": "v462",
+    "fallbackMode": "exact-course-source-only",
+    "questionCertificationVersion": "v462-exact-course-source",
+    "blockedUntilReconstruction": ["fisiologia.cases", "microbiologia.cases", "genetica.cases", "bioquimica.cases", "inmunologia.cases"]
   },
-  "contentWarning": "The restored legacy banks remain preserved as source material. The runtime exposes only questions certified against the Semester 3 course policy; inherited Bioquímica and Inmunología pseudo-cases remain blocked until reconstruction."
+  "contentWarning": "The restored legacy banks remain preserved as source material. Runtime QCM and true/false items use exact Semester 3 course statements; all inherited clinical cases remain blocked until a manual, source-grounded review."
 }
