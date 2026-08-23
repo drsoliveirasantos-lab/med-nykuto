@@ -1,9 +1,10 @@
 (function(){
   'use strict';
-  var API='/api/class-hub';
+  var CLASS_SLUG='s4-e';
+  var API='/api/class-hub?class='+encodeURIComponent(CLASS_SLUG);
   var progressKey='med-nykuto-course-progress-v440';
   var studentKey='med-nykuto-student-device-v440';
-  var publicData={notices:[],tasks:[],activities:[],groups:[],members:[],files:[],dates:[]};
+  var publicData={notices:[],tasks:[],activities:[],groups:[],files:[],dates:[]};
 
   function el(tag,className,text){var node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
   function readJson(key,fallback){try{return JSON.parse(localStorage.getItem(key)||'')||fallback;}catch(error){return fallback;}}
@@ -117,7 +118,7 @@
   function enablePush(button){
     if(!('serviceWorker'in navigator)||!('PushManager'in window)||!('Notification'in window)){button.textContent='Push no disponible en este navegador';button.disabled=true;return;}
     button.disabled=true;button.textContent='Activando…';
-    Promise.all([navigator.serviceWorker.ready,fetch(API+'?resource=push-key').then(function(response){return response.json();})]).then(function(results){var registration=results[0],key=results[1].publicKey;if(!key)throw new Error('El servicio push todavía no tiene una clave pública configurada.');return Notification.requestPermission().then(function(permission){if(permission!=='granted')throw new Error('Permiso de notificaciones no concedido.');return registration.pushManager.getSubscription().then(function(existing){return existing||registration.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:vapidBytes(key)});});});}).then(function(subscription){return fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'push.subscribe',subscription:subscription.toJSON()})});}).then(function(response){if(!response.ok)throw new Error('No se pudo guardar la suscripción.');button.textContent='Alertas importantes activadas';}).catch(function(error){button.textContent=error.message;button.disabled=false;});
+    Promise.all([navigator.serviceWorker.ready,fetch(API+'&resource=push-key').then(function(response){return response.json();})]).then(function(results){var registration=results[0],key=results[1].publicKey;if(!key)throw new Error('El servicio push todavía no tiene una clave pública configurada.');return Notification.requestPermission().then(function(permission){if(permission!=='granted')throw new Error('Permiso de notificaciones no concedido.');return registration.pushManager.getSubscription().then(function(existing){return existing||registration.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:vapidBytes(key)});});});}).then(function(subscription){return fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'push.subscribe',subscription:subscription.toJSON()})});}).then(function(response){if(!response.ok)throw new Error('No se pudo guardar la suscripción.');button.textContent='Alertas importantes activadas';}).catch(function(error){button.textContent=error.message;button.disabled=false;});
   }
   var taskGuides={
     'epi-presentation':{
@@ -162,11 +163,11 @@
     }
     if(guide&&guide.groupActivity){
       var groupPanel=el('section','live-task-groups group-activity-card');groupPanel.dataset.groupActivity=guide.groupActivity;
-      var groupHeading=el('header','live-task-groups-heading'),groupCopy=el('div'),groupTitle=el('h4','','Tu grupo, tema e integrantes');
+      var groupHeading=el('header','live-task-groups-heading'),groupCopy=el('div'),groupTitle=el('h4','','Tu grupo, tema y plazas');
       groupTitle.id='live-task-groups-'+guide.groupActivity;groupPanel.setAttribute('aria-labelledby',groupTitle.id);
       groupCopy.appendChild(el('span','live-task-groups-kicker','GRUPOS YA ORGANIZADOS'));groupCopy.appendChild(groupTitle);groupHeading.appendChild(groupCopy);
       var groupTotal=activityGroups(guide.groupActivity).length;groupHeading.appendChild(el('strong','live-task-groups-count',groupTotal?groupTotal+' GRUPOS':'GRUPOS'));
-      groupPanel.appendChild(groupHeading);groupPanel.appendChild(el('p','live-task-groups-intro','Consulta aquí los temas, responsables e integrantes que ya existen. También puedes actualizar tu inscripción sin salir de Tareas.'));
+      groupPanel.appendChild(groupHeading);groupPanel.appendChild(el('p','live-task-groups-intro','Consulta aquí los temas y la ocupación de cada grupo. Los nombres quedan disponibles únicamente para la administración autorizada.'));
       var groupHost=el('div');groupHost.setAttribute('data-group-runtime','true');groupHost.appendChild(el('p','','Cargando la composición de los grupos…'));groupPanel.appendChild(groupHost);body.appendChild(groupPanel);
     }
     if(guide&&guide.steps){
@@ -242,20 +243,19 @@
   }
   function renderDynamicResources(){var section=document.getElementById('pendientes');if(!section)return;var host=document.getElementById('classHubDynamicResources');if(!host){host=el('div','class-hub-live');host.id='classHubDynamicResources';var tasks=document.getElementById('classHubLiveTasks');if(tasks)tasks.insertAdjacentElement('afterend',host);else section.appendChild(host);}host.replaceChildren();(publicData.dates||[]).forEach(function(date){var card=el('article','live-task');card.appendChild(el('span','','FECHA PUBLICADA'));card.appendChild(el('strong','',date.label));card.appendChild(el('p','',date.startsAt));host.appendChild(card);});(publicData.files||[]).forEach(function(file){var card=el('a','live-task');card.href=file.url;card.target='_blank';card.rel='noopener';card.appendChild(el('span','',(file.course||'ARCHIVO')+(file.lessonDate?' · '+file.lessonDate:'')));card.appendChild(el('strong','',file.title));card.appendChild(el('p','',(file.fileType||'Archivo').toUpperCase()+' · Abrir →'));host.appendChild(card);});}
   function activityGroups(activityId){return (publicData.groups||[]).filter(function(group){return group.activityId===activityId;});}
-  function activityMembers(activityId){return (publicData.members||[]).filter(function(member){return member.activityId===activityId;});}
   function renderGroups(){
     document.querySelectorAll('[data-group-activity]').forEach(function(card){
       var host=card.querySelector('[data-group-runtime]');
       if(!host)return;
       var activity=(publicData.activities||[]).find(function(item){return item.id===card.dataset.groupActivity;});
       if(!activity){host.replaceChildren(el('p','','La actividad está publicada; la inscripción en grupos estará disponible cuando se active la base compartida.'));return;}
-      var groups=activityGroups(activity.id),members=activityMembers(activity.id),membership=readJson('med-nykuto-membership-v440',null);
+      var groups=activityGroups(activity.id),membership=readJson('med-nykuto-membership-v440',null);
       if(!membership||membership.activityId!==activity.id)membership=null;
       host.replaceChildren();
       var composer=el('section','group-join-composer'),composerHead=el('div','group-join-heading');
       composerHead.appendChild(el('span','','ELIGE TU GRUPO'));
       composerHead.appendChild(el('strong','','Escribe tu nombre y toca el grupo que quieres integrar.'));
-      composerHead.appendChild(el('small','','La plancha se actualiza para toda la clase; cada grupo admite hasta 10 integrantes y el nombre añadido queda visible aquí.'));
+      composerHead.appendChild(el('small','','La plancha pública muestra únicamente la ocupación. Tu nombre queda visible solo para los administradores de la turma.'));
       composer.appendChild(composerHead);
       var fields=el('div','group-join-fields'),nameLabel=el('label'),name=el('input');
       nameLabel.appendChild(el('span','','Tu nombre'));
@@ -270,18 +270,17 @@
       var board=el('div','group-roster-board');board.style.setProperty('--group-count',String(groups.length||1));board.setAttribute('role','list');board.setAttribute('aria-label','Composición de los diez grupos');host.appendChild(board);
       var choiceButtons=[];
       groups.forEach(function(group,index){
-        var capacity=Math.min(group.capacity||10,activity.capacity||10),groupMembers=members.filter(function(member){return member.groupId===group.id;});
+        var capacity=Math.min(group.capacity||10,activity.capacity||10),occupied=Math.min(capacity,Number(group.memberCount)||0),isOwnGroup=Boolean(membership&&membership.groupId===group.id);
         var column=el('article','group-roster-column');column.dataset.groupId=group.id;column.setAttribute('role','listitem');
-        var choice=el('button','group-roster-choice');choice.type='button';choice.dataset.groupChoice=group.id;choice.setAttribute('aria-pressed','false');choice.setAttribute('aria-label','Elegir '+group.name+(group.topic?', tema '+group.topic:'')+(group.leader?', responsable '+group.leader:'')+', '+groupMembers.length+' de '+capacity+' integrantes');
-        choice.appendChild(el('strong','',group.name.replace('Grupo ','G')));choice.appendChild(el('span','',groupMembers.length+'/'+capacity));column.appendChild(choice);choiceButtons.push(choice);
-        if(group.topic||group.leader){
+        var choice=el('button','group-roster-choice');choice.type='button';choice.dataset.groupChoice=group.id;choice.setAttribute('aria-pressed','false');choice.setAttribute('aria-label','Elegir '+group.name+(group.topic?', tema '+group.topic:'')+', '+occupied+' de '+capacity+' integrantes');
+        choice.appendChild(el('strong','',group.name.replace('Grupo ','G')));choice.appendChild(el('span','',occupied+'/'+capacity));column.appendChild(choice);choiceButtons.push(choice);
+        if(group.topic){
           var assignment=el('div','group-roster-assignment');
           if(group.topic){var topic=el('div','group-roster-topic');topic.appendChild(el('span','','TEMA'));topic.appendChild(el('strong','',group.topic));assignment.appendChild(topic);}
-          if(group.leader){var leader=el('div','group-roster-leader');leader.appendChild(el('span','','RESPONSABLE'));leader.appendChild(el('strong','',group.leader));assignment.appendChild(leader);}
           column.appendChild(assignment);
         }
         var list=el('ol','group-roster-list');
-        for(var slot=0;slot<capacity;slot+=1){var member=groupMembers[slot],isLeader=Boolean(member&&group.leader&&member.displayName===group.leader),item=el('li',member?'has-member':'is-open');if(isLeader)item.classList.add('is-group-leader');item.appendChild(el('span','',String(slot+1).padStart(2,'0')));var memberName=el('strong','',member?member.displayName:'Libre');if(member){memberName.title=member.displayName+(isLeader?' · Responsable del grupo':'');item.setAttribute('aria-label',(slot+1)+'. '+member.displayName+(isLeader?', responsable del grupo':''));}else item.setAttribute('aria-label',(slot+1)+'. Plaza libre');item.appendChild(memberName);list.appendChild(item);}
+        for(var slot=0;slot<capacity;slot+=1){var ownSlot=isOwnGroup&&slot===0,filled=slot<occupied,item=el('li',filled?'has-member':'is-open');item.appendChild(el('span','',String(slot+1).padStart(2,'0')));var label=ownSlot?'Tú':filled?'Ocupado':'Libre';item.appendChild(el('strong','',label));item.setAttribute('aria-label',(slot+1)+'. '+(ownSlot?'Tu inscripción':filled?'Plaza ocupada':'Plaza libre'));list.appendChild(item);}
         column.appendChild(list);board.appendChild(column);
         choice.addEventListener('click',function(){if(choice.disabled)return;select.value=group.id;updateSelectedGroup();name.focus({preventScroll:true});});
       });
@@ -294,7 +293,7 @@
       if(window.MedNykutoClassI18n&&window.MedNykutoClassI18n.refresh)window.MedNykutoClassI18n.refresh(card);
     });
   }
-  function loadPublic(){return fetch(API+'?resource=public',{headers:{accept:'application/json'}}).then(function(response){if(!response.ok)throw new Error('offline');return response.json();}).catch(function(){return fallbackPublic();}).then(function(data){var fallback=fallbackPublic();publicData={notices:Array.isArray(data.notices)?data.notices:fallback.notices,tasks:Array.isArray(data.tasks)?data.tasks:fallback.tasks,activities:Array.isArray(data.activities)?data.activities:fallback.activities,groups:Array.isArray(data.groups)?data.groups:[],members:Array.isArray(data.members)?data.members:[],files:Array.isArray(data.files)?data.files:[],dates:Array.isArray(data.dates)?data.dates:[]};renderNotices();renderLiveTasks();renderDynamicResources();renderGroups();});}
+  function loadPublic(){return fetch(API+'&resource=public',{headers:{accept:'application/json'}}).then(function(response){if(!response.ok)throw new Error('offline');return response.json();}).catch(function(){return fallbackPublic();}).then(function(data){var fallback=fallbackPublic();publicData={notices:Array.isArray(data.notices)?data.notices:fallback.notices,tasks:Array.isArray(data.tasks)?data.tasks:fallback.tasks,activities:Array.isArray(data.activities)?data.activities:fallback.activities,groups:Array.isArray(data.groups)?data.groups:[],files:Array.isArray(data.files)?data.files:[],dates:Array.isArray(data.dates)?data.dates:[]};renderNotices();renderLiveTasks();renderDynamicResources();renderGroups();});}
 
   function initPwa(){
     var button=document.getElementById('installAppButton'),deferred=null,isIos=/iphone|ipad|ipod/i.test(navigator.userAgent),standalone=window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;

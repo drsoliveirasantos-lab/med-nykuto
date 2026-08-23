@@ -5,59 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#07111f" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>Med Nykuto Gestión</title>
-  <meta name="description" content="Gestión segura de tareas, alertas, grupos, archivos y fechas del espacio 4.º E." />
-  <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="gestion-v440.css?v=440" />
+  <title>Gestión de la turma | Med Nykuto</title>
+  <meta name="description" content="Gestión segura de tareas, alertas, grupos, archivos y fechas de una turma Med Nykuto." />
+  <link rel="icon" href="/assets/logo-medcursos-icon.png" />
+  <link rel="stylesheet" href="/gestion-v440.css?v=471" />
 </head>
 <body>
   <a class="skip" href="#main">Ir al contenido</a>
-  <header class="manage-header"><a href="clase.html" class="manage-brand"><img src="assets/logo-medcursos-official.png" alt="" /><span><strong>Med Nykuto</strong><small>Gestión · 4.º E</small></span></a><a href="clase.html">Volver a la clase</a></header>
+  <header class="manage-header"><a id="manageClassHome" href="/turma/s4-e" class="manage-brand"><img src="/assets/logo-medcursos-official.png" alt="" /><span><strong>Med Nykuto</strong><small id="manageClassLabel">Gestión · cargando turma</small></span></a><a id="manageBackLink" href="/turma/s4-e">Volver a la turma</a></header>
   <main id="main">
     <section class="auth-card" id="authCard">
-      <div><span>ACCESO PROTEGIDO</span><h1>Med Nykuto Gestión</h1><p>El token se conserva durante esta pestaña. No se guarda de forma permanente en el dispositivo.</p></div>
+      <div><span>ACCESO PROTEGIDO · <b id="authClassSlug">S4-E</b></span><h1>Med Nykuto Gestión</h1><p>Este acceso queda limitado a la turma indicada. El token se conserva solamente durante esta pestaña.</p></div>
       <form id="tokenForm"><label>Token de propietario o editor<input id="accessToken" type="password" autocomplete="off" required /></label><button type="submit">Entrar</button></form>
       <details><summary>Recibí una invitación</summary><form id="claimForm"><label>Invitación<input id="inviteToken" type="password" autocomplete="off" required /></label><label>Nombre del editor<input id="inviteName" maxlength="60" required /></label><button type="submit">Activar acceso editor</button></form></details>
       <p class="auth-status" id="authStatus" role="status"></p>
     </section>
 
     <section class="manage-app" id="manageApp" hidden>
-      <header class="manage-intro"><div><span id="actorRole">ROL</span><h1>Publicación de la clase</h1><p id="actorName"></p></div><button id="logoutButton" type="button">Cerrar sesión</button></header>
+      <header class="manage-intro"><div><span id="actorRole">ROL</span><h1 id="manageClassTitle">Publicación de la turma</h1><p id="actorName"></p></div><button id="logoutButton" type="button">Cerrar sesión</button></header>
       <aside class="permission-note"><strong>Alcance del editor</strong><span>Tareas, alertas, grupos, archivos y fechas. Cursos, preguntas, perfiles docentes, configuración y permisos permanecen protegidos.</span></aside>
       <nav class="manage-tabs" aria-label="Áreas de gestión">
-        <button type="button" data-manage-tab="tasks" aria-selected="true">Tareas</button><button type="button" data-manage-tab="notices" aria-selected="false">Alertas</button><button type="button" data-manage-tab="groups" aria-selected="false">Grupos</button><button type="button" data-manage-tab="files" aria-selected="false">Archivos y fechas</button><button type="button" data-manage-tab="access" aria-selected="false" data-owner-only>Accesos y auditoría</button>
+        <button type="button" data-manage-tab="tasks" aria-selected="true">Tareas</button><button type="button" data-manage-tab="notices" aria-selected="false">Alertas</button><button type="button" data-manage-tab="groups" aria-selected="false">Grupos</button><button type="button" data-manage-tab="files" aria-selected="false">Archivos y fechas</button><button type="button" data-manage-tab="classes" aria-selected="false" data-owner-only>Turmas</button><button type="button" data-manage-tab="access" aria-selected="false" data-owner-only>Accesos y auditoría</button>
       </nav>
       <p class="manage-status" id="manageStatus" role="status"></p>
+      <datalist id="subjectOptions"></datalist>
 
       <section class="manage-panel" data-manage-panel="tasks">
         <header><span>PUBLICACIÓN SIN REDESPLIEGUE</span><h2>Tareas</h2></header>
-        <form class="manage-form" id="taskForm"><input type="hidden" name="action" value="task.upsert" /><label>Identificador opcional<input name="id" pattern="[a-z0-9._-]+" placeholder="ej. epi-presentacion-2" /></label><label>Materia<input name="course" required /></label><label class="wide">Título<input name="title" required maxlength="180" /></label><label class="wide">Descripción<textarea name="description" rows="3"></textarea></label><label>Fecha visible<input name="dueLabel" placeholder="Semana siguiente" /></label><label>Fecha exacta<input name="dueAt" type="datetime-local" /></label><label>Estado<select name="status"><option value="draft">Borrador</option><option value="published">Publicado</option><option value="archived">Archivado</option></select></label><button type="submit">Guardar tarea</button></form>
+        <form class="manage-form" id="taskForm"><input type="hidden" name="action" value="task.upsert" /><label>Materia<input name="course" list="subjectOptions" required /></label><label class="wide">Título<input name="title" required maxlength="180" /></label><label class="wide">Descripción<textarea name="description" rows="3"></textarea></label><label>Fecha visible<input name="dueLabel" placeholder="Semana siguiente" /></label><label>Fecha exacta<input name="dueAt" type="datetime-local" /></label><label>Estado<select name="status"><option value="draft">Borrador</option><option value="published">Publicado</option><option value="archived">Archivado</option></select></label><details class="advanced-fields"><summary>Opciones avanzadas</summary><label>Identificador técnico<input name="id" pattern="[a-z0-9._-]+" placeholder="Se genera automáticamente" /></label></details><button type="submit">Guardar tarea</button></form>
         <div class="manage-list" id="taskList"></div>
       </section>
 
       <section class="manage-panel" data-manage-panel="notices" hidden>
         <header><span>CAMPANA Y BANNER</span><h2>Alertas</h2></header>
-        <form class="manage-form" id="noticeForm"><input type="hidden" name="action" value="notice.upsert" /><label>Identificador opcional<input name="id" pattern="[a-z0-9._-]+" /></label><label>Prioridad<select name="priority"><option value="normal">Normal · campana</option><option value="important">Importante · push opcional</option><option value="urgent">Urgente · push + banner</option></select></label><label class="wide">Título<input name="title" required maxlength="180" /></label><label class="wide">Mensaje<textarea name="body" rows="3"></textarea></label><label>Estado<select name="status"><option value="draft">Borrador</option><option value="published">Publicado</option><option value="archived">Archivado</option></select></label><label class="check"><input type="checkbox" name="pushMode" /> Enviar también mediante el servicio push configurado</label><button type="submit">Guardar alerta</button></form>
+        <form class="manage-form" id="noticeForm"><input type="hidden" name="action" value="notice.upsert" /><label>Prioridad<select name="priority"><option value="normal">Normal · campana</option><option value="important">Importante · push opcional</option><option value="urgent">Urgente · push + banner</option></select></label><label class="wide">Título<input name="title" required maxlength="180" /></label><label class="wide">Mensaje<textarea name="body" rows="3"></textarea></label><label>Estado<select name="status"><option value="draft">Borrador</option><option value="published">Publicado</option><option value="archived">Archivado</option></select></label><label class="check"><input type="checkbox" name="pushMode" /> Enviar también mediante el servicio push configurado</label><details class="advanced-fields"><summary>Opciones avanzadas</summary><label>Identificador técnico<input name="id" pattern="[a-z0-9._-]+" placeholder="Se genera automáticamente" /></label></details><button type="submit">Guardar alerta</button></form>
         <div class="manage-list" id="noticeList"></div>
       </section>
 
       <section class="manage-panel" data-manage-panel="groups" hidden>
         <header><span>UN ESTUDIANTE · UN GRUPO · CAPACIDAD SERVIDOR</span><h2>Grupos por actividad</h2></header>
-        <div class="manage-columns"><form class="manage-form" id="activityForm"><input type="hidden" name="action" value="activity.upsert" /><h3>Actividad</h3><label>Identificador<input name="id" pattern="[a-z0-9._-]+" required /></label><label>Título<input name="title" required /></label><label>Capacidad por grupo<input name="capacity" type="number" min="1" max="50" value="10" /></label><label>Cierre<input name="closesAt" type="datetime-local" /></label><label>Estado<select name="status"><option value="draft">Borrador</option><option value="published">Publicado</option><option value="archived">Archivado</option></select></label><button type="submit">Guardar actividad</button></form><form class="manage-form" id="groupForm"><input type="hidden" name="action" value="group.upsert" /><h3>Nuevo grupo</h3><label>Actividad<input name="activityId" value="epi-2026-08-19" required /></label><label>Nombre<input name="name" placeholder="Grupo 7" required /></label><label>Capacidad<input name="capacity" type="number" min="1" max="50" value="10" /></label><button type="submit">Crear grupo</button></form></div>
-        <div class="group-actions"><button id="freezeGroups" type="button">Congelar actividad</button><button id="exportWhatsapp" type="button">Copiar para WhatsApp</button><button id="exportPdf" type="button">Exportar en PDF</button></div>
+        <div class="manage-columns"><form class="manage-form" id="activityForm"><input type="hidden" name="action" value="activity.upsert" /><h3>Actividad</h3><label>Título<input name="title" required /></label><label>Capacidad por grupo<input name="capacity" type="number" min="1" max="50" value="10" /></label><label>Cierre<input name="closesAt" type="datetime-local" /></label><label>Estado<select name="status"><option value="draft">Borrador</option><option value="published">Publicado</option><option value="archived">Archivado</option></select></label><details class="advanced-fields"><summary>Opciones avanzadas</summary><label>Identificador técnico<input name="id" pattern="[a-z0-9._-]+" placeholder="Se genera automáticamente" /></label></details><button type="submit">Guardar actividad</button></form><form class="manage-form" id="groupForm"><input type="hidden" name="action" value="group.upsert" /><h3>Nuevo grupo</h3><label>Actividad<select id="groupActivitySelect" name="activityId" required><option value="">Selecciona una actividad</option></select></label><label>Nombre<input name="name" placeholder="Grupo 7" required /></label><label>Capacidad<input name="capacity" type="number" min="1" max="50" value="10" /></label><button type="submit">Crear grupo</button></form></div>
+        <div class="group-actions"><button id="freezeGroups" type="button">Congelar actividad seleccionada</button><button id="exportWhatsapp" type="button">Copiar para WhatsApp</button><button id="exportPdf" type="button">Exportar en PDF</button></div>
         <div class="manage-list" id="groupList"></div>
       </section>
 
       <section class="manage-panel" data-manage-panel="files" hidden>
         <header><span>RECURSOS PUBLICABLES</span><h2>Archivos y fechas</h2></header>
-        <div class="manage-columns"><form class="manage-form" id="fileForm"><input type="hidden" name="action" value="file.upsert" /><h3>Archivo o enlace</h3><label>Materia<input name="course" required /></label><label>Fecha de la clase<input name="lessonDate" type="date" /></label><label>Título<input name="title" required /></label><label>URL<input name="url" type="url" required /></label><label>Tipo<input name="fileType" placeholder="PDF, DOCX, enlace" /></label><label>Estado<select name="status"><option value="draft">Borrador</option><option value="published">Publicado</option><option value="archived">Archivado</option></select></label><button type="submit">Guardar archivo</button></form><form class="manage-form" id="dateForm"><input type="hidden" name="action" value="date.upsert" /><h3>Fecha</h3><label>Etiqueta<input name="label" required /></label><label>Inicio<input name="startsAt" type="datetime-local" required /></label><label>Estado<select name="status"><option value="draft">Borrador</option><option value="published">Publicado</option><option value="archived">Archivado</option></select></label><button type="submit">Guardar fecha</button></form></div>
+        <div class="manage-columns"><form class="manage-form" id="fileForm"><input type="hidden" name="action" value="file.upsert" /><h3>Archivo o enlace</h3><label>Materia<input name="course" list="subjectOptions" required /></label><label>Fecha de la clase<input name="lessonDate" type="date" /></label><label>Título<input name="title" required /></label><label>URL<input name="url" type="url" required /></label><label>Tipo<input name="fileType" placeholder="PDF, DOCX, enlace" /></label><label>Estado<select name="status"><option value="draft">Borrador</option><option value="published">Publicado</option><option value="archived">Archivado</option></select></label><details class="advanced-fields"><summary>Opciones avanzadas</summary><label>Identificador técnico<input name="id" pattern="[a-z0-9._-]+" placeholder="Se genera automáticamente" /></label></details><button type="submit">Guardar archivo</button></form><form class="manage-form" id="dateForm"><input type="hidden" name="action" value="date.upsert" /><h3>Fecha</h3><label>Etiqueta<input name="label" required /></label><label>Inicio<input name="startsAt" type="datetime-local" required /></label><label>Estado<select name="status"><option value="draft">Borrador</option><option value="published">Publicado</option><option value="archived">Archivado</option></select></label><details class="advanced-fields"><summary>Opciones avanzadas</summary><label>Identificador técnico<input name="id" pattern="[a-z0-9._-]+" placeholder="Se genera automáticamente" /></label></details><button type="submit">Guardar fecha</button></form></div>
         <div class="manage-list" id="fileList"></div>
+      </section>
+
+      <section class="manage-panel" data-manage-panel="classes" hidden data-owner-only>
+        <header><span>SUPERADMINISTRADOR</span><h2>Turmas y materias</h2></header>
+        <p class="permission-note"><strong>Onboarding sin volver a desplegar</strong><span>Crea un espacio aislado, abre su gestión y configura las materias. Ningún dato se copia automáticamente desde otra turma.</span></p>
+        <div class="manage-columns">
+          <form class="manage-form" id="classForm"><input type="hidden" name="action" value="class.upsert" /><input type="hidden" name="id" /><h3 id="classFormTitle">Nueva turma</h3><label>Slug<input name="slug" pattern="[a-z0-9-]+" maxlength="31" placeholder="s5-a" required /></label><label>Nombre<input name="name" placeholder="5.º semestre · Grupo A" required /></label><label>Semestre<input name="semester" type="number" min="1" max="20" required /></label><label>Grupo<input name="group" maxlength="20" placeholder="A" /></label><label>Tema visual<input name="theme" value="midnight-gold" /></label><label>Drive<input name="driveUrl" type="url" placeholder="https://drive.google.com/..." /></label><label>Estado<select name="status"><option value="active">Activa</option><option value="archived">Archivada</option></select></label><button type="submit">Crear la turma</button></form>
+          <form class="manage-form" id="subjectForm"><input type="hidden" name="action" value="subject.upsert" /><h3>Materia de esta turma</h3><label>Identificador<input name="id" pattern="[a-z0-9._-]+" placeholder="fisiologia-3" required /></label><label>Nombre<input name="name" placeholder="Fisiología III" required /></label><label>Orden<input name="order" type="number" min="0" max="1000" value="1" /></label><label>Estado<select name="status"><option value="active">Activa</option><option value="archived">Archivada</option></select></label><button type="submit">Guardar materia</button><small>La materia se añade a <b id="subjectClassLabel">S4-E</b>.</small></form>
+        </div>
+        <div class="invite-output" id="classOutput" hidden></div>
+        <h3>Espacios registrados</h3><div class="manage-list" id="classList"></div>
+        <h3>Materias de esta turma</h3><div class="manage-list" id="subjectListAdmin"></div>
       </section>
 
       <section class="manage-panel" data-manage-panel="access" hidden data-owner-only>
         <header><span>PROPIETARIO</span><h2>Invitaciones, revocación y auditoría</h2></header>
-        <form class="manage-form compact" id="inviteForm"><input type="hidden" name="action" value="invite.create" /><label>Etiqueta<input name="label" value="Editor 4.º E" /></label><label>Duración en horas<input name="hours" type="number" min="1" max="168" value="48" /></label><button type="submit">Crear invitación revocable</button></form>
-        <div class="invite-output" id="inviteOutput" hidden></div>
+        <form class="manage-form compact" id="inviteForm"><input type="hidden" name="action" value="invite.create" /><label>Etiqueta<input id="inviteLabel" name="label" value="Editor S4-E" /></label><label>Duración en horas<input name="hours" type="number" min="1" max="168" value="48" /></label><button type="submit">Crear invitación revocable</button></form>
+        <div class="invite-output" id="inviteOutput" role="status" aria-live="polite" hidden></div>
         <h3>Invitaciones recientes</h3><div class="manage-list" id="inviteList"></div>
         <h3>Editores</h3>
         <div class="manage-list" id="editorList"></div>
@@ -65,7 +78,7 @@
       </section>
     </section>
   </main>
-  <footer><span>Med Nykuto · Gestión académica</span><span>Sin cuentas permanentes de estudiantes ni datos sensibles.</span></footer>
-  <script src="gestion-v440.js?v=440"></script>
+  <footer><span>Med Nykuto · Gestión académica</span><span>Los nombres de grupos son visibles únicamente para los administradores autorizados.</span></footer>
+  <script src="/gestion-v440.js?v=471"></script>
 </body>
 </html>

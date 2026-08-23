@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const root = process.cwd();
-const required = ['index.html','matieres.html','matiere.html','modules.html','module.html','qcm.html','comunidade.html','cas-cliniques.html','vrai-faux.html','erreurs.html','examen.html','contact.html','contact-success.html','a-propos.html','mentions.html','login.html','compte.html'];
+const required = ['index.html','matieres.html','matiere.html','modules.html','module.html','qcm.html','comunidade.html','cas-cliniques.html','vrai-faux.html','erreurs.html','examen.html','contact.html','contact-success.html','a-propos.html','mentions.html','login.html','compte.html','turma.html','gestion.html','offline.html'];
 const htmlFiles = required.filter(f => fs.existsSync(path.join(root, f)));
 const criticalRestoredPages = ['module.html','qcm.html','cas-cliniques.html','vrai-faux.html','erreurs.html','examen.html'];
 const problems = [];
@@ -54,7 +54,7 @@ for(const file of htmlFiles){
   const links = Array.from(html.matchAll(/<(?:a|link)[^>]+href="([^"]+)"/g)).map(m => m[1]);
   links.forEach(href => {
     const clean = localPath(href.split('#')[0].split('?')[0]);
-    if(!clean || /^(https?:|mailto:|tel:|#)/i.test(clean)) return;
+    if(!clean || /^(https?:|mailto:|tel:|#)/i.test(clean) || /^(?:turma|gestion)\/[a-z0-9][a-z0-9-]{0,30}\/?$/i.test(clean)) return;
     if(!exists(clean)) add(file, `missing href target: ${clean}`);
   });
 }

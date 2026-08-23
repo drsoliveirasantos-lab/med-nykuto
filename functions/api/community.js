@@ -1,12 +1,65 @@
-const COHORT_KEY = 'semester-4-group-e';
+const DEFAULT_CLASS_ID = 's4-e';
+const DEFAULT_CLASS_SLUG = 's4-e';
+const LEGACY_COHORT_KEY = 'semester-4-group-e';
 const CHALLENGE_GOAL = 1000;
 const MAX_SCOPES_PER_PLAYER = 32;
 const MAX_RANKING_ROWS = 100;
+const COMMUNITY_WRITE_LIMIT = 120;
+const COMMUNITY_WRITE_WINDOW_SECONDS = 600;
 const NICKNAME_PATTERN = /^[\p{L}\p{N}][\p{L}\p{N} ._'-]{0,22}[\p{L}\p{N}]$/u;
 const PLAYER_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const CONTENT_ID_PATTERN = /^[a-z0-9][a-z0-9._-]{0,63}$/;
+const CLASS_REF_PATTERN = /^[a-z0-9][a-z0-9-]{0,30}$/;
+
+const DEFAULT_CLASS = {
+  id: DEFAULT_CLASS_ID,
+  slug: DEFAULT_CLASS_SLUG,
+  name: 'Medicina · 4.º E',
+  semester: 4,
+  group: 'E',
+  theme: 'midnight-gold',
+  driveUrl: 'https://drive.google.com/drive/u/0/mobile/folders/1AE16HsBFgPw80tQYS_O5lQf3hsz9CFdy/1FWhE0vQoc7dNILKqa0qMrGfoF68ZElij?sort=13&direction=a'
+};
 
 let schemaPromise = null;
+
+function cleanClassRef(value) {
+  const ref = String(value || '').trim().toLowerCase();
+  if (ref === LEGACY_COHORT_KEY) return DEFAULT_CLASS_SLUG;
+  return CLASS_REF_PATTERN.test(ref) ? ref : '';
+}
+
+function publicClass(row) {
+  return {
+    id: row.id,
+    slug: row.slug,
+    name: row.name,
+    semester: Number(row.semester) || 0,
+    group: row.group_code || '',
+    theme: row.theme || '',
+    driveUrl: row.drive_url || ''
+  };
+}
+
+async function resolveClass(request, db, data = null) {
+  const url = new URL(request.url);
+  const queryCandidates = [
+    url.searchParams.get('class'),
+    url.searchParams.get('classSlug'),
+    url.searchParams.get('classId')
+  ].filter((value) => String(value || '').trim());
+  const bodyCandidates = [
+    data?.class,
+    data?.classSlug,
+    data?.classId
+  ].filter((value) => String(value || '').trim());
+  const candidates = queryCandidates.length ? queryCandidates : bodyCandidates;
+  const refs = [...new Set(candidates.map(cleanClassRef))];
+  if (refs.includes('') || refs.length > 1) return { error: 'class_mismatch' };
+  const requested = refs[0] || DEFAULT_CLASS_SLUG;
+  const row = await db.prepare(`SELECT id,slug,name,semester,group_code,theme,drive_url,status FROM hub_classes WHERE (slug=? OR id=?) AND status='active'`).bind(requested, requested).first();
+  return row ? { classRecord: row } : { error: 'class_not_found' };
+}
 
 function response(body, status = 200, extraHeaders = {}) {
   return new Response(JSON.stringify(body), {
@@ -22,6 +75,22 @@ function response(body, status = 200, extraHeaders = {}) {
 
 function errorResponse(status, code, message) {
   return response({ ok: false, code, message }, status);
+}
+
+async function digest(value) {
+  const bytes = new TextEncoder().encode(String(value));
+  const hash = await crypto.subtle.digest('SHA-256', bytes);
+  return [...new Uint8Array(hash)].map((part) => part.toString(16).padStart(2, '0')).join('');
+}
+
+async function rateLimit(request, env, db, classId) {
+  const address = request.headers.get('CF-Connecting-IP') || 'unknown';
+  const salt = env.MED_NYKUTO_RATE_SALT || 'med-nykuto-community-rate-v471';
+  const key = await digest(`${salt}:${classId}:community-score:${address}`);
+  const windowStart = Math.floor(Date.now() / 1000 / COMMUNITY_WRITE_WINDOW_SECONDS) * COMMUNITY_WRITE_WINDOW_SECONDS;
+  await db.prepare(`INSERT INTO community_rate_limits (key,class_id,window_start,count) VALUES (?,?,?,1) ON CONFLICT(key) DO UPDATE SET count=CASE WHEN window_start=excluded.window_start THEN count+1 ELSE 1 END,window_start=excluded.window_start WHERE community_rate_limits.class_id=excluded.class_id`).bind(key, classId, windowStart).run();
+  const row = await db.prepare(`SELECT count FROM community_rate_limits WHERE class_id=? AND key=?`).bind(classId, key).first();
+  return Number(row?.count) > COMMUNITY_WRITE_LIMIT ? response({ ok: false, code: 'rate_limited', message: 'Demasiados resultados enviados. Espera antes de volver a probar.' }, 429, { 'retry-after': String(COMMUNITY_WRITE_WINDOW_SECONDS) }) : null;
 }
 
 function isoDate(date) {
@@ -81,32 +150,71 @@ function scoreIsBetter(next, previous) {
   return next.correct > Number(previous.correct);
 }
 
+function changed(result) {
+  return Number(result?.meta?.changes ?? result?.changes ?? 0) > 0;
+}
+
 async function ensureSchema(db) {
   if (!schemaPromise) {
-    schemaPromise = db.batch([
-      db.prepare(`
-        CREATE TABLE IF NOT EXISTS community_scores (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          cohort_key TEXT NOT NULL,
-          week_key TEXT NOT NULL,
-          player_id TEXT NOT NULL,
-          nickname TEXT NOT NULL,
-          course_id TEXT NOT NULL DEFAULT '',
-          module_id TEXT NOT NULL DEFAULT '',
-          scope_id TEXT NOT NULL,
-          correct INTEGER NOT NULL,
-          total INTEGER NOT NULL,
-          percentage REAL NOT NULL,
-          created_at TEXT NOT NULL,
-          updated_at TEXT NOT NULL,
-          UNIQUE (cohort_key, week_key, player_id, scope_id)
-        )
-      `),
-      db.prepare(`
-        CREATE INDEX IF NOT EXISTS community_scores_week_idx
-        ON community_scores (cohort_key, week_key, updated_at)
-      `)
-    ]).catch((error) => {
+    schemaPromise = (async () => {
+      const created = new Date().toISOString();
+      await db.batch([
+        db.prepare(`
+          CREATE TABLE IF NOT EXISTS hub_classes (
+            id TEXT PRIMARY KEY,
+            slug TEXT NOT NULL UNIQUE,
+            name TEXT NOT NULL,
+            semester INTEGER NOT NULL,
+            group_code TEXT NOT NULL DEFAULT '',
+            theme TEXT NOT NULL DEFAULT 'midnight-gold',
+            drive_url TEXT NOT NULL DEFAULT '',
+            status TEXT NOT NULL DEFAULT 'active',
+            created_at TEXT NOT NULL,
+            updated_at TEXT NOT NULL
+          )
+        `),
+        db.prepare(`
+          CREATE TABLE IF NOT EXISTS community_scores (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            class_id TEXT NOT NULL DEFAULT 's4-e',
+            cohort_key TEXT NOT NULL,
+            week_key TEXT NOT NULL,
+            player_id TEXT NOT NULL,
+            nickname TEXT NOT NULL,
+            course_id TEXT NOT NULL DEFAULT '',
+            module_id TEXT NOT NULL DEFAULT '',
+            scope_id TEXT NOT NULL,
+            correct INTEGER NOT NULL,
+            total INTEGER NOT NULL,
+            percentage REAL NOT NULL,
+            created_at TEXT NOT NULL,
+            updated_at TEXT NOT NULL,
+            UNIQUE (cohort_key, week_key, player_id, scope_id)
+          )
+        `),
+        db.prepare(`
+          CREATE TABLE IF NOT EXISTS community_rate_limits (
+            key TEXT PRIMARY KEY,
+            class_id TEXT NOT NULL,
+            window_start INTEGER NOT NULL,
+            count INTEGER NOT NULL DEFAULT 0
+          )
+        `)
+      ]);
+      await db.prepare(`INSERT OR IGNORE INTO hub_classes (id,slug,name,semester,group_code,theme,drive_url,status,created_at,updated_at) VALUES (?,?,?,?,?,?,?,'active',?,?)`).bind(DEFAULT_CLASS_ID, DEFAULT_CLASS_SLUG, DEFAULT_CLASS.name, DEFAULT_CLASS.semester, DEFAULT_CLASS.group, DEFAULT_CLASS.theme, DEFAULT_CLASS.driveUrl, created, created).run();
+      const columns = await db.prepare(`PRAGMA table_info(community_scores)`).all();
+      if (!(columns.results || []).some((column) => column.name === 'class_id')) {
+        try {
+          await db.prepare(`ALTER TABLE community_scores ADD COLUMN class_id TEXT NOT NULL DEFAULT 's4-e'`).run();
+        } catch (error) {
+          if (!/duplicate column/i.test(String(error))) throw error;
+        }
+      }
+      await db.batch([
+        db.prepare(`UPDATE community_scores SET class_id=? WHERE class_id IS NULL OR TRIM(class_id)='' OR cohort_key=?`).bind(DEFAULT_CLASS_ID, LEGACY_COHORT_KEY),
+        db.prepare(`CREATE INDEX IF NOT EXISTS community_scores_class_week_idx ON community_scores (class_id,week_key,updated_at)`)
+      ]);
+    })().catch((error) => {
       schemaPromise = null;
       throw error;
     });
@@ -114,7 +222,7 @@ async function ensureSchema(db) {
   return schemaPromise;
 }
 
-async function readRanking(db, week, currentPlayerId = '', currentNickname = '') {
+async function readRanking(db, classId, week, currentPlayerId = '', currentNickname = '') {
   const result = await db.prepare(`
     WITH ranked_scopes AS (
       SELECT
@@ -131,7 +239,7 @@ async function readRanking(db, week, currentPlayerId = '', currentNickname = '')
           ORDER BY percentage DESC, correct DESC, updated_at DESC
         ) AS scope_rank
       FROM community_scores
-      WHERE cohort_key = ? AND week_key = ?
+      WHERE class_id = ? AND week_key = ?
     ),
     best_scopes AS (
       SELECT * FROM ranked_scopes WHERE scope_rank = 1
@@ -148,7 +256,7 @@ async function readRanking(db, week, currentPlayerId = '', currentNickname = '')
     GROUP BY nickname_key
     ORDER BY points DESC, (SUM(correct) * 1.0 / SUM(total)) DESC, last_activity ASC
     LIMIT ?
-  `).bind(COHORT_KEY, week.key, currentPlayerId, MAX_RANKING_ROWS).all();
+  `).bind(classId, week.key, currentPlayerId, MAX_RANKING_ROWS).all();
 
   const currentNicknameKey = currentNickname.toLocaleLowerCase('es');
 
@@ -170,7 +278,7 @@ async function readRanking(db, week, currentPlayerId = '', currentNickname = '')
   return { ranking: ranking.slice(0, 30), currentUser };
 }
 
-async function readChallenge(db, week) {
+async function readChallenge(db, classId, week) {
   const row = await db.prepare(`
     WITH ranked_scopes AS (
       SELECT
@@ -183,7 +291,7 @@ async function readChallenge(db, week) {
           ORDER BY percentage DESC, correct DESC, updated_at DESC
         ) AS scope_rank
       FROM community_scores
-      WHERE cohort_key = ? AND week_key = ?
+      WHERE class_id = ? AND week_key = ?
     ),
     best_scopes AS (
       SELECT * FROM ranked_scopes WHERE scope_rank = 1
@@ -194,7 +302,7 @@ async function readChallenge(db, week) {
       COALESCE(SUM(correct), 0) AS points,
       COALESCE(SUM(total), 0) AS questions
     FROM best_scopes
-  `).bind(COHORT_KEY, week.key).first();
+  `).bind(classId, week.key).first();
 
   const points = Number(row?.points) || 0;
   return {
@@ -207,20 +315,21 @@ async function readChallenge(db, week) {
   };
 }
 
-async function handleGet(request, db) {
+async function handleGet(request, db, classRecord) {
   const url = new URL(request.url);
   const requestedPlayer = url.searchParams.get('player') || '';
   const playerId = validPlayerId(requestedPlayer) ? requestedPlayer : '';
   const nickname = cleanNickname(url.searchParams.get('nickname'));
   const week = currentWeek();
   const [{ ranking, currentUser }, challenge] = await Promise.all([
-    readRanking(db, week, playerId, nickname),
-    readChallenge(db, week)
+    readRanking(db, classRecord.id, week, playerId, nickname),
+    readChallenge(db, classRecord.id, week)
   ]);
 
   return response({
     ok: true,
-    cohort: COHORT_KEY,
+    cohort: classRecord.slug,
+    class: publicClass(classRecord),
     week,
     challenge,
     ranking,
@@ -231,12 +340,15 @@ async function handleGet(request, db) {
 
 function sameOrigin(request) {
   const origin = request.headers.get('origin');
-  if (!origin) return true;
-  try {
-    return new URL(origin).origin === new URL(request.url).origin;
-  } catch (error) {
-    return false;
+  if (origin) {
+    try {
+      return new URL(origin).origin === new URL(request.url).origin;
+    } catch (error) {
+      return false;
+    }
   }
+  const fetchSite = String(request.headers.get('sec-fetch-site') || '').toLowerCase();
+  return !fetchSite || fetchSite === 'same-origin' || fetchSite === 'none';
 }
 
 async function readJson(request) {
@@ -245,10 +357,30 @@ async function readJson(request) {
   if (!request.headers.get('content-type')?.toLowerCase().includes('application/json')) {
     throw new Error('invalid_content_type');
   }
-  return request.json();
+  if (!request.body) throw new Error('invalid_json');
+  const reader = request.body.getReader();
+  const decoder = new TextDecoder();
+  let size = 0;
+  let raw = '';
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > 4096) {
+      await reader.cancel();
+      throw new Error('payload_too_large');
+    }
+    raw += decoder.decode(value, { stream: true });
+  }
+  raw += decoder.decode();
+  try {
+    return JSON.parse(raw);
+  } catch (error) {
+    throw new Error('invalid_json');
+  }
 }
 
-async function handlePost(request, db) {
+async function handlePost(request, db, env) {
   if (!sameOrigin(request)) {
     return errorResponse(403, 'origin_rejected', 'La solicitud no proviene de este sitio.');
   }
@@ -260,6 +392,13 @@ async function handlePost(request, db) {
     const status = error.message === 'payload_too_large' ? 413 : 400;
     return errorResponse(status, 'invalid_json', 'Los datos enviados no son válidos.');
   }
+
+  const resolved = await resolveClass(request, db, payload);
+  if (resolved.error === 'class_mismatch') return errorResponse(400, 'class_mismatch', 'La clase indicada no es válida o no coincide.');
+  if (!resolved.classRecord) return errorResponse(404, 'class_not_found', 'La clase solicitada no existe o no está activa.');
+  const classRecord = resolved.classRecord;
+  const limited = await rateLimit(request, env, db, classRecord.id);
+  if (limited) return limited;
 
   const playerId = String(payload.playerId || '').trim();
   const nickname = cleanNickname(payload.nickname);
@@ -288,20 +427,20 @@ async function handlePost(request, db) {
   const previous = await db.prepare(`
     SELECT correct, total, percentage
     FROM community_scores
-    WHERE cohort_key = ? AND week_key = ?
+    WHERE class_id = ? AND week_key = ?
       AND LOWER(TRIM(nickname)) = LOWER(TRIM(?))
       AND scope_id = ?
     ORDER BY percentage DESC, correct DESC, updated_at DESC
     LIMIT 1
-  `).bind(COHORT_KEY, week.key, nickname, scopeId).first();
+  `).bind(classRecord.id, week.key, nickname, scopeId).first();
 
   if (!previous) {
     const count = await db.prepare(`
       SELECT COUNT(DISTINCT scope_id) AS count
       FROM community_scores
-      WHERE cohort_key = ? AND week_key = ?
+      WHERE class_id = ? AND week_key = ?
         AND LOWER(TRIM(nickname)) = LOWER(TRIM(?))
-    `).bind(COHORT_KEY, week.key, nickname).first();
+    `).bind(classRecord.id, week.key, nickname).first();
     if (Number(count?.count) >= MAX_SCOPES_PER_PLAYER) {
       return errorResponse(429, 'weekly_limit', 'Has alcanzado el límite de módulos para esta semana.');
     }
@@ -310,17 +449,18 @@ async function handlePost(request, db) {
   await db.prepare(`
     UPDATE community_scores
     SET nickname = ?, updated_at = ?
-    WHERE cohort_key = ? AND week_key = ? AND player_id = ?
-  `).bind(nickname, now, COHORT_KEY, week.key, playerId).run();
+    WHERE class_id = ? AND week_key = ? AND player_id = ?
+  `).bind(nickname, now, classRecord.id, week.key, playerId).run();
 
   const next = { correct, total, percentage };
   const improved = scoreIsBetter(next, previous);
+  let saved = false;
   if (improved) {
-    await db.prepare(`
+    const result = await db.prepare(`
       INSERT INTO community_scores (
-        cohort_key, week_key, player_id, nickname, course_id, module_id,
+        class_id, cohort_key, week_key, player_id, nickname, course_id, module_id,
         scope_id, correct, total, percentage, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       ON CONFLICT (cohort_key, week_key, player_id, scope_id) DO UPDATE SET
         nickname = excluded.nickname,
         course_id = excluded.course_id,
@@ -329,8 +469,11 @@ async function handlePost(request, db) {
         total = excluded.total,
         percentage = excluded.percentage,
         updated_at = excluded.updated_at
+      WHERE excluded.percentage > community_scores.percentage
+         OR (excluded.percentage = community_scores.percentage AND excluded.correct > community_scores.correct)
     `).bind(
-      COHORT_KEY,
+      classRecord.id,
+      classRecord.id === DEFAULT_CLASS_ID ? LEGACY_COHORT_KEY : classRecord.id,
       week.key,
       playerId,
       nickname,
@@ -343,24 +486,26 @@ async function handlePost(request, db) {
       now,
       now
     ).run();
+    saved = changed(result);
   }
 
   const [best, challenge] = await Promise.all([
     db.prepare(`
       SELECT correct, total, percentage
       FROM community_scores
-      WHERE cohort_key = ? AND week_key = ?
+      WHERE class_id = ? AND week_key = ?
         AND LOWER(TRIM(nickname)) = LOWER(TRIM(?))
         AND scope_id = ?
       ORDER BY percentage DESC, correct DESC, updated_at DESC
       LIMIT 1
-    `).bind(COHORT_KEY, week.key, nickname, scopeId).first(),
-    readChallenge(db, week)
+    `).bind(classRecord.id, week.key, nickname, scopeId).first(),
+    readChallenge(db, classRecord.id, week)
   ]);
 
   return response({
     ok: true,
-    saved: improved,
+    class: publicClass(classRecord),
+    saved,
     week,
     best: {
       correct: Number(best.correct),
@@ -394,7 +539,11 @@ export async function onRequest(context) {
 
   try {
     await ensureSchema(db);
-    return request.method === 'GET' ? handleGet(request, db) : handlePost(request, db);
+    if (request.method === 'POST') return handlePost(request, db, context.env || {});
+    const resolved = await resolveClass(request, db);
+    if (resolved.error === 'class_mismatch') return errorResponse(400, 'class_mismatch', 'La clase indicada no es válida o no coincide.');
+    if (!resolved.classRecord) return errorResponse(404, 'class_not_found', 'La clase solicitada no existe o no está activa.');
+    return handleGet(request, db, resolved.classRecord);
   } catch (error) {
     console.error('community_api_error', error);
     return errorResponse(500, 'temporarily_unavailable', 'La clasificación no está disponible por el momento.');

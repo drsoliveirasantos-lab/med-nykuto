@@ -4,8 +4,35 @@ const path = require('path');
 const root = process.cwd();
 const failures = [];
 
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function routeRegex(source) {
+  const pattern = source.split('/').map((segment) => {
+    if (segment === '*') return '.*';
+    if (segment.startsWith(':')) return '[^/]+';
+    return escapeRegex(segment);
+  }).join('/');
+  return new RegExp(`^${pattern}/?$`);
+}
+
+const redirectRoutes = fs.existsSync(path.join(root, '_redirects'))
+  ? fs.readFileSync(path.join(root, '_redirects'), 'utf8').split(/\r?\n/).flatMap((line) => {
+      const clean = line.trim();
+      if (!clean || clean.startsWith('#')) return [];
+      const [source, , rawStatus = '302'] = clean.split(/\s+/);
+      const status = Number(rawStatus);
+      return source?.startsWith('/') && status >= 200 && status < 400
+        ? [routeRegex(source)]
+        : [];
+    })
+  : [];
+
 function existsLocal(ref) {
-  const clean = String(ref || '').split('#')[0].split('?')[0].replace(/^\.\//, '').replace(/^\//, '');
+  const raw = String(ref || '').split('#')[0].split('?')[0];
+  if (raw.startsWith('/') && redirectRoutes.some((pattern) => pattern.test(raw))) return true;
+  const clean = raw.replace(/^\.\//, '').replace(/^\//, '');
   if (!clean || /^(https?:|mailto:|tel:|data:|javascript:)/i.test(clean)) return true;
   if (clean.startsWith('#')) return true;
   return fs.existsSync(path.join(root, clean));
