@@ -123,6 +123,7 @@
     'epi-presentation':{
       summary:'Máximo 10 integrantes, 15 diapositivas, participación de todos y evaluación individual.',
       intro:'Prepara con tu grupo una exposición sobre la enfermedad asignada por sorteo. La consigna completa queda aquí para consultarla mientras trabajas.',
+      groupActivity:'epi-2026-08-19',
       facts:[['10','integrantes como máximo'],['15','diapositivas como máximo'],['TODOS','deben hablar'],['1','notebook para toda la sala']],
       steps:[
         ['Organizar el grupo','Confirmen el tema sorteado y repartan las partes para que todos participen.'],
@@ -158,6 +159,15 @@
       var facts=el('div','live-task-facts');facts.setAttribute('aria-label','Datos esenciales');
       guide.facts.forEach(function(fact){var item=el('div');item.appendChild(el('strong','',fact[0]+' '));item.appendChild(el('small','',fact[1]));facts.appendChild(item);});
       body.appendChild(facts);
+    }
+    if(guide&&guide.groupActivity){
+      var groupPanel=el('section','live-task-groups group-activity-card');groupPanel.dataset.groupActivity=guide.groupActivity;
+      var groupHeading=el('header','live-task-groups-heading'),groupCopy=el('div'),groupTitle=el('h4','','Tu grupo, tema e integrantes');
+      groupTitle.id='live-task-groups-'+guide.groupActivity;groupPanel.setAttribute('aria-labelledby',groupTitle.id);
+      groupCopy.appendChild(el('span','live-task-groups-kicker','GRUPOS YA ORGANIZADOS'));groupCopy.appendChild(groupTitle);groupHeading.appendChild(groupCopy);
+      var groupTotal=activityGroups(guide.groupActivity).length;groupHeading.appendChild(el('strong','live-task-groups-count',groupTotal?groupTotal+' GRUPOS':'GRUPOS'));
+      groupPanel.appendChild(groupHeading);groupPanel.appendChild(el('p','live-task-groups-intro','Consulta aquí los temas, responsables e integrantes que ya existen. También puedes actualizar tu inscripción sin salir de Tareas.'));
+      var groupHost=el('div');groupHost.setAttribute('data-group-runtime','true');groupHost.appendChild(el('p','','Cargando la composición de los grupos…'));groupPanel.appendChild(groupHost);body.appendChild(groupPanel);
     }
     if(guide&&guide.steps){
       body.appendChild(el('h4','','Qué tienes que hacer'));
@@ -281,6 +291,7 @@
       applyMembership();
       join.addEventListener('click',function(){if(!name.value.trim()||!select.value){status.textContent='Escribe tu nombre y elige un grupo.';return;}join.disabled=true;status.textContent='Guardando…';fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'group.join',activityId:activity.id,groupId:select.value,displayName:name.value.trim(),studentKey:deviceId()})}).then(function(response){return response.json().then(function(body){if(!response.ok)throw new Error(body.error||'No se pudo unir.');return body;});}).then(function(body){membership=body;writeJson('med-nykuto-membership-v440',body);return loadPublic();}).catch(function(error){status.textContent=error.message;join.disabled=false;});});
       leave.addEventListener('click',function(){leave.disabled=true;status.textContent='Actualizando…';fetch(API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'group.leave',activityId:activity.id,studentKey:deviceId()})}).then(function(response){return response.json().then(function(body){if(!response.ok)throw new Error(body.error||'No se pudo salir del grupo.');return body;});}).then(function(){localStorage.removeItem('med-nykuto-membership-v440');membership=null;return loadPublic();}).catch(function(error){status.textContent=error.message;leave.disabled=false;});});
+      if(window.MedNykutoClassI18n&&window.MedNykutoClassI18n.refresh)window.MedNykutoClassI18n.refresh(card);
     });
   }
   function loadPublic(){return fetch(API+'?resource=public',{headers:{accept:'application/json'}}).then(function(response){if(!response.ok)throw new Error('offline');return response.json();}).catch(function(){return fallbackPublic();}).then(function(data){var fallback=fallbackPublic();publicData={notices:Array.isArray(data.notices)?data.notices:fallback.notices,tasks:Array.isArray(data.tasks)?data.tasks:fallback.tasks,activities:Array.isArray(data.activities)?data.activities:fallback.activities,groups:Array.isArray(data.groups)?data.groups:[],members:Array.isArray(data.members)?data.members:[],files:Array.isArray(data.files)?data.files:[],dates:Array.isArray(data.dates)?data.dates:[]};renderNotices();renderLiveTasks();renderDynamicResources();renderGroups();});}
