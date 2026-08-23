@@ -149,6 +149,7 @@ expect(classHubApi.includes('leader: EPIDEMIOLOGY_ROSTER[index][0]'), 'Epidemiol
 expect(classHubRuntime.includes("el('span','','TEMA')"), 'The Epidemiology roster does not render the assigned topic.');
 expect(classHubRuntime.includes("el('span','','RESPONSABLE')"), 'The Epidemiology roster does not render the group leader.');
 expect(classHubCss.includes('.group-roster-assignment'), 'The Epidemiology topic and leader card styling is missing.');
+expect(classHubCss.includes('.live-task-groups') && classHubCss.includes('.live-task-download{min-height:38px'), 'The compact Tareas group workspace styling is missing.');
 expect(html.includes('href="https://virtual.central.edu.py/auth"'), 'The official UCP portal shortcut is missing from the class home page.');
 expect(html.includes('class="home-quick-links"'), 'The compact useful-links strip is missing from the class home page.');
 expect(css.includes('.home-quick-link'), 'The compact home shortcut styling is missing.');
