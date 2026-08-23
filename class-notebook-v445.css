@@ -369,12 +369,31 @@
 .notebook-ultra-close strong{overflow-wrap:anywhere;color:#fff!important;font:800 .72rem/1.35 system-ui!important}
 
 @media(max-width:720px){
+  .lesson-notebook-standard,
+  .lesson-notebook-standard [data-lesson-tab-panel="rapida"],
+  .lesson-notebook-standard [data-lesson-tab-panel="ultra"],
+  .lesson-notebook-standard .notebook-review-sheet{
+    width:100%;
+    min-width:0;
+    max-width:100%;
+    overflow-x:clip
+  }
   .lesson-notebook-standard .notebook-review-sheet{padding:14px 10px 20px!important}
   .notebook-review-sheet .notebook-sheet-head h3{font-size:1.3rem}
-  .notebook-review-route{padding:8px;overflow:hidden}
-  .notebook-review-route ol{display:flex!important;max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;scrollbar-width:thin}
+  .notebook-review-sheet .notebook-sheet-head,
+  .notebook-review-route,
+  .notebook-review-layout,
+  .notebook-review-core,
+  .notebook-review-cards,
+  .notebook-review-memory,
+  .notebook-ultra-scan,
+  .notebook-ultra-path,
+  .notebook-ultra-rules,
+  .notebook-ultra-close{width:100%;min-width:0;max-width:100%}
+  .notebook-review-route{padding:8px;overflow:hidden;contain:inline-size}
+  .notebook-review-route ol{display:flex!important;width:100%;min-width:0;max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;scrollbar-width:thin}
   .notebook-review-route li{flex:0 0 118px;scroll-snap-align:start}
-  .notebook-review-layout,.notebook-ultra-scan{grid-template-columns:1fr}
+  .notebook-review-layout,.notebook-ultra-scan{grid-template-columns:minmax(0,1fr)!important}
   .notebook-review-core,.notebook-review-memory,.notebook-ultra-path,.notebook-ultra-rules{padding:12px;border-radius:13px}
   .notebook-review-cards{grid-template-columns:1fr}
   .notebook-review-card{padding:10px 1px 11px 11px!important}
