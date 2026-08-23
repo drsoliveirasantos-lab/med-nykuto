@@ -139,7 +139,7 @@ test.describe('Med Nykuto smoke navigation', () => {
     await page.waitForFunction(() => window.__MED_NYKUTO_QCM_INSTANT_RENDER__, null, { timeout: 20000 });
     await expect(page.locator('html')).toHaveAttribute('lang', 'es');
     await expect(page.locator('body')).toHaveAttribute('data-lang', 'es');
-    await expect(page.locator('[data-lang="es"]').first()).toHaveClass(/active/);
+    await expect(page.locator('button[data-lang="es"]').first()).toHaveClass(/active/);
     await expect(page.locator('body')).toContainText('QCM rápido');
     await expect(page.locator('body')).not.toContainText(/Mes points faibles|Afficher|Réinitialiser/);
   });

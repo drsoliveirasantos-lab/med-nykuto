@@ -255,13 +255,18 @@
     courses.forEach(function(course){ (course.modules || []).forEach(function(module){ modules.push(module); }); });
     var bank = window.MED_PRACTICE_BANK || {};
     var byCourse = bank.byCourse || {};
+    var bankCourseIds = Object.keys(byCourse);
     var summary = {courses:0, qcm:0, vf:0, cases:0};
-    Object.keys(byCourse).forEach(function(cid){
+    bankCourseIds.forEach(function(cid){
       var b = byCourse[cid] || {};
       summary.courses += 1;
       summary.qcm += (b.qcm || []).length;
       summary.vf += (b.vf || []).length;
       summary.cases += (b.cases || []).length;
+    });
+    var casesBlockedByPolicy = bankCourseIds.length > 0 && bankCourseIds.every(function(cid){
+      var certification = (byCourse[cid] || {}).certification || {};
+      return Array.isArray(certification.blockedFormats) && certification.blockedFormats.indexOf('cases') >= 0;
     });
     var requiresBank = isPracticeLikePage();
     var warnings = [];
@@ -269,7 +274,7 @@
     if(modules.length < 40) warnings.push('too_few_modules');
     if(requiresBank && !summary.qcm) warnings.push('no_qcm');
     if(requiresBank && !summary.vf) warnings.push('no_vf');
-    if(requiresBank && !summary.cases) warnings.push('no_cases');
+    if(requiresBank && !summary.cases && !casesBlockedByPolicy) warnings.push('no_cases');
     return {
       version:'v362-quiet-compact',
       ok:warnings.length === 0,
@@ -282,6 +287,7 @@
       qcmCount:summary.qcm,
       vfCount:summary.vf,
       caseCount:summary.cases,
+      casesBlockedByPolicy:casesBlockedByPolicy,
       fallbackActive:!!(bank && String(bank.version || '').indexOf('fallback') >= 0),
       dataSiteName:data.siteName || SITE_NAME
     };

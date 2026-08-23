@@ -1,4 +1,4 @@
-const CACHE = 'med-nykuto-class-v468';
+const CACHE = 'med-nykuto-class-v469';
 const SHELL = [
   '/index.html',
   '/manifest-s3.webmanifest',

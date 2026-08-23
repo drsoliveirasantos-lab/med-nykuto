@@ -2590,7 +2590,7 @@ function topicForQuestion(item){
     setupLanguageSwitch(document);
   }
   function setupLanguageSwitch(scope){
-    const buttons = (scope || document).querySelectorAll('[data-lang]');
+    const buttons = (scope || document).querySelectorAll('button[data-lang], a[data-lang]');
     const map = {fr:'fr', es:'es', br:'pt-BR'};
     let current = lang();
     function apply(){
@@ -2691,7 +2691,7 @@ function topicForQuestion(item){
   }
   document.addEventListener("DOMContentLoaded", applyExtraI18n);
   document.addEventListener("click", function(ev){
-    if (ev.target && ev.target.closest && ev.target.closest("[data-lang], .lang-btn, [data-set-lang]")) {
+    if (ev.target && ev.target.closest && ev.target.closest("button[data-lang], a[data-lang], .lang-btn, [data-set-lang]")) {
       setTimeout(applyExtraI18n, 50);
     }
   });
