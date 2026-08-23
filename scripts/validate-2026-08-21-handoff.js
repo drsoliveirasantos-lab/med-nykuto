@@ -103,6 +103,8 @@ expect(runtime.includes('push.subscribe'), 'Optional push subscription is missin
 expect(runtime.includes("el('details','live-task live-task-details')") && runtime.includes('data-live-task-id'), 'Active tasks do not expand inside the Tareas view.');
 expect(runtime.includes("item.href='#pendientes'") && runtime.includes('expandLiveTasks'), 'Task notifications do not route to and unfold Tareas.');
 expect(runtime.includes('trabajo-practico-salud-publica-epidemiologia.docx') && runtime.includes('actividades-3-y-4-bioquimica-ii.docx'), 'In-place task briefs are missing their original downloads.');
+expect(runtime.includes("groupActivity:'epi-2026-08-19'") && runtime.includes('live-task-groups group-activity-card'), 'The Epidemiology task does not own the shared group workspace.');
+expect(!html.includes('id="epi-project-groups"') && html.includes('href="#task-epi-presentation">Ver grupos en Tareas</a>'), 'The course still duplicates the interactive roster instead of routing to Tareas.');
 expect(html.includes('<time datetime="2026-08-12">12 AGO 2026</time>'), 'The previous Epidemiology lesson is not dated 12 August 2026.');
 expect(runtime.includes("action:'group.join'") && runtime.includes("action:'group.leave'"), 'Student group join/leave controls are incomplete.');
 expect(runtime.includes('group-roster-board') && runtime.includes('group-roster-column') && runtime.includes('activityMembers') && runtime.includes('--group-count'), 'The public multi-column group roster is missing.');
