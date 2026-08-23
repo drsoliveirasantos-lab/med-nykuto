@@ -2116,8 +2116,8 @@ function topicForQuestion(item){
   }
   function makeAnswerSlots(ids, seed, optionCount=4){
     const slots = {}, total = (ids || []).length, counts = Array(optionCount).fill(0), pool = [];
-    const minPerSlot = Math.max(0, Math.floor(total / optionCount) - 2);
-    const maxPerSlot = Math.ceil(total / optionCount) + 2;
+    const minPerSlot = Math.floor(total / optionCount);
+    const maxPerSlot = Math.ceil(total / optionCount);
     for(let slot=0; slot<optionCount; slot++){
       for(let count=0; count<minPerSlot; count++){ pool.push(slot); counts[slot] += 1; }
     }
