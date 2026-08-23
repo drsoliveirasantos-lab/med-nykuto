@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 const CURRENT_RUNTIME_GUARD = 'v362';
-const CURRENT_PRACTICE_LOADER = 'v373';
+const CURRENT_PRACTICE_LOADER = 'v462';
 const CURRENT_NEXT_STABILITY = 'v372-native-sticky-next-no-reload';
 const CURRENT_PROGRESS_FIX = 'v361';
 

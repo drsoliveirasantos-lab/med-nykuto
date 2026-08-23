@@ -1,5 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const path = require('path');
+const { expectBlockedClinicalCases } = require('./helpers/practice-policy');
 
 async function reset(page) {
   await page.evaluate(() => { localStorage.clear(); sessionStorage.clear(); });
@@ -34,8 +35,8 @@ test.describe('Visual snapshot evidence', () => {
     await page.goto('/cas-cliniques.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
     await reset(page);
     await page.reload({ waitUntil: 'domcontentloaded' });
-    await answerFirst(page);
-    await saveShot(page, 'desktop-cases-after-answer');
+    await expectBlockedClinicalCases(page, expect);
+    await saveShot(page, 'desktop-cases-quality-blocked');
 
     await page.goto('/vrai-faux.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
     await reset(page);

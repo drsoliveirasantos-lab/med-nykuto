@@ -12,9 +12,9 @@ test.describe('Cache and version integrity', () => {
   test('QCM loads the expected instant renderer and global polish versions', async ({ page }) => {
     await page.goto('/qcm.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
     const sources = await scriptSources(page);
-    expect(hasSource(sources, /app\.bundle\.js\?v=372/)).toBeTruthy();
+    expect(hasSource(sources, /app\.bundle\.js\?v=461/)).toBeTruthy();
     expect(hasSource(sources, /qcm-tap-guard-v309\.js\?v=321/)).toBeTruthy();
-    expect(hasSource(sources, /site-global-polish-v310\.js\?v=380/)).toBeTruthy();
+    expect(hasSource(sources, /site-global-polish-v310\.js\?v=460/)).toBeTruthy();
     await page.waitForFunction(() => window.__MED_NYKUTO_QCM_INSTANT_RENDER__, null, { timeout: 20000 });
     await expect.poll(() => page.evaluate(() => window.__MED_NYKUTO_QCM_INSTANT_RENDER__)).toMatch(/^v321-/);
   });

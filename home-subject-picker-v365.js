@@ -10,7 +10,7 @@
 
   if(!legacyCourses.length) return;
 
-  window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ = 'v372-semester-catalog-isolation';
+  window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ = 'v460-semester-hub-routing';
 
   const SEMESTER_STORAGE_KEY = 'medNykuto:studentSemester';
   const SEMESTERS = [
@@ -141,25 +141,32 @@
     return semester.status === 'available' ? 'Disponible' : semester.status === 'building' ? 'En curso' : 'Próximamente';
   }
 
+  function requestSemesterCopyRefresh(){
+    document.dispatchEvent(new Event('medNykuto:s3copyrefresh'));
+  }
+
   function updateSemesterCard(){
     const semester = selectedSemester();
     const card = document.getElementById('homeSemesterCard');
     if(!card || !semester) return;
-    card.querySelector('[data-semester-title]').textContent = `Semestre ${semester.number} seleccionado`;
-    card.querySelector('[data-semester-detail]').textContent = semester.status === 'available'
+    const title = card.querySelector('[data-semester-title]');
+    const detail = card.querySelector('[data-semester-detail]');
+    if(title) title.textContent = `Semestre ${semester.number} seleccionado`;
+    if(detail) detail.textContent = semester.status === 'available'
       ? 'Contenido disponible ahora · puedes conservarlo para revisar los prerrequisitos.'
       : semester.status === 'building'
         ? 'En curso de publicación · nuevos contenidos entre agosto y diciembre de 2026.'
         : 'Próximamente · contenidos previstos a partir de febrero de 2027.';
     document.body.dataset.studentSemester = semester.id;
     updateHomepageScope(semester);
+    requestSemesterCopyRefresh();
   }
 
   function updateHomepageScope(semester){
     const moduleCount = semester.id === 's3'
       ? legacyCourses.reduce((sum, course) => sum + (course.modules || []).length, 0)
       : 0;
-    const subjectCount = semester.id === 's4' ? S4_COURSES.length : semester.id === 's5' ? 0 : legacyCourses.length;
+    const subjectCount = semester.id === 's4' ? S4_COURSES.length : semester.id === 's5' ? 0 : legacyCourses.filter(course => (course.modules || []).length).length;
     ['statModulesHero','statModules'].forEach(id => {
       const element = document.getElementById(id);
       if(element) element.textContent = String(moduleCount);
@@ -194,47 +201,98 @@
   }
 
   function ensureSemesterExperience(){
+    let card = document.getElementById('homeSemesterCard');
+    if(!card){
+      card = document.createElement('section');
+      card.id = 'homeSemesterCard';
+      card.className = 'home-semester-card';
+      card.setAttribute('aria-label', 'Semestre de estudio');
+      card.innerHTML = `<div class="home-semester-card-copy"><p class="home-semester-eyebrow" data-s3-copy="journey">Tu recorrido</p><h2 data-semester-title>Elige tu semestre</h2><p data-semester-detail>Personaliza el contenido según tu avance en medicina.</p></div><button class="home-semester-change" type="button" data-semester-open data-s3-copy="changeSemester">Cambiar semestre</button>`;
+      const main = document.querySelector('main');
+      const hero = main && main.querySelector('.home-v41-hero');
+      if(main) main.insertBefore(card, hero || main.firstChild);
+    }
+
     if(document.getElementById('homeSemesterModal')) return;
-    const card = document.createElement('section');
-    card.id = 'homeSemesterCard';
-    card.className = 'home-semester-card';
-    card.setAttribute('aria-label', 'Semestre de estudio');
-    card.innerHTML = `<div class="home-semester-card-copy"><p class="home-semester-eyebrow">Tu recorrido</p><h2 data-semester-title>Elige tu semestre</h2><p data-semester-detail>Personaliza el contenido según tu avance en medicina.</p></div><button class="home-semester-change" type="button" data-semester-open>Cambiar semestre</button>`;
-    const main = document.querySelector('main');
-    const hero = main && main.querySelector('.home-v41-hero');
-    if(main) main.insertBefore(card, hero || main.firstChild);
 
     const modal = document.createElement('div');
     modal.id = 'homeSemesterModal';
     modal.className = 'home-semester-modal';
     modal.setAttribute('aria-hidden', 'true');
-    modal.innerHTML = `<section class="home-semester-panel" role="dialog" aria-modal="true" aria-labelledby="semesterTitle"><div class="home-semester-panel-head"><div><p class="home-semester-eyebrow">Personaliza tu inicio</p><h2 id="semesterTitle">¿Cuál es tu semestre?</h2><p class="home-semester-lead">Elige tu nivel actual. Podrás cambiarlo en cualquier momento.</p></div><button class="home-semester-close" type="button" data-semester-close aria-label="Cerrar">×</button></div><div class="home-semester-options">${SEMESTERS.map(semester => `<button class="home-semester-option" type="button" data-semester-select="${semester.id}" aria-pressed="false"><span class="home-semester-number">S${semester.number}</span><span><strong>Semestre ${semester.number}</strong><small>${semester.period}</small></span><span class="home-semester-status ${semester.status}">${semesterStatusLabel(semester)}</span></button>`).join('')}</div><p class="home-semester-note">Med Nykuto evoluciona al ritmo del curso de medicina. El contenido del semestre actual se publica progresivamente según las clases y las evaluaciones.</p></section>`;
+    modal.innerHTML = `<section class="home-semester-panel" role="dialog" aria-modal="true" aria-labelledby="semesterTitle"><div class="home-semester-panel-head"><div><p class="home-semester-eyebrow" data-s3-semester-copy="personalize">Personaliza tu inicio</p><h2 id="semesterTitle" data-s3-semester-copy="question">¿Cuál es tu semestre?</h2><p class="home-semester-lead" data-s3-semester-copy="lead">Elige tu nivel actual. Podrás cambiarlo en cualquier momento.</p></div><button class="home-semester-close" type="button" data-semester-close aria-label="Cerrar">×</button></div><div class="home-semester-options">${SEMESTERS.map(semester => `<button class="home-semester-option" type="button" data-semester-select="${semester.id}" aria-pressed="false"><span class="home-semester-number">S${semester.number}</span><span><strong data-s3-semester-copy="semester${semester.number}">Semestre ${semester.number}</strong><small data-s3-semester-copy="period${semester.id.toUpperCase()}">${semester.period}</small></span><span class="home-semester-status ${semester.status}" data-s3-semester-copy="status${semester.status.charAt(0).toUpperCase() + semester.status.slice(1)}">${semesterStatusLabel(semester)}</span></button>`).join('')}</div><p class="home-semester-note" data-s3-semester-copy="note">Med Nykuto evoluciona al ritmo del curso de medicina. El contenido del semestre actual se publica progresivamente según las clases y las evaluaciones.</p></section>`;
     document.body.appendChild(modal);
 
+    let semesterFocusBefore = null;
     const openSemesterModal = () => {
       const current = selectedSemester();
+      semesterFocusBefore = document.activeElement;
       modal.querySelectorAll('[data-semester-select]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.semesterSelect === current?.id)));
+      const note = modal.querySelector('.home-semester-note');
+      if(note) note.dataset.s3SemesterCopy = 'note';
+      requestSemesterCopyRefresh();
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
       document.body.classList.add('home-pick-open');
+      window.setTimeout(() => modal.querySelector('[data-semester-close]')?.focus({ preventScroll:true }), 30);
     };
     const closeSemesterModal = () => {
       if(!selectedSemester()) return;
       modal.classList.remove('open');
       modal.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('home-pick-open');
+      if(semesterFocusBefore?.focus) semesterFocusBefore.focus({ preventScroll:true });
+      semesterFocusBefore = null;
     };
-    card.querySelector('[data-semester-open]').addEventListener('click', openSemesterModal);
+    card.querySelector('[data-semester-open]')?.addEventListener('click', openSemesterModal);
     modal.addEventListener('click', event => {
       const choice = event.target.closest('[data-semester-select]');
       if(choice){
+        if(choice.dataset.semesterSelect === 's5'){
+          const note = modal.querySelector('.home-semester-note');
+          if(note){
+            note.dataset.s3SemesterCopy = 's5Note';
+            note.textContent = 'El semestre 5 estará disponible a partir de febrero de 2027. Puedes seguir usando el semestre 3 o abrir el espacio activo del semestre 4.';
+          }
+          requestSemesterCopyRefresh();
+          return;
+        }
         localStorage.setItem(SEMESTER_STORAGE_KEY, choice.dataset.semesterSelect);
+        if(choice.dataset.semesterSelect === 's4'){
+          window.location.assign('clase.html');
+          return;
+        }
         updateSemesterCard();
         closeSemesterModal();
       } else if(event.target === modal || event.target.closest('[data-semester-close]')) closeSemesterModal();
     });
+    document.addEventListener('keydown', event => {
+      if(!modal.classList.contains('open')) return;
+      if(event.key === 'Escape'){
+        event.preventDefault();
+        closeSemesterModal();
+        return;
+      }
+      if(event.key !== 'Tab') return;
+      const focusable = Array.from(modal.querySelectorAll('button:not([disabled]),a[href]'));
+      if(!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if(event.shiftKey && document.activeElement === first){ event.preventDefault(); last.focus(); }
+      else if(!event.shiftKey && document.activeElement === last){ event.preventDefault(); first.focus(); }
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    const requestedSemester = params.get('semestre');
+    if(requestedSemester === 's3' || requestedSemester === 's4'){
+      localStorage.setItem(SEMESTER_STORAGE_KEY, requestedSemester);
+    }
+    if(selectedSemester()?.id === 's5') localStorage.removeItem(SEMESTER_STORAGE_KEY);
+    if(selectedSemester()?.id === 's4'){
+      window.location.replace('clase.html');
+      return;
+    }
     updateSemesterCard();
-    if(!selectedSemester()) window.setTimeout(openSemesterModal, 80);
+    if(!selectedSemester() || params.get('cambiar-semestre') === '1') window.setTimeout(openSemesterModal, 80);
   }
 
   function guardModalAction(){

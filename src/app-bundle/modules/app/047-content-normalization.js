@@ -1698,8 +1698,8 @@ function topicForQuestion(item){
   }
   function makeAnswerSlots(ids, seed, optionCount=4){
     const slots = {}, total = (ids || []).length, counts = Array(optionCount).fill(0), pool = [];
-    const minPerSlot = Math.max(0, Math.floor(total / optionCount) - 2);
-    const maxPerSlot = Math.ceil(total / optionCount) + 2;
+    const minPerSlot = Math.floor(total / optionCount);
+    const maxPerSlot = Math.ceil(total / optionCount);
     for(let slot=0; slot<optionCount; slot++){
       for(let count=0; count<minPerSlot; count++){ pool.push(slot); counts[slot] += 1; }
     }
@@ -2143,7 +2143,19 @@ function topicForQuestion(item){
     const filteredTotal = items.length;
     if(empty) empty.hidden = items.length > 0;
     if(!items.length){
-      list.innerHTML = `<div class="notice">${t('noQuestions')}</div>`;
+      const scopeCourseId = courseParam || (selectedModule && selectedModule.courseId) || '';
+      const scopeBank = scopeCourseId && BANK.byCourse ? BANK.byCourse[scopeCourseId] : null;
+      const formatKey = type === 'case' ? 'cases' : type;
+      const relevantBanks = scopeBank ? [scopeBank] : Object.values(BANK.byCourse || {});
+      const blockedForQuality = type === 'case' && relevantBanks.length > 0 && relevantBanks.every(bank => (
+        bank && bank.certification && (bank.certification.blockedFormats || []).includes(formatKey)
+      ));
+      if(blockedForQuality){
+        const courseQuery = scopeCourseId ? `?course=${encodeURIComponent(scopeCourseId)}` : '';
+        const scopeLabel = scopeCourseId ? 'de esta materia' : 'del tercer semestre';
+        if(empty) empty.textContent = 'Contenido retirado durante la certificación de calidad.';
+        list.innerHTML = `<div class="notice"><strong>Calidad antes que cantidad.</strong><p>Los casos heredados ${scopeLabel} no cumplen todavía el estándar clínico de Med Nykuto. Permanecen ocultos hasta su reconstrucción a partir del curso.</p><div class="module-actions"><a class="btn secondary" href="qcm.html${courseQuery}">Revisar QCM certificados</a><a class="btn ghost" href="vrai-faux.html${courseQuery}">Revisar V/F certificados</a></div></div>`;
+      } else list.innerHTML = `<div class="notice">${t('noQuestions')}</div>`;
       return;
     }
     const key = practiceScopeKey(type, activeCursoe, moduleParam, examMode ? 'examen' : activeDifficulty);
@@ -2578,7 +2590,7 @@ function topicForQuestion(item){
     setupLanguageSwitch(document);
   }
   function setupLanguageSwitch(scope){
-    const buttons = (scope || document).querySelectorAll('[data-lang]');
+    const buttons = (scope || document).querySelectorAll('button[data-lang], a[data-lang]');
     const map = {fr:'fr', es:'es', br:'pt-BR'};
     let current = lang();
     function apply(){
@@ -2679,7 +2691,7 @@ function topicForQuestion(item){
   }
   document.addEventListener("DOMContentLoaded", applyExtraI18n);
   document.addEventListener("click", function(ev){
-    if (ev.target && ev.target.closest && ev.target.closest("[data-lang], .lang-btn, [data-set-lang]")) {
+    if (ev.target && ev.target.closest && ev.target.closest("button[data-lang], a[data-lang], .lang-btn, [data-set-lang]")) {
       setTimeout(applyExtraI18n, 50);
     }
   });

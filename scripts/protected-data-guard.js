@@ -28,6 +28,15 @@ function getChangedFiles() {
   return run('git', ['diff', '--name-only', 'HEAD~1', 'HEAD']).split('\n').filter(Boolean);
 }
 
+function getRelevantCommitMessages() {
+  const event = process.env.GITHUB_EVENT_NAME || '';
+  const base = process.env.GITHUB_BASE_REF || '';
+  if (event === 'pull_request' && base) {
+    return run('git', ['log', '--format=%B', `origin/${base}..HEAD`]);
+  }
+  return run('git', ['log', '-1', '--format=%B']);
+}
+
 function isIntentionalSplitCourseDataChange(protectedChanged) {
   if (protectedChanged.length !== 1 || protectedChanged[0] !== 'data/med-courses-data.js') return false;
   if (!fs.existsSync('content-lock.json')) return false;
@@ -44,8 +53,11 @@ function isIntentionalSplitCourseDataChange(protectedChanged) {
 
 const changed = getChangedFiles();
 const protectedChanged = changed.filter((file) => protectedFiles.has(file));
-const commitMessage = run('git', ['log', '-1', '--format=%B']);
-const intentionalBankMarker = /\[bank-data-change\]/i.test(commitMessage);
+// Pull-request checkouts point HEAD at a synthetic merge commit. Inspect the
+// complete PR commit range so an explicit marker on the authored bank commit
+// remains visible without allowing unrelated commits outside the PR scope.
+const commitMessages = getRelevantCommitMessages();
+const intentionalBankMarker = /\[bank-data-change\]/i.test(commitMessages);
 const allowed = String(process.env.ALLOW_PROTECTED_DATA_CHANGE || '').toLowerCase() === 'true'
   || intentionalBankMarker
   || isIntentionalSplitCourseDataChange(protectedChanged);

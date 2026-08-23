@@ -1,5 +1,6 @@
 /* v379 — Modern high-tech UI layer for Med Nykuto.
    Visual-only polish: animated medical grid, premium hover states, answer feedback, and mobile-density fixes. */
+@import url("semester-3-shell-v460.css?v=460");
 :root{
   --tech-glow-blue:rgba(103,212,255,.38);
   --tech-glow-gold:rgba(255,226,154,.34);

@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const { expectBlockedClinicalCases } = require('./helpers/practice-policy');
 
 const CURRENT_RUNTIME_GUARD = 'v362';
 
@@ -22,11 +23,6 @@ const navExpectations = [
   ['#navLinks a[href="index.html"], #navLinks a[href="/"]', /index\.html|\/$/],
   ['#navLinks a[href="matieres.html"]', /matieres\.html/],
   ['#navLinks a[href="modules.html"]', /modules\.html/],
-  ['#navLinks a[href="qcm.html"]', /qcm\.html/],
-  ['#navLinks a[href="cas-cliniques.html"]', /cas-cliniques\.html/],
-  ['#navLinks a[href="vrai-faux.html"]', /vrai-faux\.html/],
-  ['#navLinks a[href="erreurs.html"]', /erreurs\.html/],
-  ['#navLinks a[href="examen.html"]', /examen\.html/],
   ['#navLinks a[href="contact.html"]', /contact\.html/]
 ];
 
@@ -42,7 +38,7 @@ async function waitReady(page) {
 }
 
 async function clickHref(page, hrefPart) {
-  const link = page.locator(`a[href*="${hrefPart}"]`).first();
+  const link = page.locator(`a[href*="${hrefPart}"]:visible`).first();
   await expect(link).toBeAttached({ timeout: 15000 });
   await link.click();
 }
@@ -124,6 +120,19 @@ test.describe('Med Nykuto broad click audit', () => {
     }
   });
 
+  test('semester 3 study navigation opens the training center and routes to QCM', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('medNykuto:studentSemester', 's3'));
+    await page.goto('/index.html');
+    await waitReady(page);
+    const study = page.locator('#navLinks [data-s3-study-open]').first();
+    await expect(study).toBeVisible();
+    await study.click();
+    await expect(page.locator('#s3StudySheet.open')).toBeVisible();
+    await page.locator('#s3StudySheet a[href="qcm.html"]').click();
+    await expect(page).toHaveURL(/qcm\.html/);
+    await expect(page.locator('#practiceList')).toBeVisible();
+  });
+
   test('reader action buttons route to training pages for the selected module', async ({ page }) => {
     await page.goto('/module.html?id=01-fisiologia-01-neurofisiologia-y-potencial-de-accion');
     await waitReady(page);
@@ -137,7 +146,7 @@ test.describe('Med Nykuto broad click audit', () => {
     await waitReady(page);
     await page.locator('#openCaseBtn').click();
     await expect(page).toHaveURL(/cas-cliniques\.html/);
-    await expect(page.locator('.option').first()).toBeAttached();
+    await expectBlockedClinicalCases(page, expect);
   });
 
   test('mark-as-seen button toggles module progress without navigation break', async ({ page }) => {
@@ -158,7 +167,8 @@ test.describe('Med Nykuto broad click audit', () => {
 
     await clickHref(page, 'cas-cliniques.html');
     await expect(page).toHaveURL(/cas-cliniques\.html/);
-    await expect(page.locator('.option').first()).toBeAttached();
+    const caseCourse = new URL(page.url()).searchParams.get('course');
+    await expectBlockedClinicalCases(page, expect, caseCourse);
 
     await clickHref(page, 'vrai-faux.html');
     await expect(page).toHaveURL(/vrai-faux\.html/);

@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const { expectBlockedClinicalCases } = require('./helpers/practice-policy');
 
 const viewports = [
   { name: 'iphone-se', width: 375, height: 667 },
@@ -69,7 +70,11 @@ for (const viewport of viewports) {
         await expect(page.locator('#navLinks.open, .nav-links.open, #navLinks, .nav-links').first()).toBeVisible({ timeout: 10000 });
       }
 
-      if (/qcm|cas-cliniques|vrai-faux/.test(path)) {
+      if (/cas-cliniques/.test(path)) {
+        await expectBlockedClinicalCases(page, expect);
+        const noticeBox = await page.locator('#practiceList .notice').boundingBox();
+        expect(noticeBox?.width || 0, `${viewport.name} ${path}: quality notice should have width`).toBeGreaterThan(250);
+      } else if (/qcm|vrai-faux/.test(path)) {
         await expect(page.locator('#practiceList .single-question-card').first()).toBeVisible({ timeout: 20000 });
         const cardBox = await page.locator('#practiceList .single-question-card').first().boundingBox();
         expect(cardBox?.width || 0, `${viewport.name} ${path}: practice card should have width`).toBeGreaterThan(250);

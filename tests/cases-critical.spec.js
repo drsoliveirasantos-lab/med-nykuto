@@ -1,73 +1,40 @@
 const { test, expect } = require('@playwright/test');
+const { expectBlockedClinicalCases } = require('./helpers/practice-policy');
 
-async function loadCasePage(page) {
-  await page.goto('/cas-cliniques.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
-  await page.evaluate(() => {
-    localStorage.clear();
-    sessionStorage.clear();
-  });
+async function loadBlockedCasePage(page, course) {
+  await page.goto(`/cas-cliniques.html?course=${course}`, { waitUntil: 'domcontentloaded' });
+  await page.evaluate(() => { localStorage.clear(); sessionStorage.clear(); });
   await page.reload({ waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => window.__MED_NYKUTO_CASE_INSTANT_RENDER__, null, { timeout: 20000 });
-  await expect(page.locator('#practiceList .single-question-card').first()).toBeVisible({ timeout: 20000 });
-  await expect(page.locator('#practiceList .single-question-card button.option[data-option]').first()).toBeVisible({ timeout: 20000 });
+  await expectBlockedClinicalCases(page, expect, course);
 }
 
-async function currentIdentity(page) {
-  return page.evaluate(() => {
-    const card = document.querySelector('#practiceList .single-question-card');
-    if (!card) return '';
-    const prompt = card.querySelector('.question-prompt, .case-stem, h2, h3');
-    return `${card.id || 'no-id'}|${(prompt?.textContent || '').replace(/\s+/g, ' ').trim()}`;
-  });
-}
-
-async function visibleCardCount(page) {
-  return page.locator('#practiceList .single-question-card').count();
-}
-
-test.describe('Casos clínicos critical behavior', () => {
-  test('answer, complete explanation and next are local and instant', async ({ page }) => {
-    await loadCasePage(page);
-    const firstIdentity = await currentIdentity(page);
-    const initialUrl = page.url();
-
-    const firstOption = page.locator('#practiceList .single-question-card button.option[data-option]').first();
-    await firstOption.scrollIntoViewIfNeeded();
-    await firstOption.click({ force: true });
-
-    const panel = page.locator('#practiceList .single-question-card .answer-panel:not([hidden])').first();
-    await expect(panel).toBeVisible({ timeout: 5000 });
-    await expect(panel).toContainText('Justificación rápida');
-    await expect(panel).toContainText('Por qué las otras respuestas son falsas');
-    await expect(panel).not.toContainText(/Justification|Pourquoi|À retenir/);
-    const quickText = (await panel.locator('.case-feedback-short p').innerText()).trim();
-    const fullText = (await panel.locator('.case-feedback-details p').first().innerText()).trim();
-    expect(quickText).not.toBe(fullText);
-    await expect.poll(() => visibleCardCount(page), { timeout: 5000 }).toBeGreaterThan(0);
-    expect(page.url()).toBe(initialUrl);
-
-    const summary = panel.locator('details summary').filter({ hasText: /explicaci[oó]n|explication|compl[eè]te|completa|voir|ver/i }).first();
-    await expect(summary).toBeVisible({ timeout: 5000 });
-    const details = panel.locator('details').first();
-
-    if (await details.evaluate((node) => node.open).catch(() => false)) {
-      await summary.click({ force: true });
-      await expect.poll(() => details.evaluate((node) => node.open), { timeout: 5000 }).toBe(false);
+test.describe('Casos clínicos quality gate', () => {
+  test('every Semester 3 subject blocks inherited cases until manual review', async ({ page }) => {
+    for (const course of ['fisiologia', 'microbiologia', 'genetica', 'bioquimica', 'inmunologia']) {
+      await loadBlockedCasePage(page, course);
+      await expect(page.locator('#practiceList')).toContainText(/no cumplen todavía el estándar clínico/i);
+      await expect(page.locator('#practiceList .case-feedback-card, #practiceList .ppc-card')).toHaveCount(0);
     }
+  });
 
-    await summary.click({ force: true });
-    await expect.poll(() => details.evaluate((node) => node.open), { timeout: 5000 }).toBe(true);
-    await expect(panel).toContainText(/Justificación|Razonamiento|correcta|respuesta|recordar|examen/i, { timeout: 5000 });
+  test('the quality notice offers certified recovery paths without a dead end', async ({ page }) => {
+    await loadBlockedCasePage(page, 'fisiologia');
+    const initialUrl = page.url();
+    const qcm = page.locator('#practiceList a[href="qcm.html?course=fisiologia"]');
+    const vf = page.locator('#practiceList a[href="vrai-faux.html?course=fisiologia"]');
+    await expect(qcm).toBeVisible();
+    await expect(vf).toBeVisible();
     expect(page.url()).toBe(initialUrl);
 
-    const next = page.locator('#practiceList .single-question-card [data-action="next-question"]').first();
-    await expect(next).toBeVisible({ timeout: 5000 });
-    await expect(next).toBeEnabled({ timeout: 5000 });
-    await next.scrollIntoViewIfNeeded();
-    await next.click({ force: true });
+    await qcm.click();
+    await expect(page).toHaveURL(/qcm\.html\?course=fisiologia/);
+    await expect(page.locator('#practiceList .single-question-card').first()).toBeVisible({ timeout: 20000 });
+  });
 
-    await expect.poll(() => currentIdentity(page), { timeout: 10000 }).not.toBe(firstIdentity);
-    await expect.poll(() => visibleCardCount(page), { timeout: 5000 }).toBeGreaterThan(0);
-    expect(page.url()).toBe(initialUrl);
+  test('the unfiltered clinical entry explains the global quality gate', async ({ page }) => {
+    await page.goto('/cas-cliniques.html', { waitUntil: 'domcontentloaded' });
+    await expectBlockedClinicalCases(page, expect, null);
+    await expect(page.locator('#practiceList')).toContainText(/del tercer semestre/i);
   });
 });
