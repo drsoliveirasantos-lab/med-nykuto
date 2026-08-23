@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const root = process.cwd();
-const required = ['index.html','matieres.html','matiere.html','modules.html','module.html','qcm.html','comunidade.html','cas-cliniques.html','vrai-faux.html','erreurs.html','examen.html','contact.html','contact-success.html','a-propos.html','mentions.html','login.html','compte.html','turma.html','gestion.html','offline.html'];
+const required = ['index.html','matieres.html','matiere.html','modules.html','module.html','qcm.html','comunidade.html','cas-cliniques.html','vrai-faux.html','erreurs.html','examen.html','contact.html','contact-success.html','a-propos.html','mentions.html','login.html','compte.html','turma-shell/index.html','gestion-shell/index.html','offline.html'];
 const htmlFiles = required.filter(f => fs.existsSync(path.join(root, f)));
 const criticalRestoredPages = ['module.html','qcm.html','cas-cliniques.html','vrai-faux.html','erreurs.html','examen.html'];
 const problems = [];

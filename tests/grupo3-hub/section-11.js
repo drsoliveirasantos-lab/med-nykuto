@@ -359,7 +359,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   });
 
   test('exposes management, teacher profiles and install metadata without student accounts', async ({ page }) => {
-    await page.goto('/gestion.html');
+    await page.goto('/gestion-shell/?class=s4-e');
     await expect(page.getByRole('heading', { name: 'Med Nykuto Gestión' })).toBeVisible();
     await expect(page.locator('#authCard')).toContainText('No se guarda de forma permanente');
     await page.goto('/profesores.html');

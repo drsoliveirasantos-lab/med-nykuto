@@ -13,7 +13,7 @@ Med Nykuto is organized around four layers:
 
 The shared operational layer for multiple classes is documented in
 [`docs/multiclass-foundation.md`](multiclass-foundation.md). It uses one generic
-student shell (`turma.html`), one class-aware management shell (`gestion.html`)
+student shell (`turma-shell/index.html`), one class-aware management shell (`gestion-shell/index.html`)
 and Cloudflare Functions backed by a tenant-scoped D1 schema. The S3 course
 library and the bespoke 4.º E notebook remain separate source-of-truth surfaces.
 

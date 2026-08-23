@@ -496,11 +496,11 @@ async function validateRuntimeIsolation() {
 
 async function validateMulticlassShell() {
   const requiredFiles = [
-    'turma.html',
+    'turma-shell/index.html',
     'turma-v471.css',
     'turma-v471.js',
     'turma-manifest-boot-v471.js',
-    'gestion.html',
+    'gestion-shell/index.html',
     'gestion-v440.css',
     'gestion-v440.js',
     'offline.html',
@@ -509,9 +509,9 @@ async function validateMulticlassShell() {
   requiredFiles.forEach((file) => expect(fs.existsSync(path.join(root, file)), `Multiclass shell file is missing: ${file}.`));
   if (requiredFiles.some((file) => !fs.existsSync(path.join(root, file)))) return;
 
-  const turmaHtml = read('turma.html');
+  const turmaHtml = read('turma-shell/index.html');
   const turmaRuntime = read('turma-v471.js');
-  const managementHtml = read('gestion.html');
+  const managementHtml = read('gestion-shell/index.html');
   const managementRuntime = read('gestion-v440.js');
   const legacyClassRuntime = read('class-hub-runtime-v440.js');
   const redirects = read('_redirects');
@@ -535,14 +535,15 @@ async function validateMulticlassShell() {
   expect(managementRuntime.includes('Copiar invitación') && managementRuntime.includes('copyText(result.inviteToken)'), 'The one-time editor invitation cannot be copied explicitly.');
 
   expect(!legacyClassRuntime.includes('activityMembers') && legacyClassRuntime.includes("filled?'Ocupado':'Libre'"), 'The legacy 4.º E student roster is not anonymized.');
-  expect(redirects.includes('/turma/:slug /turma.html?class=:slug 200') && redirects.includes('/gestion/:slug /gestion.html?class=:slug 200'), 'Cloudflare rewrites for class and management slugs are missing.');
-  ['/turma/*', '/turma.html', '/clase.html', '/gestion/*', '/api/*'].forEach((route) => expect(headers.includes(route), `Security/cache headers are missing for ${route}.`));
+  expect(['/turma/:slug', '/turma/:slug/', '/gestion/:slug', '/gestion/:slug/'].every((route) => redirects.includes(`${route} /${route.startsWith('/turma') ? 'turma' : 'gestion'}-shell/?class=:slug 200`)), 'Cloudflare rewrites for class and management slugs, with and without trailing slash, are missing.');
+  expect(!/\/(?:turma|gestion)\/:slug\s+\/(?:turma|gestion)\.html\b/.test(redirects), 'A class route still proxies to a canonical .html URL and can loop on Cloudflare Pages.');
+  ['/turma/*', '/turma-shell/*', '/clase.html', '/gestion/*', '/gestion-shell/*', '/api/*'].forEach((route) => expect(headers.includes(route), `Security/cache headers are missing for ${route}.`));
 
   const shellMatch = worker.match(/const\s+SHELL\s*=\s*\[([\s\S]*?)\];/);
   expect(Boolean(shellMatch), 'The service-worker shell list is missing.');
   if (shellMatch) {
     const shellEntries = [...shellMatch[1].matchAll(/['"]([^'"]+)['"]/g)].map((match) => match[1]);
-    expect(shellEntries.includes('/offline.html') && shellEntries.includes('/turma.html'), 'The neutral offline and generic class shells are not precached.');
+    expect(shellEntries.includes('/offline.html') && shellEntries.includes('/turma-shell/'), 'The neutral offline and generic class shells are not precached.');
     expect(!shellEntries.some((entry) => /\/api\/|\/gestion|\/turma\/s\d|clase\.html|practice-bank|med-courses-data|grupo-3/i.test(entry)), 'The service worker precaches tenant, management, API or protected course content.');
   }
   expect(worker.includes("url.pathname.startsWith('/api/')") && worker.includes("url.pathname.startsWith('/gestion')"), 'The service worker does not bypass API and management requests.');
