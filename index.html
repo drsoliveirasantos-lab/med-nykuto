@@ -12,10 +12,13 @@
   <meta property="og:url" content="https://med.nykuto.com/index.html" />
   <meta property="og:site_name" content="Med Nykuto" />
   <meta name="twitter:card" content="summary" />
+  <meta name="theme-color" content="#07111f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
+  <link rel="manifest" href="manifest-s3.webmanifest" />
   <link rel="stylesheet" href="style.css?v=363" />
-  <link rel="stylesheet" href="med-nykuto-modern-ui-v378.css?v=379" />
-  <link rel="stylesheet" href="home-grupo3-entry-v401.css?v=401" />
+  <link rel="stylesheet" href="med-nykuto-modern-ui-v378.css?v=460" />
 </head>
 <body data-page="home" data-lang="es" class="home">
   <header class="site-header">
@@ -26,56 +29,74 @@
     </nav>
   </header>
 
-  <main id="top" class="home-only-main home-v43">
-    <section class="home-class-entry-v401" aria-labelledby="class-entry-title">
-      <div class="home-class-entry-copy">
-        <span class="home-class-entry-tag">NUEVO · ESPACIO DE CLASE</span>
-        <div><strong id="class-entry-title">4.º semestre · 4.º E</strong><small>Horario, próximas clases, revisión y dudas en un solo lugar.</small></div>
-      </div>
-      <div class="home-class-entry-status"><span>Nutrición + Fisiología + Bioquímica + Epidemiología + Microbiología</span><strong>Nuevo curso: leyes de la alimentación, evaluación del paciente y seminario de la próxima semana</strong></div>
-      <a href="clase.html">Abrir espacio de clase <span aria-hidden="true">→</span></a>
-    </section>
-    <section class="home-quick-actions" aria-labelledby="quick-actions-title">
-      <p class="home-quick-eyebrow">REVISIÓN INMEDIATA</p>
-      <h1 id="quick-actions-title">¿Qué quieres revisar ahora?</h1>
-      <p class="home-quick-subtitle">Elige una entrada y empieza directo: materia, QCM, casos clínicos o errores.</p>
-      <div class="home-action-grid" role="list">
-        <a class="home-action-card primary" href="matieres.html" role="listitem" data-home-subject-launch="1" aria-haspopup="dialog" aria-controls="homeSubjectModal"><span class="home-action-icon home-action-code">MAT</span><span><strong>Elegir materia</strong><small>Ver cursos y módulos</small></span></a>
-        <a class="home-action-card" href="qcm.html" role="listitem"><span class="home-action-icon home-action-code">QCM</span><span><strong>QCM rápido</strong><small>Entrenar ahora</small></span></a>
-        <a class="home-action-card" href="cas-cliniques.html" role="listitem"><span class="home-action-icon home-action-code">CAS</span><span><strong>Casos clínicos</strong><small>Razonar como examen</small></span></a>
-        <a class="home-action-card" href="erreurs.html" role="listitem"><span class="home-action-icon home-action-code">ERR</span><span><strong>Revisar errores</strong><small>Corregir lo que bloquea</small></span></a>
-      </div>
-    </section>
-
-    <section class="home-v41-hero" aria-label="Inicio">
-      <div class="home-v41-hero-card">
-        <div class="home-v41-copy">
-          <p class="eyebrow">Medicina · revisión estructurada</p>
-          <div class="current-scope-v58"><span>Biblioteca en evolución</span><strong>59 módulos publicados · nuevos contenidos en preparación</strong></div>
-          <h1>Estudia medicina con un plan claro, activo y rápido.</h1>
-          <p class="hero-text">Elige una materia, revisa el curso, entrena con QCM y corrige tus errores sin perder tiempo.</p>
-          <div class="home-v41-proof"><span><strong id="statModulesHero">59</strong> <em>módulos</em></span><span><strong>5</strong> <em>materias activas</em></span><span><strong>QCM</strong> <em>funcional</em></span><span><strong>V/F</strong> <em>+ casos</em></span></div>
+  <main id="top" class="home-only-main home-v43 s3-home">
+    <section class="s3-dashboard" aria-labelledby="s3-home-title">
+      <div class="s3-dashboard-copy">
+        <div class="s3-dashboard-top">
+          <span class="s3-availability"><i aria-hidden="true"></i><span data-s3-copy="available">Contenido disponible</span></span>
+          <div id="homeSemesterCard" class="s3-semester-card" aria-label="Semestre de estudio">
+            <span><small data-s3-copy="journey">Tu recorrido</small><strong data-semester-title>Semestre 3</strong></span>
+            <span class="s3-semester-detail" data-semester-detail>Contenido completo para revisar los prerrequisitos.</span>
+            <button type="button" data-semester-open><span data-s3-copy="changeSemester">Cambiar</span><b aria-hidden="true">⌄</b></button>
+          </div>
         </div>
-        <div class="hero-actions home-v41-actions"><a class="btn primary" href="matieres.html" data-home-subject-launch="1" aria-haspopup="dialog" aria-controls="homeSubjectModal">Empezar a revisar</a><a class="btn secondary" href="modules.html">Ver módulos</a><a class="btn ghost" href="erreurs.html">Revisar errores</a></div>
+        <p class="s3-kicker" data-s3-copy="kicker">MED NYKUTO · 3.º SEMESTRE</p>
+        <h1 id="s3-home-title" data-s3-copy="title">Todo tu tercer semestre, en un solo lugar.</h1>
+        <p class="s3-dashboard-lead" data-s3-copy="lead">Abre una materia, retoma el último módulo y entrena exactamente el formato que necesitas.</p>
+        <div class="s3-dashboard-actions">
+          <button class="s3-action s3-action-primary" type="button" data-home-subject-launch="1" data-testid="home-subject-picker-trigger" aria-haspopup="dialog" aria-controls="homeSubjectModal"><span data-s3-copy="chooseSubject">Elegir una materia</span><b aria-hidden="true">→</b></button>
+          <a class="s3-action s3-action-secondary" href="#s3StudyHub"><span data-s3-copy="trainNow">Entrenar ahora</span><b aria-hidden="true">↓</b></a>
+        </div>
+        <div class="s3-dashboard-stats" aria-label="Resumen del tercer semestre">
+          <article><strong id="statCursoes">5</strong><span data-s3-copy="subjects">materias activas</span></article>
+          <article><strong id="statModulesHero">59</strong><span data-s3-copy="modules">módulos completos</span></article>
+          <article><strong id="statProgress">0%</strong><span data-s3-copy="progress">progreso guardado</span></article>
+        </div>
+        <span hidden aria-hidden="true"><strong id="statModules">59</strong></span>
       </div>
 
-      <aside class="home-v41-donate-card home-v42-donate-card" id="supportProject" aria-label="Apoyar el proyecto">
-        <div class="donate-text"><p class="eyebrow">Proyecto gratuito · apoyo libre</p><h2>Apoyar el proyecto</h2><p>El sitio seguirá gratuito y abierto. Una pequeña contribución ayuda a pagar el alojamiento, mejorar los cursos y mantener los entrenamientos.</p><div class="support-actions"><button class="btn primary" id="copyPixBtn" type="button">Copiar código Pix</button></div></div>
-        <figure class="donate-visual" id="pixDonationVisual"><img src="assets/donation-pix.png" alt="QR Pix de apoyo" class="support-image" /><figcaption class="donate-fun-bubble"><strong>Un pequeño Pix y los QCM continúan funcionando.</strong><span>Gracias por apoyar el proyecto.</span></figcaption><button class="qr-copy-hotspot" id="copyPixQr" type="button" aria-label="Copiar código Pix"></button></figure>
+      <aside class="s3-focus-card" aria-labelledby="s3-focus-title">
+        <div class="s3-focus-head"><span data-s3-copy="activeStudy">ESTUDIO ACTIVO</span><b>QCM · V/F · CASOS</b></div>
+        <h2 id="s3-focus-title" data-s3-copy="focusTitle">Revisa y comprueba lo que realmente dominas.</h2>
+        <p data-s3-copy="focusText">Cada módulo reúne curso completo, ficha rápida, ultra-resumen y entrenamiento.</p>
+        <div class="s3-focus-links">
+          <a href="qcm.html"><span class="s3-mode-code">QCM</span><span><strong data-s3-copy="quickQcm">QCM rápido</strong><small data-s3-copy="quickQcmDetail">Preguntas por materia o módulo</small></span><b aria-hidden="true">→</b></a>
+          <a href="cas-cliniques.html"><span class="s3-mode-code">CAS</span><span><strong data-s3-copy="clinicalCases">Casos clínicos</strong><small data-s3-copy="clinicalDetail">Aplicación y razonamiento</small></span><b aria-hidden="true">→</b></a>
+          <a href="erreurs.html"><span class="s3-mode-code">ERR</span><span><strong data-s3-copy="reviewErrors">Revisar errores</strong><small data-s3-copy="errorsDetail">Volver a lo que todavía bloquea</small></span><b aria-hidden="true">→</b></a>
+        </div>
       </aside>
     </section>
 
-    <section class="home-v41-steps" aria-label="Cómo usar el sitio"><article><span>1</span><h3>Elige una materia</h3><p>Abre Fisiología, Bioquímica, Microbiología, Genética o Inmunología.</p></article><article><span>2</span><h3>Lee el curso o la ficha</h3><p>Pasa del curso completo a la ficha rápida o al ultra-resumen.</p></article><article><span>3</span><h3>Entrena activamente</h3><p>Haz QCM, casos clínicos y verdadero/falso, luego revisa tus errores.</p></article></section>
+    <section class="s3-section s3-subjects" id="s3Subjects" aria-labelledby="s3-subjects-title">
+      <div class="s3-section-heading">
+        <div><p class="s3-kicker" data-s3-copy="subjectsKicker">BIBLIOTECA DEL SEMESTRE</p><h2 id="s3-subjects-title" data-s3-copy="subjectsTitle">Cinco materias, 59 módulos completos.</h2><p data-s3-copy="subjectsLead">Elige una materia para ver sus capítulos y continuar desde tu avance.</p></div>
+        <button class="s3-reset" id="clearProgress" type="button" data-s3-copy="reset">Reiniciar progreso</button>
+      </div>
+      <div class="subject-progress-grid s3-subject-grid" id="subjectProgressGrid"></div>
+    </section>
 
-    <section class="home-v41-dashboard" aria-label="Tabla de progreso">
-      <aside class="home-v41-study-map" aria-label="Estadísticas del sitio">
-        <div class="stat-row-mini home-v41-stat-row"><div class="stat-card"><span id="statCursoes">6</span><small>Materias</small></div><div class="stat-card"><span id="statModules">59</span><small>Módulos</small></div><div class="stat-card"><span id="statProgress">0%</span><small>Progreso total</small></div></div>
-        <div class="home-progress-card"><div class="home-progress-head"><strong>Materias presentes</strong><button class="btn ghost tiny" id="clearProgress" type="button">Reiniciar</button></div><div class="subject-progress-grid home-mini-progress" id="subjectProgressGrid"></div></div>
-      </aside>
+    <section class="s3-section s3-study" id="s3StudyHub" aria-labelledby="s3-study-title">
+      <div class="s3-section-heading">
+        <div><p class="s3-kicker" data-s3-copy="studyKicker">ESTUDIAR</p><h2 id="s3-study-title" data-s3-copy="studyTitle">Elige cómo quieres entrenar.</h2><p data-s3-copy="studyLead">Entra directamente al formato útil para tu objetivo de hoy.</p></div>
+      </div>
+      <div class="s3-study-grid">
+        <a href="qcm.html"><span class="s3-study-index">01</span><span class="s3-mode-code">QCM</span><strong data-s3-copy="qcmTitle">Preguntas de opción múltiple</strong><small data-s3-copy="qcmText">Entrenamiento rápido con corrección inmediata.</small><b aria-hidden="true">→</b></a>
+        <a href="vrai-faux.html"><span class="s3-study-index">02</span><span class="s3-mode-code">V/F</span><strong data-s3-copy="vfTitle">Verdadero o falso</strong><small data-s3-copy="vfText">Detecta formulaciones incorrectas y trampas frecuentes.</small><b aria-hidden="true">→</b></a>
+        <a href="cas-cliniques.html"><span class="s3-study-index">03</span><span class="s3-mode-code">CAS</span><strong data-s3-copy="casesTitle">Casos clínicos</strong><small data-s3-copy="casesText">Aplica el mecanismo a una situación de examen.</small><b aria-hidden="true">→</b></a>
+        <a href="erreurs.html"><span class="s3-study-index">04</span><span class="s3-mode-code">ERR</span><strong data-s3-copy="mistakesTitle">Mis errores</strong><small data-s3-copy="mistakesText">Repasa prioritariamente lo que todavía no dominas.</small><b aria-hidden="true">→</b></a>
+        <a href="examen.html" class="s3-study-exam"><span class="s3-study-index">05</span><span class="s3-mode-code">EXA</span><strong data-s3-copy="examTitle">Examen blanco</strong><small data-s3-copy="examText">Simula una sesión mixta de 40 preguntas.</small><b aria-hidden="true">→</b></a>
+      </div>
+    </section>
+
+    <section class="s3-section s3-learning" aria-labelledby="s3-learning-title">
+      <div class="s3-section-heading s3-learning-heading"><div><p class="s3-kicker" data-s3-copy="planKicker">TU PLAN</p><h2 id="s3-learning-title" data-s3-copy="planTitle">Continúa exactamente donde lo dejaste.</h2></div></div>
       <div id="learningDashboard" class="learning-slot-v41"></div>
     </section>
 
-    <section class="home-v41-bottom" aria-label="Proyecto"><div><p class="eyebrow">Proyecto abierto</p><h2>Gratuito para estudiar, apoyado por la comunidad.</h2><p>El objetivo es simple: hacer cursos, fichas y entrenamientos accesibles sin barrera.</p></div><div class="home-v41-bottom-actions"><a class="btn secondary" href="qcm.html">QCM</a><a class="btn secondary" href="cas-cliniques.html">Casos clínicos</a><a class="btn secondary" href="vrai-faux.html">V/F</a></div></section>
+    <section class="s3-support home-v42-donate-card" id="supportProject" aria-label="Apoyar el proyecto">
+      <div class="donate-text"><p class="eyebrow">Proyecto gratuito · apoyo libre</p><h2>Ayuda a mantener Med Nykuto abierto.</h2><p>Una contribución ayuda a pagar el alojamiento y mantener los cursos y entrenamientos disponibles.</p><div class="support-actions"><button class="btn primary" id="copyPixBtn" type="button">Copiar código Pix</button></div></div>
+      <figure class="donate-visual" id="pixDonationVisual"><img src="assets/donation-pix.png" alt="QR Pix de apoyo" class="support-image" /><figcaption class="donate-fun-bubble"><strong>Un pequeño Pix mantiene los QCM funcionando.</strong><span>Gracias por apoyar el proyecto.</span></figcaption><button class="qr-copy-hotspot" id="copyPixQr" type="button" aria-label="Copiar código Pix"></button></figure>
+    </section>
   </main>
 
   <footer class="footer compact-footer"><div><strong>Med Nykuto</strong><p>Biblioteca médica organizada para revisar más rápido.</p></div><div class="footer-links"><a href="matieres.html">Materias</a><a href="modules.html">Módulos</a><a href="contact.html">Contacto</a><a href="a-propos.html">Acerca de</a><a href="mentions.html">Aviso legal</a></div></footer>
@@ -84,9 +105,9 @@
   <script src="data/med-practice-bank-init.js?v=365"></script>
   <script src="data/med-practice-bank-loader.js?v=373"></script>
   <script src="app.bundle.js?v=372"></script>
-  <script src="home-subject-picker-v365.js?v=373"></script>
+  <script src="home-subject-picker-v365.js?v=460"></script>
   <script src="v210-module-picker-overlay.js?v=363"></script>
-  <script src="site-global-polish-v310.js?v=380"></script>
+  <script src="site-global-polish-v310.js?v=460"></script>
   <script src="mobile-menu-layout-fix-v101.js?v=101"></script>
   <script src="medical-glossary-v425.js?v=426"></script>
 </body>

@@ -1,5 +1,20 @@
-const CACHE = 'med-nykuto-class-v463';
+const CACHE = 'med-nykuto-class-v464';
 const SHELL = [
+  '/index.html',
+  '/manifest-s3.webmanifest',
+  '/matieres.html',
+  '/modules.html',
+  '/qcm.html',
+  '/cas-cliniques.html',
+  '/vrai-faux.html',
+  '/erreurs.html',
+  '/examen.html',
+  '/style.css?v=363',
+  '/med-nykuto-modern-ui-v378.css?v=460',
+  '/semester-3-shell-v460.css?v=460',
+  '/semester-3-shell-v460.js?v=460',
+  '/home-subject-picker-v365.js?v=460',
+  '/site-global-polish-v310.js?v=460',
   '/clase.html',
   '/comunidade.html',
   '/profesores.html',
@@ -40,7 +55,7 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin || url.pathname.startsWith('/api/')) return;
   if (request.mode === 'navigate') {
-    event.respondWith(fetch(request).then((response) => { const copy = response.clone(); caches.open(CACHE).then((cache) => cache.put(request, copy)); return response; }).catch(() => caches.match(request).then((cached) => cached || caches.match('/clase.html'))));
+    event.respondWith(fetch(request).then((response) => { const copy = response.clone(); caches.open(CACHE).then((cache) => cache.put(request, copy)); return response; }).catch(() => caches.match(request).then((cached) => cached || caches.match('/index.html'))));
     return;
   }
   event.respondWith(caches.match(request).then((cached) => {

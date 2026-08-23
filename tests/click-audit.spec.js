@@ -22,11 +22,6 @@ const navExpectations = [
   ['#navLinks a[href="index.html"], #navLinks a[href="/"]', /index\.html|\/$/],
   ['#navLinks a[href="matieres.html"]', /matieres\.html/],
   ['#navLinks a[href="modules.html"]', /modules\.html/],
-  ['#navLinks a[href="qcm.html"]', /qcm\.html/],
-  ['#navLinks a[href="cas-cliniques.html"]', /cas-cliniques\.html/],
-  ['#navLinks a[href="vrai-faux.html"]', /vrai-faux\.html/],
-  ['#navLinks a[href="erreurs.html"]', /erreurs\.html/],
-  ['#navLinks a[href="examen.html"]', /examen\.html/],
   ['#navLinks a[href="contact.html"]', /contact\.html/]
 ];
 
@@ -122,6 +117,19 @@ test.describe('Med Nykuto broad click audit', () => {
       await expect(page.locator('body')).toBeVisible();
       expect(errors).toEqual([]);
     }
+  });
+
+  test('semester 3 study navigation opens the training center and routes to QCM', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('medNykuto:studentSemester', 's3'));
+    await page.goto('/index.html');
+    await waitReady(page);
+    const study = page.locator('#navLinks [data-s3-study-open]').first();
+    await expect(study).toBeVisible();
+    await study.click();
+    await expect(page.locator('#s3StudySheet.open')).toBeVisible();
+    await page.locator('#s3StudySheet a[href="qcm.html"]').click();
+    await expect(page).toHaveURL(/qcm\.html/);
+    await expect(page.locator('#practiceList')).toBeVisible();
   });
 
   test('reader action buttons route to training pages for the selected module', async ({ page }) => {

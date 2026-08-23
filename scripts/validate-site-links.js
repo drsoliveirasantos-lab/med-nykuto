@@ -62,7 +62,7 @@ for(const file of htmlFiles){
 const jsChecks = [
   ['app.bundle.js', /__MED_NYKUTO_LEGACY_FIGURE_LIGHTBOX__\s*=\s*['"]disabled-external-zoom-v368['"]/],
   ['site-global-polish-v310.js', /__MED_NYKUTO_GLOBAL_POLISH__\s*=\s*['"]v380-multilingual-loader['"]/],
-  ['site-global-polish-v310.js', /CACHE_VERSION\s*=\s*['"]380['"]/],
+  ['site-global-polish-v310.js', /CACHE_VERSION\s*=\s*['"]460['"]/],
   ['course-image-zoom-v101.js', /__MED_NYKUTO_COURSE_IMAGE_ZOOM__\s*=\s*['"]v102-scroll-stable-close['"]/],
   ['practice-critical-click-fallback-v101.js', /__MED_NYKUTO_PRACTICE_CRITICAL_CLICK_FALLBACK__\s*=\s*VERSION/],
   ['auth-optional-v101.js', /MED_NYKUTO_AUTH_REQUIRED\s*=\s*false/],

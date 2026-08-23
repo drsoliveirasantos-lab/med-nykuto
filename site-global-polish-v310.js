@@ -7,7 +7,7 @@
 
   var SITE_NAME = 'Med Nykuto';
   var HOST = 'https://med.nykuto.com/';
-  var CACHE_VERSION = '380';
+  var CACHE_VERSION = '460';
 
   function enforceSemesterScope(){
     var semester = '';
@@ -15,7 +15,9 @@
     if(semester !== 's4' && semester !== 's5') return false;
     var protectedPage = /^(matieres|matiere|modules|module|qcm|cas-cliniques|vrai-faux|erreurs|examen)\.html$/.test(location.pathname.split('/').pop() || '');
     if(!protectedPage) return false;
-    location.replace('index.html?semestre=' + encodeURIComponent(semester) + '&contenido=proximamente');
+    location.replace(semester === 's4'
+      ? 'clase.html'
+      : 'index.html?semestre=s5&contenido=proximamente');
     return true;
   }
 
@@ -387,8 +389,10 @@
   function loadHomeLinkFix(){ appendScript('homeLinkFixV303', 'home-link-fix-v303.js?v=365', '__MED_NYKUTO_HOME_LINK_FIX_LOADER__'); }
   function loadOptionalAuth(){ appendScript('authOptionalV101', 'auth-optional-v101.js?v=101', '__MED_NYKUTO_AUTH_OPTIONAL_LOADER__'); }
   function loadCourseImageZoom(){ appendScript('courseImageZoomV101', 'course-image-zoom-v101.js?v=102', '__MED_NYKUTO_COURSE_IMAGE_ZOOM_LOADER__'); }
+  function loadSemesterThreeShell(){ appendScript('semesterThreeShellV460', 'semester-3-shell-v460.js?v=460', '__MED_NYKUTO_S3_SHELL_LOADER__'); }
 
   function loadGlobalRepairLayers(){
+    loadSemesterThreeShell();
     if(isQuietPage()){
       window.__MED_NYKUTO_GLOBAL_POLISH_LIGHT_MODE__ = 'v377-skip-forced-repair-layers';
       if(isModuleReaderPage()) loadCourseImageZoom();

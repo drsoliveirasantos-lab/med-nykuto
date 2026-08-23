@@ -77,7 +77,7 @@ test.describe('Med Nykuto smoke navigation', () => {
   test('homepage subject picker opens as a modal and routes selection correctly', async ({ page }) => {
     await page.addInitScript(() => localStorage.setItem('medNykuto:studentSemester', 's3'));
     await page.goto('/index.html');
-    await page.waitForFunction(() => window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ === 'v372-semester-catalog-isolation', null, { timeout: 20000 });
+    await page.waitForFunction(() => window.__MED_NYKUTO_HOME_SUBJECT_PICKER__ === 'v460-semester-hub-routing', null, { timeout: 20000 });
     const trigger = page.locator('[data-testid="home-subject-picker-trigger"]').first();
     await expect(trigger).toBeVisible();
     await trigger.click();
@@ -88,7 +88,7 @@ test.describe('Med Nykuto smoke navigation', () => {
     await expect(page.locator('[data-testid="home-module-choice"]')).toHaveCount(EXPECTED_FISIOLOGIA_MODULES);
   });
 
-  test('homepage asks for the semester, persists it and shows the publication period', async ({ page }) => {
+  test('semester 3 opens the complete hub and semester 4 routes to its real class space', async ({ page }) => {
     await page.addInitScript(() => {
       const testKey = 'medNykuto:test:semester-cleared';
       if(sessionStorage.getItem(testKey)) return;
@@ -100,23 +100,18 @@ test.describe('Med Nykuto smoke navigation', () => {
     await expect(page.locator('[data-semester-select]')).toHaveCount(3);
     await expect(page.locator('[data-semester-select="s4"]')).toContainText('Agosto–diciembre de 2026');
     await expect(page.locator('[data-semester-select="s5"]')).toContainText('A partir de febrero de 2027');
+    await page.locator('[data-semester-select="s3"]').click();
+    await expect(page.locator('#homeSemesterModal')).not.toHaveClass(/open/);
+    await expect(page.locator('.s3-dashboard')).toBeVisible();
+    await expect(page.locator('#s3-home-title')).toContainText('Todo tu tercer semestre');
+    await expect(page.locator('#statModules')).toHaveText('59');
+    await expect(page.locator('#statCursoes')).toHaveText('5');
+    await expect(page.locator('link[rel="manifest"]')).toHaveAttribute('href', 'manifest-s3.webmanifest');
+    await expect(page.locator('.home-class-entry-v401')).toHaveCount(0);
+    await page.locator('[data-semester-open]').click();
     await page.locator('[data-semester-select="s4"]').click();
-    await expect(page.locator('#homeSemesterModal')).not.toHaveClass(/open/);
-    await expect(page.locator('#homeSemesterCard')).toContainText('Semestre 4 seleccionado');
-    await expect(page.locator('#homeSemesterCard')).toContainText('agosto y diciembre de 2026');
-    await expect(page.locator('#statModules')).toHaveText('0');
-    await expect(page.locator('#statCursoes')).toHaveText('6');
-    await page.locator('[data-testid="home-subject-picker-trigger"]').first().click();
-    await expect(page.locator('[data-testid="home-subject-choice"]')).toHaveCount(6);
-    await expect(page.locator('[data-testid="home-subject-choice"]')).toContainText(['Fisiología II','Microbiología II','Bioquímica II','Nutrición','Epidemiología y Salud Pública','Bioética']);
-    await expect(page.locator('[data-testid="home-subject-choice"]').first()).toContainText('0 módulos');
-    await page.locator('[data-home-course-id="fisiologia-2"]').click();
-    await expect(page.locator('[data-testid="home-module-choice"]')).toHaveCount(0);
-    await expect(page.locator('.home-pick-empty')).toContainText('No hay módulos disponibles');
-    await page.locator('[data-home-pick-close]').click();
-    await page.reload();
-    await expect(page.locator('#homeSemesterModal')).not.toHaveClass(/open/);
-    await expect(page.locator('#homeSemesterCard')).toContainText('Semestre 4 seleccionado');
+    await expect(page).toHaveURL(/clase(?:\.html)?$/);
+    await expect(page.getByRole('heading', { name: 'Tu semana' })).toBeVisible();
   });
 
   test('semester 4 cannot open semester 3 courses or practice by direct URL', async ({ page }) => {
@@ -148,9 +143,14 @@ test.describe('Med Nykuto smoke navigation', () => {
     await page.goto('/index.html');
     await page.locator('button[data-lang="fr"]').click();
     await page.waitForFunction(() => document.body?.dataset?.lang === 'fr', null, { timeout: 15000 });
-    await expect(page.locator('#quick-actions-title')).toHaveText('Que veux-tu réviser maintenant ?');
-    await expect(page.locator('.home-v41-copy > h1')).toContainText('Étudie la médecine');
+    await expect(page.locator('#s3-home-title')).toContainText('Tout ton troisième semestre');
+    await expect(page.locator('[data-s3-copy="chooseSubject"]')).toHaveText('Choisir une matière');
     await expect(page.locator('#navLinks a[href="matieres.html"]')).toHaveText('Matières');
+    await page.locator('[data-semester-open]').click();
+    await expect(page.locator('#semesterTitle')).toHaveText('Quel est ton semestre ?');
+    await expect(page.locator('[data-semester-select="s4"]')).toContainText('Août–décembre 2026');
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#homeSemesterModal')).not.toHaveClass(/open/);
 
     await page.goto('/contact.html');
     await page.waitForFunction((version) => window.__MED_NYKUTO_GLOBAL_POLISH__ === version, CURRENT_GLOBAL_POLISH, { timeout: 20000 });
@@ -160,12 +160,29 @@ test.describe('Med Nykuto smoke navigation', () => {
 
     await page.locator('button[data-lang="br"]').click();
     await page.waitForFunction(() => document.body?.dataset?.lang === 'br', null, { timeout: 15000 });
-    await expect(page.locator('#quick-actions-title')).toHaveText('O que você quer revisar agora?');
+    await expect(page.locator('#s3-home-title')).toContainText('Todo o terceiro semestre');
     await expect(page.locator('#navLinks a[href="matieres.html"]')).toHaveText('Matérias');
 
     await page.locator('button[data-lang="es"]').click();
     await page.waitForFunction(() => document.body?.dataset?.lang === 'es', null, { timeout: 15000 });
-    await expect(page.locator('#quick-actions-title')).toHaveText('¿Qué quieres revisar ahora?');
+    await expect(page.locator('#s3-home-title')).toContainText('Todo tu tercer semestre, en un solo lugar.');
+  });
+
+  test('semester 3 exposes a compact mobile navigation and accessible study sheet', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 760 });
+    await page.addInitScript(() => localStorage.setItem('medNykuto:studentSemester', 's3'));
+    await page.goto('/index.html');
+    await page.waitForFunction(() => window.__MED_NYKUTO_S3_SHELL__ === 'v460', null, { timeout: 20000 });
+    const bottom = page.locator('#s3BottomNav');
+    await expect(bottom).toBeVisible();
+    await expect(bottom.locator('a,button')).toHaveCount(5);
+    await bottom.locator('[data-s3-study-open]').click();
+    await expect(page.locator('#s3StudySheet.open')).toBeVisible();
+    await expect(page.locator('#s3StudySheet a')).toHaveCount(5);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#s3StudySheet')).not.toHaveClass(/open/);
   });
 
   test('module page uses content-first reader layout and exposes all reading modes', async ({ page }) => {
