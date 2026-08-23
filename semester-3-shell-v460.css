@@ -21,10 +21,11 @@ body.semester-three-shell .nav-shell{width:min(calc(100% - 32px),1180px)!importa
 body.semester-three-shell .brand-context small{font-size:.67rem!important}
 .s3-header-scope{display:inline-flex;align-items:center;gap:7px;min-height:34px;padding:6px 10px;border:1px solid rgba(242,198,109,.24);border-radius:999px;color:var(--s3-gold-soft);background:rgba(242,198,109,.07);font-size:.66rem;font-weight:900;white-space:nowrap}
 .s3-header-scope::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--s3-green);box-shadow:0 0 12px rgba(114,224,171,.8)}
-.s3-nav-study{border-color:rgba(242,198,109,.28)!important;color:var(--s3-gold-soft)!important;background:rgba(242,198,109,.08)!important;font-weight:900!important}
+.s3-nav-study{min-height:34px;display:inline-flex;align-items:center;justify-content:center;padding:7px 9px;border:1px solid rgba(242,198,109,.28)!important;border-radius:999px;color:var(--s3-gold-soft)!important;background:rgba(242,198,109,.08)!important;font:inherit;font-weight:900!important;line-height:1;white-space:nowrap;cursor:pointer}
 
-.s3-home{width:min(calc(100% - 36px),1120px);margin:0 auto;padding:32px 0 110px!important}
+.s3-home{width:min(calc(100% - 36px),1120px)!important;max-width:1120px!important;margin:0 auto;padding:32px 0 110px!important;overflow-x:clip}
 .s3-dashboard{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,.72fr);gap:14px}
+.s3-home>*,.s3-dashboard>*,.s3-section>*,.s3-support>*{min-width:0;max-width:100%}
 .s3-dashboard-copy,.s3-focus-card,.s3-section,.s3-support{border:1px solid var(--s3-line);box-shadow:var(--s3-shadow)}
 .s3-dashboard-copy{min-width:0;position:relative;overflow:hidden;padding:clamp(28px,5vw,54px);border-radius:30px;background:linear-gradient(145deg,rgba(17,34,56,.98),rgba(7,18,31,.94))}
 .s3-dashboard-copy::after{content:"";position:absolute;width:430px;height:430px;right:-230px;bottom:-255px;border-radius:50%;background:radial-gradient(circle,rgba(111,216,255,.2),transparent 68%);pointer-events:none}
@@ -148,7 +149,8 @@ body.s3-study-sheet-open{overflow:hidden}
   body.semester-three-shell .menu-toggle{width:46px!important;height:46px!important;border-radius:15px!important;font-size:21px!important}
   .s3-header-scope{margin-left:auto;min-height:31px;padding:5px 8px;font-size:.58rem}
   body.semester-three-shell #navLinks,body.semester-three-shell .nav-links{top:66px!important;right:12px!important;max-height:calc(100vh - 156px)!important;overflow:auto!important}
-  .s3-home{width:calc(100% - 20px);padding:10px 0 24px!important}
+  body.semester-three-shell #navLinks.open .s3-nav-study,body.semester-three-shell .nav-links.open .s3-nav-study{width:100%;min-height:44px}
+  .s3-home{width:calc(100% - 20px)!important;max-width:calc(100% - 20px)!important;padding:10px 0 24px!important}
   .s3-dashboard{grid-template-columns:1fr;gap:10px}
   .s3-dashboard-copy,.s3-focus-card{border-radius:24px}
   .s3-focus-card{min-height:auto}
@@ -207,7 +209,7 @@ body.s3-study-sheet-open{overflow:hidden}
 }
 
 @media(max-width:350px){
-  .s3-home{width:calc(100% - 12px)}
+  .s3-home{width:calc(100% - 12px)!important;max-width:calc(100% - 12px)!important}
   .s3-dashboard-copy{padding-left:14px;padding-right:14px}
   .s3-dashboard h1{font-size:2.18rem}
   .s3-dashboard-actions{grid-template-columns:1fr}

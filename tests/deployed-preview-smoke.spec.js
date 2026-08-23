@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const { expectClinicalPageReady } = require('./helpers/practice-policy');
 
 const base = (process.env.DEPLOYED_BASE_URL || 'https://med.nykuto.com').replace(/\/$/, '');
 
@@ -40,7 +41,7 @@ test.describe('Deployed production smoke', () => {
 
     await gotoDeployed(page, '/cas-cliniques.html?course=fisiologia');
     await page.waitForFunction(() => window.__MED_NYKUTO_CASE_INSTANT_RENDER__, null, { timeout: 20000 });
-    await expect(page.locator('#practiceList .single-question-card').first()).toBeVisible({ timeout: 20000 });
+    await expectClinicalPageReady(page, expect);
 
     await gotoDeployed(page, '/vrai-faux.html?course=fisiologia');
     await expect(page.locator('#practiceList .single-question-card').first()).toBeVisible({ timeout: 20000 });

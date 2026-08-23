@@ -73,8 +73,8 @@
       });
     });
     if(!nav.querySelector('[data-s3-study-open]')){
-      var study = document.createElement('a');
-      study.href = '#s3StudyHub';
+      var study = document.createElement('button');
+      study.type = 'button';
       study.className = 's3-nav-study';
       study.dataset.s3StudyOpen = '1';
       study.dataset.s3Copy = 'studyNav';
@@ -130,6 +130,14 @@
   function openStudySheet(trigger){
     var sheet = document.getElementById('s3StudySheet');
     if(!sheet) return;
+    var menu = document.getElementById('navLinks') || document.querySelector('.nav-links');
+    var toggle = document.getElementById('menuToggle') || document.querySelector('.menu-toggle');
+    if(menu) menu.classList.remove('open');
+    if(toggle){
+      toggle.setAttribute('aria-expanded','false');
+      toggle.setAttribute('aria-label','Abrir menú');
+    }
+    document.body.classList.remove('med-menu-open');
     focusBeforeSheet = trigger || document.activeElement;
     sheet.classList.add('open');
     sheet.setAttribute('aria-hidden','false');

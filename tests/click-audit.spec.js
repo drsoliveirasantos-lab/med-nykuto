@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const { expectBlockedClinicalCases } = require('./helpers/practice-policy');
 
 const CURRENT_RUNTIME_GUARD = 'v362';
 
@@ -145,7 +146,7 @@ test.describe('Med Nykuto broad click audit', () => {
     await waitReady(page);
     await page.locator('#openCaseBtn').click();
     await expect(page).toHaveURL(/cas-cliniques\.html/);
-    await expect(page.locator('.option').first()).toBeAttached();
+    await expectBlockedClinicalCases(page, expect);
   });
 
   test('mark-as-seen button toggles module progress without navigation break', async ({ page }) => {
@@ -166,7 +167,8 @@ test.describe('Med Nykuto broad click audit', () => {
 
     await clickHref(page, 'cas-cliniques.html');
     await expect(page).toHaveURL(/cas-cliniques\.html/);
-    await expect(page.locator('.option').first()).toBeAttached();
+    const caseCourse = new URL(page.url()).searchParams.get('course');
+    await expectBlockedClinicalCases(page, expect, caseCourse);
 
     await clickHref(page, 'vrai-faux.html');
     await expect(page).toHaveURL(/vrai-faux\.html/);

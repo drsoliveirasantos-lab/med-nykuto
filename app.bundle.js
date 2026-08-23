@@ -2564,11 +2564,15 @@ function topicForQuestion(item){
       const scopeCourseId = courseParam || (selectedModule && selectedModule.courseId) || '';
       const scopeBank = scopeCourseId && BANK.byCourse ? BANK.byCourse[scopeCourseId] : null;
       const formatKey = type === 'case' ? 'cases' : type;
-      const blockedForQuality = !!(scopeBank && scopeBank.certification && (scopeBank.certification.blockedFormats || []).includes(formatKey));
+      const relevantBanks = scopeBank ? [scopeBank] : Object.values(BANK.byCourse || {});
+      const blockedForQuality = type === 'case' && relevantBanks.length > 0 && relevantBanks.every(bank => (
+        bank && bank.certification && (bank.certification.blockedFormats || []).includes(formatKey)
+      ));
       if(blockedForQuality){
-        const encodedCourse = encodeURIComponent(scopeCourseId);
+        const courseQuery = scopeCourseId ? `?course=${encodeURIComponent(scopeCourseId)}` : '';
+        const scopeLabel = scopeCourseId ? 'de esta materia' : 'del tercer semestre';
         if(empty) empty.textContent = 'Contenido retirado durante la certificación de calidad.';
-        list.innerHTML = `<div class="notice"><strong>Calidad antes que cantidad.</strong><p>Los casos heredados de esta materia no cumplen todavía el estándar clínico de Med Nykuto. Permanecen ocultos hasta su reconstrucción a partir del curso.</p><div class="module-actions"><a class="btn secondary" href="qcm.html?course=${encodedCourse}">Revisar QCM certificados</a><a class="btn ghost" href="vrai-faux.html?course=${encodedCourse}">Revisar V/F certificados</a></div></div>`;
+        list.innerHTML = `<div class="notice"><strong>Calidad antes que cantidad.</strong><p>Los casos heredados ${scopeLabel} no cumplen todavía el estándar clínico de Med Nykuto. Permanecen ocultos hasta su reconstrucción a partir del curso.</p><div class="module-actions"><a class="btn secondary" href="qcm.html${courseQuery}">Revisar QCM certificados</a><a class="btn ghost" href="vrai-faux.html${courseQuery}">Revisar V/F certificados</a></div></div>`;
       } else list.innerHTML = `<div class="notice">${t('noQuestions')}</div>`;
       return;
     }

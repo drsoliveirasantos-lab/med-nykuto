@@ -45,6 +45,7 @@ async function expectPracticeHealth(page) {
     qcmCount: window.MED_NYKUTO_HEALTH?.qcmCount || 0,
     vfCount: window.MED_NYKUTO_HEALTH?.vfCount || 0,
     caseCount: window.MED_NYKUTO_HEALTH?.caseCount || 0,
+    casesBlockedByPolicy: window.MED_NYKUTO_HEALTH?.casesBlockedByPolicy,
     bodyHealth: document.body?.dataset?.medHealth || '',
     hasBank: !!window.MED_PRACTICE_BANK?.byCourse
   }));
@@ -52,6 +53,7 @@ async function expectPracticeHealth(page) {
   if (health.bodyHealth) expect(health.bodyHealth).toBe('ok');
   if (health.ok !== undefined) expect(health.ok).toBeTruthy();
   if (health.bankRequired !== undefined) expect(health.bankRequired).toBeTruthy();
+  if (health.caseCount === 0) expect(health.casesBlockedByPolicy).toBeTruthy();
 }
 
 async function counts(page, courseId) {

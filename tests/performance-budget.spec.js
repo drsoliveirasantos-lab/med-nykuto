@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const { expectBlockedClinicalCases } = require('./helpers/practice-policy');
 
 async function getPerformance(page) {
   return page.evaluate(() => {
@@ -27,7 +28,9 @@ for (const item of pages) {
     const start = Date.now();
     await page.goto(item.path, { waitUntil: 'load' });
     await expect(page.locator('body')).toBeVisible({ timeout: 15000 });
-    if (/qcm|cas-cliniques|vrai-faux/.test(item.path)) {
+    if (/cas-cliniques/.test(item.path)) {
+      await expectBlockedClinicalCases(page, expect);
+    } else if (/qcm|vrai-faux/.test(item.path)) {
       await expect(page.locator('#practiceList .single-question-card').first()).toBeVisible({ timeout: 20000 });
     }
     const elapsed = Date.now() - start;

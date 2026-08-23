@@ -108,8 +108,14 @@ test.describe('Med Nykuto smoke navigation', () => {
     await expect(page.locator('#statCursoes')).toHaveText('5');
     await expect(page.locator('link[rel="manifest"]')).toHaveAttribute('href', 'manifest-s3.webmanifest');
     await expect(page.locator('.home-class-entry-v401')).toHaveCount(0);
-    await page.locator('[data-semester-open]').click();
-    await page.locator('[data-semester-select="s4"]').click();
+    await expect.poll(() => page.evaluate(() => localStorage.getItem('medNykuto:studentSemester'))).toBe('s3');
+    const semesterTrigger = page.locator('[data-semester-open]').first();
+    await expect(semesterTrigger).toBeVisible();
+    await semesterTrigger.click();
+    await expect(page.locator('#homeSemesterModal.open')).toBeVisible();
+    const semesterFour = page.locator('[data-semester-select="s4"]');
+    await expect(semesterFour).toBeVisible();
+    await semesterFour.click();
     await expect(page).toHaveURL(/clase(?:\.html)?$/);
     await expect(page.getByRole('heading', { name: 'Tu semana' })).toBeVisible();
   });
