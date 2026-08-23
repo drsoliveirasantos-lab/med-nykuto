@@ -2,7 +2,7 @@
 
 ## Capacites
 
-La page protegee `gestion.html` permet de publier sans redesploiement les taches, alertes, activites de groupe, fichiers et dates. Les contenus publies apparaissent dans `clase.html` et `archivos.html` par l'intermediaire de `functions/api/class-hub.js`.
+Le shell protege `gestion-shell/index.html`, publie sous `/gestion/:slug`, permet de publier sans redesploiement les taches, alertes, activites de groupe, fichiers et dates. Les contenus publies apparaissent dans `clase.html` et `archivos.html` par l'intermediaire de `functions/api/class-hub.js`.
 
 - Le proprietaire est le seul role autorise a creer ou revoquer des invitations, revoquer un editeur et consulter le journal d'audit.
 - Un editeur peut gerer les taches, alertes, groupes, fichiers et dates. Les cours, questions, profils enseignants, permissions et parametres restent bloques cote serveur.
@@ -19,7 +19,7 @@ La page protegee `gestion.html` permet de publier sans redesploiement les taches
 2. Ajouter un secret de production `MED_NYKUTO_OWNER_TOKEN` long, aleatoire et reserve au proprietaire.
 3. Ajouter de preference un second secret aleatoire `MED_NYKUTO_RATE_SALT` pour isoler les empreintes utilisees par la limitation d'abus.
 4. Redeployer. Les tables, index, deux taches actives, les alertes initiales et les emplacements de groupes vides sont crees automatiquement a la premiere requete.
-5. Ouvrir `/gestion.html`, entrer le token proprietaire, puis creer si necessaire une invitation d'editeur.
+5. Ouvrir `/gestion/s4-e`, entrer le token proprietaire, puis creer si necessaire une invitation d'editeur.
 
 Sans D1, la page publique conserve ses donnees statiques de secours. La gestion protegee et les inscriptions de groupe restent volontairement indisponibles.
 

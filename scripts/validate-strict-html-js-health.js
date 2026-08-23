@@ -42,7 +42,8 @@ function checkRef(file, attr, ref) {
   if (!existsLocal(ref)) failures.push(`${file}: missing local ${attr} target: ${ref}`);
 }
 
-const htmlFiles = fs.readdirSync(root).filter((name) => name.endsWith('.html'));
+const htmlFiles = fs.readdirSync(root).filter((name) => name.endsWith('.html'))
+  .concat(['turma-shell/index.html', 'gestion-shell/index.html'].filter((name) => fs.existsSync(path.join(root, name))));
 for (const file of htmlFiles) {
   const html = fs.readFileSync(path.join(root, file), 'utf8');
   for (const match of html.matchAll(/<(script|link|a|img)\b[^>]*(?:src|href)=["']([^"']+)["'][^>]*>/gi)) {

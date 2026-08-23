@@ -9,7 +9,7 @@ const exists = (file) => fs.existsSync(path.join(root, file));
 const html = read('clase.html');
 const runtime = read('class-hub-runtime-v440.js');
 const api = read('functions/api/class-hub.js');
-const management = read('gestion.html') + read('gestion-v440.js');
+const management = read('gestion-shell/index.html') + read('gestion-v440.js');
 global.window = {};
 require(path.join(root, 'academic-model-v445.js'));
 const academicModel = global.window.MedNykutoAcademicModel;
@@ -56,7 +56,7 @@ lessons.forEach((id) => {
   'assets/class-hub/epidemiology/2026-08-19/teacher-guidance/0746E8D5-EFF3-46DF-99C4-CD3D83376F7A.jpeg',
   'assets/class-hub/physiology/2026-08-20/ejercicios-fijacion-sistema-nervioso.pdf',
   'assets/class-hub/biochemistry/2026-08-21/actividades-3-y-4-bioquimica-ii.docx',
-  'manifest.webmanifest', 'service-worker.js', 'gestion.html', 'profesores.html', 'archivos.html'
+  'manifest.webmanifest', 'service-worker.js', 'gestion-shell/index.html', 'profesores.html', 'archivos.html'
 ].forEach((file) => expect(exists(file), `Missing required deliverable ${file}.`));
 
 const originalHashes = {

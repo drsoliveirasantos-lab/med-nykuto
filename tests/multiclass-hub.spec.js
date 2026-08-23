@@ -68,7 +68,7 @@ test.describe('Multiclass student hub', () => {
       });
     });
 
-    await page.goto('/turma.html?class=s5-a');
+    await page.goto('/turma-shell/?class=s5-a');
 
     await expect(page.locator('html')).toHaveAttribute('data-class-slug', 's5-a');
     await expect(page.locator('#homeTitle')).toHaveText('Medicina · 5.º A');
@@ -134,7 +134,7 @@ test.describe('Multiclass student hub', () => {
       await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(CLASS_RESPONSE) });
     });
 
-    await page.goto('/turma.html?class=s5-a#mas');
+    await page.goto('/turma-shell/?class=s5-a#mas');
     await page.locator('#groupList').locator('..').locator('summary').click();
     const group = page.locator('#groupList .class-group-choice');
     await group.click();
@@ -163,7 +163,7 @@ test.describe('Multiclass student hub', () => {
       });
     });
 
-    await page.goto('/turma.html?class=s5-a');
+    await page.goto('/turma-shell/?class=s5-a');
     await expect(page.locator('#homeTitle')).toHaveText('No pudimos abrir esta turma');
     await expect(page.locator('#classSubtitle')).toContainText('no existe o no está activa');
     await expect(page.locator('body')).not.toContainText('Medicina · 5.º A');
@@ -173,7 +173,7 @@ test.describe('Multiclass student hub', () => {
   test('keeps pilot management form values after an authenticated save failure', async ({ page }) => {
     const requestedPaths = [];
     const apiRequests = [];
-    const managementHtml = readRepo('gestion.html');
+    const managementHtml = readRepo('gestion-shell/index.html');
 
     page.on('request', (request) => requestedPaths.push(new URL(request.url()).pathname));
     await page.route('**/gestion/s5-a', async (route) => {
@@ -260,7 +260,7 @@ test.describe('Multiclass student hub', () => {
   });
 
   test('lets the owner modify, archive and reactivate a class without changing its stable slug', async ({ page }) => {
-    const managementHtml = readRepo('gestion.html');
+    const managementHtml = readRepo('gestion-shell/index.html');
     const writes = [];
     const classes = [
       { id: 's4-e', slug: 's4-e', name: 'Medicina · 4.º E', semester: 4, group: 'E', theme: 'midnight-gold', driveUrl: '', status: 'active' },
@@ -349,7 +349,7 @@ test.describe('Multiclass student hub', () => {
 
     expect(shellEntries).toEqual(expect.arrayContaining([
       '/offline.html',
-      '/turma.html',
+      '/turma-shell/',
       '/turma-v471.css?v=471',
       '/turma-v471.js?v=471',
       '/turma-manifest-boot-v471.js?v=471'
@@ -390,7 +390,7 @@ test.describe('Multiclass student hub', () => {
   });
 
   test('selects the s5-a manifest in the document head before the class runtime starts', async ({ page }) => {
-    const turmaHtml = readRepo('turma.html');
+    const turmaHtml = readRepo('turma-shell/index.html');
     const loadedPaths = [];
     page.on('request', (request) => loadedPaths.push(new URL(request.url()).pathname));
 
