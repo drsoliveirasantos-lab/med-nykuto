@@ -85,6 +85,12 @@ if (model) {
   expect(/PIZARRA DEL PROFESOR · RECONSTRUIDA/.test(notebookJs), 'Teacher-board provenance is not explicit in the enlarged viewer.');
   expect(/ESQUEMA EXPLICATIVO DEL CURSO/.test(notebookJs), 'Contextual diagrams are not distinguished from teacher boards.');
   expect(/course-diagram-zoom/.test(notebookJs) && /course-diagram-zoom/.test(notebookCss), 'The teacher-board reader is not zoomable on mobile.');
+  expect(/function summaryPanel\([\s\S]*outlineFromCourse/.test(notebookJs), 'The quick and ultra sheets are not rebuilt from each lesson outline.');
+  expect(/dataset\.lessonReview = 'standard'/.test(notebookJs), 'The unified review-sheet marker is missing.');
+  expect(/notebook-review-route/.test(notebookJs) && /notebook-review-card/.test(notebookJs) && /notebook-review-recall/.test(notebookJs), 'The five-minute sheet is missing its route, reasoned cards or active-recall prompt.');
+  expect(/notebook-ultra-path/.test(notebookJs) && /notebook-ultra-rules/.test(notebookJs) && /notebook-ultra-close/.test(notebookJs), 'The ninety-second sheet is missing its scan path, limits or closing recall line.');
+  expect(/ultraLessonVisuals[\s\S]*'bioquimica-2026-08-14'[\s\S]*type:\s*'pathway'[\s\S]*'bioquimica-2026-08-21'[\s\S]*type:\s*'flow'/.test(notebookJs), 'Biochemistry ultra sheets must use dedicated synthesis diagrams instead of teacher boards.');
+  expect(/notebook-review-layout/.test(notebookCss) && /notebook-ultra-scan/.test(notebookCss), 'The unified review sheets are not styled.');
   expect(/adipocyte[\s\S]*tejido muscular[\s\S]*hígado/i.test(bioBoards[0]), 'Board 1 does not identify adipocytes, muscle and liver semantically.');
   expect(/hepatocito[\s\S]*mitocondria[\s\S]*vessel[\s\S]*lung/i.test(bioBoards[1]), 'Board 2 does not identify hepatocyte, mitochondrion, vessel and lungs semantically.');
   expect(/célula cerebral[\s\S]*cerebro adaptado[\s\S]*edema cerebral[\s\S]*herniación/i.test(bioBoards[2]), 'Board 3 does not identify the cerebral cell, adapted brain, edema and herniation semantically.');

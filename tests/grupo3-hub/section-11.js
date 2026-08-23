@@ -158,7 +158,31 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(fullCourse.locator('.course-inline-figure')).not.toHaveCount(0);
       await expect(fullCourse.locator('.course-chapter-index, .notebook-course-index')).toHaveCount(0);
       await expect(fullCourse.locator('.concept-card-2026')).toHaveCount(0);
+      const quick = page.locator('#' + id + ' [data-lesson-tab-panel="rapida"]');
+      const ultra = page.locator('#' + id + ' [data-lesson-tab-panel="ultra"]');
+      await expect(quick.locator('.notebook-review-sheet[data-lesson-review="standard"]')).toHaveCount(1);
+      await expect(quick.locator('.notebook-review-route')).toHaveCount(1);
+      await expect(quick.locator('.notebook-review-recall')).toHaveCount(1);
+      expect(await quick.locator('.notebook-review-card').count()).toBe(await fullCourse.locator('.course-chapter-section').count());
+      await expect(ultra.locator('.notebook-review-sheet[data-lesson-review="standard"]')).toHaveCount(1);
+      await expect(ultra.locator('.course-inline-figure.is-summary')).toHaveCount(1);
+      await expect(ultra.locator('.notebook-ultra-path li')).toHaveCount(4);
+      const ultraRules = await ultra.locator('.notebook-ultra-rules li').count();
+      expect(ultraRules).toBeGreaterThanOrEqual(1);
+      expect(ultraRules).toBeLessThanOrEqual(5);
     }
+  });
+
+  test('separates Biochemistry synthesis diagrams from the faithful teacher boards', async ({ page }) => {
+    await page.goto('/clase.html#bioquimica-2026-08-14');
+    let ultra = page.locator('#bioquimica-2026-08-14 [data-lesson-tab-panel="ultra"]');
+    await expect(ultra.locator('svg.diagram-pathway')).toHaveCount(1);
+    await expect(ultra.locator('.course-inline-image')).toHaveCount(0);
+
+    await page.goto('/clase.html#bioquimica-2026-08-21');
+    ultra = page.locator('#bioquimica-2026-08-21 [data-lesson-tab-panel="ultra"]');
+    await expect(ultra.locator('svg.diagram-flow')).toHaveCount(1);
+    await expect(ultra.locator('.course-inline-image')).toHaveCount(0);
   });
 
   test('keeps the three 21 August teacher boards miniature and fully visible when enlarged', async ({ page }) => {
@@ -229,6 +253,14 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
       const tabHeight = await page.locator('#fisiologia-2026-08-20 [data-lesson-tabs] button').first().evaluate((node) => node.getBoundingClientRect().height);
       expect(tabHeight).toBeGreaterThanOrEqual(38);
+      await page.locator('#fisiologia-2026-08-20 [data-lesson-tab="rapida"]').click();
+      let reviewDimensions = await page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth }));
+      expect(reviewDimensions.scrollWidth).toBeLessThanOrEqual(reviewDimensions.clientWidth + 1);
+      await expect(page.locator('#fisiologia-2026-08-20 .notebook-review-recall')).toBeVisible();
+      await page.locator('#fisiologia-2026-08-20 [data-lesson-tab="ultra"]').click();
+      reviewDimensions = await page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth }));
+      expect(reviewDimensions.scrollWidth).toBeLessThanOrEqual(reviewDimensions.clientWidth + 1);
+      await expect(page.locator('#fisiologia-2026-08-20 .notebook-ultra-close')).toBeVisible();
     }
   });
 
