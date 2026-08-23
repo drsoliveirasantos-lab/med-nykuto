@@ -2561,7 +2561,15 @@ function topicForQuestion(item){
     const filteredTotal = items.length;
     if(empty) empty.hidden = items.length > 0;
     if(!items.length){
-      list.innerHTML = `<div class="notice">${t('noQuestions')}</div>`;
+      const scopeCourseId = courseParam || (selectedModule && selectedModule.courseId) || '';
+      const scopeBank = scopeCourseId && BANK.byCourse ? BANK.byCourse[scopeCourseId] : null;
+      const formatKey = type === 'case' ? 'cases' : type;
+      const blockedForQuality = !!(scopeBank && scopeBank.certification && (scopeBank.certification.blockedFormats || []).includes(formatKey));
+      if(blockedForQuality){
+        const encodedCourse = encodeURIComponent(scopeCourseId);
+        if(empty) empty.textContent = 'Contenido retirado durante la certificación de calidad.';
+        list.innerHTML = `<div class="notice"><strong>Calidad antes que cantidad.</strong><p>Los casos heredados de esta materia no cumplen todavía el estándar clínico de Med Nykuto. Permanecen ocultos hasta su reconstrucción a partir del curso.</p><div class="module-actions"><a class="btn secondary" href="qcm.html?course=${encodedCourse}">Revisar QCM certificados</a><a class="btn ghost" href="vrai-faux.html?course=${encodedCourse}">Revisar V/F certificados</a></div></div>`;
+      } else list.innerHTML = `<div class="notice">${t('noQuestions')}</div>`;
       return;
     }
     const key = practiceScopeKey(type, activeCursoe, moduleParam, examMode ? 'examen' : activeDifficulty);

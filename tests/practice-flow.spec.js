@@ -3,7 +3,7 @@ const { test, expect } = require('@playwright/test');
 const CARD_SELECTOR = '.single-question-card';
 const ANSWER_SELECTOR = `${CARD_SELECTOR} button.option[data-option]`;
 const CORRECTION_READY_SELECTOR = `${CARD_SELECTOR} .answer-panel:not([hidden])`;
-const CURRENT_PRACTICE_LOADER = 'v373';
+const CURRENT_PRACTICE_LOADER = 'v461';
 const CURRENT_RUNTIME_GUARD = 'v362';
 
 async function waitPracticeLoader(page) {
@@ -71,41 +71,50 @@ test.describe('Med Nykuto practice flows', () => {
     await answerOneQuestion(page, '/qcm.html?course=fisiologia');
     await expectPracticeHealth(page);
     const bank = await counts(page, 'fisiologia');
-    expect(bank.qcm).toBeGreaterThanOrEqual(1800);
-    expect(bank.vf).toBeGreaterThanOrEqual(450);
-    expect(bank.cases).toBeGreaterThanOrEqual(450);
+    expect(bank.qcm).toBeGreaterThanOrEqual(170);
+    expect(bank.vf).toBeGreaterThanOrEqual(90);
+    expect(bank.cases).toBeGreaterThanOrEqual(70);
   });
 
   test('clinical cases render restored Fisiología cases and correction', async ({ page }) => {
     await answerOneQuestion(page, '/cas-cliniques.html?course=fisiologia');
     await expectPracticeHealth(page);
     const bank = await counts(page, 'fisiologia');
-    expect(bank.cases).toBeGreaterThanOrEqual(450);
+    expect(bank.cases).toBeGreaterThanOrEqual(70);
   });
 
   test('true false renders restored Fisiología V/F and correction', async ({ page }) => {
     await answerOneQuestion(page, '/vrai-faux.html?course=fisiologia');
     await expectPracticeHealth(page);
     const bank = await counts(page, 'fisiologia');
-    expect(bank.vf).toBeGreaterThanOrEqual(450);
+    expect(bank.vf).toBeGreaterThanOrEqual(90);
   });
 
-  test('Bioquímica V/F is completed by fallback without losing restored QCM and cases', async ({ page }) => {
+  test('Bioquímica exposes rebuilt certified questions and blocks inherited pseudo-cases', async ({ page }) => {
     await answerOneQuestion(page, '/vrai-faux.html?course=bioquimica');
     await expectPracticeHealth(page);
     const bank = await counts(page, 'bioquimica');
-    expect(bank.qcm).toBeGreaterThanOrEqual(600);
-    expect(bank.vf).toBeGreaterThanOrEqual(120);
-    expect(bank.cases).toBeGreaterThanOrEqual(600);
+    expect(bank.qcm).toBeGreaterThanOrEqual(15);
+    expect(bank.vf).toBeGreaterThanOrEqual(6);
+    expect(bank.cases).toBe(0);
   });
 
-  test('Inmunología V/F is completed by fallback without losing restored QCM and cases', async ({ page }) => {
+  test('Inmunología exposes rebuilt certified questions and blocks inherited pseudo-cases', async ({ page }) => {
     await answerOneQuestion(page, '/vrai-faux.html?course=inmunologia');
     await expectPracticeHealth(page);
     const bank = await counts(page, 'inmunologia');
-    expect(bank.qcm).toBeGreaterThanOrEqual(600);
-    expect(bank.vf).toBeGreaterThanOrEqual(120);
-    expect(bank.cases).toBeGreaterThanOrEqual(600);
+    expect(bank.qcm).toBeGreaterThanOrEqual(25);
+    expect(bank.vf).toBeGreaterThanOrEqual(10);
+    expect(bank.cases).toBe(0);
+  });
+
+  test('blocked inherited cases explain the quality decision and route to certified practice', async ({ page }) => {
+    await page.goto('/cas-cliniques.html?course=bioquimica');
+    await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_LOADER__ === version, CURRENT_PRACTICE_LOADER, { timeout: 20000 });
+    await expect(page.locator('#practiceList .notice')).toContainText('Calidad antes que cantidad.');
+    await expect(page.locator('#practiceList .single-question-card')).toHaveCount(0);
+    await expect(page.locator('#practiceList a[href="qcm.html?course=bioquimica"]')).toBeVisible();
+    await expect(page.locator('#practiceList a[href="vrai-faux.html?course=bioquimica"]')).toBeVisible();
   });
 
   test('question feedback control exists and local fallback stores reports', async ({ page }) => {

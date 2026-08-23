@@ -220,7 +220,9 @@ for (const [courseId, bank] of Object.entries(byCourse)) {
   if (!bank || typeof bank !== 'object') continue;
   for (const [format, items] of Object.entries({ qcm: bank.qcm || [], vf: bank.vf || [], cases: bank.cases || [] })) {
     if (!Array.isArray(items) || !items.length) {
-      fail(`${courseId}.${format}: missing or empty array`, { courseId, format, type: 'missing-array' });
+      const blocked = Array.isArray(bank.certification?.blockedFormats) && bank.certification.blockedFormats.includes(format);
+      if (blocked) warn(`${courseId}.${format}: intentionally blocked until course-grounded reconstruction`, { courseId, format, type: 'certification-blocked-format' });
+      else fail(`${courseId}.${format}: missing or empty array`, { courseId, format, type: 'missing-array' });
       continue;
     }
     const answerDistribution = [0, 0, 0, 0];
@@ -234,6 +236,10 @@ for (const [courseId, bank] of Object.entries(byCourse)) {
       const id = clean(item.id || `${courseId}-${format}-${index}`);
       const globalId = `${courseId}:${format}:${id}`;
       const baseMeta = { courseId, format, index, id, where };
+      if (bank.certification?.version === 'v461-course-certified') {
+        if (item.qualityStatus !== 'certified') fail(`${where}: item bypassed Semester 3 certification`, { ...baseMeta, type: 'uncertified-runtime-item' });
+        if (clean(item.sourceEvidence).length < 12) fail(`${where}: certified item has no usable course evidence`, { ...baseMeta, type: 'missing-course-evidence' });
+      }
       if (!id) fail(`${where}: missing id`, { ...baseMeta, type: 'missing-id' });
       if (globalIds.has(globalId)) fail(`${where}: duplicate id ${id}`, { ...baseMeta, type: 'duplicate-id' });
       globalIds.add(globalId);

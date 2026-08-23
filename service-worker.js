@@ -1,4 +1,4 @@
-const CACHE = 'med-nykuto-class-v464';
+const CACHE = 'med-nykuto-class-v466';
 const SHELL = [
   '/index.html',
   '/manifest-s3.webmanifest',
@@ -15,6 +15,9 @@ const SHELL = [
   '/semester-3-shell-v460.js?v=460',
   '/home-subject-picker-v365.js?v=460',
   '/site-global-polish-v310.js?v=460',
+  '/app.bundle.js?v=461',
+  '/data/med-practice-bank-loader.js?v=461',
+  '/data/practice-bank-s3-certification-v461.js?v=461',
   '/clase.html',
   '/comunidade.html',
   '/profesores.html',

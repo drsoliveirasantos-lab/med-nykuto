@@ -48,8 +48,12 @@ function requireContains(file, pattern, label) {
 }
 
 requireContains('qcm.html', /qcm-tap-guard-v309\.js\?v=321/, 'current QCM guard cache version');
-requireContains('qcm.html', /app\.bundle\.js\?v=372/, 'current app bundle cache version');
+requireContains('qcm.html', /app\.bundle\.js\?v=461/, 'current app bundle cache version');
 requireContains('qcm.html', /site-global-polish-v310\.js\?v=460/, 'current global polish cache version');
+for (const file of ['index.html', 'matieres.html', 'matiere.html', 'modules.html', 'module.html', 'qcm.html', 'cas-cliniques.html', 'vrai-faux.html', 'erreurs.html', 'examen.html']) {
+  requireContains(file, /semester-3-shell-v460\.css\?v=460/, 'Semester 3 shell stylesheet');
+  requireContains(file, /semester-3-shell-v460\.js\?v=460/, 'Semester 3 shell script');
+}
 requireContains('app.bundle.js', /__MED_NYKUTO_LEGACY_FIGURE_LIGHTBOX__\s*=\s*['"]disabled-external-zoom-v368['"]/, 'disabled legacy figure lightbox marker');
 requireContains('cas-cliniques.html', /practice-tap-guard-v313\.js\?v=317/, 'current cases tap guard cache version');
 if (/cas-cliniques.html/.test('cas-cliniques.html') && /premium-correction-v313\.js/.test(read('cas-cliniques.html'))) {

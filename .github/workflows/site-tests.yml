@@ -52,6 +52,8 @@ jobs:
         run: node scripts/validate-class-hub-language.js
       - name: Validate 21 August handoff deliverables
         run: node scripts/validate-2026-08-21-handoff.js
+      - name: Validate app bundle source and generated runtime match
+        run: node scripts/validate-app-bundle-split.js
       - name: Ensure protected bank files were not changed accidentally
         run: node scripts/protected-data-guard.js
       - name: Validate SEO, sitemap and visible branding
@@ -62,6 +64,8 @@ jobs:
         run: node scripts/validate-content-sanitization.js
       - name: Validate question bank deep integrity
         run: node scripts/validate-question-bank-deep-integrity.js
+      - name: Certify Semester 3 questions against course policy
+        run: node scripts/validate-semester-3-question-certification.js
       - name: Upload quality and hardening reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -71,6 +75,8 @@ jobs:
           path: |
             reports/question-bank-quality-report.json
             reports/question-bank-quality-report.txt
+            reports/s3-question-certification-report.json
+            reports/s3-question-certification-report.txt
             reports/content-sanitization-report.json
             reports/content-sanitization-report.txt
             reports/branding-regression-report.json

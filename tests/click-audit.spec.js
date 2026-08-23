@@ -37,7 +37,7 @@ async function waitReady(page) {
 }
 
 async function clickHref(page, hrefPart) {
-  const link = page.locator(`a[href*="${hrefPart}"]`).first();
+  const link = page.locator(`a[href*="${hrefPart}"]:visible`).first();
   await expect(link).toBeAttached({ timeout: 15000 });
   await link.click();
 }

@@ -206,3 +206,42 @@ Dernière vérification : le loader charge `practice-bank-fisiologia-quality-pat
 - Fisiología Module 3 : créer `data/practice-bank-fisiologia-quality-patch-v349-m3-qcm-151-190.js`, cible QCM 151-190, soit 40 QCM.
 - Fisiología Module 1 : demander validation utilisateur sur Preview avant nouvelle repasse.
 - Microbiología : demander validation utilisateur du Module 1 sur Preview avant de démarrer Module 2.
+
+---
+
+## 23 août 2026 — audit transversal et certification S3 v461
+
+L'audit transversal a distingué la banque restaurée de la banque réellement publiable. Les fichiers sources conservent 12 840 items restaurés (8 000 QCM, 1 940 V/F et 2 900 cas), mais ce volume brut ne doit plus être présenté comme une garantie de qualité.
+
+La couche `data/practice-bank-s3-certification-v461.js` s'exécute en dernier dans le loader et ne publie qu'un sous-ensemble rattaché au cours. Elle ne gonfle aucun total et ne détruit aucun fichier source.
+
+| Matière | QCM certifiés | V/F certifiés | vrais cas certifiés |
+|---|---:|---:|---:|
+| Fisiología | 180 | 90 | 87 |
+| Microbiología | 229 | 130 | 64 |
+| Genética | 206 | 120 | 11 |
+| Bioquímica | 18 | 6 | 0 |
+| Inmunología | 28 | 12 | 0 |
+| **Total runtime** | **661** | **358** | **162** |
+
+Règles appliquées au runtime v461 :
+
+- rattachement à une matière et à un module existants ;
+- preuve de cours visible dans la correction (`sourceEvidence` et `Referencia del curso`) ;
+- structure de réponse valide et positions A-D rééquilibrées ;
+- suppression des indices évidents liés à la longueur de la bonne réponse ;
+- exclusion des doublons, artefacts d'ancien examen, distracteurs absurdes et formulations génériques ;
+- pour les cas, conservation uniquement des mini-histoires cliniques réelles avec au moins deux phrases et un contexte clinique identifiable ;
+- pour les V/F faux, correction exacte obligatoire ;
+- maximum runtime par module : 20 QCM, 10 V/F et 10 cas.
+
+Les anciens pseudo-cas de Bioquímica et Inmunología sont bloqués (`blockedFormats: ["cases"]`) jusqu'à leur reconstruction manuelle. Les QCM et V/F de ces deux matières restent volontairement partiels : seuls les items qui passent les critères sont visibles. Cette certification établit une fidélité au contenu du cours et une qualité structurelle ; elle ne doit pas être décrite comme une validation médicale indépendante de chaque fait.
+
+Validation obligatoire avant publication :
+
+- `node scripts/validate-semester-3-question-certification.js` ;
+- `node scripts/validate-question-bank-deep-integrity.js` ;
+- `npm run validate` ;
+- tests Playwright des parcours QCM, V/F, cas et banques certifiées.
+
+Prochaine reconstruction prioritaire : cas cliniques Bioquímica puis Inmunología, module par module, selon les limites de `AI_MED_NYKUTO_RULES.md`. Ne jamais réexposer les volumes bruts pour atteindre artificiellement un compteur.
