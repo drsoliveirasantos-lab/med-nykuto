@@ -3,8 +3,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.goto('/clase.html#microbiologia-teorica-2026-08-10');
     const quickView = page.locator('#microbiologia-teorica-2026-08-10 [data-lesson-tab="rapida"]');
     await quickView.click();
-    await expect(page.getByRole('heading', { name: 'El hilo lógico para repasar' })).toBeVisible();
-    await expect(page.locator('#microbiologia-teorica-2026-08-10 .notebook-summary li')).toHaveCount(8);
+    await expect(page.getByRole('heading', { name: 'La clase convertida en una ficha de estudio' })).toBeVisible();
+    await expect(page.locator('#microbiologia-teorica-2026-08-10 .notebook-review-card')).toHaveCount(8);
     await expect(quickView).toHaveAttribute('aria-selected', 'true');
   });
 
