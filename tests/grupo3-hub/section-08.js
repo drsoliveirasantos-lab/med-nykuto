@@ -39,6 +39,24 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(tasks.nth(0)).toContainText('15 diapositivas como máximo');
     await expect(tasks.nth(0)).toContainText('Solo se entregan las diapositivas');
     await expect(tasks.nth(0).getByRole('link', { name: /Descargar la consigna en DOCX/ })).toHaveAttribute('href', /trabajo-practico-salud-publica-epidemiologia\.docx$/);
+    const compactControls = await tasks.nth(0).evaluate((card) => {
+      const toggle = card.querySelector('.live-task-action');
+      const download = card.querySelector('.live-task-download');
+      const intro = card.querySelector('.live-task-intro');
+      return {
+        toggleHeight: toggle.getBoundingClientRect().height,
+        togglePosition: getComputedStyle(toggle).position,
+        downloadHeight: download.getBoundingClientRect().height,
+        downloadWidth: download.getBoundingClientRect().width,
+        cardWidth: card.getBoundingClientRect().width,
+        introClamp: getComputedStyle(intro).webkitLineClamp
+      };
+    });
+    expect(compactControls.toggleHeight).toBeLessThanOrEqual(32);
+    expect(compactControls.togglePosition).toBe('static');
+    expect(compactControls.downloadHeight).toBeLessThanOrEqual(40);
+    expect(compactControls.downloadWidth).toBeLessThan(compactControls.cardWidth * 0.9);
+    expect(compactControls.introClamp).not.toBe('1');
     await expect(page.locator('.pending-grid')).toBeHidden();
   });
 
