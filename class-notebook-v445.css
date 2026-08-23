@@ -184,3 +184,226 @@
   .course-diagram-dialog.is-teacher-board.is-zoomed .course-diagram-dialog-stage .course-inline-image{width:1100px!important;max-width:none!important;max-height:none!important}
   .course-diagram-dialog-actions .course-diagram-zoom{min-width:64px;padding:0 7px;font-size:.55rem}
 }
+
+/* v459 — fiches de révision unifiées pour les quatorze cours du 4.º E. */
+.lesson-notebook-standard .notebook-review-sheet{
+  width:min(100%,920px);
+  max-width:920px;
+  margin:0 auto;
+  padding:20px 18px 28px!important;
+  color:#eaf2f8
+}
+.notebook-review-sheet .notebook-sheet-head{max-width:760px;margin-bottom:14px}
+.notebook-review-sheet .notebook-sheet-head h3{margin:5px 0 7px;font-size:clamp(1.35rem,3vw,1.8rem);letter-spacing:-.025em}
+.notebook-review-sheet .notebook-sheet-head p{font-size:.78rem;line-height:1.58}
+.notebook-review-route{
+  min-width:0;
+  margin:0 0 13px;
+  padding:11px;
+  border:1px solid rgba(148,163,184,.18);
+  border-radius:14px;
+  background:#091d2c
+}
+.notebook-review-route>span,
+.notebook-review-section-title>span,
+.notebook-review-memory>span,
+.notebook-ultra-path>span,
+.notebook-ultra-rules>span{
+  display:block;
+  color:var(--lesson-accent,var(--notebook-cyan));
+  font:900 .52rem/1 system-ui;
+  letter-spacing:.12em
+}
+.notebook-review-route ol{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fit,minmax(104px,1fr));
+  gap:5px!important;
+  margin:8px 0 0!important;
+  padding:0!important;
+  list-style:none!important
+}
+.notebook-review-route li{
+  min-width:0;
+  display:grid;
+  grid-template-columns:22px minmax(0,1fr);
+  align-items:center;
+  gap:6px;
+  min-height:40px;
+  padding:6px!important;
+  border:1px solid rgba(148,163,184,.14)!important;
+  border-radius:9px;
+  background:#102b3d
+}
+.notebook-review-route li b{
+  width:22px;
+  height:22px;
+  display:grid;
+  place-items:center;
+  border-radius:7px;
+  background:color-mix(in srgb,var(--lesson-accent,var(--notebook-cyan)) 14%,#0a1d2b);
+  color:var(--lesson-accent,var(--notebook-cyan));
+  font:900 .48rem/1 system-ui
+}
+.notebook-review-route li strong{
+  min-width:0;
+  overflow-wrap:anywhere;
+  color:#edf6fb!important;
+  font:800 .59rem/1.18 system-ui!important
+}
+.notebook-review-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(220px,.72fr);gap:11px;align-items:start}
+.notebook-review-core{
+  min-width:0;
+  padding:15px 16px 17px;
+  border:1px solid rgba(215,205,188,.92);
+  border-radius:16px;
+  background-color:#f7f3e9;
+  background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 29px,rgba(67,83,96,.07) 29px,rgba(67,83,96,.07) 30px);
+  box-shadow:0 13px 32px rgba(0,0,0,.16)
+}
+.notebook-review-section-title h4,
+.notebook-review-memory h4,
+.notebook-ultra-rules h4{
+  margin:5px 0 0;
+  font:700 1rem/1.2 Georgia,"Times New Roman",serif
+}
+.notebook-review-section-title h4{color:#17232c}
+.notebook-review-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px;margin-top:10px}
+.notebook-review-card{
+  min-width:0;
+  padding:12px 2px 13px 13px!important;
+  border:0!important;
+  border-bottom:1px solid rgba(55,68,79,.15)!important;
+  border-left:2px solid color-mix(in srgb,var(--lesson-accent,var(--notebook-cyan)) 58%,#72808a)!important;
+  background:transparent!important
+}
+.notebook-review-card>span{
+  display:block;
+  color:color-mix(in srgb,var(--lesson-accent,var(--notebook-cyan)) 62%,#20303b)!important;
+  font:900 .49rem/1.1 system-ui!important;
+  letter-spacing:.08em
+}
+.notebook-review-card>strong{
+  display:block;
+  margin:5px 0 6px;
+  color:#17232c!important;
+  font:700 .86rem/1.25 Georgia,"Times New Roman",serif!important
+}
+.notebook-review-card>p{
+  margin:0 0 6px!important;
+  color:#34414b!important;
+  font:.7rem/1.48 Georgia,"Times New Roman",serif!important
+}
+.notebook-review-card>small{
+  display:block;
+  color:#52606b!important;
+  font:.6rem/1.45 system-ui!important
+}
+.notebook-review-card>small b{color:#24323c;font-size:.5rem;letter-spacing:.05em}
+.notebook-review-memory{
+  min-width:0;
+  padding:15px;
+  border:1px solid rgba(148,163,184,.19);
+  border-radius:16px;
+  background:linear-gradient(155deg,#102c3e,#0a1c2a);
+  box-shadow:0 13px 30px rgba(0,0,0,.14)
+}
+.notebook-review-memory h4,.notebook-ultra-rules h4{color:#fff}
+.notebook-review-memory ul{
+  display:grid!important;
+  gap:0!important;
+  margin:10px 0 0!important;
+  padding:0!important;
+  list-style:none!important
+}
+.notebook-review-memory li{
+  padding:9px 0!important;
+  border:0!important;
+  border-bottom:1px solid rgba(148,163,184,.15)!important
+}
+.notebook-review-memory li>span{display:block;color:var(--lesson-accent,var(--notebook-cyan));font:900 .47rem/1.1 system-ui;letter-spacing:.07em}
+.notebook-review-memory li>strong{display:block;margin:4px 0;color:#fff!important;font:800 .7rem/1.28 system-ui!important}
+.notebook-review-memory li>small{display:block;color:#aebdca;font:.59rem/1.42 system-ui}
+.notebook-review-recall{
+  margin-top:12px;
+  padding:12px;
+  border:1px solid color-mix(in srgb,var(--lesson-accent,var(--notebook-cyan)) 34%,transparent);
+  border-radius:12px;
+  background:color-mix(in srgb,var(--lesson-accent,var(--notebook-cyan)) 8%,#071824)
+}
+.notebook-review-recall span,.notebook-review-recall strong,.notebook-review-recall small{display:block}
+.notebook-review-recall span{color:var(--lesson-accent,var(--notebook-cyan));font:900 .48rem/1 system-ui;letter-spacing:.09em}
+.notebook-review-recall strong{margin:6px 0;color:#fff;font:.74rem/1.35 Georgia,"Times New Roman",serif}
+.notebook-review-recall small{color:#9eb1c0;font:.57rem/1.4 system-ui}
+.notebook-review-sheet-ultra>.course-inline-figure.is-summary{width:min(100%,760px);max-width:760px;margin:10px auto 14px}
+.notebook-ultra-scan{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(230px,.8fr);gap:11px;align-items:stretch}
+.notebook-ultra-path{
+  min-width:0;
+  padding:15px;
+  border:1px solid rgba(215,205,188,.92);
+  border-radius:16px;
+  background:#f7f3e9;
+  box-shadow:0 13px 32px rgba(0,0,0,.15)
+}
+.notebook-ultra-path ol{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px!important;margin:10px 0 0!important;padding:0!important;list-style:none!important}
+.notebook-ultra-path li{
+  min-width:0;
+  display:grid;
+  grid-template-columns:30px minmax(0,1fr);
+  align-items:start;
+  gap:8px;
+  min-height:72px;
+  padding:10px!important;
+  border:1px solid rgba(56,69,79,.15)!important;
+  border-radius:11px;
+  background:#fffdf8
+}
+.notebook-ultra-path li>b{width:30px;height:30px;display:grid;place-items:center;border-radius:9px;background:color-mix(in srgb,var(--lesson-accent,var(--notebook-cyan)) 14%,#edf0eb);color:color-mix(in srgb,var(--lesson-accent,var(--notebook-cyan)) 68%,#1f2d36);font:900 .55rem/1 system-ui}
+.notebook-ultra-path li strong{display:block;color:#17232c!important;font:850 .69rem/1.22 system-ui!important}
+.notebook-ultra-path li small{display:block;margin-top:4px;color:#53606a;font:.58rem/1.35 Georgia,"Times New Roman",serif}
+.notebook-ultra-rules{min-width:0;padding:15px;border:1px solid rgba(148,163,184,.18);border-radius:16px;background:linear-gradient(155deg,#102c3e,#091b29)}
+.notebook-ultra-rules ul{display:grid!important;gap:0!important;margin:10px 0 0!important;padding:0!important;list-style:none!important}
+.notebook-ultra-rules li{position:relative;padding:8px 0 8px 15px!important;border:0!important;border-bottom:1px solid rgba(148,163,184,.14)!important;color:#c2d0db;font:.64rem/1.45 Georgia,"Times New Roman",serif}
+.notebook-ultra-rules li:before{content:"";position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:50%;background:var(--lesson-accent,var(--notebook-cyan))}
+.notebook-ultra-close{display:grid;gap:5px;margin:11px 0 0!important;padding:12px 14px;border:1px solid color-mix(in srgb,var(--lesson-accent,var(--notebook-cyan)) 30%,transparent);border-radius:13px;background:rgba(7,23,35,.72)}
+.notebook-ultra-close span{color:var(--lesson-accent,var(--notebook-cyan));font:900 .49rem/1 system-ui;letter-spacing:.1em}
+.notebook-ultra-close strong{overflow-wrap:anywhere;color:#fff!important;font:800 .72rem/1.35 system-ui!important}
+
+@media(max-width:720px){
+  .lesson-notebook-standard,
+  .lesson-notebook-standard [data-lesson-tab-panel="rapida"],
+  .lesson-notebook-standard [data-lesson-tab-panel="ultra"],
+  .lesson-notebook-standard .notebook-review-sheet{
+    width:100%;
+    min-width:0;
+    max-width:100%;
+    overflow-x:clip
+  }
+  .lesson-notebook-standard .notebook-review-sheet{padding:14px 10px 20px!important}
+  .notebook-review-sheet .notebook-sheet-head h3{font-size:1.3rem}
+  .notebook-review-sheet .notebook-sheet-head,
+  .notebook-review-route,
+  .notebook-review-layout,
+  .notebook-review-core,
+  .notebook-review-cards,
+  .notebook-review-memory,
+  .notebook-ultra-scan,
+  .notebook-ultra-path,
+  .notebook-ultra-rules,
+  .notebook-ultra-close{width:100%;min-width:0;max-width:100%}
+  .notebook-review-route{padding:8px;overflow:hidden;contain:inline-size}
+  .notebook-review-route ol{display:flex!important;width:100%;min-width:0;max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;scrollbar-width:thin}
+  .notebook-review-route li{flex:0 0 118px;scroll-snap-align:start}
+  .notebook-review-layout,.notebook-ultra-scan{grid-template-columns:minmax(0,1fr)!important}
+  .notebook-review-core,.notebook-review-memory,.notebook-ultra-path,.notebook-ultra-rules{padding:12px;border-radius:13px}
+  .notebook-review-cards{grid-template-columns:1fr}
+  .notebook-review-card{padding:10px 1px 11px 11px!important}
+  .notebook-review-card>strong{font-size:.81rem!important}
+  .notebook-review-card>p{font-size:.67rem!important}
+  .notebook-review-sheet-ultra>.course-inline-figure.is-summary{margin:8px auto 11px}
+  .notebook-ultra-path li{min-height:66px;padding:8px!important}
+}
+
+@media(max-width:360px){
+  .notebook-ultra-path ol{grid-template-columns:1fr}
+  .notebook-ultra-path li{min-height:0}
+}

@@ -113,7 +113,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
 
     await page.locator('#nutricion-2026-08-13 [data-lesson-tab="rapida"]').click();
     await expect(page.locator('#nutricion-2026-08-13 .notebook-summary')).toBeVisible();
-    await expect(page.locator('#nutricion-2026-08-13 .notebook-summary li')).toHaveCount(6);
+    await expect(page.locator('#nutricion-2026-08-13 .notebook-review-card')).toHaveCount(6);
 
     await page.goto('/clase.html#plan-estudio', { waitUntil: 'domcontentloaded' });
     const plan = await page.evaluate(() => {

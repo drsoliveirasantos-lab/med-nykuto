@@ -326,6 +326,46 @@
     }]
   };
 
+  /*
+   * The full course keeps teacher boards exactly where they belong. The two
+   * Biochemistry ultra sheets use a separate synthesis diagram so a 90-second
+   * review never passes a reconstructed board off as a new editorial graphic.
+   */
+  var ultraLessonVisuals = {
+    'bioquimica-2026-08-14': {
+      type: 'pathway',
+      wide: true,
+      kicker: 'GLUCÓLISIS · RUTA DE 90 SEGUNDOS',
+      title: 'Una glucosa se divide y entrega dos piruvatos',
+      caption: 'Primero se invierten 2 ATP; después, dos G3P producen 4 ATP y 2 NADH. Balance neto: 2 ATP, 2 NADH y 2 piruvatos.',
+      nodes: [
+        { title: ['Glucosa'], detail: ['6 C'] },
+        { title: ['Glucosa-6-P'], detail: ['ATP → ADP'] },
+        { title: ['Fructosa-1,6-BP'], detail: ['segundo ATP'] },
+        { title: ['2 × G3P'], detail: ['fase duplicada'] },
+        { title: ['2 × Piruvato'], detail: ['3 C + 3 C'] }
+      ],
+      edges: ['hexo/glucoquinasa', 'PFK-1', 'aldolasa', '+4 ATP · +2 NADH'],
+      note: 'NETO · 2 ATP + 2 NADH + 2 PIRUVATOS'
+    },
+    'bioquimica-2026-08-21': {
+      type: 'flow',
+      wide: true,
+      kicker: 'CETOACIDOSIS · CADENA CAUSAL',
+      title: 'El déficit de insulina abre dos rutas que deben vigilarse juntas',
+      caption: 'Hiperglucemia causa diuresis osmótica; lipólisis y cetogénesis consumen bicarbonato. Ambas rutas convergen en deshidratación, alteraciones del K⁺ y riesgo neurológico.',
+      nodes: [
+        { title: ['Insulina ↓'], detail: ['contrarregulación ↑'] },
+        { title: ['Glucosa + lipólisis ↑'], detail: ['dos rutas'] },
+        { title: ['Agua + K⁺ ↓'], detail: ['pérdidas urinarias'] },
+        { title: ['Cetonas ↑'], detail: ['HCO₃⁻ ↓'] },
+        { title: ['CAD'], detail: ['Kussmaul · cerebro'] }
+      ],
+      edges: ['desbloquea', 'glucosuria', 'en paralelo', 'acidosis'],
+      note: 'El K⁺ sérico inicial no representa el déficit corporal total.'
+    }
+  };
+
   function svgEl(tag, attrs, textValue) {
     var node = document.createElementNS(svgNamespace, tag);
     Object.keys(attrs || {}).forEach(function (name) { node.setAttribute(name, attrs[name]); });
@@ -591,7 +631,7 @@
 
   function addUltraVisual(panel, lessonId) {
     if (!panel || panel.querySelector('.course-inline-figure.is-summary')) return;
-    var definition = (lessonVisuals[lessonId] || [])[0];
+    var definition = ultraLessonVisuals[lessonId] || (lessonVisuals[lessonId] || [])[0];
     if (!definition) return;
     var header = panel.querySelector(':scope > header');
     var visual = diagramFigure(definition, true);
@@ -651,24 +691,215 @@
     return article;
   }
 
-  function summaryPanel(narrative, ultra, entry) {
-    var panel = el('div', ultra ? 'notebook-ultra' : 'notebook-summary');
-    var header = el('header', 'notebook-sheet-head');
-    header.appendChild(el('span', '', ultra ? 'FICHA ULTRA RÁPIDA · 90 S' : 'FICHA RÁPIDA · 5 MIN'));
-    header.appendChild(el('h3', '', ultra ? 'La clase en una sola ruta' : 'El hilo lógico para repasar'));
-    header.appendChild(el('p', '', ultra ? 'Mira el esquema, recorre las ideas y comprueba la relación entre ellas.' : narrative.lead));
-    panel.appendChild(header);
-    if (ultra) addUltraVisual(panel, entry.lesson.id);
-    var list = el('ol', ultra ? 'ultra-sheet notebook-ultra-sheet' : 'quick-sheet notebook-quick-sheet');
-    narrative.sections.forEach(function (section, index) {
-      var item = el('li');
-      if (!ultra) item.appendChild(el('span', '', String(index + 1).padStart(2, '0')));
-      item.appendChild(el('strong', '', ultra ? section[1] : section[0]));
-      if (!ultra) item.appendChild(el('small', '', section[1] + '. ' + section[2].split('. ')[0] + '.'));
-      list.appendChild(item);
+  function cleanReviewText(value) {
+    return String(value || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function firstReviewSentence(value) {
+    var text = cleanReviewText(value);
+    var sentence = text.match(/^.*?[.!?](?:\s|$)/);
+    return sentence ? sentence[0].trim() : text;
+  }
+
+  function reviewText(spanish, portuguese) {
+    var i18n = window.MedNykutoClassI18n;
+    return i18n && typeof i18n.getLang === 'function' && i18n.getLang() === 'br' ? portuguese : spanish;
+  }
+
+  function outlineFromNarrative(narrative) {
+    if (!narrative || !Array.isArray(narrative.sections)) return [];
+    return narrative.sections.map(function (section, index) {
+      return {
+        number: index + 1,
+        label: cleanReviewText(section[0]),
+        title: cleanReviewText(section[1]),
+        explanation: cleanReviewText(section[2]),
+        consequence: cleanReviewText(section[3])
+      };
     });
-    panel.appendChild(list);
+  }
+
+  function outlineFromCourse(courseRoot) {
+    if (!courseRoot) return [];
+    return Array.prototype.slice.call(courseRoot.querySelectorAll('.course-chapter-section')).map(function (section, index) {
+      var step = section.querySelector('.course-chapter-step');
+      var title = section.querySelector('h4');
+      var paragraphs = Array.prototype.slice.call(section.children).filter(function (child) {
+        return child.tagName === 'P' && !child.classList.contains('course-chapter-step');
+      });
+      return {
+        number: index + 1,
+        label: cleanReviewText(step ? step.textContent.replace(/^\s*\d+\s*[·.–—-]\s*/, '') : 'Idea ' + (index + 1)),
+        title: cleanReviewText(title ? title.textContent : 'Idea esencial'),
+        explanation: cleanReviewText(paragraphs[0] ? paragraphs[0].textContent : ''),
+        consequence: cleanReviewText(paragraphs[1] ? paragraphs[1].textContent : '')
+      };
+    });
+  }
+
+  function sampledOutline(outline, count) {
+    if (outline.length <= count) return outline.slice();
+    var result = [];
+    for (var index = 0; index < count; index += 1) {
+      var position = Math.round(index * (outline.length - 1) / (count - 1));
+      if (result.indexOf(outline[position]) < 0) result.push(outline[position]);
+    }
+    return result;
+  }
+
+  function existingReviewAnchors(sourcePanel, ultra) {
+    if (!sourcePanel) return [];
+    if (ultra) {
+      return Array.prototype.slice.call(sourcePanel.querySelectorAll('.ultra-sheet li, .notebook-ultra-sheet li')).map(function (item) {
+        return cleanReviewText(item.textContent);
+      }).filter(Boolean);
+    }
+    return Array.prototype.slice.call(sourcePanel.querySelectorAll('.quick-sheet article, .notebook-quick-sheet li')).map(function (item) {
+      var label = item.querySelector('span');
+      var title = item.querySelector('strong');
+      var detail = item.querySelector('small, p');
+      return {
+        label: cleanReviewText(label ? label.textContent : ''),
+        title: cleanReviewText(title ? title.textContent : item.textContent),
+        detail: cleanReviewText(detail ? detail.textContent : '')
+      };
+    }).filter(function (item) { return item.title; });
+  }
+
+  function appendReviewHeader(panel, ultra, lead) {
+    var header = el('header', 'notebook-sheet-head');
+    header.appendChild(el('span', '', ultra ? reviewText('FICHA ULTRA RÁPIDA · 90 S', 'FICHA ULTRARRÁPIDA · 90 S') : reviewText('FICHA RÁPIDA · 5 MIN', 'FICHA RÁPIDA · 5 MIN')));
+    header.appendChild(el('h3', '', ultra ? reviewText('Una imagen, cuatro pasos, cero confusión', 'Uma imagem, quatro passos, sem confusão') : reviewText('La clase convertida en una ficha de estudio', 'A aula transformada em ficha de estudo')));
+    header.appendChild(el('p', '', ultra ? reviewText('Mira el esquema, sigue los cuatro pasos y recita la ruta sin volver al curso.', 'Observe o esquema, siga os quatro passos e recite a rota sem voltar à aula.') : lead));
+    panel.appendChild(header);
+  }
+
+  function reviewRoute(outline) {
+    var route = el('section', 'notebook-review-route');
+    route.setAttribute('aria-label', reviewText('Ruta de la clase', 'Rota da aula'));
+    route.appendChild(el('span', '', reviewText('RUTA DEL CURSO', 'ROTA DA AULA')));
+    var list = el('ol');
+    outline.forEach(function (item, index) {
+      var row = el('li');
+      row.appendChild(el('b', '', String(index + 1).padStart(2, '0')));
+      row.appendChild(el('strong', '', item.label));
+      list.appendChild(row);
+    });
+    route.appendChild(list);
+    return route;
+  }
+
+  function derivedQuickAnchors(outline) {
+    return sampledOutline(outline, 4).map(function (item) {
+      return { label: item.label, title: item.title, detail: firstReviewSentence(item.consequence || item.explanation) };
+    });
+  }
+
+  function quickReviewPanel(outline, entry, lead, anchors) {
+    var panel = el('div', 'notebook-summary notebook-review-sheet');
+    panel.dataset.lessonReview = 'standard';
+    appendReviewHeader(panel, false, lead);
+    panel.appendChild(reviewRoute(outline));
+
+    var layout = el('div', 'notebook-review-layout');
+    var core = el('section', 'notebook-review-core');
+    var coreHeading = el('header', 'notebook-review-section-title');
+    coreHeading.appendChild(el('span', '', reviewText('RESUMEN RAZONADO', 'RESUMO RACIOCINADO')));
+    coreHeading.appendChild(el('h4', '', reviewText('Mecanismo primero; consecuencia después', 'Primeiro o mecanismo; depois a consequência')));
+    core.appendChild(coreHeading);
+    var cards = el('div', 'notebook-review-cards');
+    outline.forEach(function (item, index) {
+      var card = el('article', 'notebook-review-card');
+      card.appendChild(el('span', '', String(index + 1).padStart(2, '0') + ' · ' + item.label));
+      card.appendChild(el('strong', '', item.title));
+      card.appendChild(el('p', '', firstReviewSentence(item.explanation)));
+      var consequence = el('small');
+      consequence.appendChild(el('b', '', reviewText('POR QUÉ IMPORTA · ', 'POR QUE IMPORTA · ')));
+      consequence.appendChild(document.createTextNode(firstReviewSentence(item.consequence || item.explanation)));
+      card.appendChild(consequence);
+      cards.appendChild(card);
+    });
+    core.appendChild(cards);
+    layout.appendChild(core);
+
+    var side = el('aside', 'notebook-review-memory');
+    side.appendChild(el('span', '', reviewText('ANCLAS DE EXAMEN', 'ÂNCORAS DE PROVA')));
+    side.appendChild(el('h4', '', reviewText('Lo que debes poder decir sin leer', 'O que você deve conseguir dizer sem ler')));
+    var anchorList = el('ul');
+    (anchors.length ? anchors : derivedQuickAnchors(outline)).slice(0, 6).forEach(function (anchor) {
+      var item = el('li');
+      if (anchor.label) item.appendChild(el('span', '', anchor.label));
+      item.appendChild(el('strong', '', anchor.title));
+      if (anchor.detail) item.appendChild(el('small', '', anchor.detail));
+      anchorList.appendChild(item);
+    });
+    side.appendChild(anchorList);
+
+    var sample = sampledOutline(outline, 4);
+    var recall = el('div', 'notebook-review-recall');
+    recall.appendChild(el('span', '', reviewText('PRUEBA SIN MIRAR', 'TESTE SEM OLHAR')));
+    recall.appendChild(el('strong', '', outline.length > 1 ? reviewText('¿Puedes unir «' + outline[0].label + '» con «' + outline[outline.length - 1].label + '» sin saltar el mecanismo?', 'Você consegue ligar «' + outline[0].label + '» a «' + outline[outline.length - 1].label + '» sem pular o mecanismo?') : reviewText('¿Puedes explicar esta idea sin leer?', 'Você consegue explicar esta ideia sem ler?')));
+    recall.appendChild(el('small', '', reviewText('Recorre: ', 'Percorra: ') + sample.map(function (item) { return item.label; }).join(' → ')));
+    side.appendChild(recall);
+    layout.appendChild(side);
+    panel.appendChild(layout);
     return panel;
+  }
+
+  function derivedUltraRules(outline) {
+    return sampledOutline(outline, 5).map(function (item) {
+      return firstReviewSentence(item.consequence || item.explanation);
+    }).filter(Boolean);
+  }
+
+  function ultraReviewPanel(outline, entry, lead, rules) {
+    var panel = el('div', 'notebook-ultra notebook-review-sheet notebook-review-sheet-ultra');
+    panel.dataset.lessonReview = 'standard';
+    appendReviewHeader(panel, true, lead);
+    addUltraVisual(panel, entry.lesson.id);
+
+    var scan = el('div', 'notebook-ultra-scan');
+    var path = el('section', 'notebook-ultra-path');
+    path.appendChild(el('span', '', reviewText('LECTURA EN CUATRO PASOS', 'LEITURA EM QUATRO PASSOS')));
+    var pathList = el('ol');
+    sampledOutline(outline, 4).forEach(function (item, index) {
+      var row = el('li');
+      row.appendChild(el('b', '', String(index + 1).padStart(2, '0')));
+      var copy = el('div');
+      copy.appendChild(el('strong', '', item.label));
+      copy.appendChild(el('small', '', item.title));
+      row.appendChild(copy);
+      pathList.appendChild(row);
+    });
+    path.appendChild(pathList);
+    scan.appendChild(path);
+
+    var limits = el('aside', 'notebook-ultra-rules');
+    limits.appendChild(el('span', '', reviewText('NO CONFUNDAS', 'NÃO CONFUNDA')));
+    limits.appendChild(el('h4', '', reviewText('Los límites que cambian la respuesta', 'Os limites que mudam a resposta')));
+    var ruleList = el('ul');
+    (rules.length ? rules : derivedUltraRules(outline)).slice(0, 5).forEach(function (rule) {
+      ruleList.appendChild(el('li', '', rule));
+    });
+    limits.appendChild(ruleList);
+    scan.appendChild(limits);
+    panel.appendChild(scan);
+
+    var route = sampledOutline(outline, 4).map(function (item) { return item.label; }).join(' → ');
+    var close = el('p', 'notebook-ultra-close');
+    close.appendChild(el('span', '', reviewText('CIERRA LA FICHA Y RECITA', 'FECHE A FICHA E RECITE')));
+    close.appendChild(el('strong', '', route));
+    panel.appendChild(close);
+    return panel;
+  }
+
+  function summaryPanel(narrative, ultra, entry, courseRoot, sourcePanel) {
+    var outline = outlineFromCourse(courseRoot);
+    if (!outline.length) outline = outlineFromNarrative(narrative);
+    var courseLead = courseRoot && courseRoot.querySelector(':scope > header p');
+    var lead = cleanReviewText(courseLead ? courseLead.textContent : (narrative && narrative.lead));
+    var anchors = existingReviewAnchors(sourcePanel, ultra);
+    return ultra ? ultraReviewPanel(outline, entry, lead, anchors) : quickReviewPanel(outline, entry, lead, anchors);
   }
 
   function buildLegacyLesson(panel, narrative, entry, subjectModel, teacher) {
@@ -706,10 +937,11 @@
       return tab;
     }
 
+    var course = narrativeCourse(narrative, entry, subjectModel);
     panel.replaceChildren(nav);
-    panel.appendChild(tabPanel('curso', narrativeCourse(narrative, entry, subjectModel)));
-    panel.appendChild(tabPanel('rapida', summaryPanel(narrative, false, entry)));
-    panel.appendChild(tabPanel('ultra', summaryPanel(narrative, true, entry)));
+    panel.appendChild(tabPanel('curso', course));
+    panel.appendChild(tabPanel('rapida', summaryPanel(narrative, false, entry, course, null)));
+    panel.appendChild(tabPanel('ultra', summaryPanel(narrative, true, entry, course, null)));
 
     var training = el('div', 'notebook-training');
     if (practice) training.appendChild(practice);
@@ -732,8 +964,14 @@
     panel.querySelectorAll('.course-chapter-index, .notebook-course-index').forEach(function (index) { index.remove(); });
     var nav = panel.querySelector('[data-lesson-tabs]');
     standardizeLessonTabs(panel, nav);
-    decorateCourseVisuals(panel.querySelector('[data-lesson-tab-panel="curso"]'), entry.lesson.id);
-    addUltraVisual(panel.querySelector('[data-lesson-tab-panel="ultra"]'), entry.lesson.id);
+    var course = panel.querySelector('[data-lesson-tab-panel="curso"]');
+    var quick = panel.querySelector('[data-lesson-tab-panel="rapida"]');
+    var ultra = panel.querySelector('[data-lesson-tab-panel="ultra"]');
+    decorateCourseVisuals(course, entry.lesson.id);
+    var quickReview = quick ? summaryPanel(null, false, entry, course, quick) : null;
+    var ultraReview = ultra ? summaryPanel(null, true, entry, course, ultra) : null;
+    if (quickReview) quick.replaceChildren(quickReview);
+    if (ultraReview) ultra.replaceChildren(ultraReview);
     var ia = panel.querySelector('[data-lesson-tab-panel="ia"]');
     if (ia) ia.replaceChildren(teacherAuditContent(teacher, entry.lesson));
     panel.dataset.notebookNarrative = 'true';

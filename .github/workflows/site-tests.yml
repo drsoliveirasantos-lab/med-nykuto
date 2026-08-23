@@ -13,8 +13,8 @@ permissions:
   issues: write
 
 concurrency:
-  group: med-nykuto-site-tests-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+  group: med-nykuto-site-tests-latest-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate:
