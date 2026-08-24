@@ -46,6 +46,13 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       const priorities = [...document.querySelectorAll('.priority-card')].map((card) => card.getBoundingClientRect().height);
       return {
         dashboardHeight: document.querySelector('#inicio').getBoundingClientRect().height,
+        transcriptHeight: document.querySelector('.home-transcripts').getBoundingClientRect().height,
+        transcriptColumns: getComputedStyle(document.querySelector('.home-transcript-grid')).gridTemplateColumns.split(' ').length,
+        transcriptCardHeights: [...document.querySelectorAll('.home-transcript-card')].map((card) => card.getBoundingClientRect().height),
+        transcriptCardWidths: [...document.querySelectorAll('.home-transcript-card')].map((card) => card.getBoundingClientRect().width),
+        transcriptTitleFont: parseFloat(getComputedStyle(document.querySelector('.home-transcript-copy strong')).fontSize),
+        transcriptLabelFont: parseFloat(getComputedStyle(document.querySelector('.home-transcript-copy small')).fontSize),
+        transcriptActionFont: parseFloat(getComputedStyle(document.querySelector('.home-transcript-action')).fontSize),
         noticeHeight: document.querySelector('#classHomeNoticeSection').getBoundingClientRect().height,
         nextHeight: document.querySelector('.dashboard-next').getBoundingClientRect().height,
         priorityHeights: priorities,
@@ -58,7 +65,13 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       };
     });
 
-    expect(homeLayout.dashboardHeight).toBeLessThan(760);
+    expect(homeLayout.dashboardHeight).toBeLessThan(720);
+    expect(homeLayout.transcriptHeight).toBeLessThanOrEqual(58);
+    expect(homeLayout.transcriptColumns).toBe(2);
+    expect(Math.max(...homeLayout.transcriptCardHeights)).toBeLessThanOrEqual(55);
+    expect(Math.min(...homeLayout.transcriptCardWidths)).toBeGreaterThan(150);
+    expect(homeLayout.transcriptTitleFont).toBeGreaterThanOrEqual(10.5);
+    expect(homeLayout.transcriptLabelFont).toBeGreaterThanOrEqual(8);
     expect(homeLayout.noticeHeight).toBeLessThan(200);
     expect(homeLayout.nextHeight).toBeLessThanOrEqual(140);
     expect(Math.max(...homeLayout.priorityHeights)).toBeLessThan(110);
@@ -78,7 +91,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
         thirdCourseStartsNextRow: courses[2].top > courses[0].top,
         resourceHeights: resources.map((card) => card.height),
         resourcesShareFirstRow: Math.abs(resources[0].top - resources[1].top) < 1,
-        courseMetaDisplay: getComputedStyle(document.querySelector('.course-selector b')).display,
+        courseMetaDisplay: getComputedStyle(document.querySelector('.course-latest-chip')).display,
+        courseMetaFont: parseFloat(getComputedStyle(document.querySelector('.course-latest-chip')).fontSize),
         courseIntroDisplay: getComputedStyle(document.querySelector('#materias .section-heading > p')).display,
         detailToggleHeight: document.querySelector('#nutricion .course-detail-toggle').getBoundingClientRect().height,
         scrollWidth: document.documentElement.scrollWidth,
@@ -91,7 +105,10 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     expect(courseLayout.thirdCourseStartsNextRow).toBe(true);
     expect(Math.max(...courseLayout.resourceHeights)).toBeLessThanOrEqual(70);
     expect(courseLayout.resourcesShareFirstRow).toBe(true);
-    expect(courseLayout.courseMetaDisplay).toBe('none');
+    expect(courseLayout.courseMetaDisplay).toBe('inline-flex');
+    expect(courseLayout.courseMetaFont).toBeGreaterThanOrEqual(8.5);
+    await expect(page.locator('[data-course-target="fisiologia"] .course-latest-chip')).toContainText('ÚLTIMA · 20 AGO');
+    await expect(page.locator('[data-course-target="microbiologia-teorica"] .course-latest-chip')).toContainText('TEÓRICA · 17 AGO');
     expect(courseLayout.courseIntroDisplay).toBe('none');
     expect(courseLayout.detailToggleHeight).toBeLessThanOrEqual(62);
     expect(courseLayout.scrollWidth).toBeLessThanOrEqual(courseLayout.clientWidth + 1);

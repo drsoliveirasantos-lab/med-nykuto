@@ -8,6 +8,9 @@ const { DatabaseSync } = require('node:sqlite');
 
 const root = path.resolve(__dirname, '..');
 const sourcePath = path.join(root, 'functions/api/community.js');
+const studyPagePath = path.join(root, 'comunidade.html');
+const studyRuntimePath = path.join(root, 'community-study.js');
+const studyCssPath = path.join(root, 'community.css');
 const ORIGIN = 'https://med.nykuto.com';
 const PEPPER = 'community-ranking-catraca-pepper-fixture';
 const OLD_PEPPER = 'community-ranking-previous-pepper-fixture';
@@ -153,6 +156,9 @@ function participant(sqlite, playerId, classId = 's4-e') {
 
 async function main() {
   const source = fs.readFileSync(sourcePath, 'utf8');
+  const studyPage = fs.readFileSync(studyPagePath, 'utf8');
+  const studyRuntime = fs.readFileSync(studyRuntimePath, 'utf8');
+  const studyCss = fs.readFileSync(studyCssPath, 'utf8');
   const enrollSource = source.slice(source.indexOf('async function enrollParticipant'), source.indexOf('async function saveScore'));
   assert.match(source, /MED_NYKUTO_CATRACA_PEPPER/);
   assert.match(source, /ALTER TABLE community_scores ADD COLUMN class_id/);
@@ -163,6 +169,11 @@ async function main() {
   assert.match(source, /T20:00:00-03:00/, 'The weekly challenge must close exactly Sunday at 20:00 Paraguay time.');
   assert.match(source, /challenge_closed/, 'The API must refuse score writes after the countdown reaches zero.');
   assert.match(source, /MAX_SCOPES_PER_PLAYER\s*=\s*48/, 'The weekly scope limit must cover all 14 class themes in their three exercise formats.');
+  assert.match(studyPage, /data-study-topic-shortcut="fisiologia-2026-08-17"/, 'The ranking view does not expose the completed Physiology transcription.');
+  assert.match(studyPage, /data-study-topic-shortcut="microbiologia-teorica-2026-08-17"/, 'The ranking view does not expose the completed Microbiology transcription.');
+  assert.match(studyRuntime, /function activateHashedTopic\(shouldScroll\)/, 'Study shortcuts cannot activate an exact dated topic.');
+  assert.match(studyRuntime, /window\.addEventListener\('hashchange'/, 'Study topic deep links are not handled after navigation.');
+  assert.match(studyCss, /\.study-latest-shortcuts/, 'The visible ranking shortcuts are not styled.');
   assert.doesNotMatch(source, /UPDATE community_scores SET class_id=\? WHERE[^`]*cohort_key/i, 'A migration must not reassign an explicit class based on its legacy cohort.');
   assert.doesNotMatch(source, /\b(?:DELETE\s+FROM|DROP\s+TABLE|REPLACE\s+INTO|INSERT\s+OR\s+REPLACE)\b/i, 'Community migrations must remain additive and non-destructive.');
   assert.doesNotMatch(enrollSource, /community_scores/i, 'Enrollment must never rewrite historical score rows.');

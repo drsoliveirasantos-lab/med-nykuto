@@ -65,6 +65,14 @@
       return total + (Array.isArray(bank[type]) ? bank[type].length : 0);
     },0);
   }
+  function topicFromHash(){
+    var value = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : '';
+    return Object.prototype.hasOwnProperty.call(banks,value) ? value : '';
+  }
+  function subjectForTopic(topicId){
+    var bank = banks[topicId];
+    return bank ? (bank.sectionId || bank.courseId || '') : '';
+  }
   function iconUse(iconId){
     var span = element('span','study-picker-icon');
     span.innerHTML = '<svg aria-hidden="true"><use href="#' + iconId + '"></use></svg>';
@@ -219,16 +227,53 @@
     renderResult();
   }
 
+  function activateTopic(topicId,shouldScroll){
+    var subjectId = subjectForTopic(topicId);
+    if(!topicId || !subjectId || !subjects.some(function(subject){ return subject.id === subjectId; })) return false;
+    activeSubject = subjectId;
+    activeTopic = topicId;
+    lastResult = null;
+    render();
+    if(shouldScroll){
+      window.requestAnimationFrame(function(){
+        var target = document.getElementById('studyPracticeHost');
+        if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    }
+    return true;
+  }
+
+  function activateHashedTopic(shouldScroll){
+    return activateTopic(topicFromHash(),shouldScroll);
+  }
+
+  function handleTopicShortcut(event){
+    event.preventDefault();
+    var topicId = event.currentTarget.dataset.studyTopicShortcut || '';
+    if(topicFromHash() === topicId) activateTopic(topicId,true);
+    else window.location.hash = topicId;
+  }
+
   function refreshLanguage(){
     render();
   }
 
   function init(){
-    activeTopic = topicIds(activeSubject)[0] || '';
+    var initialTopic = topicFromHash();
+    var initialSubject = subjectForTopic(initialTopic);
+    if(initialTopic && subjects.some(function(subject){ return subject.id === initialSubject; })){
+      activeSubject = initialSubject;
+      activeTopic = initialTopic;
+    }else{
+      activeTopic = topicIds(activeSubject)[0] || '';
+    }
     document.addEventListener('mednykuto:practice-complete',handleCompleted);
     document.addEventListener('mednykuto:practice-progress',handleProgress);
     document.getElementById('studyPublishButton').addEventListener('click',publish);
+    document.querySelectorAll('[data-study-topic-shortcut]').forEach(function(link){ link.addEventListener('click',handleTopicShortcut); });
+    window.addEventListener('hashchange',function(){ activateHashedTopic(true); });
     render();
+    if(initialTopic) window.requestAnimationFrame(function(){ activateHashedTopic(true); });
   }
 
   window.MedNykutoCommunityStudy = {

@@ -12,10 +12,10 @@
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
   <link rel="apple-touch-icon" href="assets/logo-medcursos-icon.png" />
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="grupo-3-v401.css?v=480" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=481" />
   <link rel="stylesheet" href="class-courses-2026-08-17-v432.css?v=433" />
   <link rel="stylesheet" href="class-hub-2026-08-21-v440.css?v=478" />
-  <link rel="stylesheet" href="class-notebook-v445.css?v=462" />
+  <link rel="stylesheet" href="class-notebook-v445.css?v=463" />
   <link rel="stylesheet" href="help-desk-v479.css?v=480" />
 </head>
 <body>
@@ -112,6 +112,25 @@
           <a class="dashboard-all-tasks" href="#pendientes">Ver todas las tareas <span aria-hidden="true">→</span></a>
         </aside>
       </div>
+
+      <section class="home-transcripts" aria-labelledby="homeTranscriptsTitle">
+        <div class="home-transcripts-heading">
+          <div><span>NUEVAS TRANSCRIPCIONES</span><h2 id="homeTranscriptsTitle">Clases reconstruidas y revisadas</h2></div>
+          <p>Abre directamente la clase transcrita.</p>
+        </div>
+        <div class="home-transcript-grid">
+          <a class="home-transcript-card home-transcript-fisio" href="#fisiologia-2026-08-17">
+            <time class="home-transcript-date" datetime="2026-08-17"><b>17</b><small>AGO.</small></time>
+            <span class="home-transcript-copy"><small>FISIOLOGÍA II · NUEVA TRANSCRIPCIÓN</small><strong><span class="home-transcript-title-long">Organización, sinapsis y receptores</span><span class="home-transcript-title-short">Organización y sinapsis</span></strong><em>35 diapositivas · curso completo · 40 preguntas</em></span>
+            <b class="home-transcript-action">Abrir curso <span aria-hidden="true">→</span></b>
+          </a>
+          <a class="home-transcript-card home-transcript-micro" href="#microbiologia-teorica-2026-08-17">
+            <time class="home-transcript-date" datetime="2026-08-17"><b>17</b><small>AGO.</small></time>
+            <span class="home-transcript-copy"><small>MICROBIOLOGÍA II · TEÓRICA · TRANSCRIPCIÓN ACTUALIZADA</small><strong><span class="home-transcript-title-long">Micosis por profundidad y casos clínicos</span><span class="home-transcript-title-short">Micosis y casos clínicos</span></strong><em>5 casos + Candida · curso completo · 40 preguntas</em></span>
+            <b class="home-transcript-action">Abrir curso <span aria-hidden="true">→</span></b>
+          </a>
+        </div>
+      </section>
 
       <div class="home-quick-links" aria-label="Accesos útiles">
         <a class="home-quick-link home-quick-link-portal" href="https://virtual.central.edu.py/auth" target="_blank" rel="noopener noreferrer" aria-label="Abrir el Portal UCP para ver notas y aula virtual, en una pestaña nueva">
@@ -458,10 +477,10 @@
       </div>
       <div class="course-selector" aria-label="Materias disponibles">
         <a href="#nutricion" data-course-target="nutricion" aria-current="true"><span class="course-icon"><svg><use href="#class-icon-nutrition"></use></svg></span><strong>Nutrición</strong><small>Leyes de la alimentación</small><b>13 AGO · EST.</b></a>
-        <a href="#fisiologia" data-course-target="fisiologia"><span class="course-icon"><svg><use href="#class-icon-physiology"></use></svg></span><strong>Fisiología II</strong><small>Sistema nervioso</small><b>20 AGO</b></a>
+        <a class="course-selector-latest" href="#fisiologia-2026-08-20" data-course-target="fisiologia"><span class="course-icon"><svg><use href="#class-icon-physiology"></use></svg></span><strong>Fisiología II</strong><small>Ejercicios del sistema nervioso</small><b class="course-latest-chip">ÚLTIMA · 20 AGO</b></a>
         <a href="#bioquimica" data-course-target="bioquimica"><span class="course-icon"><svg><use href="#class-icon-biochemistry"></use></svg></span><strong>Bioquímica II</strong><small>Cetoacidosis</small><b>21 AGO</b></a>
         <a href="#epidemiologia" data-course-target="epidemiologia"><span class="course-icon"><svg><use href="#class-icon-epidemiology"></use></svg></span><strong>Epidemiología</strong><small>APS, sectorización y triage</small><b>2 BLOQUES</b></a>
-        <a href="#microbiologia-teorica" data-course-target="microbiologia-teorica"><span class="course-icon"><svg><use href="#class-icon-microbiology"></use></svg></span><strong>Microbiología II</strong><small><span class="course-type-badge">TEÓRICA</span> Micosis y casos</small><b>17 AGO</b></a>
+        <a class="course-selector-latest" href="#microbiologia-teorica-2026-08-17" data-course-target="microbiologia-teorica"><span class="course-icon"><svg><use href="#class-icon-microbiology"></use></svg></span><strong>Microbiología II</strong><small><span class="course-type-badge">TEÓRICA</span> Micosis y casos</small><b class="course-latest-chip">TEÓRICA · 17 AGO</b></a>
         <a href="#microbiologia-practica" data-course-target="microbiologia-practica"><span class="course-icon"><svg><use href="#class-icon-lab"></use></svg></span><strong>Microbiología II</strong><small><span class="course-type-badge">PRÁCTICA</span> Diagnóstico micológico</small><b>20 AGO</b></a>
       </div>
       <button class="course-practice-shortcut" id="coursePracticeShortcut" type="button" hidden>
@@ -2077,7 +2096,7 @@
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=405"></script>
-  <script src="grupo-3-i18n-v421.js?v=481"></script>
+  <script src="grupo-3-i18n-v421.js?v=482"></script>
   <script src="academic-model-v445.js?v=451"></script>
   <script src="grupo-3-practice-v413.js?v=446"></script>
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
