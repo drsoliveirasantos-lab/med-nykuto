@@ -3,8 +3,9 @@
 
   var PROFILE_KEY = 'medNykutoCommunityProfile:v1';
   var API_URL = '/api/community';
+  var ACCESS_TOKEN_PATTERN = /^[0-9a-f]{64}$/i;
   var supported = ['es','br'];
-  var state = {data:null,loading:false,error:''};
+  var state = {data:null,loading:false,error:'',refreshQueued:false};
 
   var messages = {
     es:{
@@ -28,7 +29,7 @@
       oneTopic:'1 tema',
       topics:'{count} temas',
       questionCount:'{count} preguntas',
-      topKicker:'TOP 1 ESTA SEMANA',
+      topKicker:'TOP 1 PROVISIONAL ESTA SEMANA',
       noLeader:'Todavía sin líder',
       beFirst:'Sé la primera persona en publicar un resultado.',
       myScore:'Tu score',
@@ -41,8 +42,8 @@
       publishing:'Publicando…',
       publishSuccess:'Resultado publicado.',
       publishKept:'Tu mejor resultado ya era igual o mejor.',
-      nicknameNeeded:'Guarda tu nombre y catraca antes de publicar.',
-      identityExpired:'Vuelve a confirmar tu nombre y catraca para publicar.',
+      nicknameNeeded:'Guarda tu nombre completo y catraca completa antes de publicar.',
+      identityExpired:'Vuelve a confirmar tu nombre completo, catraca completa y pertenencia al 4.º E para publicar.',
       publishError:'No se pudo publicar. Tu resultado sigue guardado en este dispositivo.',
       rankingAndChallenge:'CLASIFICACIÓN Y DESAFÍO',
       challengeKicker:'DESAFÍO SEMANAL · SOLO 4.º E',
@@ -71,21 +72,28 @@
       accuracy:'{value}% de precisión',
       profileKicker:'TU IDENTIDAD EN EL RETO',
       profileTitle:'Confirma tu identidad del 4.º E',
-      profileCopy:'Se pide una sola vez en este teléfono. La catraca completa nunca aparece en la clasificación.',
-      displayName:'Nombre visible',
+      profileCopy:'La participación es facultativa. Para competir, confirma tu identidad y acepta la publicación de tus datos.',
+      displayName:'Nombre completo',
       displayNamePlaceholder:'Ej.: Ana Oliveira',
-      studentId:'Catraca UCP',
-      studentIdPlaceholder:'Tu número de catraca',
-      identityConsent:'Confirmo que pertenezco al 4.º E y que estos datos son míos.',
+      studentId:'Catraca UCP completa',
+      studentIdPlaceholder:'Tu número completo de catraca',
+      classAttestation:'Declaro que estoy matriculado/a en el 4.º E y que estos datos son míos.',
+      identityConsent:'Participar es facultativo. Acepto que mi nombre completo y mi catraca completa sean públicos para cualquier persona que tenga el enlace. El Pix solo se entrega después de una verificación manual.',
       save:'Guardar y participar',
-      invalidName:'Escribe tu nombre con entre 2 y 60 caracteres.',
+      invalidName:'Escribe tu nombre completo (2 palabras, entre 5 y 60 caracteres).',
       invalidStudentId:'Revisa el formato de tu catraca.',
-      consentRequired:'Confirma que perteneces al 4.º E.',
+      classConfirmationRequired:'Confirma que estás matriculado/a en el 4.º E.',
+      consentRequired:'Acepta la publicación de tu nombre completo y catraca completa para participar.',
       profileSaving:'Verificando…',
-      profileSaved:'Identidad guardada. Tu catraca pública queda enmascarada.',
-      profileError:'No se pudo guardar ahora. La catraca no se conserva en este teléfono.',
-      privacy:'Solo publicamos tu nombre y los últimos 4 caracteres de la catraca. El número completo se transforma en una huella segura.',
-      legacyIdentity:'Perfil pendiente',
+      profileSaved:'Perfil guardado. Tu clasificación es provisional hasta la verificación manual.',
+      profileMigration:'Tu nombre está prellenado. Vuelve a escribir la catraca completa y acepta las condiciones para asegurar este perfil.',
+      profileError:'No se pudo guardar ahora. Tu perfil anterior no se modificó.',
+      identityConflict:'Esta catraca ya está asociada a otro perfil, o este perfil usa otra catraca. Revisa los datos o pide ayuda en el Help Desk.',
+      helpDesk:'Abrir Help Desk',
+      privacy:'Aviso de datos públicos: si participas, tu nombre completo y tu catraca completa aparecerán en la clasificación compartida.',
+      legacyIdentity:'Identificación pendiente · sin premio',
+      verificationPending:'Verificación pendiente · clasificación provisional',
+      verificationVerified:'Identidad verificada',
       howKicker:'CÓMO PARTICIPAR',
       howTitle:'Tres pasos, sin cuenta',
       step1Title:'1. Haz un QCM',
@@ -95,7 +103,7 @@
       step3Title:'3. Vuelve la semana siguiente',
       step3Copy:'El desafío se reinicia cada lunes, hora de Paraguay.',
       fairTitle:'Reglas del premio y protección de tus datos',
-      fairCopy:'La clasificación es provisional. Solo cuenta el mejor resultado por materia o módulo; el ganador debe confirmar que pertenece al 4.º E y su resultado antes del Pix. Ninguna actualización elimina las participaciones ya guardadas.',
+      fairCopy:'Participar es facultativo y publica el nombre completo y la catraca completa. La clasificación es provisional; el ganador debe confirmar que pertenece al 4.º E y su resultado antes del Pix. Ninguna actualización elimina las participaciones ya guardadas.',
       questions:'¿Tienes una idea para el próximo desafío?',
       questionsLink:'Preparar un mensaje para los delegados',
       footer:'Apoyo académico no oficial · 4.º E',
@@ -158,7 +166,7 @@
       oneTopic:'1 tema',
       topics:'{count} temas',
       questionCount:'{count} perguntas',
-      topKicker:'TOP 1 NESTA SEMANA',
+      topKicker:'TOP 1 PROVISÓRIO NESTA SEMANA',
       noLeader:'Ainda sem líder',
       beFirst:'Seja a primeira pessoa a publicar um resultado.',
       myScore:'Seu score',
@@ -171,8 +179,8 @@
       publishing:'Publicando…',
       publishSuccess:'Resultado publicado.',
       publishKept:'Seu melhor resultado já era igual ou maior.',
-      nicknameNeeded:'Salve seu nome e catraca antes de publicar.',
-      identityExpired:'Confirme novamente seu nome e catraca para publicar.',
+      nicknameNeeded:'Salve seu nome completo e sua catraca completa antes de publicar.',
+      identityExpired:'Confirme novamente seu nome completo, catraca completa e vínculo com o 4.º E para publicar.',
       publishError:'Não foi possível publicar. Seu resultado continua salvo neste dispositivo.',
       rankingAndChallenge:'CLASSIFICAÇÃO E DESAFIO',
       challengeKicker:'DESAFIO SEMANAL · SÓ 4.º E',
@@ -201,21 +209,28 @@
       accuracy:'{value}% de precisão',
       profileKicker:'SUA IDENTIDADE NO DESAFIO',
       profileTitle:'Confirme sua identidade do 4.º E',
-      profileCopy:'Isso é pedido uma vez neste telefone. A catraca completa nunca aparece na classificação.',
-      displayName:'Nome visível',
+      profileCopy:'A participação é facultativa. Para competir, confirme sua identidade e aceite a publicação dos seus dados.',
+      displayName:'Nome completo',
       displayNamePlaceholder:'Ex.: Ana Oliveira',
-      studentId:'Catraca UCP',
-      studentIdPlaceholder:'Seu número de catraca',
-      identityConsent:'Confirmo que pertenço ao 4.º E e que estes dados são meus.',
+      studentId:'Catraca UCP completa',
+      studentIdPlaceholder:'Seu número completo de catraca',
+      classAttestation:'Declaro que estou matriculado/a no 4.º E e que estes dados são meus.',
+      identityConsent:'Participar é facultativo. Aceito que meu nome completo e minha catraca completa sejam públicos para qualquer pessoa que tenha o link. O Pix só é entregue após verificação manual.',
       save:'Salvar e participar',
-      invalidName:'Digite seu nome com 2 a 60 caracteres.',
+      invalidName:'Digite seu nome completo (2 palavras, entre 5 e 60 caracteres).',
       invalidStudentId:'Confira o formato da sua catraca.',
-      consentRequired:'Confirme que você pertence ao 4.º E.',
+      classConfirmationRequired:'Confirme que você está matriculado/a no 4.º E.',
+      consentRequired:'Aceite a publicação do seu nome completo e da catraca completa para participar.',
       profileSaving:'Verificando…',
-      profileSaved:'Identidade salva. Sua catraca pública fica mascarada.',
-      profileError:'Não foi possível salvar agora. A catraca não fica guardada neste telefone.',
-      privacy:'Publicamos apenas seu nome e os 4 últimos caracteres da catraca. O número completo vira uma impressão segura.',
-      legacyIdentity:'Perfil pendente',
+      profileSaved:'Perfil salvo. Sua classificação é provisória até a verificação manual.',
+      profileMigration:'Seu nome foi preenchido. Digite novamente a catraca completa e aceite as condições para proteger este perfil.',
+      profileError:'Não foi possível salvar agora. Seu perfil anterior não foi alterado.',
+      identityConflict:'Esta catraca já está vinculada a outro perfil, ou este perfil usa outra catraca. Confira os dados ou peça ajuda no Help Desk.',
+      helpDesk:'Abrir Help Desk',
+      privacy:'Aviso de dados públicos: ao participar, seu nome completo e sua catraca completa aparecem na classificação compartilhada.',
+      legacyIdentity:'Identificação pendente · sem prêmio',
+      verificationPending:'Verificação pendente · classificação provisória',
+      verificationVerified:'Identidade verificada',
       howKicker:'COMO PARTICIPAR',
       howTitle:'Três passos, sem conta',
       step1Title:'1. Faça um QCM',
@@ -225,7 +240,7 @@
       step3Title:'3. Volte na semana seguinte',
       step3Copy:'O desafio recomeça toda segunda-feira, no horário do Paraguai.',
       fairTitle:'Regras do prêmio e proteção dos seus dados',
-      fairCopy:'A classificação é provisória. Só conta o melhor resultado por matéria ou módulo; o vencedor confirma que pertence ao 4.º E e seu resultado antes do Pix. Nenhuma atualização apaga participações já salvas.',
+      fairCopy:'Participar é facultativo e publica o nome completo e a catraca completa. A classificação é provisória; o vencedor confirma que pertence ao 4.º E e o resultado antes do Pix. Nenhuma atualização apaga participações já salvas.',
       questions:'Tem uma ideia para o próximo desafio?',
       questionsLink:'Preparar uma mensagem para os delegados',
       footer:'Apoio acadêmico não oficial · 4.º E',
@@ -297,13 +312,25 @@
     return [hex.slice(0,8),hex.slice(8,12),hex.slice(12,16),hex.slice(16,20),hex.slice(20)].join('-');
   }
 
+  function createAccessToken(){
+    if(!window.crypto || typeof window.crypto.getRandomValues !== 'function') return '';
+    var bytes = new Uint8Array(32);
+    window.crypto.getRandomValues(bytes);
+    return Array.prototype.map.call(bytes,function(value){ return value.toString(16).padStart(2,'0'); }).join('');
+  }
+
   function readProfile(){
     var profile = {};
     try{ profile = JSON.parse(localStorage.getItem(PROFILE_KEY) || '{}') || {}; }catch(error){}
     if(!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(profile.playerId || '')) profile.playerId = createPlayerId();
-    profile.displayName = String(profile.displayName || profile.nickname || '').slice(0,60);
+    profile.fullName = String(profile.fullName || profile.displayName || profile.nickname || '').normalize('NFKC').replace(/\s+/g,' ').trim().slice(0,60);
+    profile.displayName = profile.fullName;
+    profile.catraca = canonicalCatraca(profile.catraca || profile.studentId || '');
     profile.studentIdMasked = String(profile.studentIdMasked || '').slice(0,20);
-    profile.accessToken = /^[0-9a-f]{64}$/i.test(String(profile.accessToken || '')) ? profile.accessToken : '';
+    profile.accessToken = ACCESS_TOKEN_PATTERN.test(String(profile.accessToken || '')) ? profile.accessToken : '';
+    if(!profile.accessToken && ACCESS_TOKEN_PATTERN.test(String(profile.pendingAccessToken || ''))) profile.pendingAccessToken = String(profile.pendingAccessToken);
+    else delete profile.pendingAccessToken;
+    profile.classConfirmed = profile.classConfirmed === true && Boolean(profile.catraca);
     delete profile.nickname;
     delete profile.studentId;
     saveProfile(profile);
@@ -311,15 +338,43 @@
   }
 
   function saveProfile(profile){
-    try{ localStorage.setItem(PROFILE_KEY,JSON.stringify(profile)); }catch(error){}
+    try{ localStorage.setItem(PROFILE_KEY,JSON.stringify(profile)); return true; }catch(error){ return false; }
   }
 
   function validDisplayName(value){
-    return value.length >= 2 && value.length <= 60 && /^[\p{L}\p{M}][\p{L}\p{M} .'-]*[\p{L}\p{M}]$/u.test(value);
+    if(value.length < 5 || value.length > 60) return false;
+    var parts = value.split(' ');
+    return parts.length >= 2 && parts.every(function(part){
+      return /^[\p{L}\p{M}]+(?:['’\-][\p{L}\p{M}]+)*$/u.test(part);
+    });
+  }
+
+  function canonicalCatraca(value){
+    return String(value || '').normalize('NFKC').toUpperCase().replace(/[\s._-]+/g,'');
   }
 
   function validStudentId(value){
-    return /^[A-Z0-9]{4,24}$/.test(String(value || '').normalize('NFKC').toUpperCase().replace(/[\s._-]+/g,''));
+    return /^[A-Z0-9]{4,24}$/.test(canonicalCatraca(value));
+  }
+
+  function profileReady(value){
+    return Boolean(value && validDisplayName(value.fullName || value.displayName || '') && validStudentId(value.catraca) && value.classConfirmed === true && value.accessToken);
+  }
+
+  function participantName(value){
+    return String(value && (value.fullName || value.displayName || value.nickname) || '').trim();
+  }
+
+  function participantCatraca(value){
+    return String(value && (value.catraca || value.studentId) || '').trim();
+  }
+
+  function isLegacyEntry(value){
+    return !value || value.verificationStatus === 'legacy' || value.identityComplete === false || !participantCatraca(value);
+  }
+
+  function isProvisionalLeaderCandidate(value){
+    return !isLegacyEntry(value);
   }
 
   function readLanguage(){
@@ -396,14 +451,17 @@
       item.appendChild(rank);
       var identity = element('div','ranking-identity');
       var nameLine = element('div','ranking-name-line');
-      nameLine.appendChild(element('strong','ranking-name',entry.displayName || entry.nickname));
+      nameLine.appendChild(element('strong','ranking-name',participantName(entry) || t('legacyIdentity')));
       if(entry.isCurrent) nameLine.appendChild(element('span','ranking-you',t('you')));
       identity.appendChild(nameLine);
       var scopeText = Number(entry.challenges) === 1 ? t('oneScope') : t('scopes',{count:entry.challenges});
-      var identityText = entry.studentIdMasked || t('legacyIdentity');
+      var completeCatraca = participantCatraca(entry);
+      var identityText = completeCatraca || '—';
       var identityMeta = element('small','ranking-catraca',identityText);
-      if(entry.studentIdMasked) identityMeta.setAttribute('aria-label',(lang === 'br' ? 'Catraca terminada em ' : 'Catraca terminada en ') + entry.studentIdMasked.replace(/\D/g,''));
+      if(completeCatraca) identityMeta.setAttribute('aria-label',(lang === 'br' ? 'Catraca completa: ' : 'Catraca completa: ') + completeCatraca);
       identity.appendChild(identityMeta);
+      var verificationKey = isLegacyEntry(entry) ? 'legacyIdentity' : entry.verificationStatus === 'verified' ? 'verificationVerified' : 'verificationPending';
+      identity.appendChild(element('small','ranking-verification ' + (isLegacyEntry(entry) ? 'is-legacy' : entry.verificationStatus === 'verified' ? 'is-verified' : 'is-pending'),t(verificationKey)));
       identity.appendChild(element('small','ranking-meta',scopeText + ' · ' + t('accuracy',{value:entry.accuracy})));
       item.appendChild(identity);
       var score = element('div','ranking-score');
@@ -422,10 +480,10 @@
     if(!topName || !topMeta || !myValue || !myMeta) return;
 
     var ranking = state.data && Array.isArray(state.data.ranking) ? state.data.ranking : [];
-    var leader = ranking[0] || null;
+    var leader = ranking.find(isProvisionalLeaderCandidate) || null;
     var current = state.data && state.data.currentUser ? state.data.currentUser : null;
 
-    topName.textContent = leader ? (leader.displayName || leader.nickname) : t('noLeader');
+    topName.textContent = leader ? participantName(leader) : t('noLeader');
     topMeta.textContent = leader
       ? formatNumber(leader.points) + ' ' + t('points') + ' · ' + t('accuracy',{value:leader.accuracy})
       : t('beFirst');
@@ -474,8 +532,12 @@
   }
 
   function loadData(){
-    if(state.loading) return;
+    if(state.loading){
+      state.refreshQueued = true;
+      return;
+    }
     state.loading = true;
+    state.refreshQueued = false;
     state.error = '';
     renderData();
     fetch(
@@ -497,11 +559,18 @@
         state.data = null;
         state.error = error.code === 'not_configured' ? 'activating' : 'unavailable';
       })
-      .finally(function(){ state.loading = false; renderData(); });
+      .finally(function(){
+        state.loading = false;
+        renderData();
+        if(state.refreshQueued){
+          state.refreshQueued = false;
+          loadData();
+        }
+      });
   }
 
   function publishScore(result){
-    if(!profile.displayName || !profile.accessToken){
+    if(!profileReady(profile)){
       var identityError = new Error('identity_required');
       identityError.code = 'identity_required';
       return Promise.reject(identityError);
@@ -535,7 +604,19 @@
 
   window.MedNykutoCommunity = {
     getLanguage:function(){ return lang; },
-    getProfile:function(){ return {playerId:profile.playerId,displayName:profile.displayName,studentIdMasked:profile.studentIdMasked,accessToken:profile.accessToken}; },
+    getProfile:function(){
+      return {
+        playerId:profile.playerId,
+        fullName:profile.fullName,
+        displayName:profile.fullName,
+        catraca:profile.catraca,
+        studentId:profile.catraca,
+        studentIdMasked:profile.studentIdMasked,
+        classConfirmed:profile.classConfirmed,
+        accessToken:profile.accessToken
+      };
+    },
+    isProfileReady:function(value){ return profileReady(value || profile); },
     publishScore:publishScore,
     refresh:loadData,
     t:t
@@ -545,21 +626,39 @@
     var languageSelect = document.getElementById('communityLanguage');
     var nameInput = document.getElementById('communityDisplayName');
     var studentIdInput = document.getElementById('communityStudentId');
+    var classConfirmedInput = document.getElementById('communityClassConfirmed');
     var consentInput = document.getElementById('communityIdentityConsent');
     var profileForm = document.getElementById('communityProfileForm');
     var profileStatus = document.getElementById('communityProfileStatus');
     var profileButton = profileForm.querySelector('button[type="submit"]');
 
-    nameInput.value = profile.displayName;
-    if(profile.studentIdMasked){
-      studentIdInput.placeholder = profile.studentIdMasked;
+    function renderProfileStatus(){
+      if(profileReady(profile)){
+        profileStatus.dataset.state = 'success';
+        profileStatus.textContent = t('profileSaved') + ' ' + profile.catraca;
+      }else if(profile.fullName && (profile.studentIdMasked || profile.accessToken)){
+        profileStatus.dataset.state = '';
+        profileStatus.textContent = t('profileMigration');
+      }
+    }
+
+    nameInput.value = profile.fullName;
+    studentIdInput.value = profile.catraca;
+    classConfirmedInput.checked = profile.classConfirmed;
+    if(profile.studentIdMasked && !profile.catraca){
+      studentIdInput.placeholder = t('studentIdPlaceholder') + ' (' + profile.studentIdMasked + ')';
+    }
+    if(profileReady(profile)){
       profileStatus.dataset.state = 'success';
-      profileStatus.textContent = t('profileSaved') + ' ' + profile.studentIdMasked;
+      profileStatus.textContent = t('profileSaved') + ' ' + profile.catraca;
+    }else{
+      renderProfileStatus();
     }
     languageSelect.addEventListener('change',function(){
       lang = supported.indexOf(languageSelect.value) !== -1 ? languageSelect.value : 'es';
       try{ localStorage.setItem('medLang',lang); }catch(error){}
       applyLanguage();
+      renderProfileStatus();
       if(window.MedNykutoCommunityStudy && typeof window.MedNykutoCommunityStudy.refreshLanguage === 'function'){
         window.MedNykutoCommunityStudy.refreshLanguage();
       }
@@ -567,7 +666,7 @@
     profileForm.addEventListener('submit',function(event){
       event.preventDefault();
       var displayName = nameInput.value.normalize('NFKC').replace(/\s+/g,' ').trim();
-      var studentId = studentIdInput.value.normalize('NFKC').toUpperCase().replace(/[\s._-]+/g,'');
+      var studentId = canonicalCatraca(studentIdInput.value);
       if(!validDisplayName(displayName)){
         profileStatus.dataset.state = 'error';
         profileStatus.textContent = t('invalidName');
@@ -580,11 +679,31 @@
         studentIdInput.focus();
         return;
       }
+      if(!classConfirmedInput.checked){
+        profileStatus.dataset.state = 'error';
+        profileStatus.textContent = t('classConfirmationRequired');
+        classConfirmedInput.focus();
+        return;
+      }
       if(!consentInput.checked){
         profileStatus.dataset.state = 'error';
         profileStatus.textContent = t('consentRequired');
         consentInput.focus();
         return;
+      }
+      var enrollmentToken = profile.accessToken || profile.pendingAccessToken || createAccessToken();
+      if(!ACCESS_TOKEN_PATTERN.test(enrollmentToken)){
+        profileStatus.dataset.state = 'error';
+        profileStatus.textContent = t('profileError');
+        return;
+      }
+      if(!profile.accessToken){
+        profile.pendingAccessToken = enrollmentToken;
+        if(!saveProfile(profile)){
+          profileStatus.dataset.state = 'error';
+          profileStatus.textContent = t('profileError');
+          return;
+        }
       }
       profileButton.disabled = true;
       profileButton.textContent = t('profileSaving');
@@ -594,32 +713,70 @@
         method:'POST',
         credentials:'same-origin',
         headers:{'content-type':'application/json'},
-        body:JSON.stringify({action:'enroll',class:'s4-e',playerId:profile.playerId,displayName:displayName,studentId:studentId,consent:true})
+        body:JSON.stringify({
+          action:'enroll',
+          class:'s4-e',
+          playerId:profile.playerId,
+          accessToken:enrollmentToken,
+          fullName:displayName,
+          displayName:displayName,
+          catraca:studentId,
+          studentId:studentId,
+          classConfirmed:true,
+          consent:true
+        })
       }).then(function(response){
         return response.json().catch(function(){ return {}; }).then(function(data){
           if(!response.ok){ var error = new Error(data.code || 'request_failed'); error.code = data.code || ''; throw error; }
           return data;
         });
       }).then(function(data){
-        profile.playerId = data.participant.playerId;
-        profile.displayName = data.participant.displayName;
-        profile.studentIdMasked = data.participant.studentIdMasked;
-        profile.accessToken = data.accessToken;
+        var participant = data.participant || data.profile || {};
+        var savedName = String(participant.fullName || participant.displayName || data.fullName || data.displayName || displayName).normalize('NFKC').replace(/\s+/g,' ').trim();
+        var savedCatraca = canonicalCatraca(participant.catraca || participant.studentId || data.catraca || data.studentId || studentId);
+        var savedToken = String(data.accessToken || participant.accessToken || enrollmentToken || '');
+        if(!validDisplayName(savedName) || !validStudentId(savedCatraca) || !ACCESS_TOKEN_PATTERN.test(savedToken)){
+          var responseError = new Error('invalid_response');
+          responseError.code = 'invalid_response';
+          throw responseError;
+        }
+        profile.fullName = savedName;
+        profile.displayName = savedName;
+        profile.catraca = savedCatraca;
+        profile.studentIdMasked = String(participant.studentIdMasked || data.studentIdMasked || '');
+        profile.classConfirmed = participant.classConfirmed !== false;
+        profile.accessToken = savedToken;
+        delete profile.pendingAccessToken;
         saveProfile(profile);
-        studentIdInput.value = '';
-        studentIdInput.placeholder = profile.studentIdMasked;
-        consentInput.checked = false;
+        nameInput.value = profile.fullName;
+        studentIdInput.value = profile.catraca;
+        classConfirmedInput.checked = true;
+        consentInput.checked = true;
         profileStatus.dataset.state = 'success';
-        profileStatus.textContent = t('profileSaved') + ' ' + profile.studentIdMasked;
+        profileStatus.textContent = t('profileSaved') + ' ' + profile.catraca;
         loadData();
         if(window.MedNykutoCommunityStudy && typeof window.MedNykutoCommunityStudy.profileChanged === 'function') window.MedNykutoCommunityStudy.profileChanged();
       }).catch(function(error){
         profileStatus.dataset.state = 'error';
-        profileStatus.textContent = error.code === 'invalid_student_id' ? t('invalidStudentId') : error.code === 'consent_required' ? t('consentRequired') : t('profileError');
+        profileStatus.textContent = error.code === 'invalid_name'
+          ? t('invalidName')
+          : error.code === 'invalid_student_id'
+          ? t('invalidStudentId')
+          : error.code === 'class_confirmation_required'
+            ? t('classConfirmationRequired')
+            : error.code === 'consent_required'
+              ? t('consentRequired')
+              : error.code === 'identity_conflict'
+                ? t('identityConflict') + ' '
+                : t('profileError');
+        if(error.code === 'identity_conflict'){
+          var helpLink = element('a','community-profile-help-link',t('helpDesk'));
+          helpLink.href = 'contact.html?reason=challenge-identity&class=s4-e&from=' + encodeURIComponent(location.pathname + location.hash);
+          profileStatus.appendChild(helpLink);
+        }
       }).finally(function(){
         profileButton.disabled = false;
         profileButton.textContent = t('save');
-        studentIdInput.value = '';
       });
     });
     document.getElementById('communityRefresh').addEventListener('click',loadData);

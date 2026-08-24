@@ -4,7 +4,7 @@
 
 Cette fondation permet d'ouvrir plusieurs espaces de classe dans une seule application, sans dupliquer le site ni mélanger les données. Le 4.º E historique reste compatible et chaque nouvelle turma obtient son propre slug, ses matières, ses tâches, ses alertes, ses groupes, ses fichiers, ses dates, ses éditeurs et son historique d'audit.
 
-Le pilote est un espace **non indexé, accessible par lien, sans données personnelles visibles publiquement**. Il ne doit pas être présenté comme un portail privé tant qu'une authentification étudiante n'a pas été ajoutée.
+Le pilote est un espace **non indexé et accessible par lien**. Les espaces génériques ne montrent aucune donnée personnelle étudiante. Exception explicite : le défi facultatif du 4.º E publie, après consentement, le nom complet et la catraca complète dans son classement. Une page `noindex` n'est pas privée : toute personne qui possède le lien peut voir ces deux données.
 
 ## Routes
 
@@ -17,6 +17,7 @@ Le pilote est un espace **non indexé, accessible par lien, sans données person
 | Pièce jointe d'un avis | `/api/class-hub?class=<slug>&resource=notice-attachment&upload=<id>` | Publique seulement si l'avis lié est publié ; brouillons réservés à la gestion authentifiée |
 | Registre des turmas | `/api/class-hub?class=<slug>&resource=classes` | Propriétaire uniquement |
 | Manifeste PWA | `/api/class-manifest?class=<slug>` | Manifeste propre au slug |
+| Défi hebdomadaire 4.º E | `/api/community?class=s4-e` | Classement public par lien ; nom complet et catraca complète consentis, jamais le jeton privé |
 
 Une requête historique sans paramètre `class` continue de viser `s4-e`.
 
@@ -53,6 +54,9 @@ Aucune donnée pédagogique ou opérationnelle n'est copiée automatiquement d'u
 - Chaque lecture, mutation, jointure et audit opérationnel filtre par `class_id`.
 - Les identifiants créés hors `s4-e` sont préfixés par le slug de la turma afin de préserver les anciennes clés primaires globales sans migration destructive.
 - Le classement historique `semester-4-group-e` est rattaché à `s4-e`.
+- Le défi `s4-e` conserve séparément les résultats historiques et les profils consentis. Les lignes legacy restent visibles avec une identification en attente et sont exclues du prix jusqu'à confirmation ; aucune migration ne supprime leurs scores.
+- Le classement du 4.º E additionne d'abord les bonnes réponses. Le meilleur résultat par portée et l'ordre global privilégient les points avant la précision, avec un départage stable.
+- Le profil du défi stocke une catraca complète destinée à l'affichage public, une empreinte HMAC pour le rapprochement et uniquement le condensat du jeton d'accès. Une mise à jour d'identité exige le `playerId` et le jeton privés déjà détenus ; un conflit est refusé sans détourner le profil ni ses résultats.
 - La réponse publique contient seulement les compteurs d'occupation des groupes. Les noms sont lus uniquement par le snapshot administrateur authentifié.
 - `hub_editor_profiles` conserve le WhatsApp normalisé de chaque acteur de gestion. Ce numéro reste absent de la réponse publique et du journal d'audit.
 - `hub_notices` accepte toujours une image facultative par URL HTTPS. Il peut aussi référencer une pièce jointe téléversée avec `attachment_upload_id` ; une image raster téléversée peut recevoir `image_alt`, contrairement à un PDF.
@@ -98,6 +102,7 @@ Les secrets ne doivent jamais être ajoutés au dépôt. La première ouverture 
 - Un changement/réinitialisation de mot de passe ou la révocation d'un éditeur invalide ses sessions précédentes.
 - Les mutations sont journalisées par turma dans `hub_audit`.
 - Les espaces génériques des autres turmas ne publient pas de liste nominative dans le DOM étudiant. Exception explicitement validée pour le tableau officiel du 4.º E : lorsqu'une activité est publiée, son tableau peut exposer uniquement le nom d'affichage et le marqueur de responsable. Les identifiants de ligne, empreintes d'appareil, dates et métadonnées administratives restent privés.
+- Exception distincte pour le défi hebdomadaire facultatif du 4.º E : après une attestation d'appartenance et un consentement explicite, le classement expose le nom complet et la catraca complète à toute personne ayant le lien. Le jeton d'accès, son condensat, l'empreinte HMAC et le `playerId` restent privés. Les profils en attente sont provisoires et le Pix de **50 R$** n'est versé qu'après validation manuelle de l'identité, de l'appartenance au 4.º E et du résultat.
 
 ## Vérification avant pilote
 
@@ -141,6 +146,7 @@ Une fusion en production exige la validation explicite du propriétaire du proje
 ## Limites assumées du pilote
 
 - Pas de comptes étudiants ni de contrôle d'accès par classe côté lecture.
+- Le lien du classement 4.º E est public : le consentement est obligatoire pour y publier le nom complet et la catraca complète, mais ne remplace pas une authentification. La participation et le Pix restent facultatifs, provisoires et soumis à une vérification humaine.
 - Les pièces jointes directes sont limitées aux avis officiels et à 15 Mio ; les autres archives continuent d'utiliser une URL HTTP(S) ou le Drive de la turma.
 - L'envoi vers WhatsApp ouvre un message prérempli : le navigateur ne l'envoie jamais automatiquement et ne joint pas un PDF sans action de l'utilisateur.
 - Pas de copie automatique de cours entre professeurs ou semestres.

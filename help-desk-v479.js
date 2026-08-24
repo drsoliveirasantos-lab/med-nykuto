@@ -2,6 +2,7 @@
   'use strict';
 
   var API_URL='/api/help-desk';
+  var SUPPORT_EMAIL='contact@nykuto.com';
   var DRAFT_PREFIX='medNykutoHelpDeskDraft:v479:';
   var CLASS_REF=/^[a-z0-9][a-z0-9-]{0,30}$/;
   var E164=/^\+[1-9]\d{7,14}$/;
@@ -131,18 +132,19 @@
           '<label class="helpdesk-field" for="'+prefix+'Category"><span>Tipo de consulta <b>Obligatorio</b></span><select id="'+prefix+'Category" name="category" aria-label="Tipo de consulta" required>'+optionMarkup(categoryOptions)+'</select></label>'+
           '<label class="helpdesk-field" for="'+prefix+'Location"><span>¿Dónde ocurre? <b>Obligatorio</b></span><select id="'+prefix+'Location" name="location" aria-label="Lugar del problema" required>'+optionMarkup(locationOptions)+'</select></label>'+
           '<label class="helpdesk-field" for="'+prefix+'Subject"><span>Materia <em>Opcional</em></span><input id="'+prefix+'Subject" name="subject" type="text" maxlength="100" autocomplete="off" aria-label="Materia relacionada" placeholder="Ej.: Fisiología" /></label>'+
-          '<label class="helpdesk-field" for="'+prefix+'Name"><span>Tu nombre <em>Opcional</em></span><input id="'+prefix+'Name" name="name" type="text" maxlength="100" autocomplete="name" aria-label="Tu nombre" placeholder="Para saber cómo llamarte" /></label>'+
-          '<label class="helpdesk-field" for="'+prefix+'ReplyContact"><span>Correo o WhatsApp <em>Opcional</em></span><input id="'+prefix+'ReplyContact" name="replyContact" type="text" maxlength="120" autocomplete="off" aria-label="Correo o WhatsApp para responder" aria-describedby="'+prefix+'ReplyHelp" placeholder="Si quieres recibir una respuesta" /><small id="'+prefix+'ReplyHelp">Escribe un correo o un número de WhatsApp válido.</small></label>'+
+          '<label class="helpdesk-field" for="'+prefix+'Name"><span>Tu nombre <em data-helpdesk-name-requirement>Opcional</em></span><input id="'+prefix+'Name" name="name" type="text" maxlength="100" autocomplete="name" aria-label="Tu nombre" placeholder="Para saber cómo llamarte" /></label>'+
+          '<label class="helpdesk-field" for="'+prefix+'ReplyContact"><span>Correo o WhatsApp <em data-helpdesk-contact-requirement>Opcional</em></span><input id="'+prefix+'ReplyContact" name="replyContact" type="text" maxlength="120" autocomplete="off" aria-label="Correo o WhatsApp para responder" aria-describedby="'+prefix+'ReplyHelp" placeholder="Si quieres recibir una respuesta" /><small id="'+prefix+'ReplyHelp" data-helpdesk-reply-help>Escribe un correo o un número de WhatsApp válido.</small></label>'+
           '<label class="helpdesk-field helpdesk-field-wide" for="'+prefix+'Message"><span>Describe lo que necesitas <b>Obligatorio</b></span><textarea id="'+prefix+'Message" name="message" minlength="10" maxlength="3000" rows="5" required aria-label="Descripción de la solicitud" aria-describedby="'+prefix+'MessageHelp '+prefix+'Safety" placeholder="Explica qué ocurre, qué esperabas ver y cualquier detalle útil."></textarea><small id="'+prefix+'MessageHelp">Entre 10 y 3.000 caracteres.</small></label>'+
         '</div>'+
         '<label class="helpdesk-honeypot" aria-hidden="true" for="'+prefix+'Website">No completar<input id="'+prefix+'Website" name="website" type="text" tabindex="-1" autocomplete="off" aria-label="No completar" /></label>'+
-        '<p class="helpdesk-safety" id="'+prefix+'Safety">No envíes contraseñas, datos bancarios ni información que identifique a un paciente. Para una captura, podrás adjuntarla después en WhatsApp.</p>'+
+        '<p class="helpdesk-safety" id="'+prefix+'Safety">No envíes contraseñas, datos bancarios ni información que identifique a un paciente. Comparte una captura solo si soporte te indica un canal habilitado.</p>'+
         '<div class="helpdesk-actions"><button type="submit" class="helpdesk-submit" data-helpdesk-submit>Enviar solicitud</button><small>Recibirás una referencia para seguir tu solicitud.</small></div>'+
         '<p class="helpdesk-status" data-helpdesk-status role="status" aria-live="polite"></p>'+
       '</div>'+
       '<section class="helpdesk-result" data-helpdesk-result aria-live="polite" hidden>'+
         '<span data-helpdesk-result-kicker></span><h3 data-helpdesk-result-title></h3><p data-helpdesk-result-copy></p><strong data-helpdesk-reference></strong>'+
-        '<a class="helpdesk-result-action" data-helpdesk-whatsapp target="_blank" rel="noopener noreferrer" hidden>Continuar por WhatsApp</a>'+
+        '<a class="helpdesk-result-action" data-helpdesk-whatsapp target="_blank" rel="noopener noreferrer" hidden>Abrir borrador en WhatsApp</a>'+
+        '<a class="helpdesk-result-action" data-helpdesk-email hidden>Abrir borrador de correo</a>'+
         '<button class="helpdesk-result-action" data-helpdesk-copy type="button" hidden>Copiar la referencia</button>'+
         '<button class="helpdesk-new" data-helpdesk-new type="button">Enviar otra solicitud</button>'+
         '<p class="helpdesk-result-status" data-helpdesk-result-status role="status" aria-live="polite"></p>'+
@@ -161,6 +163,79 @@
     if(control&&next!==undefined&&next!==null)control.value=String(next);
   }
 
+  function validReplyContact(next){
+    var reply=String(next||'').trim();
+    if(!reply)return true;
+    if(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/u.test(reply))return true;
+    var withoutLabel=reply.replace(/^(?:whats?app|wa|tel(?:ephone|éfono)?)\s*:\s*/iu,'');
+    if(!/^\+?(?:\(\d{1,4}\)|\d)[\d\s().-]*$/u.test(withoutLabel))return false;
+    var digits=withoutLabel.replace(/\D/g,'');
+    return digits.length>=7&&digits.length<=15&&!/^0+$/.test(digits);
+  }
+
+  function isDelegateRequest(form){
+    return value(form,'role')==='future-delegate'||value(form,'category')==='delegate-access';
+  }
+
+  function updateDelegateRequirements(form){
+    var required=isDelegateRequest(form);
+    var name=field(form,'name');
+    var reply=field(form,'replyContact');
+    var nameRequirement=form.querySelector('[data-helpdesk-name-requirement]');
+    var contactRequirement=form.querySelector('[data-helpdesk-contact-requirement]');
+    var replyHelp=form.querySelector('[data-helpdesk-reply-help]');
+    if(name){
+      name.required=required;
+      name.setAttribute('aria-required',required?'true':'false');
+      name.setCustomValidity(required&&!String(name.value||'').trim()?'Escribe tu nombre para que podamos verificar la solicitud de acceso de delegado.':'');
+    }
+    if(reply){
+      reply.required=required;
+      reply.setAttribute('aria-required',required?'true':'false');
+      var replyValue=String(reply.value||'').trim();
+      var replyError='';
+      if(required&&!replyValue)replyError='Escribe un correo o WhatsApp válido para que podamos responder sobre el acceso de delegado.';
+      else if(replyValue&&!validReplyContact(replyValue))replyError='Escribe un correo como nombre@dominio.com o un WhatsApp con 7 a 15 dígitos.';
+      reply.setCustomValidity(replyError);
+    }
+    if(nameRequirement)nameRequirement.textContent=required?'Obligatorio para delegado':'Opcional';
+    if(contactRequirement)contactRequirement.textContent=required?'Obligatorio para delegado':'Opcional';
+    if(replyHelp)replyHelp.textContent=required
+      ?'Para el acceso de delegado, indica un correo o WhatsApp válido donde podamos responderte.'
+      :'Escribe un correo o un número de WhatsApp válido.';
+  }
+
+  function optionLabel(options,next){
+    var found=options.find(function(option){return option[0]===next;});
+    return found?found[1]:next;
+  }
+
+  function supportSummary(form,reference){
+    var detail=value(form,'message');
+    if(detail.length>1500)detail=detail.slice(0,1500)+'…';
+    var lines=[
+      'Solicitud Med Nykuto',
+      'Referencia: '+reference,
+      'Clase: '+resolveClass(form),
+      'Solicitante: '+optionLabel(roleOptions,value(form,'role')),
+      'Categoría: '+optionLabel(categoryOptions,value(form,'category')),
+      'Ubicación: '+optionLabel(locationOptions,value(form,'location')),
+      value(form,'subject')?'Materia: '+value(form,'subject'):'',
+      value(form,'name')?'Nombre: '+value(form,'name'):'',
+      value(form,'replyContact')?'Contacto: '+value(form,'replyContact'):'',
+      'Página: '+currentPagePath(),
+      '',
+      'Detalle:',
+      detail
+    ];
+    return lines.filter(function(line,index){return line||index>8;}).join('\n');
+  }
+
+  function emailDraftHref(form,reference){
+    var subject='Solicitud Med Nykuto · '+reference;
+    return 'mailto:'+SUPPORT_EMAIL+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(supportSummary(form,reference));
+  }
+
   function draftKey(form){return DRAFT_PREFIX+resolveClass(form);}
 
   function readDraft(form){
@@ -171,11 +246,11 @@
   }
 
   function saveDraft(form){
-    if(form.dataset.helpdeskComplete==='true')return;
+    if(form.dataset.helpdeskComplete==='true')return true;
     var draft={requestId:form.dataset.requestId||createRequestId(),updatedAt:new Date().toISOString()};
     DRAFT_FIELDS.forEach(function(name){draft[name]=value(form,name);});
     form.dataset.requestId=draft.requestId;
-    try{localStorage.setItem(draftKey(form),JSON.stringify(draft));}catch(error){}
+    try{localStorage.setItem(draftKey(form),JSON.stringify(draft));return true;}catch(error){return false;}
   }
 
   function removeDraft(form){
@@ -238,6 +313,7 @@
     var title=form.querySelector('[data-helpdesk-result-title]');
     var copyTextNode=form.querySelector('[data-helpdesk-result-copy]');
     var whatsapp=form.querySelector('[data-helpdesk-whatsapp]');
+    var email=form.querySelector('[data-helpdesk-email]');
     var copy=form.querySelector('[data-helpdesk-copy]');
     var resultStatus=form.querySelector('[data-helpdesk-result-status]');
     var support=String(data.supportWhatsapp||'').trim();
@@ -245,33 +321,39 @@
     form.dataset.helpdeskComplete='true';
     fields.hidden=true;
     result.hidden=false;
-    kicker.textContent='SOLICITUD ENVIADA';
-    title.textContent='Tu mensaje llegó al soporte.';
-    copyTextNode.textContent='Guarda esta referencia:';
+    kicker.textContent='SOLICITUD REGISTRADA';
+    title.textContent='El Centro de ayuda guardó tu solicitud.';
     reference.textContent=referenceText;
     resultStatus.textContent='';
     if(E164.test(support)){
       whatsapp.hidden=false;
       whatsapp.href='https://wa.me/'+support.slice(1)+'?text='+encodeURIComponent('Hola, mi solicitud Med Nykuto es '+referenceText+'.');
-      copy.hidden=true;
+      email.hidden=true;
+      email.removeAttribute('href');
+      copyTextNode.textContent='Tu ticket quedó registrado. WhatsApp abrirá un mensaje preparado; deberás revisarlo y enviarlo tú. Guarda esta referencia:';
     }else{
       whatsapp.hidden=true;
       whatsapp.removeAttribute('href');
-      copy.hidden=false;
+      email.hidden=false;
+      email.href=emailDraftHref(form,referenceText);
+      copyTextNode.textContent='Tu ticket quedó registrado. El enlace prepara un correo; deberás revisarlo y enviarlo tú. Guarda esta referencia:';
     }
+    copy.hidden=false;
     removeDraft(form);
     result.scrollIntoView({behavior:window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'nearest'});
-    var nextAction=E164.test(support)?whatsapp:copy;
+    var nextAction=E164.test(support)?whatsapp:email;
     if(nextAction)nextAction.focus({preventScroll:true});
   }
 
   function resetRequest(form){
     form.reset();
     form.dataset.helpdeskComplete='false';
+    form.dataset.submissionAttempted='false';
     form.dataset.requestId=createRequestId();
     var fields=form.querySelector('[data-helpdesk-fields]');
     var result=form.querySelector('[data-helpdesk-result]');
     var whatsapp=form.querySelector('[data-helpdesk-whatsapp]');
+    var email=form.querySelector('[data-helpdesk-email]');
     var copy=form.querySelector('[data-helpdesk-copy]');
     var kicker=form.querySelector('[data-helpdesk-result-kicker]');
     var title=form.querySelector('[data-helpdesk-result-title]');
@@ -281,6 +363,8 @@
     result.hidden=true;
     whatsapp.hidden=true;
     whatsapp.removeAttribute('href');
+    email.hidden=true;
+    email.removeAttribute('href');
     copy.hidden=true;
     kicker.textContent='';
     title.textContent='';
@@ -288,6 +372,7 @@
     reference.textContent='';
     setValue(form,'role',inferredRole());
     setValue(form,'location',inferredLocation());
+    updateDelegateRequirements(form);
     setStatus(form,'',false);
     saveDraft(form);
     var first=field(form,'role');
@@ -318,8 +403,17 @@
     }
     form.noValidate=false;
     restoreDraft(form);
-    form.addEventListener('input',function(){saveDraft(form);});
-    form.addEventListener('change',function(){saveDraft(form);});
+    updateDelegateRequirements(form);
+    function draftChanged(){
+      if(form.dataset.submissionAttempted==='true'){
+        form.dataset.requestId=createRequestId();
+        form.dataset.submissionAttempted='false';
+      }
+      updateDelegateRequirements(form);
+      saveDraft(form);
+    }
+    form.addEventListener('input',draftChanged);
+    form.addEventListener('change',draftChanged);
     form.querySelector('[data-helpdesk-new]').addEventListener('click',function(){resetRequest(form);});
     form.querySelector('[data-helpdesk-copy]').addEventListener('click',function(){
       var reference=form.querySelector('[data-helpdesk-reference]').textContent.trim();
@@ -329,10 +423,12 @@
     form.addEventListener('submit',function(event){
       event.preventDefault();
       if(form.getAttribute('aria-busy')==='true'||form.dataset.helpdeskComplete==='true')return;
+      updateDelegateRequirements(form);
       if(!form.checkValidity()){
         form.reportValidity();
         return;
       }
+      form.dataset.submissionAttempted='true';
       saveDraft(form);
       var body=payload(form);
       form.dataset.requestId=body.requestId;
@@ -356,8 +452,10 @@
         setStatus(form,'',false);
         showSuccess(form,data);
       }).catch(function(error){
-        saveDraft(form);
-        setStatus(form,error&&error.message?error.message:'No se pudo enviar ahora. Tu borrador sigue guardado en este dispositivo.',true);
+        var preserved=saveDraft(form);
+        var message=error&&error.message?error.message:'No se pudo enviar ahora.';
+        message+=preserved?' Tu borrador local sigue disponible en este navegador.':' No se pudo conservar el borrador; copia tu texto antes de salir.';
+        setStatus(form,message,true);
       }).finally(function(){setBusy(form,false);});
     });
   }
@@ -365,6 +463,7 @@
   function closeDialog(dialog){
     if(typeof dialog.close==='function'&&dialog.open)dialog.close();
     else dialog.removeAttribute('open');
+    document.body.classList.remove('helpdesk-dialog-open');
   }
 
   function createFloatingHelpDesk(){

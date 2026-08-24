@@ -163,19 +163,27 @@ async function main() {
   const frontendStyle = fs.readFileSync(path.join(root, 'help-desk-v479.css'), 'utf8');
   assert.match(frontendSource, /data-helpdesk-form/);
   assert.match(frontendSource, /\/api\/help-desk/);
+  assert.match(frontendSource, /value\(form,['"]role['"]\)===['"]future-delegate['"]\|\|value\(form,['"]category['"]\)===['"]delegate-access['"]/);
+  assert.match(frontendSource, /mailto:['"]?\+SUPPORT_EMAIL/);
+  assert.match(frontendSource, /contact@nykuto\.com/);
+  assert.match(frontendSource, /deberás revisarlo y enviarlo tú/);
+  assert.doesNotMatch(frontendSource, /(?:correo|email|WhatsApp) (?:fue )?enviado/iu);
   assert.match(frontendStyle, /\.helpdesk-fab/);
   for (const file of [
     'index.html', 'matieres.html', 'matiere.html', 'modules.html', 'module.html',
     'qcm.html', 'cas-cliniques.html', 'vrai-faux.html', 'erreurs.html', 'examen.html',
-    'clase.html', 'comunidade.html', 'turma-shell/index.html', 'gestion-shell/index.html'
+    'clase.html', 'comunidade.html', 'contact.html', 'turma-shell/index.html', 'gestion-shell/index.html'
   ]) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
-    assert.match(html, /help-desk-v479\.css\?v=479/, `${file} is missing the Help Desk stylesheet.`);
-    assert.match(html, /help-desk-v479\.js\?v=479/, `${file} is missing the Help Desk client.`);
+    assert.match(html, /help-desk-v479\.css\?v=480/, `${file} is missing the Help Desk stylesheet.`);
+    assert.match(html, /help-desk-v479\.js\?v=480/, `${file} is missing the Help Desk client.`);
   }
   const contactPage = fs.readFileSync(path.join(root, 'contact.html'), 'utf8');
   assert.match(contactPage, /data-helpdesk-form/);
+  assert.match(contactPage, /obligatorios para pedir acceso de delegado/i);
   assert.doesNotMatch(contactPage, /formulario aún no tiene envío real/i);
+  const legalPage = fs.readFileSync(path.join(root, 'mentions.html'), 'utf8');
+  assert.match(legalPage, /WhatsApp y el correo no se envían automáticamente/i);
 
   const tempDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'med-nykuto-help-desk-'));
   const databasePath = path.join(tempDirectory, 'help-desk.sqlite');
@@ -296,6 +304,8 @@ async function main() {
       ['invalid_subject', { requestId: 'request-long-subject-001', subject: 's'.repeat(101) }],
       ['invalid_name', { requestId: 'request-long-name-000001', name: 'n'.repeat(101) }],
       ['invalid_reply_contact', { requestId: 'request-bad-contact-001', replyContact: 'not a contact' }],
+      ['invalid_reply_contact', { requestId: 'request-bad-phone-zero', replyContact: '0000000' }],
+      ['invalid_reply_contact', { requestId: 'request-bad-phone-plus', replyContact: '123+4567' }],
       ['invalid_message', { requestId: 'request-short-message-01', message: 'too short' }],
       ['invalid_message', { requestId: 'request-long-message-0001', message: 'm'.repeat(3001) }],
       ['invalid_page_path', { requestId: 'request-bad-page-path-01', pagePath: 'https://attacker.example/private' }]
@@ -304,6 +314,83 @@ async function main() {
       const result = await request(firstModule.onRequest, db, { payload: validPayload(override) });
       expectFailure(result, 400, code);
     }
+
+    const delegateRequiredCases = [
+      ['delegate_name_required', {
+        requestId: 'request-future-no-name-01',
+        role: 'future-delegate',
+        category: 'bug',
+        name: '',
+        replyContact: 'future.delegate@example.test'
+      }],
+      ['delegate_reply_contact_required', {
+        requestId: 'request-future-no-reply-1',
+        role: 'future-delegate',
+        category: 'bug',
+        name: 'Futura Delegada',
+        replyContact: ''
+      }],
+      ['delegate_name_required', {
+        requestId: 'request-access-no-name-01',
+        role: 'student',
+        category: 'delegate-access',
+        name: '',
+        replyContact: 'access.student@example.test'
+      }],
+      ['invalid_reply_contact', {
+        requestId: 'request-access-bad-reply',
+        role: 'student',
+        category: 'delegate-access',
+        name: 'Estudiante Acceso',
+        replyContact: 'contacto inválido'
+      }]
+    ];
+    for (const [code, override] of delegateRequiredCases) {
+      const result = await request(firstModule.onRequest, db, { payload: validPayload(override) });
+      expectFailure(result, 400, code);
+      assert.match(result.body?.error || '', /nombre|correo|WhatsApp|dígitos/i, JSON.stringify(result.body));
+    }
+
+    const futureDelegate = await request(firstModule.onRequest, db, {
+      payload: validPayload({
+        requestId: 'request-future-valid-phone',
+        role: 'future-delegate',
+        category: 'bug',
+        name: 'Futura Delegada',
+        replyContact: 'WhatsApp: +595 981 123 456'
+      }),
+      ip: '203.0.113.60'
+    });
+    assert.equal(futureDelegate.response.status, 200, JSON.stringify(futureDelegate.body));
+
+    const delegateAccess = await request(firstModule.onRequest, db, {
+      payload: validPayload({
+        requestId: 'request-access-valid-email',
+        role: 'student',
+        category: 'delegate-access',
+        name: 'Estudiante Acceso',
+        replyContact: 'access.student@example.test'
+      }),
+      ip: '203.0.113.61'
+    });
+    assert.equal(delegateAccess.response.status, 200, JSON.stringify(delegateAccess.body));
+
+    const generalAnonymous = await request(firstModule.onRequest, db, {
+      payload: validPayload({
+        requestId: 'request-general-anonymous',
+        role: 'student',
+        category: 'subject-help',
+        name: '',
+        replyContact: ''
+      }),
+      ip: '203.0.113.62'
+    });
+    assert.equal(generalAnonymous.response.status, 200, JSON.stringify(generalAnonymous.body));
+
+    const delegateRows = db.database.prepare(`SELECT role,category,requester_name,reply_contact FROM hub_support_tickets WHERE public_reference IN (?,?) ORDER BY role`)
+      .all(futureDelegate.body.reference, delegateAccess.body.reference);
+    assert.equal(delegateRows.length, 2);
+    assert.equal(delegateRows.every((row) => Boolean(row.requester_name && row.reply_contact)), true, 'A delegate ticket was stored without identity and reply contact.');
 
     const beforeHoneypot = countRows(db.database, 'hub_support_tickets');
     const honeypot = await request(firstModule.onRequest, db, {
@@ -400,7 +487,7 @@ async function main() {
     assert.equal(countRows(db.database, 'hub_support_tickets'), beforeReinitialize + 1, 'A simulated deployment duplicated or lost a ticket.');
     assert.equal(db.database.prepare(`SELECT message FROM hub_support_tickets WHERE id=?`).get('legacy-help-ticket-1')?.message, 'Mensaje legacy que debe sobrevivir a la migración.');
 
-    console.log('Help Desk validation OK: additive migration, durable idempotence, validation, honeypot, rate limit, tenant isolation, WhatsApp routing and IP hashing.');
+    console.log('Help Desk validation OK: additive migration, durable idempotence, delegate contact requirements, mail/WhatsApp draft honesty, honeypot, rate limit, tenant isolation and IP hashing.');
   } finally {
     if (db) {
       try { db.close(); } catch {}

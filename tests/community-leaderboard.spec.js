@@ -5,8 +5,11 @@ const PLAYER_ID = '11111111-1111-4111-8111-111111111111';
 const ACCESS_TOKEN = 'a'.repeat(64);
 const PROFILE = {
   playerId: PLAYER_ID,
-  displayName: 'Baboune',
-  studentIdMasked: '•••• 6810',
+  fullName: 'Baboune Nykuto',
+  displayName: 'Baboune Nykuto',
+  catraca: '0246810',
+  studentIdMasked: '',
+  classConfirmed: true,
   accessToken: ACCESS_TOKEN
 };
 
@@ -49,11 +52,15 @@ const API_RESPONSE = {
   ranking: [
     {
       rank: 1,
-      displayName: 'Nath',
-      nickname: 'Nath',
-      studentIdMasked: '•••• 1234',
+      fullName: 'Nath Oliveira',
+      displayName: 'Nath Oliveira',
+      nickname: 'Nath Oliveira',
+      catraca: '001234',
+      studentId: '001234',
       identityComplete: true,
       verificationStatus: 'pending',
+      eligibleForPrize: false,
+      prizeEligible: false,
       points: 92,
       questions: 110,
       accuracy: 84,
@@ -62,11 +69,15 @@ const API_RESPONSE = {
     },
     {
       rank: 2,
-      displayName: 'Baboune',
-      nickname: 'Baboune',
-      studentIdMasked: '•••• 6810',
+      fullName: 'Baboune Nykuto',
+      displayName: 'Baboune Nykuto',
+      nickname: 'Baboune Nykuto',
+      catraca: '0246810',
+      studentId: '0246810',
       identityComplete: true,
       verificationStatus: 'pending',
+      eligibleForPrize: false,
+      prizeEligible: false,
       points: 78,
       questions: 100,
       accuracy: 78,
@@ -80,6 +91,8 @@ const API_RESPONSE = {
       studentIdMasked: '',
       identityComplete: false,
       verificationStatus: 'legacy',
+      eligibleForPrize: false,
+      prizeEligible: false,
       points: 62,
       questions: 80,
       accuracy: 78,
@@ -89,11 +102,15 @@ const API_RESPONSE = {
   ],
   currentUser: {
     rank: 2,
-    displayName: 'Baboune',
-    nickname: 'Baboune',
-    studentIdMasked: '•••• 6810',
+    fullName: 'Baboune Nykuto',
+    displayName: 'Baboune Nykuto',
+    nickname: 'Baboune Nykuto',
+    catraca: '0246810',
+    studentId: '0246810',
     identityComplete: true,
     verificationStatus: 'pending',
+    eligibleForPrize: false,
+    prizeEligible: false,
     points: 78,
     questions: 100,
     accuracy: 78,
@@ -133,7 +150,7 @@ async function replaceWithCompletion(page, score = '18/20 respuestas correctas �
 }
 
 test.describe('Weekly S4-E class challenge', () => {
-  test('shows the 50 R$ Pix prize, masked ranking and current S4-E profile in both languages', async ({ page }) => {
+  test('shows the 50 R$ Pix prize, complete public catracas and provisional S4-E ranking in both languages', async ({ page }) => {
     await seedProfile(page);
     let rankingRequestUrl = '';
     await page.route('**/api/community**', async (route) => {
@@ -146,55 +163,85 @@ test.describe('Weekly S4-E class challenge', () => {
     await expect(page.getByText('50 R$ vía Pix', { exact: true })).toBeVisible();
     await expect(page.getByText('Premio para el 1.er lugar verificado', { exact: true })).toBeVisible();
     await expect(page.getByText('Exclusivo para estudiantes matriculados en el 4.º E.', { exact: true })).toBeVisible();
-    await expect(page.locator('#studyTopName')).toHaveText('Nath');
+    await expect(page.locator('#studyTopName')).toHaveText('Nath Oliveira');
     await expect(page.locator('#studyTopMeta')).toContainText('92 aciertos');
     await expect(page.locator('#studyMyScoreValue')).toHaveText('78');
     await expect(page.locator('#studyMyScoreMeta')).toContainText('#2');
     await expect(page.locator('#challengeScore')).toHaveText('260 / 1.000');
     await expect(page.locator('#challengeProgressBar')).toHaveAttribute('aria-valuenow', '26');
     await expect(page.locator('#communityRanking .ranking-row')).toHaveCount(3);
-    await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-name')).toHaveText('Nath');
-    await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-catraca')).toHaveText('•••• 1234');
-    await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-catraca')).toHaveAttribute('aria-label', 'Catraca terminada en 1234');
-    await expect(page.locator('#communityRanking .ranking-row.is-current')).toContainText('Baboune');
-    await expect(page.locator('#communityRanking .ranking-row.is-current')).toContainText('•••• 6810');
+    await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-name')).toHaveText('Nath Oliveira');
+    await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-catraca')).toHaveText('001234');
+    await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-catraca')).toHaveAttribute('aria-label', 'Catraca completa: 001234');
+    await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-verification')).toHaveText('Verificación pendiente · clasificación provisional');
+    await expect(page.locator('#communityRanking .ranking-row.is-current')).toContainText('Baboune Nykuto');
+    await expect(page.locator('#communityRanking .ranking-row.is-current')).toContainText('0246810');
     await expect(page.locator('#communityRanking .ranking-row.is-current')).toContainText('Tú');
-    await expect(page.locator('#communityRanking .ranking-row').last().locator('.ranking-catraca')).toHaveText('Perfil pendiente');
+    await expect(page.locator('#communityRanking .ranking-row').last().locator('.ranking-catraca')).toHaveText('—');
+    await expect(page.locator('#communityRanking .ranking-row').last().locator('.ranking-verification')).toHaveText('Identificación pendiente · sin premio');
     await expect(page.locator('#challengeWeek')).toContainText('24 ago');
     expect(new URL(rankingRequestUrl).searchParams.get('class')).toBe('s4-e');
     expect(new URL(rankingRequestUrl).searchParams.get('player')).toBe(PLAYER_ID);
     expect(new URL(rankingRequestUrl).searchParams.has('nickname')).toBe(false);
-    expect(await page.content()).not.toContain('246810');
+    expect(await page.content()).toContain('0246810');
 
     await page.locator('#communityLanguage').selectOption('br');
     await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
     await expect(page.getByRole('heading', { name: 'Estude por matéria e tema.' })).toBeVisible();
     await expect(page.getByText('R$ 50 via Pix', { exact: true })).toBeVisible();
     await expect(page.locator('#communityRanking .ranking-row.is-current')).toContainText('Você');
-    await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-catraca')).toHaveAttribute('aria-label', 'Catraca terminada em 1234');
+    await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-catraca')).toHaveAttribute('aria-label', 'Catraca completa: 001234');
+    await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-verification')).toHaveText('Verificação pendente · classificação provisória');
+    await expect(page.locator('#communityProfileForm label[for="communityIdentityConsent"]')).toContainText('Participar é facultativo');
+    await expect(page.locator('#communityProfileForm label[for="communityIdentityConsent"]')).toContainText('nome completo e minha catraca completa sejam públicos');
+    await expect(page.locator('#communityProfileForm label[for="communityIdentityConsent"]')).toContainText('verificação manual');
     await expect(page.locator('[data-study-subject="nutricion"]')).toContainText('Nutrição');
   });
 
-  test('migrates the v1 nickname profile and removes every locally stored complete catraca', async ({ page }) => {
+  test('migrates the PR 134 masked profile, prefills the name and asks again for the complete catraca', async ({ page }) => {
     await seedProfile(page, {
       playerId: PLAYER_ID,
-      nickname: 'Baboune Legacy',
-      studentId: '246810',
-      accessToken: 'invalid-token'
+      displayName: 'Baboune Legacy',
+      studentIdMasked: '•••• 6810',
+      accessToken: ACCESS_TOKEN
     });
     await mockCommunityGet(page, EMPTY_API_RESPONSE);
 
     await page.goto('/comunidade.html');
     await expect(page.locator('#communityDisplayName')).toHaveValue('Baboune Legacy');
     await expect(page.locator('#communityStudentId')).toHaveValue('');
+    await expect(page.locator('#communityProfileStatus')).toContainText('Vuelve a escribir la catraca completa');
     const stored = await page.evaluate((key) => ({ raw: localStorage.getItem(key), parsed: JSON.parse(localStorage.getItem(key)) }), PROFILE_KEY);
-    expect(stored.raw).not.toContain('246810');
-    expect(stored.parsed).toMatchObject({ playerId: PLAYER_ID, displayName: 'Baboune Legacy', accessToken: '' });
-    expect(stored.parsed).not.toHaveProperty('nickname');
+    expect(stored.parsed).toMatchObject({ playerId: PLAYER_ID, fullName: 'Baboune Legacy', displayName: 'Baboune Legacy', catraca: '', studentIdMasked: '•••• 6810', classConfirmed: false, accessToken: ACCESS_TOKEN });
     expect(stored.parsed).not.toHaveProperty('studentId');
   });
 
-  test('enrolls with name, catraca and consent while keeping only the mask and token locally', async ({ page }) => {
+  test('requires a two-word full name before enrollment', async ({ page }) => {
+    await seedProfile(page, { playerId: PLAYER_ID });
+    let postCount = 0;
+    await page.route('**/api/community**', async (route) => {
+      if (route.request().method() === 'POST') postCount += 1;
+      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(EMPTY_API_RESPONSE) });
+    });
+
+    await page.goto('/comunidade.html');
+    const form = page.locator('#communityProfileForm');
+    await form.locator('input[name="displayName"]').fill('Maria');
+    await form.locator('input[name="studentId"]').fill('001234');
+    await form.locator('input[name="classConfirmed"]').check();
+    await form.locator('input[name="consent"]').check();
+    await form.getByRole('button', { name: 'Guardar y participar' }).click();
+
+    await expect(page.locator('#communityProfileStatus')).toContainText('nombre completo (2 palabras');
+    expect(postCount).toBe(0);
+
+    await form.locator('input[name="displayName"]').fill('Ana . Silva');
+    await form.getByRole('button', { name: 'Guardar y participar' }).click();
+    await expect(page.locator('#communityProfileStatus')).toContainText('nombre completo (2 palabras');
+    expect(postCount).toBe(0);
+  });
+
+  test('enrolls with full name, complete catraca, 4E attestation and explicit public-data consent', async ({ page }) => {
     await seedProfile(page, { playerId: PLAYER_ID });
     let submitted = null;
     let postCount = 0;
@@ -211,10 +258,10 @@ test.describe('Weekly S4-E class challenge', () => {
             participant: {
               playerId: PLAYER_ID,
               displayName: 'Estudiante Fixture',
-              studentIdMasked: '•••• 6810',
+              studentId: '0246810',
               verificationStatus: 'pending'
             },
-            accessToken: 'b'.repeat(64)
+            accessToken: submitted.accessToken
           })
         });
         return;
@@ -226,33 +273,138 @@ test.describe('Weekly S4-E class challenge', () => {
     const form = page.locator('#communityProfileForm');
     await expect(form.locator('input[name="displayName"]')).toBeVisible();
     await expect(form.locator('input[name="studentId"]')).toHaveAttribute('aria-describedby', 'communityPrivacy');
+    await expect(form.locator('input[name="displayName"]')).toHaveAttribute('minlength', '5');
+    await expect(form.locator('input[name="classConfirmed"]')).toHaveAttribute('type', 'checkbox');
     await expect(form.locator('input[name="consent"]')).toHaveAttribute('type', 'checkbox');
+    await expect(form.locator('label[for="communityIdentityConsent"]')).toContainText('Participar es facultativo');
+    await expect(form.locator('label[for="communityIdentityConsent"]')).toContainText('nombre completo y mi catraca completa sean públicos');
+    await expect(form.locator('label[for="communityIdentityConsent"]')).toContainText('cualquier persona que tenga el enlace');
+    await expect(form.locator('label[for="communityIdentityConsent"]')).toContainText('verificación manual');
     await form.locator('input[name="displayName"]').fill('Estudiante Fixture');
-    await form.locator('input[name="studentId"]').fill('24-68-10');
+    await form.locator('input[name="studentId"]').fill('02-46-810');
+    await form.locator('input[name="classConfirmed"]').check();
     await form.locator('input[name="consent"]').check();
     await form.getByRole('button', { name: 'Guardar y participar' }).click();
 
-    await expect(page.locator('#communityProfileStatus')).toContainText('Identidad guardada');
-    await expect(page.locator('#communityProfileStatus')).toContainText('•••• 6810');
-    await expect(form.locator('input[name="studentId"]')).toHaveValue('');
+    await expect(page.locator('#communityProfileStatus')).toContainText('Perfil guardado');
+    await expect(page.locator('#communityProfileStatus')).toContainText('clasificación es provisional');
+    await expect(page.locator('#communityProfileStatus')).toContainText('0246810');
+    await expect(form.locator('input[name="studentId"]')).toHaveValue('0246810');
     expect(postCount).toBe(1);
-    expect(submitted).toEqual({
+    expect(submitted).toMatchObject({
       action: 'enroll',
       class: 's4-e',
       playerId: PLAYER_ID,
+      fullName: 'Estudiante Fixture',
       displayName: 'Estudiante Fixture',
-      studentId: '246810',
+      catraca: '0246810',
+      studentId: '0246810',
+      classConfirmed: true,
       consent: true
     });
+    expect(submitted.accessToken).toMatch(/^[0-9a-f]{64}$/);
     const stored = await page.evaluate((key) => ({ raw: localStorage.getItem(key), parsed: JSON.parse(localStorage.getItem(key)) }), PROFILE_KEY);
-    expect(stored.raw).not.toContain('246810');
     expect(stored.parsed).toEqual({
       playerId: PLAYER_ID,
+      fullName: 'Estudiante Fixture',
       displayName: 'Estudiante Fixture',
-      studentIdMasked: '•••• 6810',
-      accessToken: 'b'.repeat(64)
+      catraca: '0246810',
+      studentIdMasked: '',
+      classConfirmed: true,
+      accessToken: submitted.accessToken
     });
     expect(stored.parsed).not.toHaveProperty('studentId');
+  });
+
+  test('sends the existing access token for a safe update and preserves the local profile on identity conflict', async ({ page }) => {
+    await seedProfile(page);
+    let submitted = null;
+    await page.route('**/api/community**', async (route) => {
+      if (route.request().method() === 'POST') {
+        submitted = route.request().postDataJSON();
+        await route.fulfill({
+          status: 409,
+          contentType: 'application/json',
+          body: JSON.stringify({ ok: false, code: 'identity_conflict' })
+        });
+        return;
+      }
+      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(API_RESPONSE) });
+    });
+
+    await page.goto('/comunidade.html');
+    const before = await page.evaluate((key) => localStorage.getItem(key), PROFILE_KEY);
+    const form = page.locator('#communityProfileForm');
+    await form.locator('input[name="displayName"]').fill('Nombre En Conflicto');
+    await form.locator('input[name="studentId"]').fill('00-99-99');
+    await form.locator('input[name="classConfirmed"]').check();
+    await form.locator('input[name="consent"]').check();
+    await form.getByRole('button', { name: 'Guardar y participar' }).click();
+
+    await expect(page.locator('#communityProfileStatus')).toContainText('Esta catraca ya está asociada a otro perfil');
+    const helpLink = page.locator('#communityProfileStatus .community-profile-help-link');
+    await expect(helpLink).toHaveText('Abrir Help Desk');
+    await expect(helpLink).toHaveAttribute('href', /contact\.html\?reason=challenge-identity/);
+    await expect(form.locator('input[name="studentId"]')).toHaveValue('00-99-99');
+    expect(submitted).toMatchObject({
+      action: 'enroll',
+      class: 's4-e',
+      playerId: PLAYER_ID,
+      accessToken: ACCESS_TOKEN,
+      fullName: 'Nombre En Conflicto',
+      displayName: 'Nombre En Conflicto',
+      catraca: '009999',
+      studentId: '009999',
+      classConfirmed: true,
+      consent: true
+    });
+    expect(await page.evaluate((key) => localStorage.getItem(key), PROFILE_KEY)).toBe(before);
+  });
+
+  test('persists and reuses the client access token when the first enrollment response is lost', async ({ page }) => {
+    await seedProfile(page, { playerId: PLAYER_ID });
+    const submissions = [];
+    await page.route('**/api/community**', async (route) => {
+      if (route.request().method() !== 'POST') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(EMPTY_API_RESPONSE) });
+        return;
+      }
+      const submitted = route.request().postDataJSON();
+      submissions.push(submitted);
+      if (submissions.length === 1) {
+        await route.abort('failed');
+        return;
+      }
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          ok: true,
+          participant: { playerId: PLAYER_ID, fullName: submitted.fullName, catraca: submitted.catraca, verificationStatus: 'pending' },
+          accessToken: submitted.accessToken
+        })
+      });
+    });
+
+    await page.goto('/comunidade.html');
+    const form = page.locator('#communityProfileForm');
+    await form.locator('input[name="displayName"]').fill('Respuesta Perdida');
+    await form.locator('input[name="studentId"]').fill('001122');
+    await form.locator('input[name="classConfirmed"]').check();
+    await form.locator('input[name="consent"]').check();
+    const submit = form.getByRole('button', { name: 'Guardar y participar' });
+    await submit.click();
+    await expect(page.locator('#communityProfileStatus')).toContainText('No se pudo guardar');
+    const pendingToken = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)).pendingAccessToken, PROFILE_KEY);
+    expect(pendingToken).toMatch(/^[0-9a-f]{64}$/);
+
+    await submit.click();
+    await expect(page.locator('#communityProfileStatus')).toContainText('Perfil guardado');
+    expect(submissions).toHaveLength(2);
+    expect(submissions[1].accessToken).toBe(submissions[0].accessToken);
+    const stored = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)), PROFILE_KEY);
+    expect(stored.accessToken).toBe(pendingToken);
+    expect(stored).not.toHaveProperty('pendingAccessToken');
   });
 
   test('selects a subject and grouped theme, then reuses the class practice bank', async ({ page }) => {
@@ -351,6 +503,60 @@ test.describe('Weekly S4-E class challenge', () => {
     expect(submitted).not.toHaveProperty('nickname');
   });
 
+  test('queues a fresh ranking read when a score is published during an older GET', async ({ page }) => {
+    await seedProfile(page);
+    let releaseFirstGet = null;
+    let getCount = 0;
+    await page.route('**/api/community**', async (route) => {
+      if (route.request().method() === 'POST') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, saved: true }) });
+        return;
+      }
+      getCount += 1;
+      if (getCount === 1) {
+        await new Promise((resolve) => { releaseFirstGet = resolve; });
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(EMPTY_API_RESPONSE) });
+        return;
+      }
+      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(API_RESPONSE) });
+    });
+
+    await page.goto('/comunidade.html');
+    await expect.poll(() => Boolean(releaseFirstGet)).toBe(true);
+    await page.evaluate(() => window.MedNykutoCommunity.publishScore({ courseId: 'nutricion', moduleId: 'queued-refresh', correct: 8, total: 10 }));
+    releaseFirstGet();
+    await expect.poll(() => getCount).toBe(2);
+    await expect(page.locator('#communityRanking .ranking-row')).toHaveCount(3);
+  });
+
+  test('does not attribute a delayed publication to a newer completed result', async ({ page }) => {
+    await seedProfile(page);
+    let releasePost = null;
+    await page.route('**/api/community**', async (route) => {
+      if (route.request().method() === 'POST') {
+        await new Promise((resolve) => { releasePost = resolve; });
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, saved: true }) });
+        return;
+      }
+      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(API_RESPONSE) });
+    });
+
+    await page.goto('/comunidade.html');
+    await page.evaluate(() => document.dispatchEvent(new CustomEvent('mednykuto:practice-complete', {
+      detail: { courseId: 'nutricion', moduleId: 'first-result', topicId: 'nutricion', correct: 9, total: 10 }
+    })));
+    await page.locator('#studyPublishButton').click();
+    await expect.poll(() => Boolean(releasePost)).toBe(true);
+    await page.evaluate(() => document.dispatchEvent(new CustomEvent('mednykuto:practice-complete', {
+      detail: { courseId: 'nutricion', moduleId: 'newer-result', topicId: 'nutricion', correct: 4, total: 5 }
+    })));
+    await expect(page.locator('#studyPublishTitle')).toHaveText('4/5 respuestas correctas');
+    releasePost();
+    await expect(page.locator('#studyPublishButton')).toBeEnabled();
+    await expect(page.locator('#studyPublishTitle')).toHaveText('4/5 respuestas correctas');
+    await expect(page.locator('#studyPublishStatus')).toHaveText('');
+  });
+
   test('publishes a Materias result with the same tokenized S4-E profile', async ({ page }) => {
     await seedProfile(page);
     await page.addInitScript(() => {
@@ -380,7 +586,7 @@ test.describe('Weekly S4-E class challenge', () => {
     const dialog = page.locator('#practice-nutricion-dialog');
     await expect(dialog).toHaveAttribute('open', '');
     await expect(dialog.locator('.class-practice-publish')).toBeVisible();
-    await expect(dialog.locator('.class-practice-publish-field strong')).toHaveText('Baboune · •••• 6810');
+    await expect(dialog.locator('.class-practice-publish-field strong')).toHaveText('Baboune Nykuto · 0246810');
     await dialog.getByRole('button', { name: 'Sumar mis puntos' }).click();
     await expect(dialog.locator('.class-practice-publish-status')).toContainText('Resultado publicado');
     expect(submitted).toEqual({
@@ -439,7 +645,7 @@ test.describe('Weekly S4-E class challenge', () => {
     const publisher = page.locator('.community-publish-card').last();
     await expect(publisher).toBeVisible();
     await expect(publisher.getByRole('heading', { name: '¿Te sumas al desafío del 4.º E?' })).toBeVisible();
-    await expect(publisher.locator('.community-publish-identity')).toHaveText('Baboune · •••• 6810');
+    await expect(publisher.locator('.community-publish-identity')).toHaveText('Baboune Nykuto · 0246810');
     await expect(publisher.locator('.community-publish-privacy')).toContainText('50 R$ por Pix');
     await publisher.getByRole('button', { name: 'Sumar mi resultado' }).click();
     await expect(publisher.locator('.community-publish-status')).toHaveText('Resultado añadido: 18/20.');
@@ -463,7 +669,7 @@ test.describe('Weekly S4-E class challenge', () => {
     await expect(page.locator('.mobile-bottom-nav a[href="comunidade.html"]')).toContainText('Estudiar');
   });
 
-  test('keeps identity, prize, masked ranking and navigation usable at iPhone width', async ({ page }) => {
+  test('keeps public identity, prize, consent and navigation usable at iPhone width', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await seedProfile(page);
     await mockCommunityGet(page);
@@ -478,10 +684,12 @@ test.describe('Weekly S4-E class challenge', () => {
     await expect(navigation.locator('a[href="clase.html#pendientes"]')).toContainText('Tareas');
     await expect(navigation.locator('a[href="clase.html#materias"]')).toContainText('Materias');
     await expect(page.getByText('50 R$ vía Pix', { exact: true })).toBeVisible();
-    await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-catraca')).toHaveText('•••• 1234');
-    await expect(page.locator('#communityProfileForm label[for="communityDisplayName"]')).toContainText('Nombre visible');
-    await expect(page.locator('#communityProfileForm label[for="communityStudentId"]')).toContainText('Catraca UCP');
-    await expect(page.locator('#communityProfileForm label[for="communityIdentityConsent"]')).toContainText('Confirmo que pertenezco al 4.º E');
+    await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-catraca')).toHaveText('001234');
+    await expect(page.locator('#communityProfileForm label[for="communityDisplayName"]')).toContainText('Nombre completo');
+    await expect(page.locator('#communityProfileForm label[for="communityStudentId"]')).toContainText('Catraca UCP completa');
+    await expect(page.locator('#communityProfileForm label[for="communityClassConfirmed"]')).toContainText('matriculado/a en el 4.º E');
+    await expect(page.locator('#communityProfileForm label[for="communityIdentityConsent"]')).toContainText('Participar es facultativo');
+    await expect(page.locator('#communityProfileForm label[for="communityIdentityConsent"]')).toContainText('catraca completa sean públicos');
 
     const layout = await page.evaluate(() => {
       const nav = document.querySelector('.mobile-bottom-nav').getBoundingClientRect();

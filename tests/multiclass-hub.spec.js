@@ -1465,7 +1465,7 @@ test.describe('Multiclass student hub', () => {
       '/turma-v471.js?v=478',
       '/turma-manifest-boot-v471.js?v=478'
     ]));
-    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v478['"]/);
+    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v480['"]/);
     [
       /\/gestion/i,
       /\/api\//i,

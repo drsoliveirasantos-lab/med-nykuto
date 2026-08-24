@@ -293,7 +293,11 @@
 .ranking-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.91rem}
 .ranking-you{padding:2px 6px;color:#08242c;background:var(--community-cyan);border-radius:999px;font-size:.6rem;font-weight:900;text-transform:uppercase}
 .ranking-meta{overflow:hidden;color:var(--community-muted);text-overflow:ellipsis;white-space:nowrap;font-size:.68rem}
-.ranking-catraca{width:max-content;max-width:100%;padding:2px 6px;color:var(--community-cyan-soft);background:rgba(85,199,207,.07);border:1px solid rgba(85,199,207,.15);border-radius:999px;font-size:.59rem;font-weight:800}
+.ranking-catraca{width:max-content;max-width:100%;overflow-wrap:anywhere;padding:2px 6px;color:var(--community-cyan-soft);background:rgba(85,199,207,.07);border:1px solid rgba(85,199,207,.15);border-radius:999px;font-size:.59rem;font-weight:800}
+.ranking-verification{width:max-content;max-width:100%;padding:2px 6px;border-radius:999px;font-size:.56rem;font-weight:850;line-height:1.3}
+.ranking-verification.is-pending{color:#f4cf82;background:rgba(244,207,130,.08);border:1px solid rgba(244,207,130,.2)}
+.ranking-verification.is-verified{color:#8de2bb;background:rgba(114,224,171,.08);border:1px solid rgba(114,224,171,.2)}
+.ranking-verification.is-legacy{color:#f0a99f;background:rgba(238,124,111,.08);border:1px solid rgba(238,124,111,.2)}
 .ranking-score{display:grid;text-align:right}
 .ranking-score strong{font-size:1.05rem}
 .ranking-score small{color:var(--community-muted);font-size:.65rem}
@@ -337,6 +341,7 @@
 .community-profile-status{min-height:20px;margin:8px 0 0!important;font-size:.72rem}
 .community-profile-status[data-state="success"]{color:var(--community-success)}
 .community-profile-status[data-state="error"]{color:var(--community-error)}
+.community-profile-help-link{display:inline-flex;align-items:center;min-height:36px;margin:7px 0 0;padding:0 10px;color:#fff;background:#9d332d;border:1px solid rgba(255,255,255,.28);border-radius:9px;font-weight:850;text-decoration:none}
 .community-privacy{padding-top:14px;border-top:1px solid var(--community-line);font-size:.75rem!important}
 .community-steps{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:0}
 .community-steps li{display:grid;grid-template-columns:42px 1fr;gap:12px;padding:15px 0;border-top:1px solid var(--community-line)}

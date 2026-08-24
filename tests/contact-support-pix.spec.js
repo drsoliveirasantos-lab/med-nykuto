@@ -79,11 +79,11 @@ test('contact Help Desk sends one guided request and exposes its reference throu
 
   await form.locator('[data-helpdesk-submit]').click();
   await expect(form.locator('[data-helpdesk-result]')).toBeVisible();
-  await expect(form.locator('[data-helpdesk-result]')).toContainText(/solicitud enviada/i);
+  await expect(form.locator('[data-helpdesk-result]')).toContainText(/solicitud registrada/i);
   await expect(form.locator('[data-helpdesk-reference]')).toHaveText('HD-ABCD-EFGH-JKLM');
   await expect(form.locator('[data-helpdesk-whatsapp]')).toBeVisible();
   await expect(form.locator('[data-helpdesk-whatsapp]')).toHaveAttribute('href', /wa\.me\/595981000111/);
-  await expect(form.locator('[data-helpdesk-copy]')).toBeHidden();
+  await expect(form.locator('[data-helpdesk-copy]')).toBeVisible();
 
   await page.waitForTimeout(200);
   expect(submissions).toHaveLength(1);
@@ -137,7 +137,7 @@ test('global Help Desk modal falls back to copying the reference when WhatsApp i
   await expect(dialog).toBeHidden();
 });
 
-test('Help Desk failure stays honest, preserves a draft and reuses the same request id', async ({ page }) => {
+test('Help Desk failure preserves an unchanged retry id and rotates it after an edit', async ({ page }) => {
   const submissions = [];
   await page.route('**/api/help-desk', async (route) => {
     submissions.push(route.request().postDataJSON());
@@ -176,4 +176,9 @@ test('Help Desk failure stays honest, preserves a draft and reuses the same requ
   await submit.click();
   await expect.poll(() => submissions.length).toBe(2);
   expect(submissions[1].requestId).toBe(submissions[0].requestId);
+
+  await form.locator('[name="message"]').fill(expected.message + ' con un detalle nuevo');
+  await submit.click();
+  await expect.poll(() => submissions.length).toBe(3);
+  expect(submissions[2].requestId).not.toBe(submissions[1].requestId);
 });

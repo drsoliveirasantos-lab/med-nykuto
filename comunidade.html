@@ -8,8 +8,8 @@
   <meta name="description" content="Entrenamiento por materia y tema con QCM, verdadero o falso, casos clínicos y clasificación semanal del 4.º E." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="community.css?v=479" />
-  <link rel="stylesheet" href="help-desk-v479.css?v=479" />
+  <link rel="stylesheet" href="community.css?v=480" />
+  <link rel="stylesheet" href="help-desk-v479.css?v=480" />
 </head>
 <body class="community-page">
   <a class="community-skip-link" href="#communityContent">Ir al contenido</a>
@@ -57,7 +57,7 @@
       </div>
       <div class="study-score-summary" aria-label="Resumen de la clasificación semanal">
         <article class="study-leader-card">
-          <span data-i18n="topKicker">TOP 1 ESTA SEMANA</span>
+          <span data-i18n="topKicker">TOP 1 PROVISIONAL ESTA SEMANA</span>
           <strong id="studyTopName">Todavía sin líder</strong>
           <small id="studyTopMeta">Sé la primera persona en publicar un resultado.</small>
         </article>
@@ -88,18 +88,19 @@
       <div>
         <p class="community-kicker" data-i18n="profileKicker">TU IDENTIDAD EN EL RETO</p>
         <h2 id="profileTitle" data-i18n="profileTitle">Confirma tu identidad del 4.º E</h2>
-        <p data-i18n="profileCopy">Se pide una sola vez en este teléfono. La catraca completa nunca aparece en la clasificación.</p>
+        <p data-i18n="profileCopy">La participación es facultativa. Para competir, confirma tu identidad y acepta la publicación de tus datos.</p>
       </div>
       <form id="communityProfileForm" class="community-profile-form">
         <div class="community-identity-fields">
-          <label for="communityDisplayName"><span data-i18n="displayName">Nombre visible</span><input id="communityDisplayName" name="displayName" type="text" minlength="2" maxlength="60" autocomplete="name" data-i18n-placeholder="displayNamePlaceholder" placeholder="Ej.: Ana Oliveira" required /></label>
-          <label for="communityStudentId"><span data-i18n="studentId">Catraca UCP</span><input id="communityStudentId" name="studentId" type="text" minlength="4" maxlength="28" autocomplete="off" inputmode="text" data-i18n-placeholder="studentIdPlaceholder" placeholder="Tu número de catraca" required aria-describedby="communityPrivacy" /></label>
+          <label for="communityDisplayName"><span data-i18n="displayName">Nombre completo</span><input id="communityDisplayName" name="displayName" type="text" minlength="5" maxlength="60" autocomplete="name" data-i18n-placeholder="displayNamePlaceholder" placeholder="Ej.: Ana Oliveira" required /></label>
+          <label for="communityStudentId"><span data-i18n="studentId">Catraca UCP completa</span><input id="communityStudentId" name="studentId" type="text" minlength="4" maxlength="28" autocomplete="off" inputmode="text" data-i18n-placeholder="studentIdPlaceholder" placeholder="Tu número completo de catraca" required aria-describedby="communityPrivacy" /></label>
         </div>
-        <label class="community-identity-consent" for="communityIdentityConsent"><input id="communityIdentityConsent" name="consent" type="checkbox" required /><span data-i18n="identityConsent">Confirmo que pertenezco al 4.º E y que estos datos son míos.</span></label>
+        <label class="community-identity-consent" for="communityClassConfirmed"><input id="communityClassConfirmed" name="classConfirmed" type="checkbox" required /><span data-i18n="classAttestation">Declaro que estoy matriculado/a en el 4.º E y que estos datos son míos.</span></label>
+        <label class="community-identity-consent" for="communityIdentityConsent"><input id="communityIdentityConsent" name="consent" type="checkbox" required /><span data-i18n="identityConsent">Participar es facultativo. Acepto que mi nombre completo y mi catraca completa sean públicos para cualquier persona que tenga el enlace. El Pix solo se entrega después de una verificación manual.</span></label>
         <button type="submit" data-i18n="save">Guardar y participar</button>
         <p id="communityProfileStatus" class="community-profile-status" role="status" aria-live="polite"></p>
       </form>
-      <p class="community-privacy" id="communityPrivacy" data-i18n="privacy">Solo publicamos tu nombre y los últimos 4 caracteres de la catraca. El número completo se transforma en una huella segura.</p>
+      <p class="community-privacy" id="communityPrivacy" data-i18n="privacy">Aviso de datos públicos: si participas, tu nombre completo y tu catraca completa aparecerán en la clasificación compartida.</p>
     </section>
 
     <section class="study-practice-card" aria-label="Entrenamiento seleccionado">
@@ -110,7 +111,7 @@
       <div>
         <p class="community-kicker" data-i18n="publishKicker">TU RESULTADO</p>
         <h2 id="studyPublishTitle">0/0 respuestas correctas</h2>
-        <p id="studyPublishCopy" data-i18n="publishCopy">Puedes sumarlo al ranking semanal con tu apodo.</p>
+        <p id="studyPublishCopy" data-i18n="publishCopy">Puedes sumarlo a la clasificación provisional con tu perfil completo del 4.º E.</p>
       </div>
       <button id="studyPublishButton" type="button" data-i18n="publishButton">Sumar al ranking</button>
       <p id="studyPublishStatus" role="status" aria-live="polite"></p>
@@ -178,14 +179,14 @@
     <a href="comunidade.html" aria-current="page"><span class="nav-icon"><svg aria-hidden="true"><use href="#class-icon-community"></use></svg></span><strong data-i18n="navStudy">Estudiar</strong></a>
   </nav>
 
-  <script src="community.js?v=479"></script>
+  <script src="community.js?v=480"></script>
   <script src="grupo-3-practice-v413.js?v=441"></script>
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
   <script src="grupo-3-practice-grounded-v426.js?v=431"></script>
   <script src="grupo-3-practice-2026-08-17-v432.js?v=432"></script>
   <script src="grupo-3-practice-2026-08-21-v440.js?v=440"></script>
-  <script src="community-study.js?v=479"></script>
+  <script src="community-study.js?v=480"></script>
   <script src="medical-glossary-v425.js?v=432"></script>
-  <script src="help-desk-v479.js?v=479"></script>
+  <script src="help-desk-v479.js?v=480"></script>
 </body>
 </html>
