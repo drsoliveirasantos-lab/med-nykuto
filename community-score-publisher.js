@@ -25,7 +25,7 @@
       offline:'No se pudo conectar ahora. Tu resultado del QCM no se pierde.',
       activating:'El desafío compartido se está activando. Tu resultado del QCM no se pierde.',
       ranking:'Ver el desafío y la clasificación',
-      privacy:'Participar es facultativo. El nombre completo y la catraca completa son públicos para quien tenga el enlace. El Pix de 50 R$ solo se entrega tras verificación manual.',
+      privacy:'Participar es facultativo. El nombre completo y la catraca completa son públicos para quien tenga el enlace. El premio de 50 R$ por Pix solo se entrega tras verificación manual.',
       register:'Guardar identidad'
     },
     br:{
