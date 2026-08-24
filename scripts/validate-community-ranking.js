@@ -162,6 +162,7 @@ async function main() {
   assert.match(source, /community_participants_class_public_idx/);
   assert.match(source, /T20:00:00-03:00/, 'The weekly challenge must close exactly Sunday at 20:00 Paraguay time.');
   assert.match(source, /challenge_closed/, 'The API must refuse score writes after the countdown reaches zero.');
+  assert.match(source, /MAX_SCOPES_PER_PLAYER\s*=\s*48/, 'The weekly scope limit must cover all 14 class themes in their three exercise formats.');
   assert.doesNotMatch(source, /UPDATE community_scores SET class_id=\? WHERE[^`]*cohort_key/i, 'A migration must not reassign an explicit class based on its legacy cohort.');
   assert.doesNotMatch(source, /\b(?:DELETE\s+FROM|DROP\s+TABLE|REPLACE\s+INTO|INSERT\s+OR\s+REPLACE)\b/i, 'Community migrations must remain additive and non-destructive.');
   assert.doesNotMatch(enrollSource, /community_scores/i, 'Enrollment must never rewrite historical score rows.');

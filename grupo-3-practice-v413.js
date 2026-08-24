@@ -723,7 +723,57 @@
     var tabButtons = {};
 
     function totalAnswered(){
-      return typeOrder.reduce(function(total,type){return total + answeredCount(state[type]);},0);
+      return typeOrder.reduce(function(total,type){return total + answeredCount(state[type].slice(0,bank[type].length));},0);
+    }
+
+    function scoreSnapshots(){
+      return typeOrder.map(function(type){
+        var bounded = state[type].slice(0,bank[type].length);
+        var answered = answeredCount(bounded);
+        if(!answered) return null;
+        var correct = correctCount(bounded);
+        return {
+          courseId:bank.sectionId || bank.courseId,
+          moduleId:bank.courseId + '-' + type,
+          topicId:bank.courseId,
+          topicTitle:localizeExact(bank.title),
+          type:type,
+          correct:correct,
+          total:bank[type].length,
+          answered:answered,
+          percentage:Math.round((correct / bank[type].length) * 100)
+        };
+      }).filter(Boolean);
+    }
+
+    function progressDetail(summaryElement){
+      var scores = scoreSnapshots();
+      var aggregateCorrect = scores.reduce(function(total,score){return total + score.correct;},0);
+      var aggregateTotal = scores.reduce(function(total,score){return total + score.answered;},0);
+      var activeResults = state[activeType].slice(0,bank[activeType].length);
+      var blockTotal = answeredCount(activeResults);
+      var blockCorrect = correctCount(activeResults);
+      return {
+        courseId:bank.sectionId || bank.courseId,
+        moduleId:bank.courseId + '-' + activeType,
+        topicId:bank.courseId,
+        topicTitle:localizeExact(bank.title),
+        type:activeType,
+        correct:blockCorrect,
+        total:blockTotal,
+        percentage:blockTotal ? Math.round((blockCorrect / blockTotal) * 100) : 0,
+        aggregateCorrect:aggregateCorrect,
+        aggregateTotal:aggregateTotal,
+        availableTotal:totalQuestions,
+        scores:scores,
+        summaryElement:summaryElement || null
+      };
+    }
+
+    function emitProgress(eventName,summaryElement){
+      try{
+        document.dispatchEvent(new CustomEvent(eventName,{detail:progressDetail(summaryElement)}));
+      }catch(error){}
     }
 
     function updateProgressLabels(){
@@ -731,7 +781,7 @@
       progressLabel.textContent = done ? tr('questionsDone',{done:done,total:totalQuestions}) : tr('questionsTotal',{total:totalQuestions});
       typeOrder.forEach(function(type){
         if(!tabButtons[type]) return;
-        var complete = answeredCount(state[type]);
+        var complete = answeredCount(state[type].slice(0,bank[type].length));
         tabButtons[type].querySelector('small').textContent = complete + '/' + bank[type].length;
         tabButtons[type].classList.toggle('is-complete',complete === bank[type].length);
       });
@@ -868,6 +918,7 @@
         };
         saveProgress(progress);
         updateProgressLabels();
+        emitProgress('mednykuto:practice-progress');
         renderQuestion();
       });
 
@@ -889,7 +940,7 @@
       summaryVisible = true;
       questionHost.innerHTML = '';
       var questions = bank[activeType];
-      var results = state[activeType];
+      var results = state[activeType].slice(0,questions.length);
       var score = correctCount(results);
       var percentage = Math.round((score / questions.length) * 100);
       var summary = createNode('article','practice-summary');
@@ -902,7 +953,7 @@
       formatPicker.hidden = true;
       formatPicker.setAttribute('aria-label',tr('chooseFormat'));
       typeOrder.forEach(function(type){
-        var done = answeredCount(state[type]);
+        var done = answeredCount(state[type].slice(0,bank[type].length));
         var choice = createNode('button','practice-format-choice');
         choice.type = 'button';
         choice.disabled = type === activeType;
@@ -921,6 +972,7 @@
         state[activeType] = [];
         saveProgress(progress);
         updateProgressLabels();
+        emitProgress('mednykuto:practice-progress');
         currentIndex = 0;
         renderQuestion();
         scrollQuestionTop();
@@ -936,21 +988,7 @@
       summary.appendChild(formatPicker);
       summary.appendChild(actions);
       questionHost.appendChild(summary);
-      try{
-        document.dispatchEvent(new CustomEvent('mednykuto:practice-complete',{
-          detail:{
-            courseId:bank.sectionId || bank.courseId,
-            moduleId:bank.courseId + '-' + activeType,
-            topicId:bank.courseId,
-            topicTitle:localizeExact(bank.title),
-            type:activeType,
-            correct:score,
-            total:questions.length,
-            percentage:percentage,
-            summaryElement:summary
-          }
-        }));
-      }catch(error){}
+      emitProgress('mednykuto:practice-complete',summary);
       scrollQuestionTop();
     }
 
@@ -1019,11 +1057,13 @@
       state.cases = [];
       saveProgress(progress);
       updateProgressLabels();
+      emitProgress('mednykuto:practice-progress');
       chooseType('qcm');
     });
 
     updateProgressLabels();
     chooseType('qcm');
+    emitProgress('mednykuto:practice-progress');
     workspace.hidden = true;
     root.classList.remove('is-open');
 

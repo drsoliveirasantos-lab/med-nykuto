@@ -1742,7 +1742,7 @@
     'microbiologia-teorica-2026-08-17':{
       title:'Micosis por profundidad y casos clínicos',
       kicker:'Microbiología II · Teórica · clase del 17 de agosto',
-      description:'Clase del lunes 17 de agosto de 2026: micosis superficiales, cutáneas y subcutáneas, con dos casos clínicos resueltos paso a paso.',
+      description:'Clase del lunes 17 de agosto de 2026: micosis superficiales, cutáneas, subcutáneas y oportunistas, con cinco secuencias clínicas y un atlas breve de candidiasis.',
       status:'Clase confirmada · 17 ago.',
       statusClass:'status-confirmed'
     },

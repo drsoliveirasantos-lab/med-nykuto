@@ -284,7 +284,7 @@
     'microbiologia-teorica-2026-08-17': [{
       section: 4,
       type: 'compare',
-      kicker: 'DOS CASOS · DOS PROFUNDIDADES',
+      kicker: 'PRIMEROS 2 CASOS · 2 PROFUNDIDADES',
       title: 'La lesión guía el sitio de la muestra',
       caption: 'Pitiriasis versicolor y tiña corporal se separan por tejido, patrón y hallazgo directo.',
       nodes: [

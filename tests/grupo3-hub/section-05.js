@@ -55,6 +55,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
     await page.goto('/clase.html#microbiologia-teorica-2026-08-17');
     await expect(page.locator('#microbiologia-teorica .notebook-current-title')).toContainText('Micosis por profundidad y casos clínicos');
+    await expect(page.locator('#microbiologia-teorica .subject-heading')).toContainText('cinco secuencias clínicas');
+    await expect(page.locator('#microbiologia-teorica .subject-heading')).not.toContainText('dos casos clínicos');
     await expect(page.locator('#practice-microbiologia-teorica-2026-08-17')).toContainText('40 preguntas para dominar este curso');
     await page.locator('#microbiologia-teorica-2026-08-17 [data-lesson-tab="material"]').click();
     await page.locator('[data-session-archive-open="micro-17-cases"]').click();
@@ -66,6 +68,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     const optimizedPdf = page.locator('#microbiologia-teorica-2026-08-17 .session-primary-link');
     await expect(optimizedPdf).toHaveAttribute('href', /casos-clinicos-y-candidiasis-17-08\.pdf$/);
     await page.locator('#microbiologia-teorica-2026-08-17 [data-detail-toggle]').click();
+    await expect(page.locator('#microbiologia-teorica-2026-08-17 .mobile-table-disclosure summary strong')).toHaveText('Los dos primeros casos de la clase');
     const clinicalMiniatures = page.locator('#microbiologia-teorica-2026-08-17 .clinical-miniature-link img');
     await expect(clinicalMiniatures).toHaveCount(2);
     await expect(clinicalMiniatures.first()).toHaveAttribute('loading', 'lazy');
