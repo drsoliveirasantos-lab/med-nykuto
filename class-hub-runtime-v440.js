@@ -151,6 +151,10 @@
   };
   function taskDomId(taskId){return 'task-'+String(taskId||'').toLowerCase().replace(/[^a-z0-9-]+/g,'-');}
   function isTaskNotice(notice){var text=[notice.id,notice.title,notice.body].join(' ').toLowerCase();return /(?:task|tarea|tarefa|trabajo|deber)/.test(text);}
+  function taskAttachment(task){
+    var raw=String(task.attachmentUrl||task.attachment_url||'').trim();if(!raw)return null;
+    try{var parsed=new URL(raw);if(parsed.protocol!=='https:')return null;return{url:parsed.href,title:String(task.attachmentTitle||task.attachment_title||'Documento adjunto').trim()||'Documento adjunto'};}catch(error){return null;}
+  }
   function setTaskToggleLabel(card){var label=card.querySelector('[data-task-toggle-label]'),isPortuguese=/^pt(?:-|$)/i.test(document.documentElement.lang);if(label)label.textContent=card.open?(isPortuguese?'Fechar':'Cerrar'):'Abrir';}
   function expandLiveTasks(){document.querySelectorAll('#classHubLiveTasks [data-live-task-id]').forEach(function(card){card.open=true;setTaskToggleLabel(card);});}
   function renderTaskBody(task,guide){
@@ -177,9 +181,12 @@
       body.appendChild(steps);
     }
     if(guide&&guide.note){var note=el('p','live-task-note',guide.note);body.appendChild(note);}
-    if(guide&&guide.file){
+    var attachment=taskAttachment(task);
+    if((guide&&guide.file)||attachment){
       var actions=el('div','live-task-actions');
-      var download=el('a','live-task-download',guide.file.label+' ↓');download.href=guide.file.href;download.setAttribute('download','');actions.appendChild(download);body.appendChild(actions);
+      if(guide&&guide.file){var download=el('a','live-task-download',guide.file.label+' ↓');download.href=guide.file.href;download.setAttribute('download','');actions.appendChild(download);}
+      if(attachment&&(!guide||!guide.file||attachment.url!==new URL(guide.file.href,location.href).href)){var attachmentLink=el('a','live-task-download',attachment.title+' ↗');attachmentLink.href=attachment.url;attachmentLink.target='_blank';attachmentLink.rel='noopener noreferrer';actions.appendChild(attachmentLink);}
+      body.appendChild(actions);
     }
     return body;
   }

@@ -25,12 +25,17 @@
   function empty(target,message){target.replaceChildren(el('p','empty-card',message));}
   function hashColor(value){var palette=['#38bdf8','#a78bfa','#4ade80','#fbbf24','#fb7185','#2dd4bf'];var total=Array.from(String(value||'')).reduce(function(sum,char){return sum+char.charCodeAt(0);},0);return palette[total%palette.length];}
   function activeTask(task){if(task.status&&task.status!=='published')return false;if(!task.dueAt)return true;return new Date(task.dueAt).getTime()>=Date.now()-86400000;}
+  function taskAttachment(task){
+    var raw=String(task.attachmentUrl||task.attachment_url||'').trim();if(!raw)return null;
+    try{var parsed=new URL(raw);if(parsed.protocol!=='https:')return null;return{url:parsed.href,title:String(task.attachmentTitle||task.attachment_title||'Documento adjunto').trim()||'Documento adjunto'};}catch(error){return null;}
+  }
   function taskCard(task){
     var card=el('details','task-card');card.dataset.taskId=task.id||'';
     var summary=el('summary'),copy=el('div'),meta=el('span','task-meta',(task.course||'TURMA')+' · '+(task.dueLabel||formatDate(task.dueAt)));
     copy.appendChild(meta);copy.appendChild(el('strong','',task.title||'Tarea'));summary.appendChild(copy);summary.appendChild(el('b','','Abrir'));
     var body=el('div','task-body');body.appendChild(el('p','',task.description||'Consulta la instrucción publicada por el delegado.'));
     var facts=el('div','task-facts');facts.appendChild(el('span','','Estado: '+(activeTask(task)?'activa':'archivada')));if(task.dueAt)facts.appendChild(el('span','',formatDate(task.dueAt)));body.appendChild(facts);
+    var attachment=taskAttachment(task);if(attachment){var attachmentLink=el('a','task-attachment',attachment.title+' ↗');attachmentLink.href=attachment.url;attachmentLink.target='_blank';attachmentLink.rel='noopener noreferrer';body.appendChild(attachmentLink);}
     card.appendChild(summary);card.appendChild(body);card.addEventListener('toggle',function(){summary.lastChild.textContent=card.open?'Cerrar':'Abrir';});return card;
   }
   function noticeCard(notice){var card=el('article','notice-card');card.dataset.priority=notice.priority||'normal';card.appendChild(el('span'));var copy=el('div');copy.appendChild(el('strong','',notice.title||'Actualización'));copy.appendChild(el('small','',notice.body||''));card.appendChild(copy);return card;}

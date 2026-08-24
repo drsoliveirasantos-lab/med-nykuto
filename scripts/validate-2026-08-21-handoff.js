@@ -126,7 +126,7 @@ expect(api.includes('hub_rate_limits') && api.includes('rate_limited'), 'Public 
 expect(api.includes('waitUntil(pushJob)'), 'Push delivery is not delegated to a Pages background task.');
 expect(api.includes("['important', 'urgent']"), 'Important and urgent push dispatch is missing.');
 expect(!/\b(?:csv|xlsx|excel)\b/i.test(management), 'Management offers a forbidden CSV/Excel export.');
-expect(management.includes('Copiar para WhatsApp') && management.includes('Exportar en PDF'), 'WhatsApp and PDF group exports are missing.');
+expect(management.includes('Copiar lista para WhatsApp') && management.includes('Descargar lista en PDF'), 'WhatsApp and PDF group exports are missing.');
 expect(Boolean(academicModel) && Object.keys(academicModel.teachers || {}).length === 6, 'Exactly six cumulative teacher audits are required.');
 expect(read('profesores.html').includes('id="teacherProfiles"'), 'Teacher audits must be rendered from the cumulative academic model.');
 

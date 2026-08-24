@@ -28,8 +28,11 @@ const hubTenantTables = [
   'hub_memberships',
   'hub_files',
   'hub_dates',
+  'hub_schedule_slots',
   'hub_invites',
   'hub_editors',
+  'hub_editor_credentials',
+  'hub_editor_sessions',
   'hub_audit',
   'hub_push_subscriptions',
   'hub_rate_limits'
@@ -147,6 +150,8 @@ class GuardedD1Mock {
       [DEFAULT_CLASS_ID, 'active'],
       [SECOND_CLASS_ID, 'active']
     ]);
+    this.scheduleSlots = new Map();
+    this.tasks = new Map();
     this.editorTokenHash = hashToken('editor-s4-token');
   }
 
@@ -211,6 +216,20 @@ class GuardedD1Mock {
       }
       return [this.classRow(DEFAULT_CLASS_ID), this.classRow(SECOND_CLASS_ID)];
     }
+    if (/\bfrom\s+hub_schedule_slots\b/i.test(normalized)) {
+      const classId = this.classFrom(values);
+      const subjectNames = new Map([
+        ['bioquimica-ii', 'Bioquímica II'],
+        ['epidemiologia-salud-publica', 'Epidemiología y Salud Pública'],
+        ['fisiologia-ii', 'Fisiología II'],
+        ['microbiologia-ii-teorica', 'Microbiología II · Teórica'],
+        ['microbiologia-ii-practica', 'Microbiología II · Práctica'],
+        ['nutricion', 'Nutrición']
+      ]);
+      return [...this.scheduleSlots.values()]
+        .filter((slot) => slot.classId === classId && (!/slot\.status='published'/i.test(normalized) || slot.status === 'published'))
+        .map((slot) => ({ id: slot.id, subjectId: slot.subjectId, subject: subjectNames.get(slot.subjectId) || slot.subjectId, weekday: slot.weekday, startsTime: slot.startsTime, endsTime: slot.endsTime, label: slot.label, status: slot.status }));
+    }
     if (/\bfrom\s+hub_subjects\b/i.test(normalized)) return [];
     return [];
   }
@@ -226,6 +245,16 @@ class GuardedD1Mock {
       const row = this.classRow(this.classFrom(values) || String(values[0] || ''));
       if (/\bstatus\s*=\s*'active'/i.test(normalized) && row?.status !== 'active') return null;
       return row;
+    }
+    if (/\bfrom\s+hub_tasks\b/i.test(normalized)) {
+      const classId = this.classFrom(values), id = String(values[1] || '');
+      const task = this.tasks.get(id);
+      return task?.classId === classId ? { attachment_url: task.attachmentUrl, attachment_title: task.attachmentTitle } : null;
+    }
+    if (/\bfrom\s+hub_subjects\b/i.test(normalized)) {
+      const classId = this.classFrom(values), id = String(values[1] || '');
+      const known = new Set(['bioquimica-ii', 'epidemiologia-salud-publica', 'fisiologia-ii', 'microbiologia-ii-teorica', 'microbiologia-ii-practica', 'nutricion']);
+      return classId && known.has(id) ? { id, name: id } : null;
     }
     if (/\bselect\s+count\s+from\s+hub_rate_limits\b/i.test(normalized)) return { count: 1 };
     if (/\bfrom\s+hub_editors\b/i.test(normalized)) {
@@ -254,24 +283,47 @@ class GuardedD1Mock {
     const create = normalized.match(/^create\s+table\s+if\s+not\s+exists\s+([a-z0-9_]+)\s*\(/i);
     if (create && !this.tableColumns.has(create[1])) {
       const columns = new Set();
-      if (/\bclass_id\b/i.test(normalized)) columns.add('class_id');
+      ['class_id', 'attachment_url', 'attachment_title', 'is_leader'].forEach((column) => {
+        if (new RegExp(`\\b${column}\\b`, 'i').test(normalized)) columns.add(column);
+      });
       this.tableColumns.set(create[1], columns);
     }
-    const alter = normalized.match(/^alter\s+table\s+([a-z0-9_]+)\s+add\s+column\s+class_id\b/i);
+    const alter = normalized.match(/^alter\s+table\s+([a-z0-9_]+)\s+add\s+column\s+([a-z0-9_]+)\b/i);
     if (alter) {
       if (!this.tableColumns.has(alter[1])) this.tableColumns.set(alter[1], new Set());
-      this.tableColumns.get(alter[1]).add('class_id');
+      this.tableColumns.get(alter[1]).add(alter[2]);
     }
     if (/^insert\s+into\s+hub_classes\b/i.test(normalized)) {
       const id = String(values[0] || '');
       if (this.classStatuses.has(id)) this.classStatuses.set(id, values[7] === 'archived' ? 'archived' : 'active');
+    }
+    if (/^insert\s+or\s+ignore\s+into\s+hub_schedule_slots\b/i.test(normalized)) {
+      this.scheduleSlots.set(String(values[0]), {
+        id: String(values[0]), classId: String(values[1]), subjectId: String(values[2]), weekday: Number(values[3]),
+        startsTime: String(values[4]), endsTime: values[5] ? String(values[5]) : null, label: String(values[6] || ''), status: 'published'
+      });
+    }
+    if (/^insert\s+into\s+hub_schedule_slots\b/i.test(normalized)) {
+      this.scheduleSlots.set(String(values[0]), {
+        id: String(values[0]), classId: String(values[1]), subjectId: String(values[2]), weekday: Number(values[3]),
+        startsTime: String(values[4]), endsTime: values[5] ? String(values[5]) : null, label: String(values[6] || ''), status: String(values[7] || 'draft')
+      });
+    }
+    if (/^insert\s+into\s+hub_tasks\b/i.test(normalized)) {
+      this.tasks.set(String(values[0]), {
+        id: String(values[0]), classId: String(values[1]), attachmentUrl: values[7] || null, attachmentTitle: values[8] || null
+      });
     }
     return { meta: { changes: 1 } };
   }
 }
 
 async function importSource(file) {
-  const source = read(file);
+  let source = read(file);
+  if (file === 'functions/api/class-hub.js') {
+    const helperUrl = `data:text/javascript;base64,${Buffer.from(read('functions/_lib/management-credentials.js')).toString('base64')}`;
+    source = source.replace('../_lib/management-credentials.js', helperUrl);
+  }
   return import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}#${Date.now()}-${Math.random()}`);
 }
 
@@ -329,9 +381,17 @@ async function validateRuntimeIsolation() {
   const legacyPublic = await classHubGet(classHub.onRequestGet, db, '?resource=public');
   expect(legacyPublic.response.status === 200, `Class hub default 4.º E request failed (${legacyPublic.response.status}: ${JSON.stringify(legacyPublic.body)}).`);
   expect(responseClassId(legacyPublic.body) === DEFAULT_CLASS_ID, 'Class hub request without class must resolve to s4-e.');
+  expect(legacyPublic.body.scheduleSlots?.length === 8, `The seeded S4 schedule must expose 8 recurring slots, got ${legacyPublic.body.scheduleSlots?.length || 0}.`);
+  expect(legacyPublic.body.upcomingDates?.length > 0 && legacyPublic.body.upcomingDates.every((date) => date.subjectId && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(date.startsAt)), 'Public upcoming course dates are missing their tenant subject or local datetime contract.');
+  expect(!Object.prototype.hasOwnProperty.call(legacyPublic.body, 'memberships'), 'The public class response exposes nominative memberships or leader flags.');
 
   const s4Admin = await classHubGet(classHub.onRequestGet, db, '?class=s4-e&resource=admin', 'editor-s4-token');
   expect(s4Admin.response.status === 200, `The existing 4.º E editor lost access (${s4Admin.response.status}: ${JSON.stringify(s4Admin.body)}).`);
+  expect(s4Admin.body.scheduleSlots?.length === 8 && s4Admin.body.upcomingDates?.length > 0, 'The delegate snapshot does not expose the recurring schedule and its upcoming dates.');
+
+  const s3PublicSchedule = await classHubGet(classHub.onRequestGet, db, '?class=s3-a&resource=public');
+  expect(s3PublicSchedule.response.status === 200, `The second active class cannot read its empty schedule (${s3PublicSchedule.response.status}: ${JSON.stringify(s3PublicSchedule.body)}).`);
+  expect(s3PublicSchedule.body.scheduleSlots?.length === 0 && s3PublicSchedule.body.upcomingDates?.length === 0, 'The S4 schedule leaked into another class.');
 
   const crossRead = await classHubGet(classHub.onRequestGet, db, '?class=s3-a&resource=admin', 'editor-s4-token');
   expect([401, 403].includes(crossRead.response.status), `A 4.º E editor can read another class (${crossRead.response.status}: ${JSON.stringify(crossRead.body)}).`);
@@ -378,6 +438,41 @@ async function validateRuntimeIsolation() {
     status: 'draft'
   }, 'editor-s4-token');
   expect(s4Write.response.status === 200, `The existing 4.º E editor cannot write its own class (${s4Write.response.status}: ${JSON.stringify(s4Write.body)}).`);
+
+  const attachmentStart = db.calls.length;
+  const attachmentTask = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'task.upsert', id: 'attachment-probe', course: 'Fisiología II', title: 'Guía del práctico',
+    attachmentUrl: 'https://drive.google.com/file/d/backend-fixture/view', attachmentTitle: 'Guía en PDF', status: 'published'
+  }, 'editor-s4-token');
+  expect(attachmentTask.response.status === 200 && attachmentTask.body.attachmentUrl === 'https://drive.google.com/file/d/backend-fixture/view' && attachmentTask.body.attachmentTitle === 'Guía en PDF', `A valid HTTPS task attachment was rejected (${attachmentTask.response.status}: ${JSON.stringify(attachmentTask.body)}).`);
+  const attachmentWrite = db.calls.slice(attachmentStart).find((call) => /^insert\s+into\s+hub_tasks\b/i.test(call.sql) && call.values[0] === 'attachment-probe');
+  expect(Boolean(attachmentWrite) && attachmentWrite.values[1] === DEFAULT_CLASS_ID && attachmentWrite.values[7] === 'https://drive.google.com/file/d/backend-fixture/view' && attachmentWrite.values[8] === 'Guía en PDF', 'Task attachment INSERT bindings are missing, reordered or not class-scoped.');
+
+  const preservedAttachment = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'task.upsert', id: 'attachment-probe', course: 'Fisiología II', title: 'Guía actualizada', status: 'published'
+  }, 'editor-s4-token');
+  expect(preservedAttachment.response.status === 200 && preservedAttachment.body.attachmentUrl === 'https://drive.google.com/file/d/backend-fixture/view' && preservedAttachment.body.attachmentTitle === 'Guía en PDF', 'Updating an old task payload without attachment fields erased its existing attachment.');
+
+  const invalidAttachmentStart = db.calls.length;
+  const invalidAttachment = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'task.upsert', id: 'unsafe-attachment-probe', course: 'Fisiología II', title: 'Enlace inseguro',
+    attachmentUrl: 'http://example.test/file.pdf', attachmentTitle: 'No aceptar', status: 'draft'
+  }, 'editor-s4-token');
+  expect(invalidAttachment.response.status === 400 && responseCode(invalidAttachment.body) === 'invalid_attachment', `An insecure task attachment URL was accepted (${invalidAttachment.response.status}: ${JSON.stringify(invalidAttachment.body)}).`);
+  expect(!db.calls.slice(invalidAttachmentStart).some((call) => /^insert\s+into\s+hub_tasks\b/i.test(call.sql)), 'A rejected insecure attachment still wrote to hub_tasks.');
+
+  const editorScheduleWrite = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'schedule.upsert', id: 'editor-schedule-probe', subjectId: 'fisiologia-ii', weekday: 2, startsTime: '08:00', endsTime: '10:00'
+  }, 'editor-s4-token');
+  expect(editorScheduleWrite.response.status === 403, 'A delegate can modify the class schedule reserved for the owner.');
+  const s3ScheduleWrite = await classHubPost(classHub.onRequestPost, db, '?class=s3-a', {
+    action: 'schedule.upsert', id: 'schedule-probe', subjectId: 'fisiologia-ii', weekday: 2, startsTime: '08:00', endsTime: '10:00', label: 'Horario S3', status: 'published'
+  }, 'owner-token');
+  expect(s3ScheduleWrite.response.status === 200 && s3ScheduleWrite.body.id === 's3-a.schedule-probe', `An owner cannot configure a namespaced schedule for another class (${s3ScheduleWrite.response.status}: ${JSON.stringify(s3ScheduleWrite.body)}).`);
+  const s3ConfiguredSchedule = await classHubGet(classHub.onRequestGet, db, '?class=s3-a&resource=public');
+  expect(s3ConfiguredSchedule.body.scheduleSlots?.length === 1 && s3ConfiguredSchedule.body.scheduleSlots[0].id === 's3-a.schedule-probe', 'The configured S3 schedule is missing or mixed with S4 slots.');
+  const s4ScheduleAfterS3Write = await classHubGet(classHub.onRequestGet, db, '?class=s4-e&resource=public');
+  expect(s4ScheduleAfterS3Write.body.scheduleSlots?.length === 8, 'Configuring S3 changed the seeded S4 schedule.');
 
   const namespaceStart = db.calls.length;
   const sharedTaskS4 = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
@@ -491,6 +586,8 @@ async function validateRuntimeIsolation() {
   [...hubTenantTables, ...communityTenantTables].forEach((table) => {
     expect(db.tableColumns.get(table)?.has('class_id'), `${table} does not contain class_id after the legacy-schema migration path.`);
   });
+  expect(db.tableColumns.get('hub_tasks')?.has('attachment_url') && db.tableColumns.get('hub_tasks')?.has('attachment_title'), 'hub_tasks is missing attachment columns after schema initialization.');
+  expect(db.tableColumns.get('hub_memberships')?.has('is_leader'), 'hub_memberships is missing is_leader after schema initialization.');
   db.errors.forEach((error) => failures.push(error));
 }
 
@@ -503,6 +600,7 @@ async function validateMulticlassShell() {
     'gestion-shell/index.html',
     'gestion-v440.css',
     'gestion-v440.js',
+    'functions/_lib/management-credentials.js',
     'offline.html',
     'functions/api/class-manifest.js'
   ];
@@ -513,6 +611,7 @@ async function validateMulticlassShell() {
   const turmaRuntime = read('turma-v471.js');
   const managementHtml = read('gestion-shell/index.html');
   const managementRuntime = read('gestion-v440.js');
+  const credentialHelper = read('functions/_lib/management-credentials.js');
   const legacyClassRuntime = read('class-hub-runtime-v440.js');
   const redirects = read('_redirects');
   const headers = read('_headers');
@@ -526,15 +625,35 @@ async function validateMulticlassShell() {
   expect(!/state\.(?:members|memberships)|data\.(?:members|memberships)/.test(turmaRuntime), 'The generic student hub still consumes nominative group records.');
   expect(turmaRuntime.includes("action:'group.join'") && turmaRuntime.includes("action:'group.leave'") && turmaRuntime.includes('memberCount'), 'Students cannot join and leave generic class groups using anonymous occupancy data.');
 
-  expect(managementHtml.includes('src="/gestion-v440.js?v=471"') && managementHtml.includes('href="/gestion-v440.css?v=471"'), 'The nested management route does not use absolute assets.');
+  expect(managementHtml.includes('src="/gestion-v440.js?v=474"') && managementHtml.includes('href="/gestion-v440.css?v=474"'), 'The nested management route does not use absolute v474 assets.');
+  expect(managementHtml.includes('id="credentialForm"') && managementHtml.includes('name="action" value="auth.login"') && managementHtml.includes('autocomplete="username"') && managementHtml.includes('autocomplete="current-password"'), 'The v472 delegate email/password login form is incomplete.');
+  expect(managementHtml.includes('id="passwordChangeForm"') && managementHtml.includes('name="action" value="auth.password.change"') && (managementHtml.match(/autocomplete="new-password"/g) || []).length >= 2, 'The mandatory temporary-password change form is incomplete.');
+  expect(managementHtml.includes('id="delegateAccountForm"') && managementHtml.includes('name="action" value="editor.account.create"') && managementHtml.includes('name="temporaryPassword"'), 'The owner cannot create a tenant-scoped delegate credential from the v472 panel.');
+  ['loginEmail', 'loginPassword', 'newPassword', 'confirmPassword'].forEach((id) => {
+    const input = managementHtml.match(new RegExp(`<input[^>]+id=["']${id}["'][^>]*>`, 'i'))?.[0] || '';
+    expect(Boolean(input) && !/\svalue\s*=/i.test(input), `Credential input ${id} is missing or contains a hard-coded value.`);
+  });
+  expect(!/[a-z0-9._%+-]+@(?:gmail|hotmail|outlook|yahoo)\.[a-z]{2,}/i.test(`${managementHtml}\n${managementRuntime}\n${credentialHelper}`), 'A real-looking personal email address was committed in the management credential sources.');
+  expect(credentialHelper.includes('PBKDF2') && credentialHelper.includes("hash: 'SHA-256'") && credentialHelper.includes('PASSWORD_ITERATIONS = 100000') && credentialHelper.includes('crypto.subtle.deriveBits'), 'The credential helper is missing the expected salted PBKDF2-SHA-256 verifier.');
+  expect(credentialHelper.includes('crypto.getRandomValues') && credentialHelper.includes('randomToken(16)') && credentialHelper.includes('Secure; HttpOnly; SameSite=Strict'), 'The credential helper is missing random salts/tokens or hardened session-cookie attributes.');
+  expect(credentialHelper.includes("SESSION_TTL_SECONDS = 8 * 60 * 60") && credentialHelper.includes("__Host-med-nykuto-management-csrf"), 'The credential helper is missing the bounded session or CSRF cookie contract.');
+  expect(/credentials\s*[:=]\s*["']same-origin["']/.test(managementRuntime) && /\[["']x-csrf-token["']\]\s*=/.test(managementRuntime) && /csrfCookieName\s*=\s*["']__Host-med-nykuto-management-csrf["']/.test(managementRuntime), 'Management requests do not use same-origin cookies and the CSRF header contract.');
+  expect(managementRuntime.includes("'session'") && managementRuntime.includes("action:'auth.logout'") && managementRuntime.includes("action:'auth.password.change'"), 'The management runtime is missing session restore, logout or password-change actions.');
+  expect(managementRuntime.includes("'delegateAccountForm'") && /editor\.password\.reset/.test(managementRuntime), 'The management runtime is missing delegate credential creation/reset actions.');
+  expect(!/(?:loginPassword|temporaryPassword|newPassword)\s*[:=]\s*["'][^"']+["']/i.test(managementRuntime), 'The management runtime contains a hard-coded credential value.');
   expect(managementHtml.includes('list="subjectOptions"') && managementHtml.includes('id="groupActivitySelect"'), 'The management panel still relies on free-text subject/activity references.');
-  expect(managementHtml.includes('Opciones avanzadas') && managementRuntime.includes("'Modificar'") && managementRuntime.includes("'Archivar'"), 'The delegate panel is missing edit/archive controls or advanced identifiers.');
+  expect(managementHtml.includes('id="taskSuggestedDate"') && managementHtml.includes('name="attachmentUrl"') && managementHtml.includes('name="attachmentTitle"'), 'The task form is missing suggested course dates or optional attachment fields.');
+  expect((managementHtml.match(/data-password-toggle/g) || []).length >= 6 && managementRuntime.includes('function bindPasswordToggles'), 'Password fields are missing accessible show/hide controls.');
+  expect(managementRuntime.includes('state&&state.upcomingDates') && managementRuntime.includes('function bindTaskDateSuggestions'), 'The delegate task form is not connected to tenant upcoming course dates.');
+  expect(managementRuntime.includes("'Panel de la clase · '") && !managementRuntime.includes("'Publicación · '"), 'The delegate heading still uses technical publication wording.');
+  expect(managementHtml.includes('Opciones técnicas (normalmente no tocar)') && managementRuntime.includes("'Modificar'") && managementRuntime.includes("'Archivar'"), 'The delegate panel is missing edit/archive controls or technical identifiers.');
   expect(managementRuntime.includes("function classMutation") && managementRuntime.includes("'Reactivar'") && managementRuntime.includes("info.slug!=='s4-e'"), 'The owner panel is missing safe class edit/archive/reactivation controls.');
   expect(managementRuntime.includes('if(result&&reset){form.reset();clearEditMode(form);}') && managementRuntime.includes('return null;'), 'A failed management mutation can still clear the editor form.');
   expect(managementRuntime.includes("popup.opener=null") && !managementRuntime.includes("'noopener,noreferrer'"), 'The printable group export still uses the broken noopener window-open path.');
   expect(managementRuntime.includes('Copiar invitación') && managementRuntime.includes('copyText(result.inviteToken)'), 'The one-time editor invitation cannot be copied explicitly.');
 
   expect(!legacyClassRuntime.includes('activityMembers') && legacyClassRuntime.includes("filled?'Ocupado':'Libre'"), 'The legacy 4.º E student roster is not anonymized.');
+  expect(legacyClassRuntime.includes('function taskAttachment') && turmaRuntime.includes('function taskAttachment'), 'Optional task attachments are not rendered in both student hubs.');
   expect(['/turma/:slug', '/turma/:slug/', '/gestion/:slug', '/gestion/:slug/'].every((route) => redirects.includes(`${route} /${route.startsWith('/turma') ? 'turma' : 'gestion'}-shell/?class=:slug 200`)), 'Cloudflare rewrites for class and management slugs, with and without trailing slash, are missing.');
   expect(!/\/(?:turma|gestion)\/:slug\s+\/(?:turma|gestion)\.html\b/.test(redirects), 'A class route still proxies to a canonical .html URL and can loop on Cloudflare Pages.');
   ['/turma/*', '/turma-shell/*', '/clase.html', '/gestion/*', '/gestion-shell/*', '/api/*'].forEach((route) => expect(headers.includes(route), `Security/cache headers are missing for ${route}.`));
@@ -572,6 +691,29 @@ async function validateMulticlassShell() {
   expect(invalidManifest.status === 400, 'An invalid class slug can still expose an installable manifest.');
 }
 
+async function validateCredentialHelper() {
+  const helper = await importSource('functions/_lib/management-credentials.js');
+  const password = 'Fixture-Study-2026!';
+  const verifier = await helper.createPasswordVerifier(password);
+  const credential = {
+    password_algorithm: 'pbkdf2-sha256',
+    password_iterations: verifier.iterations,
+    password_version: 1,
+    password_salt: verifier.salt,
+    password_hash: verifier.hash
+  };
+
+  expect(helper.normalizeEmail(' Delegate.Fixture@EXAMPLE.test ') === 'delegate.fixture@example.test', 'Delegate emails are not normalized consistently.');
+  expect(Boolean(helper.temporaryPasswordProblem('12345')), 'A temporary password shorter than six characters was accepted.');
+  expect(Boolean(helper.strongPasswordProblem('123456789012')), 'A numeric-only permanent password was accepted.');
+  expect(verifier.iterations === 100000 && /^[a-f0-9]{32}$/.test(verifier.salt) && /^[a-f0-9]{64}$/.test(verifier.hash), 'The generated PBKDF2 verifier has invalid metadata or dimensions.');
+  expect(await helper.verifyPassword(password, credential), 'The generated PBKDF2 verifier does not accept its source password.');
+  expect(!await helper.verifyPassword('Wrong-Fixture-2026!', credential), 'The PBKDF2 verifier accepted an incorrect password.');
+  expect(helper.isRandomToken(helper.randomToken(32)), 'Management session tokens are not exact 256-bit random hex values.');
+  const cookies = helper.sessionCookies('a'.repeat(64), 'b'.repeat(64), new Date(Date.now() + 60000).toISOString());
+  expect(cookies.length === 2 && cookies[0].includes('Secure; HttpOnly; SameSite=Strict') && cookies[1].includes('Secure; SameSite=Strict') && !cookies[1].includes('HttpOnly'), 'Session and CSRF cookie attributes do not match the hardened contract.');
+}
+
 async function main() {
   Object.entries(protectedHashes).forEach(([file, expectedHash]) => {
     expect(fs.existsSync(path.join(root, file)), `Protected bank file is missing: ${file}.`);
@@ -599,6 +741,23 @@ async function main() {
     expect(hasInlineClass || hasSafeMigration, `${table} has neither an inline class_id nor the safe legacy migration.`);
   });
 
+  const taskDefinition = tableDefinition(hubSource, 'hub_tasks');
+  expect(/\battachment_url\s+text\b/i.test(taskDefinition) && /\battachment_title\s+text\b/i.test(taskDefinition), 'hub_tasks does not declare optional attachment URL/title columns.');
+  expect(/ensureTaskAttachmentColumns/.test(hubSource) && /alter\s+table\s+hub_tasks\s+add\s+column\s+attachment_url/i.test(hubSource) && /alter\s+table\s+hub_tasks\s+add\s+column\s+attachment_title/i.test(hubSource), 'The additive legacy-task attachment migration is missing.');
+  expect(/function\s+cleanAttachmentUrl/.test(hubSource) && /parsed\.protocol\s*===\s*['"]https:['"]/.test(hubSource) && /invalid_attachment/.test(hubSource), 'Task attachments are not restricted to validated HTTPS URLs.');
+  expect((hubSource.match(/attachment_url\s+AS\s+attachmentUrl/g) || []).length >= 2 && (hubSource.match(/attachment_title\s+AS\s+attachmentTitle/g) || []).length >= 2, 'Task attachment metadata is not exposed in both public and admin snapshots.');
+
+  const scheduleDefinition = tableDefinition(hubSource, 'hub_schedule_slots');
+  expect(/\bsubject_id\s+text\s+not\s+null\b/i.test(scheduleDefinition) && /\bweekday\s+integer\s+not\s+null\b/i.test(scheduleDefinition) && /\bstarts_time\s+text\s+not\s+null\b/i.test(scheduleDefinition), 'hub_schedule_slots is missing its subject/day/time recurrence fields.');
+  expect(/DEFAULT_SCHEDULE_SLOTS/.test(hubSource) && /schedule-mon-fisiologia-0700/.test(hubSource) && /schedule-thu-fisiologia-0940/.test(hubSource), 'The idempotent S4 schedule seed is missing its two Physiology slots.');
+  expect(/upcomingDates:\s*upcomingScheduleDates/.test(hubSource) && /scheduleSlots/.test(hubSource), 'Public/admin class snapshots do not expose recurring slots and upcoming dates.');
+
+  const membershipDefinition = tableDefinition(hubSource, 'hub_memberships');
+  expect(/\bis_leader\s+integer\s+not\s+null\s+default\s+0\b/i.test(membershipDefinition), 'hub_memberships does not declare the additive leader marker.');
+  expect(/alter\s+table\s+hub_memberships\s+add\s+column\s+is_leader\s+integer\s+not\s+null\s+default\s+0/i.test(hubSource), 'The legacy membership leader migration is missing.');
+  expect(/create\s+unique\s+index\s+if\s+not\s+exists\s+hub_memberships_one_leader_idx[\s\S]*?where\s+is_leader=1/i.test(hubSource), 'The one-leader-per-class-group partial unique index is missing.');
+  expect(/is_leader\s+AS\s+isLeader/i.test(hubSource) && /isLeader:\s*Boolean\(item\.isLeader\)/.test(hubSource), 'The admin snapshot does not expose the membership leader as a boolean.');
+
   const communityDefinition = tableDefinition(communitySource, 'community_scores');
   expect(Boolean(communityDefinition), 'community_scores schema is missing.');
   expect(/\bclass_id\s+text\s+not\s+null\b/i.test(communityDefinition), 'community_scores must declare class_id TEXT NOT NULL.');
@@ -619,7 +778,10 @@ async function main() {
   expect(/searchParams\.get\(['\"]class['\"]\)/.test(hubSource), 'Class hub does not resolve the class from the URL query.');
   expect(/searchParams\.get\(['\"]class['\"]\)/.test(communitySource), 'Community does not resolve the class from the URL query.');
   expect(/classSlug|classId/.test(hubSource), 'Class hub POST payload does not support classSlug/classId compatibility fields.');
+  expect(hubSource.includes("from '../_lib/management-credentials.js'") && /auth\.login/.test(hubSource) && /auth\.password\.change/.test(hubSource), 'Class hub does not use the shared credential helper for delegate login/password change.');
+  expect(/password_change_required/.test(hubSource) && /editor\.account\.create/.test(hubSource) && /editor\.password\.reset/.test(hubSource), 'Class hub is missing mandatory password change or owner credential lifecycle actions.');
 
+  await validateCredentialHelper();
   await validateRuntimeIsolation();
   await validateMulticlassShell();
 
@@ -629,7 +791,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log('Multiclass foundation validation OK: tenant-scoped D1 schema/queries, cross-class editor refusal, protected banks unchanged and 4.º E compatibility preserved.');
+  console.log('Multiclass foundation validation OK: tenant-scoped D1 schema/queries and credential sessions, v474 delegate workflow, cross-class editor refusal, protected banks unchanged and 4.º E compatibility preserved.');
 }
 
 main().catch((error) => {

@@ -7,6 +7,11 @@ const REPO_ROOT = path.resolve(__dirname, '..');
 const readRepo = (file) => fs.readFileSync(path.join(REPO_ROOT, file), 'utf8');
 
 const PRIVATE_NAMES = ['Alice Private', 'Bruno Secret'];
+const SYNTHETIC_EMAIL = 'delegate.fixture@example.test';
+const SYNTHETIC_TEMP_PASSWORD = 'Temporary-Study-2026!';
+const SYNTHETIC_NEW_PASSWORD = 'Personal-Study-2026!';
+const SYNTHETIC_CSRF = 'c'.repeat(64);
+const CSRF_COOKIE = '__Host-med-nykuto-management-csrf';
 const CLASS_RESPONSE = {
   ok: true,
   class: {
@@ -30,6 +35,8 @@ const CLASS_RESPONSE = {
       description: 'Preparar cinco diapositivas y justificar la elección terapéutica.',
       dueLabel: '1 sep.',
       dueAt: '2099-09-01T10:00:00-03:00',
+      attachmentUrl: 'https://example.test/seminario-antimicrobianos.pdf',
+      attachmentTitle: 'Guía del seminario',
       status: 'published'
     }
   ],
@@ -54,6 +61,48 @@ const CLASS_RESPONSE = {
   ],
   generatedAt: '2099-08-25T12:00:00-03:00'
 };
+
+const managementState = (actor, overrides = {}) => ({
+  ok: true,
+  class: CLASS_RESPONSE.class,
+  actor,
+  subjects: CLASS_RESPONSE.subjects,
+  tasks: [],
+  notices: [],
+  activities: [],
+  groups: [],
+  memberships: [],
+  files: [],
+  dates: [],
+  editors: [],
+  invites: [],
+  ...overrides
+});
+
+async function routeManagementShell(page, slug = 's5-a') {
+  const managementHtml = readRepo('gestion-shell/index.html');
+  await page.route(`**/gestion/${slug}`, (route) => route.fulfill({
+    status: 200,
+    contentType: 'text/html; charset=utf-8',
+    body: managementHtml
+  }));
+}
+
+async function exposeSyntheticCsrfCookie(page) {
+  await page.addInitScript(({ name, value }) => {
+    const descriptor = Object.getOwnPropertyDescriptor(Document.prototype, 'cookie');
+    Object.defineProperty(document, 'cookie', {
+      configurable: true,
+      get() {
+        const current = descriptor?.get ? descriptor.get.call(document) : '';
+        return [current, `${name}=${value}`].filter(Boolean).join('; ');
+      },
+      set(next) {
+        if (descriptor?.set) descriptor.set.call(document, next);
+      }
+    });
+  }, { name: CSRF_COOKIE, value: SYNTHETIC_CSRF });
+}
 
 test.describe('Multiclass student hub', () => {
   test('renders an isolated class with five tabs, expandable tasks and no member names', async ({ page }) => {
@@ -94,6 +143,8 @@ test.describe('Multiclass student hub', () => {
     await task.locator('summary').click();
     await expect(task).toHaveAttribute('open', '');
     await expect(task.locator('.task-body')).toContainText('justificar la elección terapéutica');
+    await expect(task.getByRole('link', { name: 'Guía del seminario ↗' })).toHaveAttribute('href', 'https://example.test/seminario-antimicrobianos.pdf');
+    await expect(task.getByRole('link', { name: 'Guía del seminario ↗' })).toHaveAttribute('rel', 'noopener noreferrer');
     await expect(task.locator('summary > b')).toHaveText('Cerrar');
 
     await page.locator('[data-nav-view="materias"]').click();
@@ -170,6 +221,251 @@ test.describe('Multiclass student hub', () => {
     await expect.poll(() => page.evaluate(() => localStorage.getItem('med-nykuto-class-cache:s5-a'))).toBeNull();
   });
 
+  test('logs a delegate in with synthetic credentials, sends cookie CSRF on writes and logs out on the server', async ({ page }) => {
+    const requests = [];
+    const actor = { id: 'editor-fixture-s5-a', role: 'editor', name: 'Delegada Fixture', classId: 's5-a' };
+    await exposeSyntheticCsrfCookie(page);
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request();
+      const url = new URL(request.url());
+      const body = request.method() === 'POST' ? request.postDataJSON() : null;
+      requests.push({
+        method: request.method(),
+        resource: url.searchParams.get('resource'),
+        authorization: request.headers().authorization || '',
+        csrf: request.headers()['x-csrf-token'] || '',
+        cookie: request.headers().cookie || '',
+        body
+      });
+      if (request.method() === 'GET' && url.searchParams.get('resource') === 'session') {
+        await route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'authentication_required', error: 'Inicia sesión.' }) });
+        return;
+      }
+      if (body?.action === 'auth.login') {
+        await route.fulfill({
+          status: 200,
+          headers: {
+            'content-type': 'application/json; charset=utf-8',
+            'set-cookie': `${CSRF_COOKIE}=${SYNTHETIC_CSRF}; Path=/; Secure; SameSite=Strict`
+          },
+          body: JSON.stringify({ ok: true, actor, passwordChangeRequired: false, expiresAt: '2099-09-01T12:00:00.000Z' })
+        });
+        return;
+      }
+      if (request.method() === 'GET' && url.searchParams.get('resource') === 'admin') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(managementState(actor)) });
+        return;
+      }
+      if (body?.action === 'task.upsert') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, id: 'fixture-task' }) });
+        return;
+      }
+      if (body?.action === 'auth.logout') {
+        await route.fulfill({
+          status: 200,
+          headers: {
+            'content-type': 'application/json; charset=utf-8',
+            'set-cookie': `${CSRF_COOKIE}=; Path=/; Max-Age=0; Secure; SameSite=Strict`
+          },
+          body: JSON.stringify({ ok: true })
+        });
+        return;
+      }
+      await route.fulfill({ status: 400, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'unexpected_request', error: 'Solicitud inesperada.' }) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await page.locator('#loginEmail').fill(SYNTHETIC_EMAIL);
+    await page.locator('#loginPassword').fill(SYNTHETIC_TEMP_PASSWORD);
+    await page.locator('#credentialSubmit').click();
+
+    await expect(page.locator('#manageApp')).toBeVisible();
+    await expect(page.locator('#actorRole')).toHaveText('DELEGADO');
+    await expect(page.locator('#actorName')).toContainText('Delegada Fixture');
+    await expect(page.locator('[data-manage-tab="classes"]')).toBeHidden();
+    await expect(page.locator('[data-manage-tab="access"]')).toBeHidden();
+    await expect(page.locator('#classForm')).toBeHidden();
+    await expect(page.locator('#delegateAccountForm')).toBeHidden();
+    await expect(page.locator('#loginPassword')).toHaveValue('');
+    await expect.poll(() => page.evaluate(() => document.cookie)).toContain(`${CSRF_COOKIE}=`);
+
+    const login = requests.find((entry) => entry.body?.action === 'auth.login');
+    expect(login).toMatchObject({ authorization: '', csrf: '', body: { action: 'auth.login', email: SYNTHETIC_EMAIL, password: SYNTHETIC_TEMP_PASSWORD } });
+    expect(requests.some((entry) => ['classes', 'audit'].includes(entry.resource))).toBe(false);
+    const browserStorage = await page.evaluate(() => ({ local: JSON.stringify(localStorage), session: JSON.stringify(sessionStorage) }));
+    expect(browserStorage.local).not.toContain(SYNTHETIC_EMAIL);
+    expect(browserStorage.local).not.toContain(SYNTHETIC_TEMP_PASSWORD);
+    expect(browserStorage.session).not.toContain(SYNTHETIC_EMAIL);
+    expect(browserStorage.session).not.toContain(SYNTHETIC_TEMP_PASSWORD);
+
+    const taskForm = page.locator('#taskForm');
+    await taskForm.locator('[name="course"]').fill('Farmacología II');
+    await taskForm.locator('[name="title"]').fill('Tarea CSRF de prueba');
+    await taskForm.getByRole('button', { name: 'Guardar tarea' }).click();
+    await expect(page.locator('#manageStatus')).toHaveText('Datos sincronizados.');
+    const taskWrite = requests.find((entry) => entry.body?.action === 'task.upsert');
+    expect(taskWrite.authorization).toBe('');
+    expect(taskWrite.csrf).toBe(SYNTHETIC_CSRF);
+
+    await page.locator('#logoutButton').click();
+    await expect(page.locator('#authCard')).toBeVisible();
+    await expect(page.locator('#manageApp')).toBeHidden();
+    await expect(page.locator('#authStatus')).toHaveText('Sesión cerrada correctamente.');
+    const logout = requests.find((entry) => entry.body?.action === 'auth.logout');
+    expect(logout.authorization).toBe('');
+    expect(logout.csrf).toBe(SYNTHETIC_CSRF);
+  });
+
+  test('restores a credential session with same-origin cookies and enforces the initial password change', async ({ page, context }) => {
+    const requests = [];
+    const actor = { id: 'editor-restored-s5-a', role: 'editor', name: 'Delegada Restaurada', classId: 's5-a' };
+    await context.addCookies([{ name: 'management_session_fixture', value: 'opaque-session-cookie', url: 'http://127.0.0.1:4173/' }]);
+    await exposeSyntheticCsrfCookie(page);
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request();
+      const url = new URL(request.url());
+      const body = request.method() === 'POST' ? request.postDataJSON() : null;
+      requests.push({
+        method: request.method(),
+        resource: url.searchParams.get('resource'),
+        authorization: request.headers().authorization || '',
+        csrf: request.headers()['x-csrf-token'] || '',
+        cookie: request.headers().cookie || '',
+        body
+      });
+      if (request.method() === 'GET' && url.searchParams.get('resource') === 'session') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, actor, passwordChangeRequired: true }) });
+        return;
+      }
+      if (body?.action === 'auth.password.change') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, actor, passwordChangeRequired: false }) });
+        return;
+      }
+      if (request.method() === 'GET' && url.searchParams.get('resource') === 'admin') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(managementState(actor)) });
+        return;
+      }
+      await route.fulfill({ status: 400, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'unexpected_request', error: 'Solicitud inesperada.' }) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await expect(page.locator('#passwordChangeCard')).toBeVisible();
+    await expect(page.locator('#authMethods')).toBeHidden();
+    await expect(page.locator('#manageApp')).toBeHidden();
+    const sessionRead = requests.find((entry) => entry.resource === 'session');
+    expect(sessionRead.authorization).toBe('');
+    expect(sessionRead.cookie).toContain('management_session_fixture=opaque-session-cookie');
+
+    await page.locator('#newPassword').fill(SYNTHETIC_NEW_PASSWORD);
+    await page.locator('#confirmPassword').fill('Different-Study-2026!');
+    await page.locator('#passwordChangeForm').getByRole('button', { name: 'Guardar y abrir el panel' }).click();
+    await expect(page.locator('#authStatus')).toHaveText('Las contraseñas no coinciden.');
+    expect(requests.some((entry) => entry.body?.action === 'auth.password.change')).toBe(false);
+
+    await page.locator('#newPassword').fill(SYNTHETIC_NEW_PASSWORD);
+    await page.locator('#confirmPassword').fill(SYNTHETIC_NEW_PASSWORD);
+    await page.locator('#passwordChangeForm').getByRole('button', { name: 'Guardar y abrir el panel' }).click();
+    await expect(page.locator('#manageApp')).toBeVisible();
+    const passwordChange = requests.find((entry) => entry.body?.action === 'auth.password.change');
+    expect(passwordChange.authorization).toBe('');
+    expect(passwordChange.csrf).toBe(SYNTHETIC_CSRF);
+    expect(passwordChange.body.password).toBe(SYNTHETIC_NEW_PASSWORD);
+    await expect(page.locator('#newPassword')).toHaveValue('');
+    await expect(page.locator('#confirmPassword')).toHaveValue('');
+  });
+
+  test('keeps failed credential login generic, rate-limited and free of stale bearer headers', async ({ page }) => {
+    const loginRequests = [];
+    let attempts = 0;
+    await page.addInitScript(({ key }) => sessionStorage.setItem(key, 'stale-synthetic-bearer'), { key: 'med-nykuto-management-token-v471:s5-a' });
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request();
+      const url = new URL(request.url());
+      const body = request.method() === 'POST' ? request.postDataJSON() : null;
+      if (body?.action === 'auth.login') {
+        attempts += 1;
+        loginRequests.push({ authorization: request.headers().authorization || '', csrf: request.headers()['x-csrf-token'] || '', body });
+        if (attempts === 1) {
+          await route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'invalid_credentials', error: 'Correo o contraseña incorrectos.' }) });
+        } else {
+          await route.fulfill({ status: 429, headers: { 'content-type': 'application/json', 'retry-after': '900' }, body: JSON.stringify({ ok: false, code: 'rate_limited', error: 'Demasiados intentos. Espera antes de volver a probar.' }) });
+        }
+        return;
+      }
+      if (request.method() === 'GET' && ['admin', 'session'].includes(url.searchParams.get('resource'))) {
+        await route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'authentication_required', error: 'Inicia sesión.' }) });
+        return;
+      }
+      await route.fulfill({ status: 400, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'unexpected_request', error: 'Solicitud inesperada.' }) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await expect(page.locator('#credentialSubmit')).toBeEnabled();
+    await page.locator('#loginEmail').fill('unknown.fixture@example.test');
+    await page.locator('#loginPassword').fill('Wrong-Synthetic-2026!');
+    await page.locator('#credentialSubmit').click();
+    await expect(page.locator('#authStatus')).toHaveText('Correo o contraseña incorrectos.');
+    await expect(page.locator('#loginPassword')).toHaveValue('');
+    await expect(page.locator('#loginEmail')).toHaveValue('unknown.fixture@example.test');
+    await expect(page.locator('#credentialSubmit')).toBeEnabled();
+
+    await page.locator('#loginPassword').fill('Still-Wrong-Synthetic-2026!');
+    await page.locator('#credentialSubmit').click();
+    await expect(page.locator('#authStatus')).toHaveText('Demasiados intentos. Espera antes de volver a probar.');
+    await expect(page.locator('#manageApp')).toBeHidden();
+    expect(loginRequests).toHaveLength(2);
+    expect(loginRequests.every((entry) => entry.authorization === '' && entry.csrf === '')).toBe(true);
+    await expect.poll(() => page.evaluate(() => sessionStorage.getItem('med-nykuto-management-token-v471:s5-a'))).toBeNull();
+  });
+
+  test('keeps delegate authentication usable on a narrow mobile viewport', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', (route) => route.fulfill({
+      status: 401,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: false, code: 'authentication_required', error: 'Inicia sesión.' })
+    }));
+    await page.goto('/gestion/s5-a');
+    await expect(page.locator('#credentialForm')).toBeVisible();
+    await page.locator('#loginPassword').fill('Visible-Synthetic-2026!');
+    const passwordToggle = page.locator('[data-password-toggle][aria-controls="loginPassword"]');
+    await passwordToggle.click();
+    await expect(page.locator('#loginPassword')).toHaveAttribute('type', 'text');
+    await expect(page.locator('#loginPassword')).toHaveValue('Visible-Synthetic-2026!');
+    await expect(passwordToggle).toHaveAttribute('aria-pressed', 'true');
+    await passwordToggle.click();
+    await expect(page.locator('#loginPassword')).toHaveAttribute('type', 'password');
+    const layout = await page.evaluate(() => {
+      const email = document.getElementById('loginEmail');
+      const password = document.getElementById('loginPassword');
+      const submit = document.getElementById('credentialSubmit');
+      const summary = document.querySelector('#legacyTokenAccess summary');
+      const box = (node) => {
+        const rect = node.getBoundingClientRect();
+        return { left: rect.left, right: rect.right, height: rect.height };
+      };
+      return {
+        innerWidth,
+        scrollWidth: document.documentElement.scrollWidth,
+        emailFont: Number.parseFloat(getComputedStyle(email).fontSize),
+        passwordFont: Number.parseFloat(getComputedStyle(password).fontSize),
+        controls: [box(email), box(password), box(submit), box(summary)]
+      };
+    });
+    expect(layout.scrollWidth).toBeLessThanOrEqual(layout.innerWidth + 1);
+    expect(layout.emailFont).toBeGreaterThanOrEqual(16);
+    expect(layout.passwordFont).toBeGreaterThanOrEqual(16);
+    layout.controls.forEach((control) => {
+      expect(control.left).toBeGreaterThanOrEqual(0);
+      expect(control.right).toBeLessThanOrEqual(layout.innerWidth + 1);
+      expect(control.height).toBeGreaterThanOrEqual(44);
+    });
+  });
+
   test('keeps pilot management form values after an authenticated save failure', async ({ page }) => {
     const requestedPaths = [];
     const apiRequests = [];
@@ -189,6 +485,14 @@ test.describe('Multiclass student hub', () => {
         authorization: request.headers().authorization || '',
         body: request.postDataJSON?.() || null
       });
+      if (request.method() === 'GET' && url.searchParams.get('resource') === 'session') {
+        await route.fulfill({
+          status: 401,
+          contentType: 'application/json',
+          body: JSON.stringify({ ok: false, code: 'authentication_required', error: 'Inicia sesión.' })
+        });
+        return;
+      }
       if (request.method() === 'POST') {
         await route.fulfill({
           status: 500,
@@ -205,7 +509,12 @@ test.describe('Multiclass student hub', () => {
           class: CLASS_RESPONSE.class,
           actor: { id: 'editor-s5-a', role: 'editor', name: 'Delegada piloto' },
           subjects: CLASS_RESPONSE.subjects,
-          tasks: [], notices: [], activities: [], groups: [], memberships: [], files: [], dates: [], editors: [], invites: []
+          tasks: [], notices: [], activities: [], groups: [], memberships: [], files: [], dates: [],
+          scheduleSlots: [{ id: 'farmaco-thu-0800', subjectId: 'farmacologia-ii', subject: 'Farmacología II', weekday: 4, startsTime: '08:00', endsTime: '10:00', label: 'Dra. Vega', status: 'published' }],
+          upcomingDates: [
+            { slotId: 'farmaco-thu-0800', subjectId: 'farmacologia-ii', subject: 'Farmacología II', date: '2099-09-03', startsAt: '2099-09-03T08:00', endsAt: '2099-09-03T10:00', label: 'jue. 3 sept. · 08:00', timeZone: 'America/Asuncion' },
+            { slotId: 'farmaco-thu-0800', subjectId: 'farmacologia-ii', subject: 'Farmacología II', date: '2099-09-10', startsAt: '2099-09-10T08:00', endsAt: '2099-09-10T10:00', label: 'jue. 10 sept. · 08:00', timeZone: 'America/Asuncion' }
+          ], editors: [], invites: []
         })
       });
     });
@@ -219,6 +528,7 @@ test.describe('Multiclass student hub', () => {
     await expect(page.locator('#authClassSlug')).toHaveText('S5-A');
     await expect(page.locator('#manageBackLink')).toHaveAttribute('href', '/turma/s5-a');
 
+    await page.locator('#legacyTokenAccess').getByText('Otra forma de acceso').click();
     await page.locator('#accessToken').fill('pilot-editor-token');
     await page.locator('#tokenForm').getByRole('button', { name: 'Entrar' }).click();
     await expect(page.locator('#manageApp')).toBeVisible();
@@ -230,10 +540,16 @@ test.describe('Multiclass student hub', () => {
 
     const form = page.locator('#taskForm');
     await form.locator('[name="course"]').fill('Farmacología II');
+    await expect(page.locator('#taskSuggestedDate option')).toHaveCount(3);
+    await page.locator('#taskSuggestedDate').selectOption('2099-09-03T08:00');
+    await expect(form.locator('[name="dueAt"]')).toHaveValue('2099-09-03T08:00');
+    await expect(form.locator('[name="dueLabel"]')).toHaveValue('jue. 3 sept. · 08:00');
     await form.locator('[name="title"]').fill('Trabajo que no debe borrarse');
     await form.locator('[name="description"]').fill('Conservar esta consigna después del error del servidor.');
     await form.locator('[name="dueLabel"]').fill('Próximo lunes');
     await form.locator('[name="dueAt"]').fill('2099-09-01T10:00');
+    await form.locator('[name="attachmentUrl"]').fill('https://example.test/trabajo.pdf');
+    await form.locator('[name="attachmentTitle"]').fill('Documento del profesor');
     await form.locator('[name="status"]').selectOption('published');
     await form.getByRole('button', { name: 'Guardar tarea' }).click();
 
@@ -243,6 +559,8 @@ test.describe('Multiclass student hub', () => {
     await expect(form.locator('[name="description"]')).toHaveValue('Conservar esta consigna después del error del servidor.');
     await expect(form.locator('[name="dueLabel"]')).toHaveValue('Próximo lunes');
     await expect(form.locator('[name="dueAt"]')).toHaveValue('2099-09-01T10:00');
+    await expect(form.locator('[name="attachmentUrl"]')).toHaveValue('https://example.test/trabajo.pdf');
+    await expect(form.locator('[name="attachmentTitle"]')).toHaveValue('Documento del profesor');
     await expect(form.locator('[name="status"]')).toHaveValue('published');
 
     const failedWrite = apiRequests.find((request) => request.method === 'POST');
@@ -254,7 +572,118 @@ test.describe('Multiclass student hub', () => {
         course: 'Farmacología II',
         title: 'Trabajo que no debe borrarse',
         description: 'Conservar esta consigna después del error del servidor.',
+        attachmentUrl: 'https://example.test/trabajo.pdf',
+        attachmentTitle: 'Documento del profesor',
         status: 'published'
+      }
+    });
+  });
+
+  test('lets the owner create and reset a delegate credential without rendering either password', async ({ page }) => {
+    const writes = [];
+    const editors = [];
+    const owner = { id: 'owner', role: 'owner', name: 'Propietario', classId: 's5-a' };
+    const resetPassword = 'Reset-Temporary-Study-2026!';
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request();
+      const url = new URL(request.url());
+      const resource = url.searchParams.get('resource');
+      const body = request.method() === 'POST' ? request.postDataJSON() : null;
+      if (request.method() === 'GET' && resource === 'session') {
+        await route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'authentication_required', error: 'Inicia sesión.' }) });
+        return;
+      }
+      if (request.method() === 'GET' && resource === 'classes') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, classes: [] }) });
+        return;
+      }
+      if (request.method() === 'GET' && resource === 'audit') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, audit: [] }) });
+        return;
+      }
+      if (request.method() === 'GET' && resource === 'admin') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(managementState(owner, { editors })) });
+        return;
+      }
+      if (body?.action === 'editor.account.create') {
+        writes.push({ authorization: request.headers().authorization || '', body });
+        editors.push({
+          id: 'editor-account-fixture',
+          name: body.name,
+          email: body.email.toLowerCase(),
+          status: 'active',
+          password_change_required: 1,
+          last_used_at: null
+        });
+        await route.fulfill({
+          status: 201,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            ok: true,
+            editor: { id: 'editor-account-fixture', name: body.name, email: body.email.toLowerCase(), role: 'editor', classId: 's5-a', status: 'active' },
+            passwordChangeRequired: true,
+            temporaryExpiresAt: '2099-09-01T12:00:00.000Z'
+          })
+        });
+        return;
+      }
+      if (body?.action === 'editor.password.reset') {
+        writes.push({ authorization: request.headers().authorization || '', body });
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, id: body.id, passwordChangeRequired: true, temporaryExpiresAt: '2099-09-02T12:00:00.000Z' }) });
+        return;
+      }
+      await route.fulfill({ status: 400, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'unexpected_request', error: 'Solicitud inesperada.' }) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await page.locator('#legacyTokenAccess').getByText('Otra forma de acceso').click();
+    await page.locator('#accessToken').fill('synthetic-owner-bearer');
+    await page.locator('#tokenForm').getByRole('button', { name: 'Entrar con token' }).click();
+    await expect(page.locator('#manageApp')).toBeVisible();
+    await page.locator('[data-manage-tab="access"]').click();
+
+    const accountForm = page.locator('#delegateAccountForm');
+    await accountForm.locator('[name="name"]').fill('Delegada Sintética');
+    await accountForm.locator('[name="email"]').fill(SYNTHETIC_EMAIL);
+    await accountForm.locator('[name="temporaryPassword"]').fill(SYNTHETIC_TEMP_PASSWORD);
+    await accountForm.locator('[name="hours"]').fill('24');
+    await accountForm.getByRole('button', { name: 'Crear cuenta de delegado' }).click();
+
+    await expect(page.locator('#accountOutput')).toContainText('Cuenta de delegado creada');
+    await expect(page.locator('#accountOutput')).toContainText(SYNTHETIC_EMAIL);
+    await expect(page.locator('#accountOutput')).not.toContainText(SYNTHETIC_TEMP_PASSWORD);
+    await expect(accountForm.locator('[name="temporaryPassword"]')).toHaveValue('');
+    let editorCard = page.locator('#editorList .manage-item').filter({ hasText: 'Delegada Sintética' });
+    await expect(editorCard).toContainText('Cambio de contraseña pendiente');
+
+    await editorCard.getByRole('button', { name: 'Restablecer contraseña' }).click();
+    const resetDialog = page.locator('#resetPasswordDialog');
+    await expect(resetDialog).toBeVisible();
+    await resetDialog.locator('[name="temporaryPassword"]').fill(resetPassword);
+    await resetDialog.locator('[name="hours"]').fill('24');
+    await resetDialog.getByRole('button', { name: 'Guardar contraseña temporal' }).click();
+    await expect(resetDialog).toBeHidden();
+    await expect(page.locator('body')).not.toContainText(resetPassword);
+
+    expect(writes).toHaveLength(2);
+    expect(writes[0]).toEqual({
+      authorization: 'Bearer synthetic-owner-bearer',
+      body: {
+        action: 'editor.account.create',
+        name: 'Delegada Sintética',
+        email: SYNTHETIC_EMAIL,
+        temporaryPassword: SYNTHETIC_TEMP_PASSWORD,
+        hours: '24'
+      }
+    });
+    expect(writes[1]).toEqual({
+      authorization: 'Bearer synthetic-owner-bearer',
+      body: {
+        id: 'editor-account-fixture',
+        temporaryPassword: resetPassword,
+        hours: '24',
+        action: 'editor.password.reset'
       }
     });
   });
@@ -279,6 +708,14 @@ test.describe('Multiclass student hub', () => {
     await page.route('**/api/class-hub**', async (route) => {
       const request = route.request();
       const resource = new URL(request.url()).searchParams.get('resource');
+      if (request.method() === 'GET' && resource === 'session') {
+        await route.fulfill({
+          status: 401,
+          contentType: 'application/json',
+          body: JSON.stringify({ ok: false, code: 'authentication_required', error: 'Inicia sesión.' })
+        });
+        return;
+      }
       if (request.method() === 'POST') {
         const body = request.postDataJSON();
         writes.push(body);
@@ -303,6 +740,7 @@ test.describe('Multiclass student hub', () => {
     });
 
     await page.goto('/gestion/s4-e');
+    await page.locator('#legacyTokenAccess').getByText('Otra forma de acceso').click();
     await page.locator('#accessToken').fill('owner-token');
     await page.locator('#tokenForm').getByRole('button', { name: 'Entrar' }).click();
     await page.locator('[data-manage-tab="classes"]').click();
@@ -315,8 +753,8 @@ test.describe('Multiclass student hub', () => {
     await expect(classForm.locator('[name="slug"]')).toHaveAttribute('readonly', '');
     await expect(classForm.locator('[name="id"]')).toHaveValue('s5-a');
     await classForm.locator('[name="name"]').fill('Medicina · 5.º A · Piloto');
-    await classForm.getByRole('button', { name: 'Actualizar turma' }).click();
-    await expect(page.locator('#classOutput')).toContainText('Turma actualizada');
+    await classForm.getByRole('button', { name: 'Actualizar clase' }).click();
+    await expect(page.locator('#classOutput')).toContainText('Clase actualizada');
     await expect(classForm.locator('[name="slug"]')).not.toHaveAttribute('readonly', '');
 
     targetCard = page.locator('#classList .manage-item').filter({ hasText: 'Medicina · 5.º A · Piloto' });
@@ -325,12 +763,12 @@ test.describe('Multiclass student hub', () => {
     targetCard = page.locator('#classList .manage-item').filter({ hasText: 'Medicina · 5.º A · Piloto' });
     await expect(targetCard).toContainText('ARCHIVADA');
     await expect(targetCard.getByRole('button', { name: 'Reactivar' })).toBeVisible();
-    await expect(targetCard.getByRole('link', { name: 'Ver turma' })).toHaveCount(0);
+    await expect(targetCard.getByRole('link', { name: 'Ver clase' })).toHaveCount(0);
 
     await targetCard.getByRole('button', { name: 'Reactivar' }).click();
     targetCard = page.locator('#classList .manage-item').filter({ hasText: 'Medicina · 5.º A · Piloto' });
     await expect(targetCard).toContainText('ACTIVA');
-    await expect(targetCard.getByRole('link', { name: 'Ver turma' })).toBeVisible();
+    await expect(targetCard.getByRole('link', { name: 'Ver clase' })).toBeVisible();
     await expect(page.locator('#classList .manage-item').filter({ hasText: 'Medicina · 4.º E' }).getByRole('button', { name: 'Archivar' })).toHaveCount(0);
 
     expect(writes).toHaveLength(3);
@@ -351,7 +789,7 @@ test.describe('Multiclass student hub', () => {
       '/offline.html',
       '/turma-shell/',
       '/turma-v471.css?v=471',
-      '/turma-v471.js?v=471',
+      '/turma-v471.js?v=472',
       '/turma-manifest-boot-v471.js?v=471'
     ]));
     [
