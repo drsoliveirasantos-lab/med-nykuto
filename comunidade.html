@@ -8,7 +8,8 @@
   <meta name="description" content="Entrenamiento por materia y tema con QCM, verdadero o falso, casos clínicos y clasificación semanal del 4.º E." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="community.css?v=431" />
+  <link rel="stylesheet" href="community.css?v=479" />
+  <link rel="stylesheet" href="help-desk-v479.css?v=479" />
 </head>
 <body class="community-page">
   <a class="community-skip-link" href="#communityContent">Ir al contenido</a>
@@ -86,18 +87,19 @@
     <section class="profile-card study-profile-card" aria-labelledby="profileTitle">
       <div>
         <p class="community-kicker" data-i18n="profileKicker">TU IDENTIDAD EN EL RETO</p>
-        <h2 id="profileTitle" data-i18n="profileTitle">Elige un apodo</h2>
-        <p data-i18n="profileCopy">Será lo único que verá la clase. Puedes cambiarlo antes de publicar otro resultado.</p>
+        <h2 id="profileTitle" data-i18n="profileTitle">Confirma tu identidad del 4.º E</h2>
+        <p data-i18n="profileCopy">Se pide una sola vez en este teléfono. La catraca completa nunca aparece en la clasificación.</p>
       </div>
       <form id="communityProfileForm" class="community-profile-form">
-        <label for="communityNickname" data-i18n="nickname">Apodo público</label>
-        <div>
-          <input id="communityNickname" name="nickname" type="text" minlength="2" maxlength="24" autocomplete="nickname" data-i18n-placeholder="nicknamePlaceholder" placeholder="Ej.: Baboune" />
-          <button type="submit" data-i18n="save">Guardar apodo</button>
+        <div class="community-identity-fields">
+          <label for="communityDisplayName"><span data-i18n="displayName">Nombre visible</span><input id="communityDisplayName" name="displayName" type="text" minlength="2" maxlength="60" autocomplete="name" data-i18n-placeholder="displayNamePlaceholder" placeholder="Ej.: Ana Oliveira" required /></label>
+          <label for="communityStudentId"><span data-i18n="studentId">Catraca UCP</span><input id="communityStudentId" name="studentId" type="text" minlength="4" maxlength="28" autocomplete="off" inputmode="text" data-i18n-placeholder="studentIdPlaceholder" placeholder="Tu número de catraca" required aria-describedby="communityPrivacy" /></label>
         </div>
+        <label class="community-identity-consent" for="communityIdentityConsent"><input id="communityIdentityConsent" name="consent" type="checkbox" required /><span data-i18n="identityConsent">Confirmo que pertenezco al 4.º E y que estos datos son míos.</span></label>
+        <button type="submit" data-i18n="save">Guardar y participar</button>
         <p id="communityProfileStatus" class="community-profile-status" role="status" aria-live="polite"></p>
       </form>
-      <p class="community-privacy" data-i18n="privacy">No pedimos email ni nombre real. Participar es opcional.</p>
+      <p class="community-privacy" id="communityPrivacy" data-i18n="privacy">Solo publicamos tu nombre y los últimos 4 caracteres de la catraca. El número completo se transforma en una huella segura.</p>
     </section>
 
     <section class="study-practice-card" aria-label="Entrenamiento seleccionado">
@@ -120,6 +122,10 @@
 
     <div class="community-dashboard">
       <section class="challenge-card" aria-labelledby="challengeTitle">
+        <div class="challenge-prize" aria-label="Premio semanal">
+          <span aria-hidden="true">🥇</span>
+          <div><strong data-i18n="prizeAmount">50 R$ vía Pix</strong><small data-i18n="prizeWinner">Premio para el 1.er lugar verificado</small></div>
+        </div>
         <div class="community-card-heading">
           <div>
             <p class="community-kicker" data-i18n="challengeKicker">DESAFÍO COLECTIVO</p>
@@ -128,6 +134,7 @@
           <span class="community-week" id="challengeWeek" data-i18n="weekPending">Semana actual</span>
         </div>
         <p data-i18n="challengeCopy">No importa quién queda primero: cada mejor resultado acerca a la clase a la meta.</p>
+        <p class="challenge-eligibility" data-i18n="prizeRule">Exclusivo para estudiantes matriculados en el 4.º E.</p>
         <strong class="challenge-score" id="challengeScore">0 / 1.000</strong>
         <span class="challenge-score-label" data-i18n="correctAnswers">respuestas correctas</span>
         <div class="challenge-progress-track" id="challengeProgressBar" role="progressbar" aria-label="Progreso del desafío" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
@@ -171,13 +178,14 @@
     <a href="comunidade.html" aria-current="page"><span class="nav-icon"><svg aria-hidden="true"><use href="#class-icon-community"></use></svg></span><strong data-i18n="navStudy">Estudiar</strong></a>
   </nav>
 
-  <script src="community.js?v=5"></script>
+  <script src="community.js?v=479"></script>
   <script src="grupo-3-practice-v413.js?v=441"></script>
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
   <script src="grupo-3-practice-grounded-v426.js?v=431"></script>
   <script src="grupo-3-practice-2026-08-17-v432.js?v=432"></script>
   <script src="grupo-3-practice-2026-08-21-v440.js?v=440"></script>
-  <script src="community-study.js?v=432"></script>
+  <script src="community-study.js?v=479"></script>
   <script src="medical-glossary-v425.js?v=432"></script>
+  <script src="help-desk-v479.js?v=479"></script>
 </body>
 </html>
