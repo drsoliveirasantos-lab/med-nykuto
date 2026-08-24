@@ -100,12 +100,12 @@ async function inspectNotebook(browserType, width, failures, screenshots) {
       overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
     };
   });
-  expect(physiology.dates === 4, `${browserType.name()} ${width}px: Physiology should expose 4 dates.`, failures);
-  expect(physiology.selectedDate === '20 AGO.', `${browserType.name()} ${width}px: latest Physiology date is not selected.`, failures);
-  expect(/Ejercicios integradores/.test(physiology.selectedTitle), `${browserType.name()} ${width}px: selected lesson title is missing.`, failures);
+  expect(physiology.dates === 5, `${browserType.name()} ${width}px: Physiology should expose 5 dates.`, failures);
+  expect(physiology.selectedDate === '24 AGO.', `${browserType.name()} ${width}px: latest Physiology date is not selected.`, failures);
+  expect(/Sensibilidades somáticas/.test(physiology.selectedTitle), `${browserType.name()} ${width}px: selected lesson title is missing.`, failures);
   expect(physiology.chapterState === 'Capítulo en curso', `${browserType.name()} ${width}px: chapter state is missing.`, failures);
   expect(!physiology.heroVisible, `${browserType.name()} ${width}px: redundant lesson hero is still visible.`, failures);
-  expect(physiology.narrativeLessons === 4, `${browserType.name()} ${width}px: not all Physiology dates use narrative courses.`, failures);
+  expect(physiology.narrativeLessons === 5, `${browserType.name()} ${width}px: not all Physiology dates use narrative courses.`, failures);
   expect(physiology.sections >= 6, `${browserType.name()} ${width}px: active full course has fewer than 6 sequential sections.`, failures);
   expect(physiology.overflow <= 1, `${browserType.name()} ${width}px: notebook overflows horizontally by ${physiology.overflow}px.`, failures);
 

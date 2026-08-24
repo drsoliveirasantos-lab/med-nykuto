@@ -43,6 +43,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('keeps 17 August archives separate and opens both 24 August courses', async ({ page }) => {
     await page.goto('/clase.html#fisiologia-2026-08-17');
     await expect(page.locator('#fisiologia .notebook-current-title')).toContainText('Organización, sinapsis y receptores');
+    await page.locator('#fisiologia-2026-08-17 [data-lesson-tab="material"]').click();
     const archive = page.locator('#sessionArchiveDialog');
     await page.locator('[data-session-archive-open="fisio-17-slides"]').click();
     await expect(archive.locator('#sessionArchiveThumbnails button')).toHaveCount(35);
@@ -50,6 +51,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
     await page.goto('/clase.html#microbiologia-teorica-2026-08-17');
     await expect(page.locator('#microbiologia-teorica .notebook-current-title')).toContainText('Pitiriasis versicolor y tiña corporal');
+    await page.locator('#microbiologia-teorica-2026-08-17 [data-lesson-tab="material"]').click();
     await page.locator('[data-session-archive-open="micro-17-cases"]').click();
     await expect(archive.locator('#sessionArchiveThumbnails button')).toHaveCount(8);
     await archive.locator('[data-session-archive-close]').click();

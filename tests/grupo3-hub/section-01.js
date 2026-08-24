@@ -53,7 +53,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.goto('/clase.html#inicio');
     await page.locator('.home-transcript-micro').click();
     await expect(page).toHaveURL(/#microbiologia-teorica-2026-08-24$/);
-    await expect(page.locator('#microbiologia-teorica .notebook-current-title')).toContainText('Micosis subcutáneas y oportunistas');
+    await expect(page.locator('#microbiologia-teorica .notebook-current-title')).toContainText('Micosis subcutáneas, oportunistas');
     await expect(page.locator('#microbiologia-teorica-2026-08-24')).toBeVisible();
   });
 
@@ -68,7 +68,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#nutricion')).toBeHidden();
     await expect(page.locator('#fisiologia')).toBeVisible();
     await expect(page.locator('#fisiologia-2026-08-24')).toBeVisible();
-    await expect(page.locator('#fisiologia-2026-08-24')).toBeHidden();
+    await expect(page.locator('#fisiologia-2026-08-20')).toBeHidden();
     await expect(page.locator('#practice-fisiologia-2026-08-24')).toContainText('40 preguntas');
   });
 

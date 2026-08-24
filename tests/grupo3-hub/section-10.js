@@ -26,10 +26,10 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(nextMycology.getByText('Cromoblastomicosis', { exact: true })).toBeVisible();
     await expect(nextMycology.getByText('Micetoma eumicótico', { exact: true })).toBeVisible();
     const transcript = await page.evaluate(() => window.MED_NYKUTO_LATEST_TRANSCRIPTS.microbiologiaTeorica);
-    expect(transcript.oralDate).toBe('2026-08-17');
-    expect(transcript.resolvedDate).toBe('2026-08-17');
+    expect(transcript.oralDate).toBe('2026-08-24');
+    expect(transcript.resolvedDate).toBe('2026-08-24');
     expect(transcript.estimatedClassDate).toBeNull();
-    expect(transcript.estimatedPreparation.date).toBe('2026-08-17');
+    expect(transcript.estimatedPreparation.date).toBe('2026-08-24');
   });
 
   test('keeps the semester selector inside the sticky class header', async ({ page }) => {

@@ -105,10 +105,10 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     expect(courseLayout.thirdCourseStartsNextRow).toBe(true);
     expect(Math.max(...courseLayout.resourceHeights)).toBeLessThanOrEqual(70);
     expect(courseLayout.resourcesShareFirstRow).toBe(true);
-    expect(courseLayout.courseMetaDisplay).toBe('inline-flex');
+    expect(courseLayout.courseMetaDisplay).toBe('flex');
     expect(courseLayout.courseMetaFont).toBeGreaterThanOrEqual(8.5);
-    await expect(page.locator('[data-course-target="fisiologia"] .course-latest-chip')).toContainText('ÚLTIMA · 20 AGO');
-    await expect(page.locator('[data-course-target="microbiologia-teorica"] .course-latest-chip')).toContainText('TEÓRICA · 17 AGO');
+    await expect(page.locator('[data-course-target="fisiologia"] .course-latest-chip')).toContainText('ÚLTIMA · 24 AGO');
+    await expect(page.locator('[data-course-target="microbiologia-teorica"] .course-latest-chip')).toContainText('ÚLTIMA · 24 AGO');
     expect(courseLayout.courseIntroDisplay).toBe('none');
     expect(courseLayout.detailToggleHeight).toBeLessThanOrEqual(62);
     expect(courseLayout.scrollWidth).toBeLessThanOrEqual(courseLayout.clientWidth + 1);
