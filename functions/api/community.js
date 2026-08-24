@@ -131,7 +131,23 @@ function currentWeek(now = new Date()) {
   start.setUTCDate(start.getUTCDate() - daysSinceMonday);
   const end = new Date(start);
   end.setUTCDate(end.getUTCDate() + 6);
-  return { key: isoDate(start), start: isoDate(start), end: isoDate(end), closesAt: `${isoDate(end)}T23:59:59-03:00`, timeZone: 'America/Asuncion' };
+  const closesAt = `${isoDate(end)}T20:00:00-03:00`;
+  const remainingMilliseconds = Date.parse(closesAt) - now.getTime();
+  return {
+    key: isoDate(start),
+    start: isoDate(start),
+    end: isoDate(end),
+    closesAt,
+    timeZone: 'America/Asuncion',
+    closed: remainingMilliseconds <= 0,
+    secondsRemaining: Math.max(0, Math.ceil(remainingMilliseconds / 1000))
+  };
+}
+
+function runtimeNow(env = {}) {
+  const testValue = String(env.MED_NYKUTO_TEST_NOW || '');
+  const testTimestamp = Date.parse(testValue);
+  return testValue && Number.isFinite(testTimestamp) ? new Date(testTimestamp) : new Date();
 }
 
 function cleanDisplayName(value) {
@@ -313,22 +329,24 @@ async function readChallenge(db, classId, week) {
     participants: Number(row?.participants) || 0,
     records: Number(row?.records) || 0,
     progress: Math.min(100, Math.round((points / CHALLENGE_GOAL) * 100)),
+    closed: week.closed,
     prize: classId === DEFAULT_CLASS_ID
       ? { amount: CHALLENGE_PRIZE_BRL, currency: 'BRL', method: 'PIX', place: 1, classId: DEFAULT_CLASS_ID, provisional: true, verificationRequired: true }
       : null
   };
 }
 
-async function handleGet(request, db, classRecord) {
+async function handleGet(request, db, classRecord, env) {
   const url = new URL(request.url);
   const requestedPlayer = url.searchParams.get('player') || '';
   const playerId = validPlayerId(requestedPlayer) ? requestedPlayer : '';
-  const week = currentWeek();
+  const now = runtimeNow(env);
+  const week = currentWeek(now);
   const [{ ranking, currentUser }, challenge] = await Promise.all([
     readRanking(db, classRecord.id, week, playerId),
     readChallenge(db, classRecord.id, week)
   ]);
-  return response({ ok: true, cohort: classRecord.slug, class: publicClass(classRecord), week, challenge, ranking, currentUser, generatedAt: new Date().toISOString() });
+  return response({ ok: true, cohort: classRecord.slug, class: publicClass(classRecord), week, challenge, ranking, currentUser, generatedAt: now.toISOString() });
 }
 
 function sameOrigin(request) {
@@ -463,6 +481,9 @@ async function enrollParticipant(request, db, env, classRecord, payload) {
 
 async function saveScore(request, db, env, classRecord, payload) {
   if (classRecord.id !== DEFAULT_CLASS_ID || cleanClassRef(payload.class) !== DEFAULT_CLASS_SLUG) return errorResponse(403, 'challenge_class_only', 'Este desafío es exclusivo para estudiantes del 4.º E.');
+  const requestTime = runtimeNow(env);
+  const week = currentWeek(requestTime);
+  if (week.closed) return errorResponse(409, 'challenge_closed', 'El desafío cerró el domingo a las 20:00, hora de Paraguay. La clasificación está congelada.');
   const limited = await rateLimit(request, env, db, classRecord.id, 'community-score', COMMUNITY_WRITE_LIMIT);
   if (limited) return limited;
   const playerId = String(payload.playerId || '').trim();
@@ -478,10 +499,9 @@ async function saveScore(request, db, env, classRecord, payload) {
   if (!['pending', 'verified'].includes(participant.verification_status)) return errorResponse(403, 'identity_ineligible', 'Este perfil necesita una revisión antes de seguir publicando.');
   if (!CHALLENGE_COURSE_IDS.has(courseId)) return errorResponse(400, 'invalid_scope', 'La materia del QCM no pertenece al desafío del 4.º E.');
   if (!Number.isInteger(correct) || !Number.isInteger(total) || total < 1 || total > 50 || correct < 0 || correct > total) return errorResponse(400, 'invalid_score', 'El resultado del QCM no es válido.');
-  const week = currentWeek();
   const scopeId = moduleId ? `${courseId || 'module'}:${moduleId}` : courseId;
   const percentage = Math.round((correct / total) * 10000) / 100;
-  const now = new Date().toISOString();
+  const now = requestTime.toISOString();
   const previous = await db.prepare(`SELECT id,correct,total,percentage,created_at FROM community_scores WHERE class_id=? AND week_key=? AND player_id=? AND scope_id=? ORDER BY correct DESC,percentage DESC,created_at ASC,id ASC LIMIT 1`).bind(classRecord.id, week.key, playerId, scopeId).first();
   if (!previous) {
     const count = await db.prepare(`SELECT COUNT(DISTINCT scope_id) AS count FROM community_scores WHERE class_id=? AND week_key=? AND player_id=?`).bind(classRecord.id, week.key, playerId).first();
@@ -544,7 +564,7 @@ export async function onRequest(context) {
     const resolved = await resolveClass(request, db);
     if (resolved.error === 'class_mismatch') return errorResponse(400, 'class_mismatch', 'La clase indicada no es válida o no coincide.');
     if (!resolved.classRecord) return errorResponse(404, 'class_not_found', 'La clase solicitada no existe o no está activa.');
-    return handleGet(request, db, resolved.classRecord);
+    return handleGet(request, db, resolved.classRecord, context.env || {});
   } catch (error) {
     console.error('community_api_error', error);
     return errorResponse(500, 'temporarily_unavailable', 'La clasificación no está disponible por el momento.');

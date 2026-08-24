@@ -139,10 +139,12 @@
   function renderResult(){
     var panel = document.getElementById('studyPublishPanel');
     if(!panel || !lastResult){ hidePublishPanel(); return; }
+    var closed = typeof community.isChallengeClosed === 'function' && community.isChallengeClosed();
     panel.hidden = false;
     document.getElementById('studyPublishTitle').textContent = t('publishTitle',{score:lastResult.correct,total:lastResult.total});
     document.getElementById('studyPublishCopy').textContent = t('publishCopy');
-    document.getElementById('studyPublishButton').textContent = publishing ? t('publishing') : t('publishButton');
+    document.getElementById('studyPublishButton').disabled = publishing || closed;
+    document.getElementById('studyPublishButton').textContent = closed ? t('publishClosedButton') : publishing ? t('publishing') : t('publishButton');
   }
 
   function handleCompleted(event){
@@ -160,6 +162,12 @@
     var publishedResult = lastResult;
     var profile = community.getProfile();
     var status = document.getElementById('studyPublishStatus');
+    if(typeof community.isChallengeClosed === 'function' && community.isChallengeClosed()){
+      status.dataset.state = 'error';
+      status.textContent = t('publishClosed');
+      renderResult();
+      return;
+    }
     if(typeof community.isProfileReady === 'function' ? !community.isProfileReady(profile) : (!profile.fullName || !profile.catraca || profile.classConfirmed !== true || !profile.accessToken)){
       status.dataset.state = 'error';
       status.textContent = t('nicknameNeeded');
@@ -177,7 +185,11 @@
     }).catch(function(error){
       if(lastResult !== publishedResult) return;
       status.dataset.state = 'error';
-      status.textContent = error && error.code === 'identity_required' ? t('identityExpired') : t('publishError');
+      status.textContent = error && error.code === 'challenge_closed'
+        ? t('publishClosed')
+        : error && error.code === 'identity_required'
+          ? t('identityExpired')
+          : t('publishError');
     }).finally(function(){
       publishing = false;
       document.getElementById('studyPublishButton').disabled = false;
@@ -205,6 +217,7 @@
 
   window.MedNykutoCommunityStudy = {
     refreshLanguage:refreshLanguage,
+    challengeStateChanged:renderResult,
     profileChanged:function(){
       var status = document.getElementById('studyPublishStatus');
       if(status && status.dataset.state === 'error'){

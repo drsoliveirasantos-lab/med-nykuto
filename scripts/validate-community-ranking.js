@@ -24,7 +24,8 @@ const IDS = {
   oldParticipant: '88888888-8888-4888-8888-888888888888',
   legacyOne: '99999999-9999-4999-8999-999999999999',
   legacyTwo: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
-  race: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb'
+  race: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
+  cutoff: 'cccccccc-cccc-4ccc-8ccc-cccccccccccc'
 };
 
 class D1StatementMock {
@@ -115,13 +116,13 @@ function loadHandler(label) {
   return import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}#${encodeURIComponent(label)}`);
 }
 
-async function call(handler, db, { method = 'GET', query = '?class=s4-e', payload = null, origin = ORIGIN, ip = '203.0.113.10', pepper = PEPPER } = {}) {
+async function call(handler, db, { method = 'GET', query = '?class=s4-e', payload = null, origin = ORIGIN, ip = '203.0.113.10', pepper = PEPPER, now = '' } = {}) {
   const headers = {};
   if (method === 'POST') headers['content-type'] = 'application/json';
   if (origin !== null) headers.origin = origin;
   if (ip !== null) headers['CF-Connecting-IP'] = ip;
   const request = new Request(`${ORIGIN}/api/community${query}`, { method, headers, body: method === 'POST' ? JSON.stringify(payload) : undefined });
-  const response = await handler({ request, env: { MED_NYKUTO_DB: db, MED_NYKUTO_CATRACA_PEPPER: pepper, MED_NYKUTO_RATE_SALT: 'community-ranking-rate-salt-fixture' } });
+  const response = await handler({ request, env: { MED_NYKUTO_DB: db, MED_NYKUTO_CATRACA_PEPPER: pepper, MED_NYKUTO_RATE_SALT: 'community-ranking-rate-salt-fixture', ...(now ? { MED_NYKUTO_TEST_NOW: now } : {}) } });
   const body = response.status === 204 ? null : await response.json();
   return { response, body };
 }
@@ -159,6 +160,8 @@ async function main() {
   assert.match(source, /ALTER TABLE community_participants ADD COLUMN student_id_public TEXT NOT NULL DEFAULT ''/);
   assert.match(source, /community_scores_class_scope_write_idx/);
   assert.match(source, /community_participants_class_public_idx/);
+  assert.match(source, /T20:00:00-03:00/, 'The weekly challenge must close exactly Sunday at 20:00 Paraguay time.');
+  assert.match(source, /challenge_closed/, 'The API must refuse score writes after the countdown reaches zero.');
   assert.doesNotMatch(source, /UPDATE community_scores SET class_id=\? WHERE[^`]*cohort_key/i, 'A migration must not reassign an explicit class based on its legacy cohort.');
   assert.doesNotMatch(source, /\b(?:DELETE\s+FROM|DROP\s+TABLE|REPLACE\s+INTO|INSERT\s+OR\s+REPLACE)\b/i, 'Community migrations must remain additive and non-destructive.');
   assert.doesNotMatch(enrollSource, /community_scores/i, 'Enrollment must never rewrite historical score rows.');
@@ -184,6 +187,19 @@ async function main() {
     assert.ok(scoreColumns.includes('write_version'), 'The class-scoped score write marker was not migrated additively.');
     assert.ok(participantColumns.includes('student_id_public'), 'The pre-public-catraca participant table was not migrated additively.');
     assert.equal(db.database.prepare(`SELECT COUNT(*) AS count FROM community_scores WHERE class_id='s4-e'`).get().count, 3);
+
+    const beforeDeadline = expectSuccess(await call(handler.onRequest, db, {
+      now: '2026-08-30T22:59:59.000Z'
+    }));
+    assert.equal(beforeDeadline.week.closesAt, '2026-08-30T20:00:00-03:00');
+    assert.equal(beforeDeadline.week.closed, false);
+    assert.equal(beforeDeadline.week.secondsRemaining, 1);
+    const atDeadline = expectSuccess(await call(handler.onRequest, db, {
+      now: '2026-08-30T23:00:00.000Z'
+    }));
+    assert.equal(atDeadline.week.closed, true);
+    assert.equal(atDeadline.week.secondsRemaining, 0);
+    assert.equal(atDeadline.challenge.closed, true);
 
     const legacyEntries = migrated.ranking.filter((entry) => entry.displayName === 'Perfil Legacy');
     assert.equal(legacyEntries.length, 2, 'Two legacy players with the same nickname were merged or lost.');
@@ -323,6 +339,26 @@ async function main() {
     const wrongScoreToken = await call(handler.onRequest, db, { method: 'POST', payload: scorePayload(IDS.main, 'c'.repeat(64), 'token-check', 1, 1), ip: '203.0.113.20' });
     expectFailure(wrongScoreToken, 401, 'identity_required');
     expectSuccess(await call(handler.onRequest, db, { method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'token-check', 1, 1), ip: '203.0.113.20' }));
+
+    const finalSecond = expectSuccess(await call(handler.onRequest, db, {
+      method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'cutoff-second', 1, 2),
+      ip: '203.0.113.32', now: '2026-08-30T22:59:59.000Z'
+    }));
+    assert.equal(finalSecond.week.key, '2026-08-24');
+    assert.equal(finalSecond.week.secondsRemaining, 1);
+    const cutoffScoreBefore = JSON.stringify(db.database.prepare(`SELECT * FROM community_scores WHERE class_id='s4-e' AND week_key='2026-08-24' AND player_id=? AND scope_id='nutricion:cutoff-second'`).get(IDS.main));
+    const closedWrite = await call(handler.onRequest, db, {
+      method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'cutoff-second', 2, 2),
+      ip: '203.0.113.32', now: '2026-08-30T23:00:00.000Z'
+    });
+    expectFailure(closedWrite, 409, 'challenge_closed');
+    assert.equal(JSON.stringify(db.database.prepare(`SELECT * FROM community_scores WHERE class_id='s4-e' AND week_key='2026-08-24' AND player_id=? AND scope_id='nutricion:cutoff-second'`).get(IDS.main)), cutoffScoreBefore, 'A score changed at or after the exact Sunday 20:00 cutoff.');
+    const mondayWrite = expectSuccess(await call(handler.onRequest, db, {
+      method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'cutoff-second', 2, 2),
+      ip: '203.0.113.32', now: '2026-08-31T03:00:00.000Z'
+    }));
+    assert.equal(mondayWrite.week.key, '2026-08-31');
+    assert.equal(mondayWrite.week.closed, false);
 
     const crossClassTimestamp = '2026-08-02T10:00:00.000Z';
     db.database.prepare(`INSERT INTO community_scores (class_id,cohort_key,week_key,player_id,nickname,course_id,module_id,scope_id,correct,total,percentage,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`)
@@ -485,7 +521,7 @@ async function main() {
     assert.equal(scoreSnapshot(db.database), beforeRestart.scores, 'Idempotent deployment changed score bytes.');
     assert.equal(JSON.stringify(db.database.prepare(`SELECT * FROM community_participants ORDER BY class_id,player_id`).all()), beforeRestart.participants, 'Idempotent deployment changed participant bytes.');
 
-    console.log('Community ranking validation OK: additive class-safe migration, conservative legacy-catraca lock, idempotent client tokens, race-safe verification, class-scoped first-created score writes, points-first 4E ranking, verified-only Pix eligibility and discriminating activity ties.');
+    console.log('Community ranking validation OK: Sunday 20:00 Paraguay cutoff enforced to the second, Monday reopening, additive class-safe migration, conservative legacy-catraca lock, idempotent client tokens, race-safe verification, class-scoped first-created score writes, points-first 4E ranking, verified-only Pix eligibility and discriminating activity ties.');
   } finally {
     if (db) { try { db.close(); } catch {} }
     fs.rmSync(tempDirectory, { recursive: true, force: true });
