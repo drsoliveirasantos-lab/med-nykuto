@@ -4,7 +4,7 @@
   var API='/api/class-hub?class='+encodeURIComponent(CLASS_SLUG);
   var progressKey='med-nykuto-course-progress-v440';
   var studentKey='med-nykuto-student-device-v440';
-  var publicData={notices:[],tasks:[],activities:[],groups:[],files:[],dates:[]};
+  var publicData={notices:[],tasks:[],activities:[],groups:[],members:[],files:[],dates:[]};
   var noticeCarouselController=null;
 
   function el(tag,className,text){var node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
@@ -287,19 +287,20 @@
   }
   function renderDynamicResources(){var section=document.getElementById('pendientes');if(!section)return;var host=document.getElementById('classHubDynamicResources');if(!host){host=el('div','class-hub-live');host.id='classHubDynamicResources';var tasks=document.getElementById('classHubLiveTasks');if(tasks)tasks.insertAdjacentElement('afterend',host);else section.appendChild(host);}host.replaceChildren();(publicData.dates||[]).forEach(function(date){var card=el('article','live-task');card.appendChild(el('span','','FECHA PUBLICADA'));card.appendChild(el('strong','',date.label));card.appendChild(el('p','',date.startsAt));host.appendChild(card);});(publicData.files||[]).forEach(function(file){var card=el('a','live-task');card.href=file.url;card.target='_blank';card.rel='noopener';card.appendChild(el('span','',(file.course||'ARCHIVO')+(file.lessonDate?' · '+file.lessonDate:'')));card.appendChild(el('strong','',file.title));card.appendChild(el('p','',(file.fileType||'Archivo').toUpperCase()+' · Abrir →'));host.appendChild(card);});}
   function activityGroups(activityId){return (publicData.groups||[]).filter(function(group){return group.activityId===activityId;});}
+  function activityMembers(activityId){return (publicData.members||[]).filter(function(member){return member.activityId===activityId;});}
   function renderGroups(){
     document.querySelectorAll('[data-group-activity]').forEach(function(card){
       var host=card.querySelector('[data-group-runtime]');
       if(!host)return;
       var activity=(publicData.activities||[]).find(function(item){return item.id===card.dataset.groupActivity;});
       if(!activity){host.replaceChildren(el('p','','La actividad está publicada; la inscripción en grupos estará disponible cuando se active la base compartida.'));return;}
-      var groups=activityGroups(activity.id),membership=readJson('med-nykuto-membership-v440',null);
+      var groups=activityGroups(activity.id),members=activityMembers(activity.id),membership=readJson('med-nykuto-membership-v440',null);
       if(!membership||membership.activityId!==activity.id)membership=null;
       host.replaceChildren();
       var composer=el('section','group-join-composer'),composerHead=el('div','group-join-heading');
       composerHead.appendChild(el('span','','ELIGE TU GRUPO'));
       composerHead.appendChild(el('strong','','Escribe tu nombre y toca el grupo que quieres integrar.'));
-      composerHead.appendChild(el('small','','La plancha pública muestra únicamente la ocupación. Tu nombre queda visible solo para los administradores de la turma.'));
+      composerHead.appendChild(el('small','','La plancha se actualiza para toda la clase; cada grupo admite hasta 10 integrantes y el nombre añadido queda visible aquí.'));
       composer.appendChild(composerHead);
       var fields=el('div','group-join-fields'),nameLabel=el('label'),name=el('input');
       nameLabel.appendChild(el('span','','Tu nombre'));
@@ -314,17 +315,18 @@
       var board=el('div','group-roster-board');board.style.setProperty('--group-count',String(groups.length||1));board.setAttribute('role','list');board.setAttribute('aria-label','Composición de los diez grupos');host.appendChild(board);
       var choiceButtons=[];
       groups.forEach(function(group,index){
-        var capacity=Math.min(group.capacity||10,activity.capacity||10),occupied=Math.min(capacity,Number(group.memberCount)||0),isOwnGroup=Boolean(membership&&membership.groupId===group.id);
+        var capacity=Math.min(group.capacity||10,activity.capacity||10),groupMembers=members.filter(function(member){return member.groupId===group.id;}),leaderMember=groupMembers.find(function(member){return Boolean(member.isLeader);}),occupied=Math.min(capacity,Math.max(groupMembers.length,Number(group.memberCount)||0));
         var column=el('article','group-roster-column');column.dataset.groupId=group.id;column.setAttribute('role','listitem');
-        var choice=el('button','group-roster-choice');choice.type='button';choice.dataset.groupChoice=group.id;choice.setAttribute('aria-pressed','false');choice.setAttribute('aria-label','Elegir '+group.name+(group.topic?', tema '+group.topic:'')+', '+occupied+' de '+capacity+' integrantes');
+        var choice=el('button','group-roster-choice');choice.type='button';choice.dataset.groupChoice=group.id;choice.setAttribute('aria-pressed','false');choice.setAttribute('aria-label','Elegir '+group.name+(group.topic?', tema '+group.topic:'')+(leaderMember?', responsable '+leaderMember.displayName:'')+', '+occupied+' de '+capacity+' integrantes');
         choice.appendChild(el('strong','',group.name.replace('Grupo ','G')));choice.appendChild(el('span','',occupied+'/'+capacity));column.appendChild(choice);choiceButtons.push(choice);
-        if(group.topic){
+        if(group.topic||leaderMember){
           var assignment=el('div','group-roster-assignment');
           if(group.topic){var topic=el('div','group-roster-topic');topic.appendChild(el('span','','TEMA'));topic.appendChild(el('strong','',group.topic));assignment.appendChild(topic);}
+          if(leaderMember){var leader=el('div','group-roster-leader');leader.appendChild(el('span','','RESPONSABLE'));leader.appendChild(el('strong','',leaderMember.displayName));assignment.appendChild(leader);}
           column.appendChild(assignment);
         }
         var list=el('ol','group-roster-list');
-        for(var slot=0;slot<capacity;slot+=1){var ownSlot=isOwnGroup&&slot===0,filled=slot<occupied,item=el('li',filled?'has-member':'is-open');item.appendChild(el('span','',String(slot+1).padStart(2,'0')));var label=ownSlot?'Tú':filled?'Ocupado':'Libre';item.appendChild(el('strong','',label));item.setAttribute('aria-label',(slot+1)+'. '+(ownSlot?'Tu inscripción':filled?'Plaza ocupada':'Plaza libre'));list.appendChild(item);}
+        for(var slot=0;slot<capacity;slot+=1){var member=groupMembers[slot],filled=Boolean(member)||slot<occupied,isLeader=Boolean(member&&member.isLeader),isOwnMember=Boolean(member&&membership&&membership.groupId===group.id&&membership.displayName===member.displayName),item=el('li',filled?'has-member':'is-open');if(isLeader)item.classList.add('is-group-leader');if(isOwnMember)item.classList.add('is-own-member');item.appendChild(el('span','',String(slot+1).padStart(2,'0')));var label=member?member.displayName:filled?'Ocupado':'Libre',memberName=el('strong','',label);if(member){memberName.title=member.displayName+(isLeader?' · Responsable del grupo':'')+(isOwnMember?' · Tu inscripción':'');item.setAttribute('aria-label',(slot+1)+'. '+member.displayName+(isLeader?', responsable del grupo':'')+(isOwnMember?', tu inscripción':''));}else item.setAttribute('aria-label',(slot+1)+'. '+(filled?'Plaza ocupada':'Plaza libre'));item.appendChild(memberName);list.appendChild(item);}
         column.appendChild(list);board.appendChild(column);
         choice.addEventListener('click',function(){if(choice.disabled)return;select.value=group.id;updateSelectedGroup();name.focus({preventScroll:true});});
       });
@@ -337,7 +339,7 @@
       if(window.MedNykutoClassI18n&&window.MedNykutoClassI18n.refresh)window.MedNykutoClassI18n.refresh(card);
     });
   }
-  function loadPublic(){return fetch(API+'&resource=public',{headers:{accept:'application/json'}}).then(function(response){if(!response.ok)throw new Error('offline');return response.json();}).catch(function(){return fallbackPublic();}).then(function(data){var fallback=fallbackPublic();publicData={notices:Array.isArray(data.notices)?data.notices:fallback.notices,tasks:Array.isArray(data.tasks)?data.tasks:fallback.tasks,activities:Array.isArray(data.activities)?data.activities:fallback.activities,groups:Array.isArray(data.groups)?data.groups:[],files:Array.isArray(data.files)?data.files:[],dates:Array.isArray(data.dates)?data.dates:[]};renderNotices();renderLiveTasks();renderDynamicResources();renderGroups();});}
+  function loadPublic(){return fetch(API+'&resource=public',{headers:{accept:'application/json'}}).then(function(response){if(!response.ok)throw new Error('offline');return response.json();}).catch(function(){return fallbackPublic();}).then(function(data){var fallback=fallbackPublic();publicData={notices:Array.isArray(data.notices)?data.notices:fallback.notices,tasks:Array.isArray(data.tasks)?data.tasks:fallback.tasks,activities:Array.isArray(data.activities)?data.activities:fallback.activities,groups:Array.isArray(data.groups)?data.groups:[],members:Array.isArray(data.members)?data.members:[],files:Array.isArray(data.files)?data.files:[],dates:Array.isArray(data.dates)?data.dates:[]};renderNotices();renderLiveTasks();renderDynamicResources();renderGroups();});}
 
   function initPwa(){
     var button=document.getElementById('installAppButton'),deferred=null,isIos=/iphone|ipad|ipod/i.test(navigator.userAgent),standalone=window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
@@ -346,7 +348,7 @@
     if(button&&!standalone){button.hidden=false;button.addEventListener('click',function(){if(deferred){deferred.prompt();deferred.userChoice.finally(function(){deferred=null;button.hidden=true;});return;}if(isIos){var guide=el('aside','ios-install-guide');guide.appendChild(el('strong','','Instalar en iPhone'));guide.appendChild(el('p','','En Safari, toca Compartir y luego “Añadir a pantalla de inicio”.'));var close=el('button','','×');close.type='button';close.addEventListener('click',function(){guide.remove();});guide.appendChild(close);document.body.appendChild(guide);}else{button.title='Usa el menú del navegador y elige Instalar aplicación.';}});}
   }
   function initPrint(){document.querySelectorAll('[data-print-lesson]').forEach(function(button){button.addEventListener('click',function(){window.print();});});}
-  function updateStamp(){var stamp=document.getElementById('lastUpdated');if(stamp){stamp.dateTime='2026-08-23';stamp.textContent='Actualizado 23 ago. · contenido revisado';}}
+  function updateStamp(){var stamp=document.getElementById('lastUpdated');if(stamp){stamp.dateTime='2026-08-24';stamp.textContent='Actualizado 24 ago. · contenido revisado';}}
   function init(){initLessonTabs();initCourseWorkspaces();initGallery();initPrint();initPwa();updateStamp();renderNotices();loadPublic();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();

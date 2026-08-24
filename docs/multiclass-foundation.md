@@ -97,7 +97,7 @@ Les secrets ne doivent jamais être ajoutés au dépôt. La première ouverture 
 - La session de huit heures repose sur un cookie `Secure`, `HttpOnly`, `SameSite=Strict` et un contrôle anti-CSRF séparé pour les mutations.
 - Un changement/réinitialisation de mot de passe ou la révocation d'un éditeur invalide ses sessions précédentes.
 - Les mutations sont journalisées par turma dans `hub_audit`.
-- Les captures nominatives et les listes d'étudiants ne sont pas publiées dans le DOM étudiant.
+- Les espaces génériques des autres turmas ne publient pas de liste nominative dans le DOM étudiant. Exception explicitement validée pour le tableau officiel du 4.º E : lorsqu'une activité est publiée, son tableau peut exposer uniquement le nom d'affichage et le marqueur de responsable. Les identifiants de ligne, empreintes d'appareil, dates et métadonnées administratives restent privés.
 
 ## Vérification avant pilote
 

@@ -107,8 +107,8 @@ expect(runtime.includes("groupActivity:'epi-2026-08-19'") && runtime.includes('l
 expect(!html.includes('id="epi-project-groups"') && html.includes('href="#task-epi-presentation">Ver grupos en Tareas</a>'), 'The course still duplicates the interactive roster instead of routing to Tareas.');
 expect(html.includes('<time datetime="2026-08-12">12 AGO 2026</time>'), 'The previous Epidemiology lesson is not dated 12 August 2026.');
 expect(runtime.includes("action:'group.join'") && runtime.includes("action:'group.leave'"), 'Student group join/leave controls are incomplete.');
-expect(runtime.includes('group-roster-board') && runtime.includes('group-roster-column') && runtime.includes('memberCount') && runtime.includes('--group-count'), 'The anonymous public multi-column group roster is missing.');
-expect(!runtime.includes('activityMembers') && runtime.includes("filled?'Ocupado':'Libre'"), 'The public roster still reads or renders student names.');
+expect(runtime.includes('group-roster-board') && runtime.includes('group-roster-column') && runtime.includes('memberCount') && runtime.includes('--group-count'), 'The public multi-column group roster is missing.');
+expect(runtime.includes('activityMembers') && runtime.includes("member?member.displayName:filled?'Ocupado':'Libre'") && runtime.includes('member.isLeader'), 'The public roster does not render member names, leaders and the occupancy fallback.');
 
 expect(api.includes("role: 'owner'"), 'Owner authorization is missing.');
 expect(api.includes("role: 'editor'"), 'Editor authorization is missing.');
@@ -119,7 +119,8 @@ expect(api.includes('UNIQUE(activity_id, student_hash)'), 'One-student-per-activ
 expect(api.includes('COUNT(*) FROM hub_memberships') && api.includes('MIN(a.capacity,g.capacity)'), 'Atomic group capacity guard is missing.');
 const publicReader = api.slice(api.indexOf('async function readPublic'), api.indexOf('async function adminSnapshot'));
 const adminReader = api.slice(api.indexOf('async function adminSnapshot'), api.indexOf('async function joinGroup'));
-expect(!/display_name|displayName|memberships\s*:/.test(publicReader), 'The public API still exposes recorded student names.');
+expect(publicReader.includes('includePublicRoster = classId === DEFAULT_CLASS_ID') && publicReader.includes('m.display_name AS displayName,m.is_leader AS isLeader') && publicReader.includes("a.status='published'"), 'The public S4 roster is not restricted to the base class and published activities.');
+expect(!/student_hash|joined_at\s+AS\s+joinedAt|memberships\s*:/.test(publicReader), 'The public roster exposes internal membership metadata instead of the minimal name/leader DTO.');
 expect(/display_name/.test(adminReader) && /memberships\s*:/.test(adminReader), 'The authorized admin snapshot no longer exposes the roster required for group management.');
 expect(api.includes('cleanUrl') && api.includes("['http:', 'https:']"), 'Managed file URLs are not restricted to HTTP(S).');
 expect(api.includes('hub_rate_limits') && api.includes('rate_limited'), 'Public and management routes are missing server-side abuse limits.');

@@ -264,7 +264,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     }
   });
 
-  test('shows all ten Epidemiology groups anonymously in a compact iPhone roster', async ({ page }) => {
+  test('shows all 96 Epidemiology member names and ten leaders in a compact iPhone roster', async ({ page }) => {
     const assignments = [
       { topic: 'Virus sincitial respiratorio · Bronquiolitis' },
       { topic: 'Influenza' },
@@ -277,15 +277,22 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       { topic: 'Hepatitis B' },
       { topic: 'Malaria' }
     ];
+    const memberCounts = [9, 10, 10, 10, 10, 10, 9, 9, 9, 10];
     const groups = Array.from({ length: 10 }, (_, index) => ({
       id: `epi-2026-08-19-g${index + 1}`,
       activityId: 'epi-2026-08-19',
       name: `Grupo ${index + 1}`,
       capacity: 10,
       frozen: false,
-      memberCount: index === 0 ? 2 : index === 3 ? 1 : 0,
+      memberCount: memberCounts[index],
       ...assignments[index]
     }));
+    const members = groups.flatMap((group, groupIndex) => Array.from({ length: memberCounts[groupIndex] }, (_, memberIndex) => ({
+      activityId: group.activityId,
+      groupId: group.id,
+      displayName: memberIndex === 0 ? `Responsable ${groupIndex + 1} Apellido Compuesto` : `Integrante ${groupIndex + 1}-${String(memberIndex + 1).padStart(2, '0')}`,
+      isLeader: memberIndex === 0
+    })));
     await page.route('**/api/class-hub?class=s4-e&resource=public', (route) => route.fulfill({
       status: 200,
       contentType: 'application/json',
@@ -302,6 +309,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
         }],
         activities: [{ id: 'epi-2026-08-19', title: 'Exposición de Epidemiología', capacity: 10, status: 'published', frozen: false }],
         groups,
+        members,
         files: [],
         dates: []
       })
@@ -336,17 +344,23 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(roster.locator('.group-roster-column')).toHaveCount(10);
     await expect(roster.locator('.group-roster-assignment')).toHaveCount(10);
     await expect(roster.locator('.group-roster-list li')).toHaveCount(100);
+    await expect(roster.locator('.group-roster-list li.has-member')).toHaveCount(96);
+    await expect(roster.locator('.group-roster-list li.is-open')).toHaveCount(4);
+    await expect(roster.locator('.group-roster-list li.is-group-leader')).toHaveCount(10);
+    await expect(roster.locator('.group-roster-leader')).toHaveCount(10);
     await expect(roster.locator('.group-roster-column').first()).toContainText('Virus sincitial respiratorio');
     await expect(roster.locator('.group-roster-column').last()).toContainText('Malaria');
-    await expect(roster.getByText('Ocupado', { exact: true })).toHaveCount(3);
-    await expect(roster.getByText('Libre', { exact: true })).toHaveCount(97);
-    await expect(roster).not.toContainText('Alicia Vieira dos Santos');
-    await expect(roster).not.toContainText('Ana Pérez');
+    await expect(roster.getByText('Ocupado', { exact: true })).toHaveCount(0);
+    await expect(roster.getByText('Libre', { exact: true })).toHaveCount(4);
+    await expect(roster).toContainText('Responsable 1 Apellido Compuesto');
+    await expect(roster).toContainText('Integrante 10-10');
+    await expect(roster.locator('.group-roster-column').first().locator('.group-roster-choice')).toHaveAttribute('aria-label', /responsable Responsable 1 Apellido Compuesto/);
+    await expect(roster.locator('.group-roster-column').first().locator('.is-group-leader')).toHaveAttribute('aria-label', /responsable del grupo/);
     await expect(task.getByRole('button', { name: 'Añadir mi nombre' })).toBeVisible();
 
-    await roster.locator('[data-group-choice="epi-2026-08-19-g4"]').click();
-    await expect(task.locator('select[aria-label="Elegir grupo"]')).toHaveValue('epi-2026-08-19-g4');
-    await expect(roster.locator('[data-group-id="epi-2026-08-19-g4"]')).toHaveClass(/is-selected/);
+    await roster.locator('[data-group-choice="epi-2026-08-19-g1"]').click();
+    await expect(task.locator('select[aria-label="Elegir grupo"]')).toHaveValue('epi-2026-08-19-g1');
+    await expect(roster.locator('[data-group-id="epi-2026-08-19-g1"]')).toHaveClass(/is-selected/);
 
     const dimensions = await page.evaluate(() => ({
       pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
@@ -356,6 +370,14 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     expect(dimensions.boardOverflow).toBeGreaterThan(100);
     const firstColumnWidth = await roster.locator('.group-roster-column').first().evaluate((node) => node.getBoundingClientRect().width);
     expect(firstColumnWidth).toBeGreaterThanOrEqual(110);
+    const longNameLayout = await roster.getByText('Responsable 1 Apellido Compuesto', { exact: true }).last().evaluate((node) => ({
+      whiteSpace: getComputedStyle(node).whiteSpace,
+      fitsWidth: node.scrollWidth <= node.clientWidth + 1,
+      height: node.getBoundingClientRect().height
+    }));
+    expect(longNameLayout.whiteSpace).not.toBe('nowrap');
+    expect(longNameLayout.fitsWidth).toBe(true);
+    expect(longNameLayout.height).toBeGreaterThan(16);
   });
 
   test('exposes management, teacher profiles and install metadata without student accounts', async ({ page }) => {

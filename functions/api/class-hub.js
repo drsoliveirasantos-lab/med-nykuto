@@ -90,6 +90,10 @@ const EPIDEMIOLOGY_GROUP_TOPICS = [
   'Hepatitis B',
   'Malaria'
 ];
+const LEGACY_EPIDEMIOLOGY_LEADERS = Array.from({ length: 10 }, (_, index) => ({
+  groupId: `epi-2026-08-19-g${index + 1}`,
+  membershipId: `roster-g${index + 1}-m1`
+}));
 
 function withEpidemiologyAssignment(group) {
   const match = /^epi-2026-08-19-g(\d+)$/.exec(String(group?.id || ''));
@@ -466,7 +470,8 @@ async function ensureSchema(db) {
     await db.batch([
       db.prepare(`UPDATE hub_tasks SET due_label='Mié. 26 ago.',due_at='2026-08-26T11:20:00-03:00',updated_at=? WHERE class_id=? AND id='epi-presentation'`).bind(created, DEFAULT_CLASS_ID),
       db.prepare(`UPDATE hub_tasks SET due_label='Mié. 26 ago.',due_at='2026-08-26T09:10:00-03:00',updated_at=? WHERE class_id=? AND id='bio-activities'`).bind(created, DEFAULT_CLASS_ID),
-      db.prepare(`UPDATE hub_activities SET course='Epidemiología y Salud Pública',updated_at=? WHERE class_id=? AND id='epi-2026-08-19' AND (course IS NULL OR TRIM(course)='')`).bind(created, DEFAULT_CLASS_ID)
+      db.prepare(`UPDATE hub_activities SET course='Epidemiología y Salud Pública',updated_at=? WHERE class_id=? AND id='epi-2026-08-19' AND (course IS NULL OR TRIM(course)='')`).bind(created, DEFAULT_CLASS_ID),
+      ...LEGACY_EPIDEMIOLOGY_LEADERS.map(({ groupId, membershipId }) => db.prepare(`UPDATE hub_memberships SET is_leader=1 WHERE class_id=? AND activity_id='epi-2026-08-19' AND group_id=? AND id=? AND is_leader=0 AND NOT EXISTS (SELECT 1 FROM hub_memberships existing WHERE existing.class_id=hub_memberships.class_id AND existing.group_id=hub_memberships.group_id AND existing.is_leader=1)`).bind(DEFAULT_CLASS_ID, groupId, membershipId))
     ]);
   })().catch((error) => { schemaPromise = null; throw error; });
   return schemaPromise;
@@ -558,18 +563,23 @@ async function readScheduleSlots(db, classId, publishedOnly = true) {
 
 async function readPublic(db, classRecord) {
   const classId = classRecord.id;
-  const [notices, tasks, activities, groups, files, dates, subjects, scheduleSlots] = await Promise.all([
+  const includePublicRoster = classId === DEFAULT_CLASS_ID;
+  const [notices, tasks, activities, groups, publicMembers, files, dates, subjects, scheduleSlots] = await Promise.all([
     db.prepare(`SELECT n.id,n.course,n.title,n.body,n.priority,n.status,n.image_url AS imageUrl,n.image_alt AS imageAlt,u.id AS attachmentUploadId,n.attachment_title AS attachmentTitle,u.original_name AS attachmentOriginalName,u.mime_type AS attachmentMimeType,u.size_bytes AS attachmentSizeBytes,n.published_at AS publishedAt FROM hub_notices n LEFT JOIN hub_uploads u ON u.class_id=n.class_id AND u.id=n.attachment_upload_id AND u.status='linked' WHERE n.class_id=? AND n.status='published' ORDER BY CASE n.priority WHEN 'urgent' THEN 0 WHEN 'important' THEN 1 ELSE 2 END, COALESCE(n.published_at,n.updated_at) DESC`).bind(classId).all(),
     db.prepare(`SELECT id,course,title,description,due_label AS dueLabel,due_at AS dueAt,attachment_url AS attachmentUrl,attachment_title AS attachmentTitle,status FROM hub_tasks WHERE class_id=? AND status='published' ORDER BY COALESCE(due_at,'9999') ASC, updated_at DESC`).bind(classId).all(),
     db.prepare(`SELECT id,course,title,capacity,closes_at AS closesAt,status,CASE WHEN frozen=1 OR (closes_at IS NOT NULL AND closes_at<=?) THEN 1 ELSE 0 END AS frozen FROM hub_activities WHERE class_id=? AND status='published' ORDER BY updated_at DESC`).bind(nowIso(), classId).all(),
     db.prepare(`SELECT g.id,g.activity_id AS activityId,g.name,g.capacity,CASE WHEN g.frozen=1 OR a.frozen=1 OR (a.closes_at IS NOT NULL AND a.closes_at<=?) THEN 1 ELSE 0 END AS frozen,COUNT(m.id) AS memberCount FROM hub_groups g LEFT JOIN hub_memberships m ON m.class_id=g.class_id AND m.group_id=g.id JOIN hub_activities a ON a.class_id=g.class_id AND a.id=g.activity_id WHERE g.class_id=? AND a.status='published' GROUP BY g.class_id,g.id ORDER BY g.activity_id,CAST(SUBSTR(g.name,7) AS INTEGER)`).bind(nowIso(), classId).all(),
+    includePublicRoster
+      ? db.prepare(`SELECT m.activity_id AS activityId,m.group_id AS groupId,m.display_name AS displayName,m.is_leader AS isLeader FROM hub_memberships m JOIN hub_activities a ON a.class_id=m.class_id AND a.id=m.activity_id JOIN hub_groups g ON g.class_id=m.class_id AND g.activity_id=m.activity_id AND g.id=m.group_id WHERE m.class_id=? AND a.class_id=? AND g.class_id=? AND a.status='published' ORDER BY m.activity_id,m.group_id,m.is_leader DESC,m.joined_at,m.display_name`).bind(classId, classId, classId).all()
+      : Promise.resolve({ results: [] }),
     db.prepare(`SELECT id,course,lesson_date AS lessonDate,title,url,file_type AS fileType,status FROM hub_files WHERE class_id=? AND status='published' ORDER BY updated_at DESC`).bind(classId).all(),
     db.prepare(`SELECT id,course,label,starts_at AS startsAt,status FROM hub_dates WHERE class_id=? AND status='published' ORDER BY starts_at`).bind(classId).all(),
     db.prepare(`SELECT id,name,sort_order AS "order" FROM hub_subjects WHERE class_id=? AND status='active' ORDER BY sort_order,name`).bind(classId).all(),
     readScheduleSlots(db, classId, true)
   ]);
   const decorateGroup = classId === DEFAULT_CLASS_ID ? withEpidemiologyAssignment : (group) => group;
-  return { ok: true, class: publicClass(classRecord), subjects: subjects.results || [], notices: (notices.results || []).map((notice) => decorateNoticeAttachment(notice, classRecord)), tasks: tasks.results || [], activities: (activities.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80), frozen: Boolean(item.frozen) })), groups: (groups.results || []).map((item) => decorateGroup({ ...item, frozen: Boolean(item.frozen), memberCount: Number(item.memberCount) || 0 })), files: files.results || [], dates: (dates.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), scheduleSlots, upcomingDates: upcomingScheduleDates(scheduleSlots), generatedAt: nowIso() };
+  const members = (publicMembers.results || []).map((item) => ({ activityId: cleanId(item.activityId), groupId: cleanId(item.groupId), displayName: cleanText(item.displayName, 40), isLeader: Boolean(Number(item.isLeader)) })).filter((item) => item.activityId && item.groupId && item.displayName);
+  return { ok: true, class: publicClass(classRecord), subjects: subjects.results || [], notices: (notices.results || []).map((notice) => decorateNoticeAttachment(notice, classRecord)), tasks: tasks.results || [], activities: (activities.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80), frozen: Boolean(item.frozen) })), groups: (groups.results || []).map((item) => decorateGroup({ ...item, frozen: Boolean(item.frozen), memberCount: Number(item.memberCount) || 0 })), ...(includePublicRoster ? { members } : {}), files: files.results || [], dates: (dates.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), scheduleSlots, upcomingDates: upcomingScheduleDates(scheduleSlots), generatedAt: nowIso() };
 }
 
 async function adminSnapshot(db, actor, classRecord, env = null) {

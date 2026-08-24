@@ -267,6 +267,13 @@ class GuardedD1Mock {
           };
         });
     }
+    if (/\bfrom\s+hub_memberships\s+m\s+join\s+hub_activities\s+a\b/i.test(normalized) && /m\.display_name\s+as\s+displayname/i.test(normalized)) {
+      const classId = this.classFrom(values);
+      return classId === DEFAULT_CLASS_ID ? [
+        { activityId: 'epi-2026-08-19', groupId: 'epi-2026-08-19-g1', displayName: 'Responsable Fixture', isLeader: 1 },
+        { activityId: 'epi-2026-08-19', groupId: 'epi-2026-08-19-g1', displayName: 'Integrante Fixture', isLeader: 0 }
+      ] : [];
+    }
     if (/\bfrom\s+hub_subjects\b/i.test(normalized)) return [];
     return [];
   }
@@ -607,7 +614,10 @@ async function validateRuntimeIsolation() {
   db.classSupport.delete(DEFAULT_CLASS_ID);
   expect(legacyPublic.body.scheduleSlots?.length === 8, `The seeded S4 schedule must expose 8 recurring slots, got ${legacyPublic.body.scheduleSlots?.length || 0}.`);
   expect(legacyPublic.body.upcomingDates?.length > 0 && legacyPublic.body.upcomingDates.every((date) => date.subjectId && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(date.startsAt)), 'Public upcoming course dates are missing their tenant subject or local datetime contract.');
-  expect(!Object.prototype.hasOwnProperty.call(legacyPublic.body, 'memberships'), 'The public class response exposes nominative memberships or leader flags.');
+  expect(!Object.prototype.hasOwnProperty.call(legacyPublic.body, 'memberships'), 'The public class response exposes the raw membership collection.');
+  expect(Array.isArray(legacyPublic.body.members) && legacyPublic.body.members.length === 2, 'The explicit S4 public roster is missing its sanitized member records.');
+  expect(legacyPublic.body.members.every((member) => JSON.stringify(Object.keys(member).sort()) === JSON.stringify(['activityId', 'displayName', 'groupId', 'isLeader'].sort())), 'The public S4 roster exposes fields beyond activityId, groupId, displayName and isLeader.');
+  expect(legacyPublic.body.members.some((member) => member.displayName === 'Responsable Fixture' && member.isLeader === true), 'The public S4 roster loses the leader boolean or sanitized display name.');
 
   const s4Admin = await classHubGet(classHub.onRequestGet, db, '?class=s4-e&resource=admin', 'editor-s4-token');
   expect(s4Admin.response.status === 200, `The existing 4.º E editor lost access (${s4Admin.response.status}: ${JSON.stringify(s4Admin.body)}).`);
@@ -616,6 +626,7 @@ async function validateRuntimeIsolation() {
   const s3PublicSchedule = await classHubGet(classHub.onRequestGet, db, '?class=s3-a&resource=public');
   expect(s3PublicSchedule.response.status === 200, `The second active class cannot read its empty schedule (${s3PublicSchedule.response.status}: ${JSON.stringify(s3PublicSchedule.body)}).`);
   expect(s3PublicSchedule.body.scheduleSlots?.length === 0 && s3PublicSchedule.body.upcomingDates?.length === 0, 'The S4 schedule leaked into another class.');
+  expect(!Object.prototype.hasOwnProperty.call(s3PublicSchedule.body, 'members'), 'The explicit S4 public roster leaked into another class.');
 
   const crossRead = await classHubGet(classHub.onRequestGet, db, '?class=s3-a&resource=admin', 'editor-s4-token');
   expect([401, 403].includes(crossRead.response.status), `A 4.º E editor can read another class (${crossRead.response.status}: ${JSON.stringify(crossRead.body)}).`);
@@ -1065,7 +1076,7 @@ async function validateMulticlassShell() {
   expect(managementRuntime.includes("popup.opener=null") && !managementRuntime.includes("'noopener,noreferrer'"), 'The printable group export still uses the broken noopener window-open path.');
   expect(managementRuntime.includes('Copiar invitación') && managementRuntime.includes('copyText(result.inviteToken)'), 'The one-time editor invitation cannot be copied explicitly.');
 
-  expect(!legacyClassRuntime.includes('activityMembers') && legacyClassRuntime.includes("filled?'Ocupado':'Libre'"), 'The legacy 4.º E student roster is not anonymized.');
+  expect(legacyClassRuntime.includes('activityMembers') && legacyClassRuntime.includes("member?member.displayName:filled?'Ocupado':'Libre'") && legacyClassRuntime.includes('member.isLeader'), 'The explicit 4.º E roster does not render names, leaders and the safe occupancy fallback.');
   expect(turmaHtml.includes('id="homeNoticeCarousel"') && turmaHtml.includes('data-view="avisos"') && turmaHtml.includes('id="noticePageList"'), 'The generic class hub is missing its compact official-notice carousel or full notices view.');
   expect(turmaRuntime.includes('6000') && turmaRuntime.includes('prefers-reduced-motion: reduce') && turmaRuntime.includes('destroyNoticeCarousel') && turmaRuntime.includes("addEventListener('hashchange'"), 'The generic notice carousel is missing its readable timing, reduced-motion gate, timer teardown or hash routing.');
   expect(!/(?:noticeDialog|noticeDialogList|homeNotices)/.test(`${turmaHtml}\n${turmaRuntime}`), 'The generic class hub still references the retired notice dialog or duplicate Home list.');

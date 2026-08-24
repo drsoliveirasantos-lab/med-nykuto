@@ -145,11 +145,14 @@ expect(i18n.includes("'Ver todas las tareas':'Ver todas as tarefas'"), 'The simp
 ].forEach((topic) => {
   expect(classHubApi.includes(`'${topic}'`), `The Epidemiology group topic “${topic}” is missing from the public source.`);
 });
-expect(!classHubApi.includes('EPIDEMIOLOGY_ROSTER') && !classHubApi.includes('leader:'), 'The public API still embeds student names or group leaders.');
+expect(!classHubApi.includes('EPIDEMIOLOGY_ROSTER'), 'The public API embeds a hard-coded student roster instead of reading the isolated database records.');
+expect(classHubApi.includes('LEGACY_EPIDEMIOLOGY_LEADERS') && classHubApi.includes('SET is_leader=1') && classHubApi.includes('NOT EXISTS (SELECT 1 FROM hub_memberships existing'), 'The ten historical Epidemiology leaders are not restored idempotently from their non-nominative membership IDs.');
+expect(classHubApi.includes('m.display_name AS displayName,m.is_leader AS isLeader') && classHubApi.includes('includePublicRoster = classId === DEFAULT_CLASS_ID'), 'The scoped public Epidemiology roster projection is missing.');
 expect(classHubRuntime.includes("el('span','','TEMA')"), 'The Epidemiology roster does not render the assigned topic.');
-expect(classHubRuntime.includes("filled?'Ocupado':'Libre'"), 'The Epidemiology roster does not render anonymous occupancy.');
-expect(!classHubRuntime.includes('activityMembers') && !classHubRuntime.includes('group.leader'), 'The student-facing runtime still consumes public names or leaders.');
+expect(classHubRuntime.includes("member?member.displayName:filled?'Ocupado':'Libre'"), 'The Epidemiology roster does not prefer member names while preserving the safe occupancy fallback.');
+expect(classHubRuntime.includes('activityMembers') && classHubRuntime.includes('member.isLeader') && classHubRuntime.includes("el('span','','RESPONSABLE')"), 'The student-facing roster does not render the scoped names and group leader marker.');
 expect(classHubCss.includes('.group-roster-assignment'), 'The Epidemiology topic and leader card styling is missing.');
+expect(classHubCss.includes('overflow-wrap:anywhere;white-space:normal'), 'Long roster names are still truncated instead of wrapping on mobile.');
 expect(classHubCss.includes('.live-task-groups') && classHubCss.includes('.live-task-download{min-height:38px'), 'The compact Tareas group workspace styling is missing.');
 expect(html.includes('href="https://virtual.central.edu.py/auth"'), 'The official UCP portal shortcut is missing from the class home page.');
 expect(html.includes('class="home-quick-links"'), 'The compact useful-links strip is missing from the class home page.');
