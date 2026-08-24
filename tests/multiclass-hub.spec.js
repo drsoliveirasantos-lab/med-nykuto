@@ -35,6 +35,8 @@ const CLASS_RESPONSE = {
       description: 'Preparar cinco diapositivas y justificar la elección terapéutica.',
       dueLabel: '1 sep.',
       dueAt: '2099-09-01T10:00:00-03:00',
+      attachmentUrl: 'https://example.test/seminario-antimicrobianos.pdf',
+      attachmentTitle: 'Guía del seminario',
       status: 'published'
     }
   ],
@@ -141,6 +143,8 @@ test.describe('Multiclass student hub', () => {
     await task.locator('summary').click();
     await expect(task).toHaveAttribute('open', '');
     await expect(task.locator('.task-body')).toContainText('justificar la elección terapéutica');
+    await expect(task.getByRole('link', { name: 'Guía del seminario ↗' })).toHaveAttribute('href', 'https://example.test/seminario-antimicrobianos.pdf');
+    await expect(task.getByRole('link', { name: 'Guía del seminario ↗' })).toHaveAttribute('rel', 'noopener noreferrer');
     await expect(task.locator('summary > b')).toHaveText('Cerrar');
 
     await page.locator('[data-nav-view="materias"]').click();
@@ -356,13 +360,13 @@ test.describe('Multiclass student hub', () => {
 
     await page.locator('#newPassword').fill(SYNTHETIC_NEW_PASSWORD);
     await page.locator('#confirmPassword').fill('Different-Study-2026!');
-    await page.locator('#passwordChangeForm').getByRole('button', { name: 'Guardar y abrir la gestión' }).click();
+    await page.locator('#passwordChangeForm').getByRole('button', { name: 'Guardar y abrir el panel' }).click();
     await expect(page.locator('#authStatus')).toHaveText('Las contraseñas no coinciden.');
     expect(requests.some((entry) => entry.body?.action === 'auth.password.change')).toBe(false);
 
     await page.locator('#newPassword').fill(SYNTHETIC_NEW_PASSWORD);
     await page.locator('#confirmPassword').fill(SYNTHETIC_NEW_PASSWORD);
-    await page.locator('#passwordChangeForm').getByRole('button', { name: 'Guardar y abrir la gestión' }).click();
+    await page.locator('#passwordChangeForm').getByRole('button', { name: 'Guardar y abrir el panel' }).click();
     await expect(page.locator('#manageApp')).toBeVisible();
     const passwordChange = requests.find((entry) => entry.body?.action === 'auth.password.change');
     expect(passwordChange.authorization).toBe('');
@@ -427,6 +431,14 @@ test.describe('Multiclass student hub', () => {
     }));
     await page.goto('/gestion/s5-a');
     await expect(page.locator('#credentialForm')).toBeVisible();
+    await page.locator('#loginPassword').fill('Visible-Synthetic-2026!');
+    const passwordToggle = page.locator('[data-password-toggle][aria-controls="loginPassword"]');
+    await passwordToggle.click();
+    await expect(page.locator('#loginPassword')).toHaveAttribute('type', 'text');
+    await expect(page.locator('#loginPassword')).toHaveValue('Visible-Synthetic-2026!');
+    await expect(passwordToggle).toHaveAttribute('aria-pressed', 'true');
+    await passwordToggle.click();
+    await expect(page.locator('#loginPassword')).toHaveAttribute('type', 'password');
     const layout = await page.evaluate(() => {
       const email = document.getElementById('loginEmail');
       const password = document.getElementById('loginPassword');
@@ -497,7 +509,12 @@ test.describe('Multiclass student hub', () => {
           class: CLASS_RESPONSE.class,
           actor: { id: 'editor-s5-a', role: 'editor', name: 'Delegada piloto' },
           subjects: CLASS_RESPONSE.subjects,
-          tasks: [], notices: [], activities: [], groups: [], memberships: [], files: [], dates: [], editors: [], invites: []
+          tasks: [], notices: [], activities: [], groups: [], memberships: [], files: [], dates: [],
+          scheduleSlots: [{ id: 'farmaco-thu-0800', subjectId: 'farmacologia-ii', subject: 'Farmacología II', weekday: 4, startsTime: '08:00', endsTime: '10:00', label: 'Dra. Vega', status: 'published' }],
+          upcomingDates: [
+            { slotId: 'farmaco-thu-0800', subjectId: 'farmacologia-ii', subject: 'Farmacología II', date: '2099-09-03', startsAt: '2099-09-03T08:00', endsAt: '2099-09-03T10:00', label: 'jue. 3 sept. · 08:00', timeZone: 'America/Asuncion' },
+            { slotId: 'farmaco-thu-0800', subjectId: 'farmacologia-ii', subject: 'Farmacología II', date: '2099-09-10', startsAt: '2099-09-10T08:00', endsAt: '2099-09-10T10:00', label: 'jue. 10 sept. · 08:00', timeZone: 'America/Asuncion' }
+          ], editors: [], invites: []
         })
       });
     });
@@ -511,7 +528,7 @@ test.describe('Multiclass student hub', () => {
     await expect(page.locator('#authClassSlug')).toHaveText('S5-A');
     await expect(page.locator('#manageBackLink')).toHaveAttribute('href', '/turma/s5-a');
 
-    await page.locator('#legacyTokenAccess').getByText('Usar un token de acceso').click();
+    await page.locator('#legacyTokenAccess').getByText('Otra forma de acceso').click();
     await page.locator('#accessToken').fill('pilot-editor-token');
     await page.locator('#tokenForm').getByRole('button', { name: 'Entrar' }).click();
     await expect(page.locator('#manageApp')).toBeVisible();
@@ -523,10 +540,16 @@ test.describe('Multiclass student hub', () => {
 
     const form = page.locator('#taskForm');
     await form.locator('[name="course"]').fill('Farmacología II');
+    await expect(page.locator('#taskSuggestedDate option')).toHaveCount(3);
+    await page.locator('#taskSuggestedDate').selectOption('2099-09-03T08:00');
+    await expect(form.locator('[name="dueAt"]')).toHaveValue('2099-09-03T08:00');
+    await expect(form.locator('[name="dueLabel"]')).toHaveValue('jue. 3 sept. · 08:00');
     await form.locator('[name="title"]').fill('Trabajo que no debe borrarse');
     await form.locator('[name="description"]').fill('Conservar esta consigna después del error del servidor.');
     await form.locator('[name="dueLabel"]').fill('Próximo lunes');
     await form.locator('[name="dueAt"]').fill('2099-09-01T10:00');
+    await form.locator('[name="attachmentUrl"]').fill('https://example.test/trabajo.pdf');
+    await form.locator('[name="attachmentTitle"]').fill('Documento del profesor');
     await form.locator('[name="status"]').selectOption('published');
     await form.getByRole('button', { name: 'Guardar tarea' }).click();
 
@@ -536,6 +559,8 @@ test.describe('Multiclass student hub', () => {
     await expect(form.locator('[name="description"]')).toHaveValue('Conservar esta consigna después del error del servidor.');
     await expect(form.locator('[name="dueLabel"]')).toHaveValue('Próximo lunes');
     await expect(form.locator('[name="dueAt"]')).toHaveValue('2099-09-01T10:00');
+    await expect(form.locator('[name="attachmentUrl"]')).toHaveValue('https://example.test/trabajo.pdf');
+    await expect(form.locator('[name="attachmentTitle"]')).toHaveValue('Documento del profesor');
     await expect(form.locator('[name="status"]')).toHaveValue('published');
 
     const failedWrite = apiRequests.find((request) => request.method === 'POST');
@@ -547,6 +572,8 @@ test.describe('Multiclass student hub', () => {
         course: 'Farmacología II',
         title: 'Trabajo que no debe borrarse',
         description: 'Conservar esta consigna después del error del servidor.',
+        attachmentUrl: 'https://example.test/trabajo.pdf',
+        attachmentTitle: 'Documento del profesor',
         status: 'published'
       }
     });
@@ -610,7 +637,7 @@ test.describe('Multiclass student hub', () => {
     });
 
     await page.goto('/gestion/s5-a');
-    await page.locator('#legacyTokenAccess').getByText('Usar un token de acceso').click();
+    await page.locator('#legacyTokenAccess').getByText('Otra forma de acceso').click();
     await page.locator('#accessToken').fill('synthetic-owner-bearer');
     await page.locator('#tokenForm').getByRole('button', { name: 'Entrar con token' }).click();
     await expect(page.locator('#manageApp')).toBeVisible();
@@ -713,7 +740,7 @@ test.describe('Multiclass student hub', () => {
     });
 
     await page.goto('/gestion/s4-e');
-    await page.locator('#legacyTokenAccess').getByText('Usar un token de acceso').click();
+    await page.locator('#legacyTokenAccess').getByText('Otra forma de acceso').click();
     await page.locator('#accessToken').fill('owner-token');
     await page.locator('#tokenForm').getByRole('button', { name: 'Entrar' }).click();
     await page.locator('[data-manage-tab="classes"]').click();
@@ -726,8 +753,8 @@ test.describe('Multiclass student hub', () => {
     await expect(classForm.locator('[name="slug"]')).toHaveAttribute('readonly', '');
     await expect(classForm.locator('[name="id"]')).toHaveValue('s5-a');
     await classForm.locator('[name="name"]').fill('Medicina · 5.º A · Piloto');
-    await classForm.getByRole('button', { name: 'Actualizar turma' }).click();
-    await expect(page.locator('#classOutput')).toContainText('Turma actualizada');
+    await classForm.getByRole('button', { name: 'Actualizar clase' }).click();
+    await expect(page.locator('#classOutput')).toContainText('Clase actualizada');
     await expect(classForm.locator('[name="slug"]')).not.toHaveAttribute('readonly', '');
 
     targetCard = page.locator('#classList .manage-item').filter({ hasText: 'Medicina · 5.º A · Piloto' });
@@ -736,12 +763,12 @@ test.describe('Multiclass student hub', () => {
     targetCard = page.locator('#classList .manage-item').filter({ hasText: 'Medicina · 5.º A · Piloto' });
     await expect(targetCard).toContainText('ARCHIVADA');
     await expect(targetCard.getByRole('button', { name: 'Reactivar' })).toBeVisible();
-    await expect(targetCard.getByRole('link', { name: 'Ver turma' })).toHaveCount(0);
+    await expect(targetCard.getByRole('link', { name: 'Ver clase' })).toHaveCount(0);
 
     await targetCard.getByRole('button', { name: 'Reactivar' }).click();
     targetCard = page.locator('#classList .manage-item').filter({ hasText: 'Medicina · 5.º A · Piloto' });
     await expect(targetCard).toContainText('ACTIVA');
-    await expect(targetCard.getByRole('link', { name: 'Ver turma' })).toBeVisible();
+    await expect(targetCard.getByRole('link', { name: 'Ver clase' })).toBeVisible();
     await expect(page.locator('#classList .manage-item').filter({ hasText: 'Medicina · 4.º E' }).getByRole('button', { name: 'Archivar' })).toHaveCount(0);
 
     expect(writes).toHaveLength(3);
@@ -762,7 +789,7 @@ test.describe('Multiclass student hub', () => {
       '/offline.html',
       '/turma-shell/',
       '/turma-v471.css?v=471',
-      '/turma-v471.js?v=471',
+      '/turma-v471.js?v=472',
       '/turma-manifest-boot-v471.js?v=471'
     ]));
     [

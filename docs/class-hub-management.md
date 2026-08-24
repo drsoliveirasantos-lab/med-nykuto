@@ -16,7 +16,7 @@ Le shell protege `gestion-shell/index.html`, publie sous `/gestion/:slug`, perme
 
 ## Connexion delegue v472
 
-La version `v472` charge `gestion-v440.css?v=472` et `gestion-v440.js?v=472`. Elle ajoute un acces par courrier et mot de passe sans supprimer le token proprietaire ni le parcours historique d'invitation.
+La version `v473` charge `gestion-v440.css?v=473` et `gestion-v440.js?v=473`. Elle ajoute un acces par courrier et mot de passe sans supprimer le token proprietaire ni le parcours historique d'invitation, puis simplifie le parcours delegue avec dates de cours suggerees et pieces jointes.
 
 1. Le proprietaire cree le compte dans **Acces et audit** avec un nom, un courrier et un mot de passe temporaire.
 2. Le courrier est normalise cote serveur et le mot de passe est derive avec PBKDF2-HMAC-SHA-256, un sel aleatoire propre au compte et 100 000 iterations, calibre pour le budget CPU des Pages Functions. Le mot de passe en clair n'est jamais enregistre.

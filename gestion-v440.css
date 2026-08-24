@@ -27,6 +27,35 @@ input[aria-invalid=true]{border-color:var(--rose);outline:2px solid rgba(251,113
 .auth-status[data-error=true]:not(:empty){padding:10px 12px;border-left:3px solid var(--rose);border-radius:8px;background:rgba(251,113,133,.08)}
 .account-expiry{color:#fde68a}
 
+/* Plain-language forms and accessible password controls. */
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.required-mark,.optional-mark{display:inline-block;margin-left:5px;padding:2px 7px;border-radius:999px;font-size:9px;font-style:normal;font-weight:850;letter-spacing:.04em;text-transform:uppercase;vertical-align:1px}
+.required-mark{background:rgba(56,189,248,.13);color:#7dd3fc}
+.optional-mark{background:rgba(148,163,184,.12);color:#94a3b8}
+.field-help,.details-help,.form-help,.action-help{color:#94a3b8;font-size:12px;font-weight:500;line-height:1.45}
+.field-help{display:block;margin-top:1px}
+.status-help{padding:8px 10px;border-left:2px solid rgba(56,189,248,.45);border-radius:0 8px 8px 0;background:rgba(7,22,34,.42)}
+.status-help b,.action-help b{color:#cbd5e1}
+.details-help{margin:0 0 10px!important}
+.form-help{grid-column:1/-1;margin:-4px 0 2px}
+.action-help{margin:-8px 0 16px;padding:10px 12px;border-radius:10px;background:rgba(7,22,34,.52)}
+.form-title{grid-column:1/-1;margin-bottom:0!important;color:#e0f2fe}
+.list-title{margin:24px 0 -4px!important;color:#e2e8f0;font-size:16px}
+.manage-panel>header p{max-width:720px;margin:4px 0 0;color:#94a3b8}
+.field-group{display:grid;gap:6px;color:#cbd5e1;font-size:13px;font-weight:700}
+.field-group>label{display:block}
+.password-field{position:relative;display:block;width:100%}
+.password-field input{padding-right:54px}
+.password-toggle{position:absolute;top:50%;right:4px;display:grid;place-items:center;width:42px;min-height:38px;padding:0;transform:translateY(-50%);border:1px solid transparent;border-radius:9px;background:transparent;color:#94a3b8}
+.password-toggle:hover,.password-toggle:focus-visible,.password-toggle[aria-pressed=true]{border-color:var(--line);background:#183448;color:#fff}
+.password-toggle:focus-visible{outline:2px solid var(--cyan);outline-offset:1px}
+.password-toggle svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.workflow-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:0 0 16px;padding:0;list-style:none}
+.workflow-steps li{display:grid;gap:2px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:rgba(7,22,34,.52)}
+.workflow-steps b{color:#bae6fd;font-size:13px}
+.workflow-steps span{color:#94a3b8;font-size:12px}
+.member-chip.member-leader{border-color:rgba(251,191,36,.5);background:rgba(251,191,36,.09);color:#fde68a;font-weight:800}
+
 .credential-dialog{width:min(520px,calc(100% - 28px));max-height:calc(100dvh - 28px);overflow:auto;border:1px solid var(--line);border-radius:22px;background:var(--panel);color:#e2e8f0;padding:0;box-shadow:0 24px 80px rgba(0,0,0,.55)}
 .credential-dialog::backdrop{background:rgba(2,8,15,.76);backdrop-filter:blur(5px)}
 .credential-dialog form{display:grid;gap:13px;padding:24px}
@@ -36,9 +65,28 @@ input[aria-invalid=true]{border-color:var(--rose);outline:2px solid rgba(251,113
 .credential-dialog-actions button:first-child{background:#183448;color:#fff}
 
 @media(max-width:520px){
+  main{width:min(100% - 18px,1180px);margin:18px auto 48px}
+  .manage-header{padding-inline:11px}
+  .manage-brand{gap:7px}
+  .manage-brand img{width:36px;height:36px}
+  .manage-brand small{max-width:175px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .auth-card{margin:3vh auto;padding:22px 18px}
   .auth-card input,.auth-card select,.auth-card textarea,.credential-dialog input,.credential-dialog select{font-size:16px}
   #authMethods summary{min-height:48px}
+  .manage-intro{display:grid;gap:14px;padding:20px 17px;border-radius:19px}
+  .manage-intro button{width:100%}
+  .permission-note{margin-block:10px;padding:13px 15px;border-radius:16px}
+  .manage-tabs{position:sticky;top:7px;z-index:6;gap:5px;margin:12px -1px;padding:5px;background:rgba(8,24,37,.96);box-shadow:0 10px 28px rgba(0,0,0,.28);scroll-snap-type:x proximity}
+  .manage-tabs button{min-width:108px;min-height:42px;padding-inline:12px;scroll-snap-align:start}
+  .manage-panel{padding:17px 13px;border-radius:19px}
+  .manage-panel>header{margin-bottom:16px}
+  .manage-panel h2{font-size:24px;line-height:1.16}
+  .manage-form{gap:15px;padding:14px 12px;border-radius:16px}
+  .manage-form input,.manage-form select,.manage-form textarea{font-size:16px}
+  .required-mark,.optional-mark{margin-left:3px}
+  .workflow-steps{grid-template-columns:1fr;gap:7px}
+  .workflow-steps li{grid-template-columns:auto 1fr;align-items:baseline;gap:8px}
+  .list-title{margin-top:21px!important}
   .credential-dialog form{padding:20px 17px}
   .credential-dialog-actions{display:grid}
   .credential-dialog-actions button{width:100%}
