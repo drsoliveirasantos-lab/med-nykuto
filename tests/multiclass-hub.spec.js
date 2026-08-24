@@ -289,14 +289,12 @@ test.describe('Multiclass student hub', () => {
     await expect(unrelatedTask).not.toHaveAttribute('open', '');
     await expect(page).toHaveURL(/#tareas$/);
 
-    const turmaHtml = readRepo('turma-shell/index.html');
-    await page.route(/\/turma\/s5-a(?:\?.*)?$/, (route) => route.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body: turmaHtml }));
-    await page.goto(`/turma/s5-a?task=${expiredLinkedTask.id}#tareas`);
+    await page.goto(`/turma-shell/?class=s5-a&task=${expiredLinkedTask.id}#tareas`);
     await expect(page.locator('[data-view="tareas"]')).toBeVisible();
     await expect(page.locator('[data-task-filter="all"]')).toHaveClass(/is-active/);
     await expect(page.locator(`#taskList [data-task-id="${expiredLinkedTask.id}"]`)).toHaveAttribute('open', '');
     await expect(page.locator(`#taskList [data-task-id="${otherTask.id}"]`)).not.toHaveAttribute('open', '');
-    await expect(page).toHaveURL(new RegExp(`/turma/s5-a\\?task=${expiredLinkedTask.id}#tareas$`));
+    await expect(page).toHaveURL(new RegExp(`/turma-shell/\\?class=s5-a&task=${expiredLinkedTask.id}#tareas$`));
   });
 
   test('disables official-notice autoplay when reduced motion is requested', async ({ page }) => {

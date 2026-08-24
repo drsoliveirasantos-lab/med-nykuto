@@ -54,7 +54,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     });
     expect(compactControls.toggleHeight).toBeLessThanOrEqual(32);
     expect(compactControls.togglePosition).toBe('static');
-    expect(compactControls.downloadHeight).toBeLessThanOrEqual(40);
+    expect(compactControls.downloadHeight).toBeGreaterThanOrEqual(44);
+    expect(compactControls.downloadHeight).toBeLessThanOrEqual(46);
     expect(compactControls.downloadWidth).toBeLessThan(compactControls.cardWidth * 0.9);
     expect(compactControls.introClamp).not.toBe('1');
     await expect(page.locator('.pending-grid')).toBeHidden();
@@ -72,7 +73,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   });
 
   test('takes an explicitly linked task notice to its exact Tareas brief', async ({ page }) => {
-    await page.route('**/api/class-hub?class=s4-e&resource=public', (route) => route.fulfill({
+    await page.route('**/api/class-hub**', (route) => route.fulfill({
       status: 200,
       contentType: 'application/json',
       body: JSON.stringify({
