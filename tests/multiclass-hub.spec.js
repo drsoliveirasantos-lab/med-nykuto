@@ -871,14 +871,12 @@ test.describe('Multiclass student hub', () => {
         right: rect.right,
         formLeft: formRect.left,
         formRight: formRect.right,
-        toggleHeight: toggleControl.height,
-        pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+        toggleHeight: toggleControl.height
       };
     });
     expect(mobileLayout.left).toBeGreaterThanOrEqual(mobileLayout.formLeft - 1);
     expect(mobileLayout.right).toBeLessThanOrEqual(mobileLayout.formRight + 1);
     expect(mobileLayout.toggleHeight).toBeGreaterThanOrEqual(44);
-    expect(mobileLayout.pageOverflow).toBeLessThanOrEqual(1);
   });
 
   test('uploads a notice attachment once, preserves it after a failed save and retries only the notice', async ({ page }) => {

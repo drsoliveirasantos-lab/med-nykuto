@@ -73,10 +73,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   });
 
   test('takes an explicitly linked task notice to its exact Tareas brief', async ({ page }) => {
-    await page.route('**/api/class-hub**', (route) => route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify({
+    const linkedNoticeFixture = {
         ok: true,
         notices: [
           { id: 'week-2026-08-21', priority: 'normal', title: 'Cursos del 19 al 21 de agosto disponibles', body: 'Los cursos ya están organizados.' },
@@ -87,8 +84,17 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
           { id: 'bio-activities', course: 'Bioquímica II', title: 'Actividades 3 y 4 impresas y manuscritas', status: 'published', dueLabel: 'Mié. 26 ago.', dueAt: '2026-08-26T09:10:00-03:00' }
         ],
         activities: [], groups: [], members: [], files: [], dates: []
-      })
-    }));
+    };
+    await page.addInitScript((fixture) => {
+      const nativeFetch = window.fetch.bind(window);
+      window.fetch = (input, init) => {
+        const url = new URL(typeof input === 'string' ? input : input.url, window.location.href);
+        if (url.pathname === '/api/class-hub' && url.searchParams.get('class') === 's4-e' && url.searchParams.get('resource') === 'public') {
+          return Promise.resolve(new Response(JSON.stringify(fixture), { status: 200, headers: { 'content-type': 'application/json' } }));
+        }
+        return nativeFetch(input, init);
+      };
+    }, linkedNoticeFixture);
     await page.goto('/clase.html#inicio');
     await expect(page.locator('#classHubLiveTasks .live-task-details')).toHaveCount(2);
     const carousel = page.locator('#classHomeNoticeCarousel');
