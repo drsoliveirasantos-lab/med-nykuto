@@ -14,11 +14,22 @@ Le shell protege `gestion-shell/index.html`, publie sous `/gestion/:slug`, perme
 - La cle aleatoire d'un etudiant et les jetons de session de gestion ne sont conserves sur le serveur que sous forme de condensat SHA-256.
 - Chaque export de groupes reste rattache a une seule activite : copie texte, ouverture du message dans le WhatsApp du delegue et impression PDF. Aucun export ne melange plusieurs activites.
 
+Sur telephone, les outils restent dans une barre horizontale compacte. **Calendrier** et **Fichiers** sont deux espaces distincts, et les formulaires essentiels utilisent une fiche a deux colonnes lorsque la largeur le permet. La vue **Matieres** est un cockpit operationnel : elle regroupe les taches, avis, activites, groupes, fichiers et dates relies explicitement a chaque matiere, avec modification directe. Elle n'accorde aucun droit sur les cours, modules ou banques de questions.
+
 ## Avis officiels
 
 Un avis publie apparait dans la vue **Avisos** de la turma. Les avis `important` et `urgent` peuvent aussi occuper le cadre compact de l'accueil, un seul a la fois. Avec plusieurs avis mis en avant, le cadre change environ toutes les six secondes et propose toujours des commandes precedent, suivant et pause. Le mouvement automatique est desactive si le navigateur demande une reduction des animations.
 
-Une image est facultative. Le delegue fournit une URL HTTPS publique et un texte alternatif ; Med Nykuto ne televerse pas l'image dans D1. Les avis normaux restent dans la liste complete afin de ne pas surcharger l'accueil. Les liens profonds utilisent `/turma/<slug>#avisos`.
+Une image distante reste facultative : le delegue peut fournir une URL HTTPS publique et un texte alternatif. Il peut aussi choisir directement sur son telephone une image raster ou un PDF de 15 Mio maximum. Une image raster televersee peut porter ce meme texte alternatif ; un PDF ne compte jamais comme image et ne peut donc pas justifier seul un texte alternatif. Le fichier binaire est conserve dans le bucket R2 prive `MED_NYKUTO_UPLOADS`; D1 ne garde que les metadonnees et la liaison vers l'avis. Un brouillon reste reserve a la gestion authentifiee et la piece jointe ne devient publique que lorsque l'avis de la meme turma est publie. Les avis normaux restent dans la liste complete afin de ne pas surcharger l'accueil. Les liens profonds utilisent `/turma/<slug>#avisos`.
+
+Le contrat navigateur est volontairement en deux etapes :
+
+1. envoyer un `FormData` par `POST /api/class-hub?class=<slug>&action=notice.attachment.upload`, avec un unique champ fichier nomme `file` ;
+2. reutiliser `attachment.uploadId` de la reponse dans la mutation JSON `notice.upsert`, sous le champ `attachmentUploadId` et, facultativement, `attachmentTitle`.
+
+Le televersement repond `201` avec `attachment.{uploadId,originalName,title,mimeType,sizeBytes,attachmentUrl}`. Les snapshots public et administrateur exposent ensuite `attachmentUploadId`, `attachmentUrl`, `attachmentTitle`, `attachmentMimeType` et `attachmentSizeBytes`. Le snapshot administrateur contient aussi `uploadPolicy.{enabled,maxBytes,maxStagedUploads,stagedTtlHours,acceptedMimeTypes}` afin que l'interface puisse desactiver clairement le selecteur si le binding R2 manque et expliquer les limites.
+
+Chaque turma peut conserver au maximum 20 televersements encore en attente. Une reservation D1 atomique refuse le 21e avant toute ecriture R2. Un fichier reste en attente au maximum 24 heures s'il n'est relie a aucun avis. Envoyer `attachmentUploadId: null` detache l'ancien fichier ; s'il n'est reference par aucun autre avis de la meme turma, la Function le marque d'abord `deleting`, supprime l'objet R2, puis retire ses metadonnees. Si R2 refuse la suppression, le statut revient a `staged` afin qu'un prochain nettoyage puisse reessayer. Le meme cycle borne recupere les televersements abandonnes et les rares metadonnees orphelines apres une interruption de requete.
 
 ## Profil WhatsApp et demande d'acces
 
@@ -28,9 +39,9 @@ Le numero du delegue n'est jamais renvoye par l'API publique. Il sert uniquement
 
 Sur la connexion, un futur delegue peut demander l'ouverture de son compte. Le contact vient de la turma ou de `MED_NYKUTO_SUPPORT_WHATSAPP`; s'il n'est pas encore configure, l'interface utilise `contact@nykuto.com` au lieu d'inventer un numero.
 
-## Connexion delegue v472
+## Connexion delegue v476
 
-La version `v475` charge `gestion-v440.css?v=475` et `gestion-v440.js?v=475`. Elle conserve l'acces par courrier et mot de passe, puis ajoute les avis officiels illustres, le profil WhatsApp prive et les exports de groupes lies a chaque activite.
+La version `v476` charge `gestion-v440.css?v=476` et `gestion-v440.js?v=476`. Elle conserve l'acces par courrier et mot de passe, puis ajoute le cockpit compact par matiere, les avis officiels avec piece jointe, le profil WhatsApp prive et les exports de groupes lies a chaque activite.
 
 1. Le proprietaire cree le compte dans **Acces et audit** avec un nom, un courrier et un mot de passe temporaire.
 2. Le courrier est normalise cote serveur et le mot de passe est derive avec PBKDF2-HMAC-SHA-256, un sel aleatoire propre au compte et 100 000 iterations, calibre pour le budget CPU des Pages Functions. Le mot de passe en clair n'est jamais enregistre.
@@ -49,11 +60,12 @@ Les anciennes lignes `hub_editors` et leurs tokens restent compatibles pendant l
 ## Activation sur Cloudflare Pages
 
 1. Dans le projet Pages, lier une base D1 sous le nom `MED_NYKUTO_DB`. La liaison existante `DB` reste compatible.
-2. Ajouter un secret de production `MED_NYKUTO_OWNER_TOKEN` long, aleatoire et reserve au proprietaire.
-3. Ajouter de preference un second secret aleatoire `MED_NYKUTO_RATE_SALT` pour isoler les empreintes utilisees par la limitation d'abus.
-4. Utiliser des secrets et une base D1 distincts pour les environnements preview et production afin qu'un test de connexion ne modifie pas les comptes reels.
-5. Redeployer. Les tables, index, deux taches actives, les alertes initiales, les emplacements de groupes vides et les deux tables d'authentification sont crees automatiquement a la premiere requete.
-6. Ouvrir `/gestion/s4-e`, entrer le token proprietaire, puis creer un compte de delegue avec un mot de passe temporaire.
+2. Creer un bucket R2 prive et lier celui-ci sous le nom exact `MED_NYKUTO_UPLOADS`, dans Preview puis dans Production. Redeployer apres chaque ajout de binding.
+3. Ajouter un secret de production `MED_NYKUTO_OWNER_TOKEN` long, aleatoire et reserve au proprietaire.
+4. Ajouter de preference un second secret aleatoire `MED_NYKUTO_RATE_SALT` pour isoler les empreintes utilisees par la limitation d'abus.
+5. Utiliser des secrets, une base D1 et si possible un bucket R2 distincts pour les environnements preview et production afin qu'un test ne modifie pas les comptes ou fichiers reels.
+6. Redeployer. Les tables, index, deux taches actives, les alertes initiales, les emplacements de groupes vides et les tables d'authentification/metadonnees R2 sont crees automatiquement a la premiere requete.
+7. Ouvrir `/gestion/s4-e`, entrer le token proprietaire, puis creer un compte de delegue avec un mot de passe temporaire.
 
 Sans D1, la page publique conserve ses donnees statiques de secours. La gestion protegee et les inscriptions de groupe restent volontairement indisponibles.
 
@@ -75,3 +87,4 @@ Une alerte urgente reste visible dans le cadre d'accueil et dans la vue complete
 4. Verifier qu'une session de `s4-e` ne lit ni ne modifie `s3-a`, que les mutations sans en-tete anti-CSRF sont refusees et que la deconnexion revoque la session.
 5. Creer une tache brouillon, la publier, puis verifier son apparition sans nouveau deploiement.
 6. Rejoindre un groupe depuis `clase.html`, verifier qu'une seconde inscription a la meme activite est refusee, puis congeler l'activite et verifier que les ajouts, retraits et deplacements sont bloques.
+7. Televerser un PDF factice dans un avis brouillon, verifier qu'il est illisible sans session, publier l'avis, puis verifier son ouverture sur telephone et son affichage dans la bonne turma uniquement.

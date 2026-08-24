@@ -23,6 +23,7 @@ const protectedHashes = {
 const hubTenantTables = [
   'hub_subjects',
   'hub_tasks',
+  'hub_uploads',
   'hub_notices',
   'hub_activities',
   'hub_groups',
@@ -156,6 +157,7 @@ class GuardedD1Mock {
     this.scheduleSlots = new Map();
     this.tasks = new Map();
     this.notices = new Map();
+    this.uploads = new Map();
     this.profiles = new Map();
     this.editorTokenHash = hashToken('editor-s4-token');
   }
@@ -237,15 +239,33 @@ class GuardedD1Mock {
         .filter((slot) => slot.classId === classId && (!/slot\.status='published'/i.test(normalized) || slot.status === 'published'))
         .map((slot) => ({ id: slot.id, subjectId: slot.subjectId, subject: subjectNames.get(slot.subjectId) || slot.subjectId, weekday: slot.weekday, startsTime: slot.startsTime, endsTime: slot.endsTime, label: slot.label, status: slot.status }));
     }
+    if (/\bfrom\s+hub_uploads\s+u\b/i.test(normalized) && /\bu\.object_key\b/i.test(normalized)) {
+      const classId = this.classFrom(values), staleBefore = String(values[1] || ''), deletingRetryBefore = String(values[2] || '');
+      return [...this.uploads.values()]
+        .filter((upload) => upload.classId === classId)
+        .filter((upload) => ![...this.notices.values()].some((notice) => notice.classId === classId && notice.attachmentUploadId === upload.id))
+        .filter((upload) => (['staged', 'linked'].includes(upload.status) && upload.createdAt <= staleBefore) || (upload.status === 'deleting' && upload.updatedAt <= deletingRetryBefore))
+        .slice(0, Number(values[3]) || 25)
+        .map((upload) => ({ id: upload.id, object_key: upload.objectKey, status: upload.status, created_at: upload.createdAt, updated_at: upload.updatedAt }));
+    }
     if (/\bfrom\s+hub_notices\b/i.test(normalized)) {
       const classId = this.classFrom(values);
       return [...this.notices.values()]
         .filter((notice) => notice.classId === classId && (!/status='published'/i.test(normalized) || notice.status === 'published'))
-        .map((notice) => ({
+        .map((notice) => {
+          const upload = this.uploads.get(notice.attachmentUploadId);
+          return {
           id: notice.id, title: notice.title, body: notice.body, priority: notice.priority, status: notice.status,
+          course: notice.course || '',
           image_url: notice.imageUrl, image_alt: notice.imageAlt, imageUrl: notice.imageUrl, imageAlt: notice.imageAlt,
+          attachmentUploadId: upload?.status === 'linked' ? upload.id : null,
+          attachmentTitle: notice.attachmentTitle || null,
+          attachmentOriginalName: upload?.originalName || null,
+          attachmentMimeType: upload?.mimeType || null,
+          attachmentSizeBytes: upload?.sizeBytes ?? null,
           publishedAt: notice.publishedAt
-        }));
+          };
+        });
     }
     if (/\bfrom\s+hub_subjects\b/i.test(normalized)) return [];
     return [];
@@ -268,10 +288,25 @@ class GuardedD1Mock {
       const task = this.tasks.get(id);
       return task?.classId === classId ? { attachment_url: task.attachmentUrl, attachment_title: task.attachmentTitle } : null;
     }
+    if (/\bfrom\s+hub_uploads\s+u\s+(?:left\s+)?join\s+hub_notices\s+n\b/i.test(normalized)) {
+      const classId = this.classFrom(values), uploadId = String(values[1] || ''), upload = this.uploads.get(uploadId);
+      if (!upload || upload.classId !== classId) return null;
+      const linkedNotice = [...this.notices.values()].find((notice) => notice.classId === classId && notice.attachmentUploadId === uploadId && (!/n\.status='published'/i.test(normalized) || notice.status === 'published'));
+      const actorId = values.length > 2 ? String(values[2] || '') : '';
+      if (!linkedNotice && !values.includes(upload.createdBy) && actorId !== upload.createdBy) return null;
+      if (/u\.status='linked'/i.test(normalized) && upload.status !== 'linked') return null;
+      return { object_key: upload.objectKey, original_name: upload.originalName, mime_type: upload.mimeType, size_bytes: upload.sizeBytes, etag: upload.etag };
+    }
+    if (/\bfrom\s+hub_uploads\b/i.test(normalized)) {
+      const classId = this.classFrom(values), uploadId = String(values[1] || ''), upload = this.uploads.get(uploadId);
+      if (!upload || upload.classId !== classId || (/status\s+in\s*\('staged','linked'\)/i.test(normalized) && !['staged', 'linked'].includes(upload.status))) return null;
+      if (/not\s+exists\s*\(select\s+1\s+from\s+hub_notices/i.test(normalized) && [...this.notices.values()].some((notice) => notice.classId === classId && notice.attachmentUploadId === uploadId)) return null;
+      return { id: upload.id, object_key: upload.objectKey, original_name: upload.originalName, mime_type: upload.mimeType, size_bytes: upload.sizeBytes, etag: upload.etag, status: upload.status, created_at: upload.createdAt, updated_at: upload.updatedAt };
+    }
     if (/\bfrom\s+hub_notices\b/i.test(normalized)) {
       const classId = this.classFrom(values), id = String(values[1] || '');
       const notice = this.notices.get(id);
-      return notice?.classId === classId ? { image_url: notice.imageUrl, image_alt: notice.imageAlt } : null;
+      return notice?.classId === classId ? { course: notice.course || '', image_url: notice.imageUrl, image_alt: notice.imageAlt, attachment_upload_id: notice.attachmentUploadId || null, attachment_title: notice.attachmentTitle || null } : null;
     }
     if (/\bfrom\s+hub_editor_profiles\b/i.test(normalized)) {
       const classId = this.classFrom(values), actorId = String(values[1] || '');
@@ -303,7 +338,7 @@ class GuardedD1Mock {
       return null;
     }
     if (/\bfrom\s+hub_activities\b/i.test(normalized)) {
-      return { id: 'activity-test', capacity: 10, frozen: 0, closes_at: null };
+      return { id: 'activity-test', course: '', capacity: 10, frozen: 0, closes_at: null };
     }
     if (/\b(?:count|max)\s*\(/i.test(normalized)) return { count: 0, member_count: 0 };
     if (/\bfrom\s+hub_groups\b/i.test(normalized)) return { id: 'group-test', name: 'Grupo 1', capacity: 10, frozen: 0 };
@@ -316,7 +351,7 @@ class GuardedD1Mock {
     const create = normalized.match(/^create\s+table\s+if\s+not\s+exists\s+([a-z0-9_]+)\s*\(/i);
     if (create && !this.tableColumns.has(create[1])) {
       const columns = new Set();
-      ['class_id', 'attachment_url', 'attachment_title', 'image_url', 'image_alt', 'is_leader', 'support_whatsapp', 'actor_id', 'whatsapp_e164', 'whatsapp_format_verified_at'].forEach((column) => {
+      ['class_id', 'course', 'attachment_url', 'attachment_title', 'attachment_upload_id', 'image_url', 'image_alt', 'object_key', 'original_name', 'mime_type', 'size_bytes', 'etag', 'status', 'is_leader', 'support_whatsapp', 'actor_id', 'whatsapp_e164', 'whatsapp_format_verified_at'].forEach((column) => {
         if (new RegExp(`\\b${column}\\b`, 'i').test(normalized)) columns.add(column);
       });
       this.tableColumns.set(create[1], columns);
@@ -351,11 +386,76 @@ class GuardedD1Mock {
     }
     if (/^insert\s+into\s+hub_notices\b/i.test(normalized)) {
       const columns = insertColumns(sql, 'hub_notices'), valueByColumn = Object.fromEntries(columns.map((column, index) => [column, values[index]]));
-      this.notices.set(String(valueByColumn.id), {
-        id: String(valueByColumn.id), classId: String(valueByColumn.class_id), title: String(valueByColumn.title || ''), body: String(valueByColumn.body || ''),
+      const id = String(valueByColumn.id), classId = String(valueByColumn.class_id);
+      const existing = this.notices.get(id);
+      if (existing && existing.classId !== classId) return { meta: { changes: 0 } };
+      if (/from\s+hub_uploads\s+source_upload/i.test(normalized)) {
+        const uploadId = String(values[values.length - 1] || ''), upload = this.uploads.get(uploadId);
+        if (!upload || upload.classId !== classId || !['staged', 'linked'].includes(upload.status)) return { meta: { changes: 0 } };
+      }
+      this.notices.set(id, {
+        id, classId, title: String(valueByColumn.title || ''), body: String(valueByColumn.body || ''),
         priority: String(valueByColumn.priority || 'normal'), status: String(valueByColumn.status || 'draft'),
-        imageUrl: valueByColumn.image_url || null, imageAlt: valueByColumn.image_alt || null, publishedAt: valueByColumn.published_at || null
+        course: String(valueByColumn.course || ''), imageUrl: valueByColumn.image_url || null, imageAlt: valueByColumn.image_alt || null,
+        attachmentUploadId: valueByColumn.attachment_upload_id || null, attachmentTitle: valueByColumn.attachment_title || null,
+        publishedAt: valueByColumn.published_at || null
       });
+    }
+    if (/^insert\s+into\s+hub_uploads\b/i.test(normalized)) {
+      const columns = insertColumns(sql, 'hub_uploads'), valueByColumn = Object.fromEntries(columns.map((column, index) => [column, values[index]]));
+      const classId = String(valueByColumn.class_id || '');
+      const conditionalReservation = /select\s+count\(\*\)\s+from\s+hub_uploads\s+pending/i.test(normalized);
+      if (conditionalReservation) {
+        const quota = Number(values[values.length - 1]);
+        const pending = [...this.uploads.values()].filter((upload) => upload.classId === classId && ['staged', 'deleting'].includes(upload.status)).length;
+        if (pending >= quota) return { meta: { changes: 0 } };
+      }
+      this.uploads.set(String(valueByColumn.id), {
+        id: String(valueByColumn.id), classId, objectKey: String(valueByColumn.object_key),
+        originalName: String(valueByColumn.original_name), mimeType: String(valueByColumn.mime_type), sizeBytes: Number(valueByColumn.size_bytes),
+        etag: String(valueByColumn.etag || ''), status: conditionalReservation ? 'staged' : String(valueByColumn.status || 'staged'),
+        createdBy: conditionalReservation ? String(values[7] || '') : String(valueByColumn.created_by || ''),
+        createdAt: conditionalReservation ? String(values[8] || '') : String(valueByColumn.created_at || new Date().toISOString()),
+        updatedAt: conditionalReservation ? String(values[9] || '') : String(valueByColumn.updated_at || new Date().toISOString())
+      });
+    }
+    if (/^update\s+hub_uploads\s+set\s+etag=/i.test(normalized)) {
+      const uploadId = values.find((value) => this.uploads.has(String(value)));
+      const upload = this.uploads.get(String(uploadId));
+      if (upload) {
+        upload.etag = String(values[0] || '');
+        upload.updatedAt = String(values[1] || upload.updatedAt);
+      }
+    }
+    if (/^update\s+hub_uploads\s+set\s+(?:status='(?:linked|staged|deleting)',)?updated_at=|^update\s+hub_uploads\s+set\s+status='(?:linked|staged|deleting)'/i.test(normalized)) {
+      const uploadId = values.find((value) => this.uploads.has(String(value)));
+      const upload = this.uploads.get(String(uploadId));
+      if (!upload) return { meta: { changes: 0 } };
+      const classId = this.classFrom(values);
+      if (upload.classId !== classId) return { meta: { changes: 0 } };
+      const hasReference = [...this.notices.values()].some((notice) => notice.classId === classId && notice.attachmentUploadId === upload.id);
+      if (/not\s+exists\s*\(select\s+1\s+from\s+hub_notices/i.test(normalized) && hasReference) return { meta: { changes: 0 } };
+      if (/status='deleting'/i.test(normalized) && upload.status === 'deleting' && /and\s+updated_at=\?/i.test(normalized)) {
+        const expected = values.find((value) => value === upload.updatedAt);
+        if (!expected) return { meta: { changes: 0 } };
+      }
+      if (/status\s+in\s*\('staged','linked'\)/i.test(normalized) && !['staged', 'linked'].includes(upload.status)) return { meta: { changes: 0 } };
+      if (/and\s+status='staged'/i.test(normalized) && upload.status !== 'staged') return { meta: { changes: 0 } };
+      if (/and\s+status='linked'/i.test(normalized) && upload.status !== 'linked') return { meta: { changes: 0 } };
+      if (/and\s+status='deleting'/i.test(normalized) && upload.status !== 'deleting') return { meta: { changes: 0 } };
+      if (/set\s+status='linked'/i.test(normalized)) upload.status = 'linked';
+      else if (/set\s+status='staged'/i.test(normalized)) upload.status = 'staged';
+      else if (/set\s+status='deleting'/i.test(normalized)) upload.status = 'deleting';
+      upload.updatedAt = String(values[0] || upload.updatedAt);
+    }
+    if (/^delete\s+from\s+hub_uploads\b/i.test(normalized)) {
+      const uploadId = values.find((value) => this.uploads.has(String(value)));
+      const upload = this.uploads.get(String(uploadId));
+      const classId = this.classFrom(values);
+      if (!upload || upload.classId !== classId || upload.status !== 'deleting') return { meta: { changes: 0 } };
+      const hasReference = [...this.notices.values()].some((notice) => notice.classId === classId && notice.attachmentUploadId === upload.id);
+      if (hasReference) return { meta: { changes: 0 } };
+      this.uploads.delete(upload.id);
     }
     if (/^insert\s+into\s+hub_editor_profiles\b/i.test(normalized)) {
       const columns = insertColumns(sql, 'hub_editor_profiles'), valueByColumn = Object.fromEntries(columns.map((column, index) => [column, values[index]]));
@@ -370,6 +470,43 @@ class GuardedD1Mock {
   }
 }
 
+class GuardedR2Mock {
+  constructor() {
+    this.objects = new Map();
+    this.calls = [];
+    this.failDeleteKeys = new Set();
+  }
+
+  async put(key, value, options = {}) {
+    const bytes = new Uint8Array(await new Response(value).arrayBuffer());
+    const etag = `"fixture-${bytes.byteLength}"`;
+    this.calls.push({ method: 'put', key, options, size: bytes.byteLength });
+    this.objects.set(key, { bytes, options, etag });
+    return { key, size: bytes.byteLength, etag: etag.replaceAll('"', ''), httpEtag: etag, httpMetadata: options.httpMetadata || {}, customMetadata: options.customMetadata || {} };
+  }
+
+  async get(key, options = {}) {
+    const stored = this.objects.get(key);
+    this.calls.push({ method: 'get', key, options });
+    if (!stored) return null;
+    const range = options?.range || null;
+    const bytes = range ? stored.bytes.slice(range.offset, range.offset + range.length) : stored.bytes;
+    return {
+      key,
+      size: stored.bytes.byteLength,
+      httpEtag: stored.etag,
+      body: new Blob([bytes]).stream(),
+      range: range || undefined
+    };
+  }
+
+  async delete(key) {
+    this.calls.push({ method: 'delete', key });
+    if (this.failDeleteKeys.has(key)) throw new Error('synthetic_r2_delete_failure');
+    this.objects.delete(key);
+  }
+}
+
 async function importSource(file) {
   let source = read(file);
   if (file === 'functions/api/class-hub.js') {
@@ -379,15 +516,22 @@ async function importSource(file) {
   return import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}#${Date.now()}-${Math.random()}`);
 }
 
-async function classHubGet(handler, db, query, token = '') {
+async function classHubGet(handler, db, query, token = '', extraEnv = {}) {
   const request = new Request(`https://med.nykuto.com/api/class-hub${query}`, {
     headers: token ? { authorization: `Bearer ${token}` } : undefined
   });
-  const response = await handler({ request, env: { MED_NYKUTO_DB: db, MED_NYKUTO_OWNER_TOKEN: 'owner-token', MED_NYKUTO_RATE_SALT: 'test-salt', MED_NYKUTO_SUPPORT_WHATSAPP: SYNTHETIC_SUPPORT_WHATSAPP } });
+  const response = await handler({ request, env: { MED_NYKUTO_DB: db, MED_NYKUTO_OWNER_TOKEN: 'owner-token', MED_NYKUTO_RATE_SALT: 'test-salt', MED_NYKUTO_SUPPORT_WHATSAPP: SYNTHETIC_SUPPORT_WHATSAPP, ...extraEnv } });
   return { response, body: await response.json() };
 }
 
-async function classHubPost(handler, db, query, body, token) {
+async function classHubRawGet(handler, db, query, token = '', extraEnv = {}, extraHeaders = {}) {
+  const request = new Request(`https://med.nykuto.com/api/class-hub${query}`, {
+    headers: { ...(token ? { authorization: `Bearer ${token}` } : {}), ...extraHeaders }
+  });
+  return handler({ request, env: { MED_NYKUTO_DB: db, MED_NYKUTO_OWNER_TOKEN: 'owner-token', MED_NYKUTO_RATE_SALT: 'test-salt', ...extraEnv } });
+}
+
+async function classHubPost(handler, db, query, body, token, extraEnv = {}) {
   const request = new Request(`https://med.nykuto.com/api/class-hub${query}`, {
     method: 'POST',
     headers: {
@@ -399,7 +543,30 @@ async function classHubPost(handler, db, query, body, token) {
   });
   const response = await handler({
     request,
-    env: { MED_NYKUTO_DB: db, MED_NYKUTO_OWNER_TOKEN: 'owner-token', MED_NYKUTO_RATE_SALT: 'test-salt', MED_NYKUTO_SUPPORT_WHATSAPP: SYNTHETIC_SUPPORT_WHATSAPP },
+    env: { MED_NYKUTO_DB: db, MED_NYKUTO_OWNER_TOKEN: 'owner-token', MED_NYKUTO_RATE_SALT: 'test-salt', MED_NYKUTO_SUPPORT_WHATSAPP: SYNTHETIC_SUPPORT_WHATSAPP, ...extraEnv },
+    waitUntil: (promise) => promise
+  });
+  return { response, body: await response.json() };
+}
+
+async function classHubUpload(handler, db, query, file, token, extraEnv = {}) {
+  const form = new FormData();
+  form.append('file', file);
+  const serialized = new Response(form);
+  const bytes = await serialized.arrayBuffer();
+  const request = new Request(`https://med.nykuto.com/api/class-hub${query}`, {
+    method: 'POST',
+    headers: {
+      authorization: `Bearer ${token}`,
+      'content-type': serialized.headers.get('content-type'),
+      'content-length': String(bytes.byteLength),
+      origin: 'https://med.nykuto.com'
+    },
+    body: bytes
+  });
+  const response = await handler({
+    request,
+    env: { MED_NYKUTO_DB: db, MED_NYKUTO_OWNER_TOKEN: 'owner-token', MED_NYKUTO_RATE_SALT: 'test-salt', ...extraEnv },
     waitUntil: (promise) => promise
   });
   return { response, body: await response.json() };
@@ -543,6 +710,129 @@ async function validateRuntimeIsolation() {
   }, 'editor-s4-token');
   expect(invalidNoticeImage.response.status === 400 && responseCode(invalidNoticeImage.body) === 'invalid_notice_image', `An insecure notice image URL was accepted (${invalidNoticeImage.response.status}: ${JSON.stringify(invalidNoticeImage.body)}).`);
   expect(!db.calls.slice(invalidNoticeStart).some((call) => /^insert\s+into\s+hub_notices\b/i.test(call.sql)), 'A rejected insecure notice image still wrote to hub_notices.');
+
+  const r2 = new GuardedR2Mock();
+  const pdfFile = new File([new TextEncoder().encode('%PDF-1.7\nMed Nykuto fixture')], 'cronograma oficial.pdf', { type: 'application/pdf' });
+  const missingStorage = await classHubUpload(classHub.onRequestPost, db, '?class=s4-e&action=notice.attachment.upload', pdfFile, 'editor-s4-token');
+  expect(missingStorage.response.status === 503 && responseCode(missingStorage.body) === 'upload_storage_unavailable', `A missing R2 binding does not fail explicitly (${missingStorage.response.status}: ${JSON.stringify(missingStorage.body)}).`);
+
+  const uploaded = await classHubUpload(classHub.onRequestPost, db, '?class=s4-e&action=notice.attachment.upload', pdfFile, 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  const uploadId = uploaded.body.attachment?.uploadId;
+  expect(uploaded.response.status === 201 && /^upload-[a-f0-9-]{36}$/.test(uploadId || '') && uploaded.body.attachment?.mimeType === 'application/pdf' && uploaded.body.attachment?.sizeBytes === pdfFile.size, `A valid PDF upload failed (${uploaded.response.status}: ${JSON.stringify(uploaded.body)}).`);
+  const uploadedMetadata = db.uploads.get(uploadId);
+  expect(uploadedMetadata?.classId === DEFAULT_CLASS_ID && uploadedMetadata?.status === 'staged' && uploadedMetadata?.objectKey === `classes/${DEFAULT_CLASS_ID}/notices/${uploadId}`, 'Uploaded metadata is not staged and isolated under the class R2 key prefix.');
+  const r2Put = r2.calls.find((call) => call.method === 'put' && call.key === uploadedMetadata?.objectKey);
+  expect(r2Put?.options?.httpMetadata?.contentType === 'application/pdf' && r2Put?.options?.customMetadata?.classId === DEFAULT_CLASS_ID, 'The R2 object is missing safe HTTP metadata or class-scoped custom metadata.');
+
+  const spoofedFile = new File([new TextEncoder().encode('<svg onload=alert(1)>')], 'fausse-image.png', { type: 'image/png' });
+  const beforeSpoofedPut = r2.calls.filter((call) => call.method === 'put').length;
+  const spoofedUpload = await classHubUpload(classHub.onRequestPost, db, '?class=s4-e&action=notice.attachment.upload', spoofedFile, 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  expect(spoofedUpload.response.status === 400 && responseCode(spoofedUpload.body) === 'invalid_upload_type', `A file whose bytes contradict its image MIME type was accepted (${spoofedUpload.response.status}: ${JSON.stringify(spoofedUpload.body)}).`);
+  expect(r2.calls.filter((call) => call.method === 'put').length === beforeSpoofedPut, 'A rejected spoofed image was still written to R2.');
+
+  const orphanAlt = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'notice.upsert', id: 'alt-without-image', title: 'Texto alternativo huérfano', status: 'draft', imageAlt: 'No debe aceptarse'
+  }, 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  expect(orphanAlt.response.status === 400 && responseCode(orphanAlt.body) === 'invalid_notice_image', `Alt text without any image was accepted (${orphanAlt.response.status}: ${JSON.stringify(orphanAlt.body)}).`);
+
+  const pdfAlt = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'notice.upsert', id: 'pdf-alt-probe', title: 'PDF sin imagen', status: 'draft', attachmentUploadId: uploadId, imageAlt: 'No puede describir un PDF'
+  }, 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  expect(pdfAlt.response.status === 400 && responseCode(pdfAlt.body) === 'invalid_notice_image', `A PDF attachment was incorrectly accepted as the image required by alt text (${pdfAlt.response.status}: ${JSON.stringify(pdfAlt.body)}).`);
+  expect(db.uploads.get(uploadId)?.status === 'staged', 'Rejecting PDF-only alt text changed the staged upload lifecycle.');
+
+  const pngBytes = Uint8Array.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x4d, 0x65, 0x64]);
+  const pngFile = new File([pngBytes], 'aviso oficial.png', { type: 'image/png' });
+  const imageUpload = await classHubUpload(classHub.onRequestPost, db, '?class=s4-e&action=notice.attachment.upload', pngFile, 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  const imageUploadId = imageUpload.body.attachment?.uploadId;
+  expect(imageUpload.response.status === 201 && imageUpload.body.attachment?.mimeType === 'image/png', `A valid PNG notice upload failed (${imageUpload.response.status}: ${JSON.stringify(imageUpload.body)}).`);
+  const uploadedImageNotice = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'notice.upsert', id: 'uploaded-image-notice', title: 'Aviso con imagen subida', status: 'published', attachmentUploadId: imageUploadId, imageAlt: 'Afiche oficial de la facultad'
+  }, 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  expect(uploadedImageNotice.response.status === 200 && uploadedImageNotice.body.imageUrl === null && uploadedImageNotice.body.imageAlt === 'Afiche oficial de la facultad' && uploadedImageNotice.body.attachmentMimeType === 'image/png', `Alt text was rejected or lost for an uploaded raster image (${uploadedImageNotice.response.status}: ${JSON.stringify(uploadedImageNotice.body)}).`);
+
+  const attachedNotice = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'notice.upsert', id: 'notice-with-upload', course: 'Bioquímica II', title: 'Cronograma oficial', body: 'Consulta el PDF.',
+    priority: 'important', status: 'published', attachmentUploadId: uploadId, attachmentTitle: 'Cronograma de exámenes'
+  }, 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  expect(attachedNotice.response.status === 200 && attachedNotice.body.course === 'Bioquímica II' && attachedNotice.body.attachmentUploadId === uploadId && attachedNotice.body.attachmentMimeType === 'application/pdf', `A staged upload could not be linked to a notice (${attachedNotice.response.status}: ${JSON.stringify(attachedNotice.body)}).`);
+  expect(db.uploads.get(uploadId)?.status === 'linked', 'Linking the notice did not promote its upload metadata from staged to linked.');
+
+  const publicWithAttachment = await classHubGet(classHub.onRequestGet, db, '?class=s4-e&resource=public', '', { MED_NYKUTO_UPLOADS: r2 });
+  const publicNotice = publicWithAttachment.body.notices?.find((notice) => notice.id === 'notice-with-upload');
+  expect(publicNotice?.course === 'Bioquímica II' && publicNotice?.attachmentUploadId === uploadId && publicNotice?.attachmentUrl?.includes(`upload=${uploadId}`), 'The public notice snapshot omits its explicit subject or safe attachment contract.');
+  const publicAsset = await classHubRawGet(classHub.onRequestGet, db, `?class=s4-e&resource=notice-attachment&upload=${encodeURIComponent(uploadId)}`, '', { MED_NYKUTO_UPLOADS: r2 });
+  expect(publicAsset.status === 200 && publicAsset.headers.get('x-content-type-options') === 'nosniff' && publicAsset.headers.get('content-disposition')?.startsWith('inline;'), `A published notice attachment is not streamed with safe headers (${publicAsset.status}).`);
+  expect((await publicAsset.text()).startsWith('%PDF-1.7'), 'The published attachment endpoint did not stream the original R2 bytes.');
+
+  const rangeAsset = await classHubRawGet(classHub.onRequestGet, db, `?class=s4-e&resource=notice-attachment&upload=${encodeURIComponent(uploadId)}`, '', { MED_NYKUTO_UPLOADS: r2 }, { range: 'bytes=0-4' });
+  expect(rangeAsset.status === 206 && rangeAsset.headers.get('content-range') === `bytes 0-4/${pdfFile.size}` && await rangeAsset.text() === '%PDF-', 'The attachment endpoint does not honor a safe single byte range.');
+
+  const draftUpload = await classHubUpload(classHub.onRequestPost, db, '?class=s4-e&action=notice.attachment.upload', pdfFile, 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  const draftUploadId = draftUpload.body.attachment?.uploadId;
+  const draftNotice = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'notice.upsert', id: 'draft-with-upload', title: 'Borrador privado', status: 'draft', attachmentUploadId: draftUploadId
+  }, 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  expect(draftNotice.response.status === 200, `A draft notice could not retain its attachment (${draftNotice.response.status}: ${JSON.stringify(draftNotice.body)}).`);
+  const draftPublicAsset = await classHubRawGet(classHub.onRequestGet, db, `?class=s4-e&resource=notice-attachment&upload=${encodeURIComponent(draftUploadId)}`, '', { MED_NYKUTO_UPLOADS: r2 });
+  expect(draftPublicAsset.status === 404, 'An unauthenticated reader can download an attachment linked only to a draft notice.');
+  const draftAdminAsset = await classHubRawGet(classHub.onRequestGet, db, `?class=s4-e&resource=notice-attachment&upload=${encodeURIComponent(draftUploadId)}`, 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  expect(draftAdminAsset.status === 200, 'The authenticated delegate cannot review the attachment of their draft notice.');
+
+  const detachedNotice = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'notice.upsert', id: 'draft-with-upload', title: 'Borrador privado', status: 'draft', attachmentUploadId: null
+  }, 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  expect(detachedNotice.response.status === 200 && detachedNotice.body.attachmentUploadId === null && detachedNotice.body.attachmentTitle === null, `A client cannot detach a notice upload by sending attachmentUploadId:null alone (${detachedNotice.response.status}: ${JSON.stringify(detachedNotice.body)}).`);
+  expect(!db.uploads.has(draftUploadId) && !r2.objects.has(`classes/${DEFAULT_CLASS_ID}/notices/${draftUploadId}`), 'Detaching the last notice reference did not atomically mark, delete and remove the unreferenced upload.');
+
+  const retryUpload = await classHubUpload(classHub.onRequestPost, db, '?class=s4-e&action=notice.attachment.upload', pdfFile, 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  const retryUploadId = retryUpload.body.attachment?.uploadId;
+  const retryObjectKey = `classes/${DEFAULT_CLASS_ID}/notices/${retryUploadId}`;
+  const retryNotice = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'notice.upsert', id: 'delete-retry-notice', title: 'Prueba de recuperación R2', status: 'draft', attachmentUploadId: retryUploadId
+  }, 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  expect(retryNotice.response.status === 200, `The delete-retry fixture could not link its upload (${retryNotice.response.status}: ${JSON.stringify(retryNotice.body)}).`);
+  r2.failDeleteKeys.add(retryObjectKey);
+  const cleanupCallStart = db.calls.length;
+  const originalConsoleError = console.error;
+  console.error = () => {};
+  let failedDeleteDetach;
+  try {
+    failedDeleteDetach = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+      action: 'notice.upsert', id: 'delete-retry-notice', title: 'Prueba de recuperación R2', status: 'draft', attachmentUploadId: null
+    }, 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  } finally {
+    console.error = originalConsoleError;
+  }
+  expect(failedDeleteDetach.response.status === 200 && db.uploads.get(retryUploadId)?.status === 'staged' && r2.objects.has(retryObjectKey), 'An R2 delete failure did not preserve the detached notice while resetting its metadata to staged for a safe retry.');
+  const cleanupCalls = db.calls.slice(cleanupCallStart);
+  expect(cleanupCalls.some((call) => /^update\s+hub_uploads\s+set\s+status='deleting'/i.test(call.sql)) && cleanupCalls.some((call) => /^update\s+hub_uploads\s+set\s+status='staged'/i.test(call.sql)), 'Detached cleanup did not atomically mark `deleting` before R2 or reset to `staged` after failure.');
+  db.uploads.get(retryUploadId).createdAt = new Date(Date.now() - 25 * 60 * 60 * 1000).toISOString();
+  db.uploads.get(retryUploadId).updatedAt = db.uploads.get(retryUploadId).createdAt;
+  r2.failDeleteKeys.delete(retryObjectKey);
+  const cleanupTrigger = await classHubUpload(classHub.onRequestPost, db, '?class=s4-e&action=notice.attachment.upload', pdfFile, 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  expect(cleanupTrigger.response.status === 201 && !db.uploads.has(retryUploadId) && !r2.objects.has(retryObjectKey), 'The 24-hour staged-upload TTL did not reclaim an abandoned object before reserving the next upload.');
+
+  const crossClassAttachment = await classHubPost(classHub.onRequestPost, db, '?class=s3-a', {
+    action: 'notice.upsert', id: 'cross-class-upload', title: 'No aceptar', status: 'published', attachmentUploadId: uploadId
+  }, 'owner-token', { MED_NYKUTO_UPLOADS: r2 });
+  expect(crossClassAttachment.response.status === 400 && responseCode(crossClassAttachment.body) === 'invalid_notice_attachment', `A notice linked an upload belonging to another class (${crossClassAttachment.response.status}: ${JSON.stringify(crossClassAttachment.body)}).`);
+
+  const uploadAdmin = await classHubGet(classHub.onRequestGet, db, '?class=s4-e&resource=admin', 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  expect(uploadAdmin.body.uploadPolicy?.enabled === true && uploadAdmin.body.uploadPolicy?.maxBytes === 15 * 1024 * 1024 && uploadAdmin.body.uploadPolicy?.maxStagedUploads === 20 && uploadAdmin.body.uploadPolicy?.stagedTtlHours === 24, 'The authenticated snapshot does not expose the active R2 size, quota and staged-TTL policy.');
+
+  const quotaTimestamp = new Date().toISOString();
+  let pendingS4 = [...db.uploads.values()].filter((item) => item.classId === DEFAULT_CLASS_ID && ['staged', 'deleting'].includes(item.status)).length;
+  while (pendingS4 < uploadAdmin.body.uploadPolicy.maxStagedUploads) {
+    const quotaId = `upload-quota-${String(pendingS4).padStart(2, '0')}`;
+    db.uploads.set(quotaId, { id: quotaId, classId: DEFAULT_CLASS_ID, objectKey: `classes/${DEFAULT_CLASS_ID}/notices/${quotaId}`, originalName: 'pendiente.pdf', mimeType: 'application/pdf', sizeBytes: 12, etag: '', status: 'staged', createdBy: 'editor-s4', createdAt: quotaTimestamp, updatedAt: quotaTimestamp });
+    pendingS4 += 1;
+  }
+  const putsBeforeQuota = r2.calls.filter((call) => call.method === 'put').length;
+  const quotaRejected = await classHubUpload(classHub.onRequestPost, db, '?class=s4-e&action=notice.attachment.upload', pdfFile, 'editor-s4-token', { MED_NYKUTO_UPLOADS: r2 });
+  expect(quotaRejected.response.status === 409 && responseCode(quotaRejected.body) === 'staged_upload_quota' && r2.calls.filter((call) => call.method === 'put').length === putsBeforeQuota, `The atomic per-class staged quota did not reject before writing to R2 (${quotaRejected.response.status}: ${JSON.stringify(quotaRejected.body)}).`);
+  const secondClassUpload = await classHubUpload(classHub.onRequestPost, db, '?class=s3-a&action=notice.attachment.upload', pdfFile, 'owner-token', { MED_NYKUTO_UPLOADS: r2 });
+  expect(secondClassUpload.response.status === 201 && db.uploads.get(secondClassUpload.body.attachment?.uploadId)?.classId === SECOND_CLASS_ID, 'The S4 staged quota leaked across tenants and blocked an independent class.');
 
   const profileStart = db.calls.length;
   const savedProfile = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
@@ -698,6 +988,9 @@ async function validateRuntimeIsolation() {
   });
   expect(db.tableColumns.get('hub_tasks')?.has('attachment_url') && db.tableColumns.get('hub_tasks')?.has('attachment_title'), 'hub_tasks is missing attachment columns after schema initialization.');
   expect(db.tableColumns.get('hub_notices')?.has('image_url') && db.tableColumns.get('hub_notices')?.has('image_alt'), 'hub_notices is missing image columns after schema initialization.');
+  expect(db.tableColumns.get('hub_notices')?.has('attachment_upload_id') && db.tableColumns.get('hub_notices')?.has('attachment_title'), 'hub_notices is missing its R2 attachment reference columns after schema initialization.');
+  expect(db.tableColumns.get('hub_uploads')?.has('object_key') && db.tableColumns.get('hub_uploads')?.has('mime_type') && db.tableColumns.get('hub_uploads')?.has('size_bytes'), 'hub_uploads is missing its object metadata after schema initialization.');
+  ['hub_notices', 'hub_activities', 'hub_dates'].forEach((table) => expect(db.tableColumns.get(table)?.has('course'), `${table} is missing its optional explicit subject link.`));
   expect(db.tableColumns.get('hub_classes')?.has('support_whatsapp'), 'hub_classes is missing support_whatsapp after schema initialization.');
   expect(db.tableColumns.get('hub_editor_profiles')?.has('whatsapp_e164') && db.tableColumns.get('hub_editor_profiles')?.has('actor_id'), 'hub_editor_profiles is missing its private WhatsApp contract.');
   expect(db.tableColumns.get('hub_memberships')?.has('is_leader'), 'hub_memberships is missing is_leader after schema initialization.');
@@ -740,7 +1033,7 @@ async function validateMulticlassShell() {
   expect(!/state\.(?:members|memberships)|data\.(?:members|memberships)/.test(turmaRuntime), 'The generic student hub still consumes nominative group records.');
   expect(turmaRuntime.includes("action:'group.join'") && turmaRuntime.includes("action:'group.leave'") && turmaRuntime.includes('memberCount'), 'Students cannot join and leave generic class groups using anonymous occupancy data.');
 
-  expect(managementHtml.includes('src="/gestion-v440.js?v=475"') && managementHtml.includes('href="/gestion-v440.css?v=475"'), 'The nested management route does not use absolute v475 assets.');
+  expect(managementHtml.includes('src="/gestion-v440.js?v=476"') && managementHtml.includes('href="/gestion-v440.css?v=476"'), 'The nested management route does not use absolute v476 assets.');
   expect(managementHtml.includes('id="credentialForm"') && managementHtml.includes('name="action" value="auth.login"') && managementHtml.includes('autocomplete="username"') && managementHtml.includes('autocomplete="current-password"'), 'The v472 delegate email/password login form is incomplete.');
   expect(managementHtml.includes('id="passwordChangeForm"') && managementHtml.includes('name="action" value="auth.password.change"') && (managementHtml.match(/autocomplete="new-password"/g) || []).length >= 2, 'The mandatory temporary-password change form is incomplete.');
   expect(managementHtml.includes('id="delegateAccountForm"') && managementHtml.includes('name="action" value="editor.account.create"') && managementHtml.includes('name="temporaryPassword"'), 'The owner cannot create a tenant-scoped delegate credential from the v472 panel.');
@@ -877,6 +1170,27 @@ async function main() {
   expect(/\bimage_url\s+text\b/i.test(noticeDefinition) && /\bimage_alt\s+text\b/i.test(noticeDefinition), 'hub_notices does not declare optional image URL/alt columns.');
   expect(/ensureNoticeImageColumns/.test(hubSource) && /alter\s+table\s+hub_notices\s+add\s+column\s+image_url/i.test(hubSource), 'The additive legacy notice-image migration is missing.');
   expect(/invalid_notice_image/.test(hubSource) && /image_url\s+AS\s+imageUrl/.test(hubSource), 'Notice images are not validated and exposed with the public camel-case contract.');
+  expect(/\battachment_upload_id\s+text\b/i.test(noticeDefinition) && /\battachment_title\s+text\b/i.test(noticeDefinition), 'hub_notices does not declare its optional R2 attachment reference/title.');
+  expect(/ensureNoticeAttachmentColumns/.test(hubSource) && /alter\s+table\s+hub_notices\s+add\s+column\s+attachment_upload_id/i.test(hubSource), 'The additive legacy notice-attachment migration is missing.');
+
+  const uploadDefinition = tableDefinition(hubSource, 'hub_uploads');
+  expect(/\bobject_key\s+text\s+not\s+null\s+unique\b/i.test(uploadDefinition) && /\boriginal_name\s+text\s+not\s+null\b/i.test(uploadDefinition) && /\bmime_type\s+text\s+not\s+null\b/i.test(uploadDefinition) && /\bsize_bytes\s+integer\s+not\s+null\b/i.test(uploadDefinition), 'hub_uploads must store only class-scoped R2 object metadata.');
+  expect(/function\s+uploadsFrom\s*\([^)]*\)\s*\{\s*return\s+env\.MED_NYKUTO_UPLOADS\s*\|\|\s*null/.test(hubSource), 'The notice upload does not use the dedicated MED_NYKUTO_UPLOADS binding.');
+  expect(/NOTICE_UPLOAD_ACTION\s*=\s*['"]notice\.attachment\.upload['"]/.test(hubSource) && /request\.formData\(\)/.test(hubSource) && /validSessionCsrf\(request, actor\)/.test(hubSource), 'The multipart notice upload is missing its stable action, parser or session anti-CSRF check.');
+  expect(/MAX_NOTICE_ATTACHMENT_BYTES\s*=\s*15\s*\*\s*1024\s*\*\s*1024/.test(hubSource) && /invalid_upload_type/.test(hubSource) && /detectUploadMime/.test(hubSource), 'The notice upload is missing its 15 MiB limit or byte-signature type validation.');
+  expect(/MAX_STAGED_NOTICE_UPLOADS_PER_CLASS\s*=\s*20/.test(hubSource) && /NOTICE_STAGED_UPLOAD_TTL_SECONDS\s*=\s*24\s*\*\s*60\s*\*\s*60/.test(hubSource) && /staged_upload_quota/.test(hubSource), 'Notice uploads are missing their bounded per-class staged quota or 24-hour TTL.');
+  expect(/function\s+isNoticeImageMime/.test(hubSource) && /imageAlt\s*&&\s*!imageUrl\s*&&\s*!attachmentIsImage/.test(hubSource), 'Uploaded raster images cannot safely satisfy the notice alt-text contract, or PDF/orphan alt text is not rejected.');
+  expect(/function\s+markUploadDeleting/.test(hubSource) && /status='deleting'/.test(hubSource) && /NOT EXISTS \(SELECT 1 FROM hub_notices n WHERE n\.class_id=hub_uploads\.class_id AND n\.attachment_upload_id=hub_uploads\.id\)/.test(hubSource), 'Upload cleanup is missing its atomic deleting claim and same-class unreferenced guard.');
+  expect(/await bucket\.delete\(claimed\.object_key\)/.test(hubSource) && /class_hub_upload_cleanup_r2_error/.test(hubSource) && /SET status='staged',updated_at=\?/.test(hubSource), 'R2 cleanup does not reset deleting metadata to staged after an object-delete failure.');
+  expect(/hub_uploads_class_lifecycle_idx/.test(hubSource) && /cleanupExpiredNoticeUploads/.test(hubSource) && /cleanupDetachedNoticeUpload/.test(hubSource), 'Expired and freshly detached unreferenced uploads are not covered by the bounded lifecycle cleanup.');
+  expect(/crypto\.randomUUID\(\)/.test(hubSource) && !/Math\.random\(\)/.test(hubSource), 'Security-sensitive entity/upload IDs are not exclusively generated with Web Crypto.');
+  expect(/n\.status='published'/.test(hubSource) && /u\.status='linked'/.test(hubSource) && /content-security-policy/.test(hubSource) && /x-content-type-options/.test(hubSource), 'The public R2 stream is not restricted to published notices or is missing safe response headers.');
+  expect(!/api\.cloudflare\.com/.test(hubSource), 'The Function calls the Cloudflare REST API instead of using its in-process R2 binding.');
+
+  const activityDefinition = tableDefinition(hubSource, 'hub_activities');
+  const dateDefinition = tableDefinition(hubSource, 'hub_dates');
+  expect(/\bcourse\s+text\s+not\s+null\s+default\s+''/i.test(noticeDefinition) && /\bcourse\s+text\s+not\s+null\s+default\s+''/i.test(activityDefinition) && /\bcourse\s+text\s+not\s+null\s+default\s+''/i.test(dateDefinition), 'Notices, activities and dates do not expose their optional explicit subject link.');
+  expect(/ensureCourseColumns/.test(hubSource) && /alter\s+table\s+\$\{table\}\s+add\s+column\s+course/i.test(hubSource), 'The additive course-link migration is missing for legacy notice/activity/date tables.');
 
   const profileDefinition = tableDefinition(hubSource, 'hub_editor_profiles');
   expect(/\bclass_id\s+text\s+not\s+null\b/i.test(profileDefinition) && /\bactor_id\s+text\s+not\s+null\b/i.test(profileDefinition) && /\bwhatsapp_e164\s+text\s+not\s+null\b/i.test(profileDefinition), 'hub_editor_profiles is missing its tenant/actor/E.164 fields.');
@@ -930,7 +1244,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log('Multiclass foundation validation OK: tenant-scoped D1 schema/queries, v475 notices/WhatsApp delegate workflow, cross-class editor refusal, protected banks unchanged and 4.º E compatibility preserved.');
+  console.log('Multiclass foundation validation OK: tenant-scoped D1/R2 schema and queries, notice upload lifecycle/alt text, subject cockpit links, cross-class editor refusal, protected banks unchanged and 4.º E compatibility preserved.');
 }
 
 main().catch((error) => {

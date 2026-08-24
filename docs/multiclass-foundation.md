@@ -14,6 +14,7 @@ Le pilote est un espace **non indexé, accessible par lien, sans données person
 | Gestion | `/gestion/<slug>` | Jeton propriétaire/historique ou session délégué par courriel et mot de passe |
 | Données publiques | `/api/class-hub?class=<slug>&resource=public` | Sans noms d'étudiants |
 | Données de gestion | `/api/class-hub?class=<slug>&resource=admin` | Authentifié et limité à la turma |
+| Pièce jointe d'un avis | `/api/class-hub?class=<slug>&resource=notice-attachment&upload=<id>` | Publique seulement si l'avis lié est publié ; brouillons réservés à la gestion authentifiée |
 | Registre des turmas | `/api/class-hub?class=<slug>&resource=classes` | Propriétaire uniquement |
 | Manifeste PWA | `/api/class-manifest?class=<slug>` | Manifeste propre au slug |
 
@@ -54,13 +55,19 @@ Aucune donnée pédagogique ou opérationnelle n'est copiée automatiquement d'u
 - Le classement historique `semester-4-group-e` est rattaché à `s4-e`.
 - La réponse publique contient seulement les compteurs d'occupation des groupes. Les noms sont lus uniquement par le snapshot administrateur authentifié.
 - `hub_editor_profiles` conserve le WhatsApp normalisé de chaque acteur de gestion. Ce numéro reste absent de la réponse publique et du journal d'audit.
-- `hub_notices` accepte une image facultative par URL HTTPS ; aucun fichier binaire n'est stocké dans D1.
+- `hub_notices` accepte toujours une image facultative par URL HTTPS. Il peut aussi référencer une pièce jointe téléversée avec `attachment_upload_id` ; une image raster téléversée peut recevoir `image_alt`, contrairement à un PDF.
+- `hub_uploads` conserve uniquement les métadonnées et la clé objet, toujours avec `class_id`. Le contenu binaire reste dans R2 et n'est jamais enregistré dans D1.
+- `hub_notices`, `hub_activities` et `hub_dates` possèdent un champ `course` facultatif : le cockpit matière utilise cette liaison explicite et ne déduit pas la matière depuis le titre.
 
 Le schéma est créé et complété de façon idempotente au premier appel de Function. Les lignes historiques sans `class_id` sont rattachées à `s4-e` ; aucune banque de cours ou de questions n'est réécrite.
 
 ## Variables et services Cloudflare
 
-La Function accepte le binding D1 `MED_NYKUTO_DB` (préféré) ou `DB`. Les secrets et options suivants sont lus côté serveur :
+La Function accepte le binding D1 `MED_NYKUTO_DB` (préféré) ou `DB`. Pour les pièces jointes d'avis, elle utilise exclusivement un binding R2 nommé `MED_NYKUTO_UPLOADS`.
+
+Dans Cloudflare Pages, créer un bucket R2 privé, ajouter ce binding séparément aux environnements **Preview** et **Production**, puis redéployer chaque environnement. Le code ne rend jamais le bucket public : la Function vérifie la turma et l'état de l'avis avant de diffuser l'objet. Si le binding manque, le snapshot de gestion renvoie `uploadPolicy.enabled: false` et l'API répond explicitement `upload_storage_unavailable`.
+
+Les secrets et options suivants sont lus côté serveur :
 
 - `MED_NYKUTO_OWNER_TOKEN` : jeton propriétaire fort et unique ;
 - `MED_NYKUTO_RATE_SALT` : sel pour les clés anonymisées de limitation ;
@@ -79,6 +86,10 @@ Les secrets ne doivent jamais être ajoutés au dépôt. La première ouverture 
 - Les liens de notification sont limités à l'origine et à `/turma/`.
 - Les URL de fichiers administrés acceptent uniquement HTTP(S).
 - Les images d'avis acceptent uniquement une URL HTTPS sans identifiants intégrés. Elles sont chargées avec une politique de référent restrictive et restent facultatives.
+- Un téléversement d'avis exige une session propriétaire/délégué valide, l'origine du site, le jeton anti-CSRF et une taille HTTP vérifiable. Il accepte un seul PDF ou une seule image raster (JPEG, PNG, WEBP, GIF, HEIC/HEIF ou AVIF), avec contrôle de la signature binaire et une limite de 15 Mio.
+- Les identifiants et clés R2 sont produits par Web Crypto et ne contiennent jamais le nom du fichier. Le nom nettoyé, le type, la taille et l'ETag sont les seules métadonnées conservées dans D1.
+- Une pièce jointe liée à un brouillon reste inaccessible au public. La lecture publique devient possible seulement lorsque l'upload est `linked` et qu'un avis de la même turma est `published`. Les réponses sont diffusées en flux, prennent en charge une plage d'octets unique et utilisent `no-store`, `nosniff`, une politique same-origin et une CSP restrictive.
+- Chaque turma est limitée atomiquement à 20 téléversements `staged` ou en cours de suppression. Les fichiers non référencés expirent après 24 heures. Un détachement ou une expiration marque d'abord la ligne `deleting` avec une garde `class_id` et `NOT EXISTS`, puis supprime R2 avant les métadonnées D1 ; un échec R2 remet la ligne en `staged` pour permettre une nouvelle tentative sans course avec une publication.
 - Le WhatsApp du délégué est normalisé au format E.164 et réservé au snapshot authentifié. « Format vérifié » ne signifie pas que la propriété du numéro a été confirmée par SMS ou par WhatsApp.
 - Les invitations expirent, ne sont affichées qu'une fois et peuvent être révoquées.
 - Les mots de passe utilisent PBKDF2-HMAC-SHA-256 avec un sel aléatoire propre à chaque compte ; aucune valeur en clair n'est stockée ou renvoyée.
@@ -100,6 +111,8 @@ npm run test:e2e
 Le validateur multiturmas vérifie notamment :
 
 - la présence de `class_id` dans le schéma et les requêtes D1 ;
+- l'isolation de `hub_uploads`, le binding R2 direct, les types/taille/signatures, la liaison à un avis publié et les en-têtes sûrs ;
+- le texte alternatif des images téléversées, le refus pour un PDF sans image, le quota `staged`, le TTL, le marquage atomique `deleting` et la reprise après un échec R2 ;
 - l'isolation tenant de `hub_editor_credentials` et `hub_editor_sessions` ;
 - le refus d'un éditeur d'une autre turma ;
 - la présence du helper PBKDF2, des cookies sécurisés, de l'anti-CSRF et du changement obligatoire ;
@@ -128,7 +141,7 @@ Une fusion en production exige la validation explicite du propriétaire du proje
 ## Limites assumées du pilote
 
 - Pas de comptes étudiants ni de contrôle d'accès par classe côté lecture.
-- Pas d'upload direct : les fichiers sont publiés par URL HTTP(S).
+- Les pièces jointes directes sont limitées aux avis officiels et à 15 Mio ; les autres archives continuent d'utiliser une URL HTTP(S) ou le Drive de la turma.
 - L'envoi vers WhatsApp ouvre un message prérempli : le navigateur ne l'envoie jamais automatiquement et ne joint pas un PDF sans action de l'utilisateur.
 - Pas de copie automatique de cours entre professeurs ou semestres.
 - Pas de contenu généré automatiquement sans sources identifiées et validation humaine.

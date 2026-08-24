@@ -17,7 +17,8 @@ import {
 
 const EDITOR_ACTIONS = new Set([
   'task.upsert', 'notice.upsert', 'activity.upsert', 'group.upsert', 'group.freeze',
-  'member.move', 'member.remove', 'file.upsert', 'date.upsert', 'profile.upsert'
+  'member.move', 'member.remove', 'file.upsert', 'date.upsert', 'profile.upsert',
+  'notice.attachment.upload'
 ]);
 const STATUSES = new Set(['draft', 'published', 'archived']);
 const NOTICE_PRIORITIES = new Set(['normal', 'important', 'urgent']);
@@ -25,6 +26,24 @@ const ID_PATTERN = /^[a-z0-9][a-z0-9._-]{0,79}$/;
 const CLASS_REF_PATTERN = /^[a-z0-9][a-z0-9-]{0,30}$/;
 const TIME_PATTERN = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
 const MAX_BODY = 65536;
+const MAX_NOTICE_ATTACHMENT_BYTES = 15 * 1024 * 1024;
+const MAX_NOTICE_UPLOAD_REQUEST_BYTES = MAX_NOTICE_ATTACHMENT_BYTES + 512 * 1024;
+const MAX_STAGED_NOTICE_UPLOADS_PER_CLASS = 20;
+const NOTICE_STAGED_UPLOAD_TTL_SECONDS = 24 * 60 * 60;
+const NOTICE_DELETING_RETRY_SECONDS = 5 * 60;
+const NOTICE_UPLOAD_CLEANUP_BATCH_SIZE = 25;
+const NOTICE_UPLOAD_ACTION = 'notice.attachment.upload';
+const NOTICE_ATTACHMENT_RESOURCE = 'notice-attachment';
+const NOTICE_UPLOAD_MIME_TYPES = new Set([
+  'application/pdf',
+  'image/avif',
+  'image/gif',
+  'image/heic',
+  'image/heif',
+  'image/jpeg',
+  'image/png',
+  'image/webp'
+]);
 const DEFAULT_CLASS_ID = 's4-e';
 const DEFAULT_CLASS_SLUG = 's4-e';
 const LEGACY_COHORT_KEY = 'semester-4-group-e';
@@ -86,14 +105,14 @@ const DEFAULT_PUBLIC = {
   class: DEFAULT_CLASS,
   subjects: DEFAULT_SUBJECTS.map(([id, name], index) => ({ id, name, order: index + 1 })),
   notices: [
-    { id: 'week-2026-08-21', priority: 'normal', title: 'Cursos del 19 al 21 de agosto disponibles', body: 'Bioquímica, Epidemiología, Fisiología y Microbiología práctica ya están organizadas.', imageUrl: null, imageAlt: null, status: 'published' },
-    { id: 'tasks-2026-08-21', priority: 'important', title: 'Dos trabajos activos', body: 'Epidemiología: exposición grupal. Bioquímica: imprimir y completar a mano las actividades 3 y 4.', imageUrl: null, imageAlt: null, status: 'published' }
+    { id: 'week-2026-08-21', course: '', priority: 'normal', title: 'Cursos del 19 al 21 de agosto disponibles', body: 'Bioquímica, Epidemiología, Fisiología y Microbiología práctica ya están organizadas.', imageUrl: null, imageAlt: null, attachmentUploadId: null, attachmentUrl: null, attachmentTitle: null, attachmentMimeType: null, attachmentSizeBytes: null, status: 'published' },
+    { id: 'tasks-2026-08-21', course: '', priority: 'important', title: 'Dos trabajos activos', body: 'Epidemiología: exposición grupal. Bioquímica: imprimir y completar a mano las actividades 3 y 4.', imageUrl: null, imageAlt: null, attachmentUploadId: null, attachmentUrl: null, attachmentTitle: null, attachmentMimeType: null, attachmentSizeBytes: null, status: 'published' }
   ],
   tasks: [
     { id: 'epi-presentation', course: 'Epidemiología', title: 'Exposición grupal de enfermedad sorteada', description: 'Máximo 10 integrantes, diapositivas, uniforme, puntualidad y evaluación individual.', dueLabel: 'Mié. 26 ago.', dueAt: '2026-08-26T11:20:00-03:00', attachmentUrl: null, attachmentTitle: null, status: 'published' },
-    { id: 'bio-activities', course: 'Bioquímica II', title: 'Actividades 3 y 4 impresas y manuscritas', description: 'El práctico contiene cinco actividades y la presencia es obligatoria.', dueLabel: 'Vie. 21 ago.', dueAt: '2026-08-21T09:10:00-03:00', attachmentUrl: null, attachmentTitle: null, status: 'published' }
+    { id: 'bio-activities', course: 'Bioquímica II', title: 'Actividades 3 y 4 impresas y manuscritas', description: 'El práctico contiene cinco actividades y la presencia es obligatoria.', dueLabel: 'Mié. 26 ago.', dueAt: '2026-08-26T09:10:00-03:00', attachmentUrl: null, attachmentTitle: null, status: 'published' }
   ],
-  activities: [{ id: 'epi-2026-08-19', title: 'Exposición de Epidemiología', capacity: 10, status: 'published', frozen: false }],
+  activities: [{ id: 'epi-2026-08-19', course: 'Epidemiología y Salud Pública', title: 'Exposición de Epidemiología', capacity: 10, status: 'published', frozen: false }],
   groups: []
 };
 
@@ -107,6 +126,7 @@ function jsonWithCookies(body, status, cookies) {
 }
 function fail(status, code, error, headers = {}) { return json({ ok: false, code, error }, status, headers); }
 function dbFrom(env) { return env.MED_NYKUTO_DB || env.DB || null; }
+function uploadsFrom(env) { return env.MED_NYKUTO_UPLOADS || null; }
 function nowIso() { return new Date().toISOString(); }
 function cleanText(value, max = 500) { return String(value || '').normalize('NFKC').replace(/[\u0000-\u001f\u007f]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, max); }
 function cleanId(value) { const id = String(value || '').trim().toLowerCase(); return ID_PATTERN.test(id) ? id : ''; }
@@ -208,7 +228,7 @@ async function rateLimitSubject(env, db, classId, scope, subject, limit, windowS
 }
 function safeEqual(left, right) { left = String(left || ''); right = String(right || ''); let mismatch = left.length ^ right.length; const size = Math.max(left.length, right.length); for (let i = 0; i < size; i += 1) mismatch |= (left.charCodeAt(i % Math.max(1, left.length)) || 0) ^ (right.charCodeAt(i % Math.max(1, right.length)) || 0); return mismatch === 0; }
 function token() { const bytes = crypto.getRandomValues(new Uint8Array(32)); return [...bytes].map((part) => part.toString(16).padStart(2, '0')).join(''); }
-function generatedId(prefix) { return `${prefix}-${crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`}`; }
+function generatedId(prefix) { return `${prefix}-${crypto.randomUUID()}`; }
 function changed(result) { return Number(result?.meta?.changes ?? result?.changes ?? 0) > 0; }
 function scopedId(classId, value) {
   const id = cleanId(value);
@@ -216,6 +236,66 @@ function scopedId(classId, value) {
   return cleanId(`${classId}.${id}`);
 }
 function entityId(classId, value, prefix) { return scopedId(classId, value) || scopedId(classId, generatedId(prefix)); }
+
+function cleanUploadName(value) {
+  const segments = String(value || '').normalize('NFKC').split(/[\\/]/);
+  return cleanText(segments[segments.length - 1], 180) || 'archivo';
+}
+function normalizeUploadMime(value) {
+  const mime = String(value || '').trim().toLowerCase().split(';')[0];
+  return mime === 'image/jpg' ? 'image/jpeg' : mime;
+}
+function ascii(bytes, start, length) {
+  return String.fromCharCode(...bytes.slice(start, start + length));
+}
+async function detectUploadMime(file) {
+  const bytes = new Uint8Array(await file.slice(0, 16).arrayBuffer());
+  if (bytes.length >= 5 && ascii(bytes, 0, 5) === '%PDF-') return 'application/pdf';
+  if (bytes.length >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) return 'image/jpeg';
+  if (bytes.length >= 8 && bytes[0] === 0x89 && ascii(bytes, 1, 3) === 'PNG' && bytes[4] === 0x0d && bytes[5] === 0x0a && bytes[6] === 0x1a && bytes[7] === 0x0a) return 'image/png';
+  if (bytes.length >= 6 && ['GIF87a', 'GIF89a'].includes(ascii(bytes, 0, 6))) return 'image/gif';
+  if (bytes.length >= 12 && ascii(bytes, 0, 4) === 'RIFF' && ascii(bytes, 8, 4) === 'WEBP') return 'image/webp';
+  if (bytes.length >= 12 && ascii(bytes, 4, 4) === 'ftyp') {
+    const brand = ascii(bytes, 8, 4).toLowerCase();
+    if (['avif', 'avis'].includes(brand)) return 'image/avif';
+    if (['heic', 'heix', 'hevc', 'hevx', 'mif1', 'msf1'].includes(brand)) return 'image/heic';
+  }
+  return '';
+}
+function compatibleUploadMime(declared, detected) {
+  if (declared === detected) return true;
+  return ['image/heic', 'image/heif'].includes(declared) && ['image/heic', 'image/heif'].includes(detected);
+}
+function isNoticeImageMime(value) {
+  const mime = normalizeUploadMime(value);
+  return mime.startsWith('image/') && NOTICE_UPLOAD_MIME_TYPES.has(mime);
+}
+function isFilePart(value) {
+  return Boolean(value && typeof value === 'object' && typeof value.name === 'string' && Number.isFinite(value.size) && typeof value.slice === 'function' && typeof value.stream === 'function');
+}
+function noticeAttachmentUrl(classRecord, uploadId) {
+  return `/api/class-hub?class=${encodeURIComponent(classRecord.slug)}&resource=${NOTICE_ATTACHMENT_RESOURCE}&upload=${encodeURIComponent(uploadId)}`;
+}
+function noticeUploadObjectKey(classId, uploadId) {
+  return `classes/${classId}/notices/${uploadId}`;
+}
+function isExpectedNoticeUploadKey(classId, uploadId, objectKey) {
+  return String(objectKey || '') === noticeUploadObjectKey(classId, uploadId);
+}
+function decorateNoticeAttachment(row, classRecord) {
+  const uploadId = cleanId(row?.attachmentUploadId);
+  const size = Number(row?.attachmentSizeBytes);
+  return {
+    ...row,
+    course: cleanText(row?.course, 80),
+    attachmentUploadId: uploadId || null,
+    attachmentUrl: uploadId ? noticeAttachmentUrl(classRecord, uploadId) : null,
+    attachmentTitle: uploadId ? (cleanText(row?.attachmentTitle, 180) || cleanUploadName(row?.attachmentOriginalName)) : null,
+    attachmentMimeType: uploadId ? normalizeUploadMime(row?.attachmentMimeType) : null,
+    attachmentSizeBytes: uploadId && Number.isFinite(size) ? size : null,
+    attachmentOriginalName: undefined
+  };
+}
 
 function supportWhatsapp(row, env = null) {
   return cleanE164(row?.support_whatsapp)
@@ -279,6 +359,26 @@ async function ensureNoticeImageColumns(db) {
   }
 }
 
+async function ensureNoticeAttachmentColumns(db) {
+  const columns = await db.prepare(`PRAGMA table_info(hub_notices)`).all();
+  const names = new Set((columns.results || []).map((column) => column.name));
+  if (!names.has('attachment_upload_id')) {
+    try { await db.prepare(`ALTER TABLE hub_notices ADD COLUMN attachment_upload_id TEXT`).run(); } catch (error) { if (!/duplicate column/i.test(String(error))) throw error; }
+  }
+  if (!names.has('attachment_title')) {
+    try { await db.prepare(`ALTER TABLE hub_notices ADD COLUMN attachment_title TEXT`).run(); } catch (error) { if (!/duplicate column/i.test(String(error))) throw error; }
+  }
+}
+
+async function ensureCourseColumns(db) {
+  for (const table of ['hub_notices', 'hub_activities', 'hub_dates']) {
+    const columns = await db.prepare(`PRAGMA table_info(${table})`).all();
+    if (!(columns.results || []).some((column) => column.name === 'course')) {
+      try { await db.prepare(`ALTER TABLE ${table} ADD COLUMN course TEXT NOT NULL DEFAULT ''`).run(); } catch (error) { if (!/duplicate column/i.test(String(error))) throw error; }
+    }
+  }
+}
+
 async function ensureMembershipLeaderColumn(db) {
   const columns = await db.prepare(`PRAGMA table_info(hub_memberships)`).all();
   if (!(columns.results || []).some((column) => column.name === 'is_leader')) {
@@ -292,11 +392,12 @@ async function listClasses(db, env = null) {
 }
 
 async function activityState(db, classId, activityId, current = nowIso()) {
-  const activity = await db.prepare(`SELECT id,capacity,frozen,closes_at FROM hub_activities WHERE class_id=? AND id=?`).bind(classId, activityId).first();
-  if (!activity) return { exists: false, locked: true, capacity: 0, closesAt: null };
+  const activity = await db.prepare(`SELECT id,course,capacity,frozen,closes_at FROM hub_activities WHERE class_id=? AND id=?`).bind(classId, activityId).first();
+  if (!activity) return { exists: false, locked: true, course: '', capacity: 0, closesAt: null };
   return {
     exists: true,
     locked: Boolean(activity.frozen) || Boolean(activity.closes_at && activity.closes_at <= current),
+    course: cleanText(activity.course, 80),
     capacity: Number(activity.capacity) || 0,
     closesAt: activity.closes_at || null
   };
@@ -309,12 +410,13 @@ async function ensureSchema(db) {
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_classes (id TEXT PRIMARY KEY, slug TEXT NOT NULL UNIQUE, name TEXT NOT NULL, semester INTEGER NOT NULL, group_code TEXT NOT NULL DEFAULT '', theme TEXT NOT NULL DEFAULT 'midnight-gold', drive_url TEXT NOT NULL DEFAULT '', support_whatsapp TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_subjects (class_id TEXT NOT NULL, id TEXT NOT NULL, name TEXT NOT NULL, sort_order INTEGER NOT NULL DEFAULT 0, status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, updated_at TEXT NOT NULL, PRIMARY KEY(class_id,id), FOREIGN KEY(class_id) REFERENCES hub_classes(id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_tasks (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL, title TEXT NOT NULL, description TEXT NOT NULL DEFAULT '', due_label TEXT NOT NULL DEFAULT '', due_at TEXT, attachment_url TEXT, attachment_title TEXT, status TEXT NOT NULL DEFAULT 'draft', created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
-      db.prepare(`CREATE TABLE IF NOT EXISTS hub_notices (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', title TEXT NOT NULL, body TEXT NOT NULL DEFAULT '', priority TEXT NOT NULL DEFAULT 'normal', status TEXT NOT NULL DEFAULT 'draft', push_mode INTEGER NOT NULL DEFAULT 0, image_url TEXT, image_alt TEXT, created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, published_at TEXT)`),
-      db.prepare(`CREATE TABLE IF NOT EXISTS hub_activities (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', title TEXT NOT NULL, capacity INTEGER NOT NULL DEFAULT 10, closes_at TEXT, status TEXT NOT NULL DEFAULT 'draft', frozen INTEGER NOT NULL DEFAULT 0, created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_uploads (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', object_key TEXT NOT NULL UNIQUE, original_name TEXT NOT NULL, mime_type TEXT NOT NULL, size_bytes INTEGER NOT NULL, etag TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'staged', created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_notices (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL DEFAULT '', title TEXT NOT NULL, body TEXT NOT NULL DEFAULT '', priority TEXT NOT NULL DEFAULT 'normal', status TEXT NOT NULL DEFAULT 'draft', push_mode INTEGER NOT NULL DEFAULT 0, image_url TEXT, image_alt TEXT, attachment_upload_id TEXT, attachment_title TEXT, created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, published_at TEXT)`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_activities (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL DEFAULT '', title TEXT NOT NULL, capacity INTEGER NOT NULL DEFAULT 10, closes_at TEXT, status TEXT NOT NULL DEFAULT 'draft', frozen INTEGER NOT NULL DEFAULT 0, created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_groups (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', activity_id TEXT NOT NULL, name TEXT NOT NULL, capacity INTEGER NOT NULL DEFAULT 10, frozen INTEGER NOT NULL DEFAULT 0, created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(activity_id, name), FOREIGN KEY(activity_id) REFERENCES hub_activities(id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_memberships (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', activity_id TEXT NOT NULL, group_id TEXT NOT NULL, student_hash TEXT NOT NULL, display_name TEXT NOT NULL, is_leader INTEGER NOT NULL DEFAULT 0, joined_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(activity_id, student_hash), FOREIGN KEY(activity_id) REFERENCES hub_activities(id), FOREIGN KEY(group_id) REFERENCES hub_groups(id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_files (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL, lesson_date TEXT NOT NULL DEFAULT '', title TEXT NOT NULL, url TEXT NOT NULL, file_type TEXT NOT NULL DEFAULT 'link', status TEXT NOT NULL DEFAULT 'draft', created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
-      db.prepare(`CREATE TABLE IF NOT EXISTS hub_dates (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', label TEXT NOT NULL, starts_at TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'draft', created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_dates (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL DEFAULT '', label TEXT NOT NULL, starts_at TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'draft', created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_schedule_slots (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', subject_id TEXT NOT NULL, weekday INTEGER NOT NULL CHECK(weekday BETWEEN 1 AND 7), starts_time TEXT NOT NULL, ends_time TEXT, label TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'draft', created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(class_id,subject_id,weekday,starts_time), FOREIGN KEY(class_id,subject_id) REFERENCES hub_subjects(class_id,id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_invites (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', token_hash TEXT NOT NULL UNIQUE, label TEXT NOT NULL, expires_at TEXT NOT NULL, revoked_at TEXT, claimed_at TEXT, created_by TEXT NOT NULL, created_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editors (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', name TEXT NOT NULL, token_hash TEXT NOT NULL UNIQUE, status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, last_used_at TEXT)`),
@@ -328,13 +430,18 @@ async function ensureSchema(db) {
     await ensureClassSupportWhatsappColumn(db);
     await db.prepare(`INSERT OR IGNORE INTO hub_classes (id,slug,name,semester,group_code,theme,drive_url,status,created_at,updated_at) VALUES (?,?,?,?,?,?,?,'active',?,?)`).bind(DEFAULT_CLASS_ID, DEFAULT_CLASS_SLUG, DEFAULT_CLASS.name, DEFAULT_CLASS.semester, DEFAULT_CLASS.group, DEFAULT_CLASS.theme, DEFAULT_CLASS.driveUrl, created, created).run();
     await db.batch(DEFAULT_SUBJECTS.map(([id, name], index) => db.prepare(`INSERT OR IGNORE INTO hub_subjects (class_id,id,name,sort_order,status,created_at,updated_at) VALUES (?,?,?,?,'active',?,?)`).bind(DEFAULT_CLASS_ID, id, name, index + 1, created, created)));
-    for (const table of ['hub_tasks', 'hub_notices', 'hub_activities', 'hub_groups', 'hub_memberships', 'hub_files', 'hub_dates', 'hub_schedule_slots', 'hub_invites', 'hub_editors', 'hub_editor_profiles', 'hub_editor_credentials', 'hub_editor_sessions', 'hub_audit', 'hub_push_subscriptions', 'hub_rate_limits']) await ensureClassColumn(db, table);
+    for (const table of ['hub_tasks', 'hub_uploads', 'hub_notices', 'hub_activities', 'hub_groups', 'hub_memberships', 'hub_files', 'hub_dates', 'hub_schedule_slots', 'hub_invites', 'hub_editors', 'hub_editor_profiles', 'hub_editor_credentials', 'hub_editor_sessions', 'hub_audit', 'hub_push_subscriptions', 'hub_rate_limits']) await ensureClassColumn(db, table);
     await ensureTaskAttachmentColumns(db);
     await ensureNoticeImageColumns(db);
+    await ensureNoticeAttachmentColumns(db);
+    await ensureCourseColumns(db);
     await ensureMembershipLeaderColumn(db);
     await db.batch([
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_tasks_class_idx ON hub_tasks(class_id,updated_at DESC)`),
+      db.prepare(`CREATE INDEX IF NOT EXISTS hub_uploads_class_status_idx ON hub_uploads(class_id,status,updated_at DESC)`),
+      db.prepare(`CREATE INDEX IF NOT EXISTS hub_uploads_class_lifecycle_idx ON hub_uploads(class_id,status,created_at,updated_at)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_notices_class_idx ON hub_notices(class_id,updated_at DESC)`),
+      db.prepare(`CREATE INDEX IF NOT EXISTS hub_notices_class_attachment_idx ON hub_notices(class_id,attachment_upload_id)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_activities_class_idx ON hub_activities(class_id,updated_at DESC)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_groups_class_idx ON hub_groups(class_id,activity_id,name)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_memberships_class_group_idx ON hub_memberships(class_id,group_id,joined_at)`),
@@ -352,13 +459,14 @@ async function ensureSchema(db) {
       db.prepare(`INSERT OR IGNORE INTO hub_tasks (id,class_id,course,title,description,due_label,status,created_by,created_at,updated_at) VALUES (?, ?, ?, ?, ?, ?,'published','system',?,?)`).bind('bio-activities', DEFAULT_CLASS_ID, 'Bioquímica II', 'Actividades 3 y 4 impresas y manuscritas', 'El práctico contiene cinco actividades y la presencia es obligatoria.', 'Práctico', created, created),
       db.prepare(`INSERT OR IGNORE INTO hub_notices (id,class_id,title,body,priority,status,push_mode,created_by,created_at,updated_at,published_at) VALUES (?, ?, ?, ?,'normal','published',0,'system',?,?,?)`).bind('week-2026-08-21', DEFAULT_CLASS_ID, 'Cursos del 19 al 21 de agosto disponibles', 'Bioquímica, Epidemiología, Fisiología y Microbiología práctica ya están organizadas.', created, created, created),
       db.prepare(`INSERT OR IGNORE INTO hub_notices (id,class_id,title,body,priority,status,push_mode,created_by,created_at,updated_at,published_at) VALUES (?, ?, ?, ?,'important','published',0,'system',?,?,?)`).bind('tasks-2026-08-21', DEFAULT_CLASS_ID, 'Dos trabajos activos', 'Epidemiología: exposición grupal. Bioquímica: imprimir y completar a mano las actividades 3 y 4.', created, created, created),
-      db.prepare(`INSERT OR IGNORE INTO hub_activities (id,class_id,title,capacity,status,frozen,created_by,created_at,updated_at) VALUES ('epi-2026-08-19',?,'Exposición de Epidemiología',10,'published',0,'system',?,?)`).bind(DEFAULT_CLASS_ID, created, created),
+      db.prepare(`INSERT OR IGNORE INTO hub_activities (id,class_id,course,title,capacity,status,frozen,created_by,created_at,updated_at) VALUES ('epi-2026-08-19',?,'Epidemiología y Salud Pública','Exposición de Epidemiología',10,'published',0,'system',?,?)`).bind(DEFAULT_CLASS_ID, created, created),
       ...DEFAULT_SCHEDULE_SLOTS.map((slot) => db.prepare(`INSERT OR IGNORE INTO hub_schedule_slots (id,class_id,subject_id,weekday,starts_time,ends_time,label,status,created_by,created_at,updated_at) VALUES (?,?,?,?,?,?,?,'published','system',?,?)`).bind(slot.id, DEFAULT_CLASS_ID, slot.subjectId, slot.weekday, slot.startsTime, slot.endsTime, slot.label, created, created)),
       ...EPIDEMIOLOGY_GROUP_TOPICS.map((_, index) => db.prepare(`INSERT OR IGNORE INTO hub_groups (id,class_id,activity_id,name,capacity,frozen,created_by,created_at,updated_at) VALUES (?, ?, 'epi-2026-08-19', ?, 10, 0, 'system', ?, ?)`).bind(`epi-2026-08-19-g${index + 1}`, DEFAULT_CLASS_ID, `Grupo ${index + 1}`, created, created))
     ]);
     await db.batch([
       db.prepare(`UPDATE hub_tasks SET due_label='Mié. 26 ago.',due_at='2026-08-26T11:20:00-03:00',updated_at=? WHERE class_id=? AND id='epi-presentation'`).bind(created, DEFAULT_CLASS_ID),
-      db.prepare(`UPDATE hub_tasks SET due_label='Vie. 21 ago.',due_at='2026-08-21T09:10:00-03:00',updated_at=? WHERE class_id=? AND id='bio-activities'`).bind(created, DEFAULT_CLASS_ID)
+      db.prepare(`UPDATE hub_tasks SET due_label='Mié. 26 ago.',due_at='2026-08-26T09:10:00-03:00',updated_at=? WHERE class_id=? AND id='bio-activities'`).bind(created, DEFAULT_CLASS_ID),
+      db.prepare(`UPDATE hub_activities SET course='Epidemiología y Salud Pública',updated_at=? WHERE class_id=? AND id='epi-2026-08-19' AND (course IS NULL OR TRIM(course)='')`).bind(created, DEFAULT_CLASS_ID)
     ]);
   })().catch((error) => { schemaPromise = null; throw error; });
   return schemaPromise;
@@ -451,25 +559,25 @@ async function readScheduleSlots(db, classId, publishedOnly = true) {
 async function readPublic(db, classRecord) {
   const classId = classRecord.id;
   const [notices, tasks, activities, groups, files, dates, subjects, scheduleSlots] = await Promise.all([
-    db.prepare(`SELECT id,title,body,priority,status,image_url AS imageUrl,image_alt AS imageAlt,published_at AS publishedAt FROM hub_notices WHERE class_id=? AND status='published' ORDER BY CASE priority WHEN 'urgent' THEN 0 WHEN 'important' THEN 1 ELSE 2 END, COALESCE(published_at,updated_at) DESC`).bind(classId).all(),
+    db.prepare(`SELECT n.id,n.course,n.title,n.body,n.priority,n.status,n.image_url AS imageUrl,n.image_alt AS imageAlt,u.id AS attachmentUploadId,n.attachment_title AS attachmentTitle,u.original_name AS attachmentOriginalName,u.mime_type AS attachmentMimeType,u.size_bytes AS attachmentSizeBytes,n.published_at AS publishedAt FROM hub_notices n LEFT JOIN hub_uploads u ON u.class_id=n.class_id AND u.id=n.attachment_upload_id AND u.status='linked' WHERE n.class_id=? AND n.status='published' ORDER BY CASE n.priority WHEN 'urgent' THEN 0 WHEN 'important' THEN 1 ELSE 2 END, COALESCE(n.published_at,n.updated_at) DESC`).bind(classId).all(),
     db.prepare(`SELECT id,course,title,description,due_label AS dueLabel,due_at AS dueAt,attachment_url AS attachmentUrl,attachment_title AS attachmentTitle,status FROM hub_tasks WHERE class_id=? AND status='published' ORDER BY COALESCE(due_at,'9999') ASC, updated_at DESC`).bind(classId).all(),
-    db.prepare(`SELECT id,title,capacity,closes_at AS closesAt,status,CASE WHEN frozen=1 OR (closes_at IS NOT NULL AND closes_at<=?) THEN 1 ELSE 0 END AS frozen FROM hub_activities WHERE class_id=? AND status='published' ORDER BY updated_at DESC`).bind(nowIso(), classId).all(),
+    db.prepare(`SELECT id,course,title,capacity,closes_at AS closesAt,status,CASE WHEN frozen=1 OR (closes_at IS NOT NULL AND closes_at<=?) THEN 1 ELSE 0 END AS frozen FROM hub_activities WHERE class_id=? AND status='published' ORDER BY updated_at DESC`).bind(nowIso(), classId).all(),
     db.prepare(`SELECT g.id,g.activity_id AS activityId,g.name,g.capacity,CASE WHEN g.frozen=1 OR a.frozen=1 OR (a.closes_at IS NOT NULL AND a.closes_at<=?) THEN 1 ELSE 0 END AS frozen,COUNT(m.id) AS memberCount FROM hub_groups g LEFT JOIN hub_memberships m ON m.class_id=g.class_id AND m.group_id=g.id JOIN hub_activities a ON a.class_id=g.class_id AND a.id=g.activity_id WHERE g.class_id=? AND a.status='published' GROUP BY g.class_id,g.id ORDER BY g.activity_id,CAST(SUBSTR(g.name,7) AS INTEGER)`).bind(nowIso(), classId).all(),
     db.prepare(`SELECT id,course,lesson_date AS lessonDate,title,url,file_type AS fileType,status FROM hub_files WHERE class_id=? AND status='published' ORDER BY updated_at DESC`).bind(classId).all(),
-    db.prepare(`SELECT id,label,starts_at AS startsAt,status FROM hub_dates WHERE class_id=? AND status='published' ORDER BY starts_at`).bind(classId).all(),
+    db.prepare(`SELECT id,course,label,starts_at AS startsAt,status FROM hub_dates WHERE class_id=? AND status='published' ORDER BY starts_at`).bind(classId).all(),
     db.prepare(`SELECT id,name,sort_order AS "order" FROM hub_subjects WHERE class_id=? AND status='active' ORDER BY sort_order,name`).bind(classId).all(),
     readScheduleSlots(db, classId, true)
   ]);
   const decorateGroup = classId === DEFAULT_CLASS_ID ? withEpidemiologyAssignment : (group) => group;
-  return { ok: true, class: publicClass(classRecord), subjects: subjects.results || [], notices: notices.results || [], tasks: tasks.results || [], activities: (activities.results || []).map((item) => ({ ...item, frozen: Boolean(item.frozen) })), groups: (groups.results || []).map((item) => decorateGroup({ ...item, frozen: Boolean(item.frozen), memberCount: Number(item.memberCount) || 0 })), files: files.results || [], dates: dates.results || [], scheduleSlots, upcomingDates: upcomingScheduleDates(scheduleSlots), generatedAt: nowIso() };
+  return { ok: true, class: publicClass(classRecord), subjects: subjects.results || [], notices: (notices.results || []).map((notice) => decorateNoticeAttachment(notice, classRecord)), tasks: tasks.results || [], activities: (activities.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80), frozen: Boolean(item.frozen) })), groups: (groups.results || []).map((item) => decorateGroup({ ...item, frozen: Boolean(item.frozen), memberCount: Number(item.memberCount) || 0 })), files: files.results || [], dates: (dates.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), scheduleSlots, upcomingDates: upcomingScheduleDates(scheduleSlots), generatedAt: nowIso() };
 }
 
-async function adminSnapshot(db, actor, classRecord) {
+async function adminSnapshot(db, actor, classRecord, env = null) {
   const classId = classRecord.id;
   const [subjects, tasks, notices, activities, groups, memberships, files, dates, scheduleSlots, editors, invites, profile] = await Promise.all([
     db.prepare(`SELECT id,name,sort_order AS "order",status FROM hub_subjects WHERE class_id=? ORDER BY sort_order,name`).bind(classId).all(),
     db.prepare(`SELECT *,attachment_url AS attachmentUrl,attachment_title AS attachmentTitle FROM hub_tasks WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
-    db.prepare(`SELECT *,image_url AS imageUrl,image_alt AS imageAlt FROM hub_notices WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
+    db.prepare(`SELECT n.*,n.image_url AS imageUrl,n.image_alt AS imageAlt,u.id AS attachmentUploadId,n.attachment_title AS attachmentTitle,u.original_name AS attachmentOriginalName,u.mime_type AS attachmentMimeType,u.size_bytes AS attachmentSizeBytes FROM hub_notices n LEFT JOIN hub_uploads u ON u.class_id=n.class_id AND u.id=n.attachment_upload_id AND u.status='linked' WHERE n.class_id=? ORDER BY n.updated_at DESC`).bind(classId).all(),
     db.prepare(`SELECT * FROM hub_activities WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
     db.prepare(`SELECT * FROM hub_groups WHERE class_id=? ORDER BY activity_id,name`).bind(classId).all(),
     db.prepare(`SELECT id,activity_id,group_id,display_name,is_leader AS isLeader,joined_at,updated_at FROM hub_memberships WHERE class_id=? ORDER BY activity_id,group_id,display_name`).bind(classId).all(),
@@ -481,7 +589,7 @@ async function adminSnapshot(db, actor, classRecord) {
     readActorProfile(db, actor)
   ]);
   const publishedScheduleSlots = scheduleSlots.filter((slot) => slot.status === 'published');
-  return { ok: true, class: publicClass(classRecord), actor: publicActor(actor), profile, subjects: subjects.results || [], tasks: tasks.results || [], notices: notices.results || [], activities: activities.results || [], groups: groups.results || [], memberships: (memberships.results || []).map((item) => ({ ...item, isLeader: Boolean(item.isLeader) })), files: files.results || [], dates: dates.results || [], scheduleSlots, upcomingDates: upcomingScheduleDates(publishedScheduleSlots), editors: editors.results || [], invites: invites.results || [] };
+  return { ok: true, class: publicClass(classRecord), actor: publicActor(actor), profile, uploadPolicy: { enabled: Boolean(uploadsFrom(env)), maxBytes: MAX_NOTICE_ATTACHMENT_BYTES, maxStagedUploads: MAX_STAGED_NOTICE_UPLOADS_PER_CLASS, stagedTtlHours: NOTICE_STAGED_UPLOAD_TTL_SECONDS / 3600, acceptedMimeTypes: [...NOTICE_UPLOAD_MIME_TYPES] }, subjects: subjects.results || [], tasks: tasks.results || [], notices: (notices.results || []).map((notice) => decorateNoticeAttachment(notice, classRecord)), activities: (activities.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), groups: groups.results || [], memberships: (memberships.results || []).map((item) => ({ ...item, isLeader: Boolean(item.isLeader) })), files: files.results || [], dates: (dates.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), scheduleSlots, upcomingDates: upcomingScheduleDates(publishedScheduleSlots), editors: editors.results || [], invites: invites.results || [] };
 }
 
 async function joinGroup(data, db, classRecord) {
@@ -658,6 +766,224 @@ async function dispatchPush(env, db, classRecord, notice) {
   if (!response.ok) throw new Error(`push_webhook_${response.status}`);
 }
 
+function uploadCleanupLog(event, classId, uploadId, error = null) {
+  const entry = { event, classId, uploadId };
+  if (error) entry.error = error instanceof Error ? error.message : String(error);
+  console.error(JSON.stringify(entry));
+}
+
+async function markUploadDeleting(db, classId, candidate, options = {}) {
+  const current = nowIso();
+  let result;
+  if (candidate.status === 'deleting') {
+    const retryBefore = options.deletingRetryBefore || '';
+    if (!retryBefore || !candidate.updated_at || candidate.updated_at > retryBefore) return null;
+    result = await db.prepare(`UPDATE hub_uploads SET updated_at=? WHERE class_id=? AND id=? AND status='deleting' AND updated_at=? AND updated_at<=? AND NOT EXISTS (SELECT 1 FROM hub_notices n WHERE n.class_id=hub_uploads.class_id AND n.attachment_upload_id=hub_uploads.id)`).bind(current, classId, candidate.id, candidate.updated_at, retryBefore).run();
+  } else {
+    const allowedStatuses = options.allowFreshStaged ? ['staged'] : ['staged', 'linked'];
+    if (!allowedStatuses.includes(candidate.status)) return null;
+    const staleBefore = options.staleBefore || '';
+    if (!options.allowFreshStaged && (!staleBefore || !candidate.created_at || candidate.created_at > staleBefore)) return null;
+    result = options.allowFreshStaged
+      ? await db.prepare(`UPDATE hub_uploads SET status='deleting',updated_at=? WHERE class_id=? AND id=? AND status='staged' AND NOT EXISTS (SELECT 1 FROM hub_notices n WHERE n.class_id=hub_uploads.class_id AND n.attachment_upload_id=hub_uploads.id)`).bind(current, classId, candidate.id).run()
+      : await db.prepare(`UPDATE hub_uploads SET status='deleting',updated_at=? WHERE class_id=? AND id=? AND status IN ('staged','linked') AND created_at<=? AND NOT EXISTS (SELECT 1 FROM hub_notices n WHERE n.class_id=hub_uploads.class_id AND n.attachment_upload_id=hub_uploads.id)`).bind(current, classId, candidate.id, staleBefore).run();
+  }
+  return changed(result) ? { ...candidate, deletingAt: current } : null;
+}
+
+async function deleteUnreferencedUpload(bucket, db, classId, candidate, options = {}) {
+  if (!candidate || !isExpectedNoticeUploadKey(classId, candidate.id, candidate.object_key)) {
+    if (candidate) uploadCleanupLog('class_hub_upload_cleanup_key_rejected', classId, candidate.id);
+    return false;
+  }
+  const claimed = await markUploadDeleting(db, classId, candidate, options);
+  if (!claimed) return false;
+  try {
+    await bucket.delete(claimed.object_key);
+  } catch (error) {
+    try {
+      await db.prepare(`UPDATE hub_uploads SET status='staged',updated_at=? WHERE class_id=? AND id=? AND status='deleting' AND NOT EXISTS (SELECT 1 FROM hub_notices n WHERE n.class_id=hub_uploads.class_id AND n.attachment_upload_id=hub_uploads.id)`).bind(nowIso(), classId, claimed.id).run();
+    } catch (resetError) {
+      uploadCleanupLog('class_hub_upload_cleanup_reset_error', classId, claimed.id, resetError);
+    }
+    uploadCleanupLog('class_hub_upload_cleanup_r2_error', classId, claimed.id, error);
+    return false;
+  }
+  try {
+    await db.prepare(`DELETE FROM hub_uploads WHERE class_id=? AND id=? AND status='deleting' AND NOT EXISTS (SELECT 1 FROM hub_notices n WHERE n.class_id=hub_uploads.class_id AND n.attachment_upload_id=hub_uploads.id)`).bind(classId, claimed.id).run();
+    return true;
+  } catch (error) {
+    // The R2 delete is idempotent. Leaving the row in `deleting` lets the next
+    // bounded cleanup retry the metadata removal without exposing the object.
+    uploadCleanupLog('class_hub_upload_cleanup_metadata_error', classId, claimed.id, error);
+    return false;
+  }
+}
+
+async function cleanupExpiredNoticeUploads(env, db, classId) {
+  const bucket = uploadsFrom(env);
+  if (!bucket) return 0;
+  const currentMs = Date.now();
+  const staleBefore = new Date(currentMs - NOTICE_STAGED_UPLOAD_TTL_SECONDS * 1000).toISOString();
+  const deletingRetryBefore = new Date(currentMs - NOTICE_DELETING_RETRY_SECONDS * 1000).toISOString();
+  const candidates = await db.prepare(`SELECT u.id,u.object_key,u.status,u.created_at,u.updated_at FROM hub_uploads u WHERE u.class_id=? AND ((u.status IN ('staged','linked') AND u.created_at<=?) OR (u.status='deleting' AND u.updated_at<=?)) AND NOT EXISTS (SELECT 1 FROM hub_notices n WHERE n.class_id=u.class_id AND n.attachment_upload_id=u.id) ORDER BY u.created_at,u.id LIMIT ?`).bind(classId, staleBefore, deletingRetryBefore, NOTICE_UPLOAD_CLEANUP_BATCH_SIZE).all();
+  let deleted = 0;
+  for (const candidate of candidates.results || []) {
+    try {
+      if (await deleteUnreferencedUpload(bucket, db, classId, candidate, { staleBefore, deletingRetryBefore })) deleted += 1;
+    } catch (error) {
+      uploadCleanupLog('class_hub_upload_cleanup_error', classId, candidate.id, error);
+    }
+  }
+  return deleted;
+}
+
+async function cleanupDetachedNoticeUpload(env, db, classId, uploadId) {
+  const bucket = uploadsFrom(env);
+  if (!bucket || !uploadId) return false;
+  const candidate = await db.prepare(`SELECT u.id,u.object_key,u.status,u.created_at,u.updated_at FROM hub_uploads u WHERE u.class_id=? AND u.id=? AND NOT EXISTS (SELECT 1 FROM hub_notices n WHERE n.class_id=u.class_id AND n.attachment_upload_id=u.id)`).bind(classId, uploadId).first();
+  if (!candidate) return false;
+  try {
+    return await deleteUnreferencedUpload(bucket, db, classId, candidate, { allowFreshStaged: true });
+  } catch (error) {
+    uploadCleanupLog('class_hub_upload_detach_cleanup_error', classId, uploadId, error);
+    return false;
+  }
+}
+
+async function uploadNoticeAttachment(request, env, db, actor, classRecord) {
+  const bucket = uploadsFrom(env);
+  if (!bucket) return fail(503, 'upload_storage_unavailable', 'El almacenamiento de archivos aún no está configurado para esta versión del sitio.');
+  const rawLength = String(request.headers.get('content-length') || '').trim();
+  if (!/^\d+$/.test(rawLength)) return fail(411, 'upload_length_required', 'No se pudo comprobar el tamaño del archivo. Vuelve a seleccionarlo desde tu dispositivo.');
+  if (Number(rawLength) > MAX_NOTICE_UPLOAD_REQUEST_BYTES) return fail(413, 'upload_too_large', 'El archivo supera el máximo permitido de 15 MB.');
+
+  let form;
+  try { form = await request.formData(); } catch { return fail(400, 'invalid_upload', 'No se pudo leer el archivo seleccionado.'); }
+  const files = form.getAll('file');
+  if (files.length !== 1 || !isFilePart(files[0])) return fail(400, 'invalid_upload', 'Selecciona una sola imagen o un solo PDF.');
+  const file = files[0];
+  if (file.size < 1) return fail(400, 'invalid_upload', 'El archivo está vacío.');
+  if (file.size > MAX_NOTICE_ATTACHMENT_BYTES) return fail(413, 'upload_too_large', 'El archivo supera el máximo permitido de 15 MB.');
+
+  const declaredMime = normalizeUploadMime(file.type);
+  const detectedMime = await detectUploadMime(file);
+  const genericMime = !declaredMime || ['application/octet-stream', 'binary/octet-stream'].includes(declaredMime);
+  if (!detectedMime || !NOTICE_UPLOAD_MIME_TYPES.has(detectedMime) || (!genericMime && (!NOTICE_UPLOAD_MIME_TYPES.has(declaredMime) || !compatibleUploadMime(declaredMime, detectedMime)))) {
+    return fail(400, 'invalid_upload_type', 'Formato no admitido. Usa PDF, JPG, PNG, WEBP, GIF, HEIC/HEIF o AVIF.');
+  }
+
+  const mimeType = genericMime ? detectedMime : declaredMime;
+  const uploadId = entityId(classRecord.id, '', 'upload');
+  const objectKey = noticeUploadObjectKey(classRecord.id, uploadId);
+  const originalName = cleanUploadName(file.name);
+  const current = nowIso();
+  try {
+    await cleanupExpiredNoticeUploads(env, db, classRecord.id);
+  } catch (error) {
+    uploadCleanupLog('class_hub_upload_preflight_cleanup_error', classRecord.id, uploadId, error);
+  }
+  const reservation = await db.prepare(`INSERT INTO hub_uploads (id,class_id,object_key,original_name,mime_type,size_bytes,etag,status,created_by,created_at,updated_at) SELECT ?,?,?,?,?,?,?,'staged',?,?,? WHERE (SELECT COUNT(*) FROM hub_uploads pending WHERE pending.class_id=? AND pending.status IN ('staged','deleting'))<?`).bind(uploadId, classRecord.id, objectKey, originalName, mimeType, file.size, '', actor.id, current, current, classRecord.id, MAX_STAGED_NOTICE_UPLOADS_PER_CLASS).run();
+  if (!changed(reservation)) return fail(409, 'staged_upload_quota', `Esta turma ya tiene ${MAX_STAGED_NOTICE_UPLOADS_PER_CLASS} archivos pendientes. Vincula uno a un aviso o espera a que caduquen antes de subir otro.`);
+  let stored = null;
+  try {
+    stored = await bucket.put(objectKey, file.stream(), {
+      httpMetadata: { contentType: mimeType, cacheControl: 'private, no-store' },
+      customMetadata: { classId: classRecord.id, uploadId, actorId: actor.id }
+    });
+    await db.batch([
+      db.prepare(`UPDATE hub_uploads SET etag=?,updated_at=? WHERE class_id=? AND id=? AND status='staged'`).bind(stored?.httpEtag || stored?.etag || '', nowIso(), classRecord.id, uploadId),
+      db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,?,?,?,?,?,?)`).bind(classRecord.id, actor.id, actor.role, NOTICE_UPLOAD_ACTION, 'upload', uploadId, JSON.stringify({ mimeType, sizeBytes: file.size }), current)
+    ]);
+  } catch (error) {
+    try {
+      const candidate = await db.prepare(`SELECT u.id,u.object_key,u.status,u.created_at,u.updated_at FROM hub_uploads u WHERE u.class_id=? AND u.id=? AND NOT EXISTS (SELECT 1 FROM hub_notices n WHERE n.class_id=u.class_id AND n.attachment_upload_id=u.id)`).bind(classRecord.id, uploadId).first();
+      if (candidate) await deleteUnreferencedUpload(bucket, db, classRecord.id, candidate, { allowFreshStaged: true });
+    } catch (cleanupError) {
+      uploadCleanupLog('class_hub_upload_rollback_error', classRecord.id, uploadId, cleanupError);
+    }
+    throw error;
+  }
+
+  return json({
+    ok: true,
+    attachment: {
+      uploadId,
+      originalName,
+      title: originalName,
+      mimeType,
+      sizeBytes: file.size,
+      attachmentUrl: noticeAttachmentUrl(classRecord, uploadId)
+    }
+  }, 201);
+}
+
+function requestedByteRange(request, totalSize) {
+  const value = String(request.headers.get('range') || '').trim();
+  if (!value) return { range: null };
+  const match = value.match(/^bytes=(\d*)-(\d*)$/i);
+  if (!match || (!match[1] && !match[2]) || !Number.isSafeInteger(totalSize) || totalSize < 1) return { error: true };
+  if (!match[1]) {
+    const suffix = Number(match[2]);
+    if (!Number.isSafeInteger(suffix) || suffix < 1) return { error: true };
+    const length = Math.min(suffix, totalSize);
+    return { range: { offset: totalSize - length, length } };
+  }
+  const start = Number(match[1]);
+  const requestedEnd = match[2] ? Number(match[2]) : totalSize - 1;
+  if (!Number.isSafeInteger(start) || !Number.isSafeInteger(requestedEnd) || start < 0 || start >= totalSize || requestedEnd < start) return { error: true };
+  const end = Math.min(requestedEnd, totalSize - 1);
+  return { range: { offset: start, length: end - start + 1 } };
+}
+
+function encodedDispositionName(value) {
+  return encodeURIComponent(cleanUploadName(value)).replace(/[!'()*]/g, (character) => `%${character.charCodeAt(0).toString(16).toUpperCase()}`);
+}
+
+async function readNoticeAttachment(request, env, db, classRecord, rawUploadId) {
+  const bucket = uploadsFrom(env);
+  if (!bucket) return fail(503, 'upload_storage_unavailable', 'El almacenamiento de archivos aún no está configurado para esta versión del sitio.');
+  const uploadId = cleanId(rawUploadId);
+  if (!uploadId) return fail(404, 'attachment_not_found', 'El archivo no está disponible.');
+  let metadata = await db.prepare(`SELECT u.object_key,u.original_name,u.mime_type,u.size_bytes,u.etag FROM hub_uploads u JOIN hub_notices n ON n.class_id=u.class_id AND n.attachment_upload_id=u.id WHERE u.class_id=? AND u.id=? AND u.status='linked' AND n.class_id=? AND n.status='published' LIMIT 1`).bind(classRecord.id, uploadId, classRecord.id).first();
+  if (!metadata) {
+    const actor = await authenticate(request, env, db, classRecord.id);
+    if (!actor || actor.passwordChangeRequired) return fail(404, 'attachment_not_found', 'El archivo no está disponible.');
+    metadata = await db.prepare(`SELECT u.object_key,u.original_name,u.mime_type,u.size_bytes,u.etag FROM hub_uploads u LEFT JOIN hub_notices n ON n.class_id=u.class_id AND n.attachment_upload_id=u.id WHERE u.class_id=? AND u.id=? AND u.status IN ('staged','linked') AND (u.created_by=? OR n.class_id=?) LIMIT 1`).bind(classRecord.id, uploadId, actor.id, classRecord.id).first();
+  }
+  if (!metadata) return fail(404, 'attachment_not_found', 'El archivo no está disponible.');
+
+  const totalSize = Number(metadata.size_bytes);
+  const requested = requestedByteRange(request, totalSize);
+  if (requested.error) return fail(416, 'invalid_range', 'El fragmento solicitado no está disponible.', { 'content-range': `bytes */${Number.isSafeInteger(totalSize) ? totalSize : '*'}` });
+  const object = await bucket.get(metadata.object_key, requested.range ? { range: requested.range } : undefined);
+  if (!object) {
+    console.error('class_hub_attachment_object_missing', { classId: classRecord.id, uploadId });
+    return fail(404, 'attachment_not_found', 'El archivo no está disponible.');
+  }
+
+  const headers = new Headers({
+    'content-type': normalizeUploadMime(metadata.mime_type) || 'application/octet-stream',
+    'content-disposition': `inline; filename*=UTF-8''${encodedDispositionName(metadata.original_name)}`,
+    'cache-control': 'private, no-store',
+    'accept-ranges': 'bytes',
+    'x-content-type-options': 'nosniff',
+    'cross-origin-resource-policy': 'same-origin',
+    'content-security-policy': "default-src 'none'; sandbox"
+  });
+  if (object.httpEtag || metadata.etag) headers.set('etag', object.httpEtag || metadata.etag);
+  let status = 200;
+  if (requested.range) {
+    const { offset, length } = requested.range;
+    headers.set('content-range', `bytes ${offset}-${offset + length - 1}/${totalSize}`);
+    headers.set('content-length', String(length));
+    status = 206;
+  } else {
+    headers.set('content-length', String(Number(object.size) || totalSize));
+  }
+  return new Response(object.body, { status, headers });
+}
+
 async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
   const current = nowIso(), classId = classRecord.id;
   if (actor.role === 'editor' && !EDITOR_ACTIONS.has(action)) return fail(403, 'permission_denied', 'El rol editor no puede modificar cursos, preguntas, perfiles, configuración ni permisos.');
@@ -733,35 +1059,74 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
     const id = entityId(classId, data.id, 'notice'), title = cleanText(data.title, 180), status = cleanStatus(data.status), priority = cleanPriority(data.priority), pushMode = priority === 'urgent' || Boolean(data.pushMode);
     if (!title) return fail(400, 'invalid_notice', 'El título es obligatorio.');
     const body = cleanText(data.body, 1200);
-    const existing = await db.prepare(`SELECT image_url,image_alt FROM hub_notices WHERE class_id=? AND id=?`).bind(classId, id).first();
+    const existing = await db.prepare(`SELECT course,image_url,image_alt,attachment_upload_id,attachment_title FROM hub_notices WHERE class_id=? AND id=?`).bind(classId, id).first();
+    const course = hasOwn(data, 'course') ? cleanText(data.course, 80) : cleanText(existing?.course, 80);
     const imageUrlProvided = hasOwn(data, 'imageUrl') || hasOwn(data, 'image_url'), imageAltProvided = hasOwn(data, 'imageAlt') || hasOwn(data, 'image_alt');
     const submittedImageUrl = hasOwn(data, 'imageUrl') ? data.imageUrl : data.image_url, submittedImageAlt = hasOwn(data, 'imageAlt') ? data.imageAlt : data.image_alt;
     const rawImageUrl = imageUrlProvided ? cleanText(submittedImageUrl, 1500) : '';
     let imageUrl = imageUrlProvided ? cleanAttachmentUrl(submittedImageUrl) : (existing?.image_url || '');
     let imageAlt = imageAltProvided ? cleanText(submittedImageAlt, 240) : (imageUrlProvided ? '' : (existing?.image_alt || ''));
     if (imageUrlProvided && rawImageUrl && !imageUrl) return fail(400, 'invalid_notice_image', 'La imagen debe usar una URL HTTPS válida, sin usuario ni contraseña en el enlace.');
-    if (imageUrlProvided && !imageUrl) imageAlt = '';
-    if (imageAlt && !imageUrl) return fail(400, 'invalid_notice_image', 'El texto alternativo necesita también una imagen HTTPS válida.');
+    if (imageUrlProvided && !imageUrl && !imageAltProvided) imageAlt = '';
+    const attachmentUploadIdProvided = hasOwn(data, 'attachmentUploadId') || hasOwn(data, 'attachment_upload_id');
+    const attachmentTitleProvided = hasOwn(data, 'attachmentTitle') || hasOwn(data, 'attachment_title');
+    const submittedAttachmentUploadId = hasOwn(data, 'attachmentUploadId') ? data.attachmentUploadId : data.attachment_upload_id;
+    const submittedAttachmentTitle = hasOwn(data, 'attachmentTitle') ? data.attachmentTitle : data.attachment_title;
+    const rawAttachmentUploadId = attachmentUploadIdProvided ? cleanText(submittedAttachmentUploadId, 100) : '';
+    let attachmentUploadId = attachmentUploadIdProvided ? cleanId(rawAttachmentUploadId) : cleanId(existing?.attachment_upload_id);
+    if (attachmentUploadIdProvided && rawAttachmentUploadId && !attachmentUploadId) return fail(400, 'invalid_notice_attachment', 'La referencia del archivo no es válida. Vuelve a seleccionarlo.');
+    let upload = null;
+    if (attachmentUploadId) {
+      if (!uploadsFrom(env)) return fail(503, 'upload_storage_unavailable', 'El almacenamiento de archivos aún no está configurado para esta versión del sitio.');
+      upload = await db.prepare(`SELECT id,original_name,mime_type,size_bytes,status FROM hub_uploads WHERE class_id=? AND id=? AND status IN ('staged','linked')`).bind(classId, attachmentUploadId).first();
+      if (!upload) return fail(400, 'invalid_notice_attachment', 'El archivo no existe, fue retirado o pertenece a otra turma.');
+    }
+    let attachmentTitle = attachmentTitleProvided
+      ? cleanText(submittedAttachmentTitle, 180)
+      : (attachmentUploadIdProvided
+        ? (attachmentUploadId ? (attachmentUploadId !== existing?.attachment_upload_id ? cleanUploadName(upload?.original_name) : cleanText(existing?.attachment_title, 180)) : '')
+        : cleanText(existing?.attachment_title, 180));
+    if (attachmentUploadId && !attachmentTitle) attachmentTitle = cleanUploadName(upload?.original_name);
+    if (attachmentTitle && !attachmentUploadId) return fail(400, 'invalid_notice_attachment', 'El título necesita también un archivo seleccionado.');
+    attachmentUploadId = attachmentUploadId || null;
+    attachmentTitle = attachmentTitle || null;
+    const attachmentIsImage = Boolean(upload && isNoticeImageMime(upload.mime_type));
+    if (imageAlt && !imageUrl && !attachmentIsImage) return fail(400, 'invalid_notice_image', 'El texto alternativo necesita una imagen HTTPS o un archivo de imagen seleccionado; no puede describir un PDF.');
     imageUrl = imageUrl || null;
     imageAlt = imageAlt || null;
-    const result = await db.prepare(`INSERT INTO hub_notices (id,class_id,title,body,priority,status,push_mode,image_url,image_alt,created_by,created_at,updated_at,published_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET title=excluded.title,body=excluded.body,priority=excluded.priority,status=excluded.status,push_mode=excluded.push_mode,image_url=excluded.image_url,image_alt=excluded.image_alt,updated_at=excluded.updated_at,published_at=excluded.published_at WHERE hub_notices.class_id=excluded.class_id`).bind(id, classId, title, body, priority, status, pushMode ? 1 : 0, imageUrl, imageAlt, actor.id, current, current, status === 'published' ? current : null).run();
-    if (!changed(result)) return fail(409, 'cross_class_conflict', 'El identificador pertenece a otra clase.');
-    await audit(db, actor, action, 'notice', id, { status, priority, pushMode, hasImage: Boolean(imageUrl) });
+    const previousAttachmentUploadId = cleanId(existing?.attachment_upload_id) || null;
+    const noticeValues = [id, classId, title, body, priority, status, pushMode ? 1 : 0, imageUrl, imageAlt, course, attachmentUploadId, attachmentTitle, actor.id, current, current, status === 'published' ? current : null];
+    const noticeStatement = attachmentUploadId
+      ? db.prepare(`INSERT INTO hub_notices (id,class_id,title,body,priority,status,push_mode,image_url,image_alt,course,attachment_upload_id,attachment_title,created_by,created_at,updated_at,published_at) SELECT ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? FROM hub_uploads source_upload WHERE source_upload.class_id=? AND source_upload.id=? AND source_upload.status IN ('staged','linked') ON CONFLICT(id) DO UPDATE SET title=excluded.title,body=excluded.body,priority=excluded.priority,status=excluded.status,push_mode=excluded.push_mode,image_url=excluded.image_url,image_alt=excluded.image_alt,course=excluded.course,attachment_upload_id=excluded.attachment_upload_id,attachment_title=excluded.attachment_title,updated_at=excluded.updated_at,published_at=excluded.published_at WHERE hub_notices.class_id=excluded.class_id`).bind(...noticeValues, classId, attachmentUploadId)
+      : db.prepare(`INSERT INTO hub_notices (id,class_id,title,body,priority,status,push_mode,image_url,image_alt,course,attachment_upload_id,attachment_title,created_by,created_at,updated_at,published_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET title=excluded.title,body=excluded.body,priority=excluded.priority,status=excluded.status,push_mode=excluded.push_mode,image_url=excluded.image_url,image_alt=excluded.image_alt,course=excluded.course,attachment_upload_id=excluded.attachment_upload_id,attachment_title=excluded.attachment_title,updated_at=excluded.updated_at,published_at=excluded.published_at WHERE hub_notices.class_id=excluded.class_id`).bind(...noticeValues);
+    const statements = [noticeStatement];
+    if (attachmentUploadId) statements.push(db.prepare(`UPDATE hub_uploads SET status='linked',updated_at=? WHERE class_id=? AND id=? AND status IN ('staged','linked')`).bind(current, classId, attachmentUploadId));
+    if (previousAttachmentUploadId && previousAttachmentUploadId !== attachmentUploadId) statements.push(db.prepare(`UPDATE hub_uploads SET status='staged',updated_at=? WHERE class_id=? AND id=? AND NOT EXISTS (SELECT 1 FROM hub_notices n WHERE n.class_id=hub_uploads.class_id AND n.attachment_upload_id=hub_uploads.id)`).bind(current, classId, previousAttachmentUploadId));
+    const [result] = await db.batch(statements);
+    if (!changed(result)) {
+      if (attachmentUploadId) {
+        await db.prepare(`UPDATE hub_uploads SET status='staged',updated_at=? WHERE class_id=? AND id=? AND status='linked' AND NOT EXISTS (SELECT 1 FROM hub_notices n WHERE n.class_id=hub_uploads.class_id AND n.attachment_upload_id=hub_uploads.id)`).bind(nowIso(), classId, attachmentUploadId).run();
+        await cleanupDetachedNoticeUpload(env, db, classId, attachmentUploadId);
+      }
+      return fail(409, 'cross_class_conflict', 'El identificador pertenece a otra clase o el archivo cambió mientras se guardaba el aviso.');
+    }
+    if (previousAttachmentUploadId && previousAttachmentUploadId !== attachmentUploadId) await cleanupDetachedNoticeUpload(env, db, classId, previousAttachmentUploadId);
+    await audit(db, actor, action, 'notice', id, { status, priority, pushMode, hasImage: Boolean(imageUrl), hasAttachment: Boolean(attachmentUploadId), course });
     if (status === 'published') { const pushJob = dispatchPush(env, db, classRecord, { id, title, body, priority, pushMode }).catch(() => audit(db, actor, 'notice.push_failed', 'notice', id)); if (typeof waitUntil === 'function') waitUntil(pushJob); else await pushJob; }
-    return json({ ok: true, id, status, imageUrl, imageAlt });
+    return json({ ok: true, id, course, status, imageUrl, imageAlt, attachmentUploadId, attachmentUrl: attachmentUploadId ? noticeAttachmentUrl(classRecord, attachmentUploadId) : null, attachmentTitle, attachmentMimeType: upload ? normalizeUploadMime(upload.mime_type) : null, attachmentSizeBytes: upload ? Number(upload.size_bytes) : null });
   }
   if (action === 'activity.upsert') {
     const id = entityId(classId, data.id, 'activity'), title = cleanText(data.title, 160);
     if (!title) return fail(400, 'invalid_activity', 'El título es obligatorio.');
     const previous = await activityState(db, classId, id, current);
     if (previous.exists && previous.locked && actor.role !== 'owner') return fail(409, 'activity_locked', 'La actividad ya cerró y su composición es final.');
-    const immutable = previous.exists && previous.locked, status = cleanStatus(data.status), capacity = immutable ? previous.capacity : integer(data.capacity, 10, 1, 50), closesAt = immutable ? previous.closesAt : (cleanText(data.closesAt, 40) || null);
+    const immutable = previous.exists && previous.locked, status = cleanStatus(data.status), course = hasOwn(data, 'course') ? cleanText(data.course, 80) : previous.course, capacity = immutable ? previous.capacity : integer(data.capacity, 10, 1, 50), closesAt = immutable ? previous.closesAt : (cleanText(data.closesAt, 40) || null);
     const largestGroup = await db.prepare(`SELECT COALESCE(MAX(member_count),0) AS member_count FROM (SELECT COUNT(*) AS member_count FROM hub_memberships WHERE class_id=? AND activity_id=? GROUP BY group_id)`).bind(classId, id).first();
     if (Number(largestGroup?.member_count) > capacity) return fail(409, 'capacity_below_members', 'La capacidad no puede ser menor que un grupo ya formado.');
-    const result = await db.prepare(`INSERT INTO hub_activities (id,class_id,title,capacity,closes_at,status,frozen,created_by,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET title=excluded.title,capacity=excluded.capacity,closes_at=excluded.closes_at,status=excluded.status,updated_at=excluded.updated_at WHERE hub_activities.class_id=excluded.class_id AND excluded.capacity>=(SELECT COALESCE(MAX(member_count),0) FROM (SELECT COUNT(*) AS member_count FROM hub_memberships WHERE class_id=excluded.class_id AND activity_id=excluded.id GROUP BY group_id))`).bind(id, classId, title, capacity, closesAt, status, data.frozen ? 1 : 0, actor.id, current, current).run();
+    const result = await db.prepare(`INSERT INTO hub_activities (id,class_id,course,title,capacity,closes_at,status,frozen,created_by,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET course=excluded.course,title=excluded.title,capacity=excluded.capacity,closes_at=excluded.closes_at,status=excluded.status,updated_at=excluded.updated_at WHERE hub_activities.class_id=excluded.class_id AND excluded.capacity>=(SELECT COALESCE(MAX(member_count),0) FROM (SELECT COUNT(*) AS member_count FROM hub_memberships WHERE class_id=excluded.class_id AND activity_id=excluded.id GROUP BY group_id))`).bind(id, classId, course, title, capacity, closesAt, status, data.frozen ? 1 : 0, actor.id, current, current).run();
     if (!changed(result)) return fail(409, 'activity_conflict', 'La capacidad cambió, hay más integrantes o el identificador pertenece a otra clase.');
-    await audit(db, actor, action, 'activity', id, { status, capacity });
-    return json({ ok: true, id });
+    await audit(db, actor, action, 'activity', id, { status, capacity, course });
+    return json({ ok: true, id, course });
   }
   if (action === 'group.upsert') {
     const id = entityId(classId, data.id, 'group'), activityId = scopedId(classId, data.activityId), name = cleanText(data.name, 80);
@@ -814,10 +1179,12 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
   if (action === 'date.upsert') {
     const id = entityId(classId, data.id, 'date'), label = cleanText(data.label, 120), startsAt = cleanText(data.startsAt, 40), status = cleanStatus(data.status);
     if (!label || !startsAt) return fail(400, 'invalid_date', 'La etiqueta y la fecha son obligatorias.');
-    const result = await db.prepare(`INSERT INTO hub_dates (id,class_id,label,starts_at,status,created_by,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET label=excluded.label,starts_at=excluded.starts_at,status=excluded.status,updated_at=excluded.updated_at WHERE hub_dates.class_id=excluded.class_id`).bind(id, classId, label, startsAt, status, actor.id, current, current).run();
+    const existing = await db.prepare(`SELECT course FROM hub_dates WHERE class_id=? AND id=?`).bind(classId, id).first();
+    const course = hasOwn(data, 'course') ? cleanText(data.course, 80) : cleanText(existing?.course, 80);
+    const result = await db.prepare(`INSERT INTO hub_dates (id,class_id,course,label,starts_at,status,created_by,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET course=excluded.course,label=excluded.label,starts_at=excluded.starts_at,status=excluded.status,updated_at=excluded.updated_at WHERE hub_dates.class_id=excluded.class_id`).bind(id, classId, course, label, startsAt, status, actor.id, current, current).run();
     if (!changed(result)) return fail(409, 'cross_class_conflict', 'El identificador pertenece a otra clase.');
-    await audit(db, actor, action, 'date', id, { status });
-    return json({ ok: true, id });
+    await audit(db, actor, action, 'date', id, { status, course });
+    return json({ ok: true, id, course });
   }
   if (action === 'invite.create' && actor.role === 'owner') { const inviteToken = token(), id = entityId(classId, '', 'invite'), hours = integer(data.hours, 48, 1, 168), expiresAt = new Date(Date.now() + hours * 3600000).toISOString(); await db.prepare(`INSERT INTO hub_invites (id,class_id,token_hash,label,expires_at,created_by,created_at) VALUES (?,?,?,?,?,?,?)`).bind(id, classId, await digest(inviteToken), cleanText(data.label, 80) || 'Editor', expiresAt, actor.id, current).run(); await audit(db, actor, action, 'invite', id, { expiresAt }); return json({ ok: true, class: publicClass(classRecord), id, inviteToken, expiresAt }, 201); }
   if (action === 'invite.revoke' && actor.role === 'owner') { const id = scopedId(classId, data.id); if (!id) return fail(400, 'invalid_invite', 'La invitación no es válida.'); const result = await db.prepare(`UPDATE hub_invites SET revoked_at=? WHERE class_id=? AND id=? AND claimed_at IS NULL AND revoked_at IS NULL`).bind(current, classId, id).run(); if (!changed(result)) return fail(409, 'invite_unavailable', 'La invitación no existe, ya fue usada o ya fue revocada.'); await audit(db, actor, action, 'invite', id); return json({ ok: true }); }
@@ -837,7 +1204,8 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
   return fail(403, 'action_forbidden', 'La acción no está permitida para este rol.');
 }
 
-export async function onRequestGet({ request, env }) {
+export async function onRequestGet(context) {
+  const { request, env } = context;
   const url = new URL(request.url), resource = url.searchParams.get('resource') || 'public', db = dbFrom(env);
   if (resource === 'push-key') return json({ ok: true, publicKey: env.MED_NYKUTO_VAPID_PUBLIC_KEY || '' });
   if (!db) {
@@ -863,6 +1231,7 @@ export async function onRequestGet({ request, env }) {
     if (resolved.error === 'class_mismatch') return fail(400, 'class_mismatch', 'La clase indicada no es válida o no coincide.');
     if (!resolved.classRecord) return fail(404, 'class_not_found', 'La clase solicitada no existe o no está activa.');
     const classRecord = resolved.classRecord;
+    if (resource === NOTICE_ATTACHMENT_RESOURCE) return readNoticeAttachment(request, env, db, classRecord, url.searchParams.get('upload'));
     if (resource === 'public') return json(await readPublic(db, classRecord));
     if (!['admin', 'audit', 'session'].includes(resource)) return fail(400, 'invalid_resource', 'El recurso solicitado no es válido.');
     const limited = await rateLimit(request, env, db, classRecord.id, 'admin-read', 120, 600); if (limited) return limited;
@@ -875,15 +1244,47 @@ export async function onRequestGet({ request, env }) {
       const rows = await db.prepare(`SELECT * FROM hub_audit WHERE class_id=? ORDER BY created_at DESC LIMIT 300`).bind(classRecord.id).all();
       return json({ ok: true, class: publicClass(classRecord), audit: rows.results || [] });
     }
-    return json(await adminSnapshot(db, actor, classRecord));
+    if (uploadsFrom(env)) {
+      const cleanupJob = cleanupExpiredNoticeUploads(env, db, classRecord.id).catch((error) => uploadCleanupLog('class_hub_upload_admin_cleanup_error', classRecord.id, '', error));
+      if (typeof context.waitUntil === 'function') context.waitUntil(cleanupJob); else await cleanupJob;
+    }
+    return json(await adminSnapshot(db, actor, classRecord, env));
   } catch (error) {
     console.error('class_hub_get_error', error);
     return fail(500, 'server_error', 'No se pudo leer la gestión de la clase.');
   }
 }
 
-export async function onRequestPost({ request, env, waitUntil }) {
+export async function onRequestPost(context) {
+  const { request, env } = context;
+  const waitUntil = typeof context.waitUntil === 'function' ? (promise) => context.waitUntil(promise) : undefined;
   if (!sameOrigin(request)) return fail(403, 'origin_rejected', 'La solicitud no proviene de este sitio.');
+  const url = new URL(request.url);
+  if (request.headers.get('content-type')?.toLowerCase().includes('multipart/form-data')) {
+    const action = cleanText(url.searchParams.get('action'), 60), db = dbFrom(env);
+    if (action !== NOTICE_UPLOAD_ACTION) return fail(400, 'invalid_upload_action', 'La operación de archivo no es válida.');
+    if (!db) return fail(503, 'database_unavailable', 'La base compartida no está configurada.');
+    try {
+      await ensureSchema(db);
+      const resolved = await resolveClass(request, db, null, env);
+      if (resolved.error === 'class_mismatch') return fail(400, 'class_mismatch', 'La clase indicada no es válida o no coincide.');
+      if (!resolved.classRecord) return fail(404, 'class_not_found', 'La clase solicitada no existe o no está activa.');
+      const classRecord = resolved.classRecord;
+      const limited = await rateLimit(request, env, db, classRecord.id, 'notice-upload', 30, 3600); if (limited) return limited;
+      const actor = await authenticate(request, env, db, classRecord.id);
+      if (!actor) return fail(401, 'authentication_required', 'Inicia sesión como propietario o delegado de esta turma.');
+      if (actor.passwordChangeRequired) return fail(403, 'password_change_required', 'Cambia la contraseña temporal antes de modificar la gestión.');
+      if (!await validSessionCsrf(request, actor)) {
+        await audit(db, actor, 'auth.csrf.rejected', 'editor', actor.id, { action });
+        return fail(403, 'csrf_rejected', 'La sesión de seguridad no coincide. Vuelve a iniciar sesión.');
+      }
+      return uploadNoticeAttachment(request, env, db, actor, classRecord);
+    } catch (error) {
+      console.error('class_hub_upload_error', error);
+      if (/UNIQUE/i.test(String(error))) return fail(409, 'upload_conflict', 'No se pudo reservar un identificador para el archivo.');
+      return fail(500, 'server_error', 'No se pudo guardar el archivo.');
+    }
+  }
   let data; try { data = await payload(request); } catch (error) { return fail(error.message === 'payload_too_large' ? 413 : 400, error.message, 'La solicitud no es válida.'); }
   const action = cleanText(data.action, 60), db = dbFrom(env); if (!db) return fail(503, 'database_unavailable', 'La base compartida no está configurada.');
   try {

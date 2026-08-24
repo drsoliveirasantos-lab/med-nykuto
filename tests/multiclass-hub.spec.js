@@ -42,7 +42,7 @@ const CLASS_RESPONSE = {
     }
   ],
   notices: [
-    { id: 'exam-official', title: 'Fecha oficial del examen', body: 'El parcial será el 10 de septiembre.', priority: 'urgent', status: 'published', imageUrl: 'https://example.test/official-exam.webp', imageAlt: 'Cronograma oficial del examen', publishedAt: '2099-08-25T12:00:00-03:00' },
+    { id: 'exam-official', title: 'Fecha oficial del examen', body: 'El parcial será el 10 de septiembre.', priority: 'urgent', status: 'published', imageUrl: 'https://example.test/official-exam.webp', imageAlt: 'Cronograma oficial del examen', attachmentUploadId: 'upload-exam-pdf', attachmentUrl: '/api/class-hub?class=s5-a&resource=notice-attachment&upload=upload-exam-pdf', attachmentTitle: 'Cronograma oficial.pdf', attachmentMimeType: 'application/pdf', attachmentSizeBytes: 245760, publishedAt: '2099-08-25T12:00:00-03:00' },
     { id: 'room-change', title: 'Cambio de aula', body: 'La clase será en el aula 12.', priority: 'important', status: 'published', publishedAt: '2099-08-24T12:00:00-03:00' },
     { id: 'routine-note', title: 'Material disponible', body: 'Las diapositivas ya están en Drive.', priority: 'normal', status: 'published', publishedAt: '2099-08-23T12:00:00-03:00' }
   ],
@@ -198,6 +198,10 @@ test.describe('Multiclass student hub', () => {
     await expect(noticeImage).toHaveAttribute('loading', 'lazy');
     await expect(noticeImage).toHaveAttribute('decoding', 'async');
     await expect(noticeImage).toHaveAttribute('referrerpolicy', 'no-referrer');
+    const attachment = carousel.getByRole('link', { name: /Abrir documento/ });
+    await expect(attachment).toHaveAttribute('href', /\/api\/class-hub\?class=s5-a&resource=notice-attachment&upload=upload-exam-pdf$/);
+    await expect(attachment).toHaveAttribute('rel', 'noopener noreferrer');
+    await expect(attachment).toContainText('240 KB');
 
     await carousel.locator('[aria-label="Aviso siguiente"]').click();
     await expect(carousel).toContainText('Cambio de aula');
@@ -530,6 +534,242 @@ test.describe('Multiclass student hub', () => {
       expect(control.right).toBeLessThanOrEqual(layout.innerWidth + 1);
       expect(control.height).toBeGreaterThanOrEqual(44);
     });
+  });
+
+  test('keeps the delegate mobile workspace compact and edits linked content from a subject cockpit', async ({ page }) => {
+    const actor = { id: 'editor-cockpit-s5-a', role: 'editor', name: 'Delegada Cockpit', classId: 's5-a' };
+    const writes = [];
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.addInitScript(({ key }) => sessionStorage.setItem(key, 'synthetic-cockpit-bearer'), { key: 'med-nykuto-management-token-v471:s5-a' });
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request();
+      const url = new URL(request.url());
+      if (request.method() === 'GET' && url.searchParams.get('resource') === 'admin') {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify(managementState(actor, {
+            subjects: [...CLASS_RESPONSE.subjects, { id: 'epidemiologia-y-salud-publica', name: 'Epidemiología y Salud Pública', order: 3, status: 'active' }],
+            tasks: [
+              { id: 'farmaco-task', course: 'Farmacología II', title: 'Tarea vinculada', description: 'Resolver la guía.', dueLabel: 'Próxima clase', dueAt: '2099-09-03T08:00', status: 'published' },
+              { id: 'epi-task', course: 'Epidemiología', title: 'Tarea con nombre abreviado', dueLabel: 'Próxima clase', dueAt: '2099-09-05T11:20', status: 'published' }
+            ],
+            notices: [{ id: 'general-notice', course: '', title: 'Aviso general', body: 'Información para toda la clase.', priority: 'important', status: 'published' }],
+            activities: [{ id: 'farmaco-activity', course: 'Farmacología II', title: 'Seminario de fármacos', capacity: 8, status: 'published', frozen: false }],
+            groups: [{ id: 'farmaco-group', activityId: 'farmaco-activity', name: 'Grupo 1', capacity: 8 }],
+            files: [{ id: 'farmaco-file', course: 'Farmacología II', title: 'Guía de fármacos', url: 'https://example.test/guia.pdf', fileType: 'PDF', status: 'published' }],
+            dates: [{ id: 'farmaco-date', course: 'Farmacología II', label: 'Práctica de Farmacología', startsAt: '2099-09-04T08:00', status: 'published' }]
+          }))
+        });
+        return;
+      }
+      if (request.method() === 'POST') {
+        const body = request.postDataJSON();
+        writes.push(body);
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, id: body.id || 'generated-fixture-id' }) });
+        return;
+      }
+      await route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'authentication_required', error: 'Inicia sesión.' }) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await expect(page.locator('#manageApp')).toBeVisible();
+    await expect(page.locator('[data-manage-tab="calendar"]')).toBeVisible();
+    await expect(page.locator('[data-manage-tab="files"]')).toBeVisible();
+    await expect(page.locator('#managePanelCalendar')).toBeHidden();
+    await expect(page.locator('#managePanelFiles')).toBeHidden();
+
+    await page.locator('[data-manage-tab="subjects"]').click();
+    const pharmacology = page.locator('.subject-dashboard[data-subject-id="farmacologia-ii"]');
+    const epidemiology = page.locator('.subject-dashboard[data-subject-id="epidemiologia-y-salud-publica"]');
+    const general = page.locator('.subject-dashboard[data-subject-id="general"]');
+    await expect(pharmacology).toBeVisible();
+    await expect(epidemiology.locator('.subject-counts')).toContainText('1 tarea');
+    await expect(pharmacology.locator('.subject-counts')).toContainText('1 tarea');
+    await expect(pharmacology.locator('.subject-counts')).toContainText('1 grupo');
+    await expect(pharmacology.locator('.subject-counts')).toContainText('1 archivo');
+    await expect(pharmacology.locator('.subject-counts')).toContainText('1 fecha');
+    await expect(general.locator('.subject-counts')).toContainText('1 aviso');
+
+    await pharmacology.locator('summary').click();
+    const taskGroup = pharmacology.locator('.subject-entry-group').filter({ has: page.getByRole('heading', { name: 'Tareas' }) });
+    await taskGroup.getByRole('button', { name: 'Modificar' }).click();
+    await expect(page.locator('#managePanelTasks')).toBeVisible();
+    await expect(page.locator('#taskForm [name="course"]')).toHaveValue('Farmacología II');
+    await expect(page.locator('#taskForm [name="title"]')).toHaveValue('Tarea vinculada');
+
+    await page.locator('[data-manage-tab="subjects"]').click();
+    const groupSection = pharmacology.locator('.subject-entry-group').filter({ has: page.getByRole('heading', { name: 'Grupos' }) });
+    await groupSection.getByRole('button', { name: 'Modificar Grupo 1' }).click();
+    await expect(page.locator('#managePanelGroups')).toBeVisible();
+    await expect(page.locator('#groupForm [name="name"]')).toHaveValue('Grupo 1');
+    await expect(page.locator('#groupForm [name="id"]')).toHaveValue('farmaco-group');
+    await expect(page.locator('#groupForm [name="activityId"]')).toHaveValue('farmaco-activity');
+    await page.locator('#groupForm [name="name"]').fill('Grupo 1 actualizado');
+    await page.locator('#groupForm').getByRole('button', { name: 'Actualizar grupo' }).click();
+    await expect.poll(() => writes.length).toBe(1);
+    await expect(page.locator('#manageStatus')).toHaveText('Datos sincronizados.');
+    expect(writes[0]).toMatchObject({
+      action: 'group.upsert',
+      id: 'farmaco-group',
+      activityId: 'farmaco-activity',
+      name: 'Grupo 1 actualizado',
+      capacity: '8'
+    });
+
+    const compactForms = [
+      ['tasks', '#taskForm'],
+      ['notices', '#noticeForm'],
+      ['calendar', '#dateForm'],
+      ['files', '#fileForm']
+    ];
+    for (const [tab, formSelector] of compactForms) {
+      await page.locator(`[data-manage-tab="${tab}"]`).click();
+      await expect(page.locator(formSelector)).toBeVisible();
+      const columnCount = await page.locator(formSelector).evaluate((form) => getComputedStyle(form).gridTemplateColumns.split(' ').filter(Boolean).length);
+      expect(columnCount).toBe(2);
+    }
+    await expect(page.locator('#managePanelFiles')).toBeVisible();
+    await expect(page.locator('#managePanelCalendar')).toBeHidden();
+
+    const mobileLayout = await page.evaluate(() => ({
+      clientWidth: document.documentElement.clientWidth,
+      scrollWidth: document.documentElement.scrollWidth,
+      tabHeight: document.querySelector('[data-manage-tab="tasks"]').getBoundingClientRect().height,
+      tabWidth: document.querySelector('[data-manage-tab="tasks"]').getBoundingClientRect().width,
+      panelPadding: Number.parseFloat(getComputedStyle(document.querySelector('.manage-panel')).paddingLeft)
+    }));
+    expect(mobileLayout.scrollWidth).toBeLessThanOrEqual(mobileLayout.clientWidth + 1);
+    expect(mobileLayout.tabHeight).toBeGreaterThanOrEqual(44);
+    expect(mobileLayout.tabWidth).toBeLessThanOrEqual(82);
+    expect(mobileLayout.panelPadding).toBeLessThanOrEqual(10);
+  });
+
+  test('uploads a notice attachment once, preserves it after a failed save and retries only the notice', async ({ page }) => {
+    const actor = { id: 'editor-upload-s5-a', role: 'editor', name: 'Delegada Archivos', classId: 's5-a' };
+    let uploadCount = 0;
+    let noticeAttempts = 0;
+    let savedNotice = null;
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.addInitScript(({ key }) => sessionStorage.setItem(key, 'synthetic-upload-bearer'), { key: 'med-nykuto-management-token-v471:s5-a' });
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request();
+      const url = new URL(request.url());
+      const contentType = request.headers()['content-type'] || '';
+      if (request.method() === 'GET' && url.searchParams.get('resource') === 'admin') {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify(managementState(actor, {
+            uploadPolicy: { enabled: true, maxBytes: 15 * 1024 * 1024, acceptedMimeTypes: ['application/pdf', 'image/png'] },
+            notices: savedNotice ? [savedNotice] : []
+          }))
+        });
+        return;
+      }
+      if (request.method() === 'POST' && contentType.includes('multipart/form-data')) {
+        uploadCount += 1;
+        expect(url.searchParams.get('action')).toBe('notice.attachment.upload');
+        expect(request.headers().authorization).toBe('Bearer synthetic-upload-bearer');
+        expect(request.postData()).toContain('cronograma-oficial.pdf');
+        await route.fulfill({
+          status: 201,
+          contentType: 'application/json',
+          body: JSON.stringify({ ok: true, attachment: { uploadId: 'upload-fixture-1', originalName: 'cronograma-oficial.pdf', title: 'cronograma-oficial.pdf', mimeType: 'application/pdf', sizeBytes: 28, attachmentUrl: '/api/class-hub?class=s5-a&resource=notice-attachment&upload=upload-fixture-1' } })
+        });
+        return;
+      }
+      if (request.method() === 'POST' && contentType.includes('application/json')) {
+        const body = request.postDataJSON();
+        if (body.action === 'notice.upsert') {
+          noticeAttempts += 1;
+          expect(body.attachmentUploadId).toBe('upload-fixture-1');
+          expect(body.attachmentTitle).toBe('cronograma-oficial.pdf');
+          if (noticeAttempts === 1) {
+            await route.fulfill({ status: 500, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'temporary_failure', error: 'Fallo temporal de prueba.' }) });
+            return;
+          }
+          savedNotice = { id: 'notice-fixture', course: 'Farmacología II', title: body.title, body: body.body, priority: body.priority, status: body.status, attachmentUploadId: body.attachmentUploadId, attachmentTitle: body.attachmentTitle, attachmentMimeType: 'application/pdf', attachmentSizeBytes: 28, attachmentUrl: '/api/class-hub?class=s5-a&resource=notice-attachment&upload=upload-fixture-1' };
+          await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, id: savedNotice.id, ...savedNotice }) });
+          return;
+        }
+      }
+      await route.fulfill({ status: 400, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'unexpected_request', error: 'Solicitud inesperada.' }) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await page.locator('[data-manage-tab="notices"]').click();
+    await page.locator('#noticeForm [name="course"]').fill('Farmacología II');
+    await page.locator('#noticeForm [name="title"]').fill('Cronograma oficial');
+    await page.locator('#noticeAttachmentFile').setInputFiles({ name: 'cronograma-oficial.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.7 synthetic fixture') });
+    await expect(page.locator('#noticeAttachmentPreview')).toContainText('cronograma-oficial.pdf');
+    await expect(page.locator('#noticeAttachmentPreview .notice-upload-file-icon')).toHaveText('PDF');
+
+    await page.locator('#noticeForm').getByRole('button', { name: 'Guardar aviso' }).click();
+    await expect(page.locator('#manageStatus')).toHaveText('Fallo temporal de prueba.');
+    await expect(page.locator('#noticeAttachmentFile')).toHaveValue('');
+    await expect(page.locator('#noticeAttachmentUploadId')).toHaveValue('upload-fixture-1');
+    expect(uploadCount).toBe(1);
+
+    await page.locator('#noticeForm').getByRole('button', { name: 'Guardar aviso' }).click();
+    await expect(page.locator('#manageStatus')).toHaveText('Datos sincronizados.');
+    expect(uploadCount).toBe(1);
+    expect(noticeAttempts).toBe(2);
+    await expect(page.locator('#noticeList .notice-admin-attachment')).toContainText('cronograma-oficial.pdf');
+  });
+
+  test('discards an unsaved local notice file before editing another notice', async ({ page }) => {
+    const actor = { id: 'editor-file-switch-s5-a', role: 'editor', name: 'Delegada Cambio Seguro', classId: 's5-a' };
+    await page.addInitScript(({ key }) => sessionStorage.setItem(key, 'synthetic-file-switch-bearer'), { key: 'med-nykuto-management-token-v471:s5-a' });
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request();
+      const url = new URL(request.url());
+      if (request.method() === 'GET' && url.searchParams.get('resource') === 'admin') {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify(managementState(actor, {
+            uploadPolicy: { enabled: true, maxBytes: 15 * 1024 * 1024, acceptedMimeTypes: ['application/pdf', 'image/png'] },
+            notices: [{ id: 'existing-notice', course: 'Farmacología II', title: 'Aviso ya guardado', body: 'Contenido oficial.', priority: 'important', status: 'published' }]
+          }))
+        });
+        return;
+      }
+      await route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'authentication_required', error: 'Inicia sesión.' }) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await page.locator('[data-manage-tab="notices"]').click();
+    await page.locator('#noticeAttachmentFile').setInputFiles({ name: 'foto-privada-no-guardada.png', mimeType: 'image/png', buffer: Buffer.from('synthetic private image fixture') });
+    await expect(page.locator('#noticeAttachmentPreview')).toContainText('foto-privada-no-guardada.png');
+
+    await page.locator('#noticeList').getByRole('button', { name: 'Modificar' }).click();
+    await expect(page.locator('#noticeForm [name="title"]')).toHaveValue('Aviso ya guardado');
+    await expect(page.locator('#noticeAttachmentFile')).toHaveValue('');
+    await expect(page.locator('#noticeAttachmentUploadId')).toHaveValue('');
+    await expect(page.locator('#noticeAttachmentPreview')).toBeHidden();
+  });
+
+  test('fails closed when direct notice storage is unavailable', async ({ page }) => {
+    const actor = { id: 'editor-no-upload-s5-a', role: 'editor', name: 'Delegada Sin R2', classId: 's5-a' };
+    await page.addInitScript(({ key }) => sessionStorage.setItem(key, 'synthetic-no-upload-bearer'), { key: 'med-nykuto-management-token-v471:s5-a' });
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const url = new URL(route.request().url());
+      if (route.request().method() === 'GET' && url.searchParams.get('resource') === 'admin') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(managementState(actor, { uploadPolicy: { enabled: false, maxBytes: 15 * 1024 * 1024, acceptedMimeTypes: [] } })) });
+        return;
+      }
+      await route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'authentication_required', error: 'Inicia sesión.' }) });
+    });
+    await page.goto('/gestion/s5-a');
+    await page.locator('[data-manage-tab="notices"]').click();
+    await expect(page.locator('#noticeAttachmentFile')).toBeDisabled();
+    await expect(page.locator('#noticeAttachmentHelp')).toContainText('temporalmente indisponible');
+    await expect(page.locator('#noticeAttachmentHelp')).not.toContainText('Cloudflare');
   });
 
   test('keeps group exports inside their activity and sends them to the delegate WhatsApp on mobile', async ({ page }) => {
@@ -977,9 +1217,9 @@ test.describe('Multiclass student hub', () => {
     expect(shellEntries).toEqual(expect.arrayContaining([
       '/offline.html',
       '/turma-shell/',
-      '/turma-v471.css?v=475',
-      '/turma-v471.js?v=475',
-      '/turma-manifest-boot-v471.js?v=475'
+      '/turma-v471.css?v=476',
+      '/turma-v471.js?v=476',
+      '/turma-manifest-boot-v471.js?v=476'
     ]));
     [
       /\/gestion/i,
