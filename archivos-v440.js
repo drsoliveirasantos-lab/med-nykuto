@@ -14,6 +14,7 @@
     ['Epidemiología','Bloque anterior','Salud Pública Paraguay · PDF','assets/class-hub/epidemiology/2026-08-16/salud-publica-paraguay.pdf'],
     ['Fisiología II','20 ago. 2026','Ejercicios de fijación del sistema nervioso · PDF','assets/class-hub/physiology/2026-08-20/ejercicios-fijacion-sistema-nervioso.pdf'],
     ['Fisiología II','17 ago. 2026','Organización, sinapsis y receptores · PDF','assets/class-hub/physiology/2026-08-17/organizacion-sinapsis-receptores.pdf'],
+    ['Microbiología II · Teórica','17 ago. 2026','Casos clínicos y candidiasis · PDF optimizado','assets/class-hub/microbiology-theory/2026-08-17/expanded-cases/casos-clinicos-y-candidiasis-17-08.pdf'],
     ['Microbiología II · Teórica','10 ago. 2026','Micología · generalidades · PDF','assets/class-hub/microbiology-theory/2026-08-10/micologia-generalidades.pdf'],
     ['Microbiología II · Teórica','10 ago. 2026','Micosis superficiales · PDF','assets/class-hub/microbiology-theory/2026-08-10/micosis-superficiales.pdf'],
     ['Nutrición','Seminario','Instrucciones para presentación oral · DOCX','assets/class-hub/instructivo-presentacion-oral-semana-3.docx'],

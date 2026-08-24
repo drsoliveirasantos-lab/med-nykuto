@@ -180,12 +180,13 @@
       subject: 'Microbiología II · Teórica',
       accent: '#2dd4bf',
       confidence: 'Media-alta en el razonamiento clínico',
-      confidenceReason: 'Dos PDF, una transcripción y dos casos completos muestran un recorrido estable desde profundidad y lesión hasta muestra, agente y tratamiento.',
+      confidenceReason: 'Tres PDF, dos series de fotografías y la transcripción muestran un recorrido estable desde profundidad y lesión hasta muestra, agente y tratamiento.',
       evidence: [
         { date: '10 ago.', state: 'observed', label: 'Generalidades, dermatofitos, tiñas por sitio, diagnóstico y tratamiento.' },
         { date: '10 ago.', state: 'observed', label: 'Caso de tiña capitis y vínculo con exposición animal.' },
-        { date: '17 ago.', state: 'confirmed', label: 'Dos casos mostrados paso a paso: pitiriasis versicolor y tiña corporal.' },
-        { date: '17 ago.', state: 'confirmed', label: 'Comparación por profundidad y tres micosis subcutáneas.' }
+        { date: '17 ago.', state: 'confirmed', label: 'Pitiriasis versicolor y tiña corporal mostradas paso a paso.' },
+        { date: '17 ago.', state: 'confirmed', label: 'Dos historias independientes de eumicetoma y un caso ocupacional de esporotricosis.' },
+        { date: '17 ago.', state: 'confirmed', label: 'Micología oportunista: riesgo, laboratorio y formas mucocutáneas de Candida.' }
       ],
       teachingArchitecture: [
         'Clasifica primero por profundidad y después por localización anatómica.',
@@ -194,7 +195,7 @@
         'Compara entidades cercanas para fijar la diferencia clínica y diagnóstica.'
       ],
       reasoningPath: [
-        'Definir si la micosis es superficial, cutánea o subcutánea.',
+        'Definir la profundidad o reconocer un contexto oportunista.',
         'Localizar tejido y describir lesión o patrón.',
         'Buscar exposición y puerta de entrada.',
         'Elegir muestra, examen directo y confirmación.',
@@ -203,7 +204,7 @@
       importanceSignals: [
         'Presenta una fotografía clínica o una pista de exposición.',
         'Contrasta dos casos en una misma diapositiva.',
-        'Insiste en el borde activo, el tejido queratinizado o la inoculación.',
+        'Insiste en el borde activo, el tejido queratinizado, la inoculación o la tríada del micetoma.',
         'Relaciona el examen directo con la especie sin confundir orientación y confirmación.'
       ],
       observedQuestionFormats: [
@@ -217,6 +218,7 @@
         'Tiña por localización y géneros dermatofíticos.',
         'Pitiriasis versicolor frente a dermatofitosis.',
         'Esporotricosis, cromoblastomicosis y micetoma eumicótico.',
+        'Colonización por Candida frente a candidiasis mucocutánea o invasiva.',
         'KOH, cultivo, biopsia y límites de la lámpara de Wood.'
       ],
       distractorPolicy: [
@@ -515,16 +517,19 @@
     },
     'microbiologia-teorica-2026-08-17': {
       title: 'Clasificar la profundidad antes de nombrar la micosis',
-      lead: 'Los dos casos enseñan un orden diagnóstico estable: profundidad, lesión, exposición, muestra y confirmación. Después, la clase contrasta las infecciones superficiales y cutáneas con tres micosis subcutáneas por inoculación.',
+      lead: 'Los casos enseñan un orden diagnóstico estable: profundidad, lesión, exposición, muestra y confirmación. La clase contrasta infecciones superficiales y cutáneas con micosis subcutáneas por implantación y termina con el contexto oportunista de Candida.',
       sections: [
-        ['Mapa por profundidad', 'El nivel de invasión cambia lesión, muestra y terapia', 'Superficial se limita a capas externas; cutánea invade tejidos queratinizados; subcutánea alcanza dermis profunda y tejido celular tras traumatismo.', 'Determinar profundidad evita elegir una muestra superficial para una lesión que requiere biopsia o indicar tratamiento local donde hace falta terapia sistémica.'],
+        ['Mapa por profundidad', 'El nivel de invasión cambia lesión, muestra y terapia', 'Superficial se limita a capas externas; cutánea invade tejidos queratinizados; subcutánea alcanza dermis profunda y tejido celular tras una inoculación que puede no recordarse.', 'Determinar profundidad evita elegir una muestra superficial para una lesión que requiere biopsia o indicar tratamiento local donde hace falta terapia sistémica.'],
         ['Caso 1', 'Pitiriasis versicolor produce máculas con descamación fina', 'Un adulto joven con calor y sudoración presenta máculas hipo o hiperpigmentadas en tronco, poco pruriginosas y con descamación al raspado.', 'KOH muestra levaduras y hifas cortas, patrón asociado a Malassezia spp. La poca inflamación concuerda con una micosis superficial.'],
         ['Caso 2', 'Una placa anular con borde activo orienta a tiña corporal', 'Una adolescente con lesión pruriginosa expansiva y contacto con gato alopécico presenta borde elevado, descamación y aclaramiento central.', 'Raspado del borde muestra hifas septadas. Macroconidios fusiformes y rugosos en cultivo apoyan Microsporum canis.'],
         ['Comparación', 'Pitiriasis y tiña ocupan niveles y tejidos distintos', 'Pitiriasis afecta estrato córneo y suele localizarse en zonas seborreicas. Tiña corporal es dermatofitosis de queratina y produce un borde activo.', 'En la primera se buscan levaduras con hifas cortas; en la segunda, hifas septadas y datos de dermatofito. La muestra nace de la lesión característica.'],
-        ['Entrada subcutánea', 'Trauma profundo implanta el hongo por debajo de la piel', 'Espinas, suelo o animales pueden inocular microorganismos. La lesión comienza en el punto de entrada y evoluciona de forma crónica.', 'Raspado superficial puede ser insuficiente. Biopsia, histopatología y cultivo de tejido adquieren mayor importancia.'],
-        ['Esporotricosis', 'Los nódulos siguen trayectos linfáticos', 'Tras lesión de inoculación aparecen nódulos ascendentes a lo largo de vasos linfáticos. Jardinería, espina de rosa o contacto con gato son exposiciones orientadoras.', 'El patrón linfocutáneo relaciona puerta de entrada y distribución; la confirmación microbiológica sigue siendo necesaria.'],
+        ['Entrada subcutánea', 'La implantación introduce el agente por debajo de la piel', 'Espinas, astillas, suelo o animales pueden inocular microorganismos; el traumatismo puede ser pequeño o no recordarse. La lesión suele comenzar en el punto de entrada y evolucionar de forma crónica.', 'El raspado superficial puede ser insuficiente. Biopsia, histopatología, examen directo y cultivo de tejido adquieren mayor importancia.'],
+        ['Esporotricosis', 'Los nódulos siguen trayectos linfáticos', 'Tras lesión de inoculación aparecen nódulos ascendentes a lo largo de vasos linfáticos. El caso documentado comienza después de injertar naranjos; jardinería, espinas o contacto con gato son exposiciones orientadoras.', 'El patrón linfocutáneo relaciona puerta de entrada y distribución regional, pero no equivale por sí mismo a diseminación sistémica. El cultivo confirma el diagnóstico.'],
         ['Cromoblastomicosis', 'La lesión verrugosa crónica contiene cuerpos muriformes', 'Hongos pigmentados implantados traumáticamente producen placas o nódulos verrugosos de evolución lenta.', 'Los cuerpos escleróticos o muriformes son un dato histológico característico. La profundidad y cronicidad explican por qué el tratamiento suele ser prolongado.'],
-        ['Micetoma eumicótico', 'Tumefacción, fístulas y granos forman la tríada', 'El proceso puede avanzar desde tejido subcutáneo hacia músculo y hueso, deformando el miembro. Los trayectos drenan granos.', 'Eumicetoma es fúngico y debe diferenciarse del actinomicetoma bacteriano. La muestra profunda permite orientar agente y tratamiento.']
+        ['Micetoma eumicótico', 'Tumefacción, fístulas y granos forman la tríada', 'El primer paciente documentado tiene 38 años, punción con espina, evolución de tres años y granos negros; estos orientan a un hongo dematiáceo como Madurella spp.', 'El eumicetoma es fúngico y debe diferenciarse del actinomicetoma bacteriano. Granos, biopsia, histopatología, cultivo e imagen de extensión guían agente y tratamiento.'],
+        ['Segundo eumicetoma', 'La historia de 62 años se conserva como un caso independiente', 'Una herida con clavo precede al aumento de volumen del pie, las recurrencias, las cirugías y la limitación funcional a lo largo de dos décadas.', 'La fotografía orienta por cronicidad, deformidad y fístulas, pero no identifica la especie. La confirmación exige muestra profunda y estudio microbiológico.'],
+        ['Candida oportunista', 'Colonización, riesgo y enfermedad no son equivalentes', 'Candida puede colonizar tubo digestivo, mucosa genital, piel y región periungueal. Antibióticos, catéteres, cirugía, neutropenia, trasplante o inmunosupresión aumentan el riesgo de infección.', 'Las formas orales, cutáneas y ungueales se interpretan con la exploración y el sitio de muestra. Un cultivo de un sitio no estéril no demuestra por sí solo candidiasis invasiva.'],
+        ['Decisión segura', 'La profundidad y el agente determinan la estrategia', 'Raspado y KOH orientan cuadros superficiales o cutáneos; las lesiones subcutáneas requieren granos, biopsia, histopatología y cultivo, además de imagen cuando se sospecha extensión.', 'Tratamiento tópico, sistémico, cirugía o combinaciones se individualizan por entidad y gravedad. No se indican antibióticos ni corticoides de rutina por el aspecto de una lesión fúngica.']
       ]
     },
     'microbiologia-practica-anterior': {
@@ -544,7 +549,7 @@
 
   window.MedNykutoAcademicModel = {
     version: 'v445',
-    updatedAt: '2026-08-22',
+    updatedAt: '2026-08-24',
     teachers: teachers,
     subjects: subjects,
     narratives: narratives

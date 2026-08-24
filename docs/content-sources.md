@@ -92,13 +92,21 @@ assets/class-hub/physiology/2026-08-17/organizacion-sinapsis-receptores.pdf
 
 The adjacent `slides/` directory contains the 35 PDF pages rendered in their original order. The `board/` directory publishes only the clean computer reconstruction that preserves the teacher's spatial organization, arrows and teaching sequence; the raw board photograph is intentionally excluded from the public runtime. The linked PhET neuron simulator is a class resource, but the lesson text and training bank are grounded only in the teacher PDF, reconstructed board and supplied class transcription.
 
-The Microbiología II · Teórica class from 2026-08-17 uses eight supplied photographs of the two clinical cases. Their ordered, cropped quick-view copies live at:
+The Microbiología II · Teórica class from 2026-08-17 initially used eight supplied photographs of two clinical cases. Their ordered, cropped quick-view copies remain at:
 
 ```txt
 assets/class-hub/microbiology-theory/2026-08-17/cases/
 ```
 
-The first case is pityriasis versicolor associated with `Malassezia spp.`; the second is tinea corporis associated with `Microsporum canis`. The same class transcription is the source for the comparison by depth and the three subcutaneous mycoses. Training questions for this date must not introduce facts absent from these teacher materials.
+The first case is pityriasis versicolor associated with `Malassezia spp.`; the second is tinea corporis associated with `Microsporum canis`. Additional material received on 2026-08-24 and explicitly assigned by the user to the 17 August lesson documents two independent eumycetoma histories, an occupational lymphocutaneous sporotrichosis case and an opportunistic `Candida` block.
+
+The 304 MB, 21-page source PDF is image-only and is not committed. Six additional camera photographs are also excluded from the runtime. A five-page, mobile-oriented derivative and two lightweight WebP previews live at:
+
+```txt
+assets/class-hub/microbiology-theory/2026-08-17/expanded-cases/
+```
+
+The derivative PDF preserves the histories as separate cases and uses only conservative crop, exposure, contrast and sharpening corrections. It does not reconstruct or retouch lesions. The original classroom files remain the evidence source; the adjacent HTML lesson is the medically reviewed study layer. Training questions for this date may use only the documented concepts and the verified corrections recorded in that lesson.
 
 The 19–21 August 2026 handoff adds five dated lessons. Original teacher documents remain byte-for-byte unchanged at:
 

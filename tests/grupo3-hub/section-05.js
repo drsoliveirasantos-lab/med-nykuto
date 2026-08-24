@@ -61,5 +61,13 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(archive).toBeVisible();
     await expect(archive.locator('#sessionArchiveThumbnails button')).toHaveCount(8);
     await expect(archive.locator('[data-session-archive-total]')).toHaveText('8');
+    await archive.locator('[data-session-archive-close]').click();
+
+    const optimizedPdf = page.locator('#microbiologia-teorica-2026-08-17 .session-primary-link');
+    await expect(optimizedPdf).toHaveAttribute('href', /casos-clinicos-y-candidiasis-17-08\.pdf$/);
+    await page.locator('#microbiologia-teorica-2026-08-17 [data-detail-toggle]').click();
+    const clinicalMiniatures = page.locator('#microbiologia-teorica-2026-08-17 .clinical-miniature-link img');
+    await expect(clinicalMiniatures).toHaveCount(2);
+    await expect(clinicalMiniatures.first()).toHaveAttribute('loading', 'lazy');
   });
 };

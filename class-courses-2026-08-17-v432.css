@@ -63,6 +63,11 @@
 .clinical-story-data{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px}
 .clinical-story-data article{min-height:122px;display:grid;align-content:center;padding:13px;border:1px solid var(--line);border-radius:14px;background:rgba(4,13,23,.45)}
 .clinical-story-data strong{margin-top:5px;font-size:.78rem;line-height:1.25}.clinical-story-data small{margin-top:4px;color:var(--muted);font-size:.62rem}
+.clinical-miniature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0 0 18px}
+.clinical-miniature-link{min-width:0;display:grid;grid-template-columns:minmax(150px,42%) minmax(0,1fr);align-items:center;gap:14px;padding:11px;border:1px solid rgba(114,224,171,.23);border-radius:18px;color:inherit;background:linear-gradient(145deg,rgba(114,224,171,.055),rgba(4,13,23,.5));text-decoration:none}
+.clinical-miniature-link img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;border:1px solid rgba(114,224,171,.18);border-radius:12px;background:#e9f0f1}
+.clinical-miniature-link>span{min-width:0;display:grid;align-content:center;gap:3px}.clinical-miniature-link b{color:var(--gold-soft);font-size:.53rem;letter-spacing:.1em}.clinical-miniature-link strong{font-size:.82rem;line-height:1.2}.clinical-miniature-link small{color:var(--muted);font-size:.62rem;line-height:1.35}
+.clinical-miniature-link:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
 body.is-session-archive-open{overflow:hidden}
 .session-archive-dialog .board-archive-body{min-height:0}
 .session-archive-dialog .board-archive-image-frame{background:#06111f}
@@ -82,6 +87,7 @@ body.is-session-archive-open{overflow:hidden}
   .neurotransmitter-grid,.sensory-grid,.neural-circuit-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.neurotransmitter-grid article,.sensory-grid article,.neural-circuit-grid article{min-height:78px;padding:10px;border-radius:12px}
   .mycosis-depth-grid,.subcutaneous-grid,.diagnostic-depth-flow{grid-template-columns:1fr;gap:7px;margin-top:10px}.mycosis-depth-grid article,.subcutaneous-grid article,.diagnostic-depth-flow article{min-height:0;padding:13px;border-radius:14px}
   .clinical-story-card{padding:13px;border-radius:16px}.clinical-story-heading h3{font-size:1rem}.clinical-story-data{grid-template-columns:1fr;gap:6px;margin-top:10px}.clinical-story-data article{min-height:0;padding:10px;border-radius:12px}
+  .clinical-miniature-grid{grid-template-columns:1fr;gap:7px;margin-bottom:13px}.clinical-miniature-link{grid-template-columns:110px minmax(0,1fr);gap:10px;padding:8px;border-radius:14px}.clinical-miniature-link img{border-radius:9px}.clinical-miniature-link strong{font-size:.74rem}.clinical-miniature-link small{font-size:.57rem}
   .session-archive-dialog .board-archive-image-frame img{max-height:55dvh}
 }
 @media (max-width:390px){

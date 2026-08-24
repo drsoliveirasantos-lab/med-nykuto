@@ -157,7 +157,7 @@
     lessonDateLabel:'17 AGO. 2026',
     title:'Micosis por profundidad y casos clínicos',
     icon:'class-icon-microbiology',
-    description:'Micosis superficiales, cutáneas y subcutáneas con los dos casos resueltos en clase.',
+    description:'Micosis superficiales, cutáneas, subcutáneas y oportunistas con cinco secuencias clínicas de la clase.',
     grounding:'course-only',
     sources:[{label:'Clase utilizada · 17 ago.',url:'clase.html#microbiologia-teorica-2026-08-17'}],
     qcm:[
@@ -194,21 +194,21 @@
       q('¿Qué morfología del cultivo apoyó la identificación de M. canis?',[
         'Macroconidios abundantes, fusiformes y de pared rugosa.','Levaduras agrupadas sin hifas.','Cuerpos muriformes dentro de granulomas.','Granos negros en una fístula.'
       ],0,'El caso usó macroconidios fusiformes, abundantes y de pared rugosa como dato de identificación.'),
-      q('¿Qué tejidos puede afectar Trichophyton según la comparación de géneros?',[
-        'Piel, pelo y uñas.','Piel y pelo, pero no uñas.','Piel y uñas, pero no pelo.','Estrato córneo del tronco.'
-      ],0,'La tabla de clase indicó piel, pelo y uñas para Trichophyton.'),
-      q('¿Qué patrón corresponde a Microsporum?',[
-        'Afecta piel y pelo; no suele afectar uñas.','Afecta piel y uñas; no invade pelo.','Afecta uñas y mucosa oral.','Se limita a tejido subcutáneo.'
-      ],0,'Microsporum se relacionó con piel y pelo y no suele invadir uñas.'),
-      q('¿Qué patrón corresponde a Epidermophyton?',[
-        'Afecta piel y uñas; no invade el pelo.','Afecta piel, pelo y uñas.','Afecta pelo y cerebro.','Produce micosis subcutáneas.'
-      ],0,'Epidermophyton afecta piel y uñas y no invade el pelo.'),
-      q('¿Qué localización se destacó para la tiña pedis?',[
-        'La zona interdigital del pie.','El estrato córneo del tronco.','El trayecto linfático del brazo.','El tejido subcutáneo de la cara.'
-      ],0,'La clase destacó la afectación interdigital y su posible relación con compromiso de la uña.'),
-      q('¿Qué antecedente es necesario para pensar en una micosis subcutánea?',[
-        'Una inoculación traumática profunda.','Una exposición solar breve.','Una exposición sin lesión cutánea.','Una sinapsis química lenta.'
-      ],0,'Las micosis subcutáneas se relacionaron con trauma que atraviesa la piel e introduce el agente.'),
+      q('¿Qué interpretación corresponde a los granos negros drenados por las fístulas de un micetoma?',[
+        'Orientan a eumicetoma por hongos dematiáceos.','Identifican una infección por Candida en la mucosa.','Demuestran una tiña corporal por Microsporum.','Confirman una esporotricosis sin cultivo.'
+      ],0,'Los granos negros orientan a un eumicetoma por hongos pigmentados, aunque la especie requiere confirmación.'),
+      q('¿Qué método confirma con mayor seguridad una esporotricosis linfocutánea?',[
+        'El cultivo de una muestra clínica adecuada.','La lámpara de Wood aplicada a los nódulos.','El KOH de una uña sin cambios.','El hemocultivo de una forma cutánea estable.'
+      ],0,'El aislamiento de Sporothrix a partir del espécimen clínico es el método de referencia.'),
+      q('¿Qué situación favorece una infección oportunista por Candida?',[
+        'Neutropenia y uso de catéter venoso.','Contacto breve con un gato alopécico.','Exposición solar de una mácula del tronco.','Punción con espina seguida de nódulos lineales.'
+      ],0,'La alteración de defensas y barreras, como neutropenia o catéter, aumenta el riesgo de candidiasis.'),
+      q('¿Cómo debe interpretarse un cultivo con Candida obtenido de un sitio no estéril?',[
+        'Debe correlacionarse con clínica, riesgo y sitio de muestra.','Demuestra por sí mismo candidiasis invasiva.','Descarta colonización de la microbiota.','Identifica un micetoma eumicótico.'
+      ],0,'Candida puede colonizar mucosas y piel; un aislamiento de un sitio no estéril no prueba por sí solo enfermedad invasiva.'),
+      q('¿Qué antecedente apoya la sospecha de una micosis subcutánea de implantación?',[
+        'Una punción con material vegetal, incluso si fue pequeña.','Sudoración sin ruptura de la barrera cutánea.','Contacto con una placa de tiña corporal.','Colonización oral por Candida.'
+      ],0,'Estas micosis suelen seguir una inoculación ambiental; el traumatismo puede ser mínimo o no recordarse.'),
       q('¿Qué patrón clínico se asoció a la esporotricosis linfocutánea?',[
         'Nódulos que siguen un trayecto linfático desde la lesión de entrada.','Máculas del tronco con descamación fina.','Placa anular con centro claro por contacto con gato.','Tumefacción con fístulas y granos.'
       ],0,'La esporotricosis se presentó como lesión de inoculación seguida de nódulos en línea por los vasos linfáticos.'),
@@ -225,10 +225,10 @@
     vf:[
       vf('La pitiriasis versicolor y la tiña corporal pertenecen al mismo nivel de invasión.',false,'La pitiriasis versicolor es superficial; la tiña corporal es una micosis cutánea o dermatofitosis.'),
       vf('Malassezia spp. se asocia a zonas seborreicas del tronco.',true,'Su afinidad por lípidos ayuda a explicar esa distribución.'),
-      vf('En el segundo caso, la ausencia de fiebre impidió diagnosticar una tiña corporal.',false,'El caso no tenía fiebre ni síntomas sistémicos y aun así correspondía a tiña corporal.'),
-      vf('El contacto con un gato con alopecia fue una pista epidemiológica del segundo caso.',true,'Ese antecedente orientó a una fuente animal y a Microsporum canis.'),
+      vf('Los granos negros de un micetoma orientan a un hongo dematiáceo, pero no identifican por sí solos la especie.',true,'El color de los granos apoya el eumicetoma; examen directo, histopatología y cultivo completan la identificación.'),
+      vf('Un cultivo con Candida procedente de un sitio no estéril es suficiente para diagnosticar candidiasis invasiva.',false,'Candida puede colonizar piel y mucosas; el resultado se interpreta con clínica, factores de riesgo y sitio de muestra.'),
       vf('El aclaramiento central parcial puede acompañar el borde activo de una tiña corporal.',true,'La lesión descrita era anular, con borde elevado activo y centro parcialmente más claro.'),
-      vf('Una micosis subcutánea se produce sin una lesión traumática de entrada.',false,'La inoculación traumática profunda fue presentada como requisito para las micosis subcutáneas.'),
+      vf('La inoculación traumática es una vía frecuente de las micosis subcutáneas, aunque el paciente puede no recordar el episodio.',true,'Una espina o astilla pequeña puede implantar el agente y pasar inadvertida en la historia.'),
       vf('La esporotricosis puede relacionarse con jardinería, espina de rosa o contacto con gato.',true,'Esas exposiciones fueron usadas en clase para reconocer su puerta de entrada.'),
       vf('La cromoblastomicosis se describió como infiltrativa con tumefacción y fístulas.',false,'Ese patrón correspondió al micetoma; la cromoblastomicosis se describió como proliferativa y verrugosa.'),
       vf('El micetoma puede deformar el miembro cuando avanza a tejidos profundos.',true,'La clase señaló progresión hacia músculo y hueso, con daño y deformidad.'),
@@ -241,24 +241,24 @@
       clinical('Un paciente adolescente de 15 años presenta una placa pruriginosa de 5 cm en el antebrazo. Creció durante dos semanas, tiene borde elevado activo y centro más claro. Su gato joven pierde pelo.','¿Qué agente es el más probable?',[
         'Microsporum canis.','Malassezia spp.','Un hongo de micetoma.','Sporothrix asociado a una espina.'
       ],0,'El patrón de tiña corporal y el contacto con un gato alopécico orientan a M. canis.'),
-      clinical('Una persona consulta por descamación y prurito entre los dedos del pie. Después nota que la uña cercana empieza a alterarse.','¿Qué localización de tiña se debe reconocer primero?',[
-        'Tinea pedis.','Tinea corporis.','Pitiriasis versicolor.','Esporotricosis.'
-      ],0,'La afectación interdigital corresponde a tiña pedis y puede acompañarse de compromiso ungueal.'),
-      clinical('Un niño presenta placas de alopecia con pelos rotos. El cuero cabelludo muestra descamación en las mismas zonas.','¿Qué tejido está afectado en esta dermatofitosis?',[
-        'Pelo y cuero cabelludo.','Tejido subcutáneo sin pelo.','Músculo y hueso.','Estrato córneo del tronco.'
-      ],0,'La tiña capitis afecta cuero cabelludo y pelo, tejidos queratinizados.'),
-      clinical('Una paciente tiene máculas del tronco sin inflamación importante. El examen directo muestra levaduras e hifas cortas, pero no hifas hialinas septadas de dermatofito.','¿Cómo debe clasificarse la profundidad?',[
-        'Micosis superficial.','Micosis subcutánea.','Micosis ósea.','Dermatofitosis ungueal.'
-      ],0,'El patrón corresponde a una infección limitada al estrato córneo: pitiriasis versicolor.'),
-      clinical('Una paciente que trabaja en jardinería se pincha profundamente con una espina de rosa. Semanas después aparece un nódulo en la mano y otros nódulos ascienden en línea por el brazo.','¿Qué micosis explica el trayecto?',[
+      clinical('Un hombre de 38 años que trabaja en el campo se pinchó con una espina mientras caminaba descalzo. Tres años después presenta un pie aumentado de volumen, fístulas y drenaje de granos negros.','¿Qué diagnóstico integra mejor la tríada?',[
+        'Eumicetoma.','Candidiasis oral.','Tiña corporal.','Esporotricosis linfocutánea.'
+      ],0,'La tumefacción, los trayectos fistulosos y los granos forman la tríada del micetoma; los granos negros orientan a etiología fúngica.'),
+      clinical('Una paciente inmunosuprimida desarrolla placas blancas cremosas en la mucosa oral. Algunas se desprenden al raspado y dejan una base eritematosa sensible.','¿Qué forma clínica es la más probable?',[
+        'Candidiasis oral pseudomembranosa.','Tiña corporal zoofílica.','Cromoblastomicosis.','Eumicetoma con granos negros.'
+      ],0,'Las placas blancas removibles sobre una base eritematosa son compatibles con candidiasis oral pseudomembranosa.'),
+      clinical('Un hombre de 62 años tuvo una herida con clavo en el pie derecho hace dos décadas. Después de recurrencias y cirugías presenta deformidad, fístulas, ulceración y limitación funcional.','¿Qué estudio permite confirmar la orientación de eumicetoma?',[
+        'Biopsia y cultivo de una muestra profunda.','Pulsioximetría en reposo.','Lámpara de Wood sobre piel sana.','Raspado de una mácula del tronco.'
+      ],0,'La historia orienta a eumicetoma, pero la confirmación requiere granos o biopsia, histopatología y cultivo.'),
+      clinical('Una paciente de 36 años que trabaja en el campo se lesiona un dedo mientras injerta naranjos. La pápula se ulcera y nuevos nódulos ascienden en línea por el brazo.','¿Qué micosis explica el trayecto?',[
         'Esporotricosis linfocutánea.','Pitiriasis versicolor.','Tiña corporal.','Cromoblastomicosis sin trauma.'
-      ],0,'Trauma vegetal seguido de nódulos por el trayecto linfático es el patrón enseñado para esporotricosis.'),
+      ],0,'La inoculación vegetal seguida de nódulos por el trayecto linfático es el patrón enseñado para esporotricosis.'),
       clinical('Un hombre que trabaja en el campo recuerda una punción antigua. Con los meses desarrolla una placa verrugosa que crece lentamente en la pierna.','¿Qué entidad corresponde al patrón proliferativo?',[
         'Cromoblastomicosis.','Micetoma eumicótico.','Pitiriasis versicolor.','Tiña pedis interdigital.'
       ],0,'La lesión verrugosa crónica y proliferativa se usó para diferenciar cromoblastomicosis.'),
-      clinical('Un paciente que trabaja descalzo presenta aumento marcado del volumen del pie, orificios que drenan y granos. La lesión ha avanzado en profundidad.','¿Qué diagnóstico es el más probable?',[
-        'Micetoma eumicótico.','Pitiriasis versicolor.','Tiña corporal.','Esporotricosis con nódulos lineales.'
-      ],0,'Tumefacción, fístulas y granos forman el cuadro presentado para micetoma eumicótico.'),
+      clinical('Una paciente de edad avanzada recibió antibióticos de amplio espectro. Presenta eritema pruriginoso en un pliegue húmedo, pequeñas lesiones satélite e inflamación periungueal.','¿Qué agente oportunista debe considerarse?',[
+        'Candida spp.','Microsporum canis.','Sporothrix spp.','Malassezia spp.'
+      ],0,'La combinación de intertrigo con lesiones satélite y afectación periungueal orienta a candidiasis mucocutánea.'),
       clinical('Una paciente joven presenta manchas superficiales con descamación fina. El médico quiere confirmar rápidamente elementos fúngicos en la capa externa.','¿Qué procedimiento inicial debe realizarse?',[
         'Raspado para examen directo con KOH.','Biopsia de músculo.','Radiografía del hueso.','Estudio de potenciales nerviosos.'
       ],0,'En una micosis superficial, el raspado y el examen directo permiten observar el hongo rápidamente.'),
