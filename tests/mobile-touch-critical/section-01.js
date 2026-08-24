@@ -82,5 +82,25 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     await expect(page.locator('[data-study-topic="fisiologia-2026-08-17"]')).toBeVisible();
     await page.locator('[data-study-topic="fisiologia-2026-08-10"]').click();
     await expect(page.locator('#studyPracticeHost #practice-fisiologia-2026-08-10')).toBeVisible();
+
+    await page.goto('/comunidade.html#ranking', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('.study-latest-shortcuts')).toBeVisible();
+    await expect(page.locator('[data-study-topic-shortcut="fisiologia-2026-08-17"]')).toBeVisible();
+    await expect(page.locator('[data-study-topic-shortcut="microbiologia-teorica-2026-08-17"]')).toBeVisible();
+    const shortcutLayout = await page.locator('.study-latest-shortcuts').evaluate(node => ({
+      width:node.getBoundingClientRect().width,
+      viewport:document.documentElement.clientWidth,
+      overflow:document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      columns:getComputedStyle(node).gridTemplateColumns.split(' ').length,
+      cardHeights:[...node.querySelectorAll('a')].map(link => link.getBoundingClientRect().height),
+      titleFont:parseFloat(getComputedStyle(node.querySelector('strong')).fontSize),
+      detailFont:parseFloat(getComputedStyle(node.querySelector('small')).fontSize)
+    }));
+    expect(shortcutLayout.width).toBeLessThanOrEqual(shortcutLayout.viewport);
+    expect(shortcutLayout.overflow).toBeLessThanOrEqual(1);
+    expect(shortcutLayout.columns).toBe(1);
+    expect(Math.max(...shortcutLayout.cardHeights)).toBeLessThanOrEqual(64);
+    expect(shortcutLayout.titleFont).toBeGreaterThanOrEqual(10.5);
+    expect(shortcutLayout.detailFont).toBeGreaterThanOrEqual(9);
   });
 };

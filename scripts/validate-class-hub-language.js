@@ -16,6 +16,7 @@ const classHubCss = fs.readFileSync(path.join(root, 'class-hub-2026-08-21-v440.c
 const classHubApi = fs.readFileSync(path.join(root, 'functions', 'api', 'class-hub.js'), 'utf8');
 const academicModel = fs.readFileSync(path.join(root, 'academic-model-v445.js'), 'utf8');
 const notebook = fs.readFileSync(path.join(root, 'class-notebook-v445.js'), 'utf8');
+const notebookCss = fs.readFileSync(path.join(root, 'class-notebook-v445.css'), 'utf8');
 
 const failures = [];
 const expect = (condition, message) => {
@@ -171,6 +172,11 @@ expect(classHubCss.includes('.live-task-groups') && classHubCss.includes('.live-
 expect(html.includes('href="https://virtual.central.edu.py/auth"'), 'The official UCP portal shortcut is missing from the class home page.');
 expect(html.includes('class="home-quick-links"'), 'The compact useful-links strip is missing from the class home page.');
 expect(css.includes('.home-quick-link'), 'The compact home shortcut styling is missing.');
+expect(html.includes('href="#fisiologia-2026-08-17"') && html.includes('href="#microbiologia-teorica-2026-08-17"'), 'The home page does not link directly to both completed transcriptions.');
+expect(html.includes('class="home-transcripts"') && html.includes('Clases reconstruidas y revisadas'), 'The new transcription block is missing from the class home page.');
+expect(css.includes('.home-transcript-card'), 'The compact new-transcription cards are not styled.');
+expect(notebookCss.includes('.course-latest-chip') && notebookCss.includes('display:inline-flex!important'), 'The visible mobile course-update chips are missing.');
+expect(i18n.includes("'Organización, sinapsis y receptores':'Organização, sinapses e receptores'") && i18n.includes("'Micosis por profundidad y casos clínicos':'Micoses por profundidade e casos clínicos'"), 'The new transcription cards are not translated into Portuguese.');
 expect(i18n.includes("'Notas y aula virtual':'Notas e ambiente virtual'"), 'The UCP portal shortcut is not translated into Portuguese.');
 expect(!html.includes('class="bio-abbrev-guide"'), 'The redundant separate acronym menu is still present.');
 expect(glossary.includes("full:{es:'Adenosina trifosfato',br:'Adenosina trifosfato'}"), 'ATP is missing its complete name in the direct glossary popup.');
