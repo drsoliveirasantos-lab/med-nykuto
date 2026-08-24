@@ -2041,7 +2041,7 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
   .home-transcript-date{width:27px;height:34px;border-radius:8px}.home-transcript-date b{font-size:.82rem}.home-transcript-date small{font-size:.48rem}
   .home-transcript-copy small{font-size:.52rem;letter-spacing:.02em}.home-transcript-copy strong{font-size:.68rem;line-height:1.14}.home-transcript-title-long{display:none}.home-transcript-title-short{display:block}.home-transcript-action{display:none}
   .home-quick-link-delegate{display:none}
-  .home-challenge-prize{grid-column:1/-1}
+  .home-challenge-prize{display:none}
   .home-challenge-prize{min-height:52px;grid-template-columns:28px minmax(0,1fr);gap:6px;padding:6px 7px;border-radius:12px}
   .home-challenge-medal{width:28px;height:28px;border-radius:8px;font-size:1rem}
   .home-challenge-prize small{font-size:.43rem;letter-spacing:.06em}.home-challenge-prize strong{font-size:.65rem}.home-challenge-prize em{font-size:.5rem;line-height:1.2}.home-challenge-prize>b{display:none}
