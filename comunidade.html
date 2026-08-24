@@ -8,7 +8,7 @@
   <meta name="description" content="Entrenamiento por materia y tema con QCM, verdadero o falso, casos clínicos y clasificación semanal del 4.º E." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="community.css?v=480" />
+  <link rel="stylesheet" href="community.css?v=481" />
   <link rel="stylesheet" href="help-desk-v479.css?v=480" />
 </head>
 <body class="community-page">
@@ -136,6 +136,18 @@
         </div>
         <p data-i18n="challengeCopy">No importa quién queda primero: cada mejor resultado acerca a la clase a la meta.</p>
         <p class="challenge-eligibility" data-i18n="prizeRule">Exclusivo para estudiantes matriculados en el 4.º E.</p>
+        <div class="challenge-countdown" id="challengeCountdown" data-state="loading" role="timer" aria-label="Tiempo restante para el cierre del desafío">
+          <div class="challenge-countdown-heading">
+            <span data-i18n="countdownKicker">CIERRE EXACTO</span>
+            <strong id="challengeCountdownLabel" data-i18n="countdownPending">Domingo · 20:00 · hora de Paraguay</strong>
+          </div>
+          <div class="challenge-countdown-units" aria-hidden="true">
+            <span><strong id="challengeCountdownDays">--</strong><small data-i18n="countdownDays">días</small></span>
+            <span><strong id="challengeCountdownHours">--</strong><small data-i18n="countdownHours">horas</small></span>
+            <span><strong id="challengeCountdownMinutes">--</strong><small data-i18n="countdownMinutes">min</small></span>
+            <span><strong id="challengeCountdownSeconds">--</strong><small data-i18n="countdownSeconds">seg</small></span>
+          </div>
+        </div>
         <strong class="challenge-score" id="challengeScore">0 / 1.000</strong>
         <span class="challenge-score-label" data-i18n="correctAnswers">respuestas correctas</span>
         <div class="challenge-progress-track" id="challengeProgressBar" role="progressbar" aria-label="Progreso del desafío" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
@@ -179,13 +191,13 @@
     <a href="comunidade.html" aria-current="page"><span class="nav-icon"><svg aria-hidden="true"><use href="#class-icon-community"></use></svg></span><strong data-i18n="navStudy">Estudiar</strong></a>
   </nav>
 
-  <script src="community.js?v=480"></script>
+  <script src="community.js?v=481"></script>
   <script src="grupo-3-practice-v413.js?v=441"></script>
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
   <script src="grupo-3-practice-grounded-v426.js?v=431"></script>
   <script src="grupo-3-practice-2026-08-17-v432.js?v=432"></script>
   <script src="grupo-3-practice-2026-08-21-v440.js?v=440"></script>
-  <script src="community-study.js?v=480"></script>
+  <script src="community-study.js?v=481"></script>
   <script src="medical-glossary-v425.js?v=432"></script>
   <script src="help-desk-v479.js?v=480"></script>
 </body>
