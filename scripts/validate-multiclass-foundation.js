@@ -543,7 +543,7 @@ async function validateMulticlassShell() {
     expect(Boolean(input) && !/\svalue\s*=/i.test(input), `Credential input ${id} is missing or contains a hard-coded value.`);
   });
   expect(!/[a-z0-9._%+-]+@(?:gmail|hotmail|outlook|yahoo)\.[a-z]{2,}/i.test(`${managementHtml}\n${managementRuntime}\n${credentialHelper}`), 'A real-looking personal email address was committed in the management credential sources.');
-  expect(credentialHelper.includes('PBKDF2') && credentialHelper.includes("hash: 'SHA-256'") && credentialHelper.includes('PASSWORD_ITERATIONS = 600000') && credentialHelper.includes('crypto.subtle.deriveBits'), 'The credential helper is missing the expected salted PBKDF2-SHA-256 verifier.');
+  expect(credentialHelper.includes('PBKDF2') && credentialHelper.includes("hash: 'SHA-256'") && credentialHelper.includes('PASSWORD_ITERATIONS = 100000') && credentialHelper.includes('crypto.subtle.deriveBits'), 'The credential helper is missing the expected salted PBKDF2-SHA-256 verifier.');
   expect(credentialHelper.includes('crypto.getRandomValues') && credentialHelper.includes('randomToken(16)') && credentialHelper.includes('Secure; HttpOnly; SameSite=Strict'), 'The credential helper is missing random salts/tokens or hardened session-cookie attributes.');
   expect(credentialHelper.includes("SESSION_TTL_SECONDS = 8 * 60 * 60") && credentialHelper.includes("__Host-med-nykuto-management-csrf"), 'The credential helper is missing the bounded session or CSRF cookie contract.');
   expect(/credentials\s*[:=]\s*["']same-origin["']/.test(managementRuntime) && /\[["']x-csrf-token["']\]\s*=/.test(managementRuntime) && /csrfCookieName\s*=\s*["']__Host-med-nykuto-management-csrf["']/.test(managementRuntime), 'Management requests do not use same-origin cookies and the CSRF header contract.');
@@ -610,7 +610,7 @@ async function validateCredentialHelper() {
   expect(helper.normalizeEmail(' Delegate.Fixture@EXAMPLE.test ') === 'delegate.fixture@example.test', 'Delegate emails are not normalized consistently.');
   expect(Boolean(helper.temporaryPasswordProblem('12345')), 'A temporary password shorter than six characters was accepted.');
   expect(Boolean(helper.strongPasswordProblem('123456789012')), 'A numeric-only permanent password was accepted.');
-  expect(verifier.iterations === 600000 && /^[a-f0-9]{32}$/.test(verifier.salt) && /^[a-f0-9]{64}$/.test(verifier.hash), 'The generated PBKDF2 verifier has invalid metadata or dimensions.');
+  expect(verifier.iterations === 100000 && /^[a-f0-9]{32}$/.test(verifier.salt) && /^[a-f0-9]{64}$/.test(verifier.hash), 'The generated PBKDF2 verifier has invalid metadata or dimensions.');
   expect(await helper.verifyPassword(password, credential), 'The generated PBKDF2 verifier does not accept its source password.');
   expect(!await helper.verifyPassword('Wrong-Fixture-2026!', credential), 'The PBKDF2 verifier accepted an incorrect password.');
   expect(helper.isRandomToken(helper.randomToken(32)), 'Management session tokens are not exact 256-bit random hex values.');

@@ -1,4 +1,7 @@
-const PASSWORD_ITERATIONS = 600000;
+// Pages Functions on the Workers Free plan have a very small per-request CPU
+// budget. Keep new verifiers at the highest cost validated on that runtime;
+// stored verifiers retain their own cost and remain independently verifiable.
+const PASSWORD_ITERATIONS = 100000;
 const MIN_ACCEPTED_PASSWORD_ITERATIONS = 100000;
 const MAX_ACCEPTED_PASSWORD_ITERATIONS = 2000000;
 const SESSION_TTL_SECONDS = 8 * 60 * 60;

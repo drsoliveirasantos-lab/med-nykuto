@@ -19,7 +19,7 @@ Le shell protege `gestion-shell/index.html`, publie sous `/gestion/:slug`, perme
 La version `v472` charge `gestion-v440.css?v=472` et `gestion-v440.js?v=472`. Elle ajoute un acces par courrier et mot de passe sans supprimer le token proprietaire ni le parcours historique d'invitation.
 
 1. Le proprietaire cree le compte dans **Acces et audit** avec un nom, un courrier et un mot de passe temporaire.
-2. Le courrier est normalise cote serveur et le mot de passe est derive avec PBKDF2-HMAC-SHA-256, un sel aleatoire propre au compte et 600 000 iterations. Le mot de passe en clair n'est jamais enregistre.
+2. Le courrier est normalise cote serveur et le mot de passe est derive avec PBKDF2-HMAC-SHA-256, un sel aleatoire propre au compte et 100 000 iterations, calibre pour le budget CPU des Pages Functions. Le mot de passe en clair n'est jamais enregistre.
 3. Le delegue se connecte sur `/gestion/<slug>`. Une session de huit heures est creee avec un jeton aleatoire dont seul le condensat est stocke dans D1.
 4. Le cookie de session utilise `Secure`, `HttpOnly` et `SameSite=Strict`. Un second cookie lisible par l'interface fournit la valeur anti-CSRF, renvoyee dans l'en-tete `x-csrf-token` pour chaque mutation de session.
 5. Une connexion par mot de passe temporaire ouvre uniquement l'ecran de changement obligatoire. La gestion reste bloquee jusqu'au choix d'une phrase de mot de passe d'au moins douze caracteres, suffisamment variee et non exclusivement numerique.
