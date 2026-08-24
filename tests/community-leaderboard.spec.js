@@ -29,8 +29,10 @@ const API_RESPONSE = {
     key: '2026-08-24',
     start: '2026-08-24',
     end: '2026-08-30',
-    closesAt: '2026-08-30T23:59:59-03:00',
-    timeZone: 'America/Asuncion'
+    closesAt: '2026-08-30T20:00:00-03:00',
+    timeZone: 'America/Asuncion',
+    closed: false,
+    secondsRemaining: 558000
   },
   challenge: {
     goal: 1000,
@@ -39,6 +41,7 @@ const API_RESPONSE = {
     participants: 4,
     records: 8,
     progress: 26,
+    closed: false,
     prize: {
       amount: 50,
       currency: 'BRL',
@@ -180,6 +183,10 @@ test.describe('Weekly S4-E class challenge', () => {
     await expect(page.locator('#communityRanking .ranking-row').last().locator('.ranking-catraca')).toHaveText('—');
     await expect(page.locator('#communityRanking .ranking-row').last().locator('.ranking-verification')).toHaveText('Identificación pendiente · sin premio');
     await expect(page.locator('#challengeWeek')).toContainText('24 ago');
+    await expect(page.locator('#challengeCountdown')).toHaveAttribute('data-state', 'open');
+    await expect(page.locator('#challengeCountdownLabel')).toHaveText('Domingo 30 ago · 20:00 · hora de Paraguay');
+    await expect(page.locator('#challengeCountdownDays')).toHaveText('06');
+    await expect(page.locator('#challengeCountdownHours')).toHaveText('11');
     expect(new URL(rankingRequestUrl).searchParams.get('class')).toBe('s4-e');
     expect(new URL(rankingRequestUrl).searchParams.get('player')).toBe(PLAYER_ID);
     expect(new URL(rankingRequestUrl).searchParams.has('nickname')).toBe(false);
@@ -192,10 +199,31 @@ test.describe('Weekly S4-E class challenge', () => {
     await expect(page.locator('#communityRanking .ranking-row.is-current')).toContainText('Você');
     await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-catraca')).toHaveAttribute('aria-label', 'Catraca completa: 001234');
     await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-verification')).toHaveText('Verificação pendente · classificação provisória');
+    await expect(page.locator('#challengeCountdownLabel')).toHaveText('Domingo 30 de ago · 20:00 · horário do Paraguai');
     await expect(page.locator('#communityProfileForm label[for="communityIdentityConsent"]')).toContainText('Participar é facultativo');
     await expect(page.locator('#communityProfileForm label[for="communityIdentityConsent"]')).toContainText('nome completo e minha catraca completa sejam públicos');
     await expect(page.locator('#communityProfileForm label[for="communityIdentityConsent"]')).toContainText('verificação manual');
     await expect(page.locator('[data-study-subject="nutricion"]')).toContainText('Nutrição');
+  });
+
+  test('freezes the exact countdown and ranking when Sunday 20:00 Paraguay is reached', async ({ page }) => {
+    await seedProfile(page);
+    await mockCommunityGet(page, {
+      ...API_RESPONSE,
+      week: { ...API_RESPONSE.week, closed: true, secondsRemaining: 0 },
+      challenge: { ...API_RESPONSE.challenge, closed: true },
+      generatedAt: '2026-08-30T23:00:00.000Z'
+    });
+
+    await page.goto('/comunidade.html');
+    await expect(page.locator('#challengeCountdown')).toHaveAttribute('data-state', 'closed');
+    await expect(page.locator('#challengeCountdownLabel')).toHaveText('Clasificación cerrada · ganador en verificación');
+    await expect(page.locator('#challengeCountdownDays')).toHaveText('00');
+    await expect(page.locator('#challengeCountdownHours')).toHaveText('00');
+    await expect(page.locator('#challengeCountdownMinutes')).toHaveText('00');
+    await expect(page.locator('#challengeCountdownSeconds')).toHaveText('00');
+    await expect(page.locator('#rankingTitle')).toHaveText('Clasificación final provisional');
+    await expect(page.locator('.ranking-explanation')).toContainText('clasificación está congelada');
   });
 
   test('migrates the PR 134 masked profile, prefills the name and asks again for the complete catraca', async ({ page }) => {
@@ -660,6 +688,31 @@ test.describe('Weekly S4-E class challenge', () => {
       correct: 18,
       total: 20
     });
+  });
+
+  test('explains the frozen ranking when a scoped QCM is submitted after the exact cutoff', async ({ page }) => {
+    await seedProfile(page);
+    await page.route('**/api/community**', async (route) => {
+      if (route.request().method() === 'POST') {
+        await route.fulfill({
+          status: 409,
+          contentType: 'application/json',
+          body: JSON.stringify({ ok: false, code: 'challenge_closed' })
+        });
+        return;
+      }
+      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(API_RESPONSE) });
+    });
+
+    await page.goto('/qcm.html?course=fisiologia&module=01-fisiologia-01-neurofisiologia-y-potencial-de-accion&class=s4-e', { waitUntil: 'domcontentloaded' });
+    await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v462', null, { timeout: 20000 });
+    await expect(page.locator('#practiceList .single-question-card').first()).toBeAttached({ timeout: 20000 });
+    await replaceWithCompletion(page);
+
+    const publisher = page.locator('.community-publish-card').last();
+    await publisher.getByRole('button', { name: 'Sumar mi resultado' }).click();
+    await expect(publisher.locator('.community-publish-status')).toContainText('cerró el domingo a las 20:00');
+    await expect(publisher.locator('.community-publish-status')).toContainText('ya no cambia la clasificación');
   });
 
   test('links the class hub to study on desktop and mobile navigation', async ({ page }) => {

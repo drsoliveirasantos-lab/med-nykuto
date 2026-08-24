@@ -15,7 +15,9 @@
 - Pour chaque semaine, participant et matière/module, seul le meilleur résultat est conservé.
 - Le classement du 4.º E place d'abord le total de bonnes réponses (**points**), puis la précision, la première activité enregistrée et enfin une clé interne stable. Dans chaque matière/module, le meilleur résultat est lui aussi choisi d'abord selon les bonnes réponses.
 - Le défi collectif vise 1 000 bonnes réponses. Il est remis à zéro chaque lundi selon l'heure du Paraguay.
-- Le premier rang provisoire reçoit **50 R$ par Pix** après contrôle manuel de l'appartenance au 4.º E, de l'identité et du résultat. Aucune clé Pix n'est demandée dans le site.
+- Le chrono est synchronisé avec l'heure renvoyée par l'API, et non uniquement avec l'horloge du téléphone. Il décompte jusqu'au **dimanche à 20 h 00 précises, heure du Paraguay** (`America/Asuncion`).
+- À 20 h 00, le serveur refuse toute nouvelle publication avec `challenge_closed` et le classement de la semaine reste figé pour la vérification du gagnant. Un résultat terminé sur le téléphone reste conservé localement, mais ne modifie plus le classement fermé.
+- Le premier rang provisoire à l'arrêt du chrono reçoit **50 R$ par Pix** après contrôle manuel de l'appartenance au 4.º E, de l'identité et du résultat. Aucune clé Pix n'est demandée dans le site.
 - La classification publique montre le nom complet et la catraca complète consentis. Elle n'expose jamais l'empreinte HMAC, le jeton d'accès ou l'identifiant interne. Un profil complet mais non contrôlé porte la mention « vérification en attente / classement provisoire » ; une ligne historique sans identité complète reste visible mais n'est pas éligible au prix.
 
 Le score provient encore de l'entraînement dans le navigateur. La classification reste donc **provisoire** et le paiement ne peut pas être automatisé : le premier rang doit être contrôlé avant le Pix. Ce classement n'est pas un registre académique.

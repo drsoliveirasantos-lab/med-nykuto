@@ -5,7 +5,8 @@
   var API_URL = '/api/community';
   var ACCESS_TOKEN_PATTERN = /^[0-9a-f]{64}$/i;
   var supported = ['es','br'];
-  var state = {data:null,loading:false,error:'',refreshQueued:false};
+  var state = {data:null,loading:false,error:'',refreshQueued:false,clockOffsetMs:0,countdownClosed:false,countdownReloaded:false};
+  var countdownInterval = 0;
 
   var messages = {
     es:{
@@ -56,6 +57,18 @@
       people:'personas',
       records:'resultados',
       weekPending:'Semana actual',
+      countdownKicker:'CIERRE EXACTO',
+      countdownPending:'Domingo · 20:00 · hora de Paraguay',
+      countdownLabel:'Domingo {date} · 20:00 · hora de Paraguay',
+      countdownClosed:'Clasificación cerrada · ganador en verificación',
+      countdownDays:'días',
+      countdownHours:'horas',
+      countdownMinutes:'min',
+      countdownSeconds:'seg',
+      publishClosed:'El desafío cerró el domingo a las 20:00. Este resultado queda guardado, pero ya no cambia la clasificación.',
+      publishClosedButton:'Clasificación cerrada',
+      rankingClosedTitle:'Clasificación final provisional',
+      rankingClosedCopy:'El tiempo terminó. La clasificación está congelada mientras se verifican identidad y resultado del primer lugar.',
       rankingKicker:'CLASIFICACIÓN SEMANAL',
       rankingTitle:'Clasificación provisional',
       rankingCopy:'Se suma el mejor resultado por materia o módulo. Desempate: más aciertos, mayor precisión y primer registro.',
@@ -193,6 +206,18 @@
       people:'pessoas',
       records:'resultados',
       weekPending:'Semana atual',
+      countdownKicker:'ENCERRAMENTO EXATO',
+      countdownPending:'Domingo · 20:00 · horário do Paraguai',
+      countdownLabel:'Domingo {date} · 20:00 · horário do Paraguai',
+      countdownClosed:'Classificação encerrada · vencedor em verificação',
+      countdownDays:'dias',
+      countdownHours:'horas',
+      countdownMinutes:'min',
+      countdownSeconds:'seg',
+      publishClosed:'O desafio encerrou domingo às 20:00. Este resultado continua salvo, mas não altera mais a classificação.',
+      publishClosedButton:'Classificação encerrada',
+      rankingClosedTitle:'Classificação final provisória',
+      rankingClosedCopy:'O tempo terminou. A classificação está congelada enquanto verificamos a identidade e o resultado do primeiro lugar.',
       rankingKicker:'CLASSIFICAÇÃO SEMANAL',
       rankingTitle:'Classificação provisória',
       rankingCopy:'Somamos o melhor resultado por matéria ou módulo. Desempate: mais acertos, maior precisão e primeiro registro.',
@@ -414,6 +439,7 @@
     });
     document.getElementById('communityLanguage').value = lang;
     renderData();
+    renderCountdown();
   }
 
   function formatNumber(value){
@@ -425,6 +451,62 @@
     return new Intl.DateTimeFormat(lang === 'br' ? 'pt-BR' : 'es-PY',{day:'numeric',month:'short',timeZone:'UTC'})
       .format(new Date(value + 'T12:00:00Z'))
       .replace(/\.$/,'');
+  }
+
+  function countdownDeadline(){
+    var value = state.data && state.data.week && Date.parse(state.data.week.closesAt || '');
+    return Number.isFinite(value) ? value : 0;
+  }
+
+  function challengeIsClosed(){
+    if(state.data && state.data.week && state.data.week.closed === true) return true;
+    var deadline = countdownDeadline();
+    return Boolean(deadline && Date.now() + state.clockOffsetMs >= deadline);
+  }
+
+  function countdownOpenLabel(){
+    var end = state.data && state.data.week && state.data.week.end;
+    return end ? t('countdownLabel',{date:formatDate(end)}) : t('countdownPending');
+  }
+
+  function renderCountdown(){
+    var root = document.getElementById('challengeCountdown');
+    if(!root) return;
+    var deadline = countdownDeadline();
+    var values = ['Days','Hours','Minutes','Seconds'];
+    if(!deadline){
+      root.dataset.state = 'loading';
+      values.forEach(function(unit){ document.getElementById('challengeCountdown' + unit).textContent = '--'; });
+      document.getElementById('challengeCountdownLabel').textContent = countdownOpenLabel();
+      root.setAttribute('aria-label',countdownOpenLabel());
+      return;
+    }
+    var remaining = Math.max(0,deadline - (Date.now() + state.clockOffsetMs));
+    var closed = challengeIsClosed();
+    var totalSeconds = closed ? 0 : Math.max(0,Math.ceil(remaining / 1000));
+    var days = Math.floor(totalSeconds / 86400);
+    var hours = Math.floor((totalSeconds % 86400) / 3600);
+    var minutes = Math.floor((totalSeconds % 3600) / 60);
+    var seconds = totalSeconds % 60;
+    document.getElementById('challengeCountdownDays').textContent = String(days).padStart(2,'0');
+    document.getElementById('challengeCountdownHours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('challengeCountdownMinutes').textContent = String(minutes).padStart(2,'0');
+    document.getElementById('challengeCountdownSeconds').textContent = String(seconds).padStart(2,'0');
+    root.dataset.state = closed ? 'closed' : remaining <= 3600000 ? 'urgent' : 'open';
+    document.getElementById('challengeCountdownLabel').textContent = closed ? t('countdownClosed') : countdownOpenLabel();
+    root.setAttribute('aria-label',closed
+      ? t('countdownClosed')
+      : countdownOpenLabel() + ' · ' + days + ' ' + t('countdownDays') + ', ' + hours + ' ' + t('countdownHours') + ', ' + minutes + ' ' + t('countdownMinutes') + ', ' + seconds + ' ' + t('countdownSeconds'));
+    if(state.countdownClosed !== closed){
+      state.countdownClosed = closed;
+      if(window.MedNykutoCommunityStudy && typeof window.MedNykutoCommunityStudy.challengeStateChanged === 'function'){
+        window.MedNykutoCommunityStudy.challengeStateChanged();
+      }
+    }
+    if(closed && state.data && state.data.week && state.data.week.closed !== true && !state.countdownReloaded){
+      state.countdownReloaded = true;
+      loadData();
+    }
   }
 
   function element(tag,className,text){
@@ -527,6 +609,9 @@
         end:formatDate(data.week.end)
       });
     }
+    document.getElementById('rankingTitle').textContent = t(data.week && data.week.closed ? 'rankingClosedTitle' : 'rankingTitle');
+    document.querySelector('.ranking-explanation').textContent = t(data.week && data.week.closed ? 'rankingClosedCopy' : 'rankingCopy');
+    renderCountdown();
     renderRanking(data.ranking || []);
     renderStudyScores();
   }
@@ -554,7 +639,12 @@
           return data;
         });
       })
-      .then(function(data){ state.data = data; })
+      .then(function(data){
+        state.data = data;
+        var serverTimestamp = Date.parse(data.generatedAt || '');
+        if(Number.isFinite(serverTimestamp)) state.clockOffsetMs = serverTimestamp - Date.now();
+        state.countdownReloaded = Boolean(data.week && data.week.closed);
+      })
       .catch(function(error){
         state.data = null;
         state.error = error.code === 'not_configured' ? 'activating' : 'unavailable';
@@ -574,6 +664,11 @@
       var identityError = new Error('identity_required');
       identityError.code = 'identity_required';
       return Promise.reject(identityError);
+    }
+    if(challengeIsClosed()){
+      var closedError = new Error('challenge_closed');
+      closedError.code = 'challenge_closed';
+      return Promise.reject(closedError);
     }
     return fetch(API_URL,{
       method:'POST',
@@ -617,6 +712,7 @@
       };
     },
     isProfileReady:function(value){ return profileReady(value || profile); },
+    isChallengeClosed:challengeIsClosed,
     publishScore:publishScore,
     refresh:loadData,
     t:t
@@ -783,6 +879,8 @@
     document.getElementById('communityRetry').addEventListener('click',loadData);
     applyLanguage();
     loadData();
+    if(countdownInterval) window.clearInterval(countdownInterval);
+    countdownInterval = window.setInterval(renderCountdown,1000);
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded',init,{once:true});

@@ -24,6 +24,7 @@
       invalid:'Guarda primero tu nombre completo, catraca completa y confirmación del 4.º E en la página del desafío.',
       offline:'No se pudo conectar ahora. Tu resultado del QCM no se pierde.',
       activating:'El desafío compartido se está activando. Tu resultado del QCM no se pierde.',
+      closed:'El desafío cerró el domingo a las 20:00, hora de Paraguay. Tu resultado queda guardado, pero ya no cambia la clasificación.',
       ranking:'Ver el desafío y la clasificación',
       privacy:'Participar es facultativo. El nombre completo y la catraca completa son públicos para quien tenga el enlace. El premio de 50 R$ por Pix solo se entrega tras verificación manual.',
       register:'Guardar identidad'
@@ -39,6 +40,7 @@
       invalid:'Primeiro salve seu nome completo, catraca completa e confirmação do 4.º E na página do desafio.',
       offline:'Não foi possível conectar agora. Seu resultado do QCM não será perdido.',
       activating:'O desafio compartilhado está sendo ativado. Seu resultado do QCM não será perdido.',
+      closed:'O desafio encerrou domingo às 20:00, horário do Paraguai. Seu resultado continua salvo, mas não altera mais a classificação.',
       ranking:'Ver o desafio e a classificação',
       privacy:'Participar é facultativo. O nome completo e a catraca completa são públicos para quem tem o link. O Pix de R$ 50 só é entregue após verificação manual.',
       register:'Salvar identidade'
@@ -201,7 +203,7 @@
         var best = data.best || score;
         setStatus(status,translated(data.saved === false ? text.kept : text.saved,best),'success');
       }).catch(function(error){
-        setStatus(status,error.code === 'not_configured' ? text.activating : /^(?:identity_required|identity_ineligible)$/.test(error.code || '') ? text.invalid : text.offline,'error');
+        setStatus(status,error.code === 'challenge_closed' ? text.closed : error.code === 'not_configured' ? text.activating : /^(?:identity_required|identity_ineligible)$/.test(error.code || '') ? text.invalid : text.offline,'error');
       }).finally(function(){
         button.disabled = false;
         button.textContent = text.submit;
