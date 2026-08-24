@@ -9,8 +9,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.getByRole('link', { name: /Actividades 3 y 4 impresas y manuscritas/ })).toBeVisible();
     await expect(page.locator('.priority-card-head time')).toHaveCount(2);
     await expect(page.locator('#homeHomeworkCount')).toHaveText('2 tareas activas');
-    await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', '2026-08-23');
-    await expect(page.locator('#lastUpdated')).toContainText('Actualizado 23 ago.');
+    await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', '2026-08-24');
+    await expect(page.locator('#lastUpdated')).toContainText('Actualizado 24 ago.');
     await expect(page.locator('#horario')).toBeHidden();
     await expect(page.locator('#materias')).toBeHidden();
   });

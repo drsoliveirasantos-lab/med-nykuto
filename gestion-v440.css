@@ -139,6 +139,7 @@ input[aria-invalid=true]{border-color:var(--rose);outline:2px solid rgba(251,113
 }
 
 /* Compact delegate workspace: each tool stays distinct and behaves like a small control sheet. */
+[hidden]{display:none!important}
 .permission-note{display:block}
 .permission-note summary{cursor:pointer;color:#fde68a;font-weight:800;list-style-position:inside}
 .permission-note span{display:block;margin-top:7px;color:#cbd5e1}
