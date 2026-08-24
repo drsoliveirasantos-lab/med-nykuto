@@ -13,6 +13,7 @@
 
 /* Delegate credentials: the legacy token remains available without dominating the login. */
 #authMethods{display:grid;gap:14px;margin-top:22px}
+#authMethods[hidden]{display:none}
 #authMethods>form,.password-change form{display:grid;gap:12px;margin:0}
 #authMethods details{margin:0;padding:0 14px}
 #authMethods details[open]{padding-bottom:14px}

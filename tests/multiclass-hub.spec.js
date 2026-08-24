@@ -281,7 +281,7 @@ test.describe('Multiclass student hub', () => {
     await page.locator('#credentialSubmit').click();
 
     await expect(page.locator('#manageApp')).toBeVisible();
-    await expect(page.locator('#actorRole')).toHaveText('EDITOR');
+    await expect(page.locator('#actorRole')).toHaveText('DELEGADO');
     await expect(page.locator('#actorName')).toContainText('Delegada Fixture');
     await expect(page.locator('[data-manage-tab="classes"]')).toBeHidden();
     await expect(page.locator('[data-manage-tab="access"]')).toBeHidden();
