@@ -46,6 +46,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       const priorities = [...document.querySelectorAll('.priority-card')].map((card) => card.getBoundingClientRect().height);
       return {
         dashboardHeight: document.querySelector('#inicio').getBoundingClientRect().height,
+        noticeHeight: document.querySelector('#classHomeNoticeSection').getBoundingClientRect().height,
         nextHeight: document.querySelector('.dashboard-next').getBoundingClientRect().height,
         priorityHeights: priorities,
         kickerDisplay: getComputedStyle(document.querySelector('.dashboard-heading .section-kicker')).display,
@@ -57,7 +58,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       };
     });
 
-    expect(homeLayout.dashboardHeight).toBeLessThan(620);
+    expect(homeLayout.dashboardHeight).toBeLessThan(760);
+    expect(homeLayout.noticeHeight).toBeLessThan(200);
     expect(homeLayout.nextHeight).toBeLessThanOrEqual(140);
     expect(Math.max(...homeLayout.priorityHeights)).toBeLessThan(110);
     expect(homeLayout.kickerDisplay).toBe('none');
