@@ -71,26 +71,46 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page).toHaveURL(/#task-epi-presentation$/);
   });
 
-  test('takes task notifications to Tareas and unfolds the active briefs', async ({ page }) => {
+  test('takes an explicitly linked task notice to its exact Tareas brief', async ({ page }) => {
+    await page.route('**/api/class-hub?class=s4-e&resource=public', (route) => route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        ok: true,
+        notices: [
+          { id: 'week-2026-08-21', priority: 'normal', title: 'Cursos del 19 al 21 de agosto disponibles', body: 'Los cursos ya están organizados.' },
+          { id: 'task-epi-notice', linkedTaskId: 'epi-presentation', priority: 'important', title: 'Exposición grupal de Epidemiología', body: 'Consulta la consigna exacta en Tareas.' }
+        ],
+        tasks: [
+          { id: 'epi-presentation', course: 'Epidemiología', title: 'Exposición grupal de enfermedad sorteada', status: 'published', dueLabel: 'Mié. 26 ago.', dueAt: '2026-08-26T11:20:00-03:00' },
+          { id: 'bio-activities', course: 'Bioquímica II', title: 'Actividades 3 y 4 impresas y manuscritas', status: 'published', dueLabel: 'Mié. 26 ago.', dueAt: '2026-08-26T09:10:00-03:00' }
+        ],
+        activities: [], groups: [], members: [], files: [], dates: []
+      })
+    }));
     await page.goto('/clase.html#inicio');
     await expect(page.locator('#classHubLiveTasks .live-task-details')).toHaveCount(2);
     const carousel = page.locator('#classHomeNoticeCarousel');
     await expect(carousel).toHaveAttribute('role', 'region');
     await expect(carousel.locator('.notice-item')).toHaveCount(1);
-    await expect(carousel).toContainText('Dos trabajos activos');
+    await expect(carousel).toContainText('Exposición grupal de Epidemiología');
     await expect(carousel).not.toContainText('Cursos del 19 al 21 de agosto disponibles');
     await expect(carousel.locator('.notice-carousel-controls')).toHaveCount(0);
     await expect(page.locator('#noticeBell')).toHaveAttribute('aria-label', 'Abrir avisos · 1 importante');
     await page.locator('#noticeBell').click();
     await expect(page.locator('#avisos')).toBeVisible();
     await expect(page.locator('#classNoticePageList .notice-item')).toHaveCount(2);
-    const taskNotice = page.locator('#classNoticePageList .notice-item-link').filter({ hasText: 'Dos trabajos activos' });
+    const taskNotice = page.locator('#classNoticePageList .notice-item').filter({ hasText: 'Exposición grupal de Epidemiología' });
     await expect(taskNotice).toBeVisible();
-    await taskNotice.click();
+    const exactTaskLink = taskNotice.getByRole('link', { name: 'Ver tarea: Exposición grupal de enfermedad sorteada' });
+    await expect(exactTaskLink).toHaveAttribute('href', '#task-epi-presentation');
+    await exactTaskLink.click();
     await expect(page.locator('#avisos')).toBeHidden();
     await expect(page.locator('#pendientes')).toBeVisible();
-    await expect(page.locator('#classHubLiveTasks .live-task-details[open]')).toHaveCount(2);
-    await expect(page).toHaveURL(/#pendientes$/);
+    await expect(page.locator('#task-epi-presentation')).toHaveAttribute('open', '');
+    await expect(page.locator('#task-bio-activities')).not.toHaveAttribute('open', '');
+    await expect(page.locator('#classHubLiveTasks .live-task-details[open]')).toHaveCount(1);
+    await expect(page).toHaveURL(/#task-epi-presentation$/);
   });
 
   test('publishes the previous Epidemiology class as Wednesday 12 August', async ({ page }) => {

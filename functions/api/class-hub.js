@@ -137,6 +137,13 @@ function cleanId(value) { const id = String(value || '').trim().toLowerCase(); r
 function cleanClassRef(value) { const ref = String(value || '').trim().toLowerCase(); if (ref === LEGACY_COHORT_KEY) return DEFAULT_CLASS_SLUG; return CLASS_REF_PATTERN.test(ref) ? ref : ''; }
 function cleanStatus(value, fallback = 'draft') { return STATUSES.has(value) ? value : fallback; }
 function cleanPriority(value) { return NOTICE_PRIORITIES.has(value) ? value : 'normal'; }
+function taskNoticeBody(description, dueLabel, dueAt, attachmentTitle) {
+  const parts = [];
+  if (dueLabel || dueAt) parts.push(`Entrega: ${dueLabel || dueAt}`);
+  if (description) parts.push(description);
+  if (attachmentTitle) parts.push(`Archivo: ${attachmentTitle}`);
+  return cleanText(parts.join(' · ') || 'Consulta la tarea para ver todos los detalles.', 1200);
+}
 function cleanUrl(value) { const raw = cleanText(value, 1000); if (!raw) return ''; try { const parsed = new URL(raw, 'https://med.nykuto.invalid/'); if (!['http:', 'https:'].includes(parsed.protocol)) return ''; return parsed.origin === 'https://med.nykuto.invalid' ? `${parsed.pathname}${parsed.search}${parsed.hash}`.replace(/^\//, '') : parsed.href; } catch { return ''; } }
 function cleanDriveUrl(value) { const raw = cleanText(value, 1000); if (!raw) return ''; try { const parsed = new URL(raw); return parsed.protocol === 'https:' && !parsed.username && !parsed.password ? parsed.href : ''; } catch { return ''; } }
 function cleanAttachmentUrl(value) { const raw = cleanText(value, 1500); if (!raw) return ''; try { const parsed = new URL(raw); return parsed.protocol === 'https:' && !parsed.username && !parsed.password ? parsed.href : ''; } catch { return ''; } }
@@ -292,6 +299,7 @@ function decorateNoticeAttachment(row, classRecord) {
   return {
     ...row,
     course: cleanText(row?.course, 80),
+    linkedTaskId: cleanId(row?.linkedTaskId) || null,
     attachmentUploadId: uploadId || null,
     attachmentUrl: uploadId ? noticeAttachmentUrl(classRecord, uploadId) : null,
     attachmentTitle: uploadId ? (cleanText(row?.attachmentTitle, 180) || cleanUploadName(row?.attachmentOriginalName)) : null,
@@ -345,6 +353,13 @@ async function ensureTaskAttachmentColumns(db) {
   }
 }
 
+async function ensureTaskNoticeColumn(db) {
+  const columns = await db.prepare(`PRAGMA table_info(hub_tasks)`).all();
+  if (!(columns.results || []).some((column) => column.name === 'notice_enabled')) {
+    try { await db.prepare(`ALTER TABLE hub_tasks ADD COLUMN notice_enabled INTEGER NOT NULL DEFAULT 0`).run(); } catch (error) { if (!/duplicate column/i.test(String(error))) throw error; }
+  }
+}
+
 async function ensureClassSupportWhatsappColumn(db) {
   const columns = await db.prepare(`PRAGMA table_info(hub_classes)`).all();
   if (!(columns.results || []).some((column) => column.name === 'support_whatsapp')) {
@@ -371,6 +386,13 @@ async function ensureNoticeAttachmentColumns(db) {
   }
   if (!names.has('attachment_title')) {
     try { await db.prepare(`ALTER TABLE hub_notices ADD COLUMN attachment_title TEXT`).run(); } catch (error) { if (!/duplicate column/i.test(String(error))) throw error; }
+  }
+}
+
+async function ensureNoticeTaskLinkColumn(db) {
+  const columns = await db.prepare(`PRAGMA table_info(hub_notices)`).all();
+  if (!(columns.results || []).some((column) => column.name === 'linked_task_id')) {
+    try { await db.prepare(`ALTER TABLE hub_notices ADD COLUMN linked_task_id TEXT`).run(); } catch (error) { if (!/duplicate column/i.test(String(error))) throw error; }
   }
 }
 
@@ -413,9 +435,9 @@ async function ensureSchema(db) {
     await db.batch([
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_classes (id TEXT PRIMARY KEY, slug TEXT NOT NULL UNIQUE, name TEXT NOT NULL, semester INTEGER NOT NULL, group_code TEXT NOT NULL DEFAULT '', theme TEXT NOT NULL DEFAULT 'midnight-gold', drive_url TEXT NOT NULL DEFAULT '', support_whatsapp TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_subjects (class_id TEXT NOT NULL, id TEXT NOT NULL, name TEXT NOT NULL, sort_order INTEGER NOT NULL DEFAULT 0, status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, updated_at TEXT NOT NULL, PRIMARY KEY(class_id,id), FOREIGN KEY(class_id) REFERENCES hub_classes(id))`),
-      db.prepare(`CREATE TABLE IF NOT EXISTS hub_tasks (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL, title TEXT NOT NULL, description TEXT NOT NULL DEFAULT '', due_label TEXT NOT NULL DEFAULT '', due_at TEXT, attachment_url TEXT, attachment_title TEXT, status TEXT NOT NULL DEFAULT 'draft', created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_tasks (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL, title TEXT NOT NULL, description TEXT NOT NULL DEFAULT '', due_label TEXT NOT NULL DEFAULT '', due_at TEXT, attachment_url TEXT, attachment_title TEXT, notice_enabled INTEGER NOT NULL DEFAULT 0, status TEXT NOT NULL DEFAULT 'draft', created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_uploads (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', object_key TEXT NOT NULL UNIQUE, original_name TEXT NOT NULL, mime_type TEXT NOT NULL, size_bytes INTEGER NOT NULL, etag TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'staged', created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
-      db.prepare(`CREATE TABLE IF NOT EXISTS hub_notices (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL DEFAULT '', title TEXT NOT NULL, body TEXT NOT NULL DEFAULT '', priority TEXT NOT NULL DEFAULT 'normal', status TEXT NOT NULL DEFAULT 'draft', push_mode INTEGER NOT NULL DEFAULT 0, image_url TEXT, image_alt TEXT, attachment_upload_id TEXT, attachment_title TEXT, created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, published_at TEXT)`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_notices (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL DEFAULT '', title TEXT NOT NULL, body TEXT NOT NULL DEFAULT '', priority TEXT NOT NULL DEFAULT 'normal', status TEXT NOT NULL DEFAULT 'draft', push_mode INTEGER NOT NULL DEFAULT 0, image_url TEXT, image_alt TEXT, attachment_upload_id TEXT, attachment_title TEXT, linked_task_id TEXT, created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, published_at TEXT)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_activities (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL DEFAULT '', title TEXT NOT NULL, capacity INTEGER NOT NULL DEFAULT 10, closes_at TEXT, status TEXT NOT NULL DEFAULT 'draft', frozen INTEGER NOT NULL DEFAULT 0, created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_groups (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', activity_id TEXT NOT NULL, name TEXT NOT NULL, capacity INTEGER NOT NULL DEFAULT 10, frozen INTEGER NOT NULL DEFAULT 0, created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(activity_id, name), FOREIGN KEY(activity_id) REFERENCES hub_activities(id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_memberships (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', activity_id TEXT NOT NULL, group_id TEXT NOT NULL, student_hash TEXT NOT NULL, display_name TEXT NOT NULL, is_leader INTEGER NOT NULL DEFAULT 0, joined_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(activity_id, student_hash), FOREIGN KEY(activity_id) REFERENCES hub_activities(id), FOREIGN KEY(group_id) REFERENCES hub_groups(id))`),
@@ -436,8 +458,10 @@ async function ensureSchema(db) {
     await db.batch(DEFAULT_SUBJECTS.map(([id, name], index) => db.prepare(`INSERT OR IGNORE INTO hub_subjects (class_id,id,name,sort_order,status,created_at,updated_at) VALUES (?,?,?,?,'active',?,?)`).bind(DEFAULT_CLASS_ID, id, name, index + 1, created, created)));
     for (const table of ['hub_tasks', 'hub_uploads', 'hub_notices', 'hub_activities', 'hub_groups', 'hub_memberships', 'hub_files', 'hub_dates', 'hub_schedule_slots', 'hub_invites', 'hub_editors', 'hub_editor_profiles', 'hub_editor_credentials', 'hub_editor_sessions', 'hub_audit', 'hub_push_subscriptions', 'hub_rate_limits']) await ensureClassColumn(db, table);
     await ensureTaskAttachmentColumns(db);
+    await ensureTaskNoticeColumn(db);
     await ensureNoticeImageColumns(db);
     await ensureNoticeAttachmentColumns(db);
+    await ensureNoticeTaskLinkColumn(db);
     await ensureCourseColumns(db);
     await ensureMembershipLeaderColumn(db);
     await db.batch([
@@ -446,6 +470,7 @@ async function ensureSchema(db) {
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_uploads_class_lifecycle_idx ON hub_uploads(class_id,status,created_at,updated_at)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_notices_class_idx ON hub_notices(class_id,updated_at DESC)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_notices_class_attachment_idx ON hub_notices(class_id,attachment_upload_id)`),
+      db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS hub_notices_one_task_idx ON hub_notices(class_id,linked_task_id) WHERE linked_task_id IS NOT NULL`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_activities_class_idx ON hub_activities(class_id,updated_at DESC)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_groups_class_idx ON hub_groups(class_id,activity_id,name)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_memberships_class_group_idx ON hub_memberships(class_id,group_id,joined_at)`),
@@ -565,7 +590,7 @@ async function readPublic(db, classRecord) {
   const classId = classRecord.id;
   const includePublicRoster = classId === DEFAULT_CLASS_ID;
   const [notices, tasks, activities, groups, publicMembers, files, dates, subjects, scheduleSlots] = await Promise.all([
-    db.prepare(`SELECT n.id,n.course,n.title,n.body,n.priority,n.status,n.image_url AS imageUrl,n.image_alt AS imageAlt,u.id AS attachmentUploadId,n.attachment_title AS attachmentTitle,u.original_name AS attachmentOriginalName,u.mime_type AS attachmentMimeType,u.size_bytes AS attachmentSizeBytes,n.published_at AS publishedAt FROM hub_notices n LEFT JOIN hub_uploads u ON u.class_id=n.class_id AND u.id=n.attachment_upload_id AND u.status='linked' WHERE n.class_id=? AND n.status='published' ORDER BY CASE n.priority WHEN 'urgent' THEN 0 WHEN 'important' THEN 1 ELSE 2 END, COALESCE(n.published_at,n.updated_at) DESC`).bind(classId).all(),
+    db.prepare(`SELECT n.id,n.course,n.title,n.body,n.priority,n.status,n.linked_task_id AS linkedTaskId,n.image_url AS imageUrl,n.image_alt AS imageAlt,u.id AS attachmentUploadId,n.attachment_title AS attachmentTitle,u.original_name AS attachmentOriginalName,u.mime_type AS attachmentMimeType,u.size_bytes AS attachmentSizeBytes,n.published_at AS publishedAt FROM hub_notices n LEFT JOIN hub_uploads u ON u.class_id=n.class_id AND u.id=n.attachment_upload_id AND u.status='linked' WHERE n.class_id=? AND n.status='published' ORDER BY CASE n.priority WHEN 'urgent' THEN 0 WHEN 'important' THEN 1 ELSE 2 END, COALESCE(n.published_at,n.updated_at) DESC`).bind(classId).all(),
     db.prepare(`SELECT id,course,title,description,due_label AS dueLabel,due_at AS dueAt,attachment_url AS attachmentUrl,attachment_title AS attachmentTitle,status FROM hub_tasks WHERE class_id=? AND status='published' ORDER BY COALESCE(due_at,'9999') ASC, updated_at DESC`).bind(classId).all(),
     db.prepare(`SELECT id,course,title,capacity,closes_at AS closesAt,status,CASE WHEN frozen=1 OR (closes_at IS NOT NULL AND closes_at<=?) THEN 1 ELSE 0 END AS frozen FROM hub_activities WHERE class_id=? AND status='published' ORDER BY updated_at DESC`).bind(nowIso(), classId).all(),
     db.prepare(`SELECT g.id,g.activity_id AS activityId,g.name,g.capacity,CASE WHEN g.frozen=1 OR a.frozen=1 OR (a.closes_at IS NOT NULL AND a.closes_at<=?) THEN 1 ELSE 0 END AS frozen,COUNT(m.id) AS memberCount FROM hub_groups g LEFT JOIN hub_memberships m ON m.class_id=g.class_id AND m.group_id=g.id JOIN hub_activities a ON a.class_id=g.class_id AND a.id=g.activity_id WHERE g.class_id=? AND a.status='published' GROUP BY g.class_id,g.id ORDER BY g.activity_id,CAST(SUBSTR(g.name,7) AS INTEGER)`).bind(nowIso(), classId).all(),
@@ -586,8 +611,8 @@ async function adminSnapshot(db, actor, classRecord, env = null) {
   const classId = classRecord.id;
   const [subjects, tasks, notices, activities, groups, memberships, files, dates, scheduleSlots, editors, invites, profile] = await Promise.all([
     db.prepare(`SELECT id,name,sort_order AS "order",status FROM hub_subjects WHERE class_id=? ORDER BY sort_order,name`).bind(classId).all(),
-    db.prepare(`SELECT *,attachment_url AS attachmentUrl,attachment_title AS attachmentTitle FROM hub_tasks WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
-    db.prepare(`SELECT n.*,n.image_url AS imageUrl,n.image_alt AS imageAlt,u.id AS attachmentUploadId,n.attachment_title AS attachmentTitle,u.original_name AS attachmentOriginalName,u.mime_type AS attachmentMimeType,u.size_bytes AS attachmentSizeBytes FROM hub_notices n LEFT JOIN hub_uploads u ON u.class_id=n.class_id AND u.id=n.attachment_upload_id AND u.status='linked' WHERE n.class_id=? ORDER BY n.updated_at DESC`).bind(classId).all(),
+    db.prepare(`SELECT *,attachment_url AS attachmentUrl,attachment_title AS attachmentTitle,notice_enabled AS noticeEnabled FROM hub_tasks WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
+    db.prepare(`SELECT n.*,n.linked_task_id AS linkedTaskId,n.image_url AS imageUrl,n.image_alt AS imageAlt,u.id AS attachmentUploadId,n.attachment_title AS attachmentTitle,u.original_name AS attachmentOriginalName,u.mime_type AS attachmentMimeType,u.size_bytes AS attachmentSizeBytes FROM hub_notices n LEFT JOIN hub_uploads u ON u.class_id=n.class_id AND u.id=n.attachment_upload_id AND u.status='linked' WHERE n.class_id=? ORDER BY n.updated_at DESC`).bind(classId).all(),
     db.prepare(`SELECT * FROM hub_activities WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
     db.prepare(`SELECT * FROM hub_groups WHERE class_id=? ORDER BY activity_id,name`).bind(classId).all(),
     db.prepare(`SELECT id,activity_id,group_id,display_name,is_leader AS isLeader,joined_at,updated_at FROM hub_memberships WHERE class_id=? ORDER BY activity_id,group_id,display_name`).bind(classId).all(),
@@ -599,7 +624,7 @@ async function adminSnapshot(db, actor, classRecord, env = null) {
     readActorProfile(db, actor)
   ]);
   const publishedScheduleSlots = scheduleSlots.filter((slot) => slot.status === 'published');
-  return { ok: true, class: publicClass(classRecord), actor: publicActor(actor), profile, uploadPolicy: { enabled: Boolean(uploadsFrom(env)), maxBytes: MAX_NOTICE_ATTACHMENT_BYTES, maxStagedUploads: MAX_STAGED_NOTICE_UPLOADS_PER_CLASS, stagedTtlHours: NOTICE_STAGED_UPLOAD_TTL_SECONDS / 3600, acceptedMimeTypes: [...NOTICE_UPLOAD_MIME_TYPES] }, subjects: subjects.results || [], tasks: tasks.results || [], notices: (notices.results || []).map((notice) => decorateNoticeAttachment(notice, classRecord)), activities: (activities.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), groups: groups.results || [], memberships: (memberships.results || []).map((item) => ({ ...item, isLeader: Boolean(item.isLeader) })), files: files.results || [], dates: (dates.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), scheduleSlots, upcomingDates: upcomingScheduleDates(publishedScheduleSlots), editors: editors.results || [], invites: invites.results || [] };
+  return { ok: true, class: publicClass(classRecord), actor: publicActor(actor), profile, uploadPolicy: { enabled: Boolean(uploadsFrom(env)), maxBytes: MAX_NOTICE_ATTACHMENT_BYTES, maxStagedUploads: MAX_STAGED_NOTICE_UPLOADS_PER_CLASS, stagedTtlHours: NOTICE_STAGED_UPLOAD_TTL_SECONDS / 3600, acceptedMimeTypes: [...NOTICE_UPLOAD_MIME_TYPES] }, subjects: subjects.results || [], tasks: (tasks.results || []).map((task) => ({ ...task, noticeEnabled: Boolean(Number(task.noticeEnabled ?? task.notice_enabled)) })), notices: (notices.results || []).map((notice) => decorateNoticeAttachment(notice, classRecord)), activities: (activities.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), groups: groups.results || [], memberships: (memberships.results || []).map((item) => ({ ...item, isLeader: Boolean(item.isLeader) })), files: files.results || [], dates: (dates.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), scheduleSlots, upcomingDates: upcomingScheduleDates(publishedScheduleSlots), editors: editors.results || [], invites: invites.results || [] };
 }
 
 async function joinGroup(data, db, classRecord) {
@@ -772,7 +797,11 @@ async function dispatchPush(env, db, classRecord, notice) {
   const rows = await db.prepare(`SELECT subscription_json FROM hub_push_subscriptions WHERE class_id=? AND status='active' ORDER BY updated_at DESC LIMIT 1000`).bind(classRecord.id).all();
   const subscriptions = (rows.results || []).flatMap((item) => { try { return [JSON.parse(item.subscription_json)]; } catch { return []; } });
   if (!subscriptions.length) return;
-  const response = await fetch(env.MED_NYKUTO_PUSH_WEBHOOK, { method: 'POST', headers: { 'content-type': 'application/json', ...(env.MED_NYKUTO_PUSH_WEBHOOK_TOKEN ? { authorization: `Bearer ${env.MED_NYKUTO_PUSH_WEBHOOK_TOKEN}` } : {}) }, body: JSON.stringify({ class: publicClass(classRecord, env), notice: { id: notice.id, title: notice.title, body: notice.body, priority: notice.priority, url: `/turma/${encodeURIComponent(classRecord.slug)}#avisos` }, subscriptions }) });
+  const linkedTaskId = cleanId(notice.linkedTaskId);
+  const target = linkedTaskId
+    ? `/turma/${encodeURIComponent(classRecord.slug)}?task=${encodeURIComponent(linkedTaskId)}#tareas`
+    : `/turma/${encodeURIComponent(classRecord.slug)}#avisos`;
+  const response = await fetch(env.MED_NYKUTO_PUSH_WEBHOOK, { method: 'POST', headers: { 'content-type': 'application/json', ...(env.MED_NYKUTO_PUSH_WEBHOOK_TOKEN ? { authorization: `Bearer ${env.MED_NYKUTO_PUSH_WEBHOOK_TOKEN}` } : {}) }, body: JSON.stringify({ class: publicClass(classRecord, env), notice: { id: notice.id, title: notice.title, body: notice.body, priority: notice.priority, linkedTaskId: linkedTaskId || null, url: target }, subscriptions }) });
   if (!response.ok) throw new Error(`push_webhook_${response.status}`);
 }
 
@@ -1050,7 +1079,11 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
   if (action === 'task.upsert') {
     const id = entityId(classId, cleanId(data.id) || cleanId(data.slug), 'task'), course = cleanText(data.course, 80), title = cleanText(data.title, 180), status = cleanStatus(data.status);
     if (!course || !title) return fail(400, 'invalid_task', 'La materia y el título son obligatorios.');
-    const existing = await db.prepare(`SELECT attachment_url,attachment_title FROM hub_tasks WHERE class_id=? AND id=?`).bind(classId, id).first();
+    const description = cleanText(data.description, 1600), dueLabel = cleanText(data.dueLabel, 100), dueAt = cleanText(data.dueAt, 40) || null;
+    const [existing, linkedNotice] = await Promise.all([
+      db.prepare(`SELECT attachment_url,attachment_title,notice_enabled FROM hub_tasks WHERE class_id=? AND id=?`).bind(classId, id).first(),
+      db.prepare(`SELECT id,status,priority,push_mode,published_at FROM hub_notices WHERE class_id=? AND linked_task_id=?`).bind(classId, id).first()
+    ]);
     const attachmentUrlProvided = hasOwn(data, 'attachmentUrl'), attachmentTitleProvided = hasOwn(data, 'attachmentTitle');
     const rawAttachmentUrl = attachmentUrlProvided ? cleanText(data.attachmentUrl, 1500) : '';
     let attachmentUrl = attachmentUrlProvided ? cleanAttachmentUrl(data.attachmentUrl) : (existing?.attachment_url || '');
@@ -1060,16 +1093,39 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
     if (attachmentTitle && !attachmentUrl) return fail(400, 'invalid_attachment', 'El título del archivo necesita también una URL HTTPS válida.');
     attachmentUrl = attachmentUrl || null;
     attachmentTitle = attachmentTitle || null;
-    const result = await db.prepare(`INSERT INTO hub_tasks (id,class_id,course,title,description,due_label,due_at,attachment_url,attachment_title,status,created_by,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET course=excluded.course,title=excluded.title,description=excluded.description,due_label=excluded.due_label,due_at=excluded.due_at,attachment_url=excluded.attachment_url,attachment_title=excluded.attachment_title,status=excluded.status,updated_at=excluded.updated_at WHERE hub_tasks.class_id=excluded.class_id`).bind(id, classId, course, title, cleanText(data.description, 1600), cleanText(data.dueLabel, 100), cleanText(data.dueAt, 40) || null, attachmentUrl, attachmentTitle, status, actor.id, current, current).run();
-    if (!changed(result)) return fail(409, 'cross_class_conflict', 'El identificador pertenece a otra clase.');
-    await audit(db, actor, action, 'task', id, { status, hasAttachment: Boolean(attachmentUrl) });
-    return json({ ok: true, id, status, attachmentUrl, attachmentTitle });
+    const noticeEnabled = hasOwn(data, 'addToNotices') ? data.addToNotices === true : Number(existing?.notice_enabled) === 1;
+    const noticePriority = hasOwn(data, 'noticePriority') ? cleanPriority(data.noticePriority) : cleanPriority(linkedNotice?.priority);
+    const noticePushMode = noticePriority !== 'normal' && (hasOwn(data, 'noticePushMode') ? data.noticePushMode === true : Number(linkedNotice?.push_mode) === 1);
+    const noticeId = cleanId(linkedNotice?.id) || (noticeEnabled ? entityId(classId, '', 'notice') : '');
+    const noticeStatus = noticeEnabled ? status : 'archived';
+    const noticeBody = taskNoticeBody(description, dueLabel, dueAt, attachmentTitle);
+    const noticePublishedAt = noticeStatus === 'published'
+      ? (linkedNotice?.status === 'published' ? (linkedNotice.published_at || current) : current)
+      : null;
+    const statements = [
+      db.prepare(`INSERT INTO hub_tasks (id,class_id,course,title,description,due_label,due_at,attachment_url,attachment_title,notice_enabled,status,created_by,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET course=excluded.course,title=excluded.title,description=excluded.description,due_label=excluded.due_label,due_at=excluded.due_at,attachment_url=excluded.attachment_url,attachment_title=excluded.attachment_title,notice_enabled=excluded.notice_enabled,status=excluded.status,updated_at=excluded.updated_at WHERE hub_tasks.class_id=excluded.class_id`).bind(id, classId, course, title, description, dueLabel, dueAt, attachmentUrl, attachmentTitle, noticeEnabled ? 1 : 0, status, actor.id, current, current)
+    ];
+    if (noticeId) {
+      statements.push(db.prepare(`INSERT INTO hub_notices (id,class_id,course,title,body,priority,status,push_mode,linked_task_id,created_by,created_at,updated_at,published_at) SELECT ?,?,?,?,?,?,?,?,?,?,?,?,? FROM hub_tasks source_task WHERE source_task.class_id=? AND source_task.id=? ON CONFLICT(id) DO UPDATE SET course=excluded.course,title=excluded.title,body=excluded.body,priority=excluded.priority,status=excluded.status,push_mode=excluded.push_mode,linked_task_id=excluded.linked_task_id,updated_at=excluded.updated_at,published_at=excluded.published_at WHERE hub_notices.class_id=excluded.class_id AND hub_notices.linked_task_id=excluded.linked_task_id`).bind(noticeId, classId, course, title, noticeBody, noticePriority, noticeStatus, noticePushMode ? 1 : 0, id, actor.id, current, current, noticePublishedAt, classId, id));
+    }
+    const [taskResult, noticeResult] = await db.batch(statements);
+    if (!changed(taskResult)) return fail(409, 'cross_class_conflict', 'El identificador pertenece a otra clase.');
+    if (noticeId && !changed(noticeResult)) return fail(409, 'linked_notice_conflict', 'El aviso vinculado cambió mientras se guardaba la tarea. Vuelve a intentarlo.');
+    const shouldPush = Boolean(noticeId && noticeStatus === 'published' && noticePushMode && (linkedNotice?.status !== 'published' || Number(linkedNotice?.push_mode) !== 1));
+    await audit(db, actor, action, 'task', id, { status, hasAttachment: Boolean(attachmentUrl), noticeEnabled, linkedNoticeId: noticeId || null, noticeStatus: noticeId ? noticeStatus : null, noticePriority: noticeId ? noticePriority : null, noticePushMode: noticeId ? noticePushMode : false });
+    if (shouldPush) {
+      const pushJob = dispatchPush(env, db, classRecord, { id: noticeId, title, body: noticeBody, priority: noticePriority, pushMode: noticePushMode, linkedTaskId: id }).catch(() => audit(db, actor, 'notice.push_failed', 'notice', noticeId));
+      if (typeof waitUntil === 'function') waitUntil(pushJob); else await pushJob;
+    }
+    return json({ ok: true, id, status, attachmentUrl, attachmentTitle, noticeEnabled, linkedNoticeId: noticeId || null, linkedNoticeStatus: noticeId ? noticeStatus : null, noticePriority: noticeId ? noticePriority : null, noticePushMode: noticeId ? noticePushMode : false });
   }
   if (action === 'notice.upsert') {
-    const id = entityId(classId, data.id, 'notice'), title = cleanText(data.title, 180), status = cleanStatus(data.status), priority = cleanPriority(data.priority), pushMode = priority === 'urgent' || Boolean(data.pushMode);
+    const id = entityId(classId, data.id, 'notice'), title = cleanText(data.title, 180), status = cleanStatus(data.status), priority = cleanPriority(data.priority);
     if (!title) return fail(400, 'invalid_notice', 'El título es obligatorio.');
     const body = cleanText(data.body, 1200);
-    const existing = await db.prepare(`SELECT course,image_url,image_alt,attachment_upload_id,attachment_title FROM hub_notices WHERE class_id=? AND id=?`).bind(classId, id).first();
+    const existing = await db.prepare(`SELECT course,status,push_mode,image_url,image_alt,attachment_upload_id,attachment_title,linked_task_id,published_at FROM hub_notices WHERE class_id=? AND id=?`).bind(classId, id).first();
+    if (cleanId(existing?.linked_task_id)) return fail(409, 'linked_notice_managed_by_task', 'Este aviso está vinculado a una tarea. Modifica la tarea para mantener ambas publicaciones sincronizadas.');
+    const pushMode = priority !== 'normal' && (hasOwn(data, 'pushMode') ? data.pushMode === true : Number(existing?.push_mode) === 1);
     const course = hasOwn(data, 'course') ? cleanText(data.course, 80) : cleanText(existing?.course, 80);
     const imageUrlProvided = hasOwn(data, 'imageUrl') || hasOwn(data, 'image_url'), imageAltProvided = hasOwn(data, 'imageAlt') || hasOwn(data, 'image_alt');
     const submittedImageUrl = hasOwn(data, 'imageUrl') ? data.imageUrl : data.image_url, submittedImageAlt = hasOwn(data, 'imageAlt') ? data.imageAlt : data.image_alt;
@@ -1105,7 +1161,10 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
     imageUrl = imageUrl || null;
     imageAlt = imageAlt || null;
     const previousAttachmentUploadId = cleanId(existing?.attachment_upload_id) || null;
-    const noticeValues = [id, classId, title, body, priority, status, pushMode ? 1 : 0, imageUrl, imageAlt, course, attachmentUploadId, attachmentTitle, actor.id, current, current, status === 'published' ? current : null];
+    const publishedAt = status === 'published'
+      ? (existing?.status === 'published' ? (existing.published_at || current) : current)
+      : null;
+    const noticeValues = [id, classId, title, body, priority, status, pushMode ? 1 : 0, imageUrl, imageAlt, course, attachmentUploadId, attachmentTitle, actor.id, current, current, publishedAt];
     const noticeStatement = attachmentUploadId
       ? db.prepare(`INSERT INTO hub_notices (id,class_id,title,body,priority,status,push_mode,image_url,image_alt,course,attachment_upload_id,attachment_title,created_by,created_at,updated_at,published_at) SELECT ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? FROM hub_uploads source_upload WHERE source_upload.class_id=? AND source_upload.id=? AND source_upload.status IN ('staged','linked') ON CONFLICT(id) DO UPDATE SET title=excluded.title,body=excluded.body,priority=excluded.priority,status=excluded.status,push_mode=excluded.push_mode,image_url=excluded.image_url,image_alt=excluded.image_alt,course=excluded.course,attachment_upload_id=excluded.attachment_upload_id,attachment_title=excluded.attachment_title,updated_at=excluded.updated_at,published_at=excluded.published_at WHERE hub_notices.class_id=excluded.class_id`).bind(...noticeValues, classId, attachmentUploadId)
       : db.prepare(`INSERT INTO hub_notices (id,class_id,title,body,priority,status,push_mode,image_url,image_alt,course,attachment_upload_id,attachment_title,created_by,created_at,updated_at,published_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET title=excluded.title,body=excluded.body,priority=excluded.priority,status=excluded.status,push_mode=excluded.push_mode,image_url=excluded.image_url,image_alt=excluded.image_alt,course=excluded.course,attachment_upload_id=excluded.attachment_upload_id,attachment_title=excluded.attachment_title,updated_at=excluded.updated_at,published_at=excluded.published_at WHERE hub_notices.class_id=excluded.class_id`).bind(...noticeValues);
@@ -1122,8 +1181,9 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
     }
     if (previousAttachmentUploadId && previousAttachmentUploadId !== attachmentUploadId) await cleanupDetachedNoticeUpload(env, db, classId, previousAttachmentUploadId);
     await audit(db, actor, action, 'notice', id, { status, priority, pushMode, hasImage: Boolean(imageUrl), hasAttachment: Boolean(attachmentUploadId), course });
-    if (status === 'published') { const pushJob = dispatchPush(env, db, classRecord, { id, title, body, priority, pushMode }).catch(() => audit(db, actor, 'notice.push_failed', 'notice', id)); if (typeof waitUntil === 'function') waitUntil(pushJob); else await pushJob; }
-    return json({ ok: true, id, course, status, imageUrl, imageAlt, attachmentUploadId, attachmentUrl: attachmentUploadId ? noticeAttachmentUrl(classRecord, attachmentUploadId) : null, attachmentTitle, attachmentMimeType: upload ? normalizeUploadMime(upload.mime_type) : null, attachmentSizeBytes: upload ? Number(upload.size_bytes) : null });
+    const shouldPush = status === 'published' && pushMode && (existing?.status !== 'published' || Number(existing?.push_mode) !== 1);
+    if (shouldPush) { const pushJob = dispatchPush(env, db, classRecord, { id, title, body, priority, pushMode }).catch(() => audit(db, actor, 'notice.push_failed', 'notice', id)); if (typeof waitUntil === 'function') waitUntil(pushJob); else await pushJob; }
+    return json({ ok: true, id, course, status, pushMode, imageUrl, imageAlt, attachmentUploadId, attachmentUrl: attachmentUploadId ? noticeAttachmentUrl(classRecord, attachmentUploadId) : null, attachmentTitle, attachmentMimeType: upload ? normalizeUploadMime(upload.mime_type) : null, attachmentSizeBytes: upload ? Number(upload.size_bytes) : null });
   }
   if (action === 'activity.upsert') {
     const id = entityId(classId, data.id, 'activity'), title = cleanText(data.title, 160);

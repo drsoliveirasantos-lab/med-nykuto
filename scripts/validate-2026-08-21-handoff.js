@@ -101,7 +101,7 @@ expect(runtime.includes('data-image-lightbox'), 'Tap-to-enlarge scientific board
 expect(runtime.includes('serviceWorker.register'), 'PWA registration is missing.');
 expect(runtime.includes('push.subscribe'), 'Optional push subscription is missing.');
 expect(runtime.includes("el('details','live-task live-task-details')") && runtime.includes('data-live-task-id'), 'Active tasks do not expand inside the Tareas view.');
-expect(runtime.includes("item.href='#pendientes'") && runtime.includes('expandLiveTasks'), 'Task notifications do not route to and unfold Tareas.');
+expect(runtime.includes('function linkedTaskId(notice)') && runtime.includes("taskLink.href='#'+taskDomId(taskId)") && runtime.includes('expandLiveTask(taskId)'), 'Task notifications do not target and unfold their explicitly linked task.');
 expect(runtime.includes('trabajo-practico-salud-publica-epidemiologia.docx') && runtime.includes('actividades-3-y-4-bioquimica-ii.docx'), 'In-place task briefs are missing their original downloads.');
 expect(runtime.includes("groupActivity:'epi-2026-08-19'") && runtime.includes('live-task-groups group-activity-card'), 'The Epidemiology task does not own the shared group workspace.');
 expect(!html.includes('id="epi-project-groups"') && html.includes('href="#task-epi-presentation">Ver grupos en Tareas</a>'), 'The course still duplicates the interactive roster instead of routing to Tareas.');

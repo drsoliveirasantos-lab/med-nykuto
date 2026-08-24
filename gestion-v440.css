@@ -207,7 +207,7 @@ input[aria-invalid=true]{border-color:var(--rose);outline:2px solid rgba(251,113
   .required-mark,.optional-mark{padding:1px 5px;font-size:7px}
   .advanced-fields{padding:7px 8px;border-radius:9px}
   .advanced-fields summary{font-size:10px}
-  .manage-form>button[type=submit]{min-height:42px;font-size:12px}
+  .manage-form>button[type=submit]{min-height:44px;font-size:12px}
   .list-title{margin:14px 2px -2px!important;font-size:13px}
   .manage-list{gap:7px;margin-top:10px}
   .manage-item{gap:8px;padding:10px;border-radius:12px}
@@ -261,3 +261,36 @@ input[aria-invalid=true]{border-color:var(--rose);outline:2px solid rgba(251,113
   #taskForm>button[type=submit],#noticeForm>button[type=submit],#dateForm>button[type=submit],#fileForm>button[type=submit],
   #noticeForm .check{grid-column:1/-1}
 }
+
+/* One task save can also maintain its linked class notice. */
+.task-notice-link{display:grid;grid-template-columns:minmax(0,1fr) minmax(190px,.42fr);align-items:center;gap:8px 13px;margin:0;padding:10px 11px;border:1px solid rgba(56,189,248,.3);border-radius:13px;background:rgba(7,22,34,.5)}
+.task-notice-link legend{padding:0 6px;color:#cbd5e1;font-size:12px;font-weight:800}
+.task-notice-switch{display:grid;grid-template-columns:22px minmax(0,1fr);align-items:center;gap:9px;min-height:44px;cursor:pointer}
+.task-notice-switch input,.task-notice-push input{width:20px;min-height:20px;margin:0;accent-color:var(--cyan)}
+.task-notice-switch span,.task-notice-switch b,.task-notice-switch small{display:block;min-width:0}
+.task-notice-switch b{color:#e0f2fe;font-size:12px}
+.task-notice-switch small{margin-top:2px;color:#94a3b8;font-size:10.5px;font-weight:500;line-height:1.35}
+.task-notice-options{display:grid;grid-template-columns:minmax(0,1fr);gap:7px;min-width:0;padding-left:11px;border-left:1px solid var(--line)}
+.task-notice-options[hidden]{display:none}
+.task-notice-options label{font-size:10.5px}
+.task-notice-options select{min-height:40px;padding:7px 9px;font-size:12px}
+.task-notice-push{display:grid!important;grid-template-columns:20px minmax(0,1fr)!important;align-items:center!important;gap:7px!important;min-height:44px;cursor:pointer}
+.task-notice-push[hidden]{display:none!important}
+.task-notice-push span{font-size:10.5px;font-weight:700;line-height:1.25}
+.task-notice-status{grid-column:1/-1;color:#94a3b8;font-size:10.5px;line-height:1.35}
+.task-notice-badge{display:inline-flex!important;width:max-content;margin-top:7px;padding:3px 7px;border:1px solid var(--line);border-radius:999px;background:#071622!important;color:#94a3b8!important;font-size:9px!important;letter-spacing:.03em!important}
+.task-notice-badge.is-active{border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.08)!important;color:#86efac!important}
+.manage-item-actions .task-add-notice-action{background:#164e63;color:#cffafe}
+.manage-item-actions .linked-task-action{background:#18394f;color:#e0f2fe}
+
+@media(max-width:520px){
+  .task-notice-link{grid-template-columns:minmax(0,1fr);gap:7px;padding:8px}
+  .task-notice-link legend{font-size:10.5px}
+  .task-notice-switch{gap:7px}
+  .task-notice-switch b{font-size:11px}
+  .task-notice-switch small{font-size:9.5px}
+  .task-notice-options{gap:5px;padding-top:7px;padding-left:0;border-top:1px solid var(--line);border-left:0}
+  .task-notice-options select{min-height:44px;padding-inline:7px;font-size:16px}
+  .task-notice-push span,.task-notice-status{font-size:9.5px}
+}
+@media(max-width:350px){.task-notice-link{grid-template-columns:1fr}}

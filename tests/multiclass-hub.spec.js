@@ -224,6 +224,81 @@ test.describe('Multiclass student hub', () => {
     await expect(page.locator('[data-view="inicio"]')).toBeVisible();
   });
 
+  test('opens the exact linked task from an aviso even when its due date has passed', async ({ page }) => {
+    const expiredLinkedTask = {
+      id: 'farmaco-linked-expired',
+      course: 'Farmacología II',
+      title: 'Informe enlazado ya vencido',
+      description: 'Esta consigna debe seguir disponible desde su aviso.',
+      dueLabel: '20 ago.',
+      dueAt: '2026-08-20T08:00:00-03:00',
+      status: 'published'
+    };
+    const otherTask = {
+      id: 'patologia-other-task',
+      course: 'Patología',
+      title: 'Otra tarea independiente',
+      dueAt: '2099-09-15T08:00:00-03:00',
+      status: 'published'
+    };
+    const nonPublishedTask = {
+      id: 'draft-linked-task',
+      course: 'Patología',
+      title: 'Tarea todavía privada',
+      status: 'draft'
+    };
+    const linkedNotice = {
+      id: 'notice-farmaco-linked-expired',
+      linkedTaskId: expiredLinkedTask.id,
+      course: expiredLinkedTask.course,
+      title: expiredLinkedTask.title,
+      body: 'Entrega: 20 ago. · Esta consigna debe seguir disponible desde su aviso.',
+      priority: 'important',
+      status: 'published',
+      publishedAt: '2026-08-19T12:00:00-03:00'
+    };
+    const failClosedNotices = [
+      { id: 'unlinked-lookalike', title: otherTask.title, body: 'Mismo título, pero sin relación explícita.', priority: 'normal', status: 'published' },
+      { id: 'orphan-linked-notice', linkedTaskId: 'missing-task', title: 'Relación huérfana', priority: 'normal', status: 'published' },
+      { id: 'draft-linked-notice', linkedTaskId: nonPublishedTask.id, title: 'Relación con tarea privada', priority: 'normal', status: 'published' }
+    ];
+    await page.route('**/api/class-hub**', (route) => route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ ...CLASS_RESPONSE, tasks: [expiredLinkedTask, otherTask, nonPublishedTask], notices: [linkedNotice, ...failClosedNotices] })
+    }));
+
+    await page.goto('/turma-shell/?class=s5-a#avisos');
+    const notice = page.locator('#noticePageList .notice-card').filter({ hasText: expiredLinkedTask.title });
+    await expect(notice).toBeVisible();
+    const taskLink = notice.getByRole('link', { name: 'Ver tarea' });
+    await expect(taskLink).toHaveAttribute('href', '#tareas');
+    for (const title of [otherTask.title, 'Relación huérfana', 'Relación con tarea privada']) {
+      await expect(page.locator('#noticePageList .notice-card').filter({ hasText: title }).getByRole('link', { name: /Ver tarea/ })).toHaveCount(0);
+    }
+    await taskLink.click();
+
+    await expect(page.locator('[data-view="tareas"]')).toBeVisible();
+    await expect(page.locator('[data-task-filter="all"]')).toHaveClass(/is-active/);
+    const linkedTask = page.locator(`#taskList [data-task-id="${expiredLinkedTask.id}"]`);
+    const unrelatedTask = page.locator(`#taskList [data-task-id="${otherTask.id}"]`);
+    await expect(linkedTask).toBeVisible();
+    await expect(linkedTask).toHaveAttribute('open', '');
+    await expect(linkedTask).toContainText(expiredLinkedTask.description);
+    await expect(unrelatedTask).toBeVisible();
+    await expect(unrelatedTask).not.toHaveAttribute('open', '');
+    await expect(page).toHaveURL(/#tareas$/);
+
+    const turmaHtml = readRepo('turma-shell/index.html');
+    await page.route(/\/turma\/s5-a(?:\?.*)?$/, (route) => route.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body: turmaHtml }));
+    await page.goto(`/turma/s5-a?task=${expiredLinkedTask.id}#tareas`);
+    await expect(page.locator('[data-view="tareas"]')).toBeVisible();
+    await expect(page.locator('[data-task-filter="all"]')).toHaveClass(/is-active/);
+    await expect(page.locator(`#taskList [data-task-id="${expiredLinkedTask.id}"]`)).toHaveAttribute('open', '');
+    await expect(page.locator(`#taskList [data-task-id="${otherTask.id}"]`)).not.toHaveAttribute('open', '');
+    await expect(page).toHaveURL(new RegExp(`/turma/s5-a\\?task=${expiredLinkedTask.id}#tareas$`));
+  });
+
   test('disables official-notice autoplay when reduced motion is requested', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.route('**/api/class-hub**', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(CLASS_RESPONSE) }));
@@ -646,6 +721,168 @@ test.describe('Multiclass student hub', () => {
     expect(mobileLayout.panelPadding).toBeLessThanOrEqual(10);
   });
 
+  test('creates, edits and retires a linked aviso from one task form and one API mutation', async ({ page }) => {
+    const actor = { id: 'editor-linked-notice-s5-a', role: 'editor', name: 'Delegada Avisos', classId: 's5-a' };
+    const writes = [];
+    const managed = managementState(actor, {
+      tasks: [],
+      notices: [],
+      scheduleSlots: [],
+      upcomingDates: []
+    });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.addInitScript(({ key }) => sessionStorage.setItem(key, 'synthetic-linked-notice-bearer'), { key: 'med-nykuto-management-token-v471:s5-a' });
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request();
+      const url = new URL(request.url());
+      if (request.method() === 'GET' && url.searchParams.get('resource') === 'admin') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(managed) });
+        return;
+      }
+      if (request.method() === 'POST') {
+        const body = request.postDataJSON();
+        writes.push(body);
+        if (body.action !== 'task.upsert') {
+          await route.fulfill({ status: 400, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'unexpected_action', error: 'Solo se esperaba task.upsert.' }) });
+          return;
+        }
+        const id = body.id || 'linked-task-fixture';
+        const current = managed.tasks.find((task) => task.id === id);
+        const task = {
+          ...(current || {}),
+          id,
+          course: body.course,
+          title: body.title,
+          description: body.description || '',
+          dueLabel: body.dueLabel || '',
+          dueAt: body.dueAt || null,
+          attachmentUrl: body.attachmentUrl || null,
+          attachmentTitle: body.attachmentTitle || null,
+          status: body.status,
+          noticeEnabled: Boolean(body.addToNotices)
+        };
+        if (current) Object.assign(current, task);
+        else managed.tasks.unshift(task);
+        let notice = managed.notices.find((item) => item.linkedTaskId === id);
+        if (body.addToNotices) {
+          if (!notice) {
+            notice = { id: 'notice-linked-task-fixture', linkedTaskId: id };
+            managed.notices.unshift(notice);
+          }
+          Object.assign(notice, {
+            linkedTaskId: id,
+            course: body.course,
+            title: body.title,
+            body: `Entrega: ${body.dueLabel || body.dueAt || 'por confirmar'} · ${body.description || 'Consulta la tarea.'}`,
+            priority: body.noticePriority || 'normal',
+            pushMode: Boolean(body.noticePushMode),
+            status: body.status
+          });
+        } else if (notice) {
+          notice.status = 'archived';
+          notice.pushMode = false;
+        }
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({ ok: true, id, status: body.status, noticeEnabled: Boolean(body.addToNotices), linkedNoticeId: notice?.id || null })
+        });
+        return;
+      }
+      await route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'authentication_required', error: 'Inicia sesión.' }) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await expect(page.locator('#manageApp')).toBeVisible();
+    const form = page.locator('#taskForm');
+    const toggle = page.locator('#taskAddToNotices');
+    const options = page.locator('#taskNoticeOptions');
+    await expect(toggle).not.toBeChecked();
+    await expect(options).toBeHidden();
+    await expect(form.getByRole('button', { name: 'Guardar tarea' })).toBeVisible();
+
+    await form.locator('[name="course"]').fill('Farmacología II');
+    await form.locator('[name="title"]').fill('Resolver guía de antimicrobianos');
+    await form.locator('[name="description"]').fill('Responder los cinco casos y justificar cada tratamiento.');
+    await form.locator('[name="dueLabel"]').fill('Próximo jueves');
+    await form.locator('[name="dueAt"]').fill('2099-09-03T08:00');
+    await form.locator('[name="status"]').selectOption('published');
+    await toggle.check();
+    await expect(options).toBeVisible();
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(page.locator('#taskNoticeStatus')).toContainText('tarea y el aviso serán visibles');
+    await form.locator('[name="noticePriority"]').selectOption('important');
+    await form.locator('[name="noticePushMode"]').check();
+    await form.getByRole('button', { name: 'Guardar tarea y aviso' }).click();
+
+    await expect.poll(() => writes.length).toBe(1);
+    expect(writes[0]).toMatchObject({
+      action: 'task.upsert',
+      course: 'Farmacología II',
+      title: 'Resolver guía de antimicrobianos',
+      description: 'Responder los cinco casos y justificar cada tratamiento.',
+      dueLabel: 'Próximo jueves',
+      dueAt: '2099-09-03T08:00',
+      status: 'published',
+      addToNotices: true,
+      noticePriority: 'important',
+      noticePushMode: true
+    });
+    expect(writes.some((write) => write.action === 'notice.upsert')).toBe(false);
+    const taskItem = page.locator('#taskList .manage-item').filter({ hasText: 'Resolver guía de antimicrobianos' });
+    await expect(taskItem).toContainText('Aviso visible ✓');
+    await page.locator('[data-manage-tab="notices"]').click();
+    const linkedNotice = page.locator('#noticeList .manage-item').filter({ hasText: 'Resolver guía de antimicrobianos' });
+    await expect(linkedNotice).toContainText('Vinculado a tarea');
+    await expect(linkedNotice.getByRole('button', { name: 'Modificar tarea' })).toBeVisible();
+
+    await linkedNotice.getByRole('button', { name: 'Modificar tarea' }).click();
+    await expect(page.locator('#managePanelTasks')).toBeVisible();
+    await expect(toggle).toBeChecked();
+    await expect(form.locator('[name="noticePriority"]')).toHaveValue('important');
+    await expect(form.locator('[name="noticePushMode"]')).toBeChecked();
+    await expect(form.getByRole('button', { name: 'Actualizar tarea y aviso' })).toBeVisible();
+
+    await form.locator('[name="title"]').fill('Guía de antimicrobianos actualizada');
+    await toggle.uncheck();
+    await expect(options).toBeHidden();
+    await expect(page.locator('#taskNoticeStatus')).toContainText('el aviso enlazado se archivará');
+    await form.getByRole('button', { name: 'Actualizar tarea' }).click();
+    await expect.poll(() => writes.length).toBe(2);
+    expect(writes[1]).toMatchObject({
+      action: 'task.upsert',
+      id: 'linked-task-fixture',
+      title: 'Guía de antimicrobianos actualizada',
+      addToNotices: false,
+      noticePriority: 'important',
+      noticePushMode: false
+    });
+    expect(managed.notices).toHaveLength(1);
+    expect(managed.notices[0]).toMatchObject({ linkedTaskId: 'linked-task-fixture', status: 'archived' });
+    const updatedTask = page.locator('#taskList .manage-item').filter({ hasText: 'Guía de antimicrobianos actualizada' });
+    await expect(updatedTask).toContainText('Sin aviso');
+    await expect(updatedTask.getByRole('button', { name: 'Añadir a Avisos' })).toBeVisible();
+
+    const mobileLayout = await page.locator('#taskNoticeLink').evaluate((field) => {
+      const rect = field.getBoundingClientRect();
+      const formRect = field.closest('form').getBoundingClientRect();
+      const toggleControl = field.querySelector('.task-notice-switch').getBoundingClientRect();
+      return {
+        left: rect.left,
+        right: rect.right,
+        formLeft: formRect.left,
+        formRight: formRect.right,
+        toggleHeight: toggleControl.height,
+        pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+      };
+    });
+    expect(mobileLayout.left).toBeGreaterThanOrEqual(mobileLayout.formLeft - 1);
+    expect(mobileLayout.right).toBeLessThanOrEqual(mobileLayout.formRight + 1);
+    expect(mobileLayout.toggleHeight).toBeGreaterThanOrEqual(44);
+    expect(mobileLayout.pageOverflow).toBeLessThanOrEqual(1);
+  });
+
   test('uploads a notice attachment once, preserves it after a failed save and retries only the notice', async ({ page }) => {
     const actor = { id: 'editor-upload-s5-a', role: 'editor', name: 'Delegada Archivos', classId: 's5-a' };
     let uploadCount = 0;
@@ -980,7 +1217,11 @@ test.describe('Multiclass student hub', () => {
     await form.locator('[name="attachmentUrl"]').fill('https://example.test/trabajo.pdf');
     await form.locator('[name="attachmentTitle"]').fill('Documento del profesor');
     await form.locator('[name="status"]').selectOption('published');
-    await form.getByRole('button', { name: 'Guardar tarea' }).click();
+    await form.locator('[name="addToNotices"]').check();
+    await expect(page.locator('#taskNoticeOptions')).toBeVisible();
+    await form.locator('[name="noticePriority"]').selectOption('important');
+    await form.locator('[name="noticePushMode"]').check();
+    await form.getByRole('button', { name: 'Guardar tarea y aviso' }).click();
 
     await expect(page.locator('#manageStatus')).toHaveText('Fallo temporal de guardado del piloto.');
     await expect(form.locator('[name="course"]')).toHaveValue('Farmacología II');
@@ -991,6 +1232,10 @@ test.describe('Multiclass student hub', () => {
     await expect(form.locator('[name="attachmentUrl"]')).toHaveValue('https://example.test/trabajo.pdf');
     await expect(form.locator('[name="attachmentTitle"]')).toHaveValue('Documento del profesor');
     await expect(form.locator('[name="status"]')).toHaveValue('published');
+    await expect(form.locator('[name="addToNotices"]')).toBeChecked();
+    await expect(page.locator('#taskNoticeOptions')).toBeVisible();
+    await expect(form.locator('[name="noticePriority"]')).toHaveValue('important');
+    await expect(form.locator('[name="noticePushMode"]')).toBeChecked();
 
     const failedWrite = apiRequests.find((request) => request.method === 'POST');
     expect(failedWrite).toMatchObject({
@@ -1003,7 +1248,10 @@ test.describe('Multiclass student hub', () => {
         description: 'Conservar esta consigna después del error del servidor.',
         attachmentUrl: 'https://example.test/trabajo.pdf',
         attachmentTitle: 'Documento del profesor',
-        status: 'published'
+        status: 'published',
+        addToNotices: true,
+        noticePriority: 'important',
+        noticePushMode: true
       }
     });
   });
@@ -1217,10 +1465,11 @@ test.describe('Multiclass student hub', () => {
     expect(shellEntries).toEqual(expect.arrayContaining([
       '/offline.html',
       '/turma-shell/',
-      '/turma-v471.css?v=476',
-      '/turma-v471.js?v=476',
-      '/turma-manifest-boot-v471.js?v=476'
+      '/turma-v471.css?v=478',
+      '/turma-v471.js?v=478',
+      '/turma-manifest-boot-v471.js?v=478'
     ]));
+    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v478['"]/);
     [
       /\/gestion/i,
       /\/api\//i,

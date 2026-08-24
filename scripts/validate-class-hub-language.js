@@ -203,7 +203,7 @@ expect((html.match(/class="current-assignment-date/g) || []).length === 5, 'Ever
 expect(runtime.includes("target.matches('[data-current-assignment]')"), 'Direct links do not automatically expand the selected current task.');
 expect(runtime.includes("target.matches('[data-live-task-id]')"), 'Direct links do not automatically expand the selected live task.');
 expect(classHubRuntime.includes("el('details','live-task live-task-details')"), 'Published tasks do not stay inside the Tareas view.');
-expect(classHubRuntime.includes("item.href='#pendientes'") && classHubRuntime.includes('expandLiveTasks'), 'Task alerts do not lead to the Tareas view.');
+expect(classHubRuntime.includes('function linkedTaskId(notice)') && classHubRuntime.includes("taskLink.href='#'+taskDomId(taskId)") && classHubRuntime.includes('expandLiveTask(taskId)'), 'Task alerts do not target and unfold their explicitly linked task.');
 expect(runtime.includes("document.querySelectorAll('[data-current-assignment]')"), 'The exclusive current-task accordion behavior is missing.');
 expect(html.includes('Estudiar las tiñas y tres micosis subcutáneas'), 'The Microbiology study task title is not action-oriented.');
 expect(!html.includes('Preparar tiñas y tres micosis subcutáneas'), 'The misleading Microbiology preparation title is still present.');
