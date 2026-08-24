@@ -119,7 +119,7 @@ img{display:block;max-width:100%}
 .home-transcript-date{width:43px;height:48px;display:grid;place-items:center;align-content:center;border:1px solid rgba(111,216,255,.26);border-radius:11px;background:rgba(111,216,255,.08);color:var(--cyan)}
 .home-transcript-micro .home-transcript-date{border-color:rgba(242,198,109,.28);background:rgba(242,198,109,.075);color:var(--gold-soft)}
 .home-transcript-date b{font-size:1.03rem;line-height:1}.home-transcript-date small{margin-top:2px;font-size:.48rem;font-weight:950;letter-spacing:.08em}
-.home-transcript-copy{min-width:0;display:grid;gap:2px}.home-transcript-copy small{overflow:hidden;color:var(--cyan);font-size:.49rem;font-weight:950;letter-spacing:.07em;text-overflow:ellipsis;white-space:nowrap}.home-transcript-micro .home-transcript-copy small{color:var(--gold-soft)}.home-transcript-copy strong{font-size:.78rem;line-height:1.2}.home-transcript-copy em{overflow:hidden;color:var(--muted);font-size:.57rem;font-style:normal;text-overflow:ellipsis;white-space:nowrap}.home-transcript-action{color:var(--cyan);font-size:.61rem;white-space:nowrap}.home-transcript-micro .home-transcript-action{color:var(--gold-soft)}
+.home-transcript-copy{min-width:0;display:grid;gap:2px}.home-transcript-copy small{overflow:hidden;color:var(--cyan);font-size:.49rem;font-weight:950;letter-spacing:.07em;text-overflow:ellipsis;white-space:nowrap}.home-transcript-micro .home-transcript-copy small{color:var(--gold-soft)}.home-transcript-copy strong{font-size:.78rem;line-height:1.2}.home-transcript-title-short{display:none}.home-transcript-copy em{overflow:hidden;color:var(--muted);font-size:.57rem;font-style:normal;text-overflow:ellipsis;white-space:nowrap}.home-transcript-action{color:var(--cyan);font-size:.61rem;white-space:nowrap}.home-transcript-micro .home-transcript-action{color:var(--gold-soft)}
 .dashboard-priorities-title{position:relative;z-index:1;margin:20px 2px 8px;color:var(--gold-soft);font-size:.66rem;font-weight:950;letter-spacing:.14em;line-height:1}
 .dashboard-priorities{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:0}
 .priority-card{min-width:0;min-height:154px;display:flex;flex-direction:column;padding:18px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.022);transition:transform .18s ease,border-color .18s ease,background .18s ease}
@@ -2034,10 +2034,14 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
 
 /* v452 — compact home task cards on narrow iPhone screens. */
 @media(max-width:430px){
-  .home-transcript-grid{grid-template-columns:1fr}
-  .home-transcript-card{min-height:66px;grid-template-columns:38px minmax(0,1fr);gap:3px 9px;padding:8px 9px}
-  .home-transcript-date{width:38px;height:44px}.home-transcript-date b{font-size:1rem}.home-transcript-date small{font-size:.54rem}
-  .home-transcript-copy small{font-size:.6rem}.home-transcript-copy strong{font-size:.76rem}.home-transcript-action{font-size:.64rem}
+  .home-transcripts{margin-top:5px;padding:0;border:0;border-radius:0;background:none}
+  .home-transcripts-heading{display:none}
+  .home-transcript-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+  .home-transcript-card{min-height:52px;grid-template-columns:27px minmax(0,1fr);gap:3px 6px;padding:5px 6px;border-radius:10px}
+  .home-transcript-date{width:27px;height:34px;border-radius:8px}.home-transcript-date b{font-size:.82rem}.home-transcript-date small{font-size:.48rem}
+  .home-transcript-copy small{font-size:.52rem;letter-spacing:.02em}.home-transcript-copy strong{font-size:.68rem;line-height:1.14}.home-transcript-title-long{display:none}.home-transcript-title-short{display:block}.home-transcript-action{display:none}
+  .home-quick-link-delegate{display:none}
+  .home-challenge-prize{grid-column:1/-1}
   .home-challenge-prize{min-height:52px;grid-template-columns:28px minmax(0,1fr);gap:6px;padding:6px 7px;border-radius:12px}
   .home-challenge-medal{width:28px;height:28px;border-radius:8px;font-size:1rem}
   .home-challenge-prize small{font-size:.43rem;letter-spacing:.06em}.home-challenge-prize strong{font-size:.65rem}.home-challenge-prize em{font-size:.5rem;line-height:1.2}.home-challenge-prize>b{display:none}

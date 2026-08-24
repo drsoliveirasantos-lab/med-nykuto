@@ -65,14 +65,13 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       };
     });
 
-    expect(homeLayout.dashboardHeight).toBeLessThan(1000);
-    expect(homeLayout.transcriptHeight).toBeLessThanOrEqual(225);
-    expect(homeLayout.transcriptColumns).toBe(1);
-    expect(Math.max(...homeLayout.transcriptCardHeights)).toBeLessThanOrEqual(80);
-    expect(Math.min(...homeLayout.transcriptCardWidths)).toBeGreaterThan(300);
-    expect(homeLayout.transcriptTitleFont).toBeGreaterThanOrEqual(11);
-    expect(homeLayout.transcriptLabelFont).toBeGreaterThanOrEqual(9);
-    expect(homeLayout.transcriptActionFont).toBeGreaterThanOrEqual(9);
+    expect(homeLayout.dashboardHeight).toBeLessThan(720);
+    expect(homeLayout.transcriptHeight).toBeLessThanOrEqual(58);
+    expect(homeLayout.transcriptColumns).toBe(2);
+    expect(Math.max(...homeLayout.transcriptCardHeights)).toBeLessThanOrEqual(55);
+    expect(Math.min(...homeLayout.transcriptCardWidths)).toBeGreaterThan(150);
+    expect(homeLayout.transcriptTitleFont).toBeGreaterThanOrEqual(10.5);
+    expect(homeLayout.transcriptLabelFont).toBeGreaterThanOrEqual(8);
     expect(homeLayout.noticeHeight).toBeLessThan(200);
     expect(homeLayout.nextHeight).toBeLessThanOrEqual(140);
     expect(Math.max(...homeLayout.priorityHeights)).toBeLessThan(110);
