@@ -136,8 +136,10 @@ function currentWeek(now = new Date()) {
 
 function cleanDisplayName(value) {
   const name = String(value || '').normalize('NFKC').replace(/\s+/g, ' ').trim();
-  if (name.length < 2 || name.length > 60) return '';
-  return /^[\p{L}\p{M}][\p{L}\p{M} .'-]*[\p{L}\p{M}]$/u.test(name) ? name : '';
+  if (name.length < 5 || name.length > 60) return '';
+  const parts = name.split(' ');
+  if (parts.length < 2) return '';
+  return parts.every((part) => /^[\p{L}\p{M}]+(?:['’\-][\p{L}\p{M}]+)*$/u.test(part)) ? name : '';
 }
 
 function cleanStudentId(value) {
@@ -146,6 +148,27 @@ function cleanStudentId(value) {
 }
 
 function maskedStudentId(last4) { return last4 ? `•••• ${last4}` : ''; }
+
+function publicParticipant(row) {
+  const fullName = String(row?.display_name || '');
+  const studentId = String(row?.student_id_public || '');
+  const verificationStatus = String(row?.verification_status || 'pending');
+  const identityComplete = Boolean(fullName && studentId);
+  const prizeEligible = identityComplete && verificationStatus === 'verified';
+  return {
+    playerId: String(row?.player_id || ''),
+    fullName,
+    displayName: fullName,
+    catraca: studentId,
+    studentId,
+    studentIdMasked: maskedStudentId(row?.student_id_last4),
+    identityComplete,
+    identificationPending: !identityComplete,
+    verificationStatus,
+    eligibleForPrize: prizeEligible,
+    prizeEligible
+  };
+}
 
 function cleanContentId(value) {
   const id = String(value || '').trim().toLowerCase();
@@ -157,8 +180,8 @@ function validAccessToken(value) { return /^[0-9a-f]{64}$/i.test(String(value ||
 
 function scoreIsBetter(next, previous) {
   if (!previous) return true;
-  if (next.percentage !== Number(previous.percentage)) return next.percentage > Number(previous.percentage);
-  return next.correct > Number(previous.correct);
+  if (next.correct !== Number(previous.correct)) return next.correct > Number(previous.correct);
+  return next.percentage > Number(previous.percentage);
 }
 
 function changed(result) { return Number(result?.meta?.changes ?? result?.changes ?? 0) > 0; }
@@ -169,20 +192,31 @@ async function ensureSchema(db) {
       const created = new Date().toISOString();
       await db.batch([
         db.prepare(`CREATE TABLE IF NOT EXISTS hub_classes (id TEXT PRIMARY KEY,slug TEXT NOT NULL UNIQUE,name TEXT NOT NULL,semester INTEGER NOT NULL,group_code TEXT NOT NULL DEFAULT '',theme TEXT NOT NULL DEFAULT 'midnight-gold',drive_url TEXT NOT NULL DEFAULT '',status TEXT NOT NULL DEFAULT 'active',created_at TEXT NOT NULL,updated_at TEXT NOT NULL)`),
-        db.prepare(`CREATE TABLE IF NOT EXISTS community_scores (id INTEGER PRIMARY KEY AUTOINCREMENT,class_id TEXT NOT NULL DEFAULT 's4-e',cohort_key TEXT NOT NULL,week_key TEXT NOT NULL,player_id TEXT NOT NULL,nickname TEXT NOT NULL,course_id TEXT NOT NULL DEFAULT '',module_id TEXT NOT NULL DEFAULT '',scope_id TEXT NOT NULL,correct INTEGER NOT NULL,total INTEGER NOT NULL,percentage REAL NOT NULL,created_at TEXT NOT NULL,updated_at TEXT NOT NULL,UNIQUE (cohort_key,week_key,player_id,scope_id))`),
-        db.prepare(`CREATE TABLE IF NOT EXISTS community_participants (class_id TEXT NOT NULL,player_id TEXT NOT NULL,display_name TEXT NOT NULL,student_id_hash TEXT NOT NULL,student_id_last4 TEXT NOT NULL,access_token_hash TEXT NOT NULL,verification_status TEXT NOT NULL DEFAULT 'pending',consented_at TEXT NOT NULL,created_at TEXT NOT NULL,updated_at TEXT NOT NULL,PRIMARY KEY (class_id,player_id),UNIQUE (class_id,student_id_hash),UNIQUE (class_id,access_token_hash))`),
+        db.prepare(`CREATE TABLE IF NOT EXISTS community_scores (id INTEGER PRIMARY KEY AUTOINCREMENT,class_id TEXT NOT NULL DEFAULT 's4-e',cohort_key TEXT NOT NULL,week_key TEXT NOT NULL,player_id TEXT NOT NULL,nickname TEXT NOT NULL,course_id TEXT NOT NULL DEFAULT '',module_id TEXT NOT NULL DEFAULT '',scope_id TEXT NOT NULL,correct INTEGER NOT NULL,total INTEGER NOT NULL,percentage REAL NOT NULL,created_at TEXT NOT NULL,updated_at TEXT NOT NULL,write_version INTEGER NOT NULL DEFAULT 0,UNIQUE (cohort_key,week_key,player_id,scope_id))`),
+        db.prepare(`CREATE TABLE IF NOT EXISTS community_participants (class_id TEXT NOT NULL,player_id TEXT NOT NULL,display_name TEXT NOT NULL,student_id_hash TEXT NOT NULL,student_id_last4 TEXT NOT NULL,student_id_public TEXT NOT NULL DEFAULT '',access_token_hash TEXT NOT NULL,verification_status TEXT NOT NULL DEFAULT 'pending',consented_at TEXT NOT NULL,created_at TEXT NOT NULL,updated_at TEXT NOT NULL,PRIMARY KEY (class_id,player_id),UNIQUE (class_id,student_id_hash),UNIQUE (class_id,access_token_hash))`),
         db.prepare(`CREATE TABLE IF NOT EXISTS community_rate_limits (key TEXT PRIMARY KEY,class_id TEXT NOT NULL,window_start INTEGER NOT NULL,count INTEGER NOT NULL DEFAULT 0)`)
       ]);
       await db.prepare(`INSERT OR IGNORE INTO hub_classes (id,slug,name,semester,group_code,theme,drive_url,status,created_at,updated_at) VALUES (?,?,?,?,?,?,?,'active',?,?)`).bind(DEFAULT_CLASS_ID, DEFAULT_CLASS_SLUG, DEFAULT_CLASS.name, DEFAULT_CLASS.semester, DEFAULT_CLASS.group, DEFAULT_CLASS.theme, DEFAULT_CLASS.driveUrl, created, created).run();
-      const columns = await db.prepare(`PRAGMA table_info(community_scores)`).all();
-      if (!(columns.results || []).some((column) => column.name === 'class_id')) {
+      const scoreColumns = await db.prepare(`PRAGMA table_info(community_scores)`).all();
+      if (!(scoreColumns.results || []).some((column) => column.name === 'class_id')) {
         try { await db.prepare(`ALTER TABLE community_scores ADD COLUMN class_id TEXT NOT NULL DEFAULT 's4-e'`).run(); }
         catch (error) { if (!/duplicate column/i.test(String(error))) throw error; }
       }
+      if (!(scoreColumns.results || []).some((column) => column.name === 'write_version')) {
+        try { await db.prepare(`ALTER TABLE community_scores ADD COLUMN write_version INTEGER NOT NULL DEFAULT 0`).run(); }
+        catch (error) { if (!/duplicate column/i.test(String(error))) throw error; }
+      }
+      const participantColumns = await db.prepare(`PRAGMA table_info(community_participants)`).all();
+      if (!(participantColumns.results || []).some((column) => column.name === 'student_id_public')) {
+        try { await db.prepare(`ALTER TABLE community_participants ADD COLUMN student_id_public TEXT NOT NULL DEFAULT ''`).run(); }
+        catch (error) { if (!/duplicate column/i.test(String(error))) throw error; }
+      }
       await db.batch([
-        db.prepare(`UPDATE community_scores SET class_id=? WHERE class_id IS NULL OR TRIM(class_id)='' OR cohort_key=?`).bind(DEFAULT_CLASS_ID, LEGACY_COHORT_KEY),
+        db.prepare(`UPDATE community_scores SET class_id=? WHERE class_id IS NULL OR TRIM(class_id)=''`).bind(DEFAULT_CLASS_ID),
         db.prepare(`CREATE INDEX IF NOT EXISTS community_scores_class_week_idx ON community_scores (class_id,week_key,updated_at)`),
-        db.prepare(`CREATE INDEX IF NOT EXISTS community_participants_class_status_idx ON community_participants (class_id,verification_status,updated_at)`)
+        db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS community_scores_class_scope_write_idx ON community_scores (class_id,week_key,player_id,scope_id) WHERE write_version=1`),
+        db.prepare(`CREATE INDEX IF NOT EXISTS community_participants_class_status_idx ON community_participants (class_id,verification_status,updated_at)`),
+        db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS community_participants_class_public_idx ON community_participants (class_id,student_id_public) WHERE student_id_public<>''`)
       ]);
     })().catch((error) => { schemaPromises.delete(db); throw error; });
     schemaPromises.set(db, schemaPromise);
@@ -191,47 +225,83 @@ async function ensureSchema(db) {
 }
 
 async function readRanking(db, classId, week, currentPlayerId = '') {
+  const scopeOrder = classId === DEFAULT_CLASS_ID
+    ? 'correct DESC,percentage DESC,created_at ASC,updated_at ASC'
+    : 'percentage DESC,correct DESC,created_at ASC,updated_at ASC';
   const result = await db.prepare(`
     WITH participant_scopes AS (
-      SELECT CASE WHEN p.player_id IS NOT NULL THEN 'participant:' || s.player_id ELSE 'legacy:' || LOWER(TRIM(s.nickname)) END AS identity_key,
-        s.nickname,s.player_id,p.display_name,p.student_id_last4,p.verification_status,s.scope_id,s.correct,s.total,s.percentage,s.updated_at
+      SELECT CASE
+          WHEN p.student_id_public IS NOT NULL AND TRIM(p.student_id_public)<>'' THEN 'catraca:' || p.student_id_public
+          WHEN p.student_id_hash IS NOT NULL AND TRIM(p.student_id_hash)<>'' THEN 'participant:' || p.student_id_hash
+          ELSE 'legacy-player:' || s.player_id
+        END AS identity_key,
+        s.nickname,s.player_id,p.display_name,p.student_id_public,p.student_id_last4,p.verification_status,
+        s.scope_id,s.correct,s.total,s.percentage,s.created_at,s.updated_at
       FROM community_scores s LEFT JOIN community_participants p ON p.class_id=s.class_id AND p.player_id=s.player_id
       WHERE s.class_id=? AND s.week_key=?
     ), ranked_scopes AS (
-      SELECT *,ROW_NUMBER() OVER (PARTITION BY identity_key,scope_id ORDER BY percentage DESC,correct DESC,updated_at DESC) AS scope_rank FROM participant_scopes
+      SELECT *,ROW_NUMBER() OVER (PARTITION BY identity_key,scope_id ORDER BY ${scopeOrder}) AS scope_rank FROM participant_scopes
     ), best_scopes AS (SELECT * FROM ranked_scopes WHERE scope_rank=1)
-    SELECT identity_key,COALESCE(MAX(display_name),MAX(nickname)) AS display_name,MAX(student_id_last4) AS student_id_last4,
-      MAX(verification_status) AS verification_status,MAX(CASE WHEN display_name IS NOT NULL THEN 1 ELSE 0 END) AS identity_complete,
-      SUM(correct) AS points,SUM(total) AS questions,COUNT(*) AS challenges,MAX(updated_at) AS last_activity,
+    SELECT identity_key,COALESCE(MAX(display_name),MAX(nickname)) AS display_name,
+      MAX(student_id_public) AS student_id_public,MAX(student_id_last4) AS student_id_last4,
+      MAX(verification_status) AS verification_status,
+      MAX(CASE WHEN display_name IS NOT NULL AND student_id_public IS NOT NULL AND TRIM(student_id_public)<>'' THEN 1 ELSE 0 END) AS identity_complete,
+      SUM(correct) AS points,SUM(total) AS questions,COUNT(*) AS challenges,
+      MIN(created_at) AS first_activity,MAX(updated_at) AS last_activity,
       MAX(CASE WHEN player_id=? THEN 1 ELSE 0 END) AS direct_current
     FROM best_scopes GROUP BY identity_key
-    ORDER BY points DESC,(SUM(correct)*1.0/SUM(total)) DESC,last_activity ASC,identity_key ASC LIMIT ?
+    ORDER BY points DESC,(SUM(correct)*1.0/NULLIF(SUM(total),0)) DESC,first_activity ASC,identity_key ASC LIMIT ?
   `).bind(classId, week.key, currentPlayerId, MAX_RANKING_ROWS).all();
-  const ranking = (result.results || []).map((row, index) => ({
-    rank: index + 1,
-    displayName: row.display_name,
-    nickname: row.display_name,
-    studentIdMasked: maskedStudentId(row.student_id_last4),
-    identityComplete: Boolean(Number(row.identity_complete)),
-    verificationStatus: row.verification_status || 'legacy',
-    points: Number(row.points) || 0,
-    questions: Number(row.questions) || 0,
-    accuracy: row.questions ? Math.round((Number(row.points) / Number(row.questions)) * 100) : 0,
-    challenges: Number(row.challenges) || 0,
-    isCurrent: Boolean(currentPlayerId && Number(row.direct_current) === 1)
-  }));
+  const ranking = (result.results || []).map((row, index) => {
+    const fullName = row.display_name || '';
+    const studentId = row.student_id_public || '';
+    const identityComplete = Boolean(Number(row.identity_complete));
+    const verificationStatus = row.verification_status || 'legacy';
+    const prizeEligible = classId === DEFAULT_CLASS_ID && identityComplete && verificationStatus === 'verified';
+    const points = Number(row.points) || 0;
+    const questions = Number(row.questions) || 0;
+    return {
+      rank: index + 1,
+      fullName,
+      displayName: fullName,
+      nickname: fullName,
+      catraca: studentId,
+      studentId,
+      studentIdMasked: maskedStudentId(row.student_id_last4),
+      identityComplete,
+      identificationPending: !identityComplete,
+      verificationStatus,
+      eligibleForPrize: prizeEligible,
+      prizeEligible,
+      provisional: !prizeEligible,
+      points,
+      questions,
+      accuracy: questions ? Math.round((points / questions) * 100) : 0,
+      challenges: Number(row.challenges) || 0,
+      firstActivity: row.first_activity || null,
+      lastActivity: row.last_activity || null,
+      isCurrent: Boolean(currentPlayerId && Number(row.direct_current) === 1)
+    };
+  });
   return { ranking: ranking.slice(0, 30), currentUser: ranking.find((entry) => entry.isCurrent) || null };
 }
 
 async function readChallenge(db, classId, week) {
+  const scopeOrder = classId === DEFAULT_CLASS_ID
+    ? 'correct DESC,percentage DESC,created_at ASC,updated_at ASC'
+    : 'percentage DESC,correct DESC,created_at ASC,updated_at ASC';
   const row = await db.prepare(`
     WITH participant_scopes AS (
-      SELECT CASE WHEN p.player_id IS NOT NULL THEN 'participant:' || s.player_id ELSE 'legacy:' || LOWER(TRIM(s.nickname)) END AS identity_key,
-        s.scope_id,s.correct,s.total,s.percentage,s.updated_at
+      SELECT CASE
+          WHEN p.student_id_public IS NOT NULL AND TRIM(p.student_id_public)<>'' THEN 'catraca:' || p.student_id_public
+          WHEN p.student_id_hash IS NOT NULL AND TRIM(p.student_id_hash)<>'' THEN 'participant:' || p.student_id_hash
+          ELSE 'legacy-player:' || s.player_id
+        END AS identity_key,
+        s.scope_id,s.correct,s.total,s.percentage,s.created_at,s.updated_at
       FROM community_scores s LEFT JOIN community_participants p ON p.class_id=s.class_id AND p.player_id=s.player_id
       WHERE s.class_id=? AND s.week_key=?
     ), ranked_scopes AS (
-      SELECT *,ROW_NUMBER() OVER (PARTITION BY identity_key,scope_id ORDER BY percentage DESC,correct DESC,updated_at DESC) AS scope_rank FROM participant_scopes
+      SELECT *,ROW_NUMBER() OVER (PARTITION BY identity_key,scope_id ORDER BY ${scopeOrder}) AS scope_rank FROM participant_scopes
     ), best_scopes AS (SELECT * FROM ranked_scopes WHERE scope_rank=1)
     SELECT COUNT(DISTINCT identity_key) AS participants,COUNT(*) AS records,COALESCE(SUM(correct),0) AS points,COALESCE(SUM(total),0) AS questions FROM best_scopes
   `).bind(classId, week.key).first();
@@ -294,45 +364,101 @@ async function enrollParticipant(request, db, env, classRecord, payload) {
   const secret = identitySecret(env);
   if (!secret) return errorResponse(503, 'identity_not_configured', 'La verificación de identidad se está activando.');
   const requestedPlayerId = String(payload.playerId || '').trim();
-  const displayName = cleanDisplayName(payload.displayName);
-  const studentId = cleanStudentId(payload.studentId);
+  const nameInputs = [payload.fullName, payload.displayName].filter((value) => String(value || '').trim());
+  const studentIdInputs = [payload.catraca, payload.studentId].filter((value) => String(value || '').trim());
+  const cleanNames = nameInputs.map(cleanDisplayName);
+  const cleanStudentIds = studentIdInputs.map(cleanStudentId);
+  const displayName = cleanNames[0] || '';
+  const studentId = cleanStudentIds[0] || '';
   if (!validPlayerId(requestedPlayerId)) return errorResponse(400, 'invalid_player', 'El identificador local no es válido.');
-  if (!displayName) return errorResponse(400, 'invalid_name', 'Escribe tu nombre con entre 2 y 60 caracteres.');
-  if (!studentId) return errorResponse(400, 'invalid_student_id', 'La catraca indicada no tiene un formato válido.');
-  if (payload.consent !== true) return errorResponse(400, 'consent_required', 'Confirma que perteneces al 4.º E y que los datos son tuyos.');
+  if (!displayName || cleanNames.some((name) => !name || name !== displayName)) return errorResponse(400, 'invalid_name', 'Escribe nombre y apellido, con entre 5 y 60 caracteres.');
+  if (!studentId || cleanStudentIds.some((value) => !value || value !== studentId)) return errorResponse(400, 'invalid_student_id', 'La catraca indicada no tiene un formato válido.');
+  if (payload.consent !== true || payload.classConfirmed !== true) return errorResponse(400, 'consent_required', 'Confirma que perteneces al 4.º E y que los datos son tuyos.');
+  const requestedAccessToken = String(payload.accessToken || '').trim();
+  if (requestedAccessToken && !validAccessToken(requestedAccessToken)) return errorResponse(400, 'invalid_access_token', 'El token local no tiene un formato válido.');
   const studentIdHash = await hmac(`${classRecord.id}:${studentId}`, secret);
-  const accessToken = randomToken();
-  const accessTokenHash = await digest(accessToken);
   const now = new Date().toISOString();
-  const [byStudent, byPlayer] = await Promise.all([
-    db.prepare(`SELECT player_id,verification_status FROM community_participants WHERE class_id=? AND student_id_hash=?`).bind(classRecord.id, studentIdHash).first(),
-    db.prepare(`SELECT student_id_hash FROM community_participants WHERE class_id=? AND player_id=?`).bind(classRecord.id, requestedPlayerId).first()
+  const participantColumns = `player_id,display_name,student_id_hash,student_id_public,student_id_last4,access_token_hash,verification_status,consented_at,created_at,updated_at`;
+  const [byPlayer, byStudentHash, byStudentPublic, unresolvedLegacySuffix] = await Promise.all([
+    db.prepare(`SELECT ${participantColumns} FROM community_participants WHERE class_id=? AND player_id=?`).bind(classRecord.id, requestedPlayerId).first(),
+    db.prepare(`SELECT ${participantColumns} FROM community_participants WHERE class_id=? AND student_id_hash=?`).bind(classRecord.id, studentIdHash).first(),
+    db.prepare(`SELECT ${participantColumns} FROM community_participants WHERE class_id=? AND student_id_public=?`).bind(classRecord.id, studentId).first(),
+    db.prepare(`SELECT ${participantColumns} FROM community_participants WHERE class_id=? AND (student_id_public IS NULL OR TRIM(student_id_public)='') AND (student_id_last4=? OR TRIM(student_id_last4)='') AND player_id<>? LIMIT 1`).bind(classRecord.id, studentId.slice(-4), requestedPlayerId).first()
   ]);
-  if (byPlayer && byPlayer.student_id_hash !== studentIdHash) return errorResponse(409, 'identity_conflict', 'No se pudo confirmar la identidad. Revisa la catraca o usa el mismo perfil.');
+  if (unresolvedLegacySuffix) {
+    return errorResponse(409, 'identity_conflict', 'No se pudo confirmar la identidad. Una identificación anterior con la misma terminación debe ser reclamada primero por su perfil original.');
+  }
+  const existingIdentity = byPlayer || byStudentHash || byStudentPublic;
+
+  if (!existingIdentity) {
+    const accessToken = requestedAccessToken || randomToken();
+    const accessTokenHash = await digest(accessToken);
+    try {
+      await db.prepare(`INSERT INTO community_participants (class_id,player_id,display_name,student_id_hash,student_id_last4,student_id_public,access_token_hash,verification_status,consented_at,created_at,updated_at) VALUES (?,?,?,?,?,?,?,'pending',?,?,?)`)
+        .bind(classRecord.id, requestedPlayerId, displayName, studentIdHash, studentId.slice(-4), studentId, accessTokenHash, now, now, now).run();
+    } catch (error) {
+      if (/UNIQUE|constraint/i.test(String(error))) {
+        const racedParticipant = await db.prepare(`SELECT ${participantColumns} FROM community_participants WHERE class_id=? AND player_id=?`).bind(classRecord.id, requestedPlayerId).first();
+        const idempotentCreate = racedParticipant
+          && racedParticipant.display_name === displayName
+          && racedParticipant.student_id_hash === studentIdHash
+          && racedParticipant.student_id_public === studentId
+          && racedParticipant.student_id_last4 === studentId.slice(-4)
+          && racedParticipant.access_token_hash === accessTokenHash;
+        if (idempotentCreate) {
+          return response({ ok: true, class: publicClass(classRecord), participant: publicParticipant(racedParticipant), accessToken });
+        }
+        return errorResponse(409, 'identity_conflict', 'No se pudo confirmar la identidad. Usa el perfil y token que ya guardaste.');
+      }
+      throw error;
+    }
+    return response({
+      ok: true,
+      class: publicClass(classRecord),
+      participant: publicParticipant({ player_id: requestedPlayerId, display_name: displayName, student_id_public: studentId, student_id_last4: studentId.slice(-4), verification_status: 'pending' }),
+      accessToken
+    }, 201);
+  }
+
+  const suppliedAccessTokenHash = requestedAccessToken ? await digest(requestedAccessToken) : '';
+  const targetsAnotherPlayer = [byStudentHash, byStudentPublic].some((participant) => participant && participant.player_id !== requestedPlayerId);
+  if (!byPlayer || !suppliedAccessTokenHash || suppliedAccessTokenHash !== byPlayer.access_token_hash || targetsAnotherPlayer) {
+    return errorResponse(409, 'identity_conflict', 'No se pudo confirmar la identidad. Usa el perfil y token que ya guardaste.');
+  }
+
+  const requestedStateAlreadySaved = byPlayer.display_name === displayName
+    && byPlayer.student_id_hash === studentIdHash
+    && byPlayer.student_id_public === studentId
+    && byPlayer.student_id_last4 === studentId.slice(-4);
+  if (requestedStateAlreadySaved) {
+    return response({ ok: true, class: publicClass(classRecord), participant: publicParticipant(byPlayer), accessToken: requestedAccessToken });
+  }
+
+  let updated;
   try {
-    await db.batch([
-      db.prepare(`INSERT INTO community_participants (class_id,player_id,display_name,student_id_hash,student_id_last4,access_token_hash,verification_status,consented_at,created_at,updated_at) VALUES (?,?,?,?,?,?,'pending',?,?,?) ON CONFLICT(class_id,student_id_hash) DO UPDATE SET display_name=excluded.display_name,student_id_last4=excluded.student_id_last4,access_token_hash=excluded.access_token_hash,updated_at=excluded.updated_at`)
-        .bind(classRecord.id, requestedPlayerId, displayName, studentIdHash, studentId.slice(-4), accessTokenHash, now, now, now),
-      db.prepare(`UPDATE community_scores SET nickname=? WHERE class_id=? AND player_id=(SELECT player_id FROM community_participants WHERE class_id=? AND student_id_hash=?)`)
-        .bind(displayName, classRecord.id, classRecord.id, studentIdHash)
-    ]);
+    updated = await db.prepare(`UPDATE community_participants SET display_name=?,student_id_hash=?,student_id_last4=?,student_id_public=?,verification_status=CASE WHEN verification_status='verified' AND (display_name<>? OR student_id_public<>?) THEN 'pending' ELSE verification_status END,consented_at=?,updated_at=? WHERE class_id=? AND player_id=? AND access_token_hash=? AND (display_name<>? OR student_id_hash<>? OR student_id_last4<>? OR student_id_public<>?)`)
+      .bind(displayName, studentIdHash, studentId.slice(-4), studentId, displayName, studentId, now, now, classRecord.id, requestedPlayerId, suppliedAccessTokenHash, displayName, studentIdHash, studentId.slice(-4), studentId).run();
   } catch (error) {
-    if (/UNIQUE|constraint/i.test(String(error))) return errorResponse(409, 'identity_conflict', 'No se pudo confirmar la identidad. Revisa la catraca o usa el mismo perfil.');
+    if (/UNIQUE|constraint/i.test(String(error))) return errorResponse(409, 'identity_conflict', 'No se pudo confirmar la identidad. Usa el perfil y token que ya guardaste.');
     throw error;
   }
-  const savedParticipant = await db.prepare(`SELECT player_id,display_name,student_id_last4,verification_status FROM community_participants WHERE class_id=? AND student_id_hash=?`).bind(classRecord.id, studentIdHash).first();
-  if (!savedParticipant) throw new Error('participant_not_saved');
+  const savedParticipant = await db.prepare(`SELECT ${participantColumns} FROM community_participants WHERE class_id=? AND player_id=?`).bind(classRecord.id, requestedPlayerId).first();
+  const requestedStateWasSaved = savedParticipant
+    && savedParticipant.display_name === displayName
+    && savedParticipant.student_id_hash === studentIdHash
+    && savedParticipant.student_id_public === studentId
+    && savedParticipant.student_id_last4 === studentId.slice(-4)
+    && savedParticipant.access_token_hash === suppliedAccessTokenHash;
+  if (!requestedStateWasSaved) {
+    if (!changed(updated)) return errorResponse(409, 'identity_conflict', 'No se pudo confirmar la identidad. Usa el perfil y token que ya guardaste.');
+    throw new Error('participant_not_saved');
+  }
   return response({
     ok: true,
     class: publicClass(classRecord),
-    participant: {
-      playerId: savedParticipant.player_id,
-      displayName: savedParticipant.display_name,
-      studentIdMasked: maskedStudentId(savedParticipant.student_id_last4),
-      verificationStatus: savedParticipant.verification_status || 'pending'
-    },
-    accessToken
-  }, byStudent ? 200 : 201);
+    participant: publicParticipant(savedParticipant),
+    accessToken: requestedAccessToken
+  });
 }
 
 async function saveScore(request, db, env, classRecord, payload) {
@@ -346,8 +472,9 @@ async function saveScore(request, db, env, classRecord, payload) {
   const correct = Number(payload.correct);
   const total = Number(payload.total);
   if (!validPlayerId(playerId) || !validAccessToken(accessToken)) return errorResponse(401, 'identity_required', 'Guarda tu nombre y catraca antes de publicar.');
-  const participant = await db.prepare(`SELECT display_name,verification_status FROM community_participants WHERE class_id=? AND player_id=? AND access_token_hash=?`).bind(classRecord.id, playerId, await digest(accessToken)).first();
+  const participant = await db.prepare(`SELECT display_name,student_id_public,verification_status FROM community_participants WHERE class_id=? AND player_id=? AND access_token_hash=?`).bind(classRecord.id, playerId, await digest(accessToken)).first();
   if (!participant) return errorResponse(401, 'identity_required', 'Guarda tu nombre y catraca antes de publicar.');
+  if (!cleanDisplayName(participant.display_name) || !cleanStudentId(participant.student_id_public)) return errorResponse(401, 'identity_required', 'Vuelve a confirmar tu nombre completo y catraca antes de publicar.');
   if (!['pending', 'verified'].includes(participant.verification_status)) return errorResponse(403, 'identity_ineligible', 'Este perfil necesita una revisión antes de seguir publicando.');
   if (!CHALLENGE_COURSE_IDS.has(courseId)) return errorResponse(400, 'invalid_scope', 'La materia del QCM no pertenece al desafío del 4.º E.');
   if (!Number.isInteger(correct) || !Number.isInteger(total) || total < 1 || total > 50 || correct < 0 || correct > total) return errorResponse(400, 'invalid_score', 'El resultado del QCM no es válido.');
@@ -355,7 +482,7 @@ async function saveScore(request, db, env, classRecord, payload) {
   const scopeId = moduleId ? `${courseId || 'module'}:${moduleId}` : courseId;
   const percentage = Math.round((correct / total) * 10000) / 100;
   const now = new Date().toISOString();
-  const previous = await db.prepare(`SELECT correct,total,percentage FROM community_scores WHERE class_id=? AND week_key=? AND player_id=? AND scope_id=? ORDER BY percentage DESC,correct DESC,updated_at DESC LIMIT 1`).bind(classRecord.id, week.key, playerId, scopeId).first();
+  const previous = await db.prepare(`SELECT id,correct,total,percentage,created_at FROM community_scores WHERE class_id=? AND week_key=? AND player_id=? AND scope_id=? ORDER BY correct DESC,percentage DESC,created_at ASC,id ASC LIMIT 1`).bind(classRecord.id, week.key, playerId, scopeId).first();
   if (!previous) {
     const count = await db.prepare(`SELECT COUNT(DISTINCT scope_id) AS count FROM community_scores WHERE class_id=? AND week_key=? AND player_id=?`).bind(classRecord.id, week.key, playerId).first();
     if (Number(count?.count) >= MAX_SCOPES_PER_PLAYER) return errorResponse(429, 'weekly_limit', 'Has alcanzado el límite de módulos para esta semana.');
@@ -364,31 +491,27 @@ async function saveScore(request, db, env, classRecord, payload) {
   const improved = scoreIsBetter(next, previous);
   let saved = false;
   if (improved) {
-    const result = await db.prepare(`
-      INSERT INTO community_scores (class_id,cohort_key,week_key,player_id,nickname,course_id,module_id,scope_id,correct,total,percentage,created_at,updated_at)
-      SELECT ?,?,?,?,?,?,?,?,?,?,?,?,?
-      WHERE EXISTS (
-        SELECT 1 WHERE EXISTS (
-          SELECT 1 FROM community_scores WHERE class_id=? AND week_key=? AND player_id=? AND scope_id=?
-        ) OR (
-          SELECT COUNT(DISTINCT scope_id) FROM community_scores WHERE class_id=? AND week_key=? AND player_id=?
-        ) < ?
-      )
-      ON CONFLICT (cohort_key,week_key,player_id,scope_id) DO UPDATE SET
-        nickname=excluded.nickname,course_id=excluded.course_id,module_id=excluded.module_id,
-        correct=excluded.correct,total=excluded.total,percentage=excluded.percentage,updated_at=excluded.updated_at
-      WHERE excluded.percentage>community_scores.percentage
-        OR (excluded.percentage=community_scores.percentage AND excluded.correct>community_scores.correct)
-    `).bind(
-      classRecord.id, LEGACY_COHORT_KEY, week.key, playerId, participant.display_name,
-      courseId, moduleId, scopeId, correct, total, percentage, now, now,
-      classRecord.id, week.key, playerId, scopeId,
-      classRecord.id, week.key, playerId, MAX_SCOPES_PER_PLAYER
-    ).run();
+    const result = previous
+      ? await db.prepare(`UPDATE community_scores SET nickname=?,course_id=?,module_id=?,correct=?,total=?,percentage=?,updated_at=? WHERE id=? AND class_id=? AND (correct<? OR (correct=? AND percentage<?))`)
+        .bind(participant.display_name, courseId, moduleId, correct, total, percentage, now, previous.id, classRecord.id, correct, correct, percentage).run()
+      : await db.prepare(`
+        INSERT INTO community_scores (class_id,cohort_key,week_key,player_id,nickname,course_id,module_id,scope_id,correct,total,percentage,created_at,updated_at,write_version)
+        SELECT ?,?,?,?,?,?,?,?,?,?,?,?,?,1
+        WHERE (SELECT COUNT(DISTINCT scope_id) FROM community_scores WHERE class_id=? AND week_key=? AND player_id=?) < ?
+        ON CONFLICT (class_id,week_key,player_id,scope_id) WHERE write_version=1 DO UPDATE SET
+          nickname=excluded.nickname,course_id=excluded.course_id,module_id=excluded.module_id,
+          correct=excluded.correct,total=excluded.total,percentage=excluded.percentage,updated_at=excluded.updated_at
+        WHERE excluded.correct>community_scores.correct
+          OR (excluded.correct=community_scores.correct AND excluded.percentage>community_scores.percentage)
+      `).bind(
+        classRecord.id, `class:${classRecord.id}`, week.key, playerId, participant.display_name,
+        courseId, moduleId, scopeId, correct, total, percentage, now, now,
+        classRecord.id, week.key, playerId, MAX_SCOPES_PER_PLAYER
+      ).run();
     saved = changed(result);
   }
   const [best, challenge] = await Promise.all([
-    db.prepare(`SELECT correct,total,percentage FROM community_scores WHERE class_id=? AND week_key=? AND player_id=? AND scope_id=? ORDER BY percentage DESC,correct DESC,updated_at DESC LIMIT 1`).bind(classRecord.id, week.key, playerId, scopeId).first(),
+    db.prepare(`SELECT correct,total,percentage FROM community_scores WHERE class_id=? AND week_key=? AND player_id=? AND scope_id=? ORDER BY correct DESC,percentage DESC,updated_at DESC LIMIT 1`).bind(classRecord.id, week.key, playerId, scopeId).first(),
     readChallenge(db, classRecord.id, week)
   ]);
   if (!best) return errorResponse(429, 'weekly_limit', 'Has alcanzado el límite de módulos para esta semana.');

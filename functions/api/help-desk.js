@@ -181,9 +181,9 @@ function validReplyContact(value) {
   if (!value) return true;
   if (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/u.test(value)) return true;
   const withoutLabel = value.replace(/^(?:whats?app|wa|tel(?:ephone|éfono)?)\s*:\s*/iu, '');
-  if (!/^[+\d\s().-]+$/u.test(withoutLabel)) return false;
+  if (!/^\+?(?:\(\d{1,4}\)|\d)[\d\s().-]*$/u.test(withoutLabel)) return false;
   const digits = withoutLabel.replace(/\D/g, '');
-  return digits.length >= 7 && digits.length <= 15;
+  return digits.length >= 7 && digits.length <= 15 && !/^0+$/.test(digits);
 }
 
 function cleanPagePath(value, request) {
@@ -333,8 +333,15 @@ function validationResult(data, request) {
   const name = cleanSingleLine(data.name);
   if (name.length > 100) return { error: ['invalid_name', 'El nombre es demasiado largo.'] };
   const replyContact = cleanSingleLine(data.replyContact);
+  const delegateRequest = role === 'future-delegate' || category === 'delegate-access';
+  if (delegateRequest && !name) {
+    return { error: ['delegate_name_required', 'Escribe tu nombre para que podamos verificar la solicitud de acceso de delegado.'] };
+  }
+  if (delegateRequest && !replyContact) {
+    return { error: ['delegate_reply_contact_required', 'Escribe un correo o WhatsApp válido para que podamos responder sobre el acceso de delegado.'] };
+  }
   if (replyContact.length > 120 || !validReplyContact(replyContact)) {
-    return { error: ['invalid_reply_contact', 'Escribe un correo o WhatsApp válido, o deja el campo vacío.'] };
+    return { error: ['invalid_reply_contact', 'Escribe un correo como nombre@dominio.com o un WhatsApp con 7 a 15 dígitos.'] };
   }
   const pagePath = cleanPagePath(data.pagePath, request);
   if (pagePath === null) return { error: ['invalid_page_path', 'La ubicación de la página no es válida.'] };

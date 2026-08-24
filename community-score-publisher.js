@@ -21,11 +21,11 @@
       sending:'Guardando…',
       saved:'Resultado añadido: {score}.',
       kept:'Tu mejor resultado sigue siendo {score}.',
-      invalid:'Guarda primero tu nombre y catraca en la página del desafío.',
+      invalid:'Guarda primero tu nombre completo, catraca completa y confirmación del 4.º E en la página del desafío.',
       offline:'No se pudo conectar ahora. Tu resultado del QCM no se pierde.',
       activating:'El desafío compartido se está activando. Tu resultado del QCM no se pierde.',
       ranking:'Ver el desafío y la clasificación',
-      privacy:'Premio: 50 R$ por Pix al primer lugar verificado. La catraca completa nunca es pública.',
+      privacy:'Participar es facultativo. El nombre completo y la catraca completa son públicos para quien tenga el enlace. El premio de 50 R$ por Pix solo se entrega tras verificación manual.',
       register:'Guardar identidad'
     },
     br:{
@@ -36,11 +36,11 @@
       sending:'Salvando…',
       saved:'Resultado adicionado: {score}.',
       kept:'Seu melhor resultado continua sendo {score}.',
-      invalid:'Primeiro salve seu nome e catraca na página do desafio.',
+      invalid:'Primeiro salve seu nome completo, catraca completa e confirmação do 4.º E na página do desafio.',
       offline:'Não foi possível conectar agora. Seu resultado do QCM não será perdido.',
       activating:'O desafio compartilhado está sendo ativado. Seu resultado do QCM não será perdido.',
       ranking:'Ver o desafio e a classificação',
-      privacy:'Prêmio: R$ 50 por Pix para o primeiro lugar verificado. A catraca completa nunca é pública.',
+      privacy:'Participar é facultativo. O nome completo e a catraca completa são públicos para quem tem o link. O Pix de R$ 50 só é entregue após verificação manual.',
       register:'Salvar identidade'
     }
   };
@@ -69,17 +69,33 @@
     return [hex.slice(0,8),hex.slice(8,12),hex.slice(12,16),hex.slice(16,20),hex.slice(20)].join('-');
   }
 
+  function validFullName(value){
+    var name=String(value||'').normalize('NFKC').replace(/\s+/g,' ').trim();
+    var parts=name.split(' ');
+    return name.length>=5&&name.length<=60&&parts.length>=2&&parts.every(function(part){return /^[\p{L}\p{M}]+(?:['’\-][\p{L}\p{M}]+)*$/u.test(part);});
+  }
+
+  function canonicalCatraca(value){return String(value||'').normalize('NFKC').toUpperCase().replace(/[\s._-]+/g,'').slice(0,24);}
+  function validCatraca(value){return /^[A-Z0-9]{4,24}$/.test(canonicalCatraca(value));}
+
   function readProfile(){
     var profile = {};
     try{ profile = JSON.parse(localStorage.getItem(PROFILE_KEY) || '{}') || {}; }catch(error){}
     if(!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(profile.playerId || '')) profile.playerId = createPlayerId();
-    profile.displayName = String(profile.displayName || profile.nickname || '').slice(0,60);
+    profile.fullName = String(profile.fullName || profile.displayName || profile.nickname || '').normalize('NFKC').replace(/\s+/g,' ').trim().slice(0,60);
+    profile.displayName = profile.fullName;
+    profile.catraca = canonicalCatraca(profile.catraca || profile.studentId || '');
     profile.studentIdMasked = String(profile.studentIdMasked || '').slice(0,20);
     profile.accessToken = /^[0-9a-f]{64}$/i.test(String(profile.accessToken || '')) ? profile.accessToken : '';
+    profile.classConfirmed = profile.classConfirmed === true && Boolean(profile.catraca);
     delete profile.nickname;
     delete profile.studentId;
     writeProfile(profile);
     return profile;
+  }
+
+  function profileReady(profile){
+    return Boolean(validFullName(profile.fullName) && validCatraca(profile.catraca) && profile.classConfirmed === true && /^[0-9a-f]{64}$/i.test(profile.accessToken));
   }
 
   function writeProfile(profile){
@@ -118,6 +134,7 @@
     var lang = language();
     var text = copy[lang];
     var profile = readProfile();
+    var ready = profileReady(profile);
     var panel = element('section','community-publish-card');
     panel.setAttribute('aria-labelledby','community-publish-title-' + Math.random().toString(36).slice(2));
 
@@ -129,10 +146,10 @@
     var form = element('form','community-publish-form');
     var field = element('div','community-publish-field');
     field.appendChild(element('span','community-publish-label',text.label));
-    field.appendChild(element('strong','community-publish-identity',profile.displayName ? profile.displayName + ' · ' + profile.studentIdMasked : text.invalid));
+    field.appendChild(element('strong','community-publish-identity',ready ? profile.fullName + ' · ' + profile.catraca : text.invalid));
     form.appendChild(field);
-    var button = element('button','community-publish-button',profile.accessToken ? text.submit : text.register);
-    button.type = profile.accessToken ? 'button' : 'button';
+    var button = element('button','community-publish-button',ready ? text.submit : text.register);
+    button.type = 'button';
     form.appendChild(button);
     panel.appendChild(form);
 
@@ -148,7 +165,7 @@
     function publishScore(event){
       event.preventDefault();
       event.stopPropagation();
-      if(!profile.displayName || !profile.accessToken){
+      if(!profileReady(profile)){
         setStatus(status,text.invalid,'error');
         window.location.href = 'comunidade.html#profileTitle';
         return;
@@ -184,7 +201,7 @@
         var best = data.best || score;
         setStatus(status,translated(data.saved === false ? text.kept : text.saved,best),'success');
       }).catch(function(error){
-        setStatus(status,error.code === 'not_configured' ? text.activating : text.offline,'error');
+        setStatus(status,error.code === 'not_configured' ? text.activating : /^(?:identity_required|identity_ineligible)$/.test(error.code || '') ? text.invalid : text.offline,'error');
       }).finally(function(){
         button.disabled = false;
         button.textContent = text.submit;

@@ -148,7 +148,6 @@
   function handleCompleted(event){
     if(!event.detail || event.detail.topicId !== activeTopic) return;
     lastResult = event.detail;
-    publishing = false;
     var status = document.getElementById('studyPublishStatus');
     status.textContent = '';
     status.removeAttribute('data-state');
@@ -158,9 +157,10 @@
 
   function publish(){
     if(!lastResult || publishing) return;
+    var publishedResult = lastResult;
     var profile = community.getProfile();
     var status = document.getElementById('studyPublishStatus');
-    if(!profile.displayName || !profile.accessToken){
+    if(typeof community.isProfileReady === 'function' ? !community.isProfileReady(profile) : (!profile.fullName || !profile.catraca || profile.classConfirmed !== true || !profile.accessToken)){
       status.dataset.state = 'error';
       status.textContent = t('nicknameNeeded');
       var identity = document.getElementById('communityDisplayName');
@@ -170,10 +170,12 @@
     publishing = true;
     document.getElementById('studyPublishButton').disabled = true;
     renderResult();
-    community.publishScore(lastResult).then(function(data){
+    community.publishScore(publishedResult).then(function(data){
+      if(lastResult !== publishedResult) return;
       status.dataset.state = 'success';
       status.textContent = data.saved ? t('publishSuccess') : t('publishKept');
     }).catch(function(error){
+      if(lastResult !== publishedResult) return;
       status.dataset.state = 'error';
       status.textContent = error && error.code === 'identity_required' ? t('identityExpired') : t('publishError');
     }).finally(function(){
