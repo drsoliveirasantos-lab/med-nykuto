@@ -159,6 +159,7 @@ class GuardedD1Mock {
     this.notices = new Map();
     this.uploads = new Map();
     this.profiles = new Map();
+    this.pushSubscriptions = [];
     this.editorTokenHash = hashToken('editor-s4-token');
   }
 
@@ -257,6 +258,7 @@ class GuardedD1Mock {
           return {
           id: notice.id, title: notice.title, body: notice.body, priority: notice.priority, status: notice.status,
           course: notice.course || '',
+          linked_task_id: notice.linkedTaskId || null, linkedTaskId: notice.linkedTaskId || null,
           image_url: notice.imageUrl, image_alt: notice.imageAlt, imageUrl: notice.imageUrl, imageAlt: notice.imageAlt,
           attachmentUploadId: upload?.status === 'linked' ? upload.id : null,
           attachmentTitle: notice.attachmentTitle || null,
@@ -266,6 +268,31 @@ class GuardedD1Mock {
           publishedAt: notice.publishedAt
           };
         });
+    }
+    if (/\bfrom\s+hub_tasks\b/i.test(normalized)) {
+      const classId = this.classFrom(values);
+      return [...this.tasks.values()]
+        .filter((task) => task.classId === classId && (!/status='published'/i.test(normalized) || task.status === 'published'))
+        .map((task) => ({
+          id: task.id,
+          class_id: task.classId,
+          course: task.course,
+          title: task.title,
+          description: task.description,
+          due_label: task.dueLabel,
+          due_at: task.dueAt,
+          attachment_url: task.attachmentUrl,
+          attachment_title: task.attachmentTitle,
+          status: task.status,
+          notice_enabled: task.noticeEnabled ? 1 : 0,
+          noticeEnabled: Boolean(task.noticeEnabled)
+        }));
+    }
+    if (/\bfrom\s+hub_push_subscriptions\b/i.test(normalized)) {
+      const classId = this.classFrom(values);
+      return this.pushSubscriptions
+        .filter((subscription) => subscription.classId === classId && subscription.status === 'active')
+        .map((subscription) => ({ subscription_json: subscription.subscriptionJson }));
     }
     if (/\bfrom\s+hub_memberships\s+m\s+join\s+hub_activities\s+a\b/i.test(normalized) && /m\.display_name\s+as\s+displayname/i.test(normalized)) {
       const classId = this.classFrom(values);
@@ -293,7 +320,18 @@ class GuardedD1Mock {
     if (/\bfrom\s+hub_tasks\b/i.test(normalized)) {
       const classId = this.classFrom(values), id = String(values[1] || '');
       const task = this.tasks.get(id);
-      return task?.classId === classId ? { attachment_url: task.attachmentUrl, attachment_title: task.attachmentTitle } : null;
+      return task?.classId === classId ? {
+        id: task.id,
+        course: task.course,
+        title: task.title,
+        description: task.description,
+        due_label: task.dueLabel,
+        due_at: task.dueAt,
+        attachment_url: task.attachmentUrl,
+        attachment_title: task.attachmentTitle,
+        status: task.status,
+        notice_enabled: task.noticeEnabled ? 1 : 0
+      } : null;
     }
     if (/\bfrom\s+hub_uploads\s+u\s+(?:left\s+)?join\s+hub_notices\s+n\b/i.test(normalized)) {
       const classId = this.classFrom(values), uploadId = String(values[1] || ''), upload = this.uploads.get(uploadId);
@@ -311,9 +349,25 @@ class GuardedD1Mock {
       return { id: upload.id, object_key: upload.objectKey, original_name: upload.originalName, mime_type: upload.mimeType, size_bytes: upload.sizeBytes, etag: upload.etag, status: upload.status, created_at: upload.createdAt, updated_at: upload.updatedAt };
     }
     if (/\bfrom\s+hub_notices\b/i.test(normalized)) {
-      const classId = this.classFrom(values), id = String(values[1] || '');
-      const notice = this.notices.get(id);
-      return notice?.classId === classId ? { course: notice.course || '', image_url: notice.imageUrl, image_alt: notice.imageAlt, attachment_upload_id: notice.attachmentUploadId || null, attachment_title: notice.attachmentTitle || null } : null;
+      const classId = this.classFrom(values), reference = String(values[1] || '');
+      const notice = /linked_task_id\s*=\s*\?/i.test(normalized)
+        ? [...this.notices.values()].find((item) => item.classId === classId && item.linkedTaskId === reference)
+        : this.notices.get(reference);
+      return notice?.classId === classId ? {
+        id: notice.id,
+        course: notice.course || '',
+        title: notice.title,
+        body: notice.body,
+        priority: notice.priority,
+        status: notice.status,
+        push_mode: notice.pushMode ? 1 : 0,
+        linked_task_id: notice.linkedTaskId || null,
+        published_at: notice.publishedAt || null,
+        image_url: notice.imageUrl,
+        image_alt: notice.imageAlt,
+        attachment_upload_id: notice.attachmentUploadId || null,
+        attachment_title: notice.attachmentTitle || null
+      } : null;
     }
     if (/\bfrom\s+hub_editor_profiles\b/i.test(normalized)) {
       const classId = this.classFrom(values), actorId = String(values[1] || '');
@@ -358,7 +412,7 @@ class GuardedD1Mock {
     const create = normalized.match(/^create\s+table\s+if\s+not\s+exists\s+([a-z0-9_]+)\s*\(/i);
     if (create && !this.tableColumns.has(create[1])) {
       const columns = new Set();
-      ['class_id', 'course', 'attachment_url', 'attachment_title', 'attachment_upload_id', 'image_url', 'image_alt', 'object_key', 'original_name', 'mime_type', 'size_bytes', 'etag', 'status', 'is_leader', 'support_whatsapp', 'actor_id', 'whatsapp_e164', 'whatsapp_format_verified_at'].forEach((column) => {
+      ['class_id', 'course', 'attachment_url', 'attachment_title', 'attachment_upload_id', 'image_url', 'image_alt', 'object_key', 'original_name', 'mime_type', 'size_bytes', 'etag', 'status', 'is_leader', 'support_whatsapp', 'actor_id', 'whatsapp_e164', 'whatsapp_format_verified_at', 'notice_enabled', 'linked_task_id'].forEach((column) => {
         if (new RegExp(`\\b${column}\\b`, 'i').test(normalized)) columns.add(column);
       });
       this.tableColumns.set(create[1], columns);
@@ -387,8 +441,21 @@ class GuardedD1Mock {
       });
     }
     if (/^insert\s+into\s+hub_tasks\b/i.test(normalized)) {
-      this.tasks.set(String(values[0]), {
-        id: String(values[0]), classId: String(values[1]), attachmentUrl: values[7] || null, attachmentTitle: values[8] || null
+      const columns = insertColumns(sql, 'hub_tasks'), valueByColumn = Object.fromEntries(columns.map((column, index) => [column, values[index]]));
+      const id = String(valueByColumn.id || ''), classId = String(valueByColumn.class_id || ''), existing = this.tasks.get(id);
+      if (existing && existing.classId !== classId) return { meta: { changes: 0 } };
+      this.tasks.set(id, {
+        id,
+        classId,
+        course: String(valueByColumn.course || ''),
+        title: String(valueByColumn.title || ''),
+        description: String(valueByColumn.description || ''),
+        dueLabel: String(valueByColumn.due_label || ''),
+        dueAt: valueByColumn.due_at || null,
+        attachmentUrl: valueByColumn.attachment_url || null,
+        attachmentTitle: valueByColumn.attachment_title || null,
+        status: String(valueByColumn.status || 'draft'),
+        noticeEnabled: Boolean(Number(valueByColumn.notice_enabled))
       });
     }
     if (/^insert\s+into\s+hub_notices\b/i.test(normalized)) {
@@ -400,13 +467,32 @@ class GuardedD1Mock {
         const uploadId = String(values[values.length - 1] || ''), upload = this.uploads.get(uploadId);
         if (!upload || upload.classId !== classId || !['staged', 'linked'].includes(upload.status)) return { meta: { changes: 0 } };
       }
+      if (/from\s+hub_tasks\s+source_task/i.test(normalized)) {
+        const taskClassId = String(values[values.length - 2] || ''), taskId = String(values[values.length - 1] || ''), task = this.tasks.get(taskId);
+        if (!task || task.classId !== classId || taskClassId !== classId) return { meta: { changes: 0 } };
+      }
       this.notices.set(id, {
         id, classId, title: String(valueByColumn.title || ''), body: String(valueByColumn.body || ''),
         priority: String(valueByColumn.priority || 'normal'), status: String(valueByColumn.status || 'draft'),
+        pushMode: Boolean(Number(valueByColumn.push_mode)), linkedTaskId: valueByColumn.linked_task_id || null,
         course: String(valueByColumn.course || ''), imageUrl: valueByColumn.image_url || null, imageAlt: valueByColumn.image_alt || null,
         attachmentUploadId: valueByColumn.attachment_upload_id || null, attachmentTitle: valueByColumn.attachment_title || null,
         publishedAt: valueByColumn.published_at || null
       });
+    }
+    if (/^update\s+hub_notices\b/i.test(normalized)) {
+      const classId = this.classFrom(values);
+      const linkedTaskId = /linked_task_id\s*=\s*\?/i.test(normalized)
+        ? String(values[values.length - 1] || '')
+        : '';
+      const id = /\bid\s*=\s*\?/i.test(normalized) ? String(values[values.length - 1] || '') : '';
+      const notice = linkedTaskId
+        ? [...this.notices.values()].find((item) => item.classId === classId && item.linkedTaskId === linkedTaskId)
+        : this.notices.get(id);
+      if (!notice || notice.classId !== classId) return { meta: { changes: 0 } };
+      if (/\bstatus\s*=\s*'archived'/i.test(normalized)) notice.status = 'archived';
+      if (/\bpublished_at\s*=\s*null/i.test(normalized)) notice.publishedAt = null;
+      return { meta: { changes: 1 } };
     }
     if (/^insert\s+into\s+hub_uploads\b/i.test(normalized)) {
       const columns = insertColumns(sql, 'hub_uploads'), valueByColumn = Object.fromEntries(columns.map((column, index) => [column, values[index]]));
@@ -548,11 +634,13 @@ async function classHubPost(handler, db, query, body, token, extraEnv = {}) {
     },
     body: JSON.stringify(body)
   });
+  const deferred = [];
   const response = await handler({
     request,
     env: { MED_NYKUTO_DB: db, MED_NYKUTO_OWNER_TOKEN: 'owner-token', MED_NYKUTO_RATE_SALT: 'test-salt', MED_NYKUTO_SUPPORT_WHATSAPP: SYNTHETIC_SUPPORT_WHATSAPP, ...extraEnv },
-    waitUntil: (promise) => promise
+    waitUntil: (promise) => { deferred.push(Promise.resolve(promise)); }
   });
+  await Promise.all(deferred);
   return { response, body: await response.json() };
 }
 
@@ -695,6 +783,228 @@ async function validateRuntimeIsolation() {
   }, 'editor-s4-token');
   expect(invalidAttachment.response.status === 400 && responseCode(invalidAttachment.body) === 'invalid_attachment', `An insecure task attachment URL was accepted (${invalidAttachment.response.status}: ${JSON.stringify(invalidAttachment.body)}).`);
   expect(!db.calls.slice(invalidAttachmentStart).some((call) => /^insert\s+into\s+hub_tasks\b/i.test(call.sql)), 'A rejected insecure attachment still wrote to hub_tasks.');
+
+  const plainTask = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'task.upsert', id: 'plain-task-without-notice', course: 'Fisiología II', title: 'Tarea sin aviso', status: 'published', addToNotices: false
+  }, 'editor-s4-token');
+  expect(plainTask.response.status === 200 && plainTask.body.noticeEnabled === false && plainTask.body.linkedNoticeId === null, `An unchecked task unexpectedly created a notice (${plainTask.response.status}: ${JSON.stringify(plainTask.body)}).`);
+  expect(![...db.notices.values()].some((notice) => notice.linkedTaskId === 'plain-task-without-notice'), 'The unchecked task persisted a hidden linked notice.');
+
+  const linkedTaskStart = db.calls.length;
+  const webhookCalls = [];
+  db.pushSubscriptions.push({
+    classId: DEFAULT_CLASS_ID,
+    status: 'active',
+    subscriptionJson: JSON.stringify({ endpoint: 'https://push.example.test/subscription', expirationTime: null, keys: { p256dh: 'p'.repeat(32), auth: 'a'.repeat(16) } })
+  });
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url, options = {}) => {
+    if (String(url) === 'https://push.example.test/hook') {
+      webhookCalls.push({ url: String(url), options, body: JSON.parse(String(options.body || '{}')) });
+      return new Response('{}', { status: 200, headers: { 'content-type': 'application/json' } });
+    }
+    return originalFetch(url, options);
+  };
+  let linkedTaskCreated;
+  let linkedTaskUpdated;
+  let linkedTaskArchived;
+  let linkedTaskRepublished;
+  let linkedTaskDisabled;
+  const linkedPushCounts = [];
+  try {
+    linkedTaskCreated = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+      action: 'task.upsert', id: 'linked-task-contract', course: 'Farmacología II', title: 'Guía de antimicrobianos',
+      description: 'Resolver cinco casos y justificar cada elección.', dueLabel: 'Próximo jueves', dueAt: '2099-09-03T08:00',
+      attachmentUrl: 'https://example.test/guia-antimicrobianos.pdf', attachmentTitle: 'Guía oficial', status: 'published',
+      addToNotices: true, noticePriority: 'important', noticePushMode: true
+    }, 'editor-s4-token', { MED_NYKUTO_PUSH_WEBHOOK: 'https://push.example.test/hook' });
+    linkedPushCounts.push(webhookCalls.length);
+    linkedTaskUpdated = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+      action: 'task.upsert', id: 'linked-task-contract', course: 'Farmacología II', title: 'Guía de antimicrobianos actualizada',
+      description: 'Resolver seis casos y justificar cada elección.', dueLabel: 'Viernes 4 sep.', dueAt: '2099-09-04T08:00',
+      attachmentUrl: 'https://example.test/guia-antimicrobianos-v2.pdf', attachmentTitle: 'Guía oficial v2', status: 'published',
+      addToNotices: true, noticePriority: 'important', noticePushMode: true
+    }, 'editor-s4-token', { MED_NYKUTO_PUSH_WEBHOOK: 'https://push.example.test/hook' });
+    linkedPushCounts.push(webhookCalls.length);
+    linkedTaskArchived = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+      action: 'task.upsert', id: 'linked-task-contract', course: 'Farmacología II', title: 'Guía de antimicrobianos actualizada',
+      description: 'Resolver seis casos y justificar cada elección.', dueLabel: 'Viernes 4 sep.', dueAt: '2099-09-04T08:00',
+      status: 'archived', addToNotices: true, noticePriority: 'important', noticePushMode: true
+    }, 'editor-s4-token', { MED_NYKUTO_PUSH_WEBHOOK: 'https://push.example.test/hook' });
+    linkedPushCounts.push(webhookCalls.length);
+    linkedTaskRepublished = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+      action: 'task.upsert', id: 'linked-task-contract', course: 'Farmacología II', title: 'Guía de antimicrobianos actualizada',
+      description: 'Resolver seis casos y justificar cada elección.', dueLabel: 'Viernes 4 sep.', dueAt: '2099-09-04T08:00',
+      status: 'published', addToNotices: true, noticePriority: 'important', noticePushMode: true
+    }, 'editor-s4-token', { MED_NYKUTO_PUSH_WEBHOOK: 'https://push.example.test/hook' });
+    linkedPushCounts.push(webhookCalls.length);
+    linkedTaskDisabled = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+      action: 'task.upsert', id: 'linked-task-contract', course: 'Farmacología II', title: 'Guía de antimicrobianos actualizada',
+      description: 'Resolver seis casos y justificar cada elección.', dueLabel: 'Viernes 4 sep.', dueAt: '2099-09-04T08:00',
+      status: 'published', addToNotices: false, noticePriority: 'important', noticePushMode: true
+    }, 'editor-s4-token', { MED_NYKUTO_PUSH_WEBHOOK: 'https://push.example.test/hook' });
+    linkedPushCounts.push(webhookCalls.length);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+  [linkedTaskCreated, linkedTaskUpdated, linkedTaskArchived, linkedTaskRepublished, linkedTaskDisabled].forEach(({ response, body }) => {
+    expect(response.status === 200, `A linked task mutation failed (${response.status}: ${JSON.stringify(body)}).`);
+  });
+  expect(linkedTaskCreated.body.noticeEnabled === true && linkedTaskCreated.body.linkedNoticeStatus === 'published' && linkedTaskCreated.body.noticePriority === 'important' && linkedTaskCreated.body.noticePushMode === true, 'The task response lost its linked notice state.');
+  const linkedNoticeId = linkedTaskCreated.body.linkedNoticeId;
+  expect(Boolean(linkedNoticeId) && linkedTaskUpdated.body.linkedNoticeId === linkedNoticeId && linkedTaskArchived.body.linkedNoticeId === linkedNoticeId && linkedTaskRepublished.body.linkedNoticeId === linkedNoticeId && linkedTaskDisabled.body.linkedNoticeId === linkedNoticeId, 'Updating, archiving or disabling a task duplicated or detached its notice identity.');
+  const linkedNotices = [...db.notices.values()].filter((notice) => notice.classId === DEFAULT_CLASS_ID && notice.linkedTaskId === 'linked-task-contract');
+  expect(linkedNotices.length === 1, `One task produced ${linkedNotices.length} linked notices instead of one.`);
+  expect(linkedNotices[0]?.title === 'Guía de antimicrobianos actualizada' && linkedNotices[0]?.course === 'Farmacología II', 'The linked notice did not synchronize the task title or course.');
+  expect(linkedNotices[0]?.body === 'Entrega: Viernes 4 sep. · Resolver seis casos y justificar cada elección. · Archivo: Guía oficial v2', `The linked notice did not preserve the derived task summary (${linkedNotices[0]?.body || 'missing'}).`);
+  expect(linkedTaskArchived.body.linkedNoticeStatus === 'archived' && linkedTaskRepublished.body.linkedNoticeStatus === 'published' && linkedTaskDisabled.body.noticeEnabled === false && linkedTaskDisabled.body.linkedNoticeStatus === 'archived' && linkedNotices[0]?.status === 'archived', 'The linked notice does not follow task archive/republish/disable transitions.');
+  expect(webhookCalls.length === 2, `Linked-notice push should fire once on each publication transition, not on ordinary edits (${webhookCalls.length} calls).`);
+  expect(JSON.stringify(linkedPushCounts) === JSON.stringify([1, 1, 1, 2, 2]), `Pushes fired on the wrong task transition (${JSON.stringify(linkedPushCounts)}).`);
+  expect(JSON.stringify(webhookCalls.map((call) => call.body?.notice?.title)) === JSON.stringify(['Guía de antimicrobianos', 'Guía de antimicrobianos actualizada']), 'A content edit was pushed, or a publication transition used stale task content.');
+  expect(webhookCalls.every((call) => call.body?.notice?.linkedTaskId === 'linked-task-contract' && call.body.notice.url === '/turma/s4-e?task=linked-task-contract#tareas'), 'A linked-notice push lost the exact task target.');
+  const linkedTaskCalls = db.calls.slice(linkedTaskStart);
+  expect(linkedTaskCalls.filter((call) => /^insert\s+into\s+hub_notices\b/i.test(call.sql) && call.values.includes('linked-task-contract')).length === 5, 'A task update bypassed the single synchronized notice upsert path.');
+  linkedTaskCalls.filter((call) => /\bhub_(?:tasks|notices)\b/i.test(call.sql) && isDataSql(call.sql)).forEach((call) => {
+    expect(/\bclass_id\b/i.test(call.sql) && call.values.includes(DEFAULT_CLASS_ID), `A linked task/notice query is not class-scoped: ${call.sql.slice(0, 220)}`);
+  });
+
+  const directLinkedNoticeEdit = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'notice.upsert', id: linkedNoticeId, title: 'Intento de desincronización', status: 'published'
+  }, 'editor-s4-token');
+  expect(directLinkedNoticeEdit.response.status === 409 && responseCode(directLinkedNoticeEdit.body) === 'linked_notice_managed_by_task', `A linked notice can be edited independently from its task (${directLinkedNoticeEdit.response.status}: ${JSON.stringify(directLinkedNoticeEdit.body)}).`);
+
+  const normalPriorityNoPush = [];
+  globalThis.fetch = async (url, options = {}) => {
+    if (String(url) === 'https://push.example.test/hook') {
+      normalPriorityNoPush.push(options);
+      return new Response('{}', { status: 200 });
+    }
+    return originalFetch(url, options);
+  };
+  let normalLinkedTask;
+  try {
+    normalLinkedTask = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+      action: 'task.upsert', id: 'normal-linked-task', course: 'Patología', title: 'Aviso normal sin push', status: 'published',
+      addToNotices: true, noticePriority: 'normal', noticePushMode: true
+    }, 'editor-s4-token', { MED_NYKUTO_PUSH_WEBHOOK: 'https://push.example.test/hook' });
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+  expect(normalLinkedTask.response.status === 200 && normalLinkedTask.body.noticePushMode === false && normalPriorityNoPush.length === 0, 'A normal-priority task notice retained or dispatched push despite the explicit anti-spam rule.');
+
+  const linkedNoticeSnapshot = (taskId) => {
+    const notice = [...db.notices.values()].find((item) => item.classId === DEFAULT_CLASS_ID && item.linkedTaskId === taskId);
+    return notice ? { ...notice } : null;
+  };
+  const draftTransitionPushes = [];
+  const draftTransitionCounts = [];
+  const draftTransitionStates = [];
+  const draftTransitionPublicVisibility = [];
+  const nativeDate = globalThis.Date;
+  let transitionClock = nativeDate.parse('2026-08-24T10:00:00.000Z');
+  class TransitionDate extends nativeDate {
+    constructor(...args) { super(...(args.length ? args : [transitionClock])); }
+    static now() { return transitionClock; }
+  }
+  globalThis.Date = TransitionDate;
+  globalThis.fetch = async (url, options = {}) => {
+    if (String(url) === 'https://push.example.test/hook') {
+      draftTransitionPushes.push(JSON.parse(String(options.body || '{}')));
+      return new Response('{}', { status: 200 });
+    }
+    return originalFetch(url, options);
+  };
+  const draftTransitionResponses = [];
+  try {
+    draftTransitionResponses.push(await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+      action: 'task.upsert', id: 'draft-publication-contract', course: 'Microbiología II', title: 'Preparar cultivo', status: 'draft',
+      addToNotices: true, noticePriority: 'important', noticePushMode: true
+    }, 'editor-s4-token', { MED_NYKUTO_PUSH_WEBHOOK: 'https://push.example.test/hook' }));
+    draftTransitionCounts.push(draftTransitionPushes.length);
+    draftTransitionStates.push(linkedNoticeSnapshot('draft-publication-contract'));
+    draftTransitionPublicVisibility.push(await classHubGet(classHub.onRequestGet, db, '?class=s4-e&resource=public'));
+    transitionClock = nativeDate.parse('2026-08-24T11:00:00.000Z');
+    draftTransitionResponses.push(await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+      action: 'task.upsert', id: 'draft-publication-contract', course: 'Microbiología II', title: 'Preparar cultivo', status: 'published',
+      addToNotices: true, noticePriority: 'important', noticePushMode: true
+    }, 'editor-s4-token', { MED_NYKUTO_PUSH_WEBHOOK: 'https://push.example.test/hook' }));
+    draftTransitionCounts.push(draftTransitionPushes.length);
+    draftTransitionStates.push(linkedNoticeSnapshot('draft-publication-contract'));
+    draftTransitionPublicVisibility.push(await classHubGet(classHub.onRequestGet, db, '?class=s4-e&resource=public'));
+    transitionClock = nativeDate.parse('2026-08-24T12:00:00.000Z');
+    draftTransitionResponses.push(await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+      action: 'task.upsert', id: 'draft-publication-contract', course: 'Microbiología II', title: 'Preparar cultivo actualizado', status: 'published',
+      addToNotices: true, noticePriority: 'important', noticePushMode: true
+    }, 'editor-s4-token', { MED_NYKUTO_PUSH_WEBHOOK: 'https://push.example.test/hook' }));
+    draftTransitionCounts.push(draftTransitionPushes.length);
+    draftTransitionStates.push(linkedNoticeSnapshot('draft-publication-contract'));
+    draftTransitionPublicVisibility.push(await classHubGet(classHub.onRequestGet, db, '?class=s4-e&resource=public'));
+    transitionClock = nativeDate.parse('2026-08-24T13:00:00.000Z');
+    draftTransitionResponses.push(await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+      action: 'task.upsert', id: 'draft-publication-contract', course: 'Microbiología II', title: 'Preparar cultivo actualizado', status: 'draft',
+      addToNotices: true, noticePriority: 'important', noticePushMode: true
+    }, 'editor-s4-token', { MED_NYKUTO_PUSH_WEBHOOK: 'https://push.example.test/hook' }));
+    draftTransitionCounts.push(draftTransitionPushes.length);
+    draftTransitionStates.push(linkedNoticeSnapshot('draft-publication-contract'));
+    draftTransitionPublicVisibility.push(await classHubGet(classHub.onRequestGet, db, '?class=s4-e&resource=public'));
+    transitionClock = nativeDate.parse('2026-08-24T14:00:00.000Z');
+    draftTransitionResponses.push(await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+      action: 'task.upsert', id: 'draft-publication-contract', course: 'Microbiología II', title: 'Preparar cultivo actualizado', status: 'published',
+      addToNotices: true, noticePriority: 'important', noticePushMode: true
+    }, 'editor-s4-token', { MED_NYKUTO_PUSH_WEBHOOK: 'https://push.example.test/hook' }));
+    draftTransitionCounts.push(draftTransitionPushes.length);
+    draftTransitionStates.push(linkedNoticeSnapshot('draft-publication-contract'));
+    draftTransitionPublicVisibility.push(await classHubGet(classHub.onRequestGet, db, '?class=s4-e&resource=public'));
+  } finally {
+    globalThis.Date = nativeDate;
+    globalThis.fetch = originalFetch;
+  }
+  draftTransitionResponses.forEach(({ response, body }) => expect(response.status === 200, `A draft/publication transition failed (${response.status}: ${JSON.stringify(body)}).`));
+  expect(JSON.stringify(draftTransitionResponses.map(({ body }) => body.linkedNoticeStatus)) === JSON.stringify(['draft', 'published', 'published', 'draft', 'published']), 'The linked notice did not mirror draft/publication task states.');
+  expect(JSON.stringify(draftTransitionPublicVisibility.map(({ body }) => Boolean(body.tasks?.some((task) => task.id === 'draft-publication-contract') && body.notices?.some((notice) => notice.linkedTaskId === 'draft-publication-contract')))) === JSON.stringify([false, true, true, false, true]), 'Draft/published task-notice visibility is inconsistent in the public snapshot.');
+  expect(JSON.stringify(draftTransitionCounts) === JSON.stringify([0, 1, 1, 1, 2]), `Draft/publication transitions dispatched pushes at the wrong time (${JSON.stringify(draftTransitionCounts)}).`);
+  expect(draftTransitionStates[0]?.publishedAt === null, 'A draft linked notice received a publication timestamp.');
+  expect(draftTransitionStates[1]?.publishedAt === '2026-08-24T11:00:00.000Z' && draftTransitionStates[2]?.publishedAt === draftTransitionStates[1]?.publishedAt, 'Editing a published linked notice replaced or omitted its original publication timestamp.');
+  expect(draftTransitionStates[3]?.publishedAt === null && draftTransitionStates[4]?.publishedAt === '2026-08-24T14:00:00.000Z' && draftTransitionStates[4].publishedAt !== draftTransitionStates[1].publishedAt, 'Drafting and republishing a linked notice did not reset and renew its publication timestamp.');
+  expect(JSON.stringify(draftTransitionPushes.map((payload) => payload.notice?.title)) === JSON.stringify(['Preparar cultivo', 'Preparar cultivo actualizado']), 'Draft/publication pushes did not use the content from the exact publication transition.');
+
+  const pushOptInCalls = [];
+  const pushOptInCounts = [];
+  const pushOptInStates = [];
+  globalThis.fetch = async (url, options = {}) => {
+    if (String(url) === 'https://push.example.test/hook') {
+      pushOptInCalls.push(JSON.parse(String(options.body || '{}')));
+      return new Response('{}', { status: 200 });
+    }
+    return originalFetch(url, options);
+  };
+  const pushOptInResponses = [];
+  try {
+    pushOptInResponses.push(await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+      action: 'task.upsert', id: 'push-opt-in-contract', course: 'Nutrición', title: 'Actividad sin push', status: 'published',
+      addToNotices: true, noticePriority: 'important', noticePushMode: false
+    }, 'editor-s4-token', { MED_NYKUTO_PUSH_WEBHOOK: 'https://push.example.test/hook' }));
+    pushOptInCounts.push(pushOptInCalls.length);
+    pushOptInStates.push(linkedNoticeSnapshot('push-opt-in-contract'));
+    pushOptInResponses.push(await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+      action: 'task.upsert', id: 'push-opt-in-contract', course: 'Nutrición', title: 'Actividad con push activado', status: 'published',
+      addToNotices: true, noticePriority: 'important', noticePushMode: true
+    }, 'editor-s4-token', { MED_NYKUTO_PUSH_WEBHOOK: 'https://push.example.test/hook' }));
+    pushOptInCounts.push(pushOptInCalls.length);
+    pushOptInStates.push(linkedNoticeSnapshot('push-opt-in-contract'));
+    pushOptInResponses.push(await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+      action: 'task.upsert', id: 'push-opt-in-contract', course: 'Nutrición', title: 'Actividad editada sin nuevo push', status: 'published',
+      addToNotices: true, noticePriority: 'important'
+    }, 'editor-s4-token', { MED_NYKUTO_PUSH_WEBHOOK: 'https://push.example.test/hook' }));
+    pushOptInCounts.push(pushOptInCalls.length);
+    pushOptInStates.push(linkedNoticeSnapshot('push-opt-in-contract'));
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+  pushOptInResponses.forEach(({ response, body }) => expect(response.status === 200, `A push opt-in transition failed (${response.status}: ${JSON.stringify(body)}).`));
+  expect(JSON.stringify(pushOptInCounts) === JSON.stringify([0, 1, 1]) && pushOptInCalls[0]?.notice?.title === 'Actividad con push activado', `Push false→true did not dispatch exactly once (${JSON.stringify(pushOptInCounts)}).`);
+  expect(Boolean(pushOptInStates[0]?.publishedAt) && pushOptInStates[1]?.publishedAt === pushOptInStates[0]?.publishedAt && pushOptInStates[2]?.publishedAt === pushOptInStates[0]?.publishedAt, 'Changing push preference or content replaced the publication timestamp.');
+  expect(pushOptInStates[0]?.pushMode === false && pushOptInStates[1]?.pushMode === true && pushOptInStates[2]?.pushMode === true, 'The linked notice did not preserve the explicit push opt-in.');
 
   const noticeImageStart = db.calls.length;
   const imageNotice = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
@@ -925,6 +1235,51 @@ async function validateRuntimeIsolation() {
     'Group INSERT bindings do not carry distinct class-scoped group/activity IDs.'
   );
 
+  db.pushSubscriptions.push({
+    classId: SECOND_CLASS_ID,
+    status: 'active',
+    subscriptionJson: JSON.stringify({ endpoint: 'https://push.example.test/s3-subscription', expirationTime: null, keys: { p256dh: 's'.repeat(32), auth: '3'.repeat(16) } })
+  });
+  const tenantLinkedPushes = [];
+  globalThis.fetch = async (url, options = {}) => {
+    if (String(url) === 'https://push.example.test/hook') {
+      tenantLinkedPushes.push(JSON.parse(String(options.body || '{}')));
+      return new Response('{}', { status: 200 });
+    }
+    return originalFetch(url, options);
+  };
+  let tenantLinkedS4;
+  let tenantLinkedS3;
+  try {
+    tenantLinkedS4 = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+      action: 'task.upsert', id: 'tenant-linked-task', course: 'Fisiología IV', title: 'Aviso exclusivo S4', status: 'published',
+      addToNotices: true, noticePriority: 'important', noticePushMode: true
+    }, 'owner-token', { MED_NYKUTO_PUSH_WEBHOOK: 'https://push.example.test/hook' });
+    tenantLinkedS3 = await classHubPost(classHub.onRequestPost, db, '?class=s3-a', {
+      action: 'task.upsert', id: 'tenant-linked-task', course: 'Fisiología III', title: 'Aviso exclusivo S3', status: 'published',
+      addToNotices: true, noticePriority: 'important', noticePushMode: true
+    }, 'owner-token', { MED_NYKUTO_PUSH_WEBHOOK: 'https://push.example.test/hook' });
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+  expect(tenantLinkedS4.response.status === 200 && tenantLinkedS3.response.status === 200, `A tenant-linked task/notice write failed (S4 ${tenantLinkedS4.response.status}, S3 ${tenantLinkedS3.response.status}).`);
+  expect(tenantLinkedS4.body.id === 'tenant-linked-task' && tenantLinkedS3.body.id === 's3-a.tenant-linked-task', 'Linked task IDs are not namespaced across classes.');
+  expect(Boolean(tenantLinkedS4.body.linkedNoticeId) && Boolean(tenantLinkedS3.body.linkedNoticeId) && tenantLinkedS4.body.linkedNoticeId !== tenantLinkedS3.body.linkedNoticeId, 'Two classes reused the same linked notice identity.');
+  const [tenantPublicS4, tenantPublicS3] = await Promise.all([
+    classHubGet(classHub.onRequestGet, db, '?class=s4-e&resource=public'),
+    classHubGet(classHub.onRequestGet, db, '?class=s3-a&resource=public')
+  ]);
+  const publicLinkedS4 = tenantPublicS4.body.notices?.find((notice) => notice.linkedTaskId === 'tenant-linked-task');
+  const publicLinkedS3 = tenantPublicS3.body.notices?.find((notice) => notice.linkedTaskId === 's3-a.tenant-linked-task');
+  expect(publicLinkedS4?.title === 'Aviso exclusivo S4' && tenantPublicS4.body.tasks?.some((task) => task.id === 'tenant-linked-task' && task.title === 'Aviso exclusivo S4'), 'The S4 public snapshot lost its own linked task or notice.');
+  expect(publicLinkedS3?.title === 'Aviso exclusivo S3' && tenantPublicS3.body.tasks?.some((task) => task.id === 's3-a.tenant-linked-task' && task.title === 'Aviso exclusivo S3'), 'The S3 public snapshot lost its own linked task or notice.');
+  expect(!tenantPublicS4.body.notices?.some((notice) => notice.title === 'Aviso exclusivo S3') && !tenantPublicS4.body.tasks?.some((task) => task.title === 'Aviso exclusivo S3'), 'S3 linked task/notice data leaked into the S4 public snapshot.');
+  expect(!tenantPublicS3.body.notices?.some((notice) => notice.title === 'Aviso exclusivo S4') && !tenantPublicS3.body.tasks?.some((task) => task.title === 'Aviso exclusivo S4'), 'S4 linked task/notice data leaked into the S3 public snapshot.');
+  expect(JSON.stringify(tenantLinkedPushes.map((payload) => [payload.class?.slug, payload.notice?.url]).sort()) === JSON.stringify([
+    ['s3-a', '/turma/s3-a?task=s3-a.tenant-linked-task#tareas'],
+    ['s4-e', '/turma/s4-e?task=tenant-linked-task#tareas']
+  ]), `Tenant-linked pushes used the wrong class or task target (${JSON.stringify(tenantLinkedPushes)}).`);
+
   const archive = await classHubPost(classHub.onRequestPost, db, '', {
     action: 'class.upsert', id: SECOND_CLASS_ID, slug: SECOND_CLASS_ID, name: '3.º A', semester: 3, group: 'A', status: 'archived'
   }, 'owner-token');
@@ -1029,6 +1384,7 @@ async function validateMulticlassShell() {
   const legacyClassHtml = read('clase.html');
   const legacyClassCss = read('class-hub-2026-08-21-v440.css');
   const managementHtml = read('gestion-shell/index.html');
+  const managementCss = read('gestion-v440.css');
   const managementRuntime = read('gestion-v440.js');
   const credentialHelper = read('functions/_lib/management-credentials.js');
   const legacyClassRuntime = read('class-hub-runtime-v440.js');
@@ -1044,7 +1400,7 @@ async function validateMulticlassShell() {
   expect(!/state\.(?:members|memberships)|data\.(?:members|memberships)/.test(turmaRuntime), 'The generic student hub still consumes nominative group records.');
   expect(turmaRuntime.includes("action:'group.join'") && turmaRuntime.includes("action:'group.leave'") && turmaRuntime.includes('memberCount'), 'Students cannot join and leave generic class groups using anonymous occupancy data.');
 
-  expect(managementHtml.includes('src="/gestion-v440.js?v=476"') && managementHtml.includes('href="/gestion-v440.css?v=477"'), 'The nested management route does not use the current absolute asset versions.');
+  expect(managementHtml.includes('src="/gestion-v440.js?v=478"') && managementHtml.includes('href="/gestion-v440.css?v=478"'), 'The nested management route does not use the current absolute asset versions.');
   expect(managementHtml.includes('id="credentialForm"') && managementHtml.includes('name="action" value="auth.login"') && managementHtml.includes('autocomplete="username"') && managementHtml.includes('autocomplete="current-password"'), 'The v472 delegate email/password login form is incomplete.');
   expect(managementHtml.includes('id="passwordChangeForm"') && managementHtml.includes('name="action" value="auth.password.change"') && (managementHtml.match(/autocomplete="new-password"/g) || []).length >= 2, 'The mandatory temporary-password change form is incomplete.');
   expect(managementHtml.includes('id="delegateAccountForm"') && managementHtml.includes('name="action" value="editor.account.create"') && managementHtml.includes('name="temporaryPassword"'), 'The owner cannot create a tenant-scoped delegate credential from the v472 panel.');
@@ -1062,6 +1418,10 @@ async function validateMulticlassShell() {
   expect(!/(?:loginPassword|temporaryPassword|newPassword)\s*[:=]\s*["'][^"']+["']/i.test(managementRuntime), 'The management runtime contains a hard-coded credential value.');
   expect(managementHtml.includes('list="subjectOptions"') && managementHtml.includes('id="groupActivitySelect"'), 'The management panel still relies on free-text subject/activity references.');
   expect(managementHtml.includes('id="taskSuggestedDate"') && managementHtml.includes('name="attachmentUrl"') && managementHtml.includes('name="attachmentTitle"'), 'The task form is missing suggested course dates or optional attachment fields.');
+  expect(managementHtml.includes('id="taskAddToNotices"') && managementHtml.includes('name="addToNotices"') && managementHtml.includes('name="noticePriority"') && managementHtml.includes('name="noticePushMode"'), 'The task form is missing its one-step linked-notice controls.');
+  expect(managementRuntime.includes('taskNotice') && managementRuntime.includes('addToNotices') && managementRuntime.includes('noticePriority') && managementRuntime.includes('noticePushMode'), 'The management runtime does not preserve and submit the linked-notice task contract.');
+  expect(/\[hidden\]\s*\{[^}]*display\s*:\s*none\s*!important/i.test(managementCss) && /\.task-notice-options\[hidden\]\s*\{[^}]*display\s*:\s*none/i.test(managementCss), 'The linked-notice options are missing a defensive hidden-state override.');
+  expect(/\.task-notice-switch\s*\{[^}]*min-height\s*:\s*44px/i.test(managementCss), 'The linked-notice switch is missing its 44 px touch target.');
   expect(managementHtml.includes('id="requestAccessLink"') && managementRuntime.includes('loadLoginSupport') && managementRuntime.includes('https://wa.me/'), 'The login page is missing its configurable delegate-access request action.');
   expect(managementHtml.includes('id="profileForm"') && managementHtml.includes('name="action" value="profile.upsert"') && managementHtml.includes('id="profileWhatsapp"'), 'The authenticated delegate profile form is incomplete.');
   expect(managementHtml.includes('name="imageUrl"') && managementHtml.includes('name="imageAlt"') && managementRuntime.includes('notice-preview'), 'The notice editor is missing its optional HTTPS image fields or preview.');
@@ -1174,6 +1534,8 @@ async function main() {
   const taskDefinition = tableDefinition(hubSource, 'hub_tasks');
   expect(/\battachment_url\s+text\b/i.test(taskDefinition) && /\battachment_title\s+text\b/i.test(taskDefinition), 'hub_tasks does not declare optional attachment URL/title columns.');
   expect(/ensureTaskAttachmentColumns/.test(hubSource) && /alter\s+table\s+hub_tasks\s+add\s+column\s+attachment_url/i.test(hubSource) && /alter\s+table\s+hub_tasks\s+add\s+column\s+attachment_title/i.test(hubSource), 'The additive legacy-task attachment migration is missing.');
+  expect(/\bnotice_enabled\s+integer\s+not\s+null\s+default\s+0\b/i.test(taskDefinition), 'hub_tasks does not persist the delegate opt-in for a linked notice.');
+  expect(/ensureTaskNoticeColumn/.test(hubSource) && /alter\s+table\s+hub_tasks\s+add\s+column\s+notice_enabled\s+integer\s+not\s+null\s+default\s+0/i.test(hubSource), 'The additive legacy task-notice opt-in migration is missing.');
   expect(/function\s+cleanAttachmentUrl/.test(hubSource) && /parsed\.protocol\s*===\s*['"]https:['"]/.test(hubSource) && /invalid_attachment/.test(hubSource), 'Task attachments are not restricted to validated HTTPS URLs.');
   expect((hubSource.match(/attachment_url\s+AS\s+attachmentUrl/g) || []).length >= 2 && (hubSource.match(/attachment_title\s+AS\s+attachmentTitle/g) || []).length >= 2, 'Task attachment metadata is not exposed in both public and admin snapshots.');
 
@@ -1183,6 +1545,10 @@ async function main() {
   expect(/invalid_notice_image/.test(hubSource) && /image_url\s+AS\s+imageUrl/.test(hubSource), 'Notice images are not validated and exposed with the public camel-case contract.');
   expect(/\battachment_upload_id\s+text\b/i.test(noticeDefinition) && /\battachment_title\s+text\b/i.test(noticeDefinition), 'hub_notices does not declare its optional R2 attachment reference/title.');
   expect(/ensureNoticeAttachmentColumns/.test(hubSource) && /alter\s+table\s+hub_notices\s+add\s+column\s+attachment_upload_id/i.test(hubSource), 'The additive legacy notice-attachment migration is missing.');
+  expect(/\blinked_task_id\s+text\b/i.test(noticeDefinition), 'hub_notices does not declare its explicit task relation.');
+  expect(/ensureNoticeTaskLinkColumn/.test(hubSource) && /alter\s+table\s+hub_notices\s+add\s+column\s+linked_task_id\s+text/i.test(hubSource), 'The additive legacy linked-task migration is missing.');
+  expect(/create\s+unique\s+index[\s\S]*hub_notices[\s\S]*\(class_id,linked_task_id\)[\s\S]*where\s+linked_task_id\s+is\s+not\s+null/i.test(hubSource), 'Linked notices are missing a class-scoped uniqueness guard against duplicates.');
+  expect((hubSource.match(/linked_task_id\s+AS\s+linkedTaskId/g) || []).length >= 2, 'The explicit linked task is not exposed in both public and authenticated notice snapshots.');
 
   const uploadDefinition = tableDefinition(hubSource, 'hub_uploads');
   expect(/\bobject_key\s+text\s+not\s+null\s+unique\b/i.test(uploadDefinition) && /\boriginal_name\s+text\s+not\s+null\b/i.test(uploadDefinition) && /\bmime_type\s+text\s+not\s+null\b/i.test(uploadDefinition) && /\bsize_bytes\s+integer\s+not\s+null\b/i.test(uploadDefinition), 'hub_uploads must store only class-scoped R2 object metadata.');
