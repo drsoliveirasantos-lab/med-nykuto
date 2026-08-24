@@ -8,17 +8,21 @@
   <title>Gestión de la turma | Med Nykuto</title>
   <meta name="description" content="Gestión segura de tareas, alertas, grupos, archivos y fechas de una turma Med Nykuto." />
   <link rel="icon" href="/assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="/gestion-v440.css?v=471" />
+  <link rel="stylesheet" href="/gestion-v440.css?v=472" />
 </head>
 <body>
   <a class="skip" href="#main">Ir al contenido</a>
   <header class="manage-header"><a id="manageClassHome" href="/turma/s4-e" class="manage-brand"><img src="/assets/logo-medcursos-official.png" alt="" /><span><strong>Med Nykuto</strong><small id="manageClassLabel">Gestión · cargando turma</small></span></a><a id="manageBackLink" href="/turma/s4-e">Volver a la turma</a></header>
   <main id="main">
     <section class="auth-card" id="authCard">
-      <div><span>ACCESO PROTEGIDO · <b id="authClassSlug">S4-E</b></span><h1>Med Nykuto Gestión</h1><p>Este acceso queda limitado a la turma indicada. El token se conserva solamente durante esta pestaña. No se guarda de forma permanente en el dispositivo.</p></div>
-      <form id="tokenForm"><label>Token de propietario o editor<input id="accessToken" type="password" autocomplete="off" required /></label><button type="submit">Entrar</button></form>
-      <details><summary>Recibí una invitación</summary><form id="claimForm"><label>Invitación<input id="inviteToken" type="password" autocomplete="off" required /></label><label>Nombre del editor<input id="inviteName" maxlength="60" required /></label><button type="submit">Activar acceso editor</button></form></details>
-      <p class="auth-status" id="authStatus" role="status"></p>
+      <div><span>ACCESO PROTEGIDO · <b id="authClassSlug">S4-E</b></span><h1>Med Nykuto Gestión</h1><p>Inicia sesión con la cuenta de delegado de esta turma. Las sesiones caducan automáticamente y los permisos de propietario permanecen separados.</p></div>
+      <div id="authMethods">
+        <form id="credentialForm"><input type="hidden" name="action" value="auth.login" /><label>Correo electrónico<input id="loginEmail" name="email" type="email" inputmode="email" autocomplete="username" autocapitalize="none" spellcheck="false" required /></label><label>Contraseña<input id="loginPassword" name="password" type="password" autocomplete="current-password" maxlength="128" required /></label><button id="credentialSubmit" type="submit">Entrar como delegado</button></form>
+        <details id="legacyTokenAccess"><summary>Usar un token de acceso</summary><form id="tokenForm"><label>Token de propietario o editor<input id="accessToken" type="password" autocomplete="off" required /></label><button type="submit">Entrar con token</button></form></details>
+        <details id="inviteAccess"><summary>Recibí una invitación</summary><form id="claimForm"><label>Invitación<input id="inviteToken" type="password" autocomplete="off" required /></label><label>Nombre del editor<input id="inviteName" maxlength="60" required /></label><button type="submit">Activar acceso editor</button></form></details>
+      </div>
+      <section class="password-change" id="passwordChangeCard" hidden aria-labelledby="passwordChangeTitle"><h2 id="passwordChangeTitle">Cambia tu contraseña temporal</h2><p>Antes de abrir la gestión, crea una frase de contraseña de 12 caracteres como mínimo, difícil de adivinar y no compuesta solo por números.</p><form id="passwordChangeForm"><input type="hidden" name="action" value="auth.password.change" /><label>Nueva contraseña<input id="newPassword" name="password" type="password" autocomplete="new-password" minlength="12" maxlength="128" required /></label><label>Confirmar contraseña<input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" minlength="12" maxlength="128" required /></label><button type="submit">Guardar y abrir la gestión</button></form></section>
+      <p class="auth-status" id="authStatus" role="status" aria-live="polite"></p>
     </section>
 
     <section class="manage-app" id="manageApp" hidden>
@@ -68,7 +72,9 @@
       </section>
 
       <section class="manage-panel" data-manage-panel="access" hidden data-owner-only>
-        <header><span>PROPIETARIO</span><h2>Invitaciones, revocación y auditoría</h2></header>
+        <header><span>PROPIETARIO</span><h2>Cuentas, invitaciones y auditoría</h2></header>
+        <form class="manage-form" id="delegateAccountForm" autocomplete="off"><input type="hidden" name="action" value="editor.account.create" /><label>Nombre del delegado<input name="name" maxlength="60" required /></label><label>Correo de conexión<input name="email" type="email" autocomplete="off" autocapitalize="none" spellcheck="false" required /></label><label>Contraseña temporal<input name="temporaryPassword" type="password" autocomplete="new-password" minlength="6" maxlength="128" required /></label><label>Validez en horas<input name="hours" type="number" min="1" max="24" value="24" /></label><button type="submit">Crear cuenta de delegado</button></form>
+        <div class="invite-output" id="accountOutput" role="status" aria-live="polite" hidden></div>
         <form class="manage-form compact" id="inviteForm"><input type="hidden" name="action" value="invite.create" /><label>Etiqueta<input id="inviteLabel" name="label" value="Editor S4-E" /></label><label>Duración en horas<input name="hours" type="number" min="1" max="168" value="48" /></label><button type="submit">Crear invitación revocable</button></form>
         <div class="invite-output" id="inviteOutput" role="status" aria-live="polite" hidden></div>
         <h3>Invitaciones recientes</h3><div class="manage-list" id="inviteList"></div>
@@ -79,6 +85,6 @@
     </section>
   </main>
   <footer><span>Med Nykuto · Gestión académica</span><span>Los nombres de grupos son visibles únicamente para los administradores autorizados.</span></footer>
-  <script src="/gestion-v440.js?v=471"></script>
+  <script src="/gestion-v440.js?v=472"></script>
 </body>
 </html>

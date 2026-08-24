@@ -30,6 +30,8 @@ const hubTenantTables = [
   'hub_dates',
   'hub_invites',
   'hub_editors',
+  'hub_editor_credentials',
+  'hub_editor_sessions',
   'hub_audit',
   'hub_push_subscriptions',
   'hub_rate_limits'
@@ -271,7 +273,11 @@ class GuardedD1Mock {
 }
 
 async function importSource(file) {
-  const source = read(file);
+  let source = read(file);
+  if (file === 'functions/api/class-hub.js') {
+    const helperUrl = `data:text/javascript;base64,${Buffer.from(read('functions/_lib/management-credentials.js')).toString('base64')}`;
+    source = source.replace('../_lib/management-credentials.js', helperUrl);
+  }
   return import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}#${Date.now()}-${Math.random()}`);
 }
 
@@ -503,6 +509,7 @@ async function validateMulticlassShell() {
     'gestion-shell/index.html',
     'gestion-v440.css',
     'gestion-v440.js',
+    'functions/_lib/management-credentials.js',
     'offline.html',
     'functions/api/class-manifest.js'
   ];
@@ -513,6 +520,7 @@ async function validateMulticlassShell() {
   const turmaRuntime = read('turma-v471.js');
   const managementHtml = read('gestion-shell/index.html');
   const managementRuntime = read('gestion-v440.js');
+  const credentialHelper = read('functions/_lib/management-credentials.js');
   const legacyClassRuntime = read('class-hub-runtime-v440.js');
   const redirects = read('_redirects');
   const headers = read('_headers');
@@ -526,7 +534,22 @@ async function validateMulticlassShell() {
   expect(!/state\.(?:members|memberships)|data\.(?:members|memberships)/.test(turmaRuntime), 'The generic student hub still consumes nominative group records.');
   expect(turmaRuntime.includes("action:'group.join'") && turmaRuntime.includes("action:'group.leave'") && turmaRuntime.includes('memberCount'), 'Students cannot join and leave generic class groups using anonymous occupancy data.');
 
-  expect(managementHtml.includes('src="/gestion-v440.js?v=471"') && managementHtml.includes('href="/gestion-v440.css?v=471"'), 'The nested management route does not use absolute assets.');
+  expect(managementHtml.includes('src="/gestion-v440.js?v=472"') && managementHtml.includes('href="/gestion-v440.css?v=472"'), 'The nested management route does not use absolute v472 assets.');
+  expect(managementHtml.includes('id="credentialForm"') && managementHtml.includes('name="action" value="auth.login"') && managementHtml.includes('autocomplete="username"') && managementHtml.includes('autocomplete="current-password"'), 'The v472 delegate email/password login form is incomplete.');
+  expect(managementHtml.includes('id="passwordChangeForm"') && managementHtml.includes('name="action" value="auth.password.change"') && (managementHtml.match(/autocomplete="new-password"/g) || []).length >= 2, 'The mandatory temporary-password change form is incomplete.');
+  expect(managementHtml.includes('id="delegateAccountForm"') && managementHtml.includes('name="action" value="editor.account.create"') && managementHtml.includes('name="temporaryPassword"'), 'The owner cannot create a tenant-scoped delegate credential from the v472 panel.');
+  ['loginEmail', 'loginPassword', 'newPassword', 'confirmPassword'].forEach((id) => {
+    const input = managementHtml.match(new RegExp(`<input[^>]+id=["']${id}["'][^>]*>`, 'i'))?.[0] || '';
+    expect(Boolean(input) && !/\svalue\s*=/i.test(input), `Credential input ${id} is missing or contains a hard-coded value.`);
+  });
+  expect(!/[a-z0-9._%+-]+@(?:gmail|hotmail|outlook|yahoo)\.[a-z]{2,}/i.test(`${managementHtml}\n${managementRuntime}\n${credentialHelper}`), 'A real-looking personal email address was committed in the management credential sources.');
+  expect(credentialHelper.includes('PBKDF2') && credentialHelper.includes("hash: 'SHA-256'") && credentialHelper.includes('PASSWORD_ITERATIONS = 600000') && credentialHelper.includes('crypto.subtle.deriveBits'), 'The credential helper is missing the expected salted PBKDF2-SHA-256 verifier.');
+  expect(credentialHelper.includes('crypto.getRandomValues') && credentialHelper.includes('randomToken(16)') && credentialHelper.includes('Secure; HttpOnly; SameSite=Strict'), 'The credential helper is missing random salts/tokens or hardened session-cookie attributes.');
+  expect(credentialHelper.includes("SESSION_TTL_SECONDS = 8 * 60 * 60") && credentialHelper.includes("__Host-med-nykuto-management-csrf"), 'The credential helper is missing the bounded session or CSRF cookie contract.');
+  expect(/credentials\s*[:=]\s*["']same-origin["']/.test(managementRuntime) && /\[["']x-csrf-token["']\]\s*=/.test(managementRuntime) && /csrfCookieName\s*=\s*["']__Host-med-nykuto-management-csrf["']/.test(managementRuntime), 'Management requests do not use same-origin cookies and the CSRF header contract.');
+  expect(managementRuntime.includes("'session'") && managementRuntime.includes("action:'auth.logout'") && managementRuntime.includes("action:'auth.password.change'"), 'The management runtime is missing session restore, logout or password-change actions.');
+  expect(managementRuntime.includes("'delegateAccountForm'") && /editor\.password\.reset/.test(managementRuntime), 'The management runtime is missing delegate credential creation/reset actions.');
+  expect(!/(?:loginPassword|temporaryPassword|newPassword)\s*[:=]\s*["'][^"']+["']/i.test(managementRuntime), 'The management runtime contains a hard-coded credential value.');
   expect(managementHtml.includes('list="subjectOptions"') && managementHtml.includes('id="groupActivitySelect"'), 'The management panel still relies on free-text subject/activity references.');
   expect(managementHtml.includes('Opciones avanzadas') && managementRuntime.includes("'Modificar'") && managementRuntime.includes("'Archivar'"), 'The delegate panel is missing edit/archive controls or advanced identifiers.');
   expect(managementRuntime.includes("function classMutation") && managementRuntime.includes("'Reactivar'") && managementRuntime.includes("info.slug!=='s4-e'"), 'The owner panel is missing safe class edit/archive/reactivation controls.');
@@ -570,6 +593,29 @@ async function validateMulticlassShell() {
   expect(unknownManifest.status === 404, 'An unknown or archived class can still expose an installable manifest.');
   const invalidManifest = await manifestModule.onRequestGet({ request: new Request('https://med.nykuto.com/api/class-manifest?class=bad_slug'), env: { MED_NYKUTO_DB: new GuardedD1Mock() } });
   expect(invalidManifest.status === 400, 'An invalid class slug can still expose an installable manifest.');
+}
+
+async function validateCredentialHelper() {
+  const helper = await importSource('functions/_lib/management-credentials.js');
+  const password = 'Fixture-Study-2026!';
+  const verifier = await helper.createPasswordVerifier(password);
+  const credential = {
+    password_algorithm: 'pbkdf2-sha256',
+    password_iterations: verifier.iterations,
+    password_version: 1,
+    password_salt: verifier.salt,
+    password_hash: verifier.hash
+  };
+
+  expect(helper.normalizeEmail(' Delegate.Fixture@EXAMPLE.test ') === 'delegate.fixture@example.test', 'Delegate emails are not normalized consistently.');
+  expect(Boolean(helper.temporaryPasswordProblem('12345')), 'A temporary password shorter than six characters was accepted.');
+  expect(Boolean(helper.strongPasswordProblem('123456789012')), 'A numeric-only permanent password was accepted.');
+  expect(verifier.iterations === 600000 && /^[a-f0-9]{32}$/.test(verifier.salt) && /^[a-f0-9]{64}$/.test(verifier.hash), 'The generated PBKDF2 verifier has invalid metadata or dimensions.');
+  expect(await helper.verifyPassword(password, credential), 'The generated PBKDF2 verifier does not accept its source password.');
+  expect(!await helper.verifyPassword('Wrong-Fixture-2026!', credential), 'The PBKDF2 verifier accepted an incorrect password.');
+  expect(helper.isRandomToken(helper.randomToken(32)), 'Management session tokens are not exact 256-bit random hex values.');
+  const cookies = helper.sessionCookies('a'.repeat(64), 'b'.repeat(64), new Date(Date.now() + 60000).toISOString());
+  expect(cookies.length === 2 && cookies[0].includes('Secure; HttpOnly; SameSite=Strict') && cookies[1].includes('Secure; SameSite=Strict') && !cookies[1].includes('HttpOnly'), 'Session and CSRF cookie attributes do not match the hardened contract.');
 }
 
 async function main() {
@@ -619,7 +665,10 @@ async function main() {
   expect(/searchParams\.get\(['\"]class['\"]\)/.test(hubSource), 'Class hub does not resolve the class from the URL query.');
   expect(/searchParams\.get\(['\"]class['\"]\)/.test(communitySource), 'Community does not resolve the class from the URL query.');
   expect(/classSlug|classId/.test(hubSource), 'Class hub POST payload does not support classSlug/classId compatibility fields.');
+  expect(hubSource.includes("from '../_lib/management-credentials.js'") && /auth\.login/.test(hubSource) && /auth\.password\.change/.test(hubSource), 'Class hub does not use the shared credential helper for delegate login/password change.');
+  expect(/password_change_required/.test(hubSource) && /editor\.account\.create/.test(hubSource) && /editor\.password\.reset/.test(hubSource), 'Class hub is missing mandatory password change or owner credential lifecycle actions.');
 
+  await validateCredentialHelper();
   await validateRuntimeIsolation();
   await validateMulticlassShell();
 
@@ -629,7 +678,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log('Multiclass foundation validation OK: tenant-scoped D1 schema/queries, cross-class editor refusal, protected banks unchanged and 4.º E compatibility preserved.');
+  console.log('Multiclass foundation validation OK: tenant-scoped D1 schema/queries and credential sessions, v472 delegate login contract, cross-class editor refusal, protected banks unchanged and 4.º E compatibility preserved.');
 }
 
 main().catch((error) => {

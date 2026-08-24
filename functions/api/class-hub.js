@@ -1,3 +1,20 @@
+import {
+  clearSessionCookies,
+  createPasswordVerifier,
+  csrfCookieName,
+  isRandomToken,
+  normalizeEmail,
+  randomToken,
+  readCookie,
+  sessionCookieName,
+  sessionCookies,
+  sessionTtlSeconds,
+  strongPasswordProblem,
+  temporaryPasswordProblem,
+  temporaryPasswordTtlHours,
+  verifyPassword
+} from '../_lib/management-credentials.js';
+
 const EDITOR_ACTIONS = new Set([
   'task.upsert', 'notice.upsert', 'activity.upsert', 'group.upsert', 'group.freeze',
   'member.move', 'member.remove', 'file.upsert', 'date.upsert'
@@ -10,6 +27,7 @@ const MAX_BODY = 65536;
 const DEFAULT_CLASS_ID = 's4-e';
 const DEFAULT_CLASS_SLUG = 's4-e';
 const LEGACY_COHORT_KEY = 'semester-4-group-e';
+const INVALID_CREDENTIALS_MESSAGE = 'Correo o contraseña incorrectos.';
 const DEFAULT_CLASS = {
   id: DEFAULT_CLASS_ID,
   slug: DEFAULT_CLASS_SLUG,
@@ -69,6 +87,11 @@ const DEFAULT_PUBLIC = {
 function json(body, status = 200, headers = {}) {
   return new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', 'x-content-type-options': 'nosniff', ...headers } });
 }
+function jsonWithCookies(body, status, cookies) {
+  const headers = new Headers({ 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', 'x-content-type-options': 'nosniff' });
+  cookies.forEach((cookie) => headers.append('set-cookie', cookie));
+  return new Response(JSON.stringify(body), { status, headers });
+}
 function fail(status, code, error, headers = {}) { return json({ ok: false, code, error }, status, headers); }
 function dbFrom(env) { return env.MED_NYKUTO_DB || env.DB || null; }
 function nowIso() { return new Date().toISOString(); }
@@ -80,7 +103,15 @@ function cleanPriority(value) { return NOTICE_PRIORITIES.has(value) ? value : 'n
 function cleanUrl(value) { const raw = cleanText(value, 1000); if (!raw) return ''; try { const parsed = new URL(raw, 'https://med.nykuto.invalid/'); if (!['http:', 'https:'].includes(parsed.protocol)) return ''; return parsed.origin === 'https://med.nykuto.invalid' ? `${parsed.pathname}${parsed.search}${parsed.hash}`.replace(/^\//, '') : parsed.href; } catch { return ''; } }
 function cleanDriveUrl(value) { const raw = cleanText(value, 1000); if (!raw) return ''; try { const parsed = new URL(raw); return parsed.protocol === 'https:' && !parsed.username && !parsed.password ? parsed.href : ''; } catch { return ''; } }
 function integer(value, fallback, min, max) { const parsed = Number.parseInt(value, 10); return Number.isFinite(parsed) ? Math.min(max, Math.max(min, parsed)) : fallback; }
-function sameOrigin(request) { const origin = request.headers.get('origin'); if (origin) { try { return new URL(origin).origin === new URL(request.url).origin; } catch { return false; } } const fetchSite = String(request.headers.get('sec-fetch-site') || '').toLowerCase(); return !fetchSite || fetchSite === 'same-origin' || fetchSite === 'none'; }
+function sameOrigin(request) {
+  const target = new URL(request.url).origin, origin = request.headers.get('origin');
+  if (origin) { try { return new URL(origin).origin === target; } catch { return false; } }
+  const fetchSite = String(request.headers.get('sec-fetch-site') || '').toLowerCase();
+  if (fetchSite && fetchSite !== 'same-origin' && fetchSite !== 'none') return false;
+  const referer = request.headers.get('referer');
+  if (referer) { try { return new URL(referer).origin === target; } catch { return false; } }
+  return true;
+}
 async function payload(request) {
   const length = Number(request.headers.get('content-length') || 0);
   if (length > MAX_BODY) throw new Error('payload_too_large');
@@ -101,11 +132,15 @@ async function payload(request) {
 async function digest(value) { const bytes = new TextEncoder().encode(String(value)); const hash = await crypto.subtle.digest('SHA-256', bytes); return [...new Uint8Array(hash)].map((part) => part.toString(16).padStart(2, '0')).join(''); }
 async function rateLimit(request, env, db, classId, scope, limit, windowSeconds) {
   const address = request.headers.get('CF-Connecting-IP') || 'unknown';
+  return rateLimitSubject(env, db, classId, scope, address, limit, windowSeconds);
+}
+async function rateLimitSubject(env, db, classId, scope, subject, limit, windowSeconds) {
   const salt = env.MED_NYKUTO_RATE_SALT || env.MED_NYKUTO_OWNER_TOKEN || 'med-nykuto-rate-v440';
-  const key = await digest(`${salt}:${classId}:${scope}:${address}`), windowStart = Math.floor(Date.now() / 1000 / windowSeconds) * windowSeconds;
+  const epochSeconds = Math.floor(Date.now() / 1000), key = await digest(`${salt}:${classId}:${scope}:${subject}`), windowStart = Math.floor(epochSeconds / windowSeconds) * windowSeconds;
   await db.prepare(`INSERT INTO hub_rate_limits (key,class_id,window_start,count) VALUES (?,?,?,1) ON CONFLICT(key) DO UPDATE SET count=CASE WHEN window_start=excluded.window_start THEN count+1 ELSE 1 END,window_start=excluded.window_start WHERE hub_rate_limits.class_id=excluded.class_id`).bind(key, classId, windowStart).run();
   const row = await db.prepare(`SELECT count FROM hub_rate_limits WHERE class_id=? AND key=?`).bind(classId, key).first();
-  return Number(row?.count) > limit ? fail(429, 'rate_limited', 'Demasiados intentos. Espera antes de volver a probar.', { 'retry-after': String(windowSeconds) }) : null;
+  const retryAfter = Math.max(1, windowStart + windowSeconds - epochSeconds);
+  return Number(row?.count) > limit ? fail(429, 'rate_limited', 'Demasiados intentos. Espera antes de volver a probar.', { 'retry-after': String(retryAfter) }) : null;
 }
 function safeEqual(left, right) { left = String(left || ''); right = String(right || ''); let mismatch = left.length ^ right.length; const size = Math.max(left.length, right.length); for (let i = 0; i < size; i += 1) mismatch |= (left.charCodeAt(i % Math.max(1, left.length)) || 0) ^ (right.charCodeAt(i % Math.max(1, right.length)) || 0); return mismatch === 0; }
 function token() { const bytes = crypto.getRandomValues(new Uint8Array(32)); return [...bytes].map((part) => part.toString(16).padStart(2, '0')).join(''); }
@@ -175,13 +210,15 @@ async function ensureSchema(db) {
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_dates (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', label TEXT NOT NULL, starts_at TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'draft', created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_invites (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', token_hash TEXT NOT NULL UNIQUE, label TEXT NOT NULL, expires_at TEXT NOT NULL, revoked_at TEXT, claimed_at TEXT, created_by TEXT NOT NULL, created_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editors (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', name TEXT NOT NULL, token_hash TEXT NOT NULL UNIQUE, status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, last_used_at TEXT)`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_credentials (editor_id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', email_normalized TEXT NOT NULL, password_hash TEXT NOT NULL, password_salt TEXT NOT NULL, password_algorithm TEXT NOT NULL DEFAULT 'pbkdf2-sha256', password_iterations INTEGER NOT NULL, password_version INTEGER NOT NULL DEFAULT 1, must_change_password INTEGER NOT NULL DEFAULT 1, temporary_expires_at TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(class_id,email_normalized), FOREIGN KEY(editor_id) REFERENCES hub_editors(id))`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_sessions (token_hash TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', editor_id TEXT NOT NULL, csrf_hash TEXT NOT NULL, created_at TEXT NOT NULL, expires_at TEXT NOT NULL, last_seen_at TEXT, revoked_at TEXT, FOREIGN KEY(editor_id) REFERENCES hub_editors(id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_audit (id INTEGER PRIMARY KEY AUTOINCREMENT, class_id TEXT NOT NULL DEFAULT 's4-e', actor_id TEXT NOT NULL, actor_role TEXT NOT NULL, action TEXT NOT NULL, entity_type TEXT NOT NULL, entity_id TEXT NOT NULL, details TEXT NOT NULL DEFAULT '{}', created_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_push_subscriptions (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', endpoint_hash TEXT NOT NULL UNIQUE, subscription_json TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_rate_limits (key TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', window_start INTEGER NOT NULL, count INTEGER NOT NULL DEFAULT 0)`)
     ]);
     await db.prepare(`INSERT OR IGNORE INTO hub_classes (id,slug,name,semester,group_code,theme,drive_url,status,created_at,updated_at) VALUES (?,?,?,?,?,?,?,'active',?,?)`).bind(DEFAULT_CLASS_ID, DEFAULT_CLASS_SLUG, DEFAULT_CLASS.name, DEFAULT_CLASS.semester, DEFAULT_CLASS.group, DEFAULT_CLASS.theme, DEFAULT_CLASS.driveUrl, created, created).run();
     await db.batch(DEFAULT_SUBJECTS.map(([id, name], index) => db.prepare(`INSERT OR IGNORE INTO hub_subjects (class_id,id,name,sort_order,status,created_at,updated_at) VALUES (?,?,?,?,'active',?,?)`).bind(DEFAULT_CLASS_ID, id, name, index + 1, created, created)));
-    for (const table of ['hub_tasks', 'hub_notices', 'hub_activities', 'hub_groups', 'hub_memberships', 'hub_files', 'hub_dates', 'hub_invites', 'hub_editors', 'hub_audit', 'hub_push_subscriptions', 'hub_rate_limits']) await ensureClassColumn(db, table);
+    for (const table of ['hub_tasks', 'hub_notices', 'hub_activities', 'hub_groups', 'hub_memberships', 'hub_files', 'hub_dates', 'hub_invites', 'hub_editors', 'hub_editor_credentials', 'hub_editor_sessions', 'hub_audit', 'hub_push_subscriptions', 'hub_rate_limits']) await ensureClassColumn(db, table);
     await db.batch([
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_tasks_class_idx ON hub_tasks(class_id,updated_at DESC)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_notices_class_idx ON hub_notices(class_id,updated_at DESC)`),
@@ -190,6 +227,8 @@ async function ensureSchema(db) {
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_memberships_class_group_idx ON hub_memberships(class_id,group_id,joined_at)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_files_class_idx ON hub_files(class_id,updated_at DESC)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_dates_class_idx ON hub_dates(class_id,starts_at)`),
+      db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS hub_editor_credentials_class_email_uidx ON hub_editor_credentials(class_id,email_normalized)`),
+      db.prepare(`CREATE INDEX IF NOT EXISTS hub_editor_sessions_editor_idx ON hub_editor_sessions(class_id,editor_id,expires_at)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_audit_class_created_idx ON hub_audit(class_id,created_at DESC)`)
     ]);
     await db.batch([
@@ -208,18 +247,66 @@ async function ensureSchema(db) {
   return schemaPromise;
 }
 
+function publicActor(actor) {
+  return { id: actor.id, role: actor.role, name: actor.name, classId: actor.classId };
+}
+
+async function authenticateSession(request, db, classId) {
+  const presented = readCookie(request, sessionCookieName());
+  if (!isRandomToken(presented)) return null;
+  const current = nowIso(), tokenHash = await digest(presented);
+  const row = await db.prepare(`
+    SELECT s.token_hash,s.editor_id,s.csrf_hash,s.expires_at,s.last_seen_at,e.name,e.status,c.must_change_password,c.temporary_expires_at
+    FROM hub_editor_sessions s
+    JOIN hub_editors e ON e.class_id=s.class_id AND e.id=s.editor_id
+    JOIN hub_editor_credentials c ON c.class_id=s.class_id AND c.editor_id=s.editor_id
+    WHERE s.class_id=? AND s.token_hash=? AND s.revoked_at IS NULL AND s.expires_at>?
+  `).bind(classId, tokenHash, current).first();
+  if (!row || row.status !== 'active') return null;
+  const passwordChangeRequired = Number(row.must_change_password) === 1;
+  if (passwordChangeRequired && (!row.temporary_expires_at || row.temporary_expires_at <= current)) {
+    await db.prepare(`UPDATE hub_editor_sessions SET revoked_at=? WHERE class_id=? AND token_hash=? AND revoked_at IS NULL`).bind(current, classId, tokenHash).run();
+    return null;
+  }
+  const refreshBefore = new Date(Date.parse(current) - 15 * 60 * 1000).toISOString();
+  if (!row.last_seen_at || row.last_seen_at <= refreshBefore) {
+    await db.batch([
+      db.prepare(`UPDATE hub_editor_sessions SET last_seen_at=? WHERE class_id=? AND token_hash=? AND (last_seen_at IS NULL OR last_seen_at<=?)`).bind(current, classId, tokenHash, refreshBefore),
+      db.prepare(`UPDATE hub_editors SET last_used_at=? WHERE class_id=? AND id=?`).bind(current, classId, row.editor_id)
+    ]);
+  }
+  return { id: row.editor_id, role: 'editor', name: row.name, classId, authMode: 'session', sessionHash: tokenHash, csrfHash: row.csrf_hash, passwordChangeRequired };
+}
+
 async function authenticate(request, env, db, classId) {
   const header = request.headers.get('authorization') || '';
-  const presented = header.startsWith('Bearer ') ? header.slice(7).trim() : '';
-  if (!presented) return null;
-  if (env.MED_NYKUTO_OWNER_TOKEN && safeEqual(presented, env.MED_NYKUTO_OWNER_TOKEN)) return { id: 'owner', role: 'owner', name: 'Propietario', classId };
-  const tokenHash = await digest(presented);
-  const editor = await db.prepare(`SELECT id,name,status FROM hub_editors WHERE class_id=? AND token_hash=?`).bind(classId, tokenHash).first();
-  if (!editor || editor.status !== 'active') return null;
-  await db.prepare(`UPDATE hub_editors SET last_used_at=? WHERE class_id=? AND id=?`).bind(nowIso(), classId, editor.id).run();
-  return { id: editor.id, role: 'editor', name: editor.name, classId };
+  if (header) {
+    const match = header.match(/^Bearer[\t ]+([^\s].*)$/i), presented = match ? match[1].trim() : '';
+    if (!presented || presented.length > 512) return null;
+    if (env.MED_NYKUTO_OWNER_TOKEN && safeEqual(presented, env.MED_NYKUTO_OWNER_TOKEN)) return { id: 'owner', role: 'owner', name: 'Propietario', classId, authMode: 'bearer' };
+    const tokenHash = await digest(presented);
+    const editor = await db.prepare(`SELECT id,name,status,last_used_at FROM hub_editors WHERE class_id=? AND token_hash=?`).bind(classId, tokenHash).first();
+    if (!editor || editor.status !== 'active') return null;
+    const current = nowIso(), refreshBefore = new Date(Date.parse(current) - 15 * 60 * 1000).toISOString();
+    if (!editor.last_used_at || editor.last_used_at <= refreshBefore) await db.prepare(`UPDATE hub_editors SET last_used_at=? WHERE class_id=? AND id=? AND (last_used_at IS NULL OR last_used_at<=?)`).bind(current, classId, editor.id, refreshBefore).run();
+    return { id: editor.id, role: 'editor', name: editor.name, classId, authMode: 'bearer', passwordChangeRequired: false };
+  }
+  return authenticateSession(request, db, classId);
+}
+
+async function validSessionCsrf(request, actor) {
+  if (actor?.authMode !== 'session') return true;
+  const presented = request.headers.get('x-csrf-token') || '';
+  const cookie = readCookie(request, csrfCookieName());
+  return isRandomToken(presented)
+    && isRandomToken(cookie)
+    && safeEqual(presented, cookie)
+    && safeEqual(await digest(presented), actor.csrfHash);
 }
 async function audit(db, actor, action, entityType, entityId, details = {}) { await db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,?,?,?,?,?,?)`).bind(actor.classId, actor.id, actor.role, action, entityType, entityId, JSON.stringify(details).slice(0, 2000), nowIso()).run(); }
+async function auditLoginFailure(db, classId, current = nowIso()) {
+  await db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,'anonymous','anonymous','auth.login.failed','authentication','management-login','{"reason":"invalid_credentials"}',?)`).bind(classId, current).run();
+}
 
 async function readPublic(db, classRecord) {
   const classId = classRecord.id;
@@ -239,9 +326,18 @@ async function readPublic(db, classRecord) {
 async function adminSnapshot(db, actor, classRecord) {
   const classId = classRecord.id;
   const [subjects, tasks, notices, activities, groups, memberships, files, dates, editors, invites] = await Promise.all([
-    db.prepare(`SELECT id,name,sort_order AS "order",status FROM hub_subjects WHERE class_id=? ORDER BY sort_order,name`).bind(classId).all(), db.prepare(`SELECT * FROM hub_tasks WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(), db.prepare(`SELECT * FROM hub_notices WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(), db.prepare(`SELECT * FROM hub_activities WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(), db.prepare(`SELECT * FROM hub_groups WHERE class_id=? ORDER BY activity_id,name`).bind(classId).all(), db.prepare(`SELECT id,activity_id,group_id,display_name,joined_at,updated_at FROM hub_memberships WHERE class_id=? ORDER BY activity_id,group_id,display_name`).bind(classId).all(), db.prepare(`SELECT * FROM hub_files WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(), db.prepare(`SELECT * FROM hub_dates WHERE class_id=? ORDER BY starts_at`).bind(classId).all(), actor.role === 'owner' ? db.prepare(`SELECT id,name,status,created_at,last_used_at FROM hub_editors WHERE class_id=? ORDER BY created_at DESC`).bind(classId).all() : Promise.resolve({ results: [] }), actor.role === 'owner' ? db.prepare(`SELECT id,label,expires_at,revoked_at,claimed_at,created_at FROM hub_invites WHERE class_id=? ORDER BY created_at DESC LIMIT 100`).bind(classId).all() : Promise.resolve({ results: [] })
+    db.prepare(`SELECT id,name,sort_order AS "order",status FROM hub_subjects WHERE class_id=? ORDER BY sort_order,name`).bind(classId).all(),
+    db.prepare(`SELECT * FROM hub_tasks WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
+    db.prepare(`SELECT * FROM hub_notices WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
+    db.prepare(`SELECT * FROM hub_activities WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
+    db.prepare(`SELECT * FROM hub_groups WHERE class_id=? ORDER BY activity_id,name`).bind(classId).all(),
+    db.prepare(`SELECT id,activity_id,group_id,display_name,joined_at,updated_at FROM hub_memberships WHERE class_id=? ORDER BY activity_id,group_id,display_name`).bind(classId).all(),
+    db.prepare(`SELECT * FROM hub_files WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
+    db.prepare(`SELECT * FROM hub_dates WHERE class_id=? ORDER BY starts_at`).bind(classId).all(),
+    actor.role === 'owner' ? db.prepare(`SELECT e.id,e.name,e.status,e.created_at,e.last_used_at,c.email_normalized AS email,c.must_change_password AS password_change_required,c.temporary_expires_at FROM hub_editors e LEFT JOIN hub_editor_credentials c ON c.class_id=e.class_id AND c.editor_id=e.id WHERE e.class_id=? ORDER BY e.created_at DESC`).bind(classId).all() : Promise.resolve({ results: [] }),
+    actor.role === 'owner' ? db.prepare(`SELECT id,label,expires_at,revoked_at,claimed_at,created_at FROM hub_invites WHERE class_id=? ORDER BY created_at DESC LIMIT 100`).bind(classId).all() : Promise.resolve({ results: [] })
   ]);
-  return { ok: true, class: publicClass(classRecord), actor, subjects: subjects.results || [], tasks: tasks.results || [], notices: notices.results || [], activities: activities.results || [], groups: groups.results || [], memberships: memberships.results || [], files: files.results || [], dates: dates.results || [], editors: editors.results || [], invites: invites.results || [] };
+  return { ok: true, class: publicClass(classRecord), actor: publicActor(actor), subjects: subjects.results || [], tasks: tasks.results || [], notices: notices.results || [], activities: activities.results || [], groups: groups.results || [], memberships: memberships.results || [], files: files.results || [], dates: dates.results || [], editors: editors.results || [], invites: invites.results || [] };
 }
 
 async function joinGroup(data, db, classRecord) {
@@ -278,6 +374,123 @@ async function claimInvite(data, db, classRecord) {
   await db.batch([db.prepare(`INSERT INTO hub_editors (id,class_id,name,token_hash,status,created_at) VALUES (?,?,?,?, 'active',?)`).bind(editorId, classId, name, await digest(editorToken), current), db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,'editor','invite.claim','editor',?,'{}',?)`).bind(classId, editorId, editorId, current)]);
   return json({ ok: true, class: publicClass(classRecord), editorToken, editor: { id: editorId, name, role: 'editor', classId } }, 201);
 }
+
+async function createEditorSession(db, classId, editorId, actor, current = nowIso()) {
+  const sessionToken = randomToken(32), csrfToken = randomToken(32), tokenHash = await digest(sessionToken), csrfHash = await digest(csrfToken);
+  const expiresAt = new Date(Date.parse(current) + sessionTtlSeconds() * 1000).toISOString();
+  await db.batch([
+    db.prepare(`DELETE FROM hub_editor_sessions WHERE class_id=? AND (expires_at<=? OR revoked_at IS NOT NULL)`).bind(classId, current),
+    db.prepare(`INSERT INTO hub_editor_sessions (token_hash,class_id,editor_id,csrf_hash,created_at,expires_at,last_seen_at) VALUES (?,?,?,?,?,?,?)`).bind(tokenHash, classId, editorId, csrfHash, current, expiresAt, current),
+    db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,'editor','auth.login','editor',?,'{}',?)`).bind(classId, actor.id, editorId, current)
+  ]);
+  return { sessionToken, csrfToken, tokenHash, expiresAt };
+}
+
+async function loginEditor(data, db, classRecord) {
+  const classId = classRecord.id, email = normalizeEmail(data.email), password = typeof data.password === 'string' ? data.password : '';
+  if (!email || temporaryPasswordProblem(password)) {
+    await verifyPassword('', null);
+    await auditLoginFailure(db, classId);
+    return fail(401, 'invalid_credentials', INVALID_CREDENTIALS_MESSAGE);
+  }
+  const credential = await db.prepare(`
+    SELECT c.editor_id,c.password_hash,c.password_salt,c.password_algorithm,c.password_iterations,c.password_version,c.must_change_password,c.temporary_expires_at,e.name,e.status
+    FROM hub_editor_credentials c
+    JOIN hub_editors e ON e.class_id=c.class_id AND e.id=c.editor_id
+    WHERE c.class_id=? AND c.email_normalized=?
+  `).bind(classId, email).first();
+  const valid = await verifyPassword(password, credential), current = nowIso();
+  const temporaryRequired = Number(credential?.must_change_password) === 1;
+  const temporaryExpired = temporaryRequired && (!credential?.temporary_expires_at || credential.temporary_expires_at <= current);
+  if (!valid || credential?.status !== 'active' || temporaryExpired) {
+    await auditLoginFailure(db, classId, current);
+    return fail(401, 'invalid_credentials', INVALID_CREDENTIALS_MESSAGE);
+  }
+  const actor = { id: credential.editor_id, role: 'editor', name: credential.name, classId };
+  const session = await createEditorSession(db, classId, credential.editor_id, actor, current);
+  return jsonWithCookies({ ok: true, class: publicClass(classRecord), actor, passwordChangeRequired: temporaryRequired, expiresAt: session.expiresAt }, 200, sessionCookies(session.sessionToken, session.csrfToken, session.expiresAt));
+}
+
+async function logoutEditor(request, db, classRecord) {
+  const presented = readCookie(request, sessionCookieName());
+  if (!isRandomToken(presented)) return jsonWithCookies({ ok: true }, 200, clearSessionCookies());
+  const tokenHash = await digest(presented), current = nowIso();
+  const row = await db.prepare(`SELECT s.editor_id,s.csrf_hash,e.name FROM hub_editor_sessions s JOIN hub_editors e ON e.class_id=s.class_id AND e.id=s.editor_id WHERE s.class_id=? AND s.token_hash=? AND s.revoked_at IS NULL AND s.expires_at>?`).bind(classRecord.id, tokenHash, current).first();
+  if (!row) return jsonWithCookies({ ok: true }, 200, clearSessionCookies());
+  const actor = { id: row.editor_id, role: 'editor', name: row.name, classId: classRecord.id, authMode: 'session', csrfHash: row.csrf_hash };
+  if (!await validSessionCsrf(request, actor)) {
+    await audit(db, actor, 'auth.csrf.rejected', 'editor', actor.id, { action: 'auth.logout' });
+    return fail(403, 'csrf_rejected', 'La sesión de seguridad no coincide. Vuelve a iniciar sesión.');
+  }
+  await db.batch([
+    db.prepare(`UPDATE hub_editor_sessions SET revoked_at=? WHERE class_id=? AND token_hash=? AND revoked_at IS NULL`).bind(current, classRecord.id, tokenHash),
+    db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,'editor','auth.logout','editor',?,'{}',?)`).bind(classRecord.id, row.editor_id, row.editor_id, current)
+  ]);
+  return jsonWithCookies({ ok: true }, 200, clearSessionCookies());
+}
+
+async function changeEditorPassword(data, request, actor, db, classRecord) {
+  if (actor?.role !== 'editor' || actor.authMode !== 'session') return fail(403, 'session_required', 'Inicia sesión con tu correo para cambiar la contraseña.');
+  if (!await validSessionCsrf(request, actor)) {
+    await audit(db, actor, 'auth.csrf.rejected', 'editor', actor.id, { action: 'auth.password.change' });
+    return fail(403, 'csrf_rejected', 'La sesión de seguridad no coincide. Vuelve a iniciar sesión.');
+  }
+  const password = typeof data.password === 'string' ? data.password : '', problem = strongPasswordProblem(password);
+  if (problem) return fail(400, 'weak_password', problem);
+  const existing = await db.prepare(`SELECT password_hash,password_salt,password_algorithm,password_iterations,password_version FROM hub_editor_credentials WHERE class_id=? AND editor_id=?`).bind(classRecord.id, actor.id).first();
+  if (!existing) return fail(409, 'credential_missing', 'La cuenta no tiene una credencial que pueda actualizarse.');
+  if (!actor.passwordChangeRequired) {
+    const currentPassword = typeof data.currentPassword === 'string' ? data.currentPassword : '';
+    if (!await verifyPassword(currentPassword, existing)) {
+      await audit(db, actor, 'auth.password.current.rejected', 'editor', actor.id);
+      return fail(401, 'invalid_current_password', 'La contraseña actual no es correcta.');
+    }
+  }
+  if (await verifyPassword(password, existing)) return fail(400, 'password_reused', 'La nueva contraseña debe ser diferente de la contraseña temporal o anterior.');
+  const verifier = await createPasswordVerifier(password), current = nowIso();
+  const replacement = { sessionToken: randomToken(32), csrfToken: randomToken(32) };
+  replacement.tokenHash = await digest(replacement.sessionToken);
+  replacement.csrfHash = await digest(replacement.csrfToken);
+  replacement.expiresAt = new Date(Date.parse(current) + sessionTtlSeconds() * 1000).toISOString();
+  const results = await db.batch([
+    db.prepare(`UPDATE hub_editor_credentials SET password_hash=?,password_salt=?,password_algorithm='pbkdf2-sha256',password_iterations=?,password_version=password_version+1,must_change_password=0,temporary_expires_at=NULL,updated_at=? WHERE class_id=? AND editor_id=?`).bind(verifier.hash, verifier.salt, verifier.iterations, current, classRecord.id, actor.id),
+    db.prepare(`UPDATE hub_editor_sessions SET revoked_at=? WHERE class_id=? AND editor_id=? AND revoked_at IS NULL`).bind(current, classRecord.id, actor.id),
+    db.prepare(`INSERT INTO hub_editor_sessions (token_hash,class_id,editor_id,csrf_hash,created_at,expires_at,last_seen_at) VALUES (?,?,?,?,?,?,?)`).bind(replacement.tokenHash, classRecord.id, actor.id, replacement.csrfHash, current, replacement.expiresAt, current),
+    db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,'editor','auth.password.change','editor',?,'{}',?)`).bind(classRecord.id, actor.id, actor.id, current)
+  ]);
+  if (!changed(results[0])) return fail(409, 'credential_missing', 'La cuenta no tiene una credencial que pueda actualizarse.');
+  return jsonWithCookies({ ok: true, class: publicClass(classRecord), actor: publicActor(actor), passwordChangeRequired: false, expiresAt: replacement.expiresAt }, 200, sessionCookies(replacement.sessionToken, replacement.csrfToken, replacement.expiresAt));
+}
+
+async function createEditorAccount(data, actor, db, classRecord) {
+  const classId = classRecord.id, name = cleanText(data.name, 60), email = normalizeEmail(data.email), password = typeof data.temporaryPassword === 'string' ? data.temporaryPassword : '';
+  const passwordProblem = temporaryPasswordProblem(password);
+  if (name.length < 2 || !email || passwordProblem) return fail(400, 'invalid_account', passwordProblem || 'Nombre y correo válidos son obligatorios.');
+  const current = nowIso(), hours = integer(data.hours, temporaryPasswordTtlHours(), 1, temporaryPasswordTtlHours()), temporaryExpiresAt = new Date(Date.parse(current) + hours * 3600000).toISOString();
+  const verifier = await createPasswordVerifier(password), editorId = entityId(classId, '', 'editor'), unusedTokenHash = await digest(randomToken(32));
+  await db.batch([
+    db.prepare(`INSERT INTO hub_editors (id,class_id,name,token_hash,status,created_at) VALUES (?,?,?,?,'active',?)`).bind(editorId, classId, name, unusedTokenHash, current),
+    db.prepare(`INSERT INTO hub_editor_credentials (editor_id,class_id,email_normalized,password_hash,password_salt,password_algorithm,password_iterations,password_version,must_change_password,temporary_expires_at,created_at,updated_at) VALUES (?,?,?,?,?,'pbkdf2-sha256',?,1,1,?,?,?)`).bind(editorId, classId, email, verifier.hash, verifier.salt, verifier.iterations, temporaryExpiresAt, current, current),
+    db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,'owner','editor.account.create','editor',?,?,?)`).bind(classId, actor.id, editorId, JSON.stringify({ temporaryExpiresAt }), current)
+  ]);
+  return json({ ok: true, class: publicClass(classRecord), editor: { id: editorId, name, email, role: 'editor', classId, status: 'active' }, passwordChangeRequired: true, temporaryExpiresAt }, 201);
+}
+
+async function resetEditorPassword(data, actor, db, classRecord) {
+  const classId = classRecord.id, editorId = scopedId(classId, data.id), password = typeof data.temporaryPassword === 'string' ? data.temporaryPassword : '', problem = temporaryPasswordProblem(password);
+  if (!editorId || problem) return fail(400, 'invalid_reset', problem || 'El editor no es válido.');
+  const account = await db.prepare(`SELECT c.editor_id FROM hub_editor_credentials c JOIN hub_editors e ON e.class_id=c.class_id AND e.id=c.editor_id WHERE c.class_id=? AND c.editor_id=? AND e.status='active'`).bind(classId, editorId).first();
+  if (!account) return fail(404, 'credential_missing', 'La cuenta del editor no existe.');
+  const current = nowIso(), hours = integer(data.hours, temporaryPasswordTtlHours(), 1, temporaryPasswordTtlHours()), temporaryExpiresAt = new Date(Date.parse(current) + hours * 3600000).toISOString(), verifier = await createPasswordVerifier(password);
+  const results = await db.batch([
+    db.prepare(`UPDATE hub_editor_credentials SET password_hash=?,password_salt=?,password_algorithm='pbkdf2-sha256',password_iterations=?,password_version=password_version+1,must_change_password=1,temporary_expires_at=?,updated_at=? WHERE class_id=? AND editor_id=?`).bind(verifier.hash, verifier.salt, verifier.iterations, temporaryExpiresAt, current, classId, editorId),
+    db.prepare(`UPDATE hub_editor_sessions SET revoked_at=? WHERE class_id=? AND editor_id=? AND revoked_at IS NULL`).bind(current, classId, editorId),
+    db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,'owner','editor.password.reset','editor',?,?,?)`).bind(classId, actor.id, editorId, JSON.stringify({ temporaryExpiresAt }), current)
+  ]);
+  if (!changed(results[0])) return fail(404, 'credential_missing', 'La cuenta del editor no existe.');
+  return json({ ok: true, id: editorId, passwordChangeRequired: true, temporaryExpiresAt });
+}
+
 async function subscribePush(data, db, classRecord) {
   const classId = classRecord.id, subscription = data.subscription;
   let endpoint;
@@ -304,6 +517,8 @@ async function dispatchPush(env, db, classRecord, notice) {
 async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
   const current = nowIso(), classId = classRecord.id;
   if (actor.role === 'editor' && !EDITOR_ACTIONS.has(action)) return fail(403, 'permission_denied', 'El rol editor no puede modificar cursos, preguntas, perfiles, configuración ni permisos.');
+  if (action === 'editor.account.create' && actor.role === 'owner') return createEditorAccount(data, actor, db, classRecord);
+  if (action === 'editor.password.reset' && actor.role === 'owner') return resetEditorPassword(data, actor, db, classRecord);
   if (action === 'class.upsert' && actor.role === 'owner') {
     const slug = cleanClassRef(data.slug), id = cleanClassRef(data.id) || slug, existing = id ? await db.prepare(`SELECT id,slug,name,semester,group_code,theme,drive_url,status FROM hub_classes WHERE id=?`).bind(id).first() : null;
     const name = cleanText(data.name, 100), semester = integer(data.semester, Number(existing?.semester) || 0, 1, 20), groupCode = data.group === undefined ? (existing?.group_code || '') : cleanText(data.group, 20);
@@ -413,7 +628,18 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
   }
   if (action === 'invite.create' && actor.role === 'owner') { const inviteToken = token(), id = entityId(classId, '', 'invite'), hours = integer(data.hours, 48, 1, 168), expiresAt = new Date(Date.now() + hours * 3600000).toISOString(); await db.prepare(`INSERT INTO hub_invites (id,class_id,token_hash,label,expires_at,created_by,created_at) VALUES (?,?,?,?,?,?,?)`).bind(id, classId, await digest(inviteToken), cleanText(data.label, 80) || 'Editor', expiresAt, actor.id, current).run(); await audit(db, actor, action, 'invite', id, { expiresAt }); return json({ ok: true, class: publicClass(classRecord), id, inviteToken, expiresAt }, 201); }
   if (action === 'invite.revoke' && actor.role === 'owner') { const id = scopedId(classId, data.id); if (!id) return fail(400, 'invalid_invite', 'La invitación no es válida.'); const result = await db.prepare(`UPDATE hub_invites SET revoked_at=? WHERE class_id=? AND id=? AND claimed_at IS NULL AND revoked_at IS NULL`).bind(current, classId, id).run(); if (!changed(result)) return fail(409, 'invite_unavailable', 'La invitación no existe, ya fue usada o ya fue revocada.'); await audit(db, actor, action, 'invite', id); return json({ ok: true }); }
-  if (action === 'editor.revoke' && actor.role === 'owner') { const id = scopedId(classId, data.id); if (!id) return fail(400, 'invalid_editor', 'El editor no es válido.'); const result = await db.prepare(`UPDATE hub_editors SET status='revoked' WHERE class_id=? AND id=? AND status='active'`).bind(classId, id).run(); if (!changed(result)) return fail(409, 'editor_unavailable', 'El editor no existe o ya fue revocado.'); await audit(db, actor, action, 'editor', id); return json({ ok: true }); }
+  if (action === 'editor.revoke' && actor.role === 'owner') {
+    const id = scopedId(classId, data.id);
+    if (!id) return fail(400, 'invalid_editor', 'El editor no es válido.');
+    const active = await db.prepare(`SELECT id FROM hub_editors WHERE class_id=? AND id=? AND status='active'`).bind(classId, id).first();
+    if (!active) return fail(409, 'editor_unavailable', 'El editor no existe o ya fue revocado.');
+    await db.batch([
+      db.prepare(`UPDATE hub_editors SET status='revoked' WHERE class_id=? AND id=? AND status='active'`).bind(classId, id),
+      db.prepare(`UPDATE hub_editor_sessions SET revoked_at=? WHERE class_id=? AND editor_id=? AND revoked_at IS NULL`).bind(current, classId, id),
+      db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,?,?,? ,?,'{}',?)`).bind(classId, actor.id, actor.role, action, 'editor', id, current)
+    ]);
+    return json({ ok: true });
+  }
   return fail(403, 'action_forbidden', 'La acción no está permitida para este rol.');
 }
 
@@ -431,7 +657,7 @@ export async function onRequestGet({ request, env }) {
     if (resource === 'classes') {
       const limited = await rateLimit(request, env, db, DEFAULT_CLASS_ID, 'admin-read', 120, 600); if (limited) return limited;
       const actor = await authenticate(request, env, db, DEFAULT_CLASS_ID);
-      if (!actor) return fail(401, 'authentication_required', 'Se necesita el token de propietario.');
+      if (!actor) return fail(401, 'authentication_required', 'Se necesita un acceso de propietario.');
       if (actor.role !== 'owner') return fail(403, 'permission_denied', 'El registro de clases es exclusivo del propietario.');
       return json({ ok: true, classes: await listClasses(db) });
     }
@@ -440,9 +666,12 @@ export async function onRequestGet({ request, env }) {
     if (!resolved.classRecord) return fail(404, 'class_not_found', 'La clase solicitada no existe o no está activa.');
     const classRecord = resolved.classRecord;
     if (resource === 'public') return json(await readPublic(db, classRecord));
+    if (!['admin', 'audit', 'session'].includes(resource)) return fail(400, 'invalid_resource', 'El recurso solicitado no es válido.');
     const limited = await rateLimit(request, env, db, classRecord.id, 'admin-read', 120, 600); if (limited) return limited;
     const actor = await authenticate(request, env, db, classRecord.id);
-    if (!actor) return fail(401, 'authentication_required', 'Se necesita un token de propietario o editor de esta clase.');
+    if (!actor) return fail(401, 'authentication_required', 'Inicia sesión como propietario o delegado de esta turma.');
+    if (resource === 'session') return json({ ok: true, class: publicClass(classRecord), actor: publicActor(actor), passwordChangeRequired: Boolean(actor.passwordChangeRequired) });
+    if (actor.passwordChangeRequired) return fail(403, 'password_change_required', 'Cambia la contraseña temporal antes de abrir la gestión.');
     if (resource === 'audit') {
       if (actor.role !== 'owner') return fail(403, 'permission_denied', 'El registro de auditoría es exclusivo del propietario.');
       const rows = await db.prepare(`SELECT * FROM hub_audit WHERE class_id=? ORDER BY created_at DESC LIMIT 300`).bind(classRecord.id).all();
@@ -464,7 +693,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
     if (action === 'class.upsert') {
       const limited = await rateLimit(request, env, db, DEFAULT_CLASS_ID, 'admin-write', 120, 600); if (limited) return limited;
       const actor = await authenticate(request, env, db, DEFAULT_CLASS_ID);
-      if (!actor) return fail(401, 'authentication_required', 'Se necesita el token de propietario.');
+      if (!actor) return fail(401, 'authentication_required', 'Se necesita un acceso de propietario.');
       if (actor.role !== 'owner') return fail(403, 'permission_denied', 'Solo el propietario puede crear o modificar clases.');
       return mutate(action, data, actor, { id: DEFAULT_CLASS_ID }, env, db, waitUntil);
     }
@@ -472,14 +701,36 @@ export async function onRequestPost({ request, env, waitUntil }) {
     if (resolved.error === 'class_mismatch') return fail(400, 'class_mismatch', 'La clase indicada no es válida o no coincide.');
     if (!resolved.classRecord) return fail(404, 'class_not_found', 'La clase solicitada no existe o no está activa.');
     const classRecord = resolved.classRecord;
-    const policy = action === 'invite.claim' ? ['invite-claim', 10, 3600] : action === 'push.subscribe' ? ['push-subscribe', 10, 3600] : action === 'group.join' || action === 'group.leave' ? ['group-membership', 80, 600] : ['admin-write', 120, 600];
+    if (action === 'auth.login') {
+      const ipLimited = await rateLimit(request, env, db, classRecord.id, 'auth-login-ip', 10, 900); if (ipLimited) return ipLimited;
+      const emailFingerprint = await digest(normalizeEmail(data.email) || 'invalid-email');
+      const accountLimited = await rateLimit(request, env, db, classRecord.id, `auth-login-account:${emailFingerprint}`, 5, 900); if (accountLimited) return accountLimited;
+      const distributedLimited = await rateLimitSubject(env, db, classRecord.id, 'auth-login-distributed', emailFingerprint, 50, 3600); if (distributedLimited) return distributedLimited;
+      return loginEditor(data, db, classRecord);
+    }
+    if (action === 'auth.logout') {
+      const limited = await rateLimit(request, env, db, classRecord.id, 'auth-logout', 60, 600); if (limited) return limited;
+      return logoutEditor(request, db, classRecord);
+    }
+    const policy = action === 'invite.claim' ? ['invite-claim', 10, 3600]
+      : action === 'push.subscribe' ? ['push-subscribe', 10, 3600]
+        : action === 'group.join' || action === 'group.leave' ? ['group-membership', 80, 600]
+          : action === 'auth.password.change' ? ['password-change', 5, 3600]
+            : action === 'editor.account.create' || action === 'editor.password.reset' ? ['credential-management', 10, 3600]
+              : ['admin-write', 120, 600];
     const limited = await rateLimit(request, env, db, classRecord.id, policy[0], policy[1], policy[2]); if (limited) return limited;
     if (action === 'group.join') return joinGroup(data, db, classRecord);
     if (action === 'group.leave') return leaveGroup(data, db, classRecord);
     if (action === 'invite.claim') return claimInvite(data, db, classRecord);
     if (action === 'push.subscribe') return subscribePush(data, db, classRecord);
     const actor = await authenticate(request, env, db, classRecord.id);
-    if (!actor) return fail(401, 'authentication_required', 'Se necesita un token de propietario o editor de esta clase.');
+    if (!actor) return fail(401, 'authentication_required', 'Inicia sesión como propietario o delegado de esta turma.');
+    if (action === 'auth.password.change') return changeEditorPassword(data, request, actor, db, classRecord);
+    if (actor.passwordChangeRequired) return fail(403, 'password_change_required', 'Cambia la contraseña temporal antes de modificar la gestión.');
+    if (!await validSessionCsrf(request, actor)) {
+      await audit(db, actor, 'auth.csrf.rejected', 'editor', actor.id, { action });
+      return fail(403, 'csrf_rejected', 'La sesión de seguridad no coincide. Vuelve a iniciar sesión.');
+    }
     return mutate(action, data, actor, classRecord, env, db, waitUntil);
   } catch (error) {
     console.error('class_hub_post_error', error);

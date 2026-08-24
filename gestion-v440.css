@@ -10,3 +10,36 @@
 .invite-expiry{color:#94a3b8}
 .invite-output>button{grid-column:2;grid-row:1/4;white-space:nowrap}
 @media(max-width:520px){.invite-output{grid-template-columns:1fr}.invite-output>button{grid-column:1;grid-row:auto;width:100%}}
+
+/* Delegate credentials: the legacy token remains available without dominating the login. */
+#authMethods{display:grid;gap:14px;margin-top:22px}
+#authMethods>form,.password-change form{display:grid;gap:12px;margin:0}
+#authMethods details{margin:0;padding:0 14px}
+#authMethods details[open]{padding-bottom:14px}
+#authMethods summary{display:flex;align-items:center;min-height:46px;cursor:pointer;font-weight:800}
+#authMethods details form{margin-top:2px}
+.password-change{margin-top:22px;padding:18px;border:1px solid rgba(56,189,248,.38);border-radius:18px;background:rgba(7,22,34,.72)}
+.password-change h2{margin:0 0 8px;font-size:23px}
+.password-change p{margin:0 0 16px}
+.password-change-logout{width:100%;margin-top:10px;background:#183448;color:#fff}
+form[aria-busy=true]{opacity:.82}
+input[aria-invalid=true]{border-color:var(--rose);outline:2px solid rgba(251,113,133,.35);outline-offset:1px}
+.auth-status[data-error=true]:not(:empty){padding:10px 12px;border-left:3px solid var(--rose);border-radius:8px;background:rgba(251,113,133,.08)}
+.account-expiry{color:#fde68a}
+
+.credential-dialog{width:min(520px,calc(100% - 28px));max-height:calc(100dvh - 28px);overflow:auto;border:1px solid var(--line);border-radius:22px;background:var(--panel);color:#e2e8f0;padding:0;box-shadow:0 24px 80px rgba(0,0,0,.55)}
+.credential-dialog::backdrop{background:rgba(2,8,15,.76);backdrop-filter:blur(5px)}
+.credential-dialog form{display:grid;gap:13px;padding:24px}
+.credential-dialog h2{margin:0;font-size:24px}
+.credential-dialog p{margin:0;color:#94a3b8}
+.credential-dialog-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:4px}
+.credential-dialog-actions button:first-child{background:#183448;color:#fff}
+
+@media(max-width:520px){
+  .auth-card{margin:3vh auto;padding:22px 18px}
+  .auth-card input,.auth-card select,.auth-card textarea,.credential-dialog input,.credential-dialog select{font-size:16px}
+  #authMethods summary{min-height:48px}
+  .credential-dialog form{padding:20px 17px}
+  .credential-dialog-actions{display:grid}
+  .credential-dialog-actions button{width:100%}
+}
