@@ -134,8 +134,8 @@ expect(i18n.includes("'Materias':'Matérias'"), 'The Materias/Matérias navigati
 expect(i18n.includes("'Horario del 4.º E':'Horário do 4.º E'"), 'The Portuguese schedule heading translation is missing.');
 expect(i18n.includes("'Tu semana':'Sua semana'"), 'The simplified Portuguese dashboard heading is missing.');
 expect(i18n.includes("'Ver todas las tareas':'Ver todas as tarefas'"), 'The simplified Portuguese task link is missing.');
-expect(runtime.includes('micosis superficiales, cutáneas, subcutáneas y oportunistas, con cinco secuencias clínicas'), 'The Microbiology 17 August runtime still overwrites the completed five-case transcription scope.');
-expect(!runtime.includes('con dos casos clínicos resueltos paso a paso'), 'The stale two-case Microbiology runtime description is still present.');
+expect(runtime.includes("'microbiologia-teorica-2026-08-24'") && runtime.includes('esporotricosis, dos eumicetomas y candidiasis oportunista'), 'The Microbiology 24 August runtime is missing its documented scope.');
+expect(runtime.includes("'microbiologia-teorica-2026-08-17'") && runtime.includes('dos casos clínicos resueltos paso a paso'), 'The historical 17 August Microbiology scope was not preserved separately.');
 expect(html.includes('Los dos primeros casos de la clase'), 'The first Microbiology comparison is not clearly limited to the first two cases.');
 expect(notebook.includes("kicker: 'PRIMEROS 2 CASOS · 2 PROFUNDIDADES'"), 'The Microbiology notebook still presents the first comparison as the whole lesson.');
 expect(academicModel.includes("title: 'Micosis superficiales, cutáneas, subcutáneas y oportunistas'"), 'The Microbiology chapter title omits the opportunistic mycosis block.');
@@ -172,11 +172,11 @@ expect(classHubCss.includes('.live-task-groups') && classHubCss.includes('.live-
 expect(html.includes('href="https://virtual.central.edu.py/auth"'), 'The official UCP portal shortcut is missing from the class home page.');
 expect(html.includes('class="home-quick-links"'), 'The compact useful-links strip is missing from the class home page.');
 expect(css.includes('.home-quick-link'), 'The compact home shortcut styling is missing.');
-expect(html.includes('href="#fisiologia-2026-08-17"') && html.includes('href="#microbiologia-teorica-2026-08-17"'), 'The home page does not link directly to both completed transcriptions.');
+expect(html.includes('href="#fisiologia-2026-08-24"') && html.includes('href="#microbiologia-teorica-2026-08-24"'), 'The home page does not link directly to both completed transcriptions.');
 expect(html.includes('class="home-transcripts"') && html.includes('Clases reconstruidas y revisadas'), 'The new transcription block is missing from the class home page.');
 expect(css.includes('.home-transcript-card'), 'The compact new-transcription cards are not styled.');
 expect(notebookCss.includes('.course-latest-chip') && notebookCss.includes('display:inline-flex!important'), 'The visible mobile course-update chips are missing.');
-expect(i18n.includes("'Organización, sinapsis y receptores':'Organização, sinapses e receptores'") && i18n.includes("'Micosis por profundidad y casos clínicos':'Micoses por profundidade e casos clínicos'"), 'The new transcription cards are not translated into Portuguese.');
+expect(i18n.includes("'Sensibilidades somáticas':'Sensibilidades somáticas'") && i18n.includes("'Micosis subcutáneas y oportunistas':'Micoses subcutâneas e oportunistas'"), 'The new transcription cards are not translated into Portuguese.');
 expect(i18n.includes("'Notas y aula virtual':'Notas e ambiente virtual'"), 'The UCP portal shortcut is not translated into Portuguese.');
 expect(!html.includes('class="bio-abbrev-guide"'), 'The redundant separate acronym menu is still present.');
 expect(glossary.includes("full:{es:'Adenosina trifosfato',br:'Adenosina trifosfato'}"), 'ATP is missing its complete name in the direct glossary popup.');

@@ -77,7 +77,8 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(initial.overflow).toBeLessThanOrEqual(1);
 
     await page.locator('[data-study-subject="fisiologia"]').click();
-    await expect(page.locator('#studyTopicPicker .study-topic-option')).toHaveCount(4);
+    await expect(page.locator('#studyTopicPicker .study-topic-option')).toHaveCount(5);
+    await expect(page.locator('[data-study-topic="fisiologia-2026-08-24"]')).toBeVisible();
     await expect(page.locator('[data-study-topic="fisiologia-2026-08-20"]')).toBeVisible();
     await expect(page.locator('[data-study-topic="fisiologia-2026-08-17"]')).toBeVisible();
     await page.locator('[data-study-topic="fisiologia-2026-08-10"]').click();
@@ -85,8 +86,8 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
 
     await page.goto('/comunidade.html#ranking', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('.study-latest-shortcuts')).toBeVisible();
-    await expect(page.locator('[data-study-topic-shortcut="fisiologia-2026-08-17"]')).toBeVisible();
-    await expect(page.locator('[data-study-topic-shortcut="microbiologia-teorica-2026-08-17"]')).toBeVisible();
+    await expect(page.locator('[data-study-topic-shortcut="fisiologia-2026-08-24"]')).toBeVisible();
+    await expect(page.locator('[data-study-topic-shortcut="microbiologia-teorica-2026-08-24"]')).toBeVisible();
     const shortcutLayout = await page.locator('.study-latest-shortcuts').evaluate(node => ({
       width:node.getBoundingClientRect().width,
       viewport:document.documentElement.clientWidth,

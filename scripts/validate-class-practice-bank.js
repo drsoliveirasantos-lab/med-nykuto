@@ -14,7 +14,9 @@ const expectedCourses = [
 ];
 const datedCourses = [
   'fisiologia-2026-08-17',
+  'fisiologia-2026-08-24',
   'microbiologia-teorica-2026-08-17',
+  'microbiologia-teorica-2026-08-24',
   'bioquimica-2026-08-19',
   'epidemiologia-2026-08-19',
   'fisiologia-2026-08-20',
@@ -113,6 +115,7 @@ require(path.join(root, 'grupo-3-practice-v413.js'));
 require(path.join(root, 'grupo-3-practice-expansion-v420.js'));
 require(path.join(root, 'grupo-3-practice-grounded-v426.js'));
 require(path.join(root, 'grupo-3-practice-2026-08-17-v432.js'));
+require(path.join(root, 'grupo-3-practice-2026-08-24-v452.js'));
 require(path.join(root, 'grupo-3-practice-2026-08-21-v440.js'));
 require(path.join(root, 'teacher-question-profile-v445.js'));
 const academicModel = global.window.MedNykutoAcademicModel;

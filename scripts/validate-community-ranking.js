@@ -169,8 +169,8 @@ async function main() {
   assert.match(source, /T20:00:00-03:00/, 'The weekly challenge must close exactly Sunday at 20:00 Paraguay time.');
   assert.match(source, /challenge_closed/, 'The API must refuse score writes after the countdown reaches zero.');
   assert.match(source, /MAX_SCOPES_PER_PLAYER\s*=\s*48/, 'The weekly scope limit must cover all 14 class themes in their three exercise formats.');
-  assert.match(studyPage, /data-study-topic-shortcut="fisiologia-2026-08-17"/, 'The ranking view does not expose the completed Physiology transcription.');
-  assert.match(studyPage, /data-study-topic-shortcut="microbiologia-teorica-2026-08-17"/, 'The ranking view does not expose the completed Microbiology transcription.');
+  assert.match(studyPage, /data-study-topic-shortcut="fisiologia-2026-08-24"/, 'The ranking view does not expose the completed Physiology transcription.');
+  assert.match(studyPage, /data-study-topic-shortcut="microbiologia-teorica-2026-08-24"/, 'The ranking view does not expose the completed Microbiology transcription.');
   assert.match(studyRuntime, /function activateHashedTopic\(shouldScroll\)/, 'Study shortcuts cannot activate an exact dated topic.');
   assert.match(studyRuntime, /window\.addEventListener\('hashchange'/, 'Study topic deep links are not handled after navigation.');
   assert.match(studyCss, /\.study-latest-shortcuts/, 'The visible ranking shortcuts are not styled.');

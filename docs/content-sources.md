@@ -98,15 +98,26 @@ The Microbiología II · Teórica class from 2026-08-17 initially used eight sup
 assets/class-hub/microbiology-theory/2026-08-17/cases/
 ```
 
-The first case is pityriasis versicolor associated with `Malassezia spp.`; the second is tinea corporis associated with `Microsporum canis`. Additional material received on 2026-08-24 and explicitly assigned by the user to the 17 August lesson documents two independent eumycetoma histories, an occupational lymphocutaneous sporotrichosis case and an opportunistic `Candida` block.
+The first case is pityriasis versicolor associated with `Malassezia spp.`; the second is tinea corporis associated with `Microsporum canis`. These two cases remain attached only to the 17 August lesson.
 
-The 304 MB, 21-page source PDF is image-only and is not committed. Six additional camera photographs are also excluded from the runtime. A five-page, mobile-oriented derivative and two lightweight WebP previews live at:
+The Monday 24 August handoff is a new, independent Microbiology theory lesson. It documents two eumycetoma histories, occupational lymphocutaneous sporotrichosis and an opportunistic `Candida` block. The 304 MB, 21-page source PDF is image-only and is not committed. Six additional camera photographs are also excluded from runtime. A five-page, mobile-oriented derivative and two lightweight WebP previews live at:
 
 ```txt
-assets/class-hub/microbiology-theory/2026-08-17/expanded-cases/
+assets/class-hub/microbiology-theory/2026-08-24/expanded-cases/
 ```
 
-The derivative PDF preserves the histories as separate cases and uses only conservative crop, exposure, contrast and sharpening corrections. It does not reconstruct or retouch lesions. The original classroom files remain the evidence source; the adjacent HTML lesson is the medically reviewed study layer. Training questions for this date may use only the documented concepts and the verified corrections recorded in that lesson.
+The derivative PDF preserves the histories as separate cases, displays the correct 24/08/2026 date and uses only conservative crop, exposure, contrast and sharpening corrections. It does not reconstruct or retouch lesions. The adjacent HTML lesson and its isolated 40-question bank belong to 24 August.
+
+The Monday 24 August Fisiología II lesson is also independent from the 17 and 20 August nervous-system blocks. Its four original teacher PDFs are preserved unchanged at:
+
+```txt
+assets/class-hub/physiology/2026-08-24/sensibilidades-somaticas.pdf
+assets/class-hub/physiology/2026-08-24/ejercicios-sensibilidades-somaticas.pdf
+assets/class-hub/physiology/2026-08-24/participacion-activa-24-08.pdf
+assets/class-hub/physiology/2026-08-24/repaso-sinapsis-receptores.pdf
+```
+
+The course and its isolated 40-question bank cover somatic sensitivities, receptors, proprioception, pain, temperature, ascending pathways and somatosensory cortex.
 
 The 19–21 August 2026 handoff adds five dated lessons. Original teacher documents remain byte-for-byte unchanged at:
 

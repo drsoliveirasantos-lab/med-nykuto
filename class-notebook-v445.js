@@ -160,6 +160,9 @@
       cycle: true,
       note: 'La respuesta vuelve a modificar PaCO₂ y pH: eso cierra el circuito.'
     }],
+    'fisiologia-2026-08-24': [{
+      section: 6, type: 'compare', kicker: 'DOS VÍAS ASCENDENTES', title: 'La modalidad decide dónde cruza la señal', caption: 'Columna dorsal y sistema anterolateral conducen información distinta.', nodes: [{title:['COLUMNA DORSAL'],detail:['tacto fino · vibración · propiocepción','cruza en bulbo']},{title:['ANTEROLATERAL'],detail:['dolor · temperatura · tacto grosero','cruza en médula']}]
+    }],
     'fisiologia-2026-08-17': [{
       section: 2,
       type: 'neuron',
@@ -280,6 +283,9 @@
         { title: ['SUBCUTÁNEA'], detail: ['dermis profunda · inoculación'] }
       ],
       note: 'A mayor profundidad, la muestra suele necesitar mayor profundidad y el tratamiento deja de ser solo local.'
+    }],
+    'microbiologia-teorica-2026-08-24': [{
+      section: 5, type: 'flow', kicker: 'MICOSIS SUBCUTÁNEAS', title: 'La puerta de entrada conduce a la muestra profunda', caption: 'Historia, patrón y profundidad se integran antes de nombrar el agente.', nodes: [{title:['Inoculación'],detail:['espina · clavo · tierra']},{title:['Lesión'],detail:['nódulos · fístulas · granos']},{title:['Muestra'],detail:['granos · biopsia · cultivo']},{title:['Extensión'],detail:['tejidos blandos · hueso']}], edges:['origina','orienta','confirma']
     }],
     'microbiologia-teorica-2026-08-17': [{
       section: 4,

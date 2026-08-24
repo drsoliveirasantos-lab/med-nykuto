@@ -1150,8 +1150,8 @@
     function openFromHash(){
       var match = window.location.hash.match(/^#practice-(.+)$/);
       if(match && controllers[match[1]]) controllers[match[1]].open();
-      else if(match && match[1] === 'fisiologia' && controllers['fisiologia-2026-08-17']) controllers['fisiologia-2026-08-17'].open();
-      else if(match && match[1] === 'microbiologia-teorica' && controllers['microbiologia-teorica-2026-08-17']) controllers['microbiologia-teorica-2026-08-17'].open();
+      else if(match && match[1] === 'fisiologia' && controllers['fisiologia-2026-08-24']) controllers['fisiologia-2026-08-24'].open();
+      else if(match && match[1] === 'microbiologia-teorica' && controllers['microbiologia-teorica-2026-08-24']) controllers['microbiologia-teorica-2026-08-24'].open();
     }
 
     openFromHash();

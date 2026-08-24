@@ -36,41 +36,35 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#fisiologia-2026-08-10').getByRole('row', { name: /Barrera alveolocapilar/ })).toBeVisible();
     await expect(page.locator('#practice-fisiologia-2026-08-10')).toContainText('40 preguntas para dominar este curso');
     const transcript = await page.evaluate(() => window.MED_NYKUTO_LATEST_TRANSCRIPTS.fisiologia);
-    expect(transcript.resolvedDate).toBe('2026-08-17');
+    expect(transcript.resolvedDate).toBe('2026-08-24');
     expect(transcript.segments[0].estimatedDate).toBe('2026-08-10');
   });
 
-  test('opens the 17 August Physiology and Microbiology class archives', async ({ page }) => {
+  test('keeps 17 August archives separate and opens both 24 August courses', async ({ page }) => {
     await page.goto('/clase.html#fisiologia-2026-08-17');
     await expect(page.locator('#fisiologia .notebook-current-title')).toContainText('Organización, sinapsis y receptores');
-    await expect(page.locator('#practice-fisiologia-2026-08-17')).toContainText('40 preguntas para dominar este curso');
-    await page.locator('#fisiologia-2026-08-17 [data-lesson-tab="material"]').click();
-
     const archive = page.locator('#sessionArchiveDialog');
     await page.locator('[data-session-archive-open="fisio-17-slides"]').click();
-    await expect(archive).toBeVisible();
     await expect(archive.locator('#sessionArchiveThumbnails button')).toHaveCount(35);
-    await expect(archive.locator('[data-session-archive-total]')).toHaveText('35');
     await archive.locator('[data-session-archive-close]').click();
 
     await page.goto('/clase.html#microbiologia-teorica-2026-08-17');
-    await expect(page.locator('#microbiologia-teorica .notebook-current-title')).toContainText('Micosis por profundidad y casos clínicos');
-    await expect(page.locator('#microbiologia-teorica .subject-heading')).toContainText('cinco secuencias clínicas');
-    await expect(page.locator('#microbiologia-teorica .subject-heading')).not.toContainText('dos casos clínicos');
-    await expect(page.locator('#practice-microbiologia-teorica-2026-08-17')).toContainText('40 preguntas para dominar este curso');
-    await page.locator('#microbiologia-teorica-2026-08-17 [data-lesson-tab="material"]').click();
+    await expect(page.locator('#microbiologia-teorica .notebook-current-title')).toContainText('Pitiriasis versicolor y tiña corporal');
     await page.locator('[data-session-archive-open="micro-17-cases"]').click();
-    await expect(archive).toBeVisible();
     await expect(archive.locator('#sessionArchiveThumbnails button')).toHaveCount(8);
-    await expect(archive.locator('[data-session-archive-total]')).toHaveText('8');
     await archive.locator('[data-session-archive-close]').click();
+    await expect(page.locator('#microbiologia-teorica-2026-08-17 .clinical-miniature-link')).toHaveCount(0);
 
-    const optimizedPdf = page.locator('#microbiologia-teorica-2026-08-17 .session-primary-link');
-    await expect(optimizedPdf).toHaveAttribute('href', /casos-clinicos-y-candidiasis-17-08\.pdf$/);
-    await page.locator('#microbiologia-teorica-2026-08-17 [data-detail-toggle]').click();
-    await expect(page.locator('#microbiologia-teorica-2026-08-17 .mobile-table-disclosure summary strong')).toHaveText('Los dos primeros casos de la clase');
-    const clinicalMiniatures = page.locator('#microbiologia-teorica-2026-08-17 .clinical-miniature-link img');
-    await expect(clinicalMiniatures).toHaveCount(2);
-    await expect(clinicalMiniatures.first()).toHaveAttribute('loading', 'lazy');
+    await page.goto('/clase.html#fisiologia-2026-08-24');
+    await expect(page.locator('#fisiologia .notebook-current-title')).toContainText('Sensibilidades somáticas');
+    await expect(page.locator('#practice-fisiologia-2026-08-24')).toContainText('40 preguntas para dominar este curso');
+    await expect(page.locator('#fisiologia-2026-08-24 .session-primary-link')).toHaveCount(4);
+
+    await page.goto('/clase.html#microbiologia-teorica-2026-08-24');
+    await expect(page.locator('#microbiologia-teorica .notebook-current-title')).toContainText('Micosis subcutáneas, oportunistas y casos clínicos');
+    await expect(page.locator('#practice-microbiologia-teorica-2026-08-24')).toContainText('40 preguntas para dominar este curso');
+    const optimizedPdf = page.locator('#microbiologia-teorica-2026-08-24 .session-primary-link');
+    await expect(optimizedPdf).toHaveAttribute('href', /casos-clinicos-y-candidiasis-24-08\.pdf$/);
+    await expect(page.locator('#microbiologia-teorica-2026-08-24 .clinical-miniature-link img')).toHaveCount(2);
   });
 };

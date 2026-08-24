@@ -6,8 +6,8 @@ const html = fs.readFileSync(path.join(root, 'clase.html'), 'utf8');
 const teacherHtml = fs.readFileSync(path.join(root, 'profesores.html'), 'utf8');
 const notebookJs = fs.readFileSync(path.join(root, 'class-notebook-v445.js'), 'utf8');
 const notebookCss = fs.readFileSync(path.join(root, 'class-notebook-v445.css'), 'utf8');
-const microClinicalDir = path.join(root, 'assets', 'class-hub', 'microbiology-theory', '2026-08-17', 'expanded-cases');
-const microClinicalPdf = path.join(microClinicalDir, 'casos-clinicos-y-candidiasis-17-08.pdf');
+const microClinicalDir = path.join(root, 'assets', 'class-hub', 'microbiology-theory', '2026-08-24', 'expanded-cases');
+const microClinicalPdf = path.join(microClinicalDir, 'casos-clinicos-y-candidiasis-24-08.pdf');
 const microClinicalPreviews = [
   path.join(microClinicalDir, 'eumicetoma-casos-preview.webp'),
   path.join(microClinicalDir, 'candidiasis-atlas-preview.webp')
@@ -74,11 +74,11 @@ if (model) {
     });
   });
 
-  expect(lessons.length === 14, `Expected 14 lesson dates/blocks, found ${lessons.length}.`);
+  expect(lessons.length === 16, `Expected 16 lesson dates/blocks, found ${lessons.length}.`);
   const previousEpidemiology = lessons.find((entry) => entry.lesson.id === 'epidemiologia-bloque-anterior');
   expect(previousEpidemiology && previousEpidemiology.lesson.dateLong === '12 de agosto de 2026' && previousEpidemiology.lesson.status === 'confirmed', 'The previous Epidemiology lesson must be confirmed as 12 August 2026.');
-  expect(practiceIds.size === 14, `Expected 14 unique practice mappings, found ${practiceIds.size}.`);
-  expect(Object.keys(model.narratives || {}).length === 9, `Expected 9 generated legacy narratives, found ${Object.keys(model.narratives || {}).length}.`);
+  expect(practiceIds.size === 16, `Expected 16 unique practice mappings, found ${practiceIds.size}.`);
+  expect(Object.keys(model.narratives || {}).length === 11, `Expected 11 generated legacy narratives, found ${Object.keys(model.narratives || {}).length}.`);
   expect(!lessons.some((entry) => entry.subjectId === 'nutricion' && /2026-08-20/.test(entry.lesson.id)), 'A false Nutrition theory class was created for 20 August.');
   expect(/Ficha rápida/.test(notebookJs) && /Ficha ultra rápida/.test(notebookJs), 'Notebook tabs do not use the canonical study-format labels.');
   expect(/standardizeLessonTabs/.test(notebookJs), 'Notebook does not standardize the tab bar across old and new lessons.');
@@ -91,14 +91,14 @@ if (model) {
   expect(/PIZARRA DEL PROFESOR · RECONSTRUIDA/.test(notebookJs), 'Teacher-board provenance is not explicit in the enlarged viewer.');
   expect(/ESQUEMA EXPLICATIVO DEL CURSO/.test(notebookJs), 'Contextual diagrams are not distinguished from teacher boards.');
   expect(/course-diagram-zoom/.test(notebookJs) && /course-diagram-zoom/.test(notebookCss), 'The teacher-board reader is not zoomable on mobile.');
-  expect(fs.existsSync(microClinicalPdf), 'The optimized 17 August Microbiology clinical PDF is missing.');
+  expect(fs.existsSync(microClinicalPdf), 'The optimized 24 August Microbiology clinical PDF is missing.');
   if (fs.existsSync(microClinicalPdf)) {
     const pdfSize = fs.statSync(microClinicalPdf).size;
     expect(pdfSize >= 100000 && pdfSize <= 8000000, `The optimized Microbiology PDF must remain between 100 KB and 8 MB; found ${pdfSize} bytes.`);
   }
   microClinicalPreviews.forEach((preview) => expect(fs.existsSync(preview), `Clinical preview is missing: ${path.basename(preview)}.`));
-  expect(/clinical-miniature-link/.test(html) && /casos-clinicos-y-candidiasis-17-08\.pdf/.test(html), 'The Microbiology lesson does not expose the optimized PDF and its clinical miniatures.');
-  expect(/Candida oportunista/.test(JSON.stringify(model.narratives['microbiologia-teorica-2026-08-17'] || {})), 'The 17 August Microbiology narrative does not include the documented Candida block.');
+  expect(/clinical-miniature-link/.test(html) && /casos-clinicos-y-candidiasis-24-08\.pdf/.test(html), 'The Microbiology lesson does not expose the optimized PDF and its clinical miniatures.');
+  expect(/Candida oportunista/.test(JSON.stringify(model.narratives['microbiologia-teorica-2026-08-24'] || {})), 'The 24 August Microbiology narrative does not include the documented Candida block.');
   expect(/function summaryPanel\([\s\S]*outlineFromCourse/.test(notebookJs), 'The quick and ultra sheets are not rebuilt from each lesson outline.');
   expect(/dataset\.lessonReview = 'standard'/.test(notebookJs), 'The unified review-sheet marker is missing.');
   expect(/notebook-review-route/.test(notebookJs) && /notebook-review-card/.test(notebookJs) && /notebook-review-recall/.test(notebookJs), 'The five-minute sheet is missing its route, reasoned cards or active-recall prompt.');
@@ -131,4 +131,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Academic model validation OK: 6 subjects, 6 teacher audits, 14 lesson mappings, 14 contextual diagram mappings, 9 generated legacy narratives, no false Nutrition class and no duplicate Drive/Plan navigation.');
+console.log('Academic model validation OK: 6 subjects, 6 teacher audits, 16 lesson mappings, 16 contextual diagram mappings, 11 generated legacy narratives, no false Nutrition class and no duplicate Drive/Plan navigation.');

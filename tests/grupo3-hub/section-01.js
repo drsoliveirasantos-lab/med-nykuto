@@ -37,24 +37,24 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
     await expect(page.getByRole('heading', { name: 'Clases reconstruidas y revisadas' })).toBeVisible();
     await expect(physiology).toBeVisible();
-    await expect(physiology).toHaveAttribute('href', '#fisiologia-2026-08-17');
-    await expect(physiology).toContainText('Organización, sinapsis y receptores');
+    await expect(physiology).toHaveAttribute('href', '#fisiologia-2026-08-24');
+    await expect(physiology).toContainText('Sensibilidades somáticas');
     await expect(physiology).toContainText('40 preguntas');
     await expect(microbiology).toBeVisible();
-    await expect(microbiology).toHaveAttribute('href', '#microbiologia-teorica-2026-08-17');
-    await expect(microbiology).toContainText('Micosis por profundidad y casos clínicos');
+    await expect(microbiology).toHaveAttribute('href', '#microbiologia-teorica-2026-08-24');
+    await expect(microbiology).toContainText('Micosis subcutáneas y oportunistas');
     await expect(microbiology).toContainText('5 casos + Candida');
 
     await physiology.click();
-    await expect(page).toHaveURL(/#fisiologia-2026-08-17$/);
-    await expect(page.locator('#fisiologia .notebook-current-title')).toContainText('Organización, sinapsis y receptores');
-    await expect(page.locator('#fisiologia-2026-08-17')).toBeVisible();
+    await expect(page).toHaveURL(/#fisiologia-2026-08-24$/);
+    await expect(page.locator('#fisiologia .notebook-current-title')).toContainText('Sensibilidades somáticas');
+    await expect(page.locator('#fisiologia-2026-08-24')).toBeVisible();
 
     await page.goto('/clase.html#inicio');
     await page.locator('.home-transcript-micro').click();
-    await expect(page).toHaveURL(/#microbiologia-teorica-2026-08-17$/);
-    await expect(page.locator('#microbiologia-teorica .notebook-current-title')).toContainText('Micosis por profundidad y casos clínicos');
-    await expect(page.locator('#microbiologia-teorica-2026-08-17')).toBeVisible();
+    await expect(page).toHaveURL(/#microbiologia-teorica-2026-08-24$/);
+    await expect(page.locator('#microbiologia-teorica .notebook-current-title')).toContainText('Micosis subcutáneas y oportunistas');
+    await expect(page.locator('#microbiologia-teorica-2026-08-24')).toBeVisible();
   });
 
   test('uses clickable views and shows only one course at a time', async ({ page }) => {
@@ -67,9 +67,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.locator('[data-course-target="fisiologia"]').click();
     await expect(page.locator('#nutricion')).toBeHidden();
     await expect(page.locator('#fisiologia')).toBeVisible();
-    await expect(page.locator('#fisiologia-2026-08-20')).toBeVisible();
-    await expect(page.locator('#fisiologia-2026-08-17')).toBeHidden();
-    await expect(page.locator('#practice-fisiologia-2026-08-20')).toContainText('40 preguntas');
+    await expect(page.locator('#fisiologia-2026-08-24')).toBeVisible();
+    await expect(page.locator('#fisiologia-2026-08-24')).toBeHidden();
+    await expect(page.locator('#practice-fisiologia-2026-08-24')).toContainText('40 preguntas');
   });
 
   test('opens the selected subject directly in its notebook without a duplicate shortcut', async ({ page }) => {

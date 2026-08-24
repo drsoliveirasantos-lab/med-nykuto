@@ -3,10 +3,10 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     await page.setViewportSize({ width: 390, height: 844 });
     const lessons = [
       'nutricion-2026-08-13',
-      'fisiologia-2026-08-20',
+      'fisiologia-2026-08-24',
       'bioquimica-2026-08-21',
       'epidemiologia-2026-08-19',
-      'microbiologia-teorica-2026-08-17',
+      'microbiologia-teorica-2026-08-24',
       'microbiologia-practica-2026-08-20'
     ];
 

@@ -346,16 +346,18 @@
 
   var latestFisioTranscript = {
     subject:'Fisiología II',
-    oralMarker:'lunes 17',
-    resolvedDate:'2026-08-17',
-    receivedDate:'2026-08-17',
+    oralMarker:'lunes 24',
+    resolvedDate:'2026-08-24',
+    receivedDate:'2026-08-24',
     sourceMode:'single-class',
     dateResolution:'date-supplied-with-session',
-    topic:'Organización, sinapsis y receptores',
+    topic:'Sensibilidades somáticas',
     segments:[
       {position:'previous',estimatedDate:'2026-08-10',topic:'Difusión y transporte de gases'},
       {position:'previous',resolvedDate:'2026-08-13',topic:'Control nervioso y químico de la respiración'},
-      {position:'latest',resolvedDate:'2026-08-17',topic:'Organización, sinapsis y receptores'}
+      {position:'previous',resolvedDate:'2026-08-17',topic:'Organización, sinapsis y receptores'},
+      {position:'previous',resolvedDate:'2026-08-20',topic:'Ejercicios integradores del sistema nervioso'},
+      {position:'latest',resolvedDate:'2026-08-24',topic:'Sensibilidades somáticas'}
     ]
   };
 
@@ -372,13 +374,13 @@
   var latestMicroTheoryTranscript = {
     subject:'Microbiología II · Teórica',
     scope:'class-4e',
-    oralDate:'2026-08-17',
-    receivedDate:'2026-08-17',
-    resolvedDate:'2026-08-17',
+    oralDate:'2026-08-24',
+    receivedDate:'2026-08-24',
+    resolvedDate:'2026-08-24',
     estimatedClassDate:null,
     sourceMode:'single-class',
-    topic:'Micosis por profundidad y casos clínicos',
-    estimatedPreparation:{date:'2026-08-17',start:'10:10',end:'12:20'},
+    topic:'Micosis subcutáneas, oportunistas y casos clínicos',
+    estimatedPreparation:{date:'2026-08-24',start:'10:10',end:'12:20'},
     coveredTopics:['Pitiriasis versicolor','Tiña corporal por Microsporum canis','Esporotricosis linfocutánea','Cromoblastomicosis','Micetoma eumicótico']
   };
 
@@ -1669,13 +1671,20 @@
   var courseIds = ['nutricion','fisiologia','bioquimica','epidemiologia','microbiologia-teorica','microbiologia-practica'];
   var activeCourseId = 'nutricion';
   var activeLessonByCourse = {
-    fisiologia:'fisiologia-2026-08-20',
+    fisiologia:'fisiologia-2026-08-24',
     bioquimica:'bioquimica-2026-08-21',
     epidemiologia:'epidemiologia-2026-08-19',
-    'microbiologia-teorica':'microbiologia-teorica-2026-08-17',
+    'microbiologia-teorica':'microbiologia-teorica-2026-08-24',
     'microbiologia-practica':'microbiologia-practica-2026-08-20'
   };
   var datedLessonMeta = {
+    'fisiologia-2026-08-24':{
+      title:'Sensibilidades somáticas',
+      kicker:'Fisiología II · clase del 24 de agosto',
+      description:'Clase del lunes 24 de agosto de 2026: tacto, propiocepción, dolor, temperatura, vías ascendentes y corteza somatosensitiva.',
+      status:'Clase confirmada · 24 ago.',
+      statusClass:'status-confirmed'
+    },
     'fisiologia-2026-08-20':{
       title:'Ejercicios integradores del sistema nervioso',
       kicker:'Fisiología II · clase del 20 de agosto',
@@ -1739,10 +1748,17 @@
       status:'Clase confirmada · 12 ago.',
       statusClass:'status-confirmed'
     },
+    'microbiologia-teorica-2026-08-24':{
+      title:'Micosis subcutáneas, oportunistas y casos clínicos',
+      kicker:'Microbiología II · Teórica · clase del 24 de agosto',
+      description:'Clase del lunes 24 de agosto de 2026: esporotricosis, dos eumicetomas y candidiasis oportunista.',
+      status:'Clase confirmada · 24 ago.',
+      statusClass:'status-confirmed'
+    },
     'microbiologia-teorica-2026-08-17':{
-      title:'Micosis por profundidad y casos clínicos',
+      title:'Pitiriasis versicolor y tiña corporal',
       kicker:'Microbiología II · Teórica · clase del 17 de agosto',
-      description:'Clase del lunes 17 de agosto de 2026: micosis superficiales, cutáneas, subcutáneas y oportunistas, con cinco secuencias clínicas y un atlas breve de candidiasis.',
+      description:'Clase del lunes 17 de agosto de 2026: dos casos clínicos resueltos paso a paso.',
       status:'Clase confirmada · 17 ago.',
       statusClass:'status-confirmed'
     },

@@ -22,6 +22,7 @@
 
   var preferredTopicOrder = [
     'nutricion',
+    'fisiologia-2026-08-24',
     'fisiologia-2026-08-20',
     'fisiologia-2026-08-17',
     'fisiologia-2026-08-13',
@@ -31,6 +32,7 @@
     'bioquimica',
     'epidemiologia-2026-08-19',
     'epidemiologia',
+    'microbiologia-teorica-2026-08-24',
     'microbiologia-teorica-2026-08-17',
     'microbiologia-teorica',
     'microbiologia-practica-2026-08-20',

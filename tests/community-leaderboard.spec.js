@@ -471,31 +471,31 @@ test.describe('Weekly S4-E class challenge', () => {
     await mockCommunityGet(page);
 
     await page.goto('/comunidade.html#ranking');
-    const physiology = page.locator('[data-study-topic-shortcut="fisiologia-2026-08-17"]');
-    const microbiology = page.locator('[data-study-topic-shortcut="microbiologia-teorica-2026-08-17"]');
+    const physiology = page.locator('[data-study-topic-shortcut="fisiologia-2026-08-24"]');
+    const microbiology = page.locator('[data-study-topic-shortcut="microbiologia-teorica-2026-08-24"]');
     await expect(physiology).toBeVisible();
-    await expect(physiology).toContainText('Fisiología · Organización y sinapsis');
+    await expect(physiology).toContainText('Fisiología · Sensibilidades somáticas');
     await expect(microbiology).toBeVisible();
     await expect(microbiology).toContainText('Micro teórica · Micosis y casos');
 
     await physiology.click();
-    await expect(page).toHaveURL(/#fisiologia-2026-08-17$/);
+    await expect(page).toHaveURL(/#fisiologia-2026-08-24$/);
     await expect(page.locator('[data-study-subject="fisiologia"]')).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('[data-study-topic="fisiologia-2026-08-17"]')).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('#studyPracticeHost #practice-fisiologia-2026-08-17')).toBeVisible();
+    await expect(page.locator('[data-study-topic="fisiologia-2026-08-24"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#studyPracticeHost #practice-fisiologia-2026-08-24')).toBeVisible();
 
     await page.locator('[data-study-subject="bioquimica"]').click();
     await expect(page.locator('[data-study-subject="bioquimica"]')).toHaveAttribute('aria-pressed', 'true');
-    await page.locator('[data-study-topic-shortcut="fisiologia-2026-08-17"]').click();
+    await page.locator('[data-study-topic-shortcut="fisiologia-2026-08-24"]').click();
     await expect(page.locator('[data-study-subject="fisiologia"]')).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('[data-study-topic="fisiologia-2026-08-17"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('[data-study-topic="fisiologia-2026-08-24"]')).toHaveAttribute('aria-pressed', 'true');
 
     await page.goto('/comunidade.html#ranking');
-    await page.locator('[data-study-topic-shortcut="microbiologia-teorica-2026-08-17"]').click();
-    await expect(page).toHaveURL(/#microbiologia-teorica-2026-08-17$/);
+    await page.locator('[data-study-topic-shortcut="microbiologia-teorica-2026-08-24"]').click();
+    await expect(page).toHaveURL(/#microbiologia-teorica-2026-08-24$/);
     await expect(page.locator('[data-study-subject="microbiologia-teorica"]')).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('[data-study-topic="microbiologia-teorica-2026-08-17"]')).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('#studyPracticeHost #practice-microbiologia-teorica-2026-08-17')).toBeVisible();
+    await expect(page.locator('[data-study-topic="microbiologia-teorica-2026-08-24"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#studyPracticeHost #practice-microbiologia-teorica-2026-08-24')).toBeVisible();
   });
 
   test('keeps a clear fallback when the shared database is not bound yet', async ({ page }) => {

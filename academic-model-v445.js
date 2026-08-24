@@ -127,7 +127,8 @@
         { date: '10 ago.', state: 'observed', label: 'Difusión, relación V/Q y transporte de gases organizados por mecanismo.' },
         { date: '13 ago.', state: 'observed', label: 'Sensores, centros, efectores y aplicación gasométrica.' },
         { date: '17 ago.', state: 'confirmed', label: 'Organización nerviosa, sinapsis, receptores, circuitos y pizarra.' },
-        { date: '20 ago.', state: 'confirmed', label: 'Ejercicios reales de asociación, tablas y casos de lidocaína y quemadura.' }
+        { date: '20 ago.', state: 'confirmed', label: 'Ejercicios reales de asociación, tablas y casos de lidocaína y quemadura.' },
+        { date: '24 ago.', state: 'confirmed', label: 'Sensibilidades somáticas: receptores, propiocepción, dolor, temperatura, vías y corteza.' }
       ],
       teachingArchitecture: [
         'Parte de una estructura o estímulo y sigue la señal hasta la respuesta funcional.',
@@ -185,8 +186,8 @@
         { date: '10 ago.', state: 'observed', label: 'Generalidades, dermatofitos, tiñas por sitio, diagnóstico y tratamiento.' },
         { date: '10 ago.', state: 'observed', label: 'Caso de tiña capitis y vínculo con exposición animal.' },
         { date: '17 ago.', state: 'confirmed', label: 'Pitiriasis versicolor y tiña corporal mostradas paso a paso.' },
-        { date: '17 ago.', state: 'confirmed', label: 'Dos historias independientes de eumicetoma y un caso ocupacional de esporotricosis.' },
-        { date: '17 ago.', state: 'confirmed', label: 'Micología oportunista: riesgo, laboratorio y formas mucocutáneas de Candida.' }
+        { date: '24 ago.', state: 'confirmed', label: 'Dos historias independientes de eumicetoma y un caso ocupacional de esporotricosis.' },
+        { date: '24 ago.', state: 'confirmed', label: 'Micología oportunista: riesgo, laboratorio y formas mucocutáneas de Candida.' }
       ],
       teachingArchitecture: [
         'Clasifica primero por profundidad y después por localización anatómica.',
@@ -371,7 +372,8 @@
         ] },
         { id: 'fisiologia-capitulo-2', number: 2, title: 'Organización del sistema nervioso', status: 'current', lessons: [
           { id: 'fisiologia-2026-08-17', practiceId: 'fisiologia-2026-08-17', date: '17 AGO.', dateLong: '17 de agosto de 2026', title: 'Organización, sinapsis y receptores', status: 'confirmed' },
-          { id: 'fisiologia-2026-08-20', practiceId: 'fisiologia-2026-08-20', date: '20 AGO.', dateLong: '20 de agosto de 2026', title: 'Ejercicios integradores del sistema nervioso', status: 'confirmed' }
+          { id: 'fisiologia-2026-08-20', practiceId: 'fisiologia-2026-08-20', date: '20 AGO.', dateLong: '20 de agosto de 2026', title: 'Ejercicios integradores del sistema nervioso', status: 'confirmed' },
+          { id: 'fisiologia-2026-08-24', practiceId: 'fisiologia-2026-08-24', date: '24 AGO.', dateLong: '24 de agosto de 2026', title: 'Sensibilidades somáticas', status: 'confirmed' }
         ] }
       ]
     },
@@ -404,7 +406,8 @@
       chapters: [
         { id: 'microbiologia-teorica-capitulo-1', number: 1, title: 'Micosis superficiales, cutáneas, subcutáneas y oportunistas', status: 'current', lessons: [
           { id: 'microbiologia-teorica-2026-08-10', practiceId: 'microbiologia-teorica', date: '10 AGO.', dateLong: '10 de agosto de 2026 · estimada', title: 'Dermatofitosis y tiñas', status: 'estimated' },
-          { id: 'microbiologia-teorica-2026-08-17', practiceId: 'microbiologia-teorica-2026-08-17', date: '17 AGO.', dateLong: '17 de agosto de 2026', title: 'Micosis por profundidad y casos clínicos', status: 'confirmed' }
+          { id: 'microbiologia-teorica-2026-08-17', practiceId: 'microbiologia-teorica-2026-08-17', date: '17 AGO.', dateLong: '17 de agosto de 2026', title: 'Pitiriasis versicolor y tiña corporal', status: 'confirmed' },
+          { id: 'microbiologia-teorica-2026-08-24', practiceId: 'microbiologia-teorica-2026-08-24', date: '24 AGO.', dateLong: '24 de agosto de 2026', title: 'Micosis subcutáneas, oportunistas y casos clínicos', status: 'confirmed' }
         ] }
       ]
     },
@@ -473,6 +476,19 @@
         ['Circuitos', 'Sumación, convergencia y divergencia deciden la salida', 'Sumación espacial combina entradas simultáneas; sumación temporal acumula descargas próximas. Convergencia reúne señales y divergencia distribuye una salida.', 'Circuitos reverberantes prolongan actividad y la fatiga sináptica puede limitarla. La integración final depende del balance entre señales excitadoras e inhibidoras.']
       ]
     },
+    'fisiologia-2026-08-24': {
+      title: 'De un estímulo somático a una percepción consciente',
+      lead: 'La clase organiza las sensibilidades somáticas desde el receptor periférico hasta la corteza: tacto, propiocepción, dolor y temperatura viajan por fibras y vías específicas cuya lesión produce déficits previsibles.',
+      sections: [
+        ['Mapa sensorial', 'Mecanorrecepción, nocicepción y termorrecepción responden a estímulos distintos', 'Contacto, presión y vibración son modalidades táctiles. La propiocepción informa posición y movimiento; la nocicepción detecta amenaza tisular y la termorrecepción cambios inocuos de frío o calor.', 'Cada señal comienza en un receptor, entra por una aferencia y alcanza médula, tronco, tálamo y corteza según la vía.'],
+        ['Receptores cutáneos', 'Adaptación y profundidad explican qué cambio se detecta', 'Meissner y Pacini se adaptan rápido; Merkel y Ruffini mantienen la descarga. Las terminaciones libres participan en dolor, temperatura, prurito y cosquilleo.', 'Campos receptivos pequeños y alta densidad permiten mejor discriminación de dos puntos en dedos y labios que en espalda.'],
+        ['Propiocepción', 'Huso muscular y órgano tendinoso miden variables diferentes', 'El huso detecta longitud y velocidad de estiramiento mediante aferencias Ia y II. El órgano tendinoso de Golgi detecta tensión por fibras Ib.', 'El reflejo miotático contrae el músculo estirado; la señal de tensión excesiva puede favorecer inhibición autógena y relajación.'],
+        ['Dolor', 'El primer dolor y el segundo dolor usan fibras y transmisores diferentes', 'El dolor rápido es agudo, mejor localizado y viaja principalmente por Aδ con glutamato. El dolor lento es urente, difuso y viaja por C con participación de sustancia P.', 'Nociceptores son terminaciones libres activadas por estímulos mecánicos, térmicos o químicos capaces de amenazar el tejido.'],
+        ['Temperatura', 'Frío y calor inocuos se separan del dolor térmico', 'Los receptores de frío son más numerosos y pueden enviar señal por Aδ; los de calor suelen usar fibras C.', 'Cuando la temperatura sale del rango seguro se activan nociceptores térmicos y aparece dolor protector.'],
+        ['Vías ascendentes', 'La columna dorsal cruza en bulbo y la anterolateral en médula', 'Columna dorsal-lemnisco medial conduce tacto fino, vibración y propiocepción consciente por fibras rápidas.', 'Sistema anterolateral conduce dolor, temperatura y tacto grosero; la localización de la decusación permite predecir el lado del déficit.'],
+        ['Corteza', 'Percibir exige localizar, comparar e interpretar', 'La corteza somatosensitiva primaria se ubica en el giro poscentral, áreas 3, 1 y 2, con organización somatotópica.', 'Estereognosia, grafestesia, peso, textura y discriminación de dos puntos dependen de sensibilidad primaria íntegra e integración cortical.']
+      ]
+    },
     'bioquimica-2026-08-14': {
       title: 'La lógica completa de la glucólisis',
       lead: 'La glucólisis convierte una glucosa de seis carbonos en dos piruvatos de tres carbonos. Para seguirla sin memorizar nombres aislados, la clase separa inversión, división, beneficio, balance y regulación.',
@@ -516,7 +532,19 @@
       ]
     },
     'microbiologia-teorica-2026-08-17': {
-      title: 'Clasificar la profundidad antes de nombrar la micosis',
+      title: 'Pitiriasis versicolor frente a tiña corporal',
+      lead: 'Dos casos enseñan a separar una micosis superficial por Malassezia de una dermatofitosis por Microsporum canis usando profundidad, morfología, exposición, muestra y examen micológico.',
+      sections: [
+        ['Profundidad', 'Superficial y cutánea comprometen tejidos diferentes', 'La pitiriasis versicolor permanece en el estrato córneo y produce poca inflamación. La tiña corporal invade queratina epidérmica y forma un borde activo.', 'Definir el nivel de invasión orienta dónde obtener la muestra y evita llamar tiña a cualquier mancha fúngica.'],
+        ['Caso de pitiriasis', 'Máculas del tronco con escama fina', 'Calor, sudoración y zonas seborreicas favorecen máculas hipo o hiperpigmentadas que confluyen y descaman con el raspado.', 'El prurito puede ser leve y la alteración del pigmento se vuelve más evidente después de la exposición solar.'],
+        ['Malassezia', 'Levaduras e hifas cortas orientan el examen directo', 'El KOH aclara la queratina y permite observar elementos compatibles con Malassezia spp., una levadura lipofílica de la microbiota cutánea.', 'El resultado se integra con distribución y lesión; no sustituye la correlación clínica del caso.'],
+        ['Caso de tiña', 'La placa anular crece desde un borde activo', 'Prurito, expansión centrífuga, descamación y aclaramiento central parcial orientan a tinea corporis.', 'El raspado se obtiene del borde, donde el dermatofito está metabólicamente más activo y aporta mayor rendimiento diagnóstico.'],
+        ['Fuente animal', 'Un gato alopécico orienta a un dermatofito zoofílico', 'El contacto con un animal que pierde pelo aumenta la sospecha de Microsporum canis y explica una respuesta inflamatoria más visible.', 'La exposición prioriza la hipótesis, pero la especie se confirma con examen micológico y cultivo.'],
+        ['Cultivo', 'Los macroconidios apoyan la identificación', 'Macroconidios abundantes, fusiformes y de pared rugosa son compatibles con M. canis en el contexto adecuado.', 'La conclusión final integra paciente, lesión, fuente, KOH y morfología; ningún dato aislado debe reemplazar la secuencia completa.']
+      ]
+    },
+    'microbiologia-teorica-2026-08-24': {
+      title: 'Micosis subcutáneas y oportunistas: de la puerta de entrada a la confirmación',
       lead: 'Los casos enseñan un orden diagnóstico estable: profundidad, lesión, exposición, muestra y confirmación. La clase contrasta infecciones superficiales y cutáneas con micosis subcutáneas por implantación y termina con el contexto oportunista de Candida.',
       sections: [
         ['Mapa por profundidad', 'El nivel de invasión cambia lesión, muestra y terapia', 'Superficial se limita a capas externas; cutánea invade tejidos queratinizados; subcutánea alcanza dermis profunda y tejido celular tras una inoculación que puede no recordarse.', 'Determinar profundidad evita elegir una muestra superficial para una lesión que requiere biopsia o indicar tratamiento local donde hace falta terapia sistémica.'],

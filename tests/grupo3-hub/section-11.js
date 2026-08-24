@@ -118,12 +118,13 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#weeklyAgenda .schedule-task-badge')).toHaveCount(4);
   });
 
-  test('publishes all fourteen lessons as narrative courses with isolated forty-question training', async ({ page }) => {
+  test('publishes all sixteen lessons as narrative courses with isolated forty-question training', async ({ page }) => {
     const lessons = [
       ['nutricion-2026-08-13', 'Leyes de la alimentación y evaluación del paciente', 'nutricion'],
       ['fisiologia-2026-08-10', 'Difusión y transporte de gases', 'fisiologia-2026-08-10'],
       ['fisiologia-2026-08-13', 'Control nervioso y químico de la respiración', 'fisiologia-2026-08-13'],
       ['fisiologia-2026-08-17', 'Organización, sinapsis y receptores', 'fisiologia-2026-08-17'],
+      ['fisiologia-2026-08-24', 'Sensibilidades somáticas'],
       ['bioquimica-2026-08-19', 'Glucólisis, piruvato y complejo PDH'],
       ['epidemiologia-2026-08-19', 'Organización de urgencias y emergencias'],
       ['fisiologia-2026-08-20', 'Ejercicios integradores del sistema nervioso'],
@@ -132,7 +133,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       ['bioquimica-2026-08-21', 'Cetoacidosis diabética'],
       ['epidemiologia-bloque-anterior', 'APS, sectorización y triage', 'epidemiologia'],
       ['microbiologia-teorica-2026-08-10', 'Dermatofitosis y tiñas', 'microbiologia-teorica'],
-      ['microbiologia-teorica-2026-08-17', 'Micosis por profundidad y casos clínicos', 'microbiologia-teorica-2026-08-17'],
+      ['microbiologia-teorica-2026-08-17', 'Pitiriasis versicolor y tiña corporal', 'microbiologia-teorica-2026-08-17'],
+      ['microbiologia-teorica-2026-08-24', 'Micosis subcutáneas, oportunistas y casos clínicos'],
       ['microbiologia-practica-anterior', 'Hongos y preparación del agar Sabouraud', 'microbiologia-practica']
     ];
     for (const [id, title, legacyPracticeId] of lessons) {
