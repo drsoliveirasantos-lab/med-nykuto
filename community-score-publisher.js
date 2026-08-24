@@ -7,39 +7,41 @@
   var PROFILE_KEY = 'medNykutoCommunityProfile:v1';
   var API_URL = '/api/community';
   var params = new URLSearchParams(window.location.search || '');
+  var classId = String(params.get('class') || '').toLowerCase();
+  if(classId !== 's4-e') return;
   var courseId = params.get('course') || '';
   var moduleId = params.get('module') || '';
 
   var copy = {
     es:{
       title:'¿Te sumas al desafío del 4.º E?',
-      body:'Publica este resultado con tu 4RAC para mantenerte anónimo, o con el apodo que prefieras. Solo cuenta tu mejor resultado de la semana en esta materia o módulo.',
-      label:'4RAC o apodo',
-      placeholder:'Ej.: 4RAC o Baboune',
+      body:'Publica este resultado con el perfil del desafío exclusivo del 4.º E.',
+      label:'Perfil del desafío',
       submit:'Sumar mi resultado',
       sending:'Guardando…',
       saved:'Resultado añadido: {score}.',
       kept:'Tu mejor resultado sigue siendo {score}.',
-      invalid:'Escribe un 4RAC o apodo de 2 a 24 caracteres.',
+      invalid:'Guarda primero tu nombre y catraca en la página del desafío.',
       offline:'No se pudo conectar ahora. Tu resultado del QCM no se pierde.',
       activating:'El desafío compartido se está activando. Tu resultado del QCM no se pierde.',
       ranking:'Ver el desafío y la clasificación',
-      privacy:'Participar es opcional. No necesitas escribir tu nombre real.'
+      privacy:'Premio: 50 R$ por Pix al primer lugar verificado. La catraca completa nunca es pública.',
+      register:'Guardar identidad'
     },
     br:{
       title:'Você entra no desafio do 4.º E?',
-      body:'Publique este resultado com seu 4RAC para manter o anonimato, ou com o apelido que preferir. Só conta seu melhor resultado da semana nesta matéria ou módulo.',
-      label:'4RAC ou apelido',
-      placeholder:'Ex.: 4RAC ou Baboune',
+      body:'Publique este resultado com o perfil do desafio exclusivo do 4.º E.',
+      label:'Perfil do desafio',
       submit:'Somar meu resultado',
       sending:'Salvando…',
       saved:'Resultado adicionado: {score}.',
       kept:'Seu melhor resultado continua sendo {score}.',
-      invalid:'Digite um 4RAC ou apelido de 2 a 24 caracteres.',
+      invalid:'Primeiro salve seu nome e catraca na página do desafio.',
       offline:'Não foi possível conectar agora. Seu resultado do QCM não será perdido.',
       activating:'O desafio compartilhado está sendo ativado. Seu resultado do QCM não será perdido.',
       ranking:'Ver o desafio e a classificação',
-      privacy:'Participar é opcional. Você não precisa usar seu nome real.'
+      privacy:'Prêmio: R$ 50 por Pix para o primeiro lugar verificado. A catraca completa nunca é pública.',
+      register:'Salvar identidade'
     }
   };
 
@@ -71,7 +73,11 @@
     var profile = {};
     try{ profile = JSON.parse(localStorage.getItem(PROFILE_KEY) || '{}') || {}; }catch(error){}
     if(!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(profile.playerId || '')) profile.playerId = createPlayerId();
-    profile.nickname = String(profile.nickname || '').slice(0,24);
+    profile.displayName = String(profile.displayName || profile.nickname || '').slice(0,60);
+    profile.studentIdMasked = String(profile.studentIdMasked || '').slice(0,20);
+    profile.accessToken = /^[0-9a-f]{64}$/i.test(String(profile.accessToken || '')) ? profile.accessToken : '';
+    delete profile.nickname;
+    delete profile.studentId;
     writeProfile(profile);
     return profile;
   }
@@ -108,10 +114,6 @@
     return template.replace('{score}',score.correct + '/' + score.total);
   }
 
-  function validNickname(value){
-    return /^[\p{L}\p{N}][\p{L}\p{N} ._'-]{0,22}[\p{L}\p{N}]$/u.test(value);
-  }
-
   function buildPublisher(card,score){
     var lang = language();
     var text = copy[lang];
@@ -125,20 +127,12 @@
     panel.appendChild(element('p','community-publish-copy',text.body));
 
     var form = element('form','community-publish-form');
-    var field = element('label','community-publish-field');
+    var field = element('div','community-publish-field');
     field.appendChild(element('span','community-publish-label',text.label));
-    var input = element('input','community-publish-input');
-    input.type = 'text';
-    input.name = 'community-nickname';
-    input.autocomplete = 'nickname';
-    input.maxLength = 24;
-    input.minLength = 2;
-    input.placeholder = text.placeholder;
-    input.value = profile.nickname;
-    field.appendChild(input);
+    field.appendChild(element('strong','community-publish-identity',profile.displayName ? profile.displayName + ' · ' + profile.studentIdMasked : text.invalid));
     form.appendChild(field);
-    var button = element('button','community-publish-button',text.submit);
-    button.type = 'button';
+    var button = element('button','community-publish-button',profile.accessToken ? text.submit : text.register);
+    button.type = profile.accessToken ? 'button' : 'button';
     form.appendChild(button);
     panel.appendChild(form);
 
@@ -154,14 +148,11 @@
     function publishScore(event){
       event.preventDefault();
       event.stopPropagation();
-      var nickname = input.value.normalize('NFKC').replace(/\s+/g,' ').trim();
-      if(!validNickname(nickname)){
+      if(!profile.displayName || !profile.accessToken){
         setStatus(status,text.invalid,'error');
-        input.focus();
+        window.location.href = 'comunidade.html#profileTitle';
         return;
       }
-      profile.nickname = nickname;
-      writeProfile(profile);
       button.disabled = true;
       button.textContent = text.sending;
       setStatus(status,'','');
@@ -171,8 +162,10 @@
         credentials:'same-origin',
         headers:{'content-type':'application/json'},
         body:JSON.stringify({
+          action:'score',
+          class:'s4-e',
           playerId:profile.playerId,
-          nickname:nickname,
+          accessToken:profile.accessToken,
           courseId:courseId,
           moduleId:moduleId,
           correct:score.correct,
@@ -199,11 +192,6 @@
     }
 
     button.addEventListener('click',publishScore);
-    input.addEventListener('keydown',function(event){
-      if(event.key !== 'Enter') return;
-      publishScore(event);
-    });
-
     card.appendChild(panel);
   }
 

@@ -160,11 +160,11 @@
     if(!lastResult || publishing) return;
     var profile = community.getProfile();
     var status = document.getElementById('studyPublishStatus');
-    if(!profile.nickname){
+    if(!profile.displayName || !profile.accessToken){
       status.dataset.state = 'error';
       status.textContent = t('nicknameNeeded');
-      var nickname = document.getElementById('communityNickname');
-      if(nickname){ nickname.focus(); nickname.scrollIntoView({behavior:'smooth',block:'center'}); }
+      var identity = document.getElementById('communityDisplayName');
+      if(identity){ identity.focus(); identity.scrollIntoView({behavior:'smooth',block:'center'}); }
       return;
     }
     publishing = true;
@@ -173,9 +173,9 @@
     community.publishScore(lastResult).then(function(data){
       status.dataset.state = 'success';
       status.textContent = data.saved ? t('publishSuccess') : t('publishKept');
-    }).catch(function(){
+    }).catch(function(error){
       status.dataset.state = 'error';
-      status.textContent = t('publishError');
+      status.textContent = error && error.code === 'identity_required' ? t('identityExpired') : t('publishError');
     }).finally(function(){
       publishing = false;
       document.getElementById('studyPublishButton').disabled = false;

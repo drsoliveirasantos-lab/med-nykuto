@@ -40,7 +40,7 @@ const hubTenantTables = [
   'hub_push_subscriptions',
   'hub_rate_limits'
 ];
-const communityTenantTables = ['community_scores', 'community_rate_limits'];
+const communityTenantTables = ['community_scores', 'community_participants', 'community_rate_limits'];
 
 const failures = [];
 const expect = (condition, message) => {
@@ -1327,24 +1327,27 @@ async function validateRuntimeIsolation() {
 
   const rateLimitStart = db.calls.length;
   const score = {
+    action: 'score',
+    class: DEFAULT_CLASS_ID,
     playerId: '123e4567-e89b-42d3-a456-426614174000',
-    nickname: 'Testeur',
+    accessToken: 'a'.repeat(64),
     courseId: 'fisiologia',
     moduleId: 'module-1',
     correct: 8,
     total: 10
   };
   const s4Score = await communityPost(community.onRequest, db, '?class=s4-e', score);
-  const s3Score = await communityPost(community.onRequest, db, '?class=s3-a', score);
-  expect(s4Score.response.status === 200 && s3Score.response.status === 200, `Community score submission failed while checking rate isolation (${s4Score.response.status}/${s3Score.response.status}).`);
+  const s3Score = await communityPost(community.onRequest, db, '?class=s3-a', { ...score, class: SECOND_CLASS_ID });
+  expect(s4Score.response.status === 401 && responseCode(s4Score.body) === 'identity_required', `The 4.º E challenge did not reach its protected identity check (${s4Score.response.status}: ${JSON.stringify(s4Score.body)}).`);
+  expect(s3Score.response.status === 403 && responseCode(s3Score.body) === 'challenge_class_only', `A non-4.º-E class was not rejected from the prize challenge (${s3Score.response.status}: ${JSON.stringify(s3Score.body)}).`);
   const rateLimitWrites = db.calls.slice(rateLimitStart).filter((call) => /^insert\s+into\s+community_rate_limits\b/i.test(call.sql));
   const s4RateWrite = rateLimitWrites.find((call) => call.values[1] === DEFAULT_CLASS_ID);
   const s3RateWrite = rateLimitWrites.find((call) => call.values[1] === SECOND_CLASS_ID);
-  expect(Boolean(s4RateWrite && s3RateWrite), 'Community writes do not persist separate rate-limit rows for both classes.');
-  expect(Boolean(s4RateWrite && s3RateWrite && s4RateWrite.values[0] !== s3RateWrite.values[0]), 'Community rate-limit keys collide across classes for the same client address.');
+  expect(Boolean(s4RateWrite), 'The eligible 4.º E score attempt did not persist its class-scoped rate-limit row.');
+  expect(!s3RateWrite, 'An ineligible class created challenge rate-limit data before being rejected.');
   const rateLimitReads = db.calls.slice(rateLimitStart).filter((call) => /^select\s+count\s+from\s+community_rate_limits\b/i.test(call.sql));
   expect(Boolean(s4RateWrite && rateLimitReads.some((call) => call.values[0] === DEFAULT_CLASS_ID && call.values[1] === s4RateWrite.values[0])), 'Community rate-limit read does not use the s4-e class/key pair.');
-  expect(Boolean(s3RateWrite && rateLimitReads.some((call) => call.values[0] === SECOND_CLASS_ID && call.values[1] === s3RateWrite.values[0])), 'Community rate-limit read does not use the s3-a class/key pair.');
+  expect(!rateLimitReads.some((call) => call.values[0] === SECOND_CLASS_ID), 'An ineligible class reached the challenge rate-limit reader.');
 
   const missingCommunity = await communityGet(community.onRequest, db, '?class=does-not-exist');
   expect(missingCommunity.response.status === 404 && responseCode(missingCommunity.body) === 'class_not_found', 'Unknown community class slug must return class_not_found.');
@@ -1594,6 +1597,9 @@ async function main() {
   const communityRateDefinition = tableDefinition(communitySource, 'community_rate_limits');
   expect(Boolean(communityRateDefinition), 'community_rate_limits schema is missing.');
   expect(/\bclass_id\s+text\s+not\s+null\b/i.test(communityRateDefinition), 'community_rate_limits must declare class_id TEXT NOT NULL.');
+  const communityParticipantDefinition = tableDefinition(communitySource, 'community_participants');
+  expect(Boolean(communityParticipantDefinition), 'community_participants schema is missing.');
+  expect(/\bclass_id\s+text\s+not\s+null\b/i.test(communityParticipantDefinition), 'community_participants must declare class_id TEXT NOT NULL.');
 
   validateTenantSql('functions/api/class-hub.js', hubSql, hubTenantTables);
   validateTenantSql('functions/api/community.js', communitySql, communityTenantTables);
@@ -1606,7 +1612,7 @@ async function main() {
   expect(/class_not_found/.test(communitySource), 'Community does not explicitly reject unknown class slugs.');
   expect(/subjects/.test(hubSource) && /hub_subjects/.test(hubSource), 'Public class response does not expose the class subjects.');
   expect(/searchParams\.get\(['\"]class['\"]\)/.test(hubSource), 'Class hub does not resolve the class from the URL query.');
-  expect(/searchParams\.get\(['\"]class['\"]\)/.test(communitySource), 'Community does not resolve the class from the URL query.');
+  expect(/searchParams\.get(?:All)?\(['\"]class['\"]\)/.test(communitySource), 'Community does not resolve the class from the URL query.');
   expect(/classSlug|classId/.test(hubSource), 'Class hub POST payload does not support classSlug/classId compatibility fields.');
   expect(hubSource.includes("from '../_lib/management-credentials.js'") && /auth\.login/.test(hubSource) && /auth\.password\.change/.test(hubSource), 'Class hub does not use the shared credential helper for delegate login/password change.');
   expect(/password_change_required/.test(hubSource) && /editor\.account\.create/.test(hubSource) && /editor\.password\.reset/.test(hubSource), 'Class hub is missing mandatory password change or owner credential lifecycle actions.');

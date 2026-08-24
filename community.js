@@ -36,24 +36,28 @@
       rankingLink:'Ver clasificación',
       publishKicker:'TU RESULTADO',
       publishTitle:'{score}/{total} respuestas correctas',
-      publishCopy:'Puedes sumarlo al ranking semanal con tu apodo.',
+      publishCopy:'Puedes sumarlo a la clasificación provisional del 4.º E.',
       publishButton:'Sumar al ranking',
       publishing:'Publicando…',
       publishSuccess:'Resultado publicado.',
       publishKept:'Tu mejor resultado ya era igual o mejor.',
-      nicknameNeeded:'Guarda un apodo antes de publicar.',
+      nicknameNeeded:'Guarda tu nombre y catraca antes de publicar.',
+      identityExpired:'Vuelve a confirmar tu nombre y catraca para publicar.',
       publishError:'No se pudo publicar. Tu resultado sigue guardado en este dispositivo.',
       rankingAndChallenge:'CLASIFICACIÓN Y DESAFÍO',
-      challengeKicker:'DESAFÍO COLECTIVO',
+      challengeKicker:'DESAFÍO SEMANAL · SOLO 4.º E',
       challengeTitle:'1.000 respuestas correctas esta semana',
-      challengeCopy:'No importa quién queda primero: cada mejor resultado acerca a la clase a la meta.',
+      challengeCopy:'Cada mejor resultado suma puntos. El primer lugar provisional recibe 50 R$ por Pix después de verificar identidad y resultado.',
+      prizeAmount:'50 R$ vía Pix',
+      prizeWinner:'Premio para el 1.er lugar verificado',
+      prizeRule:'Exclusivo para estudiantes matriculados en el 4.º E.',
       correctAnswers:'respuestas correctas',
       people:'personas',
       records:'resultados',
       weekPending:'Semana actual',
       rankingKicker:'CLASIFICACIÓN SEMANAL',
-      rankingTitle:'Así avanza la clase',
-      rankingCopy:'Se suma el mejor resultado de cada persona en cada materia o módulo.',
+      rankingTitle:'Clasificación provisional',
+      rankingCopy:'Se suma el mejor resultado por materia o módulo. Desempate: más aciertos, mayor precisión y primer registro.',
       refresh:'Actualizar',
       refreshing:'Actualizando…',
       empty:'Todavía no hay resultados esta semana. El primero puede ser el tuyo.',
@@ -66,24 +70,32 @@
       scopes:'{count} materias/módulos',
       accuracy:'{value}% de precisión',
       profileKicker:'TU IDENTIDAD EN EL RETO',
-      profileTitle:'Elige un apodo',
-      profileCopy:'Será lo único que verá la clase. Usa siempre el mismo apodo para reunir tus resultados.',
-      nickname:'Apodo público',
-      nicknamePlaceholder:'Ej.: Baboune',
-      save:'Guardar apodo',
-      invalidNickname:'Usa entre 2 y 24 letras, números o espacios.',
-      profileSaved:'Apodo guardado. Te reconoceremos por este apodo.',
-      privacy:'No pedimos email ni nombre real. Participar es opcional.',
+      profileTitle:'Confirma tu identidad del 4.º E',
+      profileCopy:'Se pide una sola vez en este teléfono. La catraca completa nunca aparece en la clasificación.',
+      displayName:'Nombre visible',
+      displayNamePlaceholder:'Ej.: Ana Oliveira',
+      studentId:'Catraca UCP',
+      studentIdPlaceholder:'Tu número de catraca',
+      identityConsent:'Confirmo que pertenezco al 4.º E y que estos datos son míos.',
+      save:'Guardar y participar',
+      invalidName:'Escribe tu nombre con entre 2 y 60 caracteres.',
+      invalidStudentId:'Revisa el formato de tu catraca.',
+      consentRequired:'Confirma que perteneces al 4.º E.',
+      profileSaving:'Verificando…',
+      profileSaved:'Identidad guardada. Tu catraca pública queda enmascarada.',
+      profileError:'No se pudo guardar ahora. La catraca no se conserva en este teléfono.',
+      privacy:'Solo publicamos tu nombre y los últimos 4 caracteres de la catraca. El número completo se transforma en una huella segura.',
+      legacyIdentity:'Perfil pendiente',
       howKicker:'CÓMO PARTICIPAR',
       howTitle:'Tres pasos, sin cuenta',
       step1Title:'1. Haz un QCM',
       step1Copy:'Abre una materia o un módulo y termina la serie.',
       step2Title:'2. Publica el resultado',
-      step2Copy:'Al final, escribe tu apodo y toca “Sumar mi resultado”.',
+      step2Copy:'Al final, confirma tu perfil y toca “Sumar al ranking”.',
       step3Title:'3. Vuelve la semana siguiente',
       step3Copy:'El desafío se reinicia cada lunes, hora de Paraguay.',
-      fairTitle:'Un ranking para motivarnos, no para juzgarnos',
-      fairCopy:'Solo se guarda tu mejor resultado semanal por materia o módulo. No mostramos el tiempo y este no es un registro académico oficial.',
+      fairTitle:'Reglas del premio y protección de tus datos',
+      fairCopy:'La clasificación es provisional. Solo cuenta el mejor resultado por materia o módulo; el ganador debe confirmar que pertenece al 4.º E y su resultado antes del Pix. Ninguna actualización elimina las participaciones ya guardadas.',
       questions:'¿Tienes una idea para el próximo desafío?',
       questionsLink:'Preparar un mensaje para los delegados',
       footer:'Apoyo académico no oficial · 4.º E',
@@ -154,24 +166,28 @@
       rankingLink:'Ver classificação',
       publishKicker:'SEU RESULTADO',
       publishTitle:'{score}/{total} respostas corretas',
-      publishCopy:'Você pode somá-lo à classificação semanal com seu apelido.',
+      publishCopy:'Você pode somá-lo à classificação provisória do 4.º E.',
       publishButton:'Somar à classificação',
       publishing:'Publicando…',
       publishSuccess:'Resultado publicado.',
       publishKept:'Seu melhor resultado já era igual ou maior.',
-      nicknameNeeded:'Salve um apelido antes de publicar.',
+      nicknameNeeded:'Salve seu nome e catraca antes de publicar.',
+      identityExpired:'Confirme novamente seu nome e catraca para publicar.',
       publishError:'Não foi possível publicar. Seu resultado continua salvo neste dispositivo.',
       rankingAndChallenge:'CLASSIFICAÇÃO E DESAFIO',
-      challengeKicker:'DESAFIO COLETIVO',
+      challengeKicker:'DESAFIO SEMANAL · SÓ 4.º E',
       challengeTitle:'1.000 respostas corretas nesta semana',
-      challengeCopy:'Não importa quem fica em primeiro: cada melhor resultado aproxima a turma da meta.',
+      challengeCopy:'Cada melhor resultado soma pontos. O primeiro lugar provisório recebe R$ 50 por Pix após verificar identidade e resultado.',
+      prizeAmount:'R$ 50 via Pix',
+      prizeWinner:'Prêmio para o 1.º lugar verificado',
+      prizeRule:'Exclusivo para estudantes matriculados no 4.º E.',
       correctAnswers:'respostas corretas',
       people:'pessoas',
       records:'resultados',
       weekPending:'Semana atual',
       rankingKicker:'CLASSIFICAÇÃO SEMANAL',
-      rankingTitle:'Veja como a turma avança',
-      rankingCopy:'Somamos o melhor resultado de cada pessoa em cada matéria ou módulo.',
+      rankingTitle:'Classificação provisória',
+      rankingCopy:'Somamos o melhor resultado por matéria ou módulo. Desempate: mais acertos, maior precisão e primeiro registro.',
       refresh:'Atualizar',
       refreshing:'Atualizando…',
       empty:'Ainda não há resultados nesta semana. O primeiro pode ser o seu.',
@@ -184,24 +200,32 @@
       scopes:'{count} matérias/módulos',
       accuracy:'{value}% de precisão',
       profileKicker:'SUA IDENTIDADE NO DESAFIO',
-      profileTitle:'Escolha um apelido',
-      profileCopy:'É a única informação que a turma verá. Use sempre o mesmo apelido para reunir seus resultados.',
-      nickname:'Apelido público',
-      nicknamePlaceholder:'Ex.: Baboune',
-      save:'Salvar apelido',
-      invalidNickname:'Use entre 2 e 24 letras, números ou espaços.',
-      profileSaved:'Apelido salvo. Vamos reconhecer você por este apelido.',
-      privacy:'Não pedimos e-mail nem nome real. A participação é opcional.',
+      profileTitle:'Confirme sua identidade do 4.º E',
+      profileCopy:'Isso é pedido uma vez neste telefone. A catraca completa nunca aparece na classificação.',
+      displayName:'Nome visível',
+      displayNamePlaceholder:'Ex.: Ana Oliveira',
+      studentId:'Catraca UCP',
+      studentIdPlaceholder:'Seu número de catraca',
+      identityConsent:'Confirmo que pertenço ao 4.º E e que estes dados são meus.',
+      save:'Salvar e participar',
+      invalidName:'Digite seu nome com 2 a 60 caracteres.',
+      invalidStudentId:'Confira o formato da sua catraca.',
+      consentRequired:'Confirme que você pertence ao 4.º E.',
+      profileSaving:'Verificando…',
+      profileSaved:'Identidade salva. Sua catraca pública fica mascarada.',
+      profileError:'Não foi possível salvar agora. A catraca não fica guardada neste telefone.',
+      privacy:'Publicamos apenas seu nome e os 4 últimos caracteres da catraca. O número completo vira uma impressão segura.',
+      legacyIdentity:'Perfil pendente',
       howKicker:'COMO PARTICIPAR',
       howTitle:'Três passos, sem conta',
       step1Title:'1. Faça um QCM',
       step1Copy:'Abra uma matéria ou um módulo e termine a série.',
       step2Title:'2. Publique o resultado',
-      step2Copy:'No final, digite seu apelido e toque em “Somar meu resultado”.',
+      step2Copy:'No final, confirme seu perfil e toque em “Somar à classificação”.',
       step3Title:'3. Volte na semana seguinte',
       step3Copy:'O desafio recomeça toda segunda-feira, no horário do Paraguai.',
-      fairTitle:'Uma classificação para motivar, não para julgar',
-      fairCopy:'Só guardamos seu melhor resultado semanal por matéria ou módulo. Não mostramos o tempo e isto não é um registro acadêmico oficial.',
+      fairTitle:'Regras do prêmio e proteção dos seus dados',
+      fairCopy:'A classificação é provisória. Só conta o melhor resultado por matéria ou módulo; o vencedor confirma que pertence ao 4.º E e seu resultado antes do Pix. Nenhuma atualização apaga participações já salvas.',
       questions:'Tem uma ideia para o próximo desafio?',
       questionsLink:'Preparar uma mensagem para os delegados',
       footer:'Apoio acadêmico não oficial · 4.º E',
@@ -277,7 +301,11 @@
     var profile = {};
     try{ profile = JSON.parse(localStorage.getItem(PROFILE_KEY) || '{}') || {}; }catch(error){}
     if(!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(profile.playerId || '')) profile.playerId = createPlayerId();
-    profile.nickname = String(profile.nickname || '').slice(0,24);
+    profile.displayName = String(profile.displayName || profile.nickname || '').slice(0,60);
+    profile.studentIdMasked = String(profile.studentIdMasked || '').slice(0,20);
+    profile.accessToken = /^[0-9a-f]{64}$/i.test(String(profile.accessToken || '')) ? profile.accessToken : '';
+    delete profile.nickname;
+    delete profile.studentId;
     saveProfile(profile);
     return profile;
   }
@@ -286,8 +314,12 @@
     try{ localStorage.setItem(PROFILE_KEY,JSON.stringify(profile)); }catch(error){}
   }
 
-  function validNickname(value){
-    return /^[\p{L}\p{N}][\p{L}\p{N} ._'-]{0,22}[\p{L}\p{N}]$/u.test(value);
+  function validDisplayName(value){
+    return value.length >= 2 && value.length <= 60 && /^[\p{L}\p{M}][\p{L}\p{M} .'-]*[\p{L}\p{M}]$/u.test(value);
+  }
+
+  function validStudentId(value){
+    return /^[A-Z0-9]{4,24}$/.test(String(value || '').normalize('NFKC').toUpperCase().replace(/[\s._-]+/g,''));
   }
 
   function readLanguage(){
@@ -364,10 +396,14 @@
       item.appendChild(rank);
       var identity = element('div','ranking-identity');
       var nameLine = element('div','ranking-name-line');
-      nameLine.appendChild(element('strong','ranking-name',entry.nickname));
+      nameLine.appendChild(element('strong','ranking-name',entry.displayName || entry.nickname));
       if(entry.isCurrent) nameLine.appendChild(element('span','ranking-you',t('you')));
       identity.appendChild(nameLine);
       var scopeText = Number(entry.challenges) === 1 ? t('oneScope') : t('scopes',{count:entry.challenges});
+      var identityText = entry.studentIdMasked || t('legacyIdentity');
+      var identityMeta = element('small','ranking-catraca',identityText);
+      if(entry.studentIdMasked) identityMeta.setAttribute('aria-label',(lang === 'br' ? 'Catraca terminada em ' : 'Catraca terminada en ') + entry.studentIdMasked.replace(/\D/g,''));
+      identity.appendChild(identityMeta);
       identity.appendChild(element('small','ranking-meta',scopeText + ' · ' + t('accuracy',{value:entry.accuracy})));
       item.appendChild(identity);
       var score = element('div','ranking-score');
@@ -389,7 +425,7 @@
     var leader = ranking[0] || null;
     var current = state.data && state.data.currentUser ? state.data.currentUser : null;
 
-    topName.textContent = leader ? leader.nickname : t('noLeader');
+    topName.textContent = leader ? (leader.displayName || leader.nickname) : t('noLeader');
     topMeta.textContent = leader
       ? formatNumber(leader.points) + ' ' + t('points') + ' · ' + t('accuracy',{value:leader.accuracy})
       : t('beFirst');
@@ -443,7 +479,7 @@
     state.error = '';
     renderData();
     fetch(
-      API_URL + '?player=' + encodeURIComponent(profile.playerId) + '&nickname=' + encodeURIComponent(profile.nickname),
+      API_URL + '?class=s4-e&player=' + encodeURIComponent(profile.playerId),
       {credentials:'same-origin'}
     )
       .then(function(response){
@@ -465,13 +501,20 @@
   }
 
   function publishScore(result){
+    if(!profile.displayName || !profile.accessToken){
+      var identityError = new Error('identity_required');
+      identityError.code = 'identity_required';
+      return Promise.reject(identityError);
+    }
     return fetch(API_URL,{
       method:'POST',
       credentials:'same-origin',
       headers:{'content-type':'application/json'},
       body:JSON.stringify({
+        action:'score',
+        class:'s4-e',
         playerId:profile.playerId,
-        nickname:profile.nickname,
+        accessToken:profile.accessToken,
         courseId:result.courseId,
         moduleId:result.moduleId,
         correct:result.correct,
@@ -492,7 +535,7 @@
 
   window.MedNykutoCommunity = {
     getLanguage:function(){ return lang; },
-    getProfile:function(){ return {playerId:profile.playerId,nickname:profile.nickname}; },
+    getProfile:function(){ return {playerId:profile.playerId,displayName:profile.displayName,studentIdMasked:profile.studentIdMasked,accessToken:profile.accessToken}; },
     publishScore:publishScore,
     refresh:loadData,
     t:t
@@ -500,11 +543,19 @@
 
   function init(){
     var languageSelect = document.getElementById('communityLanguage');
-    var nicknameInput = document.getElementById('communityNickname');
+    var nameInput = document.getElementById('communityDisplayName');
+    var studentIdInput = document.getElementById('communityStudentId');
+    var consentInput = document.getElementById('communityIdentityConsent');
     var profileForm = document.getElementById('communityProfileForm');
     var profileStatus = document.getElementById('communityProfileStatus');
+    var profileButton = profileForm.querySelector('button[type="submit"]');
 
-    nicknameInput.value = profile.nickname;
+    nameInput.value = profile.displayName;
+    if(profile.studentIdMasked){
+      studentIdInput.placeholder = profile.studentIdMasked;
+      profileStatus.dataset.state = 'success';
+      profileStatus.textContent = t('profileSaved') + ' ' + profile.studentIdMasked;
+    }
     languageSelect.addEventListener('change',function(){
       lang = supported.indexOf(languageSelect.value) !== -1 ? languageSelect.value : 'es';
       try{ localStorage.setItem('medLang',lang); }catch(error){}
@@ -515,20 +566,61 @@
     });
     profileForm.addEventListener('submit',function(event){
       event.preventDefault();
-      var nickname = nicknameInput.value.normalize('NFKC').replace(/\s+/g,' ').trim();
-      if(!validNickname(nickname)){
+      var displayName = nameInput.value.normalize('NFKC').replace(/\s+/g,' ').trim();
+      var studentId = studentIdInput.value.normalize('NFKC').toUpperCase().replace(/[\s._-]+/g,'');
+      if(!validDisplayName(displayName)){
         profileStatus.dataset.state = 'error';
-        profileStatus.textContent = t('invalidNickname');
-        nicknameInput.focus();
+        profileStatus.textContent = t('invalidName');
+        nameInput.focus();
         return;
       }
-      profile.nickname = nickname;
-      saveProfile(profile);
-      profileStatus.dataset.state = 'success';
-      profileStatus.textContent = t('profileSaved');
-      if(window.MedNykutoCommunityStudy && typeof window.MedNykutoCommunityStudy.profileChanged === 'function'){
-        window.MedNykutoCommunityStudy.profileChanged();
+      if(!validStudentId(studentId)){
+        profileStatus.dataset.state = 'error';
+        profileStatus.textContent = t('invalidStudentId');
+        studentIdInput.focus();
+        return;
       }
+      if(!consentInput.checked){
+        profileStatus.dataset.state = 'error';
+        profileStatus.textContent = t('consentRequired');
+        consentInput.focus();
+        return;
+      }
+      profileButton.disabled = true;
+      profileButton.textContent = t('profileSaving');
+      profileStatus.dataset.state = '';
+      profileStatus.textContent = '';
+      fetch(API_URL,{
+        method:'POST',
+        credentials:'same-origin',
+        headers:{'content-type':'application/json'},
+        body:JSON.stringify({action:'enroll',class:'s4-e',playerId:profile.playerId,displayName:displayName,studentId:studentId,consent:true})
+      }).then(function(response){
+        return response.json().catch(function(){ return {}; }).then(function(data){
+          if(!response.ok){ var error = new Error(data.code || 'request_failed'); error.code = data.code || ''; throw error; }
+          return data;
+        });
+      }).then(function(data){
+        profile.playerId = data.participant.playerId;
+        profile.displayName = data.participant.displayName;
+        profile.studentIdMasked = data.participant.studentIdMasked;
+        profile.accessToken = data.accessToken;
+        saveProfile(profile);
+        studentIdInput.value = '';
+        studentIdInput.placeholder = profile.studentIdMasked;
+        consentInput.checked = false;
+        profileStatus.dataset.state = 'success';
+        profileStatus.textContent = t('profileSaved') + ' ' + profile.studentIdMasked;
+        loadData();
+        if(window.MedNykutoCommunityStudy && typeof window.MedNykutoCommunityStudy.profileChanged === 'function') window.MedNykutoCommunityStudy.profileChanged();
+      }).catch(function(error){
+        profileStatus.dataset.state = 'error';
+        profileStatus.textContent = error.code === 'invalid_student_id' ? t('invalidStudentId') : error.code === 'consent_required' ? t('consentRequired') : t('profileError');
+      }).finally(function(){
+        profileButton.disabled = false;
+        profileButton.textContent = t('save');
+        studentIdInput.value = '';
+      });
     });
     document.getElementById('communityRefresh').addEventListener('click',loadData);
     document.getElementById('communityRetry').addEventListener('click',loadData);
