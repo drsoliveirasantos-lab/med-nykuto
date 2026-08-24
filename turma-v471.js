@@ -2,7 +2,7 @@
   'use strict';
   var DEFAULT_CLASS='s4-e';
   var state={classInfo:null,subjects:[],tasks:[],notices:[],activities:[],groups:[],files:[],dates:[],generatedAt:null};
-  var currentView='inicio',taskFilter='active';
+  var currentView='inicio',taskFilter='active',noticeCarouselController=null;
 
   function classSlug(){
     var path=location.pathname.match(/^\/turma\/([a-z0-9-]+)\/?$/i);
@@ -38,7 +38,44 @@
     var attachment=taskAttachment(task);if(attachment){var attachmentLink=el('a','task-attachment',attachment.title+' ↗');attachmentLink.href=attachment.url;attachmentLink.target='_blank';attachmentLink.rel='noopener noreferrer';body.appendChild(attachmentLink);}
     card.appendChild(summary);card.appendChild(body);card.addEventListener('toggle',function(){summary.lastChild.textContent=card.open?'Cerrar':'Abrir';});return card;
   }
-  function noticeCard(notice){var card=el('article','notice-card');card.dataset.priority=notice.priority||'normal';card.appendChild(el('span'));var copy=el('div');copy.appendChild(el('strong','',notice.title||'Actualización'));copy.appendChild(el('small','',notice.body||''));card.appendChild(copy);return card;}
+  function reducedMotion(){return Boolean(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}
+  function noticePriorityLabel(priority){return priority==='urgent'?'URGENTE':priority==='important'?'IMPORTANTE':'AVISO';}
+  function noticePublishedLabel(value){if(!value)return'';var date=new Date(value);if(Number.isNaN(date.getTime()))return'';return new Intl.DateTimeFormat('es-PY',{day:'2-digit',month:'short',year:'numeric'}).format(date);}
+  function noticeImage(notice){
+    var raw=String(notice.imageUrl||notice.image_url||'').trim();if(!raw)return null;
+    try{
+      var parsed=new URL(raw);if(parsed.protocol!=='https:'||parsed.username||parsed.password)return null;
+      var frame=el('figure','notice-media'),image=el('img');image.src=parsed.href;image.alt=String(notice.imageAlt||notice.image_alt||notice.title||'Imagen del aviso').trim();image.loading='lazy';image.decoding='async';image.referrerPolicy='no-referrer';image.addEventListener('error',function(){if(frame.parentElement)frame.parentElement.classList.remove('has-image');frame.remove();});frame.appendChild(image);return frame;
+    }catch(error){return null;}
+  }
+  function noticeCard(notice,featured){
+    var card=el('article','notice-card'+(featured?' is-featured':''));card.dataset.priority=notice.priority||'normal';card.appendChild(el('span','notice-accent'));
+    var media=noticeImage(notice);if(media){card.classList.add('has-image');card.appendChild(media);}
+    var copy=el('div','notice-copy'),meta=el('div','notice-meta'),publishedAt=notice.publishedAt||notice.published_at;meta.appendChild(el('b','',noticePriorityLabel(notice.priority)));var published=noticePublishedLabel(publishedAt);if(published){var time=el('time','',published);time.dateTime=String(publishedAt);meta.appendChild(time);}copy.appendChild(meta);copy.appendChild(el('strong','',notice.title||'Actualización'));if(notice.body)copy.appendChild(el('small','',notice.body));card.appendChild(copy);return card;
+  }
+  function destroyNoticeCarousel(){if(noticeCarouselController){noticeCarouselController.destroy();noticeCarouselController=null;}}
+  function mountNoticeCarousel(target,notices){
+    destroyNoticeCarousel();target.replaceChildren();if(!notices.length)return;
+    var mediaQuery=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null,reduced=Boolean(mediaQuery&&mediaQuery.matches),index=0,timer=0,userPaused=false,pointerPaused=false,focusPaused=false,viewActive=currentView==='inicio';
+    var viewport=el('div','notice-carousel-viewport'),controls=el('div','notice-carousel-controls'),previous=el('button','','←'),counter=el('span','notice-carousel-count'),next=el('button','','→'),pause=el('button','notice-carousel-pause','Pausar'),announcer=el('span','sr-only');
+    previous.type=next.type=pause.type='button';previous.setAttribute('aria-label','Aviso anterior');next.setAttribute('aria-label','Aviso siguiente');pause.setAttribute('aria-pressed','false');announcer.setAttribute('aria-live','polite');announcer.setAttribute('aria-atomic','true');
+    controls.appendChild(previous);controls.appendChild(counter);controls.appendChild(next);controls.appendChild(pause);target.appendChild(viewport);if(notices.length>1)target.appendChild(controls);target.appendChild(announcer);target.setAttribute('role','region');target.setAttribute('aria-roledescription','carrusel');
+    function clearTimer(){if(timer){window.clearTimeout(timer);timer=0;}}
+    function canPlay(){return notices.length>1&&viewActive&&!reduced&&!userPaused&&!pointerPaused&&!focusPaused&&!document.hidden;}
+    function schedule(){clearTimer();if(canPlay())timer=window.setTimeout(function(){show(index+1,false);},6000);}
+    function updatePause(){pause.hidden=notices.length<2||reduced;pause.textContent=userPaused?'Reanudar':'Pausar';pause.setAttribute('aria-pressed',userPaused?'true':'false');}
+    function show(nextIndex,manual){index=(nextIndex+notices.length)%notices.length;viewport.replaceChildren(noticeCard(notices[index],true));counter.textContent=(index+1)+' / '+notices.length;previous.disabled=next.disabled=notices.length<2;if(manual)announcer.textContent='Aviso '+(index+1)+' de '+notices.length+': '+(notices[index].title||'Actualización');schedule();}
+    function onPointerEnter(){pointerPaused=true;clearTimer();}
+    function onPointerLeave(){pointerPaused=false;schedule();}
+    function onFocusIn(){focusPaused=true;clearTimer();}
+    function onFocusOut(){window.setTimeout(function(){focusPaused=target.contains(document.activeElement);schedule();},0);}
+    function onVisibility(){if(document.hidden)clearTimer();else schedule();}
+    function onMotionChange(event){reduced=event.matches;if(reduced)clearTimer();updatePause();schedule();}
+    previous.addEventListener('click',function(){show(index-1,true);});next.addEventListener('click',function(){show(index+1,true);});pause.addEventListener('click',function(){userPaused=!userPaused;updatePause();if(userPaused)clearTimer();else schedule();pause.focus({preventScroll:true});});
+    target.addEventListener('pointerenter',onPointerEnter);target.addEventListener('pointerleave',onPointerLeave);target.addEventListener('focusin',onFocusIn);target.addEventListener('focusout',onFocusOut);document.addEventListener('visibilitychange',onVisibility);if(mediaQuery){if(mediaQuery.addEventListener)mediaQuery.addEventListener('change',onMotionChange);else if(mediaQuery.addListener)mediaQuery.addListener(onMotionChange);}
+    updatePause();show(0,false);
+    noticeCarouselController={setActive:function(active){viewActive=Boolean(active);if(viewActive)schedule();else clearTimer();},destroy:function(){viewActive=false;clearTimer();target.removeEventListener('pointerenter',onPointerEnter);target.removeEventListener('pointerleave',onPointerLeave);target.removeEventListener('focusin',onFocusIn);target.removeEventListener('focusout',onFocusOut);document.removeEventListener('visibilitychange',onVisibility);if(mediaQuery){if(mediaQuery.removeEventListener)mediaQuery.removeEventListener('change',onMotionChange);else if(mediaQuery.removeListener)mediaQuery.removeListener(onMotionChange);}}};
+  }
   function subjectRecords(){
     var map={};
     (state.subjects||[]).forEach(function(subject){var key=String(subject.slug||subject.id||subject.name||'').toLowerCase();if(!key)return;map[key]={id:key,name:subject.name||subject.title||key,teacher:subject.teacher||'',color:subject.color||hashColor(key),files:[]};});
@@ -63,7 +100,7 @@
   function renderHome(){
     var tasks=document.getElementById('homeTasks'),active=state.tasks.filter(activeTask).slice(0,3);tasks.replaceChildren();active.forEach(function(task){tasks.appendChild(taskCard(task));});if(!active.length)empty(tasks,'No hay tareas activas.');
     var subjects=document.getElementById('homeSubjects');subjects.replaceChildren();subjectRecords().slice(0,8).forEach(function(subject){var button=el('button','subject-chip');button.type='button';button.style.setProperty('--subject-color',subject.color);button.appendChild(el('span'));button.appendChild(el('strong','',subject.name));button.appendChild(el('small','',subject.files.length+' materiales'));button.addEventListener('click',function(){showView('materias');setTimeout(function(){var target=document.querySelector('[data-subject-id="'+subject.id+'"]');if(target)target.scrollIntoView({block:'start'});},20);});subjects.appendChild(button);});if(!subjects.children.length)empty(subjects,'Las materias todavía no fueron configuradas.');
-    var notices=document.getElementById('homeNotices');notices.replaceChildren();state.notices.slice(0,3).forEach(function(notice){notices.appendChild(noticeCard(notice));});if(!state.notices.length)empty(notices,'No hay nuevas alertas.');
+    var featured=state.notices.filter(function(notice){return notice.priority==='important'||notice.priority==='urgent';}),noticeSection=document.getElementById('homeNoticeSection'),noticeHost=document.getElementById('homeNoticeCarousel');noticeSection.hidden=!featured.length;if(featured.length)mountNoticeCarousel(noticeHost,featured);else{destroyNoticeCarousel();noticeHost.replaceChildren();}
   }
   function renderTasks(){var target=document.getElementById('taskList'),items=taskFilter==='active'?state.tasks.filter(activeTask):state.tasks;target.replaceChildren();items.forEach(function(task){target.appendChild(taskCard(task));});if(!items.length)empty(target,taskFilter==='active'?'No hay tareas activas.':'No hay tareas publicadas.');}
   function renderSubjects(filter){
@@ -88,7 +125,7 @@
     var groupList=document.getElementById('groupList');groupList.replaceChildren();state.activities.forEach(function(activity){groupList.appendChild(renderGroupActivity(activity));});if(!state.activities.length)empty(groupList,'No hay actividades de grupo publicadas.');document.getElementById('groupCount').textContent=state.groups.length+' '+(state.groups.length===1?'grupo':'grupos');
     var fileList=document.getElementById('fileList');fileList.replaceChildren();state.files.forEach(function(file){var item=el('a','tool-item');item.href=file.url;item.target='_blank';item.rel='noopener';item.appendChild(el('strong','',file.title||'Material'));item.appendChild(el('small','',(file.course||'ARCHIVO')+' · Abrir →'));fileList.appendChild(item);});if(!state.files.length)empty(fileList,'No hay archivos dinámicos publicados.');document.getElementById('fileCount').textContent=state.files.length+' '+(state.files.length===1?'archivo':'archivos');
   }
-  function renderNotices(){var target=document.getElementById('noticeDialogList');target.replaceChildren();state.notices.forEach(function(notice){target.appendChild(noticeCard(notice));});if(!state.notices.length)empty(target,'No hay alertas nuevas.');var important=state.notices.filter(function(notice){return notice.priority==='important'||notice.priority==='urgent';}).length,count=document.getElementById('noticeCount');count.textContent=String(important);count.hidden=!important;}
+  function renderNotices(){var target=document.getElementById('noticePageList');target.replaceChildren();state.notices.forEach(function(notice){target.appendChild(noticeCard(notice,false));});if(!state.notices.length)empty(target,'No hay avisos publicados.');var important=state.notices.filter(function(notice){return notice.priority==='important'||notice.priority==='urgent';}).length,count=document.getElementById('noticeCount'),button=document.getElementById('noticeButton');count.textContent=String(important);count.hidden=!important;if(button)button.setAttribute('aria-label','Abrir avisos'+(important?' · '+important+(important===1?' importante':' importantes'):''));}
   function renderAll(){renderClass();renderHome();renderTasks();renderSubjects(document.getElementById('subjectSearch').value);renderMore();renderNotices();}
   function normalize(data){state.classInfo=data.class||data.classInfo||null;state.subjects=Array.isArray(data.subjects)?data.subjects:[];['tasks','notices','activities','groups','files','dates'].forEach(function(key){state[key]=Array.isArray(data[key])?data[key]:[];});state.generatedAt=data.generatedAt||new Date().toISOString();}
   function load(){
@@ -96,10 +133,10 @@
     return fetch(API+'&resource=public',{headers:{accept:'application/json'}}).then(function(response){return response.json().then(function(body){if(!response.ok){var failure=new Error(body.error||'No se pudo abrir la turma.');failure.httpStatus=response.status;throw failure;}return body;});}).then(function(data){normalize(data);renderAll();try{localStorage.setItem('med-nykuto-class-cache:'+slug,JSON.stringify(data));}catch(error){}}).catch(function(error){var cached=null,cacheKey='med-nykuto-class-cache:'+slug,mayUseCache=!error.httpStatus||error.httpStatus>=500;if(mayUseCache){try{cached=JSON.parse(localStorage.getItem(cacheKey)||'null');}catch(ignore){}}else{try{localStorage.removeItem(cacheKey);}catch(ignore){}}if(cached){normalize(cached);renderAll();var banner=document.getElementById('connectionBanner');banner.textContent='Sin conexión · mostrando la última versión guardada';banner.hidden=false;return;}document.getElementById('homeTitle').textContent='No pudimos abrir esta turma';document.getElementById('classSubtitle').textContent=error.message;empty(document.getElementById('homeTasks'),'Comprueba el enlace o vuelve a intentarlo.');});
   }
   function showView(view){
-    if(['inicio','tareas','materias','estudiar','mas'].indexOf(view)<0)view='inicio';currentView=view;
+    if(['inicio','avisos','tareas','materias','estudiar','mas'].indexOf(view)<0)view='inicio';currentView=view;
     document.querySelectorAll('[data-view]').forEach(function(section){var active=section.dataset.view===view;section.hidden=!active;section.classList.toggle('is-active',active);});
     document.querySelectorAll('[data-nav-view]').forEach(function(button){button.classList.toggle('is-active',button.dataset.navView===view);button.setAttribute('aria-current',button.dataset.navView===view?'page':'false');});
-    history.replaceState(null,'','#'+view);window.scrollTo({top:0,behavior:'smooth'});
+    var noticeButton=document.getElementById('noticeButton');if(noticeButton)noticeButton.setAttribute('aria-current',view==='avisos'?'page':'false');if(noticeCarouselController)noticeCarouselController.setActive(view==='inicio');history.replaceState(null,'','#'+view);window.scrollTo({top:0,behavior:reducedMotion()?'auto':'smooth'});
   }
   function share(){var info=state.classInfo||{},url=location.origin+'/turma/'+slug,text='Med Nykuto · '+(info.name||slug.toUpperCase());if(navigator.share)return navigator.share({title:text,text:'Espacio académico de la turma',url:url}).catch(function(){});return navigator.clipboard.writeText(url).then(function(){var button=document.getElementById('shareClass'),previous=button.textContent;button.textContent='Enlace copiado';setTimeout(function(){button.textContent=previous;},1600);});}
   function init(){
@@ -107,8 +144,9 @@
     document.querySelectorAll('[data-open-view]').forEach(function(button){button.addEventListener('click',function(){showView(button.dataset.openView);});});
     document.querySelectorAll('[data-task-filter]').forEach(function(button){button.addEventListener('click',function(){taskFilter=button.dataset.taskFilter;document.querySelectorAll('[data-task-filter]').forEach(function(item){item.classList.toggle('is-active',item===button);});renderTasks();});});
     document.getElementById('subjectSearch').addEventListener('input',function(event){renderSubjects(event.target.value);});
-    var dialog=document.getElementById('noticeDialog');document.getElementById('noticeButton').addEventListener('click',function(){dialog.showModal();});document.querySelector('[data-close-dialog]').addEventListener('click',function(){dialog.close();});dialog.addEventListener('click',function(event){if(event.target===dialog)dialog.close();});
+    document.getElementById('noticeButton').addEventListener('click',function(){showView('avisos');});
     document.getElementById('shareClass').addEventListener('click',share);document.getElementById('reportProblem').addEventListener('click',function(){var subject=encodeURIComponent('Corrección Med Nykuto · '+slug),body=encodeURIComponent('Turma: '+slug+'\nPágina: '+location.href+'\nInformación a corregir:\n');location.href='mailto:?subject='+subject+'&body='+body;});
+    window.addEventListener('hashchange',function(){var next='inicio';try{next=decodeURIComponent(location.hash.slice(1))||'inicio';}catch(error){}if(next!==currentView)showView(next);});
     window.addEventListener('online',load);window.addEventListener('offline',function(){var banner=document.getElementById('connectionBanner');banner.textContent='Sin conexión · los últimos datos siguen disponibles';banner.hidden=false;});
     if('serviceWorker'in navigator)navigator.serviceWorker.register('/service-worker.js').catch(function(){});
     var initial='inicio';try{initial=decodeURIComponent(location.hash.slice(1))||'inicio';}catch(error){}showView(initial);load();

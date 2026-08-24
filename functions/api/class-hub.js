@@ -17,7 +17,7 @@ import {
 
 const EDITOR_ACTIONS = new Set([
   'task.upsert', 'notice.upsert', 'activity.upsert', 'group.upsert', 'group.freeze',
-  'member.move', 'member.remove', 'file.upsert', 'date.upsert'
+  'member.move', 'member.remove', 'file.upsert', 'date.upsert', 'profile.upsert'
 ]);
 const STATUSES = new Set(['draft', 'published', 'archived']);
 const NOTICE_PRIORITIES = new Set(['normal', 'important', 'urgent']);
@@ -86,8 +86,8 @@ const DEFAULT_PUBLIC = {
   class: DEFAULT_CLASS,
   subjects: DEFAULT_SUBJECTS.map(([id, name], index) => ({ id, name, order: index + 1 })),
   notices: [
-    { id: 'week-2026-08-21', priority: 'normal', title: 'Cursos del 19 al 21 de agosto disponibles', body: 'Bioquímica, Epidemiología, Fisiología y Microbiología práctica ya están organizadas.', status: 'published' },
-    { id: 'tasks-2026-08-21', priority: 'important', title: 'Dos trabajos activos', body: 'Epidemiología: exposición grupal. Bioquímica: imprimir y completar a mano las actividades 3 y 4.', status: 'published' }
+    { id: 'week-2026-08-21', priority: 'normal', title: 'Cursos del 19 al 21 de agosto disponibles', body: 'Bioquímica, Epidemiología, Fisiología y Microbiología práctica ya están organizadas.', imageUrl: null, imageAlt: null, status: 'published' },
+    { id: 'tasks-2026-08-21', priority: 'important', title: 'Dos trabajos activos', body: 'Epidemiología: exposición grupal. Bioquímica: imprimir y completar a mano las actividades 3 y 4.', imageUrl: null, imageAlt: null, status: 'published' }
   ],
   tasks: [
     { id: 'epi-presentation', course: 'Epidemiología', title: 'Exposición grupal de enfermedad sorteada', description: 'Máximo 10 integrantes, diapositivas, uniforme, puntualidad y evaluación individual.', dueLabel: 'Mié. 26 ago.', dueAt: '2026-08-26T11:20:00-03:00', attachmentUrl: null, attachmentTitle: null, status: 'published' },
@@ -116,6 +116,12 @@ function cleanPriority(value) { return NOTICE_PRIORITIES.has(value) ? value : 'n
 function cleanUrl(value) { const raw = cleanText(value, 1000); if (!raw) return ''; try { const parsed = new URL(raw, 'https://med.nykuto.invalid/'); if (!['http:', 'https:'].includes(parsed.protocol)) return ''; return parsed.origin === 'https://med.nykuto.invalid' ? `${parsed.pathname}${parsed.search}${parsed.hash}`.replace(/^\//, '') : parsed.href; } catch { return ''; } }
 function cleanDriveUrl(value) { const raw = cleanText(value, 1000); if (!raw) return ''; try { const parsed = new URL(raw); return parsed.protocol === 'https:' && !parsed.username && !parsed.password ? parsed.href : ''; } catch { return ''; } }
 function cleanAttachmentUrl(value) { const raw = cleanText(value, 1500); if (!raw) return ''; try { const parsed = new URL(raw); return parsed.protocol === 'https:' && !parsed.username && !parsed.password ? parsed.href : ''; } catch { return ''; } }
+function cleanE164(value) {
+  let raw = String(value || '').normalize('NFKC').trim();
+  if (raw.startsWith('00')) raw = `+${raw.slice(2)}`;
+  const canonical = raw.replace(/[\s().-]/g, '');
+  return /^\+[1-9]\d{7,14}$/.test(canonical) ? canonical : '';
+}
 function integer(value, fallback, min, max) { const parsed = Number.parseInt(value, 10); return Number.isFinite(parsed) ? Math.min(max, Math.max(min, parsed)) : fallback; }
 function hasOwn(value, key) { return Boolean(value && Object.prototype.hasOwnProperty.call(value, key)); }
 
@@ -211,12 +217,18 @@ function scopedId(classId, value) {
 }
 function entityId(classId, value, prefix) { return scopedId(classId, value) || scopedId(classId, generatedId(prefix)); }
 
-function publicClass(row) {
-  return { id: row.id, slug: row.slug, name: row.name, semester: Number(row.semester) || 0, group: row.group_code || '', theme: row.theme || '', driveUrl: row.drive_url || '' };
+function supportWhatsapp(row, env = null) {
+  return cleanE164(row?.support_whatsapp)
+    || cleanE164(row?.supportWhatsapp)
+    || cleanE164(env?.MED_NYKUTO_SUPPORT_WHATSAPP_E164)
+    || cleanE164(env?.MED_NYKUTO_SUPPORT_WHATSAPP);
 }
-function adminClass(row) { return { ...publicClass(row), status: row.status === 'archived' ? 'archived' : 'active' }; }
+function publicClass(row, env = null) {
+  return { id: row.id, slug: row.slug, name: row.name, semester: Number(row.semester) || 0, group: row.group_code || '', theme: row.theme || '', driveUrl: row.drive_url || '', supportWhatsapp: supportWhatsapp(row, env) };
+}
+function adminClass(row, env = null) { return { ...publicClass(row, env), status: row.status === 'archived' ? 'archived' : 'active' }; }
 
-async function resolveClass(request, db, data = null) {
+async function resolveClass(request, db, data = null, env = null) {
   const url = new URL(request.url);
   const queryCandidates = [url.searchParams.get('class'), url.searchParams.get('classSlug'), url.searchParams.get('classId')].filter((value) => String(value || '').trim());
   const bodyCandidates = [data?.class, data?.classSlug, data?.classId].filter((value) => String(value || '').trim());
@@ -224,7 +236,8 @@ async function resolveClass(request, db, data = null) {
   const refs = [...new Set(candidates.map(cleanClassRef))];
   if (refs.includes('') || refs.length > 1) return { error: 'class_mismatch' };
   const requested = refs[0] || DEFAULT_CLASS_SLUG;
-  const row = await db.prepare(`SELECT id,slug,name,semester,group_code,theme,drive_url,status FROM hub_classes WHERE (slug=? OR id=?) AND status='active'`).bind(requested, requested).first();
+  const row = await db.prepare(`SELECT id,slug,name,semester,group_code,theme,drive_url,support_whatsapp,status FROM hub_classes WHERE (slug=? OR id=?) AND status='active'`).bind(requested, requested).first();
+  if (row) row.supportWhatsapp = supportWhatsapp(row, env);
   return row ? { classRecord: row } : { error: 'class_not_found' };
 }
 
@@ -248,6 +261,24 @@ async function ensureTaskAttachmentColumns(db) {
   }
 }
 
+async function ensureClassSupportWhatsappColumn(db) {
+  const columns = await db.prepare(`PRAGMA table_info(hub_classes)`).all();
+  if (!(columns.results || []).some((column) => column.name === 'support_whatsapp')) {
+    try { await db.prepare(`ALTER TABLE hub_classes ADD COLUMN support_whatsapp TEXT NOT NULL DEFAULT ''`).run(); } catch (error) { if (!/duplicate column/i.test(String(error))) throw error; }
+  }
+}
+
+async function ensureNoticeImageColumns(db) {
+  const columns = await db.prepare(`PRAGMA table_info(hub_notices)`).all();
+  const names = new Set((columns.results || []).map((column) => column.name));
+  if (!names.has('image_url')) {
+    try { await db.prepare(`ALTER TABLE hub_notices ADD COLUMN image_url TEXT`).run(); } catch (error) { if (!/duplicate column/i.test(String(error))) throw error; }
+  }
+  if (!names.has('image_alt')) {
+    try { await db.prepare(`ALTER TABLE hub_notices ADD COLUMN image_alt TEXT`).run(); } catch (error) { if (!/duplicate column/i.test(String(error))) throw error; }
+  }
+}
+
 async function ensureMembershipLeaderColumn(db) {
   const columns = await db.prepare(`PRAGMA table_info(hub_memberships)`).all();
   if (!(columns.results || []).some((column) => column.name === 'is_leader')) {
@@ -255,9 +286,9 @@ async function ensureMembershipLeaderColumn(db) {
   }
 }
 
-async function listClasses(db) {
-  const rows = await db.prepare(`SELECT id,slug,name,semester,group_code,theme,drive_url,status FROM hub_classes ORDER BY CASE status WHEN 'active' THEN 0 ELSE 1 END,semester,group_code,name`).all();
-  return (rows.results || []).map(adminClass);
+async function listClasses(db, env = null) {
+  const rows = await db.prepare(`SELECT id,slug,name,semester,group_code,theme,drive_url,support_whatsapp,status FROM hub_classes ORDER BY CASE status WHEN 'active' THEN 0 ELSE 1 END,semester,group_code,name`).all();
+  return (rows.results || []).map((row) => adminClass(row, env));
 }
 
 async function activityState(db, classId, activityId, current = nowIso()) {
@@ -275,10 +306,10 @@ async function ensureSchema(db) {
   if (!schemaPromise) schemaPromise = (async () => {
     const created = nowIso();
     await db.batch([
-      db.prepare(`CREATE TABLE IF NOT EXISTS hub_classes (id TEXT PRIMARY KEY, slug TEXT NOT NULL UNIQUE, name TEXT NOT NULL, semester INTEGER NOT NULL, group_code TEXT NOT NULL DEFAULT '', theme TEXT NOT NULL DEFAULT 'midnight-gold', drive_url TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_classes (id TEXT PRIMARY KEY, slug TEXT NOT NULL UNIQUE, name TEXT NOT NULL, semester INTEGER NOT NULL, group_code TEXT NOT NULL DEFAULT '', theme TEXT NOT NULL DEFAULT 'midnight-gold', drive_url TEXT NOT NULL DEFAULT '', support_whatsapp TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_subjects (class_id TEXT NOT NULL, id TEXT NOT NULL, name TEXT NOT NULL, sort_order INTEGER NOT NULL DEFAULT 0, status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, updated_at TEXT NOT NULL, PRIMARY KEY(class_id,id), FOREIGN KEY(class_id) REFERENCES hub_classes(id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_tasks (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL, title TEXT NOT NULL, description TEXT NOT NULL DEFAULT '', due_label TEXT NOT NULL DEFAULT '', due_at TEXT, attachment_url TEXT, attachment_title TEXT, status TEXT NOT NULL DEFAULT 'draft', created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
-      db.prepare(`CREATE TABLE IF NOT EXISTS hub_notices (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', title TEXT NOT NULL, body TEXT NOT NULL DEFAULT '', priority TEXT NOT NULL DEFAULT 'normal', status TEXT NOT NULL DEFAULT 'draft', push_mode INTEGER NOT NULL DEFAULT 0, created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, published_at TEXT)`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_notices (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', title TEXT NOT NULL, body TEXT NOT NULL DEFAULT '', priority TEXT NOT NULL DEFAULT 'normal', status TEXT NOT NULL DEFAULT 'draft', push_mode INTEGER NOT NULL DEFAULT 0, image_url TEXT, image_alt TEXT, created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, published_at TEXT)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_activities (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', title TEXT NOT NULL, capacity INTEGER NOT NULL DEFAULT 10, closes_at TEXT, status TEXT NOT NULL DEFAULT 'draft', frozen INTEGER NOT NULL DEFAULT 0, created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_groups (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', activity_id TEXT NOT NULL, name TEXT NOT NULL, capacity INTEGER NOT NULL DEFAULT 10, frozen INTEGER NOT NULL DEFAULT 0, created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(activity_id, name), FOREIGN KEY(activity_id) REFERENCES hub_activities(id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_memberships (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', activity_id TEXT NOT NULL, group_id TEXT NOT NULL, student_hash TEXT NOT NULL, display_name TEXT NOT NULL, is_leader INTEGER NOT NULL DEFAULT 0, joined_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(activity_id, student_hash), FOREIGN KEY(activity_id) REFERENCES hub_activities(id), FOREIGN KEY(group_id) REFERENCES hub_groups(id))`),
@@ -287,16 +318,19 @@ async function ensureSchema(db) {
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_schedule_slots (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', subject_id TEXT NOT NULL, weekday INTEGER NOT NULL CHECK(weekday BETWEEN 1 AND 7), starts_time TEXT NOT NULL, ends_time TEXT, label TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'draft', created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(class_id,subject_id,weekday,starts_time), FOREIGN KEY(class_id,subject_id) REFERENCES hub_subjects(class_id,id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_invites (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', token_hash TEXT NOT NULL UNIQUE, label TEXT NOT NULL, expires_at TEXT NOT NULL, revoked_at TEXT, claimed_at TEXT, created_by TEXT NOT NULL, created_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editors (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', name TEXT NOT NULL, token_hash TEXT NOT NULL UNIQUE, status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, last_used_at TEXT)`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_profiles (class_id TEXT NOT NULL DEFAULT 's4-e', actor_id TEXT NOT NULL, whatsapp_e164 TEXT NOT NULL DEFAULT '', whatsapp_format_verified_at TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, PRIMARY KEY(class_id,actor_id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_credentials (editor_id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', email_normalized TEXT NOT NULL, password_hash TEXT NOT NULL, password_salt TEXT NOT NULL, password_algorithm TEXT NOT NULL DEFAULT 'pbkdf2-sha256', password_iterations INTEGER NOT NULL, password_version INTEGER NOT NULL DEFAULT 1, must_change_password INTEGER NOT NULL DEFAULT 1, temporary_expires_at TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(class_id,email_normalized), FOREIGN KEY(editor_id) REFERENCES hub_editors(id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_sessions (token_hash TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', editor_id TEXT NOT NULL, csrf_hash TEXT NOT NULL, created_at TEXT NOT NULL, expires_at TEXT NOT NULL, last_seen_at TEXT, revoked_at TEXT, FOREIGN KEY(editor_id) REFERENCES hub_editors(id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_audit (id INTEGER PRIMARY KEY AUTOINCREMENT, class_id TEXT NOT NULL DEFAULT 's4-e', actor_id TEXT NOT NULL, actor_role TEXT NOT NULL, action TEXT NOT NULL, entity_type TEXT NOT NULL, entity_id TEXT NOT NULL, details TEXT NOT NULL DEFAULT '{}', created_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_push_subscriptions (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', endpoint_hash TEXT NOT NULL UNIQUE, subscription_json TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_rate_limits (key TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', window_start INTEGER NOT NULL, count INTEGER NOT NULL DEFAULT 0)`)
     ]);
+    await ensureClassSupportWhatsappColumn(db);
     await db.prepare(`INSERT OR IGNORE INTO hub_classes (id,slug,name,semester,group_code,theme,drive_url,status,created_at,updated_at) VALUES (?,?,?,?,?,?,?,'active',?,?)`).bind(DEFAULT_CLASS_ID, DEFAULT_CLASS_SLUG, DEFAULT_CLASS.name, DEFAULT_CLASS.semester, DEFAULT_CLASS.group, DEFAULT_CLASS.theme, DEFAULT_CLASS.driveUrl, created, created).run();
     await db.batch(DEFAULT_SUBJECTS.map(([id, name], index) => db.prepare(`INSERT OR IGNORE INTO hub_subjects (class_id,id,name,sort_order,status,created_at,updated_at) VALUES (?,?,?,?,'active',?,?)`).bind(DEFAULT_CLASS_ID, id, name, index + 1, created, created)));
-    for (const table of ['hub_tasks', 'hub_notices', 'hub_activities', 'hub_groups', 'hub_memberships', 'hub_files', 'hub_dates', 'hub_schedule_slots', 'hub_invites', 'hub_editors', 'hub_editor_credentials', 'hub_editor_sessions', 'hub_audit', 'hub_push_subscriptions', 'hub_rate_limits']) await ensureClassColumn(db, table);
+    for (const table of ['hub_tasks', 'hub_notices', 'hub_activities', 'hub_groups', 'hub_memberships', 'hub_files', 'hub_dates', 'hub_schedule_slots', 'hub_invites', 'hub_editors', 'hub_editor_profiles', 'hub_editor_credentials', 'hub_editor_sessions', 'hub_audit', 'hub_push_subscriptions', 'hub_rate_limits']) await ensureClassColumn(db, table);
     await ensureTaskAttachmentColumns(db);
+    await ensureNoticeImageColumns(db);
     await ensureMembershipLeaderColumn(db);
     await db.batch([
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_tasks_class_idx ON hub_tasks(class_id,updated_at DESC)`),
@@ -309,6 +343,7 @@ async function ensureSchema(db) {
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_dates_class_idx ON hub_dates(class_id,starts_at)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_schedule_slots_class_idx ON hub_schedule_slots(class_id,status,weekday,starts_time)`),
       db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS hub_editor_credentials_class_email_uidx ON hub_editor_credentials(class_id,email_normalized)`),
+      db.prepare(`CREATE INDEX IF NOT EXISTS hub_editor_profiles_class_actor_idx ON hub_editor_profiles(class_id,actor_id)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_editor_sessions_editor_idx ON hub_editor_sessions(class_id,editor_id,expires_at)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_audit_class_created_idx ON hub_audit(class_id,created_at DESC)`)
     ]);
@@ -331,6 +366,22 @@ async function ensureSchema(db) {
 
 function publicActor(actor) {
   return { id: actor.id, role: actor.role, name: actor.name, classId: actor.classId };
+}
+
+async function readActorProfile(db, actor) {
+  const [profile, credential] = await Promise.all([
+    db.prepare(`SELECT whatsapp_e164,whatsapp_format_verified_at FROM hub_editor_profiles WHERE class_id=? AND actor_id=?`).bind(actor.classId, actor.id).first(),
+    actor.role === 'editor'
+      ? db.prepare(`SELECT email_normalized FROM hub_editor_credentials WHERE class_id=? AND editor_id=?`).bind(actor.classId, actor.id).first()
+      : Promise.resolve(null)
+  ]);
+  const whatsapp = cleanE164(profile?.whatsapp_e164);
+  return {
+    name: cleanText(actor.name, 60),
+    email: normalizeEmail(credential?.email_normalized) || '',
+    whatsapp,
+    whatsappFormatVerifiedAt: whatsapp ? (profile?.whatsapp_format_verified_at || null) : null
+  };
 }
 
 async function authenticateSession(request, db, classId) {
@@ -400,7 +451,7 @@ async function readScheduleSlots(db, classId, publishedOnly = true) {
 async function readPublic(db, classRecord) {
   const classId = classRecord.id;
   const [notices, tasks, activities, groups, files, dates, subjects, scheduleSlots] = await Promise.all([
-    db.prepare(`SELECT id,title,body,priority,status,published_at AS publishedAt FROM hub_notices WHERE class_id=? AND status='published' ORDER BY CASE priority WHEN 'urgent' THEN 0 WHEN 'important' THEN 1 ELSE 2 END, COALESCE(published_at,updated_at) DESC`).bind(classId).all(),
+    db.prepare(`SELECT id,title,body,priority,status,image_url AS imageUrl,image_alt AS imageAlt,published_at AS publishedAt FROM hub_notices WHERE class_id=? AND status='published' ORDER BY CASE priority WHEN 'urgent' THEN 0 WHEN 'important' THEN 1 ELSE 2 END, COALESCE(published_at,updated_at) DESC`).bind(classId).all(),
     db.prepare(`SELECT id,course,title,description,due_label AS dueLabel,due_at AS dueAt,attachment_url AS attachmentUrl,attachment_title AS attachmentTitle,status FROM hub_tasks WHERE class_id=? AND status='published' ORDER BY COALESCE(due_at,'9999') ASC, updated_at DESC`).bind(classId).all(),
     db.prepare(`SELECT id,title,capacity,closes_at AS closesAt,status,CASE WHEN frozen=1 OR (closes_at IS NOT NULL AND closes_at<=?) THEN 1 ELSE 0 END AS frozen FROM hub_activities WHERE class_id=? AND status='published' ORDER BY updated_at DESC`).bind(nowIso(), classId).all(),
     db.prepare(`SELECT g.id,g.activity_id AS activityId,g.name,g.capacity,CASE WHEN g.frozen=1 OR a.frozen=1 OR (a.closes_at IS NOT NULL AND a.closes_at<=?) THEN 1 ELSE 0 END AS frozen,COUNT(m.id) AS memberCount FROM hub_groups g LEFT JOIN hub_memberships m ON m.class_id=g.class_id AND m.group_id=g.id JOIN hub_activities a ON a.class_id=g.class_id AND a.id=g.activity_id WHERE g.class_id=? AND a.status='published' GROUP BY g.class_id,g.id ORDER BY g.activity_id,CAST(SUBSTR(g.name,7) AS INTEGER)`).bind(nowIso(), classId).all(),
@@ -415,10 +466,10 @@ async function readPublic(db, classRecord) {
 
 async function adminSnapshot(db, actor, classRecord) {
   const classId = classRecord.id;
-  const [subjects, tasks, notices, activities, groups, memberships, files, dates, scheduleSlots, editors, invites] = await Promise.all([
+  const [subjects, tasks, notices, activities, groups, memberships, files, dates, scheduleSlots, editors, invites, profile] = await Promise.all([
     db.prepare(`SELECT id,name,sort_order AS "order",status FROM hub_subjects WHERE class_id=? ORDER BY sort_order,name`).bind(classId).all(),
     db.prepare(`SELECT *,attachment_url AS attachmentUrl,attachment_title AS attachmentTitle FROM hub_tasks WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
-    db.prepare(`SELECT * FROM hub_notices WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
+    db.prepare(`SELECT *,image_url AS imageUrl,image_alt AS imageAlt FROM hub_notices WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
     db.prepare(`SELECT * FROM hub_activities WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
     db.prepare(`SELECT * FROM hub_groups WHERE class_id=? ORDER BY activity_id,name`).bind(classId).all(),
     db.prepare(`SELECT id,activity_id,group_id,display_name,is_leader AS isLeader,joined_at,updated_at FROM hub_memberships WHERE class_id=? ORDER BY activity_id,group_id,display_name`).bind(classId).all(),
@@ -426,10 +477,11 @@ async function adminSnapshot(db, actor, classRecord) {
     db.prepare(`SELECT * FROM hub_dates WHERE class_id=? ORDER BY starts_at`).bind(classId).all(),
     readScheduleSlots(db, classId, false),
     actor.role === 'owner' ? db.prepare(`SELECT e.id,e.name,e.status,e.created_at,e.last_used_at,c.email_normalized AS email,c.must_change_password AS password_change_required,c.temporary_expires_at FROM hub_editors e LEFT JOIN hub_editor_credentials c ON c.class_id=e.class_id AND c.editor_id=e.id WHERE e.class_id=? ORDER BY e.created_at DESC`).bind(classId).all() : Promise.resolve({ results: [] }),
-    actor.role === 'owner' ? db.prepare(`SELECT id,label,expires_at,revoked_at,claimed_at,created_at FROM hub_invites WHERE class_id=? ORDER BY created_at DESC LIMIT 100`).bind(classId).all() : Promise.resolve({ results: [] })
+    actor.role === 'owner' ? db.prepare(`SELECT id,label,expires_at,revoked_at,claimed_at,created_at FROM hub_invites WHERE class_id=? ORDER BY created_at DESC LIMIT 100`).bind(classId).all() : Promise.resolve({ results: [] }),
+    readActorProfile(db, actor)
   ]);
   const publishedScheduleSlots = scheduleSlots.filter((slot) => slot.status === 'published');
-  return { ok: true, class: publicClass(classRecord), actor: publicActor(actor), subjects: subjects.results || [], tasks: tasks.results || [], notices: notices.results || [], activities: activities.results || [], groups: groups.results || [], memberships: (memberships.results || []).map((item) => ({ ...item, isLeader: Boolean(item.isLeader) })), files: files.results || [], dates: dates.results || [], scheduleSlots, upcomingDates: upcomingScheduleDates(publishedScheduleSlots), editors: editors.results || [], invites: invites.results || [] };
+  return { ok: true, class: publicClass(classRecord), actor: publicActor(actor), profile, subjects: subjects.results || [], tasks: tasks.results || [], notices: notices.results || [], activities: activities.results || [], groups: groups.results || [], memberships: (memberships.results || []).map((item) => ({ ...item, isLeader: Boolean(item.isLeader) })), files: files.results || [], dates: dates.results || [], scheduleSlots, upcomingDates: upcomingScheduleDates(publishedScheduleSlots), editors: editors.results || [], invites: invites.results || [] };
 }
 
 async function joinGroup(data, db, classRecord) {
@@ -602,7 +654,7 @@ async function dispatchPush(env, db, classRecord, notice) {
   const rows = await db.prepare(`SELECT subscription_json FROM hub_push_subscriptions WHERE class_id=? AND status='active' ORDER BY updated_at DESC LIMIT 1000`).bind(classRecord.id).all();
   const subscriptions = (rows.results || []).flatMap((item) => { try { return [JSON.parse(item.subscription_json)]; } catch { return []; } });
   if (!subscriptions.length) return;
-  const response = await fetch(env.MED_NYKUTO_PUSH_WEBHOOK, { method: 'POST', headers: { 'content-type': 'application/json', ...(env.MED_NYKUTO_PUSH_WEBHOOK_TOKEN ? { authorization: `Bearer ${env.MED_NYKUTO_PUSH_WEBHOOK_TOKEN}` } : {}) }, body: JSON.stringify({ class: publicClass(classRecord), notice: { id: notice.id, title: notice.title, body: notice.body, priority: notice.priority, url: `/turma/${encodeURIComponent(classRecord.slug)}#inicio` }, subscriptions }) });
+  const response = await fetch(env.MED_NYKUTO_PUSH_WEBHOOK, { method: 'POST', headers: { 'content-type': 'application/json', ...(env.MED_NYKUTO_PUSH_WEBHOOK_TOKEN ? { authorization: `Bearer ${env.MED_NYKUTO_PUSH_WEBHOOK_TOKEN}` } : {}) }, body: JSON.stringify({ class: publicClass(classRecord, env), notice: { id: notice.id, title: notice.title, body: notice.body, priority: notice.priority, url: `/turma/${encodeURIComponent(classRecord.slug)}#avisos` }, subscriptions }) });
   if (!response.ok) throw new Error(`push_webhook_${response.status}`);
 }
 
@@ -611,18 +663,33 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
   if (actor.role === 'editor' && !EDITOR_ACTIONS.has(action)) return fail(403, 'permission_denied', 'El rol editor no puede modificar cursos, preguntas, perfiles, configuración ni permisos.');
   if (action === 'editor.account.create' && actor.role === 'owner') return createEditorAccount(data, actor, db, classRecord);
   if (action === 'editor.password.reset' && actor.role === 'owner') return resetEditorPassword(data, actor, db, classRecord);
+  if (action === 'profile.upsert') {
+    const whatsappProvided = hasOwn(data, 'whatsapp') || hasOwn(data, 'whatsappE164') || hasOwn(data, 'whatsapp_e164');
+    if (!whatsappProvided) return fail(400, 'invalid_profile', 'Indica un número de WhatsApp o deja el campo vacío para quitarlo.');
+    const submittedWhatsapp = hasOwn(data, 'whatsapp') ? data.whatsapp : (hasOwn(data, 'whatsappE164') ? data.whatsappE164 : data.whatsapp_e164);
+    const rawWhatsapp = cleanText(submittedWhatsapp, 40), whatsapp = cleanE164(rawWhatsapp);
+    if (rawWhatsapp && !whatsapp) return fail(400, 'invalid_whatsapp', 'Escribe el número con indicativo de país, por ejemplo +595981123456.');
+    const whatsappFormatVerifiedAt = whatsapp ? current : null;
+    await db.prepare(`INSERT INTO hub_editor_profiles (class_id,actor_id,whatsapp_e164,whatsapp_format_verified_at,created_at,updated_at) VALUES (?,?,?,?,?,?) ON CONFLICT(class_id,actor_id) DO UPDATE SET whatsapp_e164=excluded.whatsapp_e164,whatsapp_format_verified_at=excluded.whatsapp_format_verified_at,updated_at=excluded.updated_at`).bind(classId, actor.id, whatsapp, whatsappFormatVerifiedAt, current, current).run();
+    await audit(db, actor, action, 'profile', actor.id, { hasWhatsapp: Boolean(whatsapp), formatVerified: Boolean(whatsappFormatVerifiedAt) });
+    return json({ ok: true, profile: await readActorProfile(db, actor) });
+  }
   if (action === 'class.upsert' && actor.role === 'owner') {
-    const slug = cleanClassRef(data.slug), id = cleanClassRef(data.id) || slug, existing = id ? await db.prepare(`SELECT id,slug,name,semester,group_code,theme,drive_url,status FROM hub_classes WHERE id=?`).bind(id).first() : null;
+    const slug = cleanClassRef(data.slug), id = cleanClassRef(data.id) || slug, existing = id ? await db.prepare(`SELECT id,slug,name,semester,group_code,theme,drive_url,support_whatsapp,status FROM hub_classes WHERE id=?`).bind(id).first() : null;
     const name = cleanText(data.name, 100), semester = integer(data.semester, Number(existing?.semester) || 0, 1, 20), groupCode = data.group === undefined ? (existing?.group_code || '') : cleanText(data.group, 20);
     if (!id || !slug || !name || !semester || (data.status !== undefined && !['active', 'archived'].includes(data.status)) || (id === DEFAULT_CLASS_ID && data.status === 'archived')) return fail(400, 'invalid_class', 'Identificador, nombre, semestre y estado válidos son obligatorios. La turma base no puede archivarse.');
     const submittedDriveUrl = data.driveUrl === undefined ? null : cleanDriveUrl(data.driveUrl), driveUrl = submittedDriveUrl === null ? (existing?.drive_url || '') : submittedDriveUrl;
     if (data.driveUrl && !submittedDriveUrl) return fail(400, 'invalid_class', 'La URL de Drive no es válida.');
+    const supportProvided = hasOwn(data, 'supportWhatsapp') || hasOwn(data, 'support_whatsapp'), submittedSupport = hasOwn(data, 'supportWhatsapp') ? data.supportWhatsapp : data.support_whatsapp;
+    const rawSupport = supportProvided ? cleanText(submittedSupport, 40) : '', normalizedSupport = supportProvided ? cleanE164(rawSupport) : '';
+    if (rawSupport && !normalizedSupport) return fail(400, 'invalid_support_whatsapp', 'El WhatsApp de contacto necesita indicativo de país, por ejemplo +595981123456.');
+    const supportValue = supportProvided ? normalizedSupport : (existing?.support_whatsapp || '');
     const theme = data.theme === undefined ? (existing?.theme || 'midnight-gold') : (cleanText(data.theme, 40) || 'midnight-gold'), status = data.status === undefined ? (existing?.status || 'active') : (data.status === 'archived' ? 'archived' : 'active');
-    const result = await db.prepare(`INSERT INTO hub_classes (id,slug,name,semester,group_code,theme,drive_url,status,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET slug=excluded.slug,name=excluded.name,semester=excluded.semester,group_code=excluded.group_code,theme=excluded.theme,drive_url=excluded.drive_url,status=excluded.status,updated_at=excluded.updated_at`).bind(id, slug, name, semester, groupCode, theme, driveUrl, status, current, current).run();
+    const result = await db.prepare(`INSERT INTO hub_classes (id,slug,name,semester,group_code,theme,drive_url,support_whatsapp,status,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET slug=excluded.slug,name=excluded.name,semester=excluded.semester,group_code=excluded.group_code,theme=excluded.theme,drive_url=excluded.drive_url,support_whatsapp=excluded.support_whatsapp,status=excluded.status,updated_at=excluded.updated_at`).bind(id, slug, name, semester, groupCode, theme, driveUrl, supportValue, status, current, current).run();
     if (!changed(result)) return fail(409, 'class_conflict', 'No se pudo guardar la clase.');
-    await audit(db, { ...actor, classId: id }, action, 'class', id, { slug, status });
-    const saved = await db.prepare(`SELECT id,slug,name,semester,group_code,theme,drive_url,status FROM hub_classes WHERE id=?`).bind(id).first();
-    return json({ ok: true, class: adminClass(saved) }, existing ? 200 : 201);
+    await audit(db, { ...actor, classId: id }, action, 'class', id, { slug, status, hasSupportWhatsapp: Boolean(supportValue) });
+    const saved = await db.prepare(`SELECT id,slug,name,semester,group_code,theme,drive_url,support_whatsapp,status FROM hub_classes WHERE id=?`).bind(id).first();
+    return json({ ok: true, class: adminClass(saved, env) }, existing ? 200 : 201);
   }
   if (action === 'subject.upsert' && actor.role === 'owner') {
     const id = cleanId(data.id) || cleanId(data.slug), name = cleanText(data.name, 100), order = integer(data.order, 0, 0, 1000), status = data.status === 'archived' ? 'archived' : 'active';
@@ -666,11 +733,22 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
     const id = entityId(classId, data.id, 'notice'), title = cleanText(data.title, 180), status = cleanStatus(data.status), priority = cleanPriority(data.priority), pushMode = priority === 'urgent' || Boolean(data.pushMode);
     if (!title) return fail(400, 'invalid_notice', 'El título es obligatorio.');
     const body = cleanText(data.body, 1200);
-    const result = await db.prepare(`INSERT INTO hub_notices (id,class_id,title,body,priority,status,push_mode,created_by,created_at,updated_at,published_at) VALUES (?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET title=excluded.title,body=excluded.body,priority=excluded.priority,status=excluded.status,push_mode=excluded.push_mode,updated_at=excluded.updated_at,published_at=excluded.published_at WHERE hub_notices.class_id=excluded.class_id`).bind(id, classId, title, body, priority, status, pushMode ? 1 : 0, actor.id, current, current, status === 'published' ? current : null).run();
+    const existing = await db.prepare(`SELECT image_url,image_alt FROM hub_notices WHERE class_id=? AND id=?`).bind(classId, id).first();
+    const imageUrlProvided = hasOwn(data, 'imageUrl') || hasOwn(data, 'image_url'), imageAltProvided = hasOwn(data, 'imageAlt') || hasOwn(data, 'image_alt');
+    const submittedImageUrl = hasOwn(data, 'imageUrl') ? data.imageUrl : data.image_url, submittedImageAlt = hasOwn(data, 'imageAlt') ? data.imageAlt : data.image_alt;
+    const rawImageUrl = imageUrlProvided ? cleanText(submittedImageUrl, 1500) : '';
+    let imageUrl = imageUrlProvided ? cleanAttachmentUrl(submittedImageUrl) : (existing?.image_url || '');
+    let imageAlt = imageAltProvided ? cleanText(submittedImageAlt, 240) : (imageUrlProvided ? '' : (existing?.image_alt || ''));
+    if (imageUrlProvided && rawImageUrl && !imageUrl) return fail(400, 'invalid_notice_image', 'La imagen debe usar una URL HTTPS válida, sin usuario ni contraseña en el enlace.');
+    if (imageUrlProvided && !imageUrl) imageAlt = '';
+    if (imageAlt && !imageUrl) return fail(400, 'invalid_notice_image', 'El texto alternativo necesita también una imagen HTTPS válida.');
+    imageUrl = imageUrl || null;
+    imageAlt = imageAlt || null;
+    const result = await db.prepare(`INSERT INTO hub_notices (id,class_id,title,body,priority,status,push_mode,image_url,image_alt,created_by,created_at,updated_at,published_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET title=excluded.title,body=excluded.body,priority=excluded.priority,status=excluded.status,push_mode=excluded.push_mode,image_url=excluded.image_url,image_alt=excluded.image_alt,updated_at=excluded.updated_at,published_at=excluded.published_at WHERE hub_notices.class_id=excluded.class_id`).bind(id, classId, title, body, priority, status, pushMode ? 1 : 0, imageUrl, imageAlt, actor.id, current, current, status === 'published' ? current : null).run();
     if (!changed(result)) return fail(409, 'cross_class_conflict', 'El identificador pertenece a otra clase.');
-    await audit(db, actor, action, 'notice', id, { status, priority, pushMode });
+    await audit(db, actor, action, 'notice', id, { status, priority, pushMode, hasImage: Boolean(imageUrl) });
     if (status === 'published') { const pushJob = dispatchPush(env, db, classRecord, { id, title, body, priority, pushMode }).catch(() => audit(db, actor, 'notice.push_failed', 'notice', id)); if (typeof waitUntil === 'function') waitUntil(pushJob); else await pushJob; }
-    return json({ ok: true, id, status });
+    return json({ ok: true, id, status, imageUrl, imageAlt });
   }
   if (action === 'activity.upsert') {
     const id = entityId(classId, data.id, 'activity'), title = cleanText(data.title, 160);
@@ -751,6 +829,7 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
     await db.batch([
       db.prepare(`UPDATE hub_editors SET status='revoked' WHERE class_id=? AND id=? AND status='active'`).bind(classId, id),
       db.prepare(`UPDATE hub_editor_sessions SET revoked_at=? WHERE class_id=? AND editor_id=? AND revoked_at IS NULL`).bind(current, classId, id),
+      db.prepare(`DELETE FROM hub_editor_profiles WHERE class_id=? AND actor_id=?`).bind(classId, id),
       db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,?,?,? ,?,'{}',?)`).bind(classId, actor.id, actor.role, action, 'editor', id, current)
     ]);
     return json({ ok: true });
@@ -767,7 +846,7 @@ export async function onRequestGet({ request, env }) {
     const requested = refs[0] || DEFAULT_CLASS_SLUG;
     if (resource === 'public' && requested === DEFAULT_CLASS_SLUG) {
       const scheduleSlots = defaultPublicScheduleSlots();
-      return json({ ok: true, ...DEFAULT_PUBLIC, scheduleSlots, upcomingDates: upcomingScheduleDates(scheduleSlots), mode: 'static-fallback' });
+      return json({ ok: true, ...DEFAULT_PUBLIC, class: { ...DEFAULT_PUBLIC.class, supportWhatsapp: supportWhatsapp(DEFAULT_PUBLIC.class, env) }, scheduleSlots, upcomingDates: upcomingScheduleDates(scheduleSlots), mode: 'static-fallback' });
     }
     return fail(503, 'database_unavailable', 'La base de gestión no está configurada.');
   }
@@ -778,9 +857,9 @@ export async function onRequestGet({ request, env }) {
       const actor = await authenticate(request, env, db, DEFAULT_CLASS_ID);
       if (!actor) return fail(401, 'authentication_required', 'Se necesita un acceso de propietario.');
       if (actor.role !== 'owner') return fail(403, 'permission_denied', 'El registro de clases es exclusivo del propietario.');
-      return json({ ok: true, classes: await listClasses(db) });
+      return json({ ok: true, classes: await listClasses(db, env) });
     }
-    const resolved = await resolveClass(request, db);
+    const resolved = await resolveClass(request, db, null, env);
     if (resolved.error === 'class_mismatch') return fail(400, 'class_mismatch', 'La clase indicada no es válida o no coincide.');
     if (!resolved.classRecord) return fail(404, 'class_not_found', 'La clase solicitada no existe o no está activa.');
     const classRecord = resolved.classRecord;
@@ -816,7 +895,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
       if (actor.role !== 'owner') return fail(403, 'permission_denied', 'Solo el propietario puede crear o modificar clases.');
       return mutate(action, data, actor, { id: DEFAULT_CLASS_ID }, env, db, waitUntil);
     }
-    const resolved = await resolveClass(request, db, data);
+    const resolved = await resolveClass(request, db, data, env);
     if (resolved.error === 'class_mismatch') return fail(400, 'class_mismatch', 'La clase indicada no es válida o no coincide.');
     if (!resolved.classRecord) return fail(404, 'class_not_found', 'La clase solicitada no existe o no está activa.');
     const classRecord = resolved.classRecord;

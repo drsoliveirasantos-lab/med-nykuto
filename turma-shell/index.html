@@ -9,7 +9,7 @@
   <link id="classManifest" rel="manifest" />
   <script src="/turma-manifest-boot-v471.js?v=471"></script>
   <link rel="icon" href="/assets/pwa-icon-192.png" />
-  <link rel="stylesheet" href="/turma-v471.css?v=471" />
+  <link rel="stylesheet" href="/turma-v471.css?v=475" />
 </head>
 <body>
   <a class="skip-link" href="#classMain">Saltar al contenido</a>
@@ -20,8 +20,8 @@
       <span><strong>Med Nykuto</strong><small>Espacio de la turma</small></span>
     </a>
     <div class="topbar-actions">
-      <button id="noticeButton" class="icon-button" type="button" aria-label="Abrir alertas" aria-haspopup="dialog">
-        <span aria-hidden="true">◉</span><b id="noticeCount" hidden>0</b>
+      <button id="noticeButton" class="icon-button" type="button" aria-label="Abrir avisos" aria-controls="avisos">
+        <span aria-hidden="true">🔔</span><b id="noticeCount" aria-hidden="true" hidden>0</b>
       </button>
       <a id="manageLink" class="manage-button" href="/gestion/s4-e">Gestión</a>
     </div>
@@ -43,6 +43,14 @@
         </div>
       </article>
 
+      <section id="homeNoticeSection" class="section-block home-notice-section" aria-labelledby="homeNoticeTitle" hidden>
+        <div class="section-heading">
+          <div><span>INFORMACIÓN OFICIAL</span><h2 id="homeNoticeTitle">Avisos importantes</h2></div>
+          <button type="button" data-open-view="avisos">Ver todos</button>
+        </div>
+        <div id="homeNoticeCarousel" class="notice-carousel" aria-label="Avisos importantes de la turma"></div>
+      </section>
+
       <section class="section-block" aria-labelledby="homeTasksTitle">
         <div class="section-heading">
           <div><span>AHORA</span><h2 id="homeTasksTitle">Lo próximo</h2></div>
@@ -59,10 +67,16 @@
         <div id="homeSubjects" class="subject-strip"></div>
       </section>
 
-      <section class="section-block compact-block" aria-labelledby="changeTitle">
-        <div class="section-heading"><div><span>ÚLTIMAS NOVEDADES</span><h2 id="changeTitle">Qué cambió</h2></div></div>
-        <div id="homeNotices" class="notice-stack"></div>
-      </section>
+    </section>
+
+    <section id="avisos" class="view" data-view="avisos" aria-labelledby="noticesTitle" hidden>
+      <header class="view-heading notice-page-heading">
+        <span>INFORMACIÓN OFICIAL</span>
+        <h1 id="noticesTitle">Avisos de la turma</h1>
+        <p>Consulta aquí todos los avisos publicados por el delegado.</p>
+        <button type="button" class="notice-back" data-open-view="inicio">← Volver al inicio</button>
+      </header>
+      <div id="noticePageList" class="notice-page-list"></div>
     </section>
 
     <section id="tareas" class="view" data-view="tareas" aria-labelledby="tasksTitle" hidden>
@@ -127,11 +141,6 @@
     <button type="button" data-nav-view="mas"><span aria-hidden="true">•••</span><strong>Más</strong></button>
   </nav>
 
-  <dialog id="noticeDialog" class="notice-dialog" aria-labelledby="noticeDialogTitle">
-    <header><div><span>ACTUALIZACIONES</span><h2 id="noticeDialogTitle">Alertas de la turma</h2></div><button type="button" data-close-dialog aria-label="Cerrar">×</button></header>
-    <div id="noticeDialogList" class="notice-stack"></div>
-  </dialog>
-
-  <script src="/turma-v471.js?v=472"></script>
+  <script src="/turma-v471.js?v=475"></script>
 </body>
 </html>

@@ -1,10 +1,10 @@
-const CACHE = 'med-nykuto-shell-v474';
+const CACHE = 'med-nykuto-shell-v475';
 const SHELL = [
   '/offline.html',
   '/turma-shell/',
-  '/turma-v471.css?v=471',
-  '/turma-v471.js?v=472',
-  '/turma-manifest-boot-v471.js?v=471',
+  '/turma-v471.css?v=475',
+  '/turma-v471.js?v=475',
+  '/turma-manifest-boot-v471.js?v=475',
   '/assets/pwa-icon-192.png',
   '/assets/pwa-icon-512.png'
 ];
@@ -31,15 +31,15 @@ self.addEventListener('fetch', (event) => {
 });
 function safeNotificationTarget(value) {
   try {
-    const url = new URL(value || '/turma/s4-e#inicio', self.location.origin);
-    if (url.origin !== self.location.origin || !url.pathname.startsWith('/turma/')) return '/turma/s4-e#inicio';
+    const url = new URL(value || '/turma/s4-e#avisos', self.location.origin);
+    if (url.origin !== self.location.origin || !url.pathname.startsWith('/turma/')) return '/turma/s4-e#avisos';
     return `${url.pathname}${url.search}${url.hash}`;
   } catch (_) {
-    return '/turma/s4-e#inicio';
+    return '/turma/s4-e#avisos';
   }
 }
 self.addEventListener('push', (event) => {
-  let data = { title: 'Med Nykuto', body: 'Hay una actualización importante en tu turma.', url: '/turma/s4-e#inicio' };
+  let data = { title: 'Med Nykuto', body: 'Hay una actualización importante en tu turma.', url: '/turma/s4-e#avisos' };
   try { data = { ...data, ...event.data.json() }; } catch (error) { if (event.data) data.body = event.data.text(); }
   event.waitUntil(self.registration.showNotification(data.title, { body: data.body, icon: '/assets/pwa-icon-192.png', badge: '/assets/pwa-icon-192.png', tag: data.id || 'med-nykuto-alert', renotify: data.priority === 'urgent', data: { url: safeNotificationTarget(data.url) } }));
 });

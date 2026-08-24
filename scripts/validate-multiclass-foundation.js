@@ -7,6 +7,7 @@ const root = path.resolve(__dirname, '..');
 const DEFAULT_CLASS_ID = 's4-e';
 const SECOND_CLASS_ID = 's3-a';
 const LEGACY_COHORT_KEY = 'semester-4-group-e';
+const SYNTHETIC_SUPPORT_WHATSAPP = '+595981000111';
 
 const protectedHashes = {
   'data/med-courses-data.js': '96af099ed79fd09065d97f7c2c5d32c17a3005fb56dc3151ce6ff48dfbd6beab',
@@ -31,6 +32,7 @@ const hubTenantTables = [
   'hub_schedule_slots',
   'hub_invites',
   'hub_editors',
+  'hub_editor_profiles',
   'hub_editor_credentials',
   'hub_editor_sessions',
   'hub_audit',
@@ -150,8 +152,11 @@ class GuardedD1Mock {
       [DEFAULT_CLASS_ID, 'active'],
       [SECOND_CLASS_ID, 'active']
     ]);
+    this.classSupport = new Map();
     this.scheduleSlots = new Map();
     this.tasks = new Map();
+    this.notices = new Map();
+    this.profiles = new Map();
     this.editorTokenHash = hashToken('editor-s4-token');
   }
 
@@ -199,7 +204,9 @@ class GuardedD1Mock {
       theme: 'med-nykuto',
       drive_url: '',
       driveUrl: '',
-      status: this.classStatuses.get(id) || 'active'
+      status: this.classStatuses.get(id) || 'active',
+      support_whatsapp: this.classSupport.get(id) || '',
+      supportWhatsapp: this.classSupport.get(id) || ''
     };
   }
 
@@ -230,6 +237,16 @@ class GuardedD1Mock {
         .filter((slot) => slot.classId === classId && (!/slot\.status='published'/i.test(normalized) || slot.status === 'published'))
         .map((slot) => ({ id: slot.id, subjectId: slot.subjectId, subject: subjectNames.get(slot.subjectId) || slot.subjectId, weekday: slot.weekday, startsTime: slot.startsTime, endsTime: slot.endsTime, label: slot.label, status: slot.status }));
     }
+    if (/\bfrom\s+hub_notices\b/i.test(normalized)) {
+      const classId = this.classFrom(values);
+      return [...this.notices.values()]
+        .filter((notice) => notice.classId === classId && (!/status='published'/i.test(normalized) || notice.status === 'published'))
+        .map((notice) => ({
+          id: notice.id, title: notice.title, body: notice.body, priority: notice.priority, status: notice.status,
+          image_url: notice.imageUrl, image_alt: notice.imageAlt, imageUrl: notice.imageUrl, imageAlt: notice.imageAlt,
+          publishedAt: notice.publishedAt
+        }));
+    }
     if (/\bfrom\s+hub_subjects\b/i.test(normalized)) return [];
     return [];
   }
@@ -251,6 +268,19 @@ class GuardedD1Mock {
       const task = this.tasks.get(id);
       return task?.classId === classId ? { attachment_url: task.attachmentUrl, attachment_title: task.attachmentTitle } : null;
     }
+    if (/\bfrom\s+hub_notices\b/i.test(normalized)) {
+      const classId = this.classFrom(values), id = String(values[1] || '');
+      const notice = this.notices.get(id);
+      return notice?.classId === classId ? { image_url: notice.imageUrl, image_alt: notice.imageAlt } : null;
+    }
+    if (/\bfrom\s+hub_editor_profiles\b/i.test(normalized)) {
+      const classId = this.classFrom(values), actorId = String(values[1] || '');
+      const profile = this.profiles.get(`${classId}:${actorId}`);
+      return profile ? { whatsapp_e164: profile.whatsapp, whatsapp_format_verified_at: profile.verifiedAt } : null;
+    }
+    if (/\bfrom\s+hub_editor_credentials\b/i.test(normalized) && /email_normalized/i.test(normalized)) {
+      return { email_normalized: 'delegate.fixture@example.test' };
+    }
     if (/\bfrom\s+hub_subjects\b/i.test(normalized)) {
       const classId = this.classFrom(values), id = String(values[1] || '');
       const known = new Set(['bioquimica-ii', 'epidemiologia-salud-publica', 'fisiologia-ii', 'microbiologia-ii-teorica', 'microbiologia-ii-practica', 'nutricion']);
@@ -258,6 +288,9 @@ class GuardedD1Mock {
     }
     if (/\bselect\s+count\s+from\s+hub_rate_limits\b/i.test(normalized)) return { count: 1 };
     if (/\bfrom\s+hub_editors\b/i.test(normalized)) {
+      if (/\bid\s*=\s*\?/i.test(normalized) && /status='active'/i.test(normalized) && values.includes('editor-s4')) {
+        return { id: 'editor-s4', name: 'Delegado 4.º E', status: 'active', class_id: DEFAULT_CLASS_ID };
+      }
       const hasToken = values.includes(this.editorTokenHash);
       const requestedClass = this.classFrom(values);
       if (!hasToken) return null;
@@ -283,7 +316,7 @@ class GuardedD1Mock {
     const create = normalized.match(/^create\s+table\s+if\s+not\s+exists\s+([a-z0-9_]+)\s*\(/i);
     if (create && !this.tableColumns.has(create[1])) {
       const columns = new Set();
-      ['class_id', 'attachment_url', 'attachment_title', 'is_leader'].forEach((column) => {
+      ['class_id', 'attachment_url', 'attachment_title', 'image_url', 'image_alt', 'is_leader', 'support_whatsapp', 'actor_id', 'whatsapp_e164', 'whatsapp_format_verified_at'].forEach((column) => {
         if (new RegExp(`\\b${column}\\b`, 'i').test(normalized)) columns.add(column);
       });
       this.tableColumns.set(create[1], columns);
@@ -294,8 +327,10 @@ class GuardedD1Mock {
       this.tableColumns.get(alter[1]).add(alter[2]);
     }
     if (/^insert\s+into\s+hub_classes\b/i.test(normalized)) {
-      const id = String(values[0] || '');
-      if (this.classStatuses.has(id)) this.classStatuses.set(id, values[7] === 'archived' ? 'archived' : 'active');
+      const columns = insertColumns(sql, 'hub_classes'), valueByColumn = Object.fromEntries(columns.map((column, index) => [column, values[index]]));
+      const id = String(valueByColumn.id || '');
+      if (this.classStatuses.has(id)) this.classStatuses.set(id, valueByColumn.status === 'archived' ? 'archived' : 'active');
+      if (this.classStatuses.has(id) && valueByColumn.support_whatsapp !== undefined) this.classSupport.set(id, String(valueByColumn.support_whatsapp || ''));
     }
     if (/^insert\s+or\s+ignore\s+into\s+hub_schedule_slots\b/i.test(normalized)) {
       this.scheduleSlots.set(String(values[0]), {
@@ -314,6 +349,23 @@ class GuardedD1Mock {
         id: String(values[0]), classId: String(values[1]), attachmentUrl: values[7] || null, attachmentTitle: values[8] || null
       });
     }
+    if (/^insert\s+into\s+hub_notices\b/i.test(normalized)) {
+      const columns = insertColumns(sql, 'hub_notices'), valueByColumn = Object.fromEntries(columns.map((column, index) => [column, values[index]]));
+      this.notices.set(String(valueByColumn.id), {
+        id: String(valueByColumn.id), classId: String(valueByColumn.class_id), title: String(valueByColumn.title || ''), body: String(valueByColumn.body || ''),
+        priority: String(valueByColumn.priority || 'normal'), status: String(valueByColumn.status || 'draft'),
+        imageUrl: valueByColumn.image_url || null, imageAlt: valueByColumn.image_alt || null, publishedAt: valueByColumn.published_at || null
+      });
+    }
+    if (/^insert\s+into\s+hub_editor_profiles\b/i.test(normalized)) {
+      const columns = insertColumns(sql, 'hub_editor_profiles'), valueByColumn = Object.fromEntries(columns.map((column, index) => [column, values[index]]));
+      this.profiles.set(`${valueByColumn.class_id}:${valueByColumn.actor_id}`, {
+        whatsapp: String(valueByColumn.whatsapp_e164 || ''), verifiedAt: valueByColumn.whatsapp_format_verified_at || null
+      });
+    }
+    if (/^delete\s+from\s+hub_editor_profiles\b/i.test(normalized)) {
+      this.profiles.delete(`${String(values[0] || '')}:${String(values[1] || '')}`);
+    }
     return { meta: { changes: 1 } };
   }
 }
@@ -331,7 +383,7 @@ async function classHubGet(handler, db, query, token = '') {
   const request = new Request(`https://med.nykuto.com/api/class-hub${query}`, {
     headers: token ? { authorization: `Bearer ${token}` } : undefined
   });
-  const response = await handler({ request, env: { MED_NYKUTO_DB: db, MED_NYKUTO_OWNER_TOKEN: 'owner-token', MED_NYKUTO_RATE_SALT: 'test-salt' } });
+  const response = await handler({ request, env: { MED_NYKUTO_DB: db, MED_NYKUTO_OWNER_TOKEN: 'owner-token', MED_NYKUTO_RATE_SALT: 'test-salt', MED_NYKUTO_SUPPORT_WHATSAPP: SYNTHETIC_SUPPORT_WHATSAPP } });
   return { response, body: await response.json() };
 }
 
@@ -347,7 +399,7 @@ async function classHubPost(handler, db, query, body, token) {
   });
   const response = await handler({
     request,
-    env: { MED_NYKUTO_DB: db, MED_NYKUTO_OWNER_TOKEN: 'owner-token', MED_NYKUTO_RATE_SALT: 'test-salt' },
+    env: { MED_NYKUTO_DB: db, MED_NYKUTO_OWNER_TOKEN: 'owner-token', MED_NYKUTO_RATE_SALT: 'test-salt', MED_NYKUTO_SUPPORT_WHATSAPP: SYNTHETIC_SUPPORT_WHATSAPP },
     waitUntil: (promise) => promise
   });
   return { response, body: await response.json() };
@@ -381,6 +433,11 @@ async function validateRuntimeIsolation() {
   const legacyPublic = await classHubGet(classHub.onRequestGet, db, '?resource=public');
   expect(legacyPublic.response.status === 200, `Class hub default 4.º E request failed (${legacyPublic.response.status}: ${JSON.stringify(legacyPublic.body)}).`);
   expect(responseClassId(legacyPublic.body) === DEFAULT_CLASS_ID, 'Class hub request without class must resolve to s4-e.');
+  expect(legacyPublic.body.class?.supportWhatsapp === SYNTHETIC_SUPPORT_WHATSAPP, 'The configured public support WhatsApp is missing from the class contract.');
+  db.classSupport.set(DEFAULT_CLASS_ID, 'invalid-legacy-value');
+  const fallbackSupport = await classHubGet(classHub.onRequestGet, db, '?class=s4-e&resource=public');
+  expect(fallbackSupport.body.class?.supportWhatsapp === SYNTHETIC_SUPPORT_WHATSAPP, 'An invalid legacy class contact masks the valid environment support WhatsApp fallback.');
+  db.classSupport.delete(DEFAULT_CLASS_ID);
   expect(legacyPublic.body.scheduleSlots?.length === 8, `The seeded S4 schedule must expose 8 recurring slots, got ${legacyPublic.body.scheduleSlots?.length || 0}.`);
   expect(legacyPublic.body.upcomingDates?.length > 0 && legacyPublic.body.upcomingDates.every((date) => date.subjectId && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(date.startsAt)), 'Public upcoming course dates are missing their tenant subject or local datetime contract.');
   expect(!Object.prototype.hasOwnProperty.call(legacyPublic.body, 'memberships'), 'The public class response exposes nominative memberships or leader flags.');
@@ -460,6 +517,52 @@ async function validateRuntimeIsolation() {
   }, 'editor-s4-token');
   expect(invalidAttachment.response.status === 400 && responseCode(invalidAttachment.body) === 'invalid_attachment', `An insecure task attachment URL was accepted (${invalidAttachment.response.status}: ${JSON.stringify(invalidAttachment.body)}).`);
   expect(!db.calls.slice(invalidAttachmentStart).some((call) => /^insert\s+into\s+hub_tasks\b/i.test(call.sql)), 'A rejected insecure attachment still wrote to hub_tasks.');
+
+  const noticeImageStart = db.calls.length;
+  const imageNotice = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'notice.upsert', id: 'official-exam-notice', title: 'Fecha oficial del examen', body: 'Consulta el cronograma.',
+    priority: 'important', status: 'published', imageUrl: 'https://example.test/official-exam.webp', imageAlt: 'Cronograma oficial del examen'
+  }, 'editor-s4-token');
+  expect(imageNotice.response.status === 200 && imageNotice.body.imageUrl === 'https://example.test/official-exam.webp' && imageNotice.body.imageAlt === 'Cronograma oficial del examen', `A valid HTTPS notice image was rejected (${imageNotice.response.status}: ${JSON.stringify(imageNotice.body)}).`);
+  const noticeWrite = db.calls.slice(noticeImageStart).find((call) => /^insert\s+into\s+hub_notices\b/i.test(call.sql) && call.values[0] === 'official-exam-notice');
+  expect(Boolean(noticeWrite) && noticeWrite.values[1] === DEFAULT_CLASS_ID && noticeWrite.values[7] === 'https://example.test/official-exam.webp' && noticeWrite.values[8] === 'Cronograma oficial del examen', 'Notice image INSERT bindings are missing, reordered or not class-scoped.');
+
+  const preservedNotice = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'notice.upsert', id: 'official-exam-notice', title: 'Fecha oficial actualizada', body: 'Consulta el cronograma.', priority: 'important', status: 'published'
+  }, 'editor-s4-token');
+  expect(preservedNotice.response.status === 200 && preservedNotice.body.imageUrl === 'https://example.test/official-exam.webp' && preservedNotice.body.imageAlt === 'Cronograma oficial del examen', 'Updating a notice without image fields erased its existing image.');
+
+  const changedNoticeImage = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'notice.upsert', id: 'official-exam-notice', title: 'Nueva imagen oficial', body: 'Consulta la nueva imagen.', priority: 'important', status: 'published', imageUrl: 'https://example.test/official-exam-v2.webp'
+  }, 'editor-s4-token');
+  expect(changedNoticeImage.response.status === 200 && changedNoticeImage.body.imageUrl === 'https://example.test/official-exam-v2.webp' && changedNoticeImage.body.imageAlt === null, 'Changing a notice image without a new alt text preserved a misleading description from the previous image.');
+
+  const invalidNoticeStart = db.calls.length;
+  const invalidNoticeImage = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'notice.upsert', id: 'unsafe-notice-image', title: 'Imagen insegura', imageUrl: 'http://example.test/exam.jpg', status: 'draft'
+  }, 'editor-s4-token');
+  expect(invalidNoticeImage.response.status === 400 && responseCode(invalidNoticeImage.body) === 'invalid_notice_image', `An insecure notice image URL was accepted (${invalidNoticeImage.response.status}: ${JSON.stringify(invalidNoticeImage.body)}).`);
+  expect(!db.calls.slice(invalidNoticeStart).some((call) => /^insert\s+into\s+hub_notices\b/i.test(call.sql)), 'A rejected insecure notice image still wrote to hub_notices.');
+
+  const profileStart = db.calls.length;
+  const savedProfile = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
+    action: 'profile.upsert', whatsapp: '00 595 (981) 123-456'
+  }, 'editor-s4-token');
+  expect(savedProfile.response.status === 200 && savedProfile.body.profile?.whatsapp === '+595981123456' && savedProfile.body.profile?.whatsappFormatVerifiedAt, `A valid formatted WhatsApp was not normalized (${savedProfile.response.status}: ${JSON.stringify(savedProfile.body)}).`);
+  const profileWrite = db.calls.slice(profileStart).find((call) => /^insert\s+into\s+hub_editor_profiles\b/i.test(call.sql));
+  expect(Boolean(profileWrite) && profileWrite.values[0] === DEFAULT_CLASS_ID && profileWrite.values[1] === 'editor-s4' && profileWrite.values[2] === '+595981123456', 'The private WhatsApp profile write is not bound to the authenticated actor and class.');
+  const profileAudit = db.calls.slice(profileStart).find((call) => /^insert\s+into\s+hub_audit\b/i.test(call.sql) && call.values.includes('profile.upsert'));
+  expect(Boolean(profileAudit) && !JSON.stringify(profileAudit.values).includes('+595981123456'), 'The private WhatsApp number leaked into the audit log.');
+
+  const profileAdmin = await classHubGet(classHub.onRequestGet, db, '?class=s4-e&resource=admin', 'editor-s4-token');
+  expect(profileAdmin.response.status === 200 && profileAdmin.body.profile?.whatsapp === '+595981123456', 'The authenticated actor cannot read their saved WhatsApp profile.');
+  const profilePublic = await classHubGet(classHub.onRequestGet, db, '?class=s4-e&resource=public');
+  expect(!JSON.stringify(profilePublic.body).includes('+595981123456') && !Object.prototype.hasOwnProperty.call(profilePublic.body, 'profile'), 'The private WhatsApp profile leaked into the public class response.');
+
+  const invalidProfileStart = db.calls.length;
+  const invalidProfile = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', { action: 'profile.upsert', whatsapp: '595981123456' }, 'editor-s4-token');
+  expect(invalidProfile.response.status === 400 && responseCode(invalidProfile.body) === 'invalid_whatsapp', `A WhatsApp number without an international prefix was accepted (${invalidProfile.response.status}: ${JSON.stringify(invalidProfile.body)}).`);
+  expect(!db.calls.slice(invalidProfileStart).some((call) => /^insert\s+into\s+hub_editor_profiles\b/i.test(call.sql)), 'A rejected WhatsApp number still changed the private profile.');
 
   const editorScheduleWrite = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', {
     action: 'schedule.upsert', id: 'editor-schedule-probe', subjectId: 'fisiologia-ii', weekday: 2, startsTime: '08:00', endsTime: '10:00'
@@ -542,6 +645,13 @@ async function validateRuntimeIsolation() {
   const defaultAfterArchiveAttempt = await classHubGet(classHub.onRequestGet, db, '?class=s4-e&resource=public');
   expect(defaultAfterArchiveAttempt.response.status === 200, 'A rejected archive attempt still disabled the compatibility class s4-e.');
 
+  const revokeProfileStart = db.calls.length;
+  const revokedEditor = await classHubPost(classHub.onRequestPost, db, '?class=s4-e', { action: 'editor.revoke', id: 'editor-s4' }, 'owner-token');
+  expect(revokedEditor.response.status === 200, `The owner could not revoke the profile-bearing editor (${revokedEditor.response.status}: ${JSON.stringify(revokedEditor.body)}).`);
+  expect(!db.profiles.has(`${DEFAULT_CLASS_ID}:editor-s4`), 'Revoking an editor left their private WhatsApp profile orphaned.');
+  const profileDelete = db.calls.slice(revokeProfileStart).find((call) => /^delete\s+from\s+hub_editor_profiles\b/i.test(call.sql));
+  expect(Boolean(profileDelete) && profileDelete.values[0] === DEFAULT_CLASS_ID && profileDelete.values[1] === 'editor-s4', 'The revoke flow does not delete the private profile with class/actor scoping.');
+
   const missingClass = await classHubGet(classHub.onRequestGet, db, '?class=does-not-exist&resource=public');
   expect(missingClass.response.status === 404 && responseCode(missingClass.body) === 'class_not_found', 'Unknown class slug must return class_not_found instead of falling back or leaking data.');
 
@@ -587,6 +697,9 @@ async function validateRuntimeIsolation() {
     expect(db.tableColumns.get(table)?.has('class_id'), `${table} does not contain class_id after the legacy-schema migration path.`);
   });
   expect(db.tableColumns.get('hub_tasks')?.has('attachment_url') && db.tableColumns.get('hub_tasks')?.has('attachment_title'), 'hub_tasks is missing attachment columns after schema initialization.');
+  expect(db.tableColumns.get('hub_notices')?.has('image_url') && db.tableColumns.get('hub_notices')?.has('image_alt'), 'hub_notices is missing image columns after schema initialization.');
+  expect(db.tableColumns.get('hub_classes')?.has('support_whatsapp'), 'hub_classes is missing support_whatsapp after schema initialization.');
+  expect(db.tableColumns.get('hub_editor_profiles')?.has('whatsapp_e164') && db.tableColumns.get('hub_editor_profiles')?.has('actor_id'), 'hub_editor_profiles is missing its private WhatsApp contract.');
   expect(db.tableColumns.get('hub_memberships')?.has('is_leader'), 'hub_memberships is missing is_leader after schema initialization.');
   db.errors.forEach((error) => failures.push(error));
 }
@@ -609,6 +722,8 @@ async function validateMulticlassShell() {
 
   const turmaHtml = read('turma-shell/index.html');
   const turmaRuntime = read('turma-v471.js');
+  const legacyClassHtml = read('clase.html');
+  const legacyClassCss = read('class-hub-2026-08-21-v440.css');
   const managementHtml = read('gestion-shell/index.html');
   const managementRuntime = read('gestion-v440.js');
   const credentialHelper = read('functions/_lib/management-credentials.js');
@@ -618,14 +733,14 @@ async function validateMulticlassShell() {
   const worker = read('service-worker.js');
 
   expect((turmaHtml.match(/data-nav-view=/g) || []).length === 5, 'The generic class hub must expose exactly five mobile navigation tabs.');
-  expect((turmaHtml.match(/data-view="/g) || []).length === 5, 'The generic class hub must expose exactly five class views.');
+  expect((turmaHtml.match(/data-view="/g) || []).length === 6, 'The generic class hub must expose five navigation views plus the dedicated notices view.');
   expect(turmaHtml.includes('name="robots" content="noindex,nofollow"'), 'The generic class hub is missing its noindex directive.');
   expect(turmaHtml.indexOf('turma-manifest-boot-v471.js') < turmaHtml.indexOf('turma-v471.js'), 'The class manifest is not selected before the main class runtime.');
   expect(turmaRuntime.includes("API+'&resource=public'") && turmaRuntime.includes("'/gestion/'+encodeURIComponent(slug)"), 'The generic hub is not querying or linking the selected class explicitly.');
   expect(!/state\.(?:members|memberships)|data\.(?:members|memberships)/.test(turmaRuntime), 'The generic student hub still consumes nominative group records.');
   expect(turmaRuntime.includes("action:'group.join'") && turmaRuntime.includes("action:'group.leave'") && turmaRuntime.includes('memberCount'), 'Students cannot join and leave generic class groups using anonymous occupancy data.');
 
-  expect(managementHtml.includes('src="/gestion-v440.js?v=474"') && managementHtml.includes('href="/gestion-v440.css?v=474"'), 'The nested management route does not use absolute v474 assets.');
+  expect(managementHtml.includes('src="/gestion-v440.js?v=475"') && managementHtml.includes('href="/gestion-v440.css?v=475"'), 'The nested management route does not use absolute v475 assets.');
   expect(managementHtml.includes('id="credentialForm"') && managementHtml.includes('name="action" value="auth.login"') && managementHtml.includes('autocomplete="username"') && managementHtml.includes('autocomplete="current-password"'), 'The v472 delegate email/password login form is incomplete.');
   expect(managementHtml.includes('id="passwordChangeForm"') && managementHtml.includes('name="action" value="auth.password.change"') && (managementHtml.match(/autocomplete="new-password"/g) || []).length >= 2, 'The mandatory temporary-password change form is incomplete.');
   expect(managementHtml.includes('id="delegateAccountForm"') && managementHtml.includes('name="action" value="editor.account.create"') && managementHtml.includes('name="temporaryPassword"'), 'The owner cannot create a tenant-scoped delegate credential from the v472 panel.');
@@ -643,6 +758,11 @@ async function validateMulticlassShell() {
   expect(!/(?:loginPassword|temporaryPassword|newPassword)\s*[:=]\s*["'][^"']+["']/i.test(managementRuntime), 'The management runtime contains a hard-coded credential value.');
   expect(managementHtml.includes('list="subjectOptions"') && managementHtml.includes('id="groupActivitySelect"'), 'The management panel still relies on free-text subject/activity references.');
   expect(managementHtml.includes('id="taskSuggestedDate"') && managementHtml.includes('name="attachmentUrl"') && managementHtml.includes('name="attachmentTitle"'), 'The task form is missing suggested course dates or optional attachment fields.');
+  expect(managementHtml.includes('id="requestAccessLink"') && managementRuntime.includes('loadLoginSupport') && managementRuntime.includes('https://wa.me/'), 'The login page is missing its configurable delegate-access request action.');
+  expect(managementHtml.includes('id="profileForm"') && managementHtml.includes('name="action" value="profile.upsert"') && managementHtml.includes('id="profileWhatsapp"'), 'The authenticated delegate profile form is incomplete.');
+  expect(managementHtml.includes('name="imageUrl"') && managementHtml.includes('name="imageAlt"') && managementRuntime.includes('notice-preview'), 'The notice editor is missing its optional HTTPS image fields or preview.');
+  expect(!managementHtml.includes('id="freezeGroups"') && !managementHtml.includes('id="exportWhatsapp"') && !managementHtml.includes('id="exportPdf"'), 'Global group export controls still make activity scope ambiguous.');
+  expect(managementRuntime.includes('function activityExportText') && managementRuntime.includes('dataset.groupAction') && ['freeze', 'copy', 'whatsapp', 'pdf'].every((action) => managementRuntime.includes(`'${action}'`)), 'Per-activity group tools or their explicit action mapping are incomplete.');
   expect((managementHtml.match(/data-password-toggle/g) || []).length >= 6 && managementRuntime.includes('function bindPasswordToggles'), 'Password fields are missing accessible show/hide controls.');
   expect(managementRuntime.includes('state&&state.upcomingDates') && managementRuntime.includes('function bindTaskDateSuggestions'), 'The delegate task form is not connected to tenant upcoming course dates.');
   expect(managementRuntime.includes("'Panel de la clase · '") && !managementRuntime.includes("'Publicación · '"), 'The delegate heading still uses technical publication wording.');
@@ -653,6 +773,12 @@ async function validateMulticlassShell() {
   expect(managementRuntime.includes('Copiar invitación') && managementRuntime.includes('copyText(result.inviteToken)'), 'The one-time editor invitation cannot be copied explicitly.');
 
   expect(!legacyClassRuntime.includes('activityMembers') && legacyClassRuntime.includes("filled?'Ocupado':'Libre'"), 'The legacy 4.º E student roster is not anonymized.');
+  expect(turmaHtml.includes('id="homeNoticeCarousel"') && turmaHtml.includes('data-view="avisos"') && turmaHtml.includes('id="noticePageList"'), 'The generic class hub is missing its compact official-notice carousel or full notices view.');
+  expect(turmaRuntime.includes('6000') && turmaRuntime.includes('prefers-reduced-motion: reduce') && turmaRuntime.includes('destroyNoticeCarousel') && turmaRuntime.includes("addEventListener('hashchange'"), 'The generic notice carousel is missing its readable timing, reduced-motion gate, timer teardown or hash routing.');
+  expect(!/(?:noticeDialog|noticeDialogList|homeNotices)/.test(`${turmaHtml}\n${turmaRuntime}`), 'The generic class hub still references the retired notice dialog or duplicate Home list.');
+  expect(legacyClassHtml.includes('id="classHomeNoticeCarousel"') && legacyClassHtml.includes('data-view="avisos"') && legacyClassHtml.includes('id="classNoticePageList"'), 'The 4.º E hub is missing its compact official-notice carousel or full notices view.');
+  expect(legacyClassRuntime.includes('6000') && legacyClassRuntime.includes('prefers-reduced-motion: reduce') && legacyClassRuntime.includes('destroyNoticeCarousel'), 'The 4.º E notice carousel is missing its readable timing, reduced-motion gate or timer teardown.');
+  expect(!/(?:noticeDrawer|urgentNoticeBanner|notice-drawer|urgent-notice-banner)/.test(`${legacyClassHtml}\n${legacyClassRuntime}\n${legacyClassCss}`), 'The 4.º E hub still references the retired notice drawer or urgent banner.');
   expect(legacyClassRuntime.includes('function taskAttachment') && turmaRuntime.includes('function taskAttachment'), 'Optional task attachments are not rendered in both student hubs.');
   expect(['/turma/:slug', '/turma/:slug/', '/gestion/:slug', '/gestion/:slug/'].every((route) => redirects.includes(`${route} /${route.startsWith('/turma') ? 'turma' : 'gestion'}-shell/?class=:slug 200`)), 'Cloudflare rewrites for class and management slugs, with and without trailing slash, are missing.');
   expect(!/\/(?:turma|gestion)\/:slug\s+\/(?:turma|gestion)\.html\b/.test(redirects), 'A class route still proxies to a canonical .html URL and can loop on Cloudflare Pages.');
@@ -677,8 +803,8 @@ async function validateMulticlassShell() {
   });
   vm.runInContext(worker, workerContext, { filename: 'service-worker.js' });
   const notificationTarget = (value) => vm.runInContext(`safeNotificationTarget(${JSON.stringify(value)})`, workerContext);
-  expect(notificationTarget('https://evil.example/turma/s5-a') === '/turma/s4-e#inicio', 'An external notification target is accepted.');
-  expect(notificationTarget('/gestion/s5-a') === '/turma/s4-e#inicio', 'A notification can escape into management.');
+  expect(notificationTarget('https://evil.example/turma/s5-a') === '/turma/s4-e#avisos', 'An external notification target is accepted.');
+  expect(notificationTarget('/gestion/s5-a') === '/turma/s4-e#avisos', 'A notification can escape into management.');
   expect(notificationTarget('/turma/s5-a#tareas') === '/turma/s5-a#tareas', 'A valid same-origin class notification target is rejected.');
 
   const manifestModule = await importSource('functions/api/class-manifest.js');
@@ -747,6 +873,19 @@ async function main() {
   expect(/function\s+cleanAttachmentUrl/.test(hubSource) && /parsed\.protocol\s*===\s*['"]https:['"]/.test(hubSource) && /invalid_attachment/.test(hubSource), 'Task attachments are not restricted to validated HTTPS URLs.');
   expect((hubSource.match(/attachment_url\s+AS\s+attachmentUrl/g) || []).length >= 2 && (hubSource.match(/attachment_title\s+AS\s+attachmentTitle/g) || []).length >= 2, 'Task attachment metadata is not exposed in both public and admin snapshots.');
 
+  const noticeDefinition = tableDefinition(hubSource, 'hub_notices');
+  expect(/\bimage_url\s+text\b/i.test(noticeDefinition) && /\bimage_alt\s+text\b/i.test(noticeDefinition), 'hub_notices does not declare optional image URL/alt columns.');
+  expect(/ensureNoticeImageColumns/.test(hubSource) && /alter\s+table\s+hub_notices\s+add\s+column\s+image_url/i.test(hubSource), 'The additive legacy notice-image migration is missing.');
+  expect(/invalid_notice_image/.test(hubSource) && /image_url\s+AS\s+imageUrl/.test(hubSource), 'Notice images are not validated and exposed with the public camel-case contract.');
+
+  const profileDefinition = tableDefinition(hubSource, 'hub_editor_profiles');
+  expect(/\bclass_id\s+text\s+not\s+null\b/i.test(profileDefinition) && /\bactor_id\s+text\s+not\s+null\b/i.test(profileDefinition) && /\bwhatsapp_e164\s+text\s+not\s+null\b/i.test(profileDefinition), 'hub_editor_profiles is missing its tenant/actor/E.164 fields.');
+  expect(/profile\.upsert/.test(hubSource) && /invalid_whatsapp/.test(hubSource) && /whatsappFormatVerifiedAt/.test(hubSource), 'The authenticated private WhatsApp profile lifecycle is incomplete.');
+  expect(/editor\.revoke[\s\S]*?DELETE FROM hub_editor_profiles WHERE class_id=\? AND actor_id=\?/.test(hubSource), 'Revoking an editor does not remove the now-orphaned private WhatsApp profile.');
+  const publicReaderForProfile = hubSource.slice(hubSource.indexOf('async function readPublic'), hubSource.indexOf('async function adminSnapshot'));
+  expect(!/hub_editor_profiles|whatsapp_e164/.test(publicReaderForProfile), 'The public reader queries private delegate WhatsApp profiles.');
+  expect(/support_whatsapp\s+text\s+not\s+null/i.test(classesDefinition) && /MED_NYKUTO_SUPPORT_WHATSAPP/.test(hubSource), 'The public support WhatsApp class/environment fallback is missing.');
+
   const scheduleDefinition = tableDefinition(hubSource, 'hub_schedule_slots');
   expect(/\bsubject_id\s+text\s+not\s+null\b/i.test(scheduleDefinition) && /\bweekday\s+integer\s+not\s+null\b/i.test(scheduleDefinition) && /\bstarts_time\s+text\s+not\s+null\b/i.test(scheduleDefinition), 'hub_schedule_slots is missing its subject/day/time recurrence fields.');
   expect(/DEFAULT_SCHEDULE_SLOTS/.test(hubSource) && /schedule-mon-fisiologia-0700/.test(hubSource) && /schedule-thu-fisiologia-0940/.test(hubSource), 'The idempotent S4 schedule seed is missing its two Physiology slots.');
@@ -791,7 +930,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log('Multiclass foundation validation OK: tenant-scoped D1 schema/queries and credential sessions, v474 delegate workflow, cross-class editor refusal, protected banks unchanged and 4.º E compatibility preserved.');
+  console.log('Multiclass foundation validation OK: tenant-scoped D1 schema/queries, v475 notices/WhatsApp delegate workflow, cross-class editor refusal, protected banks unchanged and 4.º E compatibility preserved.');
 }
 
 main().catch((error) => {

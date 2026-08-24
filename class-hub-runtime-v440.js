@@ -5,6 +5,7 @@
   var progressKey='med-nykuto-course-progress-v440';
   var studentKey='med-nykuto-student-device-v440';
   var publicData={notices:[],tasks:[],activities:[],groups:[],files:[],dates:[]};
+  var noticeCarouselController=null;
 
   function el(tag,className,text){var node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
   function readJson(key,fallback){try{return JSON.parse(localStorage.getItem(key)||'')||fallback;}catch(error){return fallback;}}
@@ -190,21 +191,52 @@
     }
     return body;
   }
+  function reducedMotion(){return Boolean(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}
+  function isPortuguese(){return /^pt(?:-|$)/i.test(document.documentElement.lang);}
+  function noticeText(spanish,portuguese){return isPortuguese()?portuguese:spanish;}
+  function noticePriorityLabel(priority){return priority==='urgent'?'URGENTE':priority==='important'?'IMPORTANTE':'AVISO';}
+  function noticePublishedLabel(value){if(!value)return'';var date=new Date(value);if(Number.isNaN(date.getTime()))return'';var locale=window.MedNykutoClassI18n&&window.MedNykutoClassI18n.getLocale?window.MedNykutoClassI18n.getLocale():'es-PY';return new Intl.DateTimeFormat(locale,{day:'2-digit',month:'short',year:'numeric'}).format(date);}
+  function noticeImage(notice){
+    var raw=String(notice.imageUrl||notice.image_url||'').trim();if(!raw)return null;
+    try{
+      var parsed=new URL(raw);if(parsed.protocol!=='https:'||parsed.username||parsed.password)return null;
+      var frame=el('figure','notice-media'),image=el('img');image.src=parsed.href;image.alt=String(notice.imageAlt||notice.image_alt||notice.title||noticeText('Imagen del aviso','Imagem do aviso')).trim();image.loading='lazy';image.decoding='async';image.referrerPolicy='no-referrer';image.addEventListener('error',function(){if(frame.parentElement)frame.parentElement.classList.remove('has-image');frame.remove();});frame.appendChild(image);return frame;
+    }catch(error){return null;}
+  }
+  function noticeCard(notice,featured){
+    var clickable=isTaskNotice(notice),item=el(clickable?'a':'article','notice-item'+(clickable?' notice-item-link':'')+(featured?' notice-carousel-item':''));item.dataset.priority=notice.priority||'normal';if(clickable){item.href='#pendientes';item.addEventListener('click',expandLiveTasks);}
+    var media=noticeImage(notice);if(media){item.classList.add('has-image');item.appendChild(media);}
+    var copy=el('div','notice-copy'),meta=el('div','notice-meta'),publishedAt=notice.publishedAt||notice.published_at;meta.appendChild(el('span','',noticePriorityLabel(notice.priority)));var published=noticePublishedLabel(publishedAt);if(published){var time=el('time','',published);time.dateTime=String(publishedAt);meta.appendChild(time);}copy.appendChild(meta);copy.appendChild(el('strong','',notice.title||noticeText('Actualización','Atualização')));if(notice.body)copy.appendChild(el('p','',notice.body));if(clickable)copy.appendChild(el('b','notice-item-action',noticeText('Ver tareas →','Ver tarefas →')));item.appendChild(copy);return item;
+  }
+  function destroyNoticeCarousel(){if(noticeCarouselController){noticeCarouselController.destroy();noticeCarouselController=null;}}
+  function mountNoticeCarousel(target,notices){
+    destroyNoticeCarousel();target.replaceChildren();if(!notices.length)return;
+    var mediaQuery=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):null,reduced=Boolean(mediaQuery&&mediaQuery.matches),index=0,timer=0,userPaused=false,pointerPaused=false,focusPaused=false,viewActive=document.body.dataset.activeView==='inicio';
+    var viewport=el('div','notice-carousel-viewport'),controls=el('div','notice-carousel-controls'),previous=el('button','','←'),counter=el('span','notice-carousel-count'),next=el('button','','→'),pause=el('button','notice-carousel-pause',noticeText('Pausar','Pausar')),announcer=el('span','sr-only');
+    previous.type=next.type=pause.type='button';previous.setAttribute('aria-label',noticeText('Aviso anterior','Aviso anterior'));next.setAttribute('aria-label',noticeText('Aviso siguiente','Próximo aviso'));pause.setAttribute('aria-pressed','false');announcer.setAttribute('aria-live','polite');announcer.setAttribute('aria-atomic','true');controls.appendChild(previous);controls.appendChild(counter);controls.appendChild(next);controls.appendChild(pause);target.appendChild(viewport);if(notices.length>1)target.appendChild(controls);target.appendChild(announcer);target.setAttribute('role','region');target.setAttribute('aria-roledescription',noticeText('carrusel','carrossel'));
+    function clearTimer(){if(timer){window.clearTimeout(timer);timer=0;}}
+    function canPlay(){return notices.length>1&&viewActive&&!reduced&&!userPaused&&!pointerPaused&&!focusPaused&&!document.hidden;}
+    function schedule(){clearTimer();if(canPlay())timer=window.setTimeout(function(){show(index+1,false);},6000);}
+    function updatePause(){pause.hidden=notices.length<2||reduced;pause.textContent=userPaused?noticeText('Reanudar','Retomar'):noticeText('Pausar','Pausar');pause.setAttribute('aria-pressed',userPaused?'true':'false');}
+    function show(nextIndex,manual){index=(nextIndex+notices.length)%notices.length;viewport.replaceChildren(noticeCard(notices[index],true));counter.textContent=(index+1)+' / '+notices.length;previous.disabled=next.disabled=notices.length<2;if(manual)announcer.textContent=noticeText('Aviso ','Aviso ')+(index+1)+noticeText(' de ',' de ')+notices.length+': '+(notices[index].title||noticeText('Actualización','Atualização'));schedule();}
+    function onPointerEnter(){pointerPaused=true;clearTimer();}
+    function onPointerLeave(){pointerPaused=false;schedule();}
+    function onFocusIn(){focusPaused=true;clearTimer();}
+    function onFocusOut(){window.setTimeout(function(){focusPaused=target.contains(document.activeElement);schedule();},0);}
+    function onVisibility(){if(document.hidden)clearTimer();else schedule();}
+    function onHashChange(){viewActive=document.body.dataset.activeView==='inicio';if(viewActive)schedule();else clearTimer();}
+    function onMotionChange(event){reduced=event.matches;if(reduced)clearTimer();updatePause();schedule();}
+    previous.addEventListener('click',function(){show(index-1,true);});next.addEventListener('click',function(){show(index+1,true);});pause.addEventListener('click',function(){userPaused=!userPaused;updatePause();if(userPaused)clearTimer();else schedule();pause.focus({preventScroll:true});});target.addEventListener('pointerenter',onPointerEnter);target.addEventListener('pointerleave',onPointerLeave);target.addEventListener('focusin',onFocusIn);target.addEventListener('focusout',onFocusOut);document.addEventListener('visibilitychange',onVisibility);window.addEventListener('hashchange',onHashChange);if(mediaQuery){if(mediaQuery.addEventListener)mediaQuery.addEventListener('change',onMotionChange);else if(mediaQuery.addListener)mediaQuery.addListener(onMotionChange);}
+    updatePause();show(0,false);
+    noticeCarouselController={destroy:function(){viewActive=false;clearTimer();target.removeEventListener('pointerenter',onPointerEnter);target.removeEventListener('pointerleave',onPointerLeave);target.removeEventListener('focusin',onFocusIn);target.removeEventListener('focusout',onFocusOut);document.removeEventListener('visibilitychange',onVisibility);window.removeEventListener('hashchange',onHashChange);if(mediaQuery){if(mediaQuery.removeEventListener)mediaQuery.removeEventListener('change',onMotionChange);else if(mediaQuery.removeListener)mediaQuery.removeListener(onMotionChange);}}};
+  }
   function renderNotices(){
-    var bell=document.getElementById('noticeBell');if(!bell)return;var drawer=document.getElementById('noticeDrawer');if(!drawer){drawer=el('dialog','notice-drawer');drawer.id='noticeDrawer';var head=el('header');head.appendChild(el('strong','','Alertas de la clase'));var close=el('button','','×');close.type='button';close.setAttribute('aria-label','Cerrar alertas');head.appendChild(close);drawer.appendChild(head);drawer.appendChild(el('div','notice-list'));document.body.appendChild(drawer);close.addEventListener('click',function(){drawer.close();});}
-    var list=drawer.querySelector('.notice-list');list.replaceChildren();if(!publicData.notices.length)list.appendChild(el('p','notice-empty','No hay alertas publicadas.'));
-    publicData.notices.forEach(function(notice){
-      var clickable=isTaskNotice(notice),item=el(clickable?'a':'article','notice-item'+(clickable?' notice-item-link':''));
-      item.dataset.priority=notice.priority||'normal';
-      if(clickable){item.href='#pendientes';item.addEventListener('click',function(){drawer.close();expandLiveTasks();});}
-      item.appendChild(el('span','',(notice.priority||'normal').toUpperCase()));item.appendChild(el('strong','',notice.title));item.appendChild(el('p','',notice.body||''));
-      if(clickable)item.appendChild(el('b','notice-item-action','Ver tareas →'));
-      list.appendChild(item);
-    });
-    var pushButton=el('button','class-header-action','Activar alertas importantes');pushButton.type='button';pushButton.style.width='100%';pushButton.addEventListener('click',function(){enablePush(pushButton);});list.appendChild(pushButton);
-    var important=publicData.notices.filter(function(notice){return notice.priority==='important'||notice.priority==='urgent';}).length;if(important)bell.dataset.count=String(important);else bell.removeAttribute('data-count');
-    var urgent=publicData.notices.find(function(notice){return notice.priority==='urgent';});var banner=document.getElementById('urgentNoticeBanner');if(urgent&&!sessionStorage.getItem('dismissed-urgent-'+urgent.id)){if(!banner){banner=el('div','urgent-notice-banner');banner.id='urgentNoticeBanner';var copy=el('span');var dismiss=el('button','','×');dismiss.type='button';banner.appendChild(copy);banner.appendChild(dismiss);document.body.insertBefore(banner,document.body.firstChild);dismiss.addEventListener('click',function(){banner.hidden=true;sessionStorage.setItem('dismissed-urgent-'+urgent.id,'1');});}banner.firstChild.textContent=urgent.title+(urgent.body?' · '+urgent.body:'');banner.hidden=false;}
-    if(!bell.dataset.noticeBound){bell.dataset.noticeBound='true';bell.addEventListener('click',function(){drawer.showModal();});}
+    var bell=document.getElementById('noticeBell'),homeSection=document.getElementById('classHomeNoticeSection'),homeHost=document.getElementById('classHomeNoticeCarousel'),list=document.getElementById('classNoticePageList'),pushActions=document.getElementById('classNoticePushActions');if(!bell||!homeSection||!homeHost||!list||!pushActions)return;
+    var featured=publicData.notices.filter(function(notice){return notice.priority==='important'||notice.priority==='urgent';});homeSection.hidden=!featured.length;if(featured.length)mountNoticeCarousel(homeHost,featured);else{destroyNoticeCarousel();homeHost.replaceChildren();}
+    list.replaceChildren();publicData.notices.forEach(function(notice){list.appendChild(noticeCard(notice,false));});if(!publicData.notices.length)list.appendChild(el('p','notice-empty',noticeText('No hay avisos publicados.','Não há avisos publicados.')));
+    pushActions.replaceChildren();var pushButton=el('button','notice-push-button',noticeText('Activar alertas importantes','Ativar alertas importantes'));pushButton.type='button';pushButton.addEventListener('click',function(){enablePush(pushButton);});pushActions.appendChild(pushButton);
+    var important=featured.length;bell.setAttribute('aria-label',noticeText('Abrir avisos','Abrir avisos')+(important?' · '+important+(important===1?' importante':' importantes'):''));if(important)bell.dataset.count=String(important);else bell.removeAttribute('data-count');if(!bell.dataset.noticeBound){bell.dataset.noticeBound='true';bell.addEventListener('click',function(){if(location.hash==='#avisos'){document.getElementById('avisos').scrollIntoView({block:'start'});return;}location.hash='avisos';});}
+    if(window.MedNykutoClassI18n&&window.MedNykutoClassI18n.refresh){window.MedNykutoClassI18n.refresh(homeSection);window.MedNykutoClassI18n.refresh(document.getElementById('avisos'));}
   }
   function renderLiveTasks(){
     var activeTasks=publicData.tasks.filter(function(task){return task.status==='published'||!task.status;});

@@ -74,11 +74,20 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('takes task notifications to Tareas and unfolds the active briefs', async ({ page }) => {
     await page.goto('/clase.html#inicio');
     await expect(page.locator('#classHubLiveTasks .live-task-details')).toHaveCount(2);
+    const carousel = page.locator('#classHomeNoticeCarousel');
+    await expect(carousel).toHaveAttribute('role', 'region');
+    await expect(carousel.locator('.notice-item')).toHaveCount(1);
+    await expect(carousel).toContainText('Dos trabajos activos');
+    await expect(carousel).not.toContainText('Cursos del 19 al 21 de agosto disponibles');
+    await expect(carousel.locator('.notice-carousel-controls')).toHaveCount(0);
+    await expect(page.locator('#noticeBell')).toHaveAttribute('aria-label', 'Abrir avisos · 1 importante');
     await page.locator('#noticeBell').click();
-    const taskNotice = page.locator('#noticeDrawer .notice-item-link').filter({ hasText: 'Dos trabajos activos' });
+    await expect(page.locator('#avisos')).toBeVisible();
+    await expect(page.locator('#classNoticePageList .notice-item')).toHaveCount(2);
+    const taskNotice = page.locator('#classNoticePageList .notice-item-link').filter({ hasText: 'Dos trabajos activos' });
     await expect(taskNotice).toBeVisible();
     await taskNotice.click();
-    await expect(page.locator('#noticeDrawer')).not.toHaveAttribute('open', '');
+    await expect(page.locator('#avisos')).toBeHidden();
     await expect(page.locator('#pendientes')).toBeVisible();
     await expect(page.locator('#classHubLiveTasks .live-task-details[open]')).toHaveCount(2);
     await expect(page).toHaveURL(/#pendientes$/);

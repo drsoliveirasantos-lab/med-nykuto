@@ -24,7 +24,7 @@ Une requête historique sans paramètre `class` continue de viser `s4-e`.
 | Rôle | Portée | Autorisations |
 |---|---|---|
 | Propriétaire | Toutes les turmas | Créer/archiver une turma, gérer ses matières, ses éditeurs et son audit, plus toutes les opérations éditoriales |
-| Éditeur/délégué | Une seule turma | Tâches, alertes, activités, groupes, fichiers et dates de sa turma |
+| Éditeur/délégué | Une seule turma | Tâches, avis officiels, activités, groupes, fichiers, dates et son propre profil WhatsApp dans sa turma |
 | Étudiant | Espace public d'une turma | Lire les publications, rejoindre/quitter un groupe ouvert et conserver son progrès local |
 
 Une session ou un jeton éditeur créé pour `s4-e` n'est pas valable pour `s3-a`, même si l'URL ou le corps de requête est modifié.
@@ -53,6 +53,8 @@ Aucune donnée pédagogique ou opérationnelle n'est copiée automatiquement d'u
 - Les identifiants créés hors `s4-e` sont préfixés par le slug de la turma afin de préserver les anciennes clés primaires globales sans migration destructive.
 - Le classement historique `semester-4-group-e` est rattaché à `s4-e`.
 - La réponse publique contient seulement les compteurs d'occupation des groupes. Les noms sont lus uniquement par le snapshot administrateur authentifié.
+- `hub_editor_profiles` conserve le WhatsApp normalisé de chaque acteur de gestion. Ce numéro reste absent de la réponse publique et du journal d'audit.
+- `hub_notices` accepte une image facultative par URL HTTPS ; aucun fichier binaire n'est stocké dans D1.
 
 Le schéma est créé et complété de façon idempotente au premier appel de Function. Les lignes historiques sans `class_id` sont rattachées à `s4-e` ; aucune banque de cours ou de questions n'est réécrite.
 
@@ -64,6 +66,7 @@ La Function accepte le binding D1 `MED_NYKUTO_DB` (préféré) ou `DB`. Les secr
 - `MED_NYKUTO_RATE_SALT` : sel pour les clés anonymisées de limitation ;
 - `MED_NYKUTO_PUSH_WEBHOOK` et `MED_NYKUTO_PUSH_WEBHOOK_TOKEN` : envoi push optionnel ;
 - `MED_NYKUTO_VAPID_PUBLIC_KEY` : clé publique Web Push optionnelle.
+- `MED_NYKUTO_SUPPORT_WHATSAPP` : numéro public au format E.164 qui reçoit les demandes d'ouverture de compte lorsque la turma n'a pas son propre contact configuré.
 
 Les secrets ne doivent jamais être ajoutés au dépôt. La première ouverture authentifiée initialise le registre et migre le schéma existant.
 
@@ -75,6 +78,8 @@ Les secrets ne doivent jamais être ajoutés au dépôt. La première ouverture 
 - Le fallback hors ligne est neutre et ne redirige jamais vers un autre semestre.
 - Les liens de notification sont limités à l'origine et à `/turma/`.
 - Les URL de fichiers administrés acceptent uniquement HTTP(S).
+- Les images d'avis acceptent uniquement une URL HTTPS sans identifiants intégrés. Elles sont chargées avec une politique de référent restrictive et restent facultatives.
+- Le WhatsApp du délégué est normalisé au format E.164 et réservé au snapshot authentifié. « Format vérifié » ne signifie pas que la propriété du numéro a été confirmée par SMS ou par WhatsApp.
 - Les invitations expirent, ne sont affichées qu'une fois et peuvent être révoquées.
 - Les mots de passe utilisent PBKDF2-HMAC-SHA-256 avec un sel aléatoire propre à chaque compte ; aucune valeur en clair n'est stockée ou renvoyée.
 - Le mot de passe temporaire expire et doit être changé avant tout accès aux données de gestion.
@@ -124,6 +129,7 @@ Une fusion en production exige la validation explicite du propriétaire du proje
 
 - Pas de comptes étudiants ni de contrôle d'accès par classe côté lecture.
 - Pas d'upload direct : les fichiers sont publiés par URL HTTP(S).
+- L'envoi vers WhatsApp ouvre un message prérempli : le navigateur ne l'envoie jamais automatiquement et ne joint pas un PDF sans action de l'utilisateur.
 - Pas de copie automatique de cours entre professeurs ou semestres.
 - Pas de contenu généré automatiquement sans sources identifiées et validation humaine.
 - Le push reste optionnel et dépend de la configuration serveur.

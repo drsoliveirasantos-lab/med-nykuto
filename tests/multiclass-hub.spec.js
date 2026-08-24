@@ -21,7 +21,8 @@ const CLASS_RESPONSE = {
     semester: 5,
     group: 'A',
     description: 'Espacio privado de prueba del quinto semestre.',
-    driveUrl: 'https://drive.google.com/drive/folders/class-s5-a'
+    driveUrl: 'https://drive.google.com/drive/folders/class-s5-a',
+    supportWhatsapp: '+595981000111'
   },
   subjects: [
     { id: 'farmacologia-ii', slug: 'farmacologia-ii', name: 'Farmacología II', teacher: 'Dra. Vega', color: '#38bdf8' },
@@ -41,7 +42,9 @@ const CLASS_RESPONSE = {
     }
   ],
   notices: [
-    { id: 'room-change', title: 'Cambio de aula', body: 'La clase será en el aula 12.', priority: 'important', status: 'published' }
+    { id: 'exam-official', title: 'Fecha oficial del examen', body: 'El parcial será el 10 de septiembre.', priority: 'urgent', status: 'published', imageUrl: 'https://example.test/official-exam.webp', imageAlt: 'Cronograma oficial del examen', publishedAt: '2099-08-25T12:00:00-03:00' },
+    { id: 'room-change', title: 'Cambio de aula', body: 'La clase será en el aula 12.', priority: 'important', status: 'published', publishedAt: '2099-08-24T12:00:00-03:00' },
+    { id: 'routine-note', title: 'Material disponible', body: 'Las diapositivas ya están en Drive.', priority: 'normal', status: 'published', publishedAt: '2099-08-23T12:00:00-03:00' }
   ],
   activities: [
     { id: 'seminario-farmaco', title: 'Seminario de Farmacología', capacity: 8, status: 'published', frozen: false }
@@ -128,7 +131,7 @@ test.describe('Multiclass student hub', () => {
 
     const tabs = page.locator('.bottom-nav [data-nav-view]');
     await expect(tabs).toHaveCount(5);
-    await expect(page.locator('main [data-view]')).toHaveCount(5);
+    await expect(page.locator('main [data-view]')).toHaveCount(6);
     await expect(tabs.locator('strong')).toHaveText(['Inicio', 'Tareas', 'Materias', 'Estudiar', 'Más']);
 
     expect(classHubRequests).toHaveLength(1);
@@ -164,6 +167,69 @@ test.describe('Multiclass student hub', () => {
 
     const completeDomText = await page.locator('body').textContent();
     PRIVATE_NAMES.forEach((name) => expect(completeDomText).not.toContain(name));
+  });
+
+  test('shows one readable official notice on Home and all notices in the dedicated view', async ({ page }) => {
+    await page.route('**/api/class-hub**', (route) => route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify(CLASS_RESPONSE)
+    }));
+    await page.route('https://example.test/official-exam.webp', (route) => route.fulfill({
+      status: 200,
+      contentType: 'image/svg+xml',
+      body: '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="24"><rect width="40" height="24" fill="#0ea5e9"/></svg>'
+    }));
+
+    await page.goto('/turma-shell/?class=s5-a#inicio');
+
+    await expect(page.locator('#homeNoticeSection')).toBeVisible();
+    const carousel = page.locator('#homeNoticeCarousel');
+    await expect(carousel).toHaveAttribute('role', 'region');
+    await expect(carousel).toHaveAttribute('aria-roledescription', 'carrusel');
+    await expect(carousel.locator('.notice-card')).toHaveCount(1);
+    await expect(carousel).toContainText('Fecha oficial del examen');
+    await expect(carousel).not.toContainText('Material disponible');
+    await expect(carousel.locator('.notice-carousel-count')).toHaveText('1 / 2');
+    await expect(carousel.locator('time')).toHaveAttribute('datetime', '2099-08-25T12:00:00-03:00');
+    await expect(page.locator('#noticeButton')).toHaveAttribute('aria-label', 'Abrir avisos · 2 importantes');
+    const noticeImage = page.locator('#homeNoticeCarousel img');
+    await expect(noticeImage).toHaveAttribute('alt', 'Cronograma oficial del examen');
+    await expect(noticeImage).toHaveAttribute('loading', 'lazy');
+    await expect(noticeImage).toHaveAttribute('decoding', 'async');
+    await expect(noticeImage).toHaveAttribute('referrerpolicy', 'no-referrer');
+
+    await carousel.locator('[aria-label="Aviso siguiente"]').click();
+    await expect(carousel).toContainText('Cambio de aula');
+    await expect(carousel.locator('.notice-carousel-count')).toHaveText('2 / 2');
+    const pause = carousel.locator('.notice-carousel-pause');
+    await pause.click();
+    await expect(pause).toHaveAttribute('aria-pressed', 'true');
+    await expect(pause).toHaveText('Reanudar');
+
+    await page.locator('#noticeButton').click();
+    await expect(page.locator('[data-view="avisos"]')).toBeVisible();
+    await expect(page.locator('#noticePageList .notice-card')).toHaveCount(3);
+    await expect(page.locator('#noticePageList')).toContainText('Material disponible');
+    await expect(page).toHaveURL(/#avisos$/);
+    await page.getByRole('button', { name: '← Volver al inicio' }).click();
+    await expect(page.locator('[data-view="inicio"]')).toBeVisible();
+    await page.evaluate(() => { window.location.hash = 'avisos'; });
+    await expect(page.locator('[data-view="avisos"]')).toBeVisible();
+    await page.evaluate(() => { window.location.hash = 'inicio'; });
+    await expect(page.locator('[data-view="inicio"]')).toBeVisible();
+  });
+
+  test('disables official-notice autoplay when reduced motion is requested', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.route('**/api/class-hub**', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(CLASS_RESPONSE) }));
+    await page.route('https://example.test/official-exam.webp', (route) => route.fulfill({ status: 200, contentType: 'image/svg+xml', body: '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1" />' }));
+
+    await page.goto('/turma-shell/?class=s5-a#inicio');
+    await expect(page.locator('#homeNoticeCarousel .notice-carousel-pause')).toBeHidden();
+    await expect(page.locator('#homeNoticeCarousel')).toContainText('Fecha oficial del examen');
+    await page.locator('#homeNoticeCarousel [aria-label="Aviso siguiente"]').click();
+    await expect(page.locator('#homeNoticeCarousel')).toContainText('Cambio de aula');
   });
 
   test('joins and leaves a class group without publishing the student name', async ({ page }) => {
@@ -464,6 +530,129 @@ test.describe('Multiclass student hub', () => {
       expect(control.right).toBeLessThanOrEqual(layout.innerWidth + 1);
       expect(control.height).toBeGreaterThanOrEqual(44);
     });
+  });
+
+  test('keeps group exports inside their activity and sends them to the delegate WhatsApp on mobile', async ({ page }) => {
+    const actor = { id: 'editor-groups-s5-a', role: 'editor', name: 'Delegada Grupos', classId: 's5-a' };
+    let profile = { name: actor.name, email: SYNTHETIC_EMAIL, whatsapp: '+595981123456', whatsappFormatVerifiedAt: '2099-08-25T12:00:00.000Z' };
+    const writes = [];
+    await page.setViewportSize({ width: 375, height: 740 });
+    await page.addInitScript(({ key }) => {
+      sessionStorage.setItem(key, 'synthetic-groups-bearer');
+      Object.defineProperty(navigator, 'clipboard', {
+        configurable: true,
+        value: { writeText(value) { window.__copiedGroupText = value; return Promise.resolve(); } }
+      });
+      window.open = (url) => {
+        window.__openedWhatsappUrl = url;
+        return { opener: null };
+      };
+    }, { key: 'med-nykuto-management-token-v471:s5-a' });
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request();
+      const url = new URL(request.url());
+      const resource = url.searchParams.get('resource');
+      const body = request.method() === 'POST' ? request.postDataJSON() : null;
+      if (request.method() === 'GET' && resource === 'public') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(CLASS_RESPONSE) });
+        return;
+      }
+      if (request.method() === 'GET' && resource === 'admin') {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify(managementState(actor, {
+            profile,
+            activities: [
+              { id: 'activity-alpha', title: 'Seminario Alpha', capacity: 10, status: 'published', frozen: false },
+              { id: 'activity-beta', title: 'Seminario Beta', capacity: 8, status: 'published', frozen: false }
+            ],
+            groups: [
+              { id: 'alpha-g10', activity_id: 'activity-alpha', name: 'Grupo 10', capacity: 10, frozen: 0 },
+              { id: 'alpha-g2', activity_id: 'activity-alpha', name: 'Grupo 2', capacity: 10, frozen: 0 },
+              { id: 'beta-g1', activity_id: 'activity-beta', name: 'Grupo 1', capacity: 8, frozen: 0 }
+            ],
+            memberships: [
+              { id: 'alpha-lead', activity_id: 'activity-alpha', group_id: 'alpha-g2', display_name: 'Ana Responsable', isLeader: true },
+              { id: 'alpha-member', activity_id: 'activity-alpha', group_id: 'alpha-g2', display_name: 'Bruno Alpha', isLeader: false },
+              { id: 'beta-member', activity_id: 'activity-beta', group_id: 'beta-g1', display_name: 'Carla Beta', isLeader: false }
+            ]
+          }))
+        });
+        return;
+      }
+      if (body?.action === 'profile.upsert') {
+        writes.push(body);
+        profile = { ...profile, whatsapp: body.whatsapp, whatsappFormatVerifiedAt: '2099-08-25T12:05:00.000Z' };
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, profile }) });
+        return;
+      }
+      await route.fulfill({ status: 400, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'unexpected_request', error: 'Solicitud inesperada.' }) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await expect(page.locator('#manageApp')).toBeVisible();
+    await page.locator('[data-manage-tab="groups"]').click();
+    const alpha = page.locator('.activity-card[data-activity-id="activity-alpha"]');
+    const beta = page.locator('.activity-card[data-activity-id="activity-beta"]');
+    await expect(alpha).toBeVisible();
+    await expect(beta).toBeVisible();
+    await expect(alpha.locator('.activity-tools [data-group-action]')).toHaveCount(4);
+    await expect(beta.locator('.activity-tools [data-group-action]')).toHaveCount(4);
+
+    await alpha.locator('[data-group-action="copy"]').click();
+    const copied = await page.evaluate(() => window.__copiedGroupText);
+    expect(copied).toContain('Seminario Alpha');
+    expect(copied).toContain('Responsable: Ana Responsable');
+    expect(copied).toContain('Grupo 2');
+    expect(copied).not.toContain('Seminario Beta');
+    expect(copied).not.toContain('Carla Beta');
+
+    await alpha.locator('[data-group-action="whatsapp"]').click();
+    const openedUrl = await page.evaluate(() => window.__openedWhatsappUrl);
+    expect(openedUrl).toMatch(/^https:\/\/wa\.me\/595981123456\?text=/);
+    const whatsappText = new URL(openedUrl).searchParams.get('text');
+    expect(whatsappText).toContain('Seminario Alpha');
+    expect(whatsappText).not.toContain('Seminario Beta');
+
+    const mobileLayout = await alpha.locator('.activity-tools').evaluate((tools) => ({
+      pageWidth: document.documentElement.clientWidth,
+      scrollWidth: document.documentElement.scrollWidth,
+      columns: getComputedStyle(tools).gridTemplateColumns.split(' ').length,
+      heights: [...tools.querySelectorAll('button')].map((button) => button.getBoundingClientRect().height)
+    }));
+    expect(mobileLayout.scrollWidth).toBeLessThanOrEqual(mobileLayout.pageWidth + 1);
+    expect(mobileLayout.columns).toBe(2);
+    mobileLayout.heights.forEach((height) => expect(height).toBeGreaterThanOrEqual(44));
+
+    await page.locator('[data-manage-tab="profile"]').click();
+    await expect(page.locator('#profileForm [name="name"]')).toHaveValue(actor.name);
+    await expect(page.locator('#profileForm [name="email"]')).toHaveValue(SYNTHETIC_EMAIL);
+    await page.locator('#profileWhatsapp').fill('00 595 (982) 111-222');
+    await page.locator('#profileForm').getByRole('button', { name: 'Guardar mi WhatsApp' }).click();
+    await expect(page.locator('#profileWhatsapp')).toHaveValue('+595982111222');
+    expect(writes).toContainEqual({ action: 'profile.upsert', whatsapp: '+595982111222' });
+  });
+
+  test('offers an unauthenticated delegate a class-specific WhatsApp access request', async ({ page }) => {
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const url = new URL(route.request().url());
+      if (route.request().method() === 'GET' && url.searchParams.get('resource') === 'public') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(CLASS_RESPONSE) });
+        return;
+      }
+      await route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'authentication_required', error: 'Inicia sesión.' }) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    const requestAccess = page.locator('#requestAccessLink');
+    await expect(requestAccess).toBeVisible();
+    await expect(requestAccess).toHaveAttribute('href', /https:\/\/wa\.me\/595981000111\?text=/);
+    const href = await requestAccess.getAttribute('href');
+    expect(new URL(href).searchParams.get('text')).toContain('Medicina · 5.º A');
+    await expect(page.locator('#requestAccessHelp')).toContainText('WhatsApp');
   });
 
   test('keeps pilot management form values after an authenticated save failure', async ({ page }) => {
@@ -788,9 +977,9 @@ test.describe('Multiclass student hub', () => {
     expect(shellEntries).toEqual(expect.arrayContaining([
       '/offline.html',
       '/turma-shell/',
-      '/turma-v471.css?v=471',
-      '/turma-v471.js?v=472',
-      '/turma-manifest-boot-v471.js?v=471'
+      '/turma-v471.css?v=475',
+      '/turma-v471.js?v=475',
+      '/turma-manifest-boot-v471.js?v=475'
     ]));
     [
       /\/gestion/i,
@@ -821,8 +1010,8 @@ test.describe('Multiclass student hub', () => {
     vm.runInContext(source, context, { filename: 'service-worker.js' });
     const target = (value) => vm.runInContext(`safeNotificationTarget(${JSON.stringify(value)})`, context);
 
-    expect(target('https://evil.example/turma/s5-a#tareas')).toBe('/turma/s4-e#inicio');
-    expect(target('https://med.nykuto.com/gestion/s5-a')).toBe('/turma/s4-e#inicio');
+    expect(target('https://evil.example/turma/s5-a#tareas')).toBe('/turma/s4-e#avisos');
+    expect(target('https://med.nykuto.com/gestion/s5-a')).toBe('/turma/s4-e#avisos');
     expect(target('https://med.nykuto.com/turma/s5-a#tareas')).toBe('/turma/s5-a#tareas');
     expect(Object.keys(listeners)).toEqual(expect.arrayContaining(['install', 'activate', 'fetch', 'push', 'notificationclick']));
   });

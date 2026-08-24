@@ -1825,7 +1825,7 @@
   }
 
   function activateView(view, courseId){
-    var validViews = ['inicio','horario','pendientes','cursos','plan','dudas'];
+    var validViews = ['inicio','avisos','horario','pendientes','cursos','plan','dudas'];
     if(validViews.indexOf(view) === -1) view = 'inicio';
 
     document.querySelectorAll('[data-view]').forEach(function(panel){

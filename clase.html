@@ -14,7 +14,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="grupo-3-v401.css?v=453" />
   <link rel="stylesheet" href="class-courses-2026-08-17-v432.css?v=432" />
-  <link rel="stylesheet" href="class-hub-2026-08-21-v440.css?v=462" />
+  <link rel="stylesheet" href="class-hub-2026-08-21-v440.css?v=475" />
   <link rel="stylesheet" href="class-notebook-v445.css?v=462" />
 </head>
 <body>
@@ -56,7 +56,7 @@
         </select>
       </div>
       <div class="class-header-actions" aria-label="Alertas y gestión">
-        <button class="class-header-action notice-bell" id="noticeBell" type="button" aria-label="Abrir alertas">🔔</button>
+        <button class="class-header-action notice-bell" id="noticeBell" type="button" aria-label="Abrir avisos" aria-controls="avisos">🔔</button>
         <button class="class-header-action install-app-button" id="installAppButton" type="button" hidden aria-label="Instalar Med Nykuto">＋</button>
         <a class="class-header-action manage-link teachers-link" href="profesores.html"><span class="manage-label">Docentes</span><span aria-hidden="true">◎</span></a>
         <a class="class-header-action manage-link delegate-link" href="/gestion/s4-e" aria-label="Entrar como delegado"><span class="manage-label">Delegado</span><span aria-hidden="true">⚙</span></a>
@@ -84,6 +84,14 @@
         <h1 id="class-title">Tu semana</h1>
         <p class="dashboard-intro">Aquí ves tu próxima clase y lo que tienes que hacer.</p>
       </div>
+
+      <section id="classHomeNoticeSection" class="home-notice-section" aria-labelledby="classHomeNoticeTitle" hidden>
+        <div class="home-notice-heading">
+          <div><span>INFORMACIÓN OFICIAL</span><h2 id="classHomeNoticeTitle">Avisos importantes</h2></div>
+          <a href="#avisos">Ver todos</a>
+        </div>
+        <div id="classHomeNoticeCarousel" class="notice-carousel" aria-label="Avisos importantes de la clase"></div>
+      </section>
 
       <div class="dashboard-grid">
         <article class="dashboard-next" aria-live="polite">
@@ -125,6 +133,15 @@
     </section>
 
     <noscript><style>[data-view][hidden], [data-course-detail][hidden]{display:block!important}</style></noscript>
+
+    <section id="avisos" class="content-section notices-section" data-view="avisos" aria-labelledby="notices-title" hidden>
+      <div class="section-heading notice-page-heading">
+        <div><p class="section-kicker">Información oficial</p><h2 id="notices-title">Avisos de la clase</h2><p class="section-intro">Consulta aquí todos los avisos publicados por el delegado.</p></div>
+        <a class="notice-back-link" href="#inicio">← Volver al inicio</a>
+      </div>
+      <div id="classNoticePageList" class="notice-list notice-page-list"></div>
+      <div id="classNoticePushActions" class="notice-push-actions"></div>
+    </section>
 
     <section id="horario" class="content-section schedule-section" data-view="horario" aria-labelledby="schedule-title" hidden>
       <div class="section-heading">
@@ -2027,7 +2044,7 @@
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=405"></script>
-  <script src="grupo-3-i18n-v421.js?v=461"></script>
+  <script src="grupo-3-i18n-v421.js?v=475"></script>
   <script src="academic-model-v445.js?v=449"></script>
   <script src="grupo-3-practice-v413.js?v=445"></script>
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
@@ -2036,10 +2053,10 @@
   <script src="grupo-3-practice-2026-08-21-v440.js?v=440"></script>
   <script src="teacher-question-profile-v445.js?v=445"></script>
   <script src="class-practice-ranking-v431.js?v=449"></script>
-  <script src="grupo-3-v401.js?v=449"></script>
+  <script src="grupo-3-v401.js?v=475"></script>
   <script src="class-session-archive-v432.js?v=432"></script>
   <script src="medical-glossary-v425.js?v=432"></script>
-  <script src="class-hub-runtime-v440.js?v=472"></script>
+  <script src="class-hub-runtime-v440.js?v=475"></script>
   <script src="class-notebook-v445.js?v=459"></script>
 </body>
 </html>
