@@ -402,7 +402,7 @@
       label: 'Microbiología II · Teórica',
       teacherId: 'alexander-acuna',
       chapters: [
-        { id: 'microbiologia-teorica-capitulo-1', number: 1, title: 'Micosis superficiales, cutáneas y subcutáneas', status: 'current', lessons: [
+        { id: 'microbiologia-teorica-capitulo-1', number: 1, title: 'Micosis superficiales, cutáneas, subcutáneas y oportunistas', status: 'current', lessons: [
           { id: 'microbiologia-teorica-2026-08-10', practiceId: 'microbiologia-teorica', date: '10 AGO.', dateLong: '10 de agosto de 2026 · estimada', title: 'Dermatofitosis y tiñas', status: 'estimated' },
           { id: 'microbiologia-teorica-2026-08-17', practiceId: 'microbiologia-teorica-2026-08-17', date: '17 AGO.', dateLong: '17 de agosto de 2026', title: 'Micosis por profundidad y casos clínicos', status: 'confirmed' }
         ] }

@@ -54,6 +54,6 @@ learningAngle: direct | relation | verification | clinical-integration
 
 L'entraînement s'ouvre dans une fenêtre modale. La page derrière ne défile plus ; seules la question, ses réponses et sa correction défilent à l'intérieur. Fermer la fenêtre rend le focus au bouton qui l'a ouverte.
 
-Après chaque bloc terminé, `mednykuto:practice-complete` fournit aussi l'élément de résumé. Sur `clase.html`, `class-practice-ranking-v431.js` y ajoute la publication volontaire du score. La page **Estudiar** et la page **Matières** utilisent exactement les mêmes identifiants de matière, de thème et de format.
+Chaque réponse enregistrée émet `mednykuto:practice-progress`; après un bloc terminé, `mednykuto:practice-complete` fournit aussi l'élément de résumé. Le snapshot cumule les réponses locales déjà réalisées tout en gardant une portée distincte pour `qcm`, `vf` et `cases`. Sur `clase.html`, `class-practice-ranking-v431.js` ajoute une publication volontaire qui synchronise ces trois portées avec un seul clic. La page **Estudiar** utilise le même snapshot et les mêmes identifiants : aucun score total supplémentaire n'est créé, donc un bloc historique n'est pas compté deux fois.
 
 Les liens OMS, CDC, NCBI ou autres peuvent rester dans les fiches comme vérifications éditoriales, mais ils ne servent pas à créer les questions du défi.

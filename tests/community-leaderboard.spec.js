@@ -514,9 +514,9 @@ test.describe('Weekly S4-E class challenge', () => {
       }));
     });
     await expect(page.locator('#studyPublishPanel')).toBeVisible();
-    await expect(page.locator('#studyPublishTitle')).toHaveText('9/10 respuestas correctas');
+    await expect(page.locator('#studyPublishTitle')).toHaveText('9/10 respuestas correctas ya realizadas');
     await page.locator('#studyPublishButton').click();
-    await expect(page.locator('#studyPublishStatus')).toHaveText('Resultado publicado.');
+    await expect(page.locator('#studyPublishStatus')).toHaveText('Todo tu progreso realizado fue sincronizado.');
     expect(submitted).toEqual({
       action: 'score',
       class: 's4-e',
@@ -529,6 +529,46 @@ test.describe('Weekly S4-E class challenge', () => {
     });
     expect(submitted).not.toHaveProperty('studentId');
     expect(submitted).not.toHaveProperty('nickname');
+  });
+
+  test('restores 31 answered questions and synchronizes every format from Estudiar with one click', async ({ page }) => {
+    await seedProfile(page);
+    await page.addInitScript(() => {
+      localStorage.setItem('med-nykuto-class-practice-v431', JSON.stringify({
+        nutricion: {
+          qcm: Array.from({ length: 20 }, () => ({ selected: 0, correct: true })),
+          vf: Array.from({ length: 10 }, (_, index) => ({ selected: 0, correct: index !== 9 })),
+          cases: [{ selected: 0, correct: true }]
+        }
+      }));
+    });
+    const submissions = [];
+    await page.route('**/api/community**', async (route) => {
+      if (route.request().method() === 'POST') {
+        const payload = route.request().postDataJSON();
+        submissions.push(payload);
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({ ok: true, saved: payload.moduleId !== 'nutricion-vf', best: { correct: payload.correct, total: payload.total } })
+        });
+        return;
+      }
+      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(API_RESPONSE) });
+    });
+
+    await page.goto('/comunidade.html');
+    await expect(page.locator('#studyPublishPanel')).toBeVisible();
+    await expect(page.locator('#studyPublishTitle')).toHaveText('30/31 respuestas correctas ya realizadas');
+    await expect(page.locator('#studyPublishCopy')).toContainText('Un solo clic');
+    await page.getByRole('button', { name: 'Sumar todo al ranking' }).click();
+    await expect(page.locator('#studyPublishStatus')).toHaveText('Todo tu progreso realizado fue sincronizado.');
+    await expect.poll(() => submissions.length).toBe(3);
+    expect(submissions.sort((left, right) => left.moduleId.localeCompare(right.moduleId))).toEqual([
+      { action: 'score', class: 's4-e', playerId: PLAYER_ID, accessToken: ACCESS_TOKEN, courseId: 'nutricion', moduleId: 'nutricion-cases', correct: 1, total: 10 },
+      { action: 'score', class: 's4-e', playerId: PLAYER_ID, accessToken: ACCESS_TOKEN, courseId: 'nutricion', moduleId: 'nutricion-qcm', correct: 20, total: 20 },
+      { action: 'score', class: 's4-e', playerId: PLAYER_ID, accessToken: ACCESS_TOKEN, courseId: 'nutricion', moduleId: 'nutricion-vf', correct: 9, total: 10 }
+    ]);
   });
 
   test('queues a fresh ranking read when a score is published during an older GET', async ({ page }) => {
@@ -578,32 +618,33 @@ test.describe('Weekly S4-E class challenge', () => {
     await page.evaluate(() => document.dispatchEvent(new CustomEvent('mednykuto:practice-complete', {
       detail: { courseId: 'nutricion', moduleId: 'newer-result', topicId: 'nutricion', correct: 4, total: 5 }
     })));
-    await expect(page.locator('#studyPublishTitle')).toHaveText('4/5 respuestas correctas');
+    await expect(page.locator('#studyPublishTitle')).toHaveText('4/5 respuestas correctas ya realizadas');
     releasePost();
     await expect(page.locator('#studyPublishButton')).toBeEnabled();
-    await expect(page.locator('#studyPublishTitle')).toHaveText('4/5 respuestas correctas');
+    await expect(page.locator('#studyPublishTitle')).toHaveText('4/5 respuestas correctas ya realizadas');
     await expect(page.locator('#studyPublishStatus')).toHaveText('');
   });
 
-  test('publishes a Materias result with the same tokenized S4-E profile', async ({ page }) => {
+  test('publishes all locally answered Materias formats with one click and existing scopes', async ({ page }) => {
     await seedProfile(page);
     await page.addInitScript(() => {
       localStorage.setItem('med-nykuto-class-practice-v431', JSON.stringify({
         nutricion: {
           qcm: Array.from({ length: 20 }, () => ({ selected: 0, correct: true })),
-          vf: [],
-          cases: []
+          vf: Array.from({ length: 10 }, (_, index) => ({ selected: 0, correct: index !== 9 })),
+          cases: [{ selected: 0, correct: true }]
         }
       }));
     });
-    let submitted = null;
+    const submissions = [];
     await page.route('**/api/community**', async (route) => {
       if (route.request().method() === 'POST') {
-        submitted = route.request().postDataJSON();
+        const payload = route.request().postDataJSON();
+        submissions.push(payload);
         await route.fulfill({
           status: 200,
           contentType: 'application/json',
-          body: JSON.stringify({ ok: true, saved: true, best: { correct: 20, total: 20, percentage: 100 } })
+          body: JSON.stringify({ ok: true, saved: payload.moduleId !== 'nutricion-vf', best: { correct: payload.correct, total: payload.total } })
         });
         return;
       }
@@ -614,19 +655,16 @@ test.describe('Weekly S4-E class challenge', () => {
     const dialog = page.locator('#practice-nutricion-dialog');
     await expect(dialog).toHaveAttribute('open', '');
     await expect(dialog.locator('.class-practice-publish')).toBeVisible();
+    await expect(dialog.locator('.class-practice-publish h5')).toHaveText('30/31 respuestas correctas ya realizadas');
     await expect(dialog.locator('.class-practice-publish-field strong')).toHaveText('Baboune Nykuto · 0246810');
-    await dialog.getByRole('button', { name: 'Sumar mis puntos' }).click();
-    await expect(dialog.locator('.class-practice-publish-status')).toContainText('Resultado publicado');
-    expect(submitted).toEqual({
-      action: 'score',
-      class: 's4-e',
-      playerId: PLAYER_ID,
-      accessToken: ACCESS_TOKEN,
-      courseId: 'nutricion',
-      moduleId: 'nutricion-qcm',
-      correct: 20,
-      total: 20
-    });
+    await dialog.getByRole('button', { name: 'Sumar todo mi progreso' }).click();
+    await expect(dialog.locator('.class-practice-publish-status')).toContainText('Todo tu progreso realizado fue sincronizado');
+    await expect.poll(() => submissions.length).toBe(3);
+    expect(submissions.sort((left, right) => left.moduleId.localeCompare(right.moduleId))).toEqual([
+      { action: 'score', class: 's4-e', playerId: PLAYER_ID, accessToken: ACCESS_TOKEN, courseId: 'nutricion', moduleId: 'nutricion-cases', correct: 1, total: 10 },
+      { action: 'score', class: 's4-e', playerId: PLAYER_ID, accessToken: ACCESS_TOKEN, courseId: 'nutricion', moduleId: 'nutricion-qcm', correct: 20, total: 20 },
+      { action: 'score', class: 's4-e', playerId: PLAYER_ID, accessToken: ACCESS_TOKEN, courseId: 'nutricion', moduleId: 'nutricion-vf', correct: 9, total: 10 }
+    ]);
   });
 
   test('does not advertise or publish the cash challenge from a generic QCM without class=s4-e', async ({ page }) => {

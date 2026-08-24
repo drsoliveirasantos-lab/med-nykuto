@@ -118,8 +118,8 @@
         activeTopic = id;
         lastResult = null;
         renderTopics();
-        mountPractice();
         hidePublishPanel();
+        mountPractice();
       });
       picker.appendChild(button);
     });
@@ -136,26 +136,39 @@
     if(panel) panel.hidden = true;
   }
 
+  function aggregateScore(result){
+    if(!result) return {correct:0,total:0};
+    return {
+      correct:Number.isFinite(Number(result.aggregateCorrect)) ? Number(result.aggregateCorrect) : Number(result.correct) || 0,
+      total:Number.isFinite(Number(result.aggregateTotal)) ? Number(result.aggregateTotal) : Number(result.total) || 0
+    };
+  }
+
   function renderResult(){
     var panel = document.getElementById('studyPublishPanel');
-    if(!panel || !lastResult){ hidePublishPanel(); return; }
+    var score = aggregateScore(lastResult);
+    if(!panel || !lastResult || !score.total){ hidePublishPanel(); return; }
     var closed = typeof community.isChallengeClosed === 'function' && community.isChallengeClosed();
     panel.hidden = false;
-    document.getElementById('studyPublishTitle').textContent = t('publishTitle',{score:lastResult.correct,total:lastResult.total});
+    document.getElementById('studyPublishTitle').textContent = t('publishTitle',{score:score.correct,total:score.total});
     document.getElementById('studyPublishCopy').textContent = t('publishCopy');
     document.getElementById('studyPublishButton').disabled = publishing || closed;
     document.getElementById('studyPublishButton').textContent = closed ? t('publishClosedButton') : publishing ? t('publishing') : t('publishButton');
   }
 
-  function handleCompleted(event){
+  function rememberProgress(event,scroll){
     if(!event.detail || event.detail.topicId !== activeTopic) return;
-    lastResult = event.detail;
+    var score = aggregateScore(event.detail);
+    lastResult = score.total ? event.detail : null;
     var status = document.getElementById('studyPublishStatus');
     status.textContent = '';
     status.removeAttribute('data-state');
     renderResult();
-    document.getElementById('studyPublishPanel').scrollIntoView({behavior:'smooth',block:'nearest'});
+    if(scroll && lastResult) document.getElementById('studyPublishPanel').scrollIntoView({behavior:'smooth',block:'nearest'});
   }
+
+  function handleCompleted(event){ rememberProgress(event,true); }
+  function handleProgress(event){ rememberProgress(event,false); }
 
   function publish(){
     if(!lastResult || publishing) return;
@@ -178,7 +191,9 @@
     publishing = true;
     document.getElementById('studyPublishButton').disabled = true;
     renderResult();
-    community.publishScore(publishedResult).then(function(data){
+    var scores = Array.isArray(publishedResult.scores) && publishedResult.scores.length ? publishedResult.scores : [publishedResult];
+    var publishRequest = typeof community.publishScores === 'function' ? community.publishScores(scores) : community.publishScore(publishedResult);
+    publishRequest.then(function(data){
       if(lastResult !== publishedResult) return;
       status.dataset.state = 'success';
       status.textContent = data.saved ? t('publishSuccess') : t('publishKept');
@@ -211,6 +226,7 @@
   function init(){
     activeTopic = topicIds(activeSubject)[0] || '';
     document.addEventListener('mednykuto:practice-complete',handleCompleted);
+    document.addEventListener('mednykuto:practice-progress',handleProgress);
     document.getElementById('studyPublishButton').addEventListener('click',publish);
     render();
   }

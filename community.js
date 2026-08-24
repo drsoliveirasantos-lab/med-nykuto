@@ -37,12 +37,12 @@
       noScore:'Sin resultado publicado',
       rankingLink:'Ver clasificación',
       publishKicker:'TU RESULTADO',
-      publishTitle:'{score}/{total} respuestas correctas',
-      publishCopy:'Puedes sumarlo a la clasificación provisional del 4.º E.',
-      publishButton:'Sumar al ranking',
+      publishTitle:'{score}/{total} respuestas correctas ya realizadas',
+      publishCopy:'Un solo clic sincroniza juntos tus QCM, verdadero/falso y casos ya respondidos.',
+      publishButton:'Sumar todo al ranking',
       publishing:'Publicando…',
-      publishSuccess:'Resultado publicado.',
-      publishKept:'Tu mejor resultado ya era igual o mejor.',
+      publishSuccess:'Todo tu progreso realizado fue sincronizado.',
+      publishKept:'Tus mejores resultados ya eran iguales o mejores.',
       nicknameNeeded:'Guarda tu nombre completo y catraca completa antes de publicar.',
       identityExpired:'Vuelve a confirmar tu nombre completo, catraca completa y pertenencia al 4.º E para publicar.',
       publishError:'No se pudo publicar. Tu resultado sigue guardado en este dispositivo.',
@@ -112,7 +112,7 @@
       step1Title:'1. Haz un QCM',
       step1Copy:'Abre una materia o un módulo y termina la serie.',
       step2Title:'2. Publica el resultado',
-      step2Copy:'Al final, confirma tu perfil y toca “Sumar al ranking”.',
+      step2Copy:'Confirma tu perfil y toca una sola vez “Sumar todo al ranking”.',
       step3Title:'3. Vuelve la semana siguiente',
       step3Copy:'El desafío se reinicia cada lunes, hora de Paraguay.',
       fairTitle:'Reglas del premio y protección de tus datos',
@@ -186,12 +186,12 @@
       noScore:'Nenhum resultado publicado',
       rankingLink:'Ver classificação',
       publishKicker:'SEU RESULTADO',
-      publishTitle:'{score}/{total} respostas corretas',
-      publishCopy:'Você pode somá-lo à classificação provisória do 4.º E.',
-      publishButton:'Somar à classificação',
+      publishTitle:'{score}/{total} respostas corretas já realizadas',
+      publishCopy:'Um único toque sincroniza juntos seus QCMs, verdadeiro/falso e casos já respondidos.',
+      publishButton:'Somar tudo à classificação',
       publishing:'Publicando…',
-      publishSuccess:'Resultado publicado.',
-      publishKept:'Seu melhor resultado já era igual ou maior.',
+      publishSuccess:'Todo o seu progresso realizado foi sincronizado.',
+      publishKept:'Seus melhores resultados já eram iguais ou maiores.',
       nicknameNeeded:'Salve seu nome completo e sua catraca completa antes de publicar.',
       identityExpired:'Confirme novamente seu nome completo, catraca completa e vínculo com o 4.º E para publicar.',
       publishError:'Não foi possível publicar. Seu resultado continua salvo neste dispositivo.',
@@ -261,7 +261,7 @@
       step1Title:'1. Faça um QCM',
       step1Copy:'Abra uma matéria ou um módulo e termine a série.',
       step2Title:'2. Publique o resultado',
-      step2Copy:'No final, confirme seu perfil e toque em “Somar à classificação”.',
+      step2Copy:'Confirme seu perfil e toque uma única vez em “Somar tudo à classificação”.',
       step3Title:'3. Volte na semana seguinte',
       step3Copy:'O desafio recomeça toda segunda-feira, no horário do Paraguai.',
       fairTitle:'Regras do prêmio e proteção dos seus dados',
@@ -659,7 +659,7 @@
       });
   }
 
-  function publishScore(result){
+  function postScore(result){
     if(!profileReady(profile)){
       var identityError = new Error('identity_required');
       identityError.code = 'identity_required';
@@ -691,9 +691,31 @@
           error.code = data.code || '';
           throw error;
         }
-        loadData();
         return data;
       });
+    });
+  }
+
+  function publishScore(result){
+    return postScore(result).then(function(data){
+      loadData();
+      return data;
+    });
+  }
+
+  function publishScores(results){
+    var scores = Array.isArray(results) ? results.filter(function(result){return result && Number(result.total) > 0;}) : [];
+    if(!scores.length) return publishScore(results && results[0] ? results[0] : {});
+    return Promise.all(scores.map(postScore)).then(function(responses){
+      loadData();
+      return {
+        ok:true,
+        saved:responses.some(function(data){return data && data.saved !== false;}),
+        results:responses
+      };
+    }).catch(function(error){
+      loadData();
+      throw error;
     });
   }
 
@@ -714,6 +736,7 @@
     isProfileReady:function(value){ return profileReady(value || profile); },
     isChallengeClosed:challengeIsClosed,
     publishScore:publishScore,
+    publishScores:publishScores,
     refresh:loadData,
     t:t
   };

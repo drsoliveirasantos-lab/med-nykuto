@@ -14,6 +14,8 @@ const seminarDocumentsRuntime = fs.readFileSync(path.join(root, 'documentos-semi
 const classHubRuntime = fs.readFileSync(path.join(root, 'class-hub-runtime-v440.js'), 'utf8');
 const classHubCss = fs.readFileSync(path.join(root, 'class-hub-2026-08-21-v440.css'), 'utf8');
 const classHubApi = fs.readFileSync(path.join(root, 'functions', 'api', 'class-hub.js'), 'utf8');
+const academicModel = fs.readFileSync(path.join(root, 'academic-model-v445.js'), 'utf8');
+const notebook = fs.readFileSync(path.join(root, 'class-notebook-v445.js'), 'utf8');
 
 const failures = [];
 const expect = (condition, message) => {
@@ -131,6 +133,18 @@ expect(i18n.includes("'Materias':'Matérias'"), 'The Materias/Matérias navigati
 expect(i18n.includes("'Horario del 4.º E':'Horário do 4.º E'"), 'The Portuguese schedule heading translation is missing.');
 expect(i18n.includes("'Tu semana':'Sua semana'"), 'The simplified Portuguese dashboard heading is missing.');
 expect(i18n.includes("'Ver todas las tareas':'Ver todas as tarefas'"), 'The simplified Portuguese task link is missing.');
+expect(runtime.includes('micosis superficiales, cutáneas, subcutáneas y oportunistas, con cinco secuencias clínicas'), 'The Microbiology 17 August runtime still overwrites the completed five-case transcription scope.');
+expect(!runtime.includes('con dos casos clínicos resueltos paso a paso'), 'The stale two-case Microbiology runtime description is still present.');
+expect(html.includes('Los dos primeros casos de la clase'), 'The first Microbiology comparison is not clearly limited to the first two cases.');
+expect(notebook.includes("kicker: 'PRIMEROS 2 CASOS · 2 PROFUNDIDADES'"), 'The Microbiology notebook still presents the first comparison as the whole lesson.');
+expect(academicModel.includes("title: 'Micosis superficiales, cutáneas, subcutáneas y oportunistas'"), 'The Microbiology chapter title omits the opportunistic mycosis block.');
+[
+  "'Los dos primeros casos de la clase':'Os dois primeiros casos da aula'",
+  "'PRIMEROS 2 CASOS · 2 PROFUNDIDADES':'PRIMEIROS 2 CASOS · 2 PROFUNDIDADES'",
+  "'Micosis superficiales, cutáneas, subcutáneas y oportunistas':'Micoses superficiais, cutâneas, subcutâneas e oportunistas'"
+].forEach((translation) => {
+  expect(i18n.includes(translation), `The completed Microbiology transcription translation “${translation}” is missing.`);
+});
 [
   'Virus sincitial respiratorio · Bronquiolitis',
   'Influenza',
