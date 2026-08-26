@@ -26,6 +26,7 @@ Une requête historique sans paramètre `class` continue de viser `s4-e`.
 | Rôle | Portée | Autorisations |
 |---|---|---|
 | Propriétaire | Toutes les turmas | Créer/archiver une turma, gérer ses matières, ses éditeurs et son audit, plus toutes les opérations éditoriales |
+| Administrateur de contenu | Une seule turma | Droits du délégué, plus brouillons et publications des cours, fiches et entraînements 20/10/10 ; aucun accès à la gestion des classes, comptes, permissions ou audits |
 | Éditeur/délégué | Une seule turma | Tâches, avis officiels, activités, groupes, fichiers, dates et son propre profil WhatsApp dans sa turma |
 | Étudiant | Espace public d'une turma | Lire les publications, rejoindre/quitter un groupe ouvert et conserver son progrès local |
 
@@ -50,6 +51,8 @@ Aucune donnée pédagogique ou opérationnelle n'est copiée automatiquement d'u
 - `hub_subjects` utilise une clé composite `(class_id, id)`.
 - `hub_editor_credentials` conserve par turma le courriel normalisé et uniquement le vérificateur PBKDF2 salé du mot de passe.
 - `hub_editor_sessions` conserve par turma uniquement les condensats des jetons de session et anti-CSRF, avec expiration et révocation.
+- `hub_editor_permissions` accorde de facon additive la capacite `content.manage` a un compte precis et conserve la turma, l'auteur et la date de l'attribution. Les jetons editeur historiques n'en heritent jamais.
+- `hub_content_lessons` et `hub_content_revisions` conservent les cours dates propres a une turma, leurs brouillons, revisions et paquets d'entrainement. Seule la revision publiee est exposee sans authentification.
 - Toutes les tables opérationnelles possèdent `class_id NOT NULL DEFAULT 's4-e'`.
 - Chaque lecture, mutation, jointure et audit opérationnel filtre par `class_id`.
 - Les identifiants créés hors `s4-e` sont préfixés par le slug de la turma afin de préserver les anciennes clés primaires globales sans migration destructive.
@@ -101,6 +104,8 @@ Les secrets ne doivent jamais être ajoutés au dépôt. La première ouverture 
 - La session de huit heures repose sur un cookie `Secure`, `HttpOnly`, `SameSite=Strict` et un contrôle anti-CSRF séparé pour les mutations.
 - Un changement/réinitialisation de mot de passe ou la révocation d'un éditeur invalide ses sessions précédentes.
 - Les mutations sont journalisées par turma dans `hub_audit`.
+- Les mutations de contenu exigent soit le proprietaire, soit une session courrier/mot de passe portant `content.manage`. Un role inconnu, un jeton editeur historique ou un profil `localStorage` echoue par defaut.
+- La publication d'un cours est refusee sans les trois formats de contenu et sans exactement 20 QCM, 10 vrai/faux et 10 cas cliniques valides. La revision et son instantane sont ecrits atomiquement, avec controle de concurrence optimiste.
 - Les espaces génériques des autres turmas ne publient pas de liste nominative dans le DOM étudiant. Exception explicitement validée pour le tableau officiel du 4.º E : lorsqu'une activité est publiée, son tableau peut exposer uniquement le nom d'affichage et le marqueur de responsable. Les identifiants de ligne, empreintes d'appareil, dates et métadonnées administratives restent privés.
 - Exception distincte pour le défi hebdomadaire facultatif du 4.º E : après une attestation d'appartenance et un consentement explicite, le classement expose le nom complet et la catraca complète à toute personne ayant le lien. Le jeton d'accès, son condensat, l'empreinte HMAC et le `playerId` restent privés. Les profils en attente sont provisoires et le Pix de **50 R$** n'est versé qu'après validation manuelle de l'identité, de l'appartenance au 4.º E et du résultat.
 

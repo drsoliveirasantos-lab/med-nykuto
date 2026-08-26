@@ -8,7 +8,7 @@
   <title>Gestión de la clase | Med Nykuto</title>
   <meta name="description" content="Gestión segura de tareas, avisos, grupos, materiales y fechas de una clase Med Nykuto." />
   <link rel="icon" href="/assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="/gestion-v440.css?v=478" />
+  <link rel="stylesheet" href="/gestion-v440.css?v=483" />
   <link rel="stylesheet" href="/help-desk-v479.css?v=480" />
 </head>
 <body>
@@ -29,9 +29,9 @@
 
     <section class="manage-app" id="manageApp" hidden>
       <header class="manage-intro"><div><span id="actorRole">DELEGADO</span><h1 id="manageClassTitle">Panel de la clase</h1><p id="actorName"></p></div><button id="logoutButton" type="button">Cerrar sesión</button></header>
-      <details class="permission-note"><summary>Lo que puedes gestionar</summary><span>Tareas, avisos, grupos, archivos, calendario y tu WhatsApp. En <b>Materias</b> puedes ver y modificar todo lo relacionado con una asignatura, pero los cursos y las preguntas siguen protegidos.</span></details>
+      <details class="permission-note"><summary>Lo que puedes gestionar</summary><span id="managementPermissionSummary">Tareas, avisos, grupos, archivos, calendario y tu WhatsApp. Los cursos y las preguntas solo aparecen en cuentas con autorización de contenido.</span></details>
       <nav class="manage-tabs" aria-label="Áreas de gestión" role="tablist">
-        <button type="button" id="manageTabTasks" data-manage-tab="tasks" aria-controls="managePanelTasks" aria-selected="true" role="tab"><span class="tab-icon" aria-hidden="true">✓</span><span>Tareas</span></button><button type="button" id="manageTabNotices" data-manage-tab="notices" aria-controls="managePanelNotices" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">!</span><span>Avisos</span></button><button type="button" id="manageTabGroups" data-manage-tab="groups" aria-controls="managePanelGroups" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">👥</span><span>Grupos</span></button><button type="button" id="manageTabCalendar" data-manage-tab="calendar" aria-controls="managePanelCalendar" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">▦</span><span>Calendario</span></button><button type="button" id="manageTabFiles" data-manage-tab="files" aria-controls="managePanelFiles" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">↗</span><span>Archivos</span></button><button type="button" id="manageTabSubjects" data-manage-tab="subjects" aria-controls="managePanelSubjects" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">▤</span><span>Materias</span></button><button type="button" id="manageTabProfile" data-manage-tab="profile" aria-controls="managePanelProfile" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">●</span><span>Perfil</span></button><button type="button" id="manageTabClasses" data-manage-tab="classes" aria-controls="managePanelClasses" aria-selected="false" role="tab" data-owner-only><span class="tab-icon" aria-hidden="true">◇</span><span>Clases</span></button><button type="button" id="manageTabAccess" data-manage-tab="access" aria-controls="managePanelAccess" aria-selected="false" role="tab" data-owner-only><span class="tab-icon" aria-hidden="true">⌁</span><span>Accesos</span></button>
+        <button type="button" id="manageTabTasks" data-manage-tab="tasks" aria-controls="managePanelTasks" aria-selected="true" role="tab"><span class="tab-icon" aria-hidden="true">✓</span><span>Tareas</span></button><button type="button" id="manageTabNotices" data-manage-tab="notices" aria-controls="managePanelNotices" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">!</span><span>Avisos</span></button><button type="button" id="manageTabGroups" data-manage-tab="groups" aria-controls="managePanelGroups" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">👥</span><span>Grupos</span></button><button type="button" id="manageTabCalendar" data-manage-tab="calendar" aria-controls="managePanelCalendar" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">▦</span><span>Calendario</span></button><button type="button" id="manageTabFiles" data-manage-tab="files" aria-controls="managePanelFiles" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">↗</span><span>Archivos</span></button><button type="button" id="manageTabSubjects" data-manage-tab="subjects" aria-controls="managePanelSubjects" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">▤</span><span>Materias</span></button><button type="button" id="manageTabContent" data-manage-tab="content" aria-controls="managePanelContent" aria-selected="false" role="tab" data-content-admin-only hidden><span class="tab-icon" aria-hidden="true">✎</span><span>Contenido</span></button><button type="button" id="manageTabProfile" data-manage-tab="profile" aria-controls="managePanelProfile" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">●</span><span>Perfil</span></button><button type="button" id="manageTabClasses" data-manage-tab="classes" aria-controls="managePanelClasses" aria-selected="false" role="tab" data-owner-only><span class="tab-icon" aria-hidden="true">◇</span><span>Clases</span></button><button type="button" id="manageTabAccess" data-manage-tab="access" aria-controls="managePanelAccess" aria-selected="false" role="tab" data-owner-only><span class="tab-icon" aria-hidden="true">⌁</span><span>Accesos</span></button>
       </nav>
       <p class="manage-status" id="manageStatus" role="status"></p>
       <datalist id="subjectOptions"></datalist>
@@ -79,6 +79,78 @@
         <div class="subject-cockpit" id="subjectCockpit"></div>
       </section>
 
+      <section class="manage-panel content-panel" id="managePanelContent" data-manage-panel="content" role="tabpanel" aria-labelledby="manageTabContent" data-content-admin-only hidden>
+        <header><span>GESTIÓN DE CONTENIDO</span><h2>Añadir un curso y su entrenamiento</h2><p>Pega cada parte preparada, comprueba las 40 preguntas y guarda primero un borrador antes de publicar.</p></header>
+        <div class="content-toolbar"><button id="lessonNewButton" type="button">Nuevo curso</button><p id="lessonEditorMode">Nuevo contenido</p></div>
+        <form class="content-editor" id="lessonForm" autocomplete="off">
+          <input type="hidden" name="action" value="lesson.upsert" />
+          <input id="lessonId" type="hidden" name="id" />
+          <input id="lessonExpectedRevision" type="hidden" name="expectedRevision" />
+          <div class="content-meta-grid">
+            <label><span>Materia <em class="required-mark">Obligatoria</em></span><select id="lessonSubjectId" name="subjectId" required><option value="">Selecciona una materia</option></select></label>
+            <label><span>Fecha de la clase <em class="optional-mark">Para publicar</em></span><input id="lessonDate" name="lessonDate" type="date" /></label>
+            <label class="wide"><span>Título del curso <em class="required-mark">Obligatorio</em></span><input id="lessonTitle" name="title" maxlength="180" placeholder="Ej.: Sensibilidades somáticas" required /></label>
+            <label class="wide"><span>Descripción corta <em class="optional-mark">Opcional</em></span><textarea id="lessonDescription" name="description" rows="3" maxlength="500" placeholder="Resume en una o dos frases qué aprenderá el estudiante."></textarea></label>
+          </div>
+
+          <div class="content-sections" aria-label="Partes del curso">
+            <details class="content-section" open><summary><span>1</span><b>Curso completo</b><small>Markdown o texto · obligatorio al publicar.</small></summary><label for="lessonFullMarkdown" class="sr-only">Curso completo</label><textarea id="lessonFullMarkdown" name="fullMarkdown" rows="16" spellcheck="true" placeholder="# Título&#10;&#10;Contenido completo del curso…"></textarea></details>
+            <details class="content-section"><summary><span>2</span><b>Ficha rápida</b><small>Obligatoria al publicar.</small></summary><label for="lessonQuickMarkdown" class="sr-only">Ficha rápida</label><textarea id="lessonQuickMarkdown" name="quickMarkdown" rows="10" spellcheck="true" placeholder="## Puntos esenciales&#10;&#10;- …"></textarea></details>
+            <details class="content-section"><summary><span>3</span><b>Ficha ultra rápida</b><small>Obligatoria al publicar.</small></summary><label for="lessonUltraMarkdown" class="sr-only">Ficha ultra rápida</label><textarea id="lessonUltraMarkdown" name="ultraMarkdown" rows="7" spellcheck="true" placeholder="- Idea clave 1&#10;- Idea clave 2"></textarea></details>
+          </div>
+
+          <section class="practice-editor" aria-labelledby="practiceEditorTitle">
+            <header><div><span>4</span><div><h3 id="practiceEditorTitle">Entrenamiento en JSON</h3><p>Pega un objeto JSON válido. Se aceptan las claves <code>trueFalse</code>/<code>vf</code> y <code>clinicalCases</code>/<code>cases</code>.</p></div></div></header>
+            <label for="lessonPracticeJson" class="sr-only">Entrenamiento JSON</label>
+            <textarea id="lessonPracticeJson" name="practiceJson" rows="20" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="practiceJsonStatus practiceCounts" placeholder='{"practice":{"qcm":[],"trueFalse":[],"clinicalCases":[]}}' required></textarea>
+            <div class="practice-counts" id="practiceCounts" aria-label="Conteo de preguntas">
+              <span class="practice-count" data-practice-count="qcm"><b id="practiceQcmCount">0</b>/20 QCM</span>
+              <span class="practice-count" data-practice-count="trueFalse"><b id="practiceTrueFalseCount">0</b>/10 V/F</span>
+              <span class="practice-count" data-practice-count="clinicalCases"><b id="practiceClinicalCount">0</b>/10 casos clínicos</span>
+            </div>
+            <p class="practice-json-status" id="practiceJsonStatus" role="status" aria-live="polite">Pega el JSON para comprobarlo.</p>
+          </section>
+
+          <details class="content-prompt">
+            <summary>Prompt listo para ChatGPT</summary>
+            <p>Cópialo, añade el contenido fuente y pega aquí únicamente el JSON resultante.</p>
+            <button id="copyContentPrompt" type="button">Copiar prompt y plantilla</button>
+            <pre id="contentPromptTemplate">A partir únicamente del curso fuente que añadiré después de este mensaje, crea un entrenamiento en español médico claro. Devuelve SOLO JSON válido, sin comentarios ni bloques de código. Debe contener exactamente 20 QCM, 10 verdadero/falso y 10 casos clínicos. Conserva un id único y estable para cada pregunta.
+
+Usa esta estructura:
+{
+  "practice": {
+    "qcm": [{"id":"qcm-01","question":"…","options":["…","…","…","…"],"answerIndex":0,"explanation":"…"}],
+    "trueFalse": [{"id":"vf-01","question":"…","options":["Verdadero","Falso"],"answerIndex":0,"explanation":"…"}],
+    "clinicalCases": [{"id":"caso-01","stem":"Situación clínica realista de 2–3 frases.","question":"…","options":["…","…","…","…"],"answerIndex":0,"explanation":"…"}]
+  }
+}
+
+No inventes información ajena a la fuente. Distribuye las respuestas correctas y evita preguntas repetidas.</pre>
+          </details>
+
+          <div class="content-actions">
+            <button id="lessonPreviewButton" class="content-preview-action" type="button">Vista previa</button>
+            <button class="content-draft-action" type="submit" data-lesson-status="draft">Guardar borrador</button>
+            <button class="content-publish-action" type="submit" data-lesson-status="published">Publicar</button>
+          </div>
+        </form>
+
+        <section class="content-preview" id="lessonPreview" tabindex="-1" hidden aria-labelledby="lessonPreviewTitle">
+          <header><div><span>VISTA PREVIA SEGURA</span><h3 id="lessonPreviewTitle">Curso</h3><p id="lessonPreviewMeta"></p></div><button id="lessonPreviewClose" type="button">Cerrar vista previa</button></header>
+          <p id="lessonPreviewDescription"></p>
+          <div class="content-preview-grid">
+            <article><h4>Curso completo</h4><pre id="lessonPreviewFull"></pre></article>
+            <article><h4>Ficha rápida</h4><pre id="lessonPreviewQuick"></pre></article>
+            <article><h4>Ficha ultra rápida</h4><pre id="lessonPreviewUltra"></pre></article>
+          </div>
+          <details><summary id="lessonPreviewPracticeSummary">Entrenamiento</summary><pre id="lessonPreviewPractice"></pre></details>
+        </section>
+
+        <h3 class="list-title">Cursos guardados</h3>
+        <div class="manage-list content-lesson-list" id="lessonList"></div>
+      </section>
+
       <section class="manage-panel" id="managePanelProfile" data-manage-panel="profile" role="tabpanel" aria-labelledby="manageTabProfile" hidden>
         <header><span>TUS DATOS</span><h2>Mi perfil de delegado</h2><p>Tu nombre y correo identifican la cuenta. Añade tu WhatsApp para enviarte las listas de grupos con un toque.</p></header>
         <form class="manage-form profile-form" id="profileForm"><input type="hidden" name="action" value="profile.upsert" /><label><span>Nombre</span><input name="name" autocomplete="name" readonly aria-readonly="true" /></label><label><span>Correo de conexión</span><input name="email" type="email" autocomplete="email" readonly aria-readonly="true" /></label><label class="wide"><span>Mi número de WhatsApp <em class="optional-mark">Opcional</em></span><input id="profileWhatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" maxlength="32" placeholder="+595 981 234 567" aria-describedby="profileWhatsappHelp" /><small class="field-help" id="profileWhatsappHelp">Incluye el código del país. Puedes usar espacios, guiones o empezar por 00; lo guardaremos en formato internacional. Solo se usa para tus propios envíos.</small></label><button type="submit">Guardar mi WhatsApp</button></form>
@@ -111,7 +183,7 @@
     </section>
   </main>
   <footer><span>Med Nykuto · Gestión académica</span><span>Los nombres de grupos son visibles únicamente para los administradores autorizados.</span></footer>
-  <script src="/gestion-v440.js?v=478"></script>
+  <script src="/gestion-v440.js?v=483"></script>
   <script src="/help-desk-v479.js?v=480"></script>
 </body>
 </html>

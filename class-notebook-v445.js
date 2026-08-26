@@ -985,6 +985,19 @@
     if (!panel.style.getPropertyValue('--lesson-accent') && teacher && teacher.accent) panel.style.setProperty('--lesson-accent', teacher.accent);
   }
 
+  function enhanceManagedLesson(panel, entry, teacher) {
+    var nav = panel.querySelector('[data-lesson-tabs]');
+    if (!nav) return;
+    standardizeLessonTabs(panel, nav);
+    var panels = Array.prototype.slice.call(panel.querySelectorAll('[data-lesson-tab-panel]'));
+    var ia = panel.querySelector('[data-lesson-tab-panel="ia"]');
+    if (ia && teacher) ia.replaceChildren(teacherAuditContent(teacher, entry.lesson));
+    panel.dataset.notebookManaged = 'true';
+    panel.classList.add('lesson-notebook-standard');
+    if (!panel.style.getPropertyValue('--lesson-accent') && teacher && teacher.accent) panel.style.setProperty('--lesson-accent', teacher.accent);
+    wireLessonTabs(nav, panels);
+  }
+
   function collectFiles(subject) {
     var seen = {};
     return Array.prototype.slice.call(subject.querySelectorAll('a[href]')).map(function (link) {
@@ -1123,7 +1136,8 @@
       var panel = document.getElementById(entry.lesson.id);
       if (!panel) return;
       var narrative = model.narratives[entry.lesson.id];
-      if (narrative) buildLegacyLesson(panel, narrative, entry, subjectModel, teacher);
+      if (entry.lesson.managedContent || panel.dataset.managedLesson === 'true') enhanceManagedLesson(panel, entry, teacher);
+      else if (narrative) buildLegacyLesson(panel, narrative, entry, subjectModel, teacher);
       else enhanceNarrativeLesson(panel, entry, teacher);
     });
 

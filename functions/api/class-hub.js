@@ -20,12 +20,26 @@ const EDITOR_ACTIONS = new Set([
   'member.move', 'member.remove', 'file.upsert', 'date.upsert', 'profile.upsert',
   'notice.attachment.upload'
 ]);
+const CONTENT_ACTIONS = new Set(['lesson.upsert']);
+const KNOWN_ACTOR_ROLES = new Set(['owner', 'editor']);
+const CONTENT_PERMISSION = 'content.manage';
 const STATUSES = new Set(['draft', 'published', 'archived']);
 const NOTICE_PRIORITIES = new Set(['normal', 'important', 'urgent']);
 const ID_PATTERN = /^[a-z0-9][a-z0-9._-]{0,79}$/;
 const CLASS_REF_PATTERN = /^[a-z0-9][a-z0-9-]{0,30}$/;
 const TIME_PATTERN = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
 const MAX_BODY = 65536;
+const MAX_CONTENT_BODY = 512 * 1024;
+const MAX_NORMALIZED_CONTENT_BYTES = 500 * 1024;
+const CONTENT_TEXT_LIMITS = Object.freeze({
+  full: 180000,
+  quick: 80000,
+  ultra: 40000,
+  question: 3000,
+  stem: 5000,
+  option: 1200,
+  explanation: 6000
+});
 const MAX_NOTICE_ATTACHMENT_BYTES = 15 * 1024 * 1024;
 const MAX_NOTICE_UPLOAD_REQUEST_BYTES = MAX_NOTICE_ATTACHMENT_BYTES + 512 * 1024;
 const MAX_STAGED_NOTICE_UPLOADS_PER_CLASS = 20;
@@ -108,6 +122,7 @@ function withEpidemiologyAssignment(group) {
 const DEFAULT_PUBLIC = {
   class: DEFAULT_CLASS,
   subjects: DEFAULT_SUBJECTS.map(([id, name], index) => ({ id, name, order: index + 1 })),
+  lessons: [],
   notices: [
     { id: 'week-2026-08-21', course: '', priority: 'normal', title: 'Cursos del 19 al 21 de agosto disponibles', body: 'Bioquímica, Epidemiología, Fisiología y Microbiología práctica ya están organizadas.', imageUrl: null, imageAlt: null, attachmentUploadId: null, attachmentUrl: null, attachmentTitle: null, attachmentMimeType: null, attachmentSizeBytes: null, status: 'published' },
     { id: 'tasks-2026-08-21', course: '', priority: 'important', title: 'Dos trabajos activos', body: 'Epidemiología: exposición grupal. Bioquímica: imprimir y completar a mano las actividades 3 y 4.', imageUrl: null, imageAlt: null, attachmentUploadId: null, attachmentUrl: null, attachmentTitle: null, attachmentMimeType: null, attachmentSizeBytes: null, status: 'published' }
@@ -155,6 +170,218 @@ function cleanE164(value) {
 }
 function integer(value, fallback, min, max) { const parsed = Number.parseInt(value, 10); return Number.isFinite(parsed) ? Math.min(max, Math.max(min, parsed)) : fallback; }
 function hasOwn(value, key) { return Boolean(value && Object.prototype.hasOwnProperty.call(value, key)); }
+
+const UNSAFE_CONTENT_PATTERN = /<\s*\/?\s*(?:script|iframe|object|embed|style|link|meta|form|input|button|textarea|select|option|svg|math)\b|\bon[a-z0-9_-]+\s*=|\b(?:javascript|vbscript)\s*:|\bdata\s*:\s*text\/html/i;
+
+function utf8Size(value) { return new TextEncoder().encode(String(value || '')).byteLength; }
+function contentProblem(code, error, field = '') { return { ok: false, code, error, field }; }
+function plainObject(value) { return Boolean(value && typeof value === 'object' && !Array.isArray(value)); }
+function normalizedContentText(value, field, maxLength, required = false, singleLine = false) {
+  if (value === undefined || value === null) value = '';
+  if (typeof value !== 'string') return contentProblem('invalid_content_text', `El campo ${field} debe ser texto.`, field);
+  let text = value.normalize('NFKC').replace(/\r\n?/g, '\n').replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, ' ');
+  text = singleLine ? text.replace(/\s+/g, ' ').trim() : text.replace(/[ \t]+\n/g, '\n').replace(/\n{4,}/g, '\n\n\n').trim();
+  if (required && !text) return contentProblem('missing_content_text', `El campo ${field} es obligatorio.`, field);
+  if (text.length > maxLength || utf8Size(text) > maxLength * 4) return contentProblem('content_text_too_large', `El campo ${field} supera el límite permitido.`, field);
+  if (UNSAFE_CONTENT_PATTERN.test(text)) return contentProblem('unsafe_content', `El campo ${field} contiene marcado no permitido.`, field);
+  return { ok: true, value: text };
+}
+function normalizedOptionKey(value) { return String(value || '').normalize('NFKC').replace(/\s+/g, ' ').trim().toLocaleLowerCase('es'); }
+function validQuestionRevision(value) { return Number.isSafeInteger(Number(value)) && Number(value) >= 1 ? Number(value) : 1; }
+function comparableQuestion(question, kind) {
+  return {
+    kind,
+    id: cleanId(question?.id),
+    stem: kind === 'clinicalCases' ? String(question?.stem || '') : '',
+    question: String(question?.question || ''),
+    options: Array.isArray(question?.options) ? question.options.map((option) => String(option || '')) : [],
+    answerIndex: Number(question?.answerIndex),
+    explanation: String(question?.explanation || ''),
+    whyWrong: Array.isArray(question?.whyWrong) ? question.whyWrong.map((item) => String(item || '')) : []
+  };
+}
+function comparablePractice(practice) {
+  return {
+    qcm: (practice?.qcm || []).map((question) => comparableQuestion(question, 'qcm')),
+    trueFalse: (practice?.trueFalse || []).map((question) => comparableQuestion(question, 'trueFalse')),
+    clinicalCases: (practice?.clinicalCases || []).map((question) => comparableQuestion(question, 'clinicalCases'))
+  };
+}
+function stableQuestionId(lessonId, kind, index, usedIds) {
+  const suffix = `${kind === 'clinicalCases' ? 'case' : kind === 'trueFalse' ? 'vf' : 'qcm'}-${String(index + 1).padStart(2, '0')}`;
+  const prefix = (cleanId(lessonId) || 'lesson').slice(0, Math.max(1, 79 - suffix.length - 1));
+  let candidate = cleanId(`${prefix}-${suffix}`) || cleanId(`question-${suffix}`), serial = 2;
+  while (usedIds.has(candidate)) {
+    const tail = `-${serial}`;
+    candidate = cleanId(`${prefix.slice(0, Math.max(1, 79 - suffix.length - tail.length - 1))}-${suffix}${tail}`);
+    serial += 1;
+  }
+  return candidate;
+}
+function currentQuestionIndex(practice) {
+  const byId = new Map();
+  for (const kind of ['qcm', 'trueFalse', 'clinicalCases']) {
+    for (const question of Array.isArray(practice?.[kind]) ? practice[kind] : []) {
+      const id = cleanId(question?.id);
+      if (id && !byId.has(id)) byId.set(id, { kind, question });
+    }
+  }
+  return byId;
+}
+function normalizeQuestionSet(kind, incoming, current, lessonId, usedIds, previousById) {
+  const limit = kind === 'qcm' ? 20 : 10;
+  if (!Array.isArray(incoming)) return contentProblem('invalid_practice', `practice.${kind} debe ser una lista.`, `practice.${kind}`);
+  if (incoming.length > limit) return contentProblem('practice_count_exceeded', `practice.${kind} admite como máximo ${limit} elementos.`, `practice.${kind}`);
+  const normalized = [], seenPromptKeys = new Set();
+  for (let index = 0; index < incoming.length; index += 1) {
+    const item = incoming[index], path = `practice.${kind}[${index}]`;
+    if (!plainObject(item)) return contentProblem('invalid_question', `${path} debe ser un objeto.`, path);
+    const rawId = hasOwn(item, 'id') ? String(item.id || '').trim() : '';
+    const providedId = rawId ? cleanId(rawId) : '';
+    if (rawId && !providedId) return contentProblem('invalid_question_id', `${path}.id no es válido.`, `${path}.id`);
+    const fallback = Array.isArray(current) ? current[index] : null;
+    const fallbackId = cleanId(fallback?.id);
+    const id = providedId || (fallbackId && !usedIds.has(fallbackId) ? fallbackId : stableQuestionId(lessonId, kind, index, usedIds));
+    if (usedIds.has(id)) return contentProblem('duplicate_question_id', `El identificador de pregunta ${id} está repetido.`, `${path}.id`);
+    usedIds.add(id);
+
+    const questionText = normalizedContentText(item.question, `${path}.question`, CONTENT_TEXT_LIMITS.question, true);
+    if (!questionText.ok) return questionText;
+    const stemText = kind === 'clinicalCases'
+      ? normalizedContentText(item.stem, `${path}.stem`, CONTENT_TEXT_LIMITS.stem, true)
+      : { ok: true, value: '' };
+    if (!stemText.ok) return stemText;
+    const promptKey = kind === 'clinicalCases'
+      ? `${normalizedOptionKey(stemText.value)}\u0000${normalizedOptionKey(questionText.value)}`
+      : normalizedOptionKey(questionText.value);
+    if (seenPromptKeys.has(promptKey)) return contentProblem('duplicate_question', `${path} repite una pregunta de la misma sección.`, `${path}.question`);
+    seenPromptKeys.add(promptKey);
+
+    let options;
+    if (kind === 'trueFalse') {
+      options = ['Verdadero', 'Falso'];
+    } else {
+      if (!Array.isArray(item.options) || item.options.length !== 4) return contentProblem('invalid_options', `${path}.options debe contener exactamente cuatro opciones.`, `${path}.options`);
+      options = [];
+      for (let optionIndex = 0; optionIndex < item.options.length; optionIndex += 1) {
+        const option = normalizedContentText(item.options[optionIndex], `${path}.options[${optionIndex}]`, CONTENT_TEXT_LIMITS.option, true);
+        if (!option.ok) return option;
+        options.push(option.value);
+      }
+      if (new Set(options.map(normalizedOptionKey)).size !== options.length) return contentProblem('duplicate_options', `${path}.options contiene opciones repetidas.`, `${path}.options`);
+    }
+
+    let answerIndex = Number.NaN;
+    if (hasOwn(item, 'answerIndex')) {
+      if (typeof item.answerIndex !== 'number' || !Number.isInteger(item.answerIndex)) return contentProblem('invalid_answer', `${path}.answerIndex debe ser un número entero.`, `${path}.answerIndex`);
+      answerIndex = item.answerIndex;
+    } else if (kind === 'trueFalse' && typeof item.answer === 'boolean') {
+      answerIndex = item.answer ? 0 : 1;
+    }
+    if (!Number.isInteger(answerIndex) || answerIndex < 0 || answerIndex >= options.length) return contentProblem('invalid_answer', `${path}.answerIndex no señala una respuesta válida.`, `${path}.answerIndex`);
+    const explanation = normalizedContentText(item.explanation, `${path}.explanation`, CONTENT_TEXT_LIMITS.explanation, false);
+    if (!explanation.ok) return explanation;
+
+    let whyWrong = [];
+    if (hasOwn(item, 'whyWrong')) {
+      if (!Array.isArray(item.whyWrong) || item.whyWrong.length !== options.length) return contentProblem('invalid_distractor_explanations', `${path}.whyWrong debe tener una entrada por opción.`, `${path}.whyWrong`);
+      for (let optionIndex = 0; optionIndex < item.whyWrong.length; optionIndex += 1) {
+        const detail = normalizedContentText(item.whyWrong[optionIndex], `${path}.whyWrong[${optionIndex}]`, CONTENT_TEXT_LIMITS.explanation, false);
+        if (!detail.ok) return detail;
+        whyWrong.push(detail.value);
+      }
+    }
+
+    const candidate = {
+      id,
+      revision: 1,
+      ...(kind === 'clinicalCases' ? { stem: stemText.value } : {}),
+      question: questionText.value,
+      options,
+      answerIndex,
+      explanation: explanation.value,
+      ...(whyWrong.length ? { whyWrong } : {})
+    };
+    const previousEntry = previousById.get(id) || (fallbackId === id && fallback ? { kind, question: fallback } : null);
+    if (previousEntry) {
+      const unchanged = JSON.stringify(comparableQuestion(previousEntry.question, previousEntry.kind)) === JSON.stringify(comparableQuestion(candidate, kind));
+      candidate.revision = unchanged ? validQuestionRevision(previousEntry.question.revision) : validQuestionRevision(previousEntry.question.revision) + 1;
+    }
+    normalized.push(candidate);
+  }
+  return { ok: true, value: normalized };
+}
+
+export function normalizeContentPractice(input, currentPractice = {}, lessonId = 'lesson') {
+  if (input !== undefined && !plainObject(input)) return contentProblem('invalid_practice', 'practice debe ser un objeto.', 'practice');
+  const source = input || {}, current = plainObject(currentPractice) ? currentPractice : {}, usedIds = new Set(), previousById = currentQuestionIndex(current);
+  const output = {};
+  for (const kind of ['qcm', 'trueFalse', 'clinicalCases']) {
+    const incoming = hasOwn(source, kind) ? source[kind] : (Array.isArray(current[kind]) ? current[kind] : []);
+    const result = normalizeQuestionSet(kind, incoming, current[kind], lessonId, usedIds, previousById);
+    if (!result.ok) return result;
+    output[kind] = result.value;
+  }
+  return {
+    ok: true,
+    practice: output,
+    changed: JSON.stringify(comparablePractice(output)) !== JSON.stringify(comparablePractice(current))
+  };
+}
+
+export function contentLessonPublishProblem(lesson) {
+  if (!validContentLessonDate(lesson?.lessonDate)) return 'La fecha ISO de la clase es obligatoria para publicar.';
+  if (!String(lesson?.full || '').trim()) return 'El curso completo es obligatorio para publicar.';
+  if (!String(lesson?.quick || '').trim()) return 'La ficha rápida es obligatoria para publicar.';
+  if (!String(lesson?.ultra || '').trim()) return 'La ficha ultra-rápida es obligatoria para publicar.';
+  if ((lesson?.practice?.qcm || []).length !== 20) return 'La publicación necesita exactamente 20 QCM.';
+  if ((lesson?.practice?.trueFalse || []).length !== 10) return 'La publicación necesita exactamente 10 verdadero/falso.';
+  if ((lesson?.practice?.clinicalCases || []).length !== 10) return 'La publicación necesita exactamente 10 casos clínicos.';
+  for (const kind of ['qcm', 'trueFalse', 'clinicalCases']) {
+    if ((lesson?.practice?.[kind] || []).some((question) => String(question?.explanation || '').trim().length < 12)) return 'Cada pregunta publicada necesita una explicación clara de al menos 12 caracteres.';
+  }
+  return '';
+}
+
+function validContentLessonDate(value) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value || ''));
+  if (!match) return false;
+  const date = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3])));
+  return date.getUTCFullYear() === Number(match[1]) && date.getUTCMonth() === Number(match[2]) - 1 && date.getUTCDate() === Number(match[3]);
+}
+
+export function normalizeContentLessonInput(input, currentLesson = null) {
+  if (!plainObject(input)) return contentProblem('invalid_lesson', 'La lección debe ser un objeto.');
+  const current = plainObject(currentLesson) ? currentLesson : {};
+  const rawId = hasOwn(input, 'id') ? String(input.id || '').trim() : String(current.id || '').trim(), id = cleanId(rawId);
+  if (!id) return contentProblem('invalid_lesson_id', 'La lección necesita un identificador válido.', 'id');
+  const rawSubjectId = hasOwn(input, 'subjectId') ? input.subjectId : current.subjectId, subjectId = cleanId(rawSubjectId);
+  if (!subjectId) return contentProblem('invalid_subject', 'La materia de la lección no es válida.', 'subjectId');
+  const title = normalizedContentText(hasOwn(input, 'title') ? input.title : current.title, 'title', 180, true, true);
+  if (!title.ok) return title;
+  const description = normalizedContentText(hasOwn(input, 'description') ? input.description : current.description, 'description', 500, false);
+  if (!description.ok) return description;
+  const lessonDate = String(hasOwn(input, 'lessonDate') ? input.lessonDate : (current.lessonDate || '')).trim();
+  if (lessonDate && !validContentLessonDate(lessonDate)) return contentProblem('invalid_lesson_date', 'lessonDate debe ser una fecha real con formato AAAA-MM-DD.', 'lessonDate');
+  const status = hasOwn(input, 'status') ? input.status : (current.status || 'draft');
+  if (!STATUSES.has(status)) return contentProblem('invalid_status', 'El estado de la lección no es válido.', 'status');
+
+  const lesson = { id, subjectId, title: title.value, description: description.value, lessonDate, status };
+  for (const field of ['full', 'quick', 'ultra']) {
+    const normalized = normalizedContentText(hasOwn(input, field) ? input[field] : current[field], field, CONTENT_TEXT_LIMITS[field], false);
+    if (!normalized.ok) return normalized;
+    lesson[field] = normalized.value;
+  }
+  const practice = normalizeContentPractice(hasOwn(input, 'practice') ? input.practice : undefined, current.practice, id);
+  if (!practice.ok) return practice;
+  lesson.practice = practice.practice;
+  if (status === 'published') {
+    const publishProblem = contentLessonPublishProblem(lesson);
+    if (publishProblem) return contentProblem('publish_incomplete', publishProblem, 'status');
+  }
+  if (utf8Size(JSON.stringify(lesson)) > MAX_NORMALIZED_CONTENT_BYTES) return contentProblem('content_payload_too_large', 'La lección normalizada supera el límite permitido.');
+  return { ok: true, lesson, practiceChanged: practice.changed };
+}
 
 function localDateParts(now = new Date()) {
   const formatter = new Intl.DateTimeFormat('en-CA', {
@@ -207,9 +434,9 @@ function sameOrigin(request) {
   if (referer) { try { return new URL(referer).origin === target; } catch { return false; } }
   return true;
 }
-async function payload(request) {
+async function payload(request, maxBytes = MAX_BODY) {
   const length = Number(request.headers.get('content-length') || 0);
-  if (length > MAX_BODY) throw new Error('payload_too_large');
+  if (!Number.isFinite(maxBytes) || maxBytes < 1 || length > maxBytes) throw new Error('payload_too_large');
   if (!request.headers.get('content-type')?.toLowerCase().includes('application/json')) throw new Error('invalid_content_type');
   if (!request.body) throw new Error('invalid_json');
   const reader = request.body.getReader(), decoder = new TextDecoder();
@@ -218,7 +445,7 @@ async function payload(request) {
     const { done, value } = await reader.read();
     if (done) break;
     size += value.byteLength;
-    if (size > MAX_BODY) { await reader.cancel(); throw new Error('payload_too_large'); }
+    if (size > maxBytes) { await reader.cancel(); throw new Error('payload_too_large'); }
     raw += decoder.decode(value, { stream: true });
   }
   raw += decoder.decode();
@@ -331,6 +558,16 @@ async function resolveClass(request, db, data = null, env = null) {
   const row = await db.prepare(`SELECT id,slug,name,semester,group_code,theme,drive_url,support_whatsapp,status FROM hub_classes WHERE (slug=? OR id=?) AND status='active'`).bind(requested, requested).first();
   if (row) row.supportWhatsapp = supportWhatsapp(row, env);
   return row ? { classRecord: row } : { error: 'class_not_found' };
+}
+
+function bodyMatchesClass(data, classRecord) {
+  const refs = [data?.class, data?.classSlug, data?.classId].filter((value) => String(value || '').trim());
+  if (!refs.length) return true;
+  const allowed = new Set([String(classRecord.id || '').toLowerCase(), String(classRecord.slug || '').toLowerCase()]);
+  return refs.every((value) => {
+    const ref = cleanClassRef(value);
+    return Boolean(ref && allowed.has(ref));
+  });
 }
 
 async function ensureClassColumn(db, table) {
@@ -449,6 +686,9 @@ async function ensureSchema(db) {
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_profiles (class_id TEXT NOT NULL DEFAULT 's4-e', actor_id TEXT NOT NULL, whatsapp_e164 TEXT NOT NULL DEFAULT '', whatsapp_format_verified_at TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, PRIMARY KEY(class_id,actor_id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_credentials (editor_id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', email_normalized TEXT NOT NULL, password_hash TEXT NOT NULL, password_salt TEXT NOT NULL, password_algorithm TEXT NOT NULL DEFAULT 'pbkdf2-sha256', password_iterations INTEGER NOT NULL, password_version INTEGER NOT NULL DEFAULT 1, must_change_password INTEGER NOT NULL DEFAULT 1, temporary_expires_at TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(class_id,email_normalized), FOREIGN KEY(editor_id) REFERENCES hub_editors(id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_sessions (token_hash TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', editor_id TEXT NOT NULL, csrf_hash TEXT NOT NULL, created_at TEXT NOT NULL, expires_at TEXT NOT NULL, last_seen_at TEXT, revoked_at TEXT, FOREIGN KEY(editor_id) REFERENCES hub_editors(id))`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_permissions (class_id TEXT NOT NULL DEFAULT 's4-e', editor_id TEXT NOT NULL, permission TEXT NOT NULL CHECK(permission='content.manage'), enabled INTEGER NOT NULL DEFAULT 0 CHECK(enabled IN (0,1)), granted_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, PRIMARY KEY(class_id,editor_id,permission), FOREIGN KEY(editor_id) REFERENCES hub_editors(id))`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_content_lessons (class_id TEXT NOT NULL DEFAULT 's4-e', id TEXT NOT NULL, subject_id TEXT NOT NULL, title TEXT NOT NULL, lesson_date TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft','published','archived')), revision INTEGER NOT NULL DEFAULT 1 CHECK(revision>=1), practice_revision INTEGER NOT NULL DEFAULT 0 CHECK(practice_revision>=0), payload_json TEXT NOT NULL, created_by TEXT NOT NULL, updated_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, published_at TEXT, PRIMARY KEY(class_id,id), FOREIGN KEY(class_id,subject_id) REFERENCES hub_subjects(class_id,id))`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_content_revisions (class_id TEXT NOT NULL DEFAULT 's4-e', lesson_id TEXT NOT NULL, revision INTEGER NOT NULL CHECK(revision>=1), practice_revision INTEGER NOT NULL DEFAULT 0 CHECK(practice_revision>=0), status TEXT NOT NULL CHECK(status IN ('draft','published','archived')), payload_json TEXT NOT NULL, actor_id TEXT NOT NULL, created_at TEXT NOT NULL, PRIMARY KEY(class_id,lesson_id,revision), FOREIGN KEY(class_id,lesson_id) REFERENCES hub_content_lessons(class_id,id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_audit (id INTEGER PRIMARY KEY AUTOINCREMENT, class_id TEXT NOT NULL DEFAULT 's4-e', actor_id TEXT NOT NULL, actor_role TEXT NOT NULL, action TEXT NOT NULL, entity_type TEXT NOT NULL, entity_id TEXT NOT NULL, details TEXT NOT NULL DEFAULT '{}', created_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_push_subscriptions (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', endpoint_hash TEXT NOT NULL UNIQUE, subscription_json TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_rate_limits (key TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', window_start INTEGER NOT NULL, count INTEGER NOT NULL DEFAULT 0)`)
@@ -456,7 +696,7 @@ async function ensureSchema(db) {
     await ensureClassSupportWhatsappColumn(db);
     await db.prepare(`INSERT OR IGNORE INTO hub_classes (id,slug,name,semester,group_code,theme,drive_url,status,created_at,updated_at) VALUES (?,?,?,?,?,?,?,'active',?,?)`).bind(DEFAULT_CLASS_ID, DEFAULT_CLASS_SLUG, DEFAULT_CLASS.name, DEFAULT_CLASS.semester, DEFAULT_CLASS.group, DEFAULT_CLASS.theme, DEFAULT_CLASS.driveUrl, created, created).run();
     await db.batch(DEFAULT_SUBJECTS.map(([id, name], index) => db.prepare(`INSERT OR IGNORE INTO hub_subjects (class_id,id,name,sort_order,status,created_at,updated_at) VALUES (?,?,?,?,'active',?,?)`).bind(DEFAULT_CLASS_ID, id, name, index + 1, created, created)));
-    for (const table of ['hub_tasks', 'hub_uploads', 'hub_notices', 'hub_activities', 'hub_groups', 'hub_memberships', 'hub_files', 'hub_dates', 'hub_schedule_slots', 'hub_invites', 'hub_editors', 'hub_editor_profiles', 'hub_editor_credentials', 'hub_editor_sessions', 'hub_audit', 'hub_push_subscriptions', 'hub_rate_limits']) await ensureClassColumn(db, table);
+    for (const table of ['hub_tasks', 'hub_uploads', 'hub_notices', 'hub_activities', 'hub_groups', 'hub_memberships', 'hub_files', 'hub_dates', 'hub_schedule_slots', 'hub_invites', 'hub_editors', 'hub_editor_profiles', 'hub_editor_credentials', 'hub_editor_sessions', 'hub_editor_permissions', 'hub_content_lessons', 'hub_content_revisions', 'hub_audit', 'hub_push_subscriptions', 'hub_rate_limits']) await ensureClassColumn(db, table);
     await ensureTaskAttachmentColumns(db);
     await ensureTaskNoticeColumn(db);
     await ensureNoticeImageColumns(db);
@@ -481,6 +721,10 @@ async function ensureSchema(db) {
       db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS hub_editor_credentials_class_email_uidx ON hub_editor_credentials(class_id,email_normalized)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_editor_profiles_class_actor_idx ON hub_editor_profiles(class_id,actor_id)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_editor_sessions_editor_idx ON hub_editor_sessions(class_id,editor_id,expires_at)`),
+      db.prepare(`CREATE INDEX IF NOT EXISTS hub_editor_permissions_class_actor_idx ON hub_editor_permissions(class_id,editor_id,enabled)`),
+      db.prepare(`CREATE INDEX IF NOT EXISTS hub_content_lessons_class_status_idx ON hub_content_lessons(class_id,status,lesson_date DESC,updated_at DESC)`),
+      db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS hub_content_lessons_class_subject_date_uidx ON hub_content_lessons(class_id,subject_id,lesson_date) WHERE lesson_date<>''`),
+      db.prepare(`CREATE INDEX IF NOT EXISTS hub_content_revisions_lesson_idx ON hub_content_revisions(class_id,lesson_id,revision DESC)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_audit_class_created_idx ON hub_audit(class_id,created_at DESC)`)
     ]);
     await db.batch([
@@ -502,8 +746,11 @@ async function ensureSchema(db) {
   return schemaPromise;
 }
 
+function actorCanManageContent(actor) {
+  return Boolean(actor && (actor.role === 'owner' || (actor.role === 'editor' && actor.authMode === 'session' && actor.manageContent === true)));
+}
 function publicActor(actor) {
-  return { id: actor.id, role: actor.role, name: actor.name, classId: actor.classId };
+  return { id: actor.id, role: actor.role, name: actor.name, classId: actor.classId, capabilities: { manageContent: actorCanManageContent(actor) } };
 }
 
 async function readActorProfile(db, actor) {
@@ -527,10 +774,11 @@ async function authenticateSession(request, db, classId) {
   if (!isRandomToken(presented)) return null;
   const current = nowIso(), tokenHash = await digest(presented);
   const row = await db.prepare(`
-    SELECT s.token_hash,s.editor_id,s.csrf_hash,s.expires_at,s.last_seen_at,e.name,e.status,c.must_change_password,c.temporary_expires_at
+    SELECT s.token_hash,s.editor_id,s.csrf_hash,s.expires_at,s.last_seen_at,e.name,e.status,c.must_change_password,c.temporary_expires_at,COALESCE(p.enabled,0) AS manage_content
     FROM hub_editor_sessions s
     JOIN hub_editors e ON e.class_id=s.class_id AND e.id=s.editor_id
     JOIN hub_editor_credentials c ON c.class_id=s.class_id AND c.editor_id=s.editor_id
+    LEFT JOIN hub_editor_permissions p ON p.class_id=s.class_id AND p.editor_id=s.editor_id AND p.permission='content.manage' AND p.enabled=1
     WHERE s.class_id=? AND s.token_hash=? AND s.revoked_at IS NULL AND s.expires_at>?
   `).bind(classId, tokenHash, current).first();
   if (!row || row.status !== 'active') return null;
@@ -546,7 +794,7 @@ async function authenticateSession(request, db, classId) {
       db.prepare(`UPDATE hub_editors SET last_used_at=? WHERE class_id=? AND id=?`).bind(current, classId, row.editor_id)
     ]);
   }
-  return { id: row.editor_id, role: 'editor', name: row.name, classId, authMode: 'session', sessionHash: tokenHash, csrfHash: row.csrf_hash, passwordChangeRequired };
+  return { id: row.editor_id, role: 'editor', name: row.name, classId, authMode: 'session', sessionHash: tokenHash, csrfHash: row.csrf_hash, passwordChangeRequired, manageContent: Number(row.manage_content) === 1 };
 }
 
 async function authenticate(request, env, db, classId) {
@@ -554,13 +802,13 @@ async function authenticate(request, env, db, classId) {
   if (header) {
     const match = header.match(/^Bearer[\t ]+([^\s].*)$/i), presented = match ? match[1].trim() : '';
     if (!presented || presented.length > 512) return null;
-    if (env.MED_NYKUTO_OWNER_TOKEN && safeEqual(presented, env.MED_NYKUTO_OWNER_TOKEN)) return { id: 'owner', role: 'owner', name: 'Propietario', classId, authMode: 'bearer' };
+    if (env.MED_NYKUTO_OWNER_TOKEN && safeEqual(presented, env.MED_NYKUTO_OWNER_TOKEN)) return { id: 'owner', role: 'owner', name: 'Propietario', classId, authMode: 'bearer', manageContent: true };
     const tokenHash = await digest(presented);
     const editor = await db.prepare(`SELECT id,name,status,last_used_at FROM hub_editors WHERE class_id=? AND token_hash=?`).bind(classId, tokenHash).first();
     if (!editor || editor.status !== 'active') return null;
     const current = nowIso(), refreshBefore = new Date(Date.parse(current) - 15 * 60 * 1000).toISOString();
     if (!editor.last_used_at || editor.last_used_at <= refreshBefore) await db.prepare(`UPDATE hub_editors SET last_used_at=? WHERE class_id=? AND id=? AND (last_used_at IS NULL OR last_used_at<=?)`).bind(current, classId, editor.id, refreshBefore).run();
-    return { id: editor.id, role: 'editor', name: editor.name, classId, authMode: 'bearer', passwordChangeRequired: false };
+    return { id: editor.id, role: 'editor', name: editor.name, classId, authMode: 'bearer', passwordChangeRequired: false, manageContent: false };
   }
   return authenticateSession(request, db, classId);
 }
@@ -586,10 +834,48 @@ async function readScheduleSlots(db, classId, publishedOnly = true) {
   return (result.results || []).map((slot) => ({ ...slot, weekday: Number(slot.weekday) }));
 }
 
+function contentLessonFromRow(row, includeAuditFields = false) {
+  let stored;
+  try { stored = JSON.parse(String(row?.payload_json || row?.payloadJson || '')); } catch { stored = null; }
+  if (!plainObject(stored) || !plainObject(stored.practice)) return null;
+  const lesson = {
+    id: cleanId(row.id),
+    subjectId: cleanId(row.subjectId ?? row.subject_id),
+    title: String(row.title || ''),
+    description: String(stored.description || ''),
+    lessonDate: String(row.lessonDate ?? row.lesson_date ?? ''),
+    status: STATUSES.has(row.status) ? row.status : 'draft',
+    revision: Number(row.revision) || 1,
+    practiceRevision: Number(row.practiceRevision ?? row.practice_revision) || 0,
+    full: String(stored.full || ''),
+    quick: String(stored.quick || ''),
+    ultra: String(stored.ultra || ''),
+    fullMarkdown: String(stored.full || ''),
+    quickMarkdown: String(stored.quick || ''),
+    ultraMarkdown: String(stored.ultra || ''),
+    practice: stored.practice,
+    updatedAt: row.updatedAt ?? row.updated_at ?? null,
+    publishedAt: row.publishedAt ?? row.published_at ?? null
+  };
+  if (includeAuditFields) {
+    lesson.createdBy = String(row.createdBy ?? row.created_by ?? '');
+    lesson.updatedBy = String(row.updatedBy ?? row.updated_by ?? '');
+    lesson.createdAt = row.createdAt ?? row.created_at ?? null;
+  }
+  return lesson.id && lesson.subjectId ? lesson : null;
+}
+
+async function readContentLessons(db, classId, publishedOnly, includeAuditFields = false) {
+  const result = publishedOnly
+    ? await db.prepare(`SELECT id,subject_id AS subjectId,title,lesson_date AS lessonDate,status,revision,practice_revision AS practiceRevision,payload_json,updated_at AS updatedAt,published_at AS publishedAt FROM hub_content_lessons WHERE class_id=? AND status='published' ORDER BY lesson_date DESC,updated_at DESC,id`).bind(classId).all()
+    : await db.prepare(`SELECT id,subject_id AS subjectId,title,lesson_date AS lessonDate,status,revision,practice_revision AS practiceRevision,payload_json,created_by AS createdBy,updated_by AS updatedBy,created_at AS createdAt,updated_at AS updatedAt,published_at AS publishedAt FROM hub_content_lessons WHERE class_id=? ORDER BY CASE status WHEN 'draft' THEN 0 WHEN 'published' THEN 1 ELSE 2 END,lesson_date DESC,updated_at DESC,id`).bind(classId).all();
+  return (result.results || []).map((row) => contentLessonFromRow(row, includeAuditFields)).filter(Boolean);
+}
+
 async function readPublic(db, classRecord) {
   const classId = classRecord.id;
   const includePublicRoster = classId === DEFAULT_CLASS_ID;
-  const [notices, tasks, activities, groups, publicMembers, files, dates, subjects, scheduleSlots] = await Promise.all([
+  const [notices, tasks, activities, groups, publicMembers, files, dates, subjects, scheduleSlots, lessons] = await Promise.all([
     db.prepare(`SELECT n.id,n.course,n.title,n.body,n.priority,n.status,n.linked_task_id AS linkedTaskId,n.image_url AS imageUrl,n.image_alt AS imageAlt,u.id AS attachmentUploadId,n.attachment_title AS attachmentTitle,u.original_name AS attachmentOriginalName,u.mime_type AS attachmentMimeType,u.size_bytes AS attachmentSizeBytes,n.published_at AS publishedAt FROM hub_notices n LEFT JOIN hub_uploads u ON u.class_id=n.class_id AND u.id=n.attachment_upload_id AND u.status='linked' WHERE n.class_id=? AND n.status='published' ORDER BY CASE n.priority WHEN 'urgent' THEN 0 WHEN 'important' THEN 1 ELSE 2 END, COALESCE(n.published_at,n.updated_at) DESC`).bind(classId).all(),
     db.prepare(`SELECT id,course,title,description,due_label AS dueLabel,due_at AS dueAt,attachment_url AS attachmentUrl,attachment_title AS attachmentTitle,status FROM hub_tasks WHERE class_id=? AND status='published' ORDER BY COALESCE(due_at,'9999') ASC, updated_at DESC`).bind(classId).all(),
     db.prepare(`SELECT id,course,title,capacity,closes_at AS closesAt,status,CASE WHEN frozen=1 OR (closes_at IS NOT NULL AND closes_at<=?) THEN 1 ELSE 0 END AS frozen FROM hub_activities WHERE class_id=? AND status='published' ORDER BY updated_at DESC`).bind(nowIso(), classId).all(),
@@ -600,16 +886,17 @@ async function readPublic(db, classRecord) {
     db.prepare(`SELECT id,course,lesson_date AS lessonDate,title,url,file_type AS fileType,status FROM hub_files WHERE class_id=? AND status='published' ORDER BY updated_at DESC`).bind(classId).all(),
     db.prepare(`SELECT id,course,label,starts_at AS startsAt,status FROM hub_dates WHERE class_id=? AND status='published' ORDER BY starts_at`).bind(classId).all(),
     db.prepare(`SELECT id,name,sort_order AS "order" FROM hub_subjects WHERE class_id=? AND status='active' ORDER BY sort_order,name`).bind(classId).all(),
-    readScheduleSlots(db, classId, true)
+    readScheduleSlots(db, classId, true),
+    readContentLessons(db, classId, true, false)
   ]);
   const decorateGroup = classId === DEFAULT_CLASS_ID ? withEpidemiologyAssignment : (group) => group;
   const members = (publicMembers.results || []).map((item) => ({ activityId: cleanId(item.activityId), groupId: cleanId(item.groupId), displayName: cleanText(item.displayName, 40), isLeader: Boolean(Number(item.isLeader)) })).filter((item) => item.activityId && item.groupId && item.displayName);
-  return { ok: true, class: publicClass(classRecord), subjects: subjects.results || [], notices: (notices.results || []).map((notice) => decorateNoticeAttachment(notice, classRecord)), tasks: tasks.results || [], activities: (activities.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80), frozen: Boolean(item.frozen) })), groups: (groups.results || []).map((item) => decorateGroup({ ...item, frozen: Boolean(item.frozen), memberCount: Number(item.memberCount) || 0 })), ...(includePublicRoster ? { members } : {}), files: files.results || [], dates: (dates.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), scheduleSlots, upcomingDates: upcomingScheduleDates(scheduleSlots), generatedAt: nowIso() };
+  return { ok: true, class: publicClass(classRecord), subjects: subjects.results || [], lessons, notices: (notices.results || []).map((notice) => decorateNoticeAttachment(notice, classRecord)), tasks: tasks.results || [], activities: (activities.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80), frozen: Boolean(item.frozen) })), groups: (groups.results || []).map((item) => decorateGroup({ ...item, frozen: Boolean(item.frozen), memberCount: Number(item.memberCount) || 0 })), ...(includePublicRoster ? { members } : {}), files: files.results || [], dates: (dates.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), scheduleSlots, upcomingDates: upcomingScheduleDates(scheduleSlots), generatedAt: nowIso() };
 }
 
 async function adminSnapshot(db, actor, classRecord, env = null) {
   const classId = classRecord.id;
-  const [subjects, tasks, notices, activities, groups, memberships, files, dates, scheduleSlots, editors, invites, profile] = await Promise.all([
+  const [subjects, tasks, notices, activities, groups, memberships, files, dates, scheduleSlots, editors, invites, profile, lessons] = await Promise.all([
     db.prepare(`SELECT id,name,sort_order AS "order",status FROM hub_subjects WHERE class_id=? ORDER BY sort_order,name`).bind(classId).all(),
     db.prepare(`SELECT *,attachment_url AS attachmentUrl,attachment_title AS attachmentTitle,notice_enabled AS noticeEnabled FROM hub_tasks WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
     db.prepare(`SELECT n.*,n.linked_task_id AS linkedTaskId,n.image_url AS imageUrl,n.image_alt AS imageAlt,u.id AS attachmentUploadId,n.attachment_title AS attachmentTitle,u.original_name AS attachmentOriginalName,u.mime_type AS attachmentMimeType,u.size_bytes AS attachmentSizeBytes FROM hub_notices n LEFT JOIN hub_uploads u ON u.class_id=n.class_id AND u.id=n.attachment_upload_id AND u.status='linked' WHERE n.class_id=? ORDER BY n.updated_at DESC`).bind(classId).all(),
@@ -619,12 +906,13 @@ async function adminSnapshot(db, actor, classRecord, env = null) {
     db.prepare(`SELECT * FROM hub_files WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
     db.prepare(`SELECT * FROM hub_dates WHERE class_id=? ORDER BY starts_at`).bind(classId).all(),
     readScheduleSlots(db, classId, false),
-    actor.role === 'owner' ? db.prepare(`SELECT e.id,e.name,e.status,e.created_at,e.last_used_at,c.email_normalized AS email,c.must_change_password AS password_change_required,c.temporary_expires_at FROM hub_editors e LEFT JOIN hub_editor_credentials c ON c.class_id=e.class_id AND c.editor_id=e.id WHERE e.class_id=? ORDER BY e.created_at DESC`).bind(classId).all() : Promise.resolve({ results: [] }),
+    actor.role === 'owner' ? db.prepare(`SELECT e.id,e.name,e.status,e.created_at,e.last_used_at,c.email_normalized AS email,c.must_change_password AS password_change_required,c.temporary_expires_at,COALESCE(p.enabled,0) AS can_manage_content FROM hub_editors e LEFT JOIN hub_editor_credentials c ON c.class_id=e.class_id AND c.editor_id=e.id LEFT JOIN hub_editor_permissions p ON p.class_id=e.class_id AND p.editor_id=e.id AND p.permission='content.manage' WHERE e.class_id=? ORDER BY e.created_at DESC`).bind(classId).all() : Promise.resolve({ results: [] }),
     actor.role === 'owner' ? db.prepare(`SELECT id,label,expires_at,revoked_at,claimed_at,created_at FROM hub_invites WHERE class_id=? ORDER BY created_at DESC LIMIT 100`).bind(classId).all() : Promise.resolve({ results: [] }),
-    readActorProfile(db, actor)
+    readActorProfile(db, actor),
+    actorCanManageContent(actor) ? readContentLessons(db, classId, false, true) : Promise.resolve([])
   ]);
   const publishedScheduleSlots = scheduleSlots.filter((slot) => slot.status === 'published');
-  return { ok: true, class: publicClass(classRecord), actor: publicActor(actor), profile, uploadPolicy: { enabled: Boolean(uploadsFrom(env)), maxBytes: MAX_NOTICE_ATTACHMENT_BYTES, maxStagedUploads: MAX_STAGED_NOTICE_UPLOADS_PER_CLASS, stagedTtlHours: NOTICE_STAGED_UPLOAD_TTL_SECONDS / 3600, acceptedMimeTypes: [...NOTICE_UPLOAD_MIME_TYPES] }, subjects: subjects.results || [], tasks: (tasks.results || []).map((task) => ({ ...task, noticeEnabled: Boolean(Number(task.noticeEnabled ?? task.notice_enabled)) })), notices: (notices.results || []).map((notice) => decorateNoticeAttachment(notice, classRecord)), activities: (activities.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), groups: groups.results || [], memberships: (memberships.results || []).map((item) => ({ ...item, isLeader: Boolean(item.isLeader) })), files: files.results || [], dates: (dates.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), scheduleSlots, upcomingDates: upcomingScheduleDates(publishedScheduleSlots), editors: editors.results || [], invites: invites.results || [] };
+  return { ok: true, class: publicClass(classRecord), actor: publicActor(actor), profile, uploadPolicy: { enabled: Boolean(uploadsFrom(env)), maxBytes: MAX_NOTICE_ATTACHMENT_BYTES, maxStagedUploads: MAX_STAGED_NOTICE_UPLOADS_PER_CLASS, stagedTtlHours: NOTICE_STAGED_UPLOAD_TTL_SECONDS / 3600, acceptedMimeTypes: [...NOTICE_UPLOAD_MIME_TYPES] }, subjects: subjects.results || [], lessons, tasks: (tasks.results || []).map((task) => ({ ...task, noticeEnabled: Boolean(Number(task.noticeEnabled ?? task.notice_enabled)) })), notices: (notices.results || []).map((notice) => decorateNoticeAttachment(notice, classRecord)), activities: (activities.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), groups: groups.results || [], memberships: (memberships.results || []).map((item) => ({ ...item, isLeader: Boolean(item.isLeader) })), files: files.results || [], dates: (dates.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), scheduleSlots, upcomingDates: upcomingScheduleDates(publishedScheduleSlots), editors: (editors.results || []).map((editor) => ({ ...editor, can_manage_content: Number(editor.can_manage_content) === 1 })), invites: invites.results || [] };
 }
 
 async function joinGroup(data, db, classRecord) {
@@ -681,9 +969,10 @@ async function loginEditor(data, db, classRecord) {
     return fail(401, 'invalid_credentials', INVALID_CREDENTIALS_MESSAGE);
   }
   const credential = await db.prepare(`
-    SELECT c.editor_id,c.password_hash,c.password_salt,c.password_algorithm,c.password_iterations,c.password_version,c.must_change_password,c.temporary_expires_at,e.name,e.status
+    SELECT c.editor_id,c.password_hash,c.password_salt,c.password_algorithm,c.password_iterations,c.password_version,c.must_change_password,c.temporary_expires_at,e.name,e.status,COALESCE(p.enabled,0) AS manage_content
     FROM hub_editor_credentials c
     JOIN hub_editors e ON e.class_id=c.class_id AND e.id=c.editor_id
+    LEFT JOIN hub_editor_permissions p ON p.class_id=c.class_id AND p.editor_id=c.editor_id AND p.permission='content.manage' AND p.enabled=1
     WHERE c.class_id=? AND c.email_normalized=?
   `).bind(classId, email).first();
   const valid = await verifyPassword(password, credential), current = nowIso();
@@ -693,9 +982,9 @@ async function loginEditor(data, db, classRecord) {
     await auditLoginFailure(db, classId, current);
     return fail(401, 'invalid_credentials', INVALID_CREDENTIALS_MESSAGE);
   }
-  const actor = { id: credential.editor_id, role: 'editor', name: credential.name, classId };
+  const actor = { id: credential.editor_id, role: 'editor', name: credential.name, classId, authMode: 'session', manageContent: Number(credential.manage_content) === 1 };
   const session = await createEditorSession(db, classId, credential.editor_id, actor, current);
-  return jsonWithCookies({ ok: true, class: publicClass(classRecord), actor, passwordChangeRequired: temporaryRequired, expiresAt: session.expiresAt }, 200, sessionCookies(session.sessionToken, session.csrfToken, session.expiresAt));
+  return jsonWithCookies({ ok: true, class: publicClass(classRecord), actor: publicActor(actor), passwordChangeRequired: temporaryRequired, expiresAt: session.expiresAt }, 200, sessionCookies(session.sessionToken, session.csrfToken, session.expiresAt));
 }
 
 async function logoutEditor(request, db, classRecord) {
@@ -776,6 +1065,83 @@ async function resetEditorPassword(data, actor, db, classRecord) {
   ]);
   if (!changed(results[0])) return fail(404, 'credential_missing', 'La cuenta del editor no existe.');
   return json({ ok: true, id: editorId, passwordChangeRequired: true, temporaryExpiresAt });
+}
+
+async function updateEditorContentPermission(data, actor, db, classRecord) {
+  const classId = classRecord.id, editorId = scopedId(classId, data.id);
+  if (!editorId || typeof data.enabled !== 'boolean') return fail(400, 'invalid_permission', 'El editor y el estado de la autorización son obligatorios.');
+  const editor = await db.prepare(`SELECT e.id,e.status,EXISTS(SELECT 1 FROM hub_editor_credentials c WHERE c.class_id=e.class_id AND c.editor_id=e.id) AS has_credential FROM hub_editors e WHERE e.class_id=? AND e.id=? AND e.status='active'`).bind(classId, editorId).first();
+  if (!editor) return fail(404, 'editor_missing', 'La cuenta del editor no existe o no está activa.');
+  if (Number(editor.has_credential) !== 1) return fail(409, 'credential_required', 'Esta autorización necesita una cuenta de editor con acceso por correo y contraseña.');
+  const current = nowIso(), enabled = data.enabled ? 1 : 0, details = JSON.stringify({ permission: CONTENT_PERMISSION, enabled: Boolean(enabled) });
+  await db.batch([
+    db.prepare(`INSERT INTO hub_editor_permissions (class_id,editor_id,permission,enabled,granted_by,created_at,updated_at) VALUES (?,?,?, ?,?,?,?) ON CONFLICT(class_id,editor_id,permission) DO UPDATE SET enabled=excluded.enabled,granted_by=excluded.granted_by,updated_at=excluded.updated_at WHERE hub_editor_permissions.class_id=excluded.class_id`).bind(classId, editorId, CONTENT_PERMISSION, enabled, actor.id, current, current),
+    db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,?,'editor.permission.update','editor',?,?,?)`).bind(classId, actor.id, actor.role, editorId, details, current)
+  ]);
+  return json({ ok: true, id: editorId, permission: CONTENT_PERMISSION, enabled: Boolean(enabled) });
+}
+
+function revisionConflict(currentRevision) {
+  return json({ ok: false, code: 'revision_conflict', error: 'La lección cambió desde que la abriste. Recarga antes de guardar.', currentRevision: Number(currentRevision) || 0 }, 409);
+}
+
+async function upsertContentLesson(data, actor, db, classRecord) {
+  if (!actorCanManageContent(actor)) return fail(403, 'permission_denied', 'Esta cuenta no puede modificar cursos ni preguntas.');
+  if (!Number.isSafeInteger(data.expectedRevision) || data.expectedRevision < 0 || data.expectedRevision > 2147483646) return fail(400, 'invalid_expected_revision', 'expectedRevision debe ser un entero válido.');
+  const suppliedId = String(data.id || '').trim();
+  if (suppliedId && !cleanId(suppliedId)) return fail(400, 'invalid_lesson_id', 'El identificador de la lección no es válido.');
+  const id = cleanId(suppliedId) || cleanId(`lesson-${crypto.randomUUID()}`), classId = classRecord.id;
+  const existingRow = await db.prepare(`SELECT id,subject_id,title,lesson_date,status,revision,practice_revision,payload_json,created_by,updated_by,created_at,updated_at,published_at FROM hub_content_lessons WHERE class_id=? AND id=?`).bind(classId, id).first();
+  const currentRevision = Number(existingRow?.revision) || 0;
+  if (data.expectedRevision !== currentRevision) return revisionConflict(currentRevision);
+  const currentLesson = existingRow ? contentLessonFromRow(existingRow, true) : null;
+  if (existingRow && !currentLesson) return fail(500, 'invalid_stored_content', 'La versión guardada de la lección no se puede leer de forma segura.');
+  const normalized = normalizeContentLessonInput({ ...data, id }, currentLesson);
+  if (!normalized.ok) return fail(400, normalized.code, normalized.error);
+  const subject = await db.prepare(`SELECT id FROM hub_subjects WHERE class_id=? AND id=? AND status='active'`).bind(classId, normalized.lesson.subjectId).first();
+  if (!subject) return fail(404, 'subject_missing', 'La materia no existe o no está activa en esta turma.');
+  if (normalized.lesson.lessonDate) {
+    const dateConflict = await db.prepare(`SELECT id FROM hub_content_lessons WHERE class_id=? AND subject_id=? AND lesson_date=? AND id<>?`).bind(classId, normalized.lesson.subjectId, normalized.lesson.lessonDate, id).first();
+    if (dateConflict) return json({ ok: false, code: 'lesson_date_conflict', error: 'Ya existe una lección de esta materia en la misma fecha.', lessonId: dateConflict.id }, 409);
+  }
+
+  const revision = currentRevision + 1;
+  const previousPracticeRevision = Number(existingRow?.practice_revision) || 0;
+  const practiceRevision = previousPracticeRevision + (normalized.practiceChanged ? 1 : 0);
+  const current = nowIso(), publishedAt = normalized.lesson.status === 'published' ? current : null;
+  const storedPayload = JSON.stringify(normalized.lesson);
+  const details = JSON.stringify({ status: normalized.lesson.status, revision, practiceRevision, subjectId: normalized.lesson.subjectId, practiceChanged: normalized.practiceChanged });
+  try {
+    const results = await db.batch([
+      db.prepare(`INSERT INTO hub_content_lessons (class_id,id,subject_id,title,lesson_date,status,revision,practice_revision,payload_json,created_by,updated_by,created_at,updated_at,published_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(class_id,id) DO UPDATE SET subject_id=excluded.subject_id,title=excluded.title,lesson_date=excluded.lesson_date,status=excluded.status,revision=excluded.revision,practice_revision=excluded.practice_revision,payload_json=excluded.payload_json,updated_by=excluded.updated_by,updated_at=excluded.updated_at,published_at=excluded.published_at WHERE hub_content_lessons.class_id=excluded.class_id AND hub_content_lessons.revision=?`).bind(classId, id, normalized.lesson.subjectId, normalized.lesson.title, normalized.lesson.lessonDate, normalized.lesson.status, revision, practiceRevision, storedPayload, actor.id, actor.id, current, current, publishedAt, data.expectedRevision),
+      db.prepare(`INSERT INTO hub_content_revisions (class_id,lesson_id,revision,practice_revision,status,payload_json,actor_id,created_at) SELECT ?,?,?,?,?,?,?,? WHERE EXISTS (SELECT 1 FROM hub_content_lessons WHERE class_id=? AND id=? AND revision=?)`).bind(classId, id, revision, practiceRevision, normalized.lesson.status, storedPayload, actor.id, current, classId, id, revision),
+      db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) SELECT ?,?,?,'lesson.upsert','lesson',?,?,? WHERE EXISTS (SELECT 1 FROM hub_content_lessons WHERE class_id=? AND id=? AND revision=?)`).bind(classId, actor.id, actor.role, id, details, current, classId, id, revision)
+    ]);
+    if (!changed(results[0])) return revisionConflict((await db.prepare(`SELECT revision FROM hub_content_lessons WHERE class_id=? AND id=?`).bind(classId, id).first())?.revision);
+  } catch (error) {
+    if (/unique|constraint/i.test(String(error))) {
+      const latest = await db.prepare(`SELECT revision FROM hub_content_lessons WHERE class_id=? AND id=?`).bind(classId, id).first();
+      if (Number(latest?.revision) !== data.expectedRevision) return revisionConflict(latest?.revision);
+      if (normalized.lesson.lessonDate) {
+        const dateConflict = await db.prepare(`SELECT id FROM hub_content_lessons WHERE class_id=? AND subject_id=? AND lesson_date=? AND id<>?`).bind(classId, normalized.lesson.subjectId, normalized.lesson.lessonDate, id).first();
+        if (dateConflict) return json({ ok: false, code: 'lesson_date_conflict', error: 'Ya existe una lección de esta materia en la misma fecha.', lessonId: dateConflict.id }, 409);
+      }
+    }
+    throw error;
+  }
+  return json({
+    ok: true,
+    lesson: {
+      ...normalized.lesson,
+      revision,
+      practiceRevision,
+      updatedAt: current,
+      publishedAt,
+      createdBy: currentLesson?.createdBy || actor.id,
+      updatedBy: actor.id,
+      createdAt: currentLesson?.createdAt || current
+    }
+  }, existingRow ? 200 : 201);
 }
 
 async function subscribePush(data, db, classRecord) {
@@ -1025,9 +1391,18 @@ async function readNoticeAttachment(request, env, db, classRecord, rawUploadId) 
 
 async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
   const current = nowIso(), classId = classRecord.id;
-  if (actor.role === 'editor' && !EDITOR_ACTIONS.has(action)) return fail(403, 'permission_denied', 'El rol editor no puede modificar cursos, preguntas, perfiles, configuración ni permisos.');
+  if (!actor || !KNOWN_ACTOR_ROLES.has(actor.role)) return fail(403, 'permission_denied', 'El rol de la cuenta no está autorizado.');
+  if (actor.role === 'editor') {
+    if (CONTENT_ACTIONS.has(action)) {
+      if (!actorCanManageContent(actor)) return fail(403, 'permission_denied', 'Esta cuenta no puede modificar cursos ni preguntas.');
+    } else if (!EDITOR_ACTIONS.has(action)) {
+      return fail(403, 'permission_denied', 'El rol editor no puede modificar cursos, preguntas, configuración ni permisos.');
+    }
+  }
   if (action === 'editor.account.create' && actor.role === 'owner') return createEditorAccount(data, actor, db, classRecord);
   if (action === 'editor.password.reset' && actor.role === 'owner') return resetEditorPassword(data, actor, db, classRecord);
+  if (action === 'editor.permission.update' && actor.role === 'owner') return updateEditorContentPermission(data, actor, db, classRecord);
+  if (action === 'lesson.upsert') return upsertContentLesson(data, actor, db, classRecord);
   if (action === 'profile.upsert') {
     const whatsappProvided = hasOwn(data, 'whatsapp') || hasOwn(data, 'whatsappE164') || hasOwn(data, 'whatsapp_e164');
     if (!whatsappProvided) return fail(400, 'invalid_profile', 'Indica un número de WhatsApp o deja el campo vacío para quitarlo.');
@@ -1266,12 +1641,42 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
     await db.batch([
       db.prepare(`UPDATE hub_editors SET status='revoked' WHERE class_id=? AND id=? AND status='active'`).bind(classId, id),
       db.prepare(`UPDATE hub_editor_sessions SET revoked_at=? WHERE class_id=? AND editor_id=? AND revoked_at IS NULL`).bind(current, classId, id),
+      db.prepare(`UPDATE hub_editor_permissions SET enabled=0,granted_by=?,updated_at=? WHERE class_id=? AND editor_id=? AND enabled=1`).bind(actor.id, current, classId, id),
       db.prepare(`DELETE FROM hub_editor_profiles WHERE class_id=? AND actor_id=?`).bind(classId, id),
       db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,?,?,? ,?,'{}',?)`).bind(classId, actor.id, actor.role, action, 'editor', id, current)
     ]);
     return json({ ok: true });
   }
   return fail(403, 'action_forbidden', 'La acción no está permitida para este rol.');
+}
+
+async function handleContentLessonRequest(context, url, db) {
+  const { request, env } = context;
+  try {
+    await ensureSchema(db);
+    const resolved = await resolveClass(request, db, null, env);
+    if (resolved.error === 'class_mismatch') return fail(400, 'class_mismatch', 'La clase indicada no es válida o no coincide.');
+    if (!resolved.classRecord) return fail(404, 'class_not_found', 'La clase solicitada no existe o no está activa.');
+    const classRecord = resolved.classRecord;
+    const limited = await rateLimit(request, env, db, classRecord.id, 'content-write', 30, 600); if (limited) return limited;
+    const actor = await authenticate(request, env, db, classRecord.id);
+    if (!actor) return fail(401, 'authentication_required', 'Inicia sesión con una cuenta autorizada para gestionar contenido.');
+    if (!KNOWN_ACTOR_ROLES.has(actor.role) || !actorCanManageContent(actor)) return fail(403, 'permission_denied', 'Esta cuenta no puede modificar cursos ni preguntas.');
+    if (actor.passwordChangeRequired) return fail(403, 'password_change_required', 'Cambia la contraseña temporal antes de modificar la gestión.');
+    if (!await validSessionCsrf(request, actor)) {
+      await audit(db, actor, 'auth.csrf.rejected', 'editor', actor.id, { action: 'lesson.upsert' });
+      return fail(403, 'csrf_rejected', 'La sesión de seguridad no coincide. Vuelve a iniciar sesión.');
+    }
+    let data;
+    try { data = await payload(request, MAX_CONTENT_BODY); } catch (error) { return fail(error.message === 'payload_too_large' ? 413 : 400, error.message, 'La solicitud de contenido no es válida.'); }
+    const hintedAction = cleanText(url.searchParams.get('action'), 60);
+    if (data.action !== 'lesson.upsert' || (hintedAction && hintedAction !== 'lesson.upsert')) return fail(400, 'action_mismatch', 'La acción de contenido no coincide.');
+    if (!bodyMatchesClass(data, classRecord)) return fail(400, 'class_mismatch', 'La clase indicada en el contenido no coincide.');
+    return mutate('lesson.upsert', data, actor, classRecord, env, db, typeof context.waitUntil === 'function' ? (promise) => context.waitUntil(promise) : undefined);
+  } catch (error) {
+    console.error('class_hub_content_post_error', error);
+    return fail(500, 'server_error', 'No se pudo guardar el contenido de la clase.');
+  }
 }
 
 export async function onRequestGet(context) {
@@ -1355,6 +1760,11 @@ export async function onRequestPost(context) {
       return fail(500, 'server_error', 'No se pudo guardar el archivo.');
     }
   }
+  const hintedAction = cleanText(url.searchParams.get('action'), 60), declaredLength = Number(request.headers.get('content-length') || 0), hintedDb = dbFrom(env);
+  if (hintedAction === 'lesson.upsert' || declaredLength > MAX_BODY) {
+    if (!hintedDb) return fail(503, 'database_unavailable', 'La base compartida no está configurada.');
+    return handleContentLessonRequest(context, url, hintedDb);
+  }
   let data; try { data = await payload(request); } catch (error) { return fail(error.message === 'payload_too_large' ? 413 : 400, error.message, 'La solicitud no es válida.'); }
   const action = cleanText(data.action, 60), db = dbFrom(env); if (!db) return fail(503, 'database_unavailable', 'La base compartida no está configurada.');
   try {
@@ -1370,6 +1780,7 @@ export async function onRequestPost(context) {
     if (resolved.error === 'class_mismatch') return fail(400, 'class_mismatch', 'La clase indicada no es válida o no coincide.');
     if (!resolved.classRecord) return fail(404, 'class_not_found', 'La clase solicitada no existe o no está activa.');
     const classRecord = resolved.classRecord;
+    if (action === 'lesson.upsert' && !bodyMatchesClass(data, classRecord)) return fail(400, 'class_mismatch', 'La clase indicada en el contenido no coincide.');
     if (action === 'auth.login') {
       const ipLimited = await rateLimit(request, env, db, classRecord.id, 'auth-login-ip', 10, 900); if (ipLimited) return ipLimited;
       const emailFingerprint = await digest(normalizeEmail(data.email) || 'invalid-email');
@@ -1385,8 +1796,9 @@ export async function onRequestPost(context) {
       : action === 'push.subscribe' ? ['push-subscribe', 10, 3600]
         : action === 'group.join' || action === 'group.leave' ? ['group-membership', 80, 600]
           : action === 'auth.password.change' ? ['password-change', 5, 3600]
-            : action === 'editor.account.create' || action === 'editor.password.reset' ? ['credential-management', 10, 3600]
-              : ['admin-write', 120, 600];
+            : action === 'editor.account.create' || action === 'editor.password.reset' || action === 'editor.permission.update' ? ['credential-management', 10, 3600]
+              : action === 'lesson.upsert' ? ['content-write', 30, 600]
+                : ['admin-write', 120, 600];
     const limited = await rateLimit(request, env, db, classRecord.id, policy[0], policy[1], policy[2]); if (limited) return limited;
     if (action === 'group.join') return joinGroup(data, db, classRecord);
     if (action === 'group.leave') return leaveGroup(data, db, classRecord);

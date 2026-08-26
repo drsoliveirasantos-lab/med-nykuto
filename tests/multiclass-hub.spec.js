@@ -1183,8 +1183,8 @@ test.describe('Multiclass student hub', () => {
 
     await page.goto('/gestion/s5-a');
 
-    await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', /^\/gestion-v440\.css/);
-    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', /^\/gestion-v440\.js/);
+    await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=483');
+    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=483');
     expect(requestedPaths).toContain('/gestion-v440.css');
     expect(requestedPaths).toContain('/gestion-v440.js');
     await expect(page.locator('#authClassSlug')).toHaveText('S5-A');
@@ -1450,6 +1450,214 @@ test.describe('Multiclass student hub', () => {
       ['s5-a', 's5-a', 'archived'],
       ['s5-a', 's5-a', 'active']
     ]);
+  });
+
+  test('keeps managed courses hidden from an ordinary editor', async ({ page }) => {
+    const actor = { id: 'editor-standard', role: 'editor', name: 'Editor estándar', classId: 's5-a', capabilities: { manageContent: false } };
+    await page.addInitScript(({ key }) => sessionStorage.setItem(key, 'synthetic-standard-editor'), { key: 'med-nykuto-management-token-v471:s5-a' });
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const resource = new URL(route.request().url()).searchParams.get('resource');
+      const body = resource === 'public'
+        ? { ok: true, class: CLASS_RESPONSE.class }
+        : managementState(actor, { lessons: [] });
+      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(body) });
+    });
+
+    await page.goto('/gestion/s5-a');
+
+    await expect(page.locator('#manageApp')).toBeVisible();
+    await expect(page.locator('#actorRole')).toHaveText('DELEGADO');
+    await expect(page.locator('#manageTabContent')).toBeHidden();
+    await expect(page.locator('#managePanelContent')).toBeHidden();
+  });
+
+  test('prefers a capable email session over a legacy bearer and publishes a canonical lesson update', async ({ page }) => {
+    const actor = { id: 'editor-content', role: 'editor', name: 'Editor de contenido', classId: 's5-a', capabilities: { manageContent: true } };
+    const practice = {
+      qcm: Array.from({ length: 20 }, (_, index) => ({
+        id: `lesson-fixture-qcm-${String(index + 1).padStart(2, '0')}`,
+        revision: index === 0 ? 4 : 1,
+        question: `Pregunta QCM ${index + 1}`,
+        options: ['Opción A', 'Opción B', 'Opción C', 'Opción D'],
+        answerIndex: index % 4,
+        explanation: 'Explicación basada en el curso.'
+      })),
+      trueFalse: Array.from({ length: 10 }, (_, index) => ({
+        id: `lesson-fixture-vf-${String(index + 1).padStart(2, '0')}`,
+        revision: 1,
+        question: `Afirmación ${index + 1}`,
+        options: ['Verdadero', 'Falso'],
+        answerIndex: index % 2,
+        explanation: 'Justificación basada en el curso.'
+      })),
+      clinicalCases: Array.from({ length: 10 }, (_, index) => ({
+        id: `lesson-fixture-case-${String(index + 1).padStart(2, '0')}`,
+        revision: 2,
+        stem: `Escenario clínico ${index + 1}`,
+        question: `Pregunta clínica ${index + 1}`,
+        options: ['Conducta A', 'Conducta B', 'Conducta C', 'Conducta D'],
+        answerIndex: index % 4,
+        explanation: 'Razonamiento clínico basado en el curso.'
+      }))
+    };
+    const lesson = {
+      id: 'farmacologia-ii-2099-09-03-antimicrobianos',
+      subjectId: 'farmacologia-ii',
+      lessonDate: '2099-09-03',
+      title: 'Antimicrobianos',
+      description: 'Selección razonada del tratamiento.',
+      status: 'published',
+      revision: 7,
+      full: '# Curso completo\n\nContenido fuente.',
+      quick: '## Ficha rápida\n\n- Punto clave',
+      ultra: '- Punto indispensable',
+      practice
+    };
+    const writes = [], adminHeaders = [];
+    await page.addInitScript(({ key }) => sessionStorage.setItem(key, 'synthetic-stale-legacy-bearer'), { key: 'med-nykuto-management-token-v471:s5-a' });
+    await exposeSyntheticCsrfCookie(page);
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request(), url = new URL(request.url()), resource = url.searchParams.get('resource');
+      if (request.method() === 'POST') {
+        writes.push({ url: request.url(), body: request.postDataJSON(), headers: request.headers() });
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, lesson }) });
+        return;
+      }
+      let body;
+      if (resource === 'public') body = { ok: true, class: CLASS_RESPONSE.class };
+      else if (resource === 'session') body = { ok: true, class: CLASS_RESPONSE.class, actor, passwordChangeRequired: false };
+      else {
+        adminHeaders.push(request.headers());
+        const bearerActor = { ...actor, capabilities: { manageContent: false } };
+        body = managementState(request.headers().authorization ? bearerActor : actor, { lessons: [lesson] });
+      }
+      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(body) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await expect(page.locator('#actorRole')).toHaveText('ADMINISTRADOR DE CONTENIDO');
+    await expect(page.locator('#manageTabContent')).toBeVisible();
+    await page.locator('#manageTabContent').click();
+    await page.locator('#lessonList').getByRole('button', { name: 'Modificar' }).click();
+    await expect(page.locator('#lessonExpectedRevision')).toHaveValue('7');
+    const withdrawButton = page.locator('[data-lesson-status="draft"]');
+    await expect(withdrawButton).toHaveText('Retirar y guardar borrador');
+    page.once('dialog', async (dialog) => {
+      expect(dialog.message()).toContain('desaparecerá de Materia y Entrenamiento');
+      await dialog.dismiss();
+    });
+    await withdrawButton.click();
+    expect(writes).toHaveLength(0);
+    const loaded = JSON.parse(await page.locator('#lessonPracticeJson').inputValue());
+    expect(loaded.practice.qcm[0]).toMatchObject({ id: 'lesson-fixture-qcm-01', revision: 4 });
+
+    const incomplete = JSON.parse(JSON.stringify(loaded));
+    incomplete.practice.qcm.pop();
+    await page.locator('#lessonPracticeJson').fill(JSON.stringify(incomplete));
+    await page.locator('[data-lesson-status="published"]').click();
+    await expect(page.locator('#practiceJsonStatus')).toContainText('exactamente 20 QCM');
+    expect(writes).toHaveLength(0);
+
+    for (const malformedIndex of [null, '', true]) {
+      const malformed = JSON.parse(JSON.stringify(loaded));
+      malformed.practice.qcm[0].answerIndex = malformedIndex;
+      await page.locator('#lessonPracticeJson').fill(JSON.stringify(malformed));
+      await page.locator('[data-lesson-status="published"]').click();
+      await expect(page.locator('#practiceJsonStatus')).toContainText('answerIndex válido');
+      expect(writes).toHaveLength(0);
+    }
+
+    const friendly = JSON.parse(JSON.stringify(loaded));
+    friendly.practice.qcm[0].prompt = friendly.practice.qcm[0].question;
+    friendly.practice.qcm[0].answer = friendly.practice.qcm[0].answerIndex;
+    delete friendly.practice.qcm[0].question;
+    delete friendly.practice.qcm[0].answerIndex;
+    friendly.practice.qcm[1].answerIndex = '1';
+    friendly.practice.trueFalse[0].answer = true;
+    delete friendly.practice.trueFalse[0].answerIndex;
+    friendly.practice.clinicalCases[0].scenario = friendly.practice.clinicalCases[0].stem;
+    friendly.practice.clinicalCases[0].prompt = friendly.practice.clinicalCases[0].question;
+    friendly.practice.clinicalCases[0].answer = friendly.practice.clinicalCases[0].answerIndex;
+    delete friendly.practice.clinicalCases[0].stem;
+    delete friendly.practice.clinicalCases[0].question;
+    delete friendly.practice.clinicalCases[0].answerIndex;
+    await page.locator('#lessonPracticeJson').fill(JSON.stringify({ title: lesson.title, practice: friendly.practice }));
+    await page.locator('[data-lesson-status="published"]').click();
+    await expect.poll(() => writes.length).toBe(1);
+
+    const write = writes[0], writeUrl = new URL(write.url);
+    expect(writeUrl.searchParams.get('action')).toBe('lesson.upsert');
+    await expect.poll(() => adminHeaders.length).toBe(2);
+    expect(adminHeaders).toHaveLength(2);
+    expect(adminHeaders.every((headers) => !headers.authorization)).toBe(true);
+    expect(write.headers.authorization).toBeUndefined();
+    expect(write.headers['x-csrf-token']).toBe(SYNTHETIC_CSRF);
+    expect(write.body).toMatchObject({
+      action: 'lesson.upsert',
+      id: lesson.id,
+      expectedRevision: 7,
+      subjectId: lesson.subjectId,
+      lessonDate: lesson.lessonDate,
+      title: lesson.title,
+      description: lesson.description,
+      full: lesson.full,
+      quick: lesson.quick,
+      ultra: lesson.ultra,
+      status: 'published'
+    });
+    expect(write.body.fullMarkdown).toBeUndefined();
+    expect(write.body.practice.qcm).toHaveLength(20);
+    expect(write.body.practice.trueFalse).toHaveLength(10);
+    expect(write.body.practice.clinicalCases).toHaveLength(10);
+    expect(write.body.practice.qcm[0]).toMatchObject({ id: 'lesson-fixture-qcm-01', revision: 4, question: 'Pregunta QCM 1', answerIndex: 0 });
+    expect(write.body.practice.qcm[0].prompt).toBeUndefined();
+    expect(write.body.practice.qcm[1].answerIndex).toBe(1);
+    expect(write.body.practice.trueFalse[0].answerIndex).toBe(0);
+    expect(write.body.practice.clinicalCases[0]).toMatchObject({ id: 'lesson-fixture-case-01', revision: 2, stem: 'Escenario clínico 1', question: 'Pregunta clínica 1', answerIndex: 0 });
+  });
+
+  test('lets the owner grant content.manage without coupling it to account creation', async ({ page }) => {
+    const owner = { id: 'owner', role: 'owner', name: 'Propietario', classId: 's5-a', capabilities: { manageContent: true } };
+    const editors = [
+      { id: 'editor-permission-fixture', name: 'Delegado de prueba', email: 'permission.fixture@example.test', status: 'active', can_manage_content: false },
+      { id: 'legacy-editor-fixture', name: 'Delegado con token', status: 'active', can_manage_content: false }
+    ];
+    const writes = [];
+    await page.addInitScript(({ key }) => sessionStorage.setItem(key, 'synthetic-permission-owner'), { key: 'med-nykuto-management-token-v471:s5-a' });
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request(), resource = new URL(request.url()).searchParams.get('resource');
+      if (request.method() === 'POST') {
+        writes.push({ url: request.url(), body: request.postDataJSON() });
+        editors[0].can_manage_content = request.postDataJSON().enabled;
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, id: editors[0].id, permission: 'content.manage', enabled: editors[0].can_manage_content }) });
+        return;
+      }
+      const body = resource === 'public'
+        ? { ok: true, class: CLASS_RESPONSE.class }
+        : resource === 'classes'
+          ? { ok: true, classes: [] }
+          : resource === 'audit'
+            ? { ok: true, audit: [] }
+            : managementState(owner, { lessons: [], editors });
+      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(body) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await page.locator('#manageTabAccess').click();
+    const legacyEditor = page.locator('#editorList .manage-item').filter({ hasText: 'Delegado con token' });
+    await expect(legacyEditor).toContainText('crea primero una cuenta por correo');
+    await expect(legacyEditor.locator('[data-permission-action="content.manage"]')).toHaveCount(0);
+    await page.locator('#editorList').getByRole('button', { name: 'Autorizar contenido' }).click();
+    await expect.poll(() => writes.length).toBe(1);
+
+    const writeUrl = new URL(writes[0].url);
+    expect(writeUrl.searchParams.get('action')).toBeNull();
+    expect(writes[0].body).toEqual({ action: 'editor.permission.update', id: 'editor-permission-fixture', enabled: true });
+    await expect(page.locator('#editorList').getByRole('button', { name: 'Retirar permiso de contenido' })).toBeVisible();
+    await expect(page.locator('#delegateAccountForm [name="email"]')).toHaveValue('');
   });
 
   test('keeps the service-worker shell generic and rejects external push targets', async () => {

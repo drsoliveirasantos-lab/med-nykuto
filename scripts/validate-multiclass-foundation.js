@@ -36,6 +36,9 @@ const hubTenantTables = [
   'hub_editor_profiles',
   'hub_editor_credentials',
   'hub_editor_sessions',
+  'hub_editor_permissions',
+  'hub_content_lessons',
+  'hub_content_revisions',
   'hub_audit',
   'hub_push_subscriptions',
   'hub_rate_limits'
@@ -1403,7 +1406,7 @@ async function validateMulticlassShell() {
   expect(!/state\.(?:members|memberships)|data\.(?:members|memberships)/.test(turmaRuntime), 'The generic student hub still consumes nominative group records.');
   expect(turmaRuntime.includes("action:'group.join'") && turmaRuntime.includes("action:'group.leave'") && turmaRuntime.includes('memberCount'), 'Students cannot join and leave generic class groups using anonymous occupancy data.');
 
-  expect(managementHtml.includes('src="/gestion-v440.js?v=478"') && managementHtml.includes('href="/gestion-v440.css?v=478"'), 'The nested management route does not use the current absolute asset versions.');
+  expect(managementHtml.includes('src="/gestion-v440.js?v=483"') && managementHtml.includes('href="/gestion-v440.css?v=483"'), 'The nested management route does not use the current absolute asset versions.');
   expect(managementHtml.includes('id="credentialForm"') && managementHtml.includes('name="action" value="auth.login"') && managementHtml.includes('autocomplete="username"') && managementHtml.includes('autocomplete="current-password"'), 'The v472 delegate email/password login form is incomplete.');
   expect(managementHtml.includes('id="passwordChangeForm"') && managementHtml.includes('name="action" value="auth.password.change"') && (managementHtml.match(/autocomplete="new-password"/g) || []).length >= 2, 'The mandatory temporary-password change form is incomplete.');
   expect(managementHtml.includes('id="delegateAccountForm"') && managementHtml.includes('name="action" value="editor.account.create"') && managementHtml.includes('name="temporaryPassword"'), 'The owner cannot create a tenant-scoped delegate credential from the v472 panel.');

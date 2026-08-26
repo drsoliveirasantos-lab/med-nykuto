@@ -6,6 +6,7 @@ Le shell protege `gestion-shell/index.html`, publie sous `/gestion/:slug`, perme
 
 - Le proprietaire est le seul role autorise a creer ou revoquer des invitations, creer un compte de delegue, reinitialiser sa connexion, revoquer un editeur et consulter le journal d'audit.
 - Un editeur peut gerer les taches, avis officiels, groupes, fichiers, dates et son propre profil WhatsApp. Les cours, questions, profils enseignants, permissions et parametres restent bloques cote serveur.
+- Le proprietaire peut accorder a un compte par courrier la capacite complementaire `content.manage`. L'interface l'affiche alors comme **Administrateur de contenu**, mais le compte reste limite a une seule turma et ne recoit aucun droit de proprietaire sur les classes, comptes, permissions ou audits.
 - Les etats disponibles sont `draft`, `published` et `archived`.
 - Les invitations sont a usage unique, limitees dans le temps et revocables.
 - Les groupes imposent cote serveur une seule inscription par activite, la capacite du groupe et de l'activite, ainsi qu'une composition finale apres fermeture ou congelation.
@@ -15,6 +16,31 @@ Le shell protege `gestion-shell/index.html`, publie sous `/gestion/:slug`, perme
 - Chaque export de groupes reste rattache a une seule activite : copie texte, ouverture du message dans le WhatsApp du delegue et impression PDF. Aucun export ne melange plusieurs activites.
 
 Sur telephone, les outils restent dans une barre horizontale compacte. **Calendrier** et **Fichiers** sont deux espaces distincts, et les formulaires essentiels utilisent une fiche a deux colonnes lorsque la largeur le permet. La vue **Matieres** est un cockpit operationnel : elle regroupe les taches, avis, activites, groupes, fichiers et dates relies explicitement a chaque matiere, avec modification directe. Elle n'accorde aucun droit sur les cours, modules ou banques de questions.
+
+## Cours et entrainements geres depuis la turma
+
+La capacite `content.manage` ouvre un espace **Contenido** distinct de la logistique du delegue. Pour une matiere et une date donnees, l'administrateur de contenu peut coller le cours complet, la fiche rapide, la fiche ultra rapide et un paquet JSON de questions, puis enregistrer un brouillon ou publier. Le paquet publie contient exactement 20 QCM, 10 vrai/faux et 10 cas cliniques. Le serveur controle les options, les reponses, les doublons, les longueurs et l'isolation de la turma avant toute publication.
+
+Les contenus de turma sont conserves dans D1 sans modifier la bibliotheque canonique de 59 modules sous `content/courses/**`. Deux tables additives portent ce flux :
+
+- `hub_content_lessons` conserve la revision courante, son etat, sa matiere, sa date et le paquet normalise ;
+- `hub_content_revisions` conserve les revisions precedentes avec leur auteur et leur horodatage.
+
+Chaque question recoit un identifiant stable et une revision. Une modification du cours qui ne change pas les questions conserve donc le progres d'entrainement ; une question reellement remplacee ne reutilise pas silencieusement une ancienne reponse locale. Les brouillons et contenus archives ne sont jamais inclus dans la reponse publique.
+
+L'autorisation est derivee exclusivement de la session D1. Le profil local de `compte.html`, une adresse comparee dans le navigateur et les anciens jetons d'editeur ne peuvent pas obtenir cette capacite. L'attribution et la revocation sont reservees au proprietaire et journalisees.
+
+Format minimal accepte dans la zone d'entrainement :
+
+```json
+{
+  "qcm": [{"prompt":"¿Pregunta?","options":["A","B","C","D"],"answer":1,"explanation":"Justificacion."}],
+  "trueFalse": [{"prompt":"Afirmacion.","answer":true,"explanation":"Justificacion."}],
+  "clinicalCases": [{"scenario":"Paciente...","prompt":"¿Conducta?","options":["A","B","C","D"],"answer":2,"explanation":"Justificacion."}]
+}
+```
+
+L'interface accepte aussi les alias `vf` et `cases`, puis affiche les trois compteurs avant l'enregistrement. Le texte Markdown est rendu par creation de noeuds DOM et non par injection de HTML brut.
 
 ## Avis officiels
 
@@ -66,6 +92,7 @@ Les anciennes lignes `hub_editors` et leurs tokens restent compatibles pendant l
 5. Utiliser des secrets, une base D1 et si possible un bucket R2 distincts pour les environnements preview et production afin qu'un test ne modifie pas les comptes ou fichiers reels.
 6. Redeployer. Les tables, index, deux taches actives, les alertes initiales, les emplacements de groupes vides et les tables d'authentification/metadonnees R2 sont crees automatiquement a la premiere requete.
 7. Ouvrir `/gestion/s4-e`, entrer le token proprietaire, puis creer un compte de delegue avec un mot de passe temporaire.
+8. Pour un administrateur de contenu, confirmer exactement son courrier dans la liste des comptes puis activer **Cursos y preguntas**. Ne jamais inscrire un courrier personnel dans le code ou dans une variable publique du navigateur.
 
 Sans D1, la page publique conserve ses donnees statiques de secours. La gestion protegee et les inscriptions de groupe restent volontairement indisponibles.
 
@@ -88,3 +115,4 @@ Une alerte urgente reste visible dans le cadre d'accueil et dans la vue complete
 5. Creer une tache brouillon, la publier, puis verifier son apparition sans nouveau deploiement.
 6. Rejoindre un groupe depuis `clase.html`, verifier qu'une seconde inscription a la meme activite est refusee, puis congeler l'activite et verifier que les ajouts, retraits et deplacements sont bloques.
 7. Televerser un PDF factice dans un avis brouillon, verifier qu'il est illisible sans session, publier l'avis, puis verifier son ouverture sur telephone et son affichage dans la bonne turma uniquement.
+8. Avec un compte factice portant `content.manage`, enregistrer un cours en brouillon, verifier son absence de la reponse publique, publier un paquet 20/10/10 puis verifier son apparition dans **Materia** et **Entrenamiento**. Revoquer ensuite la capacite et confirmer que la mutation est refusee.

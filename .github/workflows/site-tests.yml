@@ -54,6 +54,18 @@ jobs:
         run: node scripts/validate-2026-08-21-handoff.js
       - name: Validate multiclass isolation, lifecycle and compatibility
         run: node scripts/validate-multiclass-foundation.js
+      - name: Validate scoped class content management
+        run: node scripts/validate-content-management.js
+      - name: Use Node 22 for real-SQL content API contract
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate scoped class content API contract
+        run: node scripts/validate-content-management-api.js
+      - name: Restore Node 20 for general validation
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
       - name: Validate app bundle source and generated runtime match
         run: node scripts/validate-app-bundle-split.js
       - name: Ensure protected bank files were not changed accidentally
@@ -127,6 +139,7 @@ jobs:
             tests/console-error-guard.spec.js \
             tests/grupo3-hub.spec.js \
             tests/multiclass-hub.spec.js \
+            tests/class-content-management-runtime.spec.js \
             tests/community-leaderboard.spec.js \
             tests/medical-glossary.spec.js \
             --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/desktop-core --reporter=json > desktop-core.json
