@@ -428,6 +428,9 @@ async function main() {
     const raceEnrollment = expectSuccess(await call(handler.onRequest, db, {
       method: 'POST', payload: enrollPayload(IDS.race, 'Rita Corrida Segura', 'RACE0001'), ip: '203.0.113.31'
     }), 201);
+    expectSuccess(await call(handler.onRequest, db, {
+      method: 'POST', payload: scorePayload(IDS.race, raceEnrollment.accessToken, 'rejection-visibility', 2, 3), ip: '203.0.113.31'
+    }));
     db.database.prepare(`UPDATE community_participants SET verification_status='verified' WHERE class_id='s4-e' AND player_id=?`).run(IDS.race);
     const verifiedIdentityChange = expectSuccess(await call(handler.onRequest, db, {
       method: 'POST', payload: enrollPayload(IDS.race, 'Rita Corrida Confirmada', 'RACE0001', { accessToken: raceEnrollment.accessToken }), ip: '203.0.113.31'
@@ -446,6 +449,16 @@ async function main() {
     assert.equal(racedIdentityUpdate.participant.verificationStatus, 'rejected', 'A concurrent rejection was overwritten by an enrollment snapshot.');
     assert.equal(participant(db.database, IDS.race).verification_status, 'rejected');
     assert.equal(db.beforeRun, null, 'The verification race hook did not intercept the participant update.');
+    const rejectedRanking = expectSuccess(await call(handler.onRequest, db));
+    assert.equal(rejectedRanking.ranking.some((entry) => entry.studentId === 'RACE0001'), false, 'A rejected candidature remained in the public ranking.');
+    const pointsWithoutRejected = rejectedRanking.challenge.points;
+    const correctedRejectedIdentity = expectSuccess(await call(handler.onRequest, db, {
+      method: 'POST', payload: enrollPayload(IDS.race, 'Rita Corrida Corregida', 'RACE0001', { accessToken: raceEnrollment.accessToken }), ip: '203.0.113.31'
+    }));
+    assert.equal(correctedRejectedIdentity.participant.verificationStatus, 'pending', 'A rejected participant could not correct their identity and re-enter the review queue.');
+    const correctedRanking = expectSuccess(await call(handler.onRequest, db));
+    assert.equal(correctedRanking.ranking.some((entry) => entry.studentId === 'RACE0001'), true, 'The corrected pending candidature did not return to the provisional ranking.');
+    assert.equal(correctedRanking.challenge.points, pointsWithoutRejected + 2, 'Rejected points were counted before the identity returned to pending.');
 
     const pointsEnrollment = expectSuccess(await call(handler.onRequest, db, {
       method: 'POST', payload: enrollPayload(IDS.points, 'Camila Pontos Primeiro', 'POINT001'), ip: '203.0.113.26'

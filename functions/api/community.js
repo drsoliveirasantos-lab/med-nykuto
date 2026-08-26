@@ -255,6 +255,7 @@ async function readRanking(db, classId, week, currentPlayerId = '') {
         s.scope_id,s.correct,s.total,s.percentage,s.created_at,s.updated_at
       FROM community_scores s LEFT JOIN community_participants p ON p.class_id=s.class_id AND p.player_id=s.player_id
       WHERE s.class_id=? AND s.week_key=?
+        AND (p.verification_status IS NULL OR p.verification_status IN ('pending','verified'))
     ), ranked_scopes AS (
       SELECT *,ROW_NUMBER() OVER (PARTITION BY identity_key,scope_id ORDER BY ${scopeOrder}) AS scope_rank FROM participant_scopes
     ), best_scopes AS (SELECT * FROM ranked_scopes WHERE scope_rank=1)
@@ -316,6 +317,7 @@ async function readChallenge(db, classId, week) {
         s.scope_id,s.correct,s.total,s.percentage,s.created_at,s.updated_at
       FROM community_scores s LEFT JOIN community_participants p ON p.class_id=s.class_id AND p.player_id=s.player_id
       WHERE s.class_id=? AND s.week_key=?
+        AND (p.verification_status IS NULL OR p.verification_status IN ('pending','verified'))
     ), ranked_scopes AS (
       SELECT *,ROW_NUMBER() OVER (PARTITION BY identity_key,scope_id ORDER BY ${scopeOrder}) AS scope_rank FROM participant_scopes
     ), best_scopes AS (SELECT * FROM ranked_scopes WHERE scope_rank=1)
@@ -454,8 +456,8 @@ async function enrollParticipant(request, db, env, classRecord, payload) {
 
   let updated;
   try {
-    updated = await db.prepare(`UPDATE community_participants SET display_name=?,student_id_hash=?,student_id_last4=?,student_id_public=?,verification_status=CASE WHEN verification_status='verified' AND (display_name<>? OR student_id_public<>?) THEN 'pending' ELSE verification_status END,consented_at=?,updated_at=? WHERE class_id=? AND player_id=? AND access_token_hash=? AND (display_name<>? OR student_id_hash<>? OR student_id_last4<>? OR student_id_public<>?)`)
-      .bind(displayName, studentIdHash, studentId.slice(-4), studentId, displayName, studentId, now, now, classRecord.id, requestedPlayerId, suppliedAccessTokenHash, displayName, studentIdHash, studentId.slice(-4), studentId).run();
+    updated = await db.prepare(`UPDATE community_participants SET display_name=?,student_id_hash=?,student_id_last4=?,student_id_public=?,verification_status=CASE WHEN verification_status=? AND verification_status IN ('verified','rejected') AND (display_name<>? OR student_id_public<>?) THEN 'pending' ELSE verification_status END,consented_at=?,updated_at=? WHERE class_id=? AND player_id=? AND access_token_hash=? AND (display_name<>? OR student_id_hash<>? OR student_id_last4<>? OR student_id_public<>?)`)
+      .bind(displayName, studentIdHash, studentId.slice(-4), studentId, byPlayer.verification_status, displayName, studentId, now, now, classRecord.id, requestedPlayerId, suppliedAccessTokenHash, displayName, studentIdHash, studentId.slice(-4), studentId).run();
   } catch (error) {
     if (/UNIQUE|constraint/i.test(String(error))) return errorResponse(409, 'identity_conflict', 'No se pudo confirmar la identidad. Usa el perfil y token que ya guardaste.');
     throw error;

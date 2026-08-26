@@ -152,6 +152,21 @@ Each of the five lessons owns an isolated 40-question bank (20 QCM, 10 true/fals
 grupo-3-practice-2026-08-21-v440.js
 ```
 
+## D1-managed dated class content
+
+The protected management shell may also create date-based lessons for one class without changing the 59-module library. These records are class-hub overlays stored in D1, not new entries in `content/courses/**` and not inputs to `data/med-courses-data.js`.
+
+The editable package contains:
+
+- a tenant subject identifier and an ISO lesson date;
+- full, quick and ultra Markdown;
+- exactly 20 QCM, 10 true/false and 10 clinical cases before publication;
+- stable question identifiers and revisions assigned by the server.
+
+Only authenticated accounts carrying the class-scoped `content.manage` permission, or the owner, may create drafts or publish them. The public class API returns published overlays only. The browser overlays a matching legacy lesson by exact subject/date or appends a new dated lesson, while an API failure leaves all static material unchanged.
+
+Do not copy a D1 lesson into `exam.json`: that file belongs to the canonical module pipeline and does not use the 20/10/10 class-bank schema. Moving a reviewed D1 lesson into the canonical library is a separate, explicit migration with the normal source builders and validators.
+
 ## Validation
 
 Before merging content changes, run:

@@ -113,6 +113,8 @@ teacher-question-profile-v445.js
 
 `academic-model-v445.js` is the authoritative mapping for the six 4.º E subjects, fourteen dated lessons, chapter status and six cumulative teacher profiles. A new lesson must extend the relevant evidence timeline; it must not overwrite prior evidence or invent a class date. Each practice bank remains isolated by lesson and is annotated at runtime with the matching teacher profile and reasoning angle.
 
+Published class-specific overlays created through `/gestion/<slug>` are a separate source surface. They live in the tenant-scoped D1 tables `hub_content_lessons` and `hub_content_revisions`; they must not change `content-lock.json`, the 59-module catalog or protected generated banks. The static notebook remains the offline baseline. A D1 overlay may replace the browser view only when its subject and exact lesson date match, and an unavailable API must leave that baseline untouched.
+
 The Nutrition seminar on 20 August 2026 was a completed presentation, not a new theory lesson. The only current Nutrition notebook lesson is the 13 August session until a later theory class is documented.
 
 The shared Google Drive entry belongs on Home only. `Materias` must not duplicate it.
