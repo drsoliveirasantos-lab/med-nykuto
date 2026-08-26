@@ -32,6 +32,10 @@ const redirectRoutes = fs.existsSync(path.join(root, '_redirects'))
 function existsLocal(ref) {
   const raw = String(ref || '').split('#')[0].split('?')[0];
   if (raw.startsWith('/') && redirectRoutes.some((pattern) => pattern.test(raw))) return true;
+  if (raw.startsWith('/api/')) {
+    const functionFile = path.join(root, 'functions', `${raw.replace(/^\//, '')}.js`);
+    if (fs.existsSync(functionFile)) return true;
+  }
   const clean = raw.replace(/^\.\//, '').replace(/^\//, '');
   if (!clean || /^(https?:|mailto:|tel:|data:|javascript:)/i.test(clean)) return true;
   if (clean.startsWith('#')) return true;
