@@ -134,6 +134,8 @@ test.describe('Published class content student runtime', () => {
         practiceId: lesson && lesson.practiceId,
         counts: bank && [bank.qcm.length, bank.vf.length, bank.cases.length],
         oldBankPresent: Boolean(window.MedNykutoClassPractice.banks['fisiologia-2026-08-24']),
+        controllerPresent: Boolean(window.MedNykutoClassPractice.controllers[expectedPracticeId]),
+        oldControllerPresent: Boolean(window.MedNykutoClassPractice.controllers['fisiologia-2026-08-24']),
         staticSourceHidden: Boolean(document.querySelector('[data-managed-static-source-for="fisiologia-2026-08-24"][data-notebook-persistent][hidden]'))
       };
     }, practiceId);
@@ -143,6 +145,8 @@ test.describe('Published class content student runtime', () => {
       practiceId,
       counts: [20, 10, 10],
       oldBankPresent: false,
+      controllerPresent: true,
+      oldControllerPresent: false,
       staticSourceHidden: true
     });
   });

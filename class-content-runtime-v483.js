@@ -634,6 +634,17 @@ function applyManagedLesson(lesson, model, practiceRuntime) {
 
   if (previousPracticeId && previousPracticeId !== practiceId) delete practiceRuntime.banks[previousPracticeId];
   practiceRuntime.banks[practiceId] = bank;
+  const livePracticeRuntime = window.MedNykutoClassPractice;
+  const mountRuntime = livePracticeRuntime && livePracticeRuntime.banks === practiceRuntime.banks
+    ? livePracticeRuntime
+    : practiceRuntime;
+  if (previousPracticeId && previousPracticeId !== practiceId && mountRuntime.controllers) {
+    delete mountRuntime.controllers[previousPracticeId];
+  }
+  if (typeof mountRuntime.mountStandalone === 'function') {
+    const controller = mountRuntime.mountStandalone(panel.querySelector('[data-practice-slot]'), practiceId);
+    if (controller && mountRuntime.controllers) mountRuntime.controllers[practiceId] = controller;
+  }
 }
 
 async function publishedLessons() {
