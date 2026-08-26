@@ -34,6 +34,62 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.getByText('KM 8', { exact: true })).toHaveCount(0);
   });
 
+  test('shows the live iCal subscription directly inside Horario with a secure copy fallback', async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'clipboard', {
+        configurable: true,
+        value: {
+          writeText(value) {
+            window.__copiedClassCalendarUrl = value;
+            return Promise.resolve();
+          }
+        }
+      });
+    });
+    await page.goto('/clase.html#horario');
+
+    const subscription = page.locator('#classCalendarSubscription');
+    const link = page.locator('#classCalendarSubscribeLink');
+    const copy = page.locator('#classCalendarCopyLink');
+    await expect(subscription).toBeVisible();
+    await expect(subscription).toContainText('Se actualiza automáticamente');
+    await expect(link).toHaveAttribute('href', 'webcal://127.0.0.1:4173/api/class-calendar.ics?class=s4-e');
+    await expect(link).toHaveAttribute('data-https-url', 'https://127.0.0.1:4173/api/class-calendar.ics?class=s4-e');
+    expect((await link.boundingBox()).height).toBeGreaterThanOrEqual(44);
+    expect((await copy.boundingBox()).height).toBeGreaterThanOrEqual(44);
+
+    await copy.click();
+    await expect.poll(() => page.evaluate(() => window.__copiedClassCalendarUrl || '')).toMatch(/\/api\/class-calendar\.ics\?class=s4-e$/);
+    await expect(page.locator('#classCalendarSubscriptionStatus')).toHaveText('Enlace HTTPS copiado. Añádelo como calendario por URL.');
+  });
+
+  test('persists the accessible light theme across lessons and training', async ({ page }) => {
+    await page.evaluate(() => localStorage.removeItem('med-nykuto-theme-v1'));
+    await page.reload();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+
+    const toggle = page.locator('[data-public-theme-toggle]');
+    await expect(toggle).toBeVisible();
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    expect((await toggle.boundingBox()).height).toBeGreaterThanOrEqual(44);
+    await toggle.click();
+
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+    await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#f4f7fb');
+    await page.reload();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+
+    await page.goto('/clase.html#materias');
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+    await expect(page.locator('#materias')).toBeVisible();
+    await page.goto('/comunidade.html#ranking');
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+    await expect(page.locator('[data-public-theme-toggle]')).toHaveAttribute('aria-pressed', 'true');
+    await page.locator('[data-public-theme-toggle]').click();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  });
+
   test('switches the class interface between Spanish and Brazilian Portuguese', async ({ page }) => {
     const language = page.locator('#classLanguageSelect');
     await expect(language).toHaveValue('es');

@@ -18,6 +18,9 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
       const switcher = document.querySelector('#semesterSwitcherV402').getBoundingClientRect();
       const header = document.querySelector('.class-header').getBoundingClientRect();
       const highlighted = document.querySelector('.agenda-day.is-next-day [data-week-date]');
+      const themeToggle = document.querySelector('[data-public-theme-toggle]').getBoundingClientRect();
+      const calendarSubscribe = document.querySelector('#classCalendarSubscribeLink').getBoundingClientRect();
+      const calendarCopy = document.querySelector('#classCalendarCopyLink').getBoundingClientRect();
       return {
         columnCount: getComputedStyle(document.querySelector('#weeklyAgenda')).gridTemplateColumns.split(' ').length,
         visibleDays: days.filter(day => day.width > 0 && day.height > 0).length,
@@ -37,6 +40,9 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
         headerTop: header.top,
         headerBottom: header.bottom,
         highlightedDate: highlighted ? highlighted.getAttribute('datetime') : null,
+        themeToggleHeight: themeToggle.height,
+        calendarSubscribeHeight: calendarSubscribe.height,
+        calendarCopyHeight: calendarCopy.height,
         scrollWidth: document.documentElement.scrollWidth,
         clientWidth: document.documentElement.clientWidth
       };
@@ -57,6 +63,9 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(layout.switcherTop).toBeGreaterThanOrEqual(layout.headerTop);
     expect(layout.switcherBottom).toBeLessThanOrEqual(layout.headerBottom + 1);
     expect(layout.highlightedDate).toMatch(/^2026-\d{2}-\d{2}$/);
+    expect(layout.themeToggleHeight).toBeGreaterThanOrEqual(44);
+    expect(layout.calendarSubscribeHeight).toBeGreaterThanOrEqual(44);
+    expect(layout.calendarCopyHeight).toBeGreaterThanOrEqual(44);
     expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
     await expect(page.locator('.schedule-slot[data-subject]')).toHaveCount(10);
     await expect(page.locator('.agenda-day')).toHaveCount(4);

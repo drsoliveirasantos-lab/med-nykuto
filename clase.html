@@ -12,11 +12,14 @@
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
   <link rel="apple-touch-icon" href="assets/logo-medcursos-icon.png" />
   <link rel="manifest" href="manifest.webmanifest" />
+  <script src="public-theme-v485.js?v=485"></script>
+  <script src="calendar-subscription-v485.js?v=485"></script>
   <link rel="stylesheet" href="grupo-3-v401.css?v=481" />
   <link rel="stylesheet" href="class-courses-2026-08-17-v432.css?v=433" />
   <link rel="stylesheet" href="class-hub-2026-08-21-v440.css?v=478" />
   <link rel="stylesheet" href="class-notebook-v445.css?v=463" />
   <link rel="stylesheet" href="help-desk-v479.css?v=480" />
+  <link rel="stylesheet" href="public-theme-v485.css?v=485" />
 </head>
 <body>
   <a class="skip-link" href="#contenido">Ir al contenido</a>
@@ -57,6 +60,7 @@
         </select>
       </div>
       <div class="class-header-actions" aria-label="Alertas y gestión">
+        <button class="class-header-action public-theme-toggle" type="button" data-public-theme-toggle aria-pressed="false"><span class="public-theme-icon" data-public-theme-icon aria-hidden="true">☀</span><span class="public-theme-label" data-public-theme-label>Claro</span></button>
         <button class="class-header-action notice-bell" id="noticeBell" type="button" aria-label="Abrir avisos" aria-controls="avisos">🔔</button>
         <button class="class-header-action install-app-button" id="installAppButton" type="button" hidden aria-label="Instalar Med Nykuto">＋</button>
         <a class="class-header-action manage-link teachers-link" href="profesores.html"><span class="manage-label">Docentes</span><span aria-hidden="true">◎</span></a>
@@ -173,6 +177,19 @@
         <div><p class="section-kicker">Horario de la semana</p><h2 id="schedule-title">Horario del 4.º E</h2><p class="schedule-week-range" id="scheduleWeekRange">Semana del 17 al 23 de agosto de 2026</p></div>
         <span class="source-pill">Hora de Paraguay</span>
       </div>
+
+      <section id="classCalendarSubscription" class="schedule-calendar-subscription" aria-labelledby="classCalendarSubscriptionTitle">
+        <div class="schedule-calendar-copy">
+          <span>CALENDARIO ICAL</span>
+          <strong id="classCalendarSubscriptionTitle">Recibe exámenes, tareas y fechas en tu calendario</strong>
+          <small>Se actualiza automáticamente cuando publicamos una fecha nueva.</small>
+        </div>
+        <div class="schedule-calendar-actions">
+          <a id="classCalendarSubscribeLink" href="/api/class-calendar.ics?class=s4-e" aria-describedby="classCalendarSubscriptionStatus">Añadir a mi calendario</a>
+          <button id="classCalendarCopyLink" type="button" aria-describedby="classCalendarSubscriptionStatus">Copiar enlace</button>
+        </div>
+        <p id="classCalendarSubscriptionStatus" class="schedule-calendar-status" aria-live="polite">iCal compatible con Apple Calendar, Google Calendar y Outlook.</p>
+      </section>
 
       <div class="agenda-summary">
         <article class="schedule-guide-card">
@@ -2176,7 +2193,7 @@
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=405"></script>
-  <script src="grupo-3-i18n-v421.js?v=482"></script>
+  <script src="grupo-3-i18n-v421.js?v=485"></script>
   <script src="academic-model-v445.js?v=452"></script>
   <script src="grupo-3-practice-v413.js?v=446"></script>
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>

@@ -14,15 +14,12 @@
   }
   var slug=classSlug();
   var API='/api/class-hub?class='+encodeURIComponent(slug);
-  var CALENDAR_API='/api/class-calendar.ics?class='+encodeURIComponent(slug);
   var studentKey='med-nykuto-student-device-v471:'+slug;
   function el(tag,className,text){var node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
   function readJson(key,fallback){try{return JSON.parse(localStorage.getItem(key)||'')||fallback;}catch(error){return fallback;}}
   function writeJson(key,value){try{localStorage.setItem(key,JSON.stringify(value));}catch(error){}}
   function deviceId(){var value=localStorage.getItem(studentKey);if(value)return value;value=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'device-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);try{localStorage.setItem(studentKey,value);}catch(error){}return value;}
   function membershipKey(activityId){return 'med-nykuto-membership-v471:'+slug+':'+activityId;}
-  function calendarUrl(){var url=new URL(CALENDAR_API,location.href);url.protocol='https:';return url;}
-  function calendarSubscriptionUrl(){var url=calendarUrl();return'webcal://'+url.host+url.pathname+url.search;}
   function post(data){return fetch(API,{method:'POST',headers:{'content-type':'application/json','accept':'application/json'},body:JSON.stringify(data)}).then(function(response){return response.json().then(function(body){if(!response.ok)throw new Error(body.error||body.message||'No se pudo guardar la inscripción.');return body;});});}
   function formatDate(value){if(!value)return 'Fecha por confirmar';var date=new Date(value);if(Number.isNaN(date.getTime()))return value;return new Intl.DateTimeFormat('es-PY',{weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(date);}
   function timeAgo(value){var date=new Date(value),seconds=Math.floor((Date.now()-date.getTime())/1000);if(!Number.isFinite(seconds)||seconds<0)return 'Actualizado ahora';if(seconds<60)return 'Actualizado ahora';if(seconds<3600)return 'Actualizado hace '+Math.floor(seconds/60)+' min';if(seconds<86400)return 'Actualizado hace '+Math.floor(seconds/3600)+' h';return 'Actualizado el '+new Intl.DateTimeFormat('es-PY',{day:'2-digit',month:'short'}).format(date);}
@@ -104,7 +101,6 @@
     document.documentElement.dataset.classSlug=slug;
     document.getElementById('classManifest').href='/api/class-manifest?class='+encodeURIComponent(slug);
     document.getElementById('manageLink').href='/gestion/'+encodeURIComponent(slug);
-    var calendarLink=document.getElementById('calendarSubscribeLink');calendarLink.href=calendarSubscriptionUrl();calendarLink.dataset.httpsUrl=calendarUrl().href;
     document.getElementById('classEyebrow').textContent=[info.semester?'SEMESTRE '+info.semester:'MEDICINA',info.group?'GRUPO '+info.group:'TURMA'].join(' · ');
     document.getElementById('homeTitle').textContent=info.name||('Turma '+slug.toUpperCase());
     document.getElementById('classSubtitle').textContent=info.description||'Tareas, materias, fechas y materiales en un solo lugar.';
@@ -155,15 +151,13 @@
     var noticeButton=document.getElementById('noticeButton');if(noticeButton)noticeButton.setAttribute('aria-current',view==='avisos'?'page':'false');if(noticeCarouselController)noticeCarouselController.setActive(view==='inicio');history.replaceState(null,'','#'+view);window.scrollTo({top:0,behavior:reducedMotion()?'auto':'smooth'});
   }
   function share(){var info=state.classInfo||{},url=location.origin+'/turma/'+slug,text='Med Nykuto · '+(info.name||slug.toUpperCase());if(navigator.share)return navigator.share({title:text,text:'Espacio académico de la turma',url:url}).catch(function(){});return navigator.clipboard.writeText(url).then(function(){var button=document.getElementById('shareClass'),previous=button.textContent;button.textContent='Enlace copiado';setTimeout(function(){button.textContent=previous;},1600);});}
-  function legacyCopy(value){return new Promise(function(resolve,reject){var field=el('textarea');field.value=value;field.setAttribute('readonly','');field.style.position='fixed';field.style.opacity='0';field.style.pointerEvents='none';document.body.appendChild(field);field.select();field.setSelectionRange(0,value.length);try{if(!document.execCommand('copy'))throw new Error('copy_failed');resolve();}catch(error){reject(error);}finally{field.remove();}});}
-  function copyCalendarLink(){var url=calendarUrl().href,status=document.getElementById('calendarSubscriptionStatus'),button=document.getElementById('calendarCopyLink');button.disabled=true;status.textContent='Copiando el enlace seguro…';var attempt=Promise.resolve().then(function(){if(!navigator.clipboard||!navigator.clipboard.writeText)throw new Error('clipboard_unavailable');return navigator.clipboard.writeText(url);}).catch(function(){return legacyCopy(url);});return attempt.then(function(){status.textContent='Enlace HTTPS copiado. Añádelo como calendario por URL.';}).catch(function(){status.textContent='No se pudo copiar. Mantén pulsado “Suscribirme al calendario” para copiar el enlace.';}).finally(function(){button.disabled=false;});}
   function init(){
     document.querySelectorAll('[data-nav-view]').forEach(function(button){button.addEventListener('click',function(){showView(button.dataset.navView);});});
     document.querySelectorAll('[data-open-view]').forEach(function(button){button.addEventListener('click',function(){showView(button.dataset.openView);});});
     document.querySelectorAll('[data-task-filter]').forEach(function(button){button.addEventListener('click',function(){taskFilter=button.dataset.taskFilter;renderTasks();});});
     document.getElementById('subjectSearch').addEventListener('input',function(event){renderSubjects(event.target.value);});
     document.getElementById('noticeButton').addEventListener('click',function(){showView('avisos');});
-    document.getElementById('shareClass').addEventListener('click',share);document.getElementById('calendarCopyLink').addEventListener('click',copyCalendarLink);document.getElementById('reportProblem').addEventListener('click',function(){var subject=encodeURIComponent('Corrección Med Nykuto · '+slug),body=encodeURIComponent('Turma: '+slug+'\nPágina: '+location.href+'\nInformación a corregir:\n');location.href='mailto:?subject='+subject+'&body='+body;});
+    document.getElementById('shareClass').addEventListener('click',share);document.getElementById('reportProblem').addEventListener('click',function(){var subject=encodeURIComponent('Corrección Med Nykuto · '+slug),body=encodeURIComponent('Turma: '+slug+'\nPágina: '+location.href+'\nInformación a corregir:\n');location.href='mailto:?subject='+subject+'&body='+body;});
     window.addEventListener('hashchange',function(){var next='inicio';try{next=decodeURIComponent(location.hash.slice(1))||'inicio';}catch(error){}if(next!==currentView)showView(next);});
     window.addEventListener('online',load);window.addEventListener('offline',function(){var banner=document.getElementById('connectionBanner');banner.textContent='Sin conexión · los últimos datos siguen disponibles';banner.hidden=false;});
     if('serviceWorker'in navigator)navigator.serviceWorker.register('/service-worker.js').catch(function(){});
