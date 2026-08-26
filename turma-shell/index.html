@@ -9,7 +9,7 @@
   <link id="classManifest" rel="manifest" />
   <script src="/turma-manifest-boot-v471.js?v=478"></script>
   <link rel="icon" href="/assets/pwa-icon-192.png" />
-  <link rel="stylesheet" href="/turma-v471.css?v=478" />
+  <link rel="stylesheet" href="/turma-v471.css?v=484" />
   <link rel="stylesheet" href="/help-desk-v479.css?v=480" />
 </head>
 <body>
@@ -115,6 +115,17 @@
 
       <details class="tool-panel" open>
         <summary><span>Calendario</span><b id="dateCount">0 fechas</b></summary>
+        <section id="calendarSubscription" class="calendar-subscription" aria-labelledby="calendarSubscriptionTitle">
+          <div class="calendar-subscription-copy">
+            <strong id="calendarSubscriptionTitle">Recibir las fechas en tu calendario</strong>
+            <small>Las fechas y tareas publicadas se actualizan automáticamente. También puedes copiar el enlace HTTPS y añadirlo por URL en Google Calendar, Apple Calendar u Outlook.</small>
+          </div>
+          <div class="calendar-subscription-actions">
+            <a id="calendarSubscribeLink" href="/api/class-calendar.ics?class=s4-e" aria-describedby="calendarSubscriptionStatus">Suscribirme al calendario</a>
+            <button id="calendarCopyLink" type="button" aria-describedby="calendarSubscriptionStatus">Copiar enlace HTTPS</button>
+          </div>
+          <p id="calendarSubscriptionStatus" class="calendar-subscription-status" aria-live="polite">Solo incluye información académica publicada.</p>
+        </section>
         <div id="dateList" class="tool-list"></div>
       </details>
       <details class="tool-panel">
@@ -142,7 +153,7 @@
     <button type="button" data-nav-view="mas"><span aria-hidden="true">•••</span><strong>Más</strong></button>
   </nav>
 
-  <script src="/turma-v471.js?v=478"></script>
+  <script src="/turma-v471.js?v=484"></script>
   <script src="/help-desk-v479.js?v=480"></script>
 </body>
 </html>

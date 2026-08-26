@@ -169,6 +169,48 @@ test.describe('Multiclass student hub', () => {
     PRIVATE_NAMES.forEach((name) => expect(completeDomText).not.toContain(name));
   });
 
+  test('offers the selected class calendar as a stable HTTPS subscription with a copy fallback', async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'clipboard', {
+        configurable: true,
+        value: {
+          writeText(value) {
+            window.__copiedCalendarUrl = value;
+            return Promise.resolve();
+          }
+        }
+      });
+    });
+    await page.route('**/api/class-hub**', (route) => route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify(CLASS_RESPONSE)
+    }));
+
+    await page.goto('/turma-shell/?class=s5-a#mas');
+
+    const subscription = page.locator('#calendarSubscription');
+    const link = page.locator('#calendarSubscribeLink');
+    const copy = page.locator('#calendarCopyLink');
+    await expect(subscription).toBeVisible();
+    await expect(link).toHaveText('Suscribirme al calendario');
+    await expect(link).toHaveAttribute('href', 'webcal://127.0.0.1:4173/api/class-calendar.ics?class=s5-a');
+    await expect(link).toHaveAttribute('data-https-url', 'https://127.0.0.1:4173/api/class-calendar.ics?class=s5-a');
+    await expect(link).not.toHaveAttribute('target', /.+/);
+    await expect(link).not.toHaveAttribute('rel', /.+/);
+    expect((await link.boundingBox()).height).toBeGreaterThanOrEqual(44);
+    expect((await copy.boundingBox()).height).toBeGreaterThanOrEqual(44);
+    await expect(page.locator('#calendarSubscriptionStatus')).toContainText('información académica publicada');
+
+    await copy.click();
+    await expect.poll(() => page.evaluate(() => window.__copiedCalendarUrl || '')).toMatch(/\/api\/class-calendar\.ics\?class=s5-a$/);
+    const copied = new URL(await page.evaluate(() => window.__copiedCalendarUrl));
+    expect(copied.protocol).toBe('https:');
+    expect(copied.pathname).toBe('/api/class-calendar.ics');
+    expect(copied.searchParams.get('class')).toBe('s5-a');
+    await expect(page.locator('#calendarSubscriptionStatus')).toHaveText('Enlace HTTPS copiado. Añádelo como calendario por URL.');
+  });
+
   test('shows one readable official notice on Home and all notices in the dedicated view', async ({ page }) => {
     await page.route('**/api/class-hub**', (route) => route.fulfill({
       status: 200,
@@ -419,6 +461,9 @@ test.describe('Multiclass student hub', () => {
     });
 
     await page.goto('/gestion/s5-a');
+    await expect(page.locator('#multiDeviceLoginHelp')).toContainText('teléfono y tablet');
+    await expect(page.locator('#inviteAccess summary')).toHaveText('Activar una invitación antigua');
+    await expect(page.locator('#inviteAccess .details-help')).toContainText('solo en este navegador');
     await page.locator('#loginEmail').fill(SYNTHETIC_EMAIL);
     await page.locator('#loginPassword').fill(SYNTHETIC_TEMP_PASSWORD);
     await page.locator('#credentialSubmit').click();
@@ -458,6 +503,78 @@ test.describe('Multiclass student hub', () => {
     const logout = requests.find((entry) => entry.body?.action === 'auth.logout');
     expect(logout.authorization).toBe('');
     expect(logout.csrf).toBe(SYNTHETIC_CSRF);
+  });
+
+  test('lets an authenticated delegate validate or reject only opaque challenge candidatures', async ({ page }) => {
+    const actor = { id: 'editor-review-s5-a', role: 'editor', name: 'Delegada Revisión', classId: 's5-a', capabilities: { manageContent: false, reviewChallenge: true } };
+    const privatePlayerId = '11111111-1111-4111-8111-111111111111';
+    const privateHash = 'student-hash-must-not-render';
+    const privateTokenHash = 'access-token-hash-must-not-render';
+    const candidates = [
+      { reviewId: 'a'.repeat(64), fullName: 'Ana Candidata', catraca: 'CAT1001', status: 'pending', points: 8, questions: 10, accuracy: 80, challenges: 1, playerId: privatePlayerId, studentIdHash: privateHash, accessTokenHash: privateTokenHash },
+      { reviewId: 'b'.repeat(64), fullName: 'Luis Candidato', catraca: 'CAT1002', status: 'pending', points: 7, questions: 10, accuracy: 70, challenges: 1 }
+    ];
+    const writes = [];
+    const adminBody = () => managementState(actor, {
+      challengeReview: {
+        enabled: true,
+        week: { key: '2026-08-24', start: '2026-08-24', end: '2026-08-30', timeZone: 'America/Asuncion' },
+        pendingCount: candidates.filter((candidate) => candidate.status === 'pending').length,
+        candidates
+      }
+    });
+    await exposeSyntheticCsrfCookie(page);
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request(), url = new URL(request.url()), body = request.method() === 'POST' ? request.postDataJSON() : null;
+      if (request.method() === 'GET' && url.searchParams.get('resource') === 'session') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, actor, passwordChangeRequired: false }) });
+        return;
+      }
+      if (request.method() === 'GET' && url.searchParams.get('resource') === 'admin') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(adminBody()) });
+        return;
+      }
+      if (body?.action === 'challenge.participant.review') {
+        writes.push({ body, authorization: request.headers().authorization || '', csrf: request.headers()['x-csrf-token'] || '' });
+        const candidate = candidates.find((item) => item.reviewId === body.reviewId);
+        candidate.status = body.status;
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, reviewId: body.reviewId, previousStatus: body.expectedStatus, status: body.status }) });
+        return;
+      }
+      await route.fulfill({ status: 400, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'unexpected_request', error: 'Solicitud inesperada.' }) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await expect(page.locator('#manageTabChallenge')).toBeVisible();
+    await page.locator('#manageTabChallenge').click();
+    await expect(page.locator('#managePanelChallenge')).toBeVisible();
+    await expect(page.locator('#challengeReviewPendingCount')).toHaveText('2 pendientes');
+    await expect(page.locator('#challengeReviewList')).toContainText('Ana Candidata');
+    await expect(page.locator('#challengeReviewList')).toContainText('Catraca pública: CAT1001');
+    const visibleText = await page.locator('#managePanelChallenge').textContent();
+    [privatePlayerId, privateHash, privateTokenHash, 'a'.repeat(64)].forEach((secret) => expect(visibleText).not.toContain(secret));
+
+    const ana = page.locator('.challenge-review-item').filter({ hasText: 'Ana Candidata' });
+    await ana.getByRole('button', { name: 'Validar' }).click();
+    await expect(ana).toContainText('VALIDADA');
+    expect(writes[0]).toEqual({
+      authorization: '',
+      csrf: SYNTHETIC_CSRF,
+      body: { action: 'challenge.participant.review', reviewId: 'a'.repeat(64), status: 'verified', expectedStatus: 'pending' }
+    });
+
+    page.once('dialog', (dialog) => dialog.accept());
+    const luis = page.locator('.challenge-review-item').filter({ hasText: 'Luis Candidato' });
+    await luis.getByRole('button', { name: 'Rechazar' }).click();
+    await expect(luis).toContainText('RECHAZADA');
+    expect(writes[1]).toEqual({
+      authorization: '',
+      csrf: SYNTHETIC_CSRF,
+      body: { action: 'challenge.participant.review', reviewId: 'b'.repeat(64), status: 'rejected', expectedStatus: 'pending' }
+    });
+    await expect(page.locator('#challengeReviewPendingCount')).toHaveText('0 pendientes');
+    await expect(page.locator('[data-owner-only]').first()).toBeHidden();
   });
 
   test('restores a credential session with same-origin cookies and enforces the initial password change', async ({ page, context }) => {
@@ -1183,8 +1300,8 @@ test.describe('Multiclass student hub', () => {
 
     await page.goto('/gestion/s5-a');
 
-    await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=483');
-    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=483');
+    await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=484');
+    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=484');
     expect(requestedPaths).toContain('/gestion-v440.css');
     expect(requestedPaths).toContain('/gestion-v440.js');
     await expect(page.locator('#authClassSlug')).toHaveText('S5-A');
@@ -1542,7 +1659,7 @@ test.describe('Multiclass student hub', () => {
     await page.locator('#manageTabContent').click();
     await page.locator('#lessonList').getByRole('button', { name: 'Modificar' }).click();
     await expect(page.locator('#lessonExpectedRevision')).toHaveValue('7');
-    const withdrawButton = page.locator('[data-lesson-status="draft"]');
+    const withdrawButton = page.locator('#lessonForm button[data-lesson-status="draft"]');
     await expect(withdrawButton).toHaveText('Retirar y guardar borrador');
     page.once('dialog', async (dialog) => {
       expect(dialog.message()).toContain('desaparecerá de Materia y Entrenamiento');
@@ -1556,7 +1673,7 @@ test.describe('Multiclass student hub', () => {
     const incomplete = JSON.parse(JSON.stringify(loaded));
     incomplete.practice.qcm.pop();
     await page.locator('#lessonPracticeJson').fill(JSON.stringify(incomplete));
-    await page.locator('[data-lesson-status="published"]').click();
+    await page.locator('#lessonForm button[data-lesson-status="published"]').click();
     await expect(page.locator('#practiceJsonStatus')).toContainText('exactamente 20 QCM');
     expect(writes).toHaveLength(0);
 
@@ -1564,7 +1681,7 @@ test.describe('Multiclass student hub', () => {
       const malformed = JSON.parse(JSON.stringify(loaded));
       malformed.practice.qcm[0].answerIndex = malformedIndex;
       await page.locator('#lessonPracticeJson').fill(JSON.stringify(malformed));
-      await page.locator('[data-lesson-status="published"]').click();
+      await page.locator('#lessonForm button[data-lesson-status="published"]').click();
       await expect(page.locator('#practiceJsonStatus')).toContainText('answerIndex válido');
       expect(writes).toHaveLength(0);
     }
@@ -1584,7 +1701,7 @@ test.describe('Multiclass student hub', () => {
     delete friendly.practice.clinicalCases[0].question;
     delete friendly.practice.clinicalCases[0].answerIndex;
     await page.locator('#lessonPracticeJson').fill(JSON.stringify({ title: lesson.title, practice: friendly.practice }));
-    await page.locator('[data-lesson-status="published"]').click();
+    await page.locator('#lessonForm button[data-lesson-status="published"]').click();
     await expect.poll(() => writes.length).toBe(1);
 
     const write = writes[0], writeUrl = new URL(write.url);
@@ -1669,11 +1786,11 @@ test.describe('Multiclass student hub', () => {
     expect(shellEntries).toEqual(expect.arrayContaining([
       '/offline.html',
       '/turma-shell/',
-      '/turma-v471.css?v=478',
-      '/turma-v471.js?v=478',
+      '/turma-v471.css?v=484',
+      '/turma-v471.js?v=484',
       '/turma-manifest-boot-v471.js?v=478'
     ]));
-    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v483['"]/);
+    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v484['"]/);
     [
       /\/gestion/i,
       /\/api\//i,

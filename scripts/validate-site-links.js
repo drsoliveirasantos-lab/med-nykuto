@@ -54,7 +54,7 @@ for(const file of htmlFiles){
   const links = Array.from(html.matchAll(/<(?:a|link)[^>]+href="([^"]+)"/g)).map(m => m[1]);
   links.forEach(href => {
     const clean = localPath(href.split('#')[0].split('?')[0]);
-    if(!clean || /^(https?:|mailto:|tel:|#)/i.test(clean) || /^(?:turma|gestion)\/[a-z0-9][a-z0-9-]{0,30}\/?$/i.test(clean)) return;
+    if(!clean || /^(https?:|mailto:|tel:|#)/i.test(clean) || /^api\/class-calendar\.ics$/i.test(clean) || /^(?:turma|gestion)\/[a-z0-9][a-z0-9-]{0,30}\/?$/i.test(clean)) return;
     if(!exists(clean)) add(file, `missing href target: ${clean}`);
   });
 }

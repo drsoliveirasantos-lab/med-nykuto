@@ -112,7 +112,19 @@ async function post(api, env, data, auth = {}) {
     env,
     waitUntil() {}
   });
-  return { status: response.status, body: await response.json() };
+  const setCookies = typeof response.headers.getSetCookie === 'function'
+    ? response.headers.getSetCookie()
+    : [response.headers.get('set-cookie')].filter(Boolean);
+  return { status: response.status, body: await response.json(), setCookies };
+}
+
+function sessionAuthFromResponse(result) {
+  const source = (result.setCookies || []).join('\n');
+  const sessionToken = source.match(/__Host-med-nykuto-management=([a-f0-9]{64})/i)?.[1] || '';
+  const csrfToken = source.match(/__Host-med-nykuto-management-csrf=([a-f0-9]{64})/i)?.[1] || '';
+  assert.equal(sessionToken.length, 64, 'login did not set a 256-bit HttpOnly session cookie');
+  assert.equal(csrfToken.length, 64, 'login did not set an independent 256-bit CSRF cookie');
+  return { sessionToken, csrfToken };
 }
 
 async function get(api, env, resource = 'public', auth = {}) {
@@ -133,7 +145,7 @@ async function main() {
   const ownerToken = 'c'.repeat(64), legacyToken = 'legacy-content-token';
   const sessionToken = 'a'.repeat(64), csrfToken = 'b'.repeat(64);
   const sessionAuth = { sessionToken, csrfToken }, ownerAuth = { bearer: ownerToken };
-  const env = { MED_NYKUTO_DB: db, MED_NYKUTO_OWNER_TOKEN: ownerToken, MED_NYKUTO_RATE_SALT: 'content-api-rate-fixture' };
+  const env = { MED_NYKUTO_DB: db, MED_NYKUTO_OWNER_TOKEN: ownerToken, MED_NYKUTO_RATE_SALT: 'content-api-rate-fixture', MED_NYKUTO_TEST_NOW: '2026-08-26T12:00:00.000Z' };
   const digest = (value) => crypto.createHash('sha256').update(String(value)).digest('hex');
   const created = '2026-08-26T12:00:00.000Z';
 
@@ -145,6 +157,94 @@ async function main() {
     db.database.prepare(`INSERT INTO hub_editors (id,class_id,name,token_hash,status,created_at) VALUES (?,?,?,?,?,?)`).run('session-editor', 's4-e', 'Session fixture', digest('unused-session-token'), 'active', created);
     db.database.prepare(`INSERT INTO hub_editor_credentials (editor_id,class_id,email_normalized,password_hash,password_salt,password_algorithm,password_iterations,password_version,must_change_password,temporary_expires_at,created_at,updated_at) VALUES (?,?,?,?,?,'pbkdf2-sha256',100000,1,0,NULL,?,?)`).run('session-editor', 's4-e', 'session.fixture@example.test', '0'.repeat(64), '1'.repeat(32), created, created);
     db.database.prepare(`INSERT INTO hub_editor_sessions (token_hash,class_id,editor_id,csrf_hash,created_at,expires_at,last_seen_at) VALUES (?,?,?,?,?,?,?)`).run(digest(sessionToken), 's4-e', 'session-editor', digest(csrfToken), created, '2099-01-01T00:00:00.000Z', created);
+
+    const sessionPlayerId = '11111111-1111-4111-8111-111111111111';
+    const legacyPlayerId = '22222222-2222-4222-8222-222222222222';
+    const otherClassPlayerId = '33333333-3333-4333-8333-333333333333';
+    db.database.prepare(`INSERT INTO hub_classes (id,slug,name,semester,group_code,theme,drive_url,status,created_at,updated_at) VALUES ('s5-a','s5-a','Medicina · 5.º A',5,'A','midnight-gold','','active',?,?)`).run(created, created);
+    const participantInsert = db.database.prepare(`INSERT INTO community_participants (class_id,player_id,display_name,student_id_hash,student_id_last4,student_id_public,access_token_hash,verification_status,consented_at,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?)`);
+    participantInsert.run('s4-e', sessionPlayerId, 'Ana Moderación', 'student-hash-secret-one', '1001', 'CAT1001', 'access-token-hash-secret-one', 'pending', created, created, created);
+    participantInsert.run('s4-e', legacyPlayerId, 'Luis Moderación', 'student-hash-secret-two', '1002', 'CAT1002', 'access-token-hash-secret-two', 'pending', created, created, created);
+    participantInsert.run('s5-a', otherClassPlayerId, 'Otra Turma', 'student-hash-secret-other', '9001', 'CAT9001', 'access-token-hash-secret-other', 'pending', created, created, created);
+    const scoreInsert = db.database.prepare(`INSERT INTO community_scores (class_id,cohort_key,week_key,player_id,nickname,course_id,module_id,scope_id,correct,total,percentage,created_at,updated_at,write_version) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,1)`);
+    scoreInsert.run('s4-e', 'semester-4-group-e', '2026-08-24', sessionPlayerId, 'Ana Moderación', 'fisiologia', 'module-1', 'fisiologia:module-1:qcm', 8, 10, 80, created, created);
+    scoreInsert.run('s4-e', 'semester-4-group-e', '2026-08-24', legacyPlayerId, 'Luis Moderación', 'bioquimica', 'module-1', 'bioquimica:module-1:qcm', 7, 10, 70, created, created);
+
+    const challengeAdmin = await get(api, env, 'admin', sessionAuth);
+    assert.equal(challengeAdmin.status, 200, 'an ordinary authenticated delegate could not open the challenge review queue');
+    assert.equal(challengeAdmin.body.actor?.capabilities?.reviewChallenge, true, 'the authenticated delegate did not receive the narrow review capability');
+    assert.equal(challengeAdmin.body.actor?.capabilities?.manageContent, false, 'challenge review accidentally granted content management');
+    assert.equal(challengeAdmin.body.challengeReview?.pendingCount, 2);
+    assert.deepEqual(challengeAdmin.body.challengeReview?.week, { key: '2026-08-24', start: '2026-08-24', end: '2026-08-30', timeZone: 'America/Asuncion' });
+    const serializedChallengeAdmin = JSON.stringify(challengeAdmin.body);
+    [sessionPlayerId, legacyPlayerId, 'student-hash-secret-one', 'student-hash-secret-two', 'access-token-hash-secret-one', 'access-token-hash-secret-two'].forEach((secret) => assert.equal(serializedChallengeAdmin.includes(secret), false, `challenge review leaked ${secret}`));
+    const sessionCandidate = challengeAdmin.body.challengeReview.candidates.find((candidate) => candidate.fullName === 'Ana Moderación');
+    const legacyCandidate = challengeAdmin.body.challengeReview.candidates.find((candidate) => candidate.fullName === 'Luis Moderación');
+    assert.deepEqual([sessionCandidate.status, sessionCandidate.points, sessionCandidate.questions, sessionCandidate.catraca], ['pending', 8, 10, 'CAT1001']);
+    assert.match(sessionCandidate.reviewId, /^[a-f0-9]{64}$/);
+    assert.match(legacyCandidate.reviewId, /^[a-f0-9]{64}$/);
+    assert.equal(Object.hasOwn(sessionCandidate, 'playerId'), false, 'the review queue exposed the internal player id');
+
+    const challengeCsrfDenied = await post(api, env, { action: 'challenge.participant.review', reviewId: sessionCandidate.reviewId, status: 'verified', expectedStatus: 'pending' }, { sessionToken });
+    assert.deepEqual([challengeCsrfDenied.status, challengeCsrfDenied.body.code], [403, 'csrf_rejected']);
+    assert.equal(db.database.prepare(`SELECT verification_status FROM community_participants WHERE class_id='s4-e' AND player_id=?`).get(sessionPlayerId).verification_status, 'pending', 'CSRF-rejected challenge review changed the participant');
+
+    const sessionReview = await post(api, env, { action: 'challenge.participant.review', reviewId: sessionCandidate.reviewId, status: 'verified', expectedStatus: 'pending' }, sessionAuth);
+    assert.deepEqual([sessionReview.status, sessionReview.body.status], [200, 'verified'], 'an ordinary session delegate could not validate a candidature');
+    const staleReview = await post(api, env, { action: 'challenge.participant.review', reviewId: sessionCandidate.reviewId, status: 'rejected', expectedStatus: 'pending' }, sessionAuth);
+    assert.deepEqual([staleReview.status, staleReview.body.code, staleReview.body.currentStatus], [409, 'challenge_status_conflict', 'verified']);
+    const legacyReview = await post(api, env, { action: 'challenge.participant.review', reviewId: legacyCandidate.reviewId, status: 'rejected', expectedStatus: 'pending' }, { bearer: legacyToken });
+    assert.deepEqual([legacyReview.status, legacyReview.body.status], [200, 'rejected'], 'an authenticated legacy class editor could not reject a candidature');
+
+    const crossClassReviewId = crypto.createHmac('sha256', ownerToken).update(`challenge-review:v1:s5-a:${otherClassPlayerId}`).digest('hex');
+    const crossClassReview = await post(api, env, { action: 'challenge.participant.review', reviewId: crossClassReviewId, status: 'verified', expectedStatus: 'pending' }, ownerAuth);
+    assert.deepEqual([crossClassReview.status, crossClassReview.body.code], [404, 'challenge_candidate_missing'], 'a review id from another class crossed the tenant boundary');
+    assert.equal(db.database.prepare(`SELECT verification_status FROM community_participants WHERE class_id='s5-a' AND player_id=?`).get(otherClassPlayerId).verification_status, 'pending');
+    const challengeAudit = db.database.prepare(`SELECT entity_id,details FROM hub_audit WHERE class_id='s4-e' AND action='challenge.participant.review' ORDER BY id LIMIT 1`).get();
+    assert.equal(challengeAudit.entity_id, sessionCandidate.reviewId);
+    assert.deepEqual(JSON.parse(challengeAudit.details), { previousStatus: 'pending', status: 'verified' });
+    assert.equal(`${challengeAudit.entity_id}${challengeAudit.details}`.includes(sessionPlayerId), false, 'challenge audit stored the private player id');
+
+    const multiDevicePassword = 'Fixture-Multi-Device-2026!';
+    const multiDeviceSalt = '2'.repeat(32);
+    const multiDeviceHash = crypto.pbkdf2Sync(multiDevicePassword, Buffer.from(multiDeviceSalt, 'hex'), 100000, 32, 'sha256').toString('hex');
+    db.database.prepare(`INSERT INTO hub_editors (id,class_id,name,token_hash,status,created_at) VALUES (?,?,?,?,?,?)`).run('multi-device-editor', 's4-e', 'Multi-device fixture', digest('unused-multi-device-token'), 'active', created);
+    db.database.prepare(`INSERT INTO hub_editor_credentials (editor_id,class_id,email_normalized,password_hash,password_salt,password_algorithm,password_iterations,password_version,must_change_password,temporary_expires_at,created_at,updated_at) VALUES (?,?,?,?,?,'pbkdf2-sha256',100000,1,0,NULL,?,?)`).run('multi-device-editor', 's4-e', 'multi.device@example.test', multiDeviceHash, multiDeviceSalt, created, created);
+
+    const tabletLogin = await post(api, env, { action: 'auth.login', email: 'multi.device@example.test', password: multiDevicePassword });
+    const phoneLogin = await post(api, env, { action: 'auth.login', email: 'MULTI.DEVICE@example.test', password: multiDevicePassword });
+    assert.deepEqual([tabletLogin.status, phoneLogin.status], [200, 200], 'a second device could not log in while the first session was active');
+    const tabletAuth = sessionAuthFromResponse(tabletLogin), phoneAuth = sessionAuthFromResponse(phoneLogin);
+    assert.notEqual(tabletAuth.sessionToken, phoneAuth.sessionToken, 'two devices received the same session token');
+    assert.notEqual(tabletAuth.csrfToken, phoneAuth.csrfToken, 'two devices received the same CSRF token');
+    const activeAfterBothLogins = db.database.prepare(`SELECT COUNT(*) AS count FROM hub_editor_sessions WHERE class_id='s4-e' AND editor_id='multi-device-editor' AND revoked_at IS NULL AND expires_at>?`).get(new Date().toISOString());
+    assert.equal(Number(activeAfterBothLogins.count), 2, 'the second login revoked or replaced the first active device session');
+    assert.equal((await get(api, env, 'session', tabletAuth)).status, 200, 'the tablet session did not survive the phone login');
+    assert.equal((await get(api, env, 'session', phoneAuth)).status, 200, 'the phone session was not independently usable');
+
+    const crossedCsrf = await post(api, env, { action: 'date.upsert', label: 'No guardar', startsAt: '2026-09-01T08:00:00-03:00' }, { sessionToken: tabletAuth.sessionToken, csrfToken: phoneAuth.csrfToken });
+    assert.deepEqual([crossedCsrf.status, crossedCsrf.body.code], [403, 'csrf_rejected'], 'a CSRF token from one device authenticated another device session');
+    const tabletLogout = await post(api, env, { action: 'auth.logout' }, tabletAuth);
+    assert.equal(tabletLogout.status, 200, 'the tablet could not revoke its own session');
+    assert.equal((await get(api, env, 'session', tabletAuth)).status, 401, 'logout left the tablet session active');
+    assert.equal((await get(api, env, 'session', phoneAuth)).status, 200, 'logging out the tablet revoked the independent phone session');
+
+    const changedPassword = 'Fixture-Multi-Device-Changed-2026!';
+    const passwordChange = await post(api, env, { action: 'auth.password.change', currentPassword: multiDevicePassword, password: changedPassword }, phoneAuth);
+    assert.equal(passwordChange.status, 200, 'the remaining device could not change its password');
+    const replacementAuth = sessionAuthFromResponse(passwordChange);
+    assert.equal((await get(api, env, 'session', phoneAuth)).status, 401, 'password change did not globally revoke the prior device session');
+    assert.equal((await get(api, env, 'session', replacementAuth)).status, 200, 'password change did not install its secure replacement session');
+    const passwordReset = await post(api, env, { action: 'editor.password.reset', id: 'multi-device-editor', temporaryPassword: 'Fixture-Temporary-Reset-2026!', hours: 24 }, ownerAuth);
+    assert.equal(passwordReset.status, 200, 'the owner could not reset the multi-device fixture credential');
+    assert.equal((await get(api, env, 'session', replacementAuth)).status, 401, 'owner password reset did not globally revoke the replacement session');
+    const temporaryLogin = await post(api, env, { action: 'auth.login', email: 'multi.device@example.test', password: 'Fixture-Temporary-Reset-2026!' });
+    assert.deepEqual([temporaryLogin.status, temporaryLogin.body.passwordChangeRequired], [200, true], 'the reset credential could not create its bounded password-change session');
+    const temporaryAuth = sessionAuthFromResponse(temporaryLogin);
+    assert.equal((await get(api, env, 'session', temporaryAuth)).status, 200, 'the reset credential session was not readable before account revocation');
+    const accountRevoke = await post(api, env, { action: 'editor.revoke', id: 'multi-device-editor' }, ownerAuth);
+    assert.equal(accountRevoke.status, 200, 'the owner could not revoke the multi-device fixture account');
+    assert.equal((await get(api, env, 'session', temporaryAuth)).status, 401, 'account revocation did not globally revoke its remaining session');
 
     const legacyDenied = await post(api, env, fixtureLesson('legacy-denied'), { bearer: legacyToken });
     assert.deepEqual([legacyDenied.status, legacyDenied.body.code], [403, 'permission_denied']);
@@ -195,7 +295,7 @@ async function main() {
     const duplicateRows = db.database.prepare(`SELECT COUNT(*) AS count FROM hub_content_lessons WHERE class_id='s4-e' AND id='duplicate-date-fixture'`).get();
     assert.equal(Number(duplicateRows.count), 0, 'date-conflicting lesson persisted');
 
-    console.log('Managed content API validation OK: session-only capability, owner-only grants, published visibility and optimistic/date conflicts are enforced.');
+    console.log('Managed content API validation OK: challenge review is class-scoped, CSRF-protected, opaque and available to authenticated delegates; independent device sessions, scoped logout, global credential revocation, session-only content capability, owner-only grants, published visibility and optimistic/date conflicts are enforced.');
   } finally {
     db.close();
   }

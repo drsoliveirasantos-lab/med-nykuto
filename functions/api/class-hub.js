@@ -21,6 +21,9 @@ const EDITOR_ACTIONS = new Set([
   'notice.attachment.upload'
 ]);
 const CONTENT_ACTIONS = new Set(['lesson.upsert']);
+const CHALLENGE_REVIEW_ACTIONS = new Set(['challenge.participant.review']);
+const CHALLENGE_VERIFICATION_STATUSES = new Set(['pending', 'verified', 'rejected']);
+const CHALLENGE_REVIEW_TARGET_STATUSES = new Set(['verified', 'rejected']);
 const KNOWN_ACTOR_ROLES = new Set(['owner', 'editor']);
 const CONTENT_PERMISSION = 'content.manage';
 const STATUSES = new Set(['draft', 'published', 'archived']);
@@ -63,6 +66,8 @@ const DEFAULT_CLASS_SLUG = 's4-e';
 const LEGACY_COHORT_KEY = 'semester-4-group-e';
 const CLASS_TIME_ZONE = 'America/Asuncion';
 const UPCOMING_SCHEDULE_DAYS = 56;
+const MAX_CHALLENGE_REVIEW_ROWS = 100;
+const CHALLENGE_REVIEW_ID_PATTERN = /^[a-f0-9]{64}$/;
 const INVALID_CREDENTIALS_MESSAGE = 'Correo o contraseña incorrectos.';
 const DEFAULT_CLASS = {
   id: DEFAULT_CLASS_ID,
@@ -395,6 +400,18 @@ function localDateParts(now = new Date()) {
   };
 }
 
+function isoDate(date) { return date.toISOString().slice(0, 10); }
+function currentChallengeWeek(env = {}) {
+  const testTimestamp = Date.parse(String(env.MED_NYKUTO_TEST_NOW || ''));
+  const now = Number.isFinite(testTimestamp) ? new Date(testTimestamp) : new Date();
+  const local = localDateParts(now), localDate = new Date(Date.UTC(local.year, local.month - 1, local.day));
+  const daysSinceMonday = (localDate.getUTCDay() + 6) % 7, start = new Date(localDate);
+  start.setUTCDate(start.getUTCDate() - daysSinceMonday);
+  const end = new Date(start);
+  end.setUTCDate(start.getUTCDate() + 6);
+  return { key: isoDate(start), start: isoDate(start), end: isoDate(end), timeZone: CLASS_TIME_ZONE };
+}
+
 function upcomingScheduleDates(slots, now = new Date()) {
   const current = localDateParts(now), anchor = Date.UTC(current.year, current.month - 1, current.day);
   const weekdayLabels = ['', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.', 'dom.'];
@@ -452,6 +469,19 @@ async function payload(request, maxBytes = MAX_BODY) {
   try { return JSON.parse(raw); } catch { throw new Error('invalid_json'); }
 }
 async function digest(value) { const bytes = new TextEncoder().encode(String(value)); const hash = await crypto.subtle.digest('SHA-256', bytes); return [...new Uint8Array(hash)].map((part) => part.toString(16).padStart(2, '0')).join(''); }
+async function hmac(value, secret) {
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey('raw', encoder.encode(String(secret)), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(String(value)));
+  return [...new Uint8Array(signature)].map((part) => part.toString(16).padStart(2, '0')).join('');
+}
+function challengeReviewSecret(env = {}) {
+  return String(env.MED_NYKUTO_CATRACA_PEPPER || env.MED_NYKUTO_IDENTITY_SALT || env.MED_NYKUTO_OWNER_TOKEN || '').trim();
+}
+async function challengeReviewId(env, classId, playerId) {
+  const secret = challengeReviewSecret(env);
+  return secret ? hmac(`challenge-review:v1:${classId}:${playerId}`, secret) : '';
+}
 async function rateLimit(request, env, db, classId, scope, limit, windowSeconds) {
   const address = request.headers.get('CF-Connecting-IP') || 'unknown';
   return rateLimitSubject(env, db, classId, scope, address, limit, windowSeconds);
@@ -579,6 +609,13 @@ async function ensureClassColumn(db, table) {
   await db.prepare(`UPDATE ${table} SET class_id=? WHERE class_id IS NULL OR TRIM(class_id)=''`).bind(DEFAULT_CLASS_ID).run();
 }
 
+async function ensureCommunityParticipantColumns(db) {
+  const columns = await db.prepare(`PRAGMA table_info(community_participants)`).all();
+  if (!(columns.results || []).some((column) => column.name === 'student_id_public')) {
+    try { await db.prepare(`ALTER TABLE community_participants ADD COLUMN student_id_public TEXT NOT NULL DEFAULT ''`).run(); } catch (error) { if (!/duplicate column/i.test(String(error))) throw error; }
+  }
+}
+
 async function ensureTaskAttachmentColumns(db) {
   const columns = await db.prepare(`PRAGMA table_info(hub_tasks)`).all();
   const names = new Set((columns.results || []).map((column) => column.name));
@@ -689,6 +726,8 @@ async function ensureSchema(db) {
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_permissions (class_id TEXT NOT NULL DEFAULT 's4-e', editor_id TEXT NOT NULL, permission TEXT NOT NULL CHECK(permission='content.manage'), enabled INTEGER NOT NULL DEFAULT 0 CHECK(enabled IN (0,1)), granted_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, PRIMARY KEY(class_id,editor_id,permission), FOREIGN KEY(editor_id) REFERENCES hub_editors(id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_content_lessons (class_id TEXT NOT NULL DEFAULT 's4-e', id TEXT NOT NULL, subject_id TEXT NOT NULL, title TEXT NOT NULL, lesson_date TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft','published','archived')), revision INTEGER NOT NULL DEFAULT 1 CHECK(revision>=1), practice_revision INTEGER NOT NULL DEFAULT 0 CHECK(practice_revision>=0), payload_json TEXT NOT NULL, created_by TEXT NOT NULL, updated_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, published_at TEXT, PRIMARY KEY(class_id,id), FOREIGN KEY(class_id,subject_id) REFERENCES hub_subjects(class_id,id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_content_revisions (class_id TEXT NOT NULL DEFAULT 's4-e', lesson_id TEXT NOT NULL, revision INTEGER NOT NULL CHECK(revision>=1), practice_revision INTEGER NOT NULL DEFAULT 0 CHECK(practice_revision>=0), status TEXT NOT NULL CHECK(status IN ('draft','published','archived')), payload_json TEXT NOT NULL, actor_id TEXT NOT NULL, created_at TEXT NOT NULL, PRIMARY KEY(class_id,lesson_id,revision), FOREIGN KEY(class_id,lesson_id) REFERENCES hub_content_lessons(class_id,id))`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS community_scores (id INTEGER PRIMARY KEY AUTOINCREMENT,class_id TEXT NOT NULL DEFAULT 's4-e',cohort_key TEXT NOT NULL,week_key TEXT NOT NULL,player_id TEXT NOT NULL,nickname TEXT NOT NULL,course_id TEXT NOT NULL DEFAULT '',module_id TEXT NOT NULL DEFAULT '',scope_id TEXT NOT NULL,correct INTEGER NOT NULL,total INTEGER NOT NULL,percentage REAL NOT NULL,created_at TEXT NOT NULL,updated_at TEXT NOT NULL,write_version INTEGER NOT NULL DEFAULT 0,UNIQUE (cohort_key,week_key,player_id,scope_id))`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS community_participants (class_id TEXT NOT NULL,player_id TEXT NOT NULL,display_name TEXT NOT NULL,student_id_hash TEXT NOT NULL,student_id_last4 TEXT NOT NULL,student_id_public TEXT NOT NULL DEFAULT '',access_token_hash TEXT NOT NULL,verification_status TEXT NOT NULL DEFAULT 'pending',consented_at TEXT NOT NULL,created_at TEXT NOT NULL,updated_at TEXT NOT NULL,PRIMARY KEY (class_id,player_id),UNIQUE (class_id,student_id_hash),UNIQUE (class_id,access_token_hash))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_audit (id INTEGER PRIMARY KEY AUTOINCREMENT, class_id TEXT NOT NULL DEFAULT 's4-e', actor_id TEXT NOT NULL, actor_role TEXT NOT NULL, action TEXT NOT NULL, entity_type TEXT NOT NULL, entity_id TEXT NOT NULL, details TEXT NOT NULL DEFAULT '{}', created_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_push_subscriptions (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', endpoint_hash TEXT NOT NULL UNIQUE, subscription_json TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_rate_limits (key TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', window_start INTEGER NOT NULL, count INTEGER NOT NULL DEFAULT 0)`)
@@ -696,7 +735,8 @@ async function ensureSchema(db) {
     await ensureClassSupportWhatsappColumn(db);
     await db.prepare(`INSERT OR IGNORE INTO hub_classes (id,slug,name,semester,group_code,theme,drive_url,status,created_at,updated_at) VALUES (?,?,?,?,?,?,?,'active',?,?)`).bind(DEFAULT_CLASS_ID, DEFAULT_CLASS_SLUG, DEFAULT_CLASS.name, DEFAULT_CLASS.semester, DEFAULT_CLASS.group, DEFAULT_CLASS.theme, DEFAULT_CLASS.driveUrl, created, created).run();
     await db.batch(DEFAULT_SUBJECTS.map(([id, name], index) => db.prepare(`INSERT OR IGNORE INTO hub_subjects (class_id,id,name,sort_order,status,created_at,updated_at) VALUES (?,?,?,?,'active',?,?)`).bind(DEFAULT_CLASS_ID, id, name, index + 1, created, created)));
-    for (const table of ['hub_tasks', 'hub_uploads', 'hub_notices', 'hub_activities', 'hub_groups', 'hub_memberships', 'hub_files', 'hub_dates', 'hub_schedule_slots', 'hub_invites', 'hub_editors', 'hub_editor_profiles', 'hub_editor_credentials', 'hub_editor_sessions', 'hub_editor_permissions', 'hub_content_lessons', 'hub_content_revisions', 'hub_audit', 'hub_push_subscriptions', 'hub_rate_limits']) await ensureClassColumn(db, table);
+    for (const table of ['hub_tasks', 'hub_uploads', 'hub_notices', 'hub_activities', 'hub_groups', 'hub_memberships', 'hub_files', 'hub_dates', 'hub_schedule_slots', 'hub_invites', 'hub_editors', 'hub_editor_profiles', 'hub_editor_credentials', 'hub_editor_sessions', 'hub_editor_permissions', 'hub_content_lessons', 'hub_content_revisions', 'community_scores', 'community_participants', 'hub_audit', 'hub_push_subscriptions', 'hub_rate_limits']) await ensureClassColumn(db, table);
+    await ensureCommunityParticipantColumns(db);
     await ensureTaskAttachmentColumns(db);
     await ensureTaskNoticeColumn(db);
     await ensureNoticeImageColumns(db);
@@ -725,6 +765,8 @@ async function ensureSchema(db) {
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_content_lessons_class_status_idx ON hub_content_lessons(class_id,status,lesson_date DESC,updated_at DESC)`),
       db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS hub_content_lessons_class_subject_date_uidx ON hub_content_lessons(class_id,subject_id,lesson_date) WHERE lesson_date<>''`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_content_revisions_lesson_idx ON hub_content_revisions(class_id,lesson_id,revision DESC)`),
+      db.prepare(`CREATE INDEX IF NOT EXISTS community_scores_class_week_idx ON community_scores(class_id,week_key,updated_at)`),
+      db.prepare(`CREATE INDEX IF NOT EXISTS community_participants_class_status_idx ON community_participants(class_id,verification_status,updated_at)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_audit_class_created_idx ON hub_audit(class_id,created_at DESC)`)
     ]);
     await db.batch([
@@ -749,8 +791,11 @@ async function ensureSchema(db) {
 function actorCanManageContent(actor) {
   return Boolean(actor && (actor.role === 'owner' || (actor.role === 'editor' && actor.authMode === 'session' && actor.manageContent === true)));
 }
+function actorCanReviewChallenge(actor) {
+  return Boolean(actor && KNOWN_ACTOR_ROLES.has(actor.role));
+}
 function publicActor(actor) {
-  return { id: actor.id, role: actor.role, name: actor.name, classId: actor.classId, capabilities: { manageContent: actorCanManageContent(actor) } };
+  return { id: actor.id, role: actor.role, name: actor.name, classId: actor.classId, capabilities: { manageContent: actorCanManageContent(actor), reviewChallenge: actorCanReviewChallenge(actor) } };
 }
 
 async function readActorProfile(db, actor) {
@@ -834,6 +879,71 @@ async function readScheduleSlots(db, classId, publishedOnly = true) {
   return (result.results || []).map((slot) => ({ ...slot, weekday: Number(slot.weekday) }));
 }
 
+async function readChallengeReview(db, actor, classRecord, env = {}) {
+  const week = currentChallengeWeek(env), secret = challengeReviewSecret(env);
+  if (!actorCanReviewChallenge(actor) || !secret) return { enabled: false, week, pendingCount: 0, candidates: [] };
+  const scopeOrder = classRecord.id === DEFAULT_CLASS_ID
+    ? 's.correct DESC,s.percentage DESC,s.created_at ASC,s.updated_at ASC'
+    : 's.percentage DESC,s.correct DESC,s.created_at ASC,s.updated_at ASC';
+  const [result, pending] = await Promise.all([
+    db.prepare(`
+      WITH ranked_scores AS (
+        SELECT s.player_id,s.scope_id,s.correct,s.total,
+          ROW_NUMBER() OVER (PARTITION BY s.player_id,s.scope_id ORDER BY ${scopeOrder}) AS scope_rank
+        FROM community_scores s WHERE s.class_id=? AND s.week_key=?
+      )
+      SELECT p.player_id,p.display_name,p.student_id_public,p.verification_status,p.updated_at,
+        COALESCE(SUM(r.correct),0) AS points,COALESCE(SUM(r.total),0) AS questions,COUNT(r.scope_id) AS challenges
+      FROM community_participants p
+      LEFT JOIN ranked_scores r ON r.player_id=p.player_id AND r.scope_rank=1
+      WHERE p.class_id=? AND p.verification_status IN ('pending','verified','rejected')
+      GROUP BY p.player_id,p.display_name,p.student_id_public,p.verification_status,p.updated_at
+      ORDER BY CASE p.verification_status WHEN 'pending' THEN 0 WHEN 'verified' THEN 1 ELSE 2 END,p.updated_at DESC,p.display_name
+      LIMIT ?
+    `).bind(classRecord.id, week.key, classRecord.id, MAX_CHALLENGE_REVIEW_ROWS).all(),
+    db.prepare(`SELECT COUNT(*) AS count FROM community_participants WHERE class_id=? AND verification_status='pending'`).bind(classRecord.id).first()
+  ]);
+  const candidates = await Promise.all((result.results || []).map(async (row) => {
+    const points = Number(row.points) || 0, questions = Number(row.questions) || 0;
+    return {
+      reviewId: await challengeReviewId(env, classRecord.id, row.player_id),
+      fullName: cleanText(row.display_name, 60),
+      catraca: cleanText(row.student_id_public, 24),
+      status: CHALLENGE_VERIFICATION_STATUSES.has(row.verification_status) ? row.verification_status : 'pending',
+      points,
+      questions,
+      accuracy: questions ? Math.round((points / questions) * 100) : 0,
+      challenges: Number(row.challenges) || 0,
+      updatedAt: row.updated_at || null
+    };
+  }));
+  return { enabled: true, week, pendingCount: Number(pending?.count) || 0, candidates };
+}
+
+async function reviewChallengeParticipant(data, actor, classRecord, env, db) {
+  const reviewId = String(data.reviewId || '').trim().toLowerCase();
+  const status = typeof data.status === 'string' ? data.status : '';
+  const expectedStatus = typeof data.expectedStatus === 'string' ? data.expectedStatus : '';
+  if (!CHALLENGE_REVIEW_ID_PATTERN.test(reviewId) || !CHALLENGE_REVIEW_TARGET_STATUSES.has(status) || !CHALLENGE_VERIFICATION_STATUSES.has(expectedStatus) || status === expectedStatus) {
+    return fail(400, 'invalid_challenge_review', 'La candidatura, el estado esperado y la decisión deben ser válidos.');
+  }
+  if (!challengeReviewSecret(env)) return fail(503, 'challenge_review_unavailable', 'La validación del desafío todavía no está configurada.');
+  const rows = await db.prepare(`SELECT player_id,verification_status FROM community_participants WHERE class_id=? AND verification_status IN ('pending','verified','rejected') ORDER BY CASE verification_status WHEN 'pending' THEN 0 WHEN 'verified' THEN 1 ELSE 2 END,updated_at DESC LIMIT ?`).bind(classRecord.id, MAX_CHALLENGE_REVIEW_ROWS).all();
+  const resolved = (await Promise.all((rows.results || []).map(async (row) => ({ row, reviewId: await challengeReviewId(env, classRecord.id, row.player_id) }))))
+    .find((candidate) => safeEqual(candidate.reviewId, reviewId));
+  if (!resolved) return fail(404, 'challenge_candidate_missing', 'La candidatura no existe en esta turma.');
+  const previousStatus = String(resolved.row.verification_status || '');
+  if (!CHALLENGE_VERIFICATION_STATUSES.has(previousStatus)) return fail(409, 'challenge_status_conflict', 'La candidatura tiene un estado que no se puede revisar.');
+  if (previousStatus !== expectedStatus) return json({ ok: false, code: 'challenge_status_conflict', error: 'La candidatura cambió desde la última carga.', currentStatus: previousStatus }, 409);
+  const result = await db.prepare(`UPDATE community_participants SET verification_status=?,updated_at=? WHERE class_id=? AND player_id=? AND verification_status=?`).bind(status, nowIso(), classRecord.id, resolved.row.player_id, expectedStatus).run();
+  if (!changed(result)) {
+    const current = await db.prepare(`SELECT verification_status FROM community_participants WHERE class_id=? AND player_id=?`).bind(classRecord.id, resolved.row.player_id).first();
+    return json({ ok: false, code: 'challenge_status_conflict', error: 'La candidatura cambió desde la última carga.', currentStatus: current?.verification_status || null }, 409);
+  }
+  await audit(db, actor, 'challenge.participant.review', 'challenge-participant', reviewId, { previousStatus, status });
+  return json({ ok: true, reviewId, previousStatus, status });
+}
+
 function contentLessonFromRow(row, includeAuditFields = false) {
   let stored;
   try { stored = JSON.parse(String(row?.payload_json || row?.payloadJson || '')); } catch { stored = null; }
@@ -896,7 +1006,7 @@ async function readPublic(db, classRecord) {
 
 async function adminSnapshot(db, actor, classRecord, env = null) {
   const classId = classRecord.id;
-  const [subjects, tasks, notices, activities, groups, memberships, files, dates, scheduleSlots, editors, invites, profile, lessons] = await Promise.all([
+  const [subjects, tasks, notices, activities, groups, memberships, files, dates, scheduleSlots, editors, invites, profile, lessons, challengeReview] = await Promise.all([
     db.prepare(`SELECT id,name,sort_order AS "order",status FROM hub_subjects WHERE class_id=? ORDER BY sort_order,name`).bind(classId).all(),
     db.prepare(`SELECT *,attachment_url AS attachmentUrl,attachment_title AS attachmentTitle,notice_enabled AS noticeEnabled FROM hub_tasks WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
     db.prepare(`SELECT n.*,n.linked_task_id AS linkedTaskId,n.image_url AS imageUrl,n.image_alt AS imageAlt,u.id AS attachmentUploadId,n.attachment_title AS attachmentTitle,u.original_name AS attachmentOriginalName,u.mime_type AS attachmentMimeType,u.size_bytes AS attachmentSizeBytes FROM hub_notices n LEFT JOIN hub_uploads u ON u.class_id=n.class_id AND u.id=n.attachment_upload_id AND u.status='linked' WHERE n.class_id=? ORDER BY n.updated_at DESC`).bind(classId).all(),
@@ -909,10 +1019,11 @@ async function adminSnapshot(db, actor, classRecord, env = null) {
     actor.role === 'owner' ? db.prepare(`SELECT e.id,e.name,e.status,e.created_at,e.last_used_at,c.email_normalized AS email,c.must_change_password AS password_change_required,c.temporary_expires_at,COALESCE(p.enabled,0) AS can_manage_content FROM hub_editors e LEFT JOIN hub_editor_credentials c ON c.class_id=e.class_id AND c.editor_id=e.id LEFT JOIN hub_editor_permissions p ON p.class_id=e.class_id AND p.editor_id=e.id AND p.permission='content.manage' WHERE e.class_id=? ORDER BY e.created_at DESC`).bind(classId).all() : Promise.resolve({ results: [] }),
     actor.role === 'owner' ? db.prepare(`SELECT id,label,expires_at,revoked_at,claimed_at,created_at FROM hub_invites WHERE class_id=? ORDER BY created_at DESC LIMIT 100`).bind(classId).all() : Promise.resolve({ results: [] }),
     readActorProfile(db, actor),
-    actorCanManageContent(actor) ? readContentLessons(db, classId, false, true) : Promise.resolve([])
+    actorCanManageContent(actor) ? readContentLessons(db, classId, false, true) : Promise.resolve([]),
+    readChallengeReview(db, actor, classRecord, env || {})
   ]);
   const publishedScheduleSlots = scheduleSlots.filter((slot) => slot.status === 'published');
-  return { ok: true, class: publicClass(classRecord), actor: publicActor(actor), profile, uploadPolicy: { enabled: Boolean(uploadsFrom(env)), maxBytes: MAX_NOTICE_ATTACHMENT_BYTES, maxStagedUploads: MAX_STAGED_NOTICE_UPLOADS_PER_CLASS, stagedTtlHours: NOTICE_STAGED_UPLOAD_TTL_SECONDS / 3600, acceptedMimeTypes: [...NOTICE_UPLOAD_MIME_TYPES] }, subjects: subjects.results || [], lessons, tasks: (tasks.results || []).map((task) => ({ ...task, noticeEnabled: Boolean(Number(task.noticeEnabled ?? task.notice_enabled)) })), notices: (notices.results || []).map((notice) => decorateNoticeAttachment(notice, classRecord)), activities: (activities.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), groups: groups.results || [], memberships: (memberships.results || []).map((item) => ({ ...item, isLeader: Boolean(item.isLeader) })), files: files.results || [], dates: (dates.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), scheduleSlots, upcomingDates: upcomingScheduleDates(publishedScheduleSlots), editors: (editors.results || []).map((editor) => ({ ...editor, can_manage_content: Number(editor.can_manage_content) === 1 })), invites: invites.results || [] };
+  return { ok: true, class: publicClass(classRecord), actor: publicActor(actor), profile, challengeReview, uploadPolicy: { enabled: Boolean(uploadsFrom(env)), maxBytes: MAX_NOTICE_ATTACHMENT_BYTES, maxStagedUploads: MAX_STAGED_NOTICE_UPLOADS_PER_CLASS, stagedTtlHours: NOTICE_STAGED_UPLOAD_TTL_SECONDS / 3600, acceptedMimeTypes: [...NOTICE_UPLOAD_MIME_TYPES] }, subjects: subjects.results || [], lessons, tasks: (tasks.results || []).map((task) => ({ ...task, noticeEnabled: Boolean(Number(task.noticeEnabled ?? task.notice_enabled)) })), notices: (notices.results || []).map((notice) => decorateNoticeAttachment(notice, classRecord)), activities: (activities.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), groups: groups.results || [], memberships: (memberships.results || []).map((item) => ({ ...item, isLeader: Boolean(item.isLeader) })), files: files.results || [], dates: (dates.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), scheduleSlots, upcomingDates: upcomingScheduleDates(publishedScheduleSlots), editors: (editors.results || []).map((editor) => ({ ...editor, can_manage_content: Number(editor.can_manage_content) === 1 })), invites: invites.results || [] };
 }
 
 async function joinGroup(data, db, classRecord) {
@@ -1395,7 +1506,7 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
   if (actor.role === 'editor') {
     if (CONTENT_ACTIONS.has(action)) {
       if (!actorCanManageContent(actor)) return fail(403, 'permission_denied', 'Esta cuenta no puede modificar cursos ni preguntas.');
-    } else if (!EDITOR_ACTIONS.has(action)) {
+    } else if (!EDITOR_ACTIONS.has(action) && !CHALLENGE_REVIEW_ACTIONS.has(action)) {
       return fail(403, 'permission_denied', 'El rol editor no puede modificar cursos, preguntas, configuración ni permisos.');
     }
   }
@@ -1403,6 +1514,7 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
   if (action === 'editor.password.reset' && actor.role === 'owner') return resetEditorPassword(data, actor, db, classRecord);
   if (action === 'editor.permission.update' && actor.role === 'owner') return updateEditorContentPermission(data, actor, db, classRecord);
   if (action === 'lesson.upsert') return upsertContentLesson(data, actor, db, classRecord);
+  if (action === 'challenge.participant.review') return reviewChallengeParticipant(data, actor, classRecord, env, db);
   if (action === 'profile.upsert') {
     const whatsappProvided = hasOwn(data, 'whatsapp') || hasOwn(data, 'whatsappE164') || hasOwn(data, 'whatsapp_e164');
     if (!whatsappProvided) return fail(400, 'invalid_profile', 'Indica un número de WhatsApp o deja el campo vacío para quitarlo.');
@@ -1798,6 +1910,7 @@ export async function onRequestPost(context) {
           : action === 'auth.password.change' ? ['password-change', 5, 3600]
             : action === 'editor.account.create' || action === 'editor.password.reset' || action === 'editor.permission.update' ? ['credential-management', 10, 3600]
               : action === 'lesson.upsert' ? ['content-write', 30, 600]
+                : action === 'challenge.participant.review' ? ['challenge-review', 60, 600]
                 : ['admin-write', 120, 600];
     const limited = await rateLimit(request, env, db, classRecord.id, policy[0], policy[1], policy[2]); if (limited) return limited;
     if (action === 'group.join') return joinGroup(data, db, classRecord);

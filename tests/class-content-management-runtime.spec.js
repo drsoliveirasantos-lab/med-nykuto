@@ -104,10 +104,16 @@ test.describe('Published class content student runtime', () => {
     await expect(panel.locator('[data-lesson-tab-panel="curso"]')).toContainText('<img src="x"');
     expect(await page.evaluate(() => window.__managedContentInjected)).toBeUndefined();
 
-    await panel.locator('[data-lesson-tab="rapida"]').click();
+    const quickTab = panel.locator('[data-lesson-tab="rapida"]');
+    await expect(panel.locator('[data-lesson-tabs]')).toHaveAttribute('role', 'tablist');
+    await expect(quickTab).toHaveAttribute('role', 'tab');
+    await expect(quickTab).toHaveAttribute('aria-controls', 'fisiologia-2026-08-24-panel-rapida');
+    await expect(panel.locator('[data-lesson-tab-panel="rapida"]')).toHaveAttribute('aria-labelledby', 'fisiologia-2026-08-24-tab-rapida');
+    await quickTab.click();
+    await expect(quickTab).toHaveAttribute('aria-selected', 'true');
     await expect(panel.locator('[data-lesson-tab-panel="rapida"]')).toBeVisible();
     await expect(panel.locator('[data-lesson-tab-panel="rapida"]')).toContainText('FICHA RÁPIDA GESTIONADA');
-    await panel.locator('[data-lesson-tab="ultra"]').click();
+    await quickTab.press('ArrowRight');
     await expect(panel.locator('[data-lesson-tab-panel="ultra"]')).toBeVisible();
     await expect(panel.locator('[data-lesson-tab-panel="ultra"]')).toContainText('FICHA ULTRA GESTIONADA');
 

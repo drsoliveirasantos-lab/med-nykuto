@@ -74,7 +74,10 @@ La version `v476` charge `gestion-v440.css?v=476` et `gestion-v440.js?v=476`. El
 3. Le delegue se connecte sur `/gestion/<slug>`. Une session de huit heures est creee avec un jeton aleatoire dont seul le condensat est stocke dans D1.
 4. Le cookie de session utilise `Secure`, `HttpOnly` et `SameSite=Strict`. Un second cookie lisible par l'interface fournit la valeur anti-CSRF, renvoyee dans l'en-tete `x-csrf-token` pour chaque mutation de session.
 5. Une connexion par mot de passe temporaire ouvre uniquement l'ecran de changement obligatoire. La gestion reste bloquee jusqu'au choix d'une phrase de mot de passe d'au moins douze caracteres, suffisamment variee et non exclusivement numerique.
-6. Le changement ou la reinitialisation du mot de passe revoque les sessions precedentes. La revocation du delegue revoque egalement toutes ses sessions actives.
+6. Chaque connexion par courrier cree une session independante : ouvrir le meme compte sur un telephone ne remplace ni ne deconnecte la session de la tablette. Une deconnexion revoque uniquement la session du dispositif qui l'envoie.
+7. Le changement ou la reinitialisation du mot de passe revoque toutes les sessions precedentes. La revocation du delegue revoque egalement toutes ses sessions actives.
+
+Le parcours historique par invitation ne doit pas etre confondu avec ce fonctionnement multi-appareils : une invitation est consommable une seule fois et son jeton reste dans le stockage de session du navigateur qui l'a activee. Un delegue qui utilise plusieurs appareils doit donc recevoir un compte par courrier et mot de passe.
 
 Deux tables D1 tenant completees par `class_id` portent ce flux :
 
@@ -111,7 +114,7 @@ Une alerte urgente reste visible dans le cadre d'accueil et dans la vue complete
 1. `GET /api/class-hub?resource=public` doit repondre avec `ok: true`.
 2. Avec `Authorization: Bearer <MED_NYKUTO_OWNER_TOKEN>`, `GET /api/class-hub?resource=admin` doit retourner l'acteur `owner`.
 3. Avec des donnees factices en preview, creer un compte de delegue, verifier la connexion, le blocage avant changement de mot de passe et le renouvellement de session apres changement.
-4. Verifier qu'une session de `s4-e` ne lit ni ne modifie `s3-a`, que les mutations sans en-tete anti-CSRF sont refusees et que la deconnexion revoque la session.
+4. Ouvrir deux sessions factices du meme compte, verifier que leurs jetons et anti-CSRF sont distincts, puis confirmer que la deconnexion de l'une laisse l'autre active. Verifier aussi qu'une session de `s4-e` ne lit ni ne modifie `s3-a` et que les mutations sans en-tete anti-CSRF sont refusees.
 5. Creer une tache brouillon, la publier, puis verifier son apparition sans nouveau deploiement.
 6. Rejoindre un groupe depuis `clase.html`, verifier qu'une seconde inscription a la meme activite est refusee, puis congeler l'activite et verifier que les ajouts, retraits et deplacements sont bloques.
 7. Televerser un PDF factice dans un avis brouillon, verifier qu'il est illisible sans session, publier l'avis, puis verifier son ouverture sur telephone et son affichage dans la bonne turma uniquement.

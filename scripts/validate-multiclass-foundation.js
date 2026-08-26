@@ -1406,8 +1406,9 @@ async function validateMulticlassShell() {
   expect(!/state\.(?:members|memberships)|data\.(?:members|memberships)/.test(turmaRuntime), 'The generic student hub still consumes nominative group records.');
   expect(turmaRuntime.includes("action:'group.join'") && turmaRuntime.includes("action:'group.leave'") && turmaRuntime.includes('memberCount'), 'Students cannot join and leave generic class groups using anonymous occupancy data.');
 
-  expect(managementHtml.includes('src="/gestion-v440.js?v=483"') && managementHtml.includes('href="/gestion-v440.css?v=483"'), 'The nested management route does not use the current absolute asset versions.');
+  expect(managementHtml.includes('src="/gestion-v440.js?v=484"') && managementHtml.includes('href="/gestion-v440.css?v=484"'), 'The nested management route does not use the current absolute asset versions.');
   expect(managementHtml.includes('id="credentialForm"') && managementHtml.includes('name="action" value="auth.login"') && managementHtml.includes('autocomplete="username"') && managementHtml.includes('autocomplete="current-password"'), 'The v472 delegate email/password login form is incomplete.');
+  expect(managementHtml.includes('id="multiDeviceLoginHelp"') && managementHtml.includes('sesiones independientes') && managementHtml.includes('Activar una invitación antigua') && managementHtml.includes('solo en este navegador'), 'The management login does not explain independent email sessions or the one-browser legacy invitation limitation.');
   expect(managementHtml.includes('id="passwordChangeForm"') && managementHtml.includes('name="action" value="auth.password.change"') && (managementHtml.match(/autocomplete="new-password"/g) || []).length >= 2, 'The mandatory temporary-password change form is incomplete.');
   expect(managementHtml.includes('id="delegateAccountForm"') && managementHtml.includes('name="action" value="editor.account.create"') && managementHtml.includes('name="temporaryPassword"'), 'The owner cannot create a tenant-scoped delegate credential from the v472 panel.');
   ['loginEmail', 'loginPassword', 'newPassword', 'confirmPassword'].forEach((id) => {
@@ -1441,6 +1442,8 @@ async function validateMulticlassShell() {
   expect(managementRuntime.includes('if(result&&reset){form.reset();clearEditMode(form);}') && managementRuntime.includes('return null;'), 'A failed management mutation can still clear the editor form.');
   expect(managementRuntime.includes("popup.opener=null") && !managementRuntime.includes("'noopener,noreferrer'"), 'The printable group export still uses the broken noopener window-open path.');
   expect(managementRuntime.includes('Copiar invitación') && managementRuntime.includes('copyText(result.inviteToken)'), 'The one-time editor invitation cannot be copied explicitly.');
+  expect(managementHtml.includes('id="manageTabChallenge"') && managementHtml.includes('id="challengeReviewList"') && managementRuntime.includes("action:'challenge.participant.review'"), 'The delegate management UI is missing challenge candidature review.');
+  expect(/challenge-review-actions[\s\S]*?min-height\s*:\s*44px/i.test(managementCss), 'Challenge review actions are missing their mobile touch target.');
 
   expect(legacyClassRuntime.includes('activityMembers') && legacyClassRuntime.includes("member?member.displayName:filled?'Ocupado':'Libre'") && legacyClassRuntime.includes('member.isLeader'), 'The explicit 4.º E roster does not render names, leaders and the safe occupancy fallback.');
   expect(turmaHtml.includes('id="homeNoticeCarousel"') && turmaHtml.includes('data-view="avisos"') && turmaHtml.includes('id="noticePageList"'), 'The generic class hub is missing its compact official-notice carousel or full notices view.');
@@ -1603,8 +1606,10 @@ async function main() {
   const communityParticipantDefinition = tableDefinition(communitySource, 'community_participants');
   expect(Boolean(communityParticipantDefinition), 'community_participants schema is missing.');
   expect(/\bclass_id\s+text\s+not\s+null\b/i.test(communityParticipantDefinition), 'community_participants must declare class_id TEXT NOT NULL.');
+  expect(/challenge\.participant\.review/.test(hubSource) && /reviewChallenge/.test(hubSource) && /challengeReviewId/.test(hubSource), 'The class-scoped challenge review capability or opaque review-id contract is missing.');
+  expect(/class_id=\?[\s\S]{0,180}?verification_status\s+IN\s*\('pending','verified','rejected'\)/i.test(hubSource), 'Challenge review does not constrain statuses and class scope together.');
 
-  validateTenantSql('functions/api/class-hub.js', hubSql, hubTenantTables);
+  validateTenantSql('functions/api/class-hub.js', hubSql, [...hubTenantTables, ...communityTenantTables]);
   validateTenantSql('functions/api/community.js', communitySql, communityTenantTables);
 
   expect(hubSource.includes(`'${DEFAULT_CLASS_ID}'`) || hubSource.includes(`\"${DEFAULT_CLASS_ID}\"`), 'The 4.º E s4-e compatibility identifier is missing from class-hub.js.');

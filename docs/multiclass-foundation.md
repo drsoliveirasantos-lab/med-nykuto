@@ -13,6 +13,7 @@ Le pilote est un espace **non indexé et accessible par lien**. Les espaces gén
 | Espace étudiant | `/turma/<slug>` | Lien de la turma, sans compte étudiant |
 | Gestion | `/gestion/<slug>` | Jeton propriétaire/historique ou session délégué par courriel et mot de passe |
 | Données publiques | `/api/class-hub?class=<slug>&resource=public` | Sans noms d'étudiants |
+| Abonnement calendrier | `/api/class-calendar.ics?class=<slug>` | iCalendar public : uniquement dates et échéances publiées |
 | Données de gestion | `/api/class-hub?class=<slug>&resource=admin` | Authentifié et limité à la turma |
 | Pièce jointe d'un avis | `/api/class-hub?class=<slug>&resource=notice-attachment&upload=<id>` | Publique seulement si l'avis lié est publié ; brouillons réservés à la gestion authentifiée |
 | Registre des turmas | `/api/class-hub?class=<slug>&resource=classes` | Propriétaire uniquement |
@@ -65,12 +66,15 @@ Aucune donnée pédagogique ou opérationnelle n'est copiée automatiquement d'u
 - `hub_notices` accepte toujours une image facultative par URL HTTPS. Il peut aussi référencer une pièce jointe téléversée avec `attachment_upload_id` ; une image raster téléversée peut recevoir `image_alt`, contrairement à un PDF.
 - `hub_uploads` conserve uniquement les métadonnées et la clé objet, toujours avec `class_id`. Le contenu binaire reste dans R2 et n'est jamais enregistré dans D1.
 - `hub_notices`, `hub_activities` et `hub_dates` possèdent un champ `course` facultatif : le cockpit matière utilise cette liaison explicite et ne déduit pas la matière depuis le titre.
+- Le flux iCalendar lit directement, avec `class_id`, les lignes `published` de `hub_dates` et les tâches `published` qui possèdent `due_at`. Ses UID dépendent uniquement de la turma, du type et de l'identifiant stable de la ligne ; modifier un titre ou une date met donc l'événement à jour sans en créer un second.
 
 Le schéma est créé et complété de façon idempotente au premier appel de Function. Les lignes historiques sans `class_id` sont rattachées à `s4-e` ; aucune banque de cours ou de questions n'est réécrite.
 
 ## Variables et services Cloudflare
 
 La Function accepte le binding D1 `MED_NYKUTO_DB` (préféré) ou `DB`. Pour les pièces jointes d'avis, elle utilise exclusivement un binding R2 nommé `MED_NYKUTO_UPLOADS`.
+
+L'abonnement `.ics` utilise le même binding D1 en lecture seule. Sa réponse déterministe est diffusée avec un ETag SHA-256 et un cache public de cinq minutes sans fenêtre prolongée de contenu périmé ; un client qui renvoie `If-None-Match` reçoit `304`. Le fuseau déclaré est `America/Asuncion` et les lignes iCalendar utilisent CRLF, l'échappement texte et le pliage UTF-8 requis par RFC 5545.
 
 Dans Cloudflare Pages, créer un bucket R2 privé, ajouter ce binding séparément aux environnements **Preview** et **Production**, puis redéployer chaque environnement. Le code ne rend jamais le bucket public : la Function vérifie la turma et l'état de l'avis avant de diffuser l'objet. Si le binding manque, le snapshot de gestion renvoie `uploadPolicy.enabled: false` et l'API répond explicitement `upload_storage_unavailable`.
 
@@ -88,6 +92,7 @@ Les secrets ne doivent jamais être ajoutés au dépôt. La première ouverture 
 
 - Les pages de turma et de gestion sont `noindex,nofollow`.
 - Gestion et API utilisent `no-store`.
+- Exception volontaire : le flux `.ics` ne contient que le nom public de la turma, les dates publiées et les champs publics des tâches publiées. Il n'expose ni auteur, ni membre, ni profil, ni éditeur et peut donc utiliser un cache public borné avec ETag.
 - Le service worker ne précache ni API, ni Gestion, ni contenu propre à une turma.
 - Le fallback hors ligne est neutre et ne redirige jamais vers un autre semestre.
 - Les liens de notification sont limités à l'origine et à `/turma/`.
@@ -131,6 +136,7 @@ Le validateur multiturmas vérifie notamment :
 - l'absence de noms dans la réponse publique ;
 - la compatibilité `s4-e` et la migration du classement historique ;
 - l'intégrité binaire des banques de cours et de questions protégées.
+- le filtrage D1 public du calendrier, les UID stables, le fuseau paraguayen, CRLF, l'échappement, le pliage à 75 octets, le cache/ETag et la réponse `304`.
 
 Avant d'inviter une classe réelle, effectuer un test avec une turma factice : créer deux tâches portant le même identifiant dans deux turmas, publier des contenus différents, puis confirmer que chaque URL n'affiche que ses propres données.
 
@@ -151,6 +157,7 @@ Une fusion en production exige la validation explicite du propriétaire du proje
 ## Limites assumées du pilote
 
 - Pas de comptes étudiants ni de contrôle d'accès par classe côté lecture.
+- L'URL d'abonnement calendrier est publique comme l'espace étudiant : ne jamais publier dans une date ou une tâche un détail destiné à rester privé.
 - Le lien du classement 4.º E est public : le consentement est obligatoire pour y publier le nom complet et la catraca complète, mais ne remplace pas une authentification. La participation et le Pix restent facultatifs, provisoires et soumis à une vérification humaine.
 - Les pièces jointes directes sont limitées aux avis officiels et à 15 Mio ; les autres archives continuent d'utiliser une URL HTTP(S) ou le Drive de la turma.
 - L'envoi vers WhatsApp ouvre un message prérempli : le navigateur ne l'envoie jamais automatiquement et ne joint pas un PDF sans action de l'utilisateur.

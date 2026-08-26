@@ -84,6 +84,7 @@ scripts/validate-branding-regression-advanced.js
 scripts/validate-content-sanitization.js
 scripts/validate-question-bank-deep-integrity.js
 scripts/validate-multiclass-foundation.js
+scripts/validate-calendar-subscription.js
 ```
 
 The permanent CI workflow is:

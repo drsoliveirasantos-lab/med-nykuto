@@ -399,6 +399,57 @@ function managedContent(markdown, className) {
   return wrap;
 }
 
+function wireManagedLessonTabs(panel, nav) {
+  const buttons = Array.from(nav.querySelectorAll('[data-lesson-tab]'));
+  const panels = Array.from(panel.querySelectorAll(':scope > [data-lesson-tab-panel]'));
+  const panelById = new Map(panels.map((tabPanel) => [tabPanel.dataset.lessonTabPanel, tabPanel]));
+
+  nav.setAttribute('role', 'tablist');
+
+  function show(id, focus) {
+    if (!panelById.has(id)) return;
+    buttons.forEach((button) => {
+      const active = button.dataset.lessonTab === id;
+      button.setAttribute('aria-selected', active ? 'true' : 'false');
+      button.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach((tabPanel) => {
+      tabPanel.hidden = tabPanel.dataset.lessonTabPanel !== id;
+    });
+    if (focus) {
+      const selected = buttons.find((button) => button.dataset.lessonTab === id);
+      if (selected) selected.focus({ preventScroll: true });
+    }
+  }
+
+  buttons.forEach((button, index) => {
+    const id = button.dataset.lessonTab;
+    const tabPanel = panelById.get(id);
+    if (!id || !tabPanel) return;
+    const tabId = `${panel.id}-tab-${id}`;
+    const tabPanelId = `${panel.id}-panel-${id}`;
+    button.id = tabId;
+    button.setAttribute('role', 'tab');
+    button.setAttribute('aria-controls', tabPanelId);
+    tabPanel.id = tabPanelId;
+    tabPanel.setAttribute('role', 'tabpanel');
+    tabPanel.setAttribute('aria-labelledby', tabId);
+    button.addEventListener('click', () => show(id, false));
+    button.addEventListener('keydown', (event) => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      let next = index;
+      if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = buttons.length - 1;
+      else next = (index + (event.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length;
+      show(buttons[next].dataset.lessonTab, true);
+    });
+  });
+
+  const selected = buttons.find((button) => button.getAttribute('aria-selected') === 'true');
+  show(selected ? selected.dataset.lessonTab : buttons[0] && buttons[0].dataset.lessonTab, false);
+}
+
 function createManagedPanel(lesson, lessonId, practiceId, subjectLabel) {
   const panel = node('div', 'dated-lesson-panel lesson-notebook-generated');
   panel.id = lessonId;
@@ -476,6 +527,7 @@ function createManagedPanel(lesson, lessonId, practiceId, subjectLabel) {
   practiceAnchor.setAttribute('aria-controls', `${lessonId}-managed-practice-anchor`);
   practiceAnchor.setAttribute('aria-expanded', 'false');
   panel.appendChild(practiceAnchor);
+  wireManagedLessonTabs(panel, nav);
   return panel;
 }
 
