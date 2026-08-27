@@ -1,10 +1,13 @@
-const CACHE = 'med-nykuto-shell-v484';
+const CACHE = 'med-nykuto-shell-v485';
 const SHELL = [
   '/offline.html',
   '/turma-shell/',
   '/turma-v471.css?v=484',
-  '/turma-v471.js?v=484',
+  '/turma-v471.js?v=485',
   '/turma-manifest-boot-v471.js?v=478',
+  '/public-theme-v485.css?v=485',
+  '/public-theme-v485.js?v=485',
+  '/calendar-subscription-v485.js?v=485',
   '/assets/pwa-icon-192.png',
   '/assets/pwa-icon-512.png'
 ];

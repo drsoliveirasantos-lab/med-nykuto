@@ -184,15 +184,21 @@ async function main() {
   assert.equal(unavailable.headers.get('cache-control'), 'no-store');
 
   const html = read('turma-shell/index.html');
-  const runtime = read('turma-v471.js');
+  const classHtml = read('clase.html');
+  const runtime = read('calendar-subscription-v485.js');
   const css = read('turma-v471.css');
+  const publicThemeCss = read('public-theme-v485.css');
   const worker = read('service-worker.js');
   ['calendarSubscription', 'calendarSubscribeLink', 'calendarCopyLink', 'calendarSubscriptionStatus'].forEach((id) => assert.ok(html.includes(`id="${id}"`), `Calendar subscription UI is missing #${id}.`));
-  assert.ok(html.includes('/turma-v471.css?v=484') && html.includes('/turma-v471.js?v=484'), 'Turma shell cache-busting version is stale.');
-  assert.ok(runtime.includes("'/api/class-calendar.ics?class='") && runtime.includes("'webcal://'") && runtime.includes('copyCalendarLink'), 'Calendar URL is not class-scoped, subscribable or copyable.');
+  ['classCalendarSubscription', 'classCalendarSubscribeLink', 'classCalendarCopyLink', 'classCalendarSubscriptionStatus'].forEach((id) => assert.ok(classHtml.includes(`id="${id}"`), `The main Horario view is missing #${id}.`));
+  assert.ok(classHtml.indexOf('id="classCalendarSubscription"') > classHtml.indexOf('id="horario"') && classHtml.indexOf('id="classCalendarSubscription"') < classHtml.indexOf('id="weeklyAgenda"'), 'The iCal controls are not discoverable inside the main Horario view.');
+  assert.ok(html.includes('/turma-v471.css?v=484') && html.includes('/turma-v471.js?v=485'), 'Turma shell cache-busting version is stale.');
+  assert.ok(html.includes('/calendar-subscription-v485.js?v=485') && classHtml.includes('calendar-subscription-v485.js?v=485'), 'The shared calendar subscription runtime is not loaded by both student calendar surfaces.');
+  assert.ok(runtime.includes("'/api/class-calendar.ics?class='") && runtime.includes("'webcal://'") && runtime.includes('navigator.clipboard') && runtime.includes('legacyCopy'), 'Calendar URL is not class-scoped, subscribable or copyable.');
   assert.match(css, /\.calendar-subscription-actions[^}]*grid-template-columns/);
   assert.match(css, /\.calendar-subscription-actions a,[^{]*\{[^}]*min-height:46px/);
-  assert.ok(worker.includes("med-nykuto-shell-v484") && worker.includes("/turma-v471.js?v=484") && worker.includes("/turma-v471.css?v=484"), 'Service worker does not precache the current turma assets.');
+  assert.match(publicThemeCss, /\.schedule-calendar-actions :is\(a,button\)[^{]*\{[^}]*min-height:46px/);
+  assert.ok(worker.includes("med-nykuto-shell-v485") && worker.includes("/turma-v471.js?v=485") && worker.includes("/turma-v471.css?v=484") && worker.includes("/calendar-subscription-v485.js?v=485"), 'Service worker does not precache the current turma and calendar assets.');
 
   console.log('Calendar subscription validation passed.');
 }

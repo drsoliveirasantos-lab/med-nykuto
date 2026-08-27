@@ -58,6 +58,8 @@ jobs:
         run: node scripts/validate-content-management.js
       - name: Validate public calendar subscriptions
         run: node scripts/validate-calendar-subscription.js
+      - name: Validate persistent public light and dark themes
+        run: node scripts/validate-public-theme.js
       - name: Use Node 22 for real-SQL content API contract
         uses: actions/setup-node@v4
         with:

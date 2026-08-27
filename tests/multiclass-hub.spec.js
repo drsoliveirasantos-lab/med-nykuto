@@ -1787,10 +1787,13 @@ test.describe('Multiclass student hub', () => {
       '/offline.html',
       '/turma-shell/',
       '/turma-v471.css?v=484',
-      '/turma-v471.js?v=484',
-      '/turma-manifest-boot-v471.js?v=478'
+      '/turma-v471.js?v=485',
+      '/turma-manifest-boot-v471.js?v=478',
+      '/public-theme-v485.css?v=485',
+      '/public-theme-v485.js?v=485',
+      '/calendar-subscription-v485.js?v=485'
     ]));
-    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v484['"]/);
+    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v485['"]/);
     [
       /\/gestion/i,
       /\/api\//i,
