@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const { routeCurrentClassPublic } = require('./helpers/current-class-public-fixture');
 
 async function openPractice(page, url) {
   await page.goto(url, { waitUntil: 'domcontentloaded' });
@@ -23,6 +24,9 @@ async function dismissSemesterPicker(page) {
 }
 
 test.describe('Mobile critical paths', () => {
+  test.beforeEach(async ({ page }) => {
+    await routeCurrentClassPublic(page);
+  });
   require('./mobile-touch-critical/section-01.js')({ test, expect, openPractice, answerFirstVisibleOption, dismissSemesterPicker });
   require('./mobile-touch-critical/section-02.js')({ test, expect, openPractice, answerFirstVisibleOption, dismissSemesterPicker });
   require('./mobile-touch-critical/section-03.js')({ test, expect, openPractice, answerFirstVisibleOption, dismissSemesterPicker });

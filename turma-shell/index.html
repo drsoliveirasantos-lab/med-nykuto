@@ -11,9 +11,9 @@
   <link rel="icon" href="/assets/pwa-icon-192.png" />
   <script src="/public-theme-v485.js?v=485"></script>
   <script src="/calendar-subscription-v485.js?v=485"></script>
-  <link rel="stylesheet" href="/turma-v471.css?v=484" />
+  <link rel="stylesheet" href="/turma-v471.css?v=486" />
   <link rel="stylesheet" href="/help-desk-v479.css?v=480" />
-  <link rel="stylesheet" href="/public-theme-v485.css?v=485" />
+  <link rel="stylesheet" href="/public-theme-v485.css?v=486" />
 </head>
 <body>
   <a class="skip-link" href="#classMain">Saltar al contenido</a>
@@ -50,10 +50,10 @@
 
       <section id="homeNoticeSection" class="section-block home-notice-section" aria-labelledby="homeNoticeTitle" hidden>
         <div class="section-heading">
-          <div><span>INFORMACIÓN OFICIAL</span><h2 id="homeNoticeTitle">Avisos importantes</h2></div>
+          <div><span>INFORMACIÓN OFICIAL</span><h2 id="homeNoticeTitle">Avisos importantes vigentes</h2></div>
           <button type="button" data-open-view="avisos">Ver todos</button>
         </div>
-        <div id="homeNoticeCarousel" class="notice-carousel" aria-label="Avisos importantes de la turma"></div>
+        <div id="homeNoticeCarousel" class="notice-preview-list" aria-label="Avisos importantes vigentes de la turma"></div>
       </section>
 
       <section class="section-block" aria-labelledby="homeTasksTitle">
@@ -77,8 +77,8 @@
     <section id="avisos" class="view" data-view="avisos" aria-labelledby="noticesTitle" hidden>
       <header class="view-heading notice-page-heading">
         <span>INFORMACIÓN OFICIAL</span>
-        <h1 id="noticesTitle">Avisos de la turma</h1>
-        <p>Consulta aquí todos los avisos publicados por el delegado.</p>
+        <h1 id="noticesTitle">Avisos vigentes</h1>
+        <p id="noticePageSummary" class="notice-page-summary">Cargando la información actual…</p>
         <button type="button" class="notice-back" data-open-view="inicio">← Volver al inicio</button>
       </header>
       <div id="noticePageList" class="notice-page-list"></div>
@@ -157,7 +157,7 @@
     <button type="button" data-nav-view="mas"><span aria-hidden="true">•••</span><strong>Más</strong></button>
   </nav>
 
-  <script src="/turma-v471.js?v=485"></script>
+  <script src="/turma-v471.js?v=486"></script>
   <script src="/help-desk-v479.js?v=480"></script>
 </body>
 </html>

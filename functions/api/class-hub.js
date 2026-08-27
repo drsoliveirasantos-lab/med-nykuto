@@ -169,21 +169,153 @@ function withEpidemiologyAssignment(group) {
   };
 }
 
+const DEFAULT_CURRENT_NOTICES = Object.freeze([
+  {
+    id: 'practical-exams-micro-2026-08-31',
+    course: 'Microbiología II · Práctica',
+    priority: 'urgent',
+    title: 'Prácticos: verificá tu grupo y llevá chomba',
+    body: 'La primera prueba parcial práctica vale 5% y se realizará del 31 de agosto al 5 de septiembre. Para Microbiología II, verificá que aparezcas en la lista final y en el Portal; nadie debe ser añadido solo de forma verbal. Asistí correctamente uniformado y con la chomba institucional.',
+    category: 'assessment',
+    lifecycle: 'scheduled',
+    audience: 'students',
+    effectiveAt: '2026-08-31T00:00:00-03:00',
+    expiresAt: '2026-09-06T00:00:00-03:00',
+    sourceLabel: 'Calendario 2026.2 y aviso oficial del 27 de agosto',
+    sourceUrl: null,
+    targetType: 'none',
+    targetId: null,
+    publishedAt: '2026-08-27T20:27:31-03:00',
+    status: 'published'
+  },
+  {
+    id: 'student-card-photo-2026-08-28',
+    course: '',
+    priority: 'urgent',
+    title: 'Último día para la fotografía del carnet',
+    body: 'Hasta el viernes 28 de agosto, de 09:00 a 12:00 y de 14:00 a 16:30, en el Estudio de Marketing de Plaza City, Km 8. Llevá guardapolvo y remera o chomba, además del comprobante de pago. Costo: R$ 20 o Gs. 25.000; el carnet se entrega en el momento.',
+    category: 'administrative',
+    lifecycle: 'active',
+    audience: 'students',
+    effectiveAt: '2026-08-24T09:00:00-03:00',
+    expiresAt: '2026-08-28T16:30:00-03:00',
+    sourceLabel: 'Abrir ubicación en el mapa',
+    sourceUrl: 'https://maps.app.goo.gl/1CQuEf59WhwRLJeg7',
+    targetType: 'none',
+    targetId: null,
+    publishedAt: '2026-08-21T01:25:51-03:00',
+    status: 'published'
+  },
+  {
+    id: 'student-service-hu-2026-08-31',
+    course: '',
+    priority: 'important',
+    title: 'Atención al Alumno del HU restringida por tres días',
+    body: 'Del 31 de agosto al 2 de septiembre, la oficina del Hospital Universitario atenderá exclusivamente a estudiantes que presentan el TFG. Para otros trámites, acudí al Edificio del Lago o a CT Km 8. La atención habitual se retoma el jueves 3 de septiembre.',
+    category: 'administrative',
+    lifecycle: 'scheduled',
+    audience: 'students',
+    effectiveAt: '2026-08-31T00:00:00-03:00',
+    expiresAt: '2026-09-03T00:00:00-03:00',
+    sourceLabel: 'Ver comunicado UCP',
+    sourceUrl: 'https://med.nykuto.com/assets/class-hub/notices/2026-08-27/atencion-alumno-hu.webp',
+    targetType: 'none',
+    targetId: null,
+    publishedAt: '2026-08-27T16:47:21-03:00',
+    status: 'published'
+  },
+  {
+    id: 'biometric-attendance-2026-09-01',
+    course: '',
+    priority: 'important',
+    title: 'Asistencia biométrica obligatoria desde el 1 de septiembre',
+    body: 'Marcá la asistencia en el dispositivo biométrico del aula planificada: no puede registrarse en otro lugar ni en otro dispositivo. El biométrico es el registro principal y las listas manuales solo se usarán de forma excepcional. Se exige un mínimo de 75% de asistencia para habilitar los exámenes finales.',
+    category: 'academic',
+    lifecycle: 'scheduled',
+    audience: 'students',
+    effectiveAt: '2026-09-01T00:00:00-03:00',
+    expiresAt: '2026-12-06T00:00:00-03:00',
+    sourceLabel: 'Ver comunicado UCP',
+    sourceUrl: 'https://med.nykuto.com/assets/class-hub/notices/2026-08-27/asistencia-biometrica.webp',
+    targetType: 'none',
+    targetId: null,
+    publishedAt: '2026-08-24T22:50:14-03:00',
+    status: 'published'
+  },
+  {
+    id: 'portal-correlatives-2026-08-25',
+    course: '',
+    priority: 'important',
+    title: 'Revisá ahora tu matrícula y las correlativas',
+    body: 'Verificá en el Portal que todas las materias de tu semestre estén cargadas. Si aprobaste un examen complementario o extraordinario, confirmá especialmente que aparezca la correlativa correspondiente —por ejemplo, Fisiología II después de Fisiología I— y comunicá cualquier inconsistencia cuanto antes.',
+    category: 'administrative',
+    lifecycle: 'active',
+    audience: 'students',
+    effectiveAt: '2026-08-25T13:03:52-03:00',
+    expiresAt: '2026-09-13T00:00:00-03:00',
+    sourceLabel: 'Aviso de la delegada · 25 de agosto',
+    sourceUrl: null,
+    targetType: 'none',
+    targetId: null,
+    publishedAt: '2026-08-25T13:03:52-03:00',
+    status: 'published'
+  },
+  {
+    id: 'integrated-process-uploads-2026-2',
+    course: '',
+    priority: 'normal',
+    title: 'Proceso Integrado: qué actividades requieren archivo',
+    body: 'En 4.º semestre, se suben a la plataforma la consolidación práctica de la semana 10 (3%) y las Actividades Académicas Integradoras (5%). La primera y la segunda prueba parcial práctica (5% cada una) no requieren archivo. La participación activa vale 2%, se registra con la asistencia de las semanas 9 y 17 y tampoco requiere archivo.',
+    category: 'assessment',
+    lifecycle: 'active',
+    audience: 'students',
+    effectiveAt: '2026-08-26T20:38:21-03:00',
+    expiresAt: '2026-12-06T00:00:00-03:00',
+    sourceLabel: 'Ver matriz de la Coordinación',
+    sourceUrl: 'https://med.nykuto.com/assets/class-hub/notices/2026-08-27/proceso-integrado-cargas.webp',
+    targetType: 'none',
+    targetId: null,
+    publishedAt: '2026-08-26T20:38:21-03:00',
+    status: 'published'
+  },
+  {
+    id: 'bus-schedule-2026-08-24',
+    course: '',
+    priority: 'normal',
+    title: 'Buses: paradas obligatorias y última salida a las 20:30',
+    body: 'Solo se puede subir y bajar en las paradas establecidas; revisá especialmente la observación de la parada n.º 18. Los estudiantes deben usar uniforme institucional. La última salida es a las 20:30 desde Playón–CT y Edificio del Lago; el servicio de las 21:00 ya no existe.',
+    category: 'schedule',
+    lifecycle: 'updated',
+    audience: 'students',
+    effectiveAt: '2026-08-24T20:30:00-03:00',
+    expiresAt: '2026-12-06T00:00:00-03:00',
+    sourceLabel: 'Abrir mapa oficial de paradas',
+    sourceUrl: 'https://drive.google.com/file/d/1XCZBRMXgZ0nt_wqvqT5ZMO5EUgbRV8bM/view?usp=sharing',
+    targetType: 'none',
+    targetId: null,
+    publishedAt: '2026-08-24T22:49:43-03:00',
+    status: 'published'
+  }
+]);
+
 const DEFAULT_PUBLIC = {
   class: DEFAULT_CLASS,
   subjects: DEFAULT_SUBJECTS.map(([id, name], index) => ({ id, name, order: index + 1 })),
   lessons: [],
-  notices: [
-    { id: 'week-2026-08-21', course: '', priority: 'normal', title: 'Cursos del 19 al 21 de agosto disponibles', body: 'Bioquímica, Epidemiología, Fisiología y Microbiología práctica ya están organizadas.', imageUrl: null, imageAlt: null, attachmentUploadId: null, attachmentUrl: null, attachmentTitle: null, attachmentMimeType: null, attachmentSizeBytes: null, status: 'published' },
-    { id: 'tasks-2026-08-21', course: '', priority: 'important', title: 'Dos trabajos activos', body: 'Epidemiología: exposición grupal. Bioquímica: imprimir y completar a mano las actividades 3 y 4.', imageUrl: null, imageAlt: null, attachmentUploadId: null, attachmentUrl: null, attachmentTitle: null, attachmentMimeType: null, attachmentSizeBytes: null, status: 'published' }
-  ],
-  tasks: [
-    { id: 'epi-presentation', course: 'Epidemiología', title: 'Exposición grupal de enfermedad sorteada', description: 'Máximo 10 integrantes, diapositivas, uniforme, puntualidad y evaluación individual.', dueLabel: 'Mié. 26 ago.', dueAt: '2026-08-26T11:20:00-03:00', attachmentUrl: null, attachmentTitle: null, status: 'published' },
-    { id: 'bio-activities', course: 'Bioquímica II', title: 'Actividades 3 y 4 impresas y manuscritas', description: 'El práctico contiene cinco actividades y la presencia es obligatoria.', dueLabel: 'Mié. 26 ago.', dueAt: '2026-08-26T09:10:00-03:00', attachmentUrl: null, attachmentTitle: null, status: 'published' }
-  ],
-  activities: [{ id: 'epi-2026-08-19', course: 'Epidemiología y Salud Pública', title: 'Exposición de Epidemiología', capacity: 10, status: 'published', frozen: false }],
+  notices: DEFAULT_CURRENT_NOTICES.map((notice) => ({ ...notice, imageUrl: null, imageAlt: null, attachmentUploadId: null, attachmentUrl: null, attachmentTitle: null, attachmentMimeType: null, attachmentSizeBytes: null })),
+  tasks: [],
+  activities: [],
   groups: []
 };
+
+function currentDefaultNotices(current = Date.now()) {
+  return DEFAULT_PUBLIC.notices.filter((notice) => {
+    if (notice.status && notice.status !== 'published') return false;
+    if (['replaced', 'cancelled', 'expired'].includes(String(notice.lifecycle || 'active').toLowerCase())) return false;
+    const expires = Date.parse(notice.expiresAt || '');
+    return !Number.isFinite(expires) || expires > current;
+  });
+}
 
 function json(body, status = 200, headers = {}) {
   return new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', 'x-content-type-options': 'nosniff', ...headers } });
@@ -1194,6 +1326,7 @@ async function ensureSchema(db) {
       db.prepare(`INSERT OR IGNORE INTO hub_tasks (id,class_id,course,title,description,due_label,status,created_by,created_at,updated_at) VALUES (?, ?, ?, ?, ?, ?,'published','system',?,?)`).bind('bio-activities', DEFAULT_CLASS_ID, 'Bioquímica II', 'Actividades 3 y 4 impresas y manuscritas', 'El práctico contiene cinco actividades y la presencia es obligatoria.', 'Práctico', created, created),
       db.prepare(`INSERT OR IGNORE INTO hub_notices (id,class_id,title,body,priority,status,push_mode,created_by,created_at,updated_at,published_at) VALUES (?, ?, ?, ?,'normal','published',0,'system',?,?,?)`).bind('week-2026-08-21', DEFAULT_CLASS_ID, 'Cursos del 19 al 21 de agosto disponibles', 'Bioquímica, Epidemiología, Fisiología y Microbiología práctica ya están organizadas.', created, created, created),
       db.prepare(`INSERT OR IGNORE INTO hub_notices (id,class_id,title,body,priority,status,push_mode,created_by,created_at,updated_at,published_at) VALUES (?, ?, ?, ?,'important','published',0,'system',?,?,?)`).bind('tasks-2026-08-21', DEFAULT_CLASS_ID, 'Dos trabajos activos', 'Epidemiología: exposición grupal. Bioquímica: imprimir y completar a mano las actividades 3 y 4.', created, created, created),
+      ...DEFAULT_CURRENT_NOTICES.map((notice) => db.prepare(`INSERT OR IGNORE INTO hub_notices (id,class_id,course,title,body,priority,status,push_mode,category,lifecycle,audience,effective_at,expires_at,source_label,source_url,target_type,target_id,created_by,created_at,updated_at,published_at) VALUES (?,?,?,?,?,?,'published',0,?,?,?,?,?,?,?,?,?,'system',?,?,?)`).bind(notice.id, DEFAULT_CLASS_ID, notice.course, notice.title, notice.body, notice.priority, notice.category, notice.lifecycle, notice.audience, notice.effectiveAt, notice.expiresAt, notice.sourceLabel, notice.sourceUrl, notice.targetType, notice.targetId, notice.publishedAt, notice.publishedAt, notice.publishedAt)),
       db.prepare(`INSERT OR IGNORE INTO hub_activities (id,class_id,course,title,capacity,status,frozen,created_by,created_at,updated_at) VALUES ('epi-2026-08-19',?,'Epidemiología y Salud Pública','Exposición de Epidemiología',10,'published',0,'system',?,?)`).bind(DEFAULT_CLASS_ID, created, created),
       ...DEFAULT_SCHEDULE_SLOTS.map((slot) => db.prepare(`INSERT OR IGNORE INTO hub_schedule_slots (id,class_id,subject_id,weekday,starts_time,ends_time,label,status,created_by,created_at,updated_at) VALUES (?,?,?,?,?,?,?,'published','system',?,?)`).bind(slot.id, DEFAULT_CLASS_ID, slot.subjectId, slot.weekday, slot.startsTime, slot.endsTime, slot.label, created, created)),
       ...EPIDEMIOLOGY_GROUP_TOPICS.map((_, index) => db.prepare(`INSERT OR IGNORE INTO hub_groups (id,class_id,activity_id,name,capacity,frozen,created_by,created_at,updated_at) VALUES (?, ?, 'epi-2026-08-19', ?, 10, 0, 'system', ?, ?)`).bind(`epi-2026-08-19-g${index + 1}`, DEFAULT_CLASS_ID, `Grupo ${index + 1}`, created, created))
@@ -1202,6 +1335,9 @@ async function ensureSchema(db) {
       db.prepare(`UPDATE hub_tasks SET due_label='Mié. 26 ago.',due_at='2026-08-26T11:20:00-03:00',updated_at=? WHERE class_id=? AND id='epi-presentation'`).bind(created, DEFAULT_CLASS_ID),
       db.prepare(`UPDATE hub_tasks SET due_label='Mié. 26 ago.',due_at='2026-08-26T09:10:00-03:00',updated_at=? WHERE class_id=? AND id='bio-activities'`).bind(created, DEFAULT_CLASS_ID),
       db.prepare(`UPDATE hub_activities SET course='Epidemiología y Salud Pública',updated_at=? WHERE class_id=? AND id='epi-2026-08-19' AND (course IS NULL OR TRIM(course)='')`).bind(created, DEFAULT_CLASS_ID),
+      db.prepare(`UPDATE hub_tasks SET status='archived',updated_at=? WHERE class_id=? AND created_by='system' AND id IN ('epi-presentation','bio-activities') AND status<>'archived'`).bind(created, DEFAULT_CLASS_ID),
+      db.prepare(`UPDATE hub_notices SET status='archived',lifecycle='expired',expires_at=COALESCE(expires_at,'2026-08-27T00:00:00-03:00'),updated_at=? WHERE class_id=? AND created_by='system' AND id IN ('week-2026-08-21','tasks-2026-08-21') AND status<>'archived'`).bind(created, DEFAULT_CLASS_ID),
+      db.prepare(`UPDATE hub_activities SET status='archived',frozen=1,updated_at=? WHERE class_id=? AND created_by='system' AND id='epi-2026-08-19' AND status<>'archived'`).bind(created, DEFAULT_CLASS_ID),
       ...LEGACY_EPIDEMIOLOGY_LEADERS.map(({ groupId, membershipId }) => db.prepare(`UPDATE hub_memberships SET is_leader=1 WHERE class_id=? AND activity_id='epi-2026-08-19' AND group_id=? AND id=? AND is_leader=0 AND NOT EXISTS (SELECT 1 FROM hub_memberships existing WHERE existing.class_id=hub_memberships.class_id AND existing.group_id=hub_memberships.group_id AND existing.is_leader=1)`).bind(DEFAULT_CLASS_ID, groupId, membershipId))
     ]);
   })().catch((error) => { schemaPromise = null; throw error; });
@@ -1472,11 +1608,12 @@ async function readGradeReleasesAdmin(db, classId) {
 async function readPublic(db, classRecord) {
   const classId = classRecord.id;
   const includePublicRoster = classId === DEFAULT_CLASS_ID;
+  const current = nowIso();
   const [notices, tasks, activities, groups, publicMembers, files, dates, subjects, scheduleSlots, lessons] = await Promise.all([
-    db.prepare(`SELECT n.id,n.course,n.title,n.body,n.priority,n.status,n.linked_task_id AS linkedTaskId,n.image_url AS imageUrl,n.image_alt AS imageAlt,u.id AS attachmentUploadId,n.attachment_title AS attachmentTitle,u.original_name AS attachmentOriginalName,u.mime_type AS attachmentMimeType,u.size_bytes AS attachmentSizeBytes,n.category,n.lifecycle,n.audience,n.effective_at AS effectiveAt,n.expires_at AS expiresAt,n.source_label AS sourceLabel,n.source_url AS sourceUrl,n.target_type AS targetType,n.target_id AS targetId,n.change_summary AS changeSummary,n.revision,n.analysis_confidence AS analysisConfidence,n.published_at AS publishedAt FROM hub_notices n LEFT JOIN hub_uploads u ON u.class_id=n.class_id AND u.id=n.attachment_upload_id AND u.status='linked' WHERE n.class_id=? AND n.status='published' AND n.audience<>'delegates' ORDER BY CASE n.priority WHEN 'urgent' THEN 0 WHEN 'important' THEN 1 ELSE 2 END, COALESCE(n.published_at,n.updated_at) DESC`).bind(classId).all(),
+    db.prepare(`SELECT n.id,n.course,n.title,n.body,n.priority,n.status,n.linked_task_id AS linkedTaskId,n.image_url AS imageUrl,n.image_alt AS imageAlt,u.id AS attachmentUploadId,n.attachment_title AS attachmentTitle,u.original_name AS attachmentOriginalName,u.mime_type AS attachmentMimeType,u.size_bytes AS attachmentSizeBytes,n.category,n.lifecycle,n.audience,n.effective_at AS effectiveAt,n.expires_at AS expiresAt,n.source_label AS sourceLabel,n.source_url AS sourceUrl,n.target_type AS targetType,n.target_id AS targetId,n.change_summary AS changeSummary,n.revision,n.analysis_confidence AS analysisConfidence,n.published_at AS publishedAt FROM hub_notices n LEFT JOIN hub_uploads u ON u.class_id=n.class_id AND u.id=n.attachment_upload_id AND u.status='linked' WHERE n.class_id=? AND n.status='published' AND n.audience<>'delegates' AND n.lifecycle NOT IN ('replaced','cancelled','expired') AND (n.expires_at IS NULL OR datetime(n.expires_at)>datetime(?)) ORDER BY CASE n.priority WHEN 'urgent' THEN 0 WHEN 'important' THEN 1 ELSE 2 END, COALESCE(n.published_at,n.updated_at) DESC`).bind(classId, current).all(),
     db.prepare(`SELECT id,course,title,description,due_label AS dueLabel,due_at AS dueAt,attachment_url AS attachmentUrl,attachment_title AS attachmentTitle,status FROM hub_tasks WHERE class_id=? AND status='published' ORDER BY COALESCE(due_at,'9999') ASC, updated_at DESC`).bind(classId).all(),
-    db.prepare(`SELECT id,course,title,capacity,closes_at AS closesAt,status,CASE WHEN frozen=1 OR (closes_at IS NOT NULL AND closes_at<=?) THEN 1 ELSE 0 END AS frozen FROM hub_activities WHERE class_id=? AND status='published' ORDER BY updated_at DESC`).bind(nowIso(), classId).all(),
-    db.prepare(`SELECT g.id,g.activity_id AS activityId,g.name,g.capacity,CASE WHEN g.frozen=1 OR a.frozen=1 OR (a.closes_at IS NOT NULL AND a.closes_at<=?) THEN 1 ELSE 0 END AS frozen,COUNT(m.id) AS memberCount FROM hub_groups g LEFT JOIN hub_memberships m ON m.class_id=g.class_id AND m.group_id=g.id JOIN hub_activities a ON a.class_id=g.class_id AND a.id=g.activity_id WHERE g.class_id=? AND a.status='published' GROUP BY g.class_id,g.id ORDER BY g.activity_id,CAST(SUBSTR(g.name,7) AS INTEGER)`).bind(nowIso(), classId).all(),
+    db.prepare(`SELECT id,course,title,capacity,closes_at AS closesAt,status,CASE WHEN frozen=1 OR (closes_at IS NOT NULL AND closes_at<=?) THEN 1 ELSE 0 END AS frozen FROM hub_activities WHERE class_id=? AND status='published' ORDER BY updated_at DESC`).bind(current, classId).all(),
+    db.prepare(`SELECT g.id,g.activity_id AS activityId,g.name,g.capacity,CASE WHEN g.frozen=1 OR a.frozen=1 OR (a.closes_at IS NOT NULL AND a.closes_at<=?) THEN 1 ELSE 0 END AS frozen,COUNT(m.id) AS memberCount FROM hub_groups g LEFT JOIN hub_memberships m ON m.class_id=g.class_id AND m.group_id=g.id JOIN hub_activities a ON a.class_id=g.class_id AND a.id=g.activity_id WHERE g.class_id=? AND a.status='published' GROUP BY g.class_id,g.id ORDER BY g.activity_id,CAST(SUBSTR(g.name,7) AS INTEGER)`).bind(current, classId).all(),
     includePublicRoster
       ? db.prepare(`SELECT m.activity_id AS activityId,m.group_id AS groupId,m.display_name AS displayName,m.is_leader AS isLeader FROM hub_memberships m JOIN hub_activities a ON a.class_id=m.class_id AND a.id=m.activity_id JOIN hub_groups g ON g.class_id=m.class_id AND g.activity_id=m.activity_id AND g.id=m.group_id WHERE m.class_id=? AND a.class_id=? AND g.class_id=? AND a.status='published' ORDER BY m.activity_id,m.group_id,m.is_leader DESC,m.joined_at,m.display_name`).bind(classId, classId, classId).all()
       : Promise.resolve({ results: [] }),
@@ -2561,7 +2698,7 @@ export async function onRequestGet(context) {
     const requested = refs[0] || DEFAULT_CLASS_SLUG;
     if (resource === 'public' && requested === DEFAULT_CLASS_SLUG) {
       const scheduleSlots = defaultPublicScheduleSlots();
-      return json({ ok: true, ...DEFAULT_PUBLIC, class: { ...DEFAULT_PUBLIC.class, supportWhatsapp: supportWhatsapp(DEFAULT_PUBLIC.class, env) }, notices: DEFAULT_PUBLIC.notices.map((notice) => ({ ...notice, ...structuredNotice(notice) })), scheduleSlots, upcomingDates: upcomingScheduleDates(scheduleSlots), mode: 'static-fallback' });
+      return json({ ok: true, ...DEFAULT_PUBLIC, class: { ...DEFAULT_PUBLIC.class, supportWhatsapp: supportWhatsapp(DEFAULT_PUBLIC.class, env) }, notices: currentDefaultNotices().map((notice) => ({ ...notice, ...structuredNotice(notice) })), scheduleSlots, upcomingDates: upcomingScheduleDates(scheduleSlots), mode: 'static-fallback' });
     }
     if (resource === ACADEMIC_RESULTS_RESOURCE) return fail(503, 'database_unavailable', 'Las notas públicas no están disponibles.', { 'x-robots-tag': 'noindex, nofollow' });
     return fail(503, 'database_unavailable', 'La base de gestión no está configurada.');

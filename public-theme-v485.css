@@ -112,9 +112,9 @@ html[data-theme="light"] .mobile-bottom-nav{color:var(--ink);background:rgba(255
 html[data-theme="light"] .mobile-bottom-nav a[aria-current="page"]{background:rgba(111,74,0,.1)}
 
 /* Course notebooks, tasks, notices and dialogs contain historical hard-coded dark colors. */
-html[data-theme="light"] :is(.notebook-shell,.notebook-cover,.notebook-modes,.notebook-date-controls,.notebook-view-panel,.notebook-chapter-row,.notebook-file-row,.notebook-progress-row,.notebook-lesson-head,.lesson-section-tabs,.lesson-tab-panel,.concept-card-2026,.quick-sheet article,.ultra-sheet li,.lesson-file-card,.group-activity-card,.live-task,.live-task-body,.notice-item,.notice-carousel,.ai-resource-grid details,.lesson-source-note,.course-chapter-index li,.course-workspace,.course-workspace-panel,.course-workspace-card,.epidemiology-project,.epidemiology-project-facts article,.epidemiology-project-route li,.epidemiology-project-groups){color:var(--ink);background:#fff;border-color:var(--line)}
+html[data-theme="light"] :is(.notebook-shell,.notebook-cover,.notebook-modes,.notebook-date-controls,.notebook-view-panel,.notebook-chapter-row,.notebook-file-row,.notebook-progress-row,.notebook-lesson-head,.lesson-section-tabs,.lesson-tab-panel,.concept-card-2026,.quick-sheet article,.ultra-sheet li,.lesson-file-card,.group-activity-card,.live-task,.live-task-body,.notice-item,.notice-preview-list,.ai-resource-grid details,.lesson-source-note,.course-chapter-index li,.course-workspace,.course-workspace-panel,.course-workspace-card,.epidemiology-project,.epidemiology-project-facts article,.epidemiology-project-route li,.epidemiology-project-groups){color:var(--ink);background:#fff;border-color:var(--line)}
 html[data-theme="light"] .notebook-shell{background:linear-gradient(145deg,#fff,#eef3f8);box-shadow:0 16px 40px rgba(40,60,80,.1)}
-html[data-theme="light"] :is(.notebook-modes button,.notebook-date,.lesson-section-tabs button,.course-chapter-index a,.live-task-action,.notice-back-link,.home-notice-heading>a,.notice-carousel-controls button,.group-join-composer,.group-roster-column,.group-activity-card input,.group-activity-card select){color:var(--ink);background:#eef3f8;border-color:var(--line)}
+html[data-theme="light"] :is(.notebook-modes button,.notebook-date,.lesson-section-tabs button,.course-chapter-index a,.live-task-action,.notice-back-link,.home-notice-heading>a,.group-join-composer,.group-roster-column,.group-activity-card input,.group-activity-card select){color:var(--ink);background:#eef3f8;border-color:var(--line)}
 html[data-theme="light"] :is(.notebook-modes button[aria-selected="true"],.notebook-date[aria-current="date"]){color:var(--ink);background:#dcecf3}
 html[data-theme="light"] :is(.notebook-date-arrow,.notebook-chapter-row button,.notebook-course-index a,.lesson-teacher-grid section,.lesson-teacher-prompt,.notebook-review-memory,.notebook-review-recall,.notebook-ultra-rules,.notebook-ultra-close){color:var(--ink);background:#f7f9fc;border-color:var(--line)}
 html[data-theme="light"] .lesson-notebook-standard .course-chapter-body{background-color:#f7f3e9;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 29px,rgba(67,83,96,.07) 29px,rgba(67,83,96,.07) 30px)}
@@ -195,11 +195,11 @@ html[data-theme="light"] .community-page .study-publish-panel>#studyPublishStatu
 html[data-theme="light"] .community-page .study-publish-panel>#studyPublishStatus[data-state="error"]{color:#9f1f16}
 
 /* Generic public turma shell. */
-html[data-theme="light"] .class-main :is(.class-hero,.task-card,.subject-card,.study-card,.quality-grid article,.tool-panel,.calendar-subscription,.notice-carousel,.notice-card){color:var(--text);background:#fff;border-color:var(--line);box-shadow:0 14px 36px rgba(40,60,80,.08)}
+html[data-theme="light"] .class-main :is(.class-hero,.task-card,.subject-card,.study-card,.quality-grid article,.tool-panel,.calendar-subscription,.notice-preview-list,.notice-card){color:var(--text);background:#fff;border-color:var(--line);box-shadow:0 14px 36px rgba(40,60,80,.08)}
 html[data-theme="light"] .class-main :is(.class-hero p,.view-heading p,.task-body p,.notice-card small,.calendar-subscription-copy small,.calendar-subscription-status){color:var(--muted)}
-html[data-theme="light"] .class-main :is(.eyebrow,.view-heading>span,.section-heading span,.section-heading button,.task-card .task-meta,.task-card summary b,.notice-meta b,.file-row a){color:var(--blue-2)}
+html[data-theme="light"] .class-main :is(.eyebrow,.view-heading>span,.section-heading span,.section-heading button,.task-card .task-meta,.task-card summary b,.notice-meta b,.notice-meta em,.file-row a){color:var(--blue-2)}
 html[data-theme="light"] .class-main .hero-meta span{color:#08734f;background:#e8f7f0;border-color:rgba(8,127,91,.28)}
-html[data-theme="light"] .class-main :is(.subject-chip,.search-field input,.filter-row button,.notice-carousel-controls button,.notice-back,.notice-attachment,.more-actions a,.more-actions button,.class-group-choice,.group-name,.calendar-subscription-actions button){color:var(--text);background:#f7f9fc;border-color:var(--line)}
+html[data-theme="light"] .class-main :is(.subject-chip,.search-field input,.filter-row button,.notice-back,.notice-attachment,.notice-source-action,.more-actions a,.more-actions button,.class-group-choice,.group-name,.calendar-subscription-actions button){color:var(--text);background:#f7f9fc;border-color:var(--line)}
 html[data-theme="light"] .class-main .search-field input::placeholder{color:var(--muted);opacity:1}
 html[data-theme="light"] .class-main .task-facts span{color:#005b78;background:#e7f4f8}
 html[data-theme="light"] .class-main :is(.task-body a,.study-card a,.calendar-subscription-actions a,.group-join){color:#fff;background:#006b8f}
@@ -207,6 +207,7 @@ html[data-theme="light"] .class-main .notice-media{background:#e8eef6}
 html[data-theme="light"] .class-main .notice-card[data-priority="important"] .notice-meta b{color:#805b00}
 html[data-theme="light"] .class-main .notice-card[data-priority="urgent"] .notice-meta b{color:#a61b12}
 html[data-theme="light"] .class-main .notice-task-action{color:#075f45;background:#e8f7f0;border-color:rgba(8,127,91,.28)}
+html[data-theme="light"] .class-main :is(.notice-timing,.notice-source-note){color:var(--muted)}
 html[data-theme="light"] .class-main .filter-row button.is-active{color:#fff;background:#006b8f;border-color:#006b8f}
 html[data-theme="light"] .class-main .study-card>span{color:#08734f}
 html[data-theme="light"] .class-main :is(.study-card p,.group-inline-status){color:var(--muted)}

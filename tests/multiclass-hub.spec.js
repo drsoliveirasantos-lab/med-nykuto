@@ -211,7 +211,7 @@ test.describe('Multiclass student hub', () => {
     await expect(page.locator('#calendarSubscriptionStatus')).toHaveText('Enlace HTTPS copiado. Añádelo como calendario por URL.');
   });
 
-  test('shows one readable official notice on Home and all notices in the dedicated view', async ({ page }) => {
+  test('shows a compact static notice preview on Home and all current notices in the dedicated view', async ({ page }) => {
     await page.route('**/api/class-hub**', (route) => route.fulfill({
       status: 200,
       contentType: 'application/json',
@@ -226,37 +226,32 @@ test.describe('Multiclass student hub', () => {
     await page.goto('/turma-shell/?class=s5-a#inicio');
 
     await expect(page.locator('#homeNoticeSection')).toBeVisible();
-    const carousel = page.locator('#homeNoticeCarousel');
-    await expect(carousel).toHaveAttribute('role', 'region');
-    await expect(carousel).toHaveAttribute('aria-roledescription', 'carrusel');
-    await expect(carousel.locator('.notice-card')).toHaveCount(1);
-    await expect(carousel).toContainText('Fecha oficial del examen');
-    await expect(carousel).not.toContainText('Material disponible');
-    await expect(carousel.locator('.notice-carousel-count')).toHaveText('1 / 2');
-    await expect(carousel.locator('time')).toHaveAttribute('datetime', '2099-08-25T12:00:00-03:00');
+    const preview = page.locator('#homeNoticeCarousel');
+    await expect(preview).toHaveAttribute('role', 'list');
+    await expect(preview).not.toHaveAttribute('aria-roledescription', /.+/);
+    await expect(preview.locator('.notice-card')).toHaveCount(2);
+    await expect(preview).toContainText('Fecha oficial del examen');
+    await expect(preview).toContainText('Cambio de aula');
+    await expect(preview).not.toContainText('Material disponible');
+    await expect(preview.locator('.notice-carousel-controls')).toHaveCount(0);
     await expect(page.locator('#noticeButton')).toHaveAttribute('aria-label', 'Abrir avisos · 2 importantes');
-    const noticeImage = page.locator('#homeNoticeCarousel img');
-    await expect(noticeImage).toHaveAttribute('alt', 'Cronograma oficial del examen');
-    await expect(noticeImage).toHaveAttribute('loading', 'lazy');
-    await expect(noticeImage).toHaveAttribute('decoding', 'async');
-    await expect(noticeImage).toHaveAttribute('referrerpolicy', 'no-referrer');
-    const attachment = carousel.getByRole('link', { name: /Abrir documento/ });
-    await expect(attachment).toHaveAttribute('href', /\/api\/class-hub\?class=s5-a&resource=notice-attachment&upload=upload-exam-pdf$/);
-    await expect(attachment).toHaveAttribute('rel', 'noopener noreferrer');
-    await expect(attachment).toContainText('240 KB');
-
-    await carousel.locator('[aria-label="Aviso siguiente"]').click();
-    await expect(carousel).toContainText('Cambio de aula');
-    await expect(carousel.locator('.notice-carousel-count')).toHaveText('2 / 2');
-    const pause = carousel.locator('.notice-carousel-pause');
-    await pause.click();
-    await expect(pause).toHaveAttribute('aria-pressed', 'true');
-    await expect(pause).toHaveText('Reanudar');
+    await expect(preview.locator('img')).toHaveCount(0);
+    await expect(preview.getByRole('link')).toHaveCount(0);
 
     await page.locator('#noticeButton').click();
     await expect(page.locator('[data-view="avisos"]')).toBeVisible();
     await expect(page.locator('#noticePageList .notice-card')).toHaveCount(3);
     await expect(page.locator('#noticePageList')).toContainText('Material disponible');
+    await expect(page.locator('#noticePageSummary')).toContainText('3 avisos vigentes');
+    const noticeImage = page.locator('#noticePageList img');
+    await expect(noticeImage).toHaveAttribute('alt', 'Cronograma oficial del examen');
+    await expect(noticeImage).toHaveAttribute('loading', 'lazy');
+    await expect(noticeImage).toHaveAttribute('decoding', 'async');
+    await expect(noticeImage).toHaveAttribute('referrerpolicy', 'no-referrer');
+    const attachment = page.locator('#noticePageList').getByRole('link', { name: /Abrir documento/ });
+    await expect(attachment).toHaveAttribute('href', /\/api\/class-hub\?class=s5-a&resource=notice-attachment&upload=upload-exam-pdf$/);
+    await expect(attachment).toHaveAttribute('rel', 'noopener noreferrer');
+    await expect(attachment).toContainText('240 KB');
     await expect(page).toHaveURL(/#avisos$/);
     await page.getByRole('button', { name: '← Volver al inicio' }).click();
     await expect(page.locator('[data-view="inicio"]')).toBeVisible();
@@ -339,16 +334,17 @@ test.describe('Multiclass student hub', () => {
     await expect(page).toHaveURL(new RegExp(`/turma-shell/\\?class=s5-a&task=${expiredLinkedTask.id}#tareas$`));
   });
 
-  test('disables official-notice autoplay when reduced motion is requested', async ({ page }) => {
+  test('keeps the official-notice preview static with reduced motion', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.route('**/api/class-hub**', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(CLASS_RESPONSE) }));
     await page.route('https://example.test/official-exam.webp', (route) => route.fulfill({ status: 200, contentType: 'image/svg+xml', body: '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1" />' }));
 
     await page.goto('/turma-shell/?class=s5-a#inicio');
-    await expect(page.locator('#homeNoticeCarousel .notice-carousel-pause')).toBeHidden();
-    await expect(page.locator('#homeNoticeCarousel')).toContainText('Fecha oficial del examen');
-    await page.locator('#homeNoticeCarousel [aria-label="Aviso siguiente"]').click();
-    await expect(page.locator('#homeNoticeCarousel')).toContainText('Cambio de aula');
+    const preview = page.locator('#homeNoticeCarousel');
+    await expect(preview.locator('.notice-card')).toHaveCount(2);
+    await expect(preview).toContainText('Fecha oficial del examen');
+    await expect(preview).toContainText('Cambio de aula');
+    await expect(preview.locator('.notice-carousel-controls')).toHaveCount(0);
   });
 
   test('joins and leaves a class group without publishing the student name', async ({ page }) => {
@@ -2031,14 +2027,14 @@ test.describe('Multiclass student hub', () => {
     expect(shellEntries).toEqual(expect.arrayContaining([
       '/offline.html',
       '/turma-shell/',
-      '/turma-v471.css?v=484',
-      '/turma-v471.js?v=485',
+      '/turma-v471.css?v=486',
+      '/turma-v471.js?v=486',
       '/turma-manifest-boot-v471.js?v=478',
-      '/public-theme-v485.css?v=485',
+      '/public-theme-v485.css?v=486',
       '/public-theme-v485.js?v=485',
       '/calendar-subscription-v485.js?v=485'
     ]));
-    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v485['"]/);
+    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v486['"]/);
     [
       /\/gestion/i,
       /\/api\//i,

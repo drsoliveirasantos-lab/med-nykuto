@@ -1,9 +1,11 @@
 const { test, expect } = require('@playwright/test');
+const { routeCurrentClassPublic } = require('./helpers/current-class-public-fixture');
 
 const CLASS_DRIVE_URL = 'https://drive.google.com/drive/u/0/mobile/folders/1AE16HsBFgPw80tQYS_O5lQf3hsz9CFdy/1FWhE0vQoc7dNILKqa0qMrGfoF68ZElij?sort=13&direction=a';
 
 test.describe('Class hub', () => {
   test.beforeEach(async ({ page }) => {
+    await routeCurrentClassPublic(page);
     await page.goto('/clase.html');
   });
 

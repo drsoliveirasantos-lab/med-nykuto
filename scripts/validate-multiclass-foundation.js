@@ -317,8 +317,12 @@ class GuardedD1Mock {
     }
     if (/\bfrom\s+hub_notices\b/i.test(normalized)) {
       const classId = this.classFrom(values);
+      const current = String(values[1] || '');
       return [...this.notices.values()]
         .filter((notice) => notice.classId === classId && (!/status='published'/i.test(normalized) || notice.status === 'published'))
+        .filter((notice) => !/n\.audience<>'delegates'/i.test(normalized) || notice.audience !== 'delegates')
+        .filter((notice) => !/n\.lifecycle\s+not\s+in/i.test(normalized) || !['replaced', 'cancelled', 'expired'].includes(notice.lifecycle || 'active'))
+        .filter((notice) => !/datetime\(n\.expires_at\)>datetime\(\?\)/i.test(normalized) || !notice.expiresAt || Date.parse(notice.expiresAt) > Date.parse(current))
         .map((notice) => {
           const upload = this.uploads.get(notice.attachmentUploadId);
           return {
@@ -1748,6 +1752,9 @@ async function validateMulticlassShell() {
     'gestion-v440.css',
     'gestion-v440.js',
     'functions/_lib/management-credentials.js',
+    'assets/class-hub/notices/2026-08-27/proceso-integrado-cargas.webp',
+    'assets/class-hub/notices/2026-08-27/asistencia-biometrica.webp',
+    'assets/class-hub/notices/2026-08-27/atencion-alumno-hu.webp',
     'offline.html',
     'functions/api/class-manifest.js'
   ];
@@ -1821,11 +1828,14 @@ async function validateMulticlassShell() {
   expect(/challenge-review-actions[\s\S]*?min-height\s*:\s*44px/i.test(managementCss), 'Challenge review actions are missing their mobile touch target.');
 
   expect(legacyClassRuntime.includes('activityMembers') && legacyClassRuntime.includes("member?member.displayName:filled?'Ocupado':'Libre'") && legacyClassRuntime.includes('member.isLeader'), 'The explicit 4.º E roster does not render names, leaders and the safe occupancy fallback.');
-  expect(turmaHtml.includes('id="homeNoticeCarousel"') && turmaHtml.includes('data-view="avisos"') && turmaHtml.includes('id="noticePageList"'), 'The generic class hub is missing its compact official-notice carousel or full notices view.');
-  expect(turmaRuntime.includes('6000') && turmaRuntime.includes('prefers-reduced-motion: reduce') && turmaRuntime.includes('destroyNoticeCarousel') && turmaRuntime.includes("addEventListener('hashchange'"), 'The generic notice carousel is missing its readable timing, reduced-motion gate, timer teardown or hash routing.');
+  expect(turmaHtml.includes('id="homeNoticeCarousel" class="notice-preview-list"') && turmaHtml.includes('data-view="avisos"') && turmaHtml.includes('id="noticePageList"'), 'The generic class hub is missing its compact current-notice preview or full notices view.');
+  expect(turmaRuntime.includes('function renderNoticePreview') && turmaRuntime.includes('function noticeIsCurrent') && turmaRuntime.includes("addEventListener('hashchange'"), 'The generic current-notice preview, expiration filter or hash routing is incomplete.');
+  expect(!turmaRuntime.includes('notice-carousel-controls') && !turmaRuntime.includes('destroyNoticeCarousel'), 'The generic student hub still ships the retired rotating notice carousel.');
   expect(!/(?:noticeDialog|noticeDialogList|homeNotices)/.test(`${turmaHtml}\n${turmaRuntime}`), 'The generic class hub still references the retired notice dialog or duplicate Home list.');
-  expect(legacyClassHtml.includes('id="classHomeNoticeCarousel"') && legacyClassHtml.includes('data-view="avisos"') && legacyClassHtml.includes('id="classNoticePageList"'), 'The 4.º E hub is missing its compact official-notice carousel or full notices view.');
-  expect(legacyClassRuntime.includes('6000') && legacyClassRuntime.includes('prefers-reduced-motion: reduce') && legacyClassRuntime.includes('destroyNoticeCarousel'), 'The 4.º E notice carousel is missing its readable timing, reduced-motion gate or timer teardown.');
+  expect(legacyClassHtml.includes('id="classHomeNoticePreview" class="notice-preview-list"') && legacyClassHtml.includes('data-view="avisos"') && legacyClassHtml.includes('id="classNoticePageList"'), 'The 4.º E hub is missing its compact current-notice preview or full notices view.');
+  expect(legacyClassRuntime.includes('function renderNoticePreview') && legacyClassRuntime.includes('function noticeIsCurrent'), 'The 4.º E current-notice preview or expiration filter is incomplete.');
+  expect(!legacyClassRuntime.includes('notice-carousel-controls') && !legacyClassRuntime.includes('destroyNoticeCarousel'), 'The 4.º E hub still ships the retired rotating notice carousel.');
+  expect(legacyClassRuntime.includes('function fallbackPublic(){return {notices:[],tasks:[],activities:[]'), 'The 4.º E offline fallback still exposes expired notices, tasks or activities.');
   expect(!/(?:noticeDrawer|urgentNoticeBanner|notice-drawer|urgent-notice-banner)/.test(`${legacyClassHtml}\n${legacyClassRuntime}\n${legacyClassCss}`), 'The 4.º E hub still references the retired notice drawer or urgent banner.');
   expect(legacyClassRuntime.includes('function taskAttachment') && turmaRuntime.includes('function taskAttachment'), 'Optional task attachments are not rendered in both student hubs.');
   expect(['/turma/:slug', '/turma/:slug/', '/gestion/:slug', '/gestion/:slug/'].every((route) => redirects.includes(`${route} /${route.startsWith('/turma') ? 'turma' : 'gestion'}-shell/?class=:slug 200`)), 'Cloudflare rewrites for class and management slugs, with and without trailing slash, are missing.');
@@ -1943,6 +1953,11 @@ async function main() {
   });
   expect(/ensureNoticeStructuredColumns/.test(hubSource) && /ALTER TABLE hub_notices ADD COLUMN \$\{name\}/.test(hubSource), 'Legacy notices do not receive the additive structured columns.');
   expect(/NOTICE_LIFECYCLES\s*=\s*new Set\(\[[^\]]*'active'[^\]]*'extended'[^\]]*'corrected'[^\]]*'replaced'[^\]]*'cancelled'[^\]]*'expired'/s.test(hubSource), 'The strict notice lifecycle omits active/extended/corrected/replaced/cancelled/expired.');
+  ['practical-exams-micro-2026-08-31', 'student-card-photo-2026-08-28', 'student-service-hu-2026-08-31', 'biometric-attendance-2026-09-01', 'portal-correlatives-2026-08-25', 'integrated-process-uploads-2026-2', 'bus-schedule-2026-08-24'].forEach((id) => {
+    expect(hubSource.includes(`id: '${id}'`), `The current 4.º E notice seed is missing: ${id}.`);
+  });
+  expect(/function\s+currentDefaultNotices/.test(hubSource) && /datetime\(n\.expires_at\)>datetime\(\?\)/.test(hubSource) && /n\.lifecycle NOT IN \('replaced','cancelled','expired'\)/.test(hubSource), 'Current-notice expiration or lifecycle filtering is incomplete in the D1 and static public paths.');
+  expect(!hubSource.includes('4°E Lista Final Práctica Microbiologia II.pdf') && !hubSource.includes('Oficialización 4°.10°-2026.2'), 'A private roster or identity-bearing election file was exposed by the public notice seed.');
   const noticeRevisionDefinition = tableDefinition(hubSource, 'hub_notice_revisions');
   expect(/\bnotice_id\s+text\s+not\s+null\b/i.test(noticeRevisionDefinition) && /\brevision\s+integer\s+not\s+null\b/i.test(noticeRevisionDefinition) && /\bpayload_json\s+text\s+not\s+null\b/i.test(noticeRevisionDefinition) && /primary\s+key\s*\(class_id,notice_id,revision\)/i.test(noticeRevisionDefinition), 'Notice history is not an immutable class/id/revision snapshot table.');
   expect(/function\s+noticeRevisionStatement/.test(hubSource) && /expectedRevision/.test(hubSource) && /hub_notices\.revision=\?/.test(hubSource), 'notice.upsert lacks revision snapshots or optimistic expectedRevision protection.');

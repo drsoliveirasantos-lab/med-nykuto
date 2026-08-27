@@ -101,16 +101,16 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       });
       await page.goto(new URL('/clase.html#inicio', bootstrapPage.url()).href);
       await expect(page.locator('#classHubLiveTasks .live-task-details')).toHaveCount(2);
-      const carousel = page.locator('#classHomeNoticeCarousel');
-      await expect(carousel).toHaveAttribute('role', 'region');
-      await expect(carousel.locator('.notice-item')).toHaveCount(1);
-      await expect(carousel).toContainText('Exposición grupal de Epidemiología');
-      await expect(carousel).not.toContainText('Cursos del 19 al 21 de agosto disponibles');
-      await expect(carousel.locator('.notice-carousel-controls')).toHaveCount(0);
+      const preview = page.locator('#classHomeNoticePreview');
+      await expect(preview).toHaveAttribute('role', 'list');
+      await expect(preview.locator('.notice-item')).toHaveCount(1);
+      await expect(preview).toContainText('Exposición grupal de Epidemiología');
+      await expect(preview).not.toContainText('Cursos del 19 al 21 de agosto disponibles');
+      await expect(preview.locator('.notice-carousel-controls')).toHaveCount(0);
       await expect(page.locator('#noticeBell')).toHaveAttribute('aria-label', 'Abrir avisos · 1 importante');
       await page.locator('#noticeBell').click();
       await expect(page.locator('#avisos')).toBeVisible();
-      await expect(page.locator('#classNoticePageList .notice-item')).toHaveCount(2);
+      await expect(page.locator('#classNoticePageList .notice-item')).toHaveCount(1);
       const taskNotice = page.locator('#classNoticePageList .notice-item').filter({ hasText: 'Exposición grupal de Epidemiología' });
       await expect(taskNotice).toBeVisible();
       const exactTaskLink = taskNotice.getByRole('link', { name: 'Ver tarea: Exposición grupal de enfermedad sorteada' });
@@ -155,7 +155,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       const search = page.locator('#classNoticeSearch');
       const subject = page.locator('#classNoticeSubjectFilter');
       await expect(list.locator('.notice-item')).toHaveCount(5);
-      await expect(count).toHaveText('5 avisos publicados');
+      await expect(count).toHaveText('5 avisos vigentes');
       await expect(count).toHaveAttribute('role', 'status');
       await expect(count).toHaveAttribute('aria-live', 'polite');
       await expect(count).toHaveAttribute('aria-atomic', 'true');
@@ -173,13 +173,13 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(list.locator('.notice-item')).toHaveCount(1);
       await search.fill('término ausente');
       await expect(list.locator('.notice-item')).toHaveCount(0);
-      await expect(list.locator('.notice-empty')).toHaveText('No hay avisos que coincidan con estos filtros.');
-      await expect(count).toHaveText('0 de 5 avisos');
-      await expect(page.locator('#classHomeNoticeCarousel .notice-carousel-count')).toContainText('/ 3');
+      await expect(list.locator('.notice-empty')).toHaveText('No hay avisos vigentes que coincidan con estos filtros.');
+      await expect(count).toHaveText('0 de 5 avisos vigentes');
+      await expect(page.locator('#classHomeNoticePreview .notice-item')).toHaveCount(3);
 
       await page.locator('#classNoticeFilters').evaluate((form) => form.reset());
       await expect(list.locator('.notice-item')).toHaveCount(5);
-      await expect(count).toHaveText('5 avisos publicados');
+      await expect(count).toHaveText('5 avisos vigentes');
       await expect(page.locator('[data-notice-priority="all"]')).toHaveAttribute('aria-pressed', 'true');
       await expect(subject).toHaveValue('all');
       await expect(search).toHaveValue('');
@@ -225,17 +225,20 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       });
       await page.goto(new URL('/clase.html#inicio', bootstrapPage.url()).href);
 
-      const carousel = page.locator('#classHomeNoticeCarousel');
-      await expect(carousel.locator('.notice-item')).toHaveCount(1);
-      await expect(carousel).toContainText('Guía oficial <img src=x>');
-      await expect(carousel).not.toContainText('Próximo aviso');
-      await expect(page.locator('#noticeBell')).toHaveAttribute('data-count', '1');
+      const preview = page.locator('#classHomeNoticePreview');
+      await expect(preview.locator('.notice-item')).toHaveCount(2);
+      await expect(preview).toContainText('Guía oficial <img src=x>');
+      await expect(preview).toContainText('Próximo aviso');
+      await expect(page.locator('#noticeBell')).toHaveAttribute('data-count', '2');
 
       await page.locator('#noticeBell').click();
       const list = page.locator('#classNoticePageList');
-      await expect(list.locator('.notice-item')).toHaveCount(9);
-      for (const label of ['ACTIVO', 'PROGRAMADO', 'ACTUALIZADO', 'AMPLIADO', 'CORREGIDO', 'REEMPLAZADO', 'CANCELADO', 'VENCIDO']) {
+      await expect(list.locator('.notice-item')).toHaveCount(5);
+      for (const label of ['ACTIVO', 'PROGRAMADO', 'ACTUALIZADO', 'AMPLIADO', 'CORREGIDO']) {
         await expect(list).toContainText(label);
+      }
+      for (const title of ['Aviso reemplazado', 'Aviso cancelado', 'Aviso vencido', 'Vigencia terminada']) {
+        await expect(list).not.toContainText(title);
       }
 
       const active = list.locator('.notice-item').filter({ hasText: 'Guía oficial' });

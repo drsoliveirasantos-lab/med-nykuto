@@ -33,8 +33,10 @@ expect(html.includes('<option value="br">PT-BR · Português</option>'), 'The Br
 [
   'Tu semana',
   'PARA ESTA SEMANA',
-  '2 tareas activas',
-  'Epidemiología + Bioquímica.',
+  '0 tareas activas',
+  'Avisos importantes vigentes',
+  'Avisos vigentes',
+  'Los vencidos se retiran automáticamente.',
   'Ver todas las tareas',
   'TAREAS ACTUALES',
   'Toca una tarea para ver qué hacer',
@@ -48,6 +50,9 @@ expect(html.includes('<option value="br">PT-BR · Português</option>'), 'The Br
 ].forEach((label) => {
   expect(html.includes(label), `The simplified class label “${label}” is missing.`);
 });
+expect(classHubRuntime.includes('No hay tareas activas. Las tareas terminadas ya no aparecen aquí.'), 'The empty current-task state is missing from the class runtime.');
+const homeShell = html.slice(html.indexOf('<section id="inicio"'), html.indexOf('<noscript>'));
+expect(!homeShell.includes('Exposición grupal de enfermedad sorteada') && !homeShell.includes('Actividades 3 y 4 impresas y manuscritas'), 'Expired task content is still embedded in the class Home shell.');
 
 [
   'Tu semana, de un vistazo.',
@@ -134,6 +139,8 @@ expect(i18n.includes("'Materias':'Matérias'"), 'The Materias/Matérias navigati
 expect(i18n.includes("'Horario del 4.º E':'Horário do 4.º E'"), 'The Portuguese schedule heading translation is missing.');
 expect(i18n.includes("'Tu semana':'Sua semana'"), 'The simplified Portuguese dashboard heading is missing.');
 expect(i18n.includes("'Ver todas las tareas':'Ver todas as tarefas'"), 'The simplified Portuguese task link is missing.');
+expect(i18n.includes("'Avisos importantes vigentes':'Avisos importantes vigentes'") && i18n.includes("'Avisos importantes vigentes de la clase':'Avisos importantes vigentes da turma'"), 'The current-notice Home heading or accessible label is not translated into Portuguese.');
+expect(i18n.includes("'Consulta los avisos que siguen en vigor. Los vencidos se retiran automáticamente.':'Consulte os avisos que continuam vigentes. Os vencidos são retirados automaticamente.'"), 'The current-notice expiration explanation is not translated into Portuguese.');
 expect(runtime.includes("'microbiologia-teorica-2026-08-24'") && runtime.includes('esporotricosis, dos eumicetomas y candidiasis oportunista'), 'The Microbiology 24 August runtime is missing its documented scope.');
 expect(runtime.includes("'microbiologia-teorica-2026-08-17'") && runtime.includes('dos casos clínicos resueltos paso a paso'), 'The historical 17 August Microbiology scope was not preserved separately.');
 expect(html.includes('Los dos primeros casos de la clase'), 'The first Microbiology comparison is not clearly limited to the first two cases.');
