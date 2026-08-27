@@ -433,17 +433,17 @@
 }
 
 /* Managed class documents merged into each subject notebook. */
-.notebook-file-row{min-height:52px;grid-template-columns:52px minmax(0,1fr) auto;padding-block:8px}
-.notebook-file-row>.notebook-file-type{color:var(--notebook-cyan);font-size:.57rem;font-weight:900;overflow-wrap:anywhere}
+.notebook-file-row{min-height:54px;grid-template-columns:52px minmax(0,1fr) auto;padding-block:5px}
+.notebook-file-row>.notebook-file-type{min-width:0;overflow:hidden;color:var(--notebook-cyan);font-size:.57rem;font-weight:900;text-overflow:ellipsis;white-space:nowrap}
 .notebook-file-copy{min-width:0}
 .notebook-file-copy>strong{display:block;min-width:0;overflow:hidden;color:#e5eef5;text-overflow:ellipsis;white-space:nowrap;font-size:.7rem}
-.notebook-file-meta{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-top:5px}
-.notebook-file-meta time{color:#92a4b7;font-size:.56rem;font-weight:750}
-.notebook-file-badge{display:inline-flex;align-items:center;min-height:20px;padding:0 6px;border:1px solid transparent;border-radius:999px;font-size:.5rem;font-weight:900;letter-spacing:.06em;line-height:1}
+.notebook-file-meta{display:flex;min-width:0;align-items:center;flex-wrap:nowrap;gap:4px;margin-top:2px;overflow:hidden}
+.notebook-file-meta time{min-width:0;overflow:hidden;color:#92a4b7;font-size:.56rem;font-weight:750;text-overflow:ellipsis;white-space:nowrap}
+.notebook-file-badge{display:inline-flex;flex:0 0 auto;align-items:center;min-height:18px;padding:0 5px;border:1px solid transparent;border-radius:999px;font-size:.5rem;font-weight:900;letter-spacing:.06em;line-height:1}
 .notebook-file-badge-drive{border-color:rgba(56,189,248,.35);background:rgba(14,116,144,.18);color:#7dd3fc}
 .notebook-file-badge-recent{border-color:rgba(52,211,153,.32);background:rgba(5,150,105,.16);color:#6ee7b7}
 html[data-theme="light"] .notebook-file-copy>strong{color:var(--ink)}
 html[data-theme="light"] .notebook-file-meta time{color:var(--muted)}
 html[data-theme="light"] .notebook-file-badge-drive{color:#075b75;background:#e7f4f8;border-color:rgba(0,107,143,.24)}
 html[data-theme="light"] .notebook-file-badge-recent{color:#075f45;background:#e8f7f0;border-color:rgba(8,127,91,.24)}
-@media(max-width:540px){.notebook-file-row{grid-template-columns:44px minmax(0,1fr) auto;gap:8px;padding-inline:9px}.notebook-file-copy>strong{white-space:normal;overflow-wrap:anywhere}.notebook-file-meta{gap:4px}.notebook-file-badge{min-height:21px}}
+@media(max-width:540px){.notebook-file-row{height:54px;min-height:54px;grid-template-columns:42px minmax(0,1fr) auto;gap:7px;padding:4px 8px}.notebook-file-copy>strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.notebook-file-meta{gap:3px}.notebook-file-badge{min-height:17px;padding-inline:4px}}

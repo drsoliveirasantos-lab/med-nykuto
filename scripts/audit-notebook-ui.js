@@ -113,15 +113,16 @@ async function inspectNotebook(browserType, width, failures, screenshots) {
   expect(await page.locator('#fisiologia .notebook-date[aria-current="date"] strong').textContent() === '17 AGO.', `${browserType.name()} ${width}px: date navigation did not select 17 August.`, failures);
   expect(await page.locator('#fisiologia-2026-08-17 .course-chapter-section').count() >= 6, `${browserType.name()} ${width}px: the 17 August legacy course was not converted.`, failures);
 
+  const compactViews = { themeMax: 0, fileMax: 0, modeMax: 0 };
   for (const mode of ['temas', 'archivos', 'progreso']) {
     await page.locator(`#fisiologia [data-notebook-mode="${mode}"]`).click();
     await page.waitForSelector('#fisiologia .notebook-view-panel:not([hidden])');
+    const selector = mode === 'temas' ? '.notebook-chapter-row button' : mode === 'archivos' ? '.notebook-file-row' : '.notebook-progress-row';
+    const measured = await page.evaluate(({ selector }) => Math.max(...Array.from(document.querySelectorAll(`#fisiologia ${selector}`)).map((node) => node.getBoundingClientRect().height), 0), { selector });
+    if (mode === 'temas') compactViews.themeMax = measured;
+    if (mode === 'archivos') compactViews.fileMax = measured;
   }
-  const compactViews = await page.evaluate(() => ({
-    themeMax: Math.max(...Array.from(document.querySelectorAll('#fisiologia .notebook-chapter-row button')).map((node) => node.getBoundingClientRect().height), 0),
-    fileMax: Math.max(...Array.from(document.querySelectorAll('#fisiologia .notebook-file-row')).map((node) => node.getBoundingClientRect().height), 0),
-    modeMax: Math.max(...Array.from(document.querySelectorAll('#fisiologia .notebook-modes button')).map((node) => node.getBoundingClientRect().height), 0)
-  }));
+  compactViews.modeMax = await page.evaluate(() => Math.max(...Array.from(document.querySelectorAll('#fisiologia .notebook-modes button')).map((node) => node.getBoundingClientRect().height), 0));
   expect(compactViews.themeMax <= 48, `${browserType.name()} ${width}px: theme buttons are too tall (${compactViews.themeMax}px).`, failures);
   expect(compactViews.fileMax <= 54, `${browserType.name()} ${width}px: archive rows are too tall (${compactViews.fileMax}px).`, failures);
   expect(compactViews.modeMax <= 40, `${browserType.name()} ${width}px: notebook menu is too tall (${compactViews.modeMax}px).`, failures);
