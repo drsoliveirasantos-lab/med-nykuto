@@ -42,6 +42,11 @@
   Cache-Control: no-store
   Referrer-Policy: no-referrer
 
+/notas
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+  Referrer-Policy: no-referrer
+
 /gestion-shell/*
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store

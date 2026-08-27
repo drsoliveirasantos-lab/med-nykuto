@@ -1827,7 +1827,8 @@ async function validateMulticlassShell() {
   expect(legacyClassRuntime.includes('function taskAttachment') && turmaRuntime.includes('function taskAttachment'), 'Optional task attachments are not rendered in both student hubs.');
   expect(['/turma/:slug', '/turma/:slug/', '/gestion/:slug', '/gestion/:slug/'].every((route) => redirects.includes(`${route} /${route.startsWith('/turma') ? 'turma' : 'gestion'}-shell/?class=:slug 200`)), 'Cloudflare rewrites for class and management slugs, with and without trailing slash, are missing.');
   expect(!/\/(?:turma|gestion)\/:slug\s+\/(?:turma|gestion)\.html\b/.test(redirects), 'A class route still proxies to a canonical .html URL and can loop on Cloudflare Pages.');
-  ['/turma/*', '/turma-shell/*', '/clase.html', '/gestion/*', '/gestion-shell/*', '/api/*'].forEach((route) => expect(headers.includes(route), `Security/cache headers are missing for ${route}.`));
+  ['/turma/*', '/turma-shell/*', '/clase.html', '/notas.html', '/notas', '/gestion/*', '/gestion-shell/*', '/api/*'].forEach((route) => expect(headers.includes(route), `Security/cache headers are missing for ${route}.`));
+  expect(/\/notas\.html\s+[\s\S]*?X-Robots-Tag:\s*noindex, nofollow[\s\S]*?Cache-Control:\s*no-store/.test(headers) && /\/notas\s+[\s\S]*?X-Robots-Tag:\s*noindex, nofollow[\s\S]*?Cache-Control:\s*no-store/.test(headers), 'Both the file and Cloudflare clean URL must keep noindex/no-store result-page headers.');
 
   const shellMatch = worker.match(/const\s+SHELL\s*=\s*\[([\s\S]*?)\];/);
   expect(Boolean(shellMatch), 'The service-worker shell list is missing.');

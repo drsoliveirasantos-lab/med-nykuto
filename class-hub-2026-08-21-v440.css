@@ -256,3 +256,14 @@ html[data-theme="light"] .notice-validity-row b{color:var(--ink)}
 html[data-theme="light"] .notice-item .notice-change-summary{background:#fff9e8;color:#364152}
 html[data-theme="light"] .notice-item .notice-source{color:#006b8f}
 @media(max-width:560px){.notice-badges{gap:4px}.notice-item .notice-badge{min-height:22px;padding-inline:6px}.notice-validity{display:grid;gap:4px}.notice-actions{align-items:stretch}.notice-actions .notice-attachment,.notice-actions .notice-item-action{flex:1 1 auto}.notice-carousel .notice-validity,.notice-carousel .notice-change-summary,.notice-carousel .notice-source{display:none}}
+
+/* Keep Portal, public results and Drive on one compact iPhone row. */
+.home-quick-link-results{border-color:rgba(85,199,207,.3);background:linear-gradient(135deg,rgba(85,199,207,.08),rgba(4,13,23,.44))}
+@media(max-width:430px){
+  .class-dashboard .home-quick-links{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .class-dashboard .home-quick-link{min-height:52px;grid-template-columns:24px minmax(0,1fr);gap:4px;padding:5px;border-radius:11px}
+  .class-dashboard .home-quick-link-icon{width:24px;height:24px;border-radius:7px}
+  .class-dashboard .home-quick-link-icon svg{width:14px;height:14px}
+  .class-dashboard .home-quick-link-copy small{display:none}
+  .class-dashboard .home-quick-link-copy strong{display:-webkit-box;overflow:hidden;font-size:.55rem;line-height:1.12;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+}
