@@ -153,6 +153,37 @@ async function main() {
     const initialized = await get(api, env);
     assert.equal(initialized.status, 200, 'D1 schema initialization failed');
 
+    const permanentPassword = 'Invitation-Delegate-2026!';
+    const invitation = await post(api, env, { action: 'invite.create', label: 'Delegate signup fixture', hours: 168 }, ownerAuth);
+    assert.equal(invitation.status, 201, 'the owner could not create a one-time delegate signup invitation');
+    assert.equal(invitation.body.invitePath, `/gestion/s4-e#invite=${invitation.body.inviteToken}`, 'the invitation was not returned as a fragment-only signup path');
+    const invitationClaim = await post(api, env, { action: 'invite.claim', inviteToken: invitation.body.inviteToken, name: 'Invited delegate fixture', email: 'INVITED.FIXTURE@example.test', password: permanentPassword });
+    assert.deepEqual([invitationClaim.status, invitationClaim.body.passwordChangeRequired], [201, false], 'the invitation did not create a permanent delegate account');
+    assert.equal(Object.hasOwn(invitationClaim.body, 'editorToken'), false, 'the signup response exposed a legacy bearer token');
+    assert.equal(Object.hasOwn(invitationClaim.body, 'sessionToken'), false, 'the signup response exposed its session token in JSON');
+    const invitationAuth = sessionAuthFromResponse(invitationClaim);
+    const invitedCredential = db.database.prepare(`SELECT c.editor_id,c.email_normalized,c.must_change_password,c.temporary_expires_at,i.claimed_at,i.claimed_editor_id FROM hub_editor_credentials c JOIN hub_invites i ON i.class_id=c.class_id AND i.claimed_editor_id=c.editor_id WHERE c.class_id='s4-e' AND c.email_normalized='invited.fixture@example.test'`).get();
+    assert.equal(invitedCredential.email_normalized, 'invited.fixture@example.test');
+    assert.deepEqual([Number(invitedCredential.must_change_password), invitedCredential.temporary_expires_at], [0, null]);
+    assert.equal(invitedCredential.claimed_editor_id, invitedCredential.editor_id, 'the invite CAS was not bound to the created editor');
+    assert.ok(invitedCredential.claimed_at, 'the successfully used invitation was not marked as claimed');
+    assert.equal((await get(api, env, 'session', invitationAuth)).status, 200, 'the invitation did not install an immediately usable secure session');
+    const invitationReplay = await post(api, env, { action: 'invite.claim', inviteToken: invitation.body.inviteToken, name: 'Replay delegate', email: 'replay.fixture@example.test', password: permanentPassword });
+    assert.deepEqual([invitationReplay.status, invitationReplay.body.code], [410, 'invite_expired'], 'a one-time invitation could be replayed');
+
+    const duplicateEmailInvite = await post(api, env, { action: 'invite.create', label: 'Duplicate email rollback fixture', hours: 168 }, ownerAuth);
+    const duplicateEmailClaim = await post(api, env, { action: 'invite.claim', inviteToken: duplicateEmailInvite.body.inviteToken, name: 'Duplicate email fixture', email: 'invited.fixture@example.test', password: permanentPassword });
+    assert.deepEqual([duplicateEmailClaim.status, duplicateEmailClaim.body.code], [409, 'email_in_use']);
+    const duplicateInviteRow = db.database.prepare(`SELECT claimed_at,claimed_editor_id FROM hub_invites WHERE id=?`).get(duplicateEmailInvite.body.id);
+    assert.deepEqual([duplicateInviteRow.claimed_at, duplicateInviteRow.claimed_editor_id], [null, null], 'a duplicate email consumed the invitation');
+    const duplicateRetry = await post(api, env, { action: 'invite.claim', inviteToken: duplicateEmailInvite.body.inviteToken, name: 'Rollback retry fixture', email: 'rollback.retry@example.test', password: permanentPassword });
+    assert.equal(duplicateRetry.status, 201, 'an invitation rejected for duplicate email could not be retried safely');
+
+    const weakInvite = await post(api, env, { action: 'invite.create', label: 'Weak password fixture', hours: 168 }, ownerAuth);
+    const weakClaim = await post(api, env, { action: 'invite.claim', inviteToken: weakInvite.body.inviteToken, name: 'Weak password fixture', email: 'weak.fixture@example.test', password: '123456789012' });
+    assert.deepEqual([weakClaim.status, weakClaim.body.code], [400, 'weak_password']);
+    assert.deepEqual(Object.values(db.database.prepare(`SELECT claimed_at,claimed_editor_id FROM hub_invites WHERE id=?`).get(weakInvite.body.id)), [null, null], 'a weak password consumed the invitation');
+
     db.database.prepare(`INSERT INTO hub_editors (id,class_id,name,token_hash,status,created_at) VALUES (?,?,?,?,?,?)`).run('legacy-editor', 's4-e', 'Legacy fixture', digest(legacyToken), 'active', created);
     db.database.prepare(`INSERT INTO hub_editors (id,class_id,name,token_hash,status,created_at) VALUES (?,?,?,?,?,?)`).run('session-editor', 's4-e', 'Session fixture', digest('unused-session-token'), 'active', created);
     db.database.prepare(`INSERT INTO hub_editor_credentials (editor_id,class_id,email_normalized,password_hash,password_salt,password_algorithm,password_iterations,password_version,must_change_password,temporary_expires_at,created_at,updated_at) VALUES (?,?,?,?,?,'pbkdf2-sha256',100000,1,0,NULL,?,?)`).run('session-editor', 's4-e', 'session.fixture@example.test', '0'.repeat(64), '1'.repeat(32), created, created);

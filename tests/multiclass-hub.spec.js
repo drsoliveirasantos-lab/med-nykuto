@@ -462,8 +462,8 @@ test.describe('Multiclass student hub', () => {
 
     await page.goto('/gestion/s5-a');
     await expect(page.locator('#multiDeviceLoginHelp')).toContainText('teléfono y tablet');
-    await expect(page.locator('#inviteAccess summary')).toHaveText('Activar una invitación antigua');
-    await expect(page.locator('#inviteAccess .details-help')).toContainText('solo en este navegador');
+    await expect(page.locator('#inviteAccess summary')).toHaveText('Crear mi cuenta con una invitación');
+    await expect(page.locator('#inviteAccess .details-help')).toContainText('funciona una sola vez');
     await page.locator('#loginEmail').fill(SYNTHETIC_EMAIL);
     await page.locator('#loginPassword').fill(SYNTHETIC_TEMP_PASSWORD);
     await page.locator('#credentialSubmit').click();
@@ -503,6 +503,122 @@ test.describe('Multiclass student hub', () => {
     const logout = requests.find((entry) => entry.body?.action === 'auth.logout');
     expect(logout.authorization).toBe('');
     expect(logout.csrf).toBe(SYNTHETIC_CSRF);
+  });
+
+  test('creates a permanent delegate account from a one-time fragment invitation without leaking the secret', async ({ page }) => {
+    const inviteToken = 'd'.repeat(64);
+    const invitePassword = 'Invitation-Personal-2026!';
+    const requests = [];
+    const actor = { id: 'invited-editor-s5-a', role: 'editor', name: 'Delegada Invitada', classId: 's5-a', capabilities: { manageContent: false, reviewChallenge: true } };
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request(), url = new URL(request.url()), body = request.method() === 'POST' ? request.postDataJSON() : null;
+      requests.push({ method: request.method(), url: request.url(), resource: url.searchParams.get('resource'), authorization: request.headers().authorization || '', csrf: request.headers()['x-csrf-token'] || '', body });
+      if (request.method() === 'GET' && url.searchParams.get('resource') === 'public') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(CLASS_RESPONSE) });
+        return;
+      }
+      if (body?.action === 'invite.claim') {
+        await route.fulfill({
+          status: 201,
+          headers: { 'content-type': 'application/json; charset=utf-8', 'set-cookie': `${CSRF_COOKIE}=${SYNTHETIC_CSRF}; Path=/; Secure; SameSite=Strict` },
+          body: JSON.stringify({ ok: true, actor, passwordChangeRequired: false, expiresAt: '2099-09-01T12:00:00.000Z' })
+        });
+        return;
+      }
+      if (request.method() === 'GET' && url.searchParams.get('resource') === 'admin') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(managementState(actor)) });
+        return;
+      }
+      await route.fulfill({ status: 400, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'unexpected_request', error: 'Solicitud inesperada.' }) });
+    });
+
+    await page.goto(`/gestion/s5-a#invite=${inviteToken}`);
+    await expect(page).toHaveURL(/\/gestion\/s5-a$/);
+    await expect(page.locator('meta[name="referrer"]')).toHaveAttribute('content', 'no-referrer');
+    await expect(page.locator('#inviteAccess')).toHaveAttribute('open', '');
+    await expect(page.locator('#credentialForm')).toBeHidden();
+    await expect(page.locator('#legacyTokenAccess')).toBeHidden();
+    await expect(page.locator('#accountRequest')).toBeHidden();
+    await expect(page.locator('#inviteCodeField')).toBeHidden();
+    await expect(page.locator('#inviteToken')).toHaveValue('');
+    expect(await page.locator('html').innerHTML()).not.toContain(inviteToken);
+    expect(requests.some((entry) => entry.resource === 'session')).toBe(false);
+    expect(requests.every((entry) => !entry.url.includes(inviteToken))).toBe(true);
+
+    const form = page.locator('#claimForm');
+    await form.locator('#inviteName').fill('Delegada Invitada');
+    await form.locator('#inviteEmail').fill('INVITED.DELEGATE@example.test');
+    await form.locator('#invitePassword').fill(invitePassword);
+    await form.locator('#inviteConfirmPassword').fill('Mot-de-passe-different!');
+    await form.getByRole('button', { name: 'Crear mi cuenta y entrar' }).click();
+    expect(requests.filter((entry) => entry.body?.action === 'invite.claim')).toHaveLength(0);
+
+    await form.locator('#inviteConfirmPassword').fill(invitePassword);
+    await form.getByRole('button', { name: 'Crear mi cuenta y entrar' }).click();
+    await expect(page.locator('#manageApp')).toBeVisible();
+    await expect(page.locator('#actorName')).toContainText('Delegada Invitada');
+    await expect(page.locator('[data-manage-tab="classes"]')).toBeHidden();
+    await expect(page.locator('[data-manage-tab="access"]')).toBeHidden();
+    await expect(form.locator('#invitePassword')).toHaveValue('');
+    await expect(form.locator('#inviteConfirmPassword')).toHaveValue('');
+
+    const claim = requests.find((entry) => entry.body?.action === 'invite.claim');
+    expect(claim).toMatchObject({
+      authorization: '',
+      csrf: '',
+      body: { action: 'invite.claim', inviteToken, name: 'Delegada Invitada', email: 'INVITED.DELEGATE@example.test', password: invitePassword }
+    });
+    const adminRead = requests.find((entry) => entry.method === 'GET' && entry.resource === 'admin');
+    expect(adminRead.authorization).toBe('');
+    const storage = await page.evaluate(() => ({ local: JSON.stringify(localStorage), session: JSON.stringify(sessionStorage) }));
+    expect(`${storage.local}${storage.session}`).not.toContain(inviteToken);
+    expect(`${storage.local}${storage.session}`).not.toContain(invitePassword);
+  });
+
+  test('lets the owner copy a private fragment signup link without rendering its token', async ({ page }) => {
+    const ownerToken = 'owner-invite-fixture';
+    const inviteToken = 'e'.repeat(64);
+    const actor = { id: 'owner', role: 'owner', name: 'Propietario', classId: 's5-a', capabilities: { manageContent: true, reviewChallenge: true } };
+    await page.addInitScript(({ key, value }) => {
+      sessionStorage.setItem(key, value);
+      Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText(text) { window.__copiedInvite = text; return Promise.resolve(); } } });
+    }, { key: 'med-nykuto-management-token-v471:s5-a', value: ownerToken });
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request(), url = new URL(request.url()), body = request.method() === 'POST' ? request.postDataJSON() : null, resource = url.searchParams.get('resource');
+      if (resource === 'session') {
+        await route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'authentication_required', error: 'Inicia sesión.' }) });
+        return;
+      }
+      if (resource === 'public') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(CLASS_RESPONSE) });
+        return;
+      }
+      if (body?.action === 'invite.create') {
+        await route.fulfill({ status: 201, contentType: 'application/json', body: JSON.stringify({ ok: true, inviteToken, invitePath: `/gestion/s5-a#invite=${inviteToken}`, expiresAt: '2099-09-03T12:00:00.000Z' }) });
+        return;
+      }
+      if (resource === 'classes') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, classes: [] }) });
+        return;
+      }
+      if (resource === 'audit') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, audit: [] }) });
+        return;
+      }
+      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(managementState(actor)) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await expect(page.locator('#manageApp')).toBeVisible();
+    await page.locator('#manageTabAccess').click();
+    await page.locator('#inviteForm').getByRole('button', { name: 'Crear enlace de invitación' }).click();
+    await expect(page.locator('#inviteOutput')).toBeVisible();
+    await expect(page.locator('#inviteOutput')).toContainText('Enlace privado creado');
+    expect(await page.locator('#inviteOutput').innerHTML()).not.toContain(inviteToken);
+    await page.locator('#inviteOutput').getByRole('button', { name: 'Copiar enlace' }).click();
+    await expect.poll(() => page.evaluate(() => window.__copiedInvite || '')).toContain(`/gestion/s5-a#invite=${inviteToken}`);
   });
 
   test('lets an authenticated delegate validate or reject only opaque challenge candidatures', async ({ page }) => {
@@ -1378,7 +1494,7 @@ test.describe('Multiclass student hub', () => {
     await page.goto('/gestion/s5-a');
 
     await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=487');
-    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=486');
+    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=487');
     expect(requestedPaths).toContain('/gestion-v440.css');
     expect(requestedPaths).toContain('/gestion-v440.js');
     await expect(page.locator('#authClassSlug')).toHaveText('S5-A');

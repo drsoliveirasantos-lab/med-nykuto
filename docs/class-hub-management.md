@@ -8,7 +8,7 @@ Le shell protege `gestion-shell/index.html`, publie sous `/gestion/:slug`, perme
 - Un editeur peut gerer les taches, avis officiels, groupes, fichiers, dates et son propre profil WhatsApp. Les cours, questions, profils enseignants, permissions et parametres restent bloques cote serveur.
 - Le proprietaire peut accorder a un compte par courrier la capacite complementaire `content.manage`. L'interface l'affiche alors comme **Administrateur de contenu**, mais le compte reste limite a une seule turma et ne recoit aucun droit de proprietaire sur les classes, comptes, permissions ou audits.
 - Les etats disponibles sont `draft`, `published` et `archived`.
-- Les invitations sont a usage unique, limitees dans le temps et revocables.
+- Les invitations sont des liens prives a usage unique, limites dans le temps et revocables. La personne invitee choisit elle-meme son nom, son courrier et son mot de passe permanent.
 - Les groupes imposent cote serveur une seule inscription par activite, la capacite du groupe et de l'activite, ainsi qu'une composition finale apres fermeture ou congelation.
 - Les tentatives de connexion sont limitees a la fois par adresse reseau pseudonymisee et par empreinte du courrier normalise. Les inscriptions, activations d'invitation et abonnements push conservent leurs limites propres.
 - Le courrier du delegue sert uniquement a son compte de gestion et reste limite a sa turma. Aucun courrier ni compte permanent n'est demande aux etudiants.
@@ -93,7 +93,7 @@ La version `v476` charge `gestion-v440.css?v=476` et `gestion-v440.js?v=476`. El
 6. Chaque connexion par courrier cree une session independante : ouvrir le meme compte sur un telephone ne remplace ni ne deconnecte la session de la tablette. Une deconnexion revoque uniquement la session du dispositif qui l'envoie.
 7. Le changement ou la reinitialisation du mot de passe revoque toutes les sessions precedentes. La revocation du delegue revoque egalement toutes ses sessions actives.
 
-Le parcours historique par invitation ne doit pas etre confondu avec ce fonctionnement multi-appareils : une invitation est consommable une seule fois et son jeton reste dans le stockage de session du navigateur qui l'a activee. Un delegue qui utilise plusieurs appareils doit donc recevoir un compte par courrier et mot de passe.
+Le lien d'invitation porte son secret dans le fragment `#invite=`, qui n'est pas transmis au serveur lors du chargement. L'interface le retire immediatement de l'URL, ne l'enregistre ni dans le DOM ni dans le stockage du navigateur, puis cree atomiquement le compte, son identifiant de connexion et sa premiere session. Le lien devient inutilisable apres cette activation ; le delegue peut ensuite se connecter sur plusieurs appareils avec le courrier et le mot de passe qu'il a choisis.
 
 Deux tables D1 tenant completees par `class_id` portent ce flux :
 

@@ -1083,6 +1083,13 @@ async function ensureMembershipLeaderColumn(db) {
   }
 }
 
+async function ensureInviteClaimEditorColumn(db) {
+  const columns = await db.prepare(`PRAGMA table_info(hub_invites)`).all();
+  if (!(columns.results || []).some((column) => column.name === 'claimed_editor_id')) {
+    try { await db.prepare(`ALTER TABLE hub_invites ADD COLUMN claimed_editor_id TEXT`).run(); } catch (error) { if (!/duplicate column/i.test(String(error))) throw error; }
+  }
+}
+
 async function listClasses(db, env = null) {
   const rows = await db.prepare(`SELECT id,slug,name,semester,group_code,theme,drive_url,support_whatsapp,status FROM hub_classes ORDER BY CASE status WHEN 'active' THEN 0 ELSE 1 END,semester,group_code,name`).all();
   return (rows.results || []).map((row) => adminClass(row, env));
@@ -1116,7 +1123,7 @@ async function ensureSchema(db) {
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_files (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL, lesson_date TEXT NOT NULL DEFAULT '', title TEXT NOT NULL, url TEXT NOT NULL, file_type TEXT NOT NULL DEFAULT 'link', status TEXT NOT NULL DEFAULT 'draft', created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_dates (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL DEFAULT '', label TEXT NOT NULL, starts_at TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'draft', created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_schedule_slots (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', subject_id TEXT NOT NULL, weekday INTEGER NOT NULL CHECK(weekday BETWEEN 1 AND 7), starts_time TEXT NOT NULL, ends_time TEXT, label TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'draft', created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(class_id,subject_id,weekday,starts_time), FOREIGN KEY(class_id,subject_id) REFERENCES hub_subjects(class_id,id))`),
-      db.prepare(`CREATE TABLE IF NOT EXISTS hub_invites (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', token_hash TEXT NOT NULL UNIQUE, label TEXT NOT NULL, expires_at TEXT NOT NULL, revoked_at TEXT, claimed_at TEXT, created_by TEXT NOT NULL, created_at TEXT NOT NULL)`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_invites (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', token_hash TEXT NOT NULL UNIQUE, label TEXT NOT NULL, expires_at TEXT NOT NULL, revoked_at TEXT, claimed_at TEXT, claimed_editor_id TEXT, created_by TEXT NOT NULL, created_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editors (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', name TEXT NOT NULL, token_hash TEXT NOT NULL UNIQUE, status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, last_used_at TEXT)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_profiles (class_id TEXT NOT NULL DEFAULT 's4-e', actor_id TEXT NOT NULL, whatsapp_e164 TEXT NOT NULL DEFAULT '', whatsapp_format_verified_at TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, PRIMARY KEY(class_id,actor_id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_credentials (editor_id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', email_normalized TEXT NOT NULL, password_hash TEXT NOT NULL, password_salt TEXT NOT NULL, password_algorithm TEXT NOT NULL DEFAULT 'pbkdf2-sha256', password_iterations INTEGER NOT NULL, password_version INTEGER NOT NULL DEFAULT 1, must_change_password INTEGER NOT NULL DEFAULT 1, temporary_expires_at TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(class_id,email_normalized), FOREIGN KEY(editor_id) REFERENCES hub_editors(id))`),
@@ -1147,6 +1154,7 @@ async function ensureSchema(db) {
     await ensureNoticeStructuredColumns(db);
     await ensureCourseColumns(db);
     await ensureMembershipLeaderColumn(db);
+    await ensureInviteClaimEditorColumn(db);
     await db.batch([
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_tasks_class_idx ON hub_tasks(class_id,updated_at DESC)`),
       db.prepare(`CREATE INDEX IF NOT EXISTS hub_uploads_class_status_idx ON hub_uploads(class_id,status,updated_at DESC)`),
@@ -1520,13 +1528,66 @@ async function leaveGroup(data, db, classRecord) { const classId = classRecord.i
 
 async function claimInvite(data, db, classRecord) {
   const classId = classRecord.id;
-  const inviteToken = cleanText(data.inviteToken, 200), name = cleanText(data.name, 60); if (inviteToken.length < 32 || name.length < 2) return fail(400, 'invalid_invite', 'La invitación o el nombre no son válidos.');
-  const inviteHash = await digest(inviteToken), current = nowIso(), invite = await db.prepare(`SELECT id FROM hub_invites WHERE class_id=? AND token_hash=? AND revoked_at IS NULL AND claimed_at IS NULL AND expires_at>?`).bind(classId, inviteHash, current).first(); if (!invite) return fail(410, 'invite_expired', 'La invitación caducó, fue revocada o ya se utilizó.');
-  const claim = await db.prepare(`UPDATE hub_invites SET claimed_at=? WHERE class_id=? AND id=? AND token_hash=? AND revoked_at IS NULL AND claimed_at IS NULL AND expires_at>?`).bind(current, classId, invite.id, inviteHash, current).run();
-  if (!changed(claim)) return fail(410, 'invite_expired', 'La invitación caducó, fue revocada o ya se utilizó.');
-  const editorToken = token(), editorId = entityId(classId, '', 'editor');
-  await db.batch([db.prepare(`INSERT INTO hub_editors (id,class_id,name,token_hash,status,created_at) VALUES (?,?,?,?, 'active',?)`).bind(editorId, classId, name, await digest(editorToken), current), db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,'editor','invite.claim','editor',?,'{}',?)`).bind(classId, editorId, editorId, current)]);
-  return json({ ok: true, class: publicClass(classRecord), editorToken, editor: { id: editorId, name, role: 'editor', classId } }, 201);
+  const inviteToken = typeof data.inviteToken === 'string' ? data.inviteToken.trim() : '';
+  const name = cleanText(data.name, 60), email = normalizeEmail(data.email), password = typeof data.password === 'string' ? data.password : '';
+  if (!isRandomToken(inviteToken)) return fail(400, 'invalid_invite', 'El enlace de invitación no es válido. Solicita uno nuevo.');
+  if (name.length < 2 || !email) return fail(400, 'invalid_account', 'Nombre y correo válidos son obligatorios.');
+  const passwordProblem = strongPasswordProblem(password);
+  if (passwordProblem) return fail(400, 'weak_password', passwordProblem);
+
+  const inviteHash = await digest(inviteToken), current = nowIso();
+  const invite = await db.prepare(`SELECT id FROM hub_invites WHERE class_id=? AND token_hash=? AND revoked_at IS NULL AND claimed_at IS NULL AND expires_at>?`).bind(classId, inviteHash, current).first();
+  if (!invite) return fail(410, 'invite_expired', 'La invitación caducó, fue revocada o ya se utilizó.');
+  const existingCredential = await db.prepare(`SELECT editor_id FROM hub_editor_credentials WHERE class_id=? AND email_normalized=?`).bind(classId, email).first();
+  if (existingCredential) return fail(409, 'email_in_use', 'Este correo ya tiene una cuenta en la clase. Inicia sesión o solicita un restablecimiento.');
+
+  const verifier = await createPasswordVerifier(password), claimedAt = nowIso(), editorId = entityId(classId, '', 'editor'), unusedTokenHash = await digest(randomToken(32));
+  const sessionToken = randomToken(32), csrfToken = randomToken(32), sessionTokenHash = await digest(sessionToken), csrfHash = await digest(csrfToken);
+  const expiresAt = new Date(Date.parse(claimedAt) + sessionTtlSeconds() * 1000).toISOString();
+  const actor = { id: editorId, role: 'editor', name, classId, authMode: 'session', manageContent: false };
+  let results;
+  try {
+    results = await db.batch([
+      db.prepare(`
+        UPDATE hub_invites SET claimed_at=?,claimed_editor_id=?
+        WHERE class_id=? AND id=? AND token_hash=? AND revoked_at IS NULL AND claimed_at IS NULL AND expires_at>?
+      `).bind(claimedAt, editorId, classId, invite.id, inviteHash, claimedAt),
+      db.prepare(`
+        INSERT INTO hub_editors (id,class_id,name,token_hash,status,created_at)
+        SELECT ?,i.class_id,?,?,'active',?
+        FROM hub_invites i
+        WHERE i.class_id=? AND i.id=? AND i.token_hash=? AND i.claimed_at=? AND i.claimed_editor_id=?
+      `).bind(editorId, name, unusedTokenHash, claimedAt, classId, invite.id, inviteHash, claimedAt, editorId),
+      db.prepare(`
+        INSERT INTO hub_editor_credentials (editor_id,class_id,email_normalized,password_hash,password_salt,password_algorithm,password_iterations,password_version,must_change_password,temporary_expires_at,created_at,updated_at)
+        SELECT e.id,e.class_id,?,?,?,'pbkdf2-sha256',?,1,0,NULL,?,?
+        FROM hub_editors e
+        JOIN hub_invites i ON i.class_id=e.class_id AND i.claimed_editor_id=e.id
+        WHERE e.class_id=? AND e.id=? AND e.token_hash=? AND i.id=? AND i.token_hash=? AND i.claimed_at=?
+      `).bind(email, verifier.hash, verifier.salt, verifier.iterations, claimedAt, claimedAt, classId, editorId, unusedTokenHash, invite.id, inviteHash, claimedAt),
+      db.prepare(`
+        INSERT INTO hub_editor_sessions (token_hash,class_id,editor_id,csrf_hash,created_at,expires_at,last_seen_at)
+        SELECT ?,e.class_id,e.id,?,?,?,?
+        FROM hub_editors e
+        JOIN hub_editor_credentials c ON c.class_id=e.class_id AND c.editor_id=e.id
+        JOIN hub_invites i ON i.class_id=e.class_id AND i.claimed_editor_id=e.id
+        WHERE e.class_id=? AND e.id=? AND e.token_hash=? AND c.email_normalized=? AND i.id=? AND i.token_hash=? AND i.claimed_at=?
+      `).bind(sessionTokenHash, csrfHash, claimedAt, expiresAt, claimedAt, classId, editorId, unusedTokenHash, email, invite.id, inviteHash, claimedAt),
+      db.prepare(`
+        INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at)
+        SELECT e.class_id,e.id,'editor','invite.claim','editor',e.id,?,?
+        FROM hub_editors e
+        JOIN hub_editor_credentials c ON c.class_id=e.class_id AND c.editor_id=e.id
+        JOIN hub_invites i ON i.class_id=e.class_id AND i.claimed_editor_id=e.id
+        WHERE e.class_id=? AND e.id=? AND e.token_hash=? AND c.email_normalized=? AND i.id=? AND i.token_hash=? AND i.claimed_at=?
+      `).bind(JSON.stringify({ inviteId: invite.id }), claimedAt, classId, editorId, unusedTokenHash, email, invite.id, inviteHash, claimedAt)
+    ]);
+  } catch (error) {
+    if (/UNIQUE constraint failed:\s*hub_editor_credentials\.(?:class_id|email_normalized)/i.test(String(error))) return fail(409, 'email_in_use', 'Este correo ya tiene una cuenta en la clase. Inicia sesión o solicita un restablecimiento.');
+    throw error;
+  }
+  if (!changed(results[0]) || !changed(results[1]) || !changed(results[2]) || !changed(results[3]) || !changed(results[4])) return fail(410, 'invite_expired', 'La invitación caducó, fue revocada o ya se utilizó.');
+  return jsonWithCookies({ ok: true, class: publicClass(classRecord), actor: publicActor(actor), passwordChangeRequired: false, expiresAt }, 201, sessionCookies(sessionToken, csrfToken, expiresAt));
 }
 
 async function createEditorSession(db, classId, editorId, actor, current = nowIso()) {
@@ -2410,7 +2471,7 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
     await audit(db, actor, action, 'date', id, { status, course });
     return json({ ok: true, id, course });
   }
-  if (action === 'invite.create' && actor.role === 'owner') { const inviteToken = token(), id = entityId(classId, '', 'invite'), hours = integer(data.hours, 48, 1, 168), expiresAt = new Date(Date.now() + hours * 3600000).toISOString(); await db.prepare(`INSERT INTO hub_invites (id,class_id,token_hash,label,expires_at,created_by,created_at) VALUES (?,?,?,?,?,?,?)`).bind(id, classId, await digest(inviteToken), cleanText(data.label, 80) || 'Editor', expiresAt, actor.id, current).run(); await audit(db, actor, action, 'invite', id, { expiresAt }); return json({ ok: true, class: publicClass(classRecord), id, inviteToken, expiresAt }, 201); }
+  if (action === 'invite.create' && actor.role === 'owner') { const inviteToken = token(), id = entityId(classId, '', 'invite'), hours = integer(data.hours, 48, 1, 168), expiresAt = new Date(Date.now() + hours * 3600000).toISOString(); await db.prepare(`INSERT INTO hub_invites (id,class_id,token_hash,label,expires_at,created_by,created_at) VALUES (?,?,?,?,?,?,?)`).bind(id, classId, await digest(inviteToken), cleanText(data.label, 80) || 'Editor', expiresAt, actor.id, current).run(); await audit(db, actor, action, 'invite', id, { expiresAt }); return json({ ok: true, class: publicClass(classRecord), id, inviteToken, invitePath: `/gestion/${classRecord.slug}#invite=${inviteToken}`, expiresAt }, 201); }
   if (action === 'invite.revoke' && actor.role === 'owner') { const id = scopedId(classId, data.id); if (!id) return fail(400, 'invalid_invite', 'La invitación no es válida.'); const result = await db.prepare(`UPDATE hub_invites SET revoked_at=? WHERE class_id=? AND id=? AND claimed_at IS NULL AND revoked_at IS NULL`).bind(current, classId, id).run(); if (!changed(result)) return fail(409, 'invite_unavailable', 'La invitación no existe, ya fue usada o ya fue revocada.'); await audit(db, actor, action, 'invite', id); return json({ ok: true }); }
   if (action === 'editor.revoke' && actor.role === 'owner') {
     const id = scopedId(classId, data.id);

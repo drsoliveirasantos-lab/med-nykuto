@@ -41,9 +41,9 @@ Une session ou un jeton éditeur créé pour `s4-e` n'est pas valable pour `s3-a
 2. Dans **Turmas**, créer un slug stable, par exemple `s5-a`, puis indiquer le nom, le semestre, le groupe et éventuellement le Drive.
 3. Ouvrir **Configurer maintenant** pour basculer vers `/gestion/s5-a`.
 4. Ajouter les matières de la turma.
-5. Depuis **Accès et audit**, créer le compte du délégué avec son courriel et un mot de passe temporaire limité dans le temps.
-6. Transmettre le mot de passe temporaire par un canal privé distinct du courriel de connexion. L'invitation historique à usage unique reste disponible pendant la transition.
-7. Le délégué se connecte sur `/gestion/s5-a`, remplace obligatoirement le mot de passe temporaire, puis publie une première tâche, une alerte ou une date.
+5. Depuis **Accès et audit**, créer un lien privé d'invitation, valable au maximum sept jours.
+6. Transmettre uniquement ce lien à la personne déléguée. Elle choisit elle-même son nom, son courriel et son mot de passe permanent ; l'invitation est consommée atomiquement avec la création de sa session.
+7. Le délégué entre directement dans `/gestion/s5-a`, puis publie une première tâche, une alerte ou une date. La création manuelle avec mot de passe temporaire reste disponible comme solution de secours.
 8. Vérifier le résultat sur `/turma/s5-a` avant de partager le lien aux étudiants.
 
 Aucune donnée pédagogique ou opérationnelle n'est copiée automatiquement d'une turma à l'autre.
@@ -107,7 +107,7 @@ Les secrets ne doivent jamais être ajoutés au dépôt. La première ouverture 
 - Une pièce jointe liée à un brouillon reste inaccessible au public. Un upload encore `staged` ne peut etre utilise que par son auteur. La lecture publique devient possible seulement lorsque l'upload est `linked` et qu'un avis de la même turma est `published`. Le titre et le nom de telechargement publics ne reprennent jamais le nom original. Les réponses sont diffusées en flux, prennent en charge une plage d'octets unique et utilisent `no-store`, `nosniff`, une politique same-origin et une CSP restrictive.
 - Chaque turma est limitée atomiquement à 20 téléversements `staged` ou en cours de suppression. Les fichiers non référencés expirent après 24 heures. Un détachement ou une expiration marque d'abord la ligne `deleting` avec une garde `class_id` et `NOT EXISTS`, puis supprime R2 avant les métadonnées D1 ; un échec R2 remet la ligne en `staged` pour permettre une nouvelle tentative sans course avec une publication.
 - Le WhatsApp du délégué est normalisé au format E.164 et réservé au snapshot authentifié. « Format vérifié » ne signifie pas que la propriété du numéro a été confirmée par SMS ou par WhatsApp.
-- Les invitations expirent, ne sont affichées qu'une fois et peuvent être révoquées.
+- Les invitations expirent, ne sont affichées qu'une fois et peuvent être révoquées. Leur secret reste dans un fragment URL supprimé immédiatement et la création du compte, de son identifiant de connexion et de la session est transactionnelle.
 - Les mots de passe utilisent PBKDF2-HMAC-SHA-256 avec un sel aléatoire propre à chaque compte ; aucune valeur en clair n'est stockée ou renvoyée.
 - Le mot de passe temporaire expire et doit être changé avant tout accès aux données de gestion.
 - La session de huit heures repose sur un cookie `Secure`, `HttpOnly`, `SameSite=Strict` et un contrôle anti-CSRF séparé pour les mutations.
