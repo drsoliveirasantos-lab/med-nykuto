@@ -1070,6 +1070,82 @@ test.describe('Multiclass student hub', () => {
     await expect(page.locator('#noticeList .notice-admin-attachment')).toContainText('cronograma-oficial.pdf');
   });
 
+  test('requires a separate privacy confirmation for an AI-flagged notice attachment', async ({ page }) => {
+    const actor = { id: 'editor-pii-review-s5-a', role: 'editor', name: 'Delegada Privacidad', classId: 's5-a' };
+    const writes = [];
+    const flaggedNotice = {
+      id: 'flagged-notice-fixture',
+      course: 'Farmacología II',
+      title: 'Documento para revisar',
+      body: 'Comprueba el archivo antes de publicar.',
+      priority: 'important',
+      status: 'published',
+      revision: 3,
+      attachmentUploadId: 'upload-flagged-fixture',
+      attachmentUrl: '/api/class-hub?class=s5-a&resource=notice-attachment&upload=upload-flagged-fixture',
+      attachmentTitle: 'Documento del aviso',
+      attachmentMimeType: 'application/pdf',
+      attachmentSizeBytes: 2048,
+      attachmentPiiWarning: true,
+      analysisConfidence: 0.72
+    };
+    await page.addInitScript(({ key }) => sessionStorage.setItem(key, 'synthetic-pii-review-bearer'), { key: 'med-nykuto-management-token-v471:s5-a' });
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request(), url = new URL(request.url());
+      if (request.method() === 'GET' && url.searchParams.get('resource') === 'admin') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(managementState(actor, {
+          uploadPolicy: { enabled: true, maxBytes: 15 * 1024 * 1024, acceptedMimeTypes: ['application/pdf', 'image/png'] },
+          notices: [flaggedNotice]
+        })) });
+        return;
+      }
+      if (request.method() === 'POST') {
+        writes.push(request.postDataJSON());
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, id: flaggedNotice.id, revision: 4, status: 'published' }) });
+        return;
+      }
+      await route.fulfill({ status: 400, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'unexpected_request', error: 'Solicitud inesperada.' }) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await page.locator('[data-manage-tab="notices"]').click();
+    const noticeItem = page.locator('#noticeList .manage-item').filter({ hasText: flaggedNotice.title });
+    await expect(noticeItem).toContainText('Archivo con alerta de privacidad');
+    await noticeItem.getByRole('button', { name: 'Modificar' }).click();
+    const form = page.locator('#noticeForm');
+    await expect(page.locator('#noticePiiReview')).toBeVisible();
+    await expect(page.locator('#noticeAttachmentPiiWarning')).toHaveValue('true');
+    await expect(page.locator('#noticeAiStatus')).toContainText('posible dato personal');
+
+    await form.getByRole('button', { name: 'Actualizar aviso' }).click();
+    await expect(page.locator('#noticeHumanReview')).toHaveAttribute('required', '');
+    await expect(page.locator('#noticePiiReviewConfirmed')).toHaveAttribute('required', '');
+    expect(writes).toHaveLength(0);
+    await page.locator('#noticeHumanReview').check();
+    await form.getByRole('button', { name: 'Actualizar aviso' }).click();
+    expect(writes).toHaveLength(0);
+    await page.locator('#noticePiiReviewConfirmed').check();
+    await form.getByRole('button', { name: 'Actualizar aviso' }).click();
+    await expect.poll(() => writes.length).toBe(1);
+    expect(writes[0]).toMatchObject({
+      action: 'notice.upsert',
+      id: flaggedNotice.id,
+      expectedRevision: 3,
+      status: 'published',
+      reviewConfirmed: true,
+      piiReviewConfirmed: true,
+      attachmentUploadId: flaggedNotice.attachmentUploadId
+    });
+    expect(writes[0].attachmentPiiWarning).toBeUndefined();
+    expect(writes[0].humanReview).toBeUndefined();
+
+    await noticeItem.getByRole('button', { name: 'Modificar' }).click();
+    await page.locator('#noticeAttachmentFile').setInputFiles({ name: 'nouveau-document.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.7 replacement fixture') });
+    await expect(page.locator('#noticePiiReview')).toBeHidden();
+    await expect(page.locator('#noticeAttachmentPiiWarning')).toHaveValue('false');
+  });
+
   test('discards an unsaved local notice file before editing another notice', async ({ page }) => {
     const actor = { id: 'editor-file-switch-s5-a', role: 'editor', name: 'Delegada Cambio Seguro', classId: 's5-a' };
     await page.addInitScript(({ key }) => sessionStorage.setItem(key, 'synthetic-file-switch-bearer'), { key: 'med-nykuto-management-token-v471:s5-a' });
@@ -1300,8 +1376,8 @@ test.describe('Multiclass student hub', () => {
 
     await page.goto('/gestion/s5-a');
 
-    await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=484');
-    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=484');
+    await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=486');
+    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=486');
     expect(requestedPaths).toContain('/gestion-v440.css');
     expect(requestedPaths).toContain('/gestion-v440.js');
     await expect(page.locator('#authClassSlug')).toHaveText('S5-A');

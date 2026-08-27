@@ -37,6 +37,11 @@
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-cache, max-age=0, must-revalidate
 
+/notas.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+  Referrer-Policy: no-referrer
+
 /gestion-shell/*
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store

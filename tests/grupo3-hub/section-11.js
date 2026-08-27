@@ -249,6 +249,108 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#bioquimica-2026-08-21')).toBeVisible();
   });
 
+  test('merges the Drive catalog into an already open subject notebook', async ({ page: bootstrapPage, browser }) => {
+    const now = Date.now();
+    const seen = (daysAgo) => new Date(now - daysAgo * 24 * 60 * 60 * 1000).toISOString();
+    const driveFiles = [
+      { id: 'drive-bio-1', course: 'Bioquímica II', title: 'Pentosas recientes', url: 'https://drive.google.com/open?id=drive-bio-1', fileType: 'PDF', createdAt: seen(2), modifiedAt: seen(1), firstSeenAt: seen(1), visibility: 'verified_anonymous' },
+      { id: 'drive-bio-2', course: 'Bioquímica II', title: 'Ciclo de Cori reciente', url: 'https://docs.google.com/presentation/d/drive-bio-2/edit?usp=sharing', fileType: 'PPTX', createdAt: seen(3), modifiedAt: seen(2), firstSeenAt: seen(2), visibility: 'verified_anonymous' },
+      { id: 'external-bio-3', course: 'Bioquímica II', title: 'Documento externo reciente', url: 'https://files.example.test/bioquimica-reciente.pdf', fileType: 'PDF', createdAt: seen(4), modifiedAt: seen(3), firstSeenAt: seen(3), visibility: 'verified_anonymous' },
+      { id: 'drive-bio-old', course: 'Bioquímica II', title: 'Documento Drive anterior', url: 'https://drive.google.com/open?id=drive-bio-old', fileType: 'DOCX', createdAt: seen(12), modifiedAt: seen(9), firstSeenAt: seen(9), visibility: 'verified_anonymous' },
+      { id: 'drive-bio-removed', course: 'Bioquímica II', title: 'Documento eliminado', url: 'https://drive.google.com/file/d/drive-bio-removed/view', fileType: 'PDF', createdAt: seen(1), modifiedAt: seen(1), firstSeenAt: seen(1), removedAt: seen(0), visibility: 'verified_anonymous' },
+      { id: 'drive-private', course: 'Bioquímica II', title: 'Documento sin acceso anónimo', url: 'https://drive.google.com/open?id=drive-private', fileType: 'PDF', firstSeenAt: seen(1), visibility: 'access_not_verified' }
+    ];
+    let releaseApi;
+    const apiGate = new Promise((resolve) => { releaseApi = resolve; });
+    const isolatedContext = await browser.newContext({ serviceWorkers: 'block' });
+    const page = await isolatedContext.newPage();
+    try {
+      await page.route('**/data/drive-files.json', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ schemaVersion: 1, scannedAt: seen(0), files: driveFiles }) }));
+      await page.route('**/api/class-hub**', async (route) => {
+        const url = new URL(route.request().url());
+        if (url.searchParams.get('class') !== 's4-e' || url.searchParams.get('resource') !== 'public') return route.continue();
+        await apiGate;
+        return route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            ok: true, notices: [], tasks: [], activities: [], groups: [], members: [], dates: [],
+            files: [
+              { id: 'api-copy-bio-1', course: 'Bioquímica II', title: 'Pentosas recientes', url: 'https://drive.google.com/open?id=drive-bio-1&usp=sharing', fileType: 'PDF', status: 'published' },
+              { id: 'api-copy-removed', course: 'Bioquímica II', title: 'Documento eliminado', url: 'https://drive.google.com/file/d/drive-bio-removed/view', fileType: 'PDF', status: 'published' }
+            ]
+          })
+        });
+      });
+      await page.goto(new URL('/clase.html#bioquimica-2026-08-21', bootstrapPage.url()).href);
+      await page.locator('#bioquimica [data-notebook-mode="archivos"]').click();
+      const rows = page.locator('#bioquimica .notebook-file-row');
+      const managedRows = page.locator('#bioquimica .notebook-file-row[data-file-source="hub"]');
+      await expect(rows).not.toHaveCount(0);
+      await expect(managedRows).toHaveCount(0);
+
+      releaseApi();
+      await expect(managedRows).toHaveCount(4);
+      await expect(rows.filter({ hasText: 'Documento eliminado' })).toHaveCount(0);
+      await expect(rows.filter({ hasText: 'Pentosas recientes' })).toHaveCount(1);
+      await expect(page.locator('#bioquimica .notebook-file-row[data-file-recent="true"]')).toHaveCount(3);
+      await expect(rows.locator('[data-file-badge="drive"]')).toHaveCount(3);
+      await expect(rows.locator('[data-file-badge="recent"]')).toHaveCount(3);
+      await expect(rows.filter({ hasText: 'Documento Drive anterior' })).toHaveAttribute('data-file-recent', 'false');
+      await expect(rows.filter({ hasText: 'Documento externo reciente' }).locator('[data-file-badge="drive"]')).toHaveCount(0);
+      await expect(rows.filter({ hasText: 'Pentosas recientes' })).toHaveAttribute('data-file-visibility', 'verified_anonymous');
+      await expect(rows.filter({ hasText: 'Documento sin acceso anónimo' })).toHaveCount(0);
+      const managedOrder = await page.locator('#bioquimica .notebook-file-row[data-file-source="hub"] .notebook-file-copy>strong').allTextContents();
+      expect(managedOrder).toEqual(['Pentosas recientes', 'Ciclo de Cori reciente', 'Documento externo reciente', 'Documento Drive anterior']);
+    } finally {
+      releaseApi();
+      await isolatedContext.close();
+    }
+  });
+
+  test('keeps the Archivo course filter after catalog and API files load', async ({ page: bootstrapPage, browser }) => {
+    const recent = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const removed = new Date().toISOString();
+    const isolatedContext = await browser.newContext({ serviceWorkers: 'block' });
+    const page = await isolatedContext.newPage();
+    try {
+      await page.route('**/data/drive-files.json', (route) => route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ files: [
+        { id: 'catalog-bio', course: 'Bioquímica II', title: 'Catálogo Bioquímica', url: 'https://drive.google.com/file/d/catalog-bio/view', fileType: 'PDF', createdAt: recent, modifiedAt: recent, firstSeenAt: recent, visibility: 'verified_anonymous' },
+        { id: 'catalog-fisio', course: 'Fisiología II', title: 'Catálogo Fisiología', url: 'https://drive.google.com/file/d/catalog-fisio/view', fileType: 'PDF', createdAt: recent, modifiedAt: recent, firstSeenAt: recent, visibility: 'verified_anonymous' },
+        { id: 'catalog-removed', course: 'Bioquímica II', title: 'Catálogo eliminado', url: 'https://drive.google.com/file/d/catalog-removed/view', fileType: 'PDF', firstSeenAt: recent, removedAt: removed, visibility: 'verified_anonymous' }
+      ] })
+    }));
+      await page.route('**/api/class-hub**', (route) => {
+      const url = new URL(route.request().url());
+      if (url.searchParams.get('class') !== 's4-e' || url.searchParams.get('resource') !== 'public') return route.continue();
+      return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ files: [
+        { id: 'api-copy-bio', course: 'Bioquímica II', title: 'Catálogo Bioquímica', url: 'https://drive.google.com/file/d/catalog-bio/view?usp=sharing', fileType: 'PDF' },
+        { id: 'api-bio-only', course: 'Bioquímica II', title: 'Archivo API Bioquímica', url: 'https://files.example.test/api-bio.pdf', fileType: 'PDF' },
+        { id: 'api-copy-removed', course: 'Bioquímica II', title: 'Catálogo eliminado', url: 'https://drive.google.com/file/d/catalog-removed/view', fileType: 'PDF' }
+      ] }) });
+    });
+
+      await page.goto(new URL('/archivos.html?course=bioquimica', bootstrapPage.url()).href);
+      await expect(page.locator('.file-group')).toHaveCount(1);
+      await expect(page.locator('.file-group')).toHaveAttribute('data-course', 'bioquimica');
+      await expect(page.locator('.file-row').filter({ hasText: 'Catálogo Bioquímica' })).toHaveCount(1);
+      await expect(page.locator('.file-row').filter({ hasText: 'Archivo API Bioquímica' })).toHaveCount(1);
+      await expect(page.locator('.file-row').filter({ hasText: 'Catálogo eliminado' })).toHaveCount(0);
+      await expect(page.locator('.file-row').filter({ hasText: 'Catálogo Bioquímica' })).toHaveAttribute('data-file-recent', 'true');
+      await expect(page.locator('.file-row').filter({ hasText: 'Catálogo Bioquímica' }).locator('[data-file-badge="drive"]')).toHaveCount(1);
+      await expect(page.locator('#fileGroups')).not.toContainText('Catálogo Fisiología');
+
+      await page.goto(new URL('/archivos.html', bootstrapPage.url()).href);
+      await expect(page.locator('.file-group').filter({ hasText: 'Catálogo Fisiología' })).toHaveCount(1);
+      expect(await page.locator('.file-group').count()).toBeGreaterThan(1);
+    } finally {
+      await isolatedContext.close();
+    }
+  });
+
   test('keeps the new lesson shell inside 320 to 430 pixel viewports', async ({ page }) => {
     for (const width of [320, 375, 390, 430]) {
       await page.setViewportSize({ width, height: 844 });

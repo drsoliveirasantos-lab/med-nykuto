@@ -7,6 +7,9 @@
   var progressKey = 'med-nykuto-course-progress-v440';
   var activeLessonBySubject = {};
   var activeModeBySubject = {};
+  var publicClassFiles = [];
+  var notebookFileViews = {};
+  var recentFileWindowMs = 7 * 24 * 60 * 60 * 1000;
 
   function el(tag, className, text) {
     var node = document.createElement(tag);
@@ -1060,18 +1063,106 @@
     wireLessonTabs(nav, panels);
   }
 
-  function collectFiles(subject) {
+  function normalizedCourse(value) {
+    var text = String(value || '').toLowerCase();
+    if (text.normalize) text = text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    return text.replace(/[^a-z0-9]+/g, ' ').trim();
+  }
+
+  function fileMatchesSubject(file, subjectId) {
+    var course = normalizedCourse(file && file.course);
+    if (!course) return false;
+    var aliases = {
+      nutricion: ['nutricion'],
+      fisiologia: ['fisiologia', 'fisiologia ii'],
+      bioquimica: ['bioquimica', 'bioquimica ii'],
+      epidemiologia: ['epidemiologia', 'epidemiologia salud publica', 'salud publica'],
+      'microbiologia-teorica': ['microbiologia teorica', 'microbiologia ii teorica'],
+      'microbiologia-practica': ['microbiologia practica', 'microbiologia ii practica']
+    };
+    return (aliases[subjectId] || [normalizedCourse(subjectId)]).some(function (alias) {
+      return course === alias || course.indexOf(alias) >= 0;
+    });
+  }
+
+  function canonicalFileHref(href) {
+    try {
+      var parsed = new URL(href, window.location.href);
+      var host = parsed.hostname.toLowerCase();
+      if (host === 'drive.google.com' || host === 'docs.google.com') {
+        var driveId = parsed.searchParams.get('id');
+        var pathMatch = parsed.pathname.match(/\/d\/([^/]+)/);
+        if (!driveId && pathMatch) driveId = pathMatch[1];
+        if (driveId) return 'drive:' + driveId;
+      }
+      parsed.hash = '';
+      return parsed.href;
+    }
+    catch (error) { return String(href || ''); }
+  }
+
+  function fileType(href, fallback) {
+    if (fallback) return String(fallback).toUpperCase();
+    var clean = String(href || '').split('?')[0].split('#')[0];
+    return (clean.split('.').pop() || 'archivo').toUpperCase();
+  }
+
+  function isDriveHref(href) {
+    try {
+      var host = new URL(href, window.location.href).hostname.toLowerCase();
+      return host === 'drive.google.com' || host === 'docs.google.com';
+    } catch (error) { return false; }
+  }
+
+  function isRecentFirstSeen(value) {
+    var timestamp = Date.parse(value || '');
+    if (!Number.isFinite(timestamp)) return false;
+    var age = Date.now() - timestamp;
+    return age >= 0 && age <= recentFileWindowMs;
+  }
+
+  function collectFiles(subject, subjectId) {
     var seen = {};
-    return Array.prototype.slice.call(subject.querySelectorAll('a[href]')).map(function (link) {
+    var seenIds = {};
+    var managed = [];
+    publicClassFiles.filter(function (file) { return file && (file.removedAt === null || file.removedAt === undefined || String(file.removedAt).trim() === ''); }).sort(function (left, right) {
+      return (Date.parse(right.firstSeenAt || right.modifiedAt || right.createdAt || right.lessonDate || '') || 0) - (Date.parse(left.firstSeenAt || left.modifiedAt || left.createdAt || left.lessonDate || '') || 0);
+    }).forEach(function (file) {
+      if (!fileMatchesSubject(file, subjectId)) return;
+      var href = String(file.url || '').trim();
+      var key = canonicalFileHref(href);
+      var id = String(file.id || '').trim();
+      if (!href || seen[key] || (id && seenIds[id])) return;
+      seen[key] = true;
+      if (id) seenIds[id] = true;
+      managed.push({
+        id: id,
+        course: String(file.course || '').trim(),
+        href: href,
+        label: String(file.title || '').trim() || 'Documento de la materia',
+        type: fileType(href, file.fileType),
+        date: String(file.lessonDate || '').trim() || String(file.firstSeenAt || '').trim().slice(0, 10),
+        createdAt: String(file.createdAt || '').trim(),
+        modifiedAt: String(file.modifiedAt || '').trim(),
+        firstSeenAt: String(file.firstSeenAt || '').trim(),
+        visibility: String(file.visibility || '').trim(),
+        managed: true,
+        drive: isDriveHref(href),
+        recent: isRecentFirstSeen(file.firstSeenAt)
+      });
+    });
+    var local = Array.prototype.slice.call(subject.querySelectorAll('a[href]')).map(function (link) {
       var href = link.getAttribute('href') || '';
-      if (!/\.(?:pdf|pptx|docx)(?:$|[?#])/i.test(href) || seen[href]) return null;
-      seen[href] = true;
+      var key = canonicalFileHref(href);
+      if (!/\.(?:pdf|pptx|docx)(?:$|[?#])/i.test(href) || seen[key]) return null;
+      seen[key] = true;
       var name = href.split('?')[0].split('#')[0].split('/').pop();
       try { name = decodeURIComponent(name); } catch (error) {}
       var label = (link.textContent || '').trim();
       if (!label || /^(abrir|descargar|ver)/i.test(label)) label = name;
-      return { href: href, label: label, type: (name.split('.').pop() || 'archivo').toUpperCase() };
+      return { href: href, label: label, type: fileType(name), date: '', managed: false, drive: false, recent: false };
     }).filter(Boolean);
+    return managed.concat(local);
   }
 
   function renderThemes(panel, subjectModel, selectLesson) {
@@ -1114,13 +1205,38 @@
       var row = el('a', 'notebook-file-row');
       row.href = file.href;
       row.target = '_blank';
-      row.rel = 'noopener';
-      row.appendChild(el('span', '', file.type));
-      row.appendChild(el('strong', '', file.label));
+      row.rel = 'noopener noreferrer';
+      row.dataset.fileSource = file.managed ? 'hub' : 'local';
+      row.dataset.fileRecent = file.recent ? 'true' : 'false';
+      if (file.id) row.dataset.fileId = file.id;
+      if (file.visibility) row.dataset.fileVisibility = file.visibility;
+      row.appendChild(el('span', 'notebook-file-type', file.type));
+      var copy = el('div', 'notebook-file-copy');
+      copy.appendChild(el('strong', '', file.label));
+      if (file.date || file.drive || file.recent) {
+        var meta = el('div', 'notebook-file-meta');
+        if (file.date) {
+          var date = el('time', '', file.date);
+          if (/^\d{4}-\d{2}-\d{2}/.test(file.date)) date.dateTime = file.date;
+          meta.appendChild(date);
+        }
+        if (file.drive) { var driveBadge = el('span', 'notebook-file-badge notebook-file-badge-drive', 'DRIVE'); driveBadge.dataset.fileBadge = 'drive'; meta.appendChild(driveBadge); }
+        if (file.recent) { var recentBadge = el('span', 'notebook-file-badge notebook-file-badge-recent', 'RECIENTE'); recentBadge.dataset.fileBadge = 'recent'; meta.appendChild(recentBadge); }
+        copy.appendChild(meta);
+      }
+      row.appendChild(copy);
       row.appendChild(el('b', '', '↗'));
       list.appendChild(row);
     });
     panel.appendChild(list);
+  }
+
+  function refreshPublicFiles(event) {
+    publicClassFiles = event && event.detail && Array.isArray(event.detail.files) ? event.detail.files.filter(function (file) { return file && (file.removedAt === null || file.removedAt === undefined || String(file.removedAt).trim() === ''); }) : [];
+    Object.keys(notebookFileViews).forEach(function (subjectId) {
+      var view = notebookFileViews[subjectId];
+      if (view && activeModeBySubject[subjectId] === 'archivos') renderFiles(view.panel, collectFiles(view.subject, subjectId));
+    });
   }
 
   function renderProgress(panel, subjectId, subjectModel) {
@@ -1190,7 +1306,6 @@
 
     subject.querySelectorAll(':scope > .course-workspace, :scope > .course-workspace-panel').forEach(function (node) { node.remove(); });
     if (subjectId === 'nutricion') prepareNutrition(subject);
-    var files = collectFiles(subject);
     var flat = flattenLessons(subjectModel);
     var teacher = model.teachers[subjectModel.teacherId];
 
@@ -1258,6 +1373,7 @@
     if (heading) heading.insertAdjacentElement('afterend', shell);
     else subject.prepend(shell);
     shell.insertAdjacentElement('afterend', viewPanel);
+    notebookFileViews[subjectId] = { subject: subject, panel: viewPanel };
 
     Array.prototype.slice.call(subject.children).forEach(function (child) {
       if (child === heading || child === shell || child === viewPanel || child.hasAttribute('data-lesson-panel') || child.hasAttribute('data-notebook-persistent')) return;
@@ -1298,7 +1414,7 @@
       subject.querySelectorAll(':scope > [data-lesson-panel]').forEach(function (panel) { panel.hidden = true; });
       if (mode === 'cuaderno') showLesson(activeLessonBySubject[subjectId], false);
       if (mode === 'temas') renderThemes(viewPanel, subjectModel, function (lessonId) { activateMode('cuaderno'); showLesson(lessonId, true); });
-      if (mode === 'archivos') renderFiles(viewPanel, files);
+      if (mode === 'archivos') renderFiles(viewPanel, collectFiles(subject, subjectId));
       if (mode === 'progreso') renderProgress(viewPanel, subjectId, subjectModel);
     }
 
@@ -1399,6 +1515,7 @@
     revealDeepTarget();
   }
 
+  window.addEventListener('mednykuto:class-public-data', refreshPublicFiles);
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
   else init();
 })();

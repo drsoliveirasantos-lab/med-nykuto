@@ -23,6 +23,17 @@ self.addEventListener('fetch', (event) => {
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin || url.pathname.startsWith('/api/') || url.pathname.startsWith('/gestion')) return;
+  if (url.pathname === '/data/drive-files.json') {
+    event.respondWith(fetch(request).then((response) => {
+      if (!response.ok) return response;
+      const copy = response.clone();
+      return caches.open(CACHE).then((cache) => cache.put(request, copy)).then(() => response);
+    }).catch(() => caches.match(request).then((cached) => cached || new Response('{"schemaVersion":1,"files":[]}', {
+      status: 503,
+      headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' }
+    }))));
+    return;
+  }
   if (request.mode === 'navigate') {
     event.respondWith(fetch(request).then((response) => { if (response.ok) { const copy = response.clone(); caches.open(CACHE).then((cache) => cache.put(request, copy)); } return response; }).catch(() => caches.match(request).then((cached) => cached || caches.match('/offline.html'))));
     return;

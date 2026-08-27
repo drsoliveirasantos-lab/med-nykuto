@@ -13,12 +13,14 @@ Le pilote est un espace **non indexé et accessible par lien**. Les espaces gén
 | Espace étudiant | `/turma/<slug>` | Lien de la turma, sans compte étudiant |
 | Gestion | `/gestion/<slug>` | Jeton propriétaire/historique ou session délégué par courriel et mot de passe |
 | Données publiques | `/api/class-hub?class=<slug>&resource=public` | Sans noms d'étudiants |
+| Notes publiees | `/api/class-hub?class=<slug>&resource=academic-results` | Revision courante; uniquement catraca, note ou `Ausente`; `noindex` |
 | Abonnement calendrier | `/api/class-calendar.ics?class=<slug>` | iCalendar public : uniquement dates et échéances publiées |
 | Données de gestion | `/api/class-hub?class=<slug>&resource=admin` | Authentifié et limité à la turma |
 | Pièce jointe d'un avis | `/api/class-hub?class=<slug>&resource=notice-attachment&upload=<id>` | Publique seulement si l'avis lié est publié ; brouillons réservés à la gestion authentifiée |
 | Registre des turmas | `/api/class-hub?class=<slug>&resource=classes` | Propriétaire uniquement |
 | Manifeste PWA | `/api/class-manifest?class=<slug>` | Manifeste propre au slug |
 | Défi hebdomadaire 4.º E | `/api/community?class=s4-e` | Classement public par lien ; nom complet et catraca complète consentis, jamais le jeton privé |
+| Notes et gabarits 4.º E | `/notas.html` | Page publique par lien et non indexee; recherche locale par catraca |
 
 Une requête historique sans paramètre `class` continue de viser `s4-e`.
 
@@ -64,7 +66,9 @@ Aucune donnée pédagogique ou opérationnelle n'est copiée automatiquement d'u
 - La réponse publique contient seulement les compteurs d'occupation des groupes. Les noms sont lus uniquement par le snapshot administrateur authentifié.
 - `hub_editor_profiles` conserve le WhatsApp normalisé de chaque acteur de gestion. Ce numéro reste absent de la réponse publique et du journal d'audit.
 - `hub_notices` accepte toujours une image facultative par URL HTTPS. Il peut aussi référencer une pièce jointe téléversée avec `attachment_upload_id` ; une image raster téléversée peut recevoir `image_alt`, contrairement à un PDF.
-- `hub_uploads` conserve uniquement les métadonnées et la clé objet, toujours avec `class_id`. Le contenu binaire reste dans R2 et n'est jamais enregistré dans D1.
+- `hub_notices` porte aussi categorie, cycle de vie, audience, dates d'effet/expiration, source, cible, resume de changement, revision et confiance d'analyse. `hub_notice_revisions` conserve chaque instantane remplace avec son auteur.
+- `hub_grade_releases`, `hub_grade_revisions` et `hub_grade_entries` conservent les publications de notes, leurs revisions et leurs lignes. Elles sont reservees au proprietaire en ecriture et filtrees par `class_id`; la projection publique n'expose que la catraca et le resultat.
+- `hub_uploads` conserve uniquement les métadonnées, la clé objet et l'alerte de confidentialite issue de l'analyse, toujours avec `class_id`. Le contenu binaire reste dans R2 et n'est jamais enregistré dans D1.
 - `hub_notices`, `hub_activities` et `hub_dates` possèdent un champ `course` facultatif : le cockpit matière utilise cette liaison explicite et ne déduit pas la matière depuis le titre.
 - Le flux iCalendar lit directement, avec `class_id`, les lignes `published` de `hub_dates` et les tâches `published` qui possèdent `due_at`. Ses UID dépendent uniquement de la turma, du type et de l'identifiant stable de la ligne ; modifier un titre ou une date met donc l'événement à jour sans en créer un second.
 
@@ -72,7 +76,7 @@ Le schéma est créé et complété de façon idempotente au premier appel de Fu
 
 ## Variables et services Cloudflare
 
-La Function accepte le binding D1 `MED_NYKUTO_DB` (préféré) ou `DB`. Pour les pièces jointes d'avis, elle utilise exclusivement un binding R2 nommé `MED_NYKUTO_UPLOADS`.
+La Function accepte le binding D1 `MED_NYKUTO_DB` (préféré) ou `DB`. Pour les pièces jointes d'avis, elle utilise exclusivement un binding R2 nommé `MED_NYKUTO_UPLOADS`. L'analyse facultative des pieces jointes utilise un binding Workers AI nomme `AI`; son absence ne bloque ni l'edition manuelle ni la publication humaine.
 
 L'abonnement `.ics` utilise le même binding D1 en lecture seule. Sa réponse déterministe est diffusée avec un ETag SHA-256 et un cache public de cinq minutes sans fenêtre prolongée de contenu périmé ; un client qui renvoie `If-None-Match` reçoit `304`. Le fuseau déclaré est `America/Asuncion` et les lignes iCalendar utilisent CRLF, l'échappement texte et le pliage UTF-8 requis par RFC 5545.
 
@@ -99,8 +103,8 @@ Les secrets ne doivent jamais être ajoutés au dépôt. La première ouverture 
 - Les URL de fichiers administrés acceptent uniquement HTTP(S).
 - Les images d'avis acceptent uniquement une URL HTTPS sans identifiants intégrés. Elles sont chargées avec une politique de référent restrictive et restent facultatives.
 - Un téléversement d'avis exige une session propriétaire/délégué valide, l'origine du site, le jeton anti-CSRF et une taille HTTP vérifiable. Il accepte un seul PDF ou une seule image raster (JPEG, PNG, WEBP, GIF, HEIC/HEIF ou AVIF), avec contrôle de la signature binaire et une limite de 15 Mio.
-- Les identifiants et clés R2 sont produits par Web Crypto et ne contiennent jamais le nom du fichier. Le nom nettoyé, le type, la taille et l'ETag sont les seules métadonnées conservées dans D1.
-- Une pièce jointe liée à un brouillon reste inaccessible au public. La lecture publique devient possible seulement lorsque l'upload est `linked` et qu'un avis de la même turma est `published`. Les réponses sont diffusées en flux, prennent en charge une plage d'octets unique et utilisent `no-store`, `nosniff`, une politique same-origin et une CSP restrictive.
+- Les identifiants et clés R2 sont produits par Web Crypto et ne contiennent jamais le nom du fichier. Le nom nettoyé, le type, la taille, l'ETag et l'eventuelle alerte de confidentialite sont les seules métadonnées conservées dans D1.
+- Une pièce jointe liée à un brouillon reste inaccessible au public. Un upload encore `staged` ne peut etre utilise que par son auteur. La lecture publique devient possible seulement lorsque l'upload est `linked` et qu'un avis de la même turma est `published`. Le titre et le nom de telechargement publics ne reprennent jamais le nom original. Les réponses sont diffusées en flux, prennent en charge une plage d'octets unique et utilisent `no-store`, `nosniff`, une politique same-origin et une CSP restrictive.
 - Chaque turma est limitée atomiquement à 20 téléversements `staged` ou en cours de suppression. Les fichiers non référencés expirent après 24 heures. Un détachement ou une expiration marque d'abord la ligne `deleting` avec une garde `class_id` et `NOT EXISTS`, puis supprime R2 avant les métadonnées D1 ; un échec R2 remet la ligne en `staged` pour permettre une nouvelle tentative sans course avec une publication.
 - Le WhatsApp du délégué est normalisé au format E.164 et réservé au snapshot authentifié. « Format vérifié » ne signifie pas que la propriété du numéro a été confirmée par SMS ou par WhatsApp.
 - Les invitations expirent, ne sont affichées qu'une fois et peuvent être révoquées.
@@ -110,6 +114,8 @@ Les secrets ne doivent jamais être ajoutés au dépôt. La première ouverture 
 - Un changement/réinitialisation de mot de passe ou la révocation d'un éditeur invalide ses sessions précédentes.
 - Les mutations sont journalisées par turma dans `hub_audit`.
 - Les mutations de contenu exigent soit le proprietaire, soit une session courrier/mot de passe portant `content.manage`. Un role inconnu, un jeton editeur historique ou un profil `localStorage` echoue par defaut.
+- Une analyse IA exige une session de gestion, l'anti-CSRF, une piece jointe R2 autorisee et une limite de debit. Le document est traite comme non fiable; la sortie reste une proposition de brouillon et ses avertissements ne recopient jamais les donnees personnelles detectees. Une alerte de confidentialite devient durable pour cet upload et impose une seconde confirmation avant publication; une nouvelle analyse ne peut pas la remettre a zero.
+- Les mutations de notes sont reservees au proprietaire. Le serveur applique une liste blanche stricte, n'accepte qu'une catraca numerique de 4 a 24 chiffres, refuse les champs de nom, CPF, CI/RG, telephone ou courrier, exige une confirmation de confidentialite et un controle de revision avant publication. La page publique utilise `no-store`, `noindex,nofollow` et `no-referrer`; cela evite l'indexation mais ne rend pas le lien prive.
 - La publication d'un cours est refusee sans les trois formats de contenu et sans exactement 20 QCM, 10 vrai/faux et 10 cas cliniques valides. La revision et son instantane sont ecrits atomiquement, avec controle de concurrence optimiste.
 - Les espaces génériques des autres turmas ne publient pas de liste nominative dans le DOM étudiant. Exception explicitement validée pour le tableau officiel du 4.º E : lorsqu'une activité est publiée, son tableau peut exposer uniquement le nom d'affichage et le marqueur de responsable. Les identifiants de ligne, empreintes d'appareil, dates et métadonnées administratives restent privés.
 - Exception distincte pour le défi hebdomadaire facultatif du 4.º E : après une attestation d'appartenance et un consentement explicite, le classement expose le nom complet et la catraca complète à toute personne ayant le lien. Le jeton d'accès, son condensat, l'empreinte HMAC et le `playerId` restent privés. Les profils en attente sont provisoires et le Pix de **50 R$** n'est versé qu'après validation manuelle de l'identité, de l'appartenance au 4.º E et du résultat.
@@ -163,6 +169,8 @@ Une fusion en production exige la validation explicite du propriétaire du proje
 - L'envoi vers WhatsApp ouvre un message prérempli : le navigateur ne l'envoie jamais automatiquement et ne joint pas un PDF sans action de l'utilisateur.
 - Pas de copie automatique de cours entre professeurs ou semestres.
 - Pas de contenu généré automatiquement sans sources identifiées et validation humaine.
+- L'IA ne publie jamais un avis et ne garantit pas l'exactitude de sa proposition; le proprietaire ou le delegue doit verifier le document, les dates, la source et toute alerte de confidentialite.
+- La page de notes est volontairement publique par lien conformement a la decision du proprietaire du 4.º E. Elle n'est pas un portail authentifie et ne doit donc jamais accueillir d'autres donnees etudiantes.
 - Le push reste optionnel et dépend de la configuration serveur.
 
 Ces limites gardent la première version simple, exploitable par un délégué et honnête sur la confidentialité.

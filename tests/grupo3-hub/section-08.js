@@ -127,6 +127,164 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     }
   });
 
+  test('filters the central Avisos list by priority, subject and search without changing Home', async ({ page: bootstrapPage, browser }) => {
+    const noticeFixture = {
+      ok: true,
+      notices: [
+        { id: 'urgent-bio', course: 'Bioquímica II', priority: 'urgent', title: 'Guía metabólica', body: 'Repasar pentosas antes de la próxima clase.' },
+        { id: 'urgent-fisio', course: 'Fisiología II', priority: 'urgent', title: 'Cambio de aula', body: 'La clase empieza en el laboratorio.' },
+        { id: 'important-bio', course: 'Bioquímica II', priority: 'important', title: 'Material nuevo', body: 'Ya está disponible la presentación.' },
+        { id: 'normal-epi', course: 'Epidemiología y Salud Pública', priority: 'normal', title: 'Lectura recomendada', body: 'Consulta el material de triaje.' },
+        { id: 'normal-general', course: '', priority: 'normal', title: 'Aviso general', body: 'Información para toda la clase.' }
+      ],
+      tasks: [], activities: [], groups: [], members: [], files: [], dates: []
+    };
+    const isolatedContext = await browser.newContext({ serviceWorkers: 'block' });
+    const page = await isolatedContext.newPage();
+    try {
+      await page.route('**/api/class-hub**', (route) => {
+        const url = new URL(route.request().url());
+        if (url.searchParams.get('class') === 's4-e' && url.searchParams.get('resource') === 'public') {
+          return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(noticeFixture) });
+        }
+        return route.continue();
+      });
+      await page.goto(new URL('/clase.html#avisos', bootstrapPage.url()).href);
+      const list = page.locator('#classNoticePageList');
+      const count = page.locator('#classNoticeResultCount');
+      const search = page.locator('#classNoticeSearch');
+      const subject = page.locator('#classNoticeSubjectFilter');
+      await expect(list.locator('.notice-item')).toHaveCount(5);
+      await expect(count).toHaveText('5 avisos publicados');
+      await expect(count).toHaveAttribute('role', 'status');
+      await expect(count).toHaveAttribute('aria-live', 'polite');
+      await expect(count).toHaveAttribute('aria-atomic', 'true');
+
+      const urgent = page.locator('[data-notice-priority="urgent"]');
+      await urgent.click();
+      await expect(urgent).toHaveAttribute('aria-pressed', 'true');
+      await expect(list.locator('.notice-item')).toHaveCount(2);
+      await expect(list.locator('.notice-item[data-priority="urgent"]')).toHaveCount(2);
+
+      await subject.selectOption('bioquimica');
+      await expect(list.locator('.notice-item')).toHaveCount(1);
+      await expect(list.locator('.notice-item[data-subject="bioquimica"]')).toContainText('Guía metabólica');
+      await search.fill('PENTOSAS');
+      await expect(list.locator('.notice-item')).toHaveCount(1);
+      await search.fill('término ausente');
+      await expect(list.locator('.notice-item')).toHaveCount(0);
+      await expect(list.locator('.notice-empty')).toHaveText('No hay avisos que coincidan con estos filtros.');
+      await expect(count).toHaveText('0 de 5 avisos');
+      await expect(page.locator('#classHomeNoticeCarousel .notice-carousel-count')).toContainText('/ 3');
+
+      await page.locator('#classNoticeFilters').evaluate((form) => form.reset());
+      await expect(list.locator('.notice-item')).toHaveCount(5);
+      await expect(count).toHaveText('5 avisos publicados');
+      await expect(page.locator('[data-notice-priority="all"]')).toHaveAttribute('aria-pressed', 'true');
+      await expect(subject).toHaveValue('all');
+      await expect(search).toHaveValue('');
+    } finally {
+      await isolatedContext.close();
+    }
+  });
+
+  test('renders structured notice metadata, safe destinations and only active Home highlights', async ({ page: bootstrapPage, browser }) => {
+    const structuredFixture = {
+      ok: true,
+      notices: [
+        { id: 'active-file', course: 'Bioquímica II', priority: 'important', title: 'Guía oficial <img src=x>', body: 'Material confirmado.', category: 'resource', lifecycle: 'active', audience: 'students', effectiveAt: '2020-08-27T09:00:00-03:00', expiresAt: '2099-08-30T18:00:00-03:00', sourceLabel: 'UCP Oficial', sourceUrl: 'https://www.ucp.edu.py/aviso', targetType: 'file', targetId: 'course-file', changeSummary: 'Se reemplazó el enlace preliminar.', revision: 2 },
+        { id: 'scheduled', priority: 'important', title: 'Próximo aviso', category: 'schedule', lifecycle: 'scheduled', audience: 'all', effectiveAt: '2099-09-01T08:00:00-03:00', sourceLabel: 'Mensaje oficial', sourceUrl: 'http://insecure.example/notice' },
+        { id: 'updated-date', priority: 'normal', title: 'Fecha actualizada', category: 'assessment', lifecycle: 'updated', audience: 'all', targetType: 'date', targetId: 'exam-date' },
+        { id: 'extended-task', priority: 'normal', title: 'Entrega ampliada', category: 'task', lifecycle: 'extended', audience: 'students', targetType: 'task', targetId: 'epi-presentation' },
+        { id: 'corrected-subject', priority: 'normal', title: 'Contenido corregido', category: 'academic', lifecycle: 'corrected', audience: 'students', targetType: 'subject', targetId: 'bioquimica-ii' },
+        { id: 'replaced', priority: 'urgent', title: 'Aviso reemplazado', lifecycle: 'replaced', audience: 'all' },
+        { id: 'cancelled', priority: 'urgent', title: 'Aviso cancelado', lifecycle: 'cancelled', audience: 'all' },
+        { id: 'expired', priority: 'important', title: 'Aviso vencido', lifecycle: 'expired', audience: 'all' },
+        { id: 'expired-by-date', priority: 'important', title: 'Vigencia terminada', lifecycle: 'active', audience: 'all', expiresAt: '2021-08-27T09:00:00-03:00' }
+      ],
+      tasks: [
+        { id: 'epi-presentation', course: 'Epidemiología', title: 'Exposición grupal', status: 'published', dueAt: '2099-09-02T08:00:00-03:00' }
+      ],
+      files: [
+        { id: 'course-file', course: 'Bioquímica II', title: 'Guía metabólica.pdf', url: 'https://drive.google.com/file/d/course-file/view', fileType: 'PDF', status: 'published' }
+      ],
+      dates: [
+        { id: 'exam-date', course: 'Bioquímica II', label: 'Primer parcial', startsAt: '2099-09-10T09:00:00-03:00', status: 'published' }
+      ],
+      activities: [], groups: [], members: []
+    };
+    const isolatedContext = await browser.newContext({ serviceWorkers: 'block' });
+    const page = await isolatedContext.newPage();
+    try {
+      await page.route('**/api/class-hub**', (route) => {
+        const url = new URL(route.request().url());
+        if (url.searchParams.get('class') === 's4-e' && url.searchParams.get('resource') === 'public') {
+          return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(structuredFixture) });
+        }
+        return route.continue();
+      });
+      await page.goto(new URL('/clase.html#inicio', bootstrapPage.url()).href);
+
+      const carousel = page.locator('#classHomeNoticeCarousel');
+      await expect(carousel.locator('.notice-item')).toHaveCount(1);
+      await expect(carousel).toContainText('Guía oficial <img src=x>');
+      await expect(carousel).not.toContainText('Próximo aviso');
+      await expect(page.locator('#noticeBell')).toHaveAttribute('data-count', '1');
+
+      await page.locator('#noticeBell').click();
+      const list = page.locator('#classNoticePageList');
+      await expect(list.locator('.notice-item')).toHaveCount(9);
+      for (const label of ['ACTIVO', 'PROGRAMADO', 'ACTUALIZADO', 'AMPLIADO', 'CORREGIDO', 'REEMPLAZADO', 'CANCELADO', 'VENCIDO']) {
+        await expect(list).toContainText(label);
+      }
+
+      const active = list.locator('.notice-item').filter({ hasText: 'Guía oficial' });
+      await expect(active).toContainText('MATERIAL');
+      await expect(active).toContainText('ESTUDIANTES');
+      await expect(active).toContainText('VERSIÓN 2');
+      await expect(active).toContainText('Vigente desde');
+      await expect(active).toContainText('Vence');
+      await expect(active).toContainText('Se reemplazó el enlace preliminar.');
+      await expect(active.getByRole('link', { name: 'Fuente: UCP Oficial ↗' })).toHaveAttribute('href', 'https://www.ucp.edu.py/aviso');
+      await expect(active.getByRole('link', { name: 'Abrir archivo: Guía metabólica.pdf' })).toHaveAttribute('href', 'https://drive.google.com/file/d/course-file/view');
+      await expect(active.locator('img[src="x"]')).toHaveCount(0);
+
+      const scheduled = list.locator('.notice-item').filter({ hasText: 'Próximo aviso' });
+      await expect(scheduled.locator('a[href^="http://insecure.example"]')).toHaveCount(0);
+      await expect(scheduled).toContainText('Fuente: Mensaje oficial');
+      await expect(list.locator('.notice-item').filter({ hasText: 'Fecha actualizada' }).getByRole('link', { name: /Ver fecha en el calendario/ })).toHaveAttribute('href', '#horario');
+      await expect(list.locator('.notice-item').filter({ hasText: 'Entrega ampliada' }).getByRole('link', { name: 'Ver tarea: Exposición grupal' })).toHaveAttribute('href', '#task-epi-presentation');
+      await expect(list.locator('.notice-item').filter({ hasText: 'Contenido corregido' }).getByRole('link', { name: /Abrir materia: Bioquímica II/ })).toHaveAttribute('href', '#bioquimica');
+    } finally {
+      await isolatedContext.close();
+    }
+  });
+
+  test('keeps the Avisos filters inside 320 to 430 pixel viewports', async ({ page }) => {
+    for (const width of [320, 375, 390, 430]) {
+      await page.setViewportSize({ width, height: 844 });
+      await page.goto('/clase.html#avisos');
+      const layout = await page.evaluate(() => {
+        const filters = document.querySelector('#classNoticeFilters').getBoundingClientRect();
+        const controls = [...document.querySelectorAll('#classNoticeFilters button, #classNoticeFilters select, #classNoticeFilters input')].filter((node) => node.offsetParent !== null);
+        return {
+          scrollWidth: document.documentElement.scrollWidth,
+          clientWidth: document.documentElement.clientWidth,
+          filtersLeft: filters.left,
+          filtersRight: filters.right,
+          viewportWidth: window.innerWidth,
+          minimumControlHeight: Math.min(...controls.map((node) => node.getBoundingClientRect().height)),
+          searchFontSize: Number.parseFloat(getComputedStyle(document.querySelector('#classNoticeSearch')).fontSize)
+        };
+      });
+      expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
+      expect(layout.filtersLeft).toBeGreaterThanOrEqual(0);
+      expect(layout.filtersRight).toBeLessThanOrEqual(layout.viewportWidth + 1);
+      expect(layout.minimumControlHeight).toBeGreaterThanOrEqual(44);
+      expect(layout.searchFontSize).toBeGreaterThanOrEqual(16);
+    }
+  });
+
   test('publishes the previous Epidemiology class as Wednesday 12 August', async ({ page }) => {
     await page.goto('/clase.html#epidemiologia-bloque-anterior');
     const historyDate = page.locator('[data-lesson-target="epidemiologia-bloque-anterior"] time');

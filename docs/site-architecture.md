@@ -48,6 +48,19 @@ data/med-courses-data.js
 
 This file is browser runtime data. It is not the preferred editing surface. When course content changes, update the course sources and run the appropriate build/validation path.
 
+### Public Drive material registry
+
+```txt
+data/drive-files.json
+```
+
+This allowlisted registry is maintained from the 4.º E semester Drive. Google
+Drive file IDs are stable identities; the browser merges active entries into
+the matching subject and Archives views. It is operational metadata, not course
+content. Only anonymously verified files may be present, and records carrying a
+`removedAt` tombstone must remain hidden. Automated scans must not touch
+`content/courses/**` or protected question banks.
+
 ### App bundle source
 
 ```txt

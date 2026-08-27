@@ -118,3 +118,30 @@ Published class-specific overlays created through `/gestion/<slug>` are a separa
 The Nutrition seminar on 20 August 2026 was a completed presentation, not a new theory lesson. The only current Nutrition notebook lesson is the 13 August session until a later theory class is documented.
 
 The shared Google Drive entry belongs on Home only. `Materias` must not duplicate it.
+
+## 4.º E Drive material registry
+
+The public, machine-managed inventory of semester files lives in:
+
+```txt
+data/drive-files.json
+```
+
+Google Drive file IDs are the stable identity. A rename or move updates the same
+record; it must not create a duplicate. Only files whose anonymous viewer access
+was verified may enter this public allowlist. `removedAt` is a tombstone and the
+browser must not render that record. This registry links original files into
+`Materia` and `Archivos`; it is not course content and must never modify
+`content/courses/**` or a protected practice bank.
+
+The hourly automation may update only this registry on `main`, and only when a
+semantic file change exists. `scannedAt` alone never justifies a commit.
+
+## Public academic results
+
+Public grade releases live only in the tenant-scoped D1 tables
+`hub_grade_releases`, `hub_grade_revisions` and `hub_grade_entries`. They are not
+stored in static files. The only student field allowed in the public projection
+is the numeric catraca/matrícula (4–24 digits, preserving leading zeroes), accompanied by a numeric grade or `Ausente`. Names,
+CPF, CI/RG, telephone numbers and email addresses are forbidden in this flow.
+Only the owner may publish a reviewed revision.
