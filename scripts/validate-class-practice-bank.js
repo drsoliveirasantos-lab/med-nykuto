@@ -21,7 +21,9 @@ const datedCourses = [
   'epidemiologia-2026-08-19',
   'fisiologia-2026-08-20',
   'microbiologia-practica-2026-08-20',
-  'bioquimica-2026-08-21'
+  'bioquimica-2026-08-21',
+  'bioquimica-2026-08-26',
+  'epidemiologia-2026-08-26'
 ];
 const allExpectedCourses = expectedCourses.concat(datedCourses);
 const types = ['qcm', 'vf', 'cases'];
@@ -117,6 +119,7 @@ require(path.join(root, 'grupo-3-practice-grounded-v426.js'));
 require(path.join(root, 'grupo-3-practice-2026-08-17-v432.js'));
 require(path.join(root, 'grupo-3-practice-2026-08-24-v452.js'));
 require(path.join(root, 'grupo-3-practice-2026-08-21-v440.js'));
+require(path.join(root, 'grupo-3-practice-2026-08-26-v484.js'));
 require(path.join(root, 'teacher-question-profile-v445.js'));
 const academicModel = global.window.MedNykutoAcademicModel;
 const practice = global.window.MedNykutoClassPractice;
@@ -353,6 +356,16 @@ if (!banks || typeof banks !== 'object') {
           expect(scenario.length >= 90, `${location}: clinical history is missing or too short.`);
           expect(patientStoryWording.test(scenario), `${location}: clinical history must identify a patient or person.`);
           expect(sentenceCount >= 2, `${location}: clinical history must contain at least two meaningful sentences.`);
+          if (courseId === 'epidemiologia-2026-08-26') {
+            const fiveStepPrompt = normalizeText(prompt);
+            ['nivel justificado', 'urgencia o emergencia', 'signos alterados', 'riesgo de demora', 'notificación'].forEach((step) => {
+              expect(fiveStepPrompt.includes(step), `${location}: epidemiology case must ask for the complete five-step triage analysis (${step}).`);
+            });
+            question.options.forEach((option, optionIndex) => {
+              const fiveStepAnswer = String(option).split('|').map((part) => part.trim()).filter(Boolean);
+              expect(fiveStepAnswer.length === 5, `${location}: option ${optionIndex + 1} must answer all five triage axes as separate fields.`);
+            });
+          }
         }
         if (type === 'vf') {
           if (question.answer === 1) expect(!hasObviousDistractorCue(prompt), `${location}: false statement contains an obvious absolute-word cue.`);

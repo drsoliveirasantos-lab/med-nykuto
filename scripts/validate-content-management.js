@@ -166,7 +166,7 @@ if (!failures.length) {
   expect(/min-height\s*:\s*44px/i.test(managementCss), 'The content editor has no explicit 44 px touch target.');
 
   expect(classHtml.includes('<script type="module" src="class-content-runtime-v483.js?v=484"></script>'), 'The class page does not load the managed-content overlay as a versioned module.');
-  expect(classHtml.includes('class-notebook-v445.js?v=483'), 'The modified notebook runtime cache version was not bumped.');
+  expect(classHtml.includes('class-notebook-v445.js?v=486'), 'The modified notebook runtime cache version was not bumped.');
   expect(/await\s+fetch\(/.test(runtime), 'The overlay does not finish its public fetch before notebook initialization.');
   expect(/bioquimica-ii/.test(runtime) && /microbiologia-ii-practica/.test(runtime), 'The explicit S4 API-to-notebook subject alias map is incomplete.');
   expect(/data-managed-lesson|managedLesson/.test(runtime), 'Managed lesson panels are not marked for the notebook renderer.');

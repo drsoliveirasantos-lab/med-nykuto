@@ -414,3 +414,20 @@
   .notebook-ultra-path ol{grid-template-columns:1fr}
   .notebook-ultra-path li{min-height:0}
 }
+
+/* v487 — readable five-step case method and complete mobile diagram zoom. */
+.lesson-notebook-standard .course-chapter-section ol,
+.lesson-notebook-standard .course-chapter-section ul{
+  color:#2d3943;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:.92rem;
+  line-height:1.72
+}
+.lesson-notebook-standard .course-chapter-section li+li{margin-top:7px}
+.lesson-notebook-standard .course-chapter-section li strong{color:#17222d}
+.lesson-file-card.lesson-file-card-text{grid-template-columns:minmax(0,1fr)!important}
+
+@media(max-width:720px){
+  .course-diagram-dialog-stage .course-inline-svg{width:960px;max-width:none}
+  .course-diagram-dialog.is-zoomed .course-diagram-dialog-stage .course-inline-svg{width:1200px!important;max-width:none!important}
+}

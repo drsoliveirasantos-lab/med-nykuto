@@ -1672,12 +1672,19 @@
   var activeCourseId = 'nutricion';
   var activeLessonByCourse = {
     fisiologia:'fisiologia-2026-08-24',
-    bioquimica:'bioquimica-2026-08-21',
-    epidemiologia:'epidemiologia-2026-08-19',
+    bioquimica:'bioquimica-2026-08-26',
+    epidemiologia:'epidemiologia-2026-08-26',
     'microbiologia-teorica':'microbiologia-teorica-2026-08-24',
     'microbiologia-practica':'microbiologia-practica-2026-08-20'
   };
   var datedLessonMeta = {
+    'bioquimica-2026-08-26':{
+      title:'Ciclo de Cori y vía de las pentosas fosfato',
+      kicker:'Bioquímica II · clase del 26 de agosto',
+      description:'Clase del miércoles 26 de agosto de 2026: ciclo de Cori, balance energético, vía de las pentosas y repaso integrado de cetoacidosis diabética.',
+      status:'Clase confirmada · 26 ago.',
+      statusClass:'status-confirmed'
+    },
     'fisiologia-2026-08-24':{
       title:'Sensibilidades somáticas',
       kicker:'Fisiología II · clase del 24 de agosto',
@@ -1732,6 +1739,13 @@
       kicker:'Bioquímica II · clase del 14 de agosto',
       description:'Clase del viernes 14 de agosto de 2026: fases, reacciones, balance energético y regulación de la glucólisis.',
       status:'Clase confirmada · 14 ago.',
+      statusClass:'status-confirmed'
+    },
+    'epidemiologia-2026-08-26':{
+      title:'Casos clínicos de triaje y sistema de salud',
+      kicker:'Epidemiología y Salud Pública · clase del 26 de agosto',
+      description:'Clase del miércoles 26 de agosto de 2026: resolución de casos RAC, signos vitales, riesgo, notificación y organización sanitaria.',
+      status:'Clase confirmada · 26 ago.',
       statusClass:'status-confirmed'
     },
     'epidemiologia-2026-08-19':{

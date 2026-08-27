@@ -25,7 +25,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('.mn-glossary-term[data-glossary-key="atp"]:visible').first()).toBeVisible();
     await expect(page.getByText('Malato–aspartato: ≈2,5 ATP/NADH; glicerol-3-fosfato: ≈1,5 ATP/NADH.')).toBeVisible();
     await expect(page.getByText('su rendimiento oxidativo no es siempre 2,5 ATP por NADH', { exact: false })).toBeVisible();
-    await expect(page.locator('#bioquimica .lesson-date-picker .history-entry')).toHaveCount(5);
+    await expect(page.locator('#bioquimica .lesson-date-picker .history-entry')).toHaveCount(6);
   });
 
   test('opens the faithful glycolysis board archive in its teaching order', async ({ page }) => {

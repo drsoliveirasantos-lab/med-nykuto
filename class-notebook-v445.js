@@ -238,6 +238,37 @@
       title: 'Osmoles cerebrales y edema',
       caption: 'Reconstrucción semántica de la pizarra 3: célula cerebral, cerebro adaptado y cerebro edematoso identificables; ramas de edema e hipocalemia separadas.'
     }],
+    'bioquimica-2026-08-26': [{
+      target: '#cori-musculo',
+      type: 'flow',
+      wide: true,
+      kicker: 'CICLO DE CORI · INTERCAMBIO ENTRE TEJIDOS',
+      title: 'El músculo entrega lactato y el hígado devuelve glucosa',
+      caption: 'La fermentación regenera NAD⁺ en el músculo; la gluconeogénesis hepática recupera glucosa con un costo energético global.',
+      nodes: [
+        { title: ['Músculo'], detail: ['glucosa → piruvato'] },
+        { title: ['Glucólisis'], detail: ['+2 ATP · piruvato'] },
+        { title: ['Lactato'], detail: ['LDH · sangre'] },
+        { title: ['Hígado'], detail: ['−4 ATP · −2 GTP'] },
+        { title: ['Glucosa'], detail: ['vuelve al músculo'] }
+      ],
+      edges: ['moviliza', 'regenera NAD⁺', 'transporta', 'exporta'],
+      cycle: true,
+      note: 'BALANCE CLÁSICO · +2 ATP − (4 ATP + 2 GTP) = −4 ATP EQUIVALENTES'
+    }, {
+      target: '#ppp-objetivos',
+      type: 'branch',
+      kicker: 'VÍA DE LAS PENTOSAS FOSFATO',
+      title: 'La glucosa-6-fosfato se desvía para producir poder reductor y ribosa',
+      caption: 'La fase oxidativa forma NADPH; la fase no oxidativa conecta pentosas con intermediarios glucolíticos.',
+      center: ['GLUCOSA-6-P', 'citosol'],
+      nodes: [
+        { title: ['NADPH'], detail: ['glutatión · biosíntesis'] },
+        { title: ['Ribosa-5-P'], detail: ['nucleótidos'] },
+        { title: ['Fructosa-6-P'], detail: ['vuelve a glucólisis'] },
+        { title: ['Gliceraldehído-3-P'], detail: ['vuelve a glucólisis'] }
+      ]
+    }],
     'epidemiologia-bloque-anterior': [{
       section: 4,
       type: 'flow',
@@ -270,6 +301,37 @@
         { title: ['V · AZUL'], detail: ['no urgente'] }
       ],
       note: 'Si el estado cambia, se vuelve a clasificar.'
+    }],
+    'epidemiologia-2026-08-26': [{
+      target: '#epi26-metodo',
+      type: 'flow',
+      wide: true,
+      kicker: 'MÉTODO DE RESOLUCIÓN DE LA PROFESORA',
+      title: 'Cada caso se responde en cinco decisiones justificadas',
+      caption: 'El nivel se asigna por riesgo actual y posibilidad de deterioro; no por el diagnóstico aislado ni por el orden de llegada.',
+      nodes: [
+        { title: ['Nivel I–V'], detail: ['prioridad + tiempo'] },
+        { title: ['Urgencia'], detail: ['o emergencia'] },
+        { title: ['Signos vitales'], detail: ['identificar alterados'] },
+        { title: ['Riesgo'], detail: ['si se retrasa'] },
+        { title: ['Ficha'], detail: ['según evento'] }
+      ],
+      edges: ['justifica', 'comprueba', 'anticipa', 'notifica']
+    }, {
+      target: '#epi26-rac',
+      type: 'triage',
+      wide: true,
+      kicker: 'RAC PARAGUAY · CINCO NIVELES',
+      title: 'El tiempo de respuesta acompaña la gravedad clínica',
+      caption: 'La clasificación es dinámica: cualquier empeoramiento durante la espera obliga a reevaluar.',
+      nodes: [
+        { title: ['I · ROJO'], detail: ['reanimación · inmediato'] },
+        { title: ['II · NARANJA'], detail: ['≤ 10 min'] },
+        { title: ['III · AMARILLO'], detail: ['≤ 30 min'] },
+        { title: ['IV · VERDE'], detail: ['≤ 120 min'] },
+        { title: ['V · AZUL'], detail: ['≤ 180 min'] }
+      ],
+      note: 'Triage prioriza. El diagnóstico definitivo se completa después.'
     }],
     'microbiologia-teorica-2026-08-10': [{
       section: 1,
@@ -586,7 +648,7 @@
     dialog.classList.toggle('is-teacher-board', definition.type === 'board');
     dialog.classList.remove('is-zoomed');
     var zoom = dialog.querySelector('.course-diagram-zoom');
-    zoom.hidden = definition.type !== 'board';
+    zoom.hidden = false;
     zoom.textContent = 'Ampliar';
     zoom.setAttribute('aria-pressed', 'false');
     dialog.querySelector('header span').textContent = definition.type === 'board' ? 'PIZARRA DEL PROFESOR · RECONSTRUIDA' : 'ESQUEMA EXPLICATIVO DEL CURSO';

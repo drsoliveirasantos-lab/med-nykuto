@@ -28,7 +28,8 @@ const IDS = {
   legacyOne: '99999999-9999-4999-8999-999999999999',
   legacyTwo: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
   race: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
-  cutoff: 'cccccccc-cccc-4ccc-8ccc-cccccccccccc'
+  cutoff: 'cccccccc-cccc-4ccc-8ccc-cccccccccccc',
+  allScopes: 'dddddddd-dddd-4ddd-8ddd-dddddddddddd'
 };
 
 class D1StatementMock {
@@ -110,7 +111,7 @@ function seedPreMulticlassDatabase(sqlite) {
   const insertScore = sqlite.prepare(`INSERT INTO community_scores (cohort_key,week_key,player_id,nickname,course_id,module_id,scope_id,correct,total,percentage,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`);
   insertScore.run('semester-4-group-e', week, IDS.legacyOne, 'Perfil Legacy', 'nutricion', 'legacy-one', 'nutricion:legacy-one', 3, 5, 60, timestamp, timestamp);
   insertScore.run('semester-4-group-e', week, IDS.legacyTwo, 'Perfil Legacy', 'nutricion', 'legacy-two', 'nutricion:legacy-two', 2, 5, 40, timestamp, timestamp);
-  insertScore.run('historic-s4-cohort', week, IDS.oldParticipant, 'Nombre Histórico', 'nutricion', 'old-participant', 'nutricion:old-participant', 4, 5, 80, timestamp, timestamp);
+  insertScore.run('historic-s4-cohort', week, IDS.oldParticipant, 'Nombre Histórico', 'nutricion', 'nutricion-qcm', 'nutricion:nutricion-qcm', 4, 20, 20, timestamp, timestamp);
 }
 
 function loadHandler(label) {
@@ -143,8 +144,36 @@ function expectFailure(result, status, code) {
 function enrollPayload(playerId, fullName, catraca, overrides = {}) {
   return { action: 'enroll', class: 's4-e', playerId, fullName, catraca, accessToken: clientToken(playerId), classConfirmed: true, consent: true, ...overrides };
 }
-function scorePayload(playerId, accessToken, moduleId, correct, total, overrides = {}) {
-  return { action: 'score', class: 's4-e', playerId, accessToken, courseId: 'nutricion', moduleId, correct, total, ...overrides };
+const scoreScopes = Object.freeze({
+  'old-participant': ['nutricion', 'nutricion-qcm'],
+  'token-check': ['nutricion', 'nutricion-vf'],
+  'cutoff-second': ['nutricion', 'nutricion-cases'],
+  'cross-class': ['fisiologia', 'fisiologia-2026-08-10-qcm'],
+  'preserved-token': ['bioquimica', 'bioquimica-2026-08-26-vf'],
+  'rejection-visibility': ['epidemiologia', 'epidemiologia-2026-08-26-cases'],
+  'points-first': ['epidemiologia', 'epidemiologia-2026-08-26-qcm'],
+  'tie-a': ['fisiologia', 'fisiologia-2026-08-13-vf'],
+  'tie-b': ['fisiologia', 'fisiologia-2026-08-13-cases']
+});
+const publishedLessonIds = Object.freeze({
+  nutricion: ['nutricion'],
+  fisiologia: ['fisiologia-2026-08-10', 'fisiologia-2026-08-13', 'fisiologia-2026-08-17', 'fisiologia-2026-08-20', 'fisiologia-2026-08-24'],
+  bioquimica: ['bioquimica', 'bioquimica-2026-08-19', 'bioquimica-2026-08-21', 'bioquimica-2026-08-26'],
+  epidemiologia: ['epidemiologia', 'epidemiologia-2026-08-19', 'epidemiologia-2026-08-26'],
+  'microbiologia-teorica': ['microbiologia-teorica', 'microbiologia-teorica-2026-08-17', 'microbiologia-teorica-2026-08-24'],
+  'microbiologia-practica': ['microbiologia-practica', 'microbiologia-practica-2026-08-20']
+});
+const publishedScopeTypes = Object.freeze({ qcm: 20, vf: 10, cases: 10 });
+const publishedScopes = Object.entries(publishedLessonIds).flatMap(([courseId, lessonIds]) => lessonIds.flatMap((lessonId) => (
+  Object.entries(publishedScopeTypes).map(([type, total]) => ({ courseId, moduleId: `${lessonId}-${type}`, total }))
+)));
+function scorePayload(playerId, accessToken, scopeName, correct, total, overrides = {}) {
+  const [courseId, moduleId] = scoreScopes[scopeName] || ['nutricion', scopeName];
+  return { action: 'score', class: 's4-e', playerId, accessToken, courseId, moduleId, correct, total, ...overrides };
+}
+function scoreScopeId(scopeName) {
+  const [courseId, moduleId] = scoreScopes[scopeName];
+  return `${courseId}:${moduleId}`;
 }
 function scoreSnapshot(sqlite) { return JSON.stringify(sqlite.prepare(`SELECT * FROM community_scores ORDER BY id`).all()); }
 function participantSnapshot(sqlite, playerIds) {
@@ -168,9 +197,12 @@ async function main() {
   assert.match(source, /community_participants_class_public_idx/);
   assert.match(source, /T20:00:00-03:00/, 'The weekly challenge must close exactly Sunday at 20:00 Paraguay time.');
   assert.match(source, /challenge_closed/, 'The API must refuse score writes after the countdown reaches zero.');
-  assert.match(source, /MAX_SCOPES_PER_PLAYER\s*=\s*48/, 'The weekly scope limit must cover all 14 class themes in their three exercise formats.');
-  assert.match(studyPage, /data-study-topic-shortcut="fisiologia-2026-08-24"/, 'The ranking view does not expose the completed Physiology transcription.');
-  assert.match(studyPage, /data-study-topic-shortcut="microbiologia-teorica-2026-08-24"/, 'The ranking view does not expose the completed Microbiology transcription.');
+  assert.match(source, /MAX_SCOPES_PER_PLAYER\s*=\s*54/, 'The weekly scope ceiling must equal the 18 published banks × three exercise formats.');
+  assert.match(source, /CHALLENGE_SCOPE_TOTALS\.get\(scopeId\)/, 'Score writes must use the server-side challenge scope allowlist.');
+  assert.match(source, /total !== expectedTotal/, 'Score writes must enforce the published 20\/10\/10 totals.');
+  assert.equal(publishedScopes.length, 54, 'The validator manifest must expose exactly 18 banks × three exercise formats.');
+  assert.match(studyPage, /data-study-topic-shortcut="bioquimica-2026-08-26"/, 'The ranking view does not expose the completed 26 August Biochemistry transcription.');
+  assert.match(studyPage, /data-study-topic-shortcut="epidemiologia-2026-08-26"/, 'The ranking view does not expose the completed 26 August Epidemiology transcription.');
   assert.match(studyRuntime, /function activateHashedTopic\(shouldScroll\)/, 'Study shortcuts cannot activate an exact dated topic.');
   assert.match(studyRuntime, /window\.addEventListener\('hashchange'/, 'Study topic deep links are not handled after navigation.');
   assert.match(studyCss, /\.study-latest-shortcuts/, 'The visible ranking shortcuts are not styled.');
@@ -272,12 +304,12 @@ async function main() {
     assert.equal(reClaim.accessToken, oldClaim.accessToken);
     assert.equal(JSON.stringify(participant(db.database, IDS.oldParticipant)), claimedParticipantSnapshot, 'Retrying a legacy claim changed participant bytes.');
     assert.equal(scoreSnapshot(db.database), scoresAfterMigration, 'Re-enrollment changed historical score bytes.');
-    const historicScoreBefore = db.database.prepare(`SELECT * FROM community_scores WHERE class_id='s4-e' AND player_id=? AND scope_id='nutricion:old-participant'`).get(IDS.oldParticipant);
+    const historicScoreBefore = db.database.prepare(`SELECT * FROM community_scores WHERE class_id='s4-e' AND player_id=? AND scope_id=?`).get(IDS.oldParticipant, scoreScopeId('old-participant'));
     const historicImprovement = expectSuccess(await call(handler.onRequest, db, {
-      method: 'POST', payload: scorePayload(IDS.oldParticipant, oldClaim.accessToken, 'old-participant', 5, 5), ip: '203.0.113.13'
+      method: 'POST', payload: scorePayload(IDS.oldParticipant, oldClaim.accessToken, 'old-participant', 5, 20), ip: '203.0.113.13'
     }));
     assert.equal(historicImprovement.saved, true);
-    const historicRows = db.database.prepare(`SELECT * FROM community_scores WHERE class_id='s4-e' AND player_id=? AND scope_id='nutricion:old-participant'`).all(IDS.oldParticipant);
+    const historicRows = db.database.prepare(`SELECT * FROM community_scores WHERE class_id='s4-e' AND player_id=? AND scope_id=?`).all(IDS.oldParticipant, scoreScopeId('old-participant'));
     assert.equal(historicRows.length, 1, 'Updating a historical score with a different cohort created a duplicate row.');
     assert.equal(historicRows[0].created_at, historicScoreBefore.created_at, 'Updating a historical score replaced its first-created timestamp.');
     assert.equal(historicRows[0].cohort_key, 'historic-s4-cohort', 'Updating a historical score rewrote its cohort identity.');
@@ -346,27 +378,57 @@ async function main() {
     expectFailure(stealExistingCatraca, 409, 'identity_conflict');
     assert.equal(participantSnapshot(db.database, [IDS.main, IDS.other]), protectedParticipants, 'A collision changed another player name, catraca or token.');
 
-    const missingScoreToken = await call(handler.onRequest, db, { method: 'POST', payload: scorePayload(IDS.main, '', 'token-check', 1, 1), ip: '203.0.113.20' });
+    const missingScoreToken = await call(handler.onRequest, db, { method: 'POST', payload: scorePayload(IDS.main, '', 'token-check', 1, 10), ip: '203.0.113.20' });
     expectFailure(missingScoreToken, 401, 'identity_required');
-    const wrongScoreToken = await call(handler.onRequest, db, { method: 'POST', payload: scorePayload(IDS.main, 'c'.repeat(64), 'token-check', 1, 1), ip: '203.0.113.20' });
+    const wrongScoreToken = await call(handler.onRequest, db, { method: 'POST', payload: scorePayload(IDS.main, 'c'.repeat(64), 'token-check', 1, 10), ip: '203.0.113.20' });
     expectFailure(wrongScoreToken, 401, 'identity_required');
-    expectSuccess(await call(handler.onRequest, db, { method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'token-check', 1, 1), ip: '203.0.113.20' }));
+    expectSuccess(await call(handler.onRequest, db, { method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'token-check', 1, 10), ip: '203.0.113.20' }));
+    const scoresBeforeInvalidScopes = scoreSnapshot(db.database);
+    const inventedScope = await call(handler.onRequest, db, { method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'invented-qcm', 20, 20), ip: '203.0.113.20' });
+    expectFailure(inventedScope, 400, 'invalid_scope');
+    const mismatchedCourse = await call(handler.onRequest, db, {
+      method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'token-check', 1, 10, { courseId: 'bioquimica' }), ip: '203.0.113.20'
+    });
+    expectFailure(mismatchedCourse, 400, 'invalid_scope');
+    const mismatchedTotal = await call(handler.onRequest, db, { method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'token-check', 1, 9), ip: '203.0.113.20' });
+    expectFailure(mismatchedTotal, 400, 'invalid_score');
+    assert.equal(scoreSnapshot(db.database), scoresBeforeInvalidScopes, 'A rejected scope or total changed score rows.');
+
+    const allScopesEnrollment = expectSuccess(await call(handler.onRequest, db, {
+      method: 'POST', payload: enrollPayload(IDS.allScopes, 'Valeria Alcance Completo', 'SCOPE054'), ip: '203.0.113.60'
+    }), 201);
+    for (const scope of publishedScopes) {
+      expectSuccess(await call(handler.onRequest, db, {
+        method: 'POST',
+        payload: {
+          action: 'score', class: 's4-e', playerId: IDS.allScopes, accessToken: allScopesEnrollment.accessToken,
+          courseId: scope.courseId, moduleId: scope.moduleId, correct: 1, total: scope.total
+        },
+        ip: '203.0.113.60'
+      }));
+    }
+    assert.equal(
+      db.database.prepare(`SELECT COUNT(DISTINCT scope_id) AS count FROM community_scores WHERE class_id='s4-e' AND player_id=?`).get(IDS.allScopes).count,
+      54,
+      'The exact 54 legitimate scopes did not fit within the weekly ceiling.'
+    );
+    db.database.prepare(`UPDATE community_participants SET verification_status='rejected' WHERE class_id='s4-e' AND player_id=?`).run(IDS.allScopes);
 
     const finalSecond = expectSuccess(await call(handler.onRequest, db, {
-      method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'cutoff-second', 1, 2),
+      method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'cutoff-second', 1, 10),
       ip: '203.0.113.32', now: '2026-08-30T22:59:59.000Z'
     }));
     assert.equal(finalSecond.week.key, '2026-08-24');
     assert.equal(finalSecond.week.secondsRemaining, 1);
-    const cutoffScoreBefore = JSON.stringify(db.database.prepare(`SELECT * FROM community_scores WHERE class_id='s4-e' AND week_key='2026-08-24' AND player_id=? AND scope_id='nutricion:cutoff-second'`).get(IDS.main));
+    const cutoffScoreBefore = JSON.stringify(db.database.prepare(`SELECT * FROM community_scores WHERE class_id='s4-e' AND week_key='2026-08-24' AND player_id=? AND scope_id=?`).get(IDS.main, scoreScopeId('cutoff-second')));
     const closedWrite = await call(handler.onRequest, db, {
-      method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'cutoff-second', 2, 2),
+      method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'cutoff-second', 2, 10),
       ip: '203.0.113.32', now: '2026-08-30T23:00:00.000Z'
     });
     expectFailure(closedWrite, 409, 'challenge_closed');
-    assert.equal(JSON.stringify(db.database.prepare(`SELECT * FROM community_scores WHERE class_id='s4-e' AND week_key='2026-08-24' AND player_id=? AND scope_id='nutricion:cutoff-second'`).get(IDS.main)), cutoffScoreBefore, 'A score changed at or after the exact Sunday 20:00 cutoff.');
+    assert.equal(JSON.stringify(db.database.prepare(`SELECT * FROM community_scores WHERE class_id='s4-e' AND week_key='2026-08-24' AND player_id=? AND scope_id=?`).get(IDS.main, scoreScopeId('cutoff-second'))), cutoffScoreBefore, 'A score changed at or after the exact Sunday 20:00 cutoff.');
     const mondayWrite = expectSuccess(await call(handler.onRequest, db, {
-      method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'cutoff-second', 2, 2),
+      method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'cutoff-second', 2, 10),
       ip: '203.0.113.32', now: '2026-08-31T03:00:00.000Z'
     }));
     assert.equal(mondayWrite.week.key, '2026-08-31');
@@ -377,10 +439,10 @@ async function main() {
       .run('s3-a', 'semester-4-group-e', currentWeekKey(), IDS.main, 'Sentinela Classe Três', 'nutricion', 'cross-class', 'nutricion:cross-class', 50, 50, 100, crossClassTimestamp, crossClassTimestamp);
     const s3CrossClassBefore = JSON.stringify(db.database.prepare(`SELECT * FROM community_scores WHERE class_id='s3-a' AND player_id=? AND scope_id='nutricion:cross-class'`).get(IDS.main));
     expectSuccess(await call(handler.onRequest, db, {
-      method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'cross-class', 2, 3), ip: '203.0.113.20'
+      method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'cross-class', 2, 20), ip: '203.0.113.20'
     }));
     assert.equal(JSON.stringify(db.database.prepare(`SELECT * FROM community_scores WHERE class_id='s3-a' AND player_id=? AND scope_id='nutricion:cross-class'`).get(IDS.main)), s3CrossClassBefore, 'A 4E score write mutated another class row.');
-    const s4CrossClass = db.database.prepare(`SELECT * FROM community_scores WHERE class_id='s4-e' AND player_id=? AND scope_id='nutricion:cross-class'`).get(IDS.main);
+    const s4CrossClass = db.database.prepare(`SELECT * FROM community_scores WHERE class_id='s4-e' AND player_id=? AND scope_id=?`).get(IDS.main, scoreScopeId('cross-class'));
     assert.ok(s4CrossClass, 'The class-scoped score row was not created for 4E.');
     assert.equal(s4CrossClass.cohort_key, 'class:s4-e');
     assert.equal(s4CrossClass.write_version, 1);
@@ -395,7 +457,7 @@ async function main() {
     assert.equal(mainUpdate.accessToken, mainEnrollment.accessToken);
     assert.equal(participant(db.database, IDS.main).access_token_hash, mainTokenHashBeforeUpdate, 'An authenticated update rotated the access-token hash.');
     assert.equal(scoreSnapshot(db.database), scoresBeforeMainUpdate, 'An authenticated profile update rewrote score bytes.');
-    assert.equal(db.database.prepare(`SELECT nickname FROM community_scores WHERE player_id=? AND scope_id='nutricion:token-check'`).get(IDS.main).nickname, "Ana María O'Connor");
+    assert.equal(db.database.prepare(`SELECT nickname FROM community_scores WHERE player_id=? AND scope_id=?`).get(IDS.main, scoreScopeId('token-check')).nickname, "Ana María O'Connor");
     const mainUpdateSnapshot = JSON.stringify(participant(db.database, IDS.main));
     await new Promise((resolve) => setTimeout(resolve, 5));
     const mainUpdateRetry = expectSuccess(await call(handler.onRequest, db, {
@@ -404,7 +466,7 @@ async function main() {
     assert.equal(mainUpdateRetry.accessToken, mainEnrollment.accessToken);
     assert.equal(JSON.stringify(participant(db.database, IDS.main)), mainUpdateSnapshot, 'Retrying an authenticated update changed participant bytes.');
     assert.equal(scoreSnapshot(db.database), scoresBeforeMainUpdate, 'Retrying an authenticated update rewrote score bytes.');
-    expectSuccess(await call(handler.onRequest, db, { method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'preserved-token', 1, 1), ip: '203.0.113.22' }));
+    expectSuccess(await call(handler.onRequest, db, { method: 'POST', payload: scorePayload(IDS.main, mainEnrollment.accessToken, 'preserved-token', 1, 10), ip: '203.0.113.22' }));
 
     const pepperEnrollment = expectSuccess(await call(handler.onRequest, db, {
       method: 'POST', payload: enrollPayload(IDS.pepper, 'Pedro Pepper Antigo', 'PEP00001'), pepper: OLD_PEPPER, ip: '203.0.113.23'
@@ -429,7 +491,7 @@ async function main() {
       method: 'POST', payload: enrollPayload(IDS.race, 'Rita Corrida Segura', 'RACE0001'), ip: '203.0.113.31'
     }), 201);
     expectSuccess(await call(handler.onRequest, db, {
-      method: 'POST', payload: scorePayload(IDS.race, raceEnrollment.accessToken, 'rejection-visibility', 2, 3), ip: '203.0.113.31'
+      method: 'POST', payload: scorePayload(IDS.race, raceEnrollment.accessToken, 'rejection-visibility', 2, 10), ip: '203.0.113.31'
     }));
     db.database.prepare(`UPDATE community_participants SET verification_status='verified' WHERE class_id='s4-e' AND player_id=?`).run(IDS.race);
     const verifiedIdentityChange = expectSuccess(await call(handler.onRequest, db, {
@@ -464,26 +526,21 @@ async function main() {
       method: 'POST', payload: enrollPayload(IDS.points, 'Camila Pontos Primeiro', 'POINT001'), ip: '203.0.113.26'
     }), 201);
     const firstPoints = expectSuccess(await call(handler.onRequest, db, {
-      method: 'POST', payload: scorePayload(IDS.points, pointsEnrollment.accessToken, 'points-first', 9, 10), ip: '203.0.113.27'
+      method: 'POST', payload: scorePayload(IDS.points, pointsEnrollment.accessToken, 'points-first', 9, 20), ip: '203.0.113.27'
     }));
-    assert.deepEqual(firstPoints.best, { correct: 9, total: 10, percentage: 90 });
-    const createdAt = db.database.prepare(`SELECT created_at FROM community_scores WHERE player_id=? AND scope_id='nutricion:points-first'`).get(IDS.points).created_at;
+    assert.deepEqual(firstPoints.best, { correct: 9, total: 20, percentage: 45 });
+    const createdAt = db.database.prepare(`SELECT created_at FROM community_scores WHERE player_id=? AND scope_id=?`).get(IDS.points, scoreScopeId('points-first')).created_at;
     const morePoints = expectSuccess(await call(handler.onRequest, db, {
       method: 'POST', payload: scorePayload(IDS.points, pointsEnrollment.accessToken, 'points-first', 17, 20), ip: '203.0.113.27'
     }));
     assert.equal(morePoints.saved, true);
     assert.deepEqual(morePoints.best, { correct: 17, total: 20, percentage: 85 });
-    const samePointsWorseAccuracy = expectSuccess(await call(handler.onRequest, db, {
-      method: 'POST', payload: scorePayload(IDS.points, pointsEnrollment.accessToken, 'points-first', 17, 25), ip: '203.0.113.27'
+    const lowerPoints = expectSuccess(await call(handler.onRequest, db, {
+      method: 'POST', payload: scorePayload(IDS.points, pointsEnrollment.accessToken, 'points-first', 16, 20), ip: '203.0.113.27'
     }));
-    assert.equal(samePointsWorseAccuracy.saved, false);
-    assert.deepEqual(samePointsWorseAccuracy.best, { correct: 17, total: 20, percentage: 85 });
-    const samePointsBetterAccuracy = expectSuccess(await call(handler.onRequest, db, {
-      method: 'POST', payload: scorePayload(IDS.points, pointsEnrollment.accessToken, 'points-first', 17, 18), ip: '203.0.113.27'
-    }));
-    assert.equal(samePointsBetterAccuracy.saved, true);
-    assert.deepEqual(samePointsBetterAccuracy.best, { correct: 17, total: 18, percentage: 94.44 });
-    assert.equal(db.database.prepare(`SELECT created_at FROM community_scores WHERE player_id=? AND scope_id='nutricion:points-first'`).get(IDS.points).created_at, createdAt, 'Improving a score changed its first activity time.');
+    assert.equal(lowerPoints.saved, false);
+    assert.deepEqual(lowerPoints.best, { correct: 17, total: 20, percentage: 85 });
+    assert.equal(db.database.prepare(`SELECT created_at FROM community_scores WHERE player_id=? AND scope_id=?`).get(IDS.points, scoreScopeId('points-first')).created_at, createdAt, 'Improving a score changed its first activity time.');
 
     const tieProfiles = [];
     for (const [id, name, catraca, ip] of [
@@ -492,13 +549,13 @@ async function main() {
     ]) {
       const enrollment = expectSuccess(await call(handler.onRequest, db, { method: 'POST', payload: enrollPayload(id, name, catraca), ip }), 201);
       tieProfiles.push({ id, name, accessToken: enrollment.accessToken, ip });
-      expectSuccess(await call(handler.onRequest, db, { method: 'POST', payload: scorePayload(id, enrollment.accessToken, 'tie-a', 3, 5), ip }));
-      expectSuccess(await call(handler.onRequest, db, { method: 'POST', payload: scorePayload(id, enrollment.accessToken, 'tie-b', 3, 5), ip }));
+      expectSuccess(await call(handler.onRequest, db, { method: 'POST', payload: scorePayload(id, enrollment.accessToken, 'tie-a', 3, 10), ip }));
+      expectSuccess(await call(handler.onRequest, db, { method: 'POST', payload: scorePayload(id, enrollment.accessToken, 'tie-b', 3, 10), ip }));
     }
-    db.database.prepare(`UPDATE community_scores SET created_at=?,updated_at=? WHERE player_id=? AND scope_id='nutricion:tie-a'`).run('2026-08-18T08:00:00.000Z', '2026-08-30T08:00:00.000Z', IDS.tieEarly);
-    db.database.prepare(`UPDATE community_scores SET created_at=?,updated_at=? WHERE player_id=? AND scope_id='nutricion:tie-b'`).run('2026-08-28T08:00:00.000Z', '2026-08-30T08:00:00.000Z', IDS.tieEarly);
-    db.database.prepare(`UPDATE community_scores SET created_at=?,updated_at=? WHERE player_id=? AND scope_id='nutricion:tie-a'`).run('2026-08-19T08:00:00.000Z', '2026-08-20T08:00:00.000Z', IDS.tieLate);
-    db.database.prepare(`UPDATE community_scores SET created_at=?,updated_at=? WHERE player_id=? AND scope_id='nutricion:tie-b'`).run('2026-08-20T08:00:00.000Z', '2026-08-20T08:00:00.000Z', IDS.tieLate);
+    db.database.prepare(`UPDATE community_scores SET created_at=?,updated_at=? WHERE player_id=? AND scope_id=?`).run('2026-08-18T08:00:00.000Z', '2026-08-30T08:00:00.000Z', IDS.tieEarly, scoreScopeId('tie-a'));
+    db.database.prepare(`UPDATE community_scores SET created_at=?,updated_at=? WHERE player_id=? AND scope_id=?`).run('2026-08-28T08:00:00.000Z', '2026-08-30T08:00:00.000Z', IDS.tieEarly, scoreScopeId('tie-b'));
+    db.database.prepare(`UPDATE community_scores SET created_at=?,updated_at=? WHERE player_id=? AND scope_id=?`).run('2026-08-19T08:00:00.000Z', '2026-08-20T08:00:00.000Z', IDS.tieLate, scoreScopeId('tie-a'));
+    db.database.prepare(`UPDATE community_scores SET created_at=?,updated_at=? WHERE player_id=? AND scope_id=?`).run('2026-08-20T08:00:00.000Z', '2026-08-20T08:00:00.000Z', IDS.tieLate, scoreScopeId('tie-b'));
 
     db.database.prepare(`UPDATE community_participants SET verification_status='verified' WHERE class_id='s4-e' AND player_id=?`).run(IDS.points);
     const ranked = expectSuccess(await call(handler.onRequest, db, { query: `?class=s4-e&player=${IDS.main}` }));
@@ -546,7 +603,7 @@ async function main() {
     assert.equal(scoreSnapshot(db.database), beforeRestart.scores, 'Idempotent deployment changed score bytes.');
     assert.equal(JSON.stringify(db.database.prepare(`SELECT * FROM community_participants ORDER BY class_id,player_id`).all()), beforeRestart.participants, 'Idempotent deployment changed participant bytes.');
 
-    console.log('Community ranking validation OK: Sunday 20:00 Paraguay cutoff enforced to the second, Monday reopening, additive class-safe migration, conservative legacy-catraca lock, idempotent client tokens, race-safe verification, class-scoped first-created score writes, points-first 4E ranking, verified-only Pix eligibility and discriminating activity ties.');
+    console.log('Community ranking validation OK: Sunday 20:00 Paraguay cutoff enforced to the second, Monday reopening, exact 54-scope server allowlist with 20/10/10 totals, additive class-safe migration, conservative legacy-catraca lock, idempotent client tokens, race-safe verification, class-scoped first-created score writes, points-first 4E ranking, verified-only Pix eligibility and discriminating activity ties.');
   } finally {
     if (db) { try { db.close(); } catch {} }
     fs.rmSync(tempDirectory, { recursive: true, force: true });

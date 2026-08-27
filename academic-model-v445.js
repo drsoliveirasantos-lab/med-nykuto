@@ -8,12 +8,13 @@
       subject: 'Bioquímica II',
       accent: '#34d399',
       confidence: 'Alta en el método · media en el formato de examen',
-      confidenceReason: 'Dos clases orales completas, pizarras, actividades manuscritas y preguntas explícitas de la docente permiten reconocer un patrón repetido. La forma exacta del examen todavía necesita más evaluaciones reales.',
+      confidenceReason: 'Tres clases orales completas, pizarras, actividades manuscritas y preguntas explícitas de la docente permiten reconocer un patrón repetido. La forma exacta del examen todavía necesita más evaluaciones reales.',
       evidence: [
         { date: '14 ago.', state: 'observed', label: 'Glucólisis: vía, balance, regulación y correcciones de la pizarra.' },
         { date: '19 ago.', state: 'confirmed', label: 'Preguntas orales repetidas sobre enzimas, PFK-1/F2,6BP, destinos del piruvato y PDH.' },
         { date: '21 ago.', state: 'confirmed', label: 'Cadena de cetoacidosis: objetivo, por qué ocurre, consecuencia y manifestación clínica.' },
-        { date: '21 ago.', state: 'observed', label: 'Actividades 3 y 4: desarrollo manuscrito y razonamiento paso a paso.' }
+        { date: '21 ago.', state: 'observed', label: 'Actividades 3 y 4: desarrollo manuscrito y razonamiento paso a paso.' },
+        { date: '26 ago.', state: 'confirmed', label: 'Ciclo de Cori y pentosas fosfato: objetivo, balance energético, conexiones entre tejidos y productos de cada fase.' }
       ],
       teachingArchitecture: [
         'Parte de una vía o problema metabólico y mantiene una cadena causal hasta la consecuencia clínica.',
@@ -70,7 +71,8 @@
         { date: 'Bloque previo', state: 'observed', label: 'APS, integralidad, sectorización, referencia y contrarreferencia.' },
         { date: 'Bloque previo', state: 'observed', label: 'Signos vitales, recepción, acogida y clasificación por riesgo.' },
         { date: '19 ago.', state: 'confirmed', label: 'Urgencia objetiva/subjetiva, emergencia, SIUE y centro coordinador.' },
-        { date: '19 ago.', state: 'confirmed', label: 'Ejemplos concretos, conducta inicial, recursos y cinco niveles de triage.' }
+        { date: '19 ago.', state: 'confirmed', label: 'Ejemplos concretos, conducta inicial, recursos y cinco niveles de triage.' },
+        { date: '26 ago.', state: 'confirmed', label: 'Casos clínicos completos: nivel I–V, urgencia o emergencia, signos vitales, riesgo del retraso y ficha epidemiológica.' }
       ],
       teachingArchitecture: [
         'Abre con una situación concreta y pregunta qué haría el estudiante antes de formalizar el concepto.',
@@ -386,7 +388,8 @@
           { id: 'bioquimica-2026-08-19', practiceId: 'bioquimica-2026-08-19', date: '19 AGO.', dateLong: '19 de agosto de 2026', title: 'Glucólisis, piruvato y complejo PDH', status: 'confirmed' }
         ] },
         { id: 'bioquimica-capitulo-2', number: 2, title: 'Integración metabólica y cetoacidosis', status: 'current', lessons: [
-          { id: 'bioquimica-2026-08-21', practiceId: 'bioquimica-2026-08-21', date: '21 AGO.', dateLong: '21 de agosto de 2026', title: 'Cetoacidosis diabética', status: 'confirmed' }
+          { id: 'bioquimica-2026-08-21', practiceId: 'bioquimica-2026-08-21', date: '21 AGO.', dateLong: '21 de agosto de 2026', title: 'Cetoacidosis diabética', status: 'confirmed' },
+          { id: 'bioquimica-2026-08-26', practiceId: 'bioquimica-2026-08-26', date: '26 AGO.', dateLong: '26 de agosto de 2026', title: 'Ciclo de Cori y vía de las pentosas fosfato', status: 'confirmed' }
         ] }
       ]
     },
@@ -396,7 +399,8 @@
       chapters: [
         { id: 'epidemiologia-capitulo-1', number: 1, title: 'APS y organización de urgencias', status: 'current', lessons: [
           { id: 'epidemiologia-bloque-anterior', practiceId: 'epidemiologia', date: '12 AGO.', dateLong: '12 de agosto de 2026', title: 'APS, sectorización y triage', status: 'confirmed' },
-          { id: 'epidemiologia-2026-08-19', practiceId: 'epidemiologia-2026-08-19', date: '19 AGO.', dateLong: '19 de agosto de 2026', title: 'Organización de urgencias y emergencias', status: 'confirmed' }
+          { id: 'epidemiologia-2026-08-19', practiceId: 'epidemiologia-2026-08-19', date: '19 AGO.', dateLong: '19 de agosto de 2026', title: 'Organización de urgencias y emergencias', status: 'confirmed' },
+          { id: 'epidemiologia-2026-08-26', practiceId: 'epidemiologia-2026-08-26', date: '26 AGO.', dateLong: '26 de agosto de 2026', title: 'Casos clínicos de triaje y sistema de salud', status: 'confirmed' }
         ] }
       ]
     },
@@ -577,7 +581,7 @@
 
   window.MedNykutoAcademicModel = {
     version: 'v445',
-    updatedAt: '2026-08-24',
+    updatedAt: '2026-08-26',
     teachers: teachers,
     subjects: subjects,
     narratives: narratives

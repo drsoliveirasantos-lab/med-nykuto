@@ -152,6 +152,22 @@ Each of the five lessons owns an isolated 40-question bank (20 QCM, 10 true/fals
 grupo-3-practice-2026-08-21-v440.js
 ```
 
+The Wednesday 26 August 2026 handoff adds two independent dated lessons: Bioquímica II and Epidemiología. Their public study layer is reconstructed from the oral transcripts and the supplied classroom photographs. Three privacy-reviewed WebP derivatives are kept at:
+
+```txt
+assets/class-hub/biochemistry/2026-08-26/ciclo-cori-pizarra.webp
+assets/class-hub/biochemistry/2026-08-26/pentosas-pizarra.webp
+assets/class-hub/epidemiology/2026-08-26/caso-clinico-co.webp
+```
+
+The Cori derivative contains the three supplied board views in their original order. The pentose-phosphate derivative keeps the photographed pathway without the phone screenshot bars. The Epidemiology photograph is cropped to the projected carbon-monoxide questions and excludes the patient's name, age, neighbourhood and the students in the room. A separate messaging screenshot that displayed a telephone number is intentionally excluded from the repository and runtime.
+
+The adjacent HTML courses correct obvious speech-recognition and scientific errors without presenting the corrections as verbatim teacher statements. In particular, they preserve `ciclo de Cori`, the classic −4 ATP-equivalent interorgan balance, the NADPH/ribose roles of the pentose-phosphate pathway, carbon monoxide rather than carbon dioxide for a brazier exposure, and the limitation of conventional SpO₂ in carbon-monoxide poisoning. Each lesson owns a separate 20/10/10 bank in:
+
+```txt
+grupo-3-practice-2026-08-26-v484.js
+```
+
 ## D1-managed dated class content
 
 The protected management shell may also create date-based lessons for one class without changing the 59-module library. These records are class-hub overlays stored in D1, not new entries in `content/courses/**` and not inputs to `data/med-courses-data.js`.

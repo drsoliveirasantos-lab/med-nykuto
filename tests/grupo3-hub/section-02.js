@@ -100,8 +100,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#classLanguageSelect')).toHaveValue('br');
     await expect(page.getByRole('heading', { name: 'Sua semana', exact: true })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Aulas reconstruídas e revisadas', exact: true })).toBeVisible();
-    await expect(page.locator('.home-transcript-fisio')).toContainText('Sensibilidades somáticas');
-    await expect(page.locator('.home-transcript-micro')).toContainText('Micoses subcutâneas e oportunistas');
+    await expect(page.locator('.home-transcript-bio')).toContainText('Ciclo de Cori e via das pentoses');
+    await expect(page.locator('.home-transcript-epi')).toContainText('Casos clínicos de triagem e sistema de saúde');
     await expect(page.locator('#homeHomeworkCount')).toHaveText('2 tarefas ativas');
     await expect(page.getByText('PARA ESTA SEMANA', { exact: true })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Ver todas as tarefas' })).toBeVisible();

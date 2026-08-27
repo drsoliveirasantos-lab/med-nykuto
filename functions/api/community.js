@@ -3,7 +3,7 @@ const DEFAULT_CLASS_SLUG = 's4-e';
 const LEGACY_COHORT_KEY = 'semester-4-group-e';
 const CHALLENGE_GOAL = 1000;
 const CHALLENGE_PRIZE_BRL = 50;
-const MAX_SCOPES_PER_PLAYER = 48;
+const MAX_SCOPES_PER_PLAYER = 54;
 const MAX_RANKING_ROWS = 100;
 const COMMUNITY_WRITE_LIMIT = 120;
 const COMMUNITY_ENROLL_LIMIT = 12;
@@ -12,7 +12,24 @@ const PLAYER_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{
 const CONTENT_ID_PATTERN = /^[a-z0-9][a-z0-9._-]{0,63}$/;
 const CLASS_REF_PATTERN = /^[a-z0-9][a-z0-9-]{0,30}$/;
 const STUDENT_ID_PATTERN = /^[A-Z0-9]{4,24}$/;
-const CHALLENGE_COURSE_IDS = new Set(['nutricion', 'fisiologia', 'bioquimica', 'epidemiologia', 'microbiologia-teorica', 'microbiologia-practica']);
+const CHALLENGE_LESSON_IDS = Object.freeze({
+  nutricion: ['nutricion'],
+  fisiologia: ['fisiologia-2026-08-10', 'fisiologia-2026-08-13', 'fisiologia-2026-08-17', 'fisiologia-2026-08-20', 'fisiologia-2026-08-24'],
+  bioquimica: ['bioquimica', 'bioquimica-2026-08-19', 'bioquimica-2026-08-21', 'bioquimica-2026-08-26'],
+  epidemiologia: ['epidemiologia', 'epidemiologia-2026-08-19', 'epidemiologia-2026-08-26'],
+  'microbiologia-teorica': ['microbiologia-teorica', 'microbiologia-teorica-2026-08-17', 'microbiologia-teorica-2026-08-24'],
+  'microbiologia-practica': ['microbiologia-practica', 'microbiologia-practica-2026-08-20']
+});
+const CHALLENGE_TYPE_TOTALS = Object.freeze({ qcm: 20, vf: 10, cases: 10 });
+const CHALLENGE_SCOPE_TOTALS = new Map();
+Object.entries(CHALLENGE_LESSON_IDS).forEach(([courseId, lessonIds]) => {
+  lessonIds.forEach((lessonId) => {
+    Object.entries(CHALLENGE_TYPE_TOTALS).forEach(([type, total]) => {
+      CHALLENGE_SCOPE_TOTALS.set(`${courseId}:${lessonId}-${type}`, total);
+    });
+  });
+});
+if (CHALLENGE_SCOPE_TOTALS.size !== MAX_SCOPES_PER_PLAYER) throw new Error('challenge_scope_contract_mismatch');
 
 const DEFAULT_CLASS = {
   id: DEFAULT_CLASS_ID,
@@ -499,9 +516,11 @@ async function saveScore(request, db, env, classRecord, payload) {
   if (!participant) return errorResponse(401, 'identity_required', 'Guarda tu nombre y catraca antes de publicar.');
   if (!cleanDisplayName(participant.display_name) || !cleanStudentId(participant.student_id_public)) return errorResponse(401, 'identity_required', 'Vuelve a confirmar tu nombre completo y catraca antes de publicar.');
   if (!['pending', 'verified'].includes(participant.verification_status)) return errorResponse(403, 'identity_ineligible', 'Este perfil necesita una revisión antes de seguir publicando.');
-  if (!CHALLENGE_COURSE_IDS.has(courseId)) return errorResponse(400, 'invalid_scope', 'La materia del QCM no pertenece al desafío del 4.º E.');
   if (!Number.isInteger(correct) || !Number.isInteger(total) || total < 1 || total > 50 || correct < 0 || correct > total) return errorResponse(400, 'invalid_score', 'El resultado del QCM no es válido.');
-  const scopeId = moduleId ? `${courseId || 'module'}:${moduleId}` : courseId;
+  const scopeId = `${courseId}:${moduleId}`;
+  const expectedTotal = CHALLENGE_SCOPE_TOTALS.get(scopeId);
+  if (!expectedTotal) return errorResponse(400, 'invalid_scope', 'El módulo no pertenece al desafío vigente del 4.º E.');
+  if (total !== expectedTotal) return errorResponse(400, 'invalid_score', 'El total no coincide con el bloque 20/10/10 publicado.');
   const percentage = Math.round((correct / total) * 10000) / 100;
   const now = requestTime.toISOString();
   const previous = await db.prepare(`SELECT id,correct,total,percentage,created_at FROM community_scores WHERE class_id=? AND week_key=? AND player_id=? AND scope_id=? ORDER BY correct DESC,percentage DESC,created_at ASC,id ASC LIMIT 1`).bind(classRecord.id, week.key, playerId, scopeId).first();

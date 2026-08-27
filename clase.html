@@ -83,7 +83,7 @@
       <div class="dashboard-heading">
         <div class="dashboard-heading-top">
           <div class="hero-meta"><span class="status-dot"><i aria-hidden="true"></i> Espacio activo</span><span>4.º E · Semestre 4</span></div>
-          <time class="dashboard-updated" id="lastUpdated" datetime="2026-08-24" title="Última actualización de contenidos">Actualizado 24 ago. 2026</time>
+          <time class="dashboard-updated" id="lastUpdated" datetime="2026-08-26" title="Última actualización de contenidos">Actualizado 26 ago. 2026</time>
         </div>
         <p class="section-kicker">Resumen de la semana</p>
         <h1 id="class-title">Tu semana</h1>
@@ -123,14 +123,14 @@
           <p>Abre directamente la clase transcrita.</p>
         </div>
         <div class="home-transcript-grid">
-          <a class="home-transcript-card home-transcript-fisio" href="#fisiologia-2026-08-24">
-            <time class="home-transcript-date" datetime="2026-08-24"><b>24</b><small>AGO.</small></time>
-            <span class="home-transcript-copy"><small>FISIOLOGÍA II · NUEVA TRANSCRIPCIÓN</small><strong><span class="home-transcript-title-long">Sensibilidades somáticas</span><span class="home-transcript-title-short">Sensibilidades somáticas</span></strong><em>4 PDF · curso completo · 40 preguntas</em></span>
+          <a class="home-transcript-card home-transcript-bio" href="#bioquimica-2026-08-26">
+            <time class="home-transcript-date" datetime="2026-08-26"><b>26</b><small>AGO.</small></time>
+            <span class="home-transcript-copy"><small>BIOQUÍMICA II · NUEVA TRANSCRIPCIÓN</small><strong><span class="home-transcript-title-long">Ciclo de Cori y vía de las pentosas</span><span class="home-transcript-title-short">Cori y pentosas</span></strong><em>curso + fichas · 40 preguntas</em></span>
             <b class="home-transcript-action">Abrir curso <span aria-hidden="true">→</span></b>
           </a>
-          <a class="home-transcript-card home-transcript-micro" href="#microbiologia-teorica-2026-08-24">
-            <time class="home-transcript-date" datetime="2026-08-24"><b>24</b><small>AGO.</small></time>
-            <span class="home-transcript-copy"><small>MICROBIOLOGÍA II · TEÓRICA · TRANSCRIPCIÓN ACTUALIZADA</small><strong><span class="home-transcript-title-long">Micosis subcutáneas y oportunistas</span><span class="home-transcript-title-short">Micosis y casos clínicos</span></strong><em>5 casos + Candida · curso completo · 40 preguntas</em></span>
+          <a class="home-transcript-card home-transcript-epi home-transcript-micro" href="#epidemiologia-2026-08-26">
+            <time class="home-transcript-date" datetime="2026-08-26"><b>26</b><small>AGO.</small></time>
+            <span class="home-transcript-copy"><small>EPIDEMIOLOGÍA · NUEVA TRANSCRIPCIÓN</small><strong><span class="home-transcript-title-long">Casos clínicos de triaje y sistema de salud</span><span class="home-transcript-title-short">Casos de triaje</span></strong><em>método de la profesora · 40 preguntas</em></span>
             <b class="home-transcript-action">Abrir curso <span aria-hidden="true">→</span></b>
           </a>
         </div>
@@ -495,8 +495,8 @@
       <div class="course-selector" aria-label="Materias disponibles">
         <a href="#nutricion" data-course-target="nutricion" aria-current="true"><span class="course-icon"><svg><use href="#class-icon-nutrition"></use></svg></span><strong>Nutrición</strong><small>Leyes de la alimentación</small><b>13 AGO · EST.</b></a>
         <a class="course-selector-latest" href="#fisiologia-2026-08-24" data-course-target="fisiologia"><span class="course-icon"><svg><use href="#class-icon-physiology"></use></svg></span><strong>Fisiología II</strong><small>Sensibilidades somáticas</small><b class="course-latest-chip">ÚLTIMA · 24 AGO</b></a>
-        <a href="#bioquimica" data-course-target="bioquimica"><span class="course-icon"><svg><use href="#class-icon-biochemistry"></use></svg></span><strong>Bioquímica II</strong><small>Cetoacidosis</small><b>21 AGO</b></a>
-        <a href="#epidemiologia" data-course-target="epidemiologia"><span class="course-icon"><svg><use href="#class-icon-epidemiology"></use></svg></span><strong>Epidemiología</strong><small>APS, sectorización y triage</small><b>2 BLOQUES</b></a>
+        <a class="course-selector-latest" href="#bioquimica-2026-08-26" data-course-target="bioquimica"><span class="course-icon"><svg><use href="#class-icon-biochemistry"></use></svg></span><strong>Bioquímica II</strong><small>Cori y pentosas</small><b class="course-latest-chip">ÚLTIMA · 26 AGO</b></a>
+        <a class="course-selector-latest" href="#epidemiologia-2026-08-26" data-course-target="epidemiologia"><span class="course-icon"><svg><use href="#class-icon-epidemiology"></use></svg></span><strong>Epidemiología</strong><small>Casos de triaje</small><b class="course-latest-chip">ÚLTIMA · 26 AGO</b></a>
         <a class="course-selector-latest" href="#microbiologia-teorica-2026-08-24" data-course-target="microbiologia-teorica"><span class="course-icon"><svg><use href="#class-icon-microbiology"></use></svg></span><strong>Microbiología II</strong><small><span class="course-type-badge">TEÓRICA</span> Micosis y casos</small><b class="course-latest-chip">TEÓRICA · 24 AGO</b></a>
         <a href="#microbiologia-practica" data-course-target="microbiologia-practica"><span class="course-icon"><svg><use href="#class-icon-lab"></use></svg></span><strong>Microbiología II</strong><small><span class="course-type-badge">PRÁCTICA</span> Diagnóstico micológico</small><b>20 AGO</b></a>
       </div>
@@ -986,22 +986,183 @@
     <section id="bioquimica" class="content-section subject-section" data-view="cursos" aria-labelledby="bio-title" hidden>
       <div class="subject-heading">
         <div>
-          <p class="section-kicker">Bioquímica II · clase del 21 de agosto</p>
-          <h2 id="bio-title">Cetoacidosis diabética: mecanismo y corrección</h2>
-          <p>Clase del viernes 21 de agosto de 2026 reconstruida a partir de la transcripción y de tres pizarras.</p>
+          <p class="section-kicker">Bioquímica II · clase del 26 de agosto</p>
+          <h2 id="bio-title">Ciclo de Cori y vía de las pentosas fosfato</h2>
+          <p>Clase del miércoles 26 de agosto de 2026, con integración metabólica y repaso corregido de la cetoacidosis diabética.</p>
         </div>
-        <span class="source-pill status-confirmed">Clase confirmada · 21 ago.</span>
+        <span class="source-pill status-confirmed">Clase confirmada · 26 ago.</span>
       </div>
 
       <nav class="class-history lesson-date-picker" aria-label="Clases de Bioquímica">
-        <a class="history-entry history-current" href="#bioquimica-2026-08-21" data-lesson-target="bioquimica-2026-08-21" aria-current="true"><time datetime="2026-08-21">21 AGO 2026</time><div><strong>Cetoacidosis diabética</strong><small>Déficit de insulina, cetogénesis, acidosis, osmolaridad y vigilancia cerebral.</small></div><span>SELECCIONADA</span></a>
+        <a class="history-entry history-current" href="#bioquimica-2026-08-26" data-lesson-target="bioquimica-2026-08-26" aria-current="true"><time datetime="2026-08-26">26 AGO 2026</time><div><strong>Ciclo de Cori y vía de las pentosas</strong><small>Lactato, gluconeogénesis, balance energético, NADPH y ribosa-5-fosfato.</small></div><span>SELECCIONADA</span></a>
+        <a class="history-entry" href="#bioquimica-2026-08-21" data-lesson-target="bioquimica-2026-08-21" aria-current="false"><time datetime="2026-08-21">21 AGO 2026</time><div><strong>Cetoacidosis diabética</strong><small>Déficit de insulina, cetogénesis, acidosis, osmolaridad y vigilancia cerebral.</small></div><span>ABRIR CLASE</span></a>
         <a class="history-entry" href="#bioquimica-2026-08-19" data-lesson-target="bioquimica-2026-08-19" aria-current="false"><time datetime="2026-08-19">19 AGO 2026</time><div><strong>Glucólisis, piruvato y complejo PDH</strong><small>Regulación, destinos del piruvato, cofactores y conexión mitocondrial.</small></div><span>ABRIR CLASE</span></a>
         <a class="history-entry" href="#bioquimica-2026-08-14" data-lesson-target="bioquimica-2026-08-14" aria-current="false"><time datetime="2026-08-14">14 AGO 2026</time><div><strong>Glucólisis</strong><small>Vía común, fases, diez reacciones, balance y regulación inicial.</small></div><span>ABRIR CLASE</span></a>
         <article class="history-entry"><span>FECHA NO DICHA</span><div><strong>Transportadores y destinos de la G6P</strong><small>GLUT, SGLT, insulina, pentosas fosfato y respiración celular.</small></div></article>
         <article class="history-entry"><span>FECHA NO DICHA</span><div><strong>Bases del metabolismo</strong><small>Carbohidratos, rutas metabólicas, glicación y conexiones clínicas.</small></div></article>
       </nav>
 
-      <div id="bioquimica-2026-08-21" class="dated-lesson-panel lesson-2026 bio-lesson-standard" data-lesson-panel="bioquimica-2026-08-21" data-lesson-title="Cetoacidosis diabética">
+<!-- BIOQUÍMICA II · CLASE DEL MIÉRCOLES 26 DE AGOSTO DE 2026 -->
+<div id="bioquimica-2026-08-26" class="dated-lesson-panel lesson-2026 bio-lesson-standard" data-lesson-panel="bioquimica-2026-08-26" data-lesson-title="Ciclo de Cori y vía de las pentosas fosfato">
+  <section class="lesson-hero-2026">
+    <div>
+      <span>BIOQUÍMICA II · 26 AGO. 2026</span>
+      <h3>Ciclo de Cori, pentosas fosfato y conexiones clínicas</h3>
+      <p>La glucosa-6-fosfato funciona como una encrucijada: puede alimentar la glucólisis, sostener el reciclaje del lactato o desviarse hacia una vía que produce NADPH y ribosa-5-fosfato.</p>
+    </div>
+    <div class="lesson-hero-facts">
+      <div><small>EJES</small><strong>CAD · Cori · pentosas fosfato</strong></div>
+      <div><small>APOYO</small><strong>Transcripción + fotografías del pizarrón</strong></div>
+      <div><small>ENTRENAMIENTO</small><strong>20 QCM · 10 V/F · 10 casos</strong></div>
+    </div>
+  </section>
+
+  <nav class="lesson-section-tabs" data-lesson-tabs aria-label="Partes de la clase de Bioquímica del 26 de agosto">
+    <button type="button" data-lesson-tab="curso" aria-selected="true">Curso completo</button>
+    <button type="button" data-lesson-tab="rapida" aria-selected="false">Ficha rápida</button>
+    <button type="button" data-lesson-tab="ultra" aria-selected="false">Ficha ultra rápida</button>
+    <button type="button" data-lesson-tab="training" aria-selected="false">Entrenamiento</button>
+    <button type="button" data-lesson-tab="material" aria-selected="false">Material de la clase</button>
+    <button type="button" data-lesson-tab="ia" aria-selected="false">Recursos IA</button>
+  </nav>
+
+  <section class="lesson-tab-panel course-chapter-2026" data-lesson-tab-panel="curso">
+    <header>
+      <span>CURSO COMPLETO</span>
+      <h3>De la glucosa-6-fosfato a la energía, el reciclaje y la defensa antioxidante</h3>
+      <p class="course-chapter-lead">La clase enlaza tres escalas. Primero repasa cómo el déficit de insulina reorganiza el metabolismo en la cetoacidosis diabética. Después sigue el lactato entre músculo, sangre e hígado mediante el ciclo de Cori. Finalmente, muestra por qué una parte de la glucosa-6-fosfato entra en la vía de las pentosas fosfato en vez de continuar por la glucólisis.</p>
+    </header>
+    <div class="course-chapter-body">
+      <section class="course-chapter-section" id="bio26-encrucijada">
+        <p class="course-chapter-step">01 · ENCRUCIJADA METABÓLICA</p>
+        <h4>La glucosa-6-fosfato puede seguir destinos diferentes</h4>
+        <p>La hexoquinasa o la glucoquinasa fosforilan la glucosa y forman glucosa-6-fosfato. La carga negativa del fosfato ayuda a retenerla dentro de la célula. Desde allí puede continuar por glucólisis, participar en el metabolismo del glucógeno o entrar en la vía de las pentosas fosfato.</p>
+        <p>Su papel depende de la ruta que se esté analizando: es un intermediario temprano de la glucólisis y, al mismo tiempo, el sustrato inicial de la fase oxidativa de las pentosas. La necesidad celular de ATP, NADPH, ribosa o reserva determina hacia dónde se dirige el flujo.</p>
+      </section>
+
+      <section class="course-chapter-section" id="bio26-cad-repaso">
+        <p class="course-chapter-step">02 · REPASO CORREGIDO DE CAD</p>
+        <h4>El déficit de acción de insulina activa dos problemas paralelos</h4>
+        <p>En la cetoacidosis diabética, la captación periférica de glucosa disminuye y la producción hepática de glucosa aumenta. La hiperglucemia produce glucosuria, diuresis osmótica, pérdida de agua y electrolitos. En paralelo, la falta de freno antilipolítico moviliza combustibles hacia el hígado.</p>
+        <p>La acidosis metabólica con brecha aniónica se explica por la acumulación de cetoácidos, principalmente acetoacetato y β-hidroxibutirato. La respiración profunda y rápida es compensatoria: reduce CO₂, pero no elimina el origen metabólico del cuadro.</p>
+      </section>
+
+      <section class="course-chapter-section" id="bio26-cetogenesis">
+        <p class="course-chapter-step">03 · LIPÓLISIS Y CETOGÉNESIS</p>
+        <h4>Los ácidos grasos libres llegan al hígado unidos a albúmina</h4>
+        <p>El tejido adiposo hidroliza triacilglicéridos y libera glicerol y ácidos grasos. Por ser hidrofóbicos, los ácidos grasos no circulan solos en el plasma: se transportan principalmente unidos a la albúmina. En el hígado, la β-oxidación genera acetil-CoA y poder reductor.</p>
+        <p>Cuando el contexto hormonal favorece la gluconeogénesis y limita la oxidación de todo el acetil-CoA en el ciclo de Krebs, aumenta la cetogénesis. Se forman acetoacetato, β-hidroxibutirato y acetona. Los dos primeros pueden servir como combustible en tejidos extrahepáticos; el hígado los produce, pero no los utiliza como fuente energética.</p>
+      </section>
+
+      <section class="course-chapter-section" id="bio26-potasio">
+        <p class="course-chapter-step">04 · POTASIO Y PRINCIPIOS DE CORRECCIÓN</p>
+        <h4>El potasio sérico inicial puede ocultar un déficit corporal total</h4>
+        <p>La diuresis osmótica ocasiona pérdidas corporales de potasio. Sin embargo, la falta de insulina, la hiperosmolalidad y los desplazamientos transcelulares pueden mantener el valor sérico normal o elevado al inicio. Por eso una cifra aislada no describe las reservas totales.</p>
+        <p>La corrección clínica se guía por protocolos y monitorización: se restaura el volumen, se mide y vigila el potasio, y se administra insulina cuando es seguro para detener lipólisis y cetogénesis. Al bajar la glucemia puede añadirse glucosa para poder continuar la insulina hasta resolver la cetosis. El orden, la velocidad y las cantidades dependen del estado del paciente y del protocolo institucional; esta clase no prescribe dosis.</p>
+      </section>
+
+      <section class="course-chapter-section" id="bio26-lactato">
+        <p class="course-chapter-step">05 · LACTATO Y LACTATO DESHIDROGENASA</p>
+        <h4>La reacción de LDH regenera NAD⁺ para sostener la glucólisis</h4>
+        <p>La lactato deshidrogenasa cataliza una reacción reversible: piruvato + NADH + H⁺ ⇄ lactato + NAD⁺. En el músculo con alta demanda glucolítica y en células sin mitocondrias, esta dirección regenera NAD⁺ para que la glucólisis pueda continuar.</p>
+        <p>El lactato no es un desecho sin utilidad y también se produce en condiciones aeróbicas. Puede oxidarse en otros tejidos o viajar al hígado. La acidosis asociada al esfuerzo o a la enfermedad no debe atribuirse de manera simplista a una «liberación de ácido láctico» por LDH: depende del balance global entre producción y consumo de protones y de la capacidad de aclaramiento.</p>
+      </section>
+
+      <section class="course-chapter-section" id="cori-musculo">
+        <p class="course-chapter-step">06 · CICLO DE CORI</p>
+        <h4>El músculo y los eritrocitos entregan lactato; el hígado devuelve glucosa</h4>
+        <p>Durante una glucólisis intensa, el músculo convierte glucosa en lactato y obtiene ATP con rapidez. Los eritrocitos producen lactato de forma continua porque carecen de mitocondrias. El lactato pasa a la sangre, llega al hígado y allí vuelve a piruvato por la reacción inversa de LDH.</p>
+        <p>El hígado utiliza gluconeogénesis para formar glucosa, que puede regresar a la sangre y ser reutilizada o incorporarse a glucógeno hepático. Este intercambio contribuye al aclaramiento de lactato y redistribuye combustible; no es el único mecanismo que evita la acidosis láctica.</p>
+        <!-- class-notebook-v445.js inserta aquí una figure.course-inline-figure desde lessonVisuals. -->
+      </section>
+
+      <section class="course-chapter-section" id="bio26-cori-balance">
+        <p class="course-chapter-step">07 · BALANCE ENERGÉTICO</p>
+        <h4>El ciclo completo desplaza el costo energético hacia el hígado</h4>
+        <p>La glucólisis anaeróbica obtiene 2 ATP por glucosa en el tejido productor de lactato. Para reconstruir una glucosa a partir de dos lactatos, la gluconeogénesis hepática consume 6 enlaces fosfato de alta energía: 4 ATP y 2 GTP. El balance global equivale a una pérdida de 4 ATP para el organismo.</p>
+        <p>Por eso el ciclo es útil pero energéticamente costoso. No se «detiene» de manera automática tras un tiempo fijo: su flujo depende de la producción de lactato, la perfusión, el estado hepático, la disponibilidad de sustratos y la energía que el hígado pueda aportar.</p>
+      </section>
+
+      <section class="course-chapter-section" id="ppp-objetivos">
+        <p class="course-chapter-step">08 · VÍA DE LAS PENTOSAS FOSFATO</p>
+        <h4>La ruta produce NADPH, pentosas y conexiones con la glucólisis</h4>
+        <p>La vía de las pentosas fosfato ocurre en el citosol y no tiene como objetivo directo producir ATP. Su fase oxidativa extrae poder reductor de la glucosa-6-fosfato; su fase no oxidativa reorganiza azúcares según las necesidades celulares.</p>
+        <p>Sus productos esenciales son NADPH para reacciones reductoras y defensa antioxidante, ribosa-5-fosfato para nucleótidos e intermediarios como fructosa-6-fosfato y gliceraldehído-3-fosfato, capaces de conectarse con la glucólisis.</p>
+        <!-- class-notebook-v445.js inserta aquí una figure.course-inline-figure desde lessonVisuals. -->
+      </section>
+
+      <section class="course-chapter-section" id="bio26-ppp-fases">
+        <p class="course-chapter-step">09 · DOS FASES, DOS LÓGICAS</p>
+        <h4>La fase oxidativa es irreversible; la no oxidativa es reversible</h4>
+        <p>La fase oxidativa comienza con glucosa-6-fosfato deshidrogenasa. Por cada glucosa-6-fosfato forma dos NADPH, CO₂ y ribulosa-5-fosfato. Estas reacciones no vuelven hacia atrás y constituyen el tramo regulador de la ruta.</p>
+        <p>La fase no oxidativa interconvierte azúcares de tres a siete carbonos mediante transquetolasa y transaldolasa. Puede generar ribosa-5-fosfato o devolver carbonos como fructosa-6-fosfato y gliceraldehído-3-fosfato. La transquetolasa utiliza TPP derivado de vitamina B1.</p>
+      </section>
+
+      <section class="course-chapter-section" id="bio26-nadph-g6pd">
+        <p class="course-chapter-step">10 · NADPH, RIBOSA Y G6PD</p>
+        <h4>El producto necesario cambia según el tipo y el estado de la célula</h4>
+        <p>El NADPH aporta electrones a la síntesis de ácidos grasos y colesterol, mantiene glutatión reducido y participa en sistemas reductores. La ribosa-5-fosfato permite formar nucleótidos para ARN y, tras su conversión a desoxirribonucleótidos, para ADN.</p>
+        <p>En los eritrocitos, la vía de las pentosas es la fuente principal de NADPH. Una deficiencia de G6PD reduce la capacidad de regenerar glutatión y aumenta la vulnerabilidad frente al estrés oxidativo, lo que puede desencadenar hemólisis ante determinados agentes o enfermedades.</p>
+      </section>
+    </div>
+    <p class="lesson-source-note"><b>Correcciones integradas:</b> el lactato también se forma con oxígeno disponible; el ciclo de Cori consume 4 ATP y 2 GTP en el hígado; la glucemia no se corrige de forma brusca ni con una pauta deducida de la clase. Toda conducta clínica debe seguir evaluación, monitorización y protocolo institucional.</p>
+  </section>
+
+  <section class="lesson-tab-panel" data-lesson-tab-panel="rapida" hidden>
+    <header><span>FICHA RÁPIDA · 5 MIN</span><h3>Diez anclas para reconstruir las rutas</h3></header>
+    <div class="quick-sheet">
+      <article><span>G6P</span><strong>Encrucijada metabólica</strong><small>Glucólisis, glucógeno o pentosas según la necesidad.</small></article>
+      <article><span>CAD</span><strong>Dos rutas paralelas</strong><small>Diuresis osmótica + lipólisis/cetogénesis.</small></article>
+      <article><span>ÁCIDOS GRASOS</span><strong>Viajan con albúmina</strong><small>La β-oxidación hepática genera acetil-CoA.</small></article>
+      <article><span>CETONAS</span><strong>Acetoacetato + β-OHB</strong><small>La acetona constituye la fracción volátil.</small></article>
+      <article><span>K⁺</span><strong>Valor sérico ≠ reserva</strong><small>Puede existir déficit total con potasio sérico alto.</small></article>
+      <article><span>LDH</span><strong>Regenera NAD⁺</strong><small>Piruvato + NADH + H⁺ ⇄ lactato + NAD⁺.</small></article>
+      <article><span>CORI</span><strong>Lactato → hígado → glucosa</strong><small>Músculo y eritrocitos entregan lactato.</small></article>
+      <article><span>BALANCE CORI</span><strong>2 − 6 = −4 ATP eq.</strong><small>El hígado asume el costo de la gluconeogénesis.</small></article>
+      <article><span>PPP OXIDATIVA</span><strong>2 NADPH + CO₂</strong><small>Irreversible; inicia con G6PD.</small></article>
+      <article><span>PPP NO OXIDATIVA</span><strong>Azúcares reversibles</strong><small>R5P, F6P y G3P según la demanda.</small></article>
+    </div>
+  </section>
+
+  <section class="lesson-tab-panel" data-lesson-tab-panel="ultra" hidden>
+    <header><span>FICHA ULTRA RÁPIDA · 90 S</span><h3>La secuencia que no puede fallar</h3></header>
+    <ol class="ultra-sheet">
+      <li>La G6P conecta glucólisis, glucógeno y pentosas.</li>
+      <li>En CAD: hiperglucemia deshidrata y lipólisis alimenta cetogénesis.</li>
+      <li>El K⁺ sérico inicial puede ocultar un déficit corporal total.</li>
+      <li>LDH regenera NAD⁺; el lactato circula hacia hígado y otros tejidos.</li>
+      <li>Cori: músculo/RBC → lactato → hígado → glucosa; balance global −4 ATP equivalentes.</li>
+      <li>Pentosas: fase oxidativa produce NADPH; fase no oxidativa redistribuye carbonos.</li>
+      <li>NADPH sostiene biosíntesis reductora y glutatión; R5P sostiene nucleótidos.</li>
+    </ol>
+  </section>
+
+  <section class="lesson-tab-panel" data-lesson-tab-panel="training" hidden>
+    <header><span>ENTRENAMIENTO</span><h3>40 preguntas de CAD, Cori y pentosas fosfato</h3></header>
+    <div data-practice-slot="bioquimica-2026-08-26"></div>
+  </section>
+
+  <section class="lesson-tab-panel" data-lesson-tab-panel="material" hidden>
+    <header><span>MATERIAL DE LA CLASE</span><h3>Transcripción y fotografías del pizarrón</h3></header>
+    <div class="lesson-materials">
+      <article class="lesson-file-card"><img src="assets/class-hub/biochemistry/2026-08-26/ciclo-cori-pizarra.webp" loading="lazy" decoding="async" alt="Tres vistas del esquema de ciclo de Cori proyectado en clase" /><div><span>3 VISTAS · PIZARRA</span><strong>Ciclo de Cori</strong><small>Esquema músculo–sangre–hígado y balance energético anotado en clase.</small><a href="assets/class-hub/biochemistry/2026-08-26/ciclo-cori-pizarra.webp" target="_blank" rel="noopener">Ampliar pizarra</a></div></article>
+      <article class="lesson-file-card"><img src="assets/class-hub/biochemistry/2026-08-26/pentosas-pizarra.webp" loading="lazy" decoding="async" alt="Pizarra de la vía de las pentosas fosfato" /><div><span>1 FOTOGRAFÍA · PIZARRA</span><strong>Vía de las pentosas fosfato</strong><small>Encrucijada de G6P, objetivos, fases y productos metabólicos.</small><a href="assets/class-hub/biochemistry/2026-08-26/pentosas-pizarra.webp" target="_blank" rel="noopener">Ampliar pizarra</a></div></article>
+      <article class="lesson-file-card lesson-file-card-text"><div><span>TRANSCRIPCIÓN · RECONSTRUIDA</span><strong>Explicación oral completa</strong><small>Se corrigieron errores evidentes del reconocimiento de voz sin atribuir contenido nuevo a la profesora.</small></div></article>
+    </div>
+  </section>
+
+  <section class="lesson-tab-panel" data-lesson-tab-panel="ia" hidden>
+    <header><span>RECURSOS IA</span><h3>Repasar rutas con conexiones y balances</h3></header>
+    <div class="ai-resource-grid">
+      <details open><summary>Transcripción reconstruida</summary><p>El recorrido parte del repaso de la CAD, continúa con fermentación láctica y ciclo de Cori, y termina en los objetivos y fases de la vía de las pentosas fosfato.</p></details>
+      <details><summary>Perfil docente · Andrea López</summary><p>La sesión pregunta repetidamente por el siguiente paso, el tejido donde ocurre, el objetivo de la vía y el balance energético. Conviene responder siempre con sustrato, enzima, producto y función.</p><span class="confidence-chip">CONFIANZA MEDIA · 3 CLASES ORALES</span></details>
+      <details><summary>Estilo probable de preguntas</summary><ul><li>Completar una secuencia metabólica.</li><li>Comparar tejido muscular, eritrocito e hígado.</li><li>Relacionar un déficit enzimático con su consecuencia celular.</li></ul></details>
+      <details class="ai-prompt"><summary>Prompt personalizado</summary><pre>Evalúame sobre Bioquímica II del 26/08/2026. Alterna preguntas de cadena causal, balance energético y mini-casos. Exige que nombre tejido, enzima, producto y objetivo; corrige cualquier simplificación sobre lactato, potasio o G6PD.</pre></details>
+    </div>
+  </section>
+</div>
+
+      <div id="bioquimica-2026-08-21" class="dated-lesson-panel lesson-2026 bio-lesson-standard" data-lesson-panel="bioquimica-2026-08-21" data-lesson-title="Cetoacidosis diabética" hidden>
         <section class="lesson-hero-2026"><div><span>BIOQUÍMICA II · 21 AGO. 2026</span><h3>Cetoacidosis diabética: del déficit hormonal al cerebro</h3><p>Una secuencia causal única conecta hiperglucemia, pérdida de agua y electrolitos, lipólisis, cetogénesis, acidosis metabólica y riesgo neurológico durante la corrección.</p></div><div class="lesson-hero-facts"><div><small>PIZARRAS</small><strong>3 trazados fieles al original</strong></div><div><small>TRABAJO</small><strong>Actividades 3 y 4 impresas y manuscritas</strong></div><div><small>ENTRENAMIENTO</small><strong>20 QCM · 10 V/F · 10 casos</strong></div></div></section>
         <nav class="lesson-section-tabs" data-lesson-tabs aria-label="Partes de la clase de Bioquímica del 21 de agosto"><button type="button" data-lesson-tab="curso" aria-selected="true">Curso completo</button><button type="button" data-lesson-tab="rapida" aria-selected="false">Ficha rápida</button><button type="button" data-lesson-tab="ultra" aria-selected="false">Ficha ultra rápida</button><button type="button" data-lesson-tab="training" aria-selected="false">Entrenamiento</button><button type="button" data-lesson-tab="material" aria-selected="false">Material de la clase</button><button type="button" data-lesson-tab="ia" aria-selected="false">Recursos IA</button></nav>
         <section class="lesson-tab-panel course-chapter-2026" data-lesson-tab-panel="curso"><header><span>CURSO COMPLETO</span><h3>Cetoacidosis diabética: una cadena causal</h3><p class="course-chapter-lead">La cetoacidosis diabética no se aprende como una lista de alteraciones aisladas. Se sigue desde el déficit de acción de la insulina hasta dos consecuencias que avanzan en paralelo: la pérdida de agua por hiperglucemia y la producción de ácidos por cetogénesis. Al final, ambas rutas convergen en la vigilancia de electrolitos, osmolaridad y estado neurológico.</p></header><div class="course-chapter-body">
@@ -1181,11 +1342,11 @@
     <section id="epidemiologia" class="content-section subject-section" data-view="cursos" aria-labelledby="epi-title" hidden>
       <div class="subject-heading">
         <div>
-          <p class="section-kicker">Epidemiología y Salud Pública · clase del 19 de agosto</p>
-          <h2 id="epi-title">Organización de urgencias y emergencias</h2>
-          <p>Clase del miércoles 19 de agosto de 2026 basada en las 57 diapositivas entregadas por la cátedra.</p>
+          <p class="section-kicker">Epidemiología y Salud Pública · clase del 26 de agosto</p>
+          <h2 id="epi-title">Casos clínicos de triaje y sistema de salud</h2>
+          <p>Clase del miércoles 26 de agosto de 2026 centrada en la resolución oral de casos, el RAC y la notificación epidemiológica.</p>
         </div>
-        <span class="source-pill status-confirmed">Clase confirmada · 19 ago.</span>
+        <span class="source-pill status-confirmed">Clase confirmada · 26 ago.</span>
       </div>
 
       <article class="group-activity-card epidemiology-project" id="epi19-tarea" data-notebook-persistent="true" aria-labelledby="epiProjectTitle">
@@ -1228,11 +1389,176 @@
       </article>
 
       <nav class="class-history lesson-date-picker" aria-label="Clases de Epidemiología y Salud Pública">
-        <a class="history-entry history-current" href="#epidemiologia-2026-08-19" data-lesson-target="epidemiologia-2026-08-19" aria-current="true"><time datetime="2026-08-19">19 AGO 2026</time><div><strong>Organización de urgencias y emergencias</strong><small>SIUE, regulación, transporte, triage de cinco niveles y múltiples víctimas.</small></div><span>SELECCIONADA</span></a>
+        <a class="history-entry history-current" href="#epidemiologia-2026-08-26" data-lesson-target="epidemiologia-2026-08-26" aria-current="true"><time datetime="2026-08-26">26 AGO 2026</time><div><strong>Casos clínicos de triaje y sistema de salud</strong><small>Nivel I–V, urgencia, signos vitales, riesgo y ficha epidemiológica.</small></div><span>SELECCIONADA</span></a>
+        <a class="history-entry" href="#epidemiologia-2026-08-19" data-lesson-target="epidemiologia-2026-08-19" aria-current="false"><time datetime="2026-08-19">19 AGO 2026</time><div><strong>Organización de urgencias y emergencias</strong><small>SIUE, regulación, transporte, triage de cinco niveles y múltiples víctimas.</small></div><span>ABRIR CLASE</span></a>
         <a class="history-entry" href="#epidemiologia-bloque-anterior" data-lesson-target="epidemiologia-bloque-anterior" aria-current="false"><time datetime="2026-08-12">12 AGO 2026</time><div><strong>APS, sectorización y triage</strong><small>Alma-Ata, modelo integral, territorio, signos vitales y prioridad asistencial.</small></div><span>ABRIR CLASE</span></a>
       </nav>
 
-      <div id="epidemiologia-2026-08-19" class="dated-lesson-panel lesson-2026" data-lesson-panel="epidemiologia-2026-08-19" data-lesson-title="Organización de urgencias y emergencias" style="--lesson-accent:#fbbf24">
+<!-- EPIDEMIOLOGÍA Y SALUD PÚBLICA · CLASE DEL MIÉRCOLES 26 DE AGOSTO DE 2026 -->
+<div id="epidemiologia-2026-08-26" class="dated-lesson-panel lesson-2026" data-lesson-panel="epidemiologia-2026-08-26" data-lesson-title="Casos clínicos de triaje y sistema de salud" style="--lesson-accent:#fbbf24">
+  <section class="lesson-hero-2026">
+    <div>
+      <span>EPIDEMIOLOGÍA · 26 AGO. 2026</span>
+      <h3>Casos clínicos de triaje, notificación y red de salud</h3>
+      <p>La clase entrena una respuesta fija para cada caso: asignar prioridad, distinguir urgencia de emergencia, interpretar signos vitales, anticipar el riesgo de demora y decidir si corresponde vigilancia epidemiológica.</p>
+    </div>
+    <div class="lesson-hero-facts">
+      <div><small>MÉTODO</small><strong>5 preguntas por caso clínico</strong></div>
+      <div><small>EJE</small><strong>RAC I–V + red paraguaya</strong></div>
+      <div><small>ENTRENAMIENTO</small><strong>20 QCM · 10 V/F · 10 casos</strong></div>
+    </div>
+  </section>
+
+  <nav class="lesson-section-tabs" data-lesson-tabs aria-label="Partes de la clase de Epidemiología del 26 de agosto">
+    <button type="button" data-lesson-tab="curso" aria-selected="true">Curso completo</button>
+    <button type="button" data-lesson-tab="rapida" aria-selected="false">Ficha rápida</button>
+    <button type="button" data-lesson-tab="ultra" aria-selected="false">Ficha ultra rápida</button>
+    <button type="button" data-lesson-tab="training" aria-selected="false">Entrenamiento</button>
+    <button type="button" data-lesson-tab="material" aria-selected="false">Material de la clase</button>
+    <button type="button" data-lesson-tab="ia" aria-selected="false">Recursos IA</button>
+  </nav>
+
+  <section class="lesson-tab-panel course-chapter-2026" data-lesson-tab-panel="curso">
+    <header>
+      <span>CURSO COMPLETO</span>
+      <h3>Resolver el riesgo antes de completar el diagnóstico</h3>
+      <p class="course-chapter-lead">La Recepción, Acogida y Clasificación —RAC— organiza la atención por gravedad y posibilidad de deterioro, no por orden de llegada. El diagnóstico definitivo puede aparecer después; en la puerta importan la amenaza vital o funcional, el estado neurológico, los signos vitales, el mecanismo, la edad, las comorbilidades y la evolución.</p>
+    </header>
+    <div class="course-chapter-body">
+      <section class="course-chapter-section" id="epi26-proposito">
+        <p class="course-chapter-step">01 · PROPÓSITO DE LA RAC</p>
+        <h4>Recibir, acoger, clasificar y reevaluar</h4>
+        <p>La RAC identifica quién necesita atención primero y qué circuito resulta seguro. No busca resolver en la puerta toda la etiología: reconoce amenazas, recoge datos clave, asigna un nivel y orienta al área adecuada.</p>
+        <p>La clasificación es dinámica. Si una persona espera y aparecen dolor creciente, alteración neurológica, sangrado, dificultad respiratoria o cambios de signos vitales, debe reevaluarse y puede cambiar de nivel.</p>
+      </section>
+
+      <section class="course-chapter-section" id="epi26-rac">
+        <p class="course-chapter-step">02 · CINCO NIVELES</p>
+        <h4>El nivel expresa el tiempo máximo objetivo según el riesgo</h4>
+        <p>En el manual RAC utilizado en Paraguay: nivel I corresponde a reanimación y atención inmediata; nivel II, emergencia con atención en hasta 10 minutos; nivel III, urgencia con atención en hasta 30 minutos; nivel IV, menor urgencia con atención en hasta 120 minutos; y nivel V, no urgente con atención en hasta 180 minutos.</p>
+        <p>Estos tiempos son metas de prioridad y no autorizan a abandonar la vigilancia. La asignación final se apoya en discriminadores clínicos, recursos locales y estado actual; un diagnóstico por sí solo no fija siempre el mismo nivel.</p>
+        <!-- class-notebook-v445.js inserta aquí una figure.course-inline-figure desde lessonVisuals. -->
+      </section>
+
+      <section class="course-chapter-section" id="epi26-urgencia">
+        <p class="course-chapter-step">03 · URGENCIA O EMERGENCIA</p>
+        <h4>La emergencia amenaza de forma inmediata vida, órgano o función</h4>
+        <p>Una emergencia exige intervención inmediata porque existe compromiso actual o inminente de vía aérea, respiración, circulación, conciencia, órgano o función. Una urgencia también requiere atención pronta, pero permite un margen breve para evaluación y organización sin que exista en ese instante una amenaza vital inmediata.</p>
+        <p>La etiqueta debe justificarse con hallazgos. «Tiene fiebre», «se cayó» o «fue picado» no bastan: hay que describir estabilidad hemodinámica, ventilación, conciencia, dolor, sangrado, mecanismo, progresión y vulnerabilidad.</p>
+      </section>
+
+      <section class="course-chapter-section" id="epi26-metodo">
+        <p class="course-chapter-step">04 · MÉTODO FIJO DE LA PROFESORA</p>
+        <h4>Cinco respuestas ordenan cada caso clínico</h4>
+        <ol>
+          <li><strong>Nivel RAC I–V:</strong> asignarlo y justificarlo con el discriminador de mayor riesgo.</li>
+          <li><strong>Urgencia o emergencia:</strong> nombrarla y explicar qué vida, órgano o función está en peligro.</li>
+          <li><strong>Signos vitales:</strong> identificar cuáles están alterados y relacionarlos con edad y contexto.</li>
+          <li><strong>Riesgo de demora:</strong> anticipar la complicación si se clasifica o atiende de forma incorrecta.</li>
+          <li><strong>Vigilancia:</strong> decidir si requiere ficha o notificación y justificar según la definición de caso vigente.</li>
+        </ol>
+        <p>La respuesta más sólida une dato y decisión: «nivel II porque presenta deterioro neurológico tras trauma», no solamente «nivel II».</p>
+        <!-- class-notebook-v445.js inserta aquí una figure.course-inline-figure desde lessonVisuals. -->
+      </section>
+
+      <section class="course-chapter-section" id="epi26-vitales">
+        <p class="course-chapter-step">05 · SIGNOS VITALES Y ALARMAS</p>
+        <h4>Una cifra se interpreta junto con apariencia, edad y tendencia</h4>
+        <p>Presión arterial, frecuencia cardíaca, frecuencia respiratoria, temperatura, saturación y estado mental se leen en conjunto. Una cifra normal no neutraliza un mecanismo peligroso, y una alteración aislada por dolor o ansiedad no reemplaza la valoración completa.</p>
+        <p>Son señales de alarma el compromiso de vía aérea, hipoxemia o trabajo respiratorio, hipotensión o mala perfusión, hemorragia activa, alteración de conciencia, déficit neurológico, convulsión, dolor intenso desproporcionado, deterioro rápido y exposición potencialmente letal. En niños y personas con comorbilidades se aplican referencias y vulnerabilidades específicas.</p>
+      </section>
+
+      <section class="course-chapter-section" id="epi26-casos-trauma">
+        <p class="course-chapter-step">06 · TRAUMA, HERIDAS Y QUEMADURAS</p>
+        <h4>El mecanismo y la función amenazada cambian la prioridad</h4>
+        <p>Tras una caída de motocicleta con pérdida de conciencia, desorientación, otorragia o nuevo déficit neurológico, se priorizan estabilización, vigilancia y neuroimagen según la evaluación clínica. No existe un calendario universal de tomografías repetidas aplicable a toda persona; la repetición depende de evolución, hallazgos y protocolo.</p>
+        <p>En una herida de mano se controla el sangrado y se evalúan perfusión, sensibilidad, tendones, nervios, posible cuerpo extraño y contaminación. La profilaxis antitetánica depende del tipo de herida y del antecedente vacunal. En quemaduras importan profundidad, superficie, localización, mecanismo, inhalación y edad; además de analgesia y cuidado local, la prioridad aumenta si se amenazan vía aérea, función o gran superficie.</p>
+      </section>
+
+      <section class="course-chapter-section" id="epi26-casos-medicos">
+        <p class="course-chapter-step">07 · EXPOSICIONES Y CUADROS MÉDICOS</p>
+        <h4>El contexto de exposición puede revelar un riesgo oculto</h4>
+        <p>Un brasero en ambiente cerrado sugiere intoxicación por monóxido de carbono, no por dióxido de carbono. Cefalea, mareo, náuseas, letargo o alteración de conciencia elevan la prioridad. La SpO₂ convencional puede verse normal porque no distingue bien oxihemoglobina de carboxihemoglobina; la confirmación requiere cooximetría dentro de una evaluación clínica.</p>
+        <p>En fiebre sin foco, diarrea o sospecha de animal ponzoñoso se integran duración, hidratación, sangrado, signos de alarma, comorbilidades, procedencia y progresión. Una mordedura, picadura, fiebre o edad determinada no fija por sí sola el nivel. Un cuerpo extraño con compromiso de vía aérea es una emergencia; una sospecha de descuido infantil se comunica por los circuitos de protección según el contexto, sin presumir automáticamente negligencia.</p>
+      </section>
+
+      <section class="course-chapter-section" id="epi26-notificacion">
+        <p class="course-chapter-step">08 · NOTIFICACIÓN EPIDEMIOLÓGICA</p>
+        <h4>Notificar depende del evento y de la definición de caso vigente</h4>
+        <p>La atención clínica y la vigilancia epidemiológica son decisiones relacionadas pero diferentes. Primero se estabiliza según gravedad; en paralelo o después se verifica si el evento está sujeto a notificación inmediata, semanal, individual u otra modalidad.</p>
+        <p>No toda fiebre, diarrea, lesión o exposición requiere una ficha. La decisión debe seguir la definición de caso, el listado y el canal vigentes de la Dirección General de Vigilancia de la Salud —DGVS—, además de los protocolos institucionales. Si existe duda sobre un evento de notificación obligatoria, se consulta a epidemiología sin retrasar la atención.</p>
+      </section>
+
+      <section class="course-chapter-section" id="epi26-sistema">
+        <p class="course-chapter-step">09 · SISTEMA DE SALUD EN PARAGUAY</p>
+        <h4>La red combina subsistemas y necesita referencia y contrarreferencia</h4>
+        <p>El Ministerio de Salud Pública y Bienestar Social organiza servicios públicos y redes territoriales; el Instituto de Previsión Social atiende a su población asegurada; el Hospital de Clínicas depende de la Universidad Nacional de Asunción; las fuerzas militares y policiales cuentan con servicios propios; y el sector privado reúne seguros y prestadores.</p>
+        <p>La existencia de varios subsistemas no reemplaza la coordinación. La referencia lleva al paciente hacia el recurso y la complejidad necesarios; la contrarreferencia devuelve información y continuidad al servicio que seguirá el cuidado. Las cifras de cobertura, camas y establecimientos cambian, por lo que deben verificarse en fuentes oficiales actualizadas antes de usarlas en una respuesta.</p>
+      </section>
+
+      <section class="course-chapter-section" id="epi26-regla-final">
+        <p class="course-chapter-step">10 · REGLA DE EXAMEN</p>
+        <h4>Prioridad, mecanismo, consecuencia y vigilancia deben formar una sola explicación</h4>
+        <p>Para responder bien, se identifica primero el dato que más riesgo aporta y se lo conecta con la consecuencia de esperar. Después se revisan signos vitales y se decide la necesidad de notificación. Copiar un nivel sin razonamiento no demuestra que se comprendió el caso.</p>
+        <p>Los casos del entrenamiento reproducen esta lógica: exigen justificar la clasificación y distinguir una conducta inmediata de una conclusión diagnóstica definitiva.</p>
+      </section>
+    </div>
+    <p class="lesson-source-note"><b>Seguridad y actualización:</b> el nivel final depende de la evaluación RAC real y del protocolo local. Las obligaciones de notificación se verifican con las definiciones de caso vigentes de la DGVS; este material no sustituye una guía institucional actualizada.</p>
+  </section>
+
+  <section class="lesson-tab-panel" data-lesson-tab-panel="rapida" hidden>
+    <header><span>FICHA RÁPIDA · 5 MIN</span><h3>La plantilla para resolver cualquier caso</h3></header>
+    <div class="quick-sheet">
+      <article><span>NIVEL I</span><strong>Inmediato</strong><small>Reanimación o amenaza vital actual.</small></article>
+      <article><span>NIVEL II</span><strong>Hasta 10 min</strong><small>Emergencia con alto riesgo de deterioro.</small></article>
+      <article><span>NIVEL III</span><strong>Hasta 30 min</strong><small>Urgencia que necesita atención pronta.</small></article>
+      <article><span>NIVEL IV</span><strong>Hasta 120 min</strong><small>Menor urgencia, con reevaluación si espera.</small></article>
+      <article><span>NIVEL V</span><strong>Hasta 180 min</strong><small>Problema no urgente y clínicamente estable.</small></article>
+      <article><span>MÉTODO</span><strong>Nivel → tipo → SV → riesgo → ficha</strong><small>Cada decisión necesita una justificación clínica.</small></article>
+      <article><span>CO</span><strong>SpO₂ puede ser normal</strong><small>Brasero cerrado + síntomas neurológicos = alta sospecha.</small></article>
+      <article><span>TRAUMA</span><strong>Mecanismo + neurología</strong><small>El diagnóstico inicial no reemplaza vigilancia dinámica.</small></article>
+      <article><span>NOTIFICACIÓN</span><strong>Definición DGVS vigente</strong><small>No toda fiebre o lesión requiere una ficha.</small></article>
+      <article><span>RED</span><strong>Referir y contrarreferir</strong><small>El cuidado continúa entre niveles y subsistemas.</small></article>
+    </div>
+  </section>
+
+  <section class="lesson-tab-panel" data-lesson-tab-panel="ultra" hidden>
+    <header><span>FICHA ULTRA RÁPIDA · 90 S</span><h3>Cinco preguntas, una respuesta completa</h3></header>
+    <ol class="ultra-sheet">
+      <li>¿Qué nivel RAC corresponde y qué dato lo justifica?</li>
+      <li>¿Es urgencia o emergencia y qué función está amenazada?</li>
+      <li>¿Qué signos vitales o hallazgos están alterados?</li>
+      <li>¿Qué complicación puede producir una demora?</li>
+      <li>¿Requiere ficha o notificación según la definición DGVS vigente?</li>
+      <li>Recordatorio: SpO₂ normal no excluye CO; el triage se reevalúa.</li>
+    </ol>
+  </section>
+
+  <section class="lesson-tab-panel" data-lesson-tab-panel="training" hidden>
+    <header><span>ENTRENAMIENTO</span><h3>40 preguntas en el formato clínico de la profesora</h3></header>
+    <div data-practice-slot="epidemiologia-2026-08-26"></div>
+  </section>
+
+  <section class="lesson-tab-panel" data-lesson-tab-panel="material" hidden>
+    <header><span>MATERIAL DE LA CLASE</span><h3>Casos proyectados y transcripción oral</h3></header>
+    <div class="lesson-materials">
+      <article class="lesson-file-card"><img src="assets/class-hub/epidemiology/2026-08-26/caso-clinico-co.webp" loading="lazy" decoding="async" alt="Caso clínico proyectado de intoxicación por monóxido de carbono" /><div><span>1 FOTOGRAFÍA · CASO PROYECTADO</span><strong>Intoxicación por monóxido de carbono</strong><small>Ejemplo con cinco preguntas: nivel, urgencia/emergencia, signos vitales, riesgo y ficha epidemiológica.</small><a href="assets/class-hub/epidemiology/2026-08-26/caso-clinico-co.webp" target="_blank" rel="noopener">Ampliar caso</a></div></article>
+      <article class="lesson-file-card lesson-file-card-text"><div><span>TRANSCRIPCIÓN · RECONSTRUIDA</span><strong>Repaso de casos y sistema paraguayo</strong><small>Incluye trauma, heridas, quemaduras, fiebre, diarrea, animales ponzoñosos y organización de servicios.</small></div></article>
+    </div>
+  </section>
+
+  <section class="lesson-tab-panel" data-lesson-tab-panel="ia" hidden>
+    <header><span>RECURSOS IA</span><h3>Entrenar el razonamiento que exige la profesora</h3></header>
+    <div class="ai-resource-grid">
+      <details open><summary>Transcripción reconstruida</summary><p>La docente resolvió casos clínicos preguntando de manera repetida por nivel RAC, urgencia o emergencia, signos vitales, riesgo de mala clasificación y necesidad de ficha epidemiológica; después conectó esa práctica con la organización del sistema de salud paraguayo.</p></details>
+      <details><summary>Perfil docente · Andrea Isasi</summary><p>La observación repetida muestra preferencia por casos breves, clasificación justificada y preguntas orales a cada integrante. No alcanza con elegir el nivel: hay que defenderlo con los datos del paciente.</p><span class="confidence-chip">CONFIANZA ALTA · OBSERVACIÓN REPETIDA</span></details>
+      <details><summary>Estilo probable de preguntas</summary><ul><li>Asignar nivel RAC y justificarlo.</li><li>Interpretar signos vitales dentro del contexto.</li><li>Decidir si un evento entra en vigilancia epidemiológica.</li></ul></details>
+      <details class="ai-prompt"><summary>Prompt personalizado</summary><pre>Preséntame un caso clínico del estilo de Epidemiología del 26/08/2026. Hazme responder, en orden: nivel RAC, urgencia o emergencia, signos vitales, riesgo de demora y notificación DGVS. No aceptes una clasificación sin justificación y corrige con criterios clínicos actuales.</pre></details>
+    </div>
+  </section>
+</div>
+
+      <div id="epidemiologia-2026-08-19" class="dated-lesson-panel lesson-2026" data-lesson-panel="epidemiologia-2026-08-19" data-lesson-title="Organización de urgencias y emergencias" style="--lesson-accent:#fbbf24" hidden>
         <section class="lesson-hero-2026"><div><span>EPIDEMIOLOGÍA · 19 AGO. 2026</span><h3>Un sistema que prioriza, regula y traslada</h3><p>La atención urgente no es una sala aislada: integra ciudadanía, primer nivel, centro coordinador, transporte, hospital y retorno a la red.</p></div><div class="lesson-hero-facts"><div><small>SOPORTE</small><strong>PowerPoint original · 57 diapositivas</strong></div><div><small>TAREA</small><strong>Exposición grupal · máximo 10</strong></div><div><small>ENTRENAMIENTO</small><strong>20 QCM · 10 V/F · 10 casos</strong></div></div></section>
         <nav class="lesson-section-tabs" data-lesson-tabs aria-label="Partes de la clase de Epidemiología del 19 de agosto"><button type="button" data-lesson-tab="curso" aria-selected="true">Curso completo</button><button type="button" data-lesson-tab="rapida" aria-selected="false">Ficha rápida</button><button type="button" data-lesson-tab="ultra" aria-selected="false">Ficha ultra rápida</button><button type="button" data-lesson-tab="training" aria-selected="false">Entrenamiento</button><button type="button" data-lesson-tab="material" aria-selected="false">Material de la clase</button><button type="button" data-lesson-tab="ia" aria-selected="false">Recursos IA</button></nav>
         <section class="lesson-tab-panel course-chapter-2026" data-lesson-tab-panel="curso"><header><span>CURSO COMPLETO</span><h3>De la demanda al nivel correcto de atención</h3><p class="course-chapter-lead">Un sistema de urgencias no empieza en la puerta del hospital. La clase sigue el recorrido de una demanda desde el primer contacto: reconocer la gravedad, regular la respuesta, movilizar el recurso adecuado, priorizar al llegar y devolver al paciente a una red capaz de continuar la atención.</p></header><div class="course-chapter-body">
@@ -2193,22 +2519,23 @@
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=405"></script>
-  <script src="grupo-3-i18n-v421.js?v=485"></script>
-  <script src="academic-model-v445.js?v=452"></script>
+  <script src="grupo-3-i18n-v421.js?v=486"></script>
+  <script src="academic-model-v445.js?v=486"></script>
   <script src="grupo-3-practice-v413.js?v=446"></script>
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
   <script src="grupo-3-practice-grounded-v426.js?v=431"></script>
   <script src="grupo-3-practice-2026-08-17-v432.js?v=434"></script>
   <script src="grupo-3-practice-2026-08-24-v452.js?v=452"></script>
   <script src="grupo-3-practice-2026-08-21-v440.js?v=440"></script>
+  <script src="grupo-3-practice-2026-08-26-v484.js?v=486"></script>
   <script src="teacher-question-profile-v445.js?v=445"></script>
   <script type="module" src="class-content-runtime-v483.js?v=484"></script>
   <script src="class-practice-ranking-v431.js?v=482"></script>
-  <script src="grupo-3-v401.js?v=481"></script>
+  <script src="grupo-3-v401.js?v=486"></script>
   <script src="class-session-archive-v432.js?v=432"></script>
   <script src="medical-glossary-v425.js?v=432"></script>
-  <script src="class-hub-runtime-v440.js?v=478"></script>
-  <script src="class-notebook-v445.js?v=483"></script>
+  <script src="class-hub-runtime-v440.js?v=487"></script>
+  <script src="class-notebook-v445.js?v=486"></script>
   <script src="help-desk-v479.js?v=480"></script>
 </body>
 </html>

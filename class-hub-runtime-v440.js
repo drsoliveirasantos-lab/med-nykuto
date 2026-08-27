@@ -349,7 +349,7 @@
     if(button&&!standalone){button.hidden=false;button.addEventListener('click',function(){if(deferred){deferred.prompt();deferred.userChoice.finally(function(){deferred=null;button.hidden=true;});return;}if(isIos){var guide=el('aside','ios-install-guide');guide.appendChild(el('strong','','Instalar en iPhone'));guide.appendChild(el('p','','En Safari, toca Compartir y luego “Añadir a pantalla de inicio”.'));var close=el('button','','×');close.type='button';close.addEventListener('click',function(){guide.remove();});guide.appendChild(close);document.body.appendChild(guide);}else{button.title='Usa el menú del navegador y elige Instalar aplicación.';}});}
   }
   function initPrint(){document.querySelectorAll('[data-print-lesson]').forEach(function(button){button.addEventListener('click',function(){window.print();});});}
-  function updateStamp(){var stamp=document.getElementById('lastUpdated');if(stamp){stamp.dateTime='2026-08-24';stamp.textContent='Actualizado 24 ago. · contenido revisado';}}
+  function updateStamp(){var stamp=document.getElementById('lastUpdated');if(stamp){stamp.dateTime='2026-08-26';stamp.textContent='Actualizado 26 ago. · contenido revisado';}}
   function init(){initLessonTabs();initCourseWorkspaces();initGallery();initPrint();initPwa();updateStamp();renderNotices();loadPublic();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();

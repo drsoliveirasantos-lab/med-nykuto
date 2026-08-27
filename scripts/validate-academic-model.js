@@ -74,10 +74,10 @@ if (model) {
     });
   });
 
-  expect(lessons.length === 16, `Expected 16 lesson dates/blocks, found ${lessons.length}.`);
+  expect(lessons.length === 18, `Expected 18 lesson dates/blocks, found ${lessons.length}.`);
   const previousEpidemiology = lessons.find((entry) => entry.lesson.id === 'epidemiologia-bloque-anterior');
   expect(previousEpidemiology && previousEpidemiology.lesson.dateLong === '12 de agosto de 2026' && previousEpidemiology.lesson.status === 'confirmed', 'The previous Epidemiology lesson must be confirmed as 12 August 2026.');
-  expect(practiceIds.size === 16, `Expected 16 unique practice mappings, found ${practiceIds.size}.`);
+  expect(practiceIds.size === 18, `Expected 18 unique practice mappings, found ${practiceIds.size}.`);
   expect(Object.keys(model.narratives || {}).length === 11, `Expected 11 generated legacy narratives, found ${Object.keys(model.narratives || {}).length}.`);
   expect(!lessons.some((entry) => entry.subjectId === 'nutricion' && /2026-08-20/.test(entry.lesson.id)), 'A false Nutrition theory class was created for 20 August.');
   expect(/Ficha rápida/.test(notebookJs) && /Ficha ultra rápida/.test(notebookJs), 'Notebook tabs do not use the canonical study-format labels.');
@@ -131,4 +131,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Academic model validation OK: 6 subjects, 6 teacher audits, 16 lesson mappings, 16 contextual diagram mappings, 11 generated legacy narratives, no false Nutrition class and no duplicate Drive/Plan navigation.');
+console.log('Academic model validation OK: 6 subjects, 6 teacher audits, 18 lesson mappings, 18 contextual diagram mappings, 11 generated legacy narratives, no false Nutrition class and no duplicate Drive/Plan navigation.');
