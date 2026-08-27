@@ -48,6 +48,8 @@ jobs:
         run: node scripts/validate-strict-html-js-health.js
       - name: Validate class practice bank quality
         run: node scripts/validate-class-practice-bank.js
+      - name: Validate S4 P1 review and exam scope
+        run: node scripts/validate-p1-s4.js
       - name: Validate class hub language and schedule
         run: node scripts/validate-class-hub-language.js
       - name: Validate 21 August handoff deliverables

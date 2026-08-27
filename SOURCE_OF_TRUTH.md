@@ -119,6 +119,18 @@ The Nutrition seminar on 20 August 2026 was a completed presentation, not a new 
 
 The shared Google Drive entry belongs on Home only. `Materias` must not duplicate it.
 
+### 4.º E P1 cumulative scope
+
+The first-partial review is driven by:
+
+```txt
+p1-s4-e-v1.js
+class-p1-v1.js
+p1.html
+```
+
+`p1-s4-e-v1.js` is an explicit, versioned allowlist of the dated lessons included in P1. New P2 lessons must never enter the P1 pool automatically. The P1 runtime clones questions from the isolated lesson banks, removes cross-lesson overlaps, shuffles a reproducible attempt and keeps its local state separate from ordinary practice, ranking and community points. Teacher angles guide the distribution and diagnostic breakdown; inferred patterns must not be described as confirmed exam questions. Nutrition remains marked provisional until the teacher's exact P1 scope and assessment format are documented.
+
 ## 4.º E Drive material registry
 
 The public, machine-managed inventory of semester files lives in:

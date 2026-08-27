@@ -5,6 +5,7 @@ const path = require('path');
 
 const root = process.cwd();
 const port = Number(process.env.MED_NYKUTO_TEST_PORT || 4173);
+const host = process.env.MED_NYKUTO_TEST_HOST || '127.0.0.1';
 const mime = {
   '.css': 'text/css; charset=utf-8',
   '.html': 'text/html; charset=utf-8',
@@ -36,6 +37,6 @@ http.createServer((request, response) => {
       response.end(request.method === 'HEAD' ? undefined : body);
     });
   });
-}).listen(port, '127.0.0.1', () => {
-  console.log(`Med Nykuto test server listening on http://127.0.0.1:${port}`);
+}).listen(port, host, () => {
+  console.log(`Med Nykuto test server listening on http://${host}:${port}`);
 });

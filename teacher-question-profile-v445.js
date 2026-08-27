@@ -93,63 +93,82 @@
     }, profile.questionAngles[fallbackIndex % profile.questionAngles.length]);
   }
 
-  var lessonByPracticeId = {};
-  Object.keys(model.subjects).forEach(function (subjectId) {
-    var subject = model.subjects[subjectId];
-    subject.chapters.forEach(function (chapter) {
-      chapter.lessons.forEach(function (lesson) {
-        lessonByPracticeId[lesson.practiceId] = {
-          subjectId: subjectId,
-          subject: subject,
-          chapter: chapter,
-          lesson: lesson
-        };
+  function buildLessonMap() {
+    var lessonByPracticeId = {};
+    Object.keys(model.subjects).forEach(function (subjectId) {
+      var subject = model.subjects[subjectId];
+      subject.chapters.forEach(function (chapter) {
+        chapter.lessons.forEach(function (lesson) {
+          lessonByPracticeId[lesson.practiceId] = {
+            subjectId: subjectId,
+            subject: subject,
+            chapter: chapter,
+            lesson: lesson
+          };
+        });
       });
     });
-  });
+    return lessonByPracticeId;
+  }
 
-  Object.keys(practice.banks).forEach(function (bankId) {
-    var bank = practice.banks[bankId];
-    var mapping = lessonByPracticeId[bankId] || lessonByPracticeId[bank.courseId];
-    if (!mapping) return;
+  function annotateBanks() {
+    var currentPractice = window.MedNykutoClassPractice || practice;
+    if (!currentPractice || !currentPractice.banks) return 0;
+    var lessonByPracticeId = buildLessonMap();
+    var annotated = 0;
 
-    var profile = model.teachers[mapping.subject.teacherId];
-    if (!profile) return;
+    Object.keys(currentPractice.banks).forEach(function (bankId) {
+      var bank = currentPractice.banks[bankId];
+      var mapping = lessonByPracticeId[bankId] || lessonByPracticeId[bank.courseId];
+      if (!mapping) return;
 
-    bank.teacherProfileId = profile.id;
-    bank.teacherProfileVersion = model.version;
-    bank.teacherProfileName = profile.name;
-    bank.teacherProfileLabel = profile.name + ' · ' + profile.confidence;
-    bank.teacherAuditSummary = profile.reasoningPath.join(' → ');
-    bank.teacherQuestionAngles = profile.questionAngles.slice();
-    bank.academicLessonId = mapping.lesson.id;
-    bank.academicChapterId = mapping.chapter.id;
+      var profile = model.teachers[mapping.subject.teacherId];
+      if (!profile) return;
 
-    var classified = [];
-    var offset = 0;
-    ['qcm', 'vf', 'cases'].forEach(function (type) {
-      (bank[type] || []).forEach(function (question, questionIndex) {
-        var scores = scoreAngles(profile, question, type);
-        question.teacherProfileId = profile.id;
-        question.teacherAngle = bestAngle(profile, scores, offset + questionIndex);
-        question.teacherAngleLabel = angleLabels[question.teacherAngle] || question.teacherAngle;
-        question.teacherEvidenceState = type === 'cases' ? 'application' : 'course-grounded';
-        question.academicLessonId = mapping.lesson.id;
-        classified.push({ question: question, scores: scores });
+      bank.teacherProfileId = profile.id;
+      bank.teacherProfileVersion = model.version;
+      bank.teacherProfileName = profile.name;
+      bank.teacherProfileLabel = profile.name + ' · ' + profile.confidence;
+      bank.teacherAuditSummary = profile.reasoningPath.join(' → ');
+      bank.teacherQuestionAngles = profile.questionAngles.slice();
+      bank.academicLessonId = mapping.lesson.id;
+      bank.academicChapterId = mapping.chapter.id;
+
+      var classified = [];
+      var offset = 0;
+      ['qcm', 'vf', 'cases'].forEach(function (type) {
+        (bank[type] || []).forEach(function (question, questionIndex) {
+          var scores = scoreAngles(profile, question, type);
+          question.teacherProfileId = profile.id;
+          question.teacherAngle = bestAngle(profile, scores, offset + questionIndex);
+          question.teacherAngleLabel = angleLabels[question.teacherAngle] || question.teacherAngle;
+          question.teacherEvidenceState = type === 'cases' ? 'application' : 'course-grounded';
+          question.academicLessonId = mapping.lesson.id;
+          classified.push({ question: question, scores: scores });
+        });
+        offset += (bank[type] || []).length;
       });
-      offset += (bank[type] || []).length;
-    });
 
-    profile.questionAngles.forEach(function (requiredAngle) {
-      if (classified.some(function (item) { return item.question.teacherAngle === requiredAngle; })) return;
-      var counts = {};
-      classified.forEach(function (item) { counts[item.question.teacherAngle] = (counts[item.question.teacherAngle] || 0) + 1; });
-      var candidate = classified.filter(function (item) { return counts[item.question.teacherAngle] > 1; }).sort(function (a, b) {
-        return b.scores[requiredAngle] - a.scores[requiredAngle];
-      })[0];
-      if (!candidate) return;
-      candidate.question.teacherAngle = requiredAngle;
-      candidate.question.teacherAngleLabel = angleLabels[requiredAngle] || requiredAngle;
+      profile.questionAngles.forEach(function (requiredAngle) {
+        if (classified.some(function (item) { return item.question.teacherAngle === requiredAngle; })) return;
+        var counts = {};
+        classified.forEach(function (item) { counts[item.question.teacherAngle] = (counts[item.question.teacherAngle] || 0) + 1; });
+        var candidate = classified.filter(function (item) { return counts[item.question.teacherAngle] > 1; }).sort(function (a, b) {
+          return b.scores[requiredAngle] - a.scores[requiredAngle];
+        })[0];
+        if (!candidate) return;
+        candidate.question.teacherAngle = requiredAngle;
+        candidate.question.teacherAngleLabel = angleLabels[requiredAngle] || requiredAngle;
+      });
+      annotated += 1;
     });
-  });
+    return annotated;
+  }
+
+  window.MedNykutoTeacherQuestionProfile = {
+    apply: annotateBanks,
+    angleLabels: angleLabels,
+    version: model.version
+  };
+  annotateBanks();
 })();

@@ -61,6 +61,15 @@ content. Only anonymously verified files may be present, and records carrying a
 `removedAt` tombstone must remain hidden. Automated scans must not touch
 `content/courses/**` or protected question banks.
 
+### 4.º E P1 review
+
+`p1.html` is the dedicated mobile-first cumulative review for the first partial.
+Its versioned lesson allowlist lives in `p1-s4-e-v1.js`, while
+`class-p1-v1.js` builds fiches and exam attempts from the existing dated S4
+banks. It must not reuse the legacy S3 `examen.html` bank, write ordinary class
+practice progress, or post to the community ranking. Run
+`scripts/validate-p1-s4.js` whenever its scope or runtime changes.
+
 ### App bundle source
 
 ```txt
