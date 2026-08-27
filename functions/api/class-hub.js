@@ -2495,6 +2495,7 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
       db.prepare(`UPDATE hub_editors SET status='revoked' WHERE class_id=? AND id=? AND status='active'`).bind(classId, id),
       db.prepare(`UPDATE hub_editor_sessions SET revoked_at=? WHERE class_id=? AND editor_id=? AND revoked_at IS NULL`).bind(current, classId, id),
       db.prepare(`UPDATE hub_editor_permissions SET enabled=0,granted_by=?,updated_at=? WHERE class_id=? AND editor_id=? AND enabled=1`).bind(actor.id, current, classId, id),
+      db.prepare(`UPDATE hub_editor_invite_permissions SET enabled=0,granted_by=?,updated_at=? WHERE class_id=? AND editor_id=? AND enabled=1`).bind(actor.id, current, classId, id),
       db.prepare(`DELETE FROM hub_editor_profiles WHERE class_id=? AND actor_id=?`).bind(classId, id),
       db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,?,?,? ,?,'{}',?)`).bind(classId, actor.id, actor.role, action, 'editor', id, current)
     ]);

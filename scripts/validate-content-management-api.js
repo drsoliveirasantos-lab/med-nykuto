@@ -277,9 +277,12 @@ async function main() {
     assert.deepEqual([temporaryLogin.status, temporaryLogin.body.passwordChangeRequired], [200, true], 'the reset credential could not create its bounded password-change session');
     const temporaryAuth = sessionAuthFromResponse(temporaryLogin);
     assert.equal((await get(api, env, 'session', temporaryAuth)).status, 200, 'the reset credential session was not readable before account revocation');
+    const multiDeviceInviteGrant = await post(api, env, { action: 'editor.permission.update', classId: 's4-e', id: 'multi-device-editor', permission: 'invite.manage', enabled: true }, ownerAuth);
+    assert.equal(multiDeviceInviteGrant.status, 200, 'the owner could not grant invite.manage before the account revocation fixture');
     const accountRevoke = await post(api, env, { action: 'editor.revoke', id: 'multi-device-editor' }, ownerAuth);
     assert.equal(accountRevoke.status, 200, 'the owner could not revoke the multi-device fixture account');
     assert.equal((await get(api, env, 'session', temporaryAuth)).status, 401, 'account revocation did not globally revoke its remaining session');
+    assert.equal(Number(db.database.prepare(`SELECT enabled FROM hub_editor_invite_permissions WHERE class_id='s4-e' AND editor_id='multi-device-editor'`).get().enabled), 0, 'account revocation left invite.manage dormant');
 
     const legacyDenied = await post(api, env, fixtureLesson('legacy-denied'), { bearer: legacyToken });
     assert.deepEqual([legacyDenied.status, legacyDenied.body.code], [403, 'permission_denied']);
