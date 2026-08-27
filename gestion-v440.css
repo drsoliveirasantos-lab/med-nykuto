@@ -453,11 +453,11 @@ input[aria-invalid=true]{border-color:var(--rose);outline:2px solid rgba(251,113
 .grade-release-actions .grade-publish-action{background:#166534;color:#dcfce7}
 .grade-release-actions button{min-height:44px}
 
-/* Structured notices: one reviewed source can feed Avisos, dates, tasks and files. */
-#noticeForm .wide,#noticeForm .form-section-title,#noticeForm>button[type=submit]{grid-column:1/-1}
-#noticeForm>button[type=submit]{min-height:48px;background:var(--gold);color:#271703}
+/* Quick notices keep rare scheduling and linking controls available without crowding the phone view. */
+#noticeForm .wide,#noticeForm .form-section-title,#noticeForm .notice-submit-actions{grid-column:1/-1}
 .form-section-title{margin:4px 0 -2px;padding-top:14px;border-top:1px solid var(--line);color:#e0f2fe;font-size:15px}
 .notice-ai-assistant{display:grid;gap:9px;padding:14px 15px;border:1px solid rgba(56,189,248,.4);border-radius:16px;background:linear-gradient(135deg,rgba(14,116,144,.16),rgba(7,22,34,.72))}
+.notice-ai-assistant[hidden],.notice-upload[hidden]{display:none!important}
 .notice-ai-assistant>p{margin:0;color:#a5c7d8;font-size:11px;line-height:1.45}
 .notice-ai-heading{display:flex;align-items:center;justify-content:space-between;gap:13px}
 .notice-ai-heading>div>span{color:#67e8f9;font-size:9px;font-weight:900;letter-spacing:.1em}
@@ -484,6 +484,21 @@ input[aria-invalid=true]{border-color:var(--rose);outline:2px solid rgba(251,113
 .notice-human-review small{margin-top:2px;color:#94a3b8;font-size:10.5px;font-weight:500;line-height:1.4}
 #noticeTargetId:disabled,#noticeForm input[readonly]{background:#0a1925;color:#64748b;cursor:not-allowed}
 .notice-admin-source{display:inline-flex;align-items:center;min-height:34px;margin:8px 0 0 6px;padding:0 9px;border-radius:8px;background:#123448;color:#bae6fd;text-decoration:none;font-size:10px;font-weight:800}
+.notice-options{margin:1px 0;padding:0;border:1px solid rgba(148,163,184,.28);border-radius:13px;background:rgba(7,22,34,.48);overflow:hidden}
+.notice-options>summary{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px 14px;min-height:50px;padding:10px 13px;cursor:pointer;list-style-position:inside}
+.notice-options>summary span{color:#d7e7f1;font-size:12px;font-weight:850}
+.notice-options>summary small{color:#94a3b8;font-size:10px;font-weight:600;text-align:right}
+.notice-options>summary:focus-visible{outline:2px solid var(--cyan);outline-offset:-3px}
+.notice-options[open]>summary{border-bottom:1px solid var(--line);background:rgba(24,57,79,.35)}
+.notice-options-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:13px}
+.notice-options-body .wide{grid-column:1/-1}
+.notice-technical{display:block}
+.notice-technical[open]{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.notice-technical[open]>summary{grid-column:1/-1}
+.notice-submit-actions{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(180px,1fr);gap:9px}
+.notice-submit-actions button{min-height:48px}
+#noticePrimarySubmit{background:var(--gold);color:#271703}
+.notice-draft-submit{border:1px solid rgba(148,163,184,.3);background:#183448;color:#e2e8f0}
 
 @media(max-width:720px){
   .notice-ai-heading{align-items:stretch;display:grid}
@@ -491,7 +506,16 @@ input[aria-invalid=true]{border-color:var(--rose);outline:2px solid rgba(251,113
 }
 
 @media(max-width:520px){
+  #noticeForm{grid-template-columns:minmax(0,1fr)}
+  #noticeForm>*{min-width:0;grid-column:1/-1!important}
   .form-section-title{padding-top:10px;font-size:13px}
+  .notice-options>summary{grid-template-columns:1fr;gap:2px;min-height:48px;padding:9px 10px}
+  .notice-options>summary small{text-align:left}
+  .notice-options-body{grid-template-columns:minmax(0,1fr);gap:9px;padding:9px}
+  .notice-options-body .wide{grid-column:1/-1}
+  .notice-technical[open]{grid-template-columns:minmax(0,1fr)}
+  .notice-submit-actions{grid-template-columns:minmax(0,1fr);gap:7px;padding-right:54px}
+  .notice-submit-actions button{width:100%;min-height:46px}
   .notice-ai-assistant{gap:7px;padding:10px 9px;border-radius:12px}
   .notice-ai-heading h4{font-size:13px}
   .notice-ai-assistant>p,.notice-ai-result p{font-size:10px}
@@ -502,6 +526,8 @@ input[aria-invalid=true]{border-color:var(--rose);outline:2px solid rgba(251,113
   .notice-human-review small{font-size:9.5px}
   #noticeForm input,#noticeForm select,#noticeForm textarea{font-size:16px}
   .notice-admin-source{margin-left:0}
+  .helpdesk-fab{width:48px;min-width:48px;padding:0}
+  .helpdesk-fab strong{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 }
 
 @media(max-width:720px){

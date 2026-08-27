@@ -1064,7 +1064,6 @@ test.describe('Multiclass student hub', () => {
 
     const compactForms = [
       ['tasks', '#taskForm'],
-      ['notices', '#noticeForm'],
       ['calendar', '#dateForm'],
       ['files', '#fileForm']
     ];
@@ -1074,6 +1073,10 @@ test.describe('Multiclass student hub', () => {
       const columnCount = await page.locator(formSelector).evaluate((form) => getComputedStyle(form).gridTemplateColumns.split(' ').filter(Boolean).length);
       expect(columnCount).toBe(2);
     }
+    await page.locator('[data-manage-tab="notices"]').click();
+    const noticeColumnCount = await page.locator('#noticeForm').evaluate((form) => getComputedStyle(form).gridTemplateColumns.split(' ').filter(Boolean).length);
+    expect(noticeColumnCount).toBe(1);
+    await page.locator('[data-manage-tab="files"]').click();
     await expect(page.locator('#managePanelFiles')).toBeVisible();
     await expect(page.locator('#managePanelCalendar')).toBeHidden();
 
@@ -1250,6 +1253,103 @@ test.describe('Multiclass student hub', () => {
     expect(mobileLayout.toggleHeight).toBeGreaterThanOrEqual(44);
   });
 
+  test('publishes a quick notice on iPhone while keeping rare options folded', async ({ page }) => {
+    const actor = { id: 'editor-quick-notice-s5-a', role: 'editor', name: 'Delegada Avisos', classId: 's5-a' };
+    const writes = [];
+    const notices = [];
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.addInitScript(({ key }) => sessionStorage.setItem(key, 'synthetic-quick-notice-bearer'), { key: 'med-nykuto-management-token-v471:s5-a' });
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request();
+      const url = new URL(request.url());
+      if (request.method() === 'GET' && url.searchParams.get('resource') === 'admin') {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify(managementState(actor, {
+            uploadPolicy: { enabled: false, maxBytes: 15 * 1024 * 1024, acceptedMimeTypes: [] },
+            notices
+          }))
+        });
+        return;
+      }
+      if (request.method() === 'POST') {
+        const body = request.postDataJSON();
+        writes.push(body);
+        notices.push({ ...body, id: body.id || `quick-notice-${writes.length}` });
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, id: notices.at(-1).id }) });
+        return;
+      }
+      await route.fulfill({ status: 400, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'unexpected_request', error: 'Solicitud inesperada.' }) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await page.locator('[data-manage-tab="notices"]').click();
+    const form = page.locator('#noticeForm');
+    await expect(form).toBeVisible();
+    await expect(page.locator('#noticeAdvancedOptions')).not.toHaveAttribute('open', '');
+    await expect(form.locator('[name="category"]')).toBeHidden();
+    await expect(page.locator('#noticeAiAssistant')).toBeHidden();
+    await expect(page.locator('#noticeUploadField')).toBeHidden();
+    await expect(page.locator('#noticeHumanReview')).toBeHidden();
+    await expect(form.getByRole('button', { name: 'Publicar ahora' })).toBeVisible();
+    await expect(form.getByRole('button', { name: 'Guardar borrador' })).toBeVisible();
+
+    const layout = await form.evaluate((node) => {
+      const rect = node.getBoundingClientRect();
+      return {
+        columns: getComputedStyle(node).gridTemplateColumns.split(' ').filter(Boolean).length,
+        left: rect.left,
+        right: rect.right,
+        viewport: document.documentElement.clientWidth,
+        scrollWidth: document.documentElement.scrollWidth
+      };
+    });
+    expect(layout.columns).toBe(1);
+    expect(layout.left).toBeGreaterThanOrEqual(0);
+    expect(layout.right).toBeLessThanOrEqual(layout.viewport + 1);
+    expect(layout.scrollWidth).toBeLessThanOrEqual(layout.viewport + 1);
+
+    await form.locator('[name="title"]').fill('Cambio de aula');
+    await form.locator('[name="body"]').fill('La clase será en el aula 12.');
+    await form.locator('[name="priority"]').selectOption('important');
+    page.once('dialog', async (dialog) => {
+      expect(dialog.message()).toContain('Confirma que revisaste el texto');
+      await dialog.dismiss();
+    });
+    await form.getByRole('button', { name: 'Publicar ahora' }).click();
+    await expect(page.locator('#manageStatus')).toHaveText('Publicación cancelada. El aviso sigue en el formulario.');
+    expect(writes).toHaveLength(0);
+    page.once('dialog', async (dialog) => {
+      expect(dialog.message()).toContain('¿Publicar «Cambio de aula» ahora?');
+      await dialog.accept();
+    });
+    await form.getByRole('button', { name: 'Publicar ahora' }).click();
+    await expect.poll(() => writes.length).toBe(1);
+    expect(writes[0]).toMatchObject({
+      action: 'notice.upsert',
+      title: 'Cambio de aula',
+      body: 'La clase será en el aula 12.',
+      priority: 'important',
+      category: 'general',
+      lifecycle: 'active',
+      audience: 'all',
+      targetType: 'none',
+      status: 'published',
+      reviewConfirmed: true,
+      expectedRevision: 0
+    });
+    expect(writes[0].targetId).toBeUndefined();
+    expect(writes[0].id).toBeUndefined();
+    expect(writes[0].humanReview).toBeUndefined();
+
+    await form.locator('[name="title"]').fill('Recordatorio en preparación');
+    await form.getByRole('button', { name: 'Guardar borrador' }).click();
+    await expect.poll(() => writes.length).toBe(2);
+    expect(writes[1]).toMatchObject({ status: 'draft', reviewConfirmed: false });
+  });
+
   test('uploads a notice attachment once, preserves it after a failed save and retries only the notice', async ({ page }) => {
     const actor = { id: 'editor-upload-s5-a', role: 'editor', name: 'Delegada Archivos', classId: 's5-a' };
     let uploadCount = 0;
@@ -1305,19 +1405,21 @@ test.describe('Multiclass student hub', () => {
 
     await page.goto('/gestion/s5-a');
     await page.locator('[data-manage-tab="notices"]').click();
+    await expect(page.locator('#noticeAiAssistant')).toBeHidden();
     await page.locator('#noticeForm [name="course"]').fill('Farmacología II');
     await page.locator('#noticeForm [name="title"]').fill('Cronograma oficial');
     await page.locator('#noticeAttachmentFile').setInputFiles({ name: 'cronograma-oficial.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.7 synthetic fixture') });
+    await expect(page.locator('#noticeAiAssistant')).toBeVisible();
     await expect(page.locator('#noticeAttachmentPreview')).toContainText('cronograma-oficial.pdf');
     await expect(page.locator('#noticeAttachmentPreview .notice-upload-file-icon')).toHaveText('PDF');
 
-    await page.locator('#noticeForm').getByRole('button', { name: 'Guardar aviso' }).click();
+    await page.locator('#noticeForm').getByRole('button', { name: 'Guardar borrador' }).click();
     await expect(page.locator('#manageStatus')).toHaveText('Fallo temporal de prueba.');
     await expect(page.locator('#noticeAttachmentFile')).toHaveValue('');
     await expect(page.locator('#noticeAttachmentUploadId')).toHaveValue('upload-fixture-1');
     expect(uploadCount).toBe(1);
 
-    await page.locator('#noticeForm').getByRole('button', { name: 'Guardar aviso' }).click();
+    await page.locator('#noticeForm').getByRole('button', { name: 'Guardar borrador' }).click();
     await expect(page.locator('#manageStatus')).toHaveText('Datos sincronizados.');
     expect(uploadCount).toBe(1);
     expect(noticeAttempts).toBe(2);
@@ -1449,6 +1551,8 @@ test.describe('Multiclass student hub', () => {
     await page.goto('/gestion/s5-a');
     await page.locator('[data-manage-tab="notices"]').click();
     await expect(page.locator('#noticeAttachmentFile')).toBeDisabled();
+    await expect(page.locator('#noticeUploadField')).toBeHidden();
+    await expect(page.locator('#noticeAiAssistant')).toBeHidden();
     await expect(page.locator('#noticeAttachmentHelp')).toContainText('temporalmente indisponible');
     await expect(page.locator('#noticeAttachmentHelp')).not.toContainText('Cloudflare');
   });
@@ -1631,8 +1735,8 @@ test.describe('Multiclass student hub', () => {
 
     await page.goto('/gestion/s5-a');
 
-    await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=488');
-    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=490');
+    await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=489');
+    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=491');
     expect(requestedPaths).toContain('/gestion-v440.css');
     expect(requestedPaths).toContain('/gestion-v440.js');
     await expect(page.locator('#authClassSlug')).toHaveText('S5-A');

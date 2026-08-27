@@ -82,9 +82,9 @@ Le numero du delegue n'est jamais renvoye par l'API publique. Il sert uniquement
 
 Sur la connexion, un futur delegue peut demander l'ouverture de son compte. Le contact vient de la turma ou de `MED_NYKUTO_SUPPORT_WHATSAPP`; s'il n'est pas encore configure, l'interface utilise `contact@nykuto.com` au lieu d'inventer un numero.
 
-## Connexion delegue v488
+## Connexion delegue v491
 
-La version `v490` charge `gestion-v440.css?v=488` et `gestion-v440.js?v=490`. Elle conserve l'acces par courrier et mot de passe, le cockpit compact par matiere, les avis officiels avec piece jointe, le profil WhatsApp prive et les exports de groupes lies a chaque activite. Sur mobile, un seul panneau de gestion reste visible a la fois, les formulaires occasionnels sont replies et l'activite recente est limitee a cinq lignes avant expansion. Elle garde aussi une identite proprietaire globale clairement marquee et protegee contre l'auto-revocation, ainsi que la capacite isolee de gestion des invitations pour les delegues autorises.
+La version `v491` charge `gestion-v440.css?v=489` et `gestion-v440.js?v=491`. Elle conserve l'acces par courrier et mot de passe, le cockpit compact par matiere, les avis officiels avec piece jointe, le profil WhatsApp prive et les exports de groupes lies a chaque activite. Sur mobile, un seul panneau de gestion reste visible a la fois, la publication d'un avis ne montre d'abord que les champs essentiels et les options rares restent repliees. L'assistant IA n'apparait qu'apres l'ajout d'un fichier. L'activite recente reste limitee a cinq lignes avant expansion. Elle garde aussi une identite proprietaire globale clairement marquee et protegee contre l'auto-revocation, ainsi que la capacite isolee de gestion des invitations pour les delegues autorises.
 
 1. Le proprietaire cree le compte dans **Acces et audit** avec un nom, un courrier et un mot de passe temporaire.
 2. Le courrier est normalise cote serveur et le mot de passe est derive avec PBKDF2-HMAC-SHA-256, un sel aleatoire propre au compte et 100 000 iterations, calibre pour le budget CPU des Pages Functions. Le mot de passe en clair n'est jamais enregistre.
