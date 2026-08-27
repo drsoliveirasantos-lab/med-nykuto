@@ -164,13 +164,17 @@ if (!failures.length) {
     'practiceQcmCount', 'practiceTrueFalseCount', 'practiceClinicalCount', 'lessonPreview'
   ].forEach((id) => expect(html.includes(`id="${id}"`), `The management UI is missing #${id}.`));
   expect(html.includes('data-content-admin-only'), 'The managed-content panel is missing its capability visibility marker.');
-  expect(html.includes('href="/gestion-v440.css?v=487"') && html.includes('src="/gestion-v440.js?v=489"'), 'The management content assets are not cache-busted at the current versions.');
+  expect(html.includes('href="/gestion-v440.css?v=488"') && html.includes('src="/gestion-v440.js?v=490"'), 'The management content assets are not cache-busted at the current versions.');
   expect(html.includes('data-invite-admin-only'), 'The invitation manager panel is missing its dedicated capability visibility marker.');
   expect(html.includes('data-lesson-status="draft"') && html.includes('data-lesson-status="published"'), 'Draft and publish actions are not distinct.');
   expect(management.includes("action:'lesson.upsert'") || management.includes("action: 'lesson.upsert'"), 'The management runtime does not submit lesson.upsert.');
   expect(management.includes("action:'editor.permission.update'") || management.includes("action: 'editor.permission.update'"), 'The owner UI cannot grant or revoke content.manage.');
   expect(management.includes("permission:'invite.manage'") && management.includes('canManageInvites'), 'The owner UI cannot grant invite.manage independently.');
   expect(management.includes('PROPIETARIO GLOBAL') && management.includes('currentOwner') && management.includes('is_site_owner'), 'The owner account is not clearly marked or protected from self-management in the editor list.');
+  expect((html.match(/class="manage-action-disclosure"/g) || []).length >= 4 && html.includes('id="auditToggle"'), 'Occasional owner actions are not collapsed or the recent-activity control is missing.');
+  expect(management.includes('[data-owner-only]:not([data-manage-panel])') && management.includes('activateManageTab(selected&&!selected.hidden?selected:document.getElementById(\'manageTabTasks\'),false,false)'), 'Capability rendering can override the single-active management panel.');
+  expect(management.includes('auditEntries.slice(0,5)') && management.includes("auditExpanded?'Ver menos':'Ver todo ("), 'The audit trail is not limited to five recent items before expansion.');
+  expect(/\.manage-item strong,[^{]*\.manage-item small\s*\{[^}]*overflow-wrap\s*:\s*anywhere/i.test(managementCss), 'Long management identifiers can still create horizontal overflow.');
   expect(/20[^\n]{0,80}10[^\n]{0,80}10/.test(`${html}\n${management}`), 'The client does not communicate the exact 20/10/10 contract.');
   expect(!/lessonPreview[\s\S]{0,3000}innerHTML/.test(management), 'The lesson preview appears to inject raw HTML.');
   expect(/min-height\s*:\s*44px/i.test(managementCss), 'The content editor has no explicit 44 px touch target.');

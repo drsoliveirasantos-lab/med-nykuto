@@ -526,3 +526,54 @@ input[aria-invalid=true]{border-color:var(--rose);outline:2px solid rgba(251,113
   .grade-release-actions{display:grid;grid-template-columns:1fr 1fr}
   .grade-release-actions button{min-height:44px}
 }
+
+/* Compact mobile management: one intent per tab and secondary actions on demand. */
+html,body{max-width:100%;overflow-x:clip}
+main,#manageApp,.manage-panel,.manage-columns,.manage-list,.manage-item,.manage-item>div{min-width:0;max-width:100%}
+#manageApp{width:100%}
+.manage-tabs{max-width:100%}
+.manage-action-grid{align-items:start;margin-bottom:15px}
+.manage-action-disclosure{min-width:0;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:#0d2232}
+.manage-action-disclosure>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:50px;padding:8px 15px;cursor:pointer;color:#e0f2fe;font-size:13px;font-weight:850;list-style:none}
+.manage-action-disclosure>summary::-webkit-details-marker{display:none}
+.manage-action-disclosure>summary:focus-visible{outline:2px solid var(--cyan);outline-offset:-2px;background:rgba(56,189,248,.08)}
+.manage-action-disclosure>summary::after{content:'+';display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:9px;background:rgba(56,189,248,.12);color:#7dd3fc;font-size:18px;line-height:1}
+.manage-action-disclosure[open]>summary{border-bottom:1px solid var(--line);background:rgba(56,189,248,.05)}
+.manage-action-disclosure[open]>summary::after{content:'−'}
+.manage-action-disclosure>.manage-form{border:0;border-radius:0;background:var(--soft);box-shadow:none}
+#managePanelAccess>.manage-action-disclosure,.owner-account-tools>.manage-action-disclosure{margin:10px 0}
+.owner-account-tools{min-width:0;max-width:100%}
+.access-overview{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:8px;margin-bottom:12px}
+.access-overview article{min-width:0;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:#071622}
+.access-overview strong,.access-overview span{display:block}
+.access-overview strong{color:#bae6fd;font-size:20px;line-height:1}
+.access-overview span{margin-top:5px;color:#94a3b8;font-size:11px;line-height:1.25}
+#subjectListAdmin{gap:6px;margin-top:9px}
+#subjectListAdmin .manage-item{grid-template-columns:minmax(0,1fr);padding:10px 12px;border-radius:12px}
+#subjectListAdmin .manage-item strong{margin:2px 0;font-size:13px}
+.audit-heading{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-top:22px}
+.audit-heading h3{margin:0}
+.audit-heading small{display:block;margin-top:2px;color:#94a3b8;font-size:11px}
+.audit-heading button{min-height:40px;background:#18394f;color:#e0f2fe;font-size:11px;white-space:nowrap}
+.audit-list .manage-item{width:100%;min-width:0;overflow:hidden}
+.manage-item strong,.manage-item small{max-width:100%;overflow-wrap:anywhere;word-break:break-word}
+.audit-list .manage-item strong{font-size:13px}
+
+@media(max-width:520px){
+  .manage-action-grid{gap:7px;margin-bottom:10px}
+  .manage-action-disclosure{border-radius:12px}
+  .manage-action-disclosure>summary{min-height:48px;padding:7px 10px;font-size:11.5px}
+  .manage-action-disclosure>summary::after{flex-basis:26px;width:26px;height:26px;border-radius:8px;font-size:16px}
+  .manage-action-disclosure>.manage-form{padding:10px 9px}
+  .access-overview{gap:5px;margin-bottom:9px}
+  .access-overview article{padding:9px 7px;border-radius:10px;text-align:center}
+  .access-overview strong{font-size:17px}
+  .access-overview span{font-size:11px}
+  #managePanelClasses>h3,#managePanelAccess>h3{margin:13px 2px 0;font-size:14px}
+  .audit-heading{align-items:center;margin:16px 2px 0}
+  .audit-heading h3{font-size:14px}
+  .audit-heading small{font-size:11px}
+  .audit-heading button{min-height:44px;padding-inline:11px;font-size:10px}
+  .audit-list .manage-item{padding:9px 10px}
+  .audit-list .manage-item strong{font-size:11.5px;line-height:1.3}
+}

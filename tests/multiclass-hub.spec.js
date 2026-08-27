@@ -609,6 +609,7 @@ test.describe('Multiclass student hub', () => {
     await page.goto('/gestion/s5-a');
     await expect(page.locator('#manageApp')).toBeVisible();
     await page.locator('#manageTabAccess').click();
+    await page.locator('.manage-action-disclosure > summary').filter({ hasText: 'Crear un enlace de invitación' }).click();
     await page.locator('#inviteForm').getByRole('button', { name: 'Crear enlace de invitación' }).click();
     await expect(page.locator('#inviteOutput')).toBeVisible();
     await expect(page.locator('#inviteOutput')).toContainText('Enlace privado creado');
@@ -617,11 +618,99 @@ test.describe('Multiclass student hub', () => {
     await expect.poll(() => page.evaluate(() => window.__copiedInvite || '')).toContain(`/gestion/s5-a#invite=${inviteToken}`);
   });
 
+  test('keeps owner management compact and free of horizontal overflow on iPhone', async ({ page }) => {
+    const actor = { id: 'owner-mobile', role: 'owner', name: 'Propietaria móvil', classId: 's5-a', capabilities: { manageContent: true, manageInvites: true, reviewChallenge: true } };
+    const longEntityId = `challenge-participant-${'a'.repeat(96)}`;
+    const audit = Array.from({ length: 8 }, (_, index) => ({
+      actor_role: index % 2 ? 'editor' : 'owner',
+      action: index % 2 ? 'auth.login' : 'challenge.participant.review',
+      entity_type: 'challenge-participant',
+      entity_id: `${longEntityId}-${index + 1}`,
+      created_at: `2026-08-${String(27 - index).padStart(2, '0')}T18:30:00.000Z`
+    }));
+    await page.setViewportSize({ width: 390, height: 844 });
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request(), resource = new URL(request.url()).searchParams.get('resource');
+      if (resource === 'session') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, actor, passwordChangeRequired: false }) });
+        return;
+      }
+      if (resource === 'public') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(CLASS_RESPONSE) });
+        return;
+      }
+      if (resource === 'classes') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, classes: [CLASS_RESPONSE.class] }) });
+        return;
+      }
+      if (resource === 'audit') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, audit }) });
+        return;
+      }
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(managementState(actor, {
+          editors: [{ id: 'owner-mobile', name: 'Propietaria móvil', email: SYNTHETIC_EMAIL, status: 'active', is_site_owner: true, is_current_actor: true }],
+          invites: [{ id: 'active-invite', label: 'Delegada 5.º A', expires_at: '2099-09-03T12:00:00.000Z', revoked_at: null, claimed_at: null }]
+        }))
+      });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await expect(page.locator('#manageApp')).toBeVisible();
+    await expect(page.locator('[data-manage-panel]:visible')).toHaveCount(1);
+    await expect(page.locator('#managePanelTasks')).toBeVisible();
+    await expect(page.locator('#managePanelClasses')).toBeHidden();
+    await expect(page.locator('#managePanelAccess')).toBeHidden();
+
+    await page.locator('#manageTabClasses').click();
+    await expect(page.locator('[data-manage-panel]:visible')).toHaveCount(1);
+    await expect(page.locator('#classForm')).toBeHidden();
+    await expect(page.locator('#subjectForm')).toBeHidden();
+
+    await page.locator('#manageTabAccess').click();
+    await expect(page.locator('[data-manage-panel]:visible')).toHaveCount(1);
+    await expect(page.locator('#delegateAccountForm')).toBeHidden();
+    await expect(page.locator('#inviteForm')).toBeHidden();
+    await expect(page.locator('#accountOutput')).toBeHidden();
+    await expect(page.locator('#activeInviteCount')).toHaveText('1');
+    await expect(page.locator('#activeEditorCount')).toHaveText('1');
+    await expect(page.locator('#auditEventCount')).toHaveText('8');
+    await expect(page.locator('#auditList .manage-item')).toHaveCount(5);
+    await expect(page.locator('#auditList')).not.toContainText(longEntityId);
+    await expect(page.locator('#auditToggle')).toHaveText('Ver todo (8)');
+
+    const geometry = await page.evaluate(() => {
+      const clientWidth = document.documentElement.clientWidth;
+      const offenders = [...document.querySelectorAll('#managePanelAccess, #managePanelAccess .access-overview, #managePanelAccess .manage-action-disclosure, #managePanelAccess .manage-item')]
+        .filter((element) => {
+          const box = element.getBoundingClientRect();
+          return box.width > 0 && (box.left < -1 || box.right > clientWidth + 1);
+        })
+        .map((element) => element.id || element.className);
+      return { clientWidth, scrollWidth: document.documentElement.scrollWidth, offenders };
+    });
+    expect(geometry.scrollWidth).toBeLessThanOrEqual(geometry.clientWidth);
+    expect(geometry.offenders).toEqual([]);
+
+    await page.locator('#auditToggle').click();
+    await expect(page.locator('#auditList .manage-item')).toHaveCount(8);
+    await expect(page.locator('#auditToggle')).toHaveText('Ver menos');
+    await page.locator('#auditToggle').click();
+    await expect(page.locator('#auditList .manage-item')).toHaveCount(5);
+
+    await page.locator('.manage-action-disclosure > summary').filter({ hasText: 'Crear un enlace de invitación' }).click();
+    await expect(page.locator('#inviteForm')).toBeVisible();
+  });
+
   test('shows only the invitation generator to an editor carrying invite.manage', async ({ page }) => {
     const inviteToken = 'f'.repeat(64);
     const actor = { id: 'editor-invite-manager-s5-a', role: 'editor', name: 'Administradora de accesos', classId: 's5-a', capabilities: { manageContent: false, manageInvites: true, reviewChallenge: true } };
     const writes = [];
     await exposeSyntheticCsrfCookie(page);
+    await page.setViewportSize({ width: 390, height: 844 });
     await page.addInitScript(() => {
       Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText(text) { window.__copiedManagedInvite = text; return Promise.resolve(); } } });
     });
@@ -649,10 +738,18 @@ test.describe('Multiclass student hub', () => {
     await expect(page.locator('#manageTabAccess')).toHaveText(/Accesos/);
     await expect(page.locator('#manageTabClasses')).toBeHidden();
     await page.locator('#manageTabAccess').click();
-    await expect(page.locator('#inviteForm')).toBeVisible();
+    await expect(page.locator('#inviteForm')).toBeHidden();
     await expect(page.locator('#delegateAccountForm')).toBeHidden();
     await expect(page.locator('#editorList')).toBeHidden();
     await expect(page.locator('#auditList')).toBeHidden();
+    const accessOverviewWidths = await page.evaluate(() => {
+      const overview = document.querySelector('.access-overview').getBoundingClientRect();
+      const visibleCard = document.querySelector('.access-overview article:not([hidden])').getBoundingClientRect();
+      return { overview: overview.width, card: visibleCard.width };
+    });
+    expect(accessOverviewWidths.card).toBeGreaterThanOrEqual(accessOverviewWidths.overview - 1);
+    await page.locator('.manage-action-disclosure > summary').filter({ hasText: 'Crear un enlace de invitación' }).click();
+    await expect(page.locator('#inviteForm')).toBeVisible();
     await page.locator('#inviteLabel').fill('Delegada 5.º A');
     await page.locator('#inviteForm').getByRole('button', { name: 'Crear enlace de invitación' }).click();
     await expect(page.locator('#inviteOutput')).toContainText('Enlace privado creado');
@@ -1534,8 +1631,8 @@ test.describe('Multiclass student hub', () => {
 
     await page.goto('/gestion/s5-a');
 
-    await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=487');
-    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=489');
+    await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=488');
+    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=490');
     expect(requestedPaths).toContain('/gestion-v440.css');
     expect(requestedPaths).toContain('/gestion-v440.js');
     await expect(page.locator('#authClassSlug')).toHaveText('S5-A');
@@ -1668,6 +1765,7 @@ test.describe('Multiclass student hub', () => {
     await page.locator('[data-manage-tab="access"]').click();
 
     const accountForm = page.locator('#delegateAccountForm');
+    await page.locator('.manage-action-disclosure > summary').filter({ hasText: 'Crear una cuenta de delegado' }).click();
     await accountForm.locator('[name="name"]').fill('Delegada Sintética');
     await accountForm.locator('[name="email"]').fill(SYNTHETIC_EMAIL);
     await accountForm.locator('[name="temporaryPassword"]').fill(SYNTHETIC_TEMP_PASSWORD);

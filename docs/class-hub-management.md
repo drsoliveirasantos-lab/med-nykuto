@@ -84,7 +84,7 @@ Sur la connexion, un futur delegue peut demander l'ouverture de son compte. Le c
 
 ## Connexion delegue v488
 
-La version `v489` charge `gestion-v440.css?v=487` et `gestion-v440.js?v=489`. Elle conserve l'acces par courrier et mot de passe, le cockpit compact par matiere, les avis officiels avec piece jointe, le profil WhatsApp prive et les exports de groupes lies a chaque activite. Elle ajoute une identite proprietaire globale clairement marquee et protegee contre l'auto-revocation, tout en gardant la capacite isolee de gestion des invitations pour les delegues autorises.
+La version `v490` charge `gestion-v440.css?v=488` et `gestion-v440.js?v=490`. Elle conserve l'acces par courrier et mot de passe, le cockpit compact par matiere, les avis officiels avec piece jointe, le profil WhatsApp prive et les exports de groupes lies a chaque activite. Sur mobile, un seul panneau de gestion reste visible a la fois, les formulaires occasionnels sont replies et l'activite recente est limitee a cinq lignes avant expansion. Elle garde aussi une identite proprietaire globale clairement marquee et protegee contre l'auto-revocation, ainsi que la capacite isolee de gestion des invitations pour les delegues autorises.
 
 1. Le proprietaire cree le compte dans **Acces et audit** avec un nom, un courrier et un mot de passe temporaire.
 2. Le courrier est normalise cote serveur et le mot de passe est derive avec PBKDF2-HMAC-SHA-256, un sel aleatoire propre au compte et 100 000 iterations, calibre pour le budget CPU des Pages Functions. Le mot de passe en clair n'est jamais enregistre.
