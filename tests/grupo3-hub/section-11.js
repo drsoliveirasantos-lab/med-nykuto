@@ -118,7 +118,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#weeklyAgenda .schedule-task-badge')).toHaveCount(4);
   });
 
-  test('publishes all sixteen lessons as narrative courses with isolated forty-question training', async ({ page }) => {
+  test('publishes all eighteen lessons as narrative courses with isolated forty-question training', async ({ page }) => {
     const lessons = [
       ['nutricion-2026-08-13', 'Leyes de la alimentación y evaluación del paciente', 'nutricion'],
       ['fisiologia-2026-08-10', 'Difusión y transporte de gases', 'fisiologia-2026-08-10'],
@@ -131,7 +131,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       ['microbiologia-practica-2026-08-20', 'Diagnóstico práctico de micosis superficiales'],
       ['bioquimica-2026-08-14', 'Glucólisis: vía común y balance energético', 'bioquimica'],
       ['bioquimica-2026-08-21', 'Cetoacidosis diabética'],
+      ['bioquimica-2026-08-26', 'Ciclo de Cori y vía de las pentosas fosfato'],
       ['epidemiologia-bloque-anterior', 'APS, sectorización y triage', 'epidemiologia'],
+      ['epidemiologia-2026-08-26', 'Casos clínicos de triaje y sistema de salud'],
       ['microbiologia-teorica-2026-08-10', 'Dermatofitosis y tiñas', 'microbiologia-teorica'],
       ['microbiologia-teorica-2026-08-17', 'Pitiriasis versicolor y tiña corporal', 'microbiologia-teorica-2026-08-17'],
       ['microbiologia-teorica-2026-08-24', 'Micosis subcutáneas, oportunistas y casos clínicos'],

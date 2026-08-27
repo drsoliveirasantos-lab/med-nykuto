@@ -9,8 +9,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.getByRole('link', { name: /Actividades 3 y 4 impresas y manuscritas/ })).toBeVisible();
     await expect(page.locator('.priority-card-head time')).toHaveCount(2);
     await expect(page.locator('#homeHomeworkCount')).toHaveText('2 tareas activas');
-    await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', '2026-08-24');
-    await expect(page.locator('#lastUpdated')).toContainText('Actualizado 24 ago.');
+    await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', '2026-08-26');
+    await expect(page.locator('#lastUpdated')).toContainText('Actualizado 26 ago.');
     await expect(page.locator('#horario')).toBeHidden();
     await expect(page.locator('#materias')).toBeHidden();
   });
@@ -31,30 +31,30 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.getByRole('button', { name:/Apoyar el proyecto/ })).toBeVisible();
   });
 
-  test('shows both new transcriptions on Home and opens their exact dated courses', async ({ page }) => {
-    const physiology = page.locator('.home-transcript-fisio');
-    const microbiology = page.locator('.home-transcript-micro');
+  test('shows both 26 August transcriptions on Home and opens their exact dated courses', async ({ page }) => {
+    const biochemistry = page.locator('.home-transcript-bio');
+    const epidemiology = page.locator('.home-transcript-epi');
 
     await expect(page.getByRole('heading', { name: 'Clases reconstruidas y revisadas' })).toBeVisible();
-    await expect(physiology).toBeVisible();
-    await expect(physiology).toHaveAttribute('href', '#fisiologia-2026-08-24');
-    await expect(physiology).toContainText('Sensibilidades somáticas');
-    await expect(physiology).toContainText('40 preguntas');
-    await expect(microbiology).toBeVisible();
-    await expect(microbiology).toHaveAttribute('href', '#microbiologia-teorica-2026-08-24');
-    await expect(microbiology).toContainText('Micosis subcutáneas y oportunistas');
-    await expect(microbiology).toContainText('5 casos + Candida');
+    await expect(biochemistry).toBeVisible();
+    await expect(biochemistry).toHaveAttribute('href', '#bioquimica-2026-08-26');
+    await expect(biochemistry).toContainText('Ciclo de Cori y vía de las pentosas');
+    await expect(biochemistry).toContainText('40 preguntas');
+    await expect(epidemiology).toBeVisible();
+    await expect(epidemiology).toHaveAttribute('href', '#epidemiologia-2026-08-26');
+    await expect(epidemiology).toContainText('Casos clínicos de triaje y sistema de salud');
+    await expect(epidemiology).toContainText('método de la profesora');
 
-    await physiology.click();
-    await expect(page).toHaveURL(/#fisiologia-2026-08-24$/);
-    await expect(page.locator('#fisiologia .notebook-current-title')).toContainText('Sensibilidades somáticas');
-    await expect(page.locator('#fisiologia-2026-08-24')).toBeVisible();
+    await biochemistry.click();
+    await expect(page).toHaveURL(/#bioquimica-2026-08-26$/);
+    await expect(page.locator('#bioquimica .notebook-current-title')).toContainText('Ciclo de Cori');
+    await expect(page.locator('#bioquimica-2026-08-26')).toBeVisible();
 
     await page.goto('/clase.html#inicio');
-    await page.locator('.home-transcript-micro').click();
-    await expect(page).toHaveURL(/#microbiologia-teorica-2026-08-24$/);
-    await expect(page.locator('#microbiologia-teorica .notebook-current-title')).toContainText('Micosis subcutáneas, oportunistas');
-    await expect(page.locator('#microbiologia-teorica-2026-08-24')).toBeVisible();
+    await page.locator('.home-transcript-epi').click();
+    await expect(page).toHaveURL(/#epidemiologia-2026-08-26$/);
+    await expect(page.locator('#epidemiologia .notebook-current-title')).toContainText('Casos clínicos de triaje');
+    await expect(page.locator('#epidemiologia-2026-08-26')).toBeVisible();
   });
 
   test('uses clickable views and shows only one course at a time', async ({ page }) => {
@@ -78,15 +78,15 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(shortcut).toBeHidden();
     await page.locator('[data-course-target="bioquimica"]').click();
     await expect(page.locator('#bioquimica .notebook-shell')).toBeVisible();
-    await expect(page.locator('#bioquimica .notebook-current-title')).toContainText('Cetoacidosis diabética');
-    await page.locator('#bioquimica-2026-08-21 [data-lesson-tab="training"]').click();
-    await page.locator('#practice-bioquimica-2026-08-21').getByRole('button', { name: 'Comenzar entrenamiento' }).click();
-    await expect(page.locator('#practice-bioquimica-2026-08-21-dialog')).toHaveAttribute('open', '');
-    await expect(page.locator('#practice-bioquimica-2026-08-21 .practice-workspace')).toBeVisible();
-    await expect(page.locator('#practice-bioquimica-2026-08-21 .practice-teacher-angle')).toContainText('Dra. Andrea López');
+    await expect(page.locator('#bioquimica .notebook-current-title')).toContainText('Ciclo de Cori');
+    await page.locator('#bioquimica-2026-08-26 [data-lesson-tab="training"]').click();
+    await page.locator('#practice-bioquimica-2026-08-26').getByRole('button', { name: 'Comenzar entrenamiento' }).click();
+    await expect(page.locator('#practice-bioquimica-2026-08-26-dialog')).toHaveAttribute('open', '');
+    await expect(page.locator('#practice-bioquimica-2026-08-26 .practice-workspace')).toBeVisible();
+    await expect(page.locator('#practice-bioquimica-2026-08-26 .practice-teacher-angle')).toContainText('Dra. Andrea López');
     await expect(page.locator('body')).toHaveClass(/practice-modal-open/);
     await page.keyboard.press('Escape');
-    await expect(page.locator('#practice-bioquimica-2026-08-21-dialog')).not.toHaveAttribute('open', '');
+    await expect(page.locator('#practice-bioquimica-2026-08-26-dialog')).not.toHaveAttribute('open', '');
     await expect(page.locator('body')).not.toHaveClass(/practice-modal-open/);
   });
 

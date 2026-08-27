@@ -86,8 +86,8 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
 
     await page.goto('/comunidade.html#ranking', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('.study-latest-shortcuts')).toBeVisible();
-    await expect(page.locator('[data-study-topic-shortcut="fisiologia-2026-08-24"]')).toBeVisible();
-    await expect(page.locator('[data-study-topic-shortcut="microbiologia-teorica-2026-08-24"]')).toBeVisible();
+    await expect(page.locator('[data-study-topic-shortcut="bioquimica-2026-08-26"]')).toBeVisible();
+    await expect(page.locator('[data-study-topic-shortcut="epidemiologia-2026-08-26"]')).toBeVisible();
     const shortcutLayout = await page.locator('.study-latest-shortcuts').evaluate(node => ({
       width:node.getBoundingClientRect().width,
       viewport:document.documentElement.clientWidth,

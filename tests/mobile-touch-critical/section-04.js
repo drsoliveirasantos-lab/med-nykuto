@@ -4,8 +4,8 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     const lessons = [
       'nutricion-2026-08-13',
       'fisiologia-2026-08-24',
-      'bioquimica-2026-08-21',
-      'epidemiologia-2026-08-19',
+      'bioquimica-2026-08-26',
+      'epidemiologia-2026-08-26',
       'microbiologia-teorica-2026-08-24',
       'microbiologia-practica-2026-08-20'
     ];

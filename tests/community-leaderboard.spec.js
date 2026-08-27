@@ -467,36 +467,36 @@ test.describe('Weekly S4-E class challenge', () => {
     expect(layout.subjectColumns).toBeGreaterThanOrEqual(2);
   });
 
-  test('shows Fisiología and Microbiology shortcuts beside the ranking and opens the exact new topic', async ({ page }) => {
+  test('shows the 26 August Bioquímica and Epidemiología shortcuts beside the ranking', async ({ page }) => {
     await seedProfile(page);
     await mockCommunityGet(page);
 
     await page.goto('/comunidade.html#ranking');
-    const physiology = page.locator('[data-study-topic-shortcut="fisiologia-2026-08-24"]');
-    const microbiology = page.locator('[data-study-topic-shortcut="microbiologia-teorica-2026-08-24"]');
-    await expect(physiology).toBeVisible();
-    await expect(physiology).toContainText('Fisiología · Sensibilidades somáticas');
-    await expect(microbiology).toBeVisible();
-    await expect(microbiology).toContainText('Micro teórica · Micosis y casos');
+    const biochemistry = page.locator('[data-study-topic-shortcut="bioquimica-2026-08-26"]');
+    const epidemiology = page.locator('[data-study-topic-shortcut="epidemiologia-2026-08-26"]');
+    await expect(biochemistry).toBeVisible();
+    await expect(biochemistry).toContainText('Bioquímica · Cori y pentosas');
+    await expect(epidemiology).toBeVisible();
+    await expect(epidemiology).toContainText('Epidemiología · Casos de triaje');
 
-    await physiology.click();
-    await expect(page).toHaveURL(/#fisiologia-2026-08-24$/);
-    await expect(page.locator('[data-study-subject="fisiologia"]')).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('[data-study-topic="fisiologia-2026-08-24"]')).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('#studyPracticeHost #practice-fisiologia-2026-08-24')).toBeVisible();
-
-    await page.locator('[data-study-subject="bioquimica"]').click();
+    await biochemistry.click();
+    await expect(page).toHaveURL(/#bioquimica-2026-08-26$/);
     await expect(page.locator('[data-study-subject="bioquimica"]')).toHaveAttribute('aria-pressed', 'true');
-    await page.locator('[data-study-topic-shortcut="fisiologia-2026-08-24"]').click();
+    await expect(page.locator('[data-study-topic="bioquimica-2026-08-26"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#studyPracticeHost #practice-bioquimica-2026-08-26')).toBeVisible();
+
+    await page.locator('[data-study-subject="fisiologia"]').click();
     await expect(page.locator('[data-study-subject="fisiologia"]')).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('[data-study-topic="fisiologia-2026-08-24"]')).toHaveAttribute('aria-pressed', 'true');
+    await page.locator('[data-study-topic-shortcut="bioquimica-2026-08-26"]').click();
+    await expect(page.locator('[data-study-subject="bioquimica"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('[data-study-topic="bioquimica-2026-08-26"]')).toHaveAttribute('aria-pressed', 'true');
 
     await page.goto('/comunidade.html#ranking');
-    await page.locator('[data-study-topic-shortcut="microbiologia-teorica-2026-08-24"]').click();
-    await expect(page).toHaveURL(/#microbiologia-teorica-2026-08-24$/);
-    await expect(page.locator('[data-study-subject="microbiologia-teorica"]')).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('[data-study-topic="microbiologia-teorica-2026-08-24"]')).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.locator('#studyPracticeHost #practice-microbiologia-teorica-2026-08-24')).toBeVisible();
+    await page.locator('[data-study-topic-shortcut="epidemiologia-2026-08-26"]').click();
+    await expect(page).toHaveURL(/#epidemiologia-2026-08-26$/);
+    await expect(page.locator('[data-study-subject="epidemiologia"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('[data-study-topic="epidemiologia-2026-08-26"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#studyPracticeHost #practice-epidemiologia-2026-08-26')).toBeVisible();
   });
 
   test('keeps a clear fallback when the shared database is not bound yet', async ({ page }) => {

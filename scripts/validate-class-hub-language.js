@@ -176,7 +176,7 @@ expect(html.includes('href="#fisiologia-2026-08-24"') && html.includes('href="#m
 expect(html.includes('class="home-transcripts"') && html.includes('Clases reconstruidas y revisadas'), 'The new transcription block is missing from the class home page.');
 expect(css.includes('.home-transcript-card'), 'The compact new-transcription cards are not styled.');
 expect(notebookCss.includes('.course-latest-chip') && notebookCss.includes('display:inline-flex!important'), 'The visible mobile course-update chips are missing.');
-expect(i18n.includes("'Sensibilidades somáticas':'Sensibilidades somáticas'") && i18n.includes("'Micosis subcutáneas y oportunistas':'Micoses subcutâneas e oportunistas'"), 'The new transcription cards are not translated into Portuguese.');
+expect(i18n.includes("'Ciclo de Cori y vía de las pentosas':'Ciclo de Cori e via das pentoses'") && i18n.includes("'Casos clínicos de triaje y sistema de salud':'Casos clínicos de triagem e sistema de saúde'"), 'The 26 August transcription cards are not translated into Portuguese.');
 expect(i18n.includes("'Notas y aula virtual':'Notas e ambiente virtual'"), 'The UCP portal shortcut is not translated into Portuguese.');
 expect(!html.includes('class="bio-abbrev-guide"'), 'The redundant separate acronym menu is still present.');
 expect(glossary.includes("full:{es:'Adenosina trifosfato',br:'Adenosina trifosfato'}"), 'ATP is missing its complete name in the direct glossary popup.');
