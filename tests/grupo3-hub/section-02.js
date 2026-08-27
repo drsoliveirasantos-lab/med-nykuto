@@ -35,7 +35,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   });
 
   test('shows the live iCal subscription directly inside Horario with a secure copy fallback', async ({ page }) => {
-    await page.addInitScript(() => {
+    await page.goto('/clase.html#horario');
+
+    await page.evaluate(() => {
       Object.defineProperty(navigator, 'clipboard', {
         configurable: true,
         value: {
@@ -46,7 +48,6 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
         }
       });
     });
-    await page.goto('/clase.html#horario');
 
     const subscription = page.locator('#classCalendarSubscription');
     const link = page.locator('#classCalendarSubscribeLink');
