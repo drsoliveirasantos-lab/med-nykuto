@@ -29,6 +29,7 @@ Une requête historique sans paramètre `class` continue de viser `s4-e`.
 | Rôle | Portée | Autorisations |
 |---|---|---|
 | Propriétaire | Toutes les turmas | Créer/archiver une turma, gérer ses matières, ses éditeurs et son audit, plus toutes les opérations éditoriales |
+| Administrateur d'accès | Une seule turma | Générer, consulter et révoquer les invitations privées de sa turma ; aucun accès aux comptes, permissions, classes ou audits |
 | Administrateur de contenu | Une seule turma | Droits du délégué, plus brouillons et publications des cours, fiches et entraînements 20/10/10 ; aucun accès à la gestion des classes, comptes, permissions ou audits |
 | Éditeur/délégué | Une seule turma | Tâches, avis officiels, activités, groupes, fichiers, dates et son propre profil WhatsApp dans sa turma |
 | Étudiant | Espace public d'une turma | Lire les publications, rejoindre/quitter un groupe ouvert et conserver son progrès local |
@@ -54,7 +55,7 @@ Aucune donnée pédagogique ou opérationnelle n'est copiée automatiquement d'u
 - `hub_subjects` utilise une clé composite `(class_id, id)`.
 - `hub_editor_credentials` conserve par turma le courriel normalisé et uniquement le vérificateur PBKDF2 salé du mot de passe.
 - `hub_editor_sessions` conserve par turma uniquement les condensats des jetons de session et anti-CSRF, avec expiration et révocation.
-- `hub_editor_permissions` accorde de facon additive la capacite `content.manage` a un compte precis et conserve la turma, l'auteur et la date de l'attribution. Les jetons editeur historiques n'en heritent jamais.
+- `hub_editor_permissions` conserve la capacite additive `content.manage`; `hub_editor_invite_permissions` conserve separement `invite.manage`. Les deux sont rattachees a un compte et une turma precis avec l'auteur et la date de l'attribution. Les jetons editeur historiques n'en heritent jamais.
 - `hub_content_lessons` et `hub_content_revisions` conservent les cours dates propres a une turma, leurs brouillons, revisions et paquets d'entrainement. Seule la revision publiee est exposee sans authentification.
 - Toutes les tables opérationnelles possèdent `class_id NOT NULL DEFAULT 's4-e'`.
 - Chaque lecture, mutation, jointure et audit opérationnel filtre par `class_id`.
@@ -114,6 +115,7 @@ Les secrets ne doivent jamais être ajoutés au dépôt. La première ouverture 
 - Un changement/réinitialisation de mot de passe ou la révocation d'un éditeur invalide ses sessions précédentes.
 - Les mutations sont journalisées par turma dans `hub_audit`.
 - Les mutations de contenu exigent soit le proprietaire, soit une session courrier/mot de passe portant `content.manage`. Un role inconnu, un jeton editeur historique ou un profil `localStorage` echoue par defaut.
+- La creation et la revocation d'une invitation exigent soit le proprietaire, soit une session courrier/mot de passe portant `invite.manage`; cette capacite ne donne aucun droit sur les comptes, permissions ou audits.
 - Une analyse IA exige une session de gestion, l'anti-CSRF, une piece jointe R2 autorisee et une limite de debit. Le document est traite comme non fiable; la sortie reste une proposition de brouillon et ses avertissements ne recopient jamais les donnees personnelles detectees. Une alerte de confidentialite devient durable pour cet upload et impose une seconde confirmation avant publication; une nouvelle analyse ne peut pas la remettre a zero.
 - Les mutations de notes sont reservees au proprietaire. Le serveur applique une liste blanche stricte, n'accepte qu'une catraca numerique de 4 a 24 chiffres, refuse les champs de nom, CPF, CI/RG, telephone ou courrier, exige une confirmation de confidentialite et un controle de revision avant publication. La page publique utilise `no-store`, `noindex,nofollow` et `no-referrer`; cela evite l'indexation mais ne rend pas le lien prive.
 - La publication d'un cours est refusee sans les trois formats de contenu et sans exactement 20 QCM, 10 vrai/faux et 10 cas cliniques valides. La revision et son instantane sont ecrits atomiquement, avec controle de concurrence optimiste.

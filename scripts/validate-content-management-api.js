@@ -205,6 +205,7 @@ async function main() {
     assert.equal(challengeAdmin.status, 200, 'an ordinary authenticated delegate could not open the challenge review queue');
     assert.equal(challengeAdmin.body.actor?.capabilities?.reviewChallenge, true, 'the authenticated delegate did not receive the narrow review capability');
     assert.equal(challengeAdmin.body.actor?.capabilities?.manageContent, false, 'challenge review accidentally granted content management');
+    assert.equal(challengeAdmin.body.actor?.capabilities?.manageInvites, false, 'an ordinary delegate accidentally received invitation management');
     assert.equal(challengeAdmin.body.challengeReview?.pendingCount, 2);
     assert.deepEqual(challengeAdmin.body.challengeReview?.week, { key: '2026-08-24', start: '2026-08-24', end: '2026-08-30', timeZone: 'America/Asuncion' });
     const serializedChallengeAdmin = JSON.stringify(challengeAdmin.body);
@@ -215,6 +216,9 @@ async function main() {
     assert.match(sessionCandidate.reviewId, /^[a-f0-9]{64}$/);
     assert.match(legacyCandidate.reviewId, /^[a-f0-9]{64}$/);
     assert.equal(Object.hasOwn(sessionCandidate, 'playerId'), false, 'the review queue exposed the internal player id');
+
+    const sessionInviteDenied = await post(api, env, { action: 'invite.create', label: 'Unauthorized invitation fixture', hours: 24 }, sessionAuth);
+    assert.deepEqual([sessionInviteDenied.status, sessionInviteDenied.body.code], [403, 'permission_denied'], 'an ordinary delegate created an invitation without invite.manage');
 
     const challengeCsrfDenied = await post(api, env, { action: 'challenge.participant.review', reviewId: sessionCandidate.reviewId, status: 'verified', expectedStatus: 'pending' }, { sessionToken });
     assert.deepEqual([challengeCsrfDenied.status, challengeCsrfDenied.body.code], [403, 'csrf_rejected']);
@@ -293,6 +297,23 @@ async function main() {
     assert.equal(sessionGrant.status, 200);
     const sessionView = await get(api, env, 'session', sessionAuth);
     assert.equal(sessionView.body.actor?.capabilities?.manageContent, true);
+    assert.equal(sessionView.body.actor?.capabilities?.manageInvites, false, 'content.manage implicitly granted invitation management');
+
+    const unknownPermission = await post(api, env, { action: 'editor.permission.update', classId: 's4-e', id: 'session-editor', permission: 'owner.manage', enabled: true }, ownerAuth);
+    assert.deepEqual([unknownPermission.status, unknownPermission.body.code], [400, 'invalid_permission'], 'the permission allowlist accepted an unknown capability');
+    const inviteGrant = await post(api, env, { action: 'editor.permission.update', classId: 's4-e', id: 'session-editor', permission: 'invite.manage', enabled: true }, ownerAuth);
+    assert.deepEqual([inviteGrant.status, inviteGrant.body.permission, inviteGrant.body.enabled], [200, 'invite.manage', true], 'the owner could not grant invite.manage independently');
+    const inviteManagerView = await get(api, env, 'admin', sessionAuth);
+    assert.equal(inviteManagerView.body.actor?.capabilities?.manageInvites, true, 'the granted session did not receive invitation management');
+    assert.equal(inviteManagerView.body.actor?.capabilities?.manageContent, true, 'granting invitation management removed the independent content permission');
+    assert.deepEqual(inviteManagerView.body.editors, [], 'an invitation manager received the owner-only editor list');
+    assert.ok(Array.isArray(inviteManagerView.body.invites), 'an invitation manager could not read the invitation lifecycle');
+    const managedInvitation = await post(api, env, { action: 'invite.create', label: 'Invitation manager fixture', hours: 24 }, sessionAuth);
+    assert.equal(managedInvitation.status, 201, 'invite.manage could not create a one-time invitation');
+    assert.equal(db.database.prepare(`SELECT created_by FROM hub_invites WHERE id=?`).get(managedInvitation.body.id).created_by, 'session-editor', 'the invitation did not preserve its delegated creator');
+    const managedRevoke = await post(api, env, { action: 'invite.revoke', id: managedInvitation.body.id }, sessionAuth);
+    assert.equal(managedRevoke.status, 200, 'invite.manage could not revoke its class invitation');
+    assert.ok(db.database.prepare(`SELECT revoked_at FROM hub_invites WHERE id=?`).get(managedInvitation.body.id).revoked_at, 'the delegated invitation revocation was not persisted');
     const csrfDenied = await post(api, env, fixtureLesson('csrf-denied'), { sessionToken });
     assert.deepEqual([csrfDenied.status, csrfDenied.body.code], [403, 'csrf_rejected']);
     const csrfDeniedRows = db.database.prepare(`SELECT COUNT(*) AS count FROM hub_content_lessons WHERE class_id='s4-e' AND id='csrf-denied'`).get();

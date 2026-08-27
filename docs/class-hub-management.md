@@ -4,9 +4,10 @@
 
 Le shell protege `gestion-shell/index.html`, publie sous `/gestion/:slug`, permet de publier sans redesploiement les taches, alertes, activites de groupe, fichiers et dates. Les contenus publies apparaissent dans `clase.html` et `archivos.html` par l'intermediaire de `functions/api/class-hub.js`.
 
-- Le proprietaire est le seul role autorise a creer ou revoquer des invitations, creer un compte de delegue, reinitialiser sa connexion, revoquer un editeur, consulter le journal d'audit et publier des notes.
+- Le proprietaire peut creer ou revoquer des invitations, creer un compte de delegue, reinitialiser sa connexion, revoquer un editeur, consulter le journal d'audit et publier des notes. Il peut aussi accorder separement la capacite `invite.manage` a un compte precis pour lui permettre uniquement de generer, consulter et revoquer les invitations de sa turma.
 - Un editeur peut gerer les taches, avis officiels, groupes, fichiers, dates et son propre profil WhatsApp. Les cours, questions, profils enseignants, permissions et parametres restent bloques cote serveur.
 - Le proprietaire peut accorder a un compte par courrier la capacite complementaire `content.manage`. L'interface l'affiche alors comme **Administrateur de contenu**, mais le compte reste limite a une seule turma et ne recoit aucun droit de proprietaire sur les classes, comptes, permissions ou audits.
+- La capacite `invite.manage` ouvre l'onglet **Accesos** et son generateur de liens, sans montrer la creation manuelle de comptes, la liste des editeurs ni l'audit. Elle ne s'applique jamais aux autres delegues par defaut.
 - Les etats disponibles sont `draft`, `published` et `archived`.
 - Les invitations sont des liens prives a usage unique, limites dans le temps et revocables. La personne invitee choisit elle-meme son nom, son courrier et son mot de passe permanent.
 - Les groupes imposent cote serveur une seule inscription par activite, la capacite du groupe et de l'activite, ainsi qu'une composition finale apres fermeture ou congelation.
@@ -81,9 +82,9 @@ Le numero du delegue n'est jamais renvoye par l'API publique. Il sert uniquement
 
 Sur la connexion, un futur delegue peut demander l'ouverture de son compte. Le contact vient de la turma ou de `MED_NYKUTO_SUPPORT_WHATSAPP`; s'il n'est pas encore configure, l'interface utilise `contact@nykuto.com` au lieu d'inventer un numero.
 
-## Connexion delegue v476
+## Connexion delegue v488
 
-La version `v476` charge `gestion-v440.css?v=476` et `gestion-v440.js?v=476`. Elle conserve l'acces par courrier et mot de passe, puis ajoute le cockpit compact par matiere, les avis officiels avec piece jointe, le profil WhatsApp prive et les exports de groupes lies a chaque activite.
+La version `v488` charge `gestion-v440.css?v=487` et `gestion-v440.js?v=488`. Elle conserve l'acces par courrier et mot de passe, le cockpit compact par matiere, les avis officiels avec piece jointe, le profil WhatsApp prive et les exports de groupes lies a chaque activite, puis ajoute la capacite isolee de gestion des invitations.
 
 1. Le proprietaire cree le compte dans **Acces et audit** avec un nom, un courrier et un mot de passe temporaire.
 2. Le courrier est normalise cote serveur et le mot de passe est derive avec PBKDF2-HMAC-SHA-256, un sel aleatoire propre au compte et 100 000 iterations, calibre pour le budget CPU des Pages Functions. Le mot de passe en clair n'est jamais enregistre.

@@ -621,6 +621,51 @@ test.describe('Multiclass student hub', () => {
     await expect.poll(() => page.evaluate(() => window.__copiedInvite || '')).toContain(`/gestion/s5-a#invite=${inviteToken}`);
   });
 
+  test('shows only the invitation generator to an editor carrying invite.manage', async ({ page }) => {
+    const inviteToken = 'f'.repeat(64);
+    const actor = { id: 'editor-invite-manager-s5-a', role: 'editor', name: 'Administradora de accesos', classId: 's5-a', capabilities: { manageContent: false, manageInvites: true, reviewChallenge: true } };
+    const writes = [];
+    await exposeSyntheticCsrfCookie(page);
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText(text) { window.__copiedManagedInvite = text; return Promise.resolve(); } } });
+    });
+    await routeManagementShell(page);
+    await page.route('**/api/class-hub**', async (route) => {
+      const request = route.request(), url = new URL(request.url()), resource = url.searchParams.get('resource'), body = request.method() === 'POST' ? request.postDataJSON() : null;
+      if (request.method() === 'GET' && resource === 'session') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, actor, passwordChangeRequired: false }) });
+        return;
+      }
+      if (request.method() === 'GET' && resource === 'admin') {
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(managementState(actor, { invites: [] })) });
+        return;
+      }
+      if (body?.action === 'invite.create') {
+        writes.push({ body, authorization: request.headers().authorization || '', csrf: request.headers()['x-csrf-token'] || '' });
+        await route.fulfill({ status: 201, contentType: 'application/json', body: JSON.stringify({ ok: true, inviteToken, invitePath: `/gestion/s5-a#invite=${inviteToken}`, expiresAt: '2099-09-03T12:00:00.000Z' }) });
+        return;
+      }
+      await route.fulfill({ status: 400, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'unexpected_request', error: 'Solicitud inesperada.' }) });
+    });
+
+    await page.goto('/gestion/s5-a');
+    await expect(page.locator('#manageTabAccess')).toBeVisible();
+    await expect(page.locator('#manageTabAccess')).toHaveText(/Accesos/);
+    await expect(page.locator('#manageTabClasses')).toBeHidden();
+    await page.locator('#manageTabAccess').click();
+    await expect(page.locator('#inviteForm')).toBeVisible();
+    await expect(page.locator('#delegateAccountForm')).toBeHidden();
+    await expect(page.locator('#editorList')).toBeHidden();
+    await expect(page.locator('#auditList')).toBeHidden();
+    await page.locator('#inviteLabel').fill('Delegada 5.º A');
+    await page.locator('#inviteForm').getByRole('button', { name: 'Crear enlace de invitación' }).click();
+    await expect(page.locator('#inviteOutput')).toContainText('Enlace privado creado');
+    expect(await page.locator('#inviteOutput').innerHTML()).not.toContain(inviteToken);
+    await page.locator('#inviteOutput').getByRole('button', { name: 'Copiar enlace' }).click();
+    await expect.poll(() => page.evaluate(() => window.__copiedManagedInvite || '')).toContain(`/gestion/s5-a#invite=${inviteToken}`);
+    expect(writes).toEqual([{ authorization: '', csrf: SYNTHETIC_CSRF, body: { action: 'invite.create', label: 'Delegada 5.º A', hours: '168' } }]);
+  });
+
   test('lets an authenticated delegate validate or reject only opaque challenge candidatures', async ({ page }) => {
     const actor = { id: 'editor-review-s5-a', role: 'editor', name: 'Delegada Revisión', classId: 's5-a', capabilities: { manageContent: false, reviewChallenge: true } };
     const privatePlayerId = '11111111-1111-4111-8111-111111111111';
@@ -1494,7 +1539,7 @@ test.describe('Multiclass student hub', () => {
     await page.goto('/gestion/s5-a');
 
     await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=487');
-    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=487');
+    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=488');
     expect(requestedPaths).toContain('/gestion-v440.css');
     expect(requestedPaths).toContain('/gestion-v440.js');
     await expect(page.locator('#authClassSlug')).toHaveText('S5-A');
@@ -1931,8 +1976,8 @@ test.describe('Multiclass student hub', () => {
   test('lets the owner grant content.manage without coupling it to account creation', async ({ page }) => {
     const owner = { id: 'owner', role: 'owner', name: 'Propietario', classId: 's5-a', capabilities: { manageContent: true } };
     const editors = [
-      { id: 'editor-permission-fixture', name: 'Delegado de prueba', email: 'permission.fixture@example.test', status: 'active', can_manage_content: false },
-      { id: 'legacy-editor-fixture', name: 'Delegado con token', status: 'active', can_manage_content: false }
+      { id: 'editor-permission-fixture', name: 'Delegado de prueba', email: 'permission.fixture@example.test', status: 'active', can_manage_content: false, can_manage_invites: false },
+      { id: 'legacy-editor-fixture', name: 'Delegado con token', status: 'active', can_manage_content: false, can_manage_invites: false }
     ];
     const writes = [];
     await page.addInitScript(({ key }) => sessionStorage.setItem(key, 'synthetic-permission-owner'), { key: 'med-nykuto-management-token-v471:s5-a' });
@@ -1940,9 +1985,12 @@ test.describe('Multiclass student hub', () => {
     await page.route('**/api/class-hub**', async (route) => {
       const request = route.request(), resource = new URL(request.url()).searchParams.get('resource');
       if (request.method() === 'POST') {
-        writes.push({ url: request.url(), body: request.postDataJSON() });
-        editors[0].can_manage_content = request.postDataJSON().enabled;
-        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, id: editors[0].id, permission: 'content.manage', enabled: editors[0].can_manage_content }) });
+        const body = request.postDataJSON();
+        writes.push({ url: request.url(), body });
+        const permission = body.permission || 'content.manage';
+        if (permission === 'invite.manage') editors[0].can_manage_invites = body.enabled;
+        else editors[0].can_manage_content = body.enabled;
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, id: editors[0].id, permission, enabled: body.enabled }) });
         return;
       }
       const body = resource === 'public'
@@ -1967,6 +2015,10 @@ test.describe('Multiclass student hub', () => {
     expect(writeUrl.searchParams.get('action')).toBeNull();
     expect(writes[0].body).toEqual({ action: 'editor.permission.update', id: 'editor-permission-fixture', enabled: true });
     await expect(page.locator('#editorList').getByRole('button', { name: 'Retirar permiso de contenido' })).toBeVisible();
+    await page.locator('#editorList').getByRole('button', { name: 'Autorizar invitaciones' }).click();
+    await expect.poll(() => writes.length).toBe(2);
+    expect(writes[1].body).toEqual({ action: 'editor.permission.update', id: 'editor-permission-fixture', permission: 'invite.manage', enabled: true });
+    await expect(page.locator('#editorList').getByRole('button', { name: 'Retirar permiso de invitaciones' })).toBeVisible();
     await expect(page.locator('#delegateAccountForm [name="email"]')).toHaveValue('');
   });
 

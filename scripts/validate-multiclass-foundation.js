@@ -1775,7 +1775,7 @@ async function validateMulticlassShell() {
   expect(!/state\.(?:members|memberships)|data\.(?:members|memberships)/.test(turmaRuntime), 'The generic student hub still consumes nominative group records.');
   expect(turmaRuntime.includes("action:'group.join'") && turmaRuntime.includes("action:'group.leave'") && turmaRuntime.includes('memberCount'), 'Students cannot join and leave generic class groups using anonymous occupancy data.');
 
-  expect(managementHtml.includes('src="/gestion-v440.js?v=487"') && managementHtml.includes('href="/gestion-v440.css?v=487"'), 'The nested management route does not use the current absolute asset versions.');
+  expect(managementHtml.includes('src="/gestion-v440.js?v=488"') && managementHtml.includes('href="/gestion-v440.css?v=487"'), 'The nested management route does not use the current absolute asset versions.');
   expect(managementHtml.includes('id="credentialForm"') && managementHtml.includes('name="action" value="auth.login"') && managementHtml.includes('autocomplete="username"') && managementHtml.includes('autocomplete="current-password"'), 'The v472 delegate email/password login form is incomplete.');
   expect(managementHtml.includes('id="multiDeviceLoginHelp"') && managementHtml.includes('sesiones independientes') && managementHtml.includes('Crear mi cuenta con una invitación') && managementHtml.includes('Crear mi cuenta y entrar'), 'The management login does not provide independent sessions and autonomous invitation registration.');
   ['inviteName', 'inviteEmail', 'invitePassword', 'inviteConfirmPassword'].forEach((id) => expect(managementHtml.includes(`id="${id}"`), `The autonomous invitation form is missing #${id}.`));
