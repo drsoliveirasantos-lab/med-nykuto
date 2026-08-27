@@ -7,6 +7,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
       const navItem = document.querySelector('.mobile-bottom-nav a').getBoundingClientRect();
       const prioritiesGrid = document.querySelector('.dashboard-priorities');
       const prioritiesGridRect = prioritiesGrid.getBoundingClientRect();
+      const quickLinks = Array.from(document.querySelectorAll('.home-quick-links .home-quick-link')).filter((link) => link.offsetParent !== null);
       const priorities = Array.from(prioritiesGrid.querySelectorAll('.priority-card')).map((card) => {
         const rect = card.getBoundingClientRect();
         const title = card.querySelector('strong');
@@ -28,6 +29,8 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
         priorities,
         prioritiesGrid:{ left:prioritiesGridRect.left, right:prioritiesGridRect.right, width:prioritiesGridRect.width },
         appBottomPadding:parseFloat(getComputedStyle(document.querySelector('.class-app')).paddingBottom),
+        quickLinkCount:quickLinks.length,
+        quickLinkRows:new Set(quickLinks.map((link) => Math.round(link.getBoundingClientRect().top))).size,
         homeworkTitle:document.querySelector('.dashboard-week-heading span').textContent.trim(),
         homeworkCount:document.getElementById('homeHomeworkCount').textContent.trim(),
         homeworkDates:Array.from(prioritiesGrid.querySelectorAll('.priority-card time')).map(function(time){return time.dateTime;})
@@ -40,6 +43,8 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(dashboard.overflow).toBeLessThanOrEqual(1);
     expect(dashboard.columns).toBe(2);
     expect(dashboard.appBottomPadding).toBeLessThanOrEqual(12);
+    expect(dashboard.quickLinkCount).toBe(4);
+    expect(dashboard.quickLinkRows).toBe(1);
     expect(dashboard.homeworkTitle).toBe('PARA ESTA SEMANA');
     expect(dashboard.homeworkCount).toBe('2 tareas activas');
     expect(dashboard.homeworkDates).toContain('2026-08-26T09:10:00-03:00');

@@ -172,6 +172,7 @@ expect(classHubCss.includes('.live-task-groups') && classHubCss.includes('.live-
 expect(html.includes('href="https://virtual.central.edu.py/auth"'), 'The official UCP portal shortcut is missing from the class home page.');
 expect(html.includes('class="home-quick-links"'), 'The compact useful-links strip is missing from the class home page.');
 expect(css.includes('.home-quick-link'), 'The compact home shortcut styling is missing.');
+expect(/\.class-dashboard \.home-quick-links\s*\{\s*grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/.test(classHubCss), 'The four useful mobile shortcuts do not stay on one compact row.');
 expect(html.includes('href="#fisiologia-2026-08-24"') && html.includes('href="#microbiologia-teorica-2026-08-24"'), 'The home page does not link directly to both completed transcriptions.');
 expect(html.includes('class="home-transcripts"') && html.includes('Clases reconstruidas y revisadas'), 'The new transcription block is missing from the class home page.');
 expect(css.includes('.home-transcript-card'), 'The compact new-transcription cards are not styled.');
