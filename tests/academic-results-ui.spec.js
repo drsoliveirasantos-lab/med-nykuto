@@ -180,7 +180,7 @@ test.describe('Owner-only grade management', () => {
 
     await page.goto('/gestion/s4-e');
     await expect(page.locator('#manageApp')).toBeVisible();
-    await expect(page.locator('link[href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=486');
+    await expect(page.locator('link[href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=487');
     await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=486');
     await expect(page.locator('#manageTabGrades')).toBeVisible();
     await page.locator('#manageTabGrades').click();

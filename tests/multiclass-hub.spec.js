@@ -1036,7 +1036,7 @@ test.describe('Multiclass student hub', () => {
         if (body.action === 'notice.upsert') {
           noticeAttempts += 1;
           expect(body.attachmentUploadId).toBe('upload-fixture-1');
-          expect(body.attachmentTitle).toBe('cronograma-oficial.pdf');
+          expect(body.attachmentTitle).toBe('Documento del aviso');
           if (noticeAttempts === 1) {
             await route.fulfill({ status: 500, contentType: 'application/json', body: JSON.stringify({ ok: false, code: 'temporary_failure', error: 'Fallo temporal de prueba.' }) });
             return;
@@ -1067,7 +1067,8 @@ test.describe('Multiclass student hub', () => {
     await expect(page.locator('#manageStatus')).toHaveText('Datos sincronizados.');
     expect(uploadCount).toBe(1);
     expect(noticeAttempts).toBe(2);
-    await expect(page.locator('#noticeList .notice-admin-attachment')).toContainText('cronograma-oficial.pdf');
+    await expect(page.locator('#noticeList .notice-admin-attachment')).toContainText('Documento del aviso');
+    await expect(page.locator('#noticeList')).not.toContainText('cronograma-oficial.pdf');
   });
 
   test('requires a separate privacy confirmation for an AI-flagged notice attachment', async ({ page }) => {
@@ -1376,7 +1377,7 @@ test.describe('Multiclass student hub', () => {
 
     await page.goto('/gestion/s5-a');
 
-    await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=486');
+    await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=487');
     await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=486');
     expect(requestedPaths).toContain('/gestion-v440.css');
     expect(requestedPaths).toContain('/gestion-v440.js');

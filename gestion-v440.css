@@ -474,6 +474,7 @@ input[aria-invalid=true]{border-color:var(--rose);outline:2px solid rgba(251,113
 .notice-ai-warning{border:1px solid rgba(251,113,133,.32);background:rgba(76,29,42,.28);color:#fecdd3}
 .notice-ai-safe{border:1px solid rgba(52,211,153,.25);background:rgba(6,78,59,.22);color:#bbf7d0}
 .notice-human-review{display:grid!important;grid-template-columns:22px minmax(0,1fr)!important;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:#071622;cursor:pointer}
+.notice-human-review[hidden]{display:none!important}
 .notice-human-review[data-required=true]{border-color:rgba(251,191,36,.46);background:rgba(120,53,15,.16)}
 .notice-pii-review{border-color:rgba(251,113,133,.5);background:rgba(76,29,42,.22)}
 .notice-pii-review[data-required=true]{border-color:rgba(251,113,133,.78);box-shadow:0 0 0 1px rgba(251,113,133,.16)}

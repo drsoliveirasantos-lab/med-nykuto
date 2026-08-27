@@ -157,7 +157,7 @@ if (!failures.length) {
     'practiceQcmCount', 'practiceTrueFalseCount', 'practiceClinicalCount', 'lessonPreview'
   ].forEach((id) => expect(html.includes(`id="${id}"`), `The management UI is missing #${id}.`));
   expect(html.includes('data-content-admin-only'), 'The managed-content panel is missing its capability visibility marker.');
-  expect(html.includes('href="/gestion-v440.css?v=486"') && html.includes('src="/gestion-v440.js?v=486"'), 'The management content assets are not cache-busted at v486.');
+  expect(html.includes('href="/gestion-v440.css?v=487"') && html.includes('src="/gestion-v440.js?v=486"'), 'The management content assets are not cache-busted at the current versions.');
   expect(html.includes('data-lesson-status="draft"') && html.includes('data-lesson-status="published"'), 'Draft and publish actions are not distinct.');
   expect(management.includes("action:'lesson.upsert'") || management.includes("action: 'lesson.upsert'"), 'The management runtime does not submit lesson.upsert.');
   expect(management.includes("action:'editor.permission.update'") || management.includes("action: 'editor.permission.update'"), 'The owner UI cannot grant or revoke content.manage.');
