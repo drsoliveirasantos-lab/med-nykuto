@@ -113,6 +113,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(page.locator('#classNoticePageList .notice-item')).toHaveCount(1);
       const taskNotice = page.locator('#classNoticePageList .notice-item').filter({ hasText: 'Exposición grupal de Epidemiología' });
       await expect(taskNotice).toBeVisible();
+      await taskNotice.locator('.notice-caption-summary').click();
+      await expect(taskNotice.locator('.notice-caption')).toHaveAttribute('open', '');
       const exactTaskLink = taskNotice.getByRole('link', { name: 'Ver tarea: Exposición grupal de enfermedad sorteada' });
       await expect(exactTaskLink).toHaveAttribute('href', '#task-epi-presentation');
       await exactTaskLink.click();
@@ -192,7 +194,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     const structuredFixture = {
       ok: true,
       notices: [
-        { id: 'active-file', course: 'Bioquímica II', priority: 'important', title: 'Guía oficial <img src=x>', body: 'Material confirmado.', category: 'resource', lifecycle: 'active', audience: 'students', effectiveAt: '2020-08-27T09:00:00-03:00', expiresAt: '2099-08-30T18:00:00-03:00', sourceLabel: 'UCP Oficial', sourceUrl: 'https://www.ucp.edu.py/aviso', targetType: 'file', targetId: 'course-file', changeSummary: 'Se reemplazó el enlace preliminar.', revision: 2 },
+        { id: 'active-file', course: 'Bioquímica II', priority: 'important', title: 'Guía oficial <img src=x>', body: 'Material confirmado.', category: 'resource', lifecycle: 'active', audience: 'students', effectiveAt: '2020-08-27T09:00:00-03:00', expiresAt: '2099-08-30T18:00:00-03:00', sourceLabel: 'UCP Oficial', sourceUrl: 'https://www.ucp.edu.py/aviso', imageUrl: 'https://example.test/ucp-notice.svg', imageAlt: 'Comunicado oficial de Bioquímica', targetType: 'file', targetId: 'course-file', changeSummary: 'Se reemplazó el enlace preliminar.', revision: 2 },
         { id: 'scheduled', priority: 'important', title: 'Próximo aviso', category: 'schedule', lifecycle: 'scheduled', audience: 'all', effectiveAt: '2099-09-01T08:00:00-03:00', sourceLabel: 'Mensaje oficial', sourceUrl: 'http://insecure.example/notice' },
         { id: 'updated-date', priority: 'normal', title: 'Fecha actualizada', category: 'assessment', lifecycle: 'updated', audience: 'all', targetType: 'date', targetId: 'exam-date' },
         { id: 'extended-task', priority: 'normal', title: 'Entrega ampliada', category: 'task', lifecycle: 'extended', audience: 'students', targetType: 'task', targetId: 'epi-presentation' },
@@ -216,6 +218,12 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     const isolatedContext = await browser.newContext({ serviceWorkers: 'block' });
     const page = await isolatedContext.newPage();
     try {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.route('https://example.test/ucp-notice.svg', (route) => route.fulfill({
+        status: 200,
+        contentType: 'image/svg+xml',
+        body: '<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200"><rect width="100%" height="100%" fill="#0e7490"/></svg>'
+      }));
       await page.route('**/api/class-hub**', (route) => {
         const url = new URL(route.request().url());
         if (url.searchParams.get('class') === 's4-e' && url.searchParams.get('resource') === 'public') {
@@ -229,6 +237,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(preview.locator('.notice-item')).toHaveCount(2);
       await expect(preview).toContainText('Guía oficial <img src=x>');
       await expect(preview).toContainText('Próximo aviso');
+      await expect(preview.locator('img')).toHaveCount(0);
       await expect(page.locator('#noticeBell')).toHaveAttribute('data-count', '2');
 
       await page.locator('#noticeBell').click();
@@ -242,6 +251,25 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       }
 
       const active = list.locator('.notice-item').filter({ hasText: 'Guía oficial' });
+      const activeCaption = active.locator('.notice-caption');
+      const activeImage = active.getByRole('img', { name: 'Comunicado oficial de Bioquímica' });
+      await expect(active.getByRole('link', { name: 'Abrir imagen: Comunicado oficial de Bioquímica' })).toHaveAttribute('href', 'https://example.test/ucp-notice.svg');
+      await expect(activeImage).toHaveAttribute('loading', 'lazy');
+      await expect(activeImage).toHaveAttribute('referrerpolicy', 'no-referrer');
+      const imageFirstLayout = await active.evaluate((card) => {
+        const media = card.querySelector('.notice-media').getBoundingClientRect();
+        const copy = card.querySelector('.notice-copy').getBoundingClientRect();
+        const bounds = card.getBoundingClientRect();
+        return { mediaWidth: media.width, cardWidth: bounds.width, mediaBottom: media.bottom, copyTop: copy.top };
+      });
+      expect(imageFirstLayout.mediaWidth).toBeGreaterThanOrEqual(imageFirstLayout.cardWidth - 2);
+      expect(imageFirstLayout.mediaBottom).toBeLessThanOrEqual(imageFirstLayout.copyTop + 1);
+      await expect(activeCaption).not.toHaveAttribute('open', '');
+      await expect(activeCaption.locator('.notice-caption-preview')).toContainText('Material confirmado.');
+      await expect(activeCaption.locator('.notice-caption-more')).toHaveText('Ver más');
+      await activeCaption.locator('.notice-caption-summary').click();
+      await expect(activeCaption).toHaveAttribute('open', '');
+      await expect(activeCaption.locator('.notice-caption-less')).toHaveText('Ver menos');
       await expect(active).toContainText('MATERIAL');
       await expect(active).toContainText('ESTUDIANTES');
       await expect(active).toContainText('VERSIÓN 2');
@@ -253,11 +281,18 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(active.locator('img[src="x"]')).toHaveCount(0);
 
       const scheduled = list.locator('.notice-item').filter({ hasText: 'Próximo aviso' });
+      await scheduled.locator('.notice-caption-summary').click();
       await expect(scheduled.locator('a[href^="http://insecure.example"]')).toHaveCount(0);
       await expect(scheduled).toContainText('Fuente: Mensaje oficial');
-      await expect(list.locator('.notice-item').filter({ hasText: 'Fecha actualizada' }).getByRole('link', { name: /Ver fecha en el calendario/ })).toHaveAttribute('href', '#horario');
-      await expect(list.locator('.notice-item').filter({ hasText: 'Entrega ampliada' }).getByRole('link', { name: 'Ver tarea: Exposición grupal' })).toHaveAttribute('href', '#task-epi-presentation');
-      await expect(list.locator('.notice-item').filter({ hasText: 'Contenido corregido' }).getByRole('link', { name: /Abrir materia: Bioquímica II/ })).toHaveAttribute('href', '#bioquimica');
+      const updatedDate = list.locator('.notice-item').filter({ hasText: 'Fecha actualizada' });
+      await updatedDate.locator('.notice-caption-summary').click();
+      await expect(updatedDate.getByRole('link', { name: /Ver fecha en el calendario/ })).toHaveAttribute('href', '#horario');
+      const extendedTask = list.locator('.notice-item').filter({ hasText: 'Entrega ampliada' });
+      await extendedTask.locator('.notice-caption-summary').click();
+      await expect(extendedTask.getByRole('link', { name: 'Ver tarea: Exposición grupal' })).toHaveAttribute('href', '#task-epi-presentation');
+      const correctedSubject = list.locator('.notice-item').filter({ hasText: 'Contenido corregido' });
+      await correctedSubject.locator('.notice-caption-summary').click();
+      await expect(correctedSubject.getByRole('link', { name: /Abrir materia: Bioquímica II/ })).toHaveAttribute('href', '#bioquimica');
     } finally {
       await isolatedContext.close();
     }

@@ -212,6 +212,7 @@ test.describe('Multiclass student hub', () => {
   });
 
   test('shows a compact static notice preview on Home and all current notices in the dedicated view', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
     await page.route('**/api/class-hub**', (route) => route.fulfill({
       status: 200,
       contentType: 'application/json',
@@ -243,15 +244,37 @@ test.describe('Multiclass student hub', () => {
     await expect(page.locator('#noticePageList .notice-card')).toHaveCount(3);
     await expect(page.locator('#noticePageList')).toContainText('Material disponible');
     await expect(page.locator('#noticePageSummary')).toContainText('3 avisos vigentes');
-    const noticeImage = page.locator('#noticePageList img');
+    const visualNotice = page.locator('#noticePageList .notice-card').filter({ hasText: 'Fecha oficial del examen' });
+    const noticeImage = visualNotice.locator('img');
     await expect(noticeImage).toHaveAttribute('alt', 'Cronograma oficial del examen');
     await expect(noticeImage).toHaveAttribute('loading', 'lazy');
     await expect(noticeImage).toHaveAttribute('decoding', 'async');
     await expect(noticeImage).toHaveAttribute('referrerpolicy', 'no-referrer');
-    const attachment = page.locator('#noticePageList').getByRole('link', { name: /Abrir documento/ });
+    const mediaLink = visualNotice.getByRole('link', { name: 'Abrir imagen: Cronograma oficial del examen' });
+    await expect(mediaLink).toHaveAttribute('href', 'https://example.test/official-exam.webp');
+    await expect(mediaLink).toHaveAttribute('rel', 'noopener noreferrer');
+    const positions = await visualNotice.evaluate((card) => {
+      const media = card.querySelector('.notice-media').getBoundingClientRect();
+      const copy = card.querySelector('.notice-copy').getBoundingClientRect();
+      const bounds = card.getBoundingClientRect();
+      return { mediaWidth: media.width, cardWidth: bounds.width, mediaBottom: media.bottom, copyTop: copy.top };
+    });
+    expect(positions.mediaWidth).toBeGreaterThanOrEqual(positions.cardWidth - 2);
+    expect(positions.mediaBottom).toBeLessThanOrEqual(positions.copyTop + 1);
+    const caption = visualNotice.locator('.notice-caption');
+    await expect(caption).not.toHaveAttribute('open', '');
+    await expect(caption.locator('.notice-caption-preview')).toContainText('El parcial será el 10 de septiembre.');
+    await expect(caption.getByText('Ver más', { exact: true })).toBeVisible();
+    await caption.locator('summary').click();
+    await expect(caption).toHaveAttribute('open', '');
+    await expect(caption.getByText('Ver menos', { exact: true })).toBeVisible();
+    await expect(caption.locator('.notice-body')).toHaveText('El parcial será el 10 de septiembre.');
+    const attachment = visualNotice.getByRole('link', { name: /Abrir documento/ });
     await expect(attachment).toHaveAttribute('href', /\/api\/class-hub\?class=s5-a&resource=notice-attachment&upload=upload-exam-pdf$/);
     await expect(attachment).toHaveAttribute('rel', 'noopener noreferrer');
     await expect(attachment).toContainText('240 KB');
+    await caption.locator('summary').click();
+    await expect(caption).not.toHaveAttribute('open', '');
     await expect(page).toHaveURL(/#avisos$/);
     await page.getByRole('button', { name: '← Volver al inicio' }).click();
     await expect(page.locator('[data-view="inicio"]')).toBeVisible();
@@ -308,6 +331,7 @@ test.describe('Multiclass student hub', () => {
     await page.goto('/turma-shell/?class=s5-a#avisos');
     const notice = page.locator('#noticePageList .notice-card').filter({ hasText: expiredLinkedTask.title });
     await expect(notice).toBeVisible();
+    await notice.locator('.notice-caption-summary').click();
     const taskLink = notice.getByRole('link', { name: 'Ver tarea' });
     await expect(taskLink).toHaveAttribute('href', '#tareas');
     for (const title of [otherTask.title, 'Relación huérfana', 'Relación con tarea privada']) {
@@ -2229,14 +2253,14 @@ test.describe('Multiclass student hub', () => {
     expect(shellEntries).toEqual(expect.arrayContaining([
       '/offline.html',
       '/turma-shell/',
-      '/turma-v471.css?v=486',
-      '/turma-v471.js?v=486',
+      '/turma-v471.css?v=487',
+      '/turma-v471.js?v=487',
       '/turma-manifest-boot-v471.js?v=478',
       '/public-theme-v485.css?v=486',
       '/public-theme-v485.js?v=485',
       '/calendar-subscription-v485.js?v=485'
     ]));
-    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v486['"]/);
+    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v487['"]/);
     [
       /\/gestion/i,
       /\/api\//i,
