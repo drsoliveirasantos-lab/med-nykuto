@@ -801,11 +801,12 @@ test.describe('Weekly S4-E class challenge', () => {
     await page.goto('/comunidade.html', { waitUntil: 'domcontentloaded' });
     const navigation = page.locator('.mobile-bottom-nav');
     await expect(navigation).toBeVisible();
-    await expect(navigation.locator('a')).toHaveCount(5);
+    await expect(navigation.locator('a')).toHaveCount(6);
     await expect(navigation.locator('a[aria-current="page"]')).toHaveAttribute('href', 'comunidade.html');
     await expect(navigation.locator('a[href="clase.html#inicio"]')).toContainText('Inicio');
     await expect(navigation.locator('a[href="clase.html#horario"]')).toContainText('Horario');
     await expect(navigation.locator('a[href="clase.html#pendientes"]')).toContainText('Tareas');
+    await expect(navigation.locator('a[href="clase.html#avisos"]')).toContainText('Avisos');
     await expect(navigation.locator('a[href="clase.html#materias"]')).toContainText('Materias');
     await expect(page.getByText('50 R$ vía Pix', { exact: true })).toBeVisible();
     await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-catraca')).toHaveText('001234');
@@ -825,6 +826,11 @@ test.describe('Weekly S4-E class challenge', () => {
         navHeight: nav.height,
         navBottom: window.innerHeight - nav.bottom,
         minNavItemHeight: Math.min(...navItems.map((item) => item.height)),
+        minNavItemWidth: Math.min(...navItems.map((item) => item.width)),
+        navScrollWidth: document.querySelector('.mobile-bottom-nav').scrollWidth,
+        navClientWidth: document.querySelector('.mobile-bottom-nav').clientWidth,
+        activeLeft: document.querySelector('.mobile-bottom-nav [aria-current="page"]').getBoundingClientRect().left - nav.left,
+        activeRight: nav.right - document.querySelector('.mobile-bottom-nav [aria-current="page"]').getBoundingClientRect().right,
         bodyBottomPadding: parseFloat(getComputedStyle(document.body).paddingBottom),
         nameInputHeight: nameInput.height,
         studentInputHeight: studentInput.height,
@@ -835,6 +841,10 @@ test.describe('Weekly S4-E class challenge', () => {
     expect(layout.navHeight).toBeGreaterThanOrEqual(58);
     expect(layout.navBottom).toBeGreaterThanOrEqual(3);
     expect(layout.minNavItemHeight).toBeGreaterThanOrEqual(58);
+    expect(layout.minNavItemWidth).toBeGreaterThanOrEqual(78);
+    expect(layout.navScrollWidth).toBeGreaterThan(layout.navClientWidth);
+    expect(layout.activeLeft).toBeGreaterThanOrEqual(-1);
+    expect(layout.activeRight).toBeGreaterThanOrEqual(-1);
     expect(layout.bodyBottomPadding).toBeGreaterThanOrEqual(layout.navHeight + 12);
     expect(layout.nameInputHeight).toBeGreaterThanOrEqual(44);
     expect(layout.studentInputHeight).toBeGreaterThanOrEqual(44);

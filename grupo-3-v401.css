@@ -1685,8 +1685,9 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
   .seminar-document-pages{grid-template-columns:1fr;gap:8px}
   .seminar-document-pages figure{padding:6px;border-radius:12px}
   .seminar-document-pages figure>span{padding:1px 3px 6px;font-size:.5rem}
-  .mobile-bottom-nav{position:fixed;display:grid;grid-template-columns:repeat(6,1fr);left:6px;right:6px;bottom:max(6px,env(safe-area-inset-bottom));z-index:60;border:1px solid var(--line-strong);border-radius:18px;background:rgba(6,15,26,.94);box-shadow:0 20px 55px rgba(0,0,0,.45);backdrop-filter:blur(18px);overflow:hidden}
-  .mobile-bottom-nav a{min-height:56px;display:grid;place-items:center;align-content:center;gap:1px;color:var(--muted);font-size:.62rem}
+  .mobile-bottom-nav{position:fixed;display:flex;left:6px;right:6px;bottom:max(6px,env(safe-area-inset-bottom));z-index:60;overflow-x:auto;overflow-y:hidden;padding-inline:5px;border:1px solid var(--line-strong);border-radius:18px;background:rgba(6,15,26,.94);box-shadow:0 20px 55px rgba(0,0,0,.45);backdrop-filter:blur(18px);scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;scroll-padding-inline:5px}
+  .mobile-bottom-nav::-webkit-scrollbar{display:none}
+  .mobile-bottom-nav a{flex:0 0 clamp(78px,22vw,94px);min-width:78px;min-height:56px;display:grid;place-items:center;align-content:center;gap:1px;color:var(--muted);font-size:.62rem;scroll-snap-align:center}
   .mobile-bottom-nav a[aria-current="page"]{color:var(--ink);background:rgba(242,198,109,.1)}
   .mobile-bottom-nav span{color:var(--gold-soft);font-size:.6rem;font-weight:950;letter-spacing:.08em}
   .mobile-bottom-nav .nav-icon svg{width:18px;height:18px}

@@ -150,8 +150,28 @@ async function main() {
   const created = '2026-08-26T12:00:00.000Z';
 
   try {
+    db.database.exec(`CREATE TABLE hub_notices (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL DEFAULT '', title TEXT NOT NULL, body TEXT NOT NULL DEFAULT '', priority TEXT NOT NULL DEFAULT 'normal', status TEXT NOT NULL DEFAULT 'draft', push_mode INTEGER NOT NULL DEFAULT 0, image_url TEXT, image_alt TEXT, attachment_upload_id TEXT, attachment_title TEXT, linked_task_id TEXT, category TEXT NOT NULL DEFAULT 'general' CHECK(category IN ('general','academic','schedule','assessment','task','resource','administrative','emergency')), lifecycle TEXT NOT NULL DEFAULT 'active' CHECK(lifecycle IN ('active','scheduled','updated','extended','corrected','replaced','cancelled','expired')), audience TEXT NOT NULL DEFAULT 'all' CHECK(audience IN ('all','students','delegates')), effective_at TEXT, expires_at TEXT, source_label TEXT, source_url TEXT, target_type TEXT NOT NULL DEFAULT 'none' CHECK(target_type IN ('none','task','file','date','subject')), target_id TEXT, change_summary TEXT, revision INTEGER NOT NULL DEFAULT 1 CHECK(revision>=1), analysis_confidence REAL CHECK(analysis_confidence IS NULL OR (analysis_confidence>=0 AND analysis_confidence<=1)), created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, published_at TEXT)`);
+    db.database.prepare(`INSERT INTO hub_notices (id,class_id,course,title,body,priority,status,category,lifecycle,audience,created_by,created_at,updated_at,published_at) VALUES ('bus-schedule-2026-08-24','s4-e','','Aviso de bus heredado','La última salida continúa a las 20:30.','normal','published','schedule','active','students','system',?,?,?)`).run(created, created, created);
     const initialized = await get(api, env);
     assert.equal(initialized.status, 200, 'D1 schema initialization failed');
+    const migratedNoticeDefinition = db.database.prepare(`SELECT sql FROM sqlite_master WHERE type='table' AND name='hub_notices'`).get().sql;
+    assert.match(migratedNoticeDefinition, /category\s+IN\s*\([^)]*'transport'/i, 'the deployed notice CHECK was not migrated to allow transport');
+    const migratedNoticeIndexes = db.database.prepare(`SELECT name FROM sqlite_master WHERE type='index' AND tbl_name='hub_notices'`).all().map((row) => row.name);
+    ['hub_notices_class_idx','hub_notices_class_attachment_idx','hub_notices_one_task_idx'].forEach((name) => assert.equal(migratedNoticeIndexes.includes(name), true, `the rebuilt notice table is missing ${name}`));
+    const migratedBus = db.database.prepare(`SELECT title,category FROM hub_notices WHERE class_id='s4-e' AND id='bus-schedule-2026-08-24'`).get();
+    assert.deepEqual([migratedBus?.title, migratedBus?.category], ['Aviso de bus heredado', 'transport'], 'the transport migration lost the legacy notice or skipped its targeted backfill');
+
+    const transportNotice = await post(api, env, {
+      action: 'notice.upsert', id: 'transport-api-contract', expectedRevision: 0,
+      title: 'Cambio de horario del bus', body: 'El transporte universitario saldrá a las 19:30.',
+      priority: 'normal', status: 'published', reviewConfirmed: true,
+      category: 'transport', lifecycle: 'active', audience: 'students'
+    }, ownerAuth);
+    assert.deepEqual([transportNotice.status, transportNotice.body.category], [200, 'transport'], 'notice.upsert could not persist the new transport category');
+    const transportPublic = await get(api, env);
+    const transportAdmin = await get(api, env, 'admin', ownerAuth);
+    assert.equal(transportPublic.body.notices?.some((notice) => notice.id === 'transport-api-contract' && notice.category === 'transport'), true, 'the public snapshot did not return the saved transport notice');
+    assert.equal(transportAdmin.body.notices?.some((notice) => notice.id === 'transport-api-contract' && notice.category === 'transport'), true, 'the management snapshot did not return the saved transport notice');
 
     const permanentPassword = 'Invitation-Delegate-2026!';
     const invitation = await post(api, env, { action: 'invite.create', label: 'Delegate signup fixture', hours: 168 }, ownerAuth);

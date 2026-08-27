@@ -1854,6 +1854,21 @@
     });
   }
 
+  function centerActiveMobileNavigation(view){
+    var navigation = document.querySelector('.mobile-bottom-nav');
+    var active = navigation && navigation.querySelector('[data-view-link="' + view + '"]');
+    if(!navigation || !active || navigation.scrollWidth <= navigation.clientWidth) return;
+    window.requestAnimationFrame(function(){
+      var desired = active.offsetLeft - (navigation.clientWidth - active.offsetWidth) / 2;
+      var maximum = Math.max(0,navigation.scrollWidth - navigation.clientWidth);
+      navigation.scrollTo({left:Math.min(maximum,Math.max(0,desired)),behavior:'auto'});
+    });
+  }
+
+  window.addEventListener('resize',function(){
+    centerActiveMobileNavigation(document.body.dataset.activeView || 'inicio');
+  },{passive:true});
+
   function activateView(view, courseId){
     var validViews = ['inicio','avisos','horario','pendientes','cursos','plan','dudas'];
     if(validViews.indexOf(view) === -1) view = 'inicio';
@@ -1874,6 +1889,7 @@
       else link.removeAttribute('aria-current');
     });
     document.body.dataset.activeView = view;
+    centerActiveMobileNavigation(view);
   }
 
   function routeFromHash(shouldScroll){

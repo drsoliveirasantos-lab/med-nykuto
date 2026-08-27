@@ -129,15 +129,16 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     }
   });
 
-  test('filters the central Avisos list by priority, subject and search without changing Home', async ({ page: bootstrapPage, browser }) => {
+  test('filters the central Avisos list by category, priority, subject and search without changing Home', async ({ page: bootstrapPage, browser }) => {
     const noticeFixture = {
       ok: true,
       notices: [
-        { id: 'urgent-bio', course: 'Bioquímica II', priority: 'urgent', title: 'Guía metabólica', body: 'Repasar pentosas antes de la próxima clase.' },
-        { id: 'urgent-fisio', course: 'Fisiología II', priority: 'urgent', title: 'Cambio de aula', body: 'La clase empieza en el laboratorio.' },
-        { id: 'important-bio', course: 'Bioquímica II', priority: 'important', title: 'Material nuevo', body: 'Ya está disponible la presentación.' },
-        { id: 'normal-epi', course: 'Epidemiología y Salud Pública', priority: 'normal', title: 'Lectura recomendada', body: 'Consulta el material de triaje.' },
-        { id: 'normal-general', course: '', priority: 'normal', title: 'Aviso general', body: 'Información para toda la clase.' }
+        { id: 'urgent-bio', course: 'Bioquímica II', category: 'academic', priority: 'urgent', title: 'Guía metabólica', body: 'Repasar pentosas antes de la próxima clase.' },
+        { id: 'urgent-fisio', course: 'Fisiología II', category: 'schedule', priority: 'urgent', title: 'Cambio de aula', body: 'La clase empieza en el laboratorio.' },
+        { id: 'important-bio', course: 'Bioquímica II', category: 'resource', priority: 'important', title: 'Material nuevo', body: 'Ya está disponible la presentación.' },
+        { id: 'normal-epi', course: 'Epidemiología y Salud Pública', category: 'academic', priority: 'normal', title: 'Lectura recomendada', body: 'Consulta el material de triaje.' },
+        { id: 'normal-general', course: '', category: 'general', priority: 'normal', title: 'Aviso general', body: 'Información para toda la clase.' },
+        { id: 'bus-transport', course: '', category: 'transport', priority: 'normal', title: 'Última salida del bus', body: 'El transporte universitario sale a las 20:30.' }
       ],
       tasks: [], activities: [], groups: [], members: [], files: [], dates: []
     };
@@ -156,12 +157,23 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       const count = page.locator('#classNoticeResultCount');
       const search = page.locator('#classNoticeSearch');
       const subject = page.locator('#classNoticeSubjectFilter');
-      await expect(list.locator('.notice-item')).toHaveCount(5);
-      await expect(count).toHaveText('5 avisos vigentes');
+      await expect(list.locator('.notice-item')).toHaveCount(6);
+      await expect(count).toHaveText('6 avisos vigentes');
       await expect(count).toHaveAttribute('role', 'status');
       await expect(count).toHaveAttribute('aria-live', 'polite');
       await expect(count).toHaveAttribute('aria-atomic', 'true');
 
+      const transport = page.locator('[data-notice-category="transport"]');
+      await expect(transport).toBeVisible();
+      await transport.click();
+      await expect(transport).toHaveAttribute('aria-pressed', 'true');
+      await expect(list.locator('.notice-item')).toHaveCount(1);
+      await expect(list.locator('.notice-item[data-category="transport"]')).toContainText('Última salida del bus');
+      await expect(count).toHaveText('1 de 6 avisos vigentes');
+      await page.locator('#classNoticeFilters').evaluate((form) => form.reset());
+      await expect(list.locator('.notice-item')).toHaveCount(6);
+
+      await page.locator('.notice-filter-advanced > summary').click();
       const urgent = page.locator('[data-notice-priority="urgent"]');
       await urgent.click();
       await expect(urgent).toHaveAttribute('aria-pressed', 'true');
@@ -176,12 +188,13 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await search.fill('término ausente');
       await expect(list.locator('.notice-item')).toHaveCount(0);
       await expect(list.locator('.notice-empty')).toHaveText('No hay avisos vigentes que coincidan con estos filtros.');
-      await expect(count).toHaveText('0 de 5 avisos vigentes');
+      await expect(count).toHaveText('0 de 6 avisos vigentes');
       await expect(page.locator('#classHomeNoticePreview .notice-item')).toHaveCount(3);
 
       await page.locator('#classNoticeFilters').evaluate((form) => form.reset());
-      await expect(list.locator('.notice-item')).toHaveCount(5);
-      await expect(count).toHaveText('5 avisos vigentes');
+      await expect(list.locator('.notice-item')).toHaveCount(6);
+      await expect(count).toHaveText('6 avisos vigentes');
+      await expect(page.locator('[data-notice-category="all"]')).toHaveAttribute('aria-pressed', 'true');
       await expect(page.locator('[data-notice-priority="all"]')).toHaveAttribute('aria-pressed', 'true');
       await expect(subject).toHaveValue('all');
       await expect(search).toHaveValue('');

@@ -42,9 +42,10 @@ const CLASS_RESPONSE = {
     }
   ],
   notices: [
-    { id: 'exam-official', title: 'Fecha oficial del examen', body: 'El parcial será el 10 de septiembre.', priority: 'urgent', status: 'published', imageUrl: 'https://example.test/official-exam.webp', imageAlt: 'Cronograma oficial del examen', attachmentUploadId: 'upload-exam-pdf', attachmentUrl: '/api/class-hub?class=s5-a&resource=notice-attachment&upload=upload-exam-pdf', attachmentTitle: 'Cronograma oficial.pdf', attachmentMimeType: 'application/pdf', attachmentSizeBytes: 245760, publishedAt: '2099-08-25T12:00:00-03:00' },
-    { id: 'room-change', title: 'Cambio de aula', body: 'La clase será en el aula 12.', priority: 'important', status: 'published', publishedAt: '2099-08-24T12:00:00-03:00' },
-    { id: 'routine-note', title: 'Material disponible', body: 'Las diapositivas ya están en Drive.', priority: 'normal', status: 'published', publishedAt: '2099-08-23T12:00:00-03:00' }
+    { id: 'exam-official', title: 'Fecha oficial del examen', body: 'El parcial será el 10 de septiembre.', category: 'assessment', priority: 'urgent', status: 'published', imageUrl: 'https://example.test/official-exam.webp', imageAlt: 'Cronograma oficial del examen', attachmentUploadId: 'upload-exam-pdf', attachmentUrl: '/api/class-hub?class=s5-a&resource=notice-attachment&upload=upload-exam-pdf', attachmentTitle: 'Cronograma oficial.pdf', attachmentMimeType: 'application/pdf', attachmentSizeBytes: 245760, publishedAt: '2099-08-25T12:00:00-03:00' },
+    { id: 'room-change', title: 'Cambio de aula', body: 'La clase será en el aula 12.', category: 'schedule', priority: 'important', status: 'published', publishedAt: '2099-08-24T12:00:00-03:00' },
+    { id: 'bus-update', title: 'Cambio de horario del bus', body: 'La última salida será a las 20:30.', category: 'transport', priority: 'normal', status: 'published', publishedAt: '2099-08-23T18:00:00-03:00' },
+    { id: 'routine-note', title: 'Material disponible', body: 'Las diapositivas ya están en Drive.', category: 'resource', priority: 'normal', status: 'published', publishedAt: '2099-08-23T12:00:00-03:00' }
   ],
   activities: [
     { id: 'seminario-farmaco', title: 'Seminario de Farmacología', capacity: 8, status: 'published', frozen: false }
@@ -108,7 +109,7 @@ async function exposeSyntheticCsrfCookie(page) {
 }
 
 test.describe('Multiclass student hub', () => {
-  test('renders an isolated class with five tabs, expandable tasks and no member names', async ({ page }) => {
+  test('renders an isolated class with six tabs, expandable tasks and no member names', async ({ page }) => {
     const classHubRequests = [];
     await page.route('**/api/class-hub**', async (route) => {
       const url = new URL(route.request().url());
@@ -130,9 +131,9 @@ test.describe('Multiclass student hub', () => {
     await expect(page.locator('#classManifest')).toHaveAttribute('href', '/api/class-manifest?class=s5-a');
 
     const tabs = page.locator('.bottom-nav [data-nav-view]');
-    await expect(tabs).toHaveCount(5);
+    await expect(tabs).toHaveCount(6);
     await expect(page.locator('main [data-view]')).toHaveCount(6);
-    await expect(tabs.locator('strong')).toHaveText(['Inicio', 'Tareas', 'Materias', 'Estudiar', 'Más']);
+    await expect(tabs.locator('strong')).toHaveText(['Inicio', 'Tareas', 'Avisos', 'Materias', 'Estudiar', 'Más']);
 
     expect(classHubRequests).toHaveLength(1);
     expect(classHubRequests[0].searchParams.get('class')).toBe('s5-a');
@@ -212,7 +213,7 @@ test.describe('Multiclass student hub', () => {
   });
 
   test('shows a compact static notice preview on Home and all current notices in the dedicated view', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
+    await page.setViewportSize({ width: 320, height: 844 });
     await page.route('**/api/class-hub**', (route) => route.fulfill({
       status: 200,
       contentType: 'application/json',
@@ -241,9 +242,35 @@ test.describe('Multiclass student hub', () => {
 
     await page.locator('#noticeButton').click();
     await expect(page.locator('[data-view="avisos"]')).toBeVisible();
-    await expect(page.locator('#noticePageList .notice-card')).toHaveCount(3);
+    const mobileNavigation = await page.locator('.bottom-nav').evaluate((nav) => {
+      const active = nav.querySelector('[data-nav-view="avisos"]').getBoundingClientRect();
+      const bounds = nav.getBoundingClientRect();
+      const itemWidths = Array.from(nav.querySelectorAll('button')).map((button) => button.getBoundingClientRect().width);
+      return { scrollWidth: nav.scrollWidth, clientWidth: nav.clientWidth, minItemWidth: Math.min(...itemWidths), activeLeft: active.left - bounds.left, activeRight: bounds.right - active.right };
+    });
+    expect(mobileNavigation.scrollWidth).toBeGreaterThan(mobileNavigation.clientWidth);
+    expect(mobileNavigation.minItemWidth).toBeGreaterThanOrEqual(78);
+    await expect.poll(() => page.locator('.bottom-nav').evaluate((nav) => {
+      const active = nav.querySelector('[data-nav-view="avisos"]').getBoundingClientRect(),bounds = nav.getBoundingClientRect();
+      return active.left >= bounds.left - 1 && active.right <= bounds.right + 1;
+    })).toBe(true);
+    await expect(page.locator('#noticePageList .notice-card')).toHaveCount(4);
     await expect(page.locator('#noticePageList')).toContainText('Material disponible');
-    await expect(page.locator('#noticePageSummary')).toContainText('3 avisos vigentes');
+    await expect(page.locator('#noticePageSummary')).toContainText('4 avisos vigentes');
+    await expect(page.locator('#noticePageSummary')).toHaveAttribute('role', 'status');
+    await expect(page.locator('#noticePageSummary')).toHaveAttribute('aria-live', 'polite');
+    await expect(page.locator('#noticePageSummary')).toHaveAttribute('aria-atomic', 'true');
+    const categoryStrip = page.locator('#noticePageFilters .notice-page-filter-chips');
+    expect(await categoryStrip.evaluate((node) => node.scrollWidth)).toBeGreaterThan(await categoryStrip.evaluate((node) => node.clientWidth));
+    const transportFilter = page.locator('#noticePageFilters [data-notice-category="transport"]');
+    await expect(transportFilter).toBeVisible();
+    await transportFilter.click();
+    await expect(transportFilter).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#noticePageList .notice-card')).toHaveCount(1);
+    await expect(page.locator('#noticePageList')).toContainText('Cambio de horario del bus');
+    await expect(page.locator('#noticePageSummary')).toContainText('1 de 4 avisos vigentes');
+    await page.locator('#noticePageFilters').evaluate((form) => form.reset());
+    await expect(page.locator('#noticePageList .notice-card')).toHaveCount(4);
     const visualNotice = page.locator('#noticePageList .notice-card').filter({ hasText: 'Fecha oficial del examen' });
     const noticeImage = visualNotice.locator('img');
     await expect(noticeImage).toHaveAttribute('alt', 'Cronograma oficial del examen');
@@ -1760,7 +1787,7 @@ test.describe('Multiclass student hub', () => {
     await page.goto('/gestion/s5-a');
 
     await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=489');
-    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=491');
+    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=492');
     expect(requestedPaths).toContain('/gestion-v440.css');
     expect(requestedPaths).toContain('/gestion-v440.js');
     await expect(page.locator('#authClassSlug')).toHaveText('S5-A');
@@ -2253,14 +2280,14 @@ test.describe('Multiclass student hub', () => {
     expect(shellEntries).toEqual(expect.arrayContaining([
       '/offline.html',
       '/turma-shell/',
-      '/turma-v471.css?v=487',
-      '/turma-v471.js?v=487',
+      '/turma-v471.css?v=488',
+      '/turma-v471.js?v=488',
       '/turma-manifest-boot-v471.js?v=478',
       '/public-theme-v485.css?v=486',
       '/public-theme-v485.js?v=485',
       '/calendar-subscription-v485.js?v=485'
     ]));
-    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v487['"]/);
+    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v488['"]/);
     [
       /\/gestion/i,
       /\/api\//i,

@@ -31,7 +31,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     const bottomNavigation = page.locator('.mobile-bottom-nav');
     if (testInfo.project.name === 'mobile-safari-shape') {
       await expect(bottomNavigation).toBeVisible();
-      await expect(bottomNavigation.getByRole('link')).toHaveCount(5);
+      await expect(bottomNavigation.getByRole('link')).toHaveCount(6);
+      await expect(bottomNavigation.getByRole('link', { name: 'Avisos' })).toHaveAttribute('href', '#avisos');
       await expect(bottomNavigation.getByRole('link', { name: 'Plan' })).toHaveCount(0);
       await expect(page.locator('.header-back')).toBeHidden();
       await expect(page.locator('.workspace-nav')).toBeHidden();
@@ -45,12 +46,26 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
           nextTop: next.top,
           switcherWidth: switcher.width,
           switcherBottom: switcher.bottom,
-          bottomTop: bottom.top
+          bottomTop: bottom.top,
+          navScrollWidth: document.querySelector('.mobile-bottom-nav').scrollWidth,
+          navClientWidth: document.querySelector('.mobile-bottom-nav').clientWidth,
+          minItemWidth: Math.min(...Array.from(document.querySelectorAll('.mobile-bottom-nav a')).map((item) => item.getBoundingClientRect().width))
         };
       });
       expect(mobileLayout.nextTop).toBeLessThan(mobileLayout.viewportHeight * 0.78);
       expect(mobileLayout.switcherWidth).toBeLessThanOrEqual(160);
       expect(mobileLayout.switcherBottom).toBeLessThanOrEqual(mobileLayout.bottomTop);
+      expect(mobileLayout.navScrollWidth).toBeGreaterThan(mobileLayout.navClientWidth);
+      expect(mobileLayout.minItemWidth).toBeGreaterThanOrEqual(78);
+      await bottomNavigation.getByRole('link', { name: 'Avisos' }).click();
+      await expect(page.locator('#avisos')).toBeVisible();
+      const activeVisibility = await page.evaluate(() => {
+        const nav = document.querySelector('.mobile-bottom-nav').getBoundingClientRect();
+        const active = document.querySelector('.mobile-bottom-nav [data-view-link="avisos"]').getBoundingClientRect();
+        return { left: active.left - nav.left, right: nav.right - active.right };
+      });
+      expect(activeVisibility.left).toBeGreaterThanOrEqual(-1);
+      expect(activeVisibility.right).toBeGreaterThanOrEqual(-1);
     } else {
       await expect(bottomNavigation).toBeHidden();
     }

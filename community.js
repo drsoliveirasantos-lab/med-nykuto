@@ -16,6 +16,7 @@
       navHome:'Inicio',
       navSchedule:'Horario',
       navTasks:'Tareas',
+      navNotices:'Avisos',
       navSubjects:'Materias',
       navPlan:'Plan',
       navStudy:'Estudiar',
@@ -169,6 +170,7 @@
       navHome:'Início',
       navSchedule:'Horário',
       navTasks:'Tarefas',
+      navNotices:'Avisos',
       navSubjects:'Matérias',
       navPlan:'Plano',
       navStudy:'Estudar',
@@ -749,6 +751,12 @@
     t:t
   };
 
+  function centerActiveCommunityNavigation(){
+    var navigation=document.querySelector('.mobile-bottom-nav'),active=navigation&&navigation.querySelector('[aria-current="page"]');
+    if(!navigation||!active||navigation.scrollWidth<=navigation.clientWidth)return;
+    window.requestAnimationFrame(function(){var desired=active.offsetLeft-(navigation.clientWidth-active.offsetWidth)/2,maximum=Math.max(0,navigation.scrollWidth-navigation.clientWidth);navigation.scrollTo({left:Math.min(maximum,Math.max(0,desired)),behavior:'auto'});});
+  }
+
   function init(){
     var languageSelect = document.getElementById('communityLanguage');
     var nameInput = document.getElementById('communityDisplayName');
@@ -909,6 +917,8 @@
     document.getElementById('communityRefresh').addEventListener('click',loadData);
     document.getElementById('communityRetry').addEventListener('click',loadData);
     applyLanguage();
+    centerActiveCommunityNavigation();
+    window.addEventListener('resize',centerActiveCommunityNavigation,{passive:true});
     loadData();
     if(countdownInterval) window.clearInterval(countdownInterval);
     countdownInterval = window.setInterval(renderCountdown,1000);

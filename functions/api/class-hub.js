@@ -31,7 +31,7 @@ const INVITE_ACTIONS = new Set(['invite.create', 'invite.revoke']);
 const MANAGEABLE_EDITOR_PERMISSIONS = new Set([CONTENT_PERMISSION, INVITE_PERMISSION]);
 const STATUSES = new Set(['draft', 'published', 'archived']);
 const NOTICE_PRIORITIES = new Set(['normal', 'important', 'urgent']);
-const NOTICE_CATEGORIES = new Set(['general', 'academic', 'schedule', 'assessment', 'task', 'resource', 'administrative', 'emergency']);
+const NOTICE_CATEGORIES = new Set(['general', 'academic', 'transport', 'schedule', 'assessment', 'task', 'resource', 'administrative', 'emergency']);
 const NOTICE_LIFECYCLES = new Set(['active', 'scheduled', 'updated', 'extended', 'corrected', 'replaced', 'cancelled', 'expired']);
 const NOTICE_AUDIENCES = new Set(['all', 'students', 'delegates']);
 const NOTICE_TARGET_TYPES = new Set(['none', 'task', 'file', 'date', 'subject']);
@@ -292,7 +292,7 @@ const DEFAULT_CURRENT_NOTICES = Object.freeze([
     priority: 'normal',
     title: 'Buses: paradas obligatorias y última salida a las 20:30',
     body: 'Solo se puede subir y bajar en las paradas establecidas; revisá especialmente la observación de la parada n.º 18. Los estudiantes deben usar uniforme institucional. La última salida es a las 20:30 desde Playón–CT y Edificio del Lago; el servicio de las 21:00 ya no existe.',
-    category: 'schedule',
+    category: 'transport',
     lifecycle: 'updated',
     audience: 'students',
     effectiveAt: '2026-08-24T20:30:00-03:00',
@@ -1212,6 +1212,18 @@ async function ensureNoticeStructuredColumns(db) {
   }
 }
 
+async function ensureNoticeTransportCategory(db) {
+  const schema = await db.prepare(`SELECT sql FROM sqlite_master WHERE type='table' AND name=?`).bind('hub_notices').first();
+  const definition = String(schema?.sql || '');
+  if (!/CHECK\s*\(\s*category\s+IN\s*\(/i.test(definition) || /['"]transport['"]/i.test(definition)) return;
+  await db.batch([
+    db.prepare(`CREATE TABLE hub_notices_transport_v2 (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL DEFAULT '', title TEXT NOT NULL, body TEXT NOT NULL DEFAULT '', priority TEXT NOT NULL DEFAULT 'normal', status TEXT NOT NULL DEFAULT 'draft', push_mode INTEGER NOT NULL DEFAULT 0, image_url TEXT, image_alt TEXT, attachment_upload_id TEXT, attachment_title TEXT, linked_task_id TEXT, category TEXT NOT NULL DEFAULT 'general' CHECK(category IN ('general','academic','transport','schedule','assessment','task','resource','administrative','emergency')), lifecycle TEXT NOT NULL DEFAULT 'active' CHECK(lifecycle IN ('active','scheduled','updated','extended','corrected','replaced','cancelled','expired')), audience TEXT NOT NULL DEFAULT 'all' CHECK(audience IN ('all','students','delegates')), effective_at TEXT, expires_at TEXT, source_label TEXT, source_url TEXT, target_type TEXT NOT NULL DEFAULT 'none' CHECK(target_type IN ('none','task','file','date','subject')), target_id TEXT, change_summary TEXT, revision INTEGER NOT NULL DEFAULT 1 CHECK(revision>=1), analysis_confidence REAL CHECK(analysis_confidence IS NULL OR (analysis_confidence>=0 AND analysis_confidence<=1)), created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, published_at TEXT)`),
+    db.prepare(`INSERT INTO hub_notices_transport_v2 (id,class_id,course,title,body,priority,status,push_mode,image_url,image_alt,attachment_upload_id,attachment_title,linked_task_id,category,lifecycle,audience,effective_at,expires_at,source_label,source_url,target_type,target_id,change_summary,revision,analysis_confidence,created_by,created_at,updated_at,published_at) SELECT id,class_id,course,title,body,priority,status,push_mode,image_url,image_alt,attachment_upload_id,attachment_title,linked_task_id,category,lifecycle,audience,effective_at,expires_at,source_label,source_url,target_type,target_id,change_summary,revision,analysis_confidence,created_by,created_at,updated_at,published_at FROM hub_notices`),
+    db.prepare(`DROP TABLE hub_notices`),
+    db.prepare(`ALTER TABLE hub_notices_transport_v2 RENAME TO hub_notices`)
+  ]);
+}
+
 async function ensureCourseColumns(db) {
   for (const table of ['hub_notices', 'hub_activities', 'hub_dates']) {
     const columns = await db.prepare(`PRAGMA table_info(${table})`).all();
@@ -1260,7 +1272,7 @@ async function ensureSchema(db) {
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_subjects (class_id TEXT NOT NULL, id TEXT NOT NULL, name TEXT NOT NULL, sort_order INTEGER NOT NULL DEFAULT 0, status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, updated_at TEXT NOT NULL, PRIMARY KEY(class_id,id), FOREIGN KEY(class_id) REFERENCES hub_classes(id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_tasks (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL, title TEXT NOT NULL, description TEXT NOT NULL DEFAULT '', due_label TEXT NOT NULL DEFAULT '', due_at TEXT, attachment_url TEXT, attachment_title TEXT, notice_enabled INTEGER NOT NULL DEFAULT 0, status TEXT NOT NULL DEFAULT 'draft', created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_uploads (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', object_key TEXT NOT NULL UNIQUE, original_name TEXT NOT NULL, mime_type TEXT NOT NULL, size_bytes INTEGER NOT NULL, etag TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'staged', analysis_pii_warning INTEGER NOT NULL DEFAULT 0 CHECK(analysis_pii_warning IN (0,1)), created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
-      db.prepare(`CREATE TABLE IF NOT EXISTS hub_notices (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL DEFAULT '', title TEXT NOT NULL, body TEXT NOT NULL DEFAULT '', priority TEXT NOT NULL DEFAULT 'normal', status TEXT NOT NULL DEFAULT 'draft', push_mode INTEGER NOT NULL DEFAULT 0, image_url TEXT, image_alt TEXT, attachment_upload_id TEXT, attachment_title TEXT, linked_task_id TEXT, category TEXT NOT NULL DEFAULT 'general' CHECK(category IN ('general','academic','schedule','assessment','task','resource','administrative','emergency')), lifecycle TEXT NOT NULL DEFAULT 'active' CHECK(lifecycle IN ('active','scheduled','updated','extended','corrected','replaced','cancelled','expired')), audience TEXT NOT NULL DEFAULT 'all' CHECK(audience IN ('all','students','delegates')), effective_at TEXT, expires_at TEXT, source_label TEXT, source_url TEXT, target_type TEXT NOT NULL DEFAULT 'none' CHECK(target_type IN ('none','task','file','date','subject')), target_id TEXT, change_summary TEXT, revision INTEGER NOT NULL DEFAULT 1 CHECK(revision>=1), analysis_confidence REAL CHECK(analysis_confidence IS NULL OR (analysis_confidence>=0 AND analysis_confidence<=1)), created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, published_at TEXT)`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_notices (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL DEFAULT '', title TEXT NOT NULL, body TEXT NOT NULL DEFAULT '', priority TEXT NOT NULL DEFAULT 'normal', status TEXT NOT NULL DEFAULT 'draft', push_mode INTEGER NOT NULL DEFAULT 0, image_url TEXT, image_alt TEXT, attachment_upload_id TEXT, attachment_title TEXT, linked_task_id TEXT, category TEXT NOT NULL DEFAULT 'general' CHECK(category IN ('general','academic','transport','schedule','assessment','task','resource','administrative','emergency')), lifecycle TEXT NOT NULL DEFAULT 'active' CHECK(lifecycle IN ('active','scheduled','updated','extended','corrected','replaced','cancelled','expired')), audience TEXT NOT NULL DEFAULT 'all' CHECK(audience IN ('all','students','delegates')), effective_at TEXT, expires_at TEXT, source_label TEXT, source_url TEXT, target_type TEXT NOT NULL DEFAULT 'none' CHECK(target_type IN ('none','task','file','date','subject')), target_id TEXT, change_summary TEXT, revision INTEGER NOT NULL DEFAULT 1 CHECK(revision>=1), analysis_confidence REAL CHECK(analysis_confidence IS NULL OR (analysis_confidence>=0 AND analysis_confidence<=1)), created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, published_at TEXT)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_notice_revisions (class_id TEXT NOT NULL DEFAULT 's4-e', notice_id TEXT NOT NULL, revision INTEGER NOT NULL CHECK(revision>=1), payload_json TEXT NOT NULL, actor_id TEXT NOT NULL, created_at TEXT NOT NULL, PRIMARY KEY(class_id,notice_id,revision))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_activities (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', course TEXT NOT NULL DEFAULT '', title TEXT NOT NULL, capacity INTEGER NOT NULL DEFAULT 10, closes_at TEXT, status TEXT NOT NULL DEFAULT 'draft', frozen INTEGER NOT NULL DEFAULT 0, created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_groups (id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', activity_id TEXT NOT NULL, name TEXT NOT NULL, capacity INTEGER NOT NULL DEFAULT 10, frozen INTEGER NOT NULL DEFAULT 0, created_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(activity_id, name), FOREIGN KEY(activity_id) REFERENCES hub_activities(id))`),
@@ -1300,6 +1312,7 @@ async function ensureSchema(db) {
     await ensureNoticeTaskLinkColumn(db);
     await ensureNoticeStructuredColumns(db);
     await ensureCourseColumns(db);
+    await ensureNoticeTransportCategory(db);
     await ensureMembershipLeaderColumn(db);
     await ensureInviteClaimEditorColumn(db);
     await db.batch([
@@ -1348,6 +1361,7 @@ async function ensureSchema(db) {
       db.prepare(`UPDATE hub_tasks SET status='archived',updated_at=? WHERE class_id=? AND created_by='system' AND id IN ('epi-presentation','bio-activities') AND status<>'archived'`).bind(created, DEFAULT_CLASS_ID),
       db.prepare(`UPDATE hub_notices SET status='archived',lifecycle='expired',expires_at=COALESCE(expires_at,'2026-08-27T00:00:00-03:00'),updated_at=? WHERE class_id=? AND created_by='system' AND id IN ('week-2026-08-21','tasks-2026-08-21') AND status<>'archived'`).bind(created, DEFAULT_CLASS_ID),
       ...DEFAULT_CURRENT_NOTICES.filter((notice) => notice.imageUrl).map((notice) => db.prepare(`UPDATE hub_notices SET image_url=?,image_alt=? WHERE class_id=? AND id=? AND created_by='system' AND revision=1 AND (image_url IS NULL OR TRIM(image_url)='')`).bind(notice.imageUrl, notice.imageAlt || null, DEFAULT_CLASS_ID, notice.id)),
+      db.prepare(`UPDATE hub_notices SET category='transport',updated_at=? WHERE class_id=? AND id='bus-schedule-2026-08-24' AND created_by='system' AND revision=1 AND category='schedule'`).bind(created, DEFAULT_CLASS_ID),
       db.prepare(`UPDATE hub_activities SET status='archived',frozen=1,updated_at=? WHERE class_id=? AND created_by='system' AND id='epi-2026-08-19' AND status<>'archived'`).bind(created, DEFAULT_CLASS_ID),
       ...LEGACY_EPIDEMIOLOGY_LEADERS.map(({ groupId, membershipId }) => db.prepare(`UPDATE hub_memberships SET is_leader=1 WHERE class_id=? AND activity_id='epi-2026-08-19' AND group_id=? AND id=? AND is_leader=0 AND NOT EXISTS (SELECT 1 FROM hub_memberships existing WHERE existing.class_id=hub_memberships.class_id AND existing.group_id=hub_memberships.group_id AND existing.is_leader=1)`).bind(DEFAULT_CLASS_ID, groupId, membershipId))
     ]);

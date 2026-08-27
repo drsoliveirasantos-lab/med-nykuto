@@ -14,9 +14,9 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <script src="public-theme-v485.js?v=485"></script>
   <script src="calendar-subscription-v485.js?v=485"></script>
-  <link rel="stylesheet" href="grupo-3-v401.css?v=481" />
+  <link rel="stylesheet" href="grupo-3-v401.css?v=492" />
   <link rel="stylesheet" href="class-courses-2026-08-17-v432.css?v=433" />
-  <link rel="stylesheet" href="class-hub-2026-08-21-v440.css?v=491" />
+  <link rel="stylesheet" href="class-hub-2026-08-21-v440.css?v=492" />
   <link rel="stylesheet" href="class-notebook-v445.css?v=465" />
   <link rel="stylesheet" href="help-desk-v479.css?v=480" />
   <link rel="stylesheet" href="public-theme-v485.css?v=486" />
@@ -28,6 +28,7 @@
     <symbol id="class-icon-home" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10.5V20h14v-9.5"/><path d="M9 20v-6h6v6"/></symbol>
     <symbol id="class-icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></symbol>
     <symbol id="class-icon-task" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M8.5 12l2 2 4.5-5M8.5 18h7"/></symbol>
+    <symbol id="class-icon-notice" viewBox="0 0 24 24"><path d="M12 3a7 7 0 0 0-7 7v4.5L3.5 18h17L19 14.5V10a7 7 0 0 0-7-7Z"/><path d="M9.5 21h5M12 7.5v4M12 14.5h.01"/></symbol>
     <symbol id="class-icon-book" viewBox="0 0 24 24"><path d="M3 5.5c3-1.2 6-.8 9 1.2v13c-3-2-6-2.4-9-1.2zM21 5.5c-3-1.2-6-.8-9 1.2v13c3-2 6-2.4 9-1.2z"/></symbol>
     <symbol id="class-icon-plan" viewBox="0 0 24 24"><path d="m3.5 6 1.5 1.5L8 4.5M10 6h10M3.5 12 5 13.5l3-3M10 12h10M3.5 18 5 19.5l3-3M10 18h10"/></symbol>
     <symbol id="class-icon-question" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-9 8.5 9.7 9.7 0 0 1-4-.9L3 21l1.6-4.2A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9.6 9a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1.1.9-1.1 1.7M12 16.5h.01"/></symbol>
@@ -75,6 +76,7 @@
       <a href="#inicio" data-view-link="inicio" aria-current="page"><span class="nav-icon"><svg><use href="#class-icon-home"></use></svg></span><strong>Inicio</strong><small>Ahora</small></a>
       <a href="#horario" data-view-link="horario"><span class="nav-icon"><svg><use href="#class-icon-calendar"></use></svg></span><strong>Horario</strong><small>Semana</small></a>
       <a href="#pendientes" data-view-link="pendientes"><span class="nav-icon"><svg><use href="#class-icon-task"></use></svg></span><strong>Tareas</strong><small>Ahora + anteriores</small></a>
+      <a href="#avisos" data-view-link="avisos"><span class="nav-icon"><svg><use href="#class-icon-notice"></use></svg></span><strong>Avisos</strong><small>Información oficial</small></a>
       <a href="#materias" data-view-link="cursos"><span class="nav-icon"><svg><use href="#class-icon-book"></use></svg></span><strong>Materias</strong><small>6 materias</small></a>
       <a href="comunidade.html"><span class="nav-icon"><svg><use href="#class-icon-community"></use></svg></span><strong>Estudiar</strong><small>QCM + ranking</small></a>
     </nav>
@@ -171,32 +173,52 @@
         <a class="notice-back-link" href="#inicio">← Volver al inicio</a>
       </div>
       <form id="classNoticeFilters" class="notice-filters" role="search" aria-label="Filtrar avisos">
-        <fieldset class="notice-filter-priority">
-          <legend>Prioridad</legend>
-          <div class="notice-filter-chips" role="group" aria-label="Filtrar por prioridad">
-            <button type="button" data-notice-priority="all" aria-pressed="true">Todos</button>
-            <button type="button" data-notice-priority="urgent" aria-pressed="false">Urgentes</button>
-            <button type="button" data-notice-priority="important" aria-pressed="false">Importantes</button>
-            <button type="button" data-notice-priority="normal" aria-pressed="false">Generales</button>
+        <fieldset class="notice-filter-category">
+          <legend>Tipo de aviso</legend>
+          <div class="notice-filter-chips" role="group" aria-label="Filtrar por tipo de aviso">
+            <button type="button" data-notice-category="all" aria-pressed="true">Todos</button>
+            <button type="button" data-notice-category="transport" aria-pressed="false">Transporte</button>
+            <button type="button" data-notice-category="schedule" aria-pressed="false">Horarios</button>
+            <button type="button" data-notice-category="assessment" aria-pressed="false">Evaluaciones</button>
+            <button type="button" data-notice-category="administrative" aria-pressed="false">Institución</button>
+            <button type="button" data-notice-category="academic" aria-pressed="false">Clases</button>
+            <button type="button" data-notice-category="task" aria-pressed="false">Tareas</button>
+            <button type="button" data-notice-category="resource" aria-pressed="false">Materiales</button>
+            <button type="button" data-notice-category="general" aria-pressed="false">General</button>
+            <button type="button" data-notice-category="emergency" aria-pressed="false">Seguridad</button>
           </div>
         </fieldset>
-        <label class="notice-filter-field" for="classNoticeSubjectFilter">
-          <span>Materia</span>
-          <select id="classNoticeSubjectFilter">
-            <option value="all">Todas las materias</option>
-            <option value="bioquimica">Bioquímica II</option>
-            <option value="epidemiologia">Epidemiología</option>
-            <option value="fisiologia">Fisiología II</option>
-            <option value="microbiologia-teorica">Microbiología II · Teórica</option>
-            <option value="microbiologia-practica">Microbiología II · Práctica</option>
-            <option value="nutricion">Nutrición</option>
-          </select>
-        </label>
-        <label class="notice-filter-field notice-filter-search" for="classNoticeSearch">
-          <span>Buscar</span>
-          <input id="classNoticeSearch" type="search" inputmode="search" autocomplete="off" placeholder="Título, texto o materia" />
-        </label>
-        <button class="notice-filter-reset" type="reset">Limpiar filtros</button>
+        <details class="notice-filter-advanced">
+          <summary>Más filtros</summary>
+          <div class="notice-filter-advanced-grid">
+            <fieldset class="notice-filter-priority">
+              <legend>Prioridad</legend>
+              <div class="notice-filter-chips" role="group" aria-label="Filtrar por prioridad">
+                <button type="button" data-notice-priority="all" aria-pressed="true">Todos</button>
+                <button type="button" data-notice-priority="urgent" aria-pressed="false">Urgentes</button>
+                <button type="button" data-notice-priority="important" aria-pressed="false">Importantes</button>
+                <button type="button" data-notice-priority="normal" aria-pressed="false">Generales</button>
+              </div>
+            </fieldset>
+            <label class="notice-filter-field" for="classNoticeSubjectFilter">
+              <span>Materia</span>
+              <select id="classNoticeSubjectFilter">
+                <option value="all">Todas las materias</option>
+                <option value="bioquimica">Bioquímica II</option>
+                <option value="epidemiologia">Epidemiología</option>
+                <option value="fisiologia">Fisiología II</option>
+                <option value="microbiologia-teorica">Microbiología II · Teórica</option>
+                <option value="microbiologia-practica">Microbiología II · Práctica</option>
+                <option value="nutricion">Nutrición</option>
+              </select>
+            </label>
+            <label class="notice-filter-field notice-filter-search" for="classNoticeSearch">
+              <span>Buscar</span>
+              <input id="classNoticeSearch" type="search" inputmode="search" autocomplete="off" placeholder="Título, texto o materia" />
+            </label>
+            <button class="notice-filter-reset" type="reset">Limpiar filtros</button>
+          </div>
+        </details>
       </form>
       <p id="classNoticeResultCount" class="notice-result-count" role="status" aria-live="polite" aria-atomic="true"></p>
       <div id="classNoticePageList" class="notice-list notice-page-list"></div>
@@ -2256,6 +2278,7 @@
     <a href="#inicio" data-view-link="inicio" aria-current="page"><span class="nav-icon"><svg><use href="#class-icon-home"></use></svg></span><strong>Inicio</strong></a>
     <a href="#horario" data-view-link="horario"><span class="nav-icon"><svg><use href="#class-icon-calendar"></use></svg></span><strong>Horario</strong></a>
     <a href="#pendientes" data-view-link="pendientes"><span class="nav-icon"><svg><use href="#class-icon-task"></use></svg></span><strong>Tareas</strong></a>
+    <a href="#avisos" data-view-link="avisos"><span class="nav-icon"><svg><use href="#class-icon-notice"></use></svg></span><strong>Avisos</strong></a>
     <a href="#materias" data-view-link="cursos"><span class="nav-icon"><svg><use href="#class-icon-book"></use></svg></span><strong>Materias</strong></a>
     <a href="comunidade.html"><span class="nav-icon"><svg><use href="#class-icon-community"></use></svg></span><strong>Estudiar</strong></a>
   </nav>
@@ -2550,7 +2573,7 @@
 
   <div class="toast" id="classToast" role="status" aria-live="polite"></div>
   <script src="semester-switcher-v402.js?v=405"></script>
-  <script src="grupo-3-i18n-v421.js?v=490"></script>
+  <script src="grupo-3-i18n-v421.js?v=492"></script>
   <script src="academic-model-v445.js?v=486"></script>
   <script src="grupo-3-practice-v413.js?v=446"></script>
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
@@ -2562,10 +2585,10 @@
   <script src="teacher-question-profile-v445.js?v=445"></script>
   <script type="module" src="class-content-runtime-v483.js?v=484"></script>
   <script src="class-practice-ranking-v431.js?v=482"></script>
-  <script src="grupo-3-v401.js?v=486"></script>
+  <script src="grupo-3-v401.js?v=492"></script>
   <script src="class-session-archive-v432.js?v=432"></script>
   <script src="medical-glossary-v425.js?v=432"></script>
-  <script src="class-hub-runtime-v440.js?v=491"></script>
+  <script src="class-hub-runtime-v440.js?v=492"></script>
   <script src="class-notebook-v445.js?v=487"></script>
   <script src="help-desk-v479.js?v=480"></script>
 </body>

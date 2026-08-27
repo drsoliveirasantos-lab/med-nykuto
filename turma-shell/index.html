@@ -11,7 +11,7 @@
   <link rel="icon" href="/assets/pwa-icon-192.png" />
   <script src="/public-theme-v485.js?v=485"></script>
   <script src="/calendar-subscription-v485.js?v=485"></script>
-  <link rel="stylesheet" href="/turma-v471.css?v=487" />
+  <link rel="stylesheet" href="/turma-v471.css?v=488" />
   <link rel="stylesheet" href="/help-desk-v479.css?v=480" />
   <link rel="stylesheet" href="/public-theme-v485.css?v=486" />
 </head>
@@ -78,9 +78,28 @@
       <header class="view-heading notice-page-heading">
         <span>INFORMACIÓN OFICIAL</span>
         <h1 id="noticesTitle">Avisos vigentes</h1>
-        <p id="noticePageSummary" class="notice-page-summary">Cargando la información actual…</p>
+        <p id="noticePageSummary" class="notice-page-summary" role="status" aria-live="polite" aria-atomic="true">Cargando la información actual…</p>
         <button type="button" class="notice-back" data-open-view="inicio">← Volver al inicio</button>
       </header>
+      <form id="noticePageFilters" class="notice-page-filters" role="search" aria-label="Filtrar avisos">
+        <fieldset class="notice-page-filter-types">
+          <legend>Tipo de aviso</legend>
+          <div class="notice-page-filter-chips" role="group" aria-label="Filtrar por tipo de aviso">
+            <button type="button" data-notice-category="all" aria-pressed="true">Todos</button>
+            <button type="button" data-notice-category="transport" aria-pressed="false">Transporte</button>
+            <button type="button" data-notice-category="schedule" aria-pressed="false">Horarios</button>
+            <button type="button" data-notice-category="assessment" aria-pressed="false">Evaluaciones</button>
+            <button type="button" data-notice-category="administrative" aria-pressed="false">Institución</button>
+            <button type="button" data-notice-category="academic" aria-pressed="false">Clases</button>
+            <button type="button" data-notice-category="task" aria-pressed="false">Tareas</button>
+            <button type="button" data-notice-category="resource" aria-pressed="false">Materiales</button>
+            <button type="button" data-notice-category="general" aria-pressed="false">General</button>
+            <button type="button" data-notice-category="emergency" aria-pressed="false">Seguridad</button>
+          </div>
+        </fieldset>
+        <label class="notice-page-filter-search" for="noticePageSearch"><span>Buscar</span><input id="noticePageSearch" type="search" inputmode="search" autocomplete="off" placeholder="Título o información" /></label>
+        <button class="notice-page-filter-reset" type="reset">Limpiar</button>
+      </form>
       <div id="noticePageList" class="notice-page-list"></div>
     </section>
 
@@ -152,12 +171,13 @@
   <nav class="bottom-nav" aria-label="Navegación de la turma">
     <button type="button" class="is-active" data-nav-view="inicio"><span aria-hidden="true">⌂</span><strong>Inicio</strong></button>
     <button type="button" data-nav-view="tareas"><span aria-hidden="true">✓</span><strong>Tareas</strong></button>
+    <button type="button" data-nav-view="avisos"><span aria-hidden="true">!</span><strong>Avisos</strong></button>
     <button type="button" data-nav-view="materias"><span aria-hidden="true">▤</span><strong>Materias</strong></button>
     <button type="button" data-nav-view="estudiar"><span aria-hidden="true">◇</span><strong>Estudiar</strong></button>
     <button type="button" data-nav-view="mas"><span aria-hidden="true">•••</span><strong>Más</strong></button>
   </nav>
 
-  <script src="/turma-v471.js?v=487"></script>
+  <script src="/turma-v471.js?v=488"></script>
   <script src="/help-desk-v479.js?v=480"></script>
 </body>
 </html>

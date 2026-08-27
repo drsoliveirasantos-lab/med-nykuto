@@ -149,4 +149,68 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(modalLayout.closeWidth).toBeGreaterThanOrEqual(44);
     expect(modalLayout.closeHeight).toBeGreaterThanOrEqual(44);
   });
+
+  test('Avisos stays reachable in the scrollable 4E navigation and after an iPhone rotation', async ({ page }) => {
+    await page.unroute('**/api/class-hub**');
+    const categories = ['transport','schedule','assessment','administrative','academic','task','resource','general','emergency'];
+    const notices = categories.map((category,index) => ({
+      id:`mobile-${category}`,
+      title:category === 'transport' ? 'Última salida del bus' : `Aviso ${category}`,
+      body:category === 'transport' ? 'El transporte universitario sale a las 20:30.' : `Información vigente ${index + 1}.`,
+      category,
+      priority:'normal',
+      status:'published',
+      lifecycle:'active',
+      audience:'students',
+      publishedAt:`2099-08-${String(20 + index).padStart(2,'0')}T12:00:00-03:00`
+    }));
+    await page.route('**/api/class-hub**', (route) => {
+      const url = new URL(route.request().url());
+      if (route.request().method() === 'GET' && url.searchParams.get('class') === 's4-e' && url.searchParams.get('resource') === 'public') {
+        return route.fulfill({ status:200, contentType:'application/json', body:JSON.stringify({ ok:true, notices, tasks:[], activities:[], groups:[], members:[], files:[], dates:[] }) });
+      }
+      return route.continue();
+    });
+
+    await page.setViewportSize({ width:320, height:568 });
+    await page.goto('/clase.html#inicio', { waitUntil:'domcontentloaded' });
+    const navigation = page.locator('.mobile-bottom-nav');
+    await expect(navigation).toBeVisible();
+    const navigationLayout = await navigation.evaluate((node) => ({
+      scrollWidth:node.scrollWidth,
+      clientWidth:node.clientWidth,
+      minWidth:Math.min(...Array.from(node.querySelectorAll('a')).map((item) => item.getBoundingClientRect().width)),
+      minHeight:Math.min(...Array.from(node.querySelectorAll('a')).map((item) => item.getBoundingClientRect().height))
+    }));
+    expect(navigationLayout.scrollWidth).toBeGreaterThan(navigationLayout.clientWidth);
+    expect(navigationLayout.minWidth).toBeGreaterThanOrEqual(78);
+    expect(navigationLayout.minHeight).toBeGreaterThanOrEqual(54);
+
+    await page.locator('.mobile-bottom-nav [data-view-link="cursos"]').click();
+    await expect.poll(() => page.evaluate(() => {
+      const nav=document.querySelector('.mobile-bottom-nav'),active=nav&&nav.querySelector('[aria-current="page"]');
+      if(!nav||!active)return false;
+      const bounds=nav.getBoundingClientRect(),item=active.getBoundingClientRect();
+      return item.left>=bounds.left-1&&item.right<=bounds.right+1;
+    })).toBe(true);
+    await page.setViewportSize({ width:640, height:320 });
+    await page.setViewportSize({ width:320, height:568 });
+    await expect.poll(() => page.evaluate(() => {
+      const nav=document.querySelector('.mobile-bottom-nav'),active=nav&&nav.querySelector('[aria-current="page"]');
+      if(!nav||!active)return false;
+      const bounds=nav.getBoundingClientRect(),item=active.getBoundingClientRect();
+      return item.left>=bounds.left-1&&item.right<=bounds.right+1;
+    })).toBe(true);
+
+    await page.locator('.mobile-bottom-nav [data-view-link="avisos"]').click();
+    await expect(page.locator('#classNoticePageList .notice-item')).toHaveCount(categories.length);
+    const filterStrip = page.locator('.notice-filter-category .notice-filter-chips');
+    await expect(filterStrip.locator('[data-notice-category="transport"]')).toBeVisible();
+    const filterLayout = await filterStrip.evaluate((node) => ({ scrollWidth:node.scrollWidth, clientWidth:node.clientWidth }));
+    expect(filterLayout.scrollWidth).toBeGreaterThan(filterLayout.clientWidth);
+    await filterStrip.locator('[data-notice-category="transport"]').click();
+    await expect(page.locator('#classNoticePageList .notice-item')).toHaveCount(1);
+    await expect(page.locator('#classNoticePageList .notice-item[data-category="transport"]')).toContainText('Última salida del bus');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth-document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
+  });
 };

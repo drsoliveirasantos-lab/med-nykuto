@@ -24,10 +24,11 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   });
 
   test('uses pictograms instead of navigation abbreviations', async ({ page }) => {
-    await expect(page.locator('.workspace-nav .nav-icon')).toHaveCount(5);
-    await expect(page.locator('.workspace-nav .nav-icon svg')).toHaveCount(5);
+    await expect(page.locator('.workspace-nav .nav-icon')).toHaveCount(6);
+    await expect(page.locator('.workspace-nav .nav-icon svg')).toHaveCount(6);
     await expect(page.locator('.workspace-nav').getByText('INI', { exact: true })).toHaveCount(0);
     await expect(page.locator('.workspace-nav').getByText('Tareas', { exact: true })).toBeVisible();
+    await expect(page.locator('.workspace-nav').getByText('Avisos', { exact: true })).toBeVisible();
     await expect(page.locator('.workspace-nav').getByText('Materias', { exact: true })).toBeVisible();
     await page.goto('/clase.html#materias');
     await expect(page.locator('.course-selector .course-icon svg')).toHaveCount(6);

@@ -651,17 +651,25 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
     right:6px;
     bottom:max(6px,env(safe-area-inset-bottom));
     z-index:60;
-    display:grid;
-    grid-template-columns:repeat(6,minmax(0,1fr));
-    overflow:hidden;
+    display:flex;
+    overflow-x:auto;
+    overflow-y:hidden;
+    padding-inline:5px;
     border:1px solid rgba(168,202,214,.26);
     border-radius:18px;
     background:rgba(6,15,26,.94);
     box-shadow:0 20px 55px rgba(0,0,0,.45);
     backdrop-filter:blur(18px);
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-inline:contain;
+    scroll-snap-type:x proximity;
+    scroll-padding-inline:5px;
   }
+  .mobile-bottom-nav::-webkit-scrollbar{display:none}
   .mobile-bottom-nav a{
-    min-width:0;
+    flex:0 0 clamp(78px,22vw,94px);
+    min-width:78px;
     min-height:56px;
     display:grid;
     place-items:center;
@@ -670,6 +678,7 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
     padding:3px 1px;
     color:var(--community-muted);
     text-decoration:none;
+    scroll-snap-align:center;
   }
   .mobile-bottom-nav a[aria-current="page"]{color:var(--community-ink);background:rgba(242,198,109,.1)}
   .mobile-bottom-nav .nav-icon{display:grid;place-items:center;color:var(--community-gold-soft)}
@@ -745,4 +754,3 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
 @media (prefers-reduced-motion:reduce){
   .challenge-progress-track span{transition:none}
 }
-.mobile-bottom-nav{grid-template-columns:repeat(5,1fr)!important}

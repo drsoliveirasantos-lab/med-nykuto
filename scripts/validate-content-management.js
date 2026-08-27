@@ -164,7 +164,7 @@ if (!failures.length) {
     'practiceQcmCount', 'practiceTrueFalseCount', 'practiceClinicalCount', 'lessonPreview'
   ].forEach((id) => expect(html.includes(`id="${id}"`), `The management UI is missing #${id}.`));
   expect(html.includes('data-content-admin-only'), 'The managed-content panel is missing its capability visibility marker.');
-  expect(html.includes('href="/gestion-v440.css?v=489"') && html.includes('src="/gestion-v440.js?v=491"'), 'The management content assets are not cache-busted at the current versions.');
+  expect(html.includes('href="/gestion-v440.css?v=489"') && html.includes('src="/gestion-v440.js?v=492"'), 'The management content assets are not cache-busted at the current versions.');
   expect(html.includes('data-invite-admin-only'), 'The invitation manager panel is missing its dedicated capability visibility marker.');
   expect(html.includes('id="noticeAdvancedOptions"') && html.includes('id="noticePrimarySubmit"') && html.includes('data-notice-status="published"') && html.includes('data-notice-status="draft"'), 'The mobile quick-notice flow is missing its folded options or distinct publish/draft actions.');
   expect(/id="noticeAiAssistant"[^>]*hidden/.test(html), 'The notice AI assistant must stay hidden until an attachment is selected.');

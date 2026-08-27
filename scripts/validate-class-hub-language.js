@@ -36,6 +36,9 @@ expect(html.includes('<option value="br">PT-BR · Português</option>'), 'The Br
   '0 tareas activas',
   'Avisos importantes vigentes',
   'Avisos vigentes',
+  'Tipo de aviso',
+  'Transporte',
+  'Más filtros',
   'Los vencidos se retiran automáticamente.',
   'Ver todas las tareas',
   'TAREAS ACTUALES',
@@ -140,6 +143,10 @@ expect(i18n.includes("'Horario del 4.º E':'Horário do 4.º E'"), 'The Portugue
 expect(i18n.includes("'Tu semana':'Sua semana'"), 'The simplified Portuguese dashboard heading is missing.');
 expect(i18n.includes("'Ver todas las tareas':'Ver todas as tarefas'"), 'The simplified Portuguese task link is missing.');
 expect(i18n.includes("'Avisos importantes vigentes':'Avisos importantes vigentes'") && i18n.includes("'Avisos importantes vigentes de la clase':'Avisos importantes vigentes da turma'"), 'The current-notice Home heading or accessible label is not translated into Portuguese.');
+expect(i18n.includes("'Transporte':'Transporte'") && i18n.includes("'Evaluaciones':'Avaliações'") && i18n.includes("'Más filtros':'Mais filtros'"), 'The new notice category controls are not translated into Portuguese.');
+expect(i18n.includes("'Filtrar avisos':'Filtrar avisos'") && i18n.includes("'Filtrar por tipo de aviso':'Filtrar por tipo de aviso'") && html.includes('grupo-3-i18n-v421.js?v=492'), 'The notice filter accessibility labels or updated i18n cache version are missing.');
+expect((html.match(/data-view-link="avisos"/g) || []).length === 2 && html.includes('id="class-icon-notice"'), 'Avisos is not directly available in both class navigations with a pictogram.');
+expect(/\.mobile-bottom-nav\s*\{[^}]*display:flex[^}]*overflow-x:auto/.test(css) && runtime.includes('function centerActiveMobileNavigation'), 'The class mobile navigation is not horizontally scrollable with active-item centering.');
 expect(i18n.includes("'Consulta los avisos que siguen en vigor. Los vencidos se retiran automáticamente.':'Consulte os avisos que continuam vigentes. Os vencidos são retirados automaticamente.'"), 'The current-notice expiration explanation is not translated into Portuguese.');
 expect(runtime.includes("'microbiologia-teorica-2026-08-24'") && runtime.includes('esporotricosis, dos eumicetomas y candidiasis oportunista'), 'The Microbiology 24 August runtime is missing its documented scope.');
 expect(runtime.includes("'microbiologia-teorica-2026-08-17'") && runtime.includes('dos casos clínicos resueltos paso a paso'), 'The historical 17 August Microbiology scope was not preserved separately.');
