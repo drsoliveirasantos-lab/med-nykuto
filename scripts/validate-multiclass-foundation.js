@@ -1775,7 +1775,7 @@ async function validateMulticlassShell() {
   expect(!/state\.(?:members|memberships)|data\.(?:members|memberships)/.test(turmaRuntime), 'The generic student hub still consumes nominative group records.');
   expect(turmaRuntime.includes("action:'group.join'") && turmaRuntime.includes("action:'group.leave'") && turmaRuntime.includes('memberCount'), 'Students cannot join and leave generic class groups using anonymous occupancy data.');
 
-  expect(managementHtml.includes('src="/gestion-v440.js?v=488"') && managementHtml.includes('href="/gestion-v440.css?v=487"'), 'The nested management route does not use the current absolute asset versions.');
+  expect(managementHtml.includes('src="/gestion-v440.js?v=489"') && managementHtml.includes('href="/gestion-v440.css?v=487"'), 'The nested management route does not use the current absolute asset versions.');
   expect(managementHtml.includes('id="credentialForm"') && managementHtml.includes('name="action" value="auth.login"') && managementHtml.includes('autocomplete="username"') && managementHtml.includes('autocomplete="current-password"'), 'The v472 delegate email/password login form is incomplete.');
   expect(managementHtml.includes('id="multiDeviceLoginHelp"') && managementHtml.includes('sesiones independientes') && managementHtml.includes('Crear mi cuenta con una invitación') && managementHtml.includes('Crear mi cuenta y entrar'), 'The management login does not provide independent sessions and autonomous invitation registration.');
   ['inviteName', 'inviteEmail', 'invitePassword', 'inviteConfirmPassword'].forEach((id) => expect(managementHtml.includes(`id="${id}"`), `The autonomous invitation form is missing #${id}.`));
@@ -1906,6 +1906,10 @@ async function main() {
   expect(Boolean(classesDefinition), 'hub_classes schema is missing.');
   expect(/\bid\s+text\s+primary\s+key\b/i.test(classesDefinition), 'hub_classes.id must be the stable primary key.');
   expect(/\bslug\s+text\s+not\s+null\s+unique\b|\bunique\s*\(\s*slug\s*\)/i.test(classesDefinition), 'hub_classes.slug must be unique.');
+  const siteOwnerDefinition = tableDefinition(hubSource, 'hub_site_owner_account');
+  expect(Boolean(siteOwnerDefinition), 'hub_site_owner_account schema is missing.');
+  expect(/\baccount_key\s+text\s+primary\s+key\s+check\(account_key='primary'\)/i.test(siteOwnerDefinition) && /\beditor_id\s+text\s+not\s+null\s+unique\b/i.test(siteOwnerDefinition), 'The site owner must be a single explicit editor account.');
+  expect(!/\bclass_id\b/i.test(siteOwnerDefinition), 'The site-owner identity was accidentally reduced to one tenant.');
 
   hubTenantTables.forEach((table) => {
     const definition = tableDefinition(hubSource, table);
@@ -2030,6 +2034,9 @@ async function main() {
   expect(/classSlug|classId/.test(hubSource), 'Class hub POST payload does not support classSlug/classId compatibility fields.');
   expect(hubSource.includes("from '../_lib/management-credentials.js'") && /auth\.login/.test(hubSource) && /auth\.password\.change/.test(hubSource), 'Class hub does not use the shared credential helper for delegate login/password change.');
   expect(/password_change_required/.test(hubSource) && /editor\.account\.create/.test(hubSource) && /editor\.password\.reset/.test(hubSource), 'Class hub is missing mandatory password change or owner credential lifecycle actions.');
+  expect(/s\.class_id AS account_class_id/.test(hubSource) && /!siteOwner\s*&&\s*row\.account_class_id\s*!==\s*classId/.test(hubSource), 'Session authentication does not preserve ordinary tenant isolation while allowing the explicit site owner.');
+  expect(/WHERE c\.email_normalized=\? AND \(c\.class_id=\? OR owner\.editor_id IS NOT NULL\)/.test(hubSource) && /ORDER BY CASE WHEN owner\.editor_id IS NOT NULL THEN 0 ELSE 1 END/.test(hubSource), 'Cross-class login does not deterministically prefer only the explicit site-owner credential.');
+  expect(/auth-login-global-account/.test(hubSource) && /owner_self_revoke_forbidden/.test(hubSource), 'Site-owner authentication lacks global abuse limiting or self-lockout protection.');
 
   await validateCredentialHelper();
   await validateRuntimeIsolation();

@@ -55,6 +55,7 @@ Aucune donnée pédagogique ou opérationnelle n'est copiée automatiquement d'u
 - `hub_subjects` utilise une clé composite `(class_id, id)`.
 - `hub_editor_credentials` conserve par turma le courriel normalisé et uniquement le vérificateur PBKDF2 salé du mot de passe.
 - `hub_editor_sessions` conserve par turma uniquement les condensats des jetons de session et anti-CSRF, avec expiration et révocation.
+- `hub_site_owner_account` designe un seul compte courrier/mot de passe comme proprietaire global. Sa session reste rattachee a la turma canonique de sa credencial, mais le serveur peut l'appliquer a la classe demandee; aucune interface ni invitation ne peut accorder ce role.
 - `hub_editor_permissions` conserve la capacite additive `content.manage`; `hub_editor_invite_permissions` conserve separement `invite.manage`. Les deux sont rattachees a un compte et une turma precis avec l'auteur et la date de l'attribution. Les jetons editeur historiques n'en heritent jamais.
 - `hub_content_lessons` et `hub_content_revisions` conservent les cours dates propres a une turma, leurs brouillons, revisions et paquets d'entrainement. Seule la revision publiee est exposee sans authentification.
 - Toutes les tables opérationnelles possèdent `class_id NOT NULL DEFAULT 's4-e'`.
@@ -112,6 +113,8 @@ Les secrets ne doivent jamais être ajoutés au dépôt. La première ouverture 
 - Les mots de passe utilisent PBKDF2-HMAC-SHA-256 avec un sel aléatoire propre à chaque compte ; aucune valeur en clair n'est stockée ou renvoyée.
 - Le mot de passe temporaire expire et doit être changé avant tout accès aux données de gestion.
 - La session de huit heures repose sur un cookie `Secure`, `HttpOnly`, `SameSite=Strict` et un contrôle anti-CSRF séparé pour les mutations.
+- Le proprietaire global se reconnecte avec sa credencial canonique depuis n'importe quelle `/gestion/<slug>`. Son acteur conserve la classe cible pour toutes les lectures, ecritures et audits; les sessions des delegues ordinaires restent refusees hors de leur turma.
+- La promotion du proprietaire global est une operation d'infrastructure ciblee par identifiant interne. Elle revoque toutes les sessions anterieures avant la reconnexion, ne promeut jamais les jetons Bearer editeur historiques et conserve `MED_NYKUTO_OWNER_TOKEN` comme acces technique de recuperation.
 - Un changement/réinitialisation de mot de passe ou la révocation d'un éditeur invalide ses sessions précédentes.
 - Les mutations sont journalisées par turma dans `hub_audit`.
 - Les mutations de contenu exigent soit le proprietaire, soit une session courrier/mot de passe portant `content.manage`. Un role inconnu, un jeton editeur historique ou un profil `localStorage` echoue par defaut.
@@ -137,6 +140,7 @@ Le validateur multiturmas vérifie notamment :
 - l'isolation de `hub_uploads`, le binding R2 direct, les types/taille/signatures, la liaison à un avis publié et les en-têtes sûrs ;
 - le texte alternatif des images téléversées, le refus pour un PDF sans image, le quota `staged`, le TTL, le marquage atomique `deleting` et la reprise après un échec R2 ;
 - l'isolation tenant de `hub_editor_credentials` et `hub_editor_sessions` ;
+- la session proprietaire globale explicite, le login depuis une autre turma, l'anti-CSRF de `class.upsert`, la deconnexion par appareil et la revocation globale lors d'un changement de mot de passe ;
 - le refus d'un éditeur d'une autre turma ;
 - la présence du helper PBKDF2, des cookies sécurisés, de l'anti-CSRF et du changement obligatoire ;
 - le contrat HTML/JavaScript `v472` pour connexion, session, changement et création/réinitialisation de compte, sans identifiants réels dans les sources ;

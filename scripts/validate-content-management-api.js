@@ -95,7 +95,7 @@ function fixtureLesson(id, overrides = {}) {
   };
 }
 
-async function post(api, env, data, auth = {}) {
+async function post(api, env, data, auth = {}, classRef = 's4-e') {
   const queryAction = data.action === 'lesson.upsert' ? '&action=lesson.upsert' : '';
   const headers = new Headers({ 'content-type': 'application/json', origin: 'https://med.nykuto.com' });
   if (auth.bearer) headers.set('authorization', `Bearer ${auth.bearer}`);
@@ -108,7 +108,7 @@ async function post(api, env, data, auth = {}) {
     headers.set('cookie', cookies.join('; '));
   }
   const response = await api.onRequestPost({
-    request: new Request(`https://med.nykuto.com/api/class-hub?class=s4-e${queryAction}`, { method: 'POST', headers, body: JSON.stringify(data) }),
+    request: new Request(`https://med.nykuto.com/api/class-hub?class=${encodeURIComponent(classRef)}${queryAction}`, { method: 'POST', headers, body: JSON.stringify(data) }),
     env,
     waitUntil() {}
   });
@@ -127,12 +127,12 @@ function sessionAuthFromResponse(result) {
   return { sessionToken, csrfToken };
 }
 
-async function get(api, env, resource = 'public', auth = {}) {
+async function get(api, env, resource = 'public', auth = {}, classRef = 's4-e') {
   const headers = new Headers();
   if (auth.bearer) headers.set('authorization', `Bearer ${auth.bearer}`);
   if (auth.sessionToken && auth.csrfToken) headers.set('cookie', `__Host-med-nykuto-management=${auth.sessionToken}; __Host-med-nykuto-management-csrf=${auth.csrfToken}`);
   const response = await api.onRequestGet({
-    request: new Request(`https://med.nykuto.com/api/class-hub?class=s4-e&resource=${resource}`, { headers }),
+    request: new Request(`https://med.nykuto.com/api/class-hub?class=${encodeURIComponent(classRef)}&resource=${encodeURIComponent(resource)}`, { headers }),
     env,
     waitUntil() {}
   });
@@ -206,6 +206,11 @@ async function main() {
     assert.equal(challengeAdmin.body.actor?.capabilities?.reviewChallenge, true, 'the authenticated delegate did not receive the narrow review capability');
     assert.equal(challengeAdmin.body.actor?.capabilities?.manageContent, false, 'challenge review accidentally granted content management');
     assert.equal(challengeAdmin.body.actor?.capabilities?.manageInvites, false, 'an ordinary delegate accidentally received invitation management');
+    const ordinaryCrossClass = await get(api, env, 'admin', sessionAuth, 's5-a');
+    assert.deepEqual([ordinaryCrossClass.status, ordinaryCrossClass.body.code], [401, 'authentication_required'], 'an ordinary class session crossed into another class');
+    const ordinaryCrossWrite = await post(api, env, { action: 'date.upsert', label: 'No cruzar', startsAt: '2026-09-02T08:00:00-03:00' }, sessionAuth, 's5-a');
+    assert.deepEqual([ordinaryCrossWrite.status, ordinaryCrossWrite.body.code], [401, 'authentication_required'], 'an ordinary class session mutated another class');
+    assert.equal(Number(db.database.prepare(`SELECT COUNT(*) AS count FROM hub_dates WHERE class_id='s5-a' AND label='No cruzar'`).get().count), 0, 'a rejected cross-class write persisted');
     assert.equal(challengeAdmin.body.challengeReview?.pendingCount, 2);
     assert.deepEqual(challengeAdmin.body.challengeReview?.week, { key: '2026-08-24', start: '2026-08-24', end: '2026-08-30', timeZone: 'America/Asuncion' });
     const serializedChallengeAdmin = JSON.stringify(challengeAdmin.body);
@@ -270,19 +275,91 @@ async function main() {
     const replacementAuth = sessionAuthFromResponse(passwordChange);
     assert.equal((await get(api, env, 'session', phoneAuth)).status, 401, 'password change did not globally revoke the prior device session');
     assert.equal((await get(api, env, 'session', replacementAuth)).status, 200, 'password change did not install its secure replacement session');
+
+    const promotedAt = new Date().toISOString();
+    db.database.exec('BEGIN');
+    try {
+      db.database.prepare(`INSERT INTO hub_site_owner_account (account_key,editor_id,enabled,granted_by,created_at,updated_at) VALUES ('primary',?,1,'owner',?,?)`).run('multi-device-editor', promotedAt, promotedAt);
+      db.database.prepare(`UPDATE hub_editor_sessions SET revoked_at=? WHERE editor_id=? AND revoked_at IS NULL`).run(promotedAt, 'multi-device-editor');
+      db.database.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES ('s4-e','owner','owner','site.owner.grant','editor',?,'{"scope":"site"}',?)`).run('multi-device-editor', promotedAt);
+      db.database.exec('COMMIT');
+    } catch (error) {
+      db.database.exec('ROLLBACK');
+      throw error;
+    }
+    assert.equal((await get(api, env, 'session', replacementAuth)).status, 401, 'privilege promotion did not require a fresh password login');
+
+    const ownerPhoneLogin = await post(api, env, { action: 'auth.login', email: 'multi.device@example.test', password: changedPassword }, {}, 's5-a');
+    const ownerTabletLogin = await post(api, env, { action: 'auth.login', email: 'MULTI.DEVICE@example.test', password: changedPassword });
+    assert.deepEqual([ownerPhoneLogin.status, ownerTabletLogin.status, ownerPhoneLogin.body.actor?.role, ownerTabletLogin.body.actor?.role], [200, 200, 'owner', 'owner'], 'the promoted account did not create independent owner sessions from two classes');
+    assert.equal(ownerPhoneLogin.body.actor?.capabilities?.manageAllClasses, true, 'the site owner response omitted its global scope');
+    const ownerPhoneAuth = sessionAuthFromResponse(ownerPhoneLogin), ownerTabletAuth = sessionAuthFromResponse(ownerTabletLogin);
+    assert.notEqual(ownerPhoneAuth.sessionToken, ownerTabletAuth.sessionToken, 'two owner devices received the same session token');
+    assert.notEqual(ownerPhoneAuth.csrfToken, ownerTabletAuth.csrfToken, 'two owner devices received the same CSRF token');
+    const activeOwnerSessions = db.database.prepare(`SELECT COUNT(*) AS count FROM hub_editor_sessions WHERE class_id='s4-e' AND editor_id='multi-device-editor' AND revoked_at IS NULL AND expires_at>?`).get(new Date().toISOString());
+    assert.equal(Number(activeOwnerSessions.count), 2, 'the second owner login replaced the first device session');
+
+    const globalOwnerS5 = await get(api, env, 'admin', ownerPhoneAuth, 's5-a');
+    assert.deepEqual([globalOwnerS5.status, globalOwnerS5.body.actor?.role, globalOwnerS5.body.class?.id, globalOwnerS5.body.profile?.email], [200, 'owner', 's5-a', 'multi.device@example.test'], 'the canonical owner credential was not recognized in another class');
+    assert.ok(Array.isArray(globalOwnerS5.body.gradeReleases), 'the global owner did not receive owner-only grade administration in another class');
+    const globalOwnerS4 = await get(api, env, 'admin', ownerPhoneAuth);
+    assert.equal(globalOwnerS4.body.editors?.find((editor) => editor.id === 'multi-device-editor')?.is_site_owner, true, 'the owner account was not identified safely in its canonical editor list');
+    assert.equal(globalOwnerS4.body.editors?.find((editor) => editor.id === 'multi-device-editor')?.is_current_actor, true, 'the current owner account was not protected from self-management in the UI contract');
+    const ownerClasses = await get(api, env, 'classes', ownerPhoneAuth, 's5-a');
+    assert.equal(ownerClasses.status, 200, 'a global owner session could not open the class registry');
+    assert.equal(ownerClasses.body.classes?.some((entry) => entry.id === 's5-a'), true, 'the global owner class registry omitted the secondary class');
+    const ownerAudit = await get(api, env, 'audit', ownerPhoneAuth, 's5-a');
+    assert.equal(ownerAudit.status, 200, 'a global owner session could not read the target-class audit');
+    const ownerLoginAudit = db.database.prepare(`SELECT class_id,actor_role FROM hub_audit WHERE actor_id='multi-device-editor' AND action='auth.login' ORDER BY id DESC LIMIT 1`).get();
+    assert.deepEqual([ownerLoginAudit.class_id, ownerLoginAudit.actor_role], ['s4-e', 'owner'], 'owner login audit did not preserve the real role and target class');
+
+    const promotedLegacyBearer = await get(api, env, 'admin', { bearer: 'unused-multi-device-token' });
+    assert.deepEqual([promotedLegacyBearer.status, promotedLegacyBearer.body.actor?.role], [200, 'editor'], 'a legacy editor bearer inherited the site owner role');
+    assert.equal(Object.hasOwn(promotedLegacyBearer.body, 'gradeReleases'), false, 'the promoted account legacy bearer received owner-only grade data');
+
+    const ownerEmailInvite = await post(api, env, { action: 'invite.create', label: 'Owner email collision fixture', hours: 24 }, ownerPhoneAuth, 's5-a');
+    assert.equal(ownerEmailInvite.status, 201, 'the global owner could not create a secondary-class invitation');
+    const ownerEmailCollision = await post(api, env, { action: 'invite.claim', inviteToken: ownerEmailInvite.body.inviteToken, name: 'Collision fixture', email: 'multi.device@example.test', password: 'Collision-Fixture-2026!' }, {}, 's5-a');
+    assert.deepEqual([ownerEmailCollision.status, ownerEmailCollision.body.code], [409, 'email_in_use'], 'another class duplicated the active site owner email');
+
+    const classFixture = { action: 'class.upsert', id: 's5-a', slug: 's5-a', name: 'Medicina · 5.º A', semester: 5, group: 'A', theme: 'midnight-gold', driveUrl: '', supportWhatsapp: '', status: 'active' };
+    const ownerClassCrossCsrf = await post(api, env, classFixture, { sessionToken: ownerPhoneAuth.sessionToken, csrfToken: ownerTabletAuth.csrfToken }, 's5-a');
+    assert.deepEqual([ownerClassCrossCsrf.status, ownerClassCrossCsrf.body.code], [403, 'csrf_rejected'], 'class.upsert accepted the CSRF token from another owner device');
+    const ownerClassUpdate = await post(api, env, classFixture, ownerPhoneAuth, 's5-a');
+    assert.equal(ownerClassUpdate.status, 200, 'the global owner could not update the class registry with valid CSRF');
+
+    const ownerCrossWrite = await post(api, env, { action: 'date.upsert', label: 'Fecha global fixture', startsAt: '2026-09-03T08:00:00-03:00', status: 'draft' }, ownerPhoneAuth, 's5-a');
+    assert.equal(ownerCrossWrite.status, 200, 'the global owner could not write inside the requested secondary class');
+    assert.equal(Number(db.database.prepare(`SELECT COUNT(*) AS count FROM hub_dates WHERE class_id='s5-a' AND label='Fecha global fixture'`).get().count), 1, 'the global owner write did not stay in the requested class');
+    const selfRevoke = await post(api, env, { action: 'editor.revoke', id: 'multi-device-editor' }, ownerPhoneAuth);
+    assert.deepEqual([selfRevoke.status, selfRevoke.body.code], [409, 'owner_self_revoke_forbidden'], 'the active site owner could revoke its own recovery account');
+
+    const ownerTabletLogout = await post(api, env, { action: 'auth.logout' }, ownerTabletAuth, 's5-a');
+    assert.equal(ownerTabletLogout.status, 200, 'the owner could not log out from a class different from the credential class');
+    assert.equal((await get(api, env, 'session', ownerTabletAuth)).status, 401, 'cross-class logout left the exact owner device session active');
+    assert.equal((await get(api, env, 'session', ownerPhoneAuth, 's5-a')).status, 200, 'logging out one owner device revoked another device');
+
+    const ownerChangedPassword = 'Fixture-Site-Owner-Changed-2026!';
+    const ownerPasswordChange = await post(api, env, { action: 'auth.password.change', currentPassword: changedPassword, password: ownerChangedPassword }, ownerPhoneAuth, 's5-a');
+    assert.deepEqual([ownerPasswordChange.status, ownerPasswordChange.body.actor?.role], [200, 'owner'], 'the owner could not change its canonical password from another class');
+    const replacementOwnerAuth = sessionAuthFromResponse(ownerPasswordChange);
+    assert.equal((await get(api, env, 'session', ownerPhoneAuth, 's5-a')).status, 401, 'owner password change left the previous device active');
+    assert.deepEqual([(await get(api, env, 'session', replacementOwnerAuth)).body.actor?.role, (await get(api, env, 'session', replacementOwnerAuth, 's5-a')).body.actor?.role], ['owner', 'owner'], 'the replacement owner session was not global');
+
     const passwordReset = await post(api, env, { action: 'editor.password.reset', id: 'multi-device-editor', temporaryPassword: 'Fixture-Temporary-Reset-2026!', hours: 24 }, ownerAuth);
     assert.equal(passwordReset.status, 200, 'the owner could not reset the multi-device fixture credential');
-    assert.equal((await get(api, env, 'session', replacementAuth)).status, 401, 'owner password reset did not globally revoke the replacement session');
-    const temporaryLogin = await post(api, env, { action: 'auth.login', email: 'multi.device@example.test', password: 'Fixture-Temporary-Reset-2026!' });
-    assert.deepEqual([temporaryLogin.status, temporaryLogin.body.passwordChangeRequired], [200, true], 'the reset credential could not create its bounded password-change session');
+    assert.equal((await get(api, env, 'session', replacementOwnerAuth, 's5-a')).status, 401, 'owner password reset did not globally revoke the replacement owner session');
+    const temporaryLogin = await post(api, env, { action: 'auth.login', email: 'multi.device@example.test', password: 'Fixture-Temporary-Reset-2026!' }, {}, 's5-a');
+    assert.deepEqual([temporaryLogin.status, temporaryLogin.body.passwordChangeRequired, temporaryLogin.body.actor?.role], [200, true, 'owner'], 'the reset global credential could not create its bounded password-change session from another class');
     const temporaryAuth = sessionAuthFromResponse(temporaryLogin);
-    assert.equal((await get(api, env, 'session', temporaryAuth)).status, 200, 'the reset credential session was not readable before account revocation');
+    assert.equal((await get(api, env, 'session', temporaryAuth, 's5-a')).status, 200, 'the reset credential session was not readable before account revocation');
     const multiDeviceInviteGrant = await post(api, env, { action: 'editor.permission.update', classId: 's4-e', id: 'multi-device-editor', permission: 'invite.manage', enabled: true }, ownerAuth);
     assert.equal(multiDeviceInviteGrant.status, 200, 'the owner could not grant invite.manage before the account revocation fixture');
     const accountRevoke = await post(api, env, { action: 'editor.revoke', id: 'multi-device-editor' }, ownerAuth);
     assert.equal(accountRevoke.status, 200, 'the owner could not revoke the multi-device fixture account');
-    assert.equal((await get(api, env, 'session', temporaryAuth)).status, 401, 'account revocation did not globally revoke its remaining session');
+    assert.equal((await get(api, env, 'session', temporaryAuth, 's5-a')).status, 401, 'account revocation did not globally revoke its remaining session');
     assert.equal(Number(db.database.prepare(`SELECT enabled FROM hub_editor_invite_permissions WHERE class_id='s4-e' AND editor_id='multi-device-editor'`).get().enabled), 0, 'account revocation left invite.manage dormant');
+    assert.equal(Number(db.database.prepare(`SELECT enabled FROM hub_site_owner_account WHERE account_key='primary' AND editor_id='multi-device-editor'`).get().enabled), 0, 'account revocation left the site owner role dormant');
 
     const legacyDenied = await post(api, env, fixtureLesson('legacy-denied'), { bearer: legacyToken });
     assert.deepEqual([legacyDenied.status, legacyDenied.body.code], [403, 'permission_denied']);
@@ -350,7 +427,7 @@ async function main() {
     const duplicateRows = db.database.prepare(`SELECT COUNT(*) AS count FROM hub_content_lessons WHERE class_id='s4-e' AND id='duplicate-date-fixture'`).get();
     assert.equal(Number(duplicateRows.count), 0, 'date-conflicting lesson persisted');
 
-    console.log('Managed content API validation OK: challenge review is class-scoped, CSRF-protected, opaque and available to authenticated delegates; independent device sessions, scoped logout, global credential revocation, session-only content capability, owner-only grants, published visibility and optimistic/date conflicts are enforced.');
+    console.log('Managed content API validation OK: challenge review and delegated capabilities stay class-scoped; the singleton site owner supports fresh multi-device sessions across classes with CSRF, scoped logout, global credential revocation and recovery-safe account lifecycle; published visibility and optimistic/date conflicts are enforced.');
   } finally {
     db.close();
   }

@@ -142,10 +142,15 @@ if (!failures.length) {
 
   expect(/CREATE TABLE IF NOT EXISTS hub_editor_permissions\s*\(/i.test(api), 'The class-scoped editor permission table is missing.');
   expect(/CREATE TABLE IF NOT EXISTS hub_editor_invite_permissions\s*\(/i.test(api), 'The isolated class-scoped invitation permission table is missing.');
+  expect(/CREATE TABLE IF NOT EXISTS hub_site_owner_account\s*\(/i.test(api) && /account_key TEXT PRIMARY KEY CHECK\(account_key='primary'\)/.test(api), 'The singleton site-owner account table is missing or can hold multiple owners.');
   expect(/CREATE TABLE IF NOT EXISTS hub_content_lessons\s*\(/i.test(api), 'The current managed-lesson table is missing.');
   expect(/CREATE TABLE IF NOT EXISTS hub_content_revisions\s*\(/i.test(api), 'The immutable managed-lesson revision table is missing.');
   expect((api.match(/content\.manage/g) || []).length >= 3, 'The content.manage permission is not enforced and serialized consistently.');
   expect(api.includes("const INVITE_PERMISSION = 'invite.manage'") && api.includes('actorCanManageInvites') && api.includes('hub_editor_invite_permissions'), 'The invite.manage permission is not enforced and serialized consistently.');
+  expect(/accountClassId/.test(api) && /manageAllClasses/.test(api) && /owner\.account_key='primary'/.test(api), 'The secure session actor does not distinguish its canonical credential class from its target class.');
+  expect(/auth-login-global-account/.test(api), 'Site-owner login attempts can bypass the account limit by rotating class slugs.');
+  expect(/action === 'class\.upsert'[\s\S]{0,1200}validSessionCsrf\(request, actor\)/.test(api), 'Session-based class administration is missing its explicit CSRF check.');
+  expect(/owner_self_revoke_forbidden/.test(api) && /UPDATE hub_site_owner_account SET enabled=0/.test(api), 'The site-owner lifecycle is missing self-lockout protection or recovery revocation.');
   expect(/editor\.permission\.update/.test(api), 'The owner-only permission mutation is missing.');
   expect(/updateEditorContentPermission[\s\S]{0,1600}hub_editor_credentials[\s\S]{0,800}credential_required/.test(api), 'Content permission grants do not require a class-scoped email/password credential.');
   expect(/lesson\.upsert/.test(api), 'The managed lesson mutation is missing.');
@@ -159,12 +164,13 @@ if (!failures.length) {
     'practiceQcmCount', 'practiceTrueFalseCount', 'practiceClinicalCount', 'lessonPreview'
   ].forEach((id) => expect(html.includes(`id="${id}"`), `The management UI is missing #${id}.`));
   expect(html.includes('data-content-admin-only'), 'The managed-content panel is missing its capability visibility marker.');
-  expect(html.includes('href="/gestion-v440.css?v=487"') && html.includes('src="/gestion-v440.js?v=488"'), 'The management content assets are not cache-busted at the current versions.');
+  expect(html.includes('href="/gestion-v440.css?v=487"') && html.includes('src="/gestion-v440.js?v=489"'), 'The management content assets are not cache-busted at the current versions.');
   expect(html.includes('data-invite-admin-only'), 'The invitation manager panel is missing its dedicated capability visibility marker.');
   expect(html.includes('data-lesson-status="draft"') && html.includes('data-lesson-status="published"'), 'Draft and publish actions are not distinct.');
   expect(management.includes("action:'lesson.upsert'") || management.includes("action: 'lesson.upsert'"), 'The management runtime does not submit lesson.upsert.');
   expect(management.includes("action:'editor.permission.update'") || management.includes("action: 'editor.permission.update'"), 'The owner UI cannot grant or revoke content.manage.');
   expect(management.includes("permission:'invite.manage'") && management.includes('canManageInvites'), 'The owner UI cannot grant invite.manage independently.');
+  expect(management.includes('PROPIETARIO GLOBAL') && management.includes('currentOwner') && management.includes('is_site_owner'), 'The owner account is not clearly marked or protected from self-management in the editor list.');
   expect(/20[^\n]{0,80}10[^\n]{0,80}10/.test(`${html}\n${management}`), 'The client does not communicate the exact 20/10/10 contract.');
   expect(!/lessonPreview[\s\S]{0,3000}innerHTML/.test(management), 'The lesson preview appears to inject raw HTML.');
   expect(/min-height\s*:\s*44px/i.test(managementCss), 'The content editor has no explicit 44 px touch target.');

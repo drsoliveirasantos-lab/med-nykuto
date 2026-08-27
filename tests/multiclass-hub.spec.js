@@ -1539,7 +1539,7 @@ test.describe('Multiclass student hub', () => {
     await page.goto('/gestion/s5-a');
 
     await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=487');
-    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=488');
+    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=489');
     expect(requestedPaths).toContain('/gestion-v440.css');
     expect(requestedPaths).toContain('/gestion-v440.js');
     await expect(page.locator('#authClassSlug')).toHaveText('S5-A');

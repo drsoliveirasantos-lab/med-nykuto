@@ -84,7 +84,7 @@ Sur la connexion, un futur delegue peut demander l'ouverture de son compte. Le c
 
 ## Connexion delegue v488
 
-La version `v488` charge `gestion-v440.css?v=487` et `gestion-v440.js?v=488`. Elle conserve l'acces par courrier et mot de passe, le cockpit compact par matiere, les avis officiels avec piece jointe, le profil WhatsApp prive et les exports de groupes lies a chaque activite, puis ajoute la capacite isolee de gestion des invitations.
+La version `v489` charge `gestion-v440.css?v=487` et `gestion-v440.js?v=489`. Elle conserve l'acces par courrier et mot de passe, le cockpit compact par matiere, les avis officiels avec piece jointe, le profil WhatsApp prive et les exports de groupes lies a chaque activite. Elle ajoute une identite proprietaire globale clairement marquee et protegee contre l'auto-revocation, tout en gardant la capacite isolee de gestion des invitations pour les delegues autorises.
 
 1. Le proprietaire cree le compte dans **Acces et audit** avec un nom, un courrier et un mot de passe temporaire.
 2. Le courrier est normalise cote serveur et le mot de passe est derive avec PBKDF2-HMAC-SHA-256, un sel aleatoire propre au compte et 100 000 iterations, calibre pour le budget CPU des Pages Functions. Le mot de passe en clair n'est jamais enregistre.
@@ -101,6 +101,8 @@ Deux tables D1 tenant completees par `class_id` portent ce flux :
 - `hub_editor_credentials` : courrier normalise, derive, sel, version et obligation de changement ;
 - `hub_editor_sessions` : condensats de session/CSRF, expiration et revocation.
 
+Une table singleton distincte, `hub_site_owner_account`, peut relier exactement un de ces comptes a l'administration globale de Med Nykuto. Le mot de passe n'est pas duplique : la session conserve la classe canonique de la credencial et le serveur projette ensuite le role `owner` dans la classe demandee. Une promotion invalide les anciennes sessions et exige une nouvelle connexion. Les comptes delegues et leurs anciens Bearer restent limites a leur classe.
+
 Les anciennes lignes `hub_editors` et leurs tokens restent compatibles pendant la transition. Les reponses de l'API ne renvoient jamais le derive, le sel, le jeton de session ou le mot de passe.
 
 ## Activation sur Cloudflare Pages
@@ -114,6 +116,7 @@ Les anciennes lignes `hub_editors` et leurs tokens restent compatibles pendant l
 7. Redeployer. Les tables, index, deux taches actives, les alertes initiales, les emplacements de groupes vides et les tables d'authentification/metadonnees R2 sont crees automatiquement a la premiere requete.
 8. Ouvrir `/gestion/s4-e`, entrer le token proprietaire, puis creer un compte de delegue avec un mot de passe temporaire.
 9. Pour un administrateur de contenu, confirmer exactement son courrier dans la liste des comptes puis activer **Cursos y preguntas**. Ne jamais inscrire un courrier personnel dans le code ou dans une variable publique du navigateur.
+10. La designation du proprietaire global n'est pas disponible dans l'interface : elle doit etre effectuee une seule fois comme operation d'infrastructure, par identifiant interne et apres verification du courrier, puis suivie d'une nouvelle connexion sur chaque appareil.
 
 Sans D1, la page publique conserve ses donnees statiques de secours. La gestion protegee et les inscriptions de groupe restent volontairement indisponibles.
 

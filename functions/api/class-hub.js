@@ -1131,6 +1131,7 @@ async function ensureSchema(db) {
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_profiles (class_id TEXT NOT NULL DEFAULT 's4-e', actor_id TEXT NOT NULL, whatsapp_e164 TEXT NOT NULL DEFAULT '', whatsapp_format_verified_at TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, PRIMARY KEY(class_id,actor_id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_credentials (editor_id TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', email_normalized TEXT NOT NULL, password_hash TEXT NOT NULL, password_salt TEXT NOT NULL, password_algorithm TEXT NOT NULL DEFAULT 'pbkdf2-sha256', password_iterations INTEGER NOT NULL, password_version INTEGER NOT NULL DEFAULT 1, must_change_password INTEGER NOT NULL DEFAULT 1, temporary_expires_at TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(class_id,email_normalized), FOREIGN KEY(editor_id) REFERENCES hub_editors(id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_sessions (token_hash TEXT PRIMARY KEY, class_id TEXT NOT NULL DEFAULT 's4-e', editor_id TEXT NOT NULL, csrf_hash TEXT NOT NULL, created_at TEXT NOT NULL, expires_at TEXT NOT NULL, last_seen_at TEXT, revoked_at TEXT, FOREIGN KEY(editor_id) REFERENCES hub_editors(id))`),
+      db.prepare(`CREATE TABLE IF NOT EXISTS hub_site_owner_account (account_key TEXT PRIMARY KEY CHECK(account_key='primary'), editor_id TEXT NOT NULL UNIQUE, enabled INTEGER NOT NULL DEFAULT 0 CHECK(enabled IN (0,1)), granted_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, FOREIGN KEY(editor_id) REFERENCES hub_editors(id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_permissions (class_id TEXT NOT NULL DEFAULT 's4-e', editor_id TEXT NOT NULL, permission TEXT NOT NULL CHECK(permission='content.manage'), enabled INTEGER NOT NULL DEFAULT 0 CHECK(enabled IN (0,1)), granted_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, PRIMARY KEY(class_id,editor_id,permission), FOREIGN KEY(editor_id) REFERENCES hub_editors(id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_editor_invite_permissions (class_id TEXT NOT NULL DEFAULT 's4-e', editor_id TEXT NOT NULL, enabled INTEGER NOT NULL DEFAULT 0 CHECK(enabled IN (0,1)), granted_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, PRIMARY KEY(class_id,editor_id), FOREIGN KEY(editor_id) REFERENCES hub_editors(id))`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_content_lessons (class_id TEXT NOT NULL DEFAULT 's4-e', id TEXT NOT NULL, subject_id TEXT NOT NULL, title TEXT NOT NULL, lesson_date TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft','published','archived')), revision INTEGER NOT NULL DEFAULT 1 CHECK(revision>=1), practice_revision INTEGER NOT NULL DEFAULT 0 CHECK(practice_revision>=0), payload_json TEXT NOT NULL, created_by TEXT NOT NULL, updated_by TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, published_at TEXT, PRIMARY KEY(class_id,id), FOREIGN KEY(class_id,subject_id) REFERENCES hub_subjects(class_id,id))`),
@@ -1217,14 +1218,15 @@ function actorCanReviewChallenge(actor) {
   return Boolean(actor && KNOWN_ACTOR_ROLES.has(actor.role));
 }
 function publicActor(actor) {
-  return { id: actor.id, role: actor.role, name: actor.name, classId: actor.classId, capabilities: { manageContent: actorCanManageContent(actor), manageInvites: actorCanManageInvites(actor), reviewChallenge: actorCanReviewChallenge(actor) } };
+  return { id: actor.id, role: actor.role, name: actor.name, classId: actor.classId, capabilities: { manageAllClasses: actor.role === 'owner', manageContent: actorCanManageContent(actor), manageInvites: actorCanManageInvites(actor), reviewChallenge: actorCanReviewChallenge(actor) } };
 }
 
 async function readActorProfile(db, actor) {
+  const accountClassId = actor.accountClassId || actor.classId;
   const [profile, credential] = await Promise.all([
     db.prepare(`SELECT whatsapp_e164,whatsapp_format_verified_at FROM hub_editor_profiles WHERE class_id=? AND actor_id=?`).bind(actor.classId, actor.id).first(),
-    actor.role === 'editor'
-      ? db.prepare(`SELECT email_normalized FROM hub_editor_credentials WHERE class_id=? AND editor_id=?`).bind(actor.classId, actor.id).first()
+    actor.authMode === 'session'
+      ? db.prepare(`SELECT email_normalized FROM hub_editor_credentials WHERE class_id=? AND editor_id=?`).bind(accountClassId, actor.id).first()
       : Promise.resolve(null)
   ]);
   const whatsapp = cleanE164(profile?.whatsapp_e164);
@@ -1241,28 +1243,30 @@ async function authenticateSession(request, db, classId) {
   if (!isRandomToken(presented)) return null;
   const current = nowIso(), tokenHash = await digest(presented);
   const row = await db.prepare(`
-    SELECT s.token_hash,s.editor_id,s.csrf_hash,s.expires_at,s.last_seen_at,e.name,e.status,c.must_change_password,c.temporary_expires_at,
+    SELECT s.token_hash,s.class_id AS account_class_id,s.editor_id,s.csrf_hash,s.expires_at,s.last_seen_at,e.name,e.status,c.must_change_password,c.temporary_expires_at,
+      EXISTS(SELECT 1 FROM hub_site_owner_account owner WHERE owner.account_key='primary' AND owner.editor_id=s.editor_id AND owner.enabled=1) AS site_owner,
       EXISTS(SELECT 1 FROM hub_editor_permissions p WHERE p.class_id=s.class_id AND p.editor_id=s.editor_id AND p.permission='content.manage' AND p.enabled=1) AS manage_content,
       EXISTS(SELECT 1 FROM hub_editor_invite_permissions p WHERE p.class_id=s.class_id AND p.editor_id=s.editor_id AND p.enabled=1) AS manage_invites
     FROM hub_editor_sessions s
     JOIN hub_editors e ON e.class_id=s.class_id AND e.id=s.editor_id
     JOIN hub_editor_credentials c ON c.class_id=s.class_id AND c.editor_id=s.editor_id
-    WHERE s.class_id=? AND s.token_hash=? AND s.revoked_at IS NULL AND s.expires_at>?
-  `).bind(classId, tokenHash, current).first();
-  if (!row || row.status !== 'active') return null;
+    WHERE s.token_hash=? AND s.revoked_at IS NULL AND s.expires_at>?
+  `).bind(tokenHash, current).first();
+  const siteOwner = Number(row?.site_owner) === 1;
+  if (!row || row.status !== 'active' || (!siteOwner && row.account_class_id !== classId)) return null;
   const passwordChangeRequired = Number(row.must_change_password) === 1;
   if (passwordChangeRequired && (!row.temporary_expires_at || row.temporary_expires_at <= current)) {
-    await db.prepare(`UPDATE hub_editor_sessions SET revoked_at=? WHERE class_id=? AND token_hash=? AND revoked_at IS NULL`).bind(current, classId, tokenHash).run();
+    await db.prepare(`UPDATE hub_editor_sessions SET revoked_at=? WHERE class_id=? AND token_hash=? AND revoked_at IS NULL`).bind(current, row.account_class_id, tokenHash).run();
     return null;
   }
   const refreshBefore = new Date(Date.parse(current) - 15 * 60 * 1000).toISOString();
   if (!row.last_seen_at || row.last_seen_at <= refreshBefore) {
     await db.batch([
-      db.prepare(`UPDATE hub_editor_sessions SET last_seen_at=? WHERE class_id=? AND token_hash=? AND (last_seen_at IS NULL OR last_seen_at<=?)`).bind(current, classId, tokenHash, refreshBefore),
-      db.prepare(`UPDATE hub_editors SET last_used_at=? WHERE class_id=? AND id=?`).bind(current, classId, row.editor_id)
+      db.prepare(`UPDATE hub_editor_sessions SET last_seen_at=? WHERE class_id=? AND token_hash=? AND (last_seen_at IS NULL OR last_seen_at<=?)`).bind(current, row.account_class_id, tokenHash, refreshBefore),
+      db.prepare(`UPDATE hub_editors SET last_used_at=? WHERE class_id=? AND id=?`).bind(current, row.account_class_id, row.editor_id)
     ]);
   }
-  return { id: row.editor_id, role: 'editor', name: row.name, classId, authMode: 'session', sessionHash: tokenHash, csrfHash: row.csrf_hash, passwordChangeRequired, manageContent: Number(row.manage_content) === 1, manageInvites: Number(row.manage_invites) === 1 };
+  return { id: row.editor_id, role: siteOwner ? 'owner' : 'editor', name: row.name, classId, accountClassId: row.account_class_id, authMode: 'session', sessionHash: tokenHash, csrfHash: row.csrf_hash, passwordChangeRequired, manageContent: siteOwner || Number(row.manage_content) === 1, manageInvites: siteOwner || Number(row.manage_invites) === 1 };
 }
 
 async function authenticate(request, env, db, classId) {
@@ -1499,7 +1503,7 @@ async function adminSnapshot(db, actor, classRecord, env = null) {
     db.prepare(`SELECT * FROM hub_files WHERE class_id=? ORDER BY updated_at DESC`).bind(classId).all(),
     db.prepare(`SELECT * FROM hub_dates WHERE class_id=? ORDER BY starts_at`).bind(classId).all(),
     readScheduleSlots(db, classId, false),
-    actor.role === 'owner' ? db.prepare(`SELECT e.id,e.name,e.status,e.created_at,e.last_used_at,c.email_normalized AS email,c.must_change_password AS password_change_required,c.temporary_expires_at,EXISTS(SELECT 1 FROM hub_editor_permissions p WHERE p.class_id=e.class_id AND p.editor_id=e.id AND p.permission='content.manage' AND p.enabled=1) AS can_manage_content,EXISTS(SELECT 1 FROM hub_editor_invite_permissions p WHERE p.class_id=e.class_id AND p.editor_id=e.id AND p.enabled=1) AS can_manage_invites FROM hub_editors e LEFT JOIN hub_editor_credentials c ON c.class_id=e.class_id AND c.editor_id=e.id WHERE e.class_id=? ORDER BY e.created_at DESC`).bind(classId).all() : Promise.resolve({ results: [] }),
+    actor.role === 'owner' ? db.prepare(`SELECT e.id,e.name,e.status,e.created_at,e.last_used_at,c.email_normalized AS email,c.must_change_password AS password_change_required,c.temporary_expires_at,EXISTS(SELECT 1 FROM hub_site_owner_account owner WHERE owner.account_key='primary' AND owner.editor_id=e.id AND owner.enabled=1) AS is_site_owner,EXISTS(SELECT 1 FROM hub_editor_permissions p WHERE p.class_id=e.class_id AND p.editor_id=e.id AND p.permission='content.manage' AND p.enabled=1) AS can_manage_content,EXISTS(SELECT 1 FROM hub_editor_invite_permissions p WHERE p.class_id=e.class_id AND p.editor_id=e.id AND p.enabled=1) AS can_manage_invites FROM hub_editors e LEFT JOIN hub_editor_credentials c ON c.class_id=e.class_id AND c.editor_id=e.id WHERE e.class_id=? ORDER BY e.created_at DESC`).bind(classId).all() : Promise.resolve({ results: [] }),
     actorCanManageInvites(actor) ? db.prepare(`SELECT id,label,expires_at,revoked_at,claimed_at,created_at FROM hub_invites WHERE class_id=? ORDER BY created_at DESC LIMIT 100`).bind(classId).all() : Promise.resolve({ results: [] }),
     readActorProfile(db, actor),
     actorCanManageContent(actor) ? readContentLessons(db, classId, false, true) : Promise.resolve([]),
@@ -1507,7 +1511,7 @@ async function adminSnapshot(db, actor, classRecord, env = null) {
     actor.role === 'owner' ? readGradeReleasesAdmin(db, classId) : Promise.resolve(null)
   ]);
   const publishedScheduleSlots = scheduleSlots.filter((slot) => slot.status === 'published');
-  return { ok: true, class: publicClass(classRecord), actor: publicActor(actor), profile, challengeReview, uploadPolicy: { enabled: Boolean(uploadsFrom(env)), maxBytes: MAX_NOTICE_ATTACHMENT_BYTES, maxStagedUploads: MAX_STAGED_NOTICE_UPLOADS_PER_CLASS, stagedTtlHours: NOTICE_STAGED_UPLOAD_TTL_SECONDS / 3600, acceptedMimeTypes: [...NOTICE_UPLOAD_MIME_TYPES] }, subjects: subjects.results || [], lessons, tasks: (tasks.results || []).map((task) => ({ ...task, noticeEnabled: Boolean(Number(task.noticeEnabled ?? task.notice_enabled)) })), notices: (notices.results || []).map((notice) => decorateNoticeAttachment(notice, classRecord)), activities: (activities.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), groups: groups.results || [], memberships: (memberships.results || []).map((item) => ({ ...item, isLeader: Boolean(item.isLeader) })), files: files.results || [], dates: (dates.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), scheduleSlots, upcomingDates: upcomingScheduleDates(publishedScheduleSlots), editors: (editors.results || []).map((editor) => ({ ...editor, can_manage_content: Number(editor.can_manage_content) === 1, can_manage_invites: Number(editor.can_manage_invites) === 1 })), invites: invites.results || [], ...(actor.role === 'owner' ? { gradeReleases } : {}) };
+  return { ok: true, class: publicClass(classRecord), actor: publicActor(actor), profile, challengeReview, uploadPolicy: { enabled: Boolean(uploadsFrom(env)), maxBytes: MAX_NOTICE_ATTACHMENT_BYTES, maxStagedUploads: MAX_STAGED_NOTICE_UPLOADS_PER_CLASS, stagedTtlHours: NOTICE_STAGED_UPLOAD_TTL_SECONDS / 3600, acceptedMimeTypes: [...NOTICE_UPLOAD_MIME_TYPES] }, subjects: subjects.results || [], lessons, tasks: (tasks.results || []).map((task) => ({ ...task, noticeEnabled: Boolean(Number(task.noticeEnabled ?? task.notice_enabled)) })), notices: (notices.results || []).map((notice) => decorateNoticeAttachment(notice, classRecord)), activities: (activities.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), groups: groups.results || [], memberships: (memberships.results || []).map((item) => ({ ...item, isLeader: Boolean(item.isLeader) })), files: files.results || [], dates: (dates.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), scheduleSlots, upcomingDates: upcomingScheduleDates(publishedScheduleSlots), editors: (editors.results || []).map((editor) => ({ ...editor, is_site_owner: Number(editor.is_site_owner) === 1, is_current_actor: editor.id === actor.id, can_manage_content: Number(editor.can_manage_content) === 1, can_manage_invites: Number(editor.can_manage_invites) === 1 })), invites: invites.results || [], ...(actor.role === 'owner' ? { gradeReleases } : {}) };
 }
 
 async function joinGroup(data, db, classRecord) {
@@ -1534,6 +1538,12 @@ async function joinGroup(data, db, classRecord) {
 }
 async function leaveGroup(data, db, classRecord) { const classId = classRecord.id, activityId = scopedId(classId, data.activityId), suppliedStudentKey = cleanText(data.studentKey, 120); if (!activityId || suppliedStudentKey.length < 12) return fail(400, 'invalid_membership', 'No se pudo identificar la inscripción.'); const studentHash = await digest(classId === DEFAULT_CLASS_ID ? suppliedStudentKey : `${classId}:${suppliedStudentKey}`); const result = await db.prepare(`DELETE FROM hub_memberships WHERE class_id=? AND activity_id=? AND student_hash=? AND EXISTS (SELECT 1 FROM hub_activities a WHERE a.class_id=hub_memberships.class_id AND a.id=hub_memberships.activity_id AND a.frozen=0 AND (a.closes_at IS NULL OR a.closes_at>?))`).bind(classId, activityId, studentHash, nowIso()).run(); return changed(result) ? json({ ok: true }) : fail(409, 'membership_locked', 'La inscripción no existe o la actividad ya está congelada.'); }
 
+async function siteOwnerUsesEmail(db, email) {
+  if (!email) return false;
+  const row = await db.prepare(`SELECT c.editor_id FROM hub_site_owner_account owner JOIN hub_editor_credentials c ON c.editor_id=owner.editor_id AND c.class_id=(SELECT class_id FROM hub_editors WHERE id=owner.editor_id) WHERE owner.account_key='primary' AND owner.enabled=1 AND c.email_normalized=?`).bind(email).first();
+  return Boolean(row);
+}
+
 async function claimInvite(data, db, classRecord) {
   const classId = classRecord.id;
   const inviteToken = typeof data.inviteToken === 'string' ? data.inviteToken.trim() : '';
@@ -1547,7 +1557,7 @@ async function claimInvite(data, db, classRecord) {
   const invite = await db.prepare(`SELECT id FROM hub_invites WHERE class_id=? AND token_hash=? AND revoked_at IS NULL AND claimed_at IS NULL AND expires_at>?`).bind(classId, inviteHash, current).first();
   if (!invite) return fail(410, 'invite_expired', 'La invitación caducó, fue revocada o ya se utilizó.');
   const existingCredential = await db.prepare(`SELECT editor_id FROM hub_editor_credentials WHERE class_id=? AND email_normalized=?`).bind(classId, email).first();
-  if (existingCredential) return fail(409, 'email_in_use', 'Este correo ya tiene una cuenta en la clase. Inicia sesión o solicita un restablecimiento.');
+  if (existingCredential || await siteOwnerUsesEmail(db, email)) return fail(409, 'email_in_use', 'Este correo ya tiene una cuenta autorizada. Inicia sesión o solicita un restablecimiento.');
 
   const verifier = await createPasswordVerifier(password), claimedAt = nowIso(), editorId = entityId(classId, '', 'editor'), unusedTokenHash = await digest(randomToken(32));
   const sessionToken = randomToken(32), csrfToken = randomToken(32), sessionTokenHash = await digest(sessionToken), csrfHash = await digest(csrfToken);
@@ -1598,13 +1608,13 @@ async function claimInvite(data, db, classRecord) {
   return jsonWithCookies({ ok: true, class: publicClass(classRecord), actor: publicActor(actor), passwordChangeRequired: false, expiresAt }, 201, sessionCookies(sessionToken, csrfToken, expiresAt));
 }
 
-async function createEditorSession(db, classId, editorId, actor, current = nowIso()) {
+async function createEditorSession(db, accountClassId, editorId, actor, current = nowIso()) {
   const sessionToken = randomToken(32), csrfToken = randomToken(32), tokenHash = await digest(sessionToken), csrfHash = await digest(csrfToken);
   const expiresAt = new Date(Date.parse(current) + sessionTtlSeconds() * 1000).toISOString();
   await db.batch([
-    db.prepare(`DELETE FROM hub_editor_sessions WHERE class_id=? AND (expires_at<=? OR revoked_at IS NOT NULL)`).bind(classId, current),
-    db.prepare(`INSERT INTO hub_editor_sessions (token_hash,class_id,editor_id,csrf_hash,created_at,expires_at,last_seen_at) VALUES (?,?,?,?,?,?,?)`).bind(tokenHash, classId, editorId, csrfHash, current, expiresAt, current),
-    db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,'editor','auth.login','editor',?,'{}',?)`).bind(classId, actor.id, editorId, current)
+    db.prepare(`DELETE FROM hub_editor_sessions WHERE class_id=? AND (expires_at<=? OR revoked_at IS NOT NULL)`).bind(accountClassId, current),
+    db.prepare(`INSERT INTO hub_editor_sessions (token_hash,class_id,editor_id,csrf_hash,created_at,expires_at,last_seen_at) VALUES (?,?,?,?,?,?,?)`).bind(tokenHash, accountClassId, editorId, csrfHash, current, expiresAt, current),
+    db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,?,'auth.login','editor',?,'{}',?)`).bind(actor.classId, actor.id, actor.role, editorId, current)
   ]);
   return { sessionToken, csrfToken, tokenHash, expiresAt };
 }
@@ -1617,12 +1627,17 @@ async function loginEditor(data, db, classRecord) {
     return fail(401, 'invalid_credentials', INVALID_CREDENTIALS_MESSAGE);
   }
   const credential = await db.prepare(`
-    SELECT c.editor_id,c.password_hash,c.password_salt,c.password_algorithm,c.password_iterations,c.password_version,c.must_change_password,c.temporary_expires_at,e.name,e.status,COALESCE(p.enabled,0) AS manage_content
+    SELECT c.class_id AS account_class_id,c.editor_id,c.password_hash,c.password_salt,c.password_algorithm,c.password_iterations,c.password_version,c.must_change_password,c.temporary_expires_at,e.name,e.status,
+      CASE WHEN owner.editor_id IS NULL THEN 0 ELSE 1 END AS site_owner,
+      EXISTS(SELECT 1 FROM hub_editor_permissions p WHERE p.class_id=c.class_id AND p.editor_id=c.editor_id AND p.permission='content.manage' AND p.enabled=1) AS manage_content,
+      EXISTS(SELECT 1 FROM hub_editor_invite_permissions p WHERE p.class_id=c.class_id AND p.editor_id=c.editor_id AND p.enabled=1) AS manage_invites
     FROM hub_editor_credentials c
     JOIN hub_editors e ON e.class_id=c.class_id AND e.id=c.editor_id
-    LEFT JOIN hub_editor_permissions p ON p.class_id=c.class_id AND p.editor_id=c.editor_id AND p.permission='content.manage' AND p.enabled=1
-    WHERE c.class_id=? AND c.email_normalized=?
-  `).bind(classId, email).first();
+    LEFT JOIN hub_site_owner_account owner ON owner.account_key='primary' AND owner.editor_id=c.editor_id AND owner.enabled=1
+    WHERE c.email_normalized=? AND (c.class_id=? OR owner.editor_id IS NOT NULL)
+    ORDER BY CASE WHEN owner.editor_id IS NOT NULL THEN 0 ELSE 1 END, CASE WHEN c.class_id=? THEN 0 ELSE 1 END
+    LIMIT 1
+  `).bind(email, classId, classId).first();
   const valid = await verifyPassword(password, credential), current = nowIso();
   const temporaryRequired = Number(credential?.must_change_password) === 1;
   const temporaryExpired = temporaryRequired && (!credential?.temporary_expires_at || credential.temporary_expires_at <= current);
@@ -1630,38 +1645,37 @@ async function loginEditor(data, db, classRecord) {
     await auditLoginFailure(db, classId, current);
     return fail(401, 'invalid_credentials', INVALID_CREDENTIALS_MESSAGE);
   }
-  const actor = { id: credential.editor_id, role: 'editor', name: credential.name, classId, authMode: 'session', manageContent: Number(credential.manage_content) === 1 };
-  const session = await createEditorSession(db, classId, credential.editor_id, actor, current);
+  const siteOwner = Number(credential.site_owner) === 1;
+  const actor = { id: credential.editor_id, role: siteOwner ? 'owner' : 'editor', name: credential.name, classId, accountClassId: credential.account_class_id, authMode: 'session', manageContent: siteOwner || Number(credential.manage_content) === 1, manageInvites: siteOwner || Number(credential.manage_invites) === 1 };
+  const session = await createEditorSession(db, credential.account_class_id, credential.editor_id, actor, current);
   return jsonWithCookies({ ok: true, class: publicClass(classRecord), actor: publicActor(actor), passwordChangeRequired: temporaryRequired, expiresAt: session.expiresAt }, 200, sessionCookies(session.sessionToken, session.csrfToken, session.expiresAt));
 }
 
 async function logoutEditor(request, db, classRecord) {
-  const presented = readCookie(request, sessionCookieName());
-  if (!isRandomToken(presented)) return jsonWithCookies({ ok: true }, 200, clearSessionCookies());
-  const tokenHash = await digest(presented), current = nowIso();
-  const row = await db.prepare(`SELECT s.editor_id,s.csrf_hash,e.name FROM hub_editor_sessions s JOIN hub_editors e ON e.class_id=s.class_id AND e.id=s.editor_id WHERE s.class_id=? AND s.token_hash=? AND s.revoked_at IS NULL AND s.expires_at>?`).bind(classRecord.id, tokenHash, current).first();
-  if (!row) return jsonWithCookies({ ok: true }, 200, clearSessionCookies());
-  const actor = { id: row.editor_id, role: 'editor', name: row.name, classId: classRecord.id, authMode: 'session', csrfHash: row.csrf_hash };
+  const actor = await authenticateSession(request, db, classRecord.id);
+  if (!actor) return jsonWithCookies({ ok: true }, 200, clearSessionCookies());
   if (!await validSessionCsrf(request, actor)) {
     await audit(db, actor, 'auth.csrf.rejected', 'editor', actor.id, { action: 'auth.logout' });
     return fail(403, 'csrf_rejected', 'La sesión de seguridad no coincide. Vuelve a iniciar sesión.');
   }
+  const current = nowIso(), accountClassId = actor.accountClassId || actor.classId;
   await db.batch([
-    db.prepare(`UPDATE hub_editor_sessions SET revoked_at=? WHERE class_id=? AND token_hash=? AND revoked_at IS NULL`).bind(current, classRecord.id, tokenHash),
-    db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,'editor','auth.logout','editor',?,'{}',?)`).bind(classRecord.id, row.editor_id, row.editor_id, current)
+    db.prepare(`UPDATE hub_editor_sessions SET revoked_at=? WHERE class_id=? AND token_hash=? AND revoked_at IS NULL`).bind(current, accountClassId, actor.sessionHash),
+    db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,?,'auth.logout','editor',?,'{}',?)`).bind(classRecord.id, actor.id, actor.role, actor.id, current)
   ]);
   return jsonWithCookies({ ok: true }, 200, clearSessionCookies());
 }
 
 async function changeEditorPassword(data, request, actor, db, classRecord) {
-  if (actor?.role !== 'editor' || actor.authMode !== 'session') return fail(403, 'session_required', 'Inicia sesión con tu correo para cambiar la contraseña.');
+  if (!actor || !KNOWN_ACTOR_ROLES.has(actor.role) || actor.authMode !== 'session') return fail(403, 'session_required', 'Inicia sesión con tu correo para cambiar la contraseña.');
   if (!await validSessionCsrf(request, actor)) {
     await audit(db, actor, 'auth.csrf.rejected', 'editor', actor.id, { action: 'auth.password.change' });
     return fail(403, 'csrf_rejected', 'La sesión de seguridad no coincide. Vuelve a iniciar sesión.');
   }
   const password = typeof data.password === 'string' ? data.password : '', problem = strongPasswordProblem(password);
   if (problem) return fail(400, 'weak_password', problem);
-  const existing = await db.prepare(`SELECT password_hash,password_salt,password_algorithm,password_iterations,password_version FROM hub_editor_credentials WHERE class_id=? AND editor_id=?`).bind(classRecord.id, actor.id).first();
+  const accountClassId = actor.accountClassId || classRecord.id;
+  const existing = await db.prepare(`SELECT password_hash,password_salt,password_algorithm,password_iterations,password_version FROM hub_editor_credentials WHERE class_id=? AND editor_id=?`).bind(accountClassId, actor.id).first();
   if (!existing) return fail(409, 'credential_missing', 'La cuenta no tiene una credencial que pueda actualizarse.');
   if (!actor.passwordChangeRequired) {
     const currentPassword = typeof data.currentPassword === 'string' ? data.currentPassword : '';
@@ -1677,10 +1691,10 @@ async function changeEditorPassword(data, request, actor, db, classRecord) {
   replacement.csrfHash = await digest(replacement.csrfToken);
   replacement.expiresAt = new Date(Date.parse(current) + sessionTtlSeconds() * 1000).toISOString();
   const results = await db.batch([
-    db.prepare(`UPDATE hub_editor_credentials SET password_hash=?,password_salt=?,password_algorithm='pbkdf2-sha256',password_iterations=?,password_version=password_version+1,must_change_password=0,temporary_expires_at=NULL,updated_at=? WHERE class_id=? AND editor_id=?`).bind(verifier.hash, verifier.salt, verifier.iterations, current, classRecord.id, actor.id),
-    db.prepare(`UPDATE hub_editor_sessions SET revoked_at=? WHERE class_id=? AND editor_id=? AND revoked_at IS NULL`).bind(current, classRecord.id, actor.id),
-    db.prepare(`INSERT INTO hub_editor_sessions (token_hash,class_id,editor_id,csrf_hash,created_at,expires_at,last_seen_at) VALUES (?,?,?,?,?,?,?)`).bind(replacement.tokenHash, classRecord.id, actor.id, replacement.csrfHash, current, replacement.expiresAt, current),
-    db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,'editor','auth.password.change','editor',?,'{}',?)`).bind(classRecord.id, actor.id, actor.id, current)
+    db.prepare(`UPDATE hub_editor_credentials SET password_hash=?,password_salt=?,password_algorithm='pbkdf2-sha256',password_iterations=?,password_version=password_version+1,must_change_password=0,temporary_expires_at=NULL,updated_at=? WHERE class_id=? AND editor_id=?`).bind(verifier.hash, verifier.salt, verifier.iterations, current, accountClassId, actor.id),
+    db.prepare(`UPDATE hub_editor_sessions SET revoked_at=? WHERE class_id=? AND editor_id=? AND revoked_at IS NULL`).bind(current, accountClassId, actor.id),
+    db.prepare(`INSERT INTO hub_editor_sessions (token_hash,class_id,editor_id,csrf_hash,created_at,expires_at,last_seen_at) VALUES (?,?,?,?,?,?,?)`).bind(replacement.tokenHash, accountClassId, actor.id, replacement.csrfHash, current, replacement.expiresAt, current),
+    db.prepare(`INSERT INTO hub_audit (class_id,actor_id,actor_role,action,entity_type,entity_id,details,created_at) VALUES (?,?,?,'auth.password.change','editor',?,'{}',?)`).bind(classRecord.id, actor.id, actor.role, actor.id, current)
   ]);
   if (!changed(results[0])) return fail(409, 'credential_missing', 'La cuenta no tiene una credencial que pueda actualizarse.');
   return jsonWithCookies({ ok: true, class: publicClass(classRecord), actor: publicActor(actor), passwordChangeRequired: false, expiresAt: replacement.expiresAt }, 200, sessionCookies(replacement.sessionToken, replacement.csrfToken, replacement.expiresAt));
@@ -1690,6 +1704,7 @@ async function createEditorAccount(data, actor, db, classRecord) {
   const classId = classRecord.id, name = cleanText(data.name, 60), email = normalizeEmail(data.email), password = typeof data.temporaryPassword === 'string' ? data.temporaryPassword : '';
   const passwordProblem = temporaryPasswordProblem(password);
   if (name.length < 2 || !email || passwordProblem) return fail(400, 'invalid_account', passwordProblem || 'Nombre y correo válidos son obligatorios.');
+  if (await siteOwnerUsesEmail(db, email)) return fail(409, 'email_in_use', 'Este correo ya pertenece a la cuenta propietaria del sitio.');
   const current = nowIso(), hours = integer(data.hours, temporaryPasswordTtlHours(), 1, temporaryPasswordTtlHours()), temporaryExpiresAt = new Date(Date.parse(current) + hours * 3600000).toISOString();
   const verifier = await createPasswordVerifier(password), editorId = entityId(classId, '', 'editor'), unusedTokenHash = await digest(randomToken(32));
   await db.batch([
@@ -1703,6 +1718,7 @@ async function createEditorAccount(data, actor, db, classRecord) {
 async function resetEditorPassword(data, actor, db, classRecord) {
   const classId = classRecord.id, editorId = scopedId(classId, data.id), password = typeof data.temporaryPassword === 'string' ? data.temporaryPassword : '', problem = temporaryPasswordProblem(password);
   if (!editorId || problem) return fail(400, 'invalid_reset', problem || 'El editor no es válido.');
+  if (actor.authMode === 'session' && editorId === actor.id) return fail(409, 'owner_self_reset_forbidden', 'Usa el cambio de contraseña de tu propia sesión; el restablecimiento administrativo invalidaría tu acceso propietario.');
   const account = await db.prepare(`SELECT c.editor_id FROM hub_editor_credentials c JOIN hub_editors e ON e.class_id=c.class_id AND e.id=c.editor_id WHERE c.class_id=? AND c.editor_id=? AND e.status='active'`).bind(classId, editorId).first();
   if (!account) return fail(404, 'credential_missing', 'La cuenta del editor no existe.');
   const current = nowIso(), hours = integer(data.hours, temporaryPasswordTtlHours(), 1, temporaryPasswordTtlHours()), temporaryExpiresAt = new Date(Date.parse(current) + hours * 3600000).toISOString(), verifier = await createPasswordVerifier(password);
@@ -2489,11 +2505,13 @@ async function mutate(action, data, actor, classRecord, env, db, waitUntil) {
   if (action === 'editor.revoke' && actor.role === 'owner') {
     const id = scopedId(classId, data.id);
     if (!id) return fail(400, 'invalid_editor', 'El editor no es válido.');
-    const active = await db.prepare(`SELECT id FROM hub_editors WHERE class_id=? AND id=? AND status='active'`).bind(classId, id).first();
+    const active = await db.prepare(`SELECT e.id,EXISTS(SELECT 1 FROM hub_site_owner_account owner WHERE owner.account_key='primary' AND owner.editor_id=e.id AND owner.enabled=1) AS site_owner FROM hub_editors e WHERE e.class_id=? AND e.id=? AND e.status='active'`).bind(classId, id).first();
     if (!active) return fail(409, 'editor_unavailable', 'El editor no existe o ya fue revocado.');
+    if (Number(active.site_owner) === 1 && actor.authMode === 'session') return fail(409, 'owner_self_revoke_forbidden', 'La cuenta propietaria activa no puede revocarse desde su propia sesión. Usa el acceso técnico de recuperación.');
     await db.batch([
       db.prepare(`UPDATE hub_editors SET status='revoked' WHERE class_id=? AND id=? AND status='active'`).bind(classId, id),
       db.prepare(`UPDATE hub_editor_sessions SET revoked_at=? WHERE class_id=? AND editor_id=? AND revoked_at IS NULL`).bind(current, classId, id),
+      db.prepare(`UPDATE hub_site_owner_account SET enabled=0,granted_by=?,updated_at=? WHERE account_key='primary' AND editor_id=? AND enabled=1`).bind(actor.id, current, id),
       db.prepare(`UPDATE hub_editor_permissions SET enabled=0,granted_by=?,updated_at=? WHERE class_id=? AND editor_id=? AND enabled=1`).bind(actor.id, current, classId, id),
       db.prepare(`UPDATE hub_editor_invite_permissions SET enabled=0,granted_by=?,updated_at=? WHERE class_id=? AND editor_id=? AND enabled=1`).bind(actor.id, current, classId, id),
       db.prepare(`DELETE FROM hub_editor_profiles WHERE class_id=? AND actor_id=?`).bind(classId, id),
@@ -2631,16 +2649,22 @@ export async function onRequestPost(context) {
       const actor = await authenticate(request, env, db, DEFAULT_CLASS_ID);
       if (!actor) return fail(401, 'authentication_required', 'Se necesita un acceso de propietario.');
       if (actor.role !== 'owner') return fail(403, 'permission_denied', 'Solo el propietario puede crear o modificar clases.');
+      if (actor.passwordChangeRequired) return fail(403, 'password_change_required', 'Cambia la contraseña temporal antes de modificar las clases.');
+      if (!await validSessionCsrf(request, actor)) {
+        await audit(db, actor, 'auth.csrf.rejected', 'class', cleanId(data.id) || 'class', { action });
+        return fail(403, 'csrf_rejected', 'La sesión de seguridad no coincide. Vuelve a iniciar sesión.');
+      }
       return mutate(action, data, actor, { id: DEFAULT_CLASS_ID }, env, db, waitUntil);
     }
     const resolved = await resolveClass(request, db, data, env);
     if (resolved.error === 'class_mismatch') return fail(400, 'class_mismatch', 'La clase indicada no es válida o no coincide.');
     if (!resolved.classRecord) return fail(404, 'class_not_found', 'La clase solicitada no existe o no está activa.');
     const classRecord = resolved.classRecord;
-    if (action === 'lesson.upsert' && !bodyMatchesClass(data, classRecord)) return fail(400, 'class_mismatch', 'La clase indicada en el contenido no coincide.');
+    if (!bodyMatchesClass(data, classRecord)) return fail(400, 'class_mismatch', 'La clase indicada en la solicitud no coincide.');
     if (action === 'auth.login') {
       const ipLimited = await rateLimit(request, env, db, classRecord.id, 'auth-login-ip', 10, 900); if (ipLimited) return ipLimited;
       const emailFingerprint = await digest(normalizeEmail(data.email) || 'invalid-email');
+      const globalAccountLimited = await rateLimitSubject(env, db, DEFAULT_CLASS_ID, 'auth-login-global-account', emailFingerprint, 10, 900); if (globalAccountLimited) return globalAccountLimited;
       const accountLimited = await rateLimit(request, env, db, classRecord.id, `auth-login-account:${emailFingerprint}`, 5, 900); if (accountLimited) return accountLimited;
       const distributedLimited = await rateLimitSubject(env, db, classRecord.id, 'auth-login-distributed', emailFingerprint, 50, 3600); if (distributedLimited) return distributedLimited;
       return loginEditor(data, db, classRecord);
