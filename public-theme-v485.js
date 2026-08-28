@@ -75,6 +75,16 @@
     return next;
   }
 
+  function loadPageEnhancements(){
+    if (!/(?:^|\/)p1\.html$/i.test(location.pathname || '')) return;
+    if (document.querySelector('script[data-p1-compact-ui]')) return;
+    var script = document.createElement('script');
+    script.src = '/p1-ui-compact-v497.js?v=497';
+    script.defer = true;
+    script.dataset.p1CompactUi = 'true';
+    document.head.appendChild(script);
+  }
+
   function bind(){
     updateControls(root.dataset.theme || DARK);
     window.setTimeout(function(){ updateControls(root.dataset.theme || DARK); }, 0);
@@ -89,6 +99,7 @@
     });
   }
 
+  loadPageEnhancements();
   apply(safeRead(), false);
   window.MedNykutoTheme = { apply:apply, current:function(){ return root.dataset.theme || DARK; }, storageKey:STORAGE_KEY };
   window.addEventListener('storage', function(event){
