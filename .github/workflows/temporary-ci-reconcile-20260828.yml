@@ -21,7 +21,9 @@ jobs:
         with:
           node-version: 22
       - name: Apply targeted current-state patches
-        run: python3 .github/scripts/reconcile-current-state-20260828.py
+        run: |
+          python3 .github/scripts/reconcile-current-state-20260828.py
+          python3 .github/scripts/reconcile-current-state-followup-20260828.py
       - name: Install dependencies
         run: npm install
       - name: Validate affected static contracts
@@ -41,11 +43,13 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git rm .github/workflows/temporary-ci-reconcile-20260828.yml
           git rm .github/scripts/reconcile-current-state-20260828.py
+          git rm .github/scripts/reconcile-current-state-followup-20260828.py
           git add \
             .github/workflows/site-tests.yml \
             bioquimica-pratica-task-v498.js \
             public-theme-v485.js \
             clase.html \
+            tests/grupo3-hub/section-01.js \
             tests/grupo3-hub/section-02.js \
             tests/grupo3-hub/section-03.js \
             tests/grupo3-hub/section-04.js \
