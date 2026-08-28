@@ -1,6 +1,25 @@
 const { expectBlockedClinicalCases } = require('../helpers/practice-policy');
 
 module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismissSemesterPicker }) => {
+  test('P1 mobile keeps quick and advanced subject choices mutually exclusive', async ({ page }) => {
+    await page.goto('/p1.html', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('html')).toHaveClass(/p1-ready/);
+    const rail = page.locator('#p1SubjectRail');
+    const customize = page.locator('#p1ExamCustomize');
+
+    await expect(rail).toBeVisible();
+    await expect(page.locator('#p1ExamSubjects')).toBeHidden();
+    await rail.locator('[data-subject-id="nutricion"]').click();
+    await expect(page.locator('#p1CustomizeStatus')).toHaveText('Solo Nutrición');
+    await expect(page.locator('#p1ExamSubjects input:checked')).toHaveCount(1);
+
+    await customize.locator('summary').click();
+    await expect(rail).toBeHidden();
+    await expect(page.locator('#p1ExamSubjects')).toBeVisible();
+    await customize.locator('summary').click();
+    await expect(rail).toBeVisible();
+  });
+
   test('mobile navigation and practice controls remain usable', async ({ page }) => {
     await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
     await dismissSemesterPicker(page);

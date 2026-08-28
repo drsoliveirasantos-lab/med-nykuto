@@ -94,6 +94,8 @@ button{color:inherit}
 .p1-topic-ranking strong{font-size:.66rem}.p1-topic-ranking small{margin-top:2px;color:var(--p1-muted);font-size:.52rem}.p1-topic-ranking>b{color:var(--p1-cyan);font-size:.85rem}
 .p1-subject-rail{display:flex;gap:8px;margin:16px 0 10px;padding:2px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-inline:contain}
 .p1-subject-rail[hidden]{display:none!important}
+.p1-subject-custom{flex:0 0 auto;min-height:46px;display:flex;align-items:center;padding:7px 12px;border:1px solid color-mix(in srgb,var(--p1-gold) 38%,transparent);border-radius:15px;background:color-mix(in srgb,var(--p1-gold) 11%,var(--p1-card));color:var(--p1-gold-soft);font-size:.62rem;font-weight:900;white-space:nowrap}
+.p1-subject-custom[hidden]{display:none!important}
 .p1-subject-rail::-webkit-scrollbar,.p1-filter-rail::-webkit-scrollbar,.p1-question-dots::-webkit-scrollbar,.p1-bottom-nav::-webkit-scrollbar{display:none}
 .p1-subject-button{flex:0 0 auto;min-height:46px;display:flex;align-items:center;gap:8px;padding:7px 13px;border:1px solid var(--p1-line);border-radius:15px;background:var(--p1-card);color:var(--p1-muted);scroll-snap-align:center;cursor:pointer}
 .p1-subject-button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6}
@@ -164,8 +166,10 @@ button{color:inherit}
 .p1-resume button{min-height:40px;padding:7px 12px;border:1px solid rgba(52,211,153,.35);border-radius:11px;background:rgba(52,211,153,.14);font-size:.65rem;font-weight:900;cursor:pointer}
 .p1-exam-options{border:1px solid var(--p1-line);border-radius:15px;background:var(--p1-card)}
 .p1-exam-options summary{min-height:48px;display:flex;align-items:center;justify-content:space-between;padding:10px 13px;color:var(--p1-muted);font-size:.68rem;font-weight:850;cursor:pointer;list-style:none}
+.p1-exam-options summary>span{min-width:0}
+.p1-exam-options summary>small{flex:0 0 auto;margin-left:auto;padding:4px 8px;border-radius:999px;background:var(--p1-bg-soft);color:var(--p1-muted);font-size:.55rem;font-weight:850}
 .p1-exam-options summary::-webkit-details-marker{display:none}
-.p1-exam-options summary:after{content:"+"}
+.p1-exam-options summary:after{flex:0 0 auto;margin-left:8px;content:"+"}
 .p1-exam-options[open] summary:after{content:"−"}
 .p1-exam-options fieldset{width:100%;min-width:0;min-inline-size:0;max-width:100%;margin:0;padding:11px 13px 13px;border:0;border-top:1px solid var(--p1-line)}
 .p1-exam-options legend{padding-top:10px;color:var(--p1-muted);font-size:.61rem;font-weight:850}
@@ -281,7 +285,7 @@ button{color:inherit}
   .p1-topic-ranking>svg{width:19px;height:19px}.p1-topic-ranking strong{font-size:.6rem}.p1-topic-ranking small{font-size:.47rem}
 
   .p1-subject-rail{width:100%;max-width:100%;contain:inline-size;touch-action:pan-x;margin:6px 0;padding:0;gap:5px;scroll-padding-inline:6px}
-  .p1-subject-button{min-height:38px;gap:5px;padding:5px 9px;border-radius:11px}
+  .p1-subject-button,.p1-subject-custom{min-height:38px;gap:5px;padding:5px 9px;border-radius:11px}
   .p1-subject-button svg{width:16px;height:16px}.p1-subject-button strong{font-size:.6rem}
 
   .p1-view-switch{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin-bottom:6px;padding:4px;border-radius:13px}
@@ -319,6 +323,7 @@ button{color:inherit}
   .p1-resume{gap:8px;padding:9px 10px;border-radius:12px}.p1-resume strong{font-size:.65rem}.p1-resume button{min-height:38px;padding:5px 9px}
   .p1-exam-options{contain:inline-size;border-radius:12px;overflow:hidden}
   .p1-exam-options summary{min-height:42px;padding:7px 10px;font-size:.61rem}
+  .p1-exam-options summary>small{max-width:42%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.49rem}
   .p1-exam-options fieldset{min-inline-size:0;padding:8px 10px 10px;overflow:hidden}
   .p1-exam-options legend{padding-top:6px;font-size:.55rem}
   .p1-filter-rail{contain:inline-size;touch-action:pan-x;gap:5px;margin-top:5px;overflow-x:auto;overflow-y:hidden}

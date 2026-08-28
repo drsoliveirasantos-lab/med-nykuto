@@ -14,7 +14,7 @@
   var TYPES = ['qcm', 'vf', 'cases'];
   var TYPE_LABELS = { qcm: 'QCM', vf: 'Verdadero / Falso', cases: 'Caso clínico' };
   var MODE_LABELS = { training: 'Entrenamiento', exam: 'Examen blanco' };
-  var state = { selectedSubject: 'all', activeView: 'exam', session: null, currentIndex: 0 };
+  var state = { selectedSubject: 'all', practicePreset: 'all', activeView: 'exam', session: null, currentIndex: 0 };
   var lessonByPracticeId = {};
   var deduplicationByScopeId = {};
 
@@ -423,6 +423,7 @@
     scope = nextScope;
     STORAGE_KEY = storageKeyFor(scope);
     state.selectedSubject = 'all';
+    state.practicePreset = 'all';
     state.activeView = 'exam';
     state.session = readSession();
     state.currentIndex = state.session ? Number(state.session.currentIndex) || 0 : 0;
@@ -441,12 +442,15 @@
     button.type = 'button';
     button.dataset.subjectId = subjectId;
     button.style.setProperty('--subject-accent', accent || 'var(--p1-cyan)');
-    button.setAttribute('aria-pressed', state.selectedSubject === subjectId ? 'true' : 'false');
+    button.setAttribute('aria-pressed', 'false');
     button.appendChild(icon(symbol));
     button.appendChild(el('strong', '', label));
     button.addEventListener('click', function () {
+      if (state.activeView === 'exam') {
+        applyExamSubjectPreset(subjectId);
+        return;
+      }
       selectSubject(subjectId);
-      if (state.activeView === 'exam' && !state.session) applyExamSubjectPreset(subjectId);
     });
     return button;
   }
@@ -455,6 +459,10 @@
     var rail = document.getElementById('p1SubjectRail');
     if (!rail) return;
     rail.replaceChildren();
+    var custom = el('span', 'p1-subject-custom');
+    custom.id = 'p1SubjectCustomState';
+    custom.hidden = true;
+    rail.appendChild(custom);
     rail.appendChild(createSubjectButton('all', 'Todo ' + scope.label, 'class-icon-p1', '#4cc9f0'));
     Object.keys(scope.subjects).forEach(function (subjectId) {
       var subject = scope.subjects[subjectId];
@@ -466,14 +474,45 @@
   function updateSubjectRailVisibility() {
     var rail = document.getElementById('p1SubjectRail');
     if (!rail) return;
-    rail.hidden = state.activeView !== 'sheet' || state.selectedSubject === 'all';
+    var setup = document.getElementById('p1ExamSetup');
+    var customize = document.getElementById('p1ExamCustomize');
+    var showSheetRail = state.activeView === 'sheet' && state.selectedSubject !== 'all';
+    var showPracticeRail = state.activeView === 'exam' && setup && !setup.hidden && (!customize || !customize.open);
+    rail.hidden = !(showSheetRail || showPracticeRail);
+    updateSubjectRailState();
+  }
+
+  function updateSubjectRailState() {
+    var activeSubject = state.activeView === 'exam' ? state.practicePreset : state.selectedSubject;
+    document.querySelectorAll('.p1-subject-button').forEach(function (button) {
+      button.setAttribute('aria-pressed', button.dataset.subjectId === activeSubject ? 'true' : 'false');
+    });
+    var custom = document.getElementById('p1SubjectCustomState');
+    if (!custom) return;
+    var selectedCount = selectedExamSubjects().length;
+    custom.hidden = state.activeView !== 'exam' || state.practicePreset !== 'custom';
+    custom.textContent = 'Personalizado · ' + selectedCount;
+  }
+
+  function updatePracticePresetFromFilters() {
+    var selected = selectedExamSubjects();
+    var available = Object.keys(scope.subjects);
+    if (selected.length === available.length) state.practicePreset = 'all';
+    else if (selected.length === 1) state.practicePreset = selected[0];
+    else state.practicePreset = 'custom';
+
+    var status = document.getElementById('p1CustomizeStatus');
+    if (status) {
+      if (state.practicePreset === 'all') status.textContent = 'Todo ' + scope.label;
+      else if (state.practicePreset === 'custom') status.textContent = selected.length + ' materias';
+      else status.textContent = 'Solo ' + scope.subjects[state.practicePreset].shortLabel;
+    }
+    updateSubjectRailState();
   }
 
   function selectSubject(subjectId) {
     state.selectedSubject = scope.subjects[subjectId] ? subjectId : 'all';
-    document.querySelectorAll('.p1-subject-button').forEach(function (button) {
-      button.setAttribute('aria-pressed', button.dataset.subjectId === state.selectedSubject ? 'true' : 'false');
-    });
+    updateSubjectRailState();
     renderSheet();
     updateSubjectRailVisibility();
   }
@@ -634,16 +673,19 @@
       input.type = 'checkbox';
       input.value = subjectId;
       input.checked = true;
+      input.addEventListener('change', updatePracticePresetFromFilters);
       label.appendChild(input);
       label.appendChild(el('span', '', scope.subjects[subjectId].shortLabel));
       container.appendChild(label);
     });
+    updatePracticePresetFromFilters();
   }
 
   function applyExamSubjectPreset(subjectId) {
     document.querySelectorAll('#p1ExamSubjects input').forEach(function (input) {
       input.checked = subjectId === 'all' || input.value === subjectId;
     });
+    updatePracticePresetFromFilters();
   }
 
   function selectedExamSubjects() {
@@ -724,6 +766,7 @@
     document.getElementById('p1ExamSession').hidden = true;
     document.getElementById('p1Results').hidden = true;
     refreshResume();
+    updateSubjectRailVisibility();
   }
 
   function showSession() {
@@ -732,6 +775,7 @@
     document.getElementById('p1ExamSetup').hidden = true;
     document.getElementById('p1Results').hidden = true;
     document.getElementById('p1ExamSession').hidden = false;
+    updateSubjectRailVisibility();
     renderQuestion();
   }
 
@@ -1015,6 +1059,7 @@
     document.getElementById('p1ExamSetup').hidden = true;
     document.getElementById('p1ExamSession').hidden = true;
     host.hidden = false;
+    updateSubjectRailVisibility();
   }
 
   function finishExam() {
@@ -1033,6 +1078,8 @@
     document.querySelectorAll('input[name="p1-correction-mode"]').forEach(function (input) {
       input.addEventListener('change', updateStartButton);
     });
+    var customize = document.getElementById('p1ExamCustomize');
+    if (customize) customize.addEventListener('toggle', updateSubjectRailVisibility);
     document.getElementById('p1StartExam').addEventListener('click', startExam);
     document.getElementById('p1ResumeButton').addEventListener('click', function () { showSession(); });
     document.getElementById('p1PreviousQuestion').addEventListener('click', previousQuestion);
