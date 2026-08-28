@@ -18,6 +18,6 @@
   "shortcuts": [
     { "name": "Tareas", "short_name": "Tareas", "url": "/clase.html#pendientes" },
     { "name": "Materias", "short_name": "Materias", "url": "/clase.html#materias" },
-    { "name": "Entrenamiento", "short_name": "Estudiar", "url": "/comunidade.html" }
+    { "name": "Entrenamiento", "short_name": "P1", "url": "/p1.html" }
   ]
 }

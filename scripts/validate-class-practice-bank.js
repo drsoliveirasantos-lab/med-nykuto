@@ -23,9 +23,17 @@ const datedCourses = [
   'microbiologia-practica-2026-08-20',
   'bioquimica-2026-08-21',
   'bioquimica-2026-08-26',
-  'epidemiologia-2026-08-26'
+  'epidemiologia-2026-08-26',
+  'nutricion-2026-08-27',
+  'fisiologia-2026-08-27',
+  'microbiologia-practica-2026-08-27'
 ];
 const allExpectedCourses = expectedCourses.concat(datedCourses);
+const august27BankScripts = [
+  'grupo-3-practice-nutricion-2026-08-27-v494.js',
+  'grupo-3-practice-fisiologia-2026-08-27-v494.js',
+  'grupo-3-practice-microbiologia-practica-2026-08-27-v494.js'
+];
 const types = ['qcm', 'vf', 'cases'];
 const metaQuestionWording = /\b(?:clase|curso|profesor|aula|repaso|repasar|explicad[oa]s?)\b/i;
 const leakedCorrectionWording = /^¿Qué opción corrige esta afirmación:/i;
@@ -109,10 +117,19 @@ function expect(condition, message) {
   if (!condition) errors.push(message);
 }
 
+function academicLessonExists(model, lessonId) {
+  return Object.values((model && model.subjects) || {}).some((subject) => (
+    (subject.chapters || []).some((chapter) => (
+      (chapter.lessons || []).some((lesson) => lesson.id === lessonId)
+    ))
+  ));
+}
+
 global.window = { location: { hash: '' }, addEventListener() {} };
 global.document = { getElementById() { return null; } };
 
 require(path.join(root, 'academic-model-v445.js'));
+require(path.join(root, 'academic-model-2026-08-27-v494.js'));
 require(path.join(root, 'grupo-3-practice-v413.js'));
 require(path.join(root, 'grupo-3-practice-expansion-v420.js'));
 require(path.join(root, 'grupo-3-practice-grounded-v426.js'));
@@ -120,6 +137,9 @@ require(path.join(root, 'grupo-3-practice-2026-08-17-v432.js'));
 require(path.join(root, 'grupo-3-practice-2026-08-24-v452.js'));
 require(path.join(root, 'grupo-3-practice-2026-08-21-v440.js'));
 require(path.join(root, 'grupo-3-practice-2026-08-26-v484.js'));
+require(path.join(root, 'grupo-3-practice-nutricion-2026-08-27-v494.js'));
+require(path.join(root, 'grupo-3-practice-fisiologia-2026-08-27-v494.js'));
+require(path.join(root, 'grupo-3-practice-microbiologia-practica-2026-08-27-v494.js'));
 require(path.join(root, 'teacher-question-profile-v445.js'));
 const academicModel = global.window.MedNykutoAcademicModel;
 const practice = global.window.MedNykutoClassPractice;
@@ -131,6 +151,9 @@ delete global.document;
 if (!banks || typeof banks !== 'object') {
   errors.push('Practice bank did not expose a banks object.');
 } else {
+  august27BankScripts.forEach((script) => {
+    expect(classHtml.includes(script), `Class page does not load the dated practice bank: ${script}.`);
+  });
   expect(practice.groundingPolicy === POLICY, `Expected global grounding policy ${POLICY}.`);
   expect(
     JSON.stringify(Object.keys(banks).sort()) === JSON.stringify(allExpectedCourses.slice().sort()),
@@ -305,7 +328,7 @@ if (!banks || typeof banks !== 'object') {
 
     expect(bank.courseId === courseId, `${prefix} course id is inconsistent.`);
     expect(bank.grounding === 'course-only', `${prefix} must be marked as course-only.`);
-    expect(Boolean(sourceElement), `${prefix} exact dated lesson was not found in clase.html.`);
+    expect(Boolean(sourceElement) || academicLessonExists(academicModel, courseId), `${prefix} exact dated lesson was found neither in clase.html nor in the academic model.`);
     expect(Array.isArray(bank.sources) && bank.sources.length === 1, `${prefix} must expose one internal class source.`);
     expect(bank.sources && bank.sources[0] && bank.sources[0].url === sourceUrl, `${prefix} source must point to its exact dated lesson.`);
     expect(!/^https?:\/\//i.test((bank.sources && bank.sources[0] && bank.sources[0].url) || ''), `${prefix} external sources are forbidden in the question bank.`);
@@ -380,6 +403,10 @@ if (!banks || typeof banks !== 'object') {
 
         const questionCopy = [prompt, question.scenario, question.explanation].concat(question.options || []).join(' ');
         expect(!/(?:https?:\/\/|www\.|\b(?:ncbi|cdc|who|paho|aha)\b)/i.test(questionCopy), `${location}: external-source material is forbidden.`);
+        if (question.imageSrc) {
+          expect(/^assets\/courses\/2026-08-27\/[a-z0-9-]+\.webp$/.test(question.imageSrc), `${location}: visual must use the dated internal WebP asset path.`);
+          expect(fs.existsSync(path.join(root, question.imageSrc)), `${location}: visual asset does not exist: ${question.imageSrc}.`);
+        }
 
         if (type !== 'vf' && Number.isInteger(question.answer)) {
           objectiveQuestions += 1;

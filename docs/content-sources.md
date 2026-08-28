@@ -168,6 +168,38 @@ The adjacent HTML courses correct obvious speech-recognition and scientific erro
 grupo-3-practice-2026-08-26-v484.js
 ```
 
+## Clases del jueves 27 de agosto de 2026
+
+El traspaso del 27 añade tres lecciones independientes: Nutrición, Fisiología II y Microbiología II · Práctica. La transcripción se depura para conservar solo contenido académico; el Drive corrobora el alcance, incluida la separación entre Respiratorio y Sensibilidades somáticas, pero no es la fuente de las imágenes.
+
+Los visuales proceden de la exportación académica de WhatsApp «BATE-PAPO ALUNOS» del 27–28 de agosto de 2026:
+
+- Nutrición: fotos `00005305` y `00005306`, publicadas como `nutrition-hidden-claims.webp` y `nutrition-protein-marketing.webp`;
+- Fisiología: foto `00005330`, utilizada solo como referencia para la reconstrucción vectorial revisada `physiology-somatic-sensitivities-source.svg`; el runtime la etiqueta explícitamente como reconstrucción pedagógica y no como foto original;
+- Microbiología práctica: fotos `00005349`–`00005357`, `00005366`–`00005368` y casos `00005378`–`00005379`.
+
+Los derivados recortados y optimizados viven en:
+
+```txt
+assets/courses/2026-08-27/
+```
+
+Solo se conservan zonas pedagógicas. Conversaciones domésticas, audio accidental, ruido ambiental, personas e identificadores privados se excluyen del runtime y de las preguntas. Las láminas de Microbiología son referencias visuales rotuladas: permiten describir y comparar estructuras, pero una fotografía aislada no confirma una especie ni una infección. El tercer caso práctico no fotografiado no se reconstruye.
+
+Las tres lecciones extienden el modelo estático mediante `academic-model-2026-08-27-v494.js`, sin sobrescribir evidencias anteriores.
+
+Cada lección mantiene una banca aislada de 20 QCM, 10 verdadero/falso y 10 casos en:
+
+```txt
+grupo-3-practice-nutricion-2026-08-27-v494.js
+grupo-3-practice-fisiologia-2026-08-27-v494.js
+grupo-3-practice-microbiologia-practica-2026-08-27-v494.js
+```
+
+Nutrición queda confirmada dentro del alcance P1 hasta el 27 de agosto. En Fisiología, la docente limitó oralmente P1 a Respiratorio; la clase del 27 sobre propiocepción, tacto, dolor, temperatura, vías y decusación permanece fuera de P1. Microbiología práctica conserva su modo visual en la revisión general y no debe inferir material ausente de las fotografías.
+
+El espacio P2 provisional no introduce una fuente académica nueva. Reutiliza únicamente los bancos verificados de Fisiología II del 17, 20, 24 y 27 de agosto de 2026. Estas cuatro fechas aportan 160 preguntas fuente mediante la lista explícita de `p2-s4-e-v1.js`; el agrupamiento anticipado es una ayuda de estudio y no prueba que la cátedra haya confirmado oficialmente el alcance de la segunda parcial.
+
 ## D1-managed dated class content
 
 The protected management shell may also create date-based lessons for one class without changing the 59-module library. These records are class-hub overlays stored in D1, not new entries in `content/courses/**` and not inputs to `data/med-courses-data.js`.

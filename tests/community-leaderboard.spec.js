@@ -162,7 +162,7 @@ test.describe('Weekly S4-E class challenge', () => {
     });
 
     await page.goto('/comunidade.html');
-    await expect(page.getByRole('heading', { name: 'Estudia por materia y tema.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'P1 · Entrenamiento por tema y ranking' })).toBeVisible();
     await expect(page.getByText('50 R$ vía Pix', { exact: true })).toBeVisible();
     await expect(page.getByText('Premio para el 1.er lugar verificado', { exact: true })).toBeVisible();
     await expect(page.getByText('Exclusivo para estudiantes matriculados en el 4.º E.', { exact: true })).toBeVisible();
@@ -452,10 +452,12 @@ test.describe('Weekly S4-E class challenge', () => {
     await page.locator('#practice-nutricion-dialog .practice-dialog-close').click();
 
     await page.locator('[data-study-subject="fisiologia"]').click();
-    await expect(page.locator('#studyTopicPicker .study-topic-option')).toHaveCount(5);
-    await expect(page.locator('[data-study-topic="fisiologia-2026-08-24"]')).toBeVisible();
-    await expect(page.locator('[data-study-topic="fisiologia-2026-08-20"]')).toBeVisible();
+    await expect(page.locator('#studyTopicPicker .study-topic-option')).toHaveCount(2);
     await expect(page.locator('[data-study-topic="fisiologia-2026-08-13"]')).toContainText('Control nervioso y químico');
+    await expect(page.locator('[data-study-topic="fisiologia-2026-08-10"]')).toBeVisible();
+    await expect(page.locator('[data-study-topic="fisiologia-2026-08-17"]')).toHaveCount(0);
+    await expect(page.locator('[data-study-topic="fisiologia-2026-08-20"]')).toHaveCount(0);
+    await expect(page.locator('[data-study-topic="fisiologia-2026-08-24"]')).toHaveCount(0);
     await page.locator('[data-study-topic="fisiologia-2026-08-10"]').click();
     await expect(page.locator('#studyPracticeHost #practice-fisiologia-2026-08-10')).toBeVisible();
 
@@ -564,7 +566,7 @@ test.describe('Weekly S4-E class challenge', () => {
     expect(submitted).not.toHaveProperty('nickname');
   });
 
-  test('restores 31 answered questions and synchronizes every format from Estudiar with one click', async ({ page }) => {
+  test('restores 31 answered questions and synchronizes every P1 format with one click', async ({ page }) => {
     await seedProfile(page);
     await page.addInitScript(() => {
       localStorage.setItem('med-nykuto-class-practice-v431', JSON.stringify({
@@ -786,11 +788,17 @@ test.describe('Weekly S4-E class challenge', () => {
     await expect(publisher.locator('.community-publish-status')).toContainText('ya no cambia la clasificación');
   });
 
-  test('links the class hub to study on desktop and mobile navigation', async ({ page }) => {
+  test('links the class hub to the single P1 area on desktop and mobile navigation', async ({ page }) => {
     await page.goto('/clase.html');
-    await expect(page.locator('.workspace-nav a[href="comunidade.html"]')).toContainText('Estudiar');
-    await expect(page.locator('.workspace-nav a[href="comunidade.html"]')).toContainText('QCM + ranking');
-    await expect(page.locator('.mobile-bottom-nav a[href="comunidade.html"]')).toContainText('Estudiar');
+    const desktopNavigation = page.locator('.workspace-nav');
+    const mobileNavigation = page.locator('.mobile-bottom-nav');
+    await expect(desktopNavigation.locator('a')).toHaveCount(6);
+    await expect(mobileNavigation.locator('a')).toHaveCount(6);
+    await expect(desktopNavigation.locator('a[href="p1.html"]')).toContainText('P1');
+    await expect(desktopNavigation.locator('a[href="p1.html"]')).toContainText('Repaso + práctica');
+    await expect(mobileNavigation.locator('a[href="p1.html"]')).toContainText('P1');
+    await expect(desktopNavigation.locator('a[href="comunidade.html"]')).toHaveCount(0);
+    await expect(mobileNavigation.locator('a[href="comunidade.html"]')).toHaveCount(0);
   });
 
   test('keeps public identity, prize, consent and navigation usable at iPhone width', async ({ page }) => {
@@ -802,12 +810,13 @@ test.describe('Weekly S4-E class challenge', () => {
     const navigation = page.locator('.mobile-bottom-nav');
     await expect(navigation).toBeVisible();
     await expect(navigation.locator('a')).toHaveCount(6);
-    await expect(navigation.locator('a[aria-current="page"]')).toHaveAttribute('href', 'comunidade.html');
+    await expect(navigation.locator('a[aria-current="page"]')).toHaveAttribute('href', 'p1.html');
     await expect(navigation.locator('a[href="clase.html#inicio"]')).toContainText('Inicio');
     await expect(navigation.locator('a[href="clase.html#horario"]')).toContainText('Horario');
     await expect(navigation.locator('a[href="clase.html#pendientes"]')).toContainText('Tareas');
     await expect(navigation.locator('a[href="clase.html#avisos"]')).toContainText('Avisos');
     await expect(navigation.locator('a[href="clase.html#materias"]')).toContainText('Materias');
+    await expect(navigation.locator('a[href="p1.html"]')).toContainText('P1');
     await expect(page.getByText('50 R$ vía Pix', { exact: true })).toBeVisible();
     await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-catraca')).toHaveText('001234');
     await expect(page.locator('#communityProfileForm label[for="communityDisplayName"]')).toContainText('Nombre completo');
@@ -854,6 +863,6 @@ test.describe('Weekly S4-E class challenge', () => {
     await page.locator('#communityLanguage').selectOption('br');
     await expect(navigation.locator('a[href="clase.html#pendientes"]')).toContainText('Tarefas');
     await expect(navigation.locator('a[href="clase.html#materias"]')).toContainText('Matérias');
-    await expect(navigation.locator('a[aria-current="page"]')).toContainText('Estudar');
+    await expect(navigation.locator('a[aria-current="page"]')).toContainText('P1');
   });
 });

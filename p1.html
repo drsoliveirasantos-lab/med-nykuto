@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" href="assets/logo-medcursos-icon.png" />
   <link rel="manifest" href="manifest.webmanifest" />
   <script src="public-theme-v485.js?v=485"></script>
-  <link rel="stylesheet" href="class-p1-v1.css?v=1" />
+  <link rel="stylesheet" href="class-p1-v1.css?v=494" />
 </head>
 <body class="p1-page">
   <a class="p1-skip" href="#p1-main">Ir al contenido</a>
@@ -38,7 +38,7 @@
     <div class="p1-header-inner">
       <a class="p1-brand" href="clase.html#inicio" aria-label="Volver a la clase 4.º E">
         <img src="assets/logo-medcursos-official.png" alt="" />
-        <span><strong>Med Nykuto</strong><small>4.º E · Primera parcial</small></span>
+        <span><strong>Med Nykuto</strong><small id="p1BrandScope">4.º E · Primera parcial</small></span>
       </a>
       <div class="p1-header-actions">
         <button class="p1-theme" type="button" data-public-theme-toggle aria-pressed="false"><span data-public-theme-icon aria-hidden="true">☀</span><b data-public-theme-label>Claro</b></button>
@@ -48,48 +48,68 @@
   </header>
 
   <main id="p1-main" class="p1-main">
+    <nav class="p1-scope-switch" aria-label="Elegir prueba parcial">
+      <a href="#p1" data-partial-scope="p1" aria-current="page"><strong>P1</strong><span>17 clases · 680 preguntas</span></a>
+      <a href="#p2" data-partial-scope="p2"><strong>P2</strong><span>Neuro · provisional</span></a>
+    </nav>
+
     <section class="p1-hero" aria-labelledby="p1-title">
       <div>
-        <p>PRIMERA PRUEBA PARCIAL</p>
+        <p id="p1HeroEyebrow">PRIMERA PRUEBA PARCIAL</p>
         <h1 id="p1-title">Repaso P1</h1>
-        <span>Todo lo ya estudiado, reunido por materia y mezclado para practicar.</span>
+        <span id="p1HeroDescription">Todo lo ya estudiado, reunido por materia y mezclado para practicar.</span>
       </div>
       <dl class="p1-hero-stats" aria-label="Alcance del repaso">
-        <div><dt id="p1LessonCount">18</dt><dd>clases</dd></div>
-        <div><dt id="p1QuestionCount">720</dt><dd>preguntas fuente</dd></div>
+        <div><dt id="p1LessonCount">17</dt><dd>clases</dd></div>
+        <div><dt id="p1QuestionCount">680</dt><dd>preguntas fuente</dd></div>
         <div><dt>40</dt><dd>por simulacro</dd></div>
       </dl>
     </section>
 
+    <div class="p1-subspace-row">
+      <p class="p1-scope-notice" id="p1ScopeNotice" hidden></p>
+      <a class="p1-topic-ranking" id="p1TopicRankingLink" href="comunidade.html"><svg aria-hidden="true"><use href="#class-icon-community"></use></svg><span><strong>Por tema + ranking</strong><small>Practicar una clase específica</small></span><b aria-hidden="true">→</b></a>
+    </div>
+
     <nav class="p1-subject-rail" id="p1SubjectRail" aria-label="Elegir materia"></nav>
 
     <nav class="p1-view-switch" aria-label="Modo de estudio">
-      <button type="button" data-p1-view="sheet" aria-selected="true"><span aria-hidden="true">▤</span><strong>Ficha P1</strong><small>Resumen acumulativo</small></button>
-      <button type="button" data-p1-view="exam" aria-selected="false"><span aria-hidden="true">✓</span><strong>Examen blanco</strong><small>Corrección al final</small></button>
+      <button type="button" data-p1-view="sheet" aria-selected="false"><span aria-hidden="true">▤</span><strong id="p1SheetTabLabel">Ficha P1</strong><small>Resumen acumulativo</small></button>
+      <button type="button" data-p1-view="exam" aria-selected="true"><span aria-hidden="true">✓</span><strong id="p1PracticeTabLabel">Practicar P1</strong><small>Corrección a tu manera</small></button>
     </nav>
 
-    <section class="p1-view" id="p1SheetView" data-p1-panel="sheet" aria-labelledby="p1-sheet-title">
+    <section class="p1-view" id="p1SheetView" data-p1-panel="sheet" aria-labelledby="p1-sheet-title" hidden>
       <header class="p1-section-heading">
-        <div><p>FICHA ACUMULATIVA</p><h2 id="p1-sheet-title">Todo el P1 por materia</h2></div>
+        <div><p id="p1SheetEyebrow">FICHA ACUMULATIVA P1</p><h2 id="p1-sheet-title">Todo el P1 por materia</h2></div>
         <span id="p1SheetScope">6 materias</span>
       </header>
       <div id="p1SheetContent" aria-live="polite"></div>
     </section>
 
-    <section class="p1-view" id="p1ExamView" data-p1-panel="exam" aria-labelledby="p1-exam-title" hidden>
+    <section class="p1-view" id="p1ExamView" data-p1-panel="exam" aria-labelledby="p1-exam-title">
       <header class="p1-section-heading">
-        <div><p>SIMULACRO P1</p><h2 id="p1-exam-title">Examen blanco mezclado</h2></div>
-        <span>Sin pistas</span>
+        <div><p id="p1ExamEyebrow">PRÁCTICA P1</p><h2 id="p1-exam-title">Preguntas mezcladas</h2></div>
+        <span>Elige tu modo</span>
       </header>
 
       <section class="p1-exam-setup" id="p1ExamSetup">
-        <div class="p1-exam-promise">
-          <span>FORMATO RECOMENDADO</span>
-          <strong>40 preguntas · todas las materias</strong>
-          <p>20 QCM, 10 verdadero/falso y 10 casos. Las respuestas y explicaciones aparecen solo cuando terminas.</p>
-        </div>
+        <section class="p1-exam-options" aria-labelledby="p1-correction-mode-title">
+          <fieldset>
+            <legend id="p1-correction-mode-title">¿Cuándo quieres ver la corrección?</legend>
+            <div class="p1-length-options" id="p1CorrectionModes">
+              <label>
+                <input type="radio" name="p1-correction-mode" value="training" checked />
+                <span>Entrenamiento · corrección inmediata</span>
+              </label>
+              <label>
+                <input type="radio" name="p1-correction-mode" value="exam" />
+                <span>Examen blanco · corrección al final</span>
+              </label>
+            </div>
+          </fieldset>
+        </section>
         <div class="p1-resume" id="p1Resume" hidden>
-          <div><span>SIMULACRO EN CURSO</span><strong id="p1ResumeLabel">0 de 40 respondidas</strong></div>
+          <div><span>PRÁCTICA EN CURSO</span><strong id="p1ResumeLabel">0 de 40 respondidas</strong></div>
           <button type="button" id="p1ResumeButton">Continuar</button>
         </div>
         <details class="p1-exam-options">
@@ -107,7 +127,7 @@
             </div>
           </fieldset>
         </details>
-        <button class="p1-primary" type="button" id="p1StartExam">Empezar simulacro</button>
+        <button class="p1-primary" type="button" id="p1StartExam">Empezar entrenamiento</button>
         <p class="p1-setup-note">Cada intento crea una mezcla nueva y queda guardado en este teléfono. No cambia tu ranking ni los ejercicios de cada clase.</p>
       </section>
 
@@ -117,7 +137,7 @@
           <progress id="p1Progress" max="40" value="0">0 de 40</progress>
         </header>
         <article class="p1-question" id="p1Question"></article>
-        <nav class="p1-question-nav" aria-label="Navegar por el simulacro">
+        <nav class="p1-question-nav" aria-label="Navegar por la práctica">
           <button type="button" id="p1PreviousQuestion">← Anterior</button>
           <button type="button" id="p1NextQuestion">Siguiente →</button>
         </nav>
@@ -138,11 +158,11 @@
     <a href="clase.html#pendientes"><span><svg><use href="#class-icon-task"></use></svg></span><strong>Tareas</strong></a>
     <a href="clase.html#avisos"><span><svg><use href="#class-icon-notice"></use></svg></span><strong>Avisos</strong></a>
     <a href="clase.html#materias"><span><svg><use href="#class-icon-book"></use></svg></span><strong>Materias</strong></a>
-    <a href="comunidade.html"><span><svg><use href="#class-icon-community"></use></svg></span><strong>Estudiar</strong></a>
-    <a href="p1.html" aria-current="page"><span><svg><use href="#class-icon-p1"></use></svg></span><strong>P1</strong></a>
+    <a href="p1.html" id="p1BottomPartial" aria-current="page"><span><svg><use href="#class-icon-p1"></use></svg></span><strong>P1</strong></a>
   </nav>
 
   <script src="academic-model-v445.js?v=486"></script>
+  <script src="academic-model-2026-08-27-v494.js?v=494"></script>
   <script src="grupo-3-practice-v413.js?v=446"></script>
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
   <script src="grupo-3-practice-grounded-v426.js?v=431"></script>
@@ -150,8 +170,12 @@
   <script src="grupo-3-practice-2026-08-24-v452.js?v=452"></script>
   <script src="grupo-3-practice-2026-08-21-v440.js?v=440"></script>
   <script src="grupo-3-practice-2026-08-26-v484.js?v=486"></script>
+  <script src="grupo-3-practice-nutricion-2026-08-27-v494.js?v=494"></script>
+  <script src="grupo-3-practice-fisiologia-2026-08-27-v494.js?v=494"></script>
+  <script src="grupo-3-practice-microbiologia-practica-2026-08-27-v494.js?v=494"></script>
   <script src="teacher-question-profile-v445.js?v=446"></script>
-  <script src="p1-s4-e-v1.js?v=1"></script>
-  <script src="class-p1-v1.js?v=1"></script>
+  <script src="p1-s4-e-v1.js?v=494"></script>
+  <script src="p2-s4-e-v1.js?v=494"></script>
+  <script src="class-p1-v1.js?v=494"></script>
 </body>
 </html>

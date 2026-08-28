@@ -13,6 +13,18 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.getByRole('link', { name: 'HiMedia · Sabouraud y preparación' })).toBeVisible();
   });
 
+  test('opens the compact 27 August fungal gallery and its two documented cases', async ({ page }) => {
+    await page.goto('/clase.html#microbiologia-practica-2026-08-27');
+    const lesson = page.locator('#microbiologia-practica-2026-08-27');
+    await expect(page.locator('#microbiologia-practica .notebook-current-title')).toContainText('Reconocimiento microscópico y casos de micosis oportunistas');
+    await expect(lesson.locator('.course-photo-card')).toHaveCount(11);
+    await expect(lesson.locator('.course-inline-figure.is-course-photo')).toHaveCount(2);
+    await expect(lesson.getByText('Caso docente · candidemia', { exact: true })).toBeVisible();
+    await expect(lesson.getByText('Caso docente · aspergilosis invasiva', { exact: true })).toBeVisible();
+    await expect(lesson).toContainText('El tercer caso no está disponible y no se reconstruye');
+    await expect(lesson.locator('.practice-module[data-practice-root="microbiologia-practica-2026-08-27"]')).toContainText('40 preguntas para dominar este curso');
+  });
+
   test('organizes theoretical Microbiology into dermatophyte reasoning and next-class preparation', async ({ page }) => {
     await page.goto('/clase.html#micro-theory-detail');
     await expect(page.locator('#microbiologia-teorica .notebook-current-title')).toContainText('Dermatofitosis y tiñas');

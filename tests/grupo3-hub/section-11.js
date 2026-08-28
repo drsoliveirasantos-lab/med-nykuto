@@ -133,7 +133,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#weeklyAgenda .schedule-task-badge')).toHaveCount(4);
   });
 
-  test('publishes all eighteen lessons as narrative courses with isolated forty-question training', async ({ page }) => {
+  test('publishes all twenty-one lessons as narrative courses with isolated forty-question training', async ({ page }) => {
     const lessons = [
       ['nutricion-2026-08-13', 'Leyes de la alimentación y evaluación del paciente', 'nutricion'],
       ['fisiologia-2026-08-10', 'Difusión y transporte de gases', 'fisiologia-2026-08-10'],
@@ -152,7 +152,10 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       ['microbiologia-teorica-2026-08-10', 'Dermatofitosis y tiñas', 'microbiologia-teorica'],
       ['microbiologia-teorica-2026-08-17', 'Pitiriasis versicolor y tiña corporal', 'microbiologia-teorica-2026-08-17'],
       ['microbiologia-teorica-2026-08-24', 'Micosis subcutáneas, oportunistas y casos clínicos'],
-      ['microbiologia-practica-anterior', 'Hongos y preparación del agar Sabouraud', 'microbiologia-practica']
+      ['microbiologia-practica-anterior', 'Hongos y preparación del agar Sabouraud', 'microbiologia-practica'],
+      ['nutricion-2026-08-27', 'Guías alimentarias, etiquetado y lectura crítica'],
+      ['fisiologia-2026-08-27', 'Vías sensitivas, decusación y localización de lesiones'],
+      ['microbiologia-practica-2026-08-27', 'Reconocimiento microscópico y casos de micosis oportunistas']
     ];
     for (const [id, title, legacyPracticeId] of lessons) {
       await page.goto('/clase.html#' + id);

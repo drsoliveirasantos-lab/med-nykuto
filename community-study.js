@@ -3,9 +3,17 @@
 
   var practice = window.MedNykutoClassPractice;
   var community = window.MedNykutoCommunity;
-  if(!practice || !practice.banks || typeof practice.mountStandalone !== 'function' || !community) return;
+  var p1Scope = window.MedNykutoP1Scope;
+  if(!practice || !practice.banks || typeof practice.mountStandalone !== 'function' || !community || !p1Scope || !p1Scope.subjects) return;
 
   var banks = practice.banks;
+  var allowedTopics = {};
+  Object.keys(p1Scope.subjects).forEach(function(subjectId){
+    var subject = p1Scope.subjects[subjectId];
+    (Array.isArray(subject.practiceIds) ? subject.practiceIds : []).forEach(function(topicId){
+      if(Object.prototype.hasOwnProperty.call(banks,topicId)) allowedTopics[topicId] = true;
+    });
+  });
   var activeSubject = 'nutricion';
   var activeTopic = '';
   var lastResult = null;
@@ -18,28 +26,7 @@
     {id:'epidemiologia',icon:'class-icon-epidemiology',es:'Epidemiología',br:'Epidemiologia'},
     {id:'microbiologia-teorica',icon:'class-icon-microbiology',es:'Microbiología · Teórica',br:'Microbiologia · Teórica'},
     {id:'microbiologia-practica',icon:'class-icon-lab',es:'Microbiología · Práctica',br:'Microbiologia · Prática'}
-  ];
-
-  var preferredTopicOrder = [
-    'nutricion',
-    'fisiologia-2026-08-24',
-    'fisiologia-2026-08-20',
-    'fisiologia-2026-08-17',
-    'fisiologia-2026-08-13',
-    'fisiologia-2026-08-10',
-    'bioquimica-2026-08-26',
-    'bioquimica-2026-08-21',
-    'bioquimica-2026-08-19',
-    'bioquimica',
-    'epidemiologia-2026-08-26',
-    'epidemiologia-2026-08-19',
-    'epidemiologia',
-    'microbiologia-teorica-2026-08-24',
-    'microbiologia-teorica-2026-08-17',
-    'microbiologia-teorica',
-    'microbiologia-practica-2026-08-20',
-    'microbiologia-practica'
-  ];
+  ].filter(function(subject){ return Object.prototype.hasOwnProperty.call(p1Scope.subjects,subject.id); });
 
   function t(key,variables){ return community.t(key,variables); }
   function lang(){ return community.getLanguage(); }
@@ -55,13 +42,11 @@
     return lang() === 'br' && service && service.exact && service.exact[value] ? service.exact[value] : value;
   }
   function topicIds(subjectId){
-    return Object.keys(banks).filter(function(id){
+    var subject = p1Scope.subjects[subjectId];
+    return (subject && Array.isArray(subject.practiceIds) ? subject.practiceIds : []).filter(function(id){
+      if(!allowedTopics[id]) return false;
       var bank = banks[id];
-      return (bank.sectionId || bank.courseId) === subjectId;
-    }).sort(function(left,right){
-      var a = preferredTopicOrder.indexOf(left);
-      var b = preferredTopicOrder.indexOf(right);
-      return (a === -1 ? 999 : a) - (b === -1 ? 999 : b);
+      return bank && (bank.sectionId || bank.courseId) === subjectId;
     });
   }
   function questionTotal(bank){
@@ -71,7 +56,7 @@
   }
   function topicFromHash(){
     var value = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : '';
-    return Object.prototype.hasOwnProperty.call(banks,value) ? value : '';
+    return allowedTopics[value] ? value : '';
   }
   function subjectForTopic(topicId){
     var bank = banks[topicId];
@@ -233,7 +218,7 @@
 
   function activateTopic(topicId,shouldScroll){
     var subjectId = subjectForTopic(topicId);
-    if(!topicId || !subjectId || !subjects.some(function(subject){ return subject.id === subjectId; })) return false;
+    if(!topicId || !allowedTopics[topicId] || !subjectId || !subjects.some(function(subject){ return subject.id === subjectId; })) return false;
     activeSubject = subjectId;
     activeTopic = topicId;
     lastResult = null;

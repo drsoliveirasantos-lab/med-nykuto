@@ -1,17 +1,31 @@
 (function () {
   'use strict';
 
-  var scope = window.MedNykutoP1Scope;
+  var P1_SCOPE = window.MedNykutoP1Scope;
+  var P2_SCOPE = window.MedNykutoP2Scope;
+  var SCOPES = { p1: P1_SCOPE, p2: P2_SCOPE };
+  var activeScopeKey = scopeKeyFromHash();
+  var scope = SCOPES[activeScopeKey] || P1_SCOPE;
   var model = window.MedNykutoAcademicModel;
   var practice = window.MedNykutoClassPractice;
-  if (!scope || !model || !practice || !practice.banks) return;
+  if (!P1_SCOPE || !scope || !model || !practice || !practice.banks) return;
 
-  var STORAGE_KEY = 'medNykuto:p1Exam:' + scope.id;
+  var STORAGE_KEY = storageKeyFor(scope);
   var TYPES = ['qcm', 'vf', 'cases'];
   var TYPE_LABELS = { qcm: 'QCM', vf: 'Verdadero / Falso', cases: 'Caso clínico' };
-  var state = { selectedSubject: 'all', activeView: 'sheet', session: null, currentIndex: 0 };
+  var MODE_LABELS = { training: 'Entrenamiento', exam: 'Examen blanco' };
+  var state = { selectedSubject: 'all', activeView: 'exam', session: null, currentIndex: 0 };
   var lessonByPracticeId = {};
-  var lastDeduplication = { raw: 0, unique: 0, removed: 0 };
+  var deduplicationByScopeId = {};
+
+  function scopeKeyFromHash() {
+    return String(window.location.hash || '').toLocaleLowerCase('es') === '#p2' && P2_SCOPE ? 'p2' : 'p1';
+  }
+
+  function storageKeyFor(targetScope) {
+    var key = P2_SCOPE && targetScope && targetScope.id === P2_SCOPE.id ? 'p2' : 'p1';
+    return 'medNykuto:' + key + 'Exam:' + targetScope.id;
+  }
 
   function el(tag, className, text) {
     var node = document.createElement(tag);
@@ -80,6 +94,11 @@
     return (Date.now() ^ Math.floor(Math.random() * 0xFFFFFFFF)) >>> 0;
   }
 
+  function normalizeCorrectionMode(mode, fallback) {
+    if (mode === 'training' || mode === 'exam') return mode;
+    return fallback === 'training' ? 'training' : 'exam';
+  }
+
   function flattenAcademicModel() {
     Object.keys(model.subjects).forEach(function (subjectId) {
       var subject = model.subjects[subjectId];
@@ -98,14 +117,16 @@
     });
   }
 
-  function subjectIdsOrAll(subjectIds) {
-    var available = Object.keys(scope.subjects);
+  function subjectIdsOrAll(subjectIds, targetScope) {
+    var selectedScope = targetScope || scope;
+    var available = Object.keys(selectedScope.subjects);
     if (!Array.isArray(subjectIds) || !subjectIds.length) return available;
     return subjectIds.filter(function (subjectId) { return available.indexOf(subjectId) >= 0; });
   }
 
-  function collectQuestions(subjectIds, shouldDedupe) {
-    var selected = subjectIdsOrAll(subjectIds);
+  function collectQuestions(subjectIds, shouldDedupe, targetScope) {
+    var selectedScope = targetScope || scope;
+    var selected = subjectIdsOrAll(subjectIds, selectedScope);
     var questions = [];
     var seenExact = {};
     var seenOptions = {};
@@ -113,7 +134,7 @@
     var raw = 0;
 
     selected.forEach(function (subjectId) {
-      var subjectScope = scope.subjects[subjectId];
+      var subjectScope = selectedScope.subjects[subjectId];
       subjectScope.practiceIds.forEach(function (practiceId) {
         var bank = practice.banks[practiceId];
         var academic = lessonByPracticeId[practiceId];
@@ -155,6 +176,8 @@
               options: (question.options || []).slice(),
               answer: Number(question.answer),
               explanation: question.explanation || '',
+              imageSrc: question.imageSrc || '',
+              imageAlt: question.imageAlt || '',
               teacherProfileId: question.teacherProfileId || bank.teacherProfileId || academic.teacher.id,
               teacherAngle: question.teacherAngle || '',
               teacherAngleLabel: question.teacherAngleLabel || 'Razonamiento de la clase'
@@ -164,7 +187,10 @@
       });
     });
 
-    if (shouldDedupe) lastDeduplication = { raw: raw, unique: questions.length, removed: raw - questions.length };
+    if (shouldDedupe) {
+      var audit = { raw: raw, unique: questions.length, removed: raw - questions.length };
+      deduplicationByScopeId[selectedScope.id] = audit;
+    }
     return questions;
   }
 
@@ -193,10 +219,11 @@
     return result;
   }
 
-  function formatQuotas(length, pools) {
+  function formatQuotas(length, pools, targetScope) {
+    var selectedScope = targetScope || scope;
     var quotas = {
-      qcm: Math.floor(length * scope.formatRatios.qcm),
-      vf: Math.floor(length * scope.formatRatios.vf)
+      qcm: Math.floor(length * selectedScope.formatRatios.qcm),
+      vf: Math.floor(length * selectedScope.formatRatios.vf)
     };
     quotas.cases = length - quotas.qcm - quotas.vf;
     var missing = 0;
@@ -236,35 +263,38 @@
     return copy;
   }
 
-  function buildExam(options) {
-    var selectedSubjects = subjectIdsOrAll(options && options.subjectIds);
+  function buildExam(options, targetScope) {
+    var examScope = targetScope || scope;
+    var selectedSubjects = subjectIdsOrAll(options && options.subjectIds, examScope);
     var seed = Number(options && options.seed) || newSeed();
     var random = seededRandom(seed);
-    var unique = collectQuestions(selectedSubjects, true);
-    var requested = options && options.length === 'all' ? unique.length : Number(options && options.length) || scope.defaultLength;
+    var unique = collectQuestions(selectedSubjects, true, examScope);
+    var requested = options && options.length === 'all' ? unique.length : Number(options && options.length) || examScope.defaultLength;
     var total = Math.max(1, Math.min(requested, unique.length));
     var pools = { qcm: [], vf: [], cases: [] };
     unique.forEach(function (item) { pools[item.type].push(item); });
-    var quotas = formatQuotas(total, pools);
+    var quotas = formatQuotas(total, pools, examScope);
     var selected = [];
     TYPES.forEach(function (type) {
       selected = selected.concat(balancedTake(pools[type], quotas[type], random));
     });
     selected = shuffled(selected, random).map(function (item) { return prepareQuestion(item, random); });
     return {
-      version: scope.id,
+      version: examScope.id,
+      mode: normalizeCorrectionMode(options && options.mode, 'exam'),
       seed: seed,
       subjectIds: selectedSubjects,
-      requestedLength: options && options.length ? options.length : scope.defaultLength,
+      requestedLength: options && options.length ? options.length : examScope.defaultLength,
       items: selected,
       answers: {},
+      validated: {},
       currentIndex: 0,
       completed: false,
       createdAt: new Date().toISOString(),
       deduplication: {
-        raw: lastDeduplication.raw,
-        unique: lastDeduplication.unique,
-        removed: lastDeduplication.removed
+        raw: deduplicationByScopeId[examScope.id].raw,
+        unique: deduplicationByScopeId[examScope.id].unique,
+        removed: deduplicationByScopeId[examScope.id].removed
       }
     };
   }
@@ -275,15 +305,22 @@
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.session)); } catch (error) {}
   }
 
-  function readSession() {
+  function readSessionFor(targetScope) {
+    var selectedScope = targetScope || scope;
     try {
-      var saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-      if (!saved || saved.version !== scope.id || !Array.isArray(saved.items) || !saved.items.length) return null;
+      var saved = JSON.parse(localStorage.getItem(storageKeyFor(selectedScope)));
+      if (!saved || saved.version !== selectedScope.id || !Array.isArray(saved.items) || !saved.items.length) return null;
       if (!saved.answers || typeof saved.answers !== 'object') saved.answers = {};
+      saved.mode = normalizeCorrectionMode(saved.mode, 'exam');
+      if (!saved.validated || typeof saved.validated !== 'object') saved.validated = {};
       return saved;
     } catch (error) {
       return null;
     }
+  }
+
+  function readSession() {
+    return readSessionFor(scope);
   }
 
   function removeSession() {
@@ -292,8 +329,110 @@
     try { localStorage.removeItem(STORAGE_KEY); } catch (error) {}
   }
 
+  function clearScopeSession(targetScope) {
+    if (targetScope.id === scope.id) {
+      removeSession();
+      return;
+    }
+    try { localStorage.removeItem(storageKeyFor(targetScope)); } catch (error) {}
+  }
+
   function questionCountForSubject(subjectId) {
     return collectQuestions([subjectId], false).length;
+  }
+
+  function lessonCountForScope(targetScope) {
+    return Object.keys(targetScope.subjects).reduce(function (total, subjectId) {
+      return total + targetScope.subjects[subjectId].practiceIds.length;
+    }, 0);
+  }
+
+  function setText(id, value) {
+    var node = document.getElementById(id);
+    if (node) node.textContent = value;
+  }
+
+  function centerActiveBottomNavigation() {
+    var navigation = document.querySelector('.p1-bottom-nav');
+    var active = navigation && navigation.querySelector('[aria-current="page"]');
+    if (!navigation || !active || !window.matchMedia('(max-width: 760px)').matches) return;
+    navigation.scrollLeft = Math.max(0, active.offsetLeft - ((navigation.clientWidth - active.offsetWidth) / 2));
+  }
+
+  function applyScopeLabels() {
+    var label = scope.label || activeScopeKey.toLocaleUpperCase('es');
+    var lessonCount = lessonCountForScope(scope);
+    var questionCount = collectQuestions(Object.keys(scope.subjects), false, scope).length;
+    var fallbackDescription = label === 'P1'
+      ? 'Todo lo ya estudiado, reunido por materia y mezclado para practicar.'
+      : 'Clases reunidas en una sola ruta para repasar y practicar.';
+
+    document.body.dataset.partialScope = activeScopeKey;
+    document.title = label + ' · Repaso y simulacro | Med Nykuto';
+    var description = document.querySelector('meta[name="description"]');
+    if (description) description.content = (scope.description || fallbackDescription) + ' ' + lessonCount + ' clases y ' + questionCount + ' preguntas fuente.';
+    setText('p1BrandScope', '4.º E · ' + scope.title);
+    setText('p1HeroEyebrow', String(scope.title || '').toLocaleUpperCase('es'));
+    setText('p1-title', 'Repaso ' + label);
+    setText('p1HeroDescription', scope.description || fallbackDescription);
+    setText('p1LessonCount', String(lessonCount));
+    setText('p1QuestionCount', String(questionCount));
+    setText('p1SheetTabLabel', 'Ficha ' + label);
+    setText('p1PracticeTabLabel', 'Practicar ' + label);
+    setText('p1SheetEyebrow', 'FICHA ACUMULATIVA ' + label);
+    setText('p1-sheet-title', 'Todo el ' + label + ' por materia');
+    setText('p1ExamEyebrow', 'PRÁCTICA ' + label);
+
+    document.querySelectorAll('[data-partial-scope]').forEach(function (link) {
+      if (link.dataset.partialScope === activeScopeKey) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+
+    var notice = document.getElementById('p1ScopeNotice');
+    if (notice) {
+      notice.hidden = !scope.note;
+      notice.textContent = scope.note || '';
+    }
+
+    var topicRanking = document.getElementById('p1TopicRankingLink');
+    if (topicRanking) topicRanking.hidden = activeScopeKey === 'p2';
+
+    var bottom = document.getElementById('p1BottomPartial');
+    if (bottom) {
+      bottom.href = activeScopeKey === 'p2' ? '#p2' : 'p1.html';
+      bottom.setAttribute('aria-label', 'Repaso ' + label);
+      var bottomLabel = bottom.querySelector('strong');
+      if (bottomLabel) bottomLabel.textContent = label;
+    }
+    centerActiveBottomNavigation();
+  }
+
+  function activateScope(nextKey) {
+    var resolvedKey = nextKey === 'p2' && P2_SCOPE ? 'p2' : 'p1';
+    var nextScope = SCOPES[resolvedKey];
+    if (!nextScope) return;
+    if (scope.id === nextScope.id) {
+      activeScopeKey = resolvedKey;
+      applyScopeLabels();
+      return;
+    }
+
+    saveSession();
+    activeScopeKey = resolvedKey;
+    scope = nextScope;
+    STORAGE_KEY = storageKeyFor(scope);
+    state.selectedSubject = 'all';
+    state.activeView = 'exam';
+    state.session = readSession();
+    state.currentIndex = state.session ? Number(state.session.currentIndex) || 0 : 0;
+    applyScopeLabels();
+    renderSubjectRail();
+    renderExamFilters();
+    renderSheet();
+    updateStartButton();
+    switchView('exam');
+    if (state.session && state.session.completed) renderResults();
+    else showSetup();
   }
 
   function createSubjectButton(subjectId, label, symbol, accent) {
@@ -315,7 +454,7 @@
     var rail = document.getElementById('p1SubjectRail');
     if (!rail) return;
     rail.replaceChildren();
-    rail.appendChild(createSubjectButton('all', 'Todo P1', 'class-icon-p1', '#4cc9f0'));
+    rail.appendChild(createSubjectButton('all', 'Todo ' + scope.label, 'class-icon-p1', '#4cc9f0'));
     Object.keys(scope.subjects).forEach(function (subjectId) {
       var subject = scope.subjects[subjectId];
       rail.appendChild(createSubjectButton(subjectId, subject.shortLabel, subject.icon, subject.accent));
@@ -382,7 +521,7 @@
       });
       body.appendChild(keys);
     } else {
-      body.appendChild(el('p', '', 'Esta clase está incluida en el banco P1 y conserva su ficha completa dentro del cuaderno.'));
+      body.appendChild(el('p', '', 'Esta clase está incluida en el banco ' + scope.label + ' y conserva su ficha completa dentro del cuaderno.'));
     }
     var link = el('a', 'p1-lesson-source', 'Abrir la clase completa →');
     link.href = 'clase.html#' + academic.lesson.id;
@@ -399,7 +538,7 @@
     var header = el('header', 'p1-sheet-header');
     var copy = el('div');
     copy.appendChild(el('span', '', subject.statusLabel.toLocaleUpperCase('es')));
-    copy.appendChild(el('h3', '', subject.label + ' · P1'));
+    copy.appendChild(el('h3', '', subject.label + ' · ' + scope.label));
     copy.appendChild(el('p', '', 'Una sola ficha para conectar ' + subject.practiceIds.length + ' clase' + (subject.practiceIds.length === 1 ? '' : 's') + ' antes de practicar.'));
     header.appendChild(copy);
     var numbers = el('div', 'p1-sheet-numbers');
@@ -410,9 +549,11 @@
     if (subject.note) container.appendChild(el('p', 'p1-sheet-status', subject.note));
 
     var teacherBlock = el('section', 'p1-teacher-block');
-    var teacherRoute = createTeacherCard('Cómo razona ' + teacher.name, teacher.reasoningPath, true);
+    var reasoningPath = Array.isArray(subject.reasoningPath) && subject.reasoningPath.length ? subject.reasoningPath : teacher.reasoningPath;
+    var likelyExamTargets = Array.isArray(subject.likelyExamTargets) && subject.likelyExamTargets.length ? subject.likelyExamTargets : teacher.likelyExamTargets;
+    var teacherRoute = createTeacherCard('Cómo razona ' + teacher.name, reasoningPath, true);
     teacherRoute.prepend(el('span', '', 'RUTA DEL DOCENTE'));
-    var targets = createTeacherCard('Lo más probable para repasar', teacher.likelyExamTargets, false);
+    var targets = createTeacherCard('Lo más probable para repasar', likelyExamTargets, false);
     targets.prepend(el('span', '', 'OBJETIVOS E HIPÓTESIS'));
     teacherBlock.appendChild(teacherRoute);
     teacherBlock.appendChild(targets);
@@ -453,7 +594,8 @@
     container.replaceChildren();
     container.style.removeProperty('--subject-accent');
     if (state.selectedSubject === 'all') {
-      if (scopeLabel) scopeLabel.textContent = Object.keys(scope.subjects).length + ' materias';
+      var subjectCount = Object.keys(scope.subjects).length;
+      if (scopeLabel) scopeLabel.textContent = subjectCount + ' materia' + (subjectCount === 1 ? '' : 's');
       renderOverview(container);
     } else {
       if (scopeLabel) scopeLabel.textContent = scope.subjects[state.selectedSubject].statusLabel;
@@ -503,24 +645,56 @@
     return selected ? selected.value : String(scope.defaultLength);
   }
 
+  function selectedCorrectionMode() {
+    var selected = document.querySelector('input[name="p1-correction-mode"]:checked');
+    return normalizeCorrectionMode(selected && selected.value, 'training');
+  }
+
+  function startButtonLabel() {
+    return selectedCorrectionMode() === 'training' ? 'Empezar entrenamiento' : 'Empezar examen blanco';
+  }
+
+  function updateStartButton() {
+    var button = document.getElementById('p1StartExam');
+    if (button) button.textContent = startButtonLabel();
+  }
+
   function startExam() {
     var subjects = selectedExamSubjects();
     if (!subjects.length) {
       var button = document.getElementById('p1StartExam');
       button.textContent = 'Elige al menos una materia';
-      window.setTimeout(function () { button.textContent = 'Empezar simulacro'; }, 1800);
+      window.setTimeout(updateStartButton, 1800);
       return;
     }
     var lengthValue = selectedExamLength();
-    state.session = buildExam({ subjectIds: subjects, length: lengthValue === 'all' ? 'all' : Number(lengthValue), seed: newSeed() });
+    state.session = buildExam({
+      subjectIds: subjects,
+      length: lengthValue === 'all' ? 'all' : Number(lengthValue),
+      mode: selectedCorrectionMode(),
+      seed: newSeed()
+    });
     state.currentIndex = 0;
     saveSession();
     showSession();
   }
 
+  function isTrainingSession() {
+    return Boolean(state.session && state.session.mode === 'training');
+  }
+
+  function isQuestionValidated(item) {
+    return Boolean(state.session && state.session.validated && state.session.validated[item.id]);
+  }
+
+  function isQuestionAnswered(item) {
+    if (!state.session || !Number.isInteger(state.session.answers[item.id])) return false;
+    return !isTrainingSession() || isQuestionValidated(item);
+  }
+
   function answeredTotal() {
     if (!state.session) return 0;
-    return Object.keys(state.session.answers).filter(function (id) { return Number.isInteger(state.session.answers[id]); }).length;
+    return state.session.items.filter(isQuestionAnswered).length;
   }
 
   function refreshResume() {
@@ -532,7 +706,7 @@
       return;
     }
     resume.hidden = false;
-    document.getElementById('p1ResumeLabel').textContent = answeredTotal() + ' de ' + state.session.items.length + ' respondidas';
+    document.getElementById('p1ResumeLabel').textContent = MODE_LABELS[state.session.mode] + ' · ' + answeredTotal() + ' de ' + state.session.items.length + ' respondidas';
   }
 
   function showSetup() {
@@ -569,7 +743,7 @@
         button.type = 'button';
         button.setAttribute('aria-label', 'Pregunta ' + (questionIndex + 1));
         if (questionIndex === state.currentIndex) button.classList.add('is-current');
-        if (Number.isInteger(state.session.answers[item.id])) button.classList.add('is-answered');
+        if (isQuestionAnswered(item)) button.classList.add('is-answered');
         button.addEventListener('click', function () {
           state.currentIndex = questionIndex;
           saveSession();
@@ -582,6 +756,46 @@
     if (currentDot) currentDot.scrollIntoView({ inline: 'center', block: 'nearest' });
   }
 
+  function appendImmediateCorrection(host, item) {
+    var selected = state.session.answers[item.id];
+    var isCorrect = selected === item.correctIndex;
+    var feedback = el('details', 'p1-review-item' + (isCorrect ? ' is-correct' : ''));
+    feedback.open = true;
+    var summary = el('summary');
+    summary.appendChild(el('span', 'p1-review-state', isCorrect ? '✓' : '×'));
+    summary.appendChild(el('strong', 'p1-review-title', isCorrect ? 'Respuesta correcta' : 'Respuesta incorrecta'));
+    summary.appendChild(el('b', '', 'CORRECCIÓN'));
+    feedback.appendChild(summary);
+    var body = el('div', 'p1-review-body');
+    var correctAnswer = el('p');
+    correctAnswer.appendChild(el('strong', '', 'Respuesta correcta: '));
+    correctAnswer.appendChild(document.createTextNode(item.options[item.correctIndex].text));
+    body.appendChild(correctAnswer);
+    var explanation = el('p');
+    explanation.appendChild(el('strong', '', 'Por qué: '));
+    explanation.appendChild(document.createTextNode(item.explanation));
+    body.appendChild(explanation);
+    feedback.appendChild(body);
+    host.appendChild(feedback);
+  }
+
+  function updateQuestionNavigation() {
+    if (!state.session) return;
+    var item = state.session.items[state.currentIndex];
+    var previous = document.getElementById('p1PreviousQuestion');
+    var next = document.getElementById('p1NextQuestion');
+    var total = state.session.items.length;
+    previous.disabled = state.currentIndex === 0;
+    if (isTrainingSession() && !isQuestionValidated(item)) {
+      var hasSelection = Number.isInteger(state.session.answers[item.id]);
+      next.disabled = !hasSelection;
+      next.textContent = hasSelection ? 'Comprobar respuesta' : 'Elige una respuesta';
+      return;
+    }
+    next.disabled = false;
+    next.textContent = state.currentIndex === total - 1 ? 'Ir a pendiente →' : 'Siguiente →';
+  }
+
   function renderQuestion() {
     var item = state.session.items[state.currentIndex];
     var host = document.getElementById('p1Question');
@@ -592,9 +806,26 @@
     meta.appendChild(el('span', '', item.subjectLabel + ' · ' + item.lessonDate + ' · ' + TYPE_LABELS[item.type]));
     meta.appendChild(el('b', '', item.teacherAngleLabel));
     host.appendChild(meta);
+    if (item.imageSrc) {
+      var media = el('figure', 'p1-question-media');
+      var mediaLink = el('a');
+      var mediaImage = el('img');
+      mediaLink.href = item.imageSrc;
+      mediaLink.target = '_blank';
+      mediaLink.rel = 'noopener';
+      mediaLink.setAttribute('aria-label', 'Ampliar imagen de la clase');
+      mediaImage.src = item.imageSrc;
+      mediaImage.alt = item.imageAlt || ('Material visual de ' + item.lessonTitle);
+      mediaImage.decoding = 'async';
+      mediaLink.appendChild(mediaImage);
+      media.appendChild(mediaLink);
+      media.appendChild(el('figcaption', '', 'Imagen de la clase · toca para ampliar'));
+      host.appendChild(media);
+    }
     if (item.scenario) host.appendChild(el('p', 'p1-scenario', item.scenario));
     host.appendChild(el('h3', '', item.prompt));
     var options = el('div', 'p1-options');
+    var answerLocked = isTrainingSession() && isQuestionValidated(item);
     item.options.forEach(function (option, optionIndex) {
       var label = el('label', 'p1-option');
       var input = el('input');
@@ -602,10 +833,15 @@
       input.name = 'p1-answer';
       input.value = String(optionIndex);
       input.checked = state.session.answers[item.id] === optionIndex;
+      input.disabled = answerLocked;
+      if (answerLocked && optionIndex === item.correctIndex) label.classList.add('is-correct-answer');
+      if (answerLocked && optionIndex === state.session.answers[item.id] && optionIndex !== item.correctIndex) label.classList.add('is-wrong-answer');
       input.addEventListener('change', function () {
+        if (answerLocked) return;
         state.session.answers[item.id] = optionIndex;
         saveSession();
         updateSessionProgress();
+        updateQuestionNavigation();
         renderDots();
       });
       var copy = el('span');
@@ -616,10 +852,10 @@
       options.appendChild(label);
     });
     host.appendChild(options);
+    if (answerLocked) appendImmediateCorrection(host, item);
     document.getElementById('p1QuestionPosition').textContent = 'Pregunta ' + (state.currentIndex + 1) + ' de ' + total;
-    document.getElementById('p1PreviousQuestion').disabled = state.currentIndex === 0;
-    document.getElementById('p1NextQuestion').textContent = state.currentIndex === total - 1 ? 'Ir a pendiente →' : 'Siguiente →';
     updateSessionProgress();
+    updateQuestionNavigation();
     renderDots();
   }
 
@@ -631,13 +867,23 @@
     progress.max = total;
     progress.value = answered;
     progress.textContent = answered + ' de ' + total;
-    document.getElementById('p1FinishExam').disabled = answered !== total;
+    var finish = document.getElementById('p1FinishExam');
+    finish.disabled = answered !== total;
+    finish.textContent = isTrainingSession() ? 'Ver resumen' : 'Ver resultado';
   }
 
   function nextQuestion() {
+    var current = state.session.items[state.currentIndex];
+    if (isTrainingSession() && !isQuestionValidated(current)) {
+      if (!Number.isInteger(state.session.answers[current.id])) return;
+      state.session.validated[current.id] = true;
+      saveSession();
+      renderQuestion();
+      return;
+    }
     if (state.currentIndex < state.session.items.length - 1) state.currentIndex += 1;
     else {
-      var unanswered = state.session.items.findIndex(function (item) { return !Number.isInteger(state.session.answers[item.id]); });
+      var unanswered = state.session.items.findIndex(function (item) { return !isQuestionAnswered(item); });
       if (unanswered >= 0) state.currentIndex = unanswered;
     }
     saveSession();
@@ -698,7 +944,7 @@
     ring.style.setProperty('--score-color', percent >= 70 ? 'var(--p1-green)' : percent >= 50 ? 'var(--p1-gold)' : 'var(--p1-red)');
     hero.appendChild(ring);
     var copy = el('div');
-    copy.appendChild(el('span', '', 'RESULTADO DEL SIMULACRO'));
+    copy.appendChild(el('span', '', isTrainingSession() ? 'RESUMEN DEL ENTRENAMIENTO' : 'RESULTADO DEL EXAMEN BLANCO'));
     copy.appendChild(el('h3', '', results.correct + ' respuestas correctas de ' + results.total));
     copy.appendChild(el('p', '', 'El resultado se separa por materia, formato y ángulo docente para mostrar dónde conviene volver a la ficha.'));
     hero.appendChild(copy);
@@ -714,7 +960,7 @@
     audit.lastChild.appendChild(el('b', '', String(state.session.deduplication.removed)));
     audit.appendChild(el('div', 'p1-result-row'));
     audit.lastChild.appendChild(el('strong', '', 'Corrección mostrada'));
-    audit.lastChild.appendChild(el('b', '', 'Solo ahora'));
+    audit.lastChild.appendChild(el('b', '', isTrainingSession() ? 'Después de cada respuesta' : 'Solo al finalizar'));
     grid.appendChild(audit);
     host.appendChild(grid);
 
@@ -749,10 +995,10 @@
     host.appendChild(review);
 
     var actions = el('div', 'p1-result-actions');
-    var again = el('button', '', 'Nuevo simulacro');
+    var again = el('button', '', isTrainingSession() ? 'Nuevo entrenamiento' : 'Nuevo examen blanco');
     again.type = 'button';
     again.addEventListener('click', function () { removeSession(); showSetup(); });
-    var sheet = el('button', '', 'Volver a la ficha P1');
+    var sheet = el('button', '', 'Volver a la ficha ' + scope.label);
     sheet.type = 'button';
     sheet.addEventListener('click', function () { switchView('sheet'); });
     actions.appendChild(again); actions.appendChild(sheet); host.appendChild(actions);
@@ -774,12 +1020,16 @@
     document.querySelectorAll('[data-p1-view]').forEach(function (button) {
       button.addEventListener('click', function () { switchView(button.dataset.p1View); });
     });
+    document.querySelectorAll('input[name="p1-correction-mode"]').forEach(function (input) {
+      input.addEventListener('change', updateStartButton);
+    });
     document.getElementById('p1StartExam').addEventListener('click', startExam);
     document.getElementById('p1ResumeButton').addEventListener('click', function () { showSession(); });
     document.getElementById('p1PreviousQuestion').addEventListener('click', previousQuestion);
     document.getElementById('p1NextQuestion').addEventListener('click', nextQuestion);
     document.getElementById('p1FinishExam').addEventListener('click', finishExam);
     document.getElementById('p1ExitExam').addEventListener('click', function () { saveSession(); showSetup(); });
+    window.addEventListener('hashchange', function () { activateScope(scopeKeyFromHash()); });
   }
 
   function init() {
@@ -787,13 +1037,11 @@
       window.MedNykutoTeacherQuestionProfile.apply();
     }
     practice = window.MedNykutoClassPractice || practice;
-    var rawQuestions = collectQuestions(Object.keys(scope.subjects), false);
-    var lessonCount = Object.keys(scope.subjects).reduce(function (total, subjectId) { return total + scope.subjects[subjectId].practiceIds.length; }, 0);
-    document.getElementById('p1LessonCount').textContent = String(lessonCount);
-    document.getElementById('p1QuestionCount').textContent = String(rawQuestions.length);
+    applyScopeLabels();
     renderSubjectRail();
     renderExamFilters();
     renderSheet();
+    updateStartButton();
     state.session = readSession();
     if (state.session && state.session.completed) renderResults();
     else showSetup();
@@ -801,16 +1049,41 @@
     document.documentElement.classList.add('p1-ready');
   }
 
+  function createScopeApi(targetScope) {
+    return {
+      scope: targetScope,
+      collectQuestions: function (subjectIds, shouldDedupe) {
+        return collectQuestions(subjectIds, shouldDedupe, targetScope);
+      },
+      buildExam: function (options) {
+        return buildExam(options, targetScope);
+      },
+      storageKey: storageKeyFor(targetScope),
+      getSession: function () {
+        return targetScope.id === scope.id ? state.session : readSessionFor(targetScope);
+      },
+      clearSession: function () { clearScopeSession(targetScope); },
+      deduplication: function () {
+        return deduplicationByScopeId[targetScope.id] || { raw: 0, unique: 0, removed: 0 };
+      }
+    };
+  }
+
   flattenAcademicModel();
 
-  window.MedNykutoP1 = {
-    scope: scope,
-    collectQuestions: collectQuestions,
-    buildExam: buildExam,
-    storageKey: STORAGE_KEY,
-    getSession: function () { return state.session; },
-    clearSession: removeSession,
-    deduplication: function () { return lastDeduplication; }
+  var p1Api = createScopeApi(P1_SCOPE);
+  var p2Api = P2_SCOPE ? createScopeApi(P2_SCOPE) : null;
+  window.MedNykutoP1 = p1Api;
+  if (p2Api) window.MedNykutoP2 = p2Api;
+  window.MedNykutoPartialReview = {
+    scopes: { p1: p1Api, p2: p2Api },
+    getActiveScope: function () { return scope; },
+    selectScope: function (key) {
+      var selectedKey = key === 'p2' && P2_SCOPE ? 'p2' : 'p1';
+      var targetHash = '#' + selectedKey;
+      if (window.location.hash === targetHash) activateScope(selectedKey);
+      else window.location.hash = targetHash;
+    }
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });

@@ -67,9 +67,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.locator('[data-course-target="fisiologia"]').click();
     await expect(page.locator('#nutricion')).toBeHidden();
     await expect(page.locator('#fisiologia')).toBeVisible();
-    await expect(page.locator('#fisiologia-2026-08-24')).toBeVisible();
-    await expect(page.locator('#fisiologia-2026-08-20')).toBeHidden();
-    await expect(page.locator('#practice-fisiologia-2026-08-24')).toContainText('40 preguntas');
+    await expect(page.locator('#fisiologia-2026-08-27')).toBeVisible();
+    await expect(page.locator('#fisiologia-2026-08-24')).toBeHidden();
+    await expect(page.locator('#practice-fisiologia-2026-08-27')).toContainText('40 preguntas');
   });
 
   test('opens the selected subject directly in its notebook without a duplicate shortcut', async ({ page }) => {

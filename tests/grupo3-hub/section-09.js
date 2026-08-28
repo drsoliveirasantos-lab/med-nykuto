@@ -37,7 +37,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('offers exactly 20 QCM, 10 true-false and 10 clinical cases for every dated course', async ({ page }) => {
     await page.goto('/clase.html#nutricion');
-    await expect(page.locator('[data-practice-root]')).toHaveCount(18);
+    await expect(page.locator('[data-practice-root]')).toHaveCount(21);
     const everyBankHasForty = await page.locator('[data-practice-root]').evaluateAll((roots) => roots.every((root) => {
       const counts = Array.from(root.querySelectorAll('.practice-counts strong')).map((node) => Number(node.textContent));
       return counts.join(',') === '20,10,10';

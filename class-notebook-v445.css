@@ -447,3 +447,87 @@ html[data-theme="light"] .notebook-file-meta time{color:var(--muted)}
 html[data-theme="light"] .notebook-file-badge-drive{color:#075b75;background:#e7f4f8;border-color:rgba(0,107,143,.24)}
 html[data-theme="light"] .notebook-file-badge-recent{color:#075f45;background:#e8f7f0;border-color:rgba(8,127,91,.24)}
 @media(max-width:540px){.notebook-file-row{height:54px;min-height:54px;grid-template-columns:42px minmax(0,1fr) auto;gap:7px;padding:4px 8px}.notebook-file-copy>strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.notebook-file-meta{gap:3px}.notebook-file-badge{min-height:17px;padding-inline:4px}}
+
+/* v494 — fotos y galerías compactas de las clases del 27 de agosto. */
+.course-photo-gallery-figure,
+.course-photo-gallery-figure.is-wide{
+  width:min(100%,760px);
+  max-width:760px;
+  float:none;
+  clear:both;
+  margin:12px auto 14px
+}
+.course-photo-gallery-rail{
+  display:grid;
+  grid-auto-flow:column;
+  grid-auto-columns:clamp(126px,22%,158px);
+  gap:7px;
+  width:100%;
+  padding:7px;
+  overflow-x:auto;
+  overscroll-behavior-inline:contain;
+  scroll-snap-type:inline mandatory;
+  scrollbar-color:color-mix(in srgb,var(--lesson-accent,var(--notebook-cyan)) 52%,#9aa7b1) transparent;
+  scrollbar-width:thin;
+  -webkit-overflow-scrolling:touch
+}
+.course-photo-card{
+  min-width:0;
+  padding:3px;
+  border:1px solid rgba(52,65,76,.17);
+  border-radius:9px;
+  background:#fffdf8;
+  color:#27343e;
+  box-shadow:0 4px 12px rgba(30,40,48,.08);
+  cursor:zoom-in;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+  text-align:left
+}
+.course-photo-card:focus-visible{
+  outline:3px solid color-mix(in srgb,var(--lesson-accent,var(--notebook-cyan)) 58%,white);
+  outline-offset:2px
+}
+.course-photo-card img{
+  display:block;
+  width:100%;
+  aspect-ratio:4/3;
+  border-radius:6px;
+  background:#edf1f2;
+  object-fit:cover
+}
+.course-photo-card span{
+  display:-webkit-box;
+  min-height:2.45em;
+  margin:4px 3px 2px;
+  overflow:hidden;
+  color:#2b3740;
+  font:800 .54rem/1.22 system-ui;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2
+}
+.course-diagram-dialog.is-course-photo .course-diagram-dialog-stage{background:#07131d}
+.course-diagram-dialog.is-course-photo:not(.is-zoomed) .course-diagram-dialog-stage .course-inline-image{object-fit:contain}
+
+@media(max-width:540px){
+  .course-photo-gallery-figure,
+  .course-photo-gallery-figure.is-wide,
+  .course-photo-gallery-figure.is-summary{
+    width:100%;
+    max-width:100%;
+    float:none;
+    clear:both;
+    margin:7px auto 9px
+  }
+  .course-photo-gallery-rail{
+    grid-auto-columns:clamp(102px,32vw,124px);
+    gap:5px;
+    padding:5px
+  }
+  .course-photo-card{padding:2px;border-radius:7px}
+  .course-photo-card img{border-radius:5px}
+  .course-photo-card span{margin:3px 2px 1px;font-size:.47rem}
+  .course-photo-gallery-figure figcaption{padding:4px 6px 5px}
+  .course-photo-gallery-figure figcaption span{display:none}
+  .course-photo-gallery-figure figcaption small{font-size:.4rem}
+}

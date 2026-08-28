@@ -74,7 +74,9 @@ export async function onRequestGet({ request, env }) {
     shortcuts: [
       { name: 'Tareas', short_name: 'Tareas', url: `${start}#tareas` },
       { name: 'Materias', short_name: 'Materias', url: `${start}#materias` },
-      { name: 'Estudiar', short_name: 'Estudiar', url: `${start}#estudiar` }
+      classInfo.slug === 's4-e'
+        ? { name: 'Entrenamiento', short_name: 'P1', url: '/p1.html' }
+        : { name: 'Entrenamiento', short_name: 'Entrenar', url: `${start}#estudiar` }
     ]
   };
 

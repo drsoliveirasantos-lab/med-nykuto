@@ -12,6 +12,32 @@ const microClinicalPreviews = [
   path.join(microClinicalDir, 'eumicetoma-casos-preview.webp'),
   path.join(microClinicalDir, 'candidiasis-atlas-preview.webp')
 ];
+const datedLessonVisuals = Object.freeze({
+  'nutricion-2026-08-27': [
+    'nutrition-hidden-claims.webp',
+    'nutrition-protein-marketing.webp'
+  ],
+  'fisiologia-2026-08-27': [
+    'physiology-somatic-sensitivities-source.svg'
+  ],
+  'microbiologia-practica-2026-08-27': [
+    'micro-arthroconidia.webp',
+    'micro-aspergillus-fumigatus.webp',
+    'micro-candida-albicans.webp',
+    'micro-case-aspergillosis.webp',
+    'micro-case-candidemia.webp',
+    'micro-cryptococcus-neoformans.webp',
+    'micro-cryptococcus.webp',
+    'micro-mucor.webp',
+    'micro-mycelium.webp',
+    'micro-penicillium.webp',
+    'micro-rhizopus.webp',
+    'micro-spores-conidia-a.webp',
+    'micro-spores-conidia-b.webp'
+  ]
+});
+const datedVisualDir = path.join(root, 'assets', 'courses', '2026-08-27');
+const physiologyDiagram = fs.readFileSync(path.join(datedVisualDir, 'physiology-somatic-sensitivities-source.svg'), 'utf8');
 const bioBoardDir = path.join(root, 'assets', 'class-hub', 'biochemistry', '2026-08-21', 'board');
 const bioBoards = [
   fs.readFileSync(path.join(bioBoardDir, '01-deficit-insulina.svg'), 'utf8'),
@@ -22,6 +48,7 @@ const errors = [];
 
 global.window = {};
 require(path.join(root, 'academic-model-v445.js'));
+require(path.join(root, 'academic-model-2026-08-27-v494.js'));
 const model = global.window.MedNykutoAcademicModel;
 delete global.window;
 
@@ -36,11 +63,11 @@ if (model) {
   const lessons = [];
   const practiceIds = new Set();
 
-  expect(model.version === 'v445', 'Academic model version must be v445.');
+  expect(model.version === 'v494', 'Academic model version must include the 27 August v494 extension.');
   expect(teacherIds.length === 6, `Expected 6 teacher profiles, found ${teacherIds.length}.`);
   expect(subjectIds.length === 6, `Expected 6 subjects, found ${subjectIds.length}.`);
   expect(/id="teacherProfiles"/.test(teacherHtml), 'Teacher audit page is not model-driven.');
-  expect(/academic-model-v445\.js/.test(html) && /class-notebook-v445\.js/.test(html), 'Class page does not load the academic notebook model.');
+  expect(/academic-model-v445\.js/.test(html) && /academic-model-2026-08-27-v494\.js/.test(html) && /class-notebook-v445\.js/.test(html), 'Class page does not load the base academic model, its 27 August extension and the academic notebook.');
   expect(!/class="class-drive-card"/.test(html), 'Drive is still duplicated inside Materias.');
   expect((html.match(/data-class-drive-link/g) || []).length === 1, 'Drive must appear exactly once, on Home.');
   expect(!/data-view-link="plan"/.test(html), 'Completed seminar plan is still in primary navigation.');
@@ -74,11 +101,20 @@ if (model) {
     });
   });
 
-  expect(lessons.length === 18, `Expected 18 lesson dates/blocks, found ${lessons.length}.`);
+  expect(lessons.length === 21, `Expected 21 lesson dates/blocks, found ${lessons.length}.`);
   const previousEpidemiology = lessons.find((entry) => entry.lesson.id === 'epidemiologia-bloque-anterior');
   expect(previousEpidemiology && previousEpidemiology.lesson.dateLong === '12 de agosto de 2026' && previousEpidemiology.lesson.status === 'confirmed', 'The previous Epidemiology lesson must be confirmed as 12 August 2026.');
-  expect(practiceIds.size === 18, `Expected 18 unique practice mappings, found ${practiceIds.size}.`);
-  expect(Object.keys(model.narratives || {}).length === 11, `Expected 11 generated legacy narratives, found ${Object.keys(model.narratives || {}).length}.`);
+  Object.keys(datedLessonVisuals).forEach((lessonId) => {
+    const datedLesson = lessons.find((entry) => entry.lesson.id === lessonId);
+    expect(Boolean(datedLesson), `${lessonId}: the confirmed 27 August lesson is missing from the academic model.`);
+    if (datedLesson) {
+      expect(datedLesson.lesson.dateLong === '27 de agosto de 2026', `${lessonId}: the dated lesson must remain attached to 27 August 2026.`);
+      expect(datedLesson.lesson.status === 'confirmed', `${lessonId}: the dated lesson must remain confirmed.`);
+      expect(datedLesson.lesson.practiceId === lessonId, `${lessonId}: the dated lesson must map to its exact practice bank.`);
+    }
+  });
+  expect(practiceIds.size === 21, `Expected 21 unique practice mappings, found ${practiceIds.size}.`);
+  expect(Object.keys(model.narratives || {}).length === 14, `Expected 14 generated narratives after the 27 August extension, found ${Object.keys(model.narratives || {}).length}.`);
   expect(!lessons.some((entry) => entry.subjectId === 'nutricion' && /2026-08-20/.test(entry.lesson.id)), 'A false Nutrition theory class was created for 20 August.');
   expect(/Ficha rápida/.test(notebookJs) && /Ficha ultra rápida/.test(notebookJs), 'Notebook tabs do not use the canonical study-format labels.');
   expect(/standardizeLessonTabs/.test(notebookJs), 'Notebook does not standardize the tab bar across old and new lessons.');
@@ -91,6 +127,9 @@ if (model) {
   expect(/PIZARRA DEL PROFESOR · RECONSTRUIDA/.test(notebookJs), 'Teacher-board provenance is not explicit in the enlarged viewer.');
   expect(/ESQUEMA EXPLICATIVO DEL CURSO/.test(notebookJs), 'Contextual diagrams are not distinguished from teacher boards.');
   expect(/course-diagram-zoom/.test(notebookJs) && /course-diagram-zoom/.test(notebookCss), 'The teacher-board reader is not zoomable on mobile.');
+  expect(/RECONSTRUCCIÓN LIMPIA/.test(physiologyDiagram), 'The 27 August physiology diagram must identify itself as a clean reconstruction.');
+  expect(/Terminaciones nerviosas/.test(physiologyDiagram) && !/TÉRMINOS NERVIOSOS|AFFERENTES|\bSLOW\b|\bFAST\b/.test(physiologyDiagram), 'The reviewed physiology diagram contains a stale or incorrect label.');
+  expect(/function diagramVisual\(definition\)\s*{\s*if \(!definition\.src\) return diagramSvg/.test(notebookJs), 'Source-backed explanatory diagrams must render their reviewed image instead of a generated fallback.');
   expect(fs.existsSync(microClinicalPdf), 'The optimized 24 August Microbiology clinical PDF is missing.');
   if (fs.existsSync(microClinicalPdf)) {
     const pdfSize = fs.statSync(microClinicalPdf).size;
@@ -112,8 +151,20 @@ if (model) {
   lessons.forEach(({ lesson }) => {
     const narrative = model.narratives[lesson.id];
     const staticPanel = new RegExp(`id=["']${lesson.id}["'][\\s\\S]{0,2400}data-lesson-tabs`).test(html);
+    const notebookVisual = new RegExp(`['"]${lesson.id}['"]\\s*:`).test(notebookJs);
+    const datedVisuals = datedLessonVisuals[lesson.id] || [];
     expect(Boolean(narrative) || staticPanel, `${lesson.id}: neither a generated narrative nor a static full-course narrative exists.`);
-    expect(new RegExp(`['"]${lesson.id}['"]\\s*:`).test(notebookJs), `${lesson.id}: no contextual inline diagram is registered.`);
+    expect(notebookVisual, `${lesson.id}: no contextual inline diagram is registered.`);
+    datedVisuals.forEach((filename) => {
+      const visualPath = path.join(datedVisualDir, filename);
+      expect(fs.existsSync(visualPath), `${lesson.id}: dated visual is missing: ${filename}.`);
+      expect(notebookJs.includes(`assets/courses/2026-08-27/${filename}`), `${lesson.id}: dated visual is not wired into the notebook: ${filename}.`);
+      if (fs.existsSync(visualPath)) {
+        const size = fs.statSync(visualPath).size;
+        const minimumSize = path.extname(filename) === '.svg' ? 4000 : 8000;
+        expect(size >= minimumSize && size <= 1000000, `${lesson.id}: ${filename} must remain between ${minimumSize / 1000} KB and 1 MB; found ${size} bytes.`);
+      }
+    });
     if (narrative) {
       expect(narrative.lead.length >= 120, `${lesson.id}: narrative lead is too short.`);
       expect(narrative.sections.length >= 6, `${lesson.id}: narrative needs at least 6 sequential sections.`);
@@ -131,4 +182,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Academic model validation OK: 6 subjects, 6 teacher audits, 18 lesson mappings, 18 contextual diagram mappings, 11 generated legacy narratives, no false Nutrition class and no duplicate Drive/Plan navigation.');
+console.log('Academic model validation OK: 6 subjects, 6 teacher audits, 21 lesson mappings, 21 contextual diagram mappings including 3 dated visual packs (16 wired assets), 14 generated narratives, no false Nutrition class and no duplicate Drive/Plan navigation.');

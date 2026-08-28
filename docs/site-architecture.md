@@ -67,8 +67,19 @@ content. Only anonymously verified files may be present, and records carrying a
 Its versioned lesson allowlist lives in `p1-s4-e-v1.js`, while
 `class-p1-v1.js` builds fiches and exam attempts from the existing dated S4
 banks. It must not reuse the legacy S3 `examen.html` bank, write ordinary class
-practice progress, or post to the community ranking. Run
+practice progress, or post to the community ranking. Its practice surface has
+two durable session modes: `training` locks and explains each answer after the
+student explicitly checks it, while `exam` withholds all correction until the
+final result. The practice surface is the mobile default; the cumulative sheet
+remains one tap away. Run
 `scripts/validate-p1-s4.js` whenever its scope or runtime changes.
+
+### 4.º E notice presentation
+
+Home renders only compact important-notice previews: existing image plus title,
+with no body or metadata. Each preview deep-links to the exact full notice in
+`#avisos`. The Avisos view keeps the complete text, filters and attachments,
+but constrains poster images inside visible lateral margins on phones.
 
 ### App bundle source
 

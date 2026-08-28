@@ -7,16 +7,17 @@ test.describe('P1 cumulative review', () => {
   });
 
   test('shows a compact cumulative sheet for all six subjects', async ({ page }) => {
-    await expect(page.getByRole('heading', { name: 'Repaso P1' })).toBeVisible();
-    await expect(page.locator('#p1LessonCount')).toHaveText('18');
-    await expect(page.locator('#p1QuestionCount')).toHaveText('720');
+    await expect(page.getByRole('heading', { name: 'Repaso P1' })).toHaveCount(1);
+    await expect(page.locator('#p1LessonCount')).toHaveText('17');
+    await expect(page.locator('#p1QuestionCount')).toHaveText('680');
+    await page.getByRole('button', { name: /Ficha P1/ }).click();
     await expect(page.locator('.p1-subject-card')).toHaveCount(6);
-    await expect(page.locator('.p1-bottom-nav a')).toHaveCount(7);
+    await expect(page.locator('.p1-bottom-nav a')).toHaveCount(6);
 
     await page.getByRole('button', { name: /Nutrición/ }).first().click();
     await expect(page.getByRole('heading', { name: 'Nutrición · P1' })).toBeVisible();
-    await expect(page.locator('.p1-lesson')).toHaveCount(1);
-    await expect(page.getByText('La forma exacta del examen todavía no fue observada.')).toBeVisible();
+    await expect(page.locator('.p1-lesson')).toHaveCount(2);
+    await expect(page.getByText(/trabajadas hasta el 27 de agosto/)).toBeVisible();
     await expect(page.getByRole('link', { name: /Introducción al estudio nutricional/ })).toHaveAttribute('href', /drive\.google\.com/);
   });
 
@@ -41,18 +42,69 @@ test.describe('P1 cumulative review', () => {
     expect(audit.types).toEqual({ qcm: 20, vf: 10, cases: 10 });
     expect(audit.subjects).toHaveLength(6);
     expect(audit.uniqueIds).toBe(40);
-    expect(audit.deduplication.raw).toBe(720);
+    expect(audit.deduplication.raw).toBe(680);
     expect(audit.deduplication.removed).toBeGreaterThan(0);
   });
 
-  test('hides correction until completion and resumes the same attempt', async ({ page }) => {
+  test('keeps the P1 physiology sheet respiratory-only', async ({ page }) => {
+    await page.getByRole('button', { name: /Ficha P1/ }).click();
+    await page.locator('.p1-subject-card').filter({ hasText: 'Fisiología II' }).click();
+    await expect(page.locator('.p1-teacher-block')).toContainText('Ley de Fick');
+    await expect(page.locator('.p1-teacher-block')).toContainText('gasometría');
+    await expect(page.locator('.p1-teacher-block')).not.toContainText('Sinapsis');
+    await expect(page.locator('.p1-teacher-block')).not.toContainText('Transducción');
+  });
+
+  test('keeps the visual microbiology material inside P1', async ({ page }) => {
+    const visual = await page.evaluate(() => {
+      const exam = window.MedNykutoP1.buildExam({ seed: 20260827, subjectIds: ['microbiologia-practica'], length: 40 });
+      return exam.items.filter((item) => item.imageSrc).map((item) => item.imageSrc);
+    });
+    expect(visual.length).toBeGreaterThan(0);
+    expect(visual.every((src) => src.startsWith('assets/courses/2026-08-27/'))).toBe(true);
+  });
+
+  test('shows and preserves immediate correction in training mode', async ({ page }) => {
     let communityPosts = 0;
     page.on('request', (request) => {
       if (request.method() === 'POST' && request.url().includes('/api/community')) communityPosts += 1;
     });
-    await page.getByRole('button', { name: /Examen blanco/ }).click();
-    await page.getByRole('button', { name: 'Empezar simulacro' }).click();
+    await expect(page.getByLabel('Entrenamiento · corrección inmediata')).toBeChecked();
+    await expect(page.getByRole('button', { name: 'Empezar entrenamiento' })).toBeVisible();
+    await page.getByRole('button', { name: 'Empezar entrenamiento' }).click();
     await expect(page.locator('#p1QuestionPosition')).toHaveText('Pregunta 1 de 40');
+    expect(await page.evaluate(() => window.MedNykutoP1.getSession().mode)).toBe('training');
+
+    await page.locator('.p1-option').first().click();
+    await expect(page.locator('.p1-review-body')).toHaveCount(0);
+    await expect(page.locator('#p1AnsweredCount')).toHaveText('0 respondidas');
+    await page.getByRole('button', { name: 'Comprobar respuesta' }).click();
+    await expect(page.locator('#p1Question input[name="p1-answer"]').first()).toBeDisabled();
+    await expect(page.locator('#p1Question .p1-option.is-correct-answer')).toHaveCount(1);
+    await expect(page.locator('#p1Question .p1-review-body')).toContainText('Respuesta correcta:');
+    await expect(page.locator('#p1Question .p1-review-body')).toContainText('Por qué:');
+    await expect(page.locator('#p1AnsweredCount')).toHaveText('1 respondida');
+
+    await page.getByRole('button', { name: 'Salir y continuar después' }).click();
+    await expect(page.locator('#p1ResumeLabel')).toContainText('Entrenamiento · 1 de 40');
+    await page.reload();
+    await expect(page.locator('html')).toHaveClass(/p1-ready/);
+    await page.getByRole('button', { name: 'Continuar' }).click();
+    expect(await page.evaluate(() => window.MedNykutoP1.getSession().mode)).toBe('training');
+    await expect(page.locator('#p1Question input[name="p1-answer"]').first()).toBeDisabled();
+    await expect(page.locator('#p1Question .p1-review-body')).toContainText('Por qué:');
+    expect(communityPosts).toBe(0);
+  });
+
+  test('hides correction in exam mode until completion and resumes the same attempt', async ({ page }) => {
+    let communityPosts = 0;
+    page.on('request', (request) => {
+      if (request.method() === 'POST' && request.url().includes('/api/community')) communityPosts += 1;
+    });
+    await page.getByLabel('Examen blanco · corrección al final').check();
+    await page.getByRole('button', { name: 'Empezar examen blanco' }).click();
+    await expect(page.locator('#p1QuestionPosition')).toHaveText('Pregunta 1 de 40');
+    expect(await page.evaluate(() => window.MedNykutoP1.getSession().mode)).toBe('exam');
     await expect(page.locator('.p1-review-body')).toHaveCount(0);
     await expect(page.locator('#p1Question')).not.toContainText('Por qué:');
 
@@ -62,7 +114,6 @@ test.describe('P1 cumulative review', () => {
     await expect(page.locator('#p1Resume')).toBeVisible();
     await page.reload();
     await expect(page.locator('html')).toHaveClass(/p1-ready/);
-    await page.getByRole('button', { name: /Examen blanco/ }).click();
     await page.getByRole('button', { name: 'Continuar' }).click();
     expect(await page.evaluate(() => window.MedNykutoP1.getSession().items[0].id)).toBe(firstId);
 
@@ -72,11 +123,10 @@ test.describe('P1 cumulative review', () => {
       localStorage.setItem(window.MedNykutoP1.storageKey, JSON.stringify(session));
     });
     await page.reload();
-    await page.getByRole('button', { name: /Examen blanco/ }).click();
     await page.getByRole('button', { name: 'Continuar' }).click();
     await expect(page.getByRole('button', { name: 'Ver resultado' })).toBeEnabled();
     await page.getByRole('button', { name: 'Ver resultado' }).click();
-    await expect(page.getByText('RESULTADO DEL SIMULACRO')).toBeVisible();
+    await expect(page.getByText('RESULTADO DEL EXAMEN BLANCO')).toBeVisible();
     await expect(page.locator('.p1-review-body').first()).toBeHidden();
     expect(communityPosts).toBe(0);
   });
@@ -89,6 +139,13 @@ test.describe('P1 cumulative review', () => {
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       expect(overflow).toBeLessThanOrEqual(1);
       await expect(page.locator('.p1-view-switch')).toBeVisible();
+      const activeNavigation = await page.locator('#p1BottomPartial').evaluate((active) => {
+        const navigation = active.closest('.p1-bottom-nav').getBoundingClientRect();
+        const item = active.getBoundingClientRect();
+        return { left: item.left - navigation.left, right: navigation.right - item.right };
+      });
+      expect(activeNavigation.left).toBeGreaterThanOrEqual(-1);
+      expect(activeNavigation.right).toBeGreaterThanOrEqual(-1);
     }
   });
 });

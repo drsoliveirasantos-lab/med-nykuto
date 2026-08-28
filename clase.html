@@ -16,8 +16,8 @@
   <script src="calendar-subscription-v485.js?v=485"></script>
   <link rel="stylesheet" href="grupo-3-v401.css?v=492" />
   <link rel="stylesheet" href="class-courses-2026-08-17-v432.css?v=433" />
-  <link rel="stylesheet" href="class-hub-2026-08-21-v440.css?v=492" />
-  <link rel="stylesheet" href="class-notebook-v445.css?v=465" />
+  <link rel="stylesheet" href="class-hub-2026-08-21-v440.css?v=493" />
+  <link rel="stylesheet" href="class-notebook-v445.css?v=494" />
   <link rel="stylesheet" href="help-desk-v479.css?v=480" />
   <link rel="stylesheet" href="public-theme-v485.css?v=486" />
 </head>
@@ -79,8 +79,7 @@
       <a href="#pendientes" data-view-link="pendientes"><span class="nav-icon"><svg><use href="#class-icon-task"></use></svg></span><strong>Tareas</strong><small>Ahora + anteriores</small></a>
       <a href="#avisos" data-view-link="avisos"><span class="nav-icon"><svg><use href="#class-icon-notice"></use></svg></span><strong>Avisos</strong><small>Información oficial</small></a>
       <a href="#materias" data-view-link="cursos"><span class="nav-icon"><svg><use href="#class-icon-book"></use></svg></span><strong>Materias</strong><small>6 materias</small></a>
-      <a href="p1.html"><span class="nav-icon"><svg><use href="#class-icon-p1"></use></svg></span><strong>P1</strong><small>Repaso + simulacro</small></a>
-      <a href="comunidade.html"><span class="nav-icon"><svg><use href="#class-icon-community"></use></svg></span><strong>Estudiar</strong><small>QCM + ranking</small></a>
+      <a href="p1.html"><span class="nav-icon"><svg><use href="#class-icon-p1"></use></svg></span><strong>P1</strong><small>Repaso + práctica</small></a>
     </nav>
 
     <section id="inicio" class="class-dashboard" data-view="inicio" aria-labelledby="class-title">
@@ -96,7 +95,7 @@
 
       <section id="classHomeNoticeSection" class="home-notice-section" aria-labelledby="classHomeNoticeTitle" hidden>
         <div class="home-notice-heading">
-          <div><span>INFORMACIÓN OFICIAL</span><h2 id="classHomeNoticeTitle">Avisos importantes vigentes</h2></div>
+          <div><span>INFORMACIÓN OFICIAL</span><h2 id="classHomeNoticeTitle">Avisos importantes</h2></div>
           <a href="#avisos">Ver todos</a>
         </div>
         <div id="classHomeNoticePreview" class="notice-preview-list" role="list" aria-label="Avisos importantes vigentes de la clase"></div>
@@ -548,12 +547,12 @@
         <p>Abre una materia y continúa directamente en su cuaderno.</p>
       </div>
       <div class="course-selector" aria-label="Materias disponibles">
-        <a href="#nutricion" data-course-target="nutricion" aria-current="true"><span class="course-icon"><svg><use href="#class-icon-nutrition"></use></svg></span><strong>Nutrición</strong><small>Leyes de la alimentación</small><b>13 AGO · EST.</b></a>
-        <a class="course-selector-latest" href="#fisiologia-2026-08-24" data-course-target="fisiologia"><span class="course-icon"><svg><use href="#class-icon-physiology"></use></svg></span><strong>Fisiología II</strong><small>Sensibilidades somáticas</small><b class="course-latest-chip">ÚLTIMA · 24 AGO</b></a>
+        <a class="course-selector-latest" href="#nutricion-2026-08-27" data-course-target="nutricion" aria-current="true"><span class="course-icon"><svg><use href="#class-icon-nutrition"></use></svg></span><strong>Nutrición</strong><small>Guías y etiquetado</small><b class="course-latest-chip">ÚLTIMA · 27 AGO</b></a>
+        <a class="course-selector-latest" href="#fisiologia-2026-08-27" data-course-target="fisiologia"><span class="course-icon"><svg><use href="#class-icon-physiology"></use></svg></span><strong>Fisiología II</strong><small>Vías sensitivas y lesiones</small><b class="course-latest-chip">ÚLTIMA · 27 AGO</b></a>
         <a class="course-selector-latest" href="#bioquimica-2026-08-26" data-course-target="bioquimica"><span class="course-icon"><svg><use href="#class-icon-biochemistry"></use></svg></span><strong>Bioquímica II</strong><small>Cori y pentosas</small><b class="course-latest-chip">ÚLTIMA · 26 AGO</b></a>
         <a class="course-selector-latest" href="#epidemiologia-2026-08-26" data-course-target="epidemiologia"><span class="course-icon"><svg><use href="#class-icon-epidemiology"></use></svg></span><strong>Epidemiología</strong><small>Casos de triaje</small><b class="course-latest-chip">ÚLTIMA · 26 AGO</b></a>
         <a class="course-selector-latest" href="#microbiologia-teorica-2026-08-24" data-course-target="microbiologia-teorica"><span class="course-icon"><svg><use href="#class-icon-microbiology"></use></svg></span><strong>Microbiología II</strong><small><span class="course-type-badge">TEÓRICA</span> Micosis y casos</small><b class="course-latest-chip">TEÓRICA · 24 AGO</b></a>
-        <a href="#microbiologia-practica" data-course-target="microbiologia-practica"><span class="course-icon"><svg><use href="#class-icon-lab"></use></svg></span><strong>Microbiología II</strong><small><span class="course-type-badge">PRÁCTICA</span> Diagnóstico micológico</small><b>20 AGO</b></a>
+        <a class="course-selector-latest" href="#microbiologia-practica-2026-08-27" data-course-target="microbiologia-practica"><span class="course-icon"><svg><use href="#class-icon-lab"></use></svg></span><strong>Microbiología II</strong><small><span class="course-type-badge">PRÁCTICA</span> Microscopía y casos</small><b class="course-latest-chip">PRÁCTICA · 27 AGO</b></a>
       </div>
       <button class="course-practice-shortcut" id="coursePracticeShortcut" type="button" hidden>
         <span class="course-practice-shortcut-icon" aria-hidden="true"><svg><use href="#class-icon-question"></use></svg></span>
@@ -566,11 +565,11 @@
     <section id="nutricion" class="content-section subject-section nutrition-subject" data-view="cursos" aria-labelledby="nutrition-title" hidden>
       <div class="subject-heading">
         <div>
-          <p class="section-kicker">Nutrición · última clase</p>
-          <h2 id="nutrition-title">Leyes de la alimentación y evaluación del paciente</h2>
-          <p>La sesión se estima el jueves 13 de agosto de 2026 por el horario recibido. La fecha no fue pronunciada y permanece por confirmar.</p>
+          <p class="section-kicker">Nutrición · clase del 27 de agosto</p>
+          <h2 id="nutrition-title">Guías alimentarias, etiquetado y lectura crítica</h2>
+          <p>Clase del jueves 27 de agosto de 2026: guías según la población, lectura de etiquetas, sellos frontales y evaluación crítica del marketing alimentario.</p>
         </div>
-        <span class="source-pill status-estimated">Clase estimada · 13 ago. · confirmar</span>
+        <span class="source-pill status-confirmed">Clase confirmada · 27 ago.</span>
       </div>
 
       <div class="class-history class-history-single" aria-label="Clases anteriores de Nutrición">
@@ -764,11 +763,11 @@
     <section id="fisiologia" class="content-section subject-section fisio-subject" data-view="cursos" aria-labelledby="fisio-title" hidden>
       <div class="subject-heading">
         <div>
-          <p class="section-kicker">Fisiología II · clase del 24 de agosto</p>
-          <h2 id="fisio-title">Sensibilidades somáticas</h2>
-          <p>Clase del lunes 24 de agosto de 2026: mecanorrecepción, propiocepción, dolor, temperatura, vías ascendentes y corteza somatosensitiva.</p>
+          <p class="section-kicker">Fisiología II · clase del 27 de agosto</p>
+          <h2 id="fisio-title">Vías sensitivas, decusación y localización de lesiones</h2>
+          <p>Clase del jueves 27 de agosto de 2026: receptores, fibras, columna dorsal, vía anterolateral, decusación y razonamiento clínico de las lesiones.</p>
         </div>
-        <span class="source-pill status-confirmed">Clase confirmada · 24 ago.</span>
+        <span class="source-pill status-confirmed">Clase confirmada · 27 ago.</span>
       </div>
 
       <nav class="class-history lesson-date-picker" aria-label="Elegir una clase de Fisiología II">
@@ -2081,11 +2080,11 @@
     <section id="microbiologia-practica" class="content-section subject-section micro-subject" data-view="cursos" aria-labelledby="micro-title" hidden>
       <div class="subject-heading">
         <div>
-          <p class="section-kicker">Microbiología II · Práctica · 20 de agosto</p>
-          <h2 id="micro-title">Diagnóstico práctico de micosis superficiales</h2>
-          <p>Clase del jueves 20 de agosto de 2026: toma de muestra, examen directo, lámpara de Wood, cultivo y morfología.</p>
+          <p class="section-kicker">Microbiología II · Práctica · 27 de agosto</p>
+          <h2 id="micro-title">Reconocimiento microscópico y casos de micosis oportunistas</h2>
+          <p>Clase del jueves 27 de agosto de 2026: reconocimiento microscópico guiado e integración de casos de candidemia y aspergilosis invasiva.</p>
         </div>
-        <span class="source-pill status-confirmed">Clase confirmada · 20 ago.</span>
+        <span class="source-pill status-confirmed">Clase confirmada · 27 ago.</span>
       </div>
 
       <nav class="class-history lesson-date-picker" aria-label="Clases anteriores de Microbiología práctica">
@@ -2282,7 +2281,6 @@
     <a href="#pendientes" data-view-link="pendientes"><span class="nav-icon"><svg><use href="#class-icon-task"></use></svg></span><strong>Tareas</strong></a>
     <a href="#avisos" data-view-link="avisos"><span class="nav-icon"><svg><use href="#class-icon-notice"></use></svg></span><strong>Avisos</strong></a>
     <a href="#materias" data-view-link="cursos"><span class="nav-icon"><svg><use href="#class-icon-book"></use></svg></span><strong>Materias</strong></a>
-    <a href="comunidade.html"><span class="nav-icon"><svg><use href="#class-icon-community"></use></svg></span><strong>Estudiar</strong></a>
     <a href="p1.html"><span class="nav-icon"><svg><use href="#class-icon-p1"></use></svg></span><strong>P1</strong></a>
   </nav>
 
@@ -2578,6 +2576,7 @@
   <script src="semester-switcher-v402.js?v=405"></script>
   <script src="grupo-3-i18n-v421.js?v=492"></script>
   <script src="academic-model-v445.js?v=486"></script>
+  <script src="academic-model-2026-08-27-v494.js?v=494"></script>
   <script src="grupo-3-practice-v413.js?v=446"></script>
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
   <script src="grupo-3-practice-grounded-v426.js?v=431"></script>
@@ -2585,14 +2584,17 @@
   <script src="grupo-3-practice-2026-08-24-v452.js?v=452"></script>
   <script src="grupo-3-practice-2026-08-21-v440.js?v=440"></script>
   <script src="grupo-3-practice-2026-08-26-v484.js?v=486"></script>
+  <script src="grupo-3-practice-nutricion-2026-08-27-v494.js?v=494"></script>
+  <script src="grupo-3-practice-fisiologia-2026-08-27-v494.js?v=494"></script>
+  <script src="grupo-3-practice-microbiologia-practica-2026-08-27-v494.js?v=494"></script>
   <script src="teacher-question-profile-v445.js?v=445"></script>
   <script type="module" src="class-content-runtime-v483.js?v=484"></script>
   <script src="class-practice-ranking-v431.js?v=482"></script>
   <script src="grupo-3-v401.js?v=492"></script>
   <script src="class-session-archive-v432.js?v=432"></script>
   <script src="medical-glossary-v425.js?v=432"></script>
-  <script src="class-hub-runtime-v440.js?v=492"></script>
-  <script src="class-notebook-v445.js?v=487"></script>
+  <script src="class-hub-runtime-v440.js?v=493"></script>
+  <script src="class-notebook-v445.js?v=494"></script>
   <script src="help-desk-v479.js?v=480"></script>
 </body>
 </html>

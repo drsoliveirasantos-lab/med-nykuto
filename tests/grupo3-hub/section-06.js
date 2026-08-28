@@ -66,11 +66,15 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(output.getByText('Región Sudeste de Brasil', { exact: true })).toBeVisible();
   });
 
-  test('records that the presentation did not create a false Nutrition theory lesson', async ({ page }) => {
+  test('keeps the seminar separate and adds only the documented 27 August Nutrition class', async ({ page }) => {
     await page.goto('/clase.html#nutricion');
-    await expect(page.locator('#nutricion .notebook-date')).toHaveCount(1);
+    await expect(page.locator('#nutricion .notebook-date')).toHaveCount(2);
     await expect(page.locator('#nutricion .notebook-date')).toContainText('13 AGO.');
+    await expect(page.locator('#nutricion .notebook-date')).toContainText('27 AGO.');
+    await expect(page.locator('#nutricion .notebook-date')).not.toContainText('20 AGO.');
     await expect(page.locator('#nutricion .notebook-current-title')).not.toContainText('20 de agosto');
+    await expect(page.locator('#nutricion .notebook-current-title')).toContainText('Guías alimentarias, etiquetado y lectura crítica');
+    await expect(page.locator('#nutricion-2026-08-27 .course-photo-card')).toHaveCount(2);
     await expect(page.locator('#nutricion')).toContainText('Seminario presentado el 20 de agosto');
   });
 };

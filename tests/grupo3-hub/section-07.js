@@ -30,6 +30,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('.workspace-nav').getByText('Tareas', { exact: true })).toBeVisible();
     await expect(page.locator('.workspace-nav').getByText('Avisos', { exact: true })).toBeVisible();
     await expect(page.locator('.workspace-nav').getByText('Materias', { exact: true })).toBeVisible();
+    await expect(page.locator('.workspace-nav').getByText('P1', { exact: true })).toBeVisible();
     await page.goto('/clase.html#materias');
     await expect(page.locator('.course-selector .course-icon svg')).toHaveCount(6);
     for (const code of ['NUT', 'FIS', 'BIO', 'EPI', 'MIC', 'LAB']) {
@@ -108,7 +109,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     expect(courseLayout.resourcesShareFirstRow).toBe(true);
     expect(courseLayout.courseMetaDisplay).toBe('flex');
     expect(courseLayout.courseMetaFont).toBeGreaterThanOrEqual(8.5);
-    await expect(page.locator('[data-course-target="fisiologia"] .course-latest-chip')).toContainText('ÚLTIMA · 24 AGO');
+    await expect(page.locator('[data-course-target="nutricion"] .course-latest-chip')).toContainText('ÚLTIMA · 27 AGO');
+    await expect(page.locator('[data-course-target="fisiologia"] .course-latest-chip')).toContainText('ÚLTIMA · 27 AGO');
+    await expect(page.locator('[data-course-target="microbiologia-practica"] .course-latest-chip')).toContainText('PRÁCTICA · 27 AGO');
     await expect(page.locator('[data-course-target="microbiologia-teorica"] .course-latest-chip')).toContainText('TEÓRICA · 24 AGO');
     expect(courseLayout.courseIntroDisplay).toBe('none');
     expect(courseLayout.detailToggleHeight).toBeLessThanOrEqual(62);

@@ -54,7 +54,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
       });
     });
     await page.goto('/comunidade.html', { waitUntil: 'domcontentloaded' });
-    await expect(page.getByRole('heading', { name: 'Estudia por materia y tema.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'P1 · Entrenamiento por tema y ranking' })).toBeVisible();
     await expect(page.locator('#studySubjectPicker .study-subject-option')).toHaveCount(6);
 
     const initial = await page.evaluate(() => {
@@ -77,10 +77,11 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(initial.overflow).toBeLessThanOrEqual(1);
 
     await page.locator('[data-study-subject="fisiologia"]').click();
-    await expect(page.locator('#studyTopicPicker .study-topic-option')).toHaveCount(5);
-    await expect(page.locator('[data-study-topic="fisiologia-2026-08-24"]')).toBeVisible();
-    await expect(page.locator('[data-study-topic="fisiologia-2026-08-20"]')).toBeVisible();
-    await expect(page.locator('[data-study-topic="fisiologia-2026-08-17"]')).toBeVisible();
+    await expect(page.locator('#studyTopicPicker .study-topic-option')).toHaveCount(2);
+    await expect(page.locator('[data-study-topic="fisiologia-2026-08-13"]')).toBeVisible();
+    await expect(page.locator('[data-study-topic="fisiologia-2026-08-17"]')).toHaveCount(0);
+    await expect(page.locator('[data-study-topic="fisiologia-2026-08-20"]')).toHaveCount(0);
+    await expect(page.locator('[data-study-topic="fisiologia-2026-08-24"]')).toHaveCount(0);
     await page.locator('[data-study-topic="fisiologia-2026-08-10"]').click();
     await expect(page.locator('#studyPracticeHost #practice-fisiologia-2026-08-10')).toBeVisible();
 

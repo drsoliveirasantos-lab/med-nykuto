@@ -250,10 +250,17 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(preview.locator('.notice-item')).toHaveCount(2);
       await expect(preview).toContainText('Guía oficial <img src=x>');
       await expect(preview).toContainText('Próximo aviso');
-      await expect(preview.locator('img')).toHaveCount(0);
+      await expect(preview).not.toContainText('Material confirmado.');
+      await expect(preview.locator('.notice-meta, .notice-badges, .notice-caption')).toHaveCount(0);
+      await expect(preview.locator('img')).toHaveCount(1);
+      await expect(preview.locator('img')).toHaveAttribute('src', 'https://example.test/ucp-notice.svg');
+      const activePreviewLink = preview.getByRole('link', { name: 'Abrir aviso: Guía oficial <img src=x>' });
+      await expect(activePreviewLink).toHaveAttribute('href', /^#notice-active-file-/);
       await expect(page.locator('#noticeBell')).toHaveAttribute('data-count', '2');
 
-      await page.locator('#noticeBell').click();
+      await activePreviewLink.click();
+      await expect(page).toHaveURL(/#notice-active-file-/);
+      await expect(page.locator('#avisos')).toBeVisible();
       const list = page.locator('#classNoticePageList');
       await expect(list.locator('.notice-item')).toHaveCount(5);
       for (const label of ['ACTIVO', 'PROGRAMADO', 'ACTUALIZADO', 'AMPLIADO', 'CORREGIDO']) {
@@ -266,6 +273,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       const active = list.locator('.notice-item').filter({ hasText: 'Guía oficial' });
       const activeCaption = active.locator('.notice-caption');
       const activeImage = active.getByRole('img', { name: 'Comunicado oficial de Bioquímica' });
+      await expect(activeCaption).toHaveAttribute('open', '');
       await expect(active.getByRole('link', { name: 'Abrir imagen: Comunicado oficial de Bioquímica' })).toHaveAttribute('href', 'https://example.test/ucp-notice.svg');
       await expect(activeImage).toHaveAttribute('loading', 'lazy');
       await expect(activeImage).toHaveAttribute('referrerpolicy', 'no-referrer');
@@ -275,10 +283,12 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
         const bounds = card.getBoundingClientRect();
         return { mediaWidth: media.width, cardWidth: bounds.width, mediaBottom: media.bottom, copyTop: copy.top };
       });
-      expect(imageFirstLayout.mediaWidth).toBeGreaterThanOrEqual(imageFirstLayout.cardWidth - 2);
+      expect(imageFirstLayout.mediaWidth).toBeLessThanOrEqual(imageFirstLayout.cardWidth - 18);
+      expect(imageFirstLayout.mediaWidth).toBeGreaterThan(imageFirstLayout.cardWidth * 0.8);
       expect(imageFirstLayout.mediaBottom).toBeLessThanOrEqual(imageFirstLayout.copyTop + 1);
-      await expect(activeCaption).not.toHaveAttribute('open', '');
       await expect(activeCaption.locator('.notice-caption-preview')).toContainText('Material confirmado.');
+      await activeCaption.locator('.notice-caption-summary').click();
+      await expect(activeCaption).not.toHaveAttribute('open', '');
       await expect(activeCaption.locator('.notice-caption-more')).toHaveText('Ver más');
       await activeCaption.locator('.notice-caption-summary').click();
       await expect(activeCaption).toHaveAttribute('open', '');

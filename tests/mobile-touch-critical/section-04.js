@@ -2,12 +2,12 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
   test('complete lessons stay compact across every subject on iPhone', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     const lessons = [
-      'nutricion-2026-08-13',
-      'fisiologia-2026-08-24',
+      'nutricion-2026-08-27',
+      'fisiologia-2026-08-27',
       'bioquimica-2026-08-26',
       'epidemiologia-2026-08-26',
       'microbiologia-teorica-2026-08-24',
-      'microbiologia-practica-2026-08-20'
+      'microbiologia-practica-2026-08-27'
     ];
 
     for (const lessonId of lessons) {

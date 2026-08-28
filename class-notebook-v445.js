@@ -131,6 +131,23 @@
         { title: ['Contexto'], detail: ['hábitos · acceso'] }
       ]
     }],
+    'nutricion-2026-08-27': [{
+      section: 6,
+      type: 'gallery',
+      wide: true,
+      kicker: 'MATERIAL VISUAL DE LA CLASE',
+      title: 'Lo que promete el frente se comprueba en la etiqueta',
+      caption: 'Dos diapositivas utilizadas en clase para separar reclamo publicitario, porción, ingredientes y composición real.',
+      images: [{
+        src: 'assets/courses/2026-08-27/nutrition-hidden-claims.webp',
+        title: 'Promesas saludables que exigen una lectura crítica',
+        alt: 'Diapositiva de Nutrición con envases ficticios y promesas de salud exageradas.'
+      }, {
+        src: 'assets/courses/2026-08-27/nutrition-protein-marketing.webp',
+        title: 'La palabra proteico no define por sí sola la calidad',
+        alt: 'Diapositiva de Nutrición con distintos productos promocionados como proteicos.'
+      }]
+    }],
     'fisiologia-2026-08-10': [{
       section: 2,
       type: 'flow',
@@ -165,6 +182,14 @@
     }],
     'fisiologia-2026-08-24': [{
       section: 6, type: 'compare', kicker: 'DOS VÍAS ASCENDENTES', title: 'La modalidad decide dónde cruza la señal', caption: 'Columna dorsal y sistema anterolateral conducen información distinta.', nodes: [{title:['COLUMNA DORSAL'],detail:['tacto fino · vibración · propiocepción','cruza en bulbo']},{title:['ANTEROLATERAL'],detail:['dolor · temperatura · tacto grosero','cruza en médula']}]
+    }],
+    'fisiologia-2026-08-27': [{
+      section: 1,
+      type: 'diagram',
+      src: 'assets/courses/2026-08-27/physiology-somatic-sensitivities-source.svg',
+      title: 'Reconstrucción limpia de las sensibilidades somáticas',
+      caption: 'Esquema pedagógico revisado: compara receptores, fibras, vías y nivel de decusación sin presentarse como fotografía original de la clase.',
+      alt: 'Reconstrucción pedagógica de propiocepción, tacto, nocicepción y termorrecepción con sus fibras y vías ascendentes.'
     }],
     'fisiologia-2026-08-17': [{
       section: 2,
@@ -394,6 +419,89 @@
       ],
       edges: ['selecciona', 'orienta', 'describe', 'concluye'],
       note: 'Bioseguridad y trazabilidad acompañan todas las etapas.'
+    }],
+    'microbiologia-practica-2026-08-27': [{
+      section: 2,
+      type: 'gallery',
+      wide: true,
+      kicker: 'LÁMINAS DE LA CLASE',
+      title: 'Mohos de referencia',
+      caption: 'Galería comparativa de Mucor, Rhizopus, Penicillium y Aspergillus fumigatus. Los rótulos pertenecen al material docente; una muestra desconocida exige confirmación.',
+      images: [{
+        src: 'assets/courses/2026-08-27/micro-mucor.webp',
+        title: 'Mucor',
+        alt: 'Preparación microscópica docente rotulada Mucor.'
+      }, {
+        src: 'assets/courses/2026-08-27/micro-rhizopus.webp',
+        title: 'Rhizopus',
+        alt: 'Preparación microscópica docente rotulada Rhizopus.'
+      }, {
+        src: 'assets/courses/2026-08-27/micro-penicillium.webp',
+        title: 'Penicillium',
+        alt: 'Preparación microscópica docente rotulada Penicillium.'
+      }, {
+        src: 'assets/courses/2026-08-27/micro-aspergillus-fumigatus.webp',
+        title: 'Aspergillus fumigatus',
+        alt: 'Preparación microscópica docente rotulada Aspergillus fumigatus.'
+      }]
+    }, {
+      section: 3,
+      type: 'gallery',
+      wide: true,
+      kicker: 'ESTRUCTURAS FÚNGICAS',
+      title: 'Del micelio a las estructuras de propagación',
+      caption: 'Las imágenes permiten comparar micelio, artroconidios y conidios sin confundir una estructura externa con una espora contenida en un esporangio.',
+      images: [{
+        src: 'assets/courses/2026-08-27/micro-mycelium.webp',
+        title: 'Micelio e hifas',
+        alt: 'Material docente que muestra la relación entre hifas y micelio.'
+      }, {
+        src: 'assets/courses/2026-08-27/micro-arthroconidia.webp',
+        title: 'Artroconidios',
+        alt: 'Material docente rotulado artroconidios.'
+      }, {
+        src: 'assets/courses/2026-08-27/micro-spores-conidia-a.webp',
+        title: 'Esporas y conidios · referencia 1',
+        alt: 'Primera imagen docente comparativa de esporas y conidios.'
+      }, {
+        src: 'assets/courses/2026-08-27/micro-spores-conidia-b.webp',
+        title: 'Esporas y conidios · referencia 2',
+        alt: 'Segunda imagen docente comparativa de esporas y conidios.'
+      }]
+    }, {
+      section: 4,
+      type: 'gallery',
+      wide: true,
+      kicker: 'LEVADURAS DE REFERENCIA',
+      title: 'Candida y Cryptococcus',
+      caption: 'Serie visual para describir blastoconidias, pseudohifas y cápsula antes de integrar el contexto de la muestra.',
+      images: [{
+        src: 'assets/courses/2026-08-27/micro-candida-albicans.webp',
+        title: 'Candida albicans',
+        alt: 'Preparación microscópica docente rotulada Candida albicans.'
+      }, {
+        src: 'assets/courses/2026-08-27/micro-cryptococcus-neoformans.webp',
+        title: 'Cryptococcus neoformans',
+        alt: 'Preparación microscópica docente rotulada Cryptococcus neoformans.'
+      }, {
+        src: 'assets/courses/2026-08-27/micro-cryptococcus.webp',
+        title: 'Cryptococcus · segunda referencia',
+        alt: 'Segunda referencia visual docente de Cryptococcus.'
+      }]
+    }, {
+      section: 5,
+      type: 'photo',
+      src: 'assets/courses/2026-08-27/micro-case-candidemia.webp',
+      title: 'Caso docente · candidemia',
+      caption: 'Diapositiva del caso de infección sistémica con diabetes, catéter venoso, hemocultivo con levaduras, blastoconidias y pseudohifas.',
+      alt: 'Caso clínico docente de candidemia asociada a catéter.'
+    }, {
+      section: 6,
+      type: 'photo',
+      src: 'assets/courses/2026-08-27/micro-case-aspergillosis.webp',
+      title: 'Caso docente · aspergilosis invasiva',
+      caption: 'Diapositiva del caso respiratorio en neutropenia grave con signo del halo, utilizada para integrar riesgo, imagen y microbiología.',
+      alt: 'Caso clínico docente de aspergilosis invasiva en una persona con neutropenia.'
     }]
   };
 
@@ -590,13 +698,43 @@
   }
 
   function diagramVisual(definition) {
-    if (definition.type !== 'board') return diagramSvg(definition);
+    if (!definition.src) return diagramSvg(definition);
     var image = el('img', 'course-inline-image');
     image.src = definition.src;
-    image.alt = definition.title;
+    image.alt = definition.alt || definition.title;
     image.loading = 'lazy';
     image.decoding = 'async';
     return image;
+  }
+
+  function galleryPhotoDefinition(definition, photo) {
+    return {
+      type: 'photo',
+      src: photo.src,
+      title: photo.title || definition.title,
+      caption: photo.caption || definition.caption,
+      alt: photo.alt || photo.title || definition.title
+    };
+  }
+
+  function photoGallery(definition) {
+    var rail = el('div', 'course-photo-gallery-rail');
+    rail.setAttribute('aria-label', definition.title + '. Desliza para ver todas las imágenes.');
+    (definition.images || []).forEach(function (photo) {
+      var card = el('button', 'course-photo-card');
+      card.type = 'button';
+      card.setAttribute('aria-label', 'Abrir imagen: ' + (photo.title || definition.title));
+      var image = el('img');
+      image.src = photo.src;
+      image.alt = photo.alt || photo.title || definition.title;
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      card.appendChild(image);
+      card.appendChild(el('span', '', photo.title || definition.title));
+      card.addEventListener('click', function () { openDiagram(galleryPhotoDefinition(definition, photo)); });
+      rail.appendChild(card);
+    });
+    return rail;
   }
 
   function closeDiagramDialog(dialog) {
@@ -648,13 +786,17 @@
 
   function openDiagram(definition) {
     var dialog = ensureDiagramDialog();
-    dialog.classList.toggle('is-teacher-board', definition.type === 'board');
+    var isBoard = definition.type === 'board';
+    var isPhoto = definition.type === 'photo';
+    dialog.classList.toggle('is-teacher-board', isBoard);
+    dialog.classList.toggle('is-course-photo', isPhoto);
     dialog.classList.remove('is-zoomed');
     var zoom = dialog.querySelector('.course-diagram-zoom');
     zoom.hidden = false;
     zoom.textContent = 'Ampliar';
     zoom.setAttribute('aria-pressed', 'false');
-    dialog.querySelector('header span').textContent = definition.type === 'board' ? 'PIZARRA DEL PROFESOR · RECONSTRUIDA' : 'ESQUEMA EXPLICATIVO DEL CURSO';
+    zoom.setAttribute('aria-label', isBoard ? 'Ampliar la pizarra para leer los detalles' : (isPhoto ? 'Ampliar la imagen para leer los detalles' : 'Ampliar el esquema para leer los detalles'));
+    dialog.querySelector('header span').textContent = isBoard ? 'PIZARRA DEL PROFESOR · RECONSTRUIDA' : (isPhoto ? 'MATERIAL VISUAL DE LA CLASE' : 'ESQUEMA EXPLICATIVO DEL CURSO');
     dialog.querySelector('header strong').textContent = definition.title;
     dialog.querySelector('.course-diagram-dialog-stage').replaceChildren(diagramVisual(definition));
     dialog.querySelector('.course-diagram-dialog-caption').textContent = definition.caption;
@@ -664,18 +806,26 @@
   }
 
   function diagramFigure(definition, compact) {
-    var figure = el('figure', 'course-inline-figure' + (definition.wide ? ' is-wide' : '') + (definition.type === 'board' ? ' is-teacher-board' : '') + (compact ? ' is-summary' : ''));
-    var trigger = el('button', 'course-inline-diagram-trigger');
-    trigger.type = 'button';
-    trigger.setAttribute('aria-label', (definition.type === 'board' ? 'Ampliar pizarra: ' : 'Ampliar esquema: ') + definition.title);
-    trigger.appendChild(diagramVisual(definition));
+    var isBoard = definition.type === 'board';
+    var isPhoto = definition.type === 'photo';
+    var isGallery = definition.type === 'gallery';
+    var figure = el('figure', 'course-inline-figure' + (definition.wide ? ' is-wide' : '') + (isBoard ? ' is-teacher-board' : '') + (isPhoto ? ' is-course-photo' : '') + (isGallery ? ' course-photo-gallery-figure' : '') + (compact ? ' is-summary' : ''));
+    var trigger;
+    if (isGallery) {
+      figure.appendChild(photoGallery(definition));
+    } else {
+      trigger = el('button', 'course-inline-diagram-trigger');
+      trigger.type = 'button';
+      trigger.setAttribute('aria-label', (isBoard ? 'Ampliar pizarra: ' : (isPhoto ? 'Ampliar imagen: ' : 'Ampliar esquema: ')) + definition.title);
+      trigger.appendChild(diagramVisual(definition));
+      figure.appendChild(trigger);
+    }
     var caption = el('figcaption');
     caption.appendChild(el('strong', '', definition.title));
     caption.appendChild(el('span', '', definition.caption));
-    caption.appendChild(el('small', '', definition.type === 'board' ? 'Pizarra del profesor · ampliar' : 'Esquema explicativo · ampliar'));
-    figure.appendChild(trigger);
+    caption.appendChild(el('small', '', isBoard ? 'Pizarra del profesor · ampliar' : (isPhoto ? 'Material visual · ampliar' : (isGallery ? 'Galería de la clase · desliza y toca' : 'Esquema explicativo · ampliar'))));
     figure.appendChild(caption);
-    trigger.addEventListener('click', function () { openDiagram(definition); });
+    if (trigger) trigger.addEventListener('click', function () { openDiagram(definition); });
     return figure;
   }
 
@@ -1299,6 +1449,34 @@
     subject.appendChild(panel);
   }
 
+  function prepareNarrativePanels(subject, subjectModel) {
+    var practiceRuntime = window.MedNykutoClassPractice;
+    flattenLessons(subjectModel).forEach(function (entry) {
+      var lesson = entry.lesson;
+      var narrative = model.narratives[lesson.id];
+      if (!narrative || document.getElementById(lesson.id)) return;
+
+      var panel = el('div', 'dated-lesson-panel lesson-notebook-generated');
+      panel.id = lesson.id;
+      panel.dataset.lessonPanel = lesson.id;
+      panel.dataset.lessonTitle = lesson.title;
+      if (lesson.dateLong) panel.dataset.lessonDate = lesson.dateLong;
+
+      var practiceSlot = el('div');
+      practiceSlot.dataset.practiceSlot = lesson.practiceId;
+      panel.appendChild(practiceSlot);
+      subject.appendChild(panel);
+
+      if (!lesson.practiceId || !practiceRuntime || typeof practiceRuntime.mountStandalone !== 'function' || !practiceRuntime.banks || !practiceRuntime.banks[lesson.practiceId]) return;
+
+      document.querySelectorAll('.practice-module[data-practice-root]').forEach(function (root) {
+        if (root.dataset.practiceRoot === lesson.practiceId) root.remove();
+      });
+      var controller = practiceRuntime.mountStandalone(practiceSlot, lesson.practiceId);
+      if (controller && practiceRuntime.controllers) practiceRuntime.controllers[lesson.practiceId] = controller;
+    });
+  }
+
   function initSubject(subjectId) {
     var subject = document.getElementById(subjectId);
     var subjectModel = model.subjects[subjectId];
@@ -1306,6 +1484,7 @@
 
     subject.querySelectorAll(':scope > .course-workspace, :scope > .course-workspace-panel').forEach(function (node) { node.remove(); });
     if (subjectId === 'nutricion') prepareNutrition(subject);
+    prepareNarrativePanels(subject, subjectModel);
     var flat = flattenLessons(subjectModel);
     var teacher = model.teachers[subjectModel.teacherId];
 

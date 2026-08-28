@@ -50,6 +50,10 @@ jobs:
         run: node scripts/validate-class-practice-bank.js
       - name: Validate S4 P1 review and exam scope
         run: node scripts/validate-p1-s4.js
+      - name: Validate S4 P2 review and exam scope
+        run: node scripts/validate-p2-s4.js
+      - name: Validate community ranking and lesson allowlist
+        run: node scripts/validate-community-ranking.js
       - name: Validate class hub language and schedule
         run: node scripts/validate-class-hub-language.js
       - name: Validate 21 August handoff deliverables
@@ -147,6 +151,8 @@ jobs:
             tests/multiclass-hub.spec.js \
             tests/class-content-management-runtime.spec.js \
             tests/community-leaderboard.spec.js \
+            tests/p1.spec.js \
+            tests/p2.spec.js \
             tests/medical-glossary.spec.js \
             --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/desktop-core --reporter=json > desktop-core.json
           code=$?
