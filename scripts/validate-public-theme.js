@@ -11,9 +11,11 @@ const worker = read('service-worker.js');
 
 for (const file of ['clase.html', 'comunidade.html', 'turma-shell/index.html']) {
   const html = read(file);
+  const themeRuntimeAsset = html.match(/public-theme-v485\.js\?v=\d+/)?.[0];
+  const themeCssAsset = html.match(/public-theme-v485\.css\?v=\d+/)?.[0];
   assert.ok(html.includes('data-public-theme-toggle'), `${file} is missing the public theme control.`);
-  assert.ok(html.includes('public-theme-v485.js?v=485') && html.includes('public-theme-v485.css?v=486'), `${file} is missing the shared theme assets.`);
-  assert.ok(html.indexOf('public-theme-v485.js?v=485') < html.indexOf('public-theme-v485.css?v=486'), `${file} does not apply the saved theme before its theme CSS.`);
+  assert.ok(themeRuntimeAsset && themeCssAsset, `${file} is missing the shared theme assets.`);
+  assert.ok(html.indexOf(themeRuntimeAsset) < html.indexOf(themeCssAsset), `${file} does not apply the saved theme before its theme CSS.`);
 }
 
 assert.ok(runtime.includes("'med-nykuto-theme-v1'") && runtime.includes("root.dataset.theme") && runtime.includes("localStorage.setItem") && runtime.includes("window.addEventListener('storage'"), 'Theme persistence or cross-tab synchronization is incomplete.');
