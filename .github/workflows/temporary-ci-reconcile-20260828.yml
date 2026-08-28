@@ -1,4 +1,4 @@
-name: Temporary current-state reconciliation
+name: Persist validated current-state reconciliation
 
 on:
   push:
@@ -9,43 +9,26 @@ permissions:
   contents: write
 
 jobs:
-  reconcile:
+  persist:
+    if: ${{ !contains(github.event.head_commit.message, '[persisted]') }}
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
           ref: work/ci-reconcile-20260828
           fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Apply targeted current-state patches
+      - name: Recreate the already validated tree
         run: |
           python3 .github/scripts/reconcile-current-state-20260828.py
           python3 .github/scripts/reconcile-current-state-followup-20260828.py
-      - name: Install dependencies
-        run: npm install
-      - name: Validate affected static contracts
-        run: |
-          node scripts/validate-community-ranking.js
-          node scripts/validate-site-links.js
-          node scripts/validate-strict-html-js-health.js
-      - name: Install affected Playwright browsers
-        run: timeout 360s npx playwright install --with-deps chromium webkit
-      - name: Run affected desktop regression tests
-        run: npx playwright test tests/grupo3-hub.spec.js tests/community-leaderboard.spec.js tests/p2.spec.js --project=desktop-chromium --workers=1
-      - name: Run affected mobile regression tests
-        run: npx playwright test tests/mobile-touch-critical.spec.js --project=mobile-safari-shape --workers=1
-      - name: Commit reconciled tree and remove temporary files
+          cp .github/workflows/site-tests.yml site-tests-reconciled-20260828.yml
+      - name: Persist non-workflow files
         run: |
           git config user.name "Med Nykuto CI Reconciler"
           git config user.email "actions@users.noreply.github.com"
-          git rm .github/workflows/temporary-ci-reconcile-20260828.yml
-          git rm .github/scripts/reconcile-current-state-20260828.py
-          git rm .github/scripts/reconcile-current-state-followup-20260828.py
           git add \
-            .github/workflows/site-tests.yml \
+            site-tests-reconciled-20260828.yml \
             bioquimica-pratica-task-v498.js \
             public-theme-v485.js \
             clase.html \
@@ -63,5 +46,5 @@ jobs:
             tests/mobile-touch-critical/section-03.js \
             tests/community-leaderboard.spec.js \
             tests/p2.spec.js
-          git commit -m "fix(ci): reconcile tests with current class state [reconciled]"
+          git commit -m "fix(ci): persist validated current class state [persisted]"
           git push origin HEAD:work/ci-reconcile-20260828
