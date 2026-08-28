@@ -76,13 +76,29 @@
   }
 
   function loadPageEnhancements(){
-    if (!/(?:^|\/)p1\.html$/i.test(location.pathname || '')) return;
-    if (document.querySelector('script[data-p1-compact-ui]')) return;
-    var script = document.createElement('script');
-    script.src = '/p1-ui-compact-v497.js?v=497';
-    script.defer = true;
-    script.dataset.p1CompactUi = 'true';
-    document.head.appendChild(script);
+    if (/(?:^|\/)p1\.html$/i.test(location.pathname || '')) {
+      if (!document.querySelector('script[data-p1-compact-ui]')) {
+        var script = document.createElement('script');
+        script.src = '/p1-ui-compact-v497.js?v=497';
+        script.defer = true;
+        script.dataset.p1CompactUi = 'true';
+        document.head.appendChild(script);
+      }
+      return;
+    }
+    if (/(?:^|\/)clase\.html$/i.test(location.pathname || '')) {
+      function revealTaskSections(){
+        var current = document.querySelector('#pendientes .pending-grid');
+        var archive = document.querySelector('#pendientes .assignment-archive');
+        [current, archive].forEach(function(section){
+          if (!section) return;
+          section.hidden = false;
+          section.removeAttribute('aria-hidden');
+        });
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', revealTaskSections, { once:true });
+      else revealTaskSections();
+    }
   }
 
   function bind(){
