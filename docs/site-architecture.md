@@ -76,9 +76,10 @@ remains one tap away. Run
 
 ### 4.º E notice presentation
 
-Home renders only compact important-notice previews: existing image plus title,
-with no body or metadata. Each preview deep-links to the exact full notice in
-`#avisos`. The Avisos view keeps the complete text, filters and attachments,
+Home renders one compact important notice at a time: complete poster thumbnail
+plus title, with no body or metadata. The banner advances automatically, pauses
+while pressed or focused, and each short tap deep-links to the exact full notice
+in `#avisos`. The Avisos view keeps the complete text, filters and attachments,
 but constrains poster images inside visible lateral margins on phones.
 
 ### App bundle source

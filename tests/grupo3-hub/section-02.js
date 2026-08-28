@@ -50,10 +50,16 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     });
 
     const subscription = page.locator('#classCalendarSubscription');
+    const summary = subscription.locator('summary');
     const link = page.locator('#classCalendarSubscribeLink');
     const copy = page.locator('#classCalendarCopyLink');
     await expect(subscription).toBeVisible();
-    await expect(subscription).toContainText('Se actualiza automáticamente');
+    await expect(summary).toContainText('iCal');
+    await expect(link).toBeHidden();
+    expect((await summary.boundingBox()).height).toBeLessThanOrEqual(44);
+    await summary.click();
+    await expect(subscription).toHaveAttribute('open', '');
+    await expect(subscription).toContainText('Se actualiza cuando publicamos cambios.');
     await expect(link).toHaveAttribute('href', 'webcal://127.0.0.1:4173/api/class-calendar.ics?class=s4-e');
     await expect(link).toHaveAttribute('data-https-url', 'https://127.0.0.1:4173/api/class-calendar.ics?class=s4-e');
     expect((await link.boundingBox()).height).toBeGreaterThanOrEqual(44);

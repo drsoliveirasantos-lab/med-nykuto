@@ -16,7 +16,7 @@
   <script src="calendar-subscription-v485.js?v=485"></script>
   <link rel="stylesheet" href="grupo-3-v401.css?v=492" />
   <link rel="stylesheet" href="class-courses-2026-08-17-v432.css?v=433" />
-  <link rel="stylesheet" href="class-hub-2026-08-21-v440.css?v=495" />
+  <link rel="stylesheet" href="class-hub-2026-08-21-v440.css?v=496" />
   <link rel="stylesheet" href="class-notebook-v445.css?v=494" />
   <link rel="stylesheet" href="help-desk-v479.css?v=480" />
   <link rel="stylesheet" href="public-theme-v485.css?v=486" />
@@ -232,18 +232,22 @@
         <span class="source-pill">Hora de Paraguay</span>
       </div>
 
-      <section id="classCalendarSubscription" class="schedule-calendar-subscription" aria-labelledby="classCalendarSubscriptionTitle">
-        <div class="schedule-calendar-copy">
-          <span>CALENDARIO ICAL</span>
-          <strong id="classCalendarSubscriptionTitle">Recibe exámenes, tareas y fechas en tu calendario</strong>
-          <small>Se actualiza automáticamente cuando publicamos una fecha nueva.</small>
+      <details id="classCalendarSubscription" class="schedule-calendar-subscription" aria-labelledby="classCalendarSubscriptionTitle">
+        <summary class="schedule-calendar-summary">
+          <svg aria-hidden="true"><use href="#class-icon-calendar"></use></svg>
+          <strong id="classCalendarSubscriptionTitle">iCal</strong>
+          <span aria-hidden="true">?</span>
+          <span class="sr-only">Qué es y cómo añadirlo</span>
+        </summary>
+        <div class="schedule-calendar-panel">
+          <p>Añade exámenes, tareas y fechas al calendario del teléfono. Se actualiza cuando publicamos cambios.</p>
+          <div class="schedule-calendar-actions">
+            <a id="classCalendarSubscribeLink" href="/api/class-calendar.ics?class=s4-e" aria-describedby="classCalendarSubscriptionStatus">Añadir calendario</a>
+            <button id="classCalendarCopyLink" type="button" aria-describedby="classCalendarSubscriptionStatus">Copiar enlace</button>
+          </div>
+          <p id="classCalendarSubscriptionStatus" class="schedule-calendar-status" aria-live="polite">Compatible con Apple Calendar, Google Calendar y Outlook.</p>
         </div>
-        <div class="schedule-calendar-actions">
-          <a id="classCalendarSubscribeLink" href="/api/class-calendar.ics?class=s4-e" aria-describedby="classCalendarSubscriptionStatus">Añadir a mi calendario</a>
-          <button id="classCalendarCopyLink" type="button" aria-describedby="classCalendarSubscriptionStatus">Copiar enlace</button>
-        </div>
-        <p id="classCalendarSubscriptionStatus" class="schedule-calendar-status" aria-live="polite">iCal compatible con Apple Calendar, Google Calendar y Outlook.</p>
-      </section>
+      </details>
 
       <div class="agenda-summary">
         <article class="schedule-guide-card">
@@ -2593,7 +2597,7 @@
   <script src="grupo-3-v401.js?v=492"></script>
   <script src="class-session-archive-v432.js?v=432"></script>
   <script src="medical-glossary-v425.js?v=432"></script>
-  <script src="class-hub-runtime-v440.js?v=493"></script>
+  <script src="class-hub-runtime-v440.js?v=496"></script>
   <script src="class-notebook-v445.js?v=494"></script>
   <script src="help-desk-v479.js?v=480"></script>
 </body>

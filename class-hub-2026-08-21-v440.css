@@ -296,6 +296,14 @@ html[data-theme="light"] .notice-caption-content .notice-body{color:var(--ink)}
 .notice-preview-title{display:-webkit-box;overflow:hidden;align-self:center;margin:0;padding:9px 11px;color:#f8fafc;font:850 12px/1.28 system-ui;-webkit-box-orient:vertical;-webkit-line-clamp:2}
 .notice-preview-link:focus-visible{outline:3px solid #38bdf8;outline-offset:-3px}
 .notice-preview-link:active{background:rgba(56,189,248,.09)}
+.notice-preview-list.is-ticker{position:relative;display:block;padding:6px;padding-right:39px}
+.notice-preview-list.is-ticker::after{position:absolute;right:9px;bottom:8px;min-width:25px;padding:3px 5px;border:1px solid rgba(125,211,252,.2);border-radius:999px;background:rgba(6,19,29,.88);color:#9fb8ca;content:attr(data-ticker-position);font:850 8px/1 system-ui;text-align:center;letter-spacing:.03em}
+.notice-preview-list.is-ticker .notice-preview-tile{width:100%;animation:notice-ticker-enter .22s ease both}
+.notice-preview-list.is-ticker .notice-preview-link{min-height:66px;grid-template-columns:56px minmax(0,1fr);touch-action:pan-y;-webkit-touch-callout:none}
+.notice-preview-list.is-ticker .notice-preview-thumb{width:56px;height:66px;padding:3px}
+.notice-preview-list.is-ticker .notice-preview-title{padding:8px 9px;font-size:11px;line-height:1.25}
+.notice-preview-list.is-ticker.is-paused::after{color:#e0f2fe;border-color:rgba(125,211,252,.42)}
+@keyframes notice-ticker-enter{from{opacity:.25;transform:translateX(7px)}to{opacity:1;transform:none}}
 .notice-page-list{width:min(calc(100% - 24px),540px)}
 .notice-page-list .notice-item{scroll-margin-top:92px}
 .notice-page-list .notice-item:target{border-color:#7dd3fc;box-shadow:0 0 0 3px rgba(56,189,248,.18),0 16px 38px rgba(0,0,0,.18)}
@@ -305,6 +313,20 @@ html[data-theme="light"] .notice-caption-content .notice-body{color:var(--ink)}
 html[data-theme="light"] .notice-preview-list .notice-preview-tile{border-color:var(--line);background:#fff}
 html[data-theme="light"] .notice-preview-thumb{border-color:var(--line);background:#eef3f7}
 html[data-theme="light"] .notice-preview-title{color:var(--ink)}
+html[data-theme="light"] .notice-preview-list.is-ticker::after{border-color:var(--line);background:#eef3f7;color:var(--muted)}
 html[data-theme="light"] .notice-page-list .notice-media{border-color:var(--line);background:#f3f6f9}
 @media(max-width:760px){.notice-preview-list{grid-template-columns:1fr}}
 @media(max-width:560px){.home-notice-section{margin-block:10px 14px}.home-notice-heading{margin-bottom:7px}.home-notice-heading>div>span{display:none}.home-notice-heading h2{margin:0;font-size:15px}.notice-preview-list{grid-template-columns:1fr;gap:6px;padding:6px}.notice-preview-list .notice-preview-tile{padding:0}.notice-preview-link{min-height:66px;grid-template-columns:56px minmax(0,1fr)}.notice-preview-tile:not(.has-thumbnail) .notice-preview-link{grid-template-columns:1fr}.notice-preview-thumb{width:56px;height:66px;padding:3px}.notice-preview-title{padding:8px 9px;font-size:11px;line-height:1.25}.notice-page-list{width:calc(100% - 16px);gap:13px}.notice-page-list .notice-media{margin:10px 10px 0}.notice-page-list .notice-media-link{padding:7px}.notice-page-list .notice-media img{max-height:min(52vh,420px)}}
+@media(prefers-reduced-motion:reduce){.notice-preview-list.is-ticker .notice-preview-tile{animation:none}}
+
+/* Horario: keep iCal discoverable without turning it into a large card. */
+body .schedule-calendar-subscription{display:block;width:max-content;max-width:100%;margin:0 0 12px;padding:0;border-radius:12px}
+body .schedule-calendar-summary{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 10px;color:var(--ink);cursor:pointer;list-style:none;-webkit-tap-highlight-color:transparent}
+body .schedule-calendar-summary::-webkit-details-marker{display:none}
+body .schedule-calendar-summary svg{width:17px;height:17px;fill:none;stroke:var(--cyan);stroke-width:1.8}
+body .schedule-calendar-summary strong{font-size:.78rem;letter-spacing:.02em}
+body .schedule-calendar-summary>span[aria-hidden="true"]{display:grid;width:18px;height:18px;place-items:center;border:1px solid rgba(0,107,143,.3);border-radius:50%;color:var(--cyan);font-size:.66rem;font-weight:950}
+body .schedule-calendar-summary:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+body .schedule-calendar-panel{display:grid;width:min(360px,calc(100vw - 34px));gap:9px;padding:0 10px 10px}
+body .schedule-calendar-panel>p:first-child{margin:0;color:var(--muted-strong);font-size:.72rem;line-height:1.45}
+@media(max-width:720px){body .schedule-calendar-subscription{padding:0}}

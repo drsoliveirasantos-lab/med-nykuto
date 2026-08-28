@@ -191,6 +191,7 @@ async function main() {
   const worker = read('service-worker.js');
   ['calendarSubscription', 'calendarSubscribeLink', 'calendarCopyLink', 'calendarSubscriptionStatus'].forEach((id) => assert.ok(html.includes(`id="${id}"`), `Calendar subscription UI is missing #${id}.`));
   ['classCalendarSubscription', 'classCalendarSubscribeLink', 'classCalendarCopyLink', 'classCalendarSubscriptionStatus'].forEach((id) => assert.ok(classHtml.includes(`id="${id}"`), `The main Horario view is missing #${id}.`));
+  assert.ok(classHtml.includes('<details id="classCalendarSubscription"') && classHtml.includes('class="schedule-calendar-summary"') && classHtml.includes('>iCal</strong>'), 'The main Horario view does not expose iCal as a compact explanatory control.');
   assert.ok(classHtml.indexOf('id="classCalendarSubscription"') > classHtml.indexOf('id="horario"') && classHtml.indexOf('id="classCalendarSubscription"') < classHtml.indexOf('id="weeklyAgenda"'), 'The iCal controls are not discoverable inside the main Horario view.');
   assert.ok(html.includes('/turma-v471.css?v=488') && html.includes('/turma-v471.js?v=488'), 'Turma shell cache-busting version is stale.');
   assert.ok(html.includes('/calendar-subscription-v485.js?v=485') && classHtml.includes('calendar-subscription-v485.js?v=485'), 'The shared calendar subscription runtime is not loaded by both student calendar surfaces.');
