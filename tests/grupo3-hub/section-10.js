@@ -17,7 +17,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.goto('/clase.html#microbiologia-practica-2026-08-27');
     const lesson = page.locator('#microbiologia-practica-2026-08-27');
     await expect(page.locator('#microbiologia-practica .notebook-current-title')).toContainText('Reconocimiento microscópico y casos de micosis oportunistas');
-    await expect(lesson.locator('.course-photo-card')).toHaveCount(11);
+    await expect(lesson.locator('.course-photo-card')).toHaveCount(15);
     await expect(lesson.locator('.course-inline-figure.is-course-photo')).toHaveCount(2);
     await expect(lesson.getByText('Caso docente · candidemia', { exact: true })).toBeVisible();
     await expect(lesson.getByText('Caso docente · aspergilosis invasiva', { exact: true })).toBeVisible();
@@ -66,7 +66,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   });
 
   test('switches Nutrition revision depth independently', async ({ page }) => {
-    await page.goto('/clase.html#nutricion');
+    await page.goto('/clase.html#nutricion-2026-08-13');
     await page.locator('#nutricion-2026-08-13 [data-lesson-tab="material"]').click();
     const quickView = page.locator('#nutricion [data-nutrition-mode="rapido"]');
     await quickView.click();

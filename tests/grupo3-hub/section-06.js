@@ -28,9 +28,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     expect(Object.keys(transcript.assignment.groups)).toHaveLength(6);
   });
 
-  test('removes the completed seminar from active Tareas', async ({ page }) => {
+  test('archives the completed seminar outside active Tareas', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
-    await expect(page.locator('#nutritionPrepCard')).toBeHidden();
+    await expect(page.locator('#nutritionPrepCard')).toBeVisible();
     await expect(page.locator('#classHubLiveTasks')).not.toContainText('Seminario y presentación oral');
     await page.goto('/clase.html#horario');
     await expect(page.locator('.schedule-slot[data-subject="nutrition"]')).toContainText('Presentación realizada · sin clase teórica nueva');
@@ -69,12 +69,12 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('keeps the seminar separate and adds only the documented 27 August Nutrition class', async ({ page }) => {
     await page.goto('/clase.html#nutricion');
     await expect(page.locator('#nutricion .notebook-date')).toHaveCount(2);
-    await expect(page.locator('#nutricion .notebook-date')).toContainText('13 AGO.');
-    await expect(page.locator('#nutricion .notebook-date')).toContainText('27 AGO.');
-    await expect(page.locator('#nutricion .notebook-date')).not.toContainText('20 AGO.');
+    await expect(page.locator('#nutricion .notebook-date[data-lesson-id="nutricion-2026-08-13"]')).toContainText('13 AGO.');
+    await expect(page.locator('#nutricion .notebook-date[data-lesson-id="nutricion-2026-08-27"]')).toContainText('27 AGO.');
+    await expect(page.locator('#nutricion .notebook-date[data-lesson-id="nutricion-2026-08-20"]')).toHaveCount(0);
     await expect(page.locator('#nutricion .notebook-current-title')).not.toContainText('20 de agosto');
     await expect(page.locator('#nutricion .notebook-current-title')).toContainText('Guías alimentarias, etiquetado y lectura crítica');
-    await expect(page.locator('#nutricion-2026-08-27 .course-photo-card')).toHaveCount(2);
+    await expect(page.locator('#nutricion-2026-08-27 .course-photo-card')).toHaveCount(4);
     await expect(page.locator('#nutricion')).toContainText('Seminario presentado el 20 de agosto');
   });
 };

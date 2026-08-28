@@ -194,7 +194,7 @@ test.describe('Weekly S4-E class challenge', () => {
 
     await page.locator('#communityLanguage').selectOption('br');
     await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
-    await expect(page.getByRole('heading', { name: 'Estude por matéria e tema.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'P1 · Treino por tema e classificação' })).toBeVisible();
     await expect(page.getByText('R$ 50 via Pix', { exact: true })).toBeVisible();
     await expect(page.locator('#communityRanking .ranking-row.is-current')).toContainText('Você');
     await expect(page.locator('#communityRanking .ranking-row').first().locator('.ranking-catraca')).toHaveAttribute('aria-label', 'Catraca completa: 001234');

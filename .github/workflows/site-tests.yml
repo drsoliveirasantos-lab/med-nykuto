@@ -27,7 +27,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - name: Install dependencies
         run: npm install
       - name: Validate split course sources and module counters
@@ -72,10 +72,10 @@ jobs:
           node-version: 22
       - name: Validate scoped class content API contract
         run: node scripts/validate-content-management-api.js
-      - name: Restore Node 20 for general validation
+      - name: Keep Node 22 for general validation
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - name: Validate app bundle source and generated runtime match
         run: node scripts/validate-app-bundle-split.js
       - name: Ensure protected bank files were not changed accidentally
@@ -118,7 +118,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - run: npm install
       - name: Install Playwright Chromium with timeout
         run: timeout 240s npx playwright install --with-deps chromium
@@ -179,7 +179,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - run: npm install
       - name: Install Playwright Chromium and WebKit with timeout
         run: timeout 300s npx playwright install --with-deps chromium webkit
@@ -214,7 +214,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - run: npm install
       - name: Install Playwright Chromium with timeout
         run: timeout 240s npx playwright install --with-deps chromium
@@ -253,7 +253,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - run: npm install
       - name: Install Playwright Chromium with timeout
         run: timeout 240s npx playwright install --with-deps chromium
@@ -289,7 +289,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - run: npm install
       - name: Install Playwright browsers with timeout
         run: timeout 420s npx playwright install --with-deps chromium firefox webkit
