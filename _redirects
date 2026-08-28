@@ -5,4 +5,5 @@
 /turma/:slug /turma-shell/?class=:slug 200
 /gestion/:slug/ /gestion-shell/?class=:slug 200
 /gestion/:slug /gestion-shell/?class=:slug 200
+/bioquimica-ii-grupos /bioquimica-ii-grupos.html 200
 /* /404.html 404
