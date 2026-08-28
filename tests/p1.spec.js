@@ -10,11 +10,14 @@ test.describe('P1 cumulative review', () => {
     await expect(page.getByRole('heading', { name: 'Repaso P1' })).toHaveCount(1);
     await expect(page.locator('#p1LessonCount')).toHaveText('17');
     await expect(page.locator('#p1QuestionCount')).toHaveText('680');
+    await expect(page.locator('#p1SubjectRail')).toBeHidden();
     await page.getByRole('button', { name: /Ficha P1/ }).click();
+    await expect(page.locator('#p1SubjectRail')).toBeHidden();
     await expect(page.locator('.p1-subject-card')).toHaveCount(6);
     await expect(page.locator('.p1-bottom-nav a')).toHaveCount(6);
 
     await page.getByRole('button', { name: /Nutrición/ }).first().click();
+    await expect(page.locator('#p1SubjectRail')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Nutrición · P1' })).toBeVisible();
     await expect(page.locator('.p1-lesson')).toHaveCount(2);
     await expect(page.getByText(/trabajadas hasta el 27 de agosto/)).toBeVisible();

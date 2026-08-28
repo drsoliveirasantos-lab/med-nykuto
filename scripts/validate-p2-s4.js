@@ -106,10 +106,12 @@ if (p1) {
 const html = fs.readFileSync(path.join(root, 'p1.html'), 'utf8');
 const runtime = fs.readFileSync(path.join(root, 'class-p1-v1.js'), 'utf8');
 expect(html.indexOf('p2-s4-e-v1.js?v=494') > html.indexOf('p1-s4-e-v1.js?v=494'), 'p1.html must load P2 after P1.');
-expect(html.indexOf('class-p1-v1.js?v=495') > html.indexOf('p2-s4-e-v1.js?v=494'), 'p1.html must load both scopes before the shared runtime.');
-expect(/class-p1-v1\.css\?v=495/.test(html), 'The shared partial-review stylesheet cache key must be 495.');
+expect(html.indexOf('class-p1-v1.js?v=496') > html.indexOf('p2-s4-e-v1.js?v=494'), 'p1.html must load both scopes before the shared runtime.');
+expect(/class-p1-v1\.css\?v=496/.test(html), 'The shared partial-review stylesheet cache key must be 496.');
 expect(/href="#p2"[^>]*data-partial-scope="p2"/.test(html), 'The compact P2 selector is missing.');
-expect(/Por tema \+ ranking/.test(html) && /href="comunidade\.html"/.test(html), 'The thematic practice and ranking shortcut is missing.');
+expect(/Clases individuales/.test(html) && /Practicar por fecha \+ ranking/.test(html) && /href="comunidade\.html"/.test(html), 'The individual-class practice and ranking shortcut is missing.');
+expect(/id="p1SubjectRail"[^>]*hidden/.test(html) && /Personalizar práctica/.test(html), 'The P1 page still exposes duplicate subject selectors in its default practice view.');
+expect(/function updateSubjectRailVisibility/.test(runtime) && /state\.activeView !== 'sheet' \|\| state\.selectedSubject === 'all'/.test(runtime), 'The subject rail must appear only inside a specific cumulative subject sheet.');
 expect(/hashchange/.test(runtime) && /MedNykutoPartialReview/.test(runtime), 'The shared runtime does not expose clean hash-based scope switching.');
 expect(/p1TopicRankingLink/.test(runtime) && /topicRanking\.hidden\s*=\s*activeScopeKey\s*===\s*'p2'/.test(runtime), 'The P1-only thematic ranking shortcut must be hidden while P2 is active.');
 

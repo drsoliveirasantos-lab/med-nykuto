@@ -460,6 +460,13 @@
       var subject = scope.subjects[subjectId];
       rail.appendChild(createSubjectButton(subjectId, subject.shortLabel, subject.icon, subject.accent));
     });
+    updateSubjectRailVisibility();
+  }
+
+  function updateSubjectRailVisibility() {
+    var rail = document.getElementById('p1SubjectRail');
+    if (!rail) return;
+    rail.hidden = state.activeView !== 'sheet' || state.selectedSubject === 'all';
   }
 
   function selectSubject(subjectId) {
@@ -468,6 +475,7 @@
       button.setAttribute('aria-pressed', button.dataset.subjectId === state.selectedSubject ? 'true' : 'false');
     });
     renderSheet();
+    updateSubjectRailVisibility();
   }
 
   function renderOverview(container) {
@@ -612,6 +620,7 @@
     document.querySelectorAll('[data-p1-panel]').forEach(function (panel) {
       panel.hidden = panel.dataset.p1Panel !== state.activeView;
     });
+    updateSubjectRailVisibility();
     if (state.activeView === 'exam') refreshResume();
   }
 

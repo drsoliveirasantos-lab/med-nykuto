@@ -93,6 +93,7 @@ button{color:inherit}
 .p1-topic-ranking span,.p1-topic-ranking strong,.p1-topic-ranking small{display:block;min-width:0}
 .p1-topic-ranking strong{font-size:.66rem}.p1-topic-ranking small{margin-top:2px;color:var(--p1-muted);font-size:.52rem}.p1-topic-ranking>b{color:var(--p1-cyan);font-size:.85rem}
 .p1-subject-rail{display:flex;gap:8px;margin:16px 0 10px;padding:2px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-inline:contain}
+.p1-subject-rail[hidden]{display:none!important}
 .p1-subject-rail::-webkit-scrollbar,.p1-filter-rail::-webkit-scrollbar,.p1-question-dots::-webkit-scrollbar,.p1-bottom-nav::-webkit-scrollbar{display:none}
 .p1-subject-button{flex:0 0 auto;min-height:46px;display:flex;align-items:center;gap:8px;padding:7px 13px;border:1px solid var(--p1-line);border-radius:15px;background:var(--p1-card);color:var(--p1-muted);scroll-snap-align:center;cursor:pointer}
 .p1-subject-button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6}
