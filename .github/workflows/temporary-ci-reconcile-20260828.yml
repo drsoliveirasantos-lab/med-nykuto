@@ -1,4 +1,4 @@
-name: Persist validated current-state reconciliation
+name: Validate latest main targeted state
 
 on:
   push:
@@ -6,45 +6,47 @@ on:
       - work/ci-reconcile-20260828
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  persist:
-    if: ${{ !contains(github.event.head_commit.message, '[persisted]') }}
+  static-and-desktop:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: work/ci-reconcile-20260828
-          fetch-depth: 0
-      - name: Recreate the already validated tree
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - name: Validate current contracts
         run: |
-          python3 .github/scripts/reconcile-current-state-20260828.py
-          python3 .github/scripts/reconcile-current-state-followup-20260828.py
-          cp .github/workflows/site-tests.yml site-tests-reconciled-20260828.yml
-      - name: Persist non-workflow files
-        run: |
-          git config user.name "Med Nykuto CI Reconciler"
-          git config user.email "actions@users.noreply.github.com"
-          git add \
-            site-tests-reconciled-20260828.yml \
-            bioquimica-pratica-task-v498.js \
-            public-theme-v485.js \
-            clase.html \
-            tests/grupo3-hub/section-01.js \
-            tests/grupo3-hub/section-02.js \
-            tests/grupo3-hub/section-03.js \
-            tests/grupo3-hub/section-04.js \
-            tests/grupo3-hub/section-05.js \
-            tests/grupo3-hub/section-06.js \
-            tests/grupo3-hub/section-07.js \
-            tests/grupo3-hub/section-08.js \
-            tests/grupo3-hub/section-10.js \
-            tests/grupo3-hub/section-11.js \
-            tests/mobile-touch-critical/section-02.js \
-            tests/mobile-touch-critical/section-03.js \
-            tests/community-leaderboard.spec.js \
-            tests/p2.spec.js
-          git commit -m "fix(ci): persist validated current class state [persisted]"
-          git push origin HEAD:work/ci-reconcile-20260828
+          node scripts/validate-public-theme.js
+          node scripts/validate-p1-s4.js
+          node scripts/validate-p2-s4.js
+          node scripts/validate-community-ranking.js
+          node scripts/validate-site-links.js
+          node scripts/validate-strict-html-js-health.js
+      - name: Install Chromium
+        run: timeout 300s npx playwright install --with-deps chromium
+      - name: Run current desktop regressions
+        run: npx playwright test tests/p1.spec.js tests/p2.spec.js tests/grupo3-hub.spec.js tests/community-leaderboard.spec.js --project=desktop-chromium --workers=1
+
+  mobile-and-notebook:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - name: Install Chromium and WebKit
+        run: timeout 360s npx playwright install --with-deps chromium webkit
+      - name: Run mobile touch regressions
+        run: npx playwright test tests/mobile-touch-critical.spec.js --project=mobile-safari-shape --workers=1
+      - name: Audit compact notebook
+        run: npm run audit:notebook-ui
