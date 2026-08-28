@@ -1,4 +1,4 @@
-const CACHE = 'med-nykuto-shell-v488';
+const CACHE = 'med-nykuto-shell-v499';
 const SHELL = [
   '/offline.html',
   '/turma-shell/',
@@ -8,6 +8,9 @@ const SHELL = [
   '/public-theme-v485.css?v=486',
   '/public-theme-v485.js?v=485',
   '/calendar-subscription-v485.js?v=485',
+  '/bioquimica-grupos.html',
+  '/bioquimica-groups-v499.css?v=499',
+  '/bioquimica-groups-v499.js?v=499',
   '/assets/pwa-icon-192.png',
   '/assets/pwa-icon-512.png'
 ];
