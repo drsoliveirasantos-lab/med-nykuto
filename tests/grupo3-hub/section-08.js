@@ -256,6 +256,27 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(preview.locator('img')).toHaveAttribute('src', 'https://example.test/ucp-notice.svg');
       const activePreviewLink = preview.getByRole('link', { name: 'Abrir aviso: Guía oficial <img src=x>' });
       await expect(activePreviewLink).toHaveAttribute('href', /^#notice-active-file-/);
+      const compactPreviewLayout = await activePreviewLink.evaluate((link) => {
+        const image = link.querySelector('img');
+        const thumbnail = link.querySelector('.notice-preview-thumb');
+        const title = link.querySelector('.notice-preview-title');
+        const linkBox = link.getBoundingClientRect();
+        const thumbnailBox = thumbnail.getBoundingClientRect();
+        const titleBox = title.getBoundingClientRect();
+        return {
+          objectFit: getComputedStyle(image).objectFit,
+          linkHeight: linkBox.height,
+          thumbnailLeft: thumbnailBox.left,
+          thumbnailRight: thumbnailBox.right,
+          titleLeft: titleBox.left,
+          viewportOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+        };
+      });
+      expect(compactPreviewLayout.objectFit).toBe('contain');
+      expect(compactPreviewLayout.linkHeight).toBeLessThanOrEqual(76);
+      expect(compactPreviewLayout.thumbnailLeft).toBeLessThan(compactPreviewLayout.titleLeft);
+      expect(compactPreviewLayout.thumbnailRight).toBeLessThanOrEqual(compactPreviewLayout.titleLeft + 1);
+      expect(compactPreviewLayout.viewportOverflow).toBeLessThanOrEqual(1);
       await expect(page.locator('#noticeBell')).toHaveAttribute('data-count', '2');
 
       await activePreviewLink.click();

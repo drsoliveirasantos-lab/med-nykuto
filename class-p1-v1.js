@@ -372,6 +372,7 @@
     var description = document.querySelector('meta[name="description"]');
     if (description) description.content = (scope.description || fallbackDescription) + ' ' + lessonCount + ' clases y ' + questionCount + ' preguntas fuente.';
     setText('p1BrandScope', '4.º E · ' + scope.title);
+    setText('p1HeaderPartial', label);
     setText('p1HeroEyebrow', String(scope.title || '').toLocaleUpperCase('es'));
     setText('p1-title', 'Repaso ' + label);
     setText('p1HeroDescription', scope.description || fallbackDescription);

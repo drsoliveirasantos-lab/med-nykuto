@@ -106,8 +106,8 @@ if (p1) {
 const html = fs.readFileSync(path.join(root, 'p1.html'), 'utf8');
 const runtime = fs.readFileSync(path.join(root, 'class-p1-v1.js'), 'utf8');
 expect(html.indexOf('p2-s4-e-v1.js?v=494') > html.indexOf('p1-s4-e-v1.js?v=494'), 'p1.html must load P2 after P1.');
-expect(html.indexOf('class-p1-v1.js?v=494') > html.indexOf('p2-s4-e-v1.js?v=494'), 'p1.html must load both scopes before the shared runtime.');
-expect(/class-p1-v1\.css\?v=494/.test(html), 'The shared partial-review stylesheet cache key must be 494.');
+expect(html.indexOf('class-p1-v1.js?v=495') > html.indexOf('p2-s4-e-v1.js?v=494'), 'p1.html must load both scopes before the shared runtime.');
+expect(/class-p1-v1\.css\?v=495/.test(html), 'The shared partial-review stylesheet cache key must be 495.');
 expect(/href="#p2"[^>]*data-partial-scope="p2"/.test(html), 'The compact P2 selector is missing.');
 expect(/Por tema \+ ranking/.test(html) && /href="comunidade\.html"/.test(html), 'The thematic practice and ranking shortcut is missing.');
 expect(/hashchange/.test(runtime) && /MedNykutoPartialReview/.test(runtime), 'The shared runtime does not expose clean hash-based scope switching.');
