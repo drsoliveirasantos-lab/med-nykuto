@@ -10,7 +10,8 @@ test.describe('P1 cumulative review', () => {
     await expect(page.getByRole('heading', { name: 'Repaso P1' })).toHaveCount(1);
     await expect(page.locator('#p1LessonCount')).toHaveText('17');
     await expect(page.locator('#p1QuestionCount')).toHaveText('680');
-    await expect(page.locator('#p1SubjectRail')).toBeHidden();
+    await expect(page.locator('#p1SubjectRail')).toBeVisible();
+    await expect(page.locator('#p1SubjectRail [data-subject-id="all"]')).toHaveAttribute('aria-pressed', 'true');
     await page.getByRole('button', { name: /Ficha P1/ }).click();
     await expect(page.locator('#p1SubjectRail')).toBeHidden();
     await expect(page.locator('.p1-subject-card')).toHaveCount(6);
@@ -22,6 +23,36 @@ test.describe('P1 cumulative review', () => {
     await expect(page.locator('.p1-lesson')).toHaveCount(2);
     await expect(page.getByText(/trabajadas hasta el 27 de agosto/)).toBeVisible();
     await expect(page.getByRole('link', { name: /Introducción al estudio nutricional/ })).toHaveAttribute('href', /drive\.google\.com/);
+  });
+
+  test('keeps quick presets and advanced subject filters mutually exclusive', async ({ page }) => {
+    const rail = page.locator('#p1SubjectRail');
+    const customize = page.locator('#p1ExamCustomize');
+    const nutritionPreset = rail.locator('[data-subject-id="nutricion"]');
+
+    await expect(rail).toBeVisible();
+    await expect(customize).not.toHaveAttribute('open', '');
+    await nutritionPreset.click();
+    await expect(nutritionPreset).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#p1CustomizeStatus')).toHaveText('Solo Nutrición');
+    await expect(page.locator('#p1ExamSubjects input:checked')).toHaveCount(1);
+    await expect(page.locator('#p1ExamSubjects input[value="nutricion"]')).toBeChecked();
+
+    await customize.locator('summary').click();
+    await expect(customize).toHaveAttribute('open', '');
+    await expect(rail).toBeHidden();
+    await page.locator('#p1ExamSubjects input[value="fisiologia"]').check();
+    await expect(page.locator('#p1CustomizeStatus')).toHaveText('2 materias');
+
+    await customize.locator('summary').click();
+    await expect(rail).toBeVisible();
+    await expect(rail.locator('[aria-pressed="true"]')).toHaveCount(0);
+    await expect(page.locator('#p1SubjectCustomState')).toHaveText('Personalizado · 2');
+
+    await page.getByRole('button', { name: 'Empezar entrenamiento' }).click();
+    await expect(rail).toBeHidden();
+    const sessionSubjects = await page.evaluate(() => [...new Set(window.MedNykutoP1.getSession().items.map((item) => item.subjectId))]);
+    expect(sessionSubjects.sort()).toEqual(['fisiologia', 'nutricion']);
   });
 
   test('builds a reproducible balanced exam after removing overlaps', async ({ page }) => {
