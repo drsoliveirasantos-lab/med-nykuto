@@ -1,4 +1,4 @@
-const CACHE = 'med-nykuto-shell-v499';
+const CACHE = 'med-nykuto-shell-v488';
 const SHELL = [
   '/offline.html',
   '/turma-shell/',
