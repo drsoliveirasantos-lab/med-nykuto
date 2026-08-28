@@ -30,3 +30,15 @@ replace_exact(
     "await expect(page.locator('#classHubLiveTasks .live-task-details')).toHaveCount(2);",
     "await expect(page.locator('#classHubLiveTasks .live-task-details')).toHaveCount(3);"
 )
+
+replace_exact(
+    'tests/mobile-touch-critical/section-03.js',
+    "    await page.goto('/clase.html#inicio', { waitUntil: 'domcontentloaded' });\n    const dashboard = await page.evaluate(() => {",
+    "    await page.goto('/clase.html#inicio', { waitUntil: 'domcontentloaded' });\n    await expect(page.locator('#homeHomeworkCount')).toHaveText('3 tareas activas');\n    const dashboard = await page.evaluate(() => {"
+)
+
+replace_exact(
+    'tests/mobile-touch-critical/section-03.js',
+    "expect(dashboard.homeworkCount).toBe('2 tareas activas');",
+    "expect(dashboard.homeworkCount).toBe('3 tareas activas');"
+)
