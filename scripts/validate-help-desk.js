@@ -175,8 +175,8 @@ async function main() {
     'clase.html', 'comunidade.html', 'contact.html', 'turma-shell/index.html', 'gestion-shell/index.html'
   ]) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
-    assert.match(html, /help-desk-v479\.css\?v=480/, `${file} is missing the Help Desk stylesheet.`);
-    assert.match(html, /help-desk-v479\.js\?v=480/, `${file} is missing the Help Desk client.`);
+    assert.match(html, /help-desk-v479\.css\?v=481/, `${file} is missing the Help Desk stylesheet.`);
+    assert.match(html, /help-desk-v479\.js\?v=481/, `${file} is missing the Help Desk client.`);
   }
   const contactPage = fs.readFileSync(path.join(root, 'contact.html'), 'utf8');
   assert.match(contactPage, /data-helpdesk-form/);

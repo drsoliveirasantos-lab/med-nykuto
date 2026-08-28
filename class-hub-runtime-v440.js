@@ -278,7 +278,7 @@
     var raw=String(notice&&notice.id||notice&&notice.title||'aviso'),slug=normalizedNoticeText(raw).replace(/\s+/g,'-').slice(0,42)||'aviso',checksum=0,index;for(index=0;index<raw.length;index+=1)checksum=((checksum*31)+raw.charCodeAt(index))>>>0;return'notice-'+slug+'-'+checksum.toString(36);
   }
   function noticePreviewCard(notice){
-    var item=el('article','notice-item notice-preview-item notice-preview-tile'),link=el('a','notice-preview-link'),title=String(notice.title||noticeText('Actualización','Atualização')),imageData=noticeImageData(notice);item.dataset.priority=notice.priority||'normal';item.dataset.category=String(noticeValue(notice,'category','category')||'general').toLowerCase();item.setAttribute('role','listitem');link.href='#'+noticeDomId(notice);link.setAttribute('aria-label',noticeText('Abrir aviso: ','Abrir aviso: ')+title);if(imageData){var media=el('span','notice-preview-thumb'),image=el('img');item.classList.add('has-thumbnail');image.src=imageData.url;image.alt='';image.loading='lazy';image.decoding='async';image.referrerPolicy='no-referrer';image.addEventListener('error',function(){item.classList.remove('has-thumbnail');media.remove();});media.appendChild(image);link.appendChild(media);}link.appendChild(el('strong','notice-preview-title',title));item.appendChild(link);return item;
+    var item=el('article','notice-item notice-preview-item notice-preview-tile'),link=el('a','notice-preview-link'),title=String(notice.title||noticeText('Actualización','Atualização')),imageData=noticeImageData(notice),priority=notice.priority||'normal',copy=el('span','notice-preview-copy'),kicker=priority==='urgent'?noticeText('Urgente','Urgente'):(priority==='important'?noticeText('Importante','Importante'):noticeText('Aviso','Aviso'));item.dataset.priority=priority;item.dataset.category=String(noticeValue(notice,'category','category')||'general').toLowerCase();item.setAttribute('role','listitem');link.href='#'+noticeDomId(notice);link.setAttribute('aria-label',noticeText('Abrir aviso: ','Abrir aviso: ')+title);if(imageData){var media=el('span','notice-preview-thumb'),image=el('img');item.classList.add('has-thumbnail');image.src=imageData.url;image.alt='';image.loading='lazy';image.decoding='async';image.referrerPolicy='no-referrer';image.addEventListener('error',function(){item.classList.remove('has-thumbnail');media.remove();});media.appendChild(image);link.appendChild(media);}copy.appendChild(el('span','notice-preview-kicker',kicker));copy.appendChild(el('strong','notice-preview-title',title));link.appendChild(copy);item.appendChild(link);return item;
   }
   function normalizedNoticeText(value){
     var text=String(value||'').toLowerCase();
@@ -370,11 +370,11 @@
     if(window.MedNykutoClassI18n&&window.MedNykutoClassI18n.refresh){window.MedNykutoClassI18n.refresh(homeSection);window.MedNykutoClassI18n.refresh(document.getElementById('avisos'));}
   }
   function renderHomeTaskPreview(activeTasks){
-    var home=document.querySelector('.dashboard-priorities');if(!home)return;home.replaceChildren();
+    var home=document.querySelector('.dashboard-priorities');if(!home)return;home.replaceChildren();var panel=home.closest('.dashboard-week-tasks');if(panel)panel.classList.toggle('is-empty',!activeTasks.length);
     activeTasks.slice(0,3).forEach(function(task,index){
       var guide=taskGuides[task.id],card=el('a','priority-card'+(index===0?' priority-main':'')),head=el('div','priority-card-head'),due=el('time','',task.dueLabel||'FECHA POR CONFIRMAR');card.dataset.taskId=task.id;card.dataset.homework='';card.href='#'+taskDomId(task.id);head.appendChild(el('span','',task.course||'CLASE'));if(task.dueAt)due.dateTime=task.dueAt;head.appendChild(due);card.appendChild(head);card.appendChild(el('strong','',task.title));card.appendChild(el('small','',task.description||(guide&&guide.summary)||''));card.appendChild(el('b','','Ver tarea →'));home.appendChild(card);
     });
-    if(!activeTasks.length)home.appendChild(el('p','dashboard-task-empty','No hay tareas activas.'));
+    if(!activeTasks.length)home.appendChild(el('p','dashboard-task-empty',noticeText('Sin tareas esta semana.','Sem tarefas nesta semana.')));
     if(window.MedNykutoClassI18n&&window.MedNykutoClassI18n.refresh)window.MedNykutoClassI18n.refresh(home);
   }
   function renderLiveTasks(){
@@ -423,7 +423,7 @@
     });
     if(!activeTasks.length)host.appendChild(el('p','notice-empty','No hay tareas activas. Las tareas terminadas ya no aparecen aquí.'));
     var count=document.getElementById('homeHomeworkCount');
-    if(count){var total=activeTasks.length,isPortuguese=/^pt(?:-|$)/i.test(document.documentElement.lang),noun=isPortuguese?(total===1?'tarefa':'tarefas'):(total===1?'tarea':'tareas');count.textContent=String(total)+' '+noun+(isPortuguese?' ativas':' activas');}
+    if(count){var total=activeTasks.length,isPortuguese=/^pt(?:-|$)/i.test(document.documentElement.lang),noun=isPortuguese?(total===1?'tarefa':'tarefas'):(total===1?'tarea':'tareas');count.textContent=total?String(total)+' '+noun+(isPortuguese?' ativas':' activas'):(isPortuguese?'Tudo em dia':'Todo al día');}
     if(window.MedNykutoClassI18n&&window.MedNykutoClassI18n.refresh)window.MedNykutoClassI18n.refresh(host);
     var hash=decodeURIComponent(window.location.hash.slice(1));
     if(hash.indexOf('task-')===0&&document.getElementById(hash)){var linkedCard=document.getElementById(hash),linkedTaskId=linkedCard.getAttribute('data-live-task-id');if(linkedTaskId)expandLiveTask(linkedTaskId);window.dispatchEvent(new Event('hashchange'));}

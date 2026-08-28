@@ -273,7 +273,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
         };
       });
       expect(compactPreviewLayout.objectFit).toBe('contain');
-      expect(compactPreviewLayout.linkHeight).toBeLessThanOrEqual(76);
+      expect(compactPreviewLayout.linkHeight).toBeGreaterThanOrEqual(80);
+      expect(compactPreviewLayout.linkHeight).toBeLessThanOrEqual(90);
       expect(compactPreviewLayout.thumbnailLeft).toBeLessThan(compactPreviewLayout.titleLeft);
       expect(compactPreviewLayout.thumbnailRight).toBeLessThanOrEqual(compactPreviewLayout.titleLeft + 1);
       expect(compactPreviewLayout.viewportOverflow).toBeLessThanOrEqual(1);
