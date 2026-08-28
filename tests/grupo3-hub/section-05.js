@@ -1,7 +1,7 @@
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
-  test('removes the completed Microbiology homework and keeps the dated course available', async ({ page }) => {
+  test('archives the completed Microbiology homework and keeps the dated course available', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
-    await expect(page.locator('#microTheoryPrepCard')).toBeHidden();
+    await expect(page.locator('#microTheoryPrepCard')).toBeVisible();
     await expect(page.locator('#classHubLiveTasks')).not.toContainText('Micosis superficiales y dermatofitosis');
 
     await page.goto('/clase.html#microbiologia-teorica-2026-08-10');

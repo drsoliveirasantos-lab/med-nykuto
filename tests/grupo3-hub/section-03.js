@@ -1,13 +1,16 @@
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
-  test('shows only published active tasks and removes completed static homework', async ({ page }) => {
+  test('shows three active tasks and preserves completed homework in the visible archive', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
     await expect(page.getByRole('heading', { name: 'Tareas activas' })).toBeVisible();
     const active = page.locator('#classHubLiveTasks .live-task');
-    await expect(active).toHaveCount(2);
-    await expect(active).toContainText(['Exposición grupal de enfermedad sorteada', 'Actividades 3 y 4 impresas y manuscritas']);
-    await expect(page.locator('.pending-grid')).toBeHidden();
-    await expect(page.locator('.assignment-archive')).toBeHidden();
-    await expect(page.locator('#nutritionPrepCard')).toBeHidden();
+    const activeList = page.locator('#classHubLiveTasks');
+    await expect(active).toHaveCount(3);
+    await expect(activeList).toContainText('Prueba práctica · caso clínico, trabajos firmados y grupos');
+    await expect(activeList).toContainText('Exposición grupal de enfermedad sorteada');
+    await expect(activeList).toContainText('Actividades 3 y 4 impresas y manuscritas');
+    await expect(page.locator('.pending-grid')).toBeVisible();
+    await expect(page.locator('.assignment-archive')).toBeVisible();
+    await expect(page.locator('#nutritionPrepCard')).toBeVisible();
   });
 
   test('organizes the 14 August glycolysis lesson with corrected study points', async ({ page }) => {

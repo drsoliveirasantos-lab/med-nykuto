@@ -91,9 +91,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(firstLauncher).toBeFocused();
   });
 
-  test('keeps the completed RAC homework out of active tasks while preserving its course source', async ({ page }) => {
+  test('keeps the completed RAC homework archived while preserving its course source', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
-    await expect(page.locator('#epiPrepCard')).toBeHidden();
+    await expect(page.locator('#epiPrepCard')).toBeVisible();
     await expect(page.locator('#classHubLiveTasks')).not.toContainText('Clasificación de riesgo RAC');
 
     await page.goto('/clase.html#epidemiologia-bloque-anterior');

@@ -1,6 +1,7 @@
 module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismissSemesterPicker }) => {
   test('dashboard, subjects, training and seminar plan use a tablet-like compact density', async ({ page }) => {
     await page.goto('/clase.html#inicio', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('#homeHomeworkCount')).toHaveText('3 tareas activas');
     const dashboard = await page.evaluate(() => {
       const panel = document.querySelector('.class-dashboard').getBoundingClientRect();
       const title = document.querySelector('.dashboard-heading h1');
@@ -46,7 +47,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(dashboard.quickLinkCount).toBe(4);
     expect(dashboard.quickLinkRows).toBe(1);
     expect(dashboard.homeworkTitle).toBe('PARA ESTA SEMANA');
-    expect(dashboard.homeworkCount).toBe('2 tareas activas');
+    expect(dashboard.homeworkCount).toBe('3 tareas activas');
     expect(dashboard.homeworkDates).toContain('2099-09-03T09:10:00-03:00');
     expect(dashboard.homeworkDates.every(Boolean)).toBe(true);
     for (const card of dashboard.priorities) {

@@ -1,0 +1,322 @@
+name: Med Nykuto site tests
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [preview, main]
+  pull_request:
+    branches: [preview, main]
+
+permissions:
+  contents: read
+  actions: read
+  issues: write
+
+concurrency:
+  group: med-nykuto-site-tests-latest-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Static, data and quality validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Validate split course sources and module counters
+        run: node scripts/validate-course-sources.js
+      - name: Validate notebook, lessons and cumulative teacher model
+        run: node scripts/validate-academic-model.js
+      - name: Validate repository hygiene and stale files
+        run: node scripts/validate-no-stale-files.js
+      - name: Validate static links and release markers
+        run: node scripts/validate-site-links.js
+      - name: Validate restored data volumes
+        run: node scripts/validate-data-health.js
+      - name: Validate restored course assets
+        run: node scripts/validate-course-assets.js
+      - name: Validate site manifest
+        run: node scripts/validate-site-manifest.js
+      - name: Validate strict HTML/JS references
+        run: node scripts/validate-strict-html-js-health.js
+      - name: Validate class practice bank quality
+        run: node scripts/validate-class-practice-bank.js
+      - name: Validate S4 P1 review and exam scope
+        run: node scripts/validate-p1-s4.js
+      - name: Validate S4 P2 review and exam scope
+        run: node scripts/validate-p2-s4.js
+      - name: Validate community ranking and lesson allowlist
+        run: node scripts/validate-community-ranking.js
+      - name: Validate class hub language and schedule
+        run: node scripts/validate-class-hub-language.js
+      - name: Validate 21 August handoff deliverables
+        run: node scripts/validate-2026-08-21-handoff.js
+      - name: Validate multiclass isolation, lifecycle and compatibility
+        run: node scripts/validate-multiclass-foundation.js
+      - name: Validate scoped class content management
+        run: node scripts/validate-content-management.js
+      - name: Validate public calendar subscriptions
+        run: node scripts/validate-calendar-subscription.js
+      - name: Validate persistent public light and dark themes
+        run: node scripts/validate-public-theme.js
+      - name: Use Node 22 for real-SQL content API contract
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate scoped class content API contract
+        run: node scripts/validate-content-management-api.js
+      - name: Keep Node 22 for general validation
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate app bundle source and generated runtime match
+        run: node scripts/validate-app-bundle-split.js
+      - name: Ensure protected bank files were not changed accidentally
+        run: node scripts/protected-data-guard.js
+      - name: Validate SEO, sitemap and visible branding
+        run: node scripts/validate-seo-health.js
+      - name: Validate advanced branding regression
+        run: node scripts/validate-branding-regression-advanced.js
+      - name: Validate content sanitization
+        run: node scripts/validate-content-sanitization.js
+      - name: Validate question bank deep integrity
+        run: node scripts/validate-question-bank-deep-integrity.js
+      - name: Certify Semester 3 questions against course policy
+        run: node scripts/validate-semester-3-question-certification.js
+      - name: Upload quality and hardening reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-quality-hardening-reports
+          if-no-files-found: ignore
+          path: |
+            reports/question-bank-quality-report.json
+            reports/question-bank-quality-report.txt
+            reports/s3-question-certification-report.json
+            reports/s3-question-certification-report.txt
+            reports/content-sanitization-report.json
+            reports/content-sanitization-report.txt
+            reports/branding-regression-report.json
+            reports/branding-regression-report.txt
+            reports/preview-hygiene-audit.json
+            reports/preview-hygiene-audit.txt
+
+  browser-desktop-core:
+    name: Browser desktop core regression tests
+    needs: validate
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
+      - name: Run desktop core regression tests
+        run: |
+          set +e
+          npx playwright test \
+            tests/smoke.spec.js \
+            tests/restored-data.spec.js \
+            tests/practice-flow.spec.js \
+            tests/practice-answer-randomization.spec.js \
+            tests/real-click-regression.spec.js \
+            tests/qcm-critical-clicks.spec.js \
+            tests/qcm-transition-stability.spec.js \
+            tests/module-ui-regression.spec.js \
+            tests/click-audit.spec.js \
+            tests/cases-critical.spec.js \
+            tests/vf-critical.spec.js \
+            tests/no-navigation-regression.spec.js \
+            tests/runtime-conflict.spec.js \
+            tests/cache-version-integrity.spec.js \
+            tests/report-error-critical.spec.js \
+            tests/performance-regression-light.spec.js \
+            tests/student-full-journey.spec.js \
+            tests/progress-and-mistakes-storage.spec.js \
+            tests/course-module-integrity.spec.js \
+            tests/no-blank-page-matrix.spec.js \
+            tests/console-error-guard.spec.js \
+            tests/grupo3-hub.spec.js \
+            tests/multiclass-hub.spec.js \
+            tests/class-content-management-runtime.spec.js \
+            tests/community-leaderboard.spec.js \
+            tests/p1.spec.js \
+            tests/p2.spec.js \
+            tests/medical-glossary.spec.js \
+            --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/desktop-core --reporter=json > desktop-core.json
+          code=$?
+          node scripts/print-playwright-summary.js desktop-core.json
+          exit $code
+      - name: Upload desktop core evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-core-evidence
+          if-no-files-found: ignore
+          path: |
+            desktop-core.json
+            test-results/desktop-core/**
+            playwright-report/**
+
+  browser-mobile-critical:
+    name: Browser mobile Safari-shape critical tests
+    needs: validate
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - name: Install Playwright Chromium and WebKit with timeout
+        run: timeout 300s npx playwright install --with-deps chromium webkit
+      - name: Run mobile touch critical tests
+        run: |
+          set +e
+          npx playwright test tests/mobile-touch-critical.spec.js --project=mobile-safari-shape --trace=retain-on-failure --output=test-results/mobile-touch --reporter=json > mobile-touch.json
+          code=$?
+          node scripts/print-playwright-summary.js mobile-touch.json
+          exit $code
+      - name: Audit compact notebook on iPhone widths and WebKit
+        run: npm run audit:notebook-ui
+      - name: Upload mobile touch evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-touch-evidence
+          if-no-files-found: ignore
+          path: |
+            mobile-touch.json
+            test-results/mobile-touch/**
+            test-results/notebook-audit/**
+            playwright-report/**
+
+  browser-deployed-visual-a11y:
+    name: Browser deployed, visual and accessibility tests
+    needs: validate
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
+      - name: Run deployed, visual and accessibility tests
+        env:
+          DEPLOYED_BASE_URL: https://med.nykuto.com
+        run: |
+          set +e
+          npx playwright test \
+            tests/deployed-preview-smoke.spec.js \
+            tests/visual-snapshots.spec.js \
+            tests/accessibility-light.spec.js \
+            --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/deployed-visual-a11y --reporter=json > deployed-visual-a11y.json
+          code=$?
+          node scripts/print-playwright-summary.js deployed-visual-a11y.json
+          exit $code
+      - name: Upload deployed, visual and accessibility evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployed-visual-a11y-evidence
+          if-no-files-found: ignore
+          path: |
+            deployed-visual-a11y.json
+            test-results/deployed-visual-a11y/**
+            test-results/visual-snapshots/**
+            playwright-report/**
+
+  browser-lot2-visible-features:
+    name: Browser lot 2 visible feature tests
+    needs: validate
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - name: Install Playwright Chromium with timeout
+        run: timeout 240s npx playwright install --with-deps chromium
+      - name: Run lot 2 exam, contact, Pix and responsive tests
+        run: |
+          set +e
+          npx playwright test \
+            tests/exam-mode-critical.spec.js \
+            tests/contact-support-pix.spec.js \
+            tests/responsive-layout-matrix.spec.js \
+            --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/lot2-visible-features --reporter=json > lot2-visible-features.json
+          code=$?
+          node scripts/print-playwright-summary.js lot2-visible-features.json
+          exit $code
+      - name: Upload lot 2 visible feature evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lot2-visible-features-evidence
+          if-no-files-found: ignore
+          path: |
+            lot2-visible-features.json
+            test-results/lot2-visible-features/**
+            playwright-report/**
+
+  browser-lot3-hardening:
+    name: Browser lot 3 hardening tests
+    needs: validate
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - name: Install Playwright browsers with timeout
+        run: timeout 420s npx playwright install --with-deps chromium firefox webkit
+      - name: Run lot 3 hardening tests
+        run: |
+          set +e
+          npx playwright test tests/accessibility-advanced.spec.js tests/performance-budget.spec.js --project=desktop-chromium --workers=1 --trace=retain-on-failure --output=test-results/lot3-chromium --reporter=json > lot3-chromium.json
+          code_chromium=$?
+          node scripts/print-playwright-summary.js lot3-chromium.json
+          npx playwright test tests/cross-engine-critical.spec.js --project=desktop-firefox --workers=1 --trace=retain-on-failure --output=test-results/lot3-firefox --reporter=json > lot3-firefox.json
+          code_firefox=$?
+          node scripts/print-playwright-summary.js lot3-firefox.json
+          npx playwright test tests/cross-engine-critical.spec.js --project=desktop-webkit --workers=1 --trace=retain-on-failure --output=test-results/lot3-webkit --reporter=json > lot3-webkit.json
+          code_webkit=$?
+          node scripts/print-playwright-summary.js lot3-webkit.json
+          if [ "$code_chromium" -ne 0 ] || [ "$code_firefox" -ne 0 ] || [ "$code_webkit" -ne 0 ]; then exit 1; fi
+      - name: Upload lot 3 hardening evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lot3-hardening-evidence
+          if-no-files-found: ignore
+          path: |
+            lot3-chromium.json
+            lot3-firefox.json
+            lot3-webkit.json
+            test-results/lot3-chromium/**
+            test-results/lot3-firefox/**
+            test-results/lot3-webkit/**
+            playwright-report/**

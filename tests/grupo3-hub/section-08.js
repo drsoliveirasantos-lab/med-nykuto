@@ -23,23 +23,27 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     expect(nutritionLayout.scrollWidth).toBeLessThanOrEqual(nutritionLayout.clientWidth + 1);
   });
 
-  test('keeps homework compact and expands each brief inside Tareas', async ({ page }) => {
+  test('keeps all current homework compact and expands each brief inside Tareas', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/clase.html#pendientes');
     const tasks = page.locator('#classHubLiveTasks .live-task-details');
-    await expect(tasks).toHaveCount(2);
-    await expect(tasks.nth(0)).toContainText('Epidemiología');
-    await expect(tasks.nth(1)).toContainText('Bioquímica II');
+    const practicalTask = page.locator('#task-bio-practical-2026-09-02');
+    const epidemiologyTask = page.locator('#task-epi-presentation');
+    const biochemistryTask = page.locator('#task-bio-activities');
+    await expect(tasks).toHaveCount(3);
+    await expect(practicalTask).toContainText('Prueba práctica');
+    await expect(epidemiologyTask).toContainText('Epidemiología');
+    await expect(biochemistryTask).toContainText('Bioquímica II');
     const heights = await tasks.evaluateAll((cards) => cards.map((card) => card.getBoundingClientRect().height));
     expect(Math.max(...heights)).toBeLessThan(100);
-    await tasks.nth(0).locator('summary').click();
-    await expect(tasks.nth(0)).toHaveAttribute('open', '');
+    await epidemiologyTask.locator('summary').click();
+    await expect(epidemiologyTask).toHaveAttribute('open', '');
     await expect(page.locator('#pendientes')).toBeVisible();
     await expect(page.locator('#materias')).toBeHidden();
-    await expect(tasks.nth(0)).toContainText('15 diapositivas como máximo');
-    await expect(tasks.nth(0)).toContainText('Solo se entregan las diapositivas');
-    await expect(tasks.nth(0).getByRole('link', { name: /Descargar la consigna en DOCX/ })).toHaveAttribute('href', /trabajo-practico-salud-publica-epidemiologia\.docx$/);
-    const compactControls = await tasks.nth(0).evaluate((card) => {
+    await expect(epidemiologyTask).toContainText('15 diapositivas como máximo');
+    await expect(epidemiologyTask).toContainText('Solo se entregan las diapositivas');
+    await expect(epidemiologyTask.getByRole('link', { name: /Descargar la consigna en DOCX/ })).toHaveAttribute('href', /trabajo-practico-salud-publica-epidemiologia\.docx$/);
+    const compactControls = await epidemiologyTask.evaluate((card) => {
       const toggle = card.querySelector('.live-task-action');
       const download = card.querySelector('.live-task-download');
       const intro = card.querySelector('.live-task-intro');
@@ -58,7 +62,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     expect(compactControls.downloadHeight).toBeLessThanOrEqual(46);
     expect(compactControls.downloadWidth).toBeLessThan(compactControls.cardWidth * 0.9);
     expect(compactControls.introClamp).not.toBe('1');
-    await expect(page.locator('.pending-grid')).toBeHidden();
+    await expect(page.locator('.pending-grid')).toBeVisible();
   });
 
   test('opens the selected homework from Home without entering a course', async ({ page }) => {
@@ -100,7 +104,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
         return route.continue();
       });
       await page.goto(new URL('/clase.html#inicio', bootstrapPage.url()).href);
-      await expect(page.locator('#classHubLiveTasks .live-task-details')).toHaveCount(2);
+      await expect(page.locator('#classHubLiveTasks .live-task-details')).toHaveCount(3);
       const preview = page.locator('#classHomeNoticePreview');
       await expect(preview).toHaveAttribute('role', 'list');
       await expect(preview.locator('.notice-item')).toHaveCount(1);

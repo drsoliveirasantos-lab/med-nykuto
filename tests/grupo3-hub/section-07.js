@@ -16,11 +16,11 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     }
   });
 
-  test('keeps completed activities out of the active task page', async ({ page }) => {
+  test('keeps completed activities in a visible archive outside the three active tasks', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
-    await expect(page.locator('#classHubLiveTasks .live-task')).toHaveCount(2);
-    await expect(page.locator('.assignment-archive')).toBeHidden();
-    await expect(page.getByRole('heading', { name: 'Tareas anteriores' })).toBeHidden();
+    await expect(page.locator('#classHubLiveTasks .live-task')).toHaveCount(3);
+    await expect(page.locator('.assignment-archive')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Tareas anteriores' })).toBeVisible();
   });
 
   test('uses pictograms instead of navigation abbreviations', async ({ page }) => {

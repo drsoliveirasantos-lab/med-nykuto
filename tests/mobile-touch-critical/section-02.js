@@ -72,11 +72,11 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     await expect(page.locator('#weeklyAgenda .schedule-task-badge')).toHaveCount(4);
   });
 
-  test('active API assignments form compact rows on iPhone', async ({ page }) => {
+  test('active assignments and their archive form compact rows on iPhone', async ({ page }) => {
     await page.goto('/clase.html#pendientes', { waitUntil: 'domcontentloaded' });
     await expect(page.getByRole('heading', { name: 'Tareas activas' })).toBeVisible({ timeout: 10000 });
     const assignments = page.locator('#classHubLiveTasks .live-task');
-    await expect(assignments).toHaveCount(2);
+    await expect(assignments).toHaveCount(3);
 
     const layout = await page.evaluate(() => {
       const list = document.querySelector('#classHubLiveTasks').getBoundingClientRect();
@@ -84,17 +84,19 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
       return {
         maxRowHeight: Math.max(...rows.map(row => row.height)),
         listHeight: list.height,
-        staleDisplay: getComputedStyle(document.querySelector('.pending-grid')).display,
+        archiveDisplay: getComputedStyle(document.querySelector('.pending-grid')).display,
         scrollWidth: document.documentElement.scrollWidth,
         clientWidth: document.documentElement.clientWidth
       };
     });
 
-    expect(layout.maxRowHeight).toBeLessThan(105);
-    expect(layout.listHeight).toBeLessThan(220);
-    expect(layout.staleDisplay).toBe('none');
+    expect(layout.maxRowHeight).toBeLessThan(110);
+    expect(layout.listHeight).toBeLessThan(360);
+    expect(layout.archiveDisplay).not.toBe('none');
     expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
-    await expect(assignments.nth(0)).toContainText('Epidemiología');
-    await expect(assignments.nth(1)).toContainText('Bioquímica II');
+    await expect(page.locator('#task-bio-practical-2026-09-02')).toContainText('Prueba práctica');
+    await expect(page.locator('#task-epi-presentation')).toContainText('Epidemiología');
+    await expect(page.locator('#task-bio-activities')).toContainText('Bioquímica II');
+    await expect(page.locator('.assignment-archive')).toBeVisible();
   });
 };

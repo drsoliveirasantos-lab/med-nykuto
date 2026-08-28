@@ -13,7 +13,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.locator('#fisiologia [data-notebook-mode="progreso"]').click();
     const firstTask = page.locator('#fisiologia .notebook-progress-row input').first();
     await firstTask.check();
-    await expect(page.locator('#fisiologia .notebook-progress-summary')).toContainText('1 de 5');
+    await expect(page.locator('#fisiologia .notebook-progress-summary')).toContainText('1 de 6');
     await page.reload();
     await page.locator('#fisiologia [data-notebook-mode="progreso"]').click();
     await expect(firstTask).toBeChecked();
