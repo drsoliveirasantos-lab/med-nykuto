@@ -131,13 +131,19 @@ async function inspectNotebook(browserType, width, failures, screenshots) {
   await page.waitForSelector('#classHubLiveTasks');
   const tasks = await page.evaluate(() => ({
     active: document.querySelectorAll('#classHubLiveTasks .live-task').length,
-    staleVisible: getComputedStyle(document.querySelector('.pending-grid')).display !== 'none',
+    previousGridVisible: getComputedStyle(document.querySelector('.pending-grid')).display !== 'none',
     archiveVisible: getComputedStyle(document.querySelector('.assignment-archive')).display !== 'none',
     titles: Array.from(document.querySelectorAll('#classHubLiveTasks .live-task strong')).map((node) => node.textContent.trim())
   }));
-  expect(tasks.active === 2, `${browserType.name()} ${width}px: expected 2 active API tasks, found ${tasks.active}.`, failures);
-  expect(!tasks.staleVisible && !tasks.archiveVisible, `${browserType.name()} ${width}px: past static assignments remain visible.`, failures);
-  expect(tasks.titles.some((title) => /Exposición grupal/.test(title)) && tasks.titles.some((title) => /Actividades 3 y 4/.test(title)), `${browserType.name()} ${width}px: new task titles are missing.`, failures);
+  expect(tasks.active === 3, `${browserType.name()} ${width}px: expected 3 active tasks, found ${tasks.active}.`, failures);
+  expect(tasks.previousGridVisible && tasks.archiveVisible, `${browserType.name()} ${width}px: the completed-assignment archive is not visible.`, failures);
+  expect(
+    tasks.titles.some((title) => /Prueba práctica/.test(title)) &&
+      tasks.titles.some((title) => /Exposición grupal/.test(title)) &&
+      tasks.titles.some((title) => /Actividades 3 y 4/.test(title)),
+    `${browserType.name()} ${width}px: one or more current task titles are missing.`,
+    failures
+  );
 
   await page.goto(`${baseUrl}/profesores.html`, { waitUntil: 'networkidle' });
   await page.waitForSelector('.teacher-card');
@@ -192,7 +198,7 @@ async function main() {
     failures.forEach((failure) => console.error(` - ${failure}`));
     process.exit(1);
   }
-  console.log('Notebook UI audit OK: Chromium 320/375/390/430 + WebKit 390, 6 compact subjects, 14 narrative lessons, 2 active tasks, 6 teacher audits, compact themes/files/progress and no horizontal overflow.');
+  console.log('Notebook UI audit OK: Chromium 320/375/390/430 + WebKit 390, 6 compact subjects, 14 narrative lessons, 3 active tasks, visible completed-assignment archive, 6 teacher audits, compact themes/files/progress and no horizontal overflow.');
 }
 
 main().catch((error) => {
