@@ -60,6 +60,7 @@ jobs:
             tests/grupo3-hub/section-10.js \
             tests/grupo3-hub/section-11.js \
             tests/mobile-touch-critical/section-02.js \
+            tests/mobile-touch-critical/section-03.js \
             tests/community-leaderboard.spec.js \
             tests/p2.spec.js
           git commit -m "fix(ci): reconcile tests with current class state [reconciled]"
