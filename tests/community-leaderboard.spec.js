@@ -793,7 +793,7 @@ test.describe('Weekly S4-E class challenge', () => {
     const desktopNavigation = page.locator('.workspace-nav');
     const mobileNavigation = page.locator('.mobile-bottom-nav');
     await expect(desktopNavigation.locator('a')).toHaveCount(6);
-    await expect(mobileNavigation.locator('a')).toHaveCount(6);
+    await expect(mobileNavigation.locator('a')).toHaveCount(5);
     await expect(desktopNavigation.locator('a[href="p1.html"]')).toContainText('P1');
     await expect(desktopNavigation.locator('a[href="p1.html"]')).toContainText('Repaso + práctica');
     await expect(mobileNavigation.locator('a[href="p1.html"]')).toContainText('P1');
@@ -809,12 +809,11 @@ test.describe('Weekly S4-E class challenge', () => {
     await page.goto('/comunidade.html', { waitUntil: 'domcontentloaded' });
     const navigation = page.locator('.mobile-bottom-nav');
     await expect(navigation).toBeVisible();
-    await expect(navigation.locator('a')).toHaveCount(6);
+    await expect(navigation.locator('a')).toHaveCount(5);
     await expect(navigation.locator('a[aria-current="page"]')).toHaveAttribute('href', 'p1.html');
     await expect(navigation.locator('a[href="clase.html#inicio"]')).toContainText('Inicio');
     await expect(navigation.locator('a[href="clase.html#horario"]')).toContainText('Horario');
     await expect(navigation.locator('a[href="clase.html#pendientes"]')).toContainText('Tareas');
-    await expect(navigation.locator('a[href="clase.html#avisos"]')).toContainText('Avisos');
     await expect(navigation.locator('a[href="clase.html#materias"]')).toContainText('Materias');
     await expect(navigation.locator('a[href="p1.html"]')).toContainText('P1');
     await expect(page.getByText('50 R$ vía Pix', { exact: true })).toBeVisible();
@@ -850,8 +849,8 @@ test.describe('Weekly S4-E class challenge', () => {
     expect(layout.navHeight).toBeGreaterThanOrEqual(58);
     expect(layout.navBottom).toBeGreaterThanOrEqual(3);
     expect(layout.minNavItemHeight).toBeGreaterThanOrEqual(58);
-    expect(layout.minNavItemWidth).toBeGreaterThanOrEqual(78);
-    expect(layout.navScrollWidth).toBeGreaterThan(layout.navClientWidth);
+    expect(layout.minNavItemWidth).toBeGreaterThanOrEqual(44);
+    expect(layout.navScrollWidth).toBeLessThanOrEqual(layout.navClientWidth + 1);
     expect(layout.activeLeft).toBeGreaterThanOrEqual(-1);
     expect(layout.activeRight).toBeGreaterThanOrEqual(-1);
     expect(layout.bodyBottomPadding).toBeGreaterThanOrEqual(layout.navHeight + 12);
@@ -864,5 +863,30 @@ test.describe('Weekly S4-E class challenge', () => {
     await expect(navigation.locator('a[href="clase.html#pendientes"]')).toContainText('Tarefas');
     await expect(navigation.locator('a[href="clase.html#materias"]')).toContainText('Matérias');
     await expect(navigation.locator('a[aria-current="page"]')).toContainText('P1');
+
+    await page.setViewportSize({ width: 844, height: 390 });
+    await expect(navigation).toBeVisible();
+    const landscapeLayout = await page.evaluate(() => {
+      const header = document.querySelector('.community-header');
+      const nav = document.querySelector('.mobile-bottom-nav');
+      const navBox = nav.getBoundingClientRect();
+      const navItems = Array.from(nav.querySelectorAll('a')).map((item) => item.getBoundingClientRect());
+      return {
+        headerHeight: header.getBoundingClientRect().height,
+        headerOverflow: header.scrollWidth - header.clientWidth,
+        navWidth: navBox.width,
+        navCount: navItems.length,
+        navOverflow: nav.scrollWidth - nav.clientWidth,
+        minNavItemHeight: Math.min(...navItems.map((item) => item.height)),
+        overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+      };
+    });
+    expect(landscapeLayout.headerHeight).toBeLessThanOrEqual(80);
+    expect(landscapeLayout.headerOverflow).toBeLessThanOrEqual(1);
+    expect(landscapeLayout.navWidth).toBeLessThanOrEqual(640);
+    expect(landscapeLayout.navCount).toBe(5);
+    expect(landscapeLayout.navOverflow).toBeLessThanOrEqual(1);
+    expect(landscapeLayout.minNavItemHeight).toBeGreaterThanOrEqual(58);
+    expect(landscapeLayout.overflow).toBeLessThanOrEqual(1);
   });
 });

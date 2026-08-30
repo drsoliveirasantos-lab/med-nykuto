@@ -8,7 +8,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
       const navItem = document.querySelector('.mobile-bottom-nav a').getBoundingClientRect();
       const prioritiesGrid = document.querySelector('.dashboard-priorities');
       const prioritiesGridRect = prioritiesGrid.getBoundingClientRect();
-      const quickLinks = Array.from(document.querySelectorAll('.home-quick-links .home-quick-link')).filter((link) => link.offsetParent !== null);
+      const quickLinks = Array.from(document.querySelectorAll('.home-quick-links a.home-quick-link:not(.home-quick-link-delegate)')).filter((link) => getComputedStyle(link).display !== 'none');
       const priorities = Array.from(prioritiesGrid.querySelectorAll('.priority-card')).map((card) => {
         const rect = card.getBoundingClientRect();
         const title = card.querySelector('strong');
@@ -32,20 +32,22 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
         appBottomPadding:parseFloat(getComputedStyle(document.querySelector('.class-app')).paddingBottom),
         quickLinkCount:quickLinks.length,
         quickLinkRows:new Set(quickLinks.map((link) => Math.round(link.getBoundingClientRect().top))).size,
+        quickLinkTitleMin:Math.min(...quickLinks.map((link) => parseFloat(getComputedStyle(link.querySelector('strong')).fontSize))),
         homeworkTitle:document.querySelector('.dashboard-week-heading span').textContent.trim(),
         homeworkCount:document.getElementById('homeHomeworkCount').textContent.trim(),
         homeworkDates:Array.from(prioritiesGrid.querySelectorAll('.priority-card time')).map(function(time){return time.dateTime;})
       };
     });
-    expect(dashboard.height).toBeLessThan(720);
+    expect(dashboard.height).toBeLessThan(900);
     expect(dashboard.titleSize).toBeLessThan(32);
     expect(dashboard.navHeight).toBeGreaterThanOrEqual(54);
     expect(dashboard.navHeight).toBeLessThanOrEqual(62);
     expect(dashboard.overflow).toBeLessThanOrEqual(1);
-    expect(dashboard.columns).toBe(2);
+    expect(dashboard.columns).toBe(1);
     expect(dashboard.appBottomPadding).toBeLessThanOrEqual(12);
-    expect(dashboard.quickLinkCount).toBe(4);
+    expect(dashboard.quickLinkCount).toBe(3);
     expect(dashboard.quickLinkRows).toBe(1);
+    expect(dashboard.quickLinkTitleMin).toBeGreaterThanOrEqual(12);
     expect(dashboard.homeworkTitle).toBe('PARA ESTA SEMANA');
     expect(dashboard.homeworkCount).toBe('3 tareas activas');
     expect(dashboard.homeworkDates).toContain('2099-09-03T09:10:00-03:00');
@@ -55,7 +57,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
       expect(card.right).toBeLessThanOrEqual(dashboard.prioritiesGrid.right + 1);
       expect(card.width).toBeGreaterThanOrEqual(70);
       expect(card.overflow).toBeLessThanOrEqual(1);
-      expect(card.titleSize).toBeLessThanOrEqual(10);
+      expect(card.titleSize).toBeGreaterThanOrEqual(12);
       expect(card.titleLines).toBeLessThanOrEqual(2);
     }
 
@@ -94,8 +96,10 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     });
     expect(course.modeColumns).toBe(4);
     expect(course.modeRows).toBe(1);
-    expect(course.modeMaxHeight).toBeLessThanOrEqual(40);
-    expect(course.dateMaxHeight).toBeLessThanOrEqual(44);
+    expect(course.modeMaxHeight).toBeGreaterThanOrEqual(44);
+    expect(course.modeMaxHeight).toBeLessThanOrEqual(48);
+    expect(course.dateMaxHeight).toBeGreaterThanOrEqual(44);
+    expect(course.dateMaxHeight).toBeLessThanOrEqual(48);
     expect(course.sectionCount).toBe(6);
     expect(course.overflow).toBeLessThanOrEqual(1);
 
@@ -151,7 +155,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(modalLayout.closeHeight).toBeGreaterThanOrEqual(44);
   });
 
-  test('Avisos stays reachable in the scrollable 4E navigation and after an iPhone rotation', async ({ page }) => {
+  test('the five primary destinations fit and Avisos stays reachable from the bell after rotation', async ({ page }) => {
     await page.unroute('**/api/class-hub**');
     const categories = ['transport','schedule','assessment','administrative','academic','task','resource','general','emergency'];
     const notices = categories.map((category,index) => ({
@@ -180,12 +184,16 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     const navigationLayout = await navigation.evaluate((node) => ({
       scrollWidth:node.scrollWidth,
       clientWidth:node.clientWidth,
+      linkCount:node.querySelectorAll('a').length,
       minWidth:Math.min(...Array.from(node.querySelectorAll('a')).map((item) => item.getBoundingClientRect().width)),
-      minHeight:Math.min(...Array.from(node.querySelectorAll('a')).map((item) => item.getBoundingClientRect().height))
+      minHeight:Math.min(...Array.from(node.querySelectorAll('a')).map((item) => item.getBoundingClientRect().height)),
+      p1Visible:(() => { const bounds=node.getBoundingClientRect(),item=node.querySelector('a[href="p1.html"]').getBoundingClientRect(); return item.left>=bounds.left-1&&item.right<=bounds.right+1; })()
     }));
-    expect(navigationLayout.scrollWidth).toBeGreaterThan(navigationLayout.clientWidth);
-    expect(navigationLayout.minWidth).toBeGreaterThanOrEqual(78);
+    expect(navigationLayout.linkCount).toBe(5);
+    expect(navigationLayout.scrollWidth).toBeLessThanOrEqual(navigationLayout.clientWidth + 1);
+    expect(navigationLayout.minWidth).toBeGreaterThanOrEqual(44);
     expect(navigationLayout.minHeight).toBeGreaterThanOrEqual(54);
+    expect(navigationLayout.p1Visible).toBe(true);
 
     await page.locator('.mobile-bottom-nav [data-view-link="cursos"]').click();
     await expect.poll(() => page.evaluate(() => {
@@ -194,7 +202,26 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
       const bounds=nav.getBoundingClientRect(),item=active.getBoundingClientRect();
       return item.left>=bounds.left-1&&item.right<=bounds.right+1;
     })).toBe(true);
-    await page.setViewportSize({ width:640, height:320 });
+    await page.setViewportSize({ width:844, height:390 });
+    await expect(navigation).toBeVisible();
+    const landscapeHeader = await page.locator('.class-header').evaluate((header) => ({
+      height:header.getBoundingClientRect().height,
+      scrollWidth:header.scrollWidth,
+      clientWidth:header.clientWidth,
+      semesterVisible:getComputedStyle(document.querySelector('#semesterSwitcherV402')).display !== 'none'
+    }));
+    expect(landscapeHeader.height).toBeLessThanOrEqual(64);
+    expect(landscapeHeader.scrollWidth).toBeLessThanOrEqual(landscapeHeader.clientWidth + 1);
+    expect(landscapeHeader.semesterVisible).toBe(false);
+    const landscapeNavigation = await navigation.evaluate((node) => ({
+      scrollWidth:node.scrollWidth,
+      clientWidth:node.clientWidth,
+      linkCount:node.querySelectorAll('a').length,
+      p1Visible:(() => { const bounds=node.getBoundingClientRect(),item=node.querySelector('a[href="p1.html"]').getBoundingClientRect(); return item.left>=bounds.left-1&&item.right<=bounds.right+1; })()
+    }));
+    expect(landscapeNavigation.linkCount).toBe(5);
+    expect(landscapeNavigation.scrollWidth).toBeLessThanOrEqual(landscapeNavigation.clientWidth + 1);
+    expect(landscapeNavigation.p1Visible).toBe(true);
     await page.setViewportSize({ width:320, height:568 });
     await expect.poll(() => page.evaluate(() => {
       const nav=document.querySelector('.mobile-bottom-nav'),active=nav&&nav.querySelector('[aria-current="page"]');
@@ -203,7 +230,8 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
       return item.left>=bounds.left-1&&item.right<=bounds.right+1;
     })).toBe(true);
 
-    await page.locator('.mobile-bottom-nav [data-view-link="avisos"]').click();
+    await page.locator('#noticeBell').click();
+    await expect(page.locator('#avisos')).toBeVisible();
     await expect(page.locator('#classNoticePageList .notice-item')).toHaveCount(categories.length);
     const filterStrip = page.locator('.notice-filter-category .notice-filter-chips');
     await expect(filterStrip.locator('[data-notice-category="transport"]')).toBeVisible();

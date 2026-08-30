@@ -846,6 +846,11 @@
       next.textContent = hasSelection ? 'Comprobar respuesta' : 'Elige una respuesta';
       return;
     }
+    if (answeredTotal() === total) {
+      next.disabled = false;
+      next.textContent = 'Ver resultado →';
+      return;
+    }
     next.disabled = false;
     next.textContent = state.currentIndex === total - 1 ? 'Ir a pendiente →' : 'Siguiente →';
   }
@@ -933,6 +938,10 @@
       state.session.validated[current.id] = true;
       saveSession();
       renderQuestion();
+      return;
+    }
+    if (answeredTotal() === state.session.items.length) {
+      finishExam();
       return;
     }
     if (state.currentIndex < state.session.items.length - 1) state.currentIndex += 1;

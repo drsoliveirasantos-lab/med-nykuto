@@ -1324,8 +1324,9 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
 }
 
 @media(max-width:680px){
-  html{scroll-padding-top:72px}
+  html{scroll-padding-top:calc(72px + env(safe-area-inset-top))}
   body{padding-bottom:76px}
+  .class-header{padding-top:env(safe-area-inset-top)}
   body::before{opacity:.1;background-size:56px 56px}
   .class-header-inner{width:min(calc(100% - 16px),var(--content));min-height:60px;grid-template-columns:auto 1fr auto;gap:8px}
   .class-brand img{width:40px;height:40px;border-radius:12px}
@@ -1342,7 +1343,7 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
   .dashboard-heading{gap:0}
   .dashboard-heading-top{align-items:center;justify-content:flex-start;gap:10px}
   .dashboard-heading-top .hero-meta>span:last-child{display:none}
-  .dashboard-heading .section-kicker,.dashboard-intro,.dashboard-updated{display:none}
+  .dashboard-heading .section-kicker,.dashboard-intro{display:none}
   .dashboard-heading h1{margin-top:10px;font-size:1.95rem;line-height:1}
   .dashboard-grid{margin-top:11px}
   .dashboard-next,.dashboard-status{min-height:auto}
@@ -1685,13 +1686,12 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
   .seminar-document-pages{grid-template-columns:1fr;gap:8px}
   .seminar-document-pages figure{padding:6px;border-radius:12px}
   .seminar-document-pages figure>span{padding:1px 3px 6px;font-size:.5rem}
-  .mobile-bottom-nav{position:fixed;display:flex;left:6px;right:6px;bottom:max(6px,env(safe-area-inset-bottom));z-index:60;overflow-x:auto;overflow-y:hidden;padding-inline:5px;border:1px solid var(--line-strong);border-radius:18px;background:rgba(6,15,26,.94);box-shadow:0 20px 55px rgba(0,0,0,.45);backdrop-filter:blur(18px);scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;scroll-padding-inline:5px}
-  .mobile-bottom-nav::-webkit-scrollbar{display:none}
-  .mobile-bottom-nav a{flex:0 0 clamp(78px,22vw,94px);min-width:78px;min-height:56px;display:grid;place-items:center;align-content:center;gap:1px;color:var(--muted);font-size:.62rem;scroll-snap-align:center}
+  .mobile-bottom-nav{position:fixed;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));left:max(6px,env(safe-area-inset-left));right:max(6px,env(safe-area-inset-right));bottom:max(6px,env(safe-area-inset-bottom));z-index:60;overflow:hidden;padding-inline:5px;border:1px solid var(--line-strong);border-radius:18px;background:rgba(6,15,26,.94);box-shadow:0 20px 55px rgba(0,0,0,.45);backdrop-filter:blur(18px)}
+  .mobile-bottom-nav a{min-width:0;min-height:56px;display:grid;place-items:center;align-content:center;gap:1px;padding-inline:1px;color:var(--muted);font-size:.66rem}
   .mobile-bottom-nav a[aria-current="page"]{color:var(--ink);background:rgba(242,198,109,.1)}
   .mobile-bottom-nav span{color:var(--gold-soft);font-size:.6rem;font-weight:950;letter-spacing:.08em}
   .mobile-bottom-nav .nav-icon svg{width:18px;height:18px}
-  .mobile-bottom-nav strong{font-size:.61rem}
+  .mobile-bottom-nav strong{font-size:.67rem}
   .toast{bottom:76px;border-radius:16px;text-align:center}
   .bio-visual-lesson{padding:14px 10px;border-radius:17px}
   .bio-visual-lesson{gap:10px}
@@ -1718,9 +1718,21 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
   #bioBoardArchive .board-archive-image-frame{overflow:auto;touch-action:pan-x pan-y;cursor:zoom-in}
 }
 
+@media(min-width:681px) and (max-width:900px) and (max-height:500px){
+  body{padding-bottom:calc(78px + env(safe-area-inset-bottom))}
+  .class-header-inner,.class-app{width:min(calc(100% - max(36px,calc(env(safe-area-inset-left) + env(safe-area-inset-right)))),var(--content))}
+  .workspace-nav{display:none}
+  .mobile-bottom-nav{position:fixed;left:50%;right:auto;bottom:max(6px,env(safe-area-inset-bottom));z-index:60;width:min(calc(100% - 12px),640px);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));transform:translateX(-50%);overflow:hidden;padding-inline:5px;border:1px solid var(--line-strong);border-radius:18px;background:rgba(6,15,26,.94);box-shadow:0 20px 55px rgba(0,0,0,.45);backdrop-filter:blur(18px)}
+  .mobile-bottom-nav a{min-width:0;min-height:58px;display:grid;place-items:center;align-content:center;gap:1px;padding:4px 1px;color:var(--muted);font-size:.66rem}
+  .mobile-bottom-nav a[aria-current="page"]{color:var(--ink);background:rgba(242,198,109,.1)}
+  .mobile-bottom-nav span{color:var(--gold-soft);font-size:.6rem;font-weight:950;letter-spacing:.08em}
+  .mobile-bottom-nav .nav-icon svg{width:20px;height:20px}
+  .mobile-bottom-nav strong{font-size:.67rem;line-height:1.1}
+}
+
 @media(max-width:480px){
-  html{scroll-padding-top:60px}
-  body{padding-bottom:78px}
+  html{scroll-padding-top:calc(60px + env(safe-area-inset-top))}
+  body{padding-bottom:calc(78px + env(safe-area-inset-bottom))}
   .class-header-inner{width:min(calc(100% - 8px),var(--content));min-height:54px;gap:4px}
   .class-brand img{width:34px;height:34px;border-radius:10px}
   .class-scope{gap:7px;padding:6px 10px;font-size:.68rem}
@@ -1909,10 +1921,10 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
   .question-builder select,.question-builder textarea{padding:9px;border-radius:10px;font-size:.68rem}
   .question-builder textarea{min-height:76px}
   .form-note{font-size:.55rem}
-  .mobile-bottom-nav{left:4px;right:4px;bottom:max(4px,env(safe-area-inset-bottom));border-radius:16px}
+  .mobile-bottom-nav{left:max(4px,env(safe-area-inset-left));right:max(4px,env(safe-area-inset-right));bottom:max(4px,env(safe-area-inset-bottom));border-radius:16px}
   .mobile-bottom-nav a{min-height:58px;padding:4px 1px;font-size:.61rem}
   .mobile-bottom-nav .nav-icon svg{width:20px;height:20px}
-  .mobile-bottom-nav strong{font-size:.61rem;line-height:1.1}
+  .mobile-bottom-nav strong{font-size:.67rem;line-height:1.1}
   .assignment-card,.inference-card{padding:16px;border-radius:17px}
   .current-assignment>.assignment-card{padding:13px 11px;border-radius:0}
   .current-assignment>summary{grid-template-columns:32px minmax(0,1fr) 24px;column-gap:7px;row-gap:3px;min-height:68px;padding:7px 8px}

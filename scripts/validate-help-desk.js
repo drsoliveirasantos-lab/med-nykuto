@@ -169,13 +169,14 @@ async function main() {
   assert.match(frontendSource, /deberás revisarlo y enviarlo tú/);
   assert.doesNotMatch(frontendSource, /(?:correo|email|WhatsApp) (?:fue )?enviado/iu);
   assert.match(frontendStyle, /\.helpdesk-fab/);
+  assert.match(frontendStyle, /\.helpdesk-fab strong\{position:absolute;width:1px;height:1px/);
   for (const file of [
     'index.html', 'matieres.html', 'matiere.html', 'modules.html', 'module.html',
     'qcm.html', 'cas-cliniques.html', 'vrai-faux.html', 'erreurs.html', 'examen.html',
     'clase.html', 'comunidade.html', 'contact.html', 'turma-shell/index.html', 'gestion-shell/index.html'
   ]) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
-    assert.match(html, /help-desk-v479\.css\?v=481/, `${file} is missing the Help Desk stylesheet.`);
+    assert.match(html, /help-desk-v479\.css\?v=500/, `${file} is missing the Help Desk stylesheet.`);
     assert.match(html, /help-desk-v479\.js\?v=481/, `${file} is missing the Help Desk client.`);
   }
   const contactPage = fs.readFileSync(path.join(root, 'contact.html'), 'utf8');

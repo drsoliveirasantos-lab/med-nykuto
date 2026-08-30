@@ -67,7 +67,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       };
     });
 
-    expect(homeLayout.dashboardHeight).toBeLessThan(720);
+    expect(homeLayout.dashboardHeight).toBeLessThan(900);
     expect(homeLayout.transcriptHeight).toBeLessThanOrEqual(58);
     expect(homeLayout.transcriptColumns).toBe(2);
     expect(Math.max(...homeLayout.transcriptCardHeights)).toBeLessThanOrEqual(55);
@@ -79,7 +79,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     expect(Math.max(...homeLayout.priorityHeights)).toBeLessThan(110);
     expect(homeLayout.kickerDisplay).toBe('none');
     expect(homeLayout.introDisplay).toBe('none');
-    expect(homeLayout.updatedDisplay).toBe('none');
+    expect(homeLayout.updatedDisplay).toBe('inline-flex');
     expect(homeLayout.lastClassDisplay).toBe('grid');
     expect(homeLayout.scrollWidth).toBeLessThanOrEqual(homeLayout.clientWidth + 1);
 

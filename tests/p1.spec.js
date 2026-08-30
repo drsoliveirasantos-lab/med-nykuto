@@ -15,7 +15,8 @@ test.describe('P1 cumulative review', () => {
     await page.getByRole('button', { name: /Ficha P1/ }).click();
     await expect(page.locator('#p1SubjectRail')).toBeHidden();
     await expect(page.locator('.p1-subject-card')).toHaveCount(6);
-    await expect(page.locator('.p1-bottom-nav a')).toHaveCount(6);
+    await expect(page.locator('.p1-bottom-nav a')).toHaveCount(5);
+    await expect(page.locator('.p1-bottom-nav')).not.toContainText('Avisos');
 
     await page.getByRole('button', { name: /Nutrición/ }).first().click();
     await expect(page.locator('#p1SubjectRail')).toBeVisible();
@@ -158,11 +159,34 @@ test.describe('P1 cumulative review', () => {
     });
     await page.reload();
     await page.getByRole('button', { name: 'Continuar' }).click();
-    await expect(page.getByRole('button', { name: 'Ver resultado' })).toBeEnabled();
-    await page.getByRole('button', { name: 'Ver resultado' }).click();
+    await expect(page.getByRole('button', { name: 'Ver resultado', exact: true })).toBeEnabled();
+    await page.getByRole('button', { name: 'Ver resultado', exact: true }).click();
     await expect(page.getByText('RESULTADO DEL EXAMEN BLANCO')).toBeVisible();
     await expect(page.locator('.p1-review-body').first()).toBeHidden();
     expect(communityPosts).toBe(0);
+  });
+
+  test('keeps the final training correction before the direct result button', async ({ page }) => {
+    await page.getByRole('button', { name: 'Empezar entrenamiento' }).click();
+    await page.evaluate(() => {
+      const session = window.MedNykutoP1.getSession();
+      session.items.slice(0, -1).forEach((item) => {
+        session.answers[item.id] = 0;
+        session.validated[item.id] = true;
+      });
+      session.currentIndex = session.items.length - 1;
+      localStorage.setItem(window.MedNykutoP1.storageKey, JSON.stringify(session));
+    });
+    await page.reload();
+    await page.getByRole('button', { name: 'Continuar' }).click();
+
+    await page.locator('.p1-option').first().click();
+    await page.getByRole('button', { name: 'Comprobar respuesta' }).click();
+    await expect(page.locator('#p1Question .p1-review-body')).toContainText('Por qué:');
+    const resultAction = page.getByRole('button', { name: 'Ver resultado →', exact: true });
+    await expect(resultAction).toBeEnabled();
+    await resultAction.click();
+    await expect(page.getByText('RESUMEN DEL ENTRENAMIENTO')).toBeVisible();
   });
 
   test('fits narrow iPhone widths without document overflow', async ({ page }) => {
@@ -174,12 +198,47 @@ test.describe('P1 cumulative review', () => {
       expect(overflow).toBeLessThanOrEqual(1);
       await expect(page.locator('.p1-view-switch')).toBeVisible();
       const activeNavigation = await page.locator('#p1BottomPartial').evaluate((active) => {
-        const navigation = active.closest('.p1-bottom-nav').getBoundingClientRect();
+        const navigationElement = active.closest('.p1-bottom-nav');
+        const navigation = navigationElement.getBoundingClientRect();
         const item = active.getBoundingClientRect();
-        return { left: item.left - navigation.left, right: navigation.right - item.right };
+        return {
+          left: item.left - navigation.left,
+          right: navigation.right - item.right,
+          overflow: navigationElement.scrollWidth - navigationElement.clientWidth,
+          minHeight: Math.min(...Array.from(navigationElement.querySelectorAll('a'), (link) => link.getBoundingClientRect().height))
+        };
       });
       expect(activeNavigation.left).toBeGreaterThanOrEqual(-1);
       expect(activeNavigation.right).toBeGreaterThanOrEqual(-1);
+      expect(activeNavigation.overflow).toBeLessThanOrEqual(1);
+      expect(activeNavigation.minHeight).toBeGreaterThanOrEqual(56);
     }
+
+    await page.setViewportSize({ width: 844, height: 390 });
+    await page.reload();
+    await expect(page.locator('html')).toHaveClass(/p1-ready/);
+    await expect(page.locator('.p1-bottom-nav')).toBeVisible();
+    const landscapeLayout = await page.evaluate(() => {
+      const header = document.querySelector('.p1-header');
+      const nav = document.querySelector('.p1-bottom-nav');
+      const navBox = nav.getBoundingClientRect();
+      const navItems = Array.from(nav.querySelectorAll('a')).map((item) => item.getBoundingClientRect());
+      return {
+        headerHeight: header.getBoundingClientRect().height,
+        headerOverflow: header.scrollWidth - header.clientWidth,
+        navWidth: navBox.width,
+        navCount: navItems.length,
+        navOverflow: nav.scrollWidth - nav.clientWidth,
+        minNavItemHeight: Math.min(...navItems.map((item) => item.height)),
+        overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+      };
+    });
+    expect(landscapeLayout.headerHeight).toBeLessThanOrEqual(80);
+    expect(landscapeLayout.headerOverflow).toBeLessThanOrEqual(1);
+    expect(landscapeLayout.navWidth).toBeLessThanOrEqual(640);
+    expect(landscapeLayout.navCount).toBe(5);
+    expect(landscapeLayout.navOverflow).toBeLessThanOrEqual(1);
+    expect(landscapeLayout.minNavItemHeight).toBeGreaterThanOrEqual(58);
+    expect(landscapeLayout.overflow).toBeLessThanOrEqual(1);
   });
 });

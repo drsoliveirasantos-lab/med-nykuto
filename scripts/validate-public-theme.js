@@ -20,6 +20,7 @@ for (const file of ['clase.html', 'comunidade.html', 'turma-shell/index.html']) 
 
 assert.ok(runtime.includes("'med-nykuto-theme-v1'") && runtime.includes("root.dataset.theme") && runtime.includes("localStorage.setItem") && runtime.includes("window.addEventListener('storage'"), 'Theme persistence or cross-tab synchronization is incomplete.');
 assert.ok(runtime.includes("themeColor.content") && runtime.includes("'#f4f7fb'") && runtime.includes("aria-pressed"), 'Theme color or accessible toggle state is incomplete.');
+assert.ok(!runtime.includes('p1-ui-compact'), 'P1 responsive styles must stay deterministic in class-p1-v1.css instead of a dynamically injected patch.');
 assert.match(css, /\.public-theme-toggle\{[^}]*min-width:44px;[^}]*min-height:44px/);
 assert.ok(css.includes('html[data-theme="light"]') && css.includes('--ink:#10243a') && css.includes('--community-ink:#10243a') && css.includes('--text:#10243a'), 'The light palette does not cover all public student shells.');
 assert.ok(css.includes('.notebook-shell') && css.includes('.community-header') && css.includes('.class-main'), 'The light theme does not cover lessons, training and the generic class shell.');

@@ -282,6 +282,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       expect(compactPreviewLayout.thumbnailLeft).toBeLessThan(compactPreviewLayout.titleLeft);
       expect(compactPreviewLayout.thumbnailRight).toBeLessThanOrEqual(compactPreviewLayout.titleLeft + 1);
       expect(compactPreviewLayout.viewportOverflow).toBeLessThanOrEqual(1);
+      const noImagePreview = preview.locator('.notice-preview-tile:not(.has-thumbnail) .notice-preview-link');
+      await expect(noImagePreview).toHaveCount(1);
+      expect((await noImagePreview.evaluate((link) => getComputedStyle(link).gridTemplateColumns)).split(' ')).toHaveLength(1);
       await expect(page.locator('#noticeBell')).toHaveAttribute('data-count', '2');
 
       await activePreviewLink.click();
@@ -316,9 +319,15 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await activeCaption.locator('.notice-caption-summary').click();
       await expect(activeCaption).not.toHaveAttribute('open', '');
       await expect(activeCaption.locator('.notice-caption-more')).toHaveText('Ver más');
+      await expect(activeCaption.locator('.notice-caption-content')).toBeHidden();
+      await expect(activeCaption.locator('.notice-caption-more')).toBeVisible();
+      await expect(activeCaption.locator('.notice-caption-less')).toBeHidden();
       await activeCaption.locator('.notice-caption-summary').click();
       await expect(activeCaption).toHaveAttribute('open', '');
       await expect(activeCaption.locator('.notice-caption-less')).toHaveText('Ver menos');
+      await expect(activeCaption.locator('.notice-caption-content')).toBeVisible();
+      await expect(activeCaption.locator('.notice-caption-more')).toBeHidden();
+      await expect(activeCaption.locator('.notice-caption-less')).toBeVisible();
       await expect(active).toContainText('MATERIAL');
       await expect(active).toContainText('ESTUDIANTES');
       await expect(active).toContainText('VERSIÓN 2');

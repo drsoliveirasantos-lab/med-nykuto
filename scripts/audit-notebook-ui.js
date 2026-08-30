@@ -81,7 +81,7 @@ async function inspectNotebook(browserType, width, failures, screenshots) {
   expect(hub.height <= (width <= 540 ? 175 : 235), `${browserType.name()} ${width}px: subject selector is too tall (${Math.round(hub.height)}px).`, failures);
   expect(hub.driveCards === 0, `${browserType.name()} ${width}px: Drive remains duplicated in Materias.`, failures);
   expect(hub.planLinks === 0, `${browserType.name()} ${width}px: completed seminar Plan remains in navigation.`, failures);
-  expect(hub.bottomLinks === 6, `${browserType.name()} ${width}px: bottom navigation should contain 6 items.`, failures);
+  expect(hub.bottomLinks === 5, `${browserType.name()} ${width}px: bottom navigation should contain 5 primary items.`, failures);
   expect(hub.overflow <= 1, `${browserType.name()} ${width}px: document overflows horizontally by ${hub.overflow}px.`, failures);
 
   await page.locator('[data-course-target="fisiologia"]').click();
@@ -125,7 +125,7 @@ async function inspectNotebook(browserType, width, failures, screenshots) {
   compactViews.modeMax = await page.evaluate(() => Math.max(...Array.from(document.querySelectorAll('#fisiologia .notebook-modes button')).map((node) => node.getBoundingClientRect().height), 0));
   expect(compactViews.themeMax <= 48, `${browserType.name()} ${width}px: theme buttons are too tall (${compactViews.themeMax}px).`, failures);
   expect(compactViews.fileMax <= 54, `${browserType.name()} ${width}px: archive rows are too tall (${compactViews.fileMax}px).`, failures);
-  expect(compactViews.modeMax <= 40, `${browserType.name()} ${width}px: notebook menu is too tall (${compactViews.modeMax}px).`, failures);
+  expect(compactViews.modeMax >= 44 && compactViews.modeMax <= 48, `${browserType.name()} ${width}px: notebook menu should keep 44px touch targets (${compactViews.modeMax}px).`, failures);
 
   await page.goto(`${baseUrl}/clase.html#pendientes`, { waitUntil: 'networkidle' });
   await page.waitForSelector('#classHubLiveTasks');

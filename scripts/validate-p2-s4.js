@@ -105,9 +105,11 @@ if (p1) {
 
 const html = fs.readFileSync(path.join(root, 'p1.html'), 'utf8');
 const runtime = fs.readFileSync(path.join(root, 'class-p1-v1.js'), 'utf8');
+const stylesheet = fs.readFileSync(path.join(root, 'class-p1-v1.css'), 'utf8');
 expect(html.indexOf('p2-s4-e-v1.js?v=494') > html.indexOf('p1-s4-e-v1.js?v=494'), 'p1.html must load P2 after P1.');
-expect(html.indexOf('class-p1-v1.js?v=497') > html.indexOf('p2-s4-e-v1.js?v=494'), 'p1.html must load both scopes before the shared runtime.');
-expect(/class-p1-v1\.css\?v=497/.test(html), 'The shared partial-review stylesheet cache key must be 497.');
+expect(html.indexOf('class-p1-v1.js?v=500') > html.indexOf('p2-s4-e-v1.js?v=494'), 'p1.html must load both scopes before the shared runtime.');
+expect(/class-p1-v1\.css\?v=500/.test(html), 'The shared partial-review stylesheet cache key must be 500.');
+expect(stylesheet.includes('.p1-filter-chip input{position:absolute;z-index:2;width:1px;height:1px;opacity:.001;pointer-events:auto}') && stylesheet.includes('.p1-length-options input{position:absolute;z-index:2;width:1px;height:1px;opacity:.001;pointer-events:auto}'), 'P1 filters lost the deterministic static input targets that replaced the dynamic compact patch.');
 expect(/href="#p2"[^>]*data-partial-scope="p2"/.test(html), 'The compact P2 selector is missing.');
 expect(/Clases individuales/.test(html) && /Practicar por fecha \+ ranking/.test(html) && /href="comunidade\.html"/.test(html), 'The individual-class practice and ranking shortcut is missing.');
 expect(/id="p1SubjectRail"[^>]*hidden/.test(html) && /id="p1ExamCustomize"/.test(html) && /Personalizar práctica/.test(html), 'The compact P1 subject controls are missing.');
