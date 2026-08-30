@@ -184,6 +184,8 @@ Los derivados recortados y optimizados viven en:
 assets/courses/2026-08-27/
 ```
 
+El Work Pack de reconocimiento P1 recibido el 30 de agosto conserva diez campos microscópicos reales únicos y dos variantes duplicadas. La rotación móvil utiliza únicamente los diez WebP no generativos con nombres hachados de `assets/courses/2026-08-27/micro-p1/`; las variantes 10 y 12 quedan excluidas. Las etiquetas proceden del material compartido y mantienen el aviso `Validación docente pendiente`: sirven para memorizar las referencias de la clase, no para afirmar una identificación diagnóstica aislada. Las reconstrucciones IA del Work Pack no se publican ni se usan en preguntas.
+
 Solo se conservan zonas pedagógicas. Conversaciones domésticas, audio accidental, ruido ambiental, personas e identificadores privados se excluyen del runtime y de las preguntas. Las láminas de Microbiología son referencias visuales rotuladas: permiten describir y comparar estructuras, pero una fotografía aislada no confirma una especie ni una infección. El tercer caso práctico no fotografiado no se reconstruye.
 
 Las tres lecciones extienden el modelo estático mediante `academic-model-2026-08-27-v494.js`, sin sobrescribir evidencias anteriores.

@@ -417,7 +417,7 @@ if (!banks || typeof banks !== 'object') {
         const questionCopy = [prompt, question.scenario, question.explanation].concat(question.options || []).join(' ');
         expect(!/(?:https?:\/\/|www\.|\b(?:ncbi|cdc|who|paho|aha)\b)/i.test(questionCopy), `${location}: external-source material is forbidden.`);
         if (question.imageSrc) {
-          expect(/^assets\/courses\/2026-08-27\/[a-z0-9-]+\.webp$/.test(question.imageSrc), `${location}: visual must use the dated internal WebP asset path.`);
+          expect(/^assets\/courses\/2026-08-27\/(?:micro-p1\/)?[a-z0-9-]+\.webp$/.test(question.imageSrc), `${location}: visual must use the dated internal WebP asset path.`);
           expect(fs.existsSync(path.join(root, question.imageSrc)), `${location}: visual asset does not exist: ${question.imageSrc}.`);
         }
 

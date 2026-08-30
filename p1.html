@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" href="assets/logo-medcursos-icon.png" />
   <link rel="manifest" href="manifest.webmanifest" />
   <script src="public-theme-v485.js?v=500"></script>
-  <link rel="stylesheet" href="class-p1-v1.css?v=502" />
+  <link rel="stylesheet" href="class-p1-v1.css?v=503" />
 </head>
 <body class="p1-page">
   <a class="p1-skip" href="#p1-main">Ir al contenido</a>
@@ -130,6 +130,11 @@
             </div>
           </fieldset>
         </details>
+        <button class="p1-visual-start" type="button" id="p1StartVisual">
+          <span aria-hidden="true">◉</span>
+          <strong>Reconocer 10 imágenes · corrección inmediata</strong>
+          <small>Microbiología práctica · campos reales · sin duplicados</small>
+        </button>
         <button class="p1-primary" type="button" id="p1StartExam">Empezar entrenamiento</button>
         <p class="p1-setup-note">Cada intento crea una mezcla nueva y queda guardado en este teléfono. No cambia tu ranking ni los ejercicios de cada clase.</p>
       </section>
@@ -161,6 +166,20 @@
 
           <section class="p1-results" id="p1Results" hidden aria-live="polite"></section>
         </div>
+        <section class="p1-image-viewer" id="p1ImageViewer" aria-label="Ampliación de la micrografía" hidden>
+          <header>
+            <div><span>MICROGRAFÍA</span><strong>Observa el campo completo</strong></div>
+            <button type="button" id="p1ImageViewerClose" aria-label="Cerrar la imagen ampliada">×</button>
+          </header>
+          <div class="p1-image-viewer-stage" id="p1ImageViewerStage">
+            <img id="p1ImageViewerImage" alt="Micrografía de microbiología práctica ampliada" />
+          </div>
+          <footer aria-label="Controles de ampliación">
+            <button type="button" id="p1ImageZoomOut" aria-label="Reducir la imagen">−</button>
+            <button type="button" id="p1ImageZoomReset">Restablecer</button>
+            <button type="button" id="p1ImageZoomIn" aria-label="Ampliar la imagen">+</button>
+          </footer>
+        </section>
       </dialog>
     </section>
   </main>
@@ -187,11 +206,11 @@
   <script src="grupo-3-practice-2026-08-26-v484.js?v=486"></script>
   <script src="grupo-3-practice-nutricion-2026-08-27-v494.js?v=494"></script>
   <script src="grupo-3-practice-fisiologia-2026-08-27-v494.js?v=494"></script>
-  <script src="grupo-3-practice-microbiologia-practica-2026-08-27-v494.js?v=494"></script>
+  <script src="grupo-3-practice-microbiologia-practica-2026-08-27-v494.js?v=503"></script>
   <script src="grupo-3-practice-bioquimica-2026-08-28-v500.js?v=501"></script>
   <script src="teacher-question-profile-v445.js?v=501"></script>
   <script src="p1-s4-e-v2.js?v=501"></script>
   <script src="p2-s4-e-v1.js?v=494"></script>
-  <script src="class-p1-v1.js?v=502"></script>
+  <script src="class-p1-v1.js?v=503"></script>
 </body>
 </html>

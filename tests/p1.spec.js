@@ -115,13 +115,52 @@ test.describe('P1 cumulative review', () => {
     await expect(page.locator('.p1-teacher-block')).not.toContainText('Transducción');
   });
 
-  test('keeps the visual microbiology material inside P1', async ({ page }) => {
+  test('builds a ten-field answer-safe visual microbiology practice', async ({ page }) => {
     const visual = await page.evaluate(() => {
-      const exam = window.MedNykutoP1.buildExam({ seed: 20260827, subjectIds: ['microbiologia-practica'], length: 40 });
-      return exam.items.filter((item) => item.imageSrc).map((item) => item.imageSrc);
+      const exam = window.MedNykutoP1.buildExam({ seed: 20260830, visualOnly: true, mode: 'training' });
+      return {
+        kind: exam.kind,
+        ids: exam.items.map((item) => item.visualRecognitionId),
+        sources: exam.items.map((item) => item.imageSrc),
+        alts: exam.items.map((item) => item.imageAlt),
+        pending: exam.items.map((item) => item.validationPending)
+      };
     });
-    expect(visual.length).toBeGreaterThan(0);
-    expect(visual.every((src) => src.startsWith('assets/courses/2026-08-27/'))).toBe(true);
+    expect(visual.kind).toBe('visual-recognition');
+    expect(visual.ids).toHaveLength(10);
+    expect(new Set(visual.ids).size).toBe(10);
+    expect(new Set(visual.sources).size).toBe(10);
+    expect(visual.sources.every((src) => /^assets\/courses\/2026-08-27\/micro-p1\/micro-p1-[a-f0-9]{10}\.webp$/.test(src))).toBe(true);
+    expect(visual.alts.every((alt) => alt === 'Micrografía de microbiología práctica para identificar')).toBe(true);
+    expect(visual.pending.every(Boolean)).toBe(true);
+  });
+
+  test('opens a visual field, zooms it in-page and reveals clues after correction', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.getByRole('button', { name: /Reconocer 10 imágenes/ }).click();
+
+    const dialog = page.getByRole('dialog', { name: 'Reconocimiento visual en curso' });
+    await expect(dialog).toHaveAttribute('open', '');
+    await expect(dialog.locator('#p1QuestionPosition')).toHaveText('Pregunta 1 de 10');
+    const image = dialog.locator('#p1Question .p1-question-media img');
+    await expect(image).toHaveAttribute('alt', 'Micrografía de microbiología práctica para identificar');
+    await expect(image).toHaveAttribute('src', /^assets\/courses\/2026-08-27\/micro-p1\/micro-p1-[a-f0-9]{10}\.webp$/);
+    await expect(dialog.locator('.p1-validation-badge')).toHaveText('VALIDACIÓN DOCENTE PENDIENTE');
+
+    await dialog.getByRole('button', { name: 'Ampliar la micrografía sin salir de la práctica' }).click();
+    const viewer = dialog.getByRole('region', { name: 'Ampliación de la micrografía' });
+    await expect(viewer).toBeVisible();
+    await expect(viewer.getByRole('button', { name: 'Cerrar la imagen ampliada' })).toBeFocused();
+    await viewer.getByRole('button', { name: 'Ampliar la imagen' }).click();
+    await expect(viewer.getByRole('button', { name: '150 %' })).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(viewer).toBeHidden();
+    await expect(dialog).toHaveAttribute('open', '');
+
+    await dialog.locator('.p1-option').first().click();
+    await dialog.getByRole('button', { name: 'Comprobar respuesta' }).click();
+    await expect(dialog.locator('#p1Question .p1-review-body')).toContainText('Claves visuales:');
+    await expect(dialog.locator('#p1Question .p1-review-body')).toContainText('Validación docente pendiente');
   });
 
   test('shows and preserves immediate correction in training mode', async ({ page }) => {
