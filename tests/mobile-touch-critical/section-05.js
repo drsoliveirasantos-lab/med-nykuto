@@ -23,16 +23,14 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
   test('P1 practice stays in a locked full-screen dialog on mobile Safari', async ({ page }) => {
     await page.goto('/p1.html', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('html')).toHaveClass(/p1-ready/);
+    await page.evaluate(() => {
+      const spacer = document.createElement('div');
+      spacer.style.height = '640px';
+      spacer.setAttribute('aria-hidden', 'true');
+      document.body.prepend(spacer);
+    });
     const start = page.getByRole('button', { name: 'Empezar entrenamiento' });
     await start.scrollIntoViewIfNeeded();
-    await page.evaluate(() => {
-      const root = document.documentElement;
-      const previousScrollBehavior = root.style.scrollBehavior;
-      root.style.scrollBehavior = 'auto';
-      const remaining = document.documentElement.scrollHeight - window.innerHeight - window.scrollY;
-      window.scrollTo(0, window.scrollY + Math.min(32, Math.max(0, remaining)));
-      root.style.scrollBehavior = previousScrollBehavior;
-    });
     const pageScrollBefore = await page.evaluate(() => window.scrollY);
     expect(pageScrollBefore).toBeGreaterThan(0);
     await start.click();
@@ -52,7 +50,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
         viewportWidth: window.innerWidth,
         viewportHeight: window.innerHeight,
         bodyPosition: bodyStyle.position,
-        bodyTop: Number.parseFloat(bodyStyle.top),
+        bodyTop: Number.parseFloat(document.body.style.top),
         horizontalOverflow: node.scrollWidth - node.clientWidth
       };
     });
@@ -80,7 +78,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(internalScroll.overflowY).toBe('auto');
     expect(internalScroll.canScroll).toBe(true);
     expect(internalScroll.scrollTop).toBeGreaterThan(0);
-    expect(await page.evaluate(() => Number.parseFloat(getComputedStyle(document.body).top))).toBeCloseTo(-pageScrollBefore, 0);
+    expect(await page.evaluate(() => Number.parseFloat(document.body.style.top))).toBeCloseTo(-pageScrollBefore, 0);
 
     await page.keyboard.press('Escape');
     await expect(dialog).not.toHaveAttribute('open', '');

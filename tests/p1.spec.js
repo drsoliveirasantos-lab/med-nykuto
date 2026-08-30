@@ -158,16 +158,14 @@ test.describe('P1 cumulative review', () => {
 
   test('opens practice in a full-screen modal and restores the page after closing', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
+    await page.evaluate(() => {
+      const spacer = document.createElement('div');
+      spacer.style.height = '640px';
+      spacer.setAttribute('aria-hidden', 'true');
+      document.body.prepend(spacer);
+    });
     const start = page.getByRole('button', { name: 'Empezar entrenamiento' });
     await start.scrollIntoViewIfNeeded();
-    await page.evaluate(() => {
-      const root = document.documentElement;
-      const previousScrollBehavior = root.style.scrollBehavior;
-      root.style.scrollBehavior = 'auto';
-      const remaining = document.documentElement.scrollHeight - window.innerHeight - window.scrollY;
-      window.scrollTo(0, window.scrollY + Math.min(48, Math.max(0, remaining)));
-      root.style.scrollBehavior = previousScrollBehavior;
-    });
     const pageScrollBefore = await page.evaluate(() => window.scrollY);
     expect(pageScrollBefore).toBeGreaterThan(0);
     await start.click();
@@ -258,7 +256,7 @@ test.describe('P1 cumulative review', () => {
     await page.getByRole('button', { name: 'Continuar' }).click();
     await expect(page.getByRole('button', { name: 'Ver resultado', exact: true })).toBeEnabled();
     await page.getByRole('button', { name: 'Ver resultado', exact: true }).click();
-    await expect(page.getByText('RESULTADO DEL EXAMEN BLANCO')).toBeVisible();
+    await expect(page.getByText('RESULTADO DEL EXAMEN BLANCO', { exact: true })).toBeVisible();
     await expect(page.locator('.p1-review-body').first()).toBeHidden();
     expect(communityPosts).toBe(0);
   });
