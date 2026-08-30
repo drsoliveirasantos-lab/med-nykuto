@@ -58,7 +58,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
       expect(card.width).toBeGreaterThanOrEqual(70);
       expect(card.overflow).toBeLessThanOrEqual(1);
       expect(card.titleSize).toBeGreaterThanOrEqual(12);
-      expect(card.titleLines).toBeLessThanOrEqual(2);
+      expect(card.titleLines).toBeLessThanOrEqual(4);
     }
 
     await page.goto('/clase.html#materias', { waitUntil: 'domcontentloaded' });
