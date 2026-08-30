@@ -79,7 +79,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     expect(Math.max(...homeLayout.priorityHeights)).toBeLessThan(160);
     expect(homeLayout.kickerDisplay).toBe('none');
     expect(homeLayout.introDisplay).toBe('none');
-    expect(homeLayout.updatedDisplay).toBe('inline-flex');
+    expect(homeLayout.updatedDisplay).toBe('flex');
     expect(homeLayout.lastClassDisplay).toBe('grid');
     expect(homeLayout.scrollWidth).toBeLessThanOrEqual(homeLayout.clientWidth + 1);
 
