@@ -190,8 +190,10 @@ button{color:inherit}
 .p1-visual-start strong{align-self:end;font-size:.76rem;line-height:1.25}.p1-visual-start small{align-self:start;margin-top:2px;color:var(--p1-muted);font-size:.57rem;line-height:1.35}
 .p1-visual-start:focus-visible{outline:3px solid color-mix(in srgb,#a78bfa 60%,transparent);outline-offset:2px}
 .p1-setup-note{margin:0;color:var(--p1-muted);font-size:.61rem;line-height:1.45;text-align:center}
-.p1-practice-open{position:fixed;left:0;right:0;width:100%;overflow:hidden}
-.p1-practice-dialog{position:fixed;z-index:1000;inset:0;width:100%;height:100vh;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:var(--p1-bg);color:var(--p1-ink);overflow:hidden}
+html.p1-practice-open{overflow:hidden;overscroll-behavior:none}
+body.p1-practice-open{position:fixed;left:0;right:0;width:100%;overflow:hidden;overscroll-behavior:none}
+body.p1-practice-open .p1-bottom-nav{visibility:hidden;pointer-events:none}
+.p1-practice-dialog{position:fixed;z-index:2147483647;isolation:isolate;inset:0;width:100%;height:100vh;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:var(--p1-bg);color:var(--p1-ink);overflow:hidden}
 .p1-practice-dialog[open]{display:grid;grid-template-rows:auto minmax(0,1fr)}
 .p1-practice-dialog::backdrop{background:rgba(2,8,16,.82);backdrop-filter:blur(5px)}
 .p1-practice-dialog-header{position:relative;z-index:2;min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:calc(10px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) 10px calc(16px + env(safe-area-inset-left));border-bottom:1px solid var(--p1-line);background:color-mix(in srgb,var(--p1-bg) 94%,transparent);box-shadow:0 10px 28px rgba(0,0,0,.16)}
@@ -201,7 +203,7 @@ button{color:inherit}
 .p1-practice-dialog-header h2{margin:3px 0 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.85rem}
 .p1-practice-dialog-header button{flex:0 0 44px;width:44px;height:44px;display:grid;place-items:center;padding:0;border:1px solid var(--p1-line-strong);border-radius:13px;background:var(--p1-card);color:var(--p1-ink);font-size:1.45rem;line-height:1;cursor:pointer}
 .p1-practice-dialog-header button:focus-visible{outline:3px solid color-mix(in srgb,var(--p1-cyan) 58%,transparent);outline-offset:2px}
-.p1-practice-dialog-scroll{min-height:0;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:18px calc(16px + env(safe-area-inset-right)) calc(22px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left));scrollbar-gutter:stable}
+.p1-practice-dialog-scroll{min-height:0;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;-webkit-overflow-scrolling:touch;padding:18px calc(16px + env(safe-area-inset-right)) calc(22px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left));scrollbar-gutter:stable}
 .p1-practice-dialog-scroll>.p1-exam-session,.p1-practice-dialog-scroll>.p1-results{width:min(820px,100%);margin:0 auto}
 .p1-visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 .p1-exam-session{display:grid;gap:11px}
@@ -383,7 +385,13 @@ button{color:inherit}
   .p1-exam-session{min-width:0;gap:7px}.p1-session-progress{gap:5px}
   .p1-question{min-width:0;min-height:0;padding:10px;border-radius:13px;overflow:hidden}
   .p1-question-meta{margin-bottom:9px}.p1-question-meta span{font-size:.5rem}.p1-question-meta b{max-width:43%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.48rem}
-  .p1-question-media{width:min(100%,320px);margin-bottom:8px;padding:4px;border-radius:11px}.p1-question-media a{border-radius:8px}.p1-question-media img{height:min(170px,24vh)}.p1-question-media figcaption{padding-top:4px;font-size:.46rem}
+  .p1-question-media{width:min(100%,320px);margin-bottom:8px;padding:4px;border-radius:11px}.p1-question-media-open{border-radius:8px}.p1-question-media img{height:min(170px,24vh)}.p1-question-media figcaption{padding-top:4px;font-size:.46rem}
+  .p1-question.is-visual-recognition{padding:8px}
+  .p1-question.is-visual-recognition .p1-question-media{width:min(100%,300px);margin-bottom:7px}
+  .p1-question.is-visual-recognition .p1-question-media img{height:min(220px,26vh);height:min(220px,26dvh)}
+  .p1-question.is-visual-recognition .p1-validation-badge{min-height:22px;margin-bottom:7px;padding:3px 7px;font-size:.47rem}
+  .p1-question.is-visual-recognition h3{margin-bottom:9px;font-size:.92rem}
+  .p1-question.is-visual-recognition .p1-option span{min-height:46px;padding:7px 9px}
   .p1-scenario{padding:9px;font-size:.72rem;line-height:1.48}.p1-question h3{margin-bottom:11px;font-size:.95rem;line-height:1.38}
   .p1-options{gap:7px}.p1-option span{min-width:0;min-height:50px;grid-template-columns:27px minmax(0,1fr);gap:8px;padding:9px;border-radius:11px;font-size:.72rem;line-height:1.4;overflow-wrap:anywhere}
   .p1-option b{width:26px;height:26px;border-radius:7px}.p1-question-nav{gap:6px}.p1-question-nav button,.p1-quiet{min-height:46px}
