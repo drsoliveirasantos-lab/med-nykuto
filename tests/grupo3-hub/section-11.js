@@ -523,7 +523,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
         dates: []
       })
     }));
-    await page.goto('/clase.html#task-epi-presentation');
+    await page.goto('/clase.html?fixture=frozen-groups#task-epi-presentation');
     const task = page.locator('#task-epi-presentation');
     await expect(task).toHaveAttribute('open', '');
     const composer = task.locator('.group-join-composer');

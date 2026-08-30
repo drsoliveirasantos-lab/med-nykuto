@@ -129,6 +129,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.goto('/clase.html#bioquimica-2026-08-28');
     const reviewedPractice = page.locator('#bioquimica-2026-08-28 [data-practice-root="bioquimica-2026-08-28"]');
     await expect(reviewedPractice).toContainText('Via das pentoses-fosfato: integração metabólica');
+    await page.locator('#bioquimica-2026-08-28 [data-lesson-tab="training"]').click();
     await reviewedPractice.locator('.practice-start').click();
     await expect(reviewedPractice.locator('.practice-sources')).toContainText('AULA REVISADA · AULA + FONTES OFICIAIS');
     await expect(reviewedPractice.locator('.practice-sources')).toContainText('NCBI · G6PD e defesa antioxidante');

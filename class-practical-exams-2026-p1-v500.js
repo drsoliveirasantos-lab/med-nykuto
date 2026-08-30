@@ -12,6 +12,7 @@
   var renderAttempts=0;
   var observerTimer=0;
   var revealedHash='';
+  var revealedSummary=null;
 
   function make(tag,className,text){
     var node=document.createElement(tag);
@@ -162,7 +163,7 @@
     card.dataset.homework='';
     var head=make('div','priority-card-head');
     head.appendChild(make('span','','P1 · PRÁCTICAS OFICIALES'));
-    var time=make('time','','31 AGO.–04 SEP.');
+    var time=make('time','priority-card-due','31 AGO.–04 SEP.');
     time.dateTime='2026-08-31';
     head.appendChild(time);
     card.appendChild(head);
@@ -208,12 +209,13 @@
     var action=card.querySelector('[data-task-toggle-label]');
     var next=toggleLabel(card.open);
     if(action&&action.textContent!==next)action.textContent=next;
-    if(!isTarget){revealedHash='';return;}
-    if(revealedHash===targetHash)return;
+    if(!isTarget){revealedHash='';revealedSummary=null;return;}
+    var summary=card.querySelector('summary');
+    if(revealedHash===targetHash&&revealedSummary===summary)return;
     revealedHash=targetHash;
+    revealedSummary=summary;
     window.requestAnimationFrame(function(){
-      var summary=card.querySelector('summary');
-      if(!summary)return;
+      if(!summary||!summary.isConnected||summary!==card.querySelector('summary'))return;
       summary.focus({preventScroll:true});
       var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       card.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});

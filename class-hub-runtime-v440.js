@@ -387,6 +387,9 @@
       if(expired)panel.querySelectorAll('[data-linked-task]').forEach(function(link){link.hidden=true;});
     });
   }
+  function refreshStaticProjectLifecycle(){
+    syncStaticProjectLifecycle(publicData.tasks.filter(function(task){return task.status==='published'||!task.status;}));
+  }
   function renderLiveTasks(){
     var activeTasks=publicData.tasks.filter(function(task){return task.status==='published'||!task.status;});
     renderHomeTaskPreview(activeTasks);
@@ -504,6 +507,6 @@
   }
   function initPrint(){document.querySelectorAll('[data-print-lesson]').forEach(function(button){button.addEventListener('click',function(){window.print();});});}
   function updateStamp(value){var stamp=document.getElementById('lastUpdated');if(!stamp)return;var date=new Date(value||'2026-08-28T12:00:00-03:00');if(Number.isNaN(date.getTime()))date=new Date('2026-08-28T12:00:00-03:00');var parts=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Asuncion',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date).reduce(function(result,part){result[part.type]=part.value;return result;},{}),portuguese=/^pt(?:-|$)/i.test(document.documentElement.lang||''),months=portuguese?['jan.','fev.','mar.','abr.','mai.','jun.','jul.','ago.','set.','out.','nov.','dez.']:['ene.','feb.','mar.','abr.','may.','jun.','jul.','ago.','sep.','oct.','nov.','dic.'],day=Number(parts.day),month=Number(parts.month),iso=parts.year+'-'+parts.month+'-'+parts.day;stamp.dateTime=iso;stamp.textContent=portuguese?'Atualizado em '+day+' '+months[month-1]+' · conteúdo revisado':'Actualizado '+day+' '+months[month-1]+' · contenido revisado';}
-  function init(){initLessonTabs();initCourseWorkspaces();initGallery();initPrint();initPwa();updateStamp('2026-08-28T12:00:00-03:00');renderNotices();loadPublic();}
+  function init(){initLessonTabs();initCourseWorkspaces();initGallery();initPrint();initPwa();updateStamp('2026-08-28T12:00:00-03:00');renderNotices();loadPublic();window.addEventListener('hashchange',refreshStaticProjectLifecycle);document.addEventListener('visibilitychange',function(){if(!document.hidden)refreshStaticProjectLifecycle();});}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
