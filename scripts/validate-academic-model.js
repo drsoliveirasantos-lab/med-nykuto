@@ -49,6 +49,7 @@ const errors = [];
 global.window = {};
 require(path.join(root, 'academic-model-v445.js'));
 require(path.join(root, 'academic-model-2026-08-27-v494.js'));
+require(path.join(root, 'academic-model-2026-08-28-v500.js'));
 const model = global.window.MedNykutoAcademicModel;
 delete global.window;
 
@@ -63,11 +64,12 @@ if (model) {
   const lessons = [];
   const practiceIds = new Set();
 
-  expect(model.version === 'v494', 'Academic model version must include the 27 August v494 extension.');
+  expect(model.version === 'v500', 'Academic model version must include the 28 August v500 extension.');
   expect(teacherIds.length === 6, `Expected 6 teacher profiles, found ${teacherIds.length}.`);
   expect(subjectIds.length === 6, `Expected 6 subjects, found ${subjectIds.length}.`);
   expect(/id="teacherProfiles"/.test(teacherHtml), 'Teacher audit page is not model-driven.');
-  expect(/academic-model-v445\.js/.test(html) && /academic-model-2026-08-27-v494\.js/.test(html) && /class-notebook-v445\.js/.test(html), 'Class page does not load the base academic model, its 27 August extension and the academic notebook.');
+  expect(/academic-model-v445\.js/.test(html) && /academic-model-2026-08-27-v494\.js/.test(html) && /academic-model-2026-08-28-v500\.js/.test(html) && /class-notebook-v445\.js\?v=500/.test(html), 'Class page does not load the complete academic model through 28 August and the current academic notebook.');
+  expect(/academic-model-2026-08-28-v500\.js/.test(teacherHtml) && /23 CLASES/.test(teacherHtml) && /28 ago\. 2026/.test(teacherHtml), 'Teacher audit page does not expose the 28 August model and updated lesson count.');
   expect(!/class="class-drive-card"/.test(html), 'Drive is still duplicated inside Materias.');
   expect((html.match(/data-class-drive-link/g) || []).length === 1, 'Drive must appear exactly once, on Home.');
   expect(!/data-view-link="plan"/.test(html), 'Completed seminar plan is still in primary navigation.');
@@ -101,7 +103,7 @@ if (model) {
     });
   });
 
-  expect(lessons.length === 21, `Expected 21 lesson dates/blocks, found ${lessons.length}.`);
+  expect(lessons.length === 23, `Expected 23 lesson dates/blocks, found ${lessons.length}.`);
   const previousEpidemiology = lessons.find((entry) => entry.lesson.id === 'epidemiologia-bloque-anterior');
   expect(previousEpidemiology && previousEpidemiology.lesson.dateLong === '12 de agosto de 2026' && previousEpidemiology.lesson.status === 'confirmed', 'The previous Epidemiology lesson must be confirmed as 12 August 2026.');
   Object.keys(datedLessonVisuals).forEach((lessonId) => {
@@ -113,8 +115,25 @@ if (model) {
       expect(datedLesson.lesson.practiceId === lessonId, `${lessonId}: the dated lesson must map to its exact practice bank.`);
     }
   });
-  expect(practiceIds.size === 21, `Expected 21 unique practice mappings, found ${practiceIds.size}.`);
-  expect(Object.keys(model.narratives || {}).length === 14, `Expected 14 generated narratives after the 27 August extension, found ${Object.keys(model.narratives || {}).length}.`);
+  ['bioquimica-2026-08-28', 'epidemiologia-2026-08-28'].forEach((lessonId) => {
+    const datedLesson = lessons.find((entry) => entry.lesson.id === lessonId);
+    expect(Boolean(datedLesson), `${lessonId}: the confirmed 28 August lesson is missing from the academic model.`);
+    if (datedLesson) {
+      expect(datedLesson.lesson.dateLong === '28 de agosto de 2026', `${lessonId}: the dated lesson must remain attached to 28 August 2026.`);
+      expect(datedLesson.lesson.status === 'confirmed', `${lessonId}: the dated lesson must remain confirmed.`);
+      expect(datedLesson.lesson.practiceId === lessonId, `${lessonId}: the dated lesson must map to its exact practice bank.`);
+    }
+    expect(new RegExp(`['"]${lessonId}['"]\\s*:`).test(notebookJs), `${lessonId}: no contextual diagram is registered.`);
+  });
+  expect(practiceIds.size === 23, `Expected 23 unique practice mappings, found ${practiceIds.size}.`);
+  expect(Object.keys(model.narratives || {}).length === 16, `Expected 16 generated narratives after the 28 August extension, found ${Object.keys(model.narratives || {}).length}.`);
+  const august28Content = JSON.stringify({ bio: model.narratives['bioquimica-2026-08-28'], epi: model.narratives['epidemiologia-2026-08-28'] });
+  expect(/NADPH/.test(august28Content) && /transaldolasa transfiere tres carbonos/i.test(august28Content), 'The Biochemistry correction layer lost NADPH or the three-carbon transaldolase transfer.');
+  expect(/RIISS/.test(august28Content) && /cuatro niveles/i.test(notebookJs), 'The Paraguay lesson lost the official RIISS/four-level framing.');
+  expect(!/(?:75\s*%|19[,.]4\s*%|electroconvuls|amputaci[oó]n|nombre propio del paciente)/i.test(august28Content), 'The 28 August lessons include an unverified statistic or a private anecdote.');
+  expect(/sin teléfono, sin leer apuntes/i.test(august28Content) && /trabajos firmados/i.test(august28Content), 'The confirmed Biochemistry oral-preparation rules are missing.');
+  expect(/Cinco clases orales completas/.test(model.teachers['andrea-lopez'].confidenceReason) && model.teachers['andrea-lopez'].observedQuestionFormats.some((item) => /preparación grupal/i.test(item)), 'The cumulative Biochemistry teacher model was not refreshed for 28 August.');
+  expect(model.teachers['andrea-isasi'].likelyExamTargets.some((item) => /Manchester, START y SHORT/i.test(item)) && model.teachers['andrea-isasi'].likelyExamTargets.some((item) => /cuatro niveles/i.test(item)), 'The Epidemiology teacher model omits the confirmed practical methods or RIISS levels.');
   expect(!lessons.some((entry) => entry.subjectId === 'nutricion' && /2026-08-20/.test(entry.lesson.id)), 'A false Nutrition theory class was created for 20 August.');
   expect(/Ficha rápida/.test(notebookJs) && /Ficha ultra rápida/.test(notebookJs), 'Notebook tabs do not use the canonical study-format labels.');
   expect(/standardizeLessonTabs/.test(notebookJs), 'Notebook does not standardize the tab bar across old and new lessons.');
@@ -182,4 +201,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Academic model validation OK: 6 subjects, 6 teacher audits, 21 lesson mappings, 21 contextual diagram mappings including 3 dated visual packs (16 wired assets), 14 generated narratives, no false Nutrition class and no duplicate Drive/Plan navigation.');
+console.log('Academic model validation OK: 6 subjects, 6 teacher audits, 23 lesson mappings, 23 contextual diagram mappings including 3 dated visual packs (16 wired assets), 16 generated narratives, corrected 28 August content, no false Nutrition class and no duplicate Drive/Plan navigation.');

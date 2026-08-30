@@ -74,6 +74,8 @@ final result. The practice surface is the mobile default; the cumulative sheet
 remains one tap away. Run
 `scripts/validate-p1-s4.js` whenever its scope or runtime changes.
 
+The 28 August Bioquímica II and Epidemiología lessons are notebook and individual-practice content only. They do not enter the explicit P1 or provisional P2 allowlists automatically; their presence in the class hub and server ranking scope must not change the 17-lesson/680-question P1 or 4-lesson/160-question P2 contracts.
+
 ### 4.º E notice presentation
 
 Home renders one compact important notice at a time: complete poster thumbnail

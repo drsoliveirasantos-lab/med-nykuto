@@ -280,7 +280,8 @@ html[data-theme="light"] .notice-item .notice-source{color:#006b8f}
   .class-dashboard .home-quick-link-icon svg{width:16px;height:16px}
   .class-dashboard .home-quick-link-copy small{display:none}
   .class-dashboard .home-quick-link-copy strong{display:-webkit-box;overflow:hidden;font-size:.75rem;line-height:1.2;-webkit-box-orient:vertical;-webkit-line-clamp:2}
-  .dashboard-week-tasks{gap:8px;padding:12px}
+  .dashboard-week-tasks{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto;gap:8px;padding:12px}
+  .dashboard-week-heading,.dashboard-week-tasks .dashboard-priorities,.dashboard-all-tasks{grid-column:1;min-width:0}
   .dashboard-week-heading{gap:6px}
   .dashboard-week-heading>span{font-size:.75rem;line-height:1.2;letter-spacing:.07em}
   .dashboard-week-heading>strong{font-size:.82rem;line-height:1.2;white-space:normal;text-align:right}
@@ -288,7 +289,7 @@ html[data-theme="light"] .notice-item .notice-source{color:#006b8f}
   .dashboard-week-tasks .priority-card{max-width:none;overflow:visible;padding:10px 11px;border-radius:12px}
   .dashboard-week-tasks .priority-card-head{display:flex;min-width:0;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:5px}
   .dashboard-week-tasks .priority-card-head>span{max-width:100%;overflow:visible;font-size:.75rem;line-height:1.2;letter-spacing:.025em;text-overflow:clip;white-space:normal}
-  .dashboard-week-tasks .priority-card-head time{max-width:100%;padding:4px 6px;font-size:.75rem;letter-spacing:0}
+  .dashboard-week-tasks .priority-card-head .priority-card-due{max-width:100%;padding:4px 6px;font-size:.75rem;letter-spacing:0}
   .dashboard-week-tasks .priority-card strong{display:block;overflow:visible;margin-top:6px;font-size:.82rem;line-height:1.3;overflow-wrap:anywhere;-webkit-line-clamp:unset}
   .dashboard-all-tasks{font-size:.75rem!important}
 }

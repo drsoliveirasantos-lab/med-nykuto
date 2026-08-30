@@ -5,6 +5,7 @@ const CLASS_DRIVE_URL = 'https://drive.google.com/drive/u/0/mobile/folders/1AE16
 
 test.describe('Class hub', () => {
   test.beforeEach(async ({ page }) => {
+    await page.clock.install({ time: new Date('2026-08-30T12:00:00-03:00') });
     await routeCurrentClassPublic(page);
     await page.goto('/clase.html');
   });

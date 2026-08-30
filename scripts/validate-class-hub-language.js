@@ -136,6 +136,9 @@ expect(classRanking.includes("PROFILE_KEY = 'medNykutoCommunityProfile:v1'"), 'M
 expect(classRanking.includes("API_URL = '/api/community'"), 'Materias does not publish through the shared ranking endpoint.');
 expect(i18n.includes("courseOnlyBase:'SOLO CONTENIDO DE LA CLASE'"), 'The Spanish course-only practice label is missing.');
 expect(i18n.includes("courseOnlyBase:'SÓ CONTEÚDO DA AULA'"), 'The Portuguese course-only practice label is missing.');
+expect(i18n.includes("reviewedLessonBase:'LECCIÓN REVISADA · CLASE + FUENTES OFICIALES'"), 'The Spanish reviewed-lesson practice label is missing.');
+expect(i18n.includes("reviewedLessonBase:'AULA REVISADA · AULA + FONTES OFICIAIS'"), 'The Portuguese reviewed-lesson practice label is missing.');
+expect(['clase.html','p1.html','comunidade.html'].every((file) => fs.readFileSync(path.join(root,file),'utf8').includes('grupo-3-practice-v413.js?v=500')), 'The updated practice source-label runtime is not cache-busted in every public entry point.');
 expect(i18n.includes("htmlLangByLang = {es:'es',br:'pt-BR'}"), 'The Portuguese document language is not configured as pt-BR.');
 expect(i18n.includes("'Tareas':'Tarefas'"), 'The Portuguese task navigation translation is missing.');
 expect(i18n.includes("'Materias':'Matérias'"), 'The Materias/Matérias navigation translation is missing.');
@@ -144,7 +147,7 @@ expect(i18n.includes("'Tu semana':'Sua semana'"), 'The simplified Portuguese das
 expect(i18n.includes("'Ver todas las tareas':'Ver todas as tarefas'"), 'The simplified Portuguese task link is missing.');
 expect(i18n.includes("'Avisos importantes vigentes':'Avisos importantes vigentes'") && i18n.includes("'Avisos importantes vigentes de la clase':'Avisos importantes vigentes da turma'"), 'The current-notice Home heading or accessible label is not translated into Portuguese.');
 expect(i18n.includes("'Transporte':'Transporte'") && i18n.includes("'Evaluaciones':'Avaliações'") && i18n.includes("'Más filtros':'Mais filtros'"), 'The new notice category controls are not translated into Portuguese.');
-expect(i18n.includes("'Filtrar avisos':'Filtrar avisos'") && i18n.includes("'Filtrar por tipo de aviso':'Filtrar por tipo de aviso'") && html.includes('grupo-3-i18n-v421.js?v=492'), 'The notice filter accessibility labels or updated i18n cache version are missing.');
+expect(i18n.includes("'Filtrar avisos':'Filtrar avisos'") && i18n.includes("'Filtrar por tipo de aviso':'Filtrar por tipo de aviso'") && html.includes('grupo-3-i18n-v421.js?v=500'), 'The notice filter accessibility labels or updated i18n cache version are missing.');
 expect((html.match(/data-view-link="avisos"/g) || []).length === 1 && html.includes('id="class-icon-notice"') && html.includes('id="noticeBell"'), 'Avisos is not available from the desktop navigation and the persistent mobile bell.');
 expect(/\.mobile-bottom-nav\s*\{[^}]*display:grid[^}]*grid-template-columns:repeat\(5,minmax\(0,1fr\)\)[^}]*overflow:hidden/.test(css), 'The five primary mobile destinations do not fit in a fixed navigation grid.');
 expect(i18n.includes("'Consulta los avisos que siguen en vigor. Los vencidos se retiran automáticamente.':'Consulte os avisos que continuam vigentes. Os vencidos são retirados automaticamente.'"), 'The current-notice expiration explanation is not translated into Portuguese.');

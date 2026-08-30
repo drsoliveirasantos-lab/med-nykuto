@@ -170,6 +170,7 @@
     margin:3px 0 7px 9px;
     border-radius:8px
   }
+  .course-inline-figure.is-wide{width:100%;max-width:100%;float:none;clear:both;margin:8px auto 11px}
   .course-inline-figure.is-summary{width:100%;max-width:100%;float:none;clear:both;margin:8px auto 11px}
   .course-inline-diagram-trigger{padding:2px}
   .course-inline-figure figcaption{padding:4px 5px 5px}
@@ -179,7 +180,7 @@
   .course-diagram-dialog{width:calc(100vw - 8px);max-height:calc(100dvh - 8px);border-radius:12px}
   .course-diagram-dialog-shell{height:calc(100dvh - 10px)}
   .course-diagram-dialog-shell>header{padding:8px 9px}
-  .course-diagram-dialog-shell>header button{width:32px;height:32px}
+  .course-diagram-dialog-shell>header button{width:44px;height:44px}
   .course-diagram-dialog-stage{padding:5px}
   .course-diagram-dialog-stage .course-inline-svg,
   .course-diagram-dialog-stage .course-inline-image{max-height:calc(100dvh - 116px)!important}

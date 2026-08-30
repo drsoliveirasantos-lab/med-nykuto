@@ -111,13 +111,17 @@ class-notebook-v445.js
 teacher-question-profile-v445.js
 ```
 
-`academic-model-v445.js` is the authoritative base mapping for the six 4.º E subjects, eighteen dated lessons, chapter status and six cumulative teacher profiles. The static 27 August extension adds three documented lessons, so the effective offline baseline exposes twenty-one lessons. A new lesson must extend the relevant evidence timeline; it must not overwrite prior evidence or invent a class date. Each practice bank remains isolated by lesson and is annotated at runtime with the matching teacher profile and reasoning angle.
+`academic-model-v445.js` is the authoritative base mapping for the six 4.º E subjects, eighteen dated lessons, chapter status and six cumulative teacher profiles. The static 27 August extension adds three documented lessons and the 28 August extension adds Bioquímica II and Epidemiología, so the effective offline baseline exposes twenty-three lessons. A new lesson must extend the relevant evidence timeline; it must not overwrite prior evidence or invent a class date. Each practice bank remains isolated by lesson and is annotated at runtime with the matching teacher profile and reasoning angle.
 
 Published class-specific overlays created through `/gestion/<slug>` are a separate source surface. They live in the tenant-scoped D1 tables `hub_content_lessons` and `hub_content_revisions`; they must not change `content-lock.json`, the 59-module catalog or protected generated banks. The static notebook remains the offline baseline. A D1 overlay may replace the browser view only when its subject and exact lesson date match, and an unavailable API must leave that baseline untouched.
 
 El seminario de Nutrición del 20 de agosto de 2026 fue una presentación terminada, no una clase teórica nueva. La clase teórica del 27 de agosto sí está documentada y se añade como lección independiente junto con Fisiología y Microbiología práctica de la misma fecha.
 
 Los visuales del 27 proceden de la exportación académica de WhatsApp «BATE-PAPO ALUNOS» del 27–28 de agosto: Nutrición `00005305`–`00005306`, Fisiología `00005330` y Microbiología práctica `00005349`–`00005357`, `00005366`–`00005368` y `00005378`–`00005379`. La publicación conserva solo zonas pedagógicas recortadas y optimizadas; la lámina de Fisiología es una reconstrucción vectorial limpia y revisada, nunca una fotografía original. Conversaciones, ruido ambiental e identificadores privados quedan excluidos. El Drive se usa solo para corroborar el alcance académico, no como procedencia de esas imágenes. `academic-model-2026-08-27-v494.js` extiende el modelo estático con las tres lecciones sin reemplazar su historial previo.
+
+Las transcripciones del viernes 28 de agosto se incorporan mediante `academic-model-2026-08-28-v500.js` y dos bancos aislados `grupo-3-practice-*-2026-08-28-v500.js`. La capa revisada corrige reconocimiento de voz y afirmaciones científicas evidentes: usa NADP+/NADPH, asigna tres carbonos a la transaldolasa, conserva RIISS como denominación oficial y presenta cuatro niveles de atención. No publica relatos identificables de pacientes, opiniones políticas, porcentajes de cobertura sin fuente ni afirmaciones administrativas que contradigan la documentación oficial.
+
+La semana oficial de pruebas prácticas del 31 de agosto al 4 de septiembre se presenta mediante `class-practical-exams-2026-p1-v500.js`. Esta tarjeta sustituye la antigua fecha errónea de Bioquímica, separa expresamente las pruebas prácticas de los exámenes teóricos P1 y deja sin inventar toda hora o modalidad no confirmada.
 
 The shared Google Drive entry belongs on Home only. `Materias` must not duplicate it.
 
@@ -133,6 +137,8 @@ p1.html
 
 `p1-s4-e-v1.js` is an explicit, versioned allowlist of the dated lessons included in P1. New P2 lessons must never enter the P1 pool automatically. The P1 runtime clones questions from the isolated lesson banks, removes cross-lesson overlaps, shuffles a reproducible attempt and keeps its local state separate from ordinary practice, ranking and community points. `training` shows a locked correction immediately after the learner checks each response; `exam` hides every correction until completion. Both modes must persist safely after reload. Teacher angles guide the distribution and diagnostic breakdown; inferred patterns must not be described as confirmed exam questions. Nutrición queda confirmada para P1 hasta la clase del 27 de agosto, aunque el formato exacto del examen aún no fue observado. En Fisiología, la indicación oral limita P1 a Respiratorio: el bloque de sensibilidades somáticas del 27 queda disponible para revisión general, pero fuera del simulacro P1.
 
+Las clases de Bioquímica II y Epidemiología del 28 de agosto permanecen fuera de P1 mientras no exista una ampliación oficial explícita del temario. Publicar sus cursos y sus bancos individuales no autoriza a añadirlos al simulacro acumulativo.
+
 ### 4.º E provisional P2 scope
 
 The early second-partial review is declared explicitly in:
@@ -144,6 +150,8 @@ class-p1-v1.js
 ```
 
 P2 is provisional until the chair officially confirms its scope. Its current allowlist contains only Fisiología II Neurofisiología from 17, 20, 24 and 27 August 2026: four isolated lesson banks and 160 source questions. It must not infer later classes, include Respiratorio, or modify the P1 allowlist. The shared runtime exposes `window.MedNykutoP1` as the stable P1 API and `window.MedNykutoP2` as a separate engine; their saved attempts use different local-storage keys. A hash change between `#p1` and `#p2` may switch the visible workspace, but it must save and restore each partial independently.
+
+Neither 28 August lesson belongs to this provisional P2 allowlist.
 
 ## 4.º E Drive material registry
 

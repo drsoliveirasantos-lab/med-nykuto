@@ -106,13 +106,45 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#classLanguageSelect')).toHaveValue('br');
     await expect(page.getByRole('heading', { name: 'Sua semana', exact: true })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Aulas reconstruídas e revisadas', exact: true })).toBeVisible();
-    await expect(page.locator('.home-transcript-bio')).toContainText('Ciclo de Cori e via das pentoses');
-    await expect(page.locator('.home-transcript-epi')).toContainText('Casos clínicos de triagem e sistema de saúde');
+    await expect(page.locator('.home-transcript-bio')).toContainText('Pentoses: regulação, balanços e destinos');
+    await expect(page.locator('.home-transcript-epi')).toContainText('Sistema paraguaio, RIISS e níveis de atenção');
     await expect(page.locator('#homeHomeworkCount')).toHaveText('3 tarefas ativas');
+    await expect(page.locator('#lastUpdated')).toHaveText('Atualizado em 28 ago. · conteúdo revisado');
+    await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', '2026-08-28');
     await expect(page.getByText('PARA ESTA SEMANA', { exact: true })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Ver todas as tarefas' })).toBeVisible();
     await expect(page.locator('.mobile-bottom-nav').getByText('Tarefas', { exact: true })).toBeAttached();
     await expect(page.locator('.mobile-bottom-nav').getByText('Matérias', { exact: true })).toBeAttached();
+
+    await page.goto('/clase.html#pendientes');
+    await expect(page.locator('#task-class-practical-exams-2026-p1')).toContainText('Semana de provas práticas');
+    await expect(page.locator('#task-class-practical-exams-2026-p1')).toContainText('Sem celular nem tablet');
+    await expect(page.locator('#task-class-practical-exams-2026-p1')).toContainText('SEX. 04/09 · Bioquímica II');
+    const practicalExamCard = page.locator('#task-class-practical-exams-2026-p1');
+    await practicalExamCard.locator('summary').click();
+    await expect(practicalExamCard.locator('[data-task-toggle-label]')).toHaveText('Fechar');
+    await practicalExamCard.locator('summary').click();
+    await expect(practicalExamCard.locator('[data-task-toggle-label]')).toHaveText('Abrir');
+
+    await page.goto('/clase.html#bioquimica-2026-08-28');
+    const reviewedPractice = page.locator('#bioquimica-2026-08-28 [data-practice-root="bioquimica-2026-08-28"]');
+    await expect(reviewedPractice).toContainText('Via das pentoses-fosfato: integração metabólica');
+    await page.locator('#bioquimica-2026-08-28 [data-lesson-tab="training"]').click();
+    await reviewedPractice.locator('.practice-start').click();
+    await expect(reviewedPractice.locator('.practice-sources')).toContainText('AULA REVISADA · AULA + FONTES OFICIAIS');
+    await expect(reviewedPractice.locator('.practice-sources')).toContainText('NCBI · G6PD e defesa antioxidante');
+    await reviewedPractice.locator('.practice-dialog-close').click();
+    await page.locator('#bioquimica-2026-08-28 [data-lesson-tab="ia"]').click();
+    const biochemistryAudit = page.locator('#bioquimica-2026-08-28 [data-lesson-tab-panel="ia"]');
+    await expect(biochemistryAudit).toContainText('Cinco aulas orais completas');
+    await expect(biochemistryAudit.locator('.lesson-teacher-prompt p')).toContainText('Atue como a Dra. Andrea López');
+    await expect(biochemistryAudit.locator('.lesson-teacher-prompt p')).toContainText('Aula ativa:');
+    await page.goto('/clase.html#epidemiologia-2026-08-28');
+    await page.locator('#epidemiologia-2026-08-28 [data-lesson-tab="ia"]').click();
+    const epidemiologyAudit = page.locator('#epidemiologia-2026-08-28 [data-lesson-tab-panel="ia"]');
+    await expect(epidemiologyAudit).toContainText('Seis blocos observados');
+    await expect(epidemiologyAudit).toContainText('Pede a aplicação de um algoritmo de classificação completo');
+    await expect(epidemiologyAudit).not.toContainText('Seis bloques observados');
 
     await page.goto('/clase.html#horario');
     await expect(page.getByRole('heading', { name: 'Horário do 4.º E' })).toBeVisible();

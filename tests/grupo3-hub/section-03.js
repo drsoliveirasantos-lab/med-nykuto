@@ -5,7 +5,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     const active = page.locator('#classHubLiveTasks .live-task');
     const activeList = page.locator('#classHubLiveTasks');
     await expect(active).toHaveCount(3);
-    await expect(activeList).toContainText('Prueba práctica · caso clínico, trabajos firmados y grupos');
+    await expect(activeList).toContainText('Semana de pruebas prácticas · cinco materias');
     await expect(activeList).toContainText('Exposición grupal de enfermedad sorteada');
     await expect(activeList).toContainText('Actividades 3 y 4 impresas y manuscritas');
     await expect(page.locator('.pending-grid')).toBeVisible();

@@ -27,15 +27,35 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/clase.html#pendientes');
     const tasks = page.locator('#classHubLiveTasks .live-task-details');
-    const practicalTask = page.locator('#task-bio-practical-2026-09-02');
+    const practicalTask = page.locator('#task-class-practical-exams-2026-p1');
     const epidemiologyTask = page.locator('#task-epi-presentation');
     const biochemistryTask = page.locator('#task-bio-activities');
     await expect(tasks).toHaveCount(3);
-    await expect(practicalTask).toContainText('Prueba práctica');
+    await expect(practicalTask).toContainText('Semana de pruebas prácticas');
+    await expect(practicalTask).toContainText('Manchester, START y SHORT');
+    await expect(practicalTask).toContainText('Sin celular ni tablet');
+    await expect(practicalTask).toContainText('≈30 MIN');
+    await expect(practicalTask).toContainText('la chompa es obligatoria');
+    await expect(practicalTask).toContainText('04/09 · Bioquímica II');
+    await expect(practicalTask).toContainText('Microbiología II · Práctica mantiene su clase del jueves por la tarde');
+    expect(await practicalTask.locator('.live-task-body > .live-task-steps').first().locator('li strong').allTextContents()).toEqual([
+      'LUN. 31/08 · Fisiología II',
+      'MAR. 01/09 · Bioética',
+      'MIÉ. 02/09 · Epidemiología',
+      'JUE. 03/09 · Nutrición',
+      'VIE. 04/09 · Bioquímica II'
+    ]);
+    await expect(page.locator('#task-bio-practical-2026-09-02')).toHaveCount(0);
     await expect(epidemiologyTask).toContainText('Epidemiología');
     await expect(biochemistryTask).toContainText('Bioquímica II');
     const heights = await tasks.evaluateAll((cards) => cards.map((card) => card.getBoundingClientRect().height));
     expect(Math.max(...heights)).toBeLessThan(100);
+    await practicalTask.locator('summary').click();
+    await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    await expect(practicalTask).toHaveAttribute('open', '');
+    await expect(practicalTask.locator('[data-task-toggle-label]')).toHaveText('Cerrar');
+    await practicalTask.locator('summary').click();
+    await expect(practicalTask).not.toHaveAttribute('open', '');
     await epidemiologyTask.locator('summary').click();
     await expect(epidemiologyTask).toHaveAttribute('open', '');
     await expect(page.locator('#pendientes')).toBeVisible();
@@ -74,6 +94,35 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#task-epi-presentation')).toHaveAttribute('open', '');
     await expect(page.locator('#epidemiologia')).toBeHidden();
     await expect(page).toHaveURL(/#task-epi-presentation$/);
+  });
+
+  test('opens the official practical calendar from Home and from a direct reload', async ({ page }) => {
+    await page.goto('/clase.html#inicio');
+    await page.locator('[data-practical-exams-p1]').click();
+    await expect(page).toHaveURL(/#task-class-practical-exams-2026-p1$/);
+    await expect(page.locator('#pendientes')).toBeVisible();
+    await expect(page.locator('#task-class-practical-exams-2026-p1')).toHaveAttribute('open', '');
+    await expect(page.locator('#task-class-practical-exams-2026-p1 summary')).toBeFocused();
+    await page.reload();
+    await expect(page.locator('#pendientes')).toBeVisible();
+    await expect(page.locator('#task-class-practical-exams-2026-p1')).toHaveAttribute('open', '');
+    await expect(page.locator('#task-class-practical-exams-2026-p1 summary')).toBeFocused();
+    await expect(page.getByRole('link', { name: 'Ver grupos y trabajos de Bioquímica' })).toHaveAttribute('href', '/bioquimica-ii-grupos');
+  });
+
+  test('removes the practical-week card from active tasks after its Paraguay deadline', async ({ page }) => {
+    await page.clock.setFixedTime(new Date('2026-09-05T00:01:00-03:00'));
+    await page.goto('/clase.html#inicio');
+    await expect(page.locator('[data-practical-exams-p1]')).toHaveCount(0);
+    await page.goto('/clase.html#pendientes');
+    await expect(page.locator('#task-class-practical-exams-2026-p1')).toHaveCount(0);
+    await expect(page.locator('#homeHomeworkCount')).toHaveText('2 tareas activas');
+    await page.goto('/clase.html#epidemiologia');
+    const archivedProject = page.locator('#epi19-tarea');
+    await expect(archivedProject).toBeVisible();
+    await expect(archivedProject.locator('[data-project-status]')).toHaveText('PROYECTO ARCHIVADO · PRESENTACIÓN FINALIZADA');
+    await expect(archivedProject.locator('[data-project-period]')).toHaveText('ACTIVIDAD ARCHIVADA');
+    await expect(archivedProject.locator('[data-linked-task="epi-presentation"]')).toBeHidden();
   });
 
   test('takes an explicitly linked task notice to its exact Tareas brief', async ({ page: bootstrapPage, browser }) => {

@@ -94,7 +94,9 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(layout.listHeight).toBeLessThan(360);
     expect(layout.archiveDisplay).not.toBe('none');
     expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 1);
-    await expect(page.locator('#task-bio-practical-2026-09-02')).toContainText('Prueba práctica');
+    await expect(page.locator('#task-class-practical-exams-2026-p1')).toContainText('Semana de pruebas prácticas');
+    await expect(page.locator('#task-class-practical-exams-2026-p1')).toContainText('≈30 MIN');
+    await expect(page.locator('#task-bio-practical-2026-09-02')).toHaveCount(0);
     await expect(page.locator('#task-epi-presentation')).toContainText('Epidemiología');
     await expect(page.locator('#task-bio-activities')).toContainText('Bioquímica II');
     await expect(page.locator('.assignment-archive')).toBeVisible();

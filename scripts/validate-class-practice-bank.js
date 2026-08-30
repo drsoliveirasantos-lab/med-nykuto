@@ -26,13 +26,17 @@ const datedCourses = [
   'epidemiologia-2026-08-26',
   'nutricion-2026-08-27',
   'fisiologia-2026-08-27',
-  'microbiologia-practica-2026-08-27'
+  'microbiologia-practica-2026-08-27',
+  'bioquimica-2026-08-28',
+  'epidemiologia-2026-08-28'
 ];
 const allExpectedCourses = expectedCourses.concat(datedCourses);
-const august27BankScripts = [
+const datedBankScripts = [
   'grupo-3-practice-nutricion-2026-08-27-v494.js',
   'grupo-3-practice-fisiologia-2026-08-27-v494.js',
-  'grupo-3-practice-microbiologia-practica-2026-08-27-v494.js'
+  'grupo-3-practice-microbiologia-practica-2026-08-27-v494.js',
+  'grupo-3-practice-bioquimica-2026-08-28-v500.js',
+  'grupo-3-practice-epidemiologia-2026-08-28-v500.js'
 ];
 const types = ['qcm', 'vf', 'cases'];
 const metaQuestionWording = /\b(?:clase|curso|profesor|aula|repaso|repasar|explicad[oa]s?)\b/i;
@@ -130,6 +134,7 @@ global.document = { getElementById() { return null; } };
 
 require(path.join(root, 'academic-model-v445.js'));
 require(path.join(root, 'academic-model-2026-08-27-v494.js'));
+require(path.join(root, 'academic-model-2026-08-28-v500.js'));
 require(path.join(root, 'grupo-3-practice-v413.js'));
 require(path.join(root, 'grupo-3-practice-expansion-v420.js'));
 require(path.join(root, 'grupo-3-practice-grounded-v426.js'));
@@ -140,6 +145,8 @@ require(path.join(root, 'grupo-3-practice-2026-08-26-v484.js'));
 require(path.join(root, 'grupo-3-practice-nutricion-2026-08-27-v494.js'));
 require(path.join(root, 'grupo-3-practice-fisiologia-2026-08-27-v494.js'));
 require(path.join(root, 'grupo-3-practice-microbiologia-practica-2026-08-27-v494.js'));
+require(path.join(root, 'grupo-3-practice-bioquimica-2026-08-28-v500.js'));
+require(path.join(root, 'grupo-3-practice-epidemiologia-2026-08-28-v500.js'));
 require(path.join(root, 'teacher-question-profile-v445.js'));
 const academicModel = global.window.MedNykutoAcademicModel;
 const practice = global.window.MedNykutoClassPractice;
@@ -151,7 +158,7 @@ delete global.document;
 if (!banks || typeof banks !== 'object') {
   errors.push('Practice bank did not expose a banks object.');
 } else {
-  august27BankScripts.forEach((script) => {
+  datedBankScripts.forEach((script) => {
     expect(classHtml.includes(script), `Class page does not load the dated practice bank: ${script}.`);
   });
   expect(practice.groundingPolicy === POLICY, `Expected global grounding policy ${POLICY}.`);
@@ -324,14 +331,20 @@ if (!banks || typeof banks !== 'object') {
     const prefix = `${courseId}:`;
     const sourceElement = extractElementById(classHtml, courseId);
     const sourceUrl = `clase.html#${courseId}`;
+    const reviewedLayer = /-2026-08-28$/.test(courseId);
     const objectiveOptionSets = new Set();
 
     expect(bank.courseId === courseId, `${prefix} course id is inconsistent.`);
-    expect(bank.grounding === 'course-only', `${prefix} must be marked as course-only.`);
+    expect(bank.grounding === (reviewedLayer ? 'reviewed-lesson-only' : 'course-only'), `${prefix} has the wrong grounding layer.`);
     expect(Boolean(sourceElement) || academicLessonExists(academicModel, courseId), `${prefix} exact dated lesson was found neither in clase.html nor in the academic model.`);
-    expect(Array.isArray(bank.sources) && bank.sources.length === 1, `${prefix} must expose one internal class source.`);
+    expect(Array.isArray(bank.sources) && (reviewedLayer ? bank.sources.length >= 3 : bank.sources.length === 1), `${prefix} exposes the wrong number of lesson/review sources.`);
     expect(bank.sources && bank.sources[0] && bank.sources[0].url === sourceUrl, `${prefix} source must point to its exact dated lesson.`);
-    expect(!/^https?:\/\//i.test((bank.sources && bank.sources[0] && bank.sources[0].url) || ''), `${prefix} external sources are forbidden in the question bank.`);
+    if (reviewedLayer) {
+      expect(bank.descriptionKey === 'practiceReviewedLessonDescription', `${prefix} must explain its reviewed lesson layer.`);
+      (bank.sources || []).slice(1).forEach((source) => expect(/^https:\/\//i.test(source.url || ''), `${prefix} review source must use HTTPS.`));
+    } else {
+      expect(!/^https?:\/\//i.test((bank.sources && bank.sources[0] && bank.sources[0].url) || ''), `${prefix} external sources are forbidden in the course-only bank.`);
+    }
 
     const expectedCounts = { qcm: 20, vf: 10, cases: 10 };
     types.forEach((type) => {
@@ -464,7 +477,7 @@ if (errors.length) {
 }
 
 console.log(
-  `Class practice bank validation OK: ${allExpectedCourses.length} courses, ${totalQuestions} course-only questions, ` +
+  `Class practice bank validation OK: ${allExpectedCourses.length} courses, ${totalQuestions - 80} course-only questions plus 80 reviewed-lesson questions, ` +
   `70 exact evidence items plus ${datedCourses.length * 40} questions anchored to ${datedCourses.length} dated lessons, answer positions ${answerPositions.join('/')}, ` +
   `${Math.round((strictlyLongestCorrect / objectiveQuestions) * 100)}% uniquely-longest correct options, ` +
   `6 teacher profiles applied to all questions, 0 adjacent evidence repeats, 0 generic stems, 0 repeated cross-format answer sets and 0 absolute-word distractor cues.`

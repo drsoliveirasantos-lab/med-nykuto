@@ -2046,10 +2046,10 @@ async function main() {
   const communityParticipantDefinition = tableDefinition(communitySource, 'community_participants');
   expect(Boolean(communityParticipantDefinition), 'community_participants schema is missing.');
   expect(/\bclass_id\s+text\s+not\s+null\b/i.test(communityParticipantDefinition), 'community_participants must declare class_id TEXT NOT NULL.');
-  expect(/MAX_SCOPES_PER_PLAYER\s*=\s*63/.test(communitySource), 'The 21-bank challenge does not expose exactly 63 permitted score scopes.');
+  expect(/MAX_SCOPES_PER_PLAYER\s*=\s*69/.test(communitySource), 'The 23-bank challenge does not expose exactly 69 permitted score scopes.');
   expect(/CHALLENGE_TYPE_TOTALS[\s\S]*?qcm:\s*20[\s\S]*?vf:\s*10[\s\S]*?cases:\s*10/.test(communitySource), 'The score allowlist does not enforce the published 20/10/10 block sizes.');
   expect(/CHALLENGE_SCOPE_TOTALS\.get\(scopeId\)/.test(communitySource), 'Community score writes do not consult the exact server-side scope allowlist.');
-  expect(/CHALLENGE_SCOPE_TOTALS\.size\s*!==\s*MAX_SCOPES_PER_PLAYER/.test(communitySource), 'The score-scope manifest has no fail-closed 63-entry contract guard.');
+  expect(/CHALLENGE_SCOPE_TOTALS\.size\s*!==\s*MAX_SCOPES_PER_PLAYER/.test(communitySource), 'The score-scope manifest has no fail-closed 69-entry contract guard.');
   expect(/challenge\.participant\.review/.test(hubSource) && /reviewChallenge/.test(hubSource) && /challengeReviewId/.test(hubSource), 'The class-scoped challenge review capability or opaque review-id contract is missing.');
   expect(/class_id=\?[\s\S]{0,180}?verification_status\s+IN\s*\('pending','verified','rejected'\)/i.test(hubSource), 'Challenge review does not constrain statuses and class scope together.');
 

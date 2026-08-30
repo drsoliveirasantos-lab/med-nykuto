@@ -7,10 +7,13 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#nextScheduleSubject')).not.toHaveText('Calculando…');
     await expect(page.getByRole('link', { name: /Exposición grupal de enfermedad sorteada/ })).toBeVisible();
     await expect(page.getByRole('link', { name: /Actividades 3 y 4 impresas y manuscritas/ })).toBeVisible();
-    await expect(page.locator('.priority-card-head time')).toHaveCount(2);
+    await expect(page.getByRole('link', { name: /pruebas prácticas oficiales del 31 de agosto al 4 de septiembre/ })).toBeVisible();
+    await expect(page.locator('.priority-card-head .priority-card-due')).toHaveCount(3);
+    await expect(page.locator('.priority-card-head time.priority-card-due')).toHaveCount(1);
+    await expect(page.locator('.priority-card-head span.priority-card-due')).toHaveCount(2);
     await expect(page.locator('#homeHomeworkCount')).toHaveText('3 tareas activas');
-    await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', '2026-08-27');
-    await expect(page.locator('#lastUpdated')).toContainText('Actualizado 27 ago.');
+    await expect(page.locator('#lastUpdated')).toHaveAttribute('datetime', '2026-08-28');
+    await expect(page.locator('#lastUpdated')).toContainText('Actualizado 28 ago.');
     await expect(page.locator('#horario')).toBeHidden();
     await expect(page.locator('#materias')).toBeHidden();
   });
@@ -31,30 +34,30 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.getByRole('button', { name:/Apoyar el proyecto/ })).toBeVisible();
   });
 
-  test('shows both 26 August transcriptions on Home and opens their exact dated courses', async ({ page }) => {
+  test('shows both 28 August transcriptions on Home and opens their exact dated courses', async ({ page }) => {
     const biochemistry = page.locator('.home-transcript-bio');
     const epidemiology = page.locator('.home-transcript-epi');
 
     await expect(page.getByRole('heading', { name: 'Clases reconstruidas y revisadas' })).toBeVisible();
     await expect(biochemistry).toBeVisible();
-    await expect(biochemistry).toHaveAttribute('href', '#bioquimica-2026-08-26');
-    await expect(biochemistry).toContainText('Ciclo de Cori y vía de las pentosas');
+    await expect(biochemistry).toHaveAttribute('href', '#bioquimica-2026-08-28');
+    await expect(biochemistry).toContainText('Pentosas: regulación, balances y destinos');
     await expect(biochemistry).toContainText('40 preguntas');
     await expect(epidemiology).toBeVisible();
-    await expect(epidemiology).toHaveAttribute('href', '#epidemiologia-2026-08-26');
-    await expect(epidemiology).toContainText('Casos clínicos de triaje y sistema de salud');
-    await expect(epidemiology).toContainText('método de la profesora');
+    await expect(epidemiology).toHaveAttribute('href', '#epidemiologia-2026-08-28');
+    await expect(epidemiology).toContainText('Sistema paraguayo, RIISS y niveles de atención');
+    await expect(epidemiology).toContainText('curso + fichas');
 
     await biochemistry.click();
-    await expect(page).toHaveURL(/#bioquimica-2026-08-26$/);
-    await expect(page.locator('#bioquimica .notebook-current-title')).toContainText('Ciclo de Cori');
-    await expect(page.locator('#bioquimica-2026-08-26')).toBeVisible();
+    await expect(page).toHaveURL(/#bioquimica-2026-08-28$/);
+    await expect(page.locator('#bioquimica .notebook-current-title')).toContainText('Vía de las pentosas fosfato');
+    await expect(page.locator('#bioquimica-2026-08-28')).toBeVisible();
 
     await page.goto('/clase.html#inicio');
     await page.locator('.home-transcript-epi').click();
-    await expect(page).toHaveURL(/#epidemiologia-2026-08-26$/);
-    await expect(page.locator('#epidemiologia .notebook-current-title')).toContainText('Casos clínicos de triaje');
-    await expect(page.locator('#epidemiologia-2026-08-26')).toBeVisible();
+    await expect(page).toHaveURL(/#epidemiologia-2026-08-28$/);
+    await expect(page.locator('#epidemiologia .notebook-current-title')).toContainText('Sistema de salud del Paraguay');
+    await expect(page.locator('#epidemiologia-2026-08-28')).toBeVisible();
   });
 
   test('uses clickable views and shows only one course at a time', async ({ page }) => {
@@ -78,15 +81,15 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(shortcut).toBeHidden();
     await page.locator('[data-course-target="bioquimica"]').click();
     await expect(page.locator('#bioquimica .notebook-shell')).toBeVisible();
-    await expect(page.locator('#bioquimica .notebook-current-title')).toContainText('Ciclo de Cori');
-    await page.locator('#bioquimica-2026-08-26 [data-lesson-tab="training"]').click();
-    await page.locator('#practice-bioquimica-2026-08-26').getByRole('button', { name: 'Comenzar entrenamiento' }).click();
-    await expect(page.locator('#practice-bioquimica-2026-08-26-dialog')).toHaveAttribute('open', '');
-    await expect(page.locator('#practice-bioquimica-2026-08-26 .practice-workspace')).toBeVisible();
-    await expect(page.locator('#practice-bioquimica-2026-08-26 .practice-teacher-angle')).toContainText('Dra. Andrea López');
+    await expect(page.locator('#bioquimica .notebook-current-title')).toContainText('Vía de las pentosas fosfato');
+    await page.locator('#bioquimica-2026-08-28 [data-lesson-tab="training"]').click();
+    await page.locator('#practice-bioquimica-2026-08-28').getByRole('button', { name: 'Comenzar entrenamiento' }).click();
+    await expect(page.locator('#practice-bioquimica-2026-08-28-dialog')).toHaveAttribute('open', '');
+    await expect(page.locator('#practice-bioquimica-2026-08-28 .practice-workspace')).toBeVisible();
+    await expect(page.locator('#practice-bioquimica-2026-08-28 .practice-teacher-angle')).toContainText('Dra. Andrea López');
     await expect(page.locator('body')).toHaveClass(/practice-modal-open/);
     await page.keyboard.press('Escape');
-    await expect(page.locator('#practice-bioquimica-2026-08-26-dialog')).not.toHaveAttribute('open', '');
+    await expect(page.locator('#practice-bioquimica-2026-08-28-dialog')).not.toHaveAttribute('open', '');
     await expect(page.locator('body')).not.toHaveClass(/practice-modal-open/);
   });
 

@@ -27,7 +27,7 @@
     if(/(?:^|\/)clase\.html$/i.test(location.pathname||'')){
       function revealTaskSections(){var current=document.querySelector('#pendientes .pending-grid'),archive=document.querySelector('#pendientes .assignment-archive');[current,archive].forEach(function(section){if(!section)return;section.hidden=false;section.removeAttribute('aria-hidden');});}
       if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',revealTaskSections,{once:true});else revealTaskSections();
-      addScript('/bioquimica-pratica-task-v498.js?v=499','data-bio-practical-task');
+      addScript('/class-practical-exams-2026-p1-v500.js?v=500','data-class-practical-exams-p1');
     }
   }
   function bind(){updateControls(root.dataset.theme||DARK);window.setTimeout(function(){updateControls(root.dataset.theme||DARK);},0);document.querySelectorAll('[data-public-theme-toggle]').forEach(function(button){button.addEventListener('click',function(){apply(root.dataset.theme===LIGHT?DARK:LIGHT,true);});});['communityLanguage','classLanguageSelect'].forEach(function(id){var select=document.getElementById(id);if(select)select.addEventListener('change',function(){window.setTimeout(function(){updateControls(root.dataset.theme||DARK);},0);});});}

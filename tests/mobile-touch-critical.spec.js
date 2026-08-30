@@ -25,6 +25,7 @@ async function dismissSemesterPicker(page) {
 
 test.describe('Mobile critical paths', () => {
   test.beforeEach(async ({ page }) => {
+    await page.clock.install({ time: new Date('2026-08-30T12:00:00-03:00') });
     await routeCurrentClassPublic(page);
   });
   require('./mobile-touch-critical/section-01.js')({ test, expect, openPractice, answerFirstVisibleOption, dismissSemesterPicker });

@@ -35,7 +35,9 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
         quickLinkTitleMin:Math.min(...quickLinks.map((link) => parseFloat(getComputedStyle(link.querySelector('strong')).fontSize))),
         homeworkTitle:document.querySelector('.dashboard-week-heading span').textContent.trim(),
         homeworkCount:document.getElementById('homeHomeworkCount').textContent.trim(),
-        homeworkDates:Array.from(prioritiesGrid.querySelectorAll('.priority-card time')).map(function(time){return time.dateTime;})
+        homeworkDates:Array.from(prioritiesGrid.querySelectorAll('.priority-card time.priority-card-due')).map(function(time){return time.dateTime;}),
+        homeworkLabels:Array.from(prioritiesGrid.querySelectorAll('.priority-card .priority-card-due')).map(function(due){return due.textContent.trim();}),
+        undatedLabelTags:Array.from(prioritiesGrid.querySelectorAll('.priority-card span.priority-card-due')).map(function(due){return due.tagName;})
       };
     });
     expect(dashboard.height).toBeLessThan(900);
@@ -50,8 +52,9 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(dashboard.quickLinkTitleMin).toBeGreaterThanOrEqual(12);
     expect(dashboard.homeworkTitle).toBe('PARA ESTA SEMANA');
     expect(dashboard.homeworkCount).toBe('3 tareas activas');
-    expect(dashboard.homeworkDates).toContain('2099-09-03T09:10:00-03:00');
-    expect(dashboard.homeworkDates.every(Boolean)).toBe(true);
+    expect(dashboard.homeworkDates.filter(Boolean)).toEqual(['2026-08-31']);
+    expect(dashboard.homeworkLabels).toEqual(expect.arrayContaining(['31 AGO.–04 SEP.','Semana 31 ago.–4 sep. · fecha por confirmar','Vie. 4 sep. · práctica']));
+    expect(dashboard.undatedLabelTags).toEqual(['SPAN','SPAN']);
     for (const card of dashboard.priorities) {
       expect(card.left).toBeGreaterThanOrEqual(dashboard.prioritiesGrid.left - 1);
       expect(card.right).toBeLessThanOrEqual(dashboard.prioritiesGrid.right + 1);
