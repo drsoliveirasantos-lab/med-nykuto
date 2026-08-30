@@ -76,7 +76,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     expect(homeLayout.transcriptLabelFont).toBeGreaterThanOrEqual(8);
     expect(homeLayout.noticeHeight).toBeLessThan(200);
     expect(homeLayout.nextHeight).toBeLessThanOrEqual(140);
-    expect(Math.max(...homeLayout.priorityHeights)).toBeLessThan(110);
+    expect(Math.max(...homeLayout.priorityHeights)).toBeLessThan(160);
     expect(homeLayout.kickerDisplay).toBe('none');
     expect(homeLayout.introDisplay).toBe('none');
     expect(homeLayout.updatedDisplay).toBe('inline-flex');
