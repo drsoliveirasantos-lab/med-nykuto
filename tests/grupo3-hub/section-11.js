@@ -128,7 +128,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#weeklyAgenda .schedule-task-badge')).toHaveCount(4);
   });
 
-  test('publishes all twenty-one lessons as narrative courses with isolated forty-question training', async ({ page }) => {
+  test('publishes all twenty-three lessons as narrative courses with isolated forty-question training', async ({ page }) => {
     const lessons = [
       ['nutricion-2026-08-13', 'Leyes de la alimentación y evaluación del paciente', 'nutricion'],
       ['fisiologia-2026-08-10', 'Difusión y transporte de gases', 'fisiologia-2026-08-10'],
@@ -142,8 +142,10 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       ['bioquimica-2026-08-14', 'Glucólisis: vía común y balance energético', 'bioquimica'],
       ['bioquimica-2026-08-21', 'Cetoacidosis diabética'],
       ['bioquimica-2026-08-26', 'Ciclo de Cori y vía de las pentosas fosfato'],
+      ['bioquimica-2026-08-28', 'Vía de las pentosas fosfato: regulación, balances y destinos'],
       ['epidemiologia-bloque-anterior', 'APS, sectorización y triage', 'epidemiologia'],
       ['epidemiologia-2026-08-26', 'Casos clínicos de triaje y sistema de salud'],
+      ['epidemiologia-2026-08-28', 'Sistema de salud del Paraguay, redes y niveles de atención'],
       ['microbiologia-teorica-2026-08-10', 'Dermatofitosis y tiñas', 'microbiologia-teorica'],
       ['microbiologia-teorica-2026-08-17', 'Pitiriasis versicolor y tiña corporal', 'microbiologia-teorica-2026-08-17'],
       ['microbiologia-teorica-2026-08-24', 'Micosis subcutáneas, oportunistas y casos clínicos'],
@@ -497,6 +499,41 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     expect(longNameLayout.whiteSpace).not.toBe('nowrap');
     expect(longNameLayout.fitsWidth).toBe(true);
     expect(longNameLayout.height).toBeGreaterThan(16);
+  });
+
+  test('presents frozen Epidemiology groups as a clear read-only roster', async ({ page }) => {
+    await page.route('**/api/class-hub?class=s4-e&resource=public', (route) => route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        ok: true,
+        notices: [],
+        tasks: [{
+          id: 'epi-presentation',
+          course: 'Epidemiología',
+          title: 'Exposición grupal de enfermedad sorteada',
+          status: 'published',
+          dueLabel: 'Semana 31 ago.–4 sep. · fecha por confirmar',
+          dueAt: null
+        }],
+        activities: [{ id: 'epi-2026-08-19', title: 'Exposición de Epidemiología', capacity: 10, status: 'published', frozen: true }],
+        groups: [{ id: 'epi-2026-08-19-g10', activityId: 'epi-2026-08-19', name: 'Grupo 10', topic: 'Malaria', capacity: 10, frozen: false, memberCount: 1 }],
+        members: [{ activityId: 'epi-2026-08-19', groupId: 'epi-2026-08-19-g10', displayName: 'Responsable del grupo', isLeader: true }],
+        files: [],
+        dates: []
+      })
+    }));
+    await page.goto('/clase.html#task-epi-presentation');
+    const task = page.locator('#task-epi-presentation');
+    await expect(task).toHaveAttribute('open', '');
+    const composer = task.locator('.group-join-composer');
+    await expect(composer).toHaveClass(/is-read-only/);
+    await expect(composer).toContainText('GRUPOS CONFIRMADOS');
+    await expect(composer).toContainText('Consulta aquí la composición final y el tema de cada grupo.');
+    await expect(composer.locator('.group-join-fields')).toBeHidden();
+    await expect(composer).toContainText('La composición de los grupos ya es final.');
+    await expect(task.locator('[data-group-choice="epi-2026-08-19-g10"]')).toBeDisabled();
+    await expect(task.locator('.group-roster-column')).toContainText('Malaria');
   });
 
   test('exposes management, teacher profiles and install metadata without student accounts', async ({ page }) => {

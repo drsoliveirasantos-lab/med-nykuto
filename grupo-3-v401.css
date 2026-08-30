@@ -126,7 +126,7 @@ img{display:block;max-width:100%}
 .priority-card:hover{transform:translateY(-2px);border-color:var(--line-strong);background:rgba(255,255,255,.045)}
 .priority-card>span,.priority-card-head>span{color:var(--gold-soft);font-size:.61rem;font-weight:950;letter-spacing:.1em}
 .priority-card-head{min-width:0;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.priority-card-head time{flex:none;padding:4px 7px;border:1px solid rgba(111,216,255,.22);border-radius:999px;color:var(--cyan);background:rgba(111,216,255,.055);font-size:.57rem;font-weight:900;letter-spacing:.02em;white-space:nowrap}
+.priority-card-head .priority-card-due{flex:none;padding:4px 7px;border:1px solid rgba(111,216,255,.22);border-radius:999px;color:var(--cyan);background:rgba(111,216,255,.055);font-size:.57rem;font-weight:900;letter-spacing:.02em;white-space:nowrap}
 .priority-card strong{margin-top:13px;font-size:.98rem;line-height:1.2}
 .priority-card small{margin-top:5px;color:var(--muted);font-size:.72rem;line-height:1.4}
 .priority-card b{margin-top:auto;padding-top:12px;color:var(--cyan);font-size:.71rem}
@@ -1379,7 +1379,7 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
   .priority-card{min-height:0;display:grid;grid-template-columns:1fr;gap:4px;padding:10px 12px}
   .priority-card-head{align-items:center;flex-direction:row;gap:8px}
   .priority-card-head>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .priority-card-head time{padding:3px 6px;font-size:.53rem}
+  .priority-card-head .priority-card-due{padding:3px 6px;font-size:.53rem}
   .priority-card strong{margin-top:0;font-size:.84rem}
   .priority-card small,.priority-card b{display:none}
   .course-hub{padding:22px 16px}
@@ -1772,7 +1772,7 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
   .priority-main{grid-column:auto}
   .priority-card{min-height:0;padding:8px 10px;border-radius:14px}
   .priority-card-head{flex-direction:row;align-items:center;gap:5px}
-  .priority-card-head time{padding:2px 4px;font-size:.46rem}
+  .priority-card-head .priority-card-due{padding:2px 4px;font-size:.46rem}
   .priority-card>span,.priority-card-head>span{font-size:.5rem}
   .priority-card strong{margin-top:0;font-size:.76rem}
   .priority-card small,.priority-card b{display:none}
@@ -2023,7 +2023,7 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
 .dashboard-week-tasks .priority-card small{font-size:.63rem}
 .dashboard-week-tasks .priority-card b{padding-top:8px;font-size:.63rem}
 .dashboard-week-tasks .priority-card-head{display:grid;justify-items:start;gap:5px}
-.dashboard-week-tasks .priority-card-head time{padding:3px 6px}
+.dashboard-week-tasks .priority-card-head .priority-card-due{padding:3px 6px}
 .dashboard-all-tasks{padding-top:0!important}
 .home-quick-link-portal{border-color:rgba(20,50,110,.55);background:linear-gradient(135deg,rgba(16,45,99,.34),rgba(243,198,79,.08))}
 .home-quick-link-portal .brand-icon{box-shadow:inset 0 0 0 2px rgba(243,198,79,.28)}
@@ -2039,7 +2039,7 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
   .dashboard-week-tasks .dashboard-priorities{display:grid!important;grid-template-columns:1fr 1fr;gap:6px}
   .dashboard-week-tasks .priority-card{display:flex;min-width:0;padding:9px}
   .dashboard-week-tasks .priority-card-head{display:flex;flex-wrap:wrap;align-items:center;gap:4px}
-  .dashboard-week-tasks .priority-card-head time{font-size:.48rem}
+  .dashboard-week-tasks .priority-card-head .priority-card-due{font-size:.48rem}
   .dashboard-week-tasks .priority-card strong{margin-top:6px;font-size:.72rem}
   .dashboard-week-tasks .priority-card small,.dashboard-week-tasks .priority-card b{display:none}
   .dashboard-all-tasks{justify-self:end;font-size:.62rem!important}
@@ -2067,7 +2067,7 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
   .dashboard-week-tasks .priority-card{min-width:0;max-width:100%;overflow:hidden;padding:6px;border-radius:10px}
   .dashboard-week-tasks .priority-card-head{display:grid;min-width:0;grid-template-columns:minmax(0,1fr);justify-items:start;gap:2px}
   .dashboard-week-tasks .priority-card-head>span{display:block;max-width:100%;overflow:hidden;font-size:.41rem;letter-spacing:.025em;text-overflow:ellipsis;white-space:nowrap}
-  .dashboard-week-tasks .priority-card-head time{max-width:100%;padding:2px 3px;font-size:.39rem;letter-spacing:0}
+  .dashboard-week-tasks .priority-card-head .priority-card-due{max-width:100%;padding:2px 3px;font-size:.39rem;letter-spacing:0}
   .dashboard-week-tasks .priority-card strong{display:-webkit-box;overflow:hidden;margin-top:3px;font-size:.57rem;line-height:1.12;overflow-wrap:anywhere;-webkit-box-orient:vertical;-webkit-line-clamp:2}
   .dashboard-week-tasks .priority-card small,.dashboard-week-tasks .priority-card b{display:none}
   .dashboard-all-tasks{font-size:.52rem!important}
@@ -2077,5 +2077,5 @@ html.practice-modal-open,body.practice-modal-open{overflow:hidden;overscroll-beh
   .dashboard-week-tasks .dashboard-priorities{gap:3px}
   .dashboard-week-tasks .priority-card{padding:5px}
   .dashboard-week-tasks .priority-card strong{font-size:.52rem}
-  .dashboard-week-tasks .priority-card-head>span,.dashboard-week-tasks .priority-card-head time{font-size:.36rem}
+  .dashboard-week-tasks .priority-card-head>span,.dashboard-week-tasks .priority-card-head .priority-card-due{font-size:.36rem}
 }

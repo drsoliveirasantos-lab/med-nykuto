@@ -158,8 +158,8 @@ const scoreScopes = Object.freeze({
 const publishedLessonIds = Object.freeze({
   nutricion: ['nutricion', 'nutricion-2026-08-27'],
   fisiologia: ['fisiologia-2026-08-10', 'fisiologia-2026-08-13', 'fisiologia-2026-08-17', 'fisiologia-2026-08-20', 'fisiologia-2026-08-24', 'fisiologia-2026-08-27'],
-  bioquimica: ['bioquimica', 'bioquimica-2026-08-19', 'bioquimica-2026-08-21', 'bioquimica-2026-08-26'],
-  epidemiologia: ['epidemiologia', 'epidemiologia-2026-08-19', 'epidemiologia-2026-08-26'],
+  bioquimica: ['bioquimica', 'bioquimica-2026-08-19', 'bioquimica-2026-08-21', 'bioquimica-2026-08-26', 'bioquimica-2026-08-28'],
+  epidemiologia: ['epidemiologia', 'epidemiologia-2026-08-19', 'epidemiologia-2026-08-26', 'epidemiologia-2026-08-28'],
   'microbiologia-teorica': ['microbiologia-teorica', 'microbiologia-teorica-2026-08-17', 'microbiologia-teorica-2026-08-24'],
   'microbiologia-practica': ['microbiologia-practica', 'microbiologia-practica-2026-08-20', 'microbiologia-practica-2026-08-27']
 });
@@ -197,10 +197,10 @@ async function main() {
   assert.match(source, /community_participants_class_public_idx/);
   assert.match(source, /T20:00:00-03:00/, 'The weekly challenge must close exactly Sunday at 20:00 Paraguay time.');
   assert.match(source, /challenge_closed/, 'The API must refuse score writes after the countdown reaches zero.');
-  assert.match(source, /MAX_SCOPES_PER_PLAYER\s*=\s*63/, 'The weekly scope ceiling must equal the 21 published banks × three exercise formats.');
+  assert.match(source, /MAX_SCOPES_PER_PLAYER\s*=\s*69/, 'The weekly scope ceiling must equal the 23 published banks × three exercise formats.');
   assert.match(source, /CHALLENGE_SCOPE_TOTALS\.get\(scopeId\)/, 'Score writes must use the server-side challenge scope allowlist.');
   assert.match(source, /total !== expectedTotal/, 'Score writes must enforce the published 20\/10\/10 totals.');
-  assert.equal(publishedScopes.length, 63, 'The validator manifest must expose exactly 21 banks × three exercise formats.');
+  assert.equal(publishedScopes.length, 69, 'The validator manifest must expose exactly 23 banks × three exercise formats.');
   [
     'grupo-3-practice-nutricion-2026-08-27-v494.js',
     'grupo-3-practice-fisiologia-2026-08-27-v494.js',
@@ -414,8 +414,8 @@ async function main() {
     }
     assert.equal(
       db.database.prepare(`SELECT COUNT(DISTINCT scope_id) AS count FROM community_scores WHERE class_id='s4-e' AND player_id=?`).get(IDS.allScopes).count,
-      63,
-      'The exact 63 legitimate scopes did not fit within the weekly ceiling.'
+      69,
+      'The exact 69 legitimate scopes did not fit within the weekly ceiling.'
     );
     db.database.prepare(`UPDATE community_participants SET verification_status='rejected' WHERE class_id='s4-e' AND player_id=?`).run(IDS.allScopes);
 
@@ -608,7 +608,7 @@ async function main() {
     assert.equal(scoreSnapshot(db.database), beforeRestart.scores, 'Idempotent deployment changed score bytes.');
     assert.equal(JSON.stringify(db.database.prepare(`SELECT * FROM community_participants ORDER BY class_id,player_id`).all()), beforeRestart.participants, 'Idempotent deployment changed participant bytes.');
 
-    console.log('Community ranking validation OK: Sunday 20:00 Paraguay cutoff enforced to the second, Monday reopening, exact 63-scope server allowlist with 20/10/10 totals, additive class-safe migration, conservative legacy-catraca lock, idempotent client tokens, race-safe verification, class-scoped first-created score writes, points-first 4E ranking, verified-only Pix eligibility and discriminating activity ties.');
+    console.log('Community ranking validation OK: Sunday 20:00 Paraguay cutoff enforced to the second, Monday reopening, exact 69-scope server allowlist with 20/10/10 totals, additive class-safe migration, conservative legacy-catraca lock, idempotent client tokens, race-safe verification, class-scoped first-created score writes, points-first 4E ranking, verified-only Pix eligibility and discriminating activity ties.');
   } finally {
     if (db) { try { db.close(); } catch {} }
     fs.rmSync(tempDirectory, { recursive: true, force: true });

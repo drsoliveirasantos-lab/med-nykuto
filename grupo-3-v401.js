@@ -1672,12 +1672,19 @@
   var activeCourseId = 'nutricion';
   var activeLessonByCourse = {
     fisiologia:'fisiologia-2026-08-24',
-    bioquimica:'bioquimica-2026-08-26',
-    epidemiologia:'epidemiologia-2026-08-26',
+    bioquimica:'bioquimica-2026-08-28',
+    epidemiologia:'epidemiologia-2026-08-28',
     'microbiologia-teorica':'microbiologia-teorica-2026-08-24',
     'microbiologia-practica':'microbiologia-practica-2026-08-20'
   };
   var datedLessonMeta = {
+    'bioquimica-2026-08-28':{
+      title:'Vía de las pentosas fosfato: regulación, balances y destinos',
+      kicker:'Bioquímica II · clase del 28 de agosto',
+      description:'Clase del viernes 28 de agosto de 2026: fase oxidativa, reordenamientos no oxidativos, balances y adaptación a la demanda de NADPH o ribosa.',
+      status:'Clase confirmada · 28 ago.',
+      statusClass:'status-confirmed'
+    },
     'bioquimica-2026-08-26':{
       title:'Ciclo de Cori y vía de las pentosas fosfato',
       kicker:'Bioquímica II · clase del 26 de agosto',
@@ -1739,6 +1746,13 @@
       kicker:'Bioquímica II · clase del 14 de agosto',
       description:'Clase del viernes 14 de agosto de 2026: fases, reacciones, balance energético y regulación de la glucólisis.',
       status:'Clase confirmada · 14 ago.',
+      statusClass:'status-confirmed'
+    },
+    'epidemiologia-2026-08-28':{
+      title:'Sistema de salud del Paraguay, redes y niveles de atención',
+      kicker:'Epidemiología y Salud Pública · clase del 28 de agosto',
+      description:'Clase del viernes 28 de agosto de 2026: RIISS, microredes, cuatro niveles, referencia y preparación Manchester, START y SHORT.',
+      status:'Clase confirmada · 28 ago.',
       statusClass:'status-confirmed'
     },
     'epidemiologia-2026-08-26':{

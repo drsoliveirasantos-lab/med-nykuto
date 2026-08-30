@@ -20,10 +20,12 @@ const mimeTypes = {
 const publicData = {
   notices: [],
   tasks: [
-    { id: 'epi-presentation', course: 'Epidemiología', title: 'Exposición grupal de enfermedad sorteada', status: 'published', dueLabel: 'Semana siguiente' },
-    { id: 'bio-activities', course: 'Bioquímica II', title: 'Actividades 3 y 4 impresas y manuscritas', status: 'published', dueLabel: 'Práctico · presencia obligatoria' }
+    { id: 'epi-presentation', course: 'Epidemiología', title: 'Exposición grupal de enfermedad sorteada', status: 'published', dueLabel: 'Semana 31 ago.–4 sep. · fecha por confirmar' },
+    { id: 'bio-activities', course: 'Bioquímica II', title: 'Actividades 3 y 4 impresas y manuscritas', status: 'published', dueLabel: 'Vie. 4 sep. · práctica', attachmentUrl: 'https://med.nykuto.com/bioquimica-ii-grupos', attachmentTitle: 'Ver grupos y trabajos de Bioquímica' }
   ],
-  activities: [], groups: [], files: [], dates: []
+  activities: [], groups: [], files: [], dates: [],
+  contentUpdatedAt: '2026-08-28T20:28:00-03:00',
+  generatedAt: '2026-08-30T12:00:00-03:00'
 };
 
 function expect(condition, message, failures) {
@@ -60,6 +62,7 @@ function createServer() {
 async function inspectNotebook(browserType, width, failures, screenshots) {
   const browser = await browserType.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width, height: 844 }, deviceScaleFactor: 1 });
+  await page.clock.install({ time: new Date('2026-08-30T12:00:00-03:00') });
   const runtimeErrors = [];
   page.on('pageerror', (error) => runtimeErrors.push(error.message));
   page.on('console', (message) => { if (message.type() === 'error') runtimeErrors.push(message.text()); });
@@ -109,6 +112,111 @@ async function inspectNotebook(browserType, width, failures, screenshots) {
   expect(physiology.sections >= 6, `${browserType.name()} ${width}px: active full course has fewer than 6 sequential sections.`, failures);
   expect(physiology.overflow <= 1, `${browserType.name()} ${width}px: notebook overflows horizontally by ${physiology.overflow}px.`, failures);
 
+  for (const expected of [
+    { id: 'bioquimica', lessonId: 'bioquimica-2026-08-28', dates: 5, title: /Vía de las pentosas fosfato/, sections: 11 },
+    { id: 'epidemiologia', lessonId: 'epidemiologia-2026-08-28', dates: 4, title: /Sistema de salud del Paraguay/, sections: 12 }
+  ]) {
+    await page.locator(`[data-course-target="${expected.id}"]`).click();
+    await page.waitForSelector(`#${expected.id}:not([hidden]) .notebook-shell`);
+    const result = await page.evaluate((subjectId) => {
+      const subject = document.getElementById(subjectId);
+      const active = subject.querySelector(':scope > [data-lesson-panel]:not([hidden])');
+      return {
+        dates: subject.querySelectorAll('.notebook-date').length,
+        selectedDate: subject.querySelector('.notebook-date[aria-current="date"] strong')?.textContent.trim(),
+        selectedTitle: subject.querySelector('.notebook-current-title')?.textContent.trim(),
+        sections: active?.querySelectorAll('.course-chapter-section').length || 0,
+        visuals: active?.querySelectorAll('.course-inline-figure').length || 0,
+        overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+      };
+    }, expected.id);
+    expect(result.dates === expected.dates, `${browserType.name()} ${width}px: ${expected.id} should expose ${expected.dates} dates.`, failures);
+    expect(result.selectedDate === '28 AGO.', `${browserType.name()} ${width}px: latest ${expected.id} date is not selected.`, failures);
+    expect(expected.title.test(result.selectedTitle || ''), `${browserType.name()} ${width}px: latest ${expected.id} title is missing.`, failures);
+    expect(result.sections >= expected.sections, `${browserType.name()} ${width}px: latest ${expected.id} course has fewer than ${expected.sections} sections.`, failures);
+    expect(result.visuals >= 1, `${browserType.name()} ${width}px: latest ${expected.id} course has no contextual visual.`, failures);
+    expect(result.overflow <= 1, `${browserType.name()} ${width}px: ${expected.id} notebook overflows horizontally by ${result.overflow}px.`, failures);
+
+    if (width === 390) {
+      const wideFigures = page.locator(`#${expected.lessonId} [data-lesson-tab-panel="curso"] .course-inline-figure.is-wide`);
+      const figureCount = await wideFigures.count();
+      const wideFigure = wideFigures.first();
+      expect(figureCount === 1, `${browserType.name()} 390px: ${expected.lessonId} should contain one wide course diagram.`, failures);
+      if (figureCount) {
+        await wideFigure.scrollIntoViewIfNeeded();
+        const figureLayout = await wideFigure.evaluate((figure) => {
+          const figureBox = figure.getBoundingClientRect();
+          const coursePanel = figure.closest('[data-lesson-tab-panel="curso"]').getBoundingClientRect();
+          const trigger = figure.querySelector('.course-inline-diagram-trigger').getBoundingClientRect();
+          return {
+            left: figureBox.left,
+            right: figureBox.right,
+            width: figureBox.width,
+            panelWidth: coursePanel.width,
+            triggerWidth: trigger.width,
+            triggerHeight: trigger.height,
+            viewportWidth: innerWidth,
+            overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+          };
+        });
+        expect(figureLayout.left >= 0 && figureLayout.right <= figureLayout.viewportWidth + 1, `${browserType.name()} 390px: ${expected.lessonId} wide diagram leaves the viewport.`, failures);
+        expect(figureLayout.width >= figureLayout.panelWidth * 0.8, `${browserType.name()} 390px: ${expected.lessonId} wide diagram is rendered as a thumbnail (${Math.round(figureLayout.width)}px).`, failures);
+        expect(figureLayout.triggerWidth >= 44 && figureLayout.triggerHeight >= 44, `${browserType.name()} 390px: ${expected.lessonId} diagram trigger is smaller than 44px.`, failures);
+        expect(figureLayout.overflow <= 1, `${browserType.name()} 390px: ${expected.lessonId} wide diagram causes ${figureLayout.overflow}px of document overflow.`, failures);
+
+        if (screenshots) {
+          await page.screenshot({ path: path.join(evidenceDir, `med-${expected.lessonId}-${browserType.name()}-390.png`), fullPage: false });
+        }
+
+        await wideFigure.locator('.course-inline-diagram-trigger').click();
+        const dialog = page.locator('#courseDiagramDialog');
+        await dialog.waitFor({ state: 'visible' });
+        const dialogLayout = await dialog.evaluate((node) => {
+          const box = node.getBoundingClientRect();
+          const controls = Array.from(node.querySelectorAll('.course-diagram-dialog-actions button:not([hidden])')).map((button) => {
+            const rect = button.getBoundingClientRect();
+            return { width: rect.width, height: rect.height };
+          });
+          return {
+            left: box.left,
+            right: box.right,
+            top: box.top,
+            bottom: box.bottom,
+            controls,
+            viewportWidth: innerWidth,
+            viewportHeight: innerHeight,
+            overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+          };
+        });
+        expect(dialogLayout.left >= -1 && dialogLayout.right <= dialogLayout.viewportWidth + 1 && dialogLayout.top >= -1 && dialogLayout.bottom <= dialogLayout.viewportHeight + 1, `${browserType.name()} 390px: ${expected.lessonId} diagram dialog leaves the viewport.`, failures);
+        expect(dialogLayout.controls.length === 2 && dialogLayout.controls.every((control) => control.width >= 44 && control.height >= 44), `${browserType.name()} 390px: ${expected.lessonId} dialog controls are not all 44px touch targets.`, failures);
+        expect(dialogLayout.overflow <= 1, `${browserType.name()} 390px: ${expected.lessonId} dialog causes ${dialogLayout.overflow}px of document overflow.`, failures);
+
+        if (screenshots) {
+          await page.screenshot({ path: path.join(evidenceDir, `med-${expected.lessonId}-modal-${browserType.name()}-390.png`), fullPage: false });
+        }
+
+        await dialog.locator('.course-diagram-zoom').click();
+        const zoomLayout = await dialog.evaluate((node) => {
+          const box = node.getBoundingClientRect();
+          const stage = node.querySelector('.course-diagram-dialog-stage');
+          return {
+            zoomed: node.classList.contains('is-zoomed'),
+            left: box.left,
+            right: box.right,
+            stageScrollsInternally: stage.scrollWidth > stage.clientWidth,
+            overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+          };
+        });
+        expect(zoomLayout.zoomed && zoomLayout.stageScrollsInternally, `${browserType.name()} 390px: ${expected.lessonId} diagram zoom does not use the modal's internal scroller.`, failures);
+        expect(zoomLayout.left >= -1 && zoomLayout.right <= 391 && zoomLayout.overflow <= 1, `${browserType.name()} 390px: ${expected.lessonId} zoom leaks outside the viewport.`, failures);
+        await dialog.locator('.course-diagram-close').click();
+        await dialog.waitFor({ state: 'hidden' });
+      }
+    }
+  }
+
+  await page.locator('[data-course-target="fisiologia"]').click();
   await page.locator('#fisiologia .notebook-date').nth(2).click();
   expect(await page.locator('#fisiologia .notebook-date[aria-current="date"] strong').textContent() === '17 AGO.', `${browserType.name()} ${width}px: date navigation did not select 17 August.`, failures);
   expect(await page.locator('#fisiologia-2026-08-17 .course-chapter-section').count() >= 6, `${browserType.name()} ${width}px: the 17 August legacy course was not converted.`, failures);
@@ -138,12 +246,59 @@ async function inspectNotebook(browserType, width, failures, screenshots) {
   expect(tasks.active === 3, `${browserType.name()} ${width}px: expected 3 active tasks, found ${tasks.active}.`, failures);
   expect(tasks.previousGridVisible && tasks.archiveVisible, `${browserType.name()} ${width}px: the completed-assignment archive is not visible.`, failures);
   expect(
-    tasks.titles.some((title) => /Prueba práctica/.test(title)) &&
+    tasks.titles.some((title) => /pruebas prácticas/i.test(title)) &&
       tasks.titles.some((title) => /Exposición grupal/.test(title)) &&
       tasks.titles.some((title) => /Actividades 3 y 4/.test(title)),
     `${browserType.name()} ${width}px: one or more current task titles are missing.`,
     failures
   );
+
+  if (width === 390) {
+    await page.goto(`${baseUrl}/clase.html#task-class-practical-exams-2026-p1`, { waitUntil: 'networkidle' });
+    const practicalTask = page.locator('#task-class-practical-exams-2026-p1');
+    await practicalTask.waitFor({ state: 'visible' });
+    const taskLayout = await practicalTask.evaluate((card) => {
+      const summary = card.querySelector('summary').getBoundingClientRect();
+      const cta = card.querySelector('.live-task-download').getBoundingClientRect();
+      return {
+        open: card.open,
+        pendingVisible: getComputedStyle(document.getElementById('pendientes')).display !== 'none',
+        summaryWidth: summary.width,
+        summaryHeight: summary.height,
+        ctaWidth: cta.width,
+        ctaHeight: cta.height,
+        viewportWidth: innerWidth,
+        overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+      };
+    });
+    expect(taskLayout.open && taskLayout.pendingVisible, `${browserType.name()} 390px: direct practical-task hash does not open the brief in Tareas.`, failures);
+    expect(taskLayout.summaryWidth >= 44 && taskLayout.summaryHeight >= 44 && taskLayout.ctaWidth >= 44 && taskLayout.ctaHeight >= 44, `${browserType.name()} 390px: direct practical-task controls are smaller than 44px.`, failures);
+    expect(taskLayout.ctaWidth <= taskLayout.viewportWidth && taskLayout.overflow <= 1, `${browserType.name()} 390px: direct practical-task view overflows horizontally.`, failures);
+    if (screenshots) {
+      await practicalTask.scrollIntoViewIfNeeded();
+      await page.screenshot({ path: path.join(evidenceDir, `med-practical-task-${browserType.name()}-390.png`), fullPage: false });
+    }
+
+    await page.evaluate(() => localStorage.setItem('medLang', 'br'));
+    await page.reload({ waitUntil: 'networkidle' });
+    await practicalTask.waitFor({ state: 'visible' });
+    const portuguese = await page.evaluate(() => ({
+      lang: document.documentElement.lang,
+      task: document.getElementById('task-class-practical-exams-2026-p1')?.textContent || '',
+      cta: document.querySelector('#task-class-practical-exams-2026-p1 .live-task-download')?.textContent.trim() || '',
+      toggle: document.querySelector('#task-class-practical-exams-2026-p1 [data-task-toggle-label]')?.textContent.trim() || '',
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+    }));
+    expect(portuguese.lang === 'pt-BR', `${browserType.name()} 390px: Portuguese view does not expose lang=pt-BR.`, failures);
+    expect(/Semana de provas práticas/.test(portuguese.task) && /Sem celular nem tablet/.test(portuguese.task), `${browserType.name()} 390px: practical-task body is not translated into Portuguese.`, failures);
+    expect(/Ver grupos e trabalhos de Bioquímica/.test(portuguese.cta) && portuguese.toggle === 'Fechar', `${browserType.name()} 390px: practical-task CTA or open-state label is not translated into Portuguese.`, failures);
+    expect(portuguese.overflow <= 1, `${browserType.name()} 390px: Portuguese practical-task view overflows by ${portuguese.overflow}px.`, failures);
+    if (screenshots) {
+      await practicalTask.scrollIntoViewIfNeeded();
+      await page.screenshot({ path: path.join(evidenceDir, `med-practical-task-pt-br-${browserType.name()}-390.png`), fullPage: false });
+    }
+    await page.evaluate(() => localStorage.setItem('medLang', 'es'));
+  }
 
   await page.goto(`${baseUrl}/profesores.html`, { waitUntil: 'networkidle' });
   await page.waitForSelector('.teacher-card');
@@ -154,7 +309,7 @@ async function inspectNotebook(browserType, width, failures, screenshots) {
     overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
   }));
   expect(profiles.count === 6, `${browserType.name()} ${width}px: expected 6 teacher audits.`, failures);
-  expect(profiles.evidence >= 21, `${browserType.name()} ${width}px: teacher evidence timeline is incomplete.`, failures);
+  expect(profiles.evidence >= 23, `${browserType.name()} ${width}px: teacher evidence timeline is incomplete.`, failures);
   expect(profiles.prompts === 6, `${browserType.name()} ${width}px: each teacher needs a full prompt.`, failures);
   expect(profiles.overflow <= 1, `${browserType.name()} ${width}px: teacher page overflows by ${profiles.overflow}px.`, failures);
 
@@ -198,7 +353,7 @@ async function main() {
     failures.forEach((failure) => console.error(` - ${failure}`));
     process.exit(1);
   }
-  console.log('Notebook UI audit OK: Chromium 320/375/390/430 + WebKit 390, 6 compact subjects, 14 narrative lessons, 3 active tasks, visible completed-assignment archive, 6 teacher audits, compact themes/files/progress and no horizontal overflow.');
+  console.log('Notebook UI audit OK: Chromium 320/375/390/430 + WebKit 390, both 28 August wide diagrams and their 390px dialogs, direct practical-task hash, PT-BR task view, 3 active tasks, compact subjects/files/progress and no horizontal overflow.');
 }
 
 main().catch((error) => {

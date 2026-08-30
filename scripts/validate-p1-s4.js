@@ -82,6 +82,7 @@ Object.entries(scope.subjects).forEach(([subjectId, subject]) => {
 expect(scopedPracticeIds.length === 17, `P1 must include exactly 17 lessons, found ${scopedPracticeIds.length}.`);
 expect(new Set(scopedPracticeIds).size === scopedPracticeIds.length, 'P1 lesson scope contains duplicates.');
 expect(scopedPracticeIds.length * 40 === 680, 'P1 source total must remain 680 questions.');
+expect(!scopedPracticeIds.some((id) => /2026-08-28$/.test(id)), 'The 28 August lessons must stay outside P1 until an official scope update names them.');
 expect(scope.subjects.nutricion.status === 'ready', 'Nutrition through 27 August must be ready for P1.');
 expect(JSON.stringify(scope.subjects.fisiologia.practiceIds) === JSON.stringify(['fisiologia-2026-08-10', 'fisiologia-2026-08-13']), 'P1 physiology must contain only the two respiratory lessons.');
 expect(!scope.subjects.fisiologia.practiceIds.some((id) => /08-(17|20|24|27)$/.test(id)), 'P1 physiology must exclude the neurophysiology lessons.');
@@ -93,6 +94,7 @@ expect(scope.subjects['microbiologia-practica'].practiceIds.includes('microbiolo
 const html = fs.readFileSync(path.join(root, 'p1.html'), 'utf8');
 const clase = fs.readFileSync(path.join(root, 'clase.html'), 'utf8');
 const runtime = fs.readFileSync(path.join(root, 'class-p1-v1.js'), 'utf8');
+expect(!/2026-08-28-v500/.test(html), 'The P1 page must not load the 28 August model or banks outside its explicit scope.');
 expect(/class-p1-v1\.css/.test(html) && /class-p1-v1\.js/.test(html), 'p1.html must load its own stylesheet and runtime.');
 expect(/href="p1\.html"/.test(clase), 'The class hub must expose the P1 page.');
 expect(/Entrenamiento · corrección inmediata/.test(html), 'P1 must expose immediate correction training before starting.');

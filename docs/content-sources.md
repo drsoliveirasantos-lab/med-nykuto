@@ -200,6 +200,55 @@ Nutrición queda confirmada dentro del alcance P1 hasta el 27 de agosto. En Fisi
 
 El espacio P2 provisional no introduce una fuente académica nueva. Reutiliza únicamente los bancos verificados de Fisiología II del 17, 20, 24 y 27 de agosto de 2026. Estas cuatro fechas aportan 160 preguntas fuente mediante la lista explícita de `p2-s4-e-v1.js`; el agrupamiento anticipado es una ayuda de estudio y no prueba que la cátedra haya confirmado oficialmente el alcance de la segunda parcial.
 
+## Clases y avisos del viernes 28 de agosto de 2026
+
+El traspaso del 28 añade dos lecciones independientes, reconstruidas desde las transcripciones completas recibidas:
+
+- Bioquímica II: vía de las pentosas fosfato, fase oxidativa y no oxidativa, balances, destinos de NADPH/ribosa y preparación estructural de glucosa y glucógeno;
+- Epidemiología y Salud Pública: sistema de salud paraguayo, RIISS, microredes, cuatro niveles de atención, referencia/contrarreferencia y preparación práctica de Manchester, START y SHORT.
+
+La reconstrucción no trata la transcripción automática como una fuente científica literal. Se revisaron las afirmaciones con documentación primaria: Reactome/IUBMB/NCBI para la vía de las pentosas y MSPBS/OPS/IPS para el sistema paraguayo. La capa publicada corrige NADH por NADPH cuando corresponde, transaldolasa a una transferencia de tres carbonos, `RISC` por `RIISS` y la clasificación oficial a cuatro niveles. Quedan excluidos los porcentajes de cobertura sin año o fuente, la supuesta sustitución general de cotizaciones IPS por otro seguro, la reclasificación informal de hospitales regionales, relatos de pacientes, datos personales, opiniones políticas y episodios coyunturales no necesarios para estudiar.
+
+Los contenidos se implementan en:
+
+```txt
+academic-model-2026-08-28-v500.js
+grupo-3-practice-bioquimica-2026-08-28-v500.js
+grupo-3-practice-epidemiologia-2026-08-28-v500.js
+```
+
+Cada banco mantiene exactamente 20 QCM, 10 verdadero/falso y 10 casos. Ambos cursos quedan disponibles como práctica individual y como scopes del ranking, pero permanecen fuera de las listas explícitas P1 y P2 hasta que una comunicación oficial cambie esos temarios.
+
+El Work Pack recibido conserva un chat y adjuntos como material interno de análisis; el ZIP, teléfonos, nombres y lista de participantes no se publican. Para el proyecto de Epidemiología, la evidencia confirma una actividad de toda la clase dividida por grupos, no un trabajo personal aislado. El Grupo 10 tiene el tema Malaria; la presentación fue reprogramada para la semana siguiente y la fecha exacta continúa por confirmar. La explicación oral atribuye a esta presentación un valor de 1,0 % en la materia, distinto del 5 % anunciado para las pruebas prácticas.
+
+En Bioquímica, la preparación siguiente combina repaso estructural de α/β-glucosa y enlaces glucosídicos con una actividad oral: se forman grupos para preparar el paso asignado, pero cada estudiante debe explicarlo después sin teléfono ni lectura de apuntes. Los trabajos deben llevarse firmados; no se inventa una hora que la transcripción no confirma.
+
+### Pruebas prácticas P1
+
+La fuente exacta es `_chat.txt`, mensaje de la delegada del 29/08/2026 a las 16:17:45, acompañado de `00000063-PHOTO-2026-08-29-16-17-45.jpg`. Confirma fechas impuestas por la facultad, uniforme con chompa, modalidades definidas por cada docente, separación respecto de los exámenes teóricos P1 y Microbiología II práctica el jueves por la tarde:
+
+- 31/08: Fisiología II;
+- 01/09: Bioética;
+- 02/09: Epidemiología;
+- 03/09: Nutrición;
+- 04/09: Bioquímica II.
+
+La explicación oral del 28 confirma para Epidemiología una ficha individual en papel, sin celular ni tablet, de aproximadamente treinta minutos, sobre Manchester, START y SHORT. El runtime `class-practical-exams-2026-p1-v500.js` muestra únicamente esas modalidades verificadas y corrige la antigua tarjeta que situaba Bioquímica el 02/09.
+
+Fuentes oficiales de comprobación utilizadas para la capa de revisión:
+
+- Reactome, Pentose phosphate pathway: `https://reactome.org/content/detail/R-HSA-71336`;
+- IUBMB, balance de la vía: `https://iubmb.qmul.ac.uk/enzyme/reaction/polysacc/PPP3.html`;
+- NCBI Bookshelf, G6PD y defensa antioxidante: `https://www.ncbi.nlm.nih.gov/books/NBK500351/`;
+- MSPBS, Resolución 423/2019 y cartera de servicios: `https://www.mspbs.gov.py/marco-normativo.html`;
+- OPS/OMS, RIISS en Paraguay: `https://www.paho.org/es/noticias/19-8-2026-caazapa-identifica-fortalezas-desafios-para-avanzar-consolidacion-sus-redes`;
+- IPS, preguntas frecuentes sobre aportes: `https://portal.ips.gov.py/sistemas/ipsportal/contenido.php?sm=40`;
+- Manchester Triage Group, referencia oficial del MTS: `https://www.triagenet.net/`;
+- HHS/REMM, algoritmo START para adultos: `https://remm.hhs.gov/startadult.htm`;
+- Peláez Corres et al., artículo original del método SHORT: `https://revistaemergencias.org/numeros-anteriores/volumen-17/numero-4/metodo-short-primer-triaje-extrahospitalario-ante-multiples-victimas/`.
+
+Los tres métodos no se presentan como equivalentes: Manchester organiza el riesgo clínico habitual con personal formado; START es un triaje fisiológico rápido para múltiples víctimas; SHORT se diseñó como primer triaje extrahospitalario simplificado, incluso para intervinientes no sanitarios. La evaluación práctica debe seguir el método solicitado en cada ficha y no mezclar sus algoritmos.
+
 ## D1-managed dated class content
 
 The protected management shell may also create date-based lessons for one class without changing the 59-module library. These records are class-hub overlays stored in D1, not new entries in `content/courses/**` and not inputs to `data/med-courses-data.js`.

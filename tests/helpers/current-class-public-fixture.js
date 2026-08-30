@@ -6,19 +6,19 @@ const CURRENT_CLASS_PUBLIC_FIXTURE = {
       id: 'epi-presentation',
       course: 'Epidemiología',
       title: 'Exposición grupal de enfermedad sorteada',
-      description: 'Preparar la exposición con el grupo y revisar la consigna completa.',
+      description: 'Presentación reprogramada; fecha exacta por confirmar y evaluación individual.',
       status: 'published',
-      dueLabel: 'Mié. 2 sep.',
-      dueAt: '2099-09-02T11:20:00-03:00'
+      dueLabel: 'Semana 31 ago.–4 sep. · fecha por confirmar',
+      dueAt: null
     },
     {
       id: 'bio-activities',
       course: 'Bioquímica II',
       title: 'Actividades 3 y 4 impresas y manuscritas',
-      description: 'Imprimir las actividades y completar el desarrollo a mano.',
+      description: 'Lleva los cuatro trabajos firmados; la presencia es obligatoria.',
       status: 'published',
-      dueLabel: 'Jue. 3 sep.',
-      dueAt: '2099-09-03T09:10:00-03:00'
+      dueLabel: 'Vie. 4 sep. · práctica',
+      dueAt: null
     }
   ],
   activities: [],
@@ -26,7 +26,8 @@ const CURRENT_CLASS_PUBLIC_FIXTURE = {
   members: [],
   files: [],
   dates: [],
-  generatedAt: '2026-08-27T20:28:00-03:00'
+  contentUpdatedAt: '2026-08-28T20:28:00-03:00',
+  generatedAt: '2026-08-30T00:00:00-03:00'
 };
 
 async function routeCurrentClassPublic(page) {

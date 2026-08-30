@@ -18,6 +18,10 @@
     return node;
   }
 
+  function localized(es, br) {
+    return /^pt(?:-|$)/i.test(document.documentElement.lang || '') ? br : es;
+  }
+
   function readProgress() {
     try { return JSON.parse(localStorage.getItem(progressKey) || '{}') || {}; }
     catch (error) { return {}; }
@@ -56,19 +60,19 @@
     var wrap = el('div', 'lesson-teacher-audit');
     var intro = el('div', 'lesson-teacher-intro');
     intro.appendChild(el('span', '', teacher.subject));
-    intro.appendChild(el('h3', '', 'Cómo estudiar con ' + teacher.name));
+    intro.appendChild(el('h3', '', localized('Cómo estudiar con ', 'Como estudar com ') + teacher.name));
     intro.appendChild(el('p', '', teacher.confidenceReason));
-    var link = el('a', '', 'Ver auditoría docente completa →');
+    var link = el('a', '', localized('Ver auditoría docente completa →', 'Ver auditoria completa (en español) →'));
     link.href = 'profesores.html#' + teacher.id;
     intro.appendChild(link);
     wrap.appendChild(intro);
 
     var grid = el('div', 'lesson-teacher-grid');
     [
-      ['Recorrido esperado', teacher.reasoningPath],
-      ['Señales de importancia', teacher.importanceSignals],
-      ['Preguntas que conviene preparar', teacher.likelyExamTargets],
-      ['Distractores permitidos', teacher.distractorPolicy]
+      [localized('Recorrido esperado', 'Percurso esperado'), teacher.reasoningPath],
+      [localized('Señales de importancia', 'Sinais de importância'), teacher.importanceSignals],
+      [localized('Preguntas que conviene preparar', 'Perguntas que convém preparar'), teacher.likelyExamTargets],
+      [localized('Distractores permitidos', 'Distratores permitidos'), teacher.distractorPolicy]
     ].forEach(function (group) {
       var section = el('section');
       section.appendChild(el('h4', '', group[0]));
@@ -80,10 +84,17 @@
     wrap.appendChild(grid);
 
     var prompt = el('details', 'lesson-teacher-prompt');
-    var summary = el('summary', '', 'Prompt personalizado para esta clase');
+    var summary = el('summary', '', localized('Prompt personalizado para esta clase', 'Prompt personalizado para esta aula'));
     prompt.appendChild(summary);
-    prompt.appendChild(el('p', '', teacher.aiPrompt + ' Clase activa: «' + lesson.title + '» (' + lesson.dateLong + ').'));
-    var limit = el('small', '', 'Límite: usar únicamente el contenido y las fuentes de esta fecha. Las hipótesis del perfil no se presentan como preguntas reales del docente.');
+    var promptCopy = el('p');
+    promptCopy.appendChild(el('span', '', teacher.aiPrompt));
+    promptCopy.appendChild(document.createTextNode(localized(' Clase activa: «', ' Aula ativa: «')));
+    promptCopy.appendChild(el('span', '', lesson.title));
+    promptCopy.appendChild(document.createTextNode('» ('));
+    promptCopy.appendChild(el('span', '', lesson.dateLong));
+    promptCopy.appendChild(document.createTextNode(').'));
+    prompt.appendChild(promptCopy);
+    var limit = el('small', '', localized('Límite: usar únicamente el contenido y las fuentes de esta fecha. Las hipótesis del perfil no se presentan como preguntas reales del docente.', 'Limite: use apenas o conteúdo e as fontes desta data. As hipóteses do perfil não são apresentadas como perguntas reais da professora.'));
     prompt.appendChild(limit);
     wrap.appendChild(prompt);
     return wrap;
@@ -297,6 +308,23 @@
         { title: ['Gliceraldehído-3-P'], detail: ['vuelve a glucólisis'] }
       ]
     }],
+    'bioquimica-2026-08-28': [{
+      section: 6,
+      type: 'flow',
+      wide: true,
+      kicker: 'PENTOSAS · BALANCE DE TRES MOLÉCULAS',
+      title: 'La fase oxidativa conserva electrones y la no oxidativa redistribuye carbonos',
+      caption: 'Tres glucosas-6-fosfato permiten visualizar el balance canónico; una sola molécula también puede iniciar la fase oxidativa.',
+      nodes: [
+        { title: ['3 glucosa-6-P'], detail: ['18 carbonos'] },
+        { title: ['Fase oxidativa'], detail: ['6 NADPH · 3 CO₂'] },
+        { title: ['3 pentosas'], detail: ['15 carbonos'] },
+        { title: ['Fase no oxidativa'], detail: ['transferencias C₂ y C₃'] },
+        { title: ['2 F6P + 1 G3P'], detail: ['15 carbonos'] }
+      ],
+      edges: ['G6PD', 'ribulosa-5-P', 'transcetolasa', 'transaldolasa'],
+      note: 'NADPH aporta poder reductor; no sustituye al ATP como moneda energética.'
+    }],
     'epidemiologia-bloque-anterior': [{
       section: 4,
       type: 'flow',
@@ -360,6 +388,24 @@
         { title: ['V · AZUL'], detail: ['≤ 180 min'] }
       ],
       note: 'Triage prioriza. El diagnóstico definitivo se completa después.'
+    }],
+    'epidemiologia-2026-08-28': [{
+      section: 8,
+      type: 'flow',
+      wide: true,
+      kicker: 'RIISS · CUATRO NIVELES DE ATENCIÓN',
+      title: 'La red deriva hacia la capacidad necesaria y devuelve el plan de seguimiento',
+      caption: 'El nivel expresa complejidad y capacidad resolutiva; la referencia y la contrarreferencia conservan la continuidad.',
+      nodes: [
+        { title: ['Nivel I'], detail: ['USF · APS'] },
+        { title: ['Nivel II'], detail: ['CAES · hospital básico'] },
+        { title: ['Nivel III'], detail: ['hospital regional'] },
+        { title: ['Nivel IV'], detail: ['instituto especializado'] },
+        { title: ['Seguimiento'], detail: ['contrarreferencia'] }
+      ],
+      edges: ['detecta', 'amplía', 'resuelve', 'devuelve'],
+      cycle: true,
+      note: 'Manchester, START y SHORT priorizan pacientes; no reemplazan un diagnóstico definitivo.'
     }],
     'microbiologia-teorica-2026-08-10': [{
       section: 1,

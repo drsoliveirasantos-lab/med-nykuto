@@ -696,7 +696,7 @@
     var questionHost = createNode('div','practice-question-host');
     questionHost.setAttribute('aria-live','polite');
     var sources = createNode('div','practice-sources');
-    sources.appendChild(createNode('span','',bank.grounding ? tr('courseOnlyBase') : tr('verificationBase')));
+    sources.appendChild(createNode('span','',bank.grounding === 'reviewed-lesson-only' ? tr('reviewedLessonBase') : bank.grounding ? tr('courseOnlyBase') : tr('verificationBase')));
     bank.sources.forEach(function(source){
       var link = createNode('a','',source.labelKey ? tr(source.labelKey) : source.label);
       link.href = source.url;

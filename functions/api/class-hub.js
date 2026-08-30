@@ -107,6 +107,7 @@ const NOTICE_UPLOAD_MIME_TYPES = new Set([
   'image/webp'
 ]);
 const DEFAULT_CLASS_ID = 's4-e';
+const PRACTICAL_WEEK_EXPIRES_AT = '2026-09-05T00:00:00-03:00';
 const DEFAULT_CLASS_SLUG = 's4-e';
 const LEGACY_COHORT_KEY = 'semester-4-group-e';
 const CLASS_TIME_ZONE = 'America/Asuncion';
@@ -175,7 +176,7 @@ const DEFAULT_CURRENT_NOTICES = Object.freeze([
     course: 'Microbiología II · Práctica',
     priority: 'urgent',
     title: 'Prácticos: verificá tu grupo y llevá chomba',
-    body: 'La primera prueba parcial práctica vale 5% y se realizará del 31 de agosto al 5 de septiembre. Para Microbiología II, verificá que aparezcas en la lista final y en el Portal; nadie debe ser añadido solo de forma verbal. Asistí correctamente uniformado y con la chomba institucional.',
+    body: 'El período general de la primera prueba parcial práctica, con valor de 5%, se extiende del 31 de agosto al 5 de septiembre. En el cronograma del 4.º E, las cinco materias publicadas van del 31 de agosto al 4 de septiembre; Microbiología II · Práctica mantiene su organización separada. Verificá que aparezcas en la lista final y en el Portal, y asistí correctamente uniformado con la chomba institucional.',
     category: 'assessment',
     lifecycle: 'scheduled',
     audience: 'students',
@@ -1267,6 +1268,7 @@ async function activityState(db, classId, activityId, current = nowIso()) {
 async function ensureSchema(db) {
   if (!schemaPromise) schemaPromise = (async () => {
     const created = nowIso();
+    const currentPracticalWeekStatus = Date.parse(created) < Date.parse(PRACTICAL_WEEK_EXPIRES_AT) ? 'published' : 'archived';
     await db.batch([
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_classes (id TEXT PRIMARY KEY, slug TEXT NOT NULL UNIQUE, name TEXT NOT NULL, semester INTEGER NOT NULL, group_code TEXT NOT NULL DEFAULT '', theme TEXT NOT NULL DEFAULT 'midnight-gold', drive_url TEXT NOT NULL DEFAULT '', support_whatsapp TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`),
       db.prepare(`CREATE TABLE IF NOT EXISTS hub_subjects (class_id TEXT NOT NULL, id TEXT NOT NULL, name TEXT NOT NULL, sort_order INTEGER NOT NULL DEFAULT 0, status TEXT NOT NULL DEFAULT 'active', created_at TEXT NOT NULL, updated_at TEXT NOT NULL, PRIMARY KEY(class_id,id), FOREIGN KEY(class_id) REFERENCES hub_classes(id))`),
@@ -1355,14 +1357,12 @@ async function ensureSchema(db) {
       ...EPIDEMIOLOGY_GROUP_TOPICS.map((_, index) => db.prepare(`INSERT OR IGNORE INTO hub_groups (id,class_id,activity_id,name,capacity,frozen,created_by,created_at,updated_at) VALUES (?, ?, 'epi-2026-08-19', ?, 10, 0, 'system', ?, ?)`).bind(`epi-2026-08-19-g${index + 1}`, DEFAULT_CLASS_ID, `Grupo ${index + 1}`, created, created))
     ]);
     await db.batch([
-      db.prepare(`UPDATE hub_tasks SET due_label='Mié. 26 ago.',due_at='2026-08-26T11:20:00-03:00',updated_at=? WHERE class_id=? AND id='epi-presentation'`).bind(created, DEFAULT_CLASS_ID),
-      db.prepare(`UPDATE hub_tasks SET due_label='Mié. 26 ago.',due_at='2026-08-26T09:10:00-03:00',updated_at=? WHERE class_id=? AND id='bio-activities'`).bind(created, DEFAULT_CLASS_ID),
-      db.prepare(`UPDATE hub_activities SET course='Epidemiología y Salud Pública',updated_at=? WHERE class_id=? AND id='epi-2026-08-19' AND (course IS NULL OR TRIM(course)='')`).bind(created, DEFAULT_CLASS_ID),
-      db.prepare(`UPDATE hub_tasks SET status='archived',updated_at=? WHERE class_id=? AND created_by='system' AND id IN ('epi-presentation','bio-activities') AND status<>'archived'`).bind(created, DEFAULT_CLASS_ID),
+      db.prepare(`UPDATE hub_tasks SET title='Exposición grupal de enfermedad sorteada',description='Presentación reprogramada para la semana del 31 de agosto al 4 de septiembre; fecha exacta por confirmar y evaluación individual.',due_label='Semana 31 ago.–4 sep. · fecha por confirmar',due_at=NULL,status=?,updated_at=? WHERE class_id=? AND id='epi-presentation' AND created_by='system'`).bind(currentPracticalWeekStatus, created, DEFAULT_CLASS_ID),
+      db.prepare(`UPDATE hub_tasks SET title='Actividades 3 y 4 impresas y manuscritas',description='Lleva los cuatro trabajos firmados el viernes 4 de septiembre; la presencia es obligatoria para validarlos.',due_label='Vie. 4 sep. · práctica',due_at=NULL,attachment_url='https://med.nykuto.com/bioquimica-ii-grupos',attachment_title='Ver grupos y trabajos de Bioquímica',status=?,updated_at=? WHERE class_id=? AND id='bio-activities' AND created_by='system'`).bind(currentPracticalWeekStatus, created, DEFAULT_CLASS_ID),
+      db.prepare(`UPDATE hub_activities SET course='Epidemiología y Salud Pública',status=?,frozen=1,closes_at=NULL,updated_at=? WHERE class_id=? AND id='epi-2026-08-19' AND created_by='system'`).bind(currentPracticalWeekStatus, created, DEFAULT_CLASS_ID),
       db.prepare(`UPDATE hub_notices SET status='archived',lifecycle='expired',expires_at=COALESCE(expires_at,'2026-08-27T00:00:00-03:00'),updated_at=? WHERE class_id=? AND created_by='system' AND id IN ('week-2026-08-21','tasks-2026-08-21') AND status<>'archived'`).bind(created, DEFAULT_CLASS_ID),
       ...DEFAULT_CURRENT_NOTICES.filter((notice) => notice.imageUrl).map((notice) => db.prepare(`UPDATE hub_notices SET image_url=?,image_alt=? WHERE class_id=? AND id=? AND created_by='system' AND revision=1 AND (image_url IS NULL OR TRIM(image_url)='')`).bind(notice.imageUrl, notice.imageAlt || null, DEFAULT_CLASS_ID, notice.id)),
       db.prepare(`UPDATE hub_notices SET category='transport',updated_at=? WHERE class_id=? AND id='bus-schedule-2026-08-24' AND created_by='system' AND revision=1 AND category='schedule'`).bind(created, DEFAULT_CLASS_ID),
-      db.prepare(`UPDATE hub_activities SET status='archived',frozen=1,updated_at=? WHERE class_id=? AND created_by='system' AND id='epi-2026-08-19' AND status<>'archived'`).bind(created, DEFAULT_CLASS_ID),
       ...LEGACY_EPIDEMIOLOGY_LEADERS.map(({ groupId, membershipId }) => db.prepare(`UPDATE hub_memberships SET is_leader=1 WHERE class_id=? AND activity_id='epi-2026-08-19' AND group_id=? AND id=? AND is_leader=0 AND NOT EXISTS (SELECT 1 FROM hub_memberships existing WHERE existing.class_id=hub_memberships.class_id AND existing.group_id=hub_memberships.group_id AND existing.is_leader=1)`).bind(DEFAULT_CLASS_ID, groupId, membershipId))
     ]);
   })().catch((error) => { schemaPromise = null; throw error; });
@@ -1648,9 +1648,13 @@ async function readPublic(db, classRecord) {
     readScheduleSlots(db, classId, true),
     readContentLessons(db, classId, true, false)
   ]);
+  const practicalWeekActive = classId !== DEFAULT_CLASS_ID || Date.parse(current) < Date.parse(PRACTICAL_WEEK_EXPIRES_AT);
+  const visibleTasks = (tasks.results || []).filter((item) => practicalWeekActive || !['epi-presentation', 'bio-activities'].includes(item.id));
+  const visibleActivities = (activities.results || []).filter((item) => practicalWeekActive || item.id !== 'epi-2026-08-19');
+  const visibleGroups = (groups.results || []).filter((item) => practicalWeekActive || item.activityId !== 'epi-2026-08-19');
   const decorateGroup = classId === DEFAULT_CLASS_ID ? withEpidemiologyAssignment : (group) => group;
-  const members = (publicMembers.results || []).map((item) => ({ activityId: cleanId(item.activityId), groupId: cleanId(item.groupId), displayName: cleanText(item.displayName, 40), isLeader: Boolean(Number(item.isLeader)) })).filter((item) => item.activityId && item.groupId && item.displayName);
-  return { ok: true, class: publicClass(classRecord), subjects: subjects.results || [], lessons, notices: (notices.results || []).map((notice) => decorateNoticeAttachment(notice, classRecord, true)), tasks: tasks.results || [], activities: (activities.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80), frozen: Boolean(item.frozen) })), groups: (groups.results || []).map((item) => decorateGroup({ ...item, frozen: Boolean(item.frozen), memberCount: Number(item.memberCount) || 0 })), ...(includePublicRoster ? { members } : {}), files: files.results || [], dates: (dates.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), scheduleSlots, upcomingDates: upcomingScheduleDates(scheduleSlots), generatedAt: nowIso() };
+  const members = (publicMembers.results || []).map((item) => ({ activityId: cleanId(item.activityId), groupId: cleanId(item.groupId), displayName: cleanText(item.displayName, 40), isLeader: Boolean(Number(item.isLeader)) })).filter((item) => item.activityId && item.groupId && item.displayName && (practicalWeekActive || item.activityId !== 'epi-2026-08-19'));
+  return { ok: true, class: publicClass(classRecord), subjects: subjects.results || [], lessons, notices: (notices.results || []).map((notice) => decorateNoticeAttachment(notice, classRecord, true)), tasks: visibleTasks, activities: visibleActivities.map((item) => ({ ...item, course: cleanText(item.course, 80), frozen: Boolean(item.frozen) })), groups: visibleGroups.map((item) => decorateGroup({ ...item, frozen: Boolean(item.frozen), memberCount: Number(item.memberCount) || 0 })), ...(includePublicRoster ? { members } : {}), files: files.results || [], dates: (dates.results || []).map((item) => ({ ...item, course: cleanText(item.course, 80) })), scheduleSlots, upcomingDates: upcomingScheduleDates(scheduleSlots), contentUpdatedAt: classId === DEFAULT_CLASS_ID ? '2026-08-28T20:28:00-03:00' : current, generatedAt: current };
 }
 
 async function adminSnapshot(db, actor, classRecord, env = null) {

@@ -288,7 +288,7 @@ html[data-theme="light"] .notice-item .notice-source{color:#006b8f}
   .dashboard-week-tasks .priority-card{max-width:none;overflow:visible;padding:10px 11px;border-radius:12px}
   .dashboard-week-tasks .priority-card-head{display:flex;min-width:0;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:5px}
   .dashboard-week-tasks .priority-card-head>span{max-width:100%;overflow:visible;font-size:.75rem;line-height:1.2;letter-spacing:.025em;text-overflow:clip;white-space:normal}
-  .dashboard-week-tasks .priority-card-head time{max-width:100%;padding:4px 6px;font-size:.75rem;letter-spacing:0}
+  .dashboard-week-tasks .priority-card-head .priority-card-due{max-width:100%;padding:4px 6px;font-size:.75rem;letter-spacing:0}
   .dashboard-week-tasks .priority-card strong{display:block;overflow:visible;margin-top:6px;font-size:.82rem;line-height:1.3;overflow-wrap:anywhere;-webkit-line-clamp:unset}
   .dashboard-all-tasks{font-size:.75rem!important}
 }

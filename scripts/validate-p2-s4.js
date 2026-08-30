@@ -55,6 +55,7 @@ expect(p2Scope && p2Scope.status === 'provisional', 'P2 must remain provisional 
 expect(p2Scope && /no confirm/i.test(p2Scope.note), 'P2 must explain that its official scope is not yet confirmed.');
 expect(p2Scope && JSON.stringify(Object.keys(p2Scope.subjects)) === JSON.stringify(['fisiologia']), 'P2 must expose Fisiología only.');
 expect(p2Scope && JSON.stringify(p2Scope.subjects.fisiologia.practiceIds) === JSON.stringify(expectedPracticeIds), 'P2 must contain only the four neurophysiology lessons from 17, 20, 24 and 27 August.');
+expect(!Object.values((p2Scope && p2Scope.subjects) || {}).flatMap((subject) => subject.practiceIds || []).some((id) => /2026-08-28$/.test(id)), 'The 28 August lessons must remain outside the provisional P2 scope.');
 const p2PhysiologySheet = p2Scope ? `${p2Scope.subjects.fisiologia.reasoningPath.join(' ')} ${p2Scope.subjects.fisiologia.likelyExamTargets.join(' ')}` : '';
 expect(/sinaps|transducci|decusaci/i.test(p2PhysiologySheet), 'P2 physiology sheet must expose neurophysiology reasoning and targets.');
 expect(!/respiraci|gasometr/i.test(p2PhysiologySheet), 'P2 physiology sheet must not expose respiratory targets.');
@@ -107,6 +108,7 @@ const html = fs.readFileSync(path.join(root, 'p1.html'), 'utf8');
 const runtime = fs.readFileSync(path.join(root, 'class-p1-v1.js'), 'utf8');
 const stylesheet = fs.readFileSync(path.join(root, 'class-p1-v1.css'), 'utf8');
 expect(html.indexOf('p2-s4-e-v1.js?v=494') > html.indexOf('p1-s4-e-v1.js?v=494'), 'p1.html must load P2 after P1.');
+expect(!/2026-08-28-v500/.test(html), 'The shared P1/P2 page must not load 28 August content outside either explicit scope.');
 expect(html.indexOf('class-p1-v1.js?v=500') > html.indexOf('p2-s4-e-v1.js?v=494'), 'p1.html must load both scopes before the shared runtime.');
 expect(/class-p1-v1\.css\?v=500/.test(html), 'The shared partial-review stylesheet cache key must be 500.');
 expect(stylesheet.includes('.p1-filter-chip input{position:absolute;z-index:2;width:1px;height:1px;opacity:.001;pointer-events:auto}') && stylesheet.includes('.p1-length-options input{position:absolute;z-index:2;width:1px;height:1px;opacity:.001;pointer-events:auto}'), 'P1 filters lost the deterministic static input targets that replaced the dynamic compact patch.');

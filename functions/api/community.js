@@ -3,7 +3,7 @@ const DEFAULT_CLASS_SLUG = 's4-e';
 const LEGACY_COHORT_KEY = 'semester-4-group-e';
 const CHALLENGE_GOAL = 1000;
 const CHALLENGE_PRIZE_BRL = 50;
-const MAX_SCOPES_PER_PLAYER = 63;
+const MAX_SCOPES_PER_PLAYER = 69;
 const MAX_RANKING_ROWS = 100;
 const COMMUNITY_WRITE_LIMIT = 120;
 const COMMUNITY_ENROLL_LIMIT = 12;
@@ -15,8 +15,8 @@ const STUDENT_ID_PATTERN = /^[A-Z0-9]{4,24}$/;
 const CHALLENGE_LESSON_IDS = Object.freeze({
   nutricion: ['nutricion', 'nutricion-2026-08-27'],
   fisiologia: ['fisiologia-2026-08-10', 'fisiologia-2026-08-13', 'fisiologia-2026-08-17', 'fisiologia-2026-08-20', 'fisiologia-2026-08-24', 'fisiologia-2026-08-27'],
-  bioquimica: ['bioquimica', 'bioquimica-2026-08-19', 'bioquimica-2026-08-21', 'bioquimica-2026-08-26'],
-  epidemiologia: ['epidemiologia', 'epidemiologia-2026-08-19', 'epidemiologia-2026-08-26'],
+  bioquimica: ['bioquimica', 'bioquimica-2026-08-19', 'bioquimica-2026-08-21', 'bioquimica-2026-08-26', 'bioquimica-2026-08-28'],
+  epidemiologia: ['epidemiologia', 'epidemiologia-2026-08-19', 'epidemiologia-2026-08-26', 'epidemiologia-2026-08-28'],
   'microbiologia-teorica': ['microbiologia-teorica', 'microbiologia-teorica-2026-08-17', 'microbiologia-teorica-2026-08-24'],
   'microbiologia-practica': ['microbiologia-practica', 'microbiologia-practica-2026-08-20', 'microbiologia-practica-2026-08-27']
 });
