@@ -994,6 +994,8 @@
   function showSession() {
     if (!state.session) return;
     state.currentIndex = Math.max(0, Math.min(Number(state.session.currentIndex) || 0, state.session.items.length - 1));
+    var dialog = document.getElementById('p1PracticeDialog');
+    if (dialog && !dialog.open) lockPracticeBackground();
     document.getElementById('p1ExamSetup').hidden = true;
     document.getElementById('p1Results').hidden = true;
     document.getElementById('p1ExamSession').hidden = false;
@@ -1335,6 +1337,8 @@
     sheet.type = 'button';
     sheet.addEventListener('click', function () { switchView('sheet'); });
     actions.appendChild(again); actions.appendChild(sheet); host.appendChild(actions);
+    var dialog = document.getElementById('p1PracticeDialog');
+    if (dialog && !dialog.open) lockPracticeBackground();
     document.getElementById('p1ExamSetup').hidden = true;
     document.getElementById('p1ExamSession').hidden = true;
     host.hidden = false;

@@ -250,7 +250,7 @@ test.describe('P1 cumulative review', () => {
       return rect.top < viewport.bottom && rect.bottom > viewport.top;
     })).toBe(true);
     await page.keyboard.press('Escape');
-    await expect(dialog).not.toHaveAttribute('open', '');
+    await expect(page.locator('#p1PracticeDialog')).not.toHaveAttribute('open', '');
     await expect(page.locator('body')).not.toHaveClass(/p1-practice-open/);
     await expect(page.locator('#p1Resume')).toBeVisible();
     await expect.poll(async () => page.evaluate(() => window.scrollY)).toBe(pageScrollBefore);
@@ -261,7 +261,7 @@ test.describe('P1 cumulative review', () => {
     await expect(dialog).toHaveAttribute('open', '');
     await expect(page.locator('#p1Question input[name="p1-answer"]').first()).toBeChecked();
     await dialog.getByRole('button', { name: 'Cerrar la práctica y continuar después' }).click();
-    await expect(dialog).not.toHaveAttribute('open', '');
+    await expect(page.locator('#p1PracticeDialog')).not.toHaveAttribute('open', '');
     await expect(resume).toBeFocused();
   });
 

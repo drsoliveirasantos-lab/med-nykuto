@@ -81,7 +81,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(await page.evaluate(() => Number.parseFloat(document.body.style.top))).toBeCloseTo(-pageScrollBefore, 0);
 
     await page.keyboard.press('Escape');
-    await expect(dialog).not.toHaveAttribute('open', '');
+    await expect(page.locator('#p1PracticeDialog')).not.toHaveAttribute('open', '');
     await expect(page.locator('body')).not.toHaveClass(/p1-practice-open/);
     await expect.poll(async () => page.evaluate(() => window.scrollY)).toBe(pageScrollBefore);
     await expect(start).toBeFocused();
@@ -90,7 +90,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     await resume.click();
     await expect(dialog).toHaveAttribute('open', '');
     await dialog.getByRole('button', { name: 'Cerrar la práctica y continuar después' }).click();
-    await expect(dialog).not.toHaveAttribute('open', '');
+    await expect(page.locator('#p1PracticeDialog')).not.toHaveAttribute('open', '');
     await expect(resume).toBeFocused();
   });
 
