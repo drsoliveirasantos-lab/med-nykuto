@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" href="assets/logo-medcursos-icon.png" />
   <link rel="manifest" href="manifest.webmanifest" />
   <script src="public-theme-v485.js?v=500"></script>
-  <link rel="stylesheet" href="class-p1-v1.css?v=500" />
+  <link rel="stylesheet" href="class-p1-v1.css?v=502" />
 </head>
 <body class="p1-page">
   <a class="p1-skip" href="#p1-main">Ir al contenido</a>
@@ -134,22 +134,34 @@
         <p class="p1-setup-note">Cada intento crea una mezcla nueva y queda guardado en este teléfono. No cambia tu ranking ni los ejercicios de cada clase.</p>
       </section>
 
-      <section class="p1-exam-session" id="p1ExamSession" hidden aria-live="polite">
-        <header class="p1-session-progress">
-          <div><span id="p1QuestionPosition">Pregunta 1 de 40</span><strong id="p1AnsweredCount">0 respondidas</strong></div>
-          <progress id="p1Progress" max="40" value="0">0 de 40</progress>
+      <dialog class="p1-practice-dialog" id="p1PracticeDialog" aria-modal="true" aria-labelledby="p1PracticeDialogTitle">
+        <header class="p1-practice-dialog-header">
+          <div>
+            <span id="p1PracticeDialogEyebrow">PRÁCTICA P1</span>
+            <h2 id="p1PracticeDialogTitle">Entrenamiento en curso</h2>
+          </div>
+          <button type="button" id="p1PracticeClose" aria-label="Cerrar la práctica y continuar después">×</button>
         </header>
-        <article class="p1-question" id="p1Question"></article>
-        <nav class="p1-question-nav" aria-label="Navegar por la práctica">
-          <button type="button" id="p1PreviousQuestion">← Anterior</button>
-          <button type="button" id="p1NextQuestion">Siguiente →</button>
-        </nav>
-        <div class="p1-question-dots" id="p1QuestionDots" aria-label="Preguntas del simulacro"></div>
-        <button class="p1-finish" type="button" id="p1FinishExam" disabled>Ver resultado</button>
-        <button class="p1-quiet" type="button" id="p1ExitExam">Salir y continuar después</button>
-      </section>
+        <div class="p1-practice-dialog-scroll" id="p1PracticeDialogScroll">
+          <section class="p1-exam-session" id="p1ExamSession" hidden>
+            <header class="p1-session-progress">
+              <div><span id="p1QuestionPosition" aria-live="polite">Pregunta 1 de 40</span><strong id="p1AnsweredCount">0 respondidas</strong></div>
+              <progress id="p1Progress" max="40" value="0">0 de 40</progress>
+            </header>
+            <p class="p1-visually-hidden" id="p1AnswerAnnouncement" aria-live="polite" aria-atomic="true"></p>
+            <article class="p1-question" id="p1Question"></article>
+            <nav class="p1-question-nav" aria-label="Navegar por la práctica">
+              <button type="button" id="p1PreviousQuestion">← Anterior</button>
+              <button type="button" id="p1NextQuestion">Siguiente →</button>
+            </nav>
+            <div class="p1-question-dots" id="p1QuestionDots" aria-label="Preguntas del simulacro"></div>
+            <button class="p1-finish" type="button" id="p1FinishExam" disabled>Ver resultado</button>
+            <button class="p1-quiet" type="button" id="p1ExitExam">Salir y continuar después</button>
+          </section>
 
-      <section class="p1-results" id="p1Results" hidden aria-live="polite"></section>
+          <section class="p1-results" id="p1Results" hidden aria-live="polite"></section>
+        </div>
+      </dialog>
     </section>
   </main>
 
@@ -180,6 +192,6 @@
   <script src="teacher-question-profile-v445.js?v=501"></script>
   <script src="p1-s4-e-v2.js?v=501"></script>
   <script src="p2-s4-e-v1.js?v=494"></script>
-  <script src="class-p1-v1.js?v=501"></script>
+  <script src="class-p1-v1.js?v=502"></script>
 </body>
 </html>

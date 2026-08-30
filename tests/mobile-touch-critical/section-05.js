@@ -20,6 +20,82 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     await expect(rail).toBeVisible();
   });
 
+  test('P1 practice stays in a locked full-screen dialog on mobile Safari', async ({ page }) => {
+    await page.goto('/p1.html', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('html')).toHaveClass(/p1-ready/);
+    const start = page.getByRole('button', { name: 'Empezar entrenamiento' });
+    await start.scrollIntoViewIfNeeded();
+    await page.evaluate(() => {
+      const root = document.documentElement;
+      const previousScrollBehavior = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      const remaining = document.documentElement.scrollHeight - window.innerHeight - window.scrollY;
+      window.scrollTo(0, window.scrollY + Math.min(32, Math.max(0, remaining)));
+      root.style.scrollBehavior = previousScrollBehavior;
+    });
+    const pageScrollBefore = await page.evaluate(() => window.scrollY);
+    expect(pageScrollBefore).toBeGreaterThan(0);
+    await start.click();
+
+    const dialog = page.getByRole('dialog', { name: 'Entrenamiento en curso' });
+    const scroller = dialog.locator('#p1PracticeDialogScroll');
+    await expect(dialog).toHaveAttribute('open', '');
+    await expect(page.locator('body')).toHaveClass(/p1-practice-open/);
+    const layout = await dialog.evaluate((node) => {
+      const rect = node.getBoundingClientRect();
+      const bodyStyle = getComputedStyle(document.body);
+      return {
+        top: rect.top,
+        left: rect.left,
+        width: rect.width,
+        height: rect.height,
+        viewportWidth: window.innerWidth,
+        viewportHeight: window.innerHeight,
+        bodyPosition: bodyStyle.position,
+        bodyTop: Number.parseFloat(bodyStyle.top),
+        horizontalOverflow: node.scrollWidth - node.clientWidth
+      };
+    });
+    expect(layout.top).toBeCloseTo(0, 0);
+    expect(layout.left).toBeCloseTo(0, 0);
+    expect(layout.width).toBeCloseTo(layout.viewportWidth, 0);
+    expect(layout.height).toBeCloseTo(layout.viewportHeight, 0);
+    expect(layout.bodyPosition).toBe('fixed');
+    expect(layout.bodyTop).toBeCloseTo(-pageScrollBefore, 0);
+    expect(layout.horizontalOverflow).toBeLessThanOrEqual(1);
+
+    const internalScroll = await scroller.evaluate((node) => {
+      const session = node.querySelector('#p1ExamSession');
+      const previousMinHeight = session.style.minHeight;
+      session.style.minHeight = '1200px';
+      node.scrollTop = 120;
+      const result = {
+        overflowY: getComputedStyle(node).overflowY,
+        scrollTop: node.scrollTop,
+        canScroll: node.scrollHeight > node.clientHeight
+      };
+      session.style.minHeight = previousMinHeight;
+      return result;
+    });
+    expect(internalScroll.overflowY).toBe('auto');
+    expect(internalScroll.canScroll).toBe(true);
+    expect(internalScroll.scrollTop).toBeGreaterThan(0);
+    expect(await page.evaluate(() => Number.parseFloat(getComputedStyle(document.body).top))).toBeCloseTo(-pageScrollBefore, 0);
+
+    await page.keyboard.press('Escape');
+    await expect(dialog).not.toHaveAttribute('open', '');
+    await expect(page.locator('body')).not.toHaveClass(/p1-practice-open/);
+    await expect.poll(async () => page.evaluate(() => window.scrollY)).toBe(pageScrollBefore);
+    await expect(start).toBeFocused();
+
+    const resume = page.getByRole('button', { name: 'Continuar' });
+    await resume.click();
+    await expect(dialog).toHaveAttribute('open', '');
+    await dialog.getByRole('button', { name: 'Cerrar la práctica y continuar después' }).click();
+    await expect(dialog).not.toHaveAttribute('open', '');
+    await expect(resume).toBeFocused();
+  });
+
   test('mobile navigation and practice controls remain usable', async ({ page }) => {
     await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
     await dismissSemesterPicker(page);

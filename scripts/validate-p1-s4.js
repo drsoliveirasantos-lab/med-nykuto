@@ -98,10 +98,11 @@ expect(scope.subjects['microbiologia-practica'].practiceIds.includes('microbiolo
 const html = fs.readFileSync(path.join(root, 'p1.html'), 'utf8');
 const clase = fs.readFileSync(path.join(root, 'clase.html'), 'utf8');
 const runtime = fs.readFileSync(path.join(root, 'class-p1-v1.js'), 'utf8');
+const stylesheet = fs.readFileSync(path.join(root, 'class-p1-v1.css'), 'utf8');
 expect(/academic-model-2026-08-28-v500\.js/.test(html), 'The P1 page must load the cumulative teacher model through 28 August.');
 expect(/grupo-3-practice-bioquimica-2026-08-28-v500\.js/.test(html), 'The P1 page must load the selected 28 August Biochemistry bank.');
 expect(!/grupo-3-practice-epidemiologia-2026-08-28-v500\.js/.test(html), 'The P1 page must not load the excluded 28 August Epidemiology bank.');
-expect(/class-p1-v1\.css/.test(html) && /class-p1-v1\.js/.test(html), 'p1.html must load its own stylesheet and runtime.');
+expect(/class-p1-v1\.css\?v=502/.test(html) && /class-p1-v1\.js\?v=502/.test(html), 'p1.html must load the current P1 stylesheet and runtime.');
 expect(/href="p1\.html"/.test(clase), 'The class hub must expose the P1 page.');
 expect(/Entrenamiento · corrección inmediata/.test(html), 'P1 must expose immediate correction training before starting.');
 expect(/Examen blanco · corrección al final/.test(html), 'P1 must expose final-only exam correction before starting.');
@@ -111,6 +112,9 @@ expect(/completed\s*=\s*true/.test(runtime) && /correctIndex/.test(runtime), 'P1
 expect(/appendImmediateCorrection/.test(runtime) && /validated/.test(runtime), 'P1 training must lock and correct each validated answer immediately.');
 expect(/seenOptions/.test(runtime) && /seenExplanations/.test(runtime), 'P1 must remove repeated cross-lesson questions before sampling.');
 expect(/item\.teacherAngle \|\| 'sin-clasificar'/.test(runtime) && /group\.angles/.test(runtime), 'P1 sampling must balance the observed teacher angles inside each lesson.');
+expect(/id="p1PracticeDialog"/.test(html) && /id="p1PracticeClose"/.test(html) && /aria-labelledby="p1PracticeDialogTitle"/.test(html), 'P1 practice must expose an accessible full-screen dialog with a visible close control.');
+expect(/showModal/.test(runtime) && /p1-practice-open/.test(runtime) && /practiceDialogScrollY/.test(runtime) && /addEventListener\('cancel'/.test(runtime), 'P1 practice must lock and restore the background and support Escape while the dialog is open.');
+expect(/\.p1-practice-dialog\{position:fixed/.test(stylesheet) && /\.p1-practice-dialog-scroll\{[^}]*overflow-y:auto/.test(stylesheet), 'P1 practice must cover the viewport while keeping scrolling inside the dialog.');
 
 if (p1) {
   const options = { seed: 20260827, subjectIds: expectedSubjects, length: 40 };

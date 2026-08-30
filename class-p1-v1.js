@@ -17,6 +17,8 @@
   var state = { selectedSubject: 'all', practicePreset: 'all', activeView: 'exam', session: null, currentIndex: 0 };
   var lessonByPracticeId = {};
   var deduplicationByScopeId = {};
+  var practiceDialogScrollY = 0;
+  var practiceDialogReturnFocus = null;
 
   function scopeKeyFromHash() {
     return String(window.location.hash || '').toLocaleLowerCase('es') === '#p2' && P2_SCOPE ? 'p2' : 'p1';
@@ -412,6 +414,7 @@
     setText('p1SheetEyebrow', 'FICHA ACUMULATIVA ' + label);
     setText('p1-sheet-title', 'Todo el ' + label + ' por materia');
     setText('p1ExamEyebrow', 'PRÁCTICA ' + label);
+    setText('p1PracticeDialogEyebrow', 'PRÁCTICA ' + label);
 
     document.querySelectorAll('[data-partial-scope]').forEach(function (link) {
       if (link.dataset.partialScope === activeScopeKey) link.setAttribute('aria-current', 'page');
@@ -683,6 +686,7 @@
 
   function switchView(view) {
     state.activeView = view === 'exam' ? 'exam' : 'sheet';
+    if (state.activeView === 'sheet') closePracticeDialog(document.querySelector('[data-p1-view="sheet"]'));
     document.querySelectorAll('[data-p1-view]').forEach(function (button) {
       button.setAttribute('aria-selected', button.dataset.p1View === state.activeView ? 'true' : 'false');
     });
@@ -741,6 +745,97 @@
     if (button) button.textContent = startButtonLabel();
   }
 
+  function lockPracticeBackground() {
+    if (document.body.classList.contains('p1-practice-open')) return;
+    practiceDialogScrollY = Math.max(0, window.scrollY || document.documentElement.scrollTop || 0);
+    practiceDialogReturnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    document.body.style.top = '-' + practiceDialogScrollY + 'px';
+    document.body.classList.add('p1-practice-open');
+  }
+
+  function unlockPracticeBackground() {
+    if (!document.body.classList.contains('p1-practice-open')) return;
+    document.body.classList.remove('p1-practice-open');
+    document.body.style.removeProperty('top');
+    var root = document.documentElement;
+    var previousScrollBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    window.scrollTo(0, practiceDialogScrollY);
+    if (previousScrollBehavior) root.style.scrollBehavior = previousScrollBehavior;
+    else root.style.removeProperty('scroll-behavior');
+  }
+
+  function updatePracticeDialogTitle() {
+    var title = 'Práctica en curso';
+    if (state.session) {
+      title = state.session.completed
+        ? 'Resultado del ' + MODE_LABELS[state.session.mode].toLocaleLowerCase('es')
+        : MODE_LABELS[state.session.mode] + ' en curso';
+    }
+    setText('p1PracticeDialogTitle', title);
+  }
+
+  function openPracticeDialog() {
+    var dialog = document.getElementById('p1PracticeDialog');
+    if (!dialog) return;
+    updatePracticeDialogTitle();
+    if (!dialog.open) {
+      lockPracticeBackground();
+      if (typeof dialog.showModal === 'function') {
+        try { dialog.showModal(); } catch (error) {
+          unlockPracticeBackground();
+          practiceDialogReturnFocus = null;
+          return;
+        }
+      } else {
+        unlockPracticeBackground();
+        practiceDialogReturnFocus = null;
+        return;
+      }
+      if (!dialog.open) {
+        unlockPracticeBackground();
+        practiceDialogReturnFocus = null;
+        return;
+      }
+    }
+    window.requestAnimationFrame(function () {
+      var close = document.getElementById('p1PracticeClose');
+      if (close) close.focus({ preventScroll: true });
+    });
+  }
+
+  function restorePracticePage() {
+    var returnFocus = practiceDialogReturnFocus;
+    unlockPracticeBackground();
+    practiceDialogReturnFocus = null;
+    if (returnFocus && returnFocus.isConnected) {
+      window.requestAnimationFrame(function () { returnFocus.focus({ preventScroll: true }); });
+    }
+  }
+
+  function closePracticeDialog(focusTarget) {
+    var dialog = document.getElementById('p1PracticeDialog');
+    if (focusTarget instanceof HTMLElement) practiceDialogReturnFocus = focusTarget;
+    if (dialog && dialog.open) {
+      if (typeof dialog.close === 'function') {
+        dialog.close();
+        return;
+      }
+      dialog.removeAttribute('open');
+    }
+    restorePracticePage();
+  }
+
+  function scrollPracticeToTop() {
+    var scroller = document.getElementById('p1PracticeDialogScroll');
+    if (scroller) scroller.scrollTop = 0;
+  }
+
+  function exitPractice() {
+    if (state.session && !state.session.completed) saveSession();
+    showSetup();
+  }
+
   function startExam() {
     var subjects = selectedExamSubjects();
     if (!subjects.length) {
@@ -792,6 +887,7 @@
   }
 
   function showSetup() {
+    closePracticeDialog();
     document.getElementById('p1ExamSetup').hidden = false;
     document.getElementById('p1ExamSession').hidden = true;
     document.getElementById('p1Results').hidden = true;
@@ -806,6 +902,7 @@
     document.getElementById('p1Results').hidden = true;
     document.getElementById('p1ExamSession').hidden = false;
     updateSubjectRailVisibility();
+    openPracticeDialog();
     renderQuestion();
   }
 
@@ -837,7 +934,9 @@
       })(index);
     }
     var currentDot = container.querySelector('.is-current');
-    if (currentDot) currentDot.scrollIntoView({ inline: 'center', block: 'nearest' });
+    if (currentDot) {
+      container.scrollLeft = Math.max(0, currentDot.offsetLeft - ((container.clientWidth - currentDot.offsetWidth) / 2));
+    }
   }
 
   function appendImmediateCorrection(host, item) {
@@ -885,7 +984,11 @@
     next.textContent = state.currentIndex === total - 1 ? 'Ir a pendiente →' : 'Siguiente →';
   }
 
-  function renderQuestion() {
+  function renderQuestion(renderOptions) {
+    var preserveScroll = Boolean(renderOptions && renderOptions.preserveScroll);
+    var announceCorrection = Boolean(renderOptions && renderOptions.announceCorrection);
+    var scroller = document.getElementById('p1PracticeDialogScroll');
+    var previousScrollTop = scroller ? scroller.scrollTop : 0;
     var item = state.session.items[state.currentIndex];
     var host = document.getElementById('p1Question');
     var answered = answeredTotal();
@@ -942,10 +1045,26 @@
     });
     host.appendChild(options);
     if (answerLocked) appendImmediateCorrection(host, item);
+    if (announceCorrection) {
+      var selectedAnswer = state.session.answers[item.id];
+      var correctionText = selectedAnswer === item.correctIndex
+        ? 'Respuesta correcta.'
+        : 'Respuesta incorrecta. La respuesta correcta es: ' + item.options[item.correctIndex].text;
+      setText('p1AnswerAnnouncement', correctionText);
+    } else setText('p1AnswerAnnouncement', '');
     document.getElementById('p1QuestionPosition').textContent = 'Pregunta ' + (state.currentIndex + 1) + ' de ' + total;
     updateSessionProgress();
     updateQuestionNavigation();
     renderDots();
+    if (!preserveScroll) {
+      scrollPracticeToTop();
+      return;
+    }
+    if (scroller) scroller.scrollTop = previousScrollTop;
+    window.requestAnimationFrame(function () {
+      var feedback = host.querySelector('.p1-review-item');
+      if (feedback) feedback.scrollIntoView({ block: 'nearest' });
+    });
   }
 
   function updateSessionProgress() {
@@ -967,7 +1086,7 @@
       if (!Number.isInteger(state.session.answers[current.id])) return;
       state.session.validated[current.id] = true;
       saveSession();
-      renderQuestion();
+      renderQuestion({ preserveScroll: true, announceCorrection: true });
       return;
     }
     if (answeredTotal() === state.session.items.length) {
@@ -1099,6 +1218,8 @@
     document.getElementById('p1ExamSession').hidden = true;
     host.hidden = false;
     updateSubjectRailVisibility();
+    openPracticeDialog();
+    scrollPracticeToTop();
   }
 
   function finishExam() {
@@ -1107,7 +1228,6 @@
     state.session.completedAt = new Date().toISOString();
     saveSession();
     renderResults();
-    document.getElementById('p1ExamView').scrollIntoView({ block: 'start' });
   }
 
   function bind() {
@@ -1124,7 +1244,16 @@
     document.getElementById('p1PreviousQuestion').addEventListener('click', previousQuestion);
     document.getElementById('p1NextQuestion').addEventListener('click', nextQuestion);
     document.getElementById('p1FinishExam').addEventListener('click', finishExam);
-    document.getElementById('p1ExitExam').addEventListener('click', function () { saveSession(); showSetup(); });
+    document.getElementById('p1ExitExam').addEventListener('click', exitPractice);
+    document.getElementById('p1PracticeClose').addEventListener('click', exitPractice);
+    var practiceDialog = document.getElementById('p1PracticeDialog');
+    if (practiceDialog) {
+      practiceDialog.addEventListener('cancel', function (event) {
+        event.preventDefault();
+        exitPractice();
+      });
+      practiceDialog.addEventListener('close', restorePracticePage);
+    }
     window.addEventListener('hashchange', function () { activateScope(scopeKeyFromHash()); });
   }
 

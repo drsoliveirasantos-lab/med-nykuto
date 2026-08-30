@@ -156,6 +156,78 @@ test.describe('P1 cumulative review', () => {
     expect(communityPosts).toBe(0);
   });
 
+  test('opens practice in a full-screen modal and restores the page after closing', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    const start = page.getByRole('button', { name: 'Empezar entrenamiento' });
+    await start.scrollIntoViewIfNeeded();
+    await page.evaluate(() => {
+      const root = document.documentElement;
+      const previousScrollBehavior = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      const remaining = document.documentElement.scrollHeight - window.innerHeight - window.scrollY;
+      window.scrollTo(0, window.scrollY + Math.min(48, Math.max(0, remaining)));
+      root.style.scrollBehavior = previousScrollBehavior;
+    });
+    const pageScrollBefore = await page.evaluate(() => window.scrollY);
+    expect(pageScrollBefore).toBeGreaterThan(0);
+    await start.click();
+
+    const dialog = page.getByRole('dialog', { name: 'Entrenamiento en curso' });
+    await expect(dialog).toHaveAttribute('open', '');
+    await expect(dialog.locator('#p1QuestionPosition')).toHaveText('Pregunta 1 de 40');
+    await expect(page.locator('body')).toHaveClass(/p1-practice-open/);
+    await expect(dialog.getByRole('button', { name: 'Cerrar la práctica y continuar después' })).toBeFocused();
+    const layout = await dialog.evaluate((node) => {
+      const rect = node.getBoundingClientRect();
+      const bodyStyle = getComputedStyle(document.body);
+      return {
+        top: rect.top,
+        left: rect.left,
+        width: rect.width,
+        height: rect.height,
+        bodyPosition: bodyStyle.position,
+        horizontalOverflow: node.scrollWidth - node.clientWidth
+      };
+    });
+    expect(layout.top).toBeCloseTo(0, 0);
+    expect(layout.left).toBeCloseTo(0, 0);
+    expect(layout.width).toBeCloseTo(390, 0);
+    expect(layout.height).toBeCloseTo(844, 0);
+    expect(layout.bodyPosition).toBe('fixed');
+    expect(layout.horizontalOverflow).toBeLessThanOrEqual(1);
+
+    const scroller = dialog.locator('#p1PracticeDialogScroll');
+    const firstOption = page.locator('.p1-option').first();
+    await firstOption.scrollIntoViewIfNeeded();
+    const selectionScrollBefore = await scroller.evaluate((node) => node.scrollTop);
+    await firstOption.click();
+    await expect.poll(async () => Math.abs((await scroller.evaluate((node) => node.scrollTop)) - selectionScrollBefore)).toBeLessThanOrEqual(2);
+    await scroller.evaluate((node) => { node.scrollTop = node.scrollHeight; });
+    await dialog.getByRole('button', { name: 'Comprobar respuesta' }).click();
+    await expect(dialog.locator('#p1AnswerAnnouncement')).toHaveText(/Respuesta (correcta|incorrecta)/);
+    const feedback = dialog.locator('#p1Question .p1-review-item');
+    await expect(feedback).toBeVisible();
+    await expect.poll(async () => feedback.evaluate((node) => {
+      const rect = node.getBoundingClientRect();
+      const viewport = document.getElementById('p1PracticeDialogScroll').getBoundingClientRect();
+      return rect.top < viewport.bottom && rect.bottom > viewport.top;
+    })).toBe(true);
+    await page.keyboard.press('Escape');
+    await expect(dialog).not.toHaveAttribute('open', '');
+    await expect(page.locator('body')).not.toHaveClass(/p1-practice-open/);
+    await expect(page.locator('#p1Resume')).toBeVisible();
+    await expect.poll(async () => page.evaluate(() => window.scrollY)).toBe(pageScrollBefore);
+    await expect(start).toBeFocused();
+
+    const resume = page.getByRole('button', { name: 'Continuar' });
+    await resume.click();
+    await expect(dialog).toHaveAttribute('open', '');
+    await expect(page.locator('#p1Question input[name="p1-answer"]').first()).toBeChecked();
+    await dialog.getByRole('button', { name: 'Cerrar la práctica y continuar después' }).click();
+    await expect(dialog).not.toHaveAttribute('open', '');
+    await expect(resume).toBeFocused();
+  });
+
   test('hides correction in exam mode until completion and resumes the same attempt', async ({ page }) => {
     let communityPosts = 0;
     page.on('request', (request) => {
