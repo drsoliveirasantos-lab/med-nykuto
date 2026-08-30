@@ -2,10 +2,10 @@
   'use strict';
 
   window.MedNykutoP1Scope = {
-    id: 's4-e-p1-2026-v1',
+    id: 's4-e-p1-2026-v2',
     label: 'P1',
     title: 'Primera prueba parcial',
-    updatedAt: '2026-08-28',
+    updatedAt: '2026-08-30',
     defaultLength: 40,
     formatRatios: { qcm: 0.5, vf: 0.25, cases: 0.25 },
     subjects: {
@@ -59,8 +59,16 @@
         icon: 'class-icon-biochemistry',
         accent: '#34d399',
         status: 'ready',
-        statusLabel: 'Hasta 26 ago.',
+        statusLabel: 'Hasta 28 ago.',
+        note: 'Incluye la clase del 28 de agosto en las preguntas P1 por decisión de estudio. Su curso completo permanece en el cuaderno de la clase y no se duplica en esta ficha acumulativa.',
         practiceIds: [
+          'bioquimica',
+          'bioquimica-2026-08-19',
+          'bioquimica-2026-08-21',
+          'bioquimica-2026-08-26',
+          'bioquimica-2026-08-28'
+        ],
+        sheetPracticeIds: [
           'bioquimica',
           'bioquimica-2026-08-19',
           'bioquimica-2026-08-21',

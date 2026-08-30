@@ -24,6 +24,7 @@ global.document = {
 [
   'academic-model-v445.js',
   'academic-model-2026-08-27-v494.js',
+  'academic-model-2026-08-28-v500.js',
   'grupo-3-practice-v413.js',
   'grupo-3-practice-expansion-v420.js',
   'grupo-3-practice-grounded-v426.js',
@@ -34,8 +35,9 @@ global.document = {
   'grupo-3-practice-nutricion-2026-08-27-v494.js',
   'grupo-3-practice-fisiologia-2026-08-27-v494.js',
   'grupo-3-practice-microbiologia-practica-2026-08-27-v494.js',
+  'grupo-3-practice-bioquimica-2026-08-28-v500.js',
   'teacher-question-profile-v445.js',
-  'p1-s4-e-v1.js',
+  'p1-s4-e-v2.js',
   'p2-s4-e-v1.js',
   'class-p1-v1.js'
 ].forEach((file) => require(path.join(root, file)));
@@ -101,15 +103,16 @@ if (p2) {
 }
 
 if (p1) {
-  expect(p1.collectQuestions(Object.keys(p1Scope.subjects), false).length === 680, 'The P2 integration changed the P1 total of 680 source questions.');
+  expect(p1.collectQuestions(Object.keys(p1Scope.subjects), false).length === 720, 'The P2 integration changed the P1 total of 720 source questions.');
 }
 
 const html = fs.readFileSync(path.join(root, 'p1.html'), 'utf8');
 const runtime = fs.readFileSync(path.join(root, 'class-p1-v1.js'), 'utf8');
 const stylesheet = fs.readFileSync(path.join(root, 'class-p1-v1.css'), 'utf8');
-expect(html.indexOf('p2-s4-e-v1.js?v=494') > html.indexOf('p1-s4-e-v1.js?v=494'), 'p1.html must load P2 after P1.');
-expect(!/2026-08-28-v500/.test(html), 'The shared P1/P2 page must not load 28 August content outside either explicit scope.');
-expect(html.indexOf('class-p1-v1.js?v=500') > html.indexOf('p2-s4-e-v1.js?v=494'), 'p1.html must load both scopes before the shared runtime.');
+expect(html.indexOf('p2-s4-e-v1.js?v=494') > html.indexOf('p1-s4-e-v2.js?v=501'), 'p1.html must load P2 after P1.');
+expect(/grupo-3-practice-bioquimica-2026-08-28-v500\.js/.test(html), 'The shared P1/P2 page must load the 28 August Biochemistry bank selected for P1.');
+expect(!/grupo-3-practice-epidemiologia-2026-08-28-v500\.js/.test(html), 'The shared P1/P2 page must not load the 28 August Epidemiology bank excluded from both partials.');
+expect(html.indexOf('class-p1-v1.js?v=501') > html.indexOf('p2-s4-e-v1.js?v=494'), 'p1.html must load both scopes before the shared runtime.');
 expect(/class-p1-v1\.css\?v=500/.test(html), 'The shared partial-review stylesheet cache key must be 500.');
 expect(stylesheet.includes('.p1-filter-chip input{position:absolute;z-index:2;width:1px;height:1px;opacity:.001;pointer-events:auto}') && stylesheet.includes('.p1-length-options input{position:absolute;z-index:2;width:1px;height:1px;opacity:.001;pointer-events:auto}'), 'P1 filters lost the deterministic static input targets that replaced the dynamic compact patch.');
 expect(/href="#p2"[^>]*data-partial-scope="p2"/.test(html), 'The compact P2 selector is missing.');

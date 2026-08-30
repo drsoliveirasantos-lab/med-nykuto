@@ -217,7 +217,7 @@ grupo-3-practice-bioquimica-2026-08-28-v500.js
 grupo-3-practice-epidemiologia-2026-08-28-v500.js
 ```
 
-Cada banco mantiene exactamente 20 QCM, 10 verdadero/falso y 10 casos. Ambos cursos quedan disponibles como práctica individual y como scopes del ranking, pero permanecen fuera de las listas explícitas P1 y P2 hasta que una comunicación oficial cambie esos temarios.
+Cada banco mantiene exactamente 20 QCM, 10 verdadero/falso y 10 casos. Ambos cursos quedan disponibles como práctica individual y como scopes del ranking. Bioquímica del 28 también forma parte del banco P1 por decisión directa de estudio, sin convertir esa inclusión en una afirmación sobre el temario oficial; Epidemiología del 28 permanece fuera de P1 y ambas clases permanecen fuera de P2.
 
 El Work Pack recibido conserva un chat y adjuntos como material interno de análisis; el ZIP, teléfonos, nombres y lista de participantes no se publican. Para el proyecto de Epidemiología, la evidencia confirma una actividad de toda la clase dividida por grupos, no un trabajo personal aislado. El Grupo 10 tiene el tema Malaria; la presentación fue reprogramada para la semana siguiente y la fecha exacta continúa por confirmar. La explicación oral atribuye a esta presentación un valor de 1,0 % en la materia, distinto del 5 % anunciado para las pruebas prácticas.
 

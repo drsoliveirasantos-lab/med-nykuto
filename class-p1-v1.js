@@ -198,17 +198,46 @@
     if (count >= pool.length) return shuffled(pool, random);
     var groups = {};
     pool.forEach(function (item) {
-      if (!groups[item.practiceId]) groups[item.practiceId] = [];
-      groups[item.practiceId].push(item);
+      if (!groups[item.practiceId]) groups[item.practiceId] = { angles: {}, keys: [], cursor: 0 };
+      var group = groups[item.practiceId];
+      var angle = item.teacherAngle || 'sin-clasificar';
+      if (!group.angles[angle]) {
+        group.angles[angle] = [];
+        group.keys.push(angle);
+      }
+      group.angles[angle].push(item);
     });
     var keys = shuffled(Object.keys(groups), random);
-    keys.forEach(function (key) { groups[key] = shuffled(groups[key], random); });
+    keys.forEach(function (key) {
+      var group = groups[key];
+      group.keys = shuffled(group.keys, random);
+      group.keys.forEach(function (angle) {
+        group.angles[angle] = shuffled(group.angles[angle], random);
+      });
+    });
+
+    function takeFromGroup(group) {
+      while (group.keys.length) {
+        var angle = group.keys[group.cursor % group.keys.length];
+        var item = group.angles[angle].shift();
+        if (!group.angles[angle].length) {
+          group.keys.splice(group.keys.indexOf(angle), 1);
+          if (group.keys.length) group.cursor = group.cursor % group.keys.length;
+        } else {
+          group.cursor += 1;
+        }
+        if (item) return item;
+      }
+      return null;
+    }
+
     var result = [];
     var cursor = 0;
     while (result.length < count && keys.length) {
       var key = keys[cursor % keys.length];
-      if (groups[key].length) result.push(groups[key].shift());
-      if (!groups[key].length) {
+      var item = takeFromGroup(groups[key]);
+      if (item) result.push(item);
+      if (!groups[key].keys.length) {
         keys.splice(keys.indexOf(key), 1);
         if (!keys.length) break;
         cursor = cursor % keys.length;
@@ -580,6 +609,7 @@
 
   function renderSubjectSheet(container, subjectId) {
     var subject = scope.subjects[subjectId];
+    var sheetPracticeIds = Array.isArray(subject.sheetPracticeIds) ? subject.sheetPracticeIds : subject.practiceIds;
     var academicSubject = model.subjects[subjectId];
     var teacher = model.teachers[academicSubject.teacherId];
     container.style.setProperty('--subject-accent', subject.accent);
@@ -620,7 +650,7 @@
     }
 
     var lessons = el('div', 'p1-lessons');
-    subject.practiceIds.forEach(function (practiceId) {
+    sheetPracticeIds.forEach(function (practiceId) {
       var lesson = renderLesson(subject, practiceId);
       if (lesson) lessons.appendChild(lesson);
     });

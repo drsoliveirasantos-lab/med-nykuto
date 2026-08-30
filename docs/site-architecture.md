@@ -64,7 +64,7 @@ content. Only anonymously verified files may be present, and records carrying a
 ### 4.º E P1 review
 
 `p1.html` is the dedicated mobile-first cumulative review for the first partial.
-Its versioned lesson allowlist lives in `p1-s4-e-v1.js`, while
+Its versioned lesson allowlist lives in `p1-s4-e-v2.js`, while
 `class-p1-v1.js` builds fiches and exam attempts from the existing dated S4
 banks. It must not reuse the legacy S3 `examen.html` bank, write ordinary class
 practice progress, or post to the community ranking. Its practice surface has
@@ -74,7 +74,7 @@ final result. The practice surface is the mobile default; the cumulative sheet
 remains one tap away. Run
 `scripts/validate-p1-s4.js` whenever its scope or runtime changes.
 
-The 28 August Bioquímica II and Epidemiología lessons are notebook and individual-practice content only. They do not enter the explicit P1 or provisional P2 allowlists automatically; their presence in the class hub and server ranking scope must not change the 17-lesson/680-question P1 or 4-lesson/160-question P2 contracts.
+The 28 August lessons never enter a partial automatically. Bioquímica II is explicitly included in the P1 question pool by a direct study-scope decision, producing an 18-lesson/720-question contract; its full lesson stays in the class notebook and is omitted from the cumulative-sheet lesson cards through `sheetPracticeIds`. Epidemiología remains outside P1, and both 28 August lessons remain outside the provisional 4-lesson/160-question P2 contract.
 
 ### 4.º E notice presentation
 

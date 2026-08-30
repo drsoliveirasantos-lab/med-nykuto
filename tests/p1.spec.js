@@ -8,8 +8,8 @@ test.describe('P1 cumulative review', () => {
 
   test('shows a compact cumulative sheet for all six subjects', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Repaso P1' })).toHaveCount(1);
-    await expect(page.locator('#p1LessonCount')).toHaveText('17');
-    await expect(page.locator('#p1QuestionCount')).toHaveText('680');
+    await expect(page.locator('#p1LessonCount')).toHaveText('18');
+    await expect(page.locator('#p1QuestionCount')).toHaveText('720');
     await expect(page.locator('#p1SubjectRail')).toBeVisible();
     await expect(page.locator('#p1SubjectRail [data-subject-id="all"]')).toHaveAttribute('aria-pressed', 'true');
     await page.getByRole('button', { name: /Ficha P1/ }).click();
@@ -24,6 +24,31 @@ test.describe('P1 cumulative review', () => {
     await expect(page.locator('.p1-lesson')).toHaveCount(2);
     await expect(page.getByText(/trabajadas hasta el 27 de agosto/)).toBeVisible();
     await expect(page.getByRole('link', { name: /Introducción al estudio nutricional/ })).toHaveAttribute('href', /drive\.google\.com/);
+  });
+
+  test('adds Bioquímica 28 to P1 questions without duplicating its full course sheet', async ({ page }) => {
+    await page.getByRole('button', { name: /Ficha P1/ }).click();
+    await page.locator('.p1-subject-card').filter({ hasText: 'Bioquímica II' }).click();
+    await expect(page.getByRole('heading', { name: 'Bioquímica II · P1' })).toBeVisible();
+    await expect(page.locator('.p1-lesson')).toHaveCount(4);
+    await expect(page.getByText(/Su curso completo permanece en el cuaderno de la clase/)).toBeVisible();
+
+    const audit = await page.evaluate(() => {
+      const questions = window.MedNykutoP1.collectQuestions(['bioquimica'], false);
+      const bank = window.MedNykutoClassPractice.banks['bioquimica-2026-08-28'];
+      const bankQuestions = ['qcm', 'vf', 'cases'].flatMap((type) => bank[type]);
+      const exam = window.MedNykutoP1.buildExam({ seed: 20260830, subjectIds: ['bioquimica'], length: 40 });
+      return {
+        total: questions.length,
+        practiceIds: [...new Set(questions.map((item) => item.practiceId))],
+        bankAngles: [...new Set(bankQuestions.map((item) => item.teacherAngle))],
+        sampledAngles: [...new Set(exam.items.map((item) => item.teacherAngle))]
+      };
+    });
+    expect(audit.total).toBe(200);
+    expect(audit.practiceIds).toContain('bioquimica-2026-08-28');
+    expect(audit.bankAngles.sort()).toEqual(['consecuencia', 'integracion-clinica', 'mecanismo', 'por-que'].sort());
+    expect(audit.sampledAngles.sort()).toEqual(['consecuencia', 'integracion-clinica', 'mecanismo', 'por-que'].sort());
   });
 
   test('keeps quick presets and advanced subject filters mutually exclusive', async ({ page }) => {
@@ -77,7 +102,7 @@ test.describe('P1 cumulative review', () => {
     expect(audit.types).toEqual({ qcm: 20, vf: 10, cases: 10 });
     expect(audit.subjects).toHaveLength(6);
     expect(audit.uniqueIds).toBe(40);
-    expect(audit.deduplication.raw).toBe(680);
+    expect(audit.deduplication.raw).toBe(720);
     expect(audit.deduplication.removed).toBeGreaterThan(0);
   });
 

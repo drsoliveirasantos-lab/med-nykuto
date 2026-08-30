@@ -111,7 +111,7 @@ class-notebook-v445.js
 teacher-question-profile-v445.js
 ```
 
-`academic-model-v445.js` is the authoritative base mapping for the six 4.º E subjects, eighteen dated lessons, chapter status and six cumulative teacher profiles. The static 27 August extension adds three documented lessons and the 28 August extension adds Bioquímica II and Epidemiología, so the effective offline baseline exposes twenty-three lessons. A new lesson must extend the relevant evidence timeline; it must not overwrite prior evidence or invent a class date. Each practice bank remains isolated by lesson and is annotated at runtime with the matching teacher profile and reasoning angle.
+`academic-model-v445.js` is the authoritative base mapping for the six 4.º E subjects, eighteen dated lessons, chapter status and six cumulative teacher profiles. The static 27 August extension adds three documented lessons and the 28 August extension adds Bioquímica II and Epidemiología, so the effective offline baseline exposes twenty-three lessons. A new lesson must extend the relevant evidence timeline; it must not overwrite prior evidence or invent a class date. Each transcription integration must also update at least one observable teaching surface when the source adds evidence — teaching architecture, reasoning path, importance signal, observed format, likely target, distractor policy or personalized prompt. If the transcription adds no new pattern, record that conservatively instead of inventing a personality trait. Each practice bank remains isolated by lesson and is annotated at runtime with the matching teacher profile and reasoning angle.
 
 Published class-specific overlays created through `/gestion/<slug>` are a separate source surface. They live in the tenant-scoped D1 tables `hub_content_lessons` and `hub_content_revisions`; they must not change `content-lock.json`, the 59-module catalog or protected generated banks. The static notebook remains the offline baseline. A D1 overlay may replace the browser view only when its subject and exact lesson date match, and an unavailable API must leave that baseline untouched.
 
@@ -130,14 +130,14 @@ The shared Google Drive entry belongs on Home only. `Materias` must not duplicat
 The first-partial review is driven by:
 
 ```txt
-p1-s4-e-v1.js
+p1-s4-e-v2.js
 class-p1-v1.js
 p1.html
 ```
 
-`p1-s4-e-v1.js` is an explicit, versioned allowlist of the dated lessons included in P1. New P2 lessons must never enter the P1 pool automatically. The P1 runtime clones questions from the isolated lesson banks, removes cross-lesson overlaps, shuffles a reproducible attempt and keeps its local state separate from ordinary practice, ranking and community points. `training` shows a locked correction immediately after the learner checks each response; `exam` hides every correction until completion. Both modes must persist safely after reload. Teacher angles guide the distribution and diagnostic breakdown; inferred patterns must not be described as confirmed exam questions. Nutrición queda confirmada para P1 hasta la clase del 27 de agosto, aunque el formato exacto del examen aún no fue observado. En Fisiología, la indicación oral limita P1 a Respiratorio: el bloque de sensibilidades somáticas del 27 queda disponible para revisión general, pero fuera del simulacro P1.
+`p1-s4-e-v2.js` is an explicit, versioned allowlist of the dated lessons included in P1. New P2 lessons must never enter the P1 pool automatically. The P1 runtime clones questions from the isolated lesson banks, removes cross-lesson overlaps, shuffles a reproducible attempt and keeps its local state separate from ordinary practice, ranking and community points. `training` shows a locked correction immediately after the learner checks each response; `exam` hides every correction until completion. Both modes must persist safely after reload. Teacher angles guide both the lesson-balanced question distribution and the diagnostic breakdown; inferred patterns must not be described as confirmed exam questions. Nutrición queda confirmada para P1 hasta la clase del 27 de agosto, aunque el formato exacto del examen aún no fue observado. En Fisiología, la indicación oral limita P1 a Respiratorio: el bloque de sensibilidades somáticas del 27 queda disponible para revisión general, pero fuera del simulacro P1.
 
-Las clases de Bioquímica II y Epidemiología del 28 de agosto permanecen fuera de P1 mientras no exista una ampliación oficial explícita del temario. Publicar sus cursos y sus bancos individuales no autoriza a añadirlos al simulacro acumulativo.
+Bioquímica II del 28 de agosto se incorpora al banco P1 por una decisión directa de estudio del usuario, sin presentarla como confirmación oficial del temario. Sus 40 preguntas elevan el contrato a 18 clases y 720 preguntas fuente. `sheetPracticeIds` mantiene su curso completo únicamente en el cuaderno de la clase para no duplicar una nueva ficha dentro de P1. Epidemiología del 28 permanece fuera de P1 mientras no exista otra decisión explícita sobre ese alcance.
 
 ### 4.º E provisional P2 scope
 
