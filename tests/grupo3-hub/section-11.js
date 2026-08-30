@@ -31,8 +31,10 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     const bottomNavigation = page.locator('.mobile-bottom-nav');
     if (testInfo.project.name === 'mobile-safari-shape') {
       await expect(bottomNavigation).toBeVisible();
-      await expect(bottomNavigation.getByRole('link')).toHaveCount(6);
-      await expect(bottomNavigation.getByRole('link', { name: 'Avisos' })).toHaveAttribute('href', '#avisos');
+      await expect(bottomNavigation.getByRole('link')).toHaveCount(5);
+      await expect(bottomNavigation.getByRole('link', { name: 'Avisos' })).toHaveCount(0);
+      await expect(bottomNavigation.getByRole('link', { name: 'P1' })).toBeVisible();
+      await expect(page.locator('#noticeBell')).toBeVisible();
       await expect(bottomNavigation.getByRole('link', { name: 'Plan' })).toHaveCount(0);
       await expect(page.locator('.header-back')).toBeHidden();
       await expect(page.locator('.workspace-nav')).toBeHidden();
@@ -55,17 +57,10 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       expect(mobileLayout.nextTop).toBeLessThan(mobileLayout.viewportHeight * 0.78);
       expect(mobileLayout.switcherWidth).toBeLessThanOrEqual(160);
       expect(mobileLayout.switcherBottom).toBeLessThanOrEqual(mobileLayout.bottomTop);
-      expect(mobileLayout.navScrollWidth).toBeGreaterThan(mobileLayout.navClientWidth);
-      expect(mobileLayout.minItemWidth).toBeGreaterThanOrEqual(78);
-      await bottomNavigation.getByRole('link', { name: 'Avisos' }).click();
+      expect(mobileLayout.navScrollWidth).toBeLessThanOrEqual(mobileLayout.navClientWidth + 1);
+      expect(mobileLayout.minItemWidth).toBeGreaterThanOrEqual(44);
+      await page.locator('#noticeBell').click();
       await expect(page.locator('#avisos')).toBeVisible();
-      const activeVisibility = await page.evaluate(() => {
-        const nav = document.querySelector('.mobile-bottom-nav').getBoundingClientRect();
-        const active = document.querySelector('.mobile-bottom-nav [data-view-link="avisos"]').getBoundingClientRect();
-        return { left: active.left - nav.left, right: nav.right - active.right };
-      });
-      expect(activeVisibility.left).toBeGreaterThanOrEqual(-1);
-      expect(activeVisibility.right).toBeGreaterThanOrEqual(-1);
     } else {
       await expect(bottomNavigation).toBeHidden();
     }

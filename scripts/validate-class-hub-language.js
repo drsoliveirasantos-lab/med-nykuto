@@ -145,8 +145,8 @@ expect(i18n.includes("'Ver todas las tareas':'Ver todas as tarefas'"), 'The simp
 expect(i18n.includes("'Avisos importantes vigentes':'Avisos importantes vigentes'") && i18n.includes("'Avisos importantes vigentes de la clase':'Avisos importantes vigentes da turma'"), 'The current-notice Home heading or accessible label is not translated into Portuguese.');
 expect(i18n.includes("'Transporte':'Transporte'") && i18n.includes("'Evaluaciones':'Avaliações'") && i18n.includes("'Más filtros':'Mais filtros'"), 'The new notice category controls are not translated into Portuguese.');
 expect(i18n.includes("'Filtrar avisos':'Filtrar avisos'") && i18n.includes("'Filtrar por tipo de aviso':'Filtrar por tipo de aviso'") && html.includes('grupo-3-i18n-v421.js?v=492'), 'The notice filter accessibility labels or updated i18n cache version are missing.');
-expect((html.match(/data-view-link="avisos"/g) || []).length === 2 && html.includes('id="class-icon-notice"'), 'Avisos is not directly available in both class navigations with a pictogram.');
-expect(/\.mobile-bottom-nav\s*\{[^}]*display:flex[^}]*overflow-x:auto/.test(css) && runtime.includes('function centerActiveMobileNavigation'), 'The class mobile navigation is not horizontally scrollable with active-item centering.');
+expect((html.match(/data-view-link="avisos"/g) || []).length === 1 && html.includes('id="class-icon-notice"') && html.includes('id="noticeBell"'), 'Avisos is not available from the desktop navigation and the persistent mobile bell.');
+expect(/\.mobile-bottom-nav\s*\{[^}]*display:grid[^}]*grid-template-columns:repeat\(5,minmax\(0,1fr\)\)[^}]*overflow:hidden/.test(css), 'The five primary mobile destinations do not fit in a fixed navigation grid.');
 expect(i18n.includes("'Consulta los avisos que siguen en vigor. Los vencidos se retiran automáticamente.':'Consulte os avisos que continuam vigentes. Os vencidos são retirados automaticamente.'"), 'The current-notice expiration explanation is not translated into Portuguese.');
 expect(runtime.includes("'microbiologia-teorica-2026-08-24'") && runtime.includes('esporotricosis, dos eumicetomas y candidiasis oportunista'), 'The Microbiology 24 August runtime is missing its documented scope.');
 expect(runtime.includes("'microbiologia-teorica-2026-08-17'") && runtime.includes('dos casos clínicos resueltos paso a paso'), 'The historical 17 August Microbiology scope was not preserved separately.');
@@ -186,7 +186,7 @@ expect(classHubCss.includes('.live-task-groups') && classHubCss.includes('.live-
 expect(html.includes('href="https://virtual.central.edu.py/auth"'), 'The official UCP portal shortcut is missing from the class home page.');
 expect(html.includes('class="home-quick-links"'), 'The compact useful-links strip is missing from the class home page.');
 expect(css.includes('.home-quick-link'), 'The compact home shortcut styling is missing.');
-expect(/\.class-dashboard \.home-quick-links\s*\{\s*grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/.test(classHubCss), 'The four useful mobile shortcuts do not stay on one compact row.');
+expect(/\.class-dashboard \.home-quick-links\s*\{\s*grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/.test(classHubCss), 'The three student mobile shortcuts do not stay readable on one row.');
 expect(html.includes('href="#fisiologia-2026-08-24"') && html.includes('href="#microbiologia-teorica-2026-08-24"'), 'The home page does not link directly to both completed transcriptions.');
 expect(html.includes('class="home-transcripts"') && html.includes('Clases reconstruidas y revisadas'), 'The new transcription block is missing from the class home page.');
 expect(css.includes('.home-transcript-card'), 'The compact new-transcription cards are not styled.');

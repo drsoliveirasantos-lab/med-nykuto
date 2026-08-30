@@ -44,10 +44,17 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     expect(transcript.estimatedPreparation.date).toBe('2026-08-24');
   });
 
-  test('keeps the semester selector inside the sticky class header', async ({ page }) => {
+  test('keeps the semester selector on desktop and a one-row phone header', async ({ page }, testInfo) => {
     const switcher = page.getByLabel('Elegir semestre');
-    await expect(switcher).toBeVisible();
     await expect(switcher).toHaveValue('4');
+    if (testInfo.project.name === 'mobile-safari-shape') {
+      await expect(switcher).toBeHidden();
+      await expect(page.locator('.class-language-switcher')).toBeVisible();
+      await expect(page.locator('#noticeBell')).toBeVisible();
+      await expect(page.locator('.delegate-link .manage-label')).toBeHidden();
+      return;
+    }
+    await expect(switcher).toBeVisible();
     await page.goto('/clase.html#delegado');
     await page.locator('#delegado').scrollIntoViewIfNeeded();
     await expect(switcher).toBeVisible();

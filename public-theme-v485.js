@@ -23,7 +23,7 @@
   function apply(theme,persist){var next=theme===LIGHT?LIGHT:DARK;root.dataset.theme=next;root.style.colorScheme=next;var themeColor=document.querySelector('meta[name="theme-color"]');if(themeColor)themeColor.content=next===LIGHT?'#f4f7fb':darkThemeColor();if(persist)safeWrite(next);updateControls(next);try{window.dispatchEvent(new CustomEvent('mednykuto:themechange',{detail:{theme:next}}));}catch(error){}return next;}
   function addScript(src,marker){if(document.querySelector('script['+marker+']'))return;var script=document.createElement('script');script.src=src;script.defer=true;script.setAttribute(marker,'true');document.head.appendChild(script);}
   function loadPageEnhancements(){
-    if(/(?:^|\/)p1\.html$/i.test(location.pathname||'')){addScript('/p1-ui-compact-v497.js?v=497','data-p1-compact-ui');return;}
+    if(/(?:^|\/)p1\.html$/i.test(location.pathname||''))return;
     if(/(?:^|\/)clase\.html$/i.test(location.pathname||'')){
       function revealTaskSections(){var current=document.querySelector('#pendientes .pending-grid'),archive=document.querySelector('#pendientes .assignment-archive');[current,archive].forEach(function(section){if(!section)return;section.hidden=false;section.removeAttribute('aria-hidden');});}
       if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',revealTaskSections,{once:true});else revealTaskSections();
