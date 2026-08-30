@@ -133,6 +133,9 @@ if (model) {
   expect(!/(?:75\s*%|19[,.]4\s*%|electroconvuls|amputaci[oó]n|nombre propio del paciente)/i.test(august28Content), 'The 28 August lessons include an unverified statistic or a private anecdote.');
   expect(/sin teléfono, sin leer apuntes/i.test(august28Content) && /trabajos firmados/i.test(august28Content), 'The confirmed Biochemistry oral-preparation rules are missing.');
   expect(/Cinco clases orales completas/.test(model.teachers['andrea-lopez'].confidenceReason) && model.teachers['andrea-lopez'].observedQuestionFormats.some((item) => /preparación grupal/i.test(item)), 'The cumulative Biochemistry teacher model was not refreshed for 28 August.');
+  const biochemistryTeacherMethod = JSON.stringify(model.teachers['andrea-lopez']);
+  expect(/conteo de carbonos|número de carbonos/i.test(biochemistryTeacherMethod) && /C2.*transcetolasa/i.test(biochemistryTeacherMethod) && /C3.*transaldolasa/i.test(biochemistryTeacherMethod), 'The Biochemistry teacher profile must preserve the observed carbon-counting and C2/C3 distinction from 28 August.');
+  expect(/sin teléfono ni apuntes/i.test(biochemistryTeacherMethod) && /NADP\+\/NADPH/i.test(biochemistryTeacherMethod), 'The Biochemistry teacher profile must preserve the observed oral-recall method and characteristic distractors.');
   expect(model.teachers['andrea-isasi'].likelyExamTargets.some((item) => /Manchester, START y SHORT/i.test(item)) && model.teachers['andrea-isasi'].likelyExamTargets.some((item) => /cuatro niveles/i.test(item)), 'The Epidemiology teacher model omits the confirmed practical methods or RIISS levels.');
   expect(!lessons.some((entry) => entry.subjectId === 'nutricion' && /2026-08-20/.test(entry.lesson.id)), 'A false Nutrition theory class was created for 20 August.');
   expect(/Ficha rápida/.test(notebookJs) && /Ficha ultra rápida/.test(notebookJs), 'Notebook tabs do not use the canonical study-format labels.');

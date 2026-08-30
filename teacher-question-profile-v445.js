@@ -32,10 +32,10 @@
 
   var angleRules = {
     'andrea-lopez': {
-      'mecanismo': ['enzim', 'reacci', 'vía', 'ruta', 'sustrato', 'producto', 'cofactor', 'atp', 'nadh'],
-      'por-que': ['por qué', 'porque', 'regul', 'activ', 'inhib', 'aumenta', 'disminu', 'flujo'],
-      'consecuencia': ['consecuencia', 'resultado', 'produce', 'provoca', 'acumula', 'déficit', 'balance'],
-      'integracion-clinica': ['paciente', 'clínic', 'laboratorio', 'diabetes', 'cetoacidosis', 'glucemia', 'ceton', 'caso']
+      'mecanismo': ['enzim', 'reacci', 'vía', 'ruta', 'sustrato', 'producto', 'cofactor', 'atp', 'nadh', 'nadp', 'pentosa', 'transcetol', 'transaldol', 'carbon'],
+      'por-que': ['por qué', 'porque', 'regul', 'activ', 'inhib', 'aumenta', 'disminu', 'flujo', 'demanda', 'reversib', 'irreversib'],
+      'consecuencia': ['consecuencia', 'resultado', 'produce', 'provoca', 'acumula', 'déficit', 'balance', 'ribosa', 'glutatión', 'co2'],
+      'integracion-clinica': ['paciente', 'clínic', 'laboratorio', 'diabetes', 'cetoacidosis', 'glucemia', 'ceton', 'caso', 'hemólisis', 'oxidante', 'eritrocito']
     },
     'andrea-isasi': {
       'definicion-operativa': ['define', 'concepto', 'significa', 'urgencia', 'emergencia', 'triage', 'aps'],

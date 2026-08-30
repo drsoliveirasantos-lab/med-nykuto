@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" href="assets/logo-medcursos-icon.png" />
   <link rel="manifest" href="manifest.webmanifest" />
   <script src="public-theme-v485.js?v=500"></script>
-  <link rel="stylesheet" href="class-p1-v1.css?v=500" />
+  <link rel="stylesheet" href="class-p1-v1.css?v=503" />
 </head>
 <body class="p1-page">
   <a class="p1-skip" href="#p1-main">Ir al contenido</a>
@@ -52,7 +52,7 @@
 
   <main id="p1-main" class="p1-main">
     <nav class="p1-scope-switch" aria-label="Elegir prueba parcial">
-      <a href="#p1" data-partial-scope="p1" aria-current="page"><strong>P1</strong><span>17 clases · 680 preguntas</span></a>
+      <a href="#p1" data-partial-scope="p1" aria-current="page"><strong>P1</strong><span>18 clases · 720 preguntas</span></a>
       <a href="#p2" data-partial-scope="p2"><strong>P2</strong><span>Neuro · provisional</span></a>
     </nav>
 
@@ -63,8 +63,8 @@
         <span id="p1HeroDescription">Todo lo ya estudiado, reunido por materia y mezclado para practicar.</span>
       </div>
       <dl class="p1-hero-stats" aria-label="Alcance del repaso">
-        <div><dt id="p1LessonCount">17</dt><dd>clases</dd></div>
-        <div><dt id="p1QuestionCount">680</dt><dd>preguntas fuente</dd></div>
+        <div><dt id="p1LessonCount">18</dt><dd>clases</dd></div>
+        <div><dt id="p1QuestionCount">720</dt><dd>preguntas fuente</dd></div>
         <div><dt>40</dt><dd>por simulacro</dd></div>
       </dl>
     </section>
@@ -130,26 +130,57 @@
             </div>
           </fieldset>
         </details>
+        <button class="p1-visual-start" type="button" id="p1StartVisual">
+          <span aria-hidden="true">◉</span>
+          <strong>Reconocer 10 imágenes · corrección inmediata</strong>
+          <small>Microbiología práctica · campos reales · sin duplicados</small>
+        </button>
         <button class="p1-primary" type="button" id="p1StartExam">Empezar entrenamiento</button>
         <p class="p1-setup-note">Cada intento crea una mezcla nueva y queda guardado en este teléfono. No cambia tu ranking ni los ejercicios de cada clase.</p>
       </section>
 
-      <section class="p1-exam-session" id="p1ExamSession" hidden aria-live="polite">
-        <header class="p1-session-progress">
-          <div><span id="p1QuestionPosition">Pregunta 1 de 40</span><strong id="p1AnsweredCount">0 respondidas</strong></div>
-          <progress id="p1Progress" max="40" value="0">0 de 40</progress>
+      <dialog class="p1-practice-dialog" id="p1PracticeDialog" aria-modal="true" aria-labelledby="p1PracticeDialogTitle">
+        <header class="p1-practice-dialog-header">
+          <div>
+            <span id="p1PracticeDialogEyebrow">PRÁCTICA P1</span>
+            <h2 id="p1PracticeDialogTitle">Entrenamiento en curso</h2>
+          </div>
+          <button type="button" id="p1PracticeClose" aria-label="Cerrar la práctica y continuar después">×</button>
         </header>
-        <article class="p1-question" id="p1Question"></article>
-        <nav class="p1-question-nav" aria-label="Navegar por la práctica">
-          <button type="button" id="p1PreviousQuestion">← Anterior</button>
-          <button type="button" id="p1NextQuestion">Siguiente →</button>
-        </nav>
-        <div class="p1-question-dots" id="p1QuestionDots" aria-label="Preguntas del simulacro"></div>
-        <button class="p1-finish" type="button" id="p1FinishExam" disabled>Ver resultado</button>
-        <button class="p1-quiet" type="button" id="p1ExitExam">Salir y continuar después</button>
-      </section>
+        <div class="p1-practice-dialog-scroll" id="p1PracticeDialogScroll">
+          <section class="p1-exam-session" id="p1ExamSession" hidden>
+            <header class="p1-session-progress">
+              <div><span id="p1QuestionPosition" aria-live="polite">Pregunta 1 de 40</span><strong id="p1AnsweredCount">0 respondidas</strong></div>
+              <progress id="p1Progress" max="40" value="0">0 de 40</progress>
+            </header>
+            <p class="p1-visually-hidden" id="p1AnswerAnnouncement" aria-live="polite" aria-atomic="true"></p>
+            <article class="p1-question" id="p1Question"></article>
+            <nav class="p1-question-nav" aria-label="Navegar por la práctica">
+              <button type="button" id="p1PreviousQuestion">← Anterior</button>
+              <button type="button" id="p1NextQuestion">Siguiente →</button>
+            </nav>
+            <div class="p1-question-dots" id="p1QuestionDots" aria-label="Preguntas del simulacro"></div>
+            <button class="p1-finish" type="button" id="p1FinishExam" disabled>Ver resultado</button>
+            <button class="p1-quiet" type="button" id="p1ExitExam">Salir y continuar después</button>
+          </section>
 
-      <section class="p1-results" id="p1Results" hidden aria-live="polite"></section>
+          <section class="p1-results" id="p1Results" hidden aria-live="polite"></section>
+        </div>
+        <section class="p1-image-viewer" id="p1ImageViewer" aria-label="Ampliación de la micrografía" hidden>
+          <header>
+            <div><span>MICROGRAFÍA</span><strong>Observa el campo completo</strong></div>
+            <button type="button" id="p1ImageViewerClose" aria-label="Cerrar la imagen ampliada">×</button>
+          </header>
+          <div class="p1-image-viewer-stage" id="p1ImageViewerStage">
+            <img id="p1ImageViewerImage" alt="Micrografía de microbiología práctica ampliada" />
+          </div>
+          <footer aria-label="Controles de ampliación">
+            <button type="button" id="p1ImageZoomOut" aria-label="Reducir la imagen">−</button>
+            <button type="button" id="p1ImageZoomReset">Restablecer</button>
+            <button type="button" id="p1ImageZoomIn" aria-label="Ampliar la imagen">+</button>
+          </footer>
+        </section>
+      </dialog>
     </section>
   </main>
 
@@ -165,6 +196,7 @@
 
   <script src="academic-model-v445.js?v=486"></script>
   <script src="academic-model-2026-08-27-v494.js?v=494"></script>
+  <script src="academic-model-2026-08-28-v500.js?v=501"></script>
   <script src="grupo-3-practice-v413.js?v=500"></script>
   <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
   <script src="grupo-3-practice-grounded-v426.js?v=431"></script>
@@ -174,10 +206,11 @@
   <script src="grupo-3-practice-2026-08-26-v484.js?v=486"></script>
   <script src="grupo-3-practice-nutricion-2026-08-27-v494.js?v=494"></script>
   <script src="grupo-3-practice-fisiologia-2026-08-27-v494.js?v=494"></script>
-  <script src="grupo-3-practice-microbiologia-practica-2026-08-27-v494.js?v=494"></script>
-  <script src="teacher-question-profile-v445.js?v=446"></script>
-  <script src="p1-s4-e-v1.js?v=494"></script>
+  <script src="grupo-3-practice-microbiologia-practica-2026-08-27-v494.js?v=503"></script>
+  <script src="grupo-3-practice-bioquimica-2026-08-28-v500.js?v=501"></script>
+  <script src="teacher-question-profile-v445.js?v=501"></script>
+  <script src="p1-s4-e-v2.js?v=501"></script>
   <script src="p2-s4-e-v1.js?v=494"></script>
-  <script src="class-p1-v1.js?v=500"></script>
+  <script src="class-p1-v1.js?v=504"></script>
 </body>
 </html>

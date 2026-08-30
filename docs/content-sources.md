@@ -184,6 +184,8 @@ Los derivados recortados y optimizados viven en:
 assets/courses/2026-08-27/
 ```
 
+El Work Pack de reconocimiento P1 recibido el 30 de agosto conserva diez campos microscópicos reales únicos y dos variantes duplicadas. La rotación móvil utiliza únicamente los diez WebP no generativos con nombres hachados de `assets/courses/2026-08-27/micro-p1/`; las variantes 10 y 12 quedan excluidas. Las etiquetas proceden del material compartido y mantienen el aviso `Validación docente pendiente`: sirven para memorizar las referencias de la clase, no para afirmar una identificación diagnóstica aislada. Las reconstrucciones IA del Work Pack no se publican ni se usan en preguntas.
+
 Solo se conservan zonas pedagógicas. Conversaciones domésticas, audio accidental, ruido ambiental, personas e identificadores privados se excluyen del runtime y de las preguntas. Las láminas de Microbiología son referencias visuales rotuladas: permiten describir y comparar estructuras, pero una fotografía aislada no confirma una especie ni una infección. El tercer caso práctico no fotografiado no se reconstruye.
 
 Las tres lecciones extienden el modelo estático mediante `academic-model-2026-08-27-v494.js`, sin sobrescribir evidencias anteriores.
@@ -217,7 +219,7 @@ grupo-3-practice-bioquimica-2026-08-28-v500.js
 grupo-3-practice-epidemiologia-2026-08-28-v500.js
 ```
 
-Cada banco mantiene exactamente 20 QCM, 10 verdadero/falso y 10 casos. Ambos cursos quedan disponibles como práctica individual y como scopes del ranking, pero permanecen fuera de las listas explícitas P1 y P2 hasta que una comunicación oficial cambie esos temarios.
+Cada banco mantiene exactamente 20 QCM, 10 verdadero/falso y 10 casos. Ambos cursos quedan disponibles como práctica individual y como scopes del ranking. Bioquímica del 28 también forma parte del banco P1 por decisión directa de estudio, sin convertir esa inclusión en una afirmación sobre el temario oficial; Epidemiología del 28 permanece fuera de P1 y ambas clases permanecen fuera de P2.
 
 El Work Pack recibido conserva un chat y adjuntos como material interno de análisis; el ZIP, teléfonos, nombres y lista de participantes no se publican. Para el proyecto de Epidemiología, la evidencia confirma una actividad de toda la clase dividida por grupos, no un trabajo personal aislado. El Grupo 10 tiene el tema Malaria; la presentación fue reprogramada para la semana siguiente y la fecha exacta continúa por confirmar. La explicación oral atribuye a esta presentación un valor de 1,0 % en la materia, distinto del 5 % anunciado para las pruebas prácticas.
 

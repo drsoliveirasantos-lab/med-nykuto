@@ -45,7 +45,7 @@ test.describe('P2 early neurophysiology review', () => {
       active: 'P2',
       p1Label: 'P1',
       p2Label: 'P2',
-      p1Raw: 680,
+      p1Raw: 720,
       p2Raw: 160,
       p2Subjects: ['fisiologia'],
       itemSubjects: ['fisiologia'],
@@ -53,6 +53,8 @@ test.describe('P2 early neurophysiology review', () => {
     });
 
     await page.getByRole('button', { name: 'Empezar entrenamiento' }).click();
+    await expect(page.locator('#p1PracticeDialogEyebrow')).toHaveText('PRÁCTICA P2');
+    await expect(page.getByRole('dialog', { name: 'Entrenamiento en curso' })).toHaveAttribute('open', '');
     await expect(page.locator('#p1QuestionPosition')).toHaveText('Pregunta 1 de 40');
     const stored = await page.evaluate(() => ({
       p1: localStorage.getItem(window.MedNykutoP1.storageKey),
@@ -61,11 +63,13 @@ test.describe('P2 early neurophysiology review', () => {
     expect(stored.p1).toBeNull();
     expect(stored.p2).toBeTruthy();
 
+    await page.getByRole('button', { name: 'Cerrar la práctica y continuar después' }).click();
+    await expect(page.locator('#p1PracticeDialog')).not.toHaveAttribute('open', '');
     await page.locator('a[data-partial-scope="p1"]').click();
     await expect(page).toHaveURL(/p1\.html#p1$/);
     await expect(page.getByRole('heading', { name: 'Repaso P1' })).toBeVisible();
-    await expect(page.locator('#p1LessonCount')).toHaveText('17');
-    await expect(page.locator('#p1QuestionCount')).toHaveText('680');
+    await expect(page.locator('#p1LessonCount')).toHaveText('18');
+    await expect(page.locator('#p1QuestionCount')).toHaveText('720');
     await expect(page.locator('a[data-partial-scope="p1"]')).toHaveAttribute('aria-current', 'page');
     await expect(page.locator('#p1TopicRankingLink')).toBeVisible();
     await expect(page.locator('#p1TopicRankingLink')).toHaveAttribute('href', 'comunidade.html');

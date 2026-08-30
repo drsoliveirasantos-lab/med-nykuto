@@ -96,10 +96,14 @@
   var biochemistryTeacher = model.teachers && model.teachers['andrea-lopez'];
   if (biochemistryTeacher) {
     biochemistryTeacher.confidenceReason = 'Cinco clases orales completas, pizarras, actividades manuscritas y preguntas explícitas de la docente permiten reconocer un patrón repetido. La forma exacta del examen escrito todavía necesita más evaluaciones reales.';
+    appendUnique(biochemistryTeacher.teachingArchitecture, 'Hace seguir el número de carbonos antes y después de cada transferencia para comprobar que el reordenamiento conserva el balance.');
+    appendUnique(biochemistryTeacher.reasoningPath, 'Comprobar el balance de carbonos y distinguir la transferencia C2 de transcetolasa de la transferencia C3 de transaldolasa.');
     appendUnique(biochemistryTeacher.importanceSignals, 'Asigna un producto o paso para prepararlo en grupo y luego exige una explicación oral individual sin lectura.');
+    appendUnique(biochemistryTeacher.importanceSignals, 'Repite el conteo de carbonos y contrasta NADP+/NADPH con NAD+/NADH cuando detecta una confusión.');
     appendUnique(biochemistryTeacher.observedQuestionFormats, 'Explicación oral individual después de una preparación grupal, sin teléfono ni apuntes durante la respuesta.');
     appendUnique(biochemistryTeacher.likelyExamTargets, 'Objetivo, regulación y balances de la vía de las pentosas según la demanda de NADPH o ribosa.');
-    biochemistryTeacher.aiPrompt += ' Para la clase del 28 de agosto, pide además explicar de memoria un paso o producto después de una breve preparación, sin tratar esta dinámica oral como prueba de un formato escrito confirmado.';
+    appendUnique(biochemistryTeacher.distractorPolicy, 'En pentosas, usar confusiones plausibles entre NADP+/NADPH, NAD+/NADH, transferencias C2/C3 y balances 15 = 12 + 3, siempre corregidas con el mecanismo.');
+    biochemistryTeacher.aiPrompt += ' Para la clase del 28 de agosto, pide además explicar de memoria un paso o producto después de una breve preparación. Haz que cuente los carbonos, diferencie la transferencia C2 de transcetolasa y la C3 de transaldolasa, y justifique si la célula prioriza NADPH o ribosa. No trates esta dinámica oral como prueba de un formato escrito confirmado.';
   }
 
   var epidemiologyTeacher = model.teachers && model.teachers['andrea-isasi'];

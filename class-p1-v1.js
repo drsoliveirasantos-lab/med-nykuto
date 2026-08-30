@@ -17,6 +17,12 @@
   var state = { selectedSubject: 'all', practicePreset: 'all', activeView: 'exam', session: null, currentIndex: 0 };
   var lessonByPracticeId = {};
   var deduplicationByScopeId = {};
+  var practiceDialogScrollY = 0;
+  var practiceDialogReturnFocus = null;
+  var imageViewerReturnFocus = null;
+  var imageViewerZoom = 1;
+  var imageViewerPinchDistance = 0;
+  var imageViewerPinchZoom = 1;
 
   function scopeKeyFromHash() {
     return String(window.location.hash || '').toLocaleLowerCase('es') === '#p2' && P2_SCOPE ? 'p2' : 'p1';
@@ -178,6 +184,9 @@
               explanation: question.explanation || '',
               imageSrc: question.imageSrc || '',
               imageAlt: question.imageAlt || '',
+              visualRecognitionId: question.visualRecognitionId || '',
+              visualClues: Array.isArray(question.visualClues) ? question.visualClues.slice() : [],
+              validationPending: Boolean(question.validationPending),
               teacherProfileId: question.teacherProfileId || bank.teacherProfileId || academic.teacher.id,
               teacherAngle: question.teacherAngle || '',
               teacherAngleLabel: question.teacherAngleLabel || 'Razonamiento de la clase'
@@ -198,17 +207,46 @@
     if (count >= pool.length) return shuffled(pool, random);
     var groups = {};
     pool.forEach(function (item) {
-      if (!groups[item.practiceId]) groups[item.practiceId] = [];
-      groups[item.practiceId].push(item);
+      if (!groups[item.practiceId]) groups[item.practiceId] = { angles: {}, keys: [], cursor: 0 };
+      var group = groups[item.practiceId];
+      var angle = item.teacherAngle || 'sin-clasificar';
+      if (!group.angles[angle]) {
+        group.angles[angle] = [];
+        group.keys.push(angle);
+      }
+      group.angles[angle].push(item);
     });
     var keys = shuffled(Object.keys(groups), random);
-    keys.forEach(function (key) { groups[key] = shuffled(groups[key], random); });
+    keys.forEach(function (key) {
+      var group = groups[key];
+      group.keys = shuffled(group.keys, random);
+      group.keys.forEach(function (angle) {
+        group.angles[angle] = shuffled(group.angles[angle], random);
+      });
+    });
+
+    function takeFromGroup(group) {
+      while (group.keys.length) {
+        var angle = group.keys[group.cursor % group.keys.length];
+        var item = group.angles[angle].shift();
+        if (!group.angles[angle].length) {
+          group.keys.splice(group.keys.indexOf(angle), 1);
+          if (group.keys.length) group.cursor = group.cursor % group.keys.length;
+        } else {
+          group.cursor += 1;
+        }
+        if (item) return item;
+      }
+      return null;
+    }
+
     var result = [];
     var cursor = 0;
     while (result.length < count && keys.length) {
       var key = keys[cursor % keys.length];
-      if (groups[key].length) result.push(groups[key].shift());
-      if (!groups[key].length) {
+      var item = takeFromGroup(groups[key]);
+      if (item) result.push(item);
+      if (!groups[key].keys.length) {
         keys.splice(keys.indexOf(key), 1);
         if (!keys.length) break;
         cursor = cursor % keys.length;
@@ -265,26 +303,35 @@
 
   function buildExam(options, targetScope) {
     var examScope = targetScope || scope;
-    var selectedSubjects = subjectIdsOrAll(options && options.subjectIds, examScope);
+    var visualOnly = Boolean(options && options.visualOnly && P1_SCOPE && examScope.id === P1_SCOPE.id);
+    var selectedSubjects = visualOnly
+      ? ['microbiologia-practica']
+      : subjectIdsOrAll(options && options.subjectIds, examScope);
     var seed = Number(options && options.seed) || newSeed();
     var random = seededRandom(seed);
     var unique = collectQuestions(selectedSubjects, true, examScope);
+    if (visualOnly) unique = unique.filter(function (item) { return Boolean(item.visualRecognitionId); });
     var requested = options && options.length === 'all' ? unique.length : Number(options && options.length) || examScope.defaultLength;
+    if (visualOnly) requested = unique.length;
     var total = Math.max(1, Math.min(requested, unique.length));
     var pools = { qcm: [], vf: [], cases: [] };
     unique.forEach(function (item) { pools[item.type].push(item); });
-    var quotas = formatQuotas(total, pools, examScope);
     var selected = [];
-    TYPES.forEach(function (type) {
-      selected = selected.concat(balancedTake(pools[type], quotas[type], random));
-    });
+    if (visualOnly) selected = unique.slice();
+    else {
+      var quotas = formatQuotas(total, pools, examScope);
+      TYPES.forEach(function (type) {
+        selected = selected.concat(balancedTake(pools[type], quotas[type], random));
+      });
+    }
     selected = shuffled(selected, random).map(function (item) { return prepareQuestion(item, random); });
     return {
       version: examScope.id,
       mode: normalizeCorrectionMode(options && options.mode, 'exam'),
+      kind: visualOnly ? 'visual-recognition' : 'standard',
       seed: seed,
       subjectIds: selectedSubjects,
-      requestedLength: options && options.length ? options.length : examScope.defaultLength,
+      requestedLength: visualOnly ? 'visual' : (options && options.length ? options.length : examScope.defaultLength),
       items: selected,
       answers: {},
       validated: {},
@@ -383,6 +430,7 @@
     setText('p1SheetEyebrow', 'FICHA ACUMULATIVA ' + label);
     setText('p1-sheet-title', 'Todo el ' + label + ' por materia');
     setText('p1ExamEyebrow', 'PRÁCTICA ' + label);
+    setText('p1PracticeDialogEyebrow', 'PRÁCTICA ' + label);
 
     document.querySelectorAll('[data-partial-scope]').forEach(function (link) {
       if (link.dataset.partialScope === activeScopeKey) link.setAttribute('aria-current', 'page');
@@ -397,6 +445,9 @@
 
     var topicRanking = document.getElementById('p1TopicRankingLink');
     if (topicRanking) topicRanking.hidden = activeScopeKey === 'p2';
+
+    var visualStart = document.getElementById('p1StartVisual');
+    if (visualStart) visualStart.hidden = activeScopeKey !== 'p1';
 
     var bottom = document.getElementById('p1BottomPartial');
     if (bottom) {
@@ -580,6 +631,7 @@
 
   function renderSubjectSheet(container, subjectId) {
     var subject = scope.subjects[subjectId];
+    var sheetPracticeIds = Array.isArray(subject.sheetPracticeIds) ? subject.sheetPracticeIds : subject.practiceIds;
     var academicSubject = model.subjects[subjectId];
     var teacher = model.teachers[academicSubject.teacherId];
     container.style.setProperty('--subject-accent', subject.accent);
@@ -620,7 +672,7 @@
     }
 
     var lessons = el('div', 'p1-lessons');
-    subject.practiceIds.forEach(function (practiceId) {
+    sheetPracticeIds.forEach(function (practiceId) {
       var lesson = renderLesson(subject, practiceId);
       if (lesson) lessons.appendChild(lesson);
     });
@@ -653,6 +705,7 @@
 
   function switchView(view) {
     state.activeView = view === 'exam' ? 'exam' : 'sheet';
+    if (state.activeView === 'sheet') closePracticeDialog(document.querySelector('[data-p1-view="sheet"]'));
     document.querySelectorAll('[data-p1-view]').forEach(function (button) {
       button.setAttribute('aria-selected', button.dataset.p1View === state.activeView ? 'true' : 'false');
     });
@@ -709,6 +762,161 @@
   function updateStartButton() {
     var button = document.getElementById('p1StartExam');
     if (button) button.textContent = startButtonLabel();
+    var visual = document.getElementById('p1StartVisual');
+    if (visual) visual.querySelector('strong').textContent = selectedCorrectionMode() === 'training'
+      ? 'Reconocer 10 imágenes · corrección inmediata'
+      : 'Reconocer 10 imágenes · corrección al final';
+  }
+
+  function lockPracticeBackground() {
+    if (document.body.classList.contains('p1-practice-open')) return;
+    practiceDialogScrollY = Math.max(0, window.scrollY || document.documentElement.scrollTop || 0);
+    practiceDialogReturnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    document.body.style.top = '-' + practiceDialogScrollY + 'px';
+    document.body.classList.add('p1-practice-open');
+  }
+
+  function unlockPracticeBackground() {
+    if (!document.body.classList.contains('p1-practice-open')) return;
+    document.body.classList.remove('p1-practice-open');
+    document.body.style.removeProperty('top');
+    var root = document.documentElement;
+    var previousScrollBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    window.scrollTo(0, practiceDialogScrollY);
+    if (previousScrollBehavior) root.style.scrollBehavior = previousScrollBehavior;
+    else root.style.removeProperty('scroll-behavior');
+  }
+
+  function updatePracticeDialogTitle() {
+    var title = 'Práctica en curso';
+    if (state.session) {
+      if (state.session.kind === 'visual-recognition') {
+        title = state.session.completed ? 'Resultado del reconocimiento visual' : 'Reconocimiento visual en curso';
+      } else {
+        title = state.session.completed
+          ? 'Resultado del ' + MODE_LABELS[state.session.mode].toLocaleLowerCase('es')
+          : MODE_LABELS[state.session.mode] + ' en curso';
+      }
+    }
+    setText('p1PracticeDialogTitle', title);
+  }
+
+  function openPracticeDialog() {
+    var dialog = document.getElementById('p1PracticeDialog');
+    if (!dialog) return;
+    updatePracticeDialogTitle();
+    if (!dialog.open) {
+      lockPracticeBackground();
+      if (typeof dialog.showModal === 'function') {
+        try { dialog.showModal(); } catch (error) {
+          unlockPracticeBackground();
+          practiceDialogReturnFocus = null;
+          return;
+        }
+      } else {
+        unlockPracticeBackground();
+        practiceDialogReturnFocus = null;
+        return;
+      }
+      if (!dialog.open) {
+        unlockPracticeBackground();
+        practiceDialogReturnFocus = null;
+        return;
+      }
+    }
+    window.requestAnimationFrame(function () {
+      var close = document.getElementById('p1PracticeClose');
+      if (close) close.focus({ preventScroll: true });
+    });
+  }
+
+  function restorePracticePage() {
+    var returnFocus = practiceDialogReturnFocus;
+    unlockPracticeBackground();
+    practiceDialogReturnFocus = null;
+    if (returnFocus && returnFocus.isConnected) {
+      window.requestAnimationFrame(function () { returnFocus.focus({ preventScroll: true }); });
+    }
+  }
+
+  function closePracticeDialog(focusTarget) {
+    var dialog = document.getElementById('p1PracticeDialog');
+    if (focusTarget instanceof HTMLElement) practiceDialogReturnFocus = focusTarget;
+    if (dialog && dialog.open) {
+      if (typeof dialog.close === 'function') {
+        dialog.close();
+        return;
+      }
+      dialog.removeAttribute('open');
+    }
+    restorePracticePage();
+  }
+
+  function scrollPracticeToTop() {
+    var scroller = document.getElementById('p1PracticeDialogScroll');
+    if (scroller) scroller.scrollTop = 0;
+  }
+
+  function setImageViewerZoom(value) {
+    var image = document.getElementById('p1ImageViewerImage');
+    var stage = document.getElementById('p1ImageViewerStage');
+    if (!image || !stage) return;
+    imageViewerZoom = Math.max(1, Math.min(3, Number(value) || 1));
+    image.style.width = (imageViewerZoom * 100) + '%';
+    image.style.maxWidth = imageViewerZoom === 1 ? '900px' : 'none';
+    if (imageViewerZoom === 1) {
+      stage.scrollLeft = 0;
+      stage.scrollTop = 0;
+    }
+    var reset = document.getElementById('p1ImageZoomReset');
+    if (reset) reset.textContent = imageViewerZoom === 1 ? 'Restablecer' : Math.round(imageViewerZoom * 100) + ' %';
+  }
+
+  function openImageViewer(source, alt, trigger) {
+    var viewer = document.getElementById('p1ImageViewer');
+    var image = document.getElementById('p1ImageViewerImage');
+    if (!viewer || !image) return;
+    imageViewerReturnFocus = trigger instanceof HTMLElement ? trigger : null;
+    image.src = source;
+    image.alt = alt || 'Micrografía de microbiología práctica ampliada';
+    setImageViewerZoom(1);
+    viewer.hidden = false;
+    var dialogHeader = document.querySelector('#p1PracticeDialog > .p1-practice-dialog-header');
+    var dialogScroll = document.getElementById('p1PracticeDialogScroll');
+    if (dialogHeader) dialogHeader.inert = true;
+    if (dialogScroll) dialogScroll.inert = true;
+    var close = document.getElementById('p1ImageViewerClose');
+    if (close) close.focus({ preventScroll: true });
+  }
+
+  function closeImageViewer() {
+    var viewer = document.getElementById('p1ImageViewer');
+    if (!viewer || viewer.hidden) return false;
+    var returnFocus = imageViewerReturnFocus;
+    viewer.hidden = true;
+    var dialogHeader = document.querySelector('#p1PracticeDialog > .p1-practice-dialog-header');
+    var dialogScroll = document.getElementById('p1PracticeDialogScroll');
+    if (dialogHeader) dialogHeader.inert = false;
+    if (dialogScroll) dialogScroll.inert = false;
+    imageViewerReturnFocus = null;
+    imageViewerPinchDistance = 0;
+    setImageViewerZoom(1);
+    if (returnFocus && returnFocus.isConnected) returnFocus.focus({ preventScroll: true });
+    return true;
+  }
+
+  function touchDistance(touches) {
+    if (!touches || touches.length < 2) return 0;
+    var horizontal = touches[0].clientX - touches[1].clientX;
+    var vertical = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt((horizontal * horizontal) + (vertical * vertical));
+  }
+
+  function exitPractice() {
+    if (closeImageViewer()) return;
+    if (state.session && !state.session.completed) saveSession();
+    showSetup();
   }
 
   function startExam() {
@@ -723,6 +931,18 @@
     state.session = buildExam({
       subjectIds: subjects,
       length: lengthValue === 'all' ? 'all' : Number(lengthValue),
+      mode: selectedCorrectionMode(),
+      seed: newSeed()
+    });
+    state.currentIndex = 0;
+    saveSession();
+    showSession();
+  }
+
+  function startVisualRecognition() {
+    state.session = buildExam({
+      subjectIds: ['microbiologia-practica'],
+      visualOnly: true,
       mode: selectedCorrectionMode(),
       seed: newSeed()
     });
@@ -758,10 +978,12 @@
       return;
     }
     resume.hidden = false;
-    document.getElementById('p1ResumeLabel').textContent = MODE_LABELS[state.session.mode] + ' · ' + answeredTotal() + ' de ' + state.session.items.length + ' respondidas';
+    var sessionLabel = state.session.kind === 'visual-recognition' ? 'Reconocimiento visual' : MODE_LABELS[state.session.mode];
+    document.getElementById('p1ResumeLabel').textContent = sessionLabel + ' · ' + answeredTotal() + ' de ' + state.session.items.length + ' respondidas';
   }
 
   function showSetup() {
+    closePracticeDialog();
     document.getElementById('p1ExamSetup').hidden = false;
     document.getElementById('p1ExamSession').hidden = true;
     document.getElementById('p1Results').hidden = true;
@@ -772,10 +994,13 @@
   function showSession() {
     if (!state.session) return;
     state.currentIndex = Math.max(0, Math.min(Number(state.session.currentIndex) || 0, state.session.items.length - 1));
+    var dialog = document.getElementById('p1PracticeDialog');
+    if (dialog && !dialog.open) lockPracticeBackground();
     document.getElementById('p1ExamSetup').hidden = true;
     document.getElementById('p1Results').hidden = true;
     document.getElementById('p1ExamSession').hidden = false;
     updateSubjectRailVisibility();
+    openPracticeDialog();
     renderQuestion();
   }
 
@@ -807,7 +1032,9 @@
       })(index);
     }
     var currentDot = container.querySelector('.is-current');
-    if (currentDot) currentDot.scrollIntoView({ inline: 'center', block: 'nearest' });
+    if (currentDot) {
+      container.scrollLeft = Math.max(0, currentDot.offsetLeft - ((container.clientWidth - currentDot.offsetWidth) / 2));
+    }
   }
 
   function appendImmediateCorrection(host, item) {
@@ -829,8 +1056,22 @@
     explanation.appendChild(el('strong', '', 'Por qué: '));
     explanation.appendChild(document.createTextNode(item.explanation));
     body.appendChild(explanation);
+    appendVisualClues(body, item);
     feedback.appendChild(body);
     host.appendChild(feedback);
+  }
+
+  function appendVisualClues(host, item) {
+    if (!Array.isArray(item.visualClues) || !item.visualClues.length) return;
+    var heading = el('p');
+    heading.appendChild(el('strong', '', 'Claves visuales:'));
+    host.appendChild(heading);
+    var list = el('ul', 'p1-visual-clues');
+    item.visualClues.forEach(function (clue) { list.appendChild(el('li', '', clue)); });
+    host.appendChild(list);
+    if (item.validationPending) {
+      host.appendChild(el('p', '', 'Validación docente pendiente: la etiqueta procede del material compartido y no sustituye una identificación de laboratorio.'));
+    }
   }
 
   function updateQuestionNavigation() {
@@ -855,32 +1096,41 @@
     next.textContent = state.currentIndex === total - 1 ? 'Ir a pendiente →' : 'Siguiente →';
   }
 
-  function renderQuestion() {
+  function renderQuestion(renderOptions) {
+    var preserveScroll = Boolean(renderOptions && renderOptions.preserveScroll);
+    var announceCorrection = Boolean(renderOptions && renderOptions.announceCorrection);
+    var scroller = document.getElementById('p1PracticeDialogScroll');
+    var previousScrollTop = scroller ? scroller.scrollTop : 0;
     var item = state.session.items[state.currentIndex];
     var host = document.getElementById('p1Question');
     var answered = answeredTotal();
     var total = state.session.items.length;
     host.replaceChildren();
+    host.classList.toggle('is-visual-recognition', Boolean(item.visualRecognitionId));
+    closeImageViewer();
     var meta = el('div', 'p1-question-meta');
     meta.appendChild(el('span', '', item.subjectLabel + ' · ' + item.lessonDate + ' · ' + TYPE_LABELS[item.type]));
     meta.appendChild(el('b', '', item.teacherAngleLabel));
     host.appendChild(meta);
     if (item.imageSrc) {
       var media = el('figure', 'p1-question-media');
-      var mediaLink = el('a');
+      var mediaLink = el('button', 'p1-question-media-open');
       var mediaImage = el('img');
-      mediaLink.href = item.imageSrc;
-      mediaLink.target = '_blank';
-      mediaLink.rel = 'noopener';
-      mediaLink.setAttribute('aria-label', 'Ampliar imagen de la clase');
+      mediaLink.type = 'button';
+      mediaLink.setAttribute('aria-label', 'Ampliar la micrografía sin salir de la práctica');
       mediaImage.src = item.imageSrc;
       mediaImage.alt = item.imageAlt || ('Material visual de ' + item.lessonTitle);
       mediaImage.decoding = 'async';
+      mediaImage.loading = 'eager';
+      mediaLink.addEventListener('click', function () {
+        openImageViewer(item.imageSrc, item.imageAlt, mediaLink);
+      });
       mediaLink.appendChild(mediaImage);
       media.appendChild(mediaLink);
-      media.appendChild(el('figcaption', '', 'Imagen de la clase · toca para ampliar'));
+      media.appendChild(el('figcaption', '', 'Toca para ampliar sin salir de la práctica'));
       host.appendChild(media);
     }
+    if (item.validationPending) host.appendChild(el('span', 'p1-validation-badge', 'VALIDACIÓN DOCENTE PENDIENTE'));
     if (item.scenario) host.appendChild(el('p', 'p1-scenario', item.scenario));
     host.appendChild(el('h3', '', item.prompt));
     var options = el('div', 'p1-options');
@@ -912,10 +1162,31 @@
     });
     host.appendChild(options);
     if (answerLocked) appendImmediateCorrection(host, item);
+    if (announceCorrection) {
+      var selectedAnswer = state.session.answers[item.id];
+      var correctionText = selectedAnswer === item.correctIndex
+        ? 'Respuesta correcta.'
+        : 'Respuesta incorrecta. La respuesta correcta es: ' + item.options[item.correctIndex].text;
+      setText('p1AnswerAnnouncement', correctionText);
+    } else setText('p1AnswerAnnouncement', '');
     document.getElementById('p1QuestionPosition').textContent = 'Pregunta ' + (state.currentIndex + 1) + ' de ' + total;
     updateSessionProgress();
     updateQuestionNavigation();
     renderDots();
+    var nextItem = state.session.items[state.currentIndex + 1];
+    if (nextItem && nextItem.imageSrc) {
+      var preload = new Image();
+      preload.src = nextItem.imageSrc;
+    }
+    if (!preserveScroll) {
+      scrollPracticeToTop();
+      return;
+    }
+    if (scroller) scroller.scrollTop = previousScrollTop;
+    window.requestAnimationFrame(function () {
+      var feedback = host.querySelector('.p1-review-item');
+      if (feedback) feedback.scrollIntoView({ block: 'nearest' });
+    });
   }
 
   function updateSessionProgress() {
@@ -937,7 +1208,7 @@
       if (!Number.isInteger(state.session.answers[current.id])) return;
       state.session.validated[current.id] = true;
       saveSession();
-      renderQuestion();
+      renderQuestion({ preserveScroll: true, announceCorrection: true });
       return;
     }
     if (answeredTotal() === state.session.items.length) {
@@ -1048,6 +1319,7 @@
       explanation.appendChild(el('strong', '', 'Por qué: '));
       explanation.appendChild(document.createTextNode(item.explanation));
       body.appendChild(explanation);
+      appendVisualClues(body, item);
       var source = el('a', 'p1-lesson-source', 'Volver a la clase →');
       source.href = 'clase.html#' + item.lessonId;
       body.appendChild(source);
@@ -1065,10 +1337,14 @@
     sheet.type = 'button';
     sheet.addEventListener('click', function () { switchView('sheet'); });
     actions.appendChild(again); actions.appendChild(sheet); host.appendChild(actions);
+    var dialog = document.getElementById('p1PracticeDialog');
+    if (dialog && !dialog.open) lockPracticeBackground();
     document.getElementById('p1ExamSetup').hidden = true;
     document.getElementById('p1ExamSession').hidden = true;
     host.hidden = false;
     updateSubjectRailVisibility();
+    openPracticeDialog();
+    scrollPracticeToTop();
   }
 
   function finishExam() {
@@ -1077,7 +1353,6 @@
     state.session.completedAt = new Date().toISOString();
     saveSession();
     renderResults();
-    document.getElementById('p1ExamView').scrollIntoView({ block: 'start' });
   }
 
   function bind() {
@@ -1090,11 +1365,41 @@
     var customize = document.getElementById('p1ExamCustomize');
     if (customize) customize.addEventListener('toggle', updateSubjectRailVisibility);
     document.getElementById('p1StartExam').addEventListener('click', startExam);
+    document.getElementById('p1StartVisual').addEventListener('click', startVisualRecognition);
     document.getElementById('p1ResumeButton').addEventListener('click', function () { showSession(); });
     document.getElementById('p1PreviousQuestion').addEventListener('click', previousQuestion);
     document.getElementById('p1NextQuestion').addEventListener('click', nextQuestion);
     document.getElementById('p1FinishExam').addEventListener('click', finishExam);
-    document.getElementById('p1ExitExam').addEventListener('click', function () { saveSession(); showSetup(); });
+    document.getElementById('p1ExitExam').addEventListener('click', exitPractice);
+    document.getElementById('p1PracticeClose').addEventListener('click', exitPractice);
+    document.getElementById('p1ImageViewerClose').addEventListener('click', closeImageViewer);
+    document.getElementById('p1ImageZoomOut').addEventListener('click', function () { setImageViewerZoom(imageViewerZoom - .5); });
+    document.getElementById('p1ImageZoomReset').addEventListener('click', function () { setImageViewerZoom(1); });
+    document.getElementById('p1ImageZoomIn').addEventListener('click', function () { setImageViewerZoom(imageViewerZoom + .5); });
+    var imageStage = document.getElementById('p1ImageViewerStage');
+    if (imageStage) {
+      imageStage.addEventListener('touchstart', function (event) {
+        if (event.touches.length !== 2) return;
+        imageViewerPinchDistance = touchDistance(event.touches);
+        imageViewerPinchZoom = imageViewerZoom;
+      }, { passive: true });
+      imageStage.addEventListener('touchmove', function (event) {
+        if (event.touches.length !== 2 || !imageViewerPinchDistance) return;
+        event.preventDefault();
+        setImageViewerZoom(imageViewerPinchZoom * (touchDistance(event.touches) / imageViewerPinchDistance));
+      }, { passive: false });
+      imageStage.addEventListener('touchend', function (event) {
+        if (event.touches.length < 2) imageViewerPinchDistance = 0;
+      }, { passive: true });
+    }
+    var practiceDialog = document.getElementById('p1PracticeDialog');
+    if (practiceDialog) {
+      practiceDialog.addEventListener('cancel', function (event) {
+        event.preventDefault();
+        exitPractice();
+      });
+      practiceDialog.addEventListener('close', restorePracticePage);
+    }
     window.addEventListener('hashchange', function () { activateScope(scopeKeyFromHash()); });
   }
 
