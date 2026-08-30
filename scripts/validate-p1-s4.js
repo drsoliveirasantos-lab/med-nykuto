@@ -114,7 +114,7 @@ const stylesheet = fs.readFileSync(path.join(root, 'class-p1-v1.css'), 'utf8');
 expect(/academic-model-2026-08-28-v500\.js/.test(html), 'The P1 page must load the cumulative teacher model through 28 August.');
 expect(/grupo-3-practice-bioquimica-2026-08-28-v500\.js/.test(html), 'The P1 page must load the selected 28 August Biochemistry bank.');
 expect(!/grupo-3-practice-epidemiologia-2026-08-28-v500\.js/.test(html), 'The P1 page must not load the excluded 28 August Epidemiology bank.');
-expect(/class-p1-v1\.css\?v=503/.test(html) && /class-p1-v1\.js\?v=504/.test(html), 'p1.html must load the current P1 stylesheet and runtime.');
+expect(/class-p1-v1\.css\?v=505/.test(html) && /class-p1-v1\.js\?v=505/.test(html), 'p1.html must load the current P1 stylesheet and runtime.');
 expect(/href="p1\.html"/.test(clase), 'The class hub must expose the P1 page.');
 expect(/Entrenamiento · corrección inmediata/.test(html), 'P1 must expose immediate correction training before starting.');
 expect(/Examen blanco · corrección al final/.test(html), 'P1 must expose final-only exam correction before starting.');

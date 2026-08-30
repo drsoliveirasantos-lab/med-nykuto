@@ -145,6 +145,12 @@ test.describe('P1 cumulative review', () => {
     const image = dialog.locator('#p1Question .p1-question-media img');
     await expect(image).toHaveAttribute('alt', 'Micrografía de microbiología práctica para identificar');
     await expect(image).toHaveAttribute('src', /^assets\/courses\/2026-08-27\/micro-p1\/micro-p1-[a-f0-9]{10}\.webp$/);
+    const imageLayout = await image.evaluate((node) => ({
+      height: node.getBoundingClientRect().height,
+      viewportHeight: window.innerHeight
+    }));
+    expect(imageLayout.height).toBeLessThanOrEqual(Math.min(220, imageLayout.viewportHeight * 0.26) + 1);
+    await expect(dialog.locator('.p1-option').nth(1)).toBeInViewport();
     await expect(dialog.locator('.p1-validation-badge')).toHaveText('VALIDACIÓN DOCENTE PENDIENTE');
 
     await dialog.getByRole('button', { name: 'Ampliar la micrografía sin salir de la práctica' }).click();
@@ -212,7 +218,9 @@ test.describe('P1 cumulative review', () => {
     const dialog = page.getByRole('dialog', { name: 'Entrenamiento en curso' });
     await expect(dialog).toHaveAttribute('open', '');
     await expect(dialog.locator('#p1QuestionPosition')).toHaveText('Pregunta 1 de 40');
+    await expect(page.locator('html')).toHaveClass(/p1-practice-open/);
     await expect(page.locator('body')).toHaveClass(/p1-practice-open/);
+    await expect(page.locator('.p1-bottom-nav')).toBeHidden();
     await expect(dialog.getByRole('button', { name: 'Cerrar la práctica y continuar después' })).toBeFocused();
     const layout = await dialog.evaluate((node) => {
       const rect = node.getBoundingClientRect();
@@ -251,6 +259,7 @@ test.describe('P1 cumulative review', () => {
     })).toBe(true);
     await page.keyboard.press('Escape');
     await expect(page.locator('#p1PracticeDialog')).not.toHaveAttribute('open', '');
+    await expect(page.locator('html')).not.toHaveClass(/p1-practice-open/);
     await expect(page.locator('body')).not.toHaveClass(/p1-practice-open/);
     await expect(page.locator('#p1Resume')).toBeVisible();
     await expect.poll(async () => page.evaluate(() => window.scrollY)).toBe(pageScrollBefore);

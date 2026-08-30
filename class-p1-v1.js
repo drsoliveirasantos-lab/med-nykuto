@@ -770,17 +770,20 @@
 
   function lockPracticeBackground() {
     if (document.body.classList.contains('p1-practice-open')) return;
-    practiceDialogScrollY = Math.max(0, window.scrollY || document.documentElement.scrollTop || 0);
+    var root = document.documentElement;
+    practiceDialogScrollY = Math.max(0, window.scrollY || root.scrollTop || 0);
     practiceDialogReturnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     document.body.style.top = '-' + practiceDialogScrollY + 'px';
+    root.classList.add('p1-practice-open');
     document.body.classList.add('p1-practice-open');
   }
 
   function unlockPracticeBackground() {
-    if (!document.body.classList.contains('p1-practice-open')) return;
-    document.body.classList.remove('p1-practice-open');
-    document.body.style.removeProperty('top');
     var root = document.documentElement;
+    if (!document.body.classList.contains('p1-practice-open') && !root.classList.contains('p1-practice-open')) return;
+    document.body.classList.remove('p1-practice-open');
+    root.classList.remove('p1-practice-open');
+    document.body.style.removeProperty('top');
     var previousScrollBehavior = root.style.scrollBehavior;
     root.style.scrollBehavior = 'auto';
     window.scrollTo(0, practiceDialogScrollY);

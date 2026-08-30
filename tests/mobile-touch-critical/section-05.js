@@ -38,7 +38,9 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     const dialog = page.getByRole('dialog', { name: 'Entrenamiento en curso' });
     const scroller = dialog.locator('#p1PracticeDialogScroll');
     await expect(dialog).toHaveAttribute('open', '');
+    await expect(page.locator('html')).toHaveClass(/p1-practice-open/);
     await expect(page.locator('body')).toHaveClass(/p1-practice-open/);
+    await expect(page.locator('.p1-bottom-nav')).toBeHidden();
     const layout = await dialog.evaluate((node) => {
       const rect = node.getBoundingClientRect();
       const bodyStyle = getComputedStyle(document.body);
@@ -51,6 +53,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
         viewportHeight: window.innerHeight,
         bodyPosition: bodyStyle.position,
         bodyTop: Number.parseFloat(document.body.style.top),
+        rootOverflow: getComputedStyle(document.documentElement).overflow,
         horizontalOverflow: node.scrollWidth - node.clientWidth
       };
     });
@@ -60,6 +63,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
     expect(layout.height).toBeCloseTo(layout.viewportHeight, 0);
     expect(layout.bodyPosition).toBe('fixed');
     expect(layout.bodyTop).toBeCloseTo(-pageScrollBefore, 0);
+    expect(layout.rootOverflow).toBe('hidden');
     expect(layout.horizontalOverflow).toBeLessThanOrEqual(1);
 
     const internalScroll = await scroller.evaluate((node) => {
@@ -82,6 +86,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
 
     await page.keyboard.press('Escape');
     await expect(page.locator('#p1PracticeDialog')).not.toHaveAttribute('open', '');
+    await expect(page.locator('html')).not.toHaveClass(/p1-practice-open/);
     await expect(page.locator('body')).not.toHaveClass(/p1-practice-open/);
     await expect.poll(async () => page.evaluate(() => window.scrollY)).toBe(pageScrollBefore);
     await expect(start).toBeFocused();
