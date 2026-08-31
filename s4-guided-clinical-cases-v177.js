@@ -16,7 +16,6 @@
   var nextTransitioning = false;
   var interactionLocked = false;
   var suppressLockedClickUntil = 0;
-  var answerActivationAt = 0;
   var lastAdvanceTap = null;
 
   function esc(value) {
@@ -485,7 +484,7 @@
   }
 
   function answerCurrent(selectedIndex) {
-    if (interactionLocked || Date.now() < answerActivationAt) return;
+    if (interactionLocked) return;
     var state = loadState();
     var item = findCase(state.selectedCaseId);
     if (!item) return;
@@ -507,7 +506,6 @@
     if (nextTransitioning || interactionLocked) return;
     nextTransitioning = true;
     interactionLocked = true;
-    answerActivationAt = Date.now() + 800;
     window.setTimeout(function () {
       nextTransitioning = false;
       interactionLocked = false;
