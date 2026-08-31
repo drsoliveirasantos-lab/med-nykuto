@@ -386,12 +386,13 @@
       "folderPath": "Fisiología II/Ejercicios",
       "id": "1HR5mnhgQHCzouSql9ii_BI_kZHKqqMEE",
       "mimeType": "application/pdf",
+      "missingSince": "2026-08-31T11:24:34.000Z",
       "modifiedAt": "2026-08-06T23:14:42.891Z",
       "sizeBytes": 687064,
       "title": "Ejercicio de fijacion Ventilacion y circulacion pulmonar.pdf",
       "url": "https://drive.google.com/open?id=1HR5mnhgQHCzouSql9ii_BI_kZHKqqMEE",
       "visibility": "verified_anonymous",
-      "missingSince": "2026-08-31T11:24:34.000Z"
+      "removedAt": "2026-08-31T12:39:09.000Z"
     },
     {
       "course": "Fisiología II",
@@ -590,5 +591,5 @@
       "visibility": "verified_anonymous"
     }
   ],
-  "scannedAt": "2026-08-31T11:24:34.000Z"
+  "scannedAt": "2026-08-31T12:39:09.000Z"
 }
