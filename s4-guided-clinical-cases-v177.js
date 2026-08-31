@@ -16,6 +16,7 @@
   var nextTransitioning = false;
   var interactionLocked = false;
   var suppressLockedClickUntil = 0;
+  var answerActivationAt = 0;
 
   function esc(value) {
     return String(value == null ? '' : value).replace(/[&<>"']/g, function (character) {
@@ -457,7 +458,7 @@
   }
 
   function answerCurrent(selectedIndex) {
-    if (interactionLocked) return;
+    if (interactionLocked || Date.now() < answerActivationAt) return;
     var state = loadState();
     var item = findCase(state.selectedCaseId);
     if (!item) return;
@@ -479,6 +480,7 @@
     if (nextTransitioning || interactionLocked) return;
     nextTransitioning = true;
     interactionLocked = true;
+    answerActivationAt = Date.now() + 800;
     window.setTimeout(function () {
       nextTransitioning = false;
       interactionLocked = false;
