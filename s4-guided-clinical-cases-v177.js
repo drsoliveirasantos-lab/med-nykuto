@@ -297,7 +297,7 @@
       '<article class="s4-guided-question" data-guided-question>' +
         '<div class="s4-guided-progress"><div><span data-guided-question-index>Paso ' + (index + 1) + ' de ' + item.questions.length + '</span><strong data-guided-reasoning-level>' + esc(levelLabel(question.level || question.reasoningLevel)) + '</strong></div><div role="progressbar" aria-label="Progreso del caso" aria-valuemin="1" aria-valuemax="' + item.questions.length + '" aria-valuenow="' + (index + 1) + '"><i style="width:' + percent + '%"></i></div></div>' +
         '<header><span>Decide antes de abrir la corrección</span><h2 id="s4GuidedQuestionTitle" tabindex="-1">' + esc(question.prompt) + '</h2>' + (clean(question.groundingNote) ? '<p class="s4-guided-grounding-note" data-guided-grounding-note>' + esc(question.groundingNote) + '</p>' : '') + '</header>' +
-        '<div class="s4-guided-options" role="group" aria-labelledby="s4GuidedQuestionTitle">' + question.options.map(function (option, optionIndex) { return optionHtml(question, answer, option, optionIndex); }).join('') + '</div>' +
+        '<div class="s4-guided-options' + (interactionLocked ? ' is-transition-locked' : '') + '" data-guided-options role="group" aria-labelledby="s4GuidedQuestionTitle">' + question.options.map(function (option, optionIndex) { return optionHtml(question, answer, option, optionIndex); }).join('') + '</div>' +
         (answer ? feedbackHtml(question, answer) : '') +
         '<nav class="s4-guided-step-actions" aria-label="Navegación entre pasos">' +
           (index > 0 && saved.answers[item.questions[index - 1].id] ? '<button type="button" class="s4-guided-secondary" data-guided-previous>← Paso anterior</button>' : '') +
@@ -384,14 +384,6 @@
     }
   }
 
-  function blockLockedOptionTouch(event) {
-    if (!interactionLocked || !event.target || !event.target.closest) return;
-    if (!event.target.closest('[data-guided-option-index]')) return;
-    event.preventDefault();
-    event.stopPropagation();
-    if (event.stopImmediatePropagation) event.stopImmediatePropagation();
-  }
-
   function createDialog() {
     if (dialog) return dialog;
     dialog = document.createElement('dialog');
@@ -403,8 +395,6 @@
     dialog.innerHTML = '<div class="s4-guided-dialog-shell"><header class="s4-guided-dialog-header"><div><span>FISIOLOGÍA RESPIRATORIA · P1</span><strong id="s4GuidedCasesTitle">Casos clínicos guiados</strong><small>Un caso · cuatro decisiones encadenadas</small></div><button type="button" data-guided-cases-close aria-label="Cerrar casos guiados"><span aria-hidden="true">×</span><b>Cerrar</b></button></header><div class="s4-guided-dialog-scroll" data-guided-dialog-scroll></div><p class="s4-guided-live" aria-live="polite" aria-atomic="true"></p></div>';
     document.body.appendChild(dialog);
     scrollHost = dialog.querySelector('.s4-guided-dialog-scroll');
-
-    dialog.addEventListener('touchend', blockLockedOptionTouch, { capture: true, passive: false });
 
     dialog.addEventListener('click', function (event) {
       var close = event.target.closest('[data-guided-cases-close]');
@@ -478,6 +468,8 @@
       var currentSaved = stateForCase(currentState, currentItem);
       var currentQuestion = currentItem.questions[currentSaved.current];
       if (currentQuestion && !currentSaved.answers[currentQuestion.id]) {
+        var optionGroup = dialog.querySelector('[data-guided-options]');
+        if (optionGroup) optionGroup.classList.remove('is-transition-locked');
         dialog.querySelectorAll('[data-guided-option-index]:disabled').forEach(function (button) {
           button.disabled = false;
         });
