@@ -444,12 +444,12 @@
       title: 'Del aire alveolar al oxígeno que recibe el tejido',
       lead: 'La clase separa cuatro procesos que suelen confundirse: ventilación, difusión, perfusión y transporte sanguíneo. El razonamiento avanza desde la barrera alveolocapilar hasta la hemoglobina y explica por qué una alteración V/Q produce hipoxemia.',
       sections: [
-        ['Cuatro etapas', 'Ventilar, difundir, perfundir y transportar no son sinónimos', 'La ventilación renueva el gas alveolar. La difusión mueve O₂ y CO₂ a través de la barrera según sus gradientes de presión parcial.', 'La perfusión aporta sangre al capilar y el transporte lleva gases en formas disueltas o unidas. Una etapa normal no corrige automáticamente el fallo de otra.'],
+        ['Cuatro etapas', 'Ventilar, difundir, perfundir y transportar no son sinónimos', 'La ventilación renueva el gas alveolar. La difusión mueve oxígeno (O₂) y dióxido de carbono (CO₂) a través de la barrera según sus gradientes de presión parcial.', 'La perfusión aporta sangre al capilar y el transporte lleva gases en formas disueltas o unidas. Una etapa normal no corrige automáticamente el fallo de otra.'],
         ['Ley de Fick', 'Área, gradiente y espesor determinan la difusión', 'Una superficie amplia y un gradiente mayor favorecen el flujo. Enfisema reduce área, mientras edema o fibrosis aumentan la distancia que debe atravesar el gas.', 'El CO₂ difunde con facilidad por su mayor solubilidad. Por eso una lesión de la barrera suele comprometer primero al O₂, aunque ambos gases utilicen la misma interfaz.'],
         ['Relación V/Q', 'Cada región necesita aire y sangre en proporción útil', 'Una región perfundida con poca ventilación tiene V/Q baja y contribuye a hipoxemia. Cuando V/Q se aproxima a cero, el comportamiento se acerca al shunt.', 'Una región ventilada sin perfusión útil se comporta como espacio muerto alveolar y V/Q tiende a infinito. El pulmón normal ya posee un gradiente entre ápice y base.'],
         ['Oxígeno', 'La PaO₂ no equivale al contenido arterial total', 'La PaO₂ refleja el oxígeno disuelto. La mayor parte del O₂ viaja unida a hemoglobina, de modo que contenido depende también de concentración de Hb y saturación.', 'Una PaO₂ aceptable no garantiza contenido normal si existe anemia. Del mismo modo, presión, saturación y contenido describen dimensiones relacionadas pero distintas.'],
         ['Dióxido de carbono', 'El bicarbonato transporta la mayor parte del CO₂', 'En el eritrocito, la anhidrasa carbónica facilita la conversión entre CO₂, ácido carbónico, H⁺ y bicarbonato. Otra fracción viaja como compuestos carbamino o disuelta.', 'La desoxihemoglobina acepta mejor CO₂ y H⁺; al oxigenarse en pulmón facilita su liberación. Esta relación corresponde al efecto Haldane.'],
-        ['Afinidad de hemoglobina', 'Bohr favorece la descarga de O₂ en tejidos activos', 'Aumento de CO₂, H⁺, temperatura o 2,3-BPG desplaza la curva a la derecha y reduce la afinidad Hb–O₂. Así el tejido con mayor metabolismo recibe oxígeno con más facilidad.', 'Bohr describe afinidad por O₂; Haldane describe transporte de CO₂ y H⁺ según la oxigenación. Separarlos evita confundir dos mecanismos complementarios.'],
+        ['Afinidad de hemoglobina', 'Bohr favorece la descarga de O₂ en tejidos activos', 'El aumento de CO₂, H⁺, temperatura o 2,3-bisfosfoglicerato (2,3-BPG) desplaza la curva a la derecha y reduce la afinidad de la hemoglobina por el O₂. Así el tejido con mayor metabolismo recibe oxígeno con más facilidad.', 'Bohr describe afinidad por O₂; Haldane describe transporte de CO₂ y H⁺ según la oxigenación. Separarlos evita confundir dos mecanismos complementarios.'],
         ['Integración clínica', 'La hipoxemia se localiza siguiendo el proceso alterado', 'Una V/Q baja, una barrera engrosada, un shunt o una ventilación alveolar insuficiente pueden reducir oxigenación mediante mecanismos distintos.', 'Para interpretarlos se combinan clínica, PaO₂, PaCO₂ y contexto. El objetivo no es memorizar una etiqueta, sino localizar dónde se interrumpe el recorrido del gas.']
       ]
     },
@@ -463,7 +463,7 @@
         ['Quimiorreceptores centrales', 'El CO₂ modifica el pH del LCR y cambia la ventilación', 'El CO₂ atraviesa la barrera hematoencefálica y genera H⁺ en el líquido cefalorraquídeo. Los quimiorreceptores centrales responden principalmente a ese cambio de pH.', 'No son sensores directos de PaO₂. Su influencia explica la potente respuesta ventilatoria ante hipercapnia.'],
         ['Quimiorreceptores periféricos', 'Los cuerpos carotídeos responden con rapidez a la hipoxemia', 'Los cuerpos carotídeos, en la bifurcación carotídea, detectan sobre todo PaO₂ baja y también PaCO₂ y pH. Sus aferencias viajan por el nervio glosofaríngeo.', 'Los cuerpos aórticos envían información por el vago. La respuesta periférica se vuelve especialmente importante cuando la PaO₂ cae de forma relevante.'],
         ['Receptores pulmonares', 'Distensión, irritantes y líquido intersticial modifican el patrón', 'Receptores de estiramiento participan en el reflejo de Hering–Breuer. Receptores irritantes pueden inducir tos y broncoconstricción.', 'Receptores yuxtacapilares responden a congestión o edema y favorecen respiración rápida y superficial. Estas aferencias protegen y adaptan la mecánica.'],
-        ['Aplicación en EPOC', 'Obstrucción e hipoventilación pueden producir hipercapnia', 'Espiración prolongada, sibilancias y FEV₁/FVC bajo orientan a obstrucción. Si la ventilación alveolar no elimina CO₂, aumenta PaCO₂ y puede aparecer acidosis respiratoria.', 'PaO₂, PaCO₂, pH y bicarbonato se leen juntos. El oxígeno no se niega a un paciente hipoxémico: se titula y se monitoriza según la situación clínica.']
+        ['Aplicación clínica', 'La enfermedad pulmonar obstructiva crónica puede producir hipercapnia', 'La espiración prolongada, las sibilancias y una relación baja entre el volumen espiratorio forzado en el primer segundo (FEV₁) y la capacidad vital forzada (FVC) orientan a obstrucción. Si la ventilación alveolar no elimina CO₂, aumenta PaCO₂ y puede aparecer acidosis respiratoria.', 'PaO₂, PaCO₂, pH y bicarbonato se leen juntos. El oxígeno no se niega a un paciente hipoxémico: se titula y se monitoriza según la situación clínica.']
       ]
     },
     'fisiologia-2026-08-17': {
@@ -475,7 +475,7 @@
         ['Potencial de acción', 'Entrada de sodio y salida de potasio cambian el voltaje', 'Al alcanzar umbral, canales de Na⁺ dependientes de voltaje favorecen despolarización. Su inactivación y la apertura de canales de K⁺ permiten repolarización.', 'La bomba Na⁺/K⁺ mantiene gradientes a largo plazo; no genera por sí sola cada fase rápida. Los periodos refractarios ordenan dirección y frecuencia de disparo.'],
         ['Conducción', 'Mielina y diámetro aumentan la velocidad', 'La mielina concentra la regeneración del potencial en los nodos de Ranvier y permite conducción saltatoria. Un axón más ancho ofrece menor resistencia interna.', 'Por eso una fibra grande y mielinizada conduce más rápido que una pequeña amielínica. Bloquear canales de Na⁺, como hace la lidocaína, impide propagar la señal.'],
         ['Sinapsis', 'El calcio conecta el potencial presináptico con la liberación química', 'Cuando el potencial llega a la terminal, abre canales de Ca²⁺. El calcio desencadena fusión de vesículas y liberación de neurotransmisor.', 'El transmisor se une a receptores postsinápticos. En una sinapsis eléctrica, en cambio, la corriente pasa directamente por uniones comunicantes.'],
-        ['Receptores y respuesta', 'Ionotrópico es rápido; metabotrópico amplifica y modula', 'Un receptor ionotrópico contiene un canal que se abre al unirse el ligando. Un receptor metabotrópico activa proteína G y segundos mensajeros antes de modificar canales o procesos.', 'Excitación o inhibición dependen del receptor y del ion movilizado, no solo del nombre del neurotransmisor. GABA y glutamato sirven como ejemplos predominantes, no como reglas sin contexto.'],
+        ['Receptores y respuesta', 'Ionotrópico es rápido; metabotrópico amplifica y modula', 'Un receptor ionotrópico contiene un canal que se abre al unirse el ligando. Un receptor metabotrópico activa proteína G y segundos mensajeros antes de modificar canales o procesos.', 'Excitación o inhibición dependen del receptor y del ion movilizado, no solo del nombre del neurotransmisor. El ácido gamma-aminobutírico (GABA) y el glutamato sirven como ejemplos predominantes, no como reglas sin contexto.'],
         ['Transducción sensorial', 'Cada receptor transforma una forma de energía', 'Mecanorreceptores, termorreceptores, nociceptores, quimiorreceptores y fotorreceptores responden a estímulos distintos. La transducción genera un potencial receptor.', 'Receptores tónicos mantienen respuesta y los fásicos destacan cambios. En una quemadura profunda, destruir terminaciones puede reducir dolor local pese al daño intenso.'],
         ['Circuitos', 'Sumación, convergencia y divergencia deciden la salida', 'Sumación espacial combina entradas simultáneas; sumación temporal acumula descargas próximas. Convergencia reúne señales y divergencia distribuye una salida.', 'Circuitos reverberantes prolongan actividad y la fatiga sináptica puede limitarla. La integración final depende del balance entre señales excitadoras e inhibidoras.']
       ]
@@ -498,12 +498,12 @@
       lead: 'La glucólisis convierte una glucosa de seis carbonos en dos piruvatos de tres carbonos. Para seguirla sin memorizar nombres aislados, la clase separa inversión, división, beneficio, balance y regulación.',
       sections: [
         ['Objetivo y lugar', 'Una vía citosólica prepara glucosa para producir energía y piruvato', 'La glucólisis ocurre en el citosol y no consume oxígeno como sustrato directo. Su continuidad depende de disponer de NAD⁺ para la reacción de oxidación.', 'El oxígeno modifica el destino posterior del piruvato y la reoxidación del NADH. Por eso la vía puede continuar en hipoxia si el piruvato se reduce a lactato.'],
-        ['Inversión', 'Las primeras reacciones gastan dos ATP', 'Hexoquinasa o glucoquinasa fosforilan glucosa. PFK-1 añade el segundo fosfato y compromete el sustrato con la vía.', 'La inversión no es una pérdida inútil: retiene y activa la molécula para que pueda dividirse y generar productos de alta energía.'],
-        ['División', 'Una molécula de seis carbonos origina dos triosas', 'Aldolasa separa fructosa-1,6-bisfosfato en G3P y DHAP. Triosa fosfato isomerasa convierte DHAP en G3P.', 'Desde ese punto existen dos G3P, de modo que cada reacción de la fase de beneficio ocurre dos veces por glucosa.'],
-        ['Oxidación y NADH', 'GAPDH captura electrones y forma un intermediario de alta energía', 'G3P se oxida a 1,3-bisfosfoglicerato y NAD⁺ se reduce a NADH. El fosfato inorgánico se incorpora sin gasto adicional de ATP.', 'Si NAD⁺ no se regenera, la vía se detiene en esta etapa. La fermentación láctica sostiene el flujo precisamente porque reoxida NADH.'],
+        ['Inversión', 'Las primeras reacciones gastan dos ATP', 'La hexoquinasa o la glucoquinasa fosforilan glucosa. La fosfofructoquinasa-1 (PFK-1) añade el segundo fosfato y compromete el sustrato con la vía.', 'La inversión no es una pérdida inútil: retiene y activa la molécula para que pueda dividirse y generar productos de alta energía.'],
+        ['División', 'Una molécula de seis carbonos origina dos triosas', 'La aldolasa separa fructosa-1,6-bisfosfato en gliceraldehído-3-fosfato (G3P) y dihidroxiacetona fosfato (DHAP). La triosa fosfato isomerasa convierte DHAP en G3P.', 'Desde ese punto existen dos G3P, de modo que cada reacción de la fase de beneficio ocurre dos veces por glucosa.'],
+        ['Oxidación y electrones', 'La gliceraldehído-3-fosfato deshidrogenasa (GAPDH) captura electrones', 'El G3P se oxida a 1,3-bisfosfoglicerato y el NAD⁺ se reduce a NADH, que transporta los electrones recibidos. El fosfato inorgánico se incorpora sin gasto adicional de ATP.', 'Si NAD⁺ no se regenera, la vía se detiene en esta etapa. La fermentación láctica sostiene el flujo precisamente porque reoxida NADH.'],
         ['Beneficio', 'La fosforilación a nivel de sustrato produce cuatro ATP', 'Fosfoglicerato quinasa y piruvato quinasa transfieren fosfato directamente a ADP. Como la secuencia ocurre dos veces, se forman cuatro ATP.', 'Restando los dos ATP invertidos, el balance neto es dos ATP, dos NADH y dos piruvatos por glucosa.'],
         ['Tres puertas irreversibles', 'Hexo/glucoquinasa, PFK-1 y piruvato quinasa regulan el flujo', 'Estas reacciones están lejos del equilibrio y funcionan como puntos de control. PFK-1 es el principal paso limitante de la vía.', 'ATP y citrato señalan abundancia e inhiben PFK-1; AMP, ADP y fructosa-2,6-bisfosfato favorecen la glucólisis.'],
-        ['Control hormonal', 'Insulina y glucagón modifican fructosa-2,6-bisfosfato en hígado', 'PFK-2/FBPasa-2 controla la concentración de fructosa-2,6-bisfosfato. Esa molécula activa PFK-1 e inhibe fructosa-1,6-bisfosfatasa.', 'Insulina favorece el estado que estimula glucólisis hepática; glucagón favorece gluconeogénesis. La regulación responde al estado del organismo, no solo a la enzima aislada.'],
+        ['Control hormonal', 'Insulina y glucagón modifican fructosa-2,6-bisfosfato en hígado', 'La enzima bifuncional fosfofructoquinasa-2/fructosa-bisfosfatasa-2 (PFK-2/FBPasa-2) controla la concentración de fructosa-2,6-bisfosfato. Esa molécula activa PFK-1 e inhibe fructosa-1,6-bisfosfatasa.', 'Insulina favorece el estado que estimula glucólisis hepática; glucagón favorece gluconeogénesis. La regulación responde al estado del organismo, no solo a la enzima aislada.'],
         ['Destino del piruvato', 'La salida de la vía depende del contexto redox y metabólico', 'Con capacidad oxidativa, piruvato puede entrar en mitocondria y convertirse en acetil-CoA. También puede originar oxalacetato o alanina según necesidad.', 'Cuando la reoxidación mitocondrial es insuficiente, lactato deshidrogenasa forma lactato y regenera NAD⁺. El objetivo inmediato es sostener la glucólisis.']
       ]
     },
@@ -517,7 +517,7 @@
         ['Referencia', 'Derivar y contrarreferir conectan niveles de atención', 'La referencia envía al paciente con información y motivo claros hacia un recurso adecuado. La contrarreferencia devuelve diagnóstico, conducta y seguimiento.', 'Ambos movimientos evitan repetir estudios y perder continuidad. La red funciona cuando la comunicación es bidireccional.'],
         ['Urgencia y emergencia', 'El riesgo y el tiempo necesario determinan la respuesta', 'Urgencia requiere atención oportuna porque existe sufrimiento o posibilidad de empeorar. Emergencia implica amenaza inmediata para vida, órgano o función.', 'La percepción subjetiva puede iniciar la demanda, pero la prioridad final se apoya en evaluación clínica y riesgo de deterioro.'],
         ['Recepción y triage', 'Primero se observa, pregunta, mide y prioriza', 'Aspecto general, conciencia, trabajo respiratorio y perfusión orientan desde el primer contacto. Después se completa motivo, inicio, evolución y antecedentes.', 'Signos vitales aportan datos objetivos. El triage asigna prioridad; no reemplaza la evaluación médica ni produce el diagnóstico final.'],
-        ['Cinco niveles', 'Color y tiempo traducen gravedad en una espera máxima', 'Rojo requiere atención inmediata; naranja, muy urgente; amarillo, urgente; verde y azul toleran esperas mayores según el protocolo RAC.', 'El nivel puede cambiar. Un paciente que espera debe ser reevaluado si aparecen nuevos síntomas o signos de deterioro.'],
+        ['Cinco niveles', 'Color y tiempo traducen gravedad en una espera máxima', 'Rojo requiere atención inmediata; naranja, muy urgente; amarillo, urgente; verde y azul toleran esperas mayores según el protocolo de Recepción, Acogida y Clasificación (RAC).', 'El nivel puede cambiar. Un paciente que espera debe ser reevaluado si aparecen nuevos síntomas o signos de deterioro.'],
         ['Conducta inicial', 'La prioridad se basa en riesgo, no en orden de llegada', 'Una amenaza de vía aérea, ventilación o circulación exige estabilización inmediata. Una consulta de menor riesgo no desplaza a quien puede perder vida u órgano.', 'Relleno capilar informa perfusión y no sustituye pulsioximetría. Frecuencia respiratoria se cuenta; no se lee del valor de SpO₂.']
       ]
     },
@@ -529,7 +529,7 @@
         ['Dermatofitos', 'Tres géneros clásicos comparten afinidad por queratina', 'Trichophyton puede afectar piel, pelo y uña. Microsporum suele afectar piel y pelo, mientras Epidermophyton afecta piel y uña pero no invade pelo.', 'Malassezia no pertenece a esos tres géneros. Asociarla a pitiriasis versicolor evita confundir levadura superficial con dermatofito.'],
         ['Transmisión', 'La fuente orienta la intensidad y el agente', 'Especies antropofílicas pasan entre humanos o por fómites. Zoofílicas se relacionan con animales y pueden producir inflamación intensa.', 'Geofílicas proceden del suelo. La exposición ayuda a priorizar hipótesis, pero la especie requiere confirmación.'],
         ['Tiñas por sitio', 'El segundo término nombra la región anatómica', 'Tinea capitis afecta cuero cabelludo y pelo; corporis, tronco o extremidades; cruris, ingle; pedis y manuum, pie y mano; unguium, uña.', 'La localización cambia muestra y tratamiento. Una placa anular con borde activo orienta a corporis, mientras pelo roto y alopecia sugieren capitis.'],
-        ['Muestra y KOH', 'El material se obtiene de la zona donde el hongo está activo', 'En piel se raspa el borde activo; en capitis se recogen pelos y escamas; en uña, recorte y detrito subungueal.', 'KOH aclara queratina y permite ver hifas o artroconidios. Confirma elementos fúngicos, pero no siempre identifica especie.'],
+        ['Muestra y examen directo', 'El material se obtiene de la zona donde el hongo está activo', 'En piel se raspa el borde activo; en capitis se recogen pelos y escamas; en uña, recorte y detrito subungueal.', 'El hidróxido de potasio (KOH) aclara queratina y permite ver hifas o artroconidios. Confirma elementos fúngicos, pero no siempre identifica especie.'],
         ['Cultivo y Wood', 'Las pruebas complementan la clínica con límites claros', 'El cultivo permite observar colonia y estructuras microscópicas. La identificación integra morfología y, cuando corresponde, otras pruebas.', 'La lámpara de Wood ayuda en algunas especies de Microsporum, pero muchas infecciones no fluorescen. Una prueba negativa no excluye tiña.'],
         ['Tratamiento', 'Piel localizada y folículo requieren estrategias distintas', 'Varias tiñas cutáneas localizadas responden a azol o alilamina tópicos. Corticoide aislado puede enmascarar y agravar la lesión.', 'Tinea capitis necesita antifúngico sistémico para alcanzar el folículo; champú es adyuvante. Uña o enfermedad extensa requieren confirmación e individualización.'],
         ['Caso integrado', 'Alopecia, pelo roto y contacto animal forman una cadena diagnóstica', 'Un niño con placa de alopecia, pelos fracturados y perro con lesión orienta a tiña capitis zoofílica. Si existe inflamación intensa puede aparecer querion.', 'La muestra se obtiene antes del antifúngico cuando sea posible. Evaluar la fuente animal y reducir fómites completa el control.']
@@ -541,7 +541,7 @@
       sections: [
         ['Profundidad', 'Superficial y cutánea comprometen tejidos diferentes', 'La pitiriasis versicolor permanece en el estrato córneo y produce poca inflamación. La tiña corporal invade queratina epidérmica y forma un borde activo.', 'Definir el nivel de invasión orienta dónde obtener la muestra y evita llamar tiña a cualquier mancha fúngica.'],
         ['Caso de pitiriasis', 'Máculas del tronco con escama fina', 'Calor, sudoración y zonas seborreicas favorecen máculas hipo o hiperpigmentadas que confluyen y descaman con el raspado.', 'El prurito puede ser leve y la alteración del pigmento se vuelve más evidente después de la exposición solar.'],
-        ['Malassezia', 'Levaduras e hifas cortas orientan el examen directo', 'El KOH aclara la queratina y permite observar elementos compatibles con Malassezia spp., una levadura lipofílica de la microbiota cutánea.', 'El resultado se integra con distribución y lesión; no sustituye la correlación clínica del caso.'],
+        ['Malassezia', 'Levaduras e hifas cortas orientan el examen directo', 'El hidróxido de potasio (KOH) aclara la queratina y permite observar elementos compatibles con Malassezia spp., una levadura lipofílica de la microbiota cutánea.', 'El resultado se integra con distribución y lesión; no sustituye la correlación clínica del caso.'],
         ['Caso de tiña', 'La placa anular crece desde un borde activo', 'Prurito, expansión centrífuga, descamación y aclaramiento central parcial orientan a tinea corporis.', 'El raspado se obtiene del borde, donde el dermatofito está metabólicamente más activo y aporta mayor rendimiento diagnóstico.'],
         ['Fuente animal', 'Un gato alopécico orienta a un dermatofito zoofílico', 'El contacto con un animal que pierde pelo aumenta la sospecha de Microsporum canis y explica una respuesta inflamatoria más visible.', 'La exposición prioriza la hipótesis, pero la especie se confirma con examen micológico y cultivo.'],
         ['Cultivo', 'Los macroconidios apoyan la identificación', 'Macroconidios abundantes, fusiformes y de pared rugosa son compatibles con M. canis en el contexto adecuado.', 'La conclusión final integra paciente, lesión, fuente, KOH y morfología; ningún dato aislado debe reemplazar la secuencia completa.']
@@ -552,7 +552,7 @@
       lead: 'Los casos enseñan un orden diagnóstico estable: profundidad, lesión, exposición, muestra y confirmación. La clase contrasta infecciones superficiales y cutáneas con micosis subcutáneas por implantación y termina con el contexto oportunista de Candida.',
       sections: [
         ['Mapa por profundidad', 'El nivel de invasión cambia lesión, muestra y terapia', 'Superficial se limita a capas externas; cutánea invade tejidos queratinizados; subcutánea alcanza dermis profunda y tejido celular tras una inoculación que puede no recordarse.', 'Determinar profundidad evita elegir una muestra superficial para una lesión que requiere biopsia o indicar tratamiento local donde hace falta terapia sistémica.'],
-        ['Caso 1', 'Pitiriasis versicolor produce máculas con descamación fina', 'Un adulto joven con calor y sudoración presenta máculas hipo o hiperpigmentadas en tronco, poco pruriginosas y con descamación al raspado.', 'KOH muestra levaduras y hifas cortas, patrón asociado a Malassezia spp. La poca inflamación concuerda con una micosis superficial.'],
+        ['Caso 1', 'Pitiriasis versicolor produce máculas con descamación fina', 'Un adulto joven con calor y sudoración presenta máculas hipo o hiperpigmentadas en tronco, poco pruriginosas y con descamación al raspado.', 'El hidróxido de potasio (KOH) muestra levaduras y hifas cortas, patrón asociado a Malassezia spp. La poca inflamación concuerda con una micosis superficial.'],
         ['Caso 2', 'Una placa anular con borde activo orienta a tiña corporal', 'Una adolescente con lesión pruriginosa expansiva y contacto con gato alopécico presenta borde elevado, descamación y aclaramiento central.', 'Raspado del borde muestra hifas septadas. Macroconidios fusiformes y rugosos en cultivo apoyan Microsporum canis.'],
         ['Comparación', 'Pitiriasis y tiña ocupan niveles y tejidos distintos', 'Pitiriasis afecta estrato córneo y suele localizarse en zonas seborreicas. Tiña corporal es dermatofitosis de queratina y produce un borde activo.', 'En la primera se buscan levaduras con hifas cortas; en la segunda, hifas septadas y datos de dermatofito. La muestra nace de la lesión característica.'],
         ['Entrada subcutánea', 'La implantación introduce el agente por debajo de la piel', 'Espinas, astillas, suelo o animales pueden inocular microorganismos; el traumatismo puede ser pequeño o no recordarse. La lesión suele comenzar en el punto de entrada y evolucionar de forma crónica.', 'El raspado superficial puede ser insuficiente. Biopsia, histopatología, examen directo y cultivo de tejido adquieren mayor importancia.'],
@@ -578,6 +578,176 @@
       ]
     }
   };
+
+  function addPlainLanguageLayer(lessonId, lead, bridges) {
+    var narrative = narratives[lessonId];
+    if (!narrative || !Array.isArray(narrative.sections)) return;
+    narrative.lead = lead;
+    narrative.sections.forEach(function (section, index) {
+      var bridge = bridges[index];
+      if (bridge && section.indexOf(bridge) === -1) section.push(bridge);
+    });
+  }
+
+  addPlainLanguageLayer(
+    'nutricion-2026-08-13',
+    'En esta clase aprenderás a evaluar una alimentación antes de intentar cambiarla. El recorrido es sencillo: primero se aclaran las palabras básicas; después se revisan cantidad, calidad, proporción, adaptación a la persona y variedad. La meta no es imponer una dieta perfecta, sino entender qué necesita esa persona y qué cambio puede mantener.',
+    [
+      'Primero separa tres ideas: alimentación es lo que la persona elige y come; nutrición es lo que el cuerpo hace con ello; dieta es el patrón que se repite cada día.',
+      'La pregunta aquí no es solo «¿come mucho o poco?». Hay que comparar lo que ingiere con lo que su cuerpo necesita y gasta en su situación concreta.',
+      'Cantidad de calorías y calidad nutricional no significan lo mismo. Una comida puede dar energía y, aun así, aportar poca proteína, fibra, vitaminas o minerales.',
+      'Armonía significa que los grupos se acompañan en una proporción útil. No basta con incluir un alimento saludable si el resto de la comida queda desequilibrado.',
+      'Una recomendación solo sirve si encaja con la vida real. Debe considerar salud, edad, cultura, dinero disponible, capacidad para cocinar, masticar y sostener el plan.',
+      'Variedad no significa comprar alimentos raros. Significa alternar opciones dentro de los mismos grupos para cubrir más nutrientes y evitar una rutina demasiado limitada.'
+    ]
+  );
+
+  addPlainLanguageLayer(
+    'fisiologia-2026-08-10',
+    'Para comprender esta clase, imagina el recorrido de una molécula de oxígeno: entra con el aire, llega al alvéolo, cruza hacia la sangre, encuentra hemoglobina y finalmente alcanza un tejido. En cada paso puede aparecer un problema diferente. La lección explica cómo localizar ese problema sin confundir ventilación, difusión, perfusión y transporte.',
+    [
+      'Piensa en una cadena de cuatro eslabones. Primero llega aire al alvéolo, después el gas cruza la membrana, luego encuentra sangre y finalmente viaja dentro de ella.',
+      'La difusión es el cruce del gas por una barrera. Se vuelve más fácil cuando existe mucha superficie y una diferencia de presión, y más difícil cuando la barrera se engrosa.',
+      'La relación ventilación/perfusión (V/Q) compara aire alveolar con sangre capilar. Para intercambiar gases bien, una región necesita las dos cosas; tener solo aire o solo sangre no basta.',
+      'La PaO₂ indica la presión del oxígeno disuelto, no todo el oxígeno disponible. La cantidad total depende sobre todo de cuánta hemoglobina existe y cuánto está saturada.',
+      'El CO₂ no viaja de una sola manera. La mayor parte se transforma en bicarbonato, mientras porciones menores permanecen disueltas o se unen a proteínas de la sangre.',
+      'La afinidad indica qué tan fuerte la hemoglobina retiene oxígeno. En un tejido activo conviene que lo suelte; en el pulmón conviene que vuelva a captarlo.',
+      'Ante una hipoxemia, recorre la cadena desde el alvéolo hasta la sangre. Así puedes preguntar si falló la ventilación, el cruce, la proporción V/Q o el transporte.'
+    ]
+  );
+
+  addPlainLanguageLayer(
+    'fisiologia-2026-08-13',
+    'La respiración funciona como un sistema automático de corrección. Cuando cambian el dióxido de carbono (CO₂), el oxígeno o el pH, unos sensores detectan el problema, el tronco encefálico decide la respuesta y los músculos respiratorios cambian la ventilación. La clase sigue esa vuelta completa antes de aplicarla a la enfermedad pulmonar obstructiva crónica (EPOC) y a la gasometría.',
+    [
+      'Usa siempre la misma pregunta: ¿qué cambió, quién lo detectó, dónde se integró la señal y qué músculo corrigió la ventilación? Esa secuencia evita memorizar centros aislados.',
+      'El bulbo no contiene un único botón de respirar. Varias redes cooperan para iniciar la inspiración y añadir esfuerzo espiratorio cuando la demanda aumenta.',
+      'El puente no fabrica por sí solo cada respiración. Su función principal es ajustar cuánto dura cada fase y hacer más ordenado el paso de inspiración a espiración.',
+      'Los sensores centrales responden sobre todo al efecto del CO₂ sobre el líquido que rodea el cerebro. Más CO₂ produce más H⁺ y empuja a ventilar más.',
+      'Los sensores periféricos reaccionan con rapidez cuando baja de manera importante la PaO₂. También informan sobre CO₂ y pH mediante los nervios correspondientes.',
+      'El pulmón también envía avisos mecánicos. Distensión, irritantes o líquido pueden cambiar la profundidad, provocar tos o generar una respiración rápida y superficial.',
+      'En la EPOC, primero identifica la obstrucción y después comprueba si la ventilación elimina CO₂. La gasometría muestra la consecuencia química de ese problema.'
+    ]
+  );
+
+  addPlainLanguageLayer(
+    'fisiologia-2026-08-17',
+    'Esta lección sigue un mensaje nervioso de principio a fin. Un receptor detecta un cambio, una neurona genera y conduce una señal, una sinapsis la entrega a otra célula y un circuito decide la respuesta. Estudiar el recorrido en ese orden permite entender luego qué sucede cuando se bloquea un canal, se destruye un receptor o falla una conexión.',
+    [
+      'Imagina un mensaje que entra, se procesa y sale. El receptor inicia la información, la vía aferente la lleva al centro, allí se integra y la vía eferente alcanza el efector.',
+      'La neurona tiene una dirección funcional: recibe principalmente por dendritas, integra en el soma, conduce por el axón y comunica desde su terminal.',
+      'El potencial de acción aparece cuando el voltaje alcanza el umbral. Primero domina la entrada de Na⁺ y después la salida de K⁺ devuelve la membrana hacia reposo.',
+      'La velocidad depende de cómo está construido el axón. La mielina permite saltar entre nodos y un diámetro mayor ofrece menos resistencia al paso de la corriente.',
+      'La sinapsis química convierte electricidad en liberación de una sustancia. El Ca²⁺ es la señal que permite a las vesículas liberar el neurotransmisor.',
+      'Aquí «receptor» significa una proteína postsináptica que recibe un mensajero químico. No debe confundirse con el receptor sensorial que detectó el estímulo inicial.',
+      'Transducir significa convertir una forma de energía en señal eléctrica. Presión, temperatura, sustancias químicas y luz requieren receptores especializados.',
+      'Un circuito no copia cada entrada de manera automática. Puede sumar varias señales, repartir una señal o frenar la respuesta según el balance final.'
+    ]
+  );
+
+  addPlainLanguageLayer(
+    'fisiologia-2026-08-24',
+    'Para estudiar las sensibilidades somáticas, repite una misma ruta en cada modalidad: estímulo, receptor, fibra, vía ascendente, lugar del cruce y corteza. Después compara las rutas. Así los nombres técnicos dejan de ser una lista y se convierten en un mapa que permite predecir qué sensibilidad se pierde y de qué lado.',
+    [
+      'El cuerpo no usa un único sensor para todo. Contacto, posición, daño y temperatura son problemas distintos y cada uno empieza con receptores y fibras apropiados.',
+      'Dos receptores pueden estar en la misma piel y responder de forma diferente. La profundidad, el tamaño del campo y la velocidad de adaptación cambian lo que detectan.',
+      'La propiocepción informa dónde están músculos y tendones sin necesidad de mirarlos. El huso sigue el estiramiento y el órgano de Golgi sigue la tensión.',
+      'El dolor rápido avisa primero y se localiza mejor; el dolor lento permanece y se siente más difuso. Esa diferencia nace de fibras y transmisores distintos.',
+      'Frío o calor moderados producen sensación térmica. Cuando la temperatura amenaza el tejido, la señal cambia de función y activa dolor protector.',
+      'El dato decisivo es dónde cruza cada vía. La columna dorsal cruza más arriba, en el bulbo; la anterolateral cruza pronto, dentro de la médula.',
+      'La corteza no solo recibe una señal: reconoce el lugar, compara detalles y les da significado. Por eso algunos tests requieren sensibilidad primaria conservada.'
+    ]
+  );
+
+  addPlainLanguageLayer(
+    'bioquimica-2026-08-14',
+    'La glucólisis puede entenderse como una inversión que después devuelve beneficio. Una glucosa de seis carbonos gasta dos moléculas de trifosfato de adenosina (ATP), se divide en dos fragmentos de tres carbonos y, desde ese momento, cada reacción ocurre dos veces. Al final quedan dos piruvatos, dos ATP netos y dos moléculas de NADH que transportan electrones. La clase explica primero esa lógica y después las enzimas reguladoras.',
+    [
+      'Antes de memorizar enzimas, ubica la ruta: ocurre en el citosol, empieza con una glucosa y termina con dos piruvatos. Su función inmediata es obtener energía y productos útiles.',
+      'La célula gasta energía al principio para retener y activar la glucosa. Es parecido a preparar una molécula antes de poder dividirla y recuperar más ATP después.',
+      'Cuando la molécula de seis carbonos se parte, no desaparece materia: aparecen dos fragmentos de tres carbonos. Por eso todo lo siguiente debe contarse dos veces.',
+      'NAD⁺ funciona como receptor de electrones y se transforma en NADH. Si no vuelve a existir NAD⁺ disponible, esta parte de la glucólisis se detiene.',
+      'Se fabrican cuatro ATP en la mitad final, pero el balance neto es dos porque ya se gastaron dos. Distinguir producción total de ganancia neta evita el error más común.',
+      'Las tres reacciones irreversibles funcionan como puertas de control. La célula regula allí el paso de la glucosa según energía disponible y necesidad metabólica.',
+      'En el hígado, insulina y glucagón comunican si conviene usar glucosa o conservarla. La fructosa-2,6-bisfosfato transmite parte de esa decisión a PFK-1.',
+      'El piruvato es una salida, no un destino único. Puede entrar en rutas mitocondriales o convertirse en lactato para regenerar NAD⁺ cuando lo exige el contexto.'
+    ]
+  );
+
+  addPlainLanguageLayer(
+    'epidemiologia-bloque-anterior',
+    'La clase contiene dos recorridos que deben estudiarse por separado y luego conectarse. El primero sigue a una población: territorio, Atención Primaria, referencia y regreso al seguimiento. El segundo sigue a una persona que llega a urgencias: recepción, datos, prioridad y reevaluación. Ambos buscan continuidad, pero no cumplen la misma función.',
+    [
+      'La Atención Primaria de Salud, o APS, es la puerta cercana a la comunidad. Previene, acompaña problemas frecuentes y coordina el acceso cuando hace falta otro nivel.',
+      'Atender de forma integral significa mirar a la persona completa y su contexto, no solo una enfermedad aislada. La continuidad mantiene el plan a lo largo del tiempo.',
+      'Sectorizar es dividir un territorio para saber qué equipo acompaña a qué población. Así se conocen riesgos y se pueden buscar necesidades antes de una consulta.',
+      'La referencia envía al paciente hacia otro recurso; la contrarreferencia trae de vuelta la información para continuar el cuidado. Son dos direcciones de la misma red.',
+      'Urgencia y emergencia no son sinónimos. Las dos necesitan atención, pero la emergencia amenaza de manera inmediata la vida, un órgano o una función.',
+      'El triage organiza quién debe ser atendido primero según riesgo. No establece el diagnóstico final y puede cambiar si el estado del paciente empeora.',
+      'Los colores convierten riesgo clínico en prioridad y tiempo máximo de espera. El color no se elige por orden de llegada ni por quién reclama con más fuerza.',
+      'Primero se buscan amenazas para vía aérea, respiración y circulación. Un paciente estable puede esperar; uno que puede deteriorarse necesita prioridad aunque haya llegado después.'
+    ]
+  );
+
+  addPlainLanguageLayer(
+    'microbiologia-teorica-2026-08-10',
+    'Para resolver una posible tiña, sigue cinco preguntas en orden: qué profundidad tiene la infección, qué zona del cuerpo afecta, qué exposición ocurrió, de dónde se toma la muestra y qué prueba confirma la sospecha. Este orden evita llamar «tiña» a cualquier mancha y evita elegir tratamiento antes de entender el sitio comprometido.',
+    [
+      'Empieza por la profundidad. Una micosis superficial se queda en capas externas; una dermatofitosis afecta queratina de piel, pelo o uñas; una subcutánea entra más profundo.',
+      'Los dermatofitos usan queratina y se agrupan en tres géneros clásicos. La diferencia práctica es qué tejidos puede afectar cada uno: piel, pelo o uña.',
+      'La fuente orienta la investigación, pero no reemplaza la confirmación del laboratorio. Antropofílico significa relacionado con humanos, zoofílico con animales y geofílico con el suelo.',
+      'El nombre después de «tinea» indica el sitio anatómico. Identificar el sitio ayuda a elegir la muestra correcta y explica por qué el tratamiento puede cambiar.',
+      'La muestra se toma donde hay mayor actividad del hongo. El hidróxido de potasio (KOH) aclara la queratina para mostrar elementos fúngicos, pero no siempre nombra la especie.',
+      'El cultivo añade información de colonia y microscopía. La lámpara de Wood puede orientar en situaciones concretas, pero una ausencia de fluorescencia no descarta infección.',
+      'Una lesión limitada a piel no se trata igual que una infección del folículo. La profundidad y el sitio explican por qué algunas situaciones necesitan tratamiento sistémico.',
+      'En el caso del niño, une las pistas una por una: alopecia, pelo roto, inflamación y contacto animal. Después decide muestra, confirmación y control de la fuente.'
+    ]
+  );
+
+  addPlainLanguageLayer(
+    'microbiologia-teorica-2026-08-17',
+    'Esta clase compara dos enfermedades usando siempre las mismas preguntas: ¿qué profundidad alcanzan?, ¿cómo se ve la lesión?, ¿qué exposición orienta?, ¿dónde se toma la muestra? y ¿qué muestra el examen? Colocar pitiriasis versicolor y tiña corporal lado a lado hace visible por qué no son la misma micosis.',
+    [
+      'La primera diferencia es la profundidad. La pitiriasis permanece muy superficial; la tiña corporal afecta queratina epidérmica y suele formar un borde activo.',
+      'En la pitiriasis se buscan manchas del tronco con descamación fina. «Zona seborreica» significa una región con mayor presencia de grasa cutánea.',
+      'Malassezia es una levadura relacionada con áreas ricas en lípidos. El hidróxido de potasio (KOH) permite observar levaduras e hifas cortas que deben relacionarse con la lesión.',
+      'En la tiña, «expansión centrífuga» significa que la placa crece desde el centro hacia afuera y mantiene mayor actividad en el borde de la lesión.',
+      'El contacto con un gato que pierde pelo no confirma por sí solo el agente, pero hace más probable una fuente animal y orienta hacia Microsporum canis.',
+      'Los macroconidios son estructuras grandes observadas en el cultivo. Su forma fusiforme y pared rugosa apoyan la identificación cuando coinciden con el resto del caso.'
+    ]
+  );
+
+  addPlainLanguageLayer(
+    'microbiologia-teorica-2026-08-24',
+    'Organiza esta clase en tres bloques. Primero se recuerdan las dos micosis ya comparadas. Después se estudian infecciones subcutáneas que entran por una herida y exigen muestras profundas. Por último aparece Candida en un contexto oportunista. En todos los casos se repite la misma secuencia: profundidad, lesión, exposición, muestra y confirmación.',
+    [
+      'La profundidad decide gran parte del razonamiento. Cuanto más profunda es la lesión, menos útil resulta un simple raspado superficial y más importancia adquieren tejido, biopsia e imagen.',
+      'El primer caso funciona como recordatorio de una micosis superficial. La escama fina y los elementos compatibles con Malassezia deben leerse junto con la distribución.',
+      'El segundo caso recuerda una dermatofitosis cutánea. El borde activo indica dónde raspar y el contacto animal ayuda a priorizar una hipótesis.',
+      'Comparar los dos casos evita mezclar mancha superficial con placa anular. Cambian la profundidad, la apariencia, el tipo de elemento buscado y la muestra.',
+      'Implantación significa que el agente entra por una pequeña lesión. La persona puede no recordar la espina o astilla, aunque la lesión crónica empiece en ese lugar.',
+      'En la esporotricosis, varios nódulos aparecen siguiendo vasos linfáticos desde la puerta de entrada. Ese dibujo regional orienta antes del cultivo.',
+      'La cromoblastomicosis evoluciona lentamente y produce lesiones verrugosas muy persistentes. Los cuerpos muriformes son estructuras características observadas en el tejido afectado.',
+      'El micetoma se reconoce por una tríada: aumento de volumen, trayectos que drenan y granos. «Eumicótico» indica origen fúngico, no bacteriano.',
+      'El caso de 62 años no es la continuación del paciente de 38 años. Debe leerse como una historia independiente con herida, evolución larga y cirugías propias.',
+      'Candida puede vivir en el cuerpo sin causar invasión. La enfermedad se interpreta con el sitio, los síntomas y los factores de riesgo, no con un cultivo aislado de cualquier zona.',
+      'La decisión final vuelve al principio: una lesión superficial, una subcutánea y una infección oportunista necesitan muestras y estrategias diferentes.'
+    ]
+  );
+
+  addPlainLanguageLayer(
+    'microbiologia-practica-anterior',
+    'La práctica sigue una secuencia de laboratorio fácil de recordar: llevar la muestra cerrada, preparar el medio, observar la colonia, mirar las estructuras microscópicas e integrar toda la información. La bioseguridad acompaña cada paso. Una colonia llamativa puede orientar, pero nunca identifica por sí sola una especie.',
+    [
+      'Antes de memorizar nombres, distingue tres formas generales. Levadura es principalmente unicelular; moho forma hifas y micelio; dimorfismo describe un cambio de forma según condiciones.',
+      'Piensa en una hifa como un filamento y en el micelio como el conjunto de filamentos. Las estructuras reproductivas se comparan por dónde se forman y cómo se organizan.',
+      'La muestra llega cerrada e identificada porque la seguridad empieza antes del microscopio. No se abre, toca ni huele fuera del laboratorio.',
+      'El agar Sabouraud ofrece nutrientes y un ambiente ácido favorable para hongos. La fórmula exacta se sigue según el fabricante, no por una cifra memorizada de otra preparación.',
+      'Pesar, mezclar, disolver, calentar y esterilizar no son sinónimos. Cada verbo corresponde a una etapa distinta y debe seguir el protocolo indicado.',
+      'La macroscopia describe la colonia y la microscopia describe hifas o estructuras reproductivas. La identificación aparece cuando ambas coinciden con el origen de la muestra.',
+      'Bata, protección, recipiente cerrado y descarte correcto reducen exposición a esporas. La seguridad no se deja para el final: forma parte de toda la técnica.'
+    ]
+  );
 
   window.MedNykutoAcademicModel = {
     version: 'v445',
