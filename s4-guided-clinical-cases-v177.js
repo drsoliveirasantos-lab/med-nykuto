@@ -15,6 +15,7 @@
   var launcherObserver = null;
   var nextTransitioning = false;
   var interactionLocked = false;
+  var suppressLockedClickUntil = 0;
 
   function esc(value) {
     return String(value == null ? '' : value).replace(/[&<>"']/g, function (character) {
@@ -384,6 +385,14 @@
     }
   }
 
+  function swallowLockedTouch(event) {
+    if (!interactionLocked) return;
+    suppressLockedClickUntil = Date.now() + 650;
+    if (event.cancelable) event.preventDefault();
+    event.stopPropagation();
+    if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+  }
+
   function createDialog() {
     if (dialog) return dialog;
     dialog = document.createElement('dialog');
@@ -396,7 +405,18 @@
     document.body.appendChild(dialog);
     scrollHost = dialog.querySelector('.s4-guided-dialog-scroll');
 
+    dialog.addEventListener('touchend', swallowLockedTouch, { capture: true, passive: false });
+    dialog.addEventListener('pointerup', function (event) {
+      if (event.pointerType && event.pointerType !== 'mouse') swallowLockedTouch(event);
+    }, { capture: true });
+
     dialog.addEventListener('click', function (event) {
+      if (Date.now() < suppressLockedClickUntil) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+        return;
+      }
       var close = event.target.closest('[data-guided-cases-close]');
       if (close) { closeDialog(); return; }
 
