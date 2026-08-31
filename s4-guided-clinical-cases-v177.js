@@ -384,6 +384,14 @@
     }
   }
 
+  function blockLockedOptionTouch(event) {
+    if (!interactionLocked || !event.target || !event.target.closest) return;
+    if (!event.target.closest('[data-guided-option-index]')) return;
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+  }
+
   function createDialog() {
     if (dialog) return dialog;
     dialog = document.createElement('dialog');
@@ -395,6 +403,8 @@
     dialog.innerHTML = '<div class="s4-guided-dialog-shell"><header class="s4-guided-dialog-header"><div><span>FISIOLOGÍA RESPIRATORIA · P1</span><strong id="s4GuidedCasesTitle">Casos clínicos guiados</strong><small>Un caso · cuatro decisiones encadenadas</small></div><button type="button" data-guided-cases-close aria-label="Cerrar casos guiados"><span aria-hidden="true">×</span><b>Cerrar</b></button></header><div class="s4-guided-dialog-scroll" data-guided-dialog-scroll></div><p class="s4-guided-live" aria-live="polite" aria-atomic="true"></p></div>';
     document.body.appendChild(dialog);
     scrollHost = dialog.querySelector('.s4-guided-dialog-scroll');
+
+    dialog.addEventListener('touchend', blockLockedOptionTouch, { capture: true, passive: false });
 
     dialog.addEventListener('click', function (event) {
       var close = event.target.closest('[data-guided-cases-close]');
