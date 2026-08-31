@@ -46,15 +46,20 @@
   function bankData(){
     var bank = window.MED_PRACTICE_BANK || {};
     var byCourse = bank.byCourse || {};
+    var courseIds = Object.keys(byCourse);
     var summary = {courses:0, qcm:0, vf:0, cases:0};
-    Object.keys(byCourse).forEach(function(cid){
+    courseIds.forEach(function(cid){
       var b = byCourse[cid] || {};
       summary.courses += 1;
       summary.qcm += (b.qcm || []).length;
       summary.vf += (b.vf || []).length;
       summary.cases += (b.cases || []).length;
     });
-    return {bank:bank, byCourse:byCourse, summary:summary};
+    var casesBlockedByPolicy = courseIds.length > 0 && courseIds.every(function(cid){
+      var certification = (byCourse[cid] || {}).certification || {};
+      return Array.isArray(certification.blockedFormats) && certification.blockedFormats.indexOf('cases') >= 0;
+    });
+    return {bank:bank, byCourse:byCourse, summary:summary, casesBlockedByPolicy:casesBlockedByPolicy};
   }
 
   function computeHealth(){
@@ -67,7 +72,7 @@
     if(c.modules.length < 40) warnings.push('too_few_modules');
     if(requiresBank && !b.summary.qcm) warnings.push('no_qcm');
     if(requiresBank && !b.summary.vf) warnings.push('no_vf');
-    if(requiresBank && !b.summary.cases) warnings.push('no_cases');
+    if(requiresBank && !b.summary.cases && !b.casesBlockedByPolicy) warnings.push('no_cases');
     return {
       version: VERSION,
       ok: warnings.length === 0,
@@ -80,6 +85,7 @@
       qcmCount: b.summary.qcm,
       vfCount: b.summary.vf,
       caseCount: b.summary.cases,
+      casesBlockedByPolicy: b.casesBlockedByPolicy,
       fallbackActive: !!(window.MED_PRACTICE_BANK && String(window.MED_PRACTICE_BANK.version || '').indexOf('fallback') >= 0),
       dataSiteName: c.data.siteName || ''
     };
@@ -111,7 +117,7 @@
     if(document.title) document.title = document.title.replace(/Med\s+Cursos/g, BRAND).replace(/Mensaje enviado/g, 'Mensaje preparado');
     all('meta[content]').forEach(function(meta){
       var content = meta.getAttribute('content') || '';
-      var next = content.replace(/Med\s+Cursos/g, BRAND).replace(/med-cursos\.netlify\.app/g, 'preview.med-nykuto-git.pages.dev').replace(/Mensaje enviado/g, 'Mensaje preparado');
+      var next = content.replace(/Med\s+Cursos/g, BRAND).replace(/med-cursos\.netlify\.app/g, 'med.nykuto.com').replace(/Mensaje enviado/g, 'Mensaje preparado');
       if(next !== content) meta.setAttribute('content', next);
     });
     all('a[href="mentions.html"]').forEach(function(link){ if(clean(link.textContent) === 'Mentions') link.textContent = 'Aviso legal'; });

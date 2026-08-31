@@ -7,39 +7,43 @@
   var PROFILE_KEY = 'medNykutoCommunityProfile:v1';
   var API_URL = '/api/community';
   var params = new URLSearchParams(window.location.search || '');
+  var classId = String(params.get('class') || '').toLowerCase();
+  if(classId !== 's4-e') return;
   var courseId = params.get('course') || '';
   var moduleId = params.get('module') || '';
 
   var copy = {
     es:{
       title:'¿Te sumas al desafío del 4.º E?',
-      body:'Publica este resultado con un apodo. Solo cuenta tu mejor resultado de la semana en esta materia o módulo.',
-      label:'Apodo público',
-      placeholder:'Ej.: Baboune',
+      body:'Publica este resultado con el perfil del desafío exclusivo del 4.º E.',
+      label:'Perfil del desafío',
       submit:'Sumar mi resultado',
       sending:'Guardando…',
       saved:'Resultado añadido: {score}.',
       kept:'Tu mejor resultado sigue siendo {score}.',
-      invalid:'Escribe un apodo de 2 a 24 caracteres.',
+      invalid:'Guarda primero tu nombre completo, catraca completa y confirmación del 4.º E en la página del desafío.',
       offline:'No se pudo conectar ahora. Tu resultado del QCM no se pierde.',
       activating:'El desafío compartido se está activando. Tu resultado del QCM no se pierde.',
+      closed:'El desafío cerró el domingo a las 20:00, hora de Paraguay. Tu resultado queda guardado, pero ya no cambia la clasificación.',
       ranking:'Ver el desafío y la clasificación',
-      privacy:'Participar es opcional. No necesitas escribir tu nombre real.'
+      privacy:'Participar es facultativo. El nombre completo y la catraca completa son públicos para quien tenga el enlace. El premio de 50 R$ por Pix solo se entrega tras verificación manual.',
+      register:'Guardar identidad'
     },
     br:{
       title:'Você entra no desafio do 4.º E?',
-      body:'Publique este resultado com um apelido. Só conta seu melhor resultado da semana nesta matéria ou módulo.',
-      label:'Apelido público',
-      placeholder:'Ex.: Baboune',
+      body:'Publique este resultado com o perfil do desafio exclusivo do 4.º E.',
+      label:'Perfil do desafio',
       submit:'Somar meu resultado',
       sending:'Salvando…',
       saved:'Resultado adicionado: {score}.',
       kept:'Seu melhor resultado continua sendo {score}.',
-      invalid:'Digite um apelido de 2 a 24 caracteres.',
+      invalid:'Primeiro salve seu nome completo, catraca completa e confirmação do 4.º E na página do desafio.',
       offline:'Não foi possível conectar agora. Seu resultado do QCM não será perdido.',
       activating:'O desafio compartilhado está sendo ativado. Seu resultado do QCM não será perdido.',
+      closed:'O desafio encerrou domingo às 20:00, horário do Paraguai. Seu resultado continua salvo, mas não altera mais a classificação.',
       ranking:'Ver o desafio e a classificação',
-      privacy:'Participar é opcional. Você não precisa usar seu nome real.'
+      privacy:'Participar é facultativo. O nome completo e a catraca completa são públicos para quem tem o link. O Pix de R$ 50 só é entregue após verificação manual.',
+      register:'Salvar identidade'
     }
   };
 
@@ -67,13 +71,33 @@
     return [hex.slice(0,8),hex.slice(8,12),hex.slice(12,16),hex.slice(16,20),hex.slice(20)].join('-');
   }
 
+  function validFullName(value){
+    var name=String(value||'').normalize('NFKC').replace(/\s+/g,' ').trim();
+    var parts=name.split(' ');
+    return name.length>=5&&name.length<=60&&parts.length>=2&&parts.every(function(part){return /^[\p{L}\p{M}]+(?:['’\-][\p{L}\p{M}]+)*$/u.test(part);});
+  }
+
+  function canonicalCatraca(value){return String(value||'').normalize('NFKC').toUpperCase().replace(/[\s._-]+/g,'').slice(0,24);}
+  function validCatraca(value){return /^[A-Z0-9]{4,24}$/.test(canonicalCatraca(value));}
+
   function readProfile(){
     var profile = {};
     try{ profile = JSON.parse(localStorage.getItem(PROFILE_KEY) || '{}') || {}; }catch(error){}
-    if(!/^[0-9a-f-]{36}$/i.test(profile.playerId || '')) profile.playerId = createPlayerId();
-    profile.nickname = String(profile.nickname || '').slice(0,24);
+    if(!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(profile.playerId || '')) profile.playerId = createPlayerId();
+    profile.fullName = String(profile.fullName || profile.displayName || profile.nickname || '').normalize('NFKC').replace(/\s+/g,' ').trim().slice(0,60);
+    profile.displayName = profile.fullName;
+    profile.catraca = canonicalCatraca(profile.catraca || profile.studentId || '');
+    profile.studentIdMasked = String(profile.studentIdMasked || '').slice(0,20);
+    profile.accessToken = /^[0-9a-f]{64}$/i.test(String(profile.accessToken || '')) ? profile.accessToken : '';
+    profile.classConfirmed = profile.classConfirmed === true && Boolean(profile.catraca);
+    delete profile.nickname;
+    delete profile.studentId;
     writeProfile(profile);
     return profile;
+  }
+
+  function profileReady(profile){
+    return Boolean(validFullName(profile.fullName) && validCatraca(profile.catraca) && profile.classConfirmed === true && /^[0-9a-f]{64}$/i.test(profile.accessToken));
   }
 
   function writeProfile(profile){
@@ -108,14 +132,11 @@
     return template.replace('{score}',score.correct + '/' + score.total);
   }
 
-  function validNickname(value){
-    return /^[\p{L}\p{N}][\p{L}\p{N} ._'-]{0,22}[\p{L}\p{N}]$/u.test(value);
-  }
-
   function buildPublisher(card,score){
     var lang = language();
     var text = copy[lang];
     var profile = readProfile();
+    var ready = profileReady(profile);
     var panel = element('section','community-publish-card');
     panel.setAttribute('aria-labelledby','community-publish-title-' + Math.random().toString(36).slice(2));
 
@@ -125,19 +146,11 @@
     panel.appendChild(element('p','community-publish-copy',text.body));
 
     var form = element('form','community-publish-form');
-    var field = element('label','community-publish-field');
+    var field = element('div','community-publish-field');
     field.appendChild(element('span','community-publish-label',text.label));
-    var input = element('input','community-publish-input');
-    input.type = 'text';
-    input.name = 'community-nickname';
-    input.autocomplete = 'nickname';
-    input.maxLength = 24;
-    input.minLength = 2;
-    input.placeholder = text.placeholder;
-    input.value = profile.nickname;
-    field.appendChild(input);
+    field.appendChild(element('strong','community-publish-identity',ready ? profile.fullName + ' · ' + profile.catraca : text.invalid));
     form.appendChild(field);
-    var button = element('button','community-publish-button',text.submit);
+    var button = element('button','community-publish-button',ready ? text.submit : text.register);
     button.type = 'button';
     form.appendChild(button);
     panel.appendChild(form);
@@ -154,14 +167,11 @@
     function publishScore(event){
       event.preventDefault();
       event.stopPropagation();
-      var nickname = input.value.normalize('NFKC').replace(/\s+/g,' ').trim();
-      if(!validNickname(nickname)){
+      if(!profileReady(profile)){
         setStatus(status,text.invalid,'error');
-        input.focus();
+        window.location.href = 'comunidade.html#profileTitle';
         return;
       }
-      profile.nickname = nickname;
-      writeProfile(profile);
       button.disabled = true;
       button.textContent = text.sending;
       setStatus(status,'','');
@@ -171,8 +181,10 @@
         credentials:'same-origin',
         headers:{'content-type':'application/json'},
         body:JSON.stringify({
+          action:'score',
+          class:'s4-e',
           playerId:profile.playerId,
-          nickname:nickname,
+          accessToken:profile.accessToken,
           courseId:courseId,
           moduleId:moduleId,
           correct:score.correct,
@@ -191,7 +203,7 @@
         var best = data.best || score;
         setStatus(status,translated(data.saved === false ? text.kept : text.saved,best),'success');
       }).catch(function(error){
-        setStatus(status,error.code === 'not_configured' ? text.activating : text.offline,'error');
+        setStatus(status,error.code === 'challenge_closed' ? text.closed : error.code === 'not_configured' ? text.activating : /^(?:identity_required|identity_ineligible)$/.test(error.code || '') ? text.invalid : text.offline,'error');
       }).finally(function(){
         button.disabled = false;
         button.textContent = text.submit;
@@ -199,11 +211,6 @@
     }
 
     button.addEventListener('click',publishScore);
-    input.addEventListener('keydown',function(event){
-      if(event.key !== 'Enter') return;
-      publishScore(event);
-    });
-
     card.appendChild(panel);
   }
 

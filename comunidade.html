@@ -2,24 +2,45 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#07111f" />
-  <title>Desafío del 4.º E | Med Nykuto</title>
-  <meta name="description" content="Desafío semanal y clasificación amistosa de QCM para el 4.º E de Med Nykuto." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#06131f" />
+  <title>P1 · Entrenamiento por tema y ranking | Med Nykuto</title>
+  <meta name="description" content="Entrenamiento P1 por materia y tema con QCM, verdadero o falso, casos clínicos y clasificación semanal del 4.º E." />
   <meta name="robots" content="noindex,follow" />
   <link rel="icon" href="assets/logo-medcursos-icon.png" />
-  <link rel="stylesheet" href="community.css?v=1" />
+  <script src="public-theme-v485.js?v=485"></script>
+  <link rel="stylesheet" href="community.css?v=500" />
+  <link rel="stylesheet" href="help-desk-v479.css?v=500" />
+  <link rel="stylesheet" href="public-theme-v485.css?v=486" />
 </head>
 <body class="community-page">
   <a class="community-skip-link" href="#communityContent">Ir al contenido</a>
+
+  <svg class="study-icon-sprite" aria-hidden="true">
+    <symbol id="class-icon-home" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10.5V20h14v-9.5"/><path d="M9 20v-6h6v6"/></symbol>
+    <symbol id="class-icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></symbol>
+    <symbol id="class-icon-task" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M8.5 12l2 2 4.5-5M8.5 18h7"/></symbol>
+    <symbol id="class-icon-notice" viewBox="0 0 24 24"><path d="M12 3a7 7 0 0 0-7 7v4.5L3.5 18h17L19 14.5V10a7 7 0 0 0-7-7Z"/><path d="M9.5 21h5M12 7.5v4M12 14.5h.01"/></symbol>
+    <symbol id="class-icon-book" viewBox="0 0 24 24"><path d="M3 5.5c3-1.2 6-.8 9 1.2v13c-3-2-6-2.4-9-1.2zM21 5.5c-3-1.2-6-.8-9 1.2v13c3-2 6-2.4 9-1.2z"/></symbol>
+    <symbol id="class-icon-plan" viewBox="0 0 24 24"><path d="m3.5 6 1.5 1.5L8 4.5M10 6h10M3.5 12 5 13.5l3-3M10 12h10M3.5 18 5 19.5l3-3M10 18h10"/></symbol>
+    <symbol id="class-icon-community" viewBox="0 0 24 24"><path d="M8 4h8v4c0 3.4-1.7 5.7-4 6.6C9.7 13.7 8 11.4 8 8Z"/><path d="M8 6H5v1.5c0 2.2 1.4 3.8 3.5 4.1M16 6h3v1.5c0 2.2-1.4 3.8-3.5 4.1M12 14.6V18M8.5 21h7M9.5 18h5"/></symbol>
+    <symbol id="class-icon-p1" viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z"/><path d="M16 3v4h4M8 11h8M8 15h5"/><path d="m8.2 7.3.9.9 1.8-2"/></symbol>
+    <symbol id="class-icon-nutrition" viewBox="0 0 24 24"><path d="M12 8c-1.8-2.3-5.6-1.8-7 1.1-1.7 3.6.8 9.8 4.2 10.8 1.1.3 1.8-.5 2.8-.5s1.7.8 2.8.5c3.4-1 5.9-7.2 4.2-10.8C17.6 6.2 13.8 5.7 12 8Z"/><path d="M12 8c-.4-2.4.7-4.3 3.2-5M13.2 4.4c1.4.1 2.6.6 3.5 1.5"/></symbol>
+    <symbol id="class-icon-physiology" viewBox="0 0 24 24"><path d="M11 12V5.8c0-1.4-.8-2.5-2-2.8M13 12V5.8c0-1.4.8-2.5 2-2.8"/><path d="M11 9.5c-1.4-.3-2.8.1-3.8 1.1-2 1.9-3 5.8-2 8.2.5 1.1 1.8 1.6 2.8 1 1.7-1 2.7-3 3-5.2M13 9.5c1.4-.3 2.8.1 3.8 1.1 2 1.9 3 5.8 2 8.2-.5 1.1-1.8 1.6-2.8 1-1.7-1-2.7-3-3-5.2"/></symbol>
+    <symbol id="class-icon-biochemistry" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5.2 8.5A2.3 2.3 0 0 0 6.8 21h10.4a2.3 2.3 0 0 0 2-3.5L14 9V3"/><path d="M7.8 16h8.4M9.5 13h5"/></symbol>
+    <symbol id="class-icon-epidemiology" viewBox="0 0 24 24"><circle cx="8" cy="8" r="2.5"/><circle cx="17" cy="7" r="2"/><path d="M3.5 19c.3-3.5 1.8-5.5 4.5-5.5s4.2 2 4.5 5.5M13.5 18c.2-2.7 1.4-4.3 3.6-4.3 2.1 0 3.3 1.6 3.5 4.3"/></symbol>
+    <symbol id="class-icon-microbiology" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M19.1 4.9l-2.8 2.8M7.7 16.3l-2.8 2.8"/><circle cx="10" cy="10" r=".8"/><circle cx="14.5" cy="12.5" r=".8"/><circle cx="10.5" cy="15" r=".8"/></symbol>
+    <symbol id="class-icon-lab" viewBox="0 0 24 24"><path d="M9 3h6M10 3v5.5l-5.5 9A2.3 2.3 0 0 0 6.5 21h11a2.3 2.3 0 0 0 2-3.5l-5.5-9V3"/><path d="M7 15h10M9.5 12h5"/><circle cx="9.2" cy="18" r=".7"/><circle cx="14.8" cy="17.2" r=".7"/></symbol>
+  </svg>
 
   <header class="community-header">
     <div class="community-header-inner">
       <a class="community-brand" href="clase.html" aria-label="Med Nykuto · 4.º E">
         <img src="assets/logo-medcursos-official.png" alt="" />
-        <span><strong>Med Nykuto</strong><small>4.º E · Semestre 4</small></span>
+        <span><strong>Med Nykuto</strong><small>4.º E · P1</small></span>
       </a>
       <div class="community-header-actions">
+        <button class="public-theme-toggle community-theme-toggle" type="button" data-public-theme-toggle aria-pressed="false"><span class="public-theme-icon" data-public-theme-icon aria-hidden="true">☀</span><span class="public-theme-label" data-public-theme-label>Claro</span></button>
         <label class="community-language">
           <span data-i18n="language">Idioma</span>
           <select id="communityLanguage" aria-label="Idioma">
@@ -27,30 +48,95 @@
             <option value="br">PT-BR</option>
           </select>
         </label>
-        <a class="community-back" href="clase.html"><span aria-hidden="true">←</span> <span data-i18n="back">Volver a la clase</span></a>
+        <a class="community-back" href="p1.html"><span aria-hidden="true">←</span> <span data-i18n="back">Volver a P1</span></a>
       </div>
     </div>
   </header>
 
   <main id="communityContent" class="community-main">
-    <section class="community-hero" aria-labelledby="communityTitle">
-      <div class="community-hero-copy">
-        <p class="community-kicker" data-i18n="eyebrow">4.º E · Semestre 4</p>
-        <h1 id="communityTitle" data-i18n="title">Un desafío que suma a toda la clase.</h1>
-        <p class="community-intro" data-i18n="intro">Cada QCM publicado aporta al objetivo común. El ranking es amistoso, semanal y funciona solo con apodos.</p>
-        <div class="community-hero-actions">
-          <a class="community-button is-primary" href="qcm.html" data-i18n="start">Hacer un QCM</a>
-          <a class="community-button" href="matieres.html" data-i18n="choose">Elegir materia</a>
-        </div>
+    <section class="study-hero" aria-labelledby="communityTitle">
+      <div class="study-hero-copy">
+        <p class="community-kicker" data-i18n="eyebrow">P1 · 4.º E</p>
+        <h1 id="communityTitle" data-i18n="title">P1 · Entrenamiento por tema y ranking</h1>
+        <p class="community-intro" data-i18n="intro">Elige una materia del P1, practica un tema y, si quieres, publica tu mejor resultado en el ranking semanal.</p>
       </div>
-      <div class="community-hero-mark" aria-hidden="true">
-        <span>4E</span>
-        <i></i><i></i><i></i>
+      <div class="study-score-summary" aria-label="Resumen de la clasificación semanal">
+        <article class="study-leader-card">
+          <span data-i18n="topKicker">TOP 1 PROVISIONAL ESTA SEMANA</span>
+          <strong id="studyTopName">Todavía sin líder</strong>
+          <small id="studyTopMeta">Sé la primera persona en publicar un resultado.</small>
+        </article>
+        <article class="study-my-score-card">
+          <span data-i18n="myScore">Tu score</span>
+          <strong id="studyMyScoreValue">—</strong>
+          <small id="studyMyScoreMeta" data-i18n="noScore">Sin resultado publicado</small>
+        </article>
+        <a class="study-score-link" href="#ranking" data-i18n="rankingLink">Ver clasificación</a>
       </div>
     </section>
 
+    <section class="study-picker-card" aria-labelledby="studySubjectTitle">
+      <div class="study-picker-heading">
+        <p class="community-kicker" data-i18n="studyKicker">P1 · ENTRENAMIENTO POR TEMA</p>
+        <h2 id="studySubjectTitle" data-i18n="selectSubject">1 · Elige una materia</h2>
+        <p data-i18n="selectSubjectCopy">Después verás solamente los temas de esa materia incluidos en P1.</p>
+      </div>
+      <div class="study-subject-grid" id="studySubjectPicker" aria-label="Materias disponibles"></div>
+      <div class="study-topic-heading">
+        <h3 data-i18n="selectTopic">2 · Elige un tema</h3>
+        <p data-i18n="selectTopicCopy">Cada opción corresponde a una clase incluida en el alcance P1.</p>
+      </div>
+      <div class="study-topic-list" id="studyTopicPicker" aria-label="Temas disponibles"></div>
+    </section>
+
+    <section class="profile-card study-profile-card" aria-labelledby="profileTitle">
+      <div>
+        <p class="community-kicker" data-i18n="profileKicker">TU IDENTIDAD EN EL RETO</p>
+        <h2 id="profileTitle" data-i18n="profileTitle">Confirma tu identidad del 4.º E</h2>
+        <p data-i18n="profileCopy">La participación es facultativa. Para competir, confirma tu identidad y acepta la publicación de tus datos.</p>
+      </div>
+      <form id="communityProfileForm" class="community-profile-form">
+        <div class="community-identity-fields">
+          <label for="communityDisplayName"><span data-i18n="displayName">Nombre completo</span><input id="communityDisplayName" name="displayName" type="text" minlength="5" maxlength="60" autocomplete="name" data-i18n-placeholder="displayNamePlaceholder" placeholder="Ej.: Ana Oliveira" required /></label>
+          <label for="communityStudentId"><span data-i18n="studentId">Catraca UCP completa</span><input id="communityStudentId" name="studentId" type="text" minlength="4" maxlength="28" autocomplete="off" inputmode="text" data-i18n-placeholder="studentIdPlaceholder" placeholder="Tu número completo de catraca" required aria-describedby="communityPrivacy" /></label>
+        </div>
+        <label class="community-identity-consent" for="communityClassConfirmed"><input id="communityClassConfirmed" name="classConfirmed" type="checkbox" required /><span data-i18n="classAttestation">Declaro que estoy matriculado/a en el 4.º E y que estos datos son míos.</span></label>
+        <label class="community-identity-consent" for="communityIdentityConsent"><input id="communityIdentityConsent" name="consent" type="checkbox" required /><span data-i18n="identityConsent">Participar es facultativo. Acepto que mi nombre completo y mi catraca completa sean públicos para cualquier persona que tenga el enlace. El Pix solo se entrega después de una verificación manual.</span></label>
+        <button type="submit" data-i18n="save">Guardar y participar</button>
+        <p id="communityProfileStatus" class="community-profile-status" role="status" aria-live="polite"></p>
+      </form>
+      <p class="community-privacy" id="communityPrivacy" data-i18n="privacy">Aviso de datos públicos: si participas, tu nombre completo y tu catraca completa aparecerán en la clasificación compartida.</p>
+    </section>
+
+    <section class="study-practice-card" aria-label="Entrenamiento seleccionado">
+      <div id="studyPracticeHost"></div>
+    </section>
+
+    <section class="study-publish-panel" id="studyPublishPanel" hidden aria-labelledby="studyPublishTitle">
+      <div>
+        <p class="community-kicker" data-i18n="publishKicker">TU RESULTADO</p>
+        <h2 id="studyPublishTitle">0/0 respuestas correctas ya realizadas</h2>
+        <p id="studyPublishCopy" data-i18n="publishCopy">Un solo clic sincroniza juntos tus QCM, verdadero/falso y casos ya respondidos.</p>
+      </div>
+      <button id="studyPublishButton" type="button" data-i18n="publishButton">Sumar todo al ranking</button>
+      <p id="studyPublishStatus" role="status" aria-live="polite"></p>
+    </section>
+
+    <div class="study-ranking-heading" id="ranking">
+      <p class="community-kicker" data-i18n="rankingAndChallenge">4.º E · CLASIFICACIÓN Y DESAFÍO</p>
+      <nav class="study-latest-shortcuts" aria-labelledby="latestCoursesLabel">
+        <span id="latestCoursesLabel" data-i18n="latestCourses">TEMAS P1 RECIENTES</span>
+        <a href="#bioquimica-2026-08-26" data-study-topic-shortcut="bioquimica-2026-08-26"><span><strong data-i18n="latestBiochemistry">Bioquímica · Cori y pentosas</strong><small data-i18n="newTranscript26">Nueva transcripción · 26 ago.</small></span><b aria-hidden="true">→</b></a>
+        <a href="#epidemiologia-2026-08-26" data-study-topic-shortcut="epidemiologia-2026-08-26"><span><strong data-i18n="latestEpidemiology">Epidemiología · Casos de triaje</strong><small data-i18n="newTranscript26">Nueva transcripción · 26 ago.</small></span><b aria-hidden="true">→</b></a>
+      </nav>
+    </div>
+
     <div class="community-dashboard">
       <section class="challenge-card" aria-labelledby="challengeTitle">
+        <div class="challenge-prize" aria-label="Premio semanal">
+          <span aria-hidden="true">🥇</span>
+          <div><strong data-i18n="prizeAmount">50 R$ vía Pix</strong><small data-i18n="prizeWinner">Premio para el 1.er lugar verificado</small></div>
+        </div>
         <div class="community-card-heading">
           <div>
             <p class="community-kicker" data-i18n="challengeKicker">DESAFÍO COLECTIVO</p>
@@ -59,6 +145,19 @@
           <span class="community-week" id="challengeWeek" data-i18n="weekPending">Semana actual</span>
         </div>
         <p data-i18n="challengeCopy">No importa quién queda primero: cada mejor resultado acerca a la clase a la meta.</p>
+        <p class="challenge-eligibility" data-i18n="prizeRule">Exclusivo para estudiantes matriculados en el 4.º E.</p>
+        <div class="challenge-countdown" id="challengeCountdown" data-state="loading" role="timer" aria-label="Tiempo restante para el cierre del desafío">
+          <div class="challenge-countdown-heading">
+            <span data-i18n="countdownKicker">CIERRE EXACTO</span>
+            <strong id="challengeCountdownLabel" data-i18n="countdownPending">Domingo · 20:00 · hora de Paraguay</strong>
+          </div>
+          <div class="challenge-countdown-units" aria-hidden="true">
+            <span><strong id="challengeCountdownDays">--</strong><small data-i18n="countdownDays">días</small></span>
+            <span><strong id="challengeCountdownHours">--</strong><small data-i18n="countdownHours">horas</small></span>
+            <span><strong id="challengeCountdownMinutes">--</strong><small data-i18n="countdownMinutes">min</small></span>
+            <span><strong id="challengeCountdownSeconds">--</strong><small data-i18n="countdownSeconds">seg</small></span>
+          </div>
+        </div>
         <strong class="challenge-score" id="challengeScore">0 / 1.000</strong>
         <span class="challenge-score-label" data-i18n="correctAnswers">respuestas correctas</span>
         <div class="challenge-progress-track" id="challengeProgressBar" role="progressbar" aria-label="Progreso del desafío" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
@@ -78,7 +177,7 @@
           </div>
           <button class="community-refresh" id="communityRefresh" type="button" data-i18n="refresh">Actualizar</button>
         </div>
-        <p class="ranking-explanation" data-i18n="rankingCopy">Se suma el mejor resultado de cada persona en cada materia o módulo.</p>
+        <p class="ranking-explanation" data-i18n="rankingCopy">Se suma el mejor resultado por materia o módulo, tanto desde los temas P1 como desde las prácticas individuales de clase.</p>
         <p class="community-loading" id="communityLoading" role="status" hidden>…</p>
         <div class="community-error" id="communityError" role="status" hidden><span></span><button id="communityRetry" type="button" data-i18n="retry">Reintentar</button></div>
         <ol class="community-ranking" id="communityRanking"></ol>
@@ -86,40 +185,37 @@
       </section>
     </div>
 
-    <div class="community-lower-grid">
-      <section class="profile-card" aria-labelledby="profileTitle">
-        <p class="community-kicker" data-i18n="profileKicker">TU IDENTIDAD EN EL RETO</p>
-        <h2 id="profileTitle" data-i18n="profileTitle">Elige un apodo</h2>
-        <p data-i18n="profileCopy">Será lo único que verá la clase. Puedes cambiarlo antes de publicar otro resultado.</p>
-        <form id="communityProfileForm" class="community-profile-form">
-          <label for="communityNickname" data-i18n="nickname">Apodo público</label>
-          <div>
-            <input id="communityNickname" name="nickname" type="text" minlength="2" maxlength="24" autocomplete="nickname" data-i18n-placeholder="nicknamePlaceholder" placeholder="Ej.: Baboune" />
-            <button type="submit" data-i18n="save">Guardar apodo</button>
-          </div>
-          <p id="communityProfileStatus" class="community-profile-status" role="status" aria-live="polite"></p>
-        </form>
-        <p class="community-privacy" data-i18n="privacy">No pedimos email ni nombre real. Participar es opcional.</p>
-      </section>
-
-      <section class="how-card" aria-labelledby="howTitle">
-        <p class="community-kicker" data-i18n="howKicker">CÓMO PARTICIPAR</p>
-        <h2 id="howTitle" data-i18n="howTitle">Tres pasos, sin cuenta</h2>
-        <ol class="community-steps">
-          <li><span>01</span><div><strong data-i18n="step1Title">1. Haz un QCM</strong><p data-i18n="step1Copy">Abre una materia o un módulo y termina la serie.</p></div></li>
-          <li><span>02</span><div><strong data-i18n="step2Title">2. Publica el resultado</strong><p data-i18n="step2Copy">Al final, escribe tu apodo y toca “Sumar mi resultado”.</p></div></li>
-          <li><span>03</span><div><strong data-i18n="step3Title">3. Vuelve la semana siguiente</strong><p data-i18n="step3Copy">El desafío se reinicia cada lunes, hora de Paraguay.</p></div></li>
-        </ol>
-      </section>
-    </div>
-
-    <section class="community-fairness">
-      <div><p class="community-kicker" data-i18n="fairTitle">Un ranking para motivarnos, no para juzgarnos</p><p data-i18n="fairCopy">Solo se guarda tu mejor resultado semanal por materia o módulo. No mostramos el tiempo y este no es un registro académico oficial.</p></div>
-      <div><strong data-i18n="questions">¿Tienes una idea para el próximo desafío?</strong><a href="clase.html#delegado" data-i18n="questionsLink">Preparar un mensaje para los delegados</a></div>
-    </section>
+    <details class="study-how-details">
+      <summary data-i18n="fairTitle">Un ranking para motivarnos, no para juzgarnos</summary>
+      <p data-i18n="fairCopy">Solo se guarda tu mejor resultado semanal por materia o módulo. No mostramos el tiempo y este no es un registro académico oficial.</p>
+    </details>
   </main>
 
   <footer class="community-footer"><strong>Med Nykuto</strong><span data-i18n="footer">Apoyo académico no oficial · 4.º E</span></footer>
-  <script src="community.js?v=1"></script>
+
+  <nav class="mobile-bottom-nav" aria-label="Navegación P1">
+    <a href="clase.html#inicio"><span class="nav-icon"><svg aria-hidden="true"><use href="#class-icon-home"></use></svg></span><strong data-i18n="navHome">Inicio</strong></a>
+    <a href="clase.html#horario"><span class="nav-icon"><svg aria-hidden="true"><use href="#class-icon-calendar"></use></svg></span><strong data-i18n="navSchedule">Horario</strong></a>
+    <a href="clase.html#pendientes"><span class="nav-icon"><svg aria-hidden="true"><use href="#class-icon-task"></use></svg></span><strong data-i18n="navTasks">Tareas</strong></a>
+    <a href="clase.html#materias"><span class="nav-icon"><svg aria-hidden="true"><use href="#class-icon-book"></use></svg></span><strong data-i18n="navSubjects">Materias</strong></a>
+    <a href="p1.html" aria-current="page" aria-label="P1 · entrenamiento por tema y ranking"><span class="nav-icon"><svg aria-hidden="true"><use href="#class-icon-p1"></use></svg></span><strong data-i18n="navP1">P1</strong></a>
+  </nav>
+
+  <script src="community.js?v=500"></script>
+  <script src="grupo-3-practice-v413.js?v=500"></script>
+  <script src="grupo-3-practice-expansion-v420.js?v=422"></script>
+  <script src="grupo-3-practice-grounded-v426.js?v=431"></script>
+  <script src="grupo-3-practice-2026-08-17-v432.js?v=434"></script>
+  <script src="grupo-3-practice-2026-08-24-v452.js?v=452"></script>
+  <script src="grupo-3-practice-2026-08-21-v440.js?v=440"></script>
+  <script src="grupo-3-practice-2026-08-26-v484.js?v=486"></script>
+  <script src="grupo-3-practice-nutricion-2026-08-27-v494.js?v=494"></script>
+  <script src="grupo-3-practice-fisiologia-2026-08-27-v494.js?v=494"></script>
+  <script src="grupo-3-practice-microbiologia-practica-2026-08-27-v494.js?v=503"></script>
+  <script src="grupo-3-practice-bioquimica-2026-08-28-v500.js?v=501"></script>
+  <script src="p1-s4-e-v2.js?v=501"></script>
+  <script src="community-study.js?v=494"></script>
+  <script src="medical-glossary-v425.js?v=432"></script>
+  <script src="help-desk-v479.js?v=481"></script>
 </body>
 </html>

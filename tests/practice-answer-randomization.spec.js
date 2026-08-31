@@ -1,0 +1,60 @@
+const { test, expect } = require('@playwright/test');
+
+const MODULE_2 = '01-fisiologia-02-transporte-de-membrana';
+
+function longestRun(values) {
+  let longest = 0;
+  let current = 0;
+  let previous = null;
+  values.forEach((value) => {
+    current = value === previous ? current + 1 : 1;
+    previous = value;
+    longest = Math.max(longest, current);
+  });
+  return longest;
+}
+
+test('physiology module batches mix A-D answers without remapping errors', async ({ page }) => {
+  await page.goto(`/qcm.html?course=fisiologia&module=${MODULE_2}`);
+  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v462');
+  await expect(page.locator('.single-question-card')).toBeVisible({ timeout: 20000 });
+  const audit = await page.evaluate(() => window.__MED_NYKUTO_PRACTICE_BATCH_AUDIT__);
+  expect(audit.type).toBe('qcm');
+  expect(audit.ids).toHaveLength(8);
+  const positions = audit.answerPositions;
+
+  await page.locator('.single-question-card .option').first().click();
+  const correct = page.locator('.single-question-card .option.correct');
+  await expect(correct).toHaveCount(1);
+  const displayedCorrect = Number(await correct.getAttribute('data-option'));
+  expect(displayedCorrect).toBe(positions[0]);
+  const correction = page.locator('.single-question-card .answer-panel:not([hidden])');
+  await expect(correction).toContainText(`Buena respuesta: ${String.fromCharCode(65 + displayedCorrect)}`);
+  if (displayedCorrect === 0) await expect(correction.locator('.qcm-feedback-pill')).toContainText('Correcta');
+  else await expect(correction.locator('.qcm-feedback-pill')).toContainText('Incorrecta');
+  const mentionedLetters = (await correction.innerText()).match(/respuesta correcta (?:es|:)\s*([A-D])/gi) || [];
+  mentionedLetters.forEach((mention) => expect(mention.toUpperCase()).toContain(String.fromCharCode(65 + displayedCorrect)));
+  const quickText = (await correction.locator('.qcm-feedback-short p').innerText()).trim();
+  const fullText = (await correction.locator('.qcm-feedback-long p').innerText()).trim();
+  expect(quickText).not.toBe(fullText);
+
+  const counts = [0, 0, 0, 0];
+  positions.forEach((position) => { counts[position] += 1; });
+  expect(Math.min(...counts)).toBeGreaterThanOrEqual(1);
+  expect(Math.max(...counts)).toBeLessThanOrEqual(3);
+  expect(longestRun(positions)).toBeLessThanOrEqual(3);
+});
+
+test('true-false batches avoid pathological same-answer streaks', async ({ page }) => {
+  await page.goto(`/vrai-faux.html?course=fisiologia&module=${MODULE_2}`);
+  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v462');
+  await expect(page.locator('.single-question-card')).toBeVisible({ timeout: 20000 });
+
+  const audit = await page.evaluate(() => window.__MED_NYKUTO_PRACTICE_BATCH_AUDIT__);
+  expect(audit.type).toBe('vf');
+  expect(audit.ids).toHaveLength(4);
+  const positions = audit.answerPositions;
+
+  expect(new Set(positions).size).toBe(2);
+  expect(longestRun(positions)).toBeLessThanOrEqual(2);
+});

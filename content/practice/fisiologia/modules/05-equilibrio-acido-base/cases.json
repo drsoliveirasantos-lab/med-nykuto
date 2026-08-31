@@ -647,7 +647,7 @@
     "heading": "Caso 10",
     "difficulty": "Examen",
     "stem": "Una mujer embarazada tiene hiperventilación sostenida durante el tercer trimestre. La gasometría muestra PaCO2 baja y HCO3− discretamente bajo. El riñón compensa la alcalosis respiratoria eliminando bicarbonato.",
-    "question": "¿Qué interpretación es más correcta?",
+    "question": "A la luz de «Equilibrio ácido-base», ¿cuál alternativa integra correctamente el dato clave y su consecuencia?",
     "options": [
       "Alcalosis respiratoria pura por hiperventilación primaria.",
       "Alcalosis respiratoria crónica con compensación renal.",
@@ -1639,7 +1639,7 @@
     "heading": "Caso 24",
     "difficulty": "Examen",
     "stem": "Un paciente con insuficiencia renal llega con respiración rápida y gasometría con pH 7,25, HCO3− 12 mEq/L y PaCO2 26 mmHg. La PaCO2 baja indica respuesta ventilatoria compensadora. El trastorno primario es metabólico.",
-    "question": "¿Cuál es la interpretación más probable?",
+    "question": "¿Qué opción explica de forma coherente el hallazgo central desde «Equilibrio ácido-base»?",
     "options": [
       "Eliminación pulmonar directa de bicarbonato.",
       "Filtración glomerular de eritrocitos como mecanismo compensador.",
@@ -1710,7 +1710,7 @@
     "heading": "Caso 25",
     "difficulty": "Examen",
     "stem": "Una paciente con vómitos y alcalosis presenta pH 7,55, HCO3− 38 mEq/L y PaCO2 50 mmHg. La PaCO2 elevada refleja hipoventilación compensadora. El trastorno primario es alcalosis metabólica.",
-    "question": "¿Cuál es la interpretación más probable?",
+    "question": "A la luz de «Equilibrio ácido-base», ¿cuál alternativa integra correctamente el dato clave y su consecuencia?",
     "options": [
       "Alcalosis metabólica con compensación respiratoria.",
       "Acidosis respiratoria pura por PaCO₂ elevada como único proceso.",
@@ -2767,7 +2767,7 @@
     "heading": "Caso 40",
     "difficulty": "Examen",
     "stem": "Un paciente llega con pH 7,39, PaCO2 20 mmHg y HCO3− 12 mEq/L. Aunque el pH parece normal, CO2 y bicarbonato están muy alterados. La lectura prudente es trastorno mixto o compensación compleja.",
-    "question": "¿Qué interpretación es más prudente?",
+    "question": "¿Qué razonamiento sobre «Equilibrio ácido-base» se ajusta al escenario descrito?",
     "options": [
       "Eliminación pulmonar directa de bicarbonato.",
       "Filtración glomerular de eritrocitos como mecanismo compensador.",

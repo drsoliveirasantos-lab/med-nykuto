@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <title>Bioquímica II · Grupos | Med Nykuto</title>
+  <link rel="icon" href="/assets/pwa-icon-192.png" />
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f4f6fb;
+      --surface: #ffffff;
+      --surface-soft: #eef1f7;
+      --text: #152033;
+      --muted: #667085;
+      --line: rgba(21, 32, 51, .12);
+      --primary: #5b52e8;
+      --primary-strong: #4338ca;
+      --success: #137a52;
+      --warning: #9a5a00;
+      --danger: #b42318;
+      --shadow: 0 18px 55px rgba(15, 23, 42, .16);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1218;
+        --surface: #191d25;
+        --surface-soft: #242a35;
+        --text: #f5f7fb;
+        --muted: #abb4c5;
+        --line: rgba(255, 255, 255, .12);
+        --primary: #938cff;
+        --primary-strong: #aba6ff;
+        --success: #60d6a6;
+        --warning: #f5b65a;
+        --danger: #ff8a80;
+        --shadow: 0 22px 65px rgba(0, 0, 0, .46);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--bg); scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.45;
+    }
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .page {
+      width: min(100%, 860px);
+      margin: 0 auto;
+      padding: 0 14px calc(40px + env(safe-area-inset-bottom));
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 0 -14px;
+      padding: calc(10px + env(safe-area-inset-top)) 14px 10px;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg) 90%, transparent);
+      backdrop-filter: blur(14px);
+    }
+    .topbar-main { display: flex; min-width: 0; align-items: center; gap: 10px; }
+    .round-button {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      flex: none;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .brand-mark { width: 36px; height: 36px; border-radius: 10px; }
+    .topbar-copy { min-width: 0; }
+    .topbar-copy strong, .topbar-copy small { display: block; }
+    .topbar-copy strong { overflow: hidden; font-size: 15px; text-overflow: ellipsis; white-space: nowrap; }
+    .topbar-copy small { color: var(--muted); font-size: 11px; }
+    .hero {
+      margin: 14px 0 12px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: linear-gradient(145deg, color-mix(in srgb, var(--primary) 12%, var(--surface)), var(--surface));
+      box-shadow: 0 8px 28px rgba(15, 23, 42, .07);
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--primary) 12%, var(--surface));
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .hero h1 { margin: 9px 0 6px; font-size: clamp(21px, 6vw, 31px); line-height: 1.12; }
+    .hero p { margin: 0; color: var(--muted); font-size: 13px; }
+    .hero-facts { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 13px; }
+    .hero-facts span {
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      font-size: 11px;
+      font-weight: 750;
+    }
+    .status {
+      margin: 0 0 12px;
+      padding: 11px 12px;
+      border-radius: 13px;
+      background: var(--surface-soft);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .status.is-live { background: color-mix(in srgb, var(--success) 12%, var(--surface)); color: var(--success); }
+    .status.is-warning { background: color-mix(in srgb, var(--warning) 12%, var(--surface)); color: var(--warning); }
+    .status.is-danger { background: color-mix(in srgb, var(--danger) 12%, var(--surface)); color: var(--danger); }
+    .rules {
+      margin: 0 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface);
+      overflow: hidden;
+    }
+    .rules summary {
+      padding: 13px 14px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 850;
+      list-style: none;
+    }
+    .rules summary::-webkit-details-marker { display: none; }
+    .rules summary::after { content: "+"; float: right; color: var(--primary); font-size: 20px; line-height: 1; }
+    .rules[open] summary::after { content: "−"; }
+    .rules ol { margin: 0; padding: 0 18px 15px 35px; color: var(--muted); font-size: 12px; }
+    .rules li + li { margin-top: 7px; }
+    .rules li:nth-child(4), .rules li:nth-child(6) { color: var(--danger); font-weight: 750; }
+    .search-panel {
+      position: sticky;
+      top: calc(63px + env(safe-area-inset-top));
+      z-index: 15;
+      margin: 0 -14px 12px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg) 90%, transparent);
+      backdrop-filter: blur(14px);
+    }
+    .search-panel label { display: block; margin-bottom: 5px; color: var(--muted); font-size: 11px; font-weight: 750; }
+    .input {
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--surface);
+      color: var(--text);
+      outline: none;
+    }
+    .input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent); }
+    .search-result {
+      margin-top: 7px;
+      padding: 9px 10px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .search-result strong { color: var(--text); }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 10px; margin: 15px 2px 9px; }
+    .section-heading h2 { margin: 0; font-size: 17px; }
+    .section-heading span { color: var(--muted); font-size: 11px; text-align: right; }
+    .groups { display: grid; gap: 9px; }
+    .group {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface);
+      overflow: hidden;
+    }
+    .group.is-featured { border-color: color-mix(in srgb, var(--primary) 58%, var(--line)); box-shadow: 0 8px 25px color-mix(in srgb, var(--primary) 10%, transparent); }
+    .group.is-over { border-color: color-mix(in srgb, var(--danger) 58%, var(--line)); }
+    .group summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px;
+      cursor: pointer;
+      list-style: none;
+    }
+    .group summary::-webkit-details-marker { display: none; }
+    .group-title { display: flex; min-width: 0; align-items: center; gap: 9px; }
+    .group-number {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      flex: none;
+      place-items: center;
+      border-radius: 11px;
+      background: var(--surface-soft);
+      font-size: 14px;
+      font-weight: 900;
+    }
+    .is-featured .group-number { background: var(--primary); color: #fff; }
+    .group-title strong, .group-title small { display: block; }
+    .group-title strong { font-size: 14px; }
+    .group-title small { margin-top: 2px; color: var(--muted); font-size: 11px; }
+    .badge { flex: none; padding: 5px 8px; border-radius: 999px; font-size: 11px; font-weight: 850; }
+    .badge.is-open { background: color-mix(in srgb, var(--success) 12%, var(--surface)); color: var(--success); }
+    .badge.is-full { background: var(--surface-soft); color: var(--muted); }
+    .badge.is-over { background: color-mix(in srgb, var(--danger) 12%, var(--surface)); color: var(--danger); }
+    .group-body { padding: 0 12px 12px; border-top: 1px solid var(--line); }
+    .members { margin: 0; padding: 7px 0 4px; list-style: none; }
+    .member {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 38px;
+      padding: 7px 0;
+      border-bottom: 1px solid color-mix(in srgb, var(--line) 75%, transparent);
+      font-size: 12px;
+    }
+    .member:last-child { border-bottom: 0; }
+    .member-index { display: grid; width: 25px; height: 25px; flex: none; place-items: center; border-radius: 8px; background: var(--surface-soft); color: var(--muted); font-size: 10px; font-weight: 800; }
+    .member strong { font-weight: 700; }
+    .group-alert { margin: 7px 0 0; padding: 9px 10px; border-radius: 11px; background: color-mix(in srgb, var(--danger) 10%, var(--surface)); color: var(--danger); font-size: 11px; }
+    .join-button, .primary-button, .secondary-button {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .join-button { width: 100%; margin-top: 8px; border: 0; background: var(--primary); color: #fff; }
+    .join-button:hover, .primary-button:hover { background: var(--primary-strong); }
+    .join-button:disabled { cursor: not-allowed; opacity: .48; }
+    .privacy { margin: 13px 2px 0; color: var(--muted); font-size: 11px; }
+    dialog {
+      width: min(calc(100% - 20px), 560px);
+      max-height: calc(100dvh - 20px);
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: var(--shadow);
+    }
+    dialog::backdrop { background: rgba(3, 7, 18, .66); backdrop-filter: blur(6px); }
+    .dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 15px 15px 11px; border-bottom: 1px solid var(--line); }
+    .dialog-head h2 { margin: 0; font-size: 18px; }
+    .dialog-head p { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+    .dialog-close { width: 40px; height: 40px; flex: none; border: 0; border-radius: 50%; background: var(--surface-soft); color: var(--text); font-size: 22px; cursor: pointer; }
+    .dialog-body { padding: 14px 15px calc(16px + env(safe-area-inset-bottom)); }
+    .form-grid { display: grid; gap: 11px; }
+    .field span { display: block; margin-bottom: 5px; font-size: 12px; font-weight: 750; }
+    .check { display: flex; align-items: flex-start; gap: 8px; color: var(--muted); font-size: 11px; }
+    .check input { margin-top: 2px; }
+    .form-message { min-height: 18px; color: var(--danger); font-size: 12px; }
+    .dialog-actions { display: grid; grid-template-columns: 1fr 1.35fr; gap: 8px; }
+    .secondary-button { border: 1px solid var(--line); background: var(--surface-soft); color: var(--text); }
+    .primary-button { border: 0; background: var(--primary); color: #fff; }
+    .primary-button:disabled { cursor: wait; opacity: .55; }
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(18px + env(safe-area-inset-bottom));
+      z-index: 40;
+      width: min(calc(100% - 28px), 520px);
+      padding: 11px 13px;
+      border-radius: 12px;
+      background: #111827;
+      color: #fff;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 18px);
+      transition: .18s ease;
+      font-size: 13px;
+    }
+    .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+    .toast.is-error { background: #8f1b14; }
+    @media (min-width: 700px) {
+      .groups { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+      .topbar { border-radius: 0 0 14px 14px; }
+    }
+    @supports not (color: color-mix(in srgb, red, blue)) {
+      .hero, .status, .badge.is-open { background: var(--surface); }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="topbar-main">
+        <button class="round-button" id="backButton" type="button" aria-label="Voltar">‹</button>
+        <img class="brand-mark" src="/assets/pwa-icon-192.png" width="36" height="36" alt="" />
+        <div class="topbar-copy"><strong>Bioquímica II · Grupos</strong><small>Med Nykuto · 4.º E</small></div>
+      </div>
+      <button class="round-button" id="shareButton" type="button" aria-label="Compartilhar">↗</button>
+    </header>
+
+    <section class="hero" aria-labelledby="pageTitle">
+      <span class="eyebrow">Tarefa · Prova prática</span>
+      <h1 id="pageTitle">Caso clínico, trabalhos assinados e grupos</h1>
+      <p>A prova prática será na sexta-feira, 04/09/2026. Consulte seu grupo antes de preencher qualquer inscrição.</p>
+      <div class="hero-facts"><span>Máximo 10 por grupo</span><span>Caso clínico: 1 ponto</span><span>Presença obrigatória</span><span>Levar 4 trabalhos assinados</span></div>
+    </section>
+
+    <p id="connectionStatus" class="status" role="status" aria-live="polite">Carregando a lista compartilhada…</p>
+
+    <details class="rules" open>
+      <summary>Consignas completas da professora</summary>
+      <ol id="instructionList"></ol>
+    </details>
+
+    <section class="search-panel" aria-labelledby="searchLabel">
+      <label id="searchLabel" for="memberSearch">Procure seu nome antes de se inscrever</label>
+      <input id="memberSearch" class="input" type="search" inputmode="search" autocomplete="off" placeholder="Nome completo" />
+      <div id="searchResults" aria-live="polite"></div>
+    </section>
+
+    <div class="section-heading"><h2>Grupos preenchidos</h2><span id="groupTotals">Carregando…</span></div>
+    <div id="groupList" class="groups" aria-live="polite"></div>
+    <p id="privacyNote" class="privacy">A matrícula é usada somente para impedir duplicidade e nunca aparece publicamente.</p>
+  </main>
+
+  <dialog id="joinDialog" aria-labelledby="joinDialogTitle">
+    <header class="dialog-head">
+      <div><h2 id="joinDialogTitle">Entrar no Grupo 10</h2><p>Preencha somente se seu nome ainda não estiver em nenhum grupo.</p></div>
+      <button class="dialog-close" id="dialogClose" type="button" aria-label="Fechar">×</button>
+    </header>
+    <div class="dialog-body">
+      <form id="joinForm" class="form-grid">
+        <label class="field"><span>Nome completo</span><input class="input" name="displayName" autocomplete="name" maxlength="100" required /></label>
+        <label class="field"><span>Matrícula</span><input class="input" name="matricula" inputmode="numeric" autocomplete="off" maxlength="24" required /></label>
+        <label class="check"><input name="confirmed" type="checkbox" required /><span>Confirmo que procurei meu nome e ainda não estou em outro grupo.</span></label>
+        <p id="formMessage" class="form-message" role="alert"></p>
+        <div class="dialog-actions"><button class="secondary-button" id="dialogCancel" type="button">Cancelar</button><button class="primary-button" id="joinSubmit" type="submit">Confirmar entrada</button></div>
+      </form>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var API = '/api/bioquimica-groups';
+      var instructions = [
+        'Os grupos podem ter no máximo 10 integrantes.',
+        'O caso clínico com perguntas vale 1 ponto.',
+        'Leve todos os trabalhos assinados no dia da prova.',
+        'Quem não levar os trabalhos ficará com nota zero, pois a ata será assinada nesse dia.',
+        'A nota será a soma do caso clínico com os trabalhos realizados.',
+        'A presença é obrigatória para validar os trabalhos.',
+        'A professora não aceitará que outra pessoa entregue trabalhos em nome de um colega.',
+        'Haverá mais uma aula de flexibilidade para a conferência dos trabalhos.',
+        'Na sexta-feira, a professora conferirá os quatro trabalhos já passados.'
+      ];
+      var seedGroups = [
+        ['Alicia Vieira dos Santos','Ziz Emanuelly Barros Ramos','Nathália Amabile','Emanuelle Teixeira Keller','Guilherme Henrique Cisotto Marques','João Vitor Dalcin Portela','Hiago Cotrim Friedrich','Yanick Modesto Ribeiro','Manuela Ribeiro Quanz','Kellen Ruane Barros Carvalho'],
+        ['Ana Clara Ferraz Guimarães','Karen Beatriz Melo Piva','Paolla de Paiva Pinto','Daniele Lourdes Domingues Maia','Camila Idilia Rodrigues Correa Maria','Clayve de Oliveira Santos','Daniel Santana Ramos de Ataides','Ana Paula Vicente','Paulo Renato Lima Araújo'],
+        ['Camila de Jesus Maciel','Murillo Gabriel Batista de Oliveira','Luana Dos Santos','Igor Matheus Moraes Fedrici','Ana Luiza Ribeiro dos Santos','Bruna Carolina Vanderley Lima','Maria Luísa Rostelato','João Victor Paulino','Vitoria Hidaka de Souza','Maria Eduarda Hidaka Coelho'],
+        ['Ester Moya','Kamyla Valêncio','Ayandra Alves de Souza','Camila Ferreira Lima Morais','Emily Eduarda Martins Borba','Tayssa Rodrigues','Nicolle Vitoria Ortiz Adriano','Ronise Lima','Djangler Rocha','Mateus Pacheco'],
+        ['Adna Juliana Nunes Silva Pinheiro','Layssa Karoline Barbosa','Stephany Januario Matos','Maria Vitória Teles Fernandes','Maryanna Araujo da Silva','Maslow Gabriel Neis Pontes','Giovana Sabatke','Camila Alencar Delmutti','Thallys Gabriel Rigo'],
+        ['Barbara Jullian Amaral de Paula','Samanta Nunes de Miranda Amaral','Vinícius da Costa Jardim','Elielton Arquimedes de Oliveira Silva','Amanda Carolina Ludvichak Rodrigues','Gilcimar Alves Silva','Kathleen Rafaely Ferreira Lopes','Silvane Maria Costa','Carlos Aparecido da Silva Santos','Anne Caroline Mesquita Pereira','Samuel Batista dos Santos'],
+        ['Giovanna de Oliveira Alves','Adriane de Castro Silva Alencar','Letícia Cristo Galvão','Yan Hubner Augusto','Anna Beatriz Lessa Oliveira','José Antônio Ferreira de Souza','Gabriel Lourenço Diniz','Giovani Barcellos','Victor Habner Rodrigues','Tarcisio Breno Pereira da Silva'],
+        ['Anderson Marcos','Anne Melo','Bruno Gomes','Ianna','Andreza Andrade','Dantom','Geovana Mendonça','Mauro','Letícia','Renata Coltro'],
+        ['Byanka Gomes Barros','Pamela Larissa Gomes de Lima','Hugo Vinícius Pereira Silva','Lara Daronch','Geovani Garcia de Oliveira','Beatriz Gomes Barros','Julia Miriam Vilela','Francieli Aparecida Zerbato','Gabriele Alice Gelmi Fregati'],
+        ['Ellen Cordeiro Nunes','Diego Oliveira Santos','Clara Oliveira Santos']
+      ];
+      var state = seedState();
+      var toastTimer = 0;
+
+      function seedState() {
+        var groups = seedGroups.map(function (members, index) {
+          var count = members.length;
+          return {
+            number: index + 1,
+            name: 'Grupo ' + (index + 1),
+            capacity: 10,
+            count: count,
+            available: Math.max(0, 10 - count),
+            overBy: Math.max(0, count - 10),
+            status: count > 10 ? 'over-capacity' : count >= 10 ? 'full' : index === 9 ? 'open' : 'registered',
+            joinOpen: false,
+            members: members.map(function (displayName) { return { displayName: displayName, source: 'initial' }; })
+          };
+        });
+        return {
+          activity: {
+            instructions: instructions,
+            totalRegistered: groups.reduce(function (total, group) { return total + group.count; }, 0),
+            privacyNote: 'A matrícula é usada apenas para impedir duplicidade e nunca é exibida na lista pública.'
+          },
+          groups: groups,
+          joinAvailable: false
+        };
+      }
+
+      function normalize(value) {
+        var text = String(value || '').toLowerCase();
+        if (text.normalize) text = text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        return text.replace(/[^a-z0-9]+/g, ' ').trim();
+      }
+
+      function escapeHtml(value) {
+        return String(value == null ? '' : value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      function groupBadge(group) {
+        if (group.overBy > 0) return { className: 'is-over', label: group.count + '/10 · corrigir' };
+        if (group.count >= group.capacity) return { className: 'is-full', label: group.count + '/10 · completo' };
+        return { className: 'is-open', label: group.count + '/10 · ' + group.available + ' vaga' + (group.available === 1 ? '' : 's') };
+      }
+
+      function groupCard(group) {
+        var badge = groupBadge(group);
+        var featured = group.number === 10;
+        var members = (group.members || []).map(function (member, index) {
+          return '<li class="member"><span class="member-index">' + String(index + 1).padStart(2, '0') + '</span><strong>' + escapeHtml(member.displayName) + '</strong></li>';
+        }).join('');
+        var join = '';
+        if (featured && group.available > 0) {
+          join = '<button class="join-button" type="button" data-join-group="10"' + (group.joinOpen ? '' : ' disabled') + '>' + (group.joinOpen ? 'Entrar no Grupo 10' : 'Inscrição compartilhada indisponível') + '</button>';
+        }
+        return '<details class="group' + (featured ? ' is-featured' : '') + (group.overBy > 0 ? ' is-over' : '') + '"' + (featured || group.overBy > 0 ? ' open' : '') + '>' +
+          '<summary><span class="group-title"><span class="group-number">' + group.number + '</span><span><strong>Grupo ' + group.number + (featured ? ' · aberto' : '') + '</strong><small>' + (featured ? 'Ellen, Diego e Clara já confirmados' : group.overBy > 0 ? 'Uma pessoa acima do limite' : 'Toque para ver os integrantes') + '</small></span></span><span class="badge ' + badge.className + '">' + badge.label + '</span></summary>' +
+          '<div class="group-body"><ol class="members">' + members + '</ol>' +
+          (group.overBy > 0 ? '<p class="group-alert">O limite é de 10. Uma pessoa deste grupo precisa ser realocada.</p>' : '') + join + '</div></details>';
+      }
+
+      function render() {
+        var instructionList = document.getElementById('instructionList');
+        instructionList.innerHTML = (state.activity.instructions || instructions).map(function (item) { return '<li>' + escapeHtml(item) + '</li>'; }).join('');
+        document.getElementById('groupList').innerHTML = state.groups.map(groupCard).join('');
+        var total = state.groups.reduce(function (sum, group) { return sum + group.count; }, 0);
+        var vacancies = state.groups.reduce(function (sum, group) { return sum + (group.overBy > 0 ? 0 : group.available); }, 0);
+        document.getElementById('groupTotals').textContent = total + ' inscrições · ' + vacancies + ' vagas';
+        document.getElementById('privacyNote').textContent = state.activity.privacyNote || 'A matrícula nunca é exibida publicamente.';
+        document.querySelectorAll('[data-join-group]').forEach(function (button) {
+          button.addEventListener('click', openJoinDialog);
+        });
+        refreshSearch();
+      }
+
+      function refreshSearch() {
+        var query = normalize(document.getElementById('memberSearch').value);
+        var target = document.getElementById('searchResults');
+        if (query.length < 2) { target.innerHTML = ''; return; }
+        var matches = [];
+        state.groups.forEach(function (group) {
+          (group.members || []).forEach(function (member) {
+            if (normalize(member.displayName).indexOf(query) >= 0) matches.push({ group: group, member: member });
+          });
+        });
+        if (!matches.length) {
+          target.innerHTML = '<p class="search-result">Seu nome não aparece. As novas inscrições entram somente no Grupo 10, enquanto houver vaga.</p>';
+          return;
+        }
+        target.innerHTML = matches.slice(0, 8).map(function (match) {
+          return '<p class="search-result"><strong>' + escapeHtml(match.member.displayName) + '</strong> está no <strong>Grupo ' + match.group.number + '</strong>.</p>';
+        }).join('');
+      }
+
+      function setConnection(message, mode) {
+        var node = document.getElementById('connectionStatus');
+        node.className = 'status' + (mode ? ' ' + mode : '');
+        node.textContent = message;
+      }
+
+      async function loadSharedState() {
+        try {
+          var response = await fetch(API, { cache: 'no-store', credentials: 'same-origin', headers: { accept: 'application/json' } });
+          var payload = await response.json();
+          if (!response.ok || !Array.isArray(payload.groups)) throw new Error(payload.error || 'Lista indisponível');
+          state = payload;
+          render();
+          if (payload.joinAvailable) setConnection('● Lista compartilhada ativa. Novas inscrições aparecem para toda a turma.', 'is-live');
+          else setConnection('A lista está atualizada, mas novas inscrições estão temporariamente em modo leitura.', 'is-warning');
+        } catch (error) {
+          setConnection('A lista inicial está disponível. A sincronização compartilhada não respondeu agora.', 'is-warning');
+          render();
+        }
+      }
+
+      function openJoinDialog() {
+        var dialog = document.getElementById('joinDialog');
+        document.getElementById('formMessage').textContent = '';
+        if (typeof dialog.showModal === 'function') dialog.showModal();
+        else dialog.setAttribute('open', '');
+        window.setTimeout(function () { dialog.querySelector('input[name="displayName"]').focus(); }, 50);
+      }
+
+      function closeJoinDialog() {
+        var dialog = document.getElementById('joinDialog');
+        if (typeof dialog.close === 'function') dialog.close();
+        else dialog.removeAttribute('open');
+      }
+
+      function showToast(message, error) {
+        var node = document.getElementById('toast');
+        node.textContent = message;
+        node.classList.toggle('is-error', Boolean(error));
+        node.classList.add('is-visible');
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(function () { node.classList.remove('is-visible'); }, 3800);
+      }
+
+      async function submitJoin(event) {
+        event.preventDefault();
+        var form = event.currentTarget;
+        var data = new FormData(form);
+        var submit = document.getElementById('joinSubmit');
+        var message = document.getElementById('formMessage');
+        if (!data.get('confirmed')) { message.textContent = 'Confirme que você ainda não está em outro grupo.'; return; }
+        submit.disabled = true;
+        message.textContent = 'Salvando…';
+        try {
+          var response = await fetch(API, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/json', accept: 'application/json' },
+            body: JSON.stringify({ action: 'join', displayName: data.get('displayName'), matricula: data.get('matricula'), groupNumber: 10 })
+          });
+          var payload = await response.json();
+          if (!response.ok) throw new Error(payload.error || 'Não foi possível salvar.');
+          state = payload;
+          render();
+          form.reset();
+          closeJoinDialog();
+          setConnection('● Lista compartilhada ativa. A inscrição foi salva para toda a turma.', 'is-live');
+          showToast(payload.message || 'Inscrição confirmada no Grupo 10.', false);
+        } catch (error) {
+          message.textContent = error.message || 'Não foi possível salvar a inscrição.';
+        } finally {
+          submit.disabled = false;
+        }
+      }
+
+      async function sharePage() {
+        var payload = { title: 'Bioquímica II · Grupos', text: 'Lista dos grupos da prova prática de Bioquímica II.', url: location.href };
+        if (navigator.share) {
+          try { await navigator.share(payload); return; } catch (error) { if (error && error.name === 'AbortError') return; }
+        }
+        try {
+          await navigator.clipboard.writeText(location.href);
+          showToast('Link copiado para enviar no WhatsApp.', false);
+        } catch (error) {
+          showToast('Não foi possível copiar o link neste navegador.', true);
+        }
+      }
+
+      document.getElementById('memberSearch').addEventListener('input', refreshSearch);
+      document.getElementById('joinForm').addEventListener('submit', submitJoin);
+      document.getElementById('dialogClose').addEventListener('click', closeJoinDialog);
+      document.getElementById('dialogCancel').addEventListener('click', closeJoinDialog);
+      document.getElementById('shareButton').addEventListener('click', sharePage);
+      document.getElementById('backButton').addEventListener('click', function () {
+        if (history.length > 1) history.back();
+        else location.href = '/turma/s4-e#tareas';
+      });
+      document.getElementById('joinDialog').addEventListener('click', function (event) {
+        if (event.target === event.currentTarget) closeJoinDialog();
+      });
+
+      render();
+      loadSharedState();
+    })();
+  </script>
+</body>
+</html>

@@ -314,12 +314,12 @@
   Object.assign(UI.fr, {home:'Accueil', backSubjects:'← Retour aux matières', subjectBrandSubtitle:'Modules par matière', readingCourse:'Lecture du cours', subjectCourseEyebrow:'Cours de la matière', subjectModulesTitle:'Modules disponibles', subjectSearchPlaceholder:'Rechercher dans cette matière...', readerFooterText:'Lecture en pages séparées avec navigation par titres.', toc:'Sommaire', courseIndex:'Sommaire du cours', moduleQcm:'QCM de ce cours', moduleClinical:'Cas cliniques', qcmMode:'Mode QCM', clinicalCases:'Cas cliniques', vfMode:'Mode Vrai/Faux', practiceQcmDesc:'Sélectionne une matière ou révise les questions disponibles.', practiceCaseDesc:'Travaille les applications cliniques des modules.', practiceVfDesc:'Sélectionne une matière ou révise les énoncés disponibles.', practiceDescriptionDefault:'Choisis une matière ou un module. Les questions apparaissent une par une avec recyclage automatique des erreurs.', practiceDescriptionSeries:'Révision par séries de 20 questions : les erreurs reviennent dans la série suivante, mélangées à de nouvelles questions.', practiceDescriptionSeriesVf:'Révision vrai/faux par séries de 20 énoncés : les erreurs reviennent dans la série suivante.', emptyQcm:'Aucun contenu QCM pour cette sélection.', emptyCase:'Aucun cas clinique pour cette sélection.', emptyVf:'Aucun contenu vrai/faux pour cette sélection.', noQuestions:'Aucune question disponible pour cette sélection.', level:'Niveau', allLevels:'Tous', sessionFinished:'Session terminée', globalResultLabel:'Résultat global', successSentence:'Tu as obtenu {pct}% de réussite. Les questions ratées sont recyclées dans les séries suivantes jusqu’à épuisement de la banque disponible.', redoSession:'Refaire la session', backToModules:'Retour aux modules', matterLabel:'Matière', courseLabel:'Cours', openArrow:'Ouvrir →', resetSubjectProgress:'Réinitialiser', subjectProgressReset:'Progression de la matière réinitialisée', difficulty:'Difficulté', allDifficulties:'Aléatoire · tous niveaux', questionLevel:'Niveau de la question', normalLevel:'Normal', difficultLevel:'Difficile', extremeLevel:'Extrême', examLevel:'Examen', questionCounter:'Question', bankTotal:'Banque totale', selectedBank:'Niveau choisi', currentLevel:'Niveau actuel', fullCourse:'Cours complet', quickSheet:'Fiche rapide', courseMode:'Mode de lecture' });
   Object.assign(UI.br, {home:'Início', backSubjects:'← Voltar às matérias', subjectBrandSubtitle:'Módulos por matéria', readingCourse:'Leitura do curso', subjectCourseEyebrow:'Curso da matéria', subjectModulesTitle:'Módulos disponíveis', subjectSearchPlaceholder:'Pesquisar nesta matéria...', readerFooterText:'Leitura em páginas separadas com navegação por títulos.', toc:'Índice', courseIndex:'Índice do curso', moduleQcm:'QCM deste curso', moduleClinical:'Casos clínicos', qcmMode:'Modo QCM', clinicalCases:'Casos clínicos', vfMode:'Modo Verdadeiro/Falso', practiceQcmDesc:'Selecione uma matéria ou revise as perguntas disponíveis.', practiceCaseDesc:'Trabalhe as aplicações clínicas dos módulos.', practiceVfDesc:'Selecione uma matéria ou revise os enunciados disponíveis.', practiceDescriptionDefault:'Escolha uma matéria ou um módulo. As perguntas aparecem uma por uma com reciclagem automática dos erros.', practiceDescriptionSeries:'Revisão em séries de 20 perguntas: os erros voltam na série seguinte, misturados com perguntas novas.', practiceDescriptionSeriesVf:'Revisão verdadeiro/falso em séries de 20 enunciados: os erros voltam na série seguinte.', emptyQcm:'Não há conteúdo QCM para esta seleção.', emptyCase:'Não há casos clínicos para esta seleção.', emptyVf:'Não há conteúdo verdadeiro/falso para esta seleção.', noQuestions:'Não há perguntas disponíveis para esta seleção.', level:'Nível', allLevels:'Todos', sessionFinished:'Sessão finalizada', globalResultLabel:'Resultado global', successSentence:'Você obteve {pct}% de acertos. As perguntas erradas são recicladas nas séries seguintes até esgotar o banco disponível.', redoSession:'Refazer sessão', backToModules:'Voltar aos módulos', matterLabel:'Matéria', courseLabel:'Curso', openArrow:'Abrir →', resetSubjectProgress:'Reiniciar', subjectProgressReset:'Progresso da matéria reiniciado', difficulty:'Dificuldade', allDifficulties:'Aleatório · todos os níveis', questionLevel:'Nível da questão', normalLevel:'Normal', difficultLevel:'Difícil', extremeLevel:'Extremo', examLevel:'Exame', questionCounter:'Questão', bankTotal:'Banco total', selectedBank:'Nível escolhido', currentLevel:'Nível atual', fullCourse:'Curso completo', quickSheet:'Ficha rápida', courseMode:'Modo de leitura' });
 
-  function lang(){ return safeGetItem('medLang') || 'fr'; }
+  function lang(){ return safeGetItem('medLang') || 'es'; }
   function t(key){ const l = lang(); return (UI[l] && UI[l][key]) || UI.es[key] || key; }
 
-  Object.assign(UI.es, {mistakes:'Mis errores', reviewToday:'Repasar hoy', examMode:'Examen blanco', dashboard:'Panel de estudio', continueLearning:'Continuar', weakPoints:'Puntos débiles', noMistakes:'No hay errores guardados todavía.', mistakesText:'Aquí aparecen las preguntas falladas o marcadas como “No sé”, con revisión espaciada.', dueToday:'Para hoy', laterReview:'Más tarde', mastered:'Dominado', markMastered:'Marcar dominado', retryQuestion:'Rehacer pregunta', openCourseSection:'Abrir curso', detailedCorrection:'Corrección detallada', whyCorrect:'Por qué es correcta', whyWrong:'Por qué las otras son falsas', keyTakeaway:'Punto clave', ultraSheet:'Ficha ultra-rápida', startExam:'Iniciar examen blanco', examIntro:'Simulación con preguntas tipo examen, corrección al final y detección de puntos débiles.', examCorrectionHidden:'Modo examen: la corrección aparecerá al final.', reviewMistakes:'Revisar mis errores', todayPlan:'Plan de hoy', quickActions:'Acciones rápidas', questionsToReview:'preguntas para revisar', recentErrors:'errores recientes', startRevision:'Iniciar revisión', allClear:'Todo limpio por ahora', examResult:'Resultado del examen', examReview:'Corrección del examen'});
-  Object.assign(UI.fr, {mistakes:'Mes erreurs', reviewToday:'À réviser aujourd’hui', examMode:'Examen blanc', dashboard:'Tableau de bord', continueLearning:'Continuer', weakPoints:'Points faibles', noMistakes:'Aucune erreur enregistrée pour l’instant.', mistakesText:'Ici apparaissent les questions ratées ou marquées “Je ne sais pas”, avec révision espacée.', dueToday:'Pour aujourd’hui', laterReview:'Plus tard', mastered:'Maîtrisé', markMastered:'Marquer maîtrisé', retryQuestion:'Refaire la question', openCourseSection:'Ouvrir le cours', detailedCorrection:'Correction détaillée', whyCorrect:'Pourquoi c’est correct', whyWrong:'Pourquoi les autres sont fausses', keyTakeaway:'Point clé', ultraSheet:'Fiche ultra-rapide', startExam:'Lancer un examen blanc', examIntro:'Simulation avec questions type examen, correction à la fin et détection des points faibles.', examCorrectionHidden:'Mode examen : la correction apparaîtra à la fin.', reviewMistakes:'Revoir mes erreurs', todayPlan:'Plan du jour', quickActions:'Actions rapides', questionsToReview:'questions à revoir', recentErrors:'erreurs récentes', startRevision:'Lancer la révision', allClear:'Rien à revoir pour l’instant', examResult:'Résultat de l’examen', examReview:'Correction de l’examen'});
-  Object.assign(UI.br, {mistakes:'Meus erros', reviewToday:'Revisar hoje', examMode:'Simulado', dashboard:'Painel de estudo', continueLearning:'Continuar', weakPoints:'Pontos fracos', noMistakes:'Nenhum erro salvo por enquanto.', mistakesText:'Aqui aparecem perguntas erradas ou marcadas como “Não sei”, com revisão espaçada.', dueToday:'Para hoje', laterReview:'Mais tarde', mastered:'Dominado', markMastered:'Marcar dominado', retryQuestion:'Refazer pergunta', openCourseSection:'Abrir curso', detailedCorrection:'Correção detalhada', whyCorrect:'Por que está correta', whyWrong:'Por que as outras estão erradas', keyTakeaway:'Ponto-chave', ultraSheet:'Ficha ultrarrápida', startExam:'Iniciar simulado', examIntro:'Simulação com perguntas tipo prova, correção no final e detecção dos pontos fracos.', examCorrectionHidden:'Modo simulado: a correção aparecerá no final.', reviewMistakes:'Revisar meus erros', todayPlan:'Plano de hoje', quickActions:'Ações rápidas', questionsToReview:'perguntas para revisar', recentErrors:'erros recentes', startRevision:'Iniciar revisão', allClear:'Nada para revisar por enquanto', examResult:'Resultado do simulado', examReview:'Correção do simulado'});
+  Object.assign(UI.es, {mistakes:'Mis errores', reviewToday:'Repasar hoy', examMode:'Examen blanco', dashboard:'Panel de estudio', continueLearning:'Continuar', weakPoints:'Puntos débiles', noMistakes:'No hay errores guardados todavía.', mistakesText:'Aquí aparecen las preguntas falladas o marcadas como “No sé”, con revisión espaciada.', dueToday:'Para hoy', laterReview:'Más tarde', mastered:'Dominado', markMastered:'Marcar dominado', retryQuestion:'Rehacer pregunta', openCourseSection:'Abrir curso', detailedCorrection:'Corrección detallada', whyCorrect:'Por qué es correcta', whyWrong:'Por qué las otras son falsas', keyTakeaway:'Punto clave', ultraSheet:'Ficha ultra-rápida', startExam:'Iniciar examen blanco', examIntro:'Simulación con preguntas tipo examen, corrección al final y detección de puntos débiles.', examCorrectionHidden:'Modo examen: la corrección aparecerá al final.', reviewMistakes:'Revisar mis errores', todayPlan:'Plan de hoy', quickActions:'Acciones rápidas', questionsToReview:'preguntas para revisar', recentErrors:'errores recientes', startRevision:'Iniciar revisión', allClear:'Todo limpio por ahora', examResult:'Resultado del examen', examReview:'Corrección del examen', enlargeFigure:'Ampliar figura', closeFigure:'Cerrar figura', languageSwitcher:'Cambiar idioma', changeModule:'Cambiar de módulo', courseNavigation:'Navegación del curso'});
+  Object.assign(UI.fr, {mistakes:'Mes erreurs', reviewToday:'À réviser aujourd’hui', examMode:'Examen blanc', dashboard:'Tableau de bord', continueLearning:'Continuer', weakPoints:'Points faibles', noMistakes:'Aucune erreur enregistrée pour l’instant.', mistakesText:'Ici apparaissent les questions ratées ou marquées “Je ne sais pas”, avec révision espacée.', dueToday:'Pour aujourd’hui', laterReview:'Plus tard', mastered:'Maîtrisé', markMastered:'Marquer maîtrisé', retryQuestion:'Refaire la question', openCourseSection:'Ouvrir le cours', detailedCorrection:'Correction détaillée', whyCorrect:'Pourquoi c’est correct', whyWrong:'Pourquoi les autres sont fausses', keyTakeaway:'Point clé', ultraSheet:'Fiche ultra-rapide', startExam:'Lancer un examen blanc', examIntro:'Simulation avec questions type examen, correction à la fin et détection des points faibles.', examCorrectionHidden:'Mode examen : la correction apparaîtra à la fin.', reviewMistakes:'Revoir mes erreurs', todayPlan:'Plan du jour', quickActions:'Actions rapides', questionsToReview:'questions à revoir', recentErrors:'erreurs récentes', startRevision:'Lancer la révision', allClear:'Rien à revoir pour l’instant', examResult:'Résultat de l’examen', examReview:'Correction de l’examen', enlargeFigure:'Agrandir la figure', closeFigure:'Fermer la figure', languageSwitcher:'Changer la langue', changeModule:'Changer de module', courseNavigation:'Navigation du cours'});
+  Object.assign(UI.br, {mistakes:'Meus erros', reviewToday:'Revisar hoje', examMode:'Simulado', dashboard:'Painel de estudo', continueLearning:'Continuar', weakPoints:'Pontos fracos', noMistakes:'Nenhum erro salvo por enquanto.', mistakesText:'Aqui aparecem perguntas erradas ou marcadas como “Não sei”, com revisão espaçada.', dueToday:'Para hoje', laterReview:'Mais tarde', mastered:'Dominado', markMastered:'Marcar dominado', retryQuestion:'Refazer pergunta', openCourseSection:'Abrir curso', detailedCorrection:'Correção detalhada', whyCorrect:'Por que está correta', whyWrong:'Por que as outras estão erradas', keyTakeaway:'Ponto-chave', ultraSheet:'Ficha ultrarrápida', startExam:'Iniciar simulado', examIntro:'Simulação com perguntas tipo prova, correção no final e detecção dos pontos fracos.', examCorrectionHidden:'Modo simulado: a correção aparecerá no final.', reviewMistakes:'Revisar meus erros', todayPlan:'Plano de hoje', quickActions:'Ações rápidas', questionsToReview:'perguntas para revisar', recentErrors:'erros recentes', startRevision:'Iniciar revisão', allClear:'Nada para revisar por enquanto', examResult:'Resultado do simulado', examReview:'Correção do simulado', enlargeFigure:'Ampliar figura', closeFigure:'Fechar figura', languageSwitcher:'Mudar idioma', changeModule:'Mudar de módulo', courseNavigation:'Navegação do curso'});
 
   // v33 — audit linguistique global : toutes les chaînes générées par les pages d'étude passent par cette couche.
   Object.assign(UI.es, {
@@ -330,7 +330,7 @@
     objectiveCase:'Objetivo: relacionar el signo clínico con el mecanismo de «{topic}».', objectiveVf:'Objetivo: verificar si el enunciado respeta exactamente el mecanismo de «{topic}».', objectiveQcm:'Objetivo: reconocer la proposición exacta sobre «{topic}», no solo una palabra familiar del curso.',
     hint:'Pista', targetedHint:'Pista dirigida', eliminateTwo:'Eliminar 2 distractores', markReview:'Marcar para revisar', addedToReview:'Pregunta añadida a “Mis errores / Repasar”.',
     hintVf:'Pista: primero busca si el enunciado contiene una palabra demasiado absoluta o invierte una relación del curso. Tema: {topic}.', hintCase:'Pista: parte del síntoma o del dato clínico y pregúntate qué cambio funcional lo produce. Tema: {topic}.', hintQcm:'Pista: la opción correcta conserva la cadena definición → mecanismo → consecuencia. {clue}', hintFallback:'Elimina las opciones que invierten causa, ion, célula o localización.', usefulRecall:'Recordatorio útil: {clue}',
-    qVf:'El enunciado sobre «{topic}» respeta el curso? Responde verdadero o falso revisando sobre todo palabras absolutas, inversiones y excepciones.', qCase:'¿Qué mecanismo explica mejor el signo o resultado clínico presentado?', qNormal:'Sobre «{topic}», ¿qué proposición es correcta?', qDifficult:'Sobre «{topic}», ¿qué proposición mantiene la relación correcta entre causa, mecanismo y consecuencia?', qExtreme:'Sobre «{topic}», ¿qué afirmación es correcta, célula, fase ni localización?', qExam:'Pregunta: «{topic}».',
+    qVf:'El enunciado sobre «{topic}» respeta el curso? Responde verdadero o falso revisando sobre todo palabras absolutas, inversiones y excepciones.', qCase:'¿Qué mecanismo explica mejor el signo o resultado clínico presentado?', qNormal:'Sobre «{topic}», ¿qué proposición es correcta?', qDifficult:'Sobre «{topic}», ¿qué proposición mantiene la relación correcta entre causa, mecanismo y consecuencia?', qExtreme:'En «{topic}», ¿qué opción relaciona correctamente el mecanismo con su consecuencia?', qExam:'Pregunta de examen sobre «{topic}»: elige la opción más precisa.',
     clinicalCase:'Casos clínicos', module:'Módulo', shortcutHelp:'Atajos: A–D para responder · I para pista · E para eliminar · N para “No sé”.', correctBadge:'correcta', chosenBadge:'elegida',
     diagUnknown:'Usaste “No sé”: buena estrategia si estabas bloqueado. Ahora convierte esta pregunta en un punto activo de revisión.', diagCorrect:'Respuesta correcta: identificaste el mecanismo prioritario y eliminaste los distractores.', diagUnclassified:'Error no clasificado: vuelve a leer la corrección buscando la relación causa → mecanismo → consecuencia.',
     trapAbsolute:'Formulación demasiado absoluta: en medicina, “siempre / nunca / solamente” suele ser una trampa.', trapNegation:'Negación excesiva: la opción elimina un mecanismo que existe o exagera su ausencia.', trapIon:'Trampa iónica: verifica si el ion, el sentido del flujo o la fase están invertidos.', trapDirection:'Trampa de sentido: la acción parece posible, pero la relación causa → efecto puede estar invertida.', trapLocation:'Trampa de localización: la estructura citada puede ser verdadera en otro contexto, no necesariamente aquí.', trapConcept:'Distractor conceptual: usa palabras del curso pero no respeta el mecanismo principal solicitado.',
@@ -772,7 +772,7 @@
         flushPara(); closeList();
         const alt = translateInlineForReader(img[1] || '');
         const src = String(img[2] || '').trim();
-        html += `<figure class="course-figure"><button class="course-figure-zoom" type="button" aria-label="Agrandir la figure"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async"></button><figcaption>${inline(img[1] || '')}</figcaption></figure>`;
+        html += `<figure class="course-figure"><button class="course-figure-zoom" type="button" aria-label="${escapeHtml(t('enlargeFigure'))}"><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async"></button><figcaption>${inline(img[1] || '')}</figcaption></figure>`;
         continue;
       }
       if(isTableStart(lines,i)){
@@ -1091,19 +1091,19 @@ Object.assign(UI.br, {
 const SUPPORT_RIBBON_MESSAGES = {
   es:[
     'Proyecto gratuito · Si este sitio te ayuda a estudiar, un pequeño Pix ayuda a mantenerlo en línea.',
-    '58 módulos, QCM, casos clínicos y verdadero/falso gratuitos · el apoyo voluntario ayuda a sostener el proyecto.',
+    '59 módulos, QCM, casos clínicos y verdadero/falso gratuitos · el apoyo voluntario ayuda a sostener el proyecto.',
     'Si el sitio te ahorra tiempo, un pequeño Pix ayuda a pagar el alojamiento y mejorar los cursos.',
     'El contenido sigue abierto para todos · el apoyo ayuda a mantener las herramientas accesibles.'
   ],
   fr:[
     'Projet gratuit · Si ce site t’aide à réviser, un petit Pix aide à le garder en ligne.',
-    '58 modules, QCM, cas cliniques et vrai/faux gratuits · le soutien volontaire aide à faire durer le projet.',
+    '59 modules, QCM, cas cliniques et vrai/faux gratuits · le soutien volontaire aide à faire durer le projet.',
     'Si ce site te fait gagner du temps, un petit Pix aide à payer l’hébergement et à améliorer les cours.',
     'Le contenu reste ouvert à tous · le soutien aide à garder les outils accessibles.'
   ],
   br:[
     'Projeto gratuito · Se este site te ajuda a estudar, um pequeno Pix ajuda a mantê-lo no ar.',
-    '58 módulos, QCM, casos clínicos e verdadeiro/falso gratuitos · o apoio voluntário ajuda a sustentar o projeto.',
+    '59 módulos, QCM, casos clínicos e verdadeiro/falso gratuitos · o apoio voluntário ajuda a sustentar o projeto.',
     'Se o site te faz ganhar tempo, um pequeno Pix ajuda a pagar a hospedagem e melhorar os cursos.',
     'O conteúdo continua aberto para todos · o apoio ajuda a manter as ferramentas acessíveis.'
   ]
@@ -1230,34 +1230,34 @@ const SUPPORT_RIBBON_MESSAGES = {
 
 
   Object.assign(UI.es, {
-    currentSemesterBadge:'Semestre 3',
-    currentSemesterText:'Contenido actual: materias del tercer semestre',
-    semesterCatalogNote:'Las materias mostradas corresponden actualmente al tercer semestre. El sitio evolucionará después con los próximos semestres.',
+    currentSemesterBadge:'Biblioteca en evolución',
+    currentSemesterText:'59 módulos publicados · nuevos contenidos en preparación',
+    semesterCatalogNote:'La biblioteca conserva los módulos ya publicados y se amplía progresivamente con el recorrido académico.',
     aboutScopeTitle:'Lo que cubre actualmente el sitio',
-    aboutScopeText:'Med Cursos no pretende cubrir toda la medicina de una sola vez. Hoy, el sitio presenta sobre todo las materias del tercer semestre, porque sigue un recorrido real de estudiante y se construye al ritmo de los cursos estudiados.',
-    aboutScopeText2:'Cuando empiece el semestre 4, se podrán añadir nuevos módulos progresivamente. El objetivo es que el sitio avance con el recorrido, semestre tras semestre, conservando los contenidos ya disponibles para los estudiantes que los necesiten.',
+    aboutScopeText:'Med Nykuto no pretende cubrir toda la medicina de una sola vez. La biblioteca conserva los 59 módulos ya publicados y se construye al ritmo de un recorrido real de estudiante.',
+    aboutScopeText2:'Los contenidos del semestre 4 se pueden incorporar progresivamente, conservando los módulos ya disponibles para los estudiantes que los necesiten.',
     aboutMethodTitle:'Cómo se construyen los contenidos',
     aboutMethodText:'Los contenidos se preparan a partir de un trabajo personal de estudio: apuntes, transcripciones de revisión, explicaciones escuchadas en clase, búsquedas complementarias y reorganización pedagógica.',
     aboutMethodText2:'La inteligencia artificial se utiliza como herramienta de ayuda para organizar la información, aclarar explicaciones, crear fichas y generar entrenamientos. El objetivo no es reemplazar a los profesores o libros, sino transformar un contenido bruto en un soporte de revisión más claro y activo.'
   });
   Object.assign(UI.fr, {
-    currentSemesterBadge:'Semestre 3',
-    currentSemesterText:'Contenu actuel : matières du troisième semestre',
-    semesterCatalogNote:'Les matières affichées correspondent actuellement au troisième semestre. Le site évoluera ensuite avec les prochains semestres.',
+    currentSemesterBadge:'Bibliothèque en évolution',
+    currentSemesterText:'59 modules publiés · nouveaux contenus en préparation',
+    semesterCatalogNote:'La bibliothèque conserve les modules déjà publiés et s’enrichit progressivement avec le parcours universitaire.',
     aboutScopeTitle:'Ce que le site couvre actuellement',
-    aboutScopeText:'Med Cursos ne prétend pas couvrir toute la médecine d’un seul coup. Aujourd’hui, le site présente surtout les matières du troisième semestre, parce qu’il suit un parcours réel d’étudiant et se construit au rythme des cours étudiés.',
-    aboutScopeText2:'Quand le semestre 4 commencera, de nouveaux modules pourront être ajoutés progressivement. L’objectif est que le site avance avec le parcours, semestre après semestre, tout en gardant les contenus déjà disponibles pour les étudiants qui en ont besoin.',
+    aboutScopeText:'Med Nykuto ne prétend pas couvrir toute la médecine d’un seul coup. La bibliothèque conserve les 59 modules déjà publiés et se construit au rythme d’un parcours réel d’étudiant.',
+    aboutScopeText2:'Les contenus du semestre 4 peuvent être ajoutés progressivement, tout en gardant les modules déjà disponibles pour les étudiants qui en ont besoin.',
     aboutMethodTitle:'Comment les contenus sont construits',
     aboutMethodText:'Les contenus sont préparés à partir d’un travail personnel d’étude : notes, transcriptions de révision, explications entendues en cours, recherches complémentaires et restructuration pédagogique.',
     aboutMethodText2:'L’intelligence artificielle est utilisée comme outil d’aide pour organiser les informations, clarifier les explications, créer des fiches et générer des entraînements. Le but n’est pas de remplacer les professeurs ou les livres, mais de transformer un contenu brut en support de révision plus clair et plus actif.'
   });
   Object.assign(UI.br, {
-    currentSemesterBadge:'Semestre 3',
-    currentSemesterText:'Conteúdo atual: matérias do terceiro semestre',
-    semesterCatalogNote:'As matérias exibidas correspondem atualmente ao terceiro semestre. O site evoluirá depois com os próximos semestres.',
+    currentSemesterBadge:'Biblioteca em evolução',
+    currentSemesterText:'59 módulos publicados · novos conteúdos em preparação',
+    semesterCatalogNote:'A biblioteca conserva os módulos já publicados e cresce progressivamente com o percurso acadêmico.',
     aboutScopeTitle:'O que o site cobre atualmente',
-    aboutScopeText:'Med Cursos não pretende cobrir toda a medicina de uma vez. Hoje, o site apresenta principalmente as matérias do terceiro semestre, porque acompanha um percurso real de estudante e é construído no ritmo dos cursos estudados.',
-    aboutScopeText2:'Quando o semestre 4 começar, novos módulos poderão ser adicionados progressivamente. O objetivo é que o site avance com o percurso, semestre após semestre, mantendo os conteúdos já disponíveis para os estudantes que precisarem deles.',
+    aboutScopeText:'Med Nykuto não pretende cobrir toda a medicina de uma vez. A biblioteca conserva os 59 módulos já publicados e é construída no ritmo de um percurso real de estudante.',
+    aboutScopeText2:'Os conteúdos do semestre 4 podem ser adicionados progressivamente, mantendo os módulos já disponíveis para os estudantes que precisarem deles.',
     aboutMethodTitle:'Como os conteúdos são construídos',
     aboutMethodText:'Os conteúdos são preparados a partir de um trabalho pessoal de estudo: anotações, transcrições de revisão, explicações ouvidas em aula, pesquisas complementares e reorganização pedagógica.',
     aboutMethodText2:'A inteligência artificial é usada como ferramenta de apoio para organizar informações, esclarecer explicações, criar fichas e gerar treinos. O objetivo não é substituir professores ou livros, mas transformar um conteúdo bruto em um material de revisão mais claro e ativo.'
@@ -1864,9 +1864,9 @@ function renderHome(){
   function practiceDifficultyKey(item){
     const raw = String(item && item.difficulty || '').toLowerCase();
     if(/normal|base|básico|basico/.test(raw)) return 'normal';
-    if(/difficile|difícil|dificil|moyen|medio/.test(raw)) return 'difficile';
-    if(/extr/.test(raw)) return 'extreme';
-    if(/exam/.test(raw)) return stableHash(item.id || item.question || '') % 2 === 0 ? 'examen' : 'extreme';
+    if(/difficile|difícil|dificil|moyen|medio|intermedio|intermédiaire/.test(raw)) return 'difficile';
+    if(/extr|avanzado|avancé|avance|advanced/.test(raw)) return 'extreme';
+    if(/exam/.test(raw)) return 'examen';
     return 'normal';
   }
   function difficultyOrder(d){
@@ -2003,6 +2003,8 @@ function topicForQuestion(item){
     const translatedTopic = ltitle(topic);
     if(type === 'vf') return cleanGeneratedText(item.question || item.stem || topic);
     if(type === 'case') return t('qCase');
+    const originalQuestion = cleanGeneratedText(item.question || item.stem || '');
+    if(originalQuestion.length >= 18 && /[¿?]/.test(originalQuestion)) return lt(originalQuestion);
     if(level === 'normal') return t('qNormal').replace('{topic}', translatedTopic);
     if(level === 'difficile') return t('qDifficult').replace('{topic}', translatedTopic);
     if(level === 'extreme') return t('qExtreme').replace('{topic}', translatedTopic);
@@ -2067,7 +2069,7 @@ function topicForQuestion(item){
     </div>`;
   }
   function practiceScopeKey(type, activeCursoe, moduleParam, activeDifficulty){
-    return `medPractice:v35-bugfix:${params.get('exam')?'exam':'study'}:${type}:${moduleParam || activeCursoe || 'all'}:${activeDifficulty || 'all'}`;
+    return `medPractice:v371-answer-mix:${params.get('exam')?'exam':'study'}:${type}:${moduleParam || activeCursoe || 'all'}:${activeDifficulty || 'all'}`;
   }
   function scopeLabel(selectedModule, selectedCursoe, type){
     const label = type === 'case' ? t('clinical') : (type === 'vf' ? t('vf') : 'QCM');
@@ -2086,6 +2088,96 @@ function topicForQuestion(item){
     }
     return a;
   }
+  function makeSessionSeed(){
+    return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2,12)}`;
+  }
+  function seededUint(value=''){
+    let h = 2166136261;
+    const text = String(value || '');
+    for(let i=0;i<text.length;i++){
+      h ^= text.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    h ^= h >>> 16;
+    h = Math.imul(h, 2246822507);
+    h ^= h >>> 13;
+    h = Math.imul(h, 3266489909);
+    return (h ^ (h >>> 16)) >>> 0;
+  }
+  function optionOrderForSession(item, seed){
+    const order = [0,1,2,3];
+    let state = seededUint(`${seed}|${item && item.id || item && item.question || ''}`) || 1;
+    for(let i=order.length-1;i>0;i--){
+      state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+      const j = state % (i+1);
+      [order[i],order[j]] = [order[j],order[i]];
+    }
+    return order;
+  }
+  function makeAnswerSlots(ids, seed, optionCount=4){
+    const slots = {}, total = (ids || []).length, counts = Array(optionCount).fill(0), pool = [];
+    const minPerSlot = Math.floor(total / optionCount);
+    const maxPerSlot = Math.ceil(total / optionCount);
+    for(let slot=0; slot<optionCount; slot++){
+      for(let count=0; count<minPerSlot; count++){ pool.push(slot); counts[slot] += 1; }
+    }
+    while(pool.length < total){
+      let slot = seededUint(`${seed}|answer-slot|${pool.length}`) % optionCount;
+      while(counts[slot] >= maxPerSlot) slot = (slot + 1) % optionCount;
+      pool.push(slot);
+      counts[slot] += 1;
+    }
+    let state = seededUint(`${seed}|answer-slot-shuffle`) || 1;
+    for(let index=pool.length-1; index>0; index--){
+      state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+      const other = state % (index+1);
+      [pool[index],pool[other]] = [pool[other],pool[index]];
+    }
+    for(let index=3; index<pool.length; index++){
+      if(!pool.slice(index-3,index).every(slot => slot === pool[index])) continue;
+      const replacement = pool.findIndex((slot,candidateIndex) => candidateIndex > index && slot !== pool[index]);
+      if(replacement > index) [pool[index],pool[replacement]] = [pool[replacement],pool[index]];
+    }
+    (ids || []).forEach((id,index) => { slots[id] = pool[index]; });
+    return slots;
+  }
+  function reorderReasonField(field, order){
+    if(Array.isArray(field)) return order.map(oldIndex => field[oldIndex]);
+    if(!field || typeof field !== 'object') return field;
+    const out = {};
+    Object.entries(field).forEach(([key,value]) => {
+      if(!/^[A-D]$/i.test(key)) out[key] = value;
+    });
+    order.forEach((oldIndex,newIndex) => {
+      const value = field[optionLetter(oldIndex)] || field[optionLetter(oldIndex).toLowerCase()];
+      if(value != null) out[optionLetter(newIndex)] = value;
+    });
+    return out;
+  }
+  function remapCorrectLetterText(value, oldAnswer, newAnswer){
+    if(typeof value !== 'string' || oldAnswer === newAnswer) return value;
+    const oldLetter = optionLetter(oldAnswer), newLetter = optionLetter(newAnswer);
+    return value.replace(new RegExp(`((?:respuesta|réponse|resposta)\\s+(?:correcta|correcte|correta)(?:\\s+es|\\s+est|\\s+é|\\s*:)?\\s*)${oldLetter}\\b`, 'gi'), `$1${newLetter}`);
+  }
+  function practiceItemForSession(item, state, type){
+    if(type === 'vf' || !item || !Array.isArray(item.options) || item.options.length !== 4) return item;
+    const oldAnswer = Number(item.answerIndex);
+    if(!Number.isInteger(oldAnswer) || oldAnswer < 0 || oldAnswer > 3) return item;
+    const order = optionOrderForSession(item, state.optionSeed);
+    const targetSlot = Number(state.answerSlots && state.answerSlots[item.id]);
+    if(Number.isInteger(targetSlot) && targetSlot >= 0 && targetSlot < order.length){
+      const currentSlot = order.indexOf(oldAnswer);
+      [order[currentSlot],order[targetSlot]] = [order[targetSlot],order[currentSlot]];
+    }
+    const clone = {...item, options: order.map(oldIndex => item.options[oldIndex]), answerIndex: order.indexOf(oldAnswer)};
+    ['whyWrong','distractorExplanations','porQueLasOtrasSonFalsas'].forEach(field => {
+      if(item[field] != null) clone[field] = reorderReasonField(item[field], order);
+    });
+    ['explanation','feedback','rationale','justification','correction','correctRationale','correctExplanation','explanationShort','shortExplanation','explanationLong','longExplanation','detailedExplanation'].forEach(field => {
+      if(item[field] != null) clone[field] = remapCorrectLetterText(item[field], oldAnswer, clone.answerIndex);
+    });
+    return clone;
+  }
   function uniqueIds(ids){
     const out = [], seen = new Set();
     (ids || []).forEach(id => {
@@ -2099,9 +2191,48 @@ function topicForQuestion(item){
     const fresh = (unseenIds || []).filter(id => !carry.includes(id)).slice(0, needed);
     return shuffleCopy(carry.concat(fresh));
   }
+  function avoidBinaryAnswerStreaks(ids, items){
+    const byId = new Map((items || []).map(item => [item.id,item]));
+    const ordered = (ids || []).slice();
+    const answerFor = id => {
+      const item = byId.get(id);
+      return item && Array.isArray(item.options) && item.options.length === 2 ? Number(item.answerIndex) : null;
+    };
+    if(ordered.some(id => ![0,1].includes(answerFor(id)))) return ordered;
+    const pools = [0,1].map(answer => ordered.filter(id => answerFor(id) === answer));
+    const balanced = [];
+    while(pools[0].length || pools[1].length){
+      const recent = balanced.slice(-3).map(answerFor);
+      const forced = recent.length === 3 && recent.every(answer => answer === recent[0]) ? 1-recent[0] : null;
+      let answer = forced != null && pools[forced].length
+        ? forced
+        : (pools[0].length === pools[1].length ? answerFor(ordered.find(id => pools[answerFor(id)].includes(id))) : (pools[0].length > pools[1].length ? 0 : 1));
+      if(!pools[answer].length) answer = 1-answer;
+      balanced.push(pools[answer].shift());
+    }
+    return balanced;
+  }
+  function buildInitialBatch(items, order, size, seed){
+    const byId = new Map((items || []).map(item => [item.id,item]));
+    const binary = (order || []).filter(id => {
+      const item = byId.get(id);
+      return item && Array.isArray(item.options) && item.options.length === 2 && [0,1].includes(Number(item.answerIndex));
+    });
+    if(binary.length !== order.length) return buildBatchFromPools([], order, size);
+    const pools = [0,1].map(answer => order.filter(id => Number(byId.get(id).answerIndex) === answer));
+    if(!pools[0].length || !pools[1].length) return buildBatchFromPools([], order, size);
+    const variation = (seededUint(`${seed}|binary-balance`) % 5) - 2;
+    const firstCount = Math.max(1, Math.min(pools[0].length, Math.floor(size / 2) + variation));
+    const secondCount = Math.max(1, Math.min(pools[1].length, size - firstCount));
+    const selected = pools[0].slice(0,firstCount).concat(pools[1].slice(0,secondCount));
+    if(selected.length < size) selected.push(...order.filter(id => !selected.includes(id)).slice(0,size-selected.length));
+    return shuffleCopy(selected).slice(0,size);
+  }
   function makeInitialSession(items, batchSize=20){
-    const order = items.map(x => x.id);
-    const firstBatch = buildBatchFromPools([], order, batchSize);
+    const order = shuffleCopy(items.map(x => x.id));
+    const optionSeed = makeSessionSeed();
+    let firstBatch = buildInitialBatch(items, order, batchSize, optionSeed);
+    firstBatch = avoidBinaryAnswerStreaks(firstBatch, items);
     const usedFirst = new Set(firstBatch);
     return {
       order,
@@ -2121,6 +2252,8 @@ function topicForQuestion(item){
       lastAction: 'start',
       bestStreak: 0,
       batchFinished: false,
+      optionSeed,
+      answerSlots: makeAnswerSlots(firstBatch, optionSeed),
       createdAt: Date.now()
     };
   }
@@ -2147,6 +2280,8 @@ function topicForQuestion(item){
     state.bestStreak = state.bestStreak || 0;
     state.seriesNumber = state.seriesNumber || 1;
     state.batchFinished = !!state.batchFinished;
+    state.optionSeed = state.optionSeed || makeSessionSeed();
+    state.answerSlots = state.answerSlots || makeAnswerSlots(state.currentBatch, state.optionSeed);
     return state;
   }
   function loadSession(key, items, batchSize=20){
@@ -2358,13 +2493,15 @@ function topicForQuestion(item){
   }
   function startNextBatch(state, items){
     const missed = uniqueIds(batchMissedIds(state));
-    const nextBatch = buildBatchFromPools(missed, state.unseenIds || [], 20);
+    let nextBatch = buildBatchFromPools(missed, state.unseenIds || [], 20);
+    nextBatch = avoidBinaryAnswerStreaks(nextBatch, items);
     const usedFresh = new Set(nextBatch.filter(id => !missed.includes(id)));
     state.unseenIds = (state.unseenIds || []).filter(id => !usedFresh.has(id));
     state.currentBatch = nextBatch;
     state.currentIndex = 0;
     state.currentAnswers = {};
     state.currentMissedIds = [];
+    state.answerSlots = makeAnswerSlots(nextBatch, state.optionSeed);
     state.batchFinished = false;
     state.seriesNumber = (state.seriesNumber || 1) + 1;
     return state;
@@ -2424,13 +2561,32 @@ function topicForQuestion(item){
     const filteredTotal = items.length;
     if(empty) empty.hidden = items.length > 0;
     if(!items.length){
-      list.innerHTML = `<div class="notice">${t('noQuestions')}</div>`;
+      const scopeCourseId = courseParam || (selectedModule && selectedModule.courseId) || '';
+      const scopeBank = scopeCourseId && BANK.byCourse ? BANK.byCourse[scopeCourseId] : null;
+      const formatKey = type === 'case' ? 'cases' : type;
+      const relevantBanks = scopeBank ? [scopeBank] : Object.values(BANK.byCourse || {});
+      const blockedForQuality = type === 'case' && relevantBanks.length > 0 && relevantBanks.every(bank => (
+        bank && bank.certification && (bank.certification.blockedFormats || []).includes(formatKey)
+      ));
+      if(blockedForQuality){
+        const courseQuery = scopeCourseId ? `?course=${encodeURIComponent(scopeCourseId)}` : '';
+        const scopeLabel = scopeCourseId ? 'de esta materia' : 'del tercer semestre';
+        if(empty) empty.textContent = 'Contenido retirado durante la certificación de calidad.';
+        list.innerHTML = `<div class="notice"><strong>Calidad antes que cantidad.</strong><p>Los casos heredados ${scopeLabel} no cumplen todavía el estándar clínico de Med Nykuto. Permanecen ocultos hasta su reconstrucción a partir del curso.</p><div class="module-actions"><a class="btn secondary" href="qcm.html${courseQuery}">Revisar QCM certificados</a><a class="btn ghost" href="vrai-faux.html${courseQuery}">Revisar V/F certificados</a></div></div>`;
+      } else list.innerHTML = `<div class="notice">${t('noQuestions')}</div>`;
       return;
     }
     const key = practiceScopeKey(type, activeCursoe, moduleParam, examMode ? 'examen' : activeDifficulty);
     const batchSize = examMode ? Math.min(40, items.length) : 20;
     let state = loadSession(key, items, batchSize);
+    items = items.map(item => practiceItemForSession(item, state, type));
     const batchItems = currentBatchItems(items, state);
+    window.__MED_NYKUTO_PRACTICE_BATCH_AUDIT__ = {
+      type,
+      ids: batchItems.map(item => item.id),
+      answerPositions: batchItems.map(item => Number(item.answerIndex)),
+      items: batchItems
+    };
     const total = batchItems.length;
     if(state.batchFinished || state.currentIndex >= total){
       if(hasMoreQuestionsAfterBatch(state)){
@@ -2646,8 +2802,25 @@ function topicForQuestion(item){
     wrap.innerHTML = `<article class="exam-setup-card"><p class="eyebrow">${t('examMode')}</p><h1>${t('startExam')}</h1><p>${t('examIntro')}</p>
       <label class="difficulty-select-wrap"><span>${t('matterLabel')}</span><select id="examCourse"><option value="">${t('all')}</option>${options}</select></label>
       <div class="module-actions"><button class="btn primary" id="startExamBtn">${t('startExam')}</button><a class="btn ghost" href="erreurs.html">${t('reviewMistakes')}</a></div></article>`;
-    $('#startExamBtn').onclick=()=>{ const cid=$('#examCourse').value; const q=new URLSearchParams(); if(cid) q.set('course',cid); q.set('difficulty','examen'); q.set('exam','1'); location.href='qcm.html?'+q.toString(); };
+    const startButton = $('#startExamBtn');
+    if(startButton) startButton.addEventListener('click', launchExamFromSetup);
   }
+
+  function launchExamFromSetup(event){
+    if(event){ event.preventDefault(); event.stopPropagation(); }
+    const select = $('#examCourse');
+    const cid = select ? select.value : '';
+    const q = new URLSearchParams();
+    if(cid) q.set('course',cid);
+    q.set('difficulty','examen');
+    q.set('exam','1');
+    location.assign('qcm.html?'+q.toString());
+  }
+
+  document.addEventListener('click', event => {
+    const button = event.target && event.target.closest ? event.target.closest('#startExamBtn') : null;
+    if(button) launchExamFromSetup(event);
+  }, true);
 
 
   function setupGlobalTools(){
@@ -2665,7 +2838,7 @@ function topicForQuestion(item){
     nav.insertBefore(tools, toggle || nav.querySelector('#navLinks'));
     const brand = nav.querySelector('.brand');
     if(brand && !nav.querySelector('.brand-lang')){
-      brand.insertAdjacentHTML('afterend', `<div class="brand-lang lang-switch compact-lang" aria-label="Changer la langue"><button type="button" data-lang="fr">FR</button><button type="button" data-lang="es">ES</button><button type="button" data-lang="br">BR</button></div>`);
+      brand.insertAdjacentHTML('afterend', `<div class="brand-lang lang-switch compact-lang" aria-label="${escapeHtml(t('languageSwitcher'))}"><button type="button" data-lang="fr">FR</button><button type="button" data-lang="es">ES</button><button type="button" data-lang="br">BR</button></div>`);
     }
     const navLinks = nav.querySelector('#navLinks');
     if(navLinks){
@@ -2835,7 +3008,7 @@ function topicForQuestion(item){
     setupLanguageSwitch(document);
   }
   function setupLanguageSwitch(scope){
-    const buttons = (scope || document).querySelectorAll('[data-lang]');
+    const buttons = (scope || document).querySelectorAll('button[data-lang], a[data-lang]');
     const map = {fr:'fr', es:'es', br:'pt-BR'};
     let current = lang();
     function apply(){
@@ -2936,7 +3109,7 @@ function topicForQuestion(item){
   }
   document.addEventListener("DOMContentLoaded", applyExtraI18n);
   document.addEventListener("click", function(ev){
-    if (ev.target && ev.target.closest && ev.target.closest("[data-lang], .lang-btn, [data-set-lang]")) {
+    if (ev.target && ev.target.closest && ev.target.closest("button[data-lang], a[data-lang], .lang-btn, [data-set-lang]")) {
       setTimeout(applyExtraI18n, 50);
     }
   });
@@ -6662,7 +6835,8 @@ function topicForQuestion(item){
     return /qcm|cas-cliniques|vrai-faux|erreurs|examen/.test(location.pathname || "");
   }
   function lang(){
-    const raw = ((document.querySelector(".lang-btn.active, [data-lang].active, .compact-lang .active") || {}).textContent || document.documentElement.lang || localStorage.getItem("medCursosLang") || "es").toLowerCase();
+    const active = document.querySelector(".brand-lang button.active, .lang-switch button.active, .lang-btn.active, button[data-lang].active");
+    const raw = ((active && (active.getAttribute("data-lang") || active.textContent)) || document.documentElement.lang || localStorage.getItem("medCursosLang") || "es").toLowerCase();
     if(raw.includes("fr")) return "fr";
     if(raw.includes("br") || raw.includes("pt")) return "br";
     return "es";
@@ -6799,32 +6973,7 @@ function topicForQuestion(item){
 })();
 
 function setupCourseFigureLightbox(){
-  if(document.querySelector('.figure-lightbox')) return;
-  const overlay = document.createElement('div');
-  overlay.className = 'figure-lightbox';
-  overlay.innerHTML = '<button class="figure-lightbox-close" type="button" aria-label="Fermer">×</button><img alt="">';
-  document.body.appendChild(overlay);
-  const img = overlay.querySelector('img');
-  const close = () => {
-    overlay.classList.remove('open');
-    img.removeAttribute('src');
-    img.setAttribute('alt','');
-  };
-  overlay.addEventListener('click', (e) => {
-    if(e.target === overlay || e.target.classList.contains('figure-lightbox-close')) close();
-  });
-  document.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape') close();
-  });
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest && e.target.closest('.course-figure-zoom');
-    if(!btn) return;
-    const source = btn.querySelector('img');
-    if(!source) return;
-    img.src = source.currentSrc || source.src;
-    img.alt = source.alt || '';
-    overlay.classList.add('open');
-  });
+  window.__MED_NYKUTO_LEGACY_FIGURE_LIGHTBOX__ = 'disabled-external-zoom-v368';
 }
 
 try{document.addEventListener('DOMContentLoaded', setupCourseFigureLightbox);}catch(e){}
@@ -6866,11 +7015,11 @@ function setupReaderModuleSwitcherV228_DISABLED(){
 
     const card = document.createElement('section');
     card.className = 'v228-module-switcher';
-    card.setAttribute('aria-label','Changer de module');
+    card.setAttribute('aria-label', t('changeModule'));
     card.innerHTML = `
       <div class="v228-switcher-head">
-        <span class="v228-switcher-kicker">Navigation du cours</span>
-        <strong>Changer de module</strong>
+        <span class="v228-switcher-kicker">${escapeHtml(t('courseNavigation'))}</span>
+        <strong>${escapeHtml(t('changeModule'))}</strong>
       </div>
       <div class="v228-switcher-row">
         ${prev ? `<a class="v228-switcher-btn" href="module.html?id=${encodeURIComponent(prev.id)}${viewParam}">← Mód. ${prev.number}</a>` : `<span class="v228-switcher-btn disabled">← Mód.</span>`}
@@ -6947,18 +7096,18 @@ function setupReaderModuleSwitcherV237(){
 
     const card = document.createElement('section');
     card.className = 'v237-module-switcher';
-    card.setAttribute('aria-label','Changer de module');
+    card.setAttribute('aria-label', t('changeModule'));
     card.innerHTML = `
       <div class="v237-switcher-main">
         <div class="v237-switcher-copy">
-          <span class="v237-switcher-kicker">Navigation du cours</span>
+          <span class="v237-switcher-kicker">${safe(t('courseNavigation'))}</span>
           <strong>Mód. ${safe(current.number)} — ${safe(current.title || current.name || 'Module')}</strong>
         </div>
         <div class="v237-switcher-actions">
           ${prev ? `<a class="v237-nav-mini" href="module.html?id=${encodeURIComponent(prev.id)}${viewParam}">← Mód. ${safe(prev.number)}</a>` : `<span class="v237-nav-mini disabled">←</span>`}
           <div class="v237-dropdown">
             <button class="v237-dropdown-btn" type="button" aria-expanded="false">
-              Changer de module
+              ${safe(t('changeModule'))}
               <span>▾</span>
             </button>
             <div class="v237-dropdown-menu" role="menu">
@@ -7424,14 +7573,28 @@ window.addEventListener('pageshow', () => setTimeout(setupReaderModuleSwitcherV2
     return Math.max(0, Math.min(100, Math.round(n))) + "%";
   }
 
-  function labelStatus(item){
+  var WEAK_LABELS = {
+    es:{confirm:'por confirmar',weak:'débil',reinforce:'por reforzar',average:'medio',mastered:'dominado',successAria:'acierto',empty:'Haz algunas preguntas: tus puntos débiles aparecerán aquí automáticamente.',none:'Ningún punto débil detectado',point:'punto detectado',points:'puntos detectados',adaptive:'Adaptativo local',title:'Mis puntos débiles',click:'pulsa para',hideLower:'ocultar',showLower:'mostrar',detail:'el detalle',answers:'respuestas',success:'acierto',errors:'errores',unknown:'no sé',hide:'Ocultar',show:'Mostrar',local:'Calculado únicamente en este dispositivo. Las etiquetas permanecen ocultas.',reset:'Reiniciar',confirmReset:'¿Reiniciar tus estadísticas locales en este dispositivo?'},
+    fr:{confirm:'à confirmer',weak:'faible',reinforce:'à renforcer',average:'moyen',mastered:'maîtrisé',successAria:'réussite',empty:'Fais quelques questions : tes points faibles apparaîtront ici automatiquement.',none:'Aucun point faible détecté',point:'point détecté',points:'points détectés',adaptive:'Adaptatif local',title:'Mes points faibles',click:'clique pour',hideLower:'masquer',showLower:'afficher',detail:'le détail',answers:'réponses',success:'réussite',errors:'erreurs',unknown:'je ne sais pas',hide:'Masquer',show:'Afficher',local:'Calculé uniquement sur cet appareil. Les tags restent cachés.',reset:'Réinitialiser',confirmReset:'Réinitialiser tes statistiques locales sur cet appareil ?'},
+    br:{confirm:'a confirmar',weak:'fraco',reinforce:'a reforçar',average:'médio',mastered:'dominado',successAria:'acerto',empty:'Faça algumas perguntas: seus pontos fracos aparecerão aqui automaticamente.',none:'Nenhum ponto fraco detectado',point:'ponto detectado',points:'pontos detectados',adaptive:'Adaptativo local',title:'Meus pontos fracos',click:'toque para',hideLower:'ocultar',showLower:'mostrar',detail:'os detalhes',answers:'respostas',success:'acerto',errors:'erros',unknown:'não sei',hide:'Ocultar',show:'Mostrar',local:'Calculado somente neste dispositivo. As etiquetas permanecem ocultas.',reset:'Reiniciar',confirmReset:'Reiniciar suas estatísticas locais neste dispositivo?'}
+  };
+
+  function weakLabels(){
+    var active = document.querySelector('.brand-lang button.active, .lang-switch button.active, [data-lang].active');
+    var raw = String((active && (active.getAttribute('data-lang') || active.textContent)) || document.documentElement.lang || 'es').toLowerCase();
+    if(raw.indexOf('fr') >= 0) return WEAK_LABELS.fr;
+    if(raw.indexOf('br') >= 0 || raw.indexOf('pt') >= 0) return WEAK_LABELS.br;
+    return WEAK_LABELS.es;
+  }
+
+  function labelStatus(item, labels){
     var acc = item.accuracy || 0;
     var attempts = item.attempts || 0;
-    if(attempts < 2) return {label:"à confirmer", cls:"warn"};
-    if(acc < 50) return {label:"faible", cls:"bad"};
-    if(acc < 70) return {label:"à renforcer", cls:"warn"};
-    if(acc < 85) return {label:"moyen", cls:"mid"};
-    return {label:"maîtrisé", cls:"good"};
+    if(attempts < 2) return {label:labels.confirm, cls:"warn"};
+    if(acc < 50) return {label:labels.weak, cls:"bad"};
+    if(acc < 70) return {label:labels.reinforce, cls:"warn"};
+    if(acc < 85) return {label:labels.average, cls:"mid"};
+    return {label:labels.mastered, cls:"good"};
   }
 
   function getStats(){
@@ -7464,6 +7627,7 @@ window.addEventListener('pageshow', () => setTimeout(setupReaderModuleSwitcherV2
     var totals = data && data.totals ? data.totals : {attempts:0, correct:0, wrong:0, unknown:0, fragile:0};
     var attempts = totals.attempts || 0;
     var accuracy = attempts ? Math.round(((totals.correct || 0) / attempts) * 100) : 0;
+    var labels = weakLabels();
 
     if(!existing){
       existing = document.createElement("section");
@@ -7491,7 +7655,7 @@ window.addEventListener('pageshow', () => setTimeout(setupReaderModuleSwitcherV2
     var rows = "";
     if(items.length){
       rows = items.map(function(item, idx){
-        var st = labelStatus(item);
+        var st = labelStatus(item, labels);
         var topic = item.label || item.topic || item.key || "Concept";
         var moduleText = item.moduleNumber ? ("M" + item.moduleNumber) : "";
         var subject = item.subject ? item.subject : "";
@@ -7502,7 +7666,7 @@ window.addEventListener('pageshow', () => setTimeout(setupReaderModuleSwitcherV2
               '<strong>' + escapeHtml(topic) + '</strong>' +
               '<small>' + escapeHtml([subject, moduleText].filter(Boolean).join(" · ")) + '</small>' +
             '</span>' +
-            '<span class="weak-meter" aria-label="réussite">' +
+            '<span class="weak-meter" aria-label="' + labels.successAria + '">' +
               '<i style="width:' + Math.max(3, Math.min(100, item.accuracy || 0)) + '%"></i>' +
             '</span>' +
             '<span class="weak-score">' + pct(item.accuracy || 0) + '</span>' +
@@ -7510,34 +7674,35 @@ window.addEventListener('pageshow', () => setTimeout(setupReaderModuleSwitcherV2
           '</button>';
       }).join("");
     } else {
-      rows = '<div class="weak-empty">Fais quelques questions : tes points faibles apparaîtront ici automatiquement.</div>';
+      rows = '<div class="weak-empty">' + labels.empty + '</div>';
     }
 
     var weakCount = items.length;
-    var weakSummary = weakCount ? (weakCount + " point" + (weakCount > 1 ? "s" : "") + " détecté" + (weakCount > 1 ? "s" : "")) : "Aucun point faible détecté";
+    var weakSummary = weakCount ? (weakCount + ' ' + (weakCount > 1 ? labels.points : labels.point)) : labels.none;
+    existing.dataset.weakCount = String(weakCount);
     var dashboardHtml = '' +
       '<div class="weak-head" role="button" tabindex="0" aria-controls="adaptiveWeakDetailsV261" aria-expanded="' + (isOpen ? 'true' : 'false') + '">' +
         '<div class="weak-title">' +
-          '<p class="eyebrow">Adaptatif local</p>' +
-          '<h2>Mes points faibles</h2>' +
-          '<p class="weak-summary">' + weakSummary + ' · clique pour ' + (isOpen ? 'masquer' : 'afficher') + ' le détail</p>' +
+          '<p class="eyebrow">' + labels.adaptive + '</p>' +
+          '<h2>' + labels.title + '</h2>' +
+          '<p class="weak-summary">' + weakSummary + ' · ' + labels.click + ' ' + (isOpen ? labels.hideLower : labels.showLower) + ' ' + labels.detail + '</p>' +
         '</div>' +
         '<div class="weak-stats">' +
-          '<span><strong>' + attempts + '</strong><small>réponses</small></span>' +
-          '<span><strong>' + pct(accuracy) + '</strong><small>réussite</small></span>' +
-          '<span><strong>' + (totals.wrong || 0) + '</strong><small>erreurs</small></span>' +
-          '<span><strong>' + (totals.unknown || 0) + '</strong><small>je ne sais pas</small></span>' +
+          '<span><strong>' + attempts + '</strong><small>' + labels.answers + '</small></span>' +
+          '<span><strong>' + pct(accuracy) + '</strong><small>' + labels.success + '</small></span>' +
+          '<span><strong>' + (totals.wrong || 0) + '</strong><small>' + labels.errors + '</small></span>' +
+          '<span><strong>' + (totals.unknown || 0) + '</strong><small>' + labels.unknown + '</small></span>' +
         '</div>' +
         '<button class="weak-toggle" type="button" aria-expanded="' + (isOpen ? 'true' : 'false') + '" aria-controls="adaptiveWeakDetailsV261">' +
-          '<span class="weak-toggle-text">' + (isOpen ? 'Masquer' : 'Afficher') + '</span>' +
+          '<span class="weak-toggle-text">' + (isOpen ? labels.hide : labels.show) + '</span>' +
           '<span class="weak-chevron" aria-hidden="true">⌄</span>' +
         '</button>' +
       '</div>' +
       '<div class="weak-collapsible" id="adaptiveWeakDetailsV261" aria-hidden="' + (isOpen ? 'false' : 'true') + '">' +
         '<div class="weak-body">' + rows + '</div>' +
         '<div class="weak-foot">' +
-          '<span>Calculé uniquement sur cet appareil. Les tags restent cachés.</span>' +
-          '<button class="weak-reset" type="button">Réinitialiser</button>' +
+          '<span>' + labels.local + '</span>' +
+          '<button class="weak-reset" type="button">' + labels.reset + '</button>' +
         '</div>' +
       '</div>';
 
@@ -7575,7 +7740,7 @@ window.addEventListener('pageshow', () => setTimeout(setupReaderModuleSwitcherV2
     if(reset){
       reset.onclick = function(){
         if(!window.MedAdaptiveV260 || typeof window.MedAdaptiveV260.reset !== "function") return;
-        if(confirm("Réinitialiser tes statistiques locales sur cet appareil ?")){
+        if(confirm(labels.confirmReset)){
           window.MedAdaptiveV260.reset();
           setTimeout(ensureDashboard, 80);
         }
@@ -7602,9 +7767,12 @@ window.addEventListener('pageshow', () => setTimeout(setupReaderModuleSwitcherV2
     if(head) head.setAttribute("aria-expanded", open ? "true" : "false");
     if(details) details.setAttribute("aria-hidden", open ? "false" : "true");
     if(toggleBtn) toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
-    if(toggleText) toggleText.textContent = open ? "Masquer" : "Afficher";
+    var labels = weakLabels();
+    if(toggleText) toggleText.textContent = open ? labels.hide : labels.show;
     if(summary){
-      summary.textContent = summary.textContent.replace(open ? "clique pour afficher" : "clique pour masquer", open ? "clique pour masquer" : "clique pour afficher");
+      var weakCount = Number(box.dataset.weakCount || 0);
+      var weakSummary = weakCount ? (weakCount + ' ' + (weakCount > 1 ? labels.points : labels.point)) : labels.none;
+      summary.textContent = weakSummary + ' · ' + labels.click + ' ' + (open ? labels.hideLower : labels.showLower) + ' ' + labels.detail;
     }
     if(persist){
       try { localStorage.setItem("medWeakDashboardV261Open", open ? "1" : "0"); } catch(e){}

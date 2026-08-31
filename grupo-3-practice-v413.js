@@ -1,20 +1,27 @@
 (function(){
   'use strict';
 
-  var classI18n = window.MedNykutoClassI18n || null;
+  var activePracticeClose = null;
+
+  function classI18n(){
+    return window.MedNykutoClassI18n || null;
+  }
 
   function tr(key,variables){
-    return classI18n && typeof classI18n.t === 'function' ? classI18n.t(key,variables) : key;
+    var service = classI18n();
+    return service && typeof service.t === 'function' ? service.t(key,variables) : key;
   }
 
   function displayOption(value){
-    if(!classI18n || classI18n.getLang() !== 'br') return value;
+    var service = classI18n();
+    if(!service || service.getLang() !== 'br') return value;
     if(value === 'Verdadero') return 'Verdadeiro';
     return value;
   }
 
   function localizeExact(value){
-    if(classI18n && classI18n.getLang() === 'br' && classI18n.exact && classI18n.exact[value]) return classI18n.exact[value];
+    var service = classI18n();
+    if(service && service.getLang() === 'br' && service.exact && service.exact[value]) return service.exact[value];
     return value;
   }
 
@@ -542,7 +549,7 @@
     }
   };
 
-  var storageKey = 'med-nykuto-class-practice-v420';
+  var storageKey = 'med-nykuto-class-practice-v431';
   var typeOrder = ['qcm','vf','cases'];
   var typeLabels = {
     qcm:tr('qcm'),
@@ -625,7 +632,13 @@
     var title = createNode('h3','',tr('practiceTitle',{title:localizeExact(bank.title)}));
     title.id = root.id + '-title';
     copy.appendChild(title);
-    copy.appendChild(createNode('p','',localizeExact(bank.description)));
+    copy.appendChild(createNode('p','',bank.descriptionKey ? tr(bank.descriptionKey) : localizeExact(bank.description)));
+    if(bank.teacherProfileLabel){
+      var teacherChip = createNode('a','practice-teacher-chip','Perfil docente · '+bank.teacherProfileLabel);
+      teacherChip.href = 'profesores.html#' + bank.teacherProfileId;
+      teacherChip.setAttribute('aria-label','Abrir la auditoría del perfil docente de '+bank.teacherProfileLabel);
+      copy.appendChild(teacherChip);
+    }
     heading.appendChild(icon);
     heading.appendChild(copy);
 
@@ -643,13 +656,30 @@
     progressLabel.setAttribute('aria-live','polite');
     var startButton = createNode('button','practice-start',tr('startPractice'));
     startButton.type = 'button';
-    startButton.setAttribute('aria-controls',root.id + '-workspace');
+    startButton.setAttribute('aria-controls',root.id + '-dialog');
     startButton.setAttribute('aria-expanded','false');
     overviewFooter.appendChild(progressLabel);
     overviewFooter.appendChild(startButton);
     overview.appendChild(heading);
     overview.appendChild(counts);
     overview.appendChild(overviewFooter);
+
+    var dialog = createNode('dialog','practice-dialog');
+    dialog.id = root.id + '-dialog';
+    dialog.setAttribute('aria-labelledby',root.id + '-dialog-title');
+    var dialogShell = createNode('div','practice-dialog-shell');
+    var dialogHeader = createNode('div','practice-dialog-header');
+    var dialogHeading = createNode('div','practice-dialog-heading');
+    dialogHeading.appendChild(createNode('span','practice-eyebrow',tr('trainingType')));
+    var dialogTitle = createNode('strong','',localizeExact(bank.title));
+    dialogTitle.id = root.id + '-dialog-title';
+    dialogHeading.appendChild(dialogTitle);
+    var dialogClose = createNode('button','practice-dialog-close',tr('closePractice'));
+    dialogClose.type = 'button';
+    dialogClose.setAttribute('aria-label',tr('closePractice'));
+    dialogClose.innerHTML = '<span aria-hidden="true">\u00d7</span><b>' + tr('closePractice') + '</b>';
+    dialogHeader.appendChild(dialogHeading);
+    dialogHeader.appendChild(dialogClose);
 
     var workspace = createNode('div','practice-workspace');
     workspace.id = root.id + '-workspace';
@@ -666,20 +696,25 @@
     var questionHost = createNode('div','practice-question-host');
     questionHost.setAttribute('aria-live','polite');
     var sources = createNode('div','practice-sources');
-    sources.appendChild(createNode('span','',tr('verificationBase')));
+    sources.appendChild(createNode('span','',bank.grounding === 'reviewed-lesson-only' ? tr('reviewedLessonBase') : bank.grounding ? tr('courseOnlyBase') : tr('verificationBase')));
     bank.sources.forEach(function(source){
-      var link = createNode('a','',source.label);
+      var link = createNode('a','',source.labelKey ? tr(source.labelKey) : source.label);
       link.href = source.url;
-      link.target = '_blank';
-      link.rel = 'noopener';
+      if(/^https:\/\//.test(source.url || '')){
+        link.target = '_blank';
+        link.rel = 'noopener';
+      }
       sources.appendChild(link);
     });
 
     workspace.appendChild(toolbar);
     workspace.appendChild(questionHost);
     workspace.appendChild(sources);
+    dialogShell.appendChild(dialogHeader);
+    dialogShell.appendChild(workspace);
+    dialog.appendChild(dialogShell);
     root.appendChild(overview);
-    root.appendChild(workspace);
+    root.appendChild(dialog);
 
     var activeType = 'qcm';
     var currentIndex = 0;
@@ -688,7 +723,57 @@
     var tabButtons = {};
 
     function totalAnswered(){
-      return typeOrder.reduce(function(total,type){return total + answeredCount(state[type]);},0);
+      return typeOrder.reduce(function(total,type){return total + answeredCount(state[type].slice(0,bank[type].length));},0);
+    }
+
+    function scoreSnapshots(){
+      return typeOrder.map(function(type){
+        var bounded = state[type].slice(0,bank[type].length);
+        var answered = answeredCount(bounded);
+        if(!answered) return null;
+        var correct = correctCount(bounded);
+        return {
+          courseId:bank.sectionId || bank.courseId,
+          moduleId:bank.courseId + '-' + type,
+          topicId:bank.courseId,
+          topicTitle:localizeExact(bank.title),
+          type:type,
+          correct:correct,
+          total:bank[type].length,
+          answered:answered,
+          percentage:Math.round((correct / bank[type].length) * 100)
+        };
+      }).filter(Boolean);
+    }
+
+    function progressDetail(summaryElement){
+      var scores = scoreSnapshots();
+      var aggregateCorrect = scores.reduce(function(total,score){return total + score.correct;},0);
+      var aggregateTotal = scores.reduce(function(total,score){return total + score.answered;},0);
+      var activeResults = state[activeType].slice(0,bank[activeType].length);
+      var blockTotal = answeredCount(activeResults);
+      var blockCorrect = correctCount(activeResults);
+      return {
+        courseId:bank.sectionId || bank.courseId,
+        moduleId:bank.courseId + '-' + activeType,
+        topicId:bank.courseId,
+        topicTitle:localizeExact(bank.title),
+        type:activeType,
+        correct:blockCorrect,
+        total:blockTotal,
+        percentage:blockTotal ? Math.round((blockCorrect / blockTotal) * 100) : 0,
+        aggregateCorrect:aggregateCorrect,
+        aggregateTotal:aggregateTotal,
+        availableTotal:totalQuestions,
+        scores:scores,
+        summaryElement:summaryElement || null
+      };
+    }
+
+    function emitProgress(eventName,summaryElement){
+      try{
+        document.dispatchEvent(new CustomEvent(eventName,{detail:progressDetail(summaryElement)}));
+      }catch(error){}
     }
 
     function updateProgressLabels(){
@@ -696,7 +781,7 @@
       progressLabel.textContent = done ? tr('questionsDone',{done:done,total:totalQuestions}) : tr('questionsTotal',{total:totalQuestions});
       typeOrder.forEach(function(type){
         if(!tabButtons[type]) return;
-        var complete = answeredCount(state[type]);
+        var complete = answeredCount(state[type].slice(0,bank[type].length));
         tabButtons[type].querySelector('small').textContent = complete + '/' + bank[type].length;
         tabButtons[type].classList.toggle('is-complete',complete === bank[type].length);
       });
@@ -717,6 +802,12 @@
         currentIndex = next;
         renderQuestion();
       }
+    }
+
+    function scrollQuestionTop(){
+      window.requestAnimationFrame(function(){
+        questionHost.scrollTop = 0;
+      });
     }
 
     typeOrder.forEach(function(type){
@@ -762,6 +853,9 @@
       meta.appendChild(createNode('span','',typeLabels[activeType] + ' · ' + (currentIndex + 1) + '/' + questions.length));
       var level = activeType === 'cases' ? tr('clinicalApplication') : tr('activeUnderstanding');
       meta.appendChild(createNode('span','',level));
+      if(question.teacherAngleLabel){
+        meta.appendChild(createNode('span','practice-teacher-angle',(bank.teacherProfileName || 'Perfil docente') + ' · ' + question.teacherAngleLabel));
+      }
       card.appendChild(meta);
 
       if(question.scenario){
@@ -824,6 +918,7 @@
         };
         saveProgress(progress);
         updateProgressLabels();
+        emitProgress('mednykuto:practice-progress');
         renderQuestion();
       });
 
@@ -834,6 +929,7 @@
           currentIndex = next;
           selectedIndex = null;
           renderQuestion();
+          scrollQuestionTop();
         }
       });
 
@@ -844,7 +940,7 @@
       summaryVisible = true;
       questionHost.innerHTML = '';
       var questions = bank[activeType];
-      var results = state[activeType];
+      var results = state[activeType].slice(0,questions.length);
       var score = correctCount(results);
       var percentage = Math.round((score / questions.length) * 100);
       var summary = createNode('article','practice-summary');
@@ -857,7 +953,7 @@
       formatPicker.hidden = true;
       formatPicker.setAttribute('aria-label',tr('chooseFormat'));
       typeOrder.forEach(function(type){
-        var done = answeredCount(state[type]);
+        var done = answeredCount(state[type].slice(0,bank[type].length));
         var choice = createNode('button','practice-format-choice');
         choice.type = 'button';
         choice.disabled = type === activeType;
@@ -865,7 +961,7 @@
         choice.appendChild(createNode('small','',done + '/' + bank[type].length + ' · ' + (done === bank[type].length ? tr('finished') : tr('continue'))));
         choice.addEventListener('click',function(){
           chooseType(type);
-          window.requestAnimationFrame(function(){questionHost.scrollIntoView({behavior:'smooth',block:'start'});});
+          scrollQuestionTop();
         });
         formatPicker.appendChild(choice);
       });
@@ -876,9 +972,10 @@
         state[activeType] = [];
         saveProgress(progress);
         updateProgressLabels();
+        emitProgress('mednykuto:practice-progress');
         currentIndex = 0;
         renderQuestion();
-        window.requestAnimationFrame(function(){questionHost.scrollIntoView({behavior:'smooth',block:'start'});});
+        scrollQuestionTop();
       });
       var switchType = createNode('button','practice-next',tr('chooseFormat'));
       switchType.type = 'button';
@@ -891,26 +988,66 @@
       summary.appendChild(formatPicker);
       summary.appendChild(actions);
       questionHost.appendChild(summary);
+      emitProgress('mednykuto:practice-complete',summary);
+      scrollQuestionTop();
     }
 
     function openWorkspace(){
+      if(activePracticeClose && activePracticeClose !== closeWorkspace) activePracticeClose({restoreFocus:false});
+      activePracticeClose = closeWorkspace;
+      var containingPanel = root.closest('[data-lesson-tab-panel]');
+      if(containingPanel && containingPanel.hidden){
+        var lesson = containingPanel.closest('[data-lesson-panel]');
+        var trainingTab = lesson && lesson.querySelector('[data-lesson-tab="' + containingPanel.dataset.lessonTabPanel + '"]');
+        if(trainingTab) trainingTab.click();
+        else containingPanel.hidden = false;
+      }
       workspace.hidden = false;
       root.classList.add('is-open');
       startButton.textContent = tr('closePractice');
       startButton.setAttribute('aria-expanded','true');
       chooseType(activeType);
+      document.documentElement.classList.add('practice-modal-open');
+      document.body.classList.add('practice-modal-open');
+      try{
+        if(typeof dialog.showModal === 'function') dialog.showModal();
+        else dialog.setAttribute('open','');
+      }catch(error){
+        dialog.setAttribute('open','');
+      }
+      scrollQuestionTop();
+      window.requestAnimationFrame(function(){ dialogClose.focus(); });
     }
 
-    function closeWorkspace(){
+    function finishClose(restoreFocus){
       workspace.hidden = true;
       root.classList.remove('is-open');
       startButton.textContent = tr('startPractice');
       startButton.setAttribute('aria-expanded','false');
+      if(activePracticeClose === closeWorkspace) activePracticeClose = null;
+      document.documentElement.classList.remove('practice-modal-open');
+      document.body.classList.remove('practice-modal-open');
+      if(restoreFocus !== false) window.requestAnimationFrame(function(){ startButton.focus(); });
+    }
+
+    function closeWorkspace(options){
+      var restoreFocus = !options || options.restoreFocus !== false;
+      if(dialog.open && typeof dialog.close === 'function') dialog.close();
+      else dialog.removeAttribute('open');
+      finishClose(restoreFocus);
     }
 
     startButton.addEventListener('click',function(){
-      if(workspace.hidden) openWorkspace();
+      if(!dialog.open && !dialog.hasAttribute('open')) openWorkspace();
       else closeWorkspace();
+    });
+    dialogClose.addEventListener('click',function(){ closeWorkspace(); });
+    dialog.addEventListener('cancel',function(event){
+      event.preventDefault();
+      closeWorkspace();
+    });
+    dialog.addEventListener('close',function(){
+      if(!workspace.hidden) finishClose(true);
     });
 
     resetButton.addEventListener('click',function(){
@@ -920,11 +1057,13 @@
       state.cases = [];
       saveProgress(progress);
       updateProgressLabels();
+      emitProgress('mednykuto:practice-progress');
       chooseType('qcm');
     });
 
     updateProgressLabels();
     chooseType('qcm');
+    emitProgress('mednykuto:practice-progress');
     workspace.hidden = true;
     root.classList.remove('is-open');
 
@@ -932,9 +1071,19 @@
       root:root,
       open:function(){
         openWorkspace();
-        window.requestAnimationFrame(function(){root.scrollIntoView({behavior:'auto',block:'start'});});
-      }
+      },
+      close:closeWorkspace
     };
+  }
+
+  function mountStandalone(container,courseId,options){
+    var target = typeof container === 'string' ? document.querySelector(container) : container;
+    var bank = banks[courseId];
+    if(!target || !bank) return null;
+    var controller = buildPracticeModule(bank,loadProgress());
+    target.replaceChildren(controller.root);
+    if(options && options.open) controller.open();
+    return controller;
   }
 
   function mountPractice(){
@@ -954,18 +1103,72 @@
       controllers[courseId] = controller;
     });
 
+    var shortcut = document.getElementById('coursePracticeShortcut');
+    var shortcutLabel = document.getElementById('coursePracticeShortcutLabel');
+    var shortcutCourse = document.getElementById('coursePracticeShortcutCourse');
+
+    function selectedPracticeId(){
+      var selectedCourse = document.querySelector('[data-course-target][aria-current="true"]');
+      var courseId = selectedCourse && selectedCourse.dataset.courseTarget;
+      if(courseId){
+        var selectedLesson = document.querySelector('#' + courseId + ' [data-lesson-target][aria-current="true"]');
+        if(selectedLesson && controllers[selectedLesson.dataset.lessonTarget]) return selectedLesson.dataset.lessonTarget;
+      }
+      return courseId && controllers[courseId] ? courseId : null;
+    }
+
+    function syncShortcut(){
+      if(!shortcut) return;
+      var practiceId = selectedPracticeId();
+      var selectedCourse = document.querySelector('[data-course-target][aria-current="true"]');
+      var title = selectedCourse && selectedCourse.querySelector('strong');
+      if(!practiceId || !title){
+        shortcut.hidden = true;
+        delete shortcut.dataset.practiceTarget;
+        return;
+      }
+      shortcut.hidden = false;
+      shortcut.dataset.practiceTarget = practiceId;
+      if(shortcutLabel) shortcutLabel.textContent = tr('practiceShortcut');
+      if(shortcutCourse) shortcutCourse.textContent = title.textContent;
+      shortcut.setAttribute('aria-label',tr('practiceShortcutAria',{course:title.textContent}));
+    }
+
+    if(shortcut){
+      shortcut.addEventListener('click',function(){
+        syncShortcut();
+        var controller = controllers[shortcut.dataset.practiceTarget];
+        if(controller) controller.open();
+      });
+      var selector = document.querySelector('.course-selector');
+      if(selector && typeof MutationObserver === 'function'){
+        new MutationObserver(syncShortcut).observe(selector,{subtree:true,attributes:true,attributeFilter:['aria-current']});
+      }
+      syncShortcut();
+    }
+
     function openFromHash(){
       var match = window.location.hash.match(/^#practice-(.+)$/);
       if(match && controllers[match[1]]) controllers[match[1]].open();
-      else if(match && match[1] === 'fisiologia' && controllers['fisiologia-2026-08-13']) controllers['fisiologia-2026-08-13'].open();
+      else if(match && match[1] === 'fisiologia' && controllers['fisiologia-2026-08-24']) controllers['fisiologia-2026-08-24'].open();
+      else if(match && match[1] === 'microbiologia-teorica' && controllers['microbiologia-teorica-2026-08-24']) controllers['microbiologia-teorica-2026-08-24'].open();
     }
 
     openFromHash();
-    window.addEventListener('hashchange',openFromHash);
-    window.MedNykutoClassPractice = {banks:banks,controllers:controllers,mount:mountPractice};
+    window.addEventListener('hashchange',function(){
+      openFromHash();
+      window.setTimeout(syncShortcut,0);
+    });
+    window.MedNykutoClassPractice = {
+      banks:banks,
+      controllers:controllers,
+      mount:mountPractice,
+      mountStandalone:mountStandalone,
+      groundingPolicy:window.MedNykutoClassPractice && window.MedNykutoClassPractice.groundingPolicy
+    };
   }
 
-  window.MedNykutoClassPractice = {banks:banks,controllers:{},mount:mountPractice};
+  window.MedNykutoClassPractice = {banks:banks,controllers:{},mount:mountPractice,mountStandalone:mountStandalone};
   if(document && typeof document.addEventListener === 'function' && document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded',mountPractice,{once:true});
   }else if(document && typeof document.getElementById === 'function'){

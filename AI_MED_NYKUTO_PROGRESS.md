@@ -6,7 +6,7 @@ Document permanent de suivi du travail Med Nykuto. À lire avec `AI_MED_NYKUTO_R
 
 ## État général actuel
 
-Branche de travail : `preview`
+Branche de travail : `feat/compact-notebook-teacher-audit` (publication ciblée sur `main` après CI)
 
 Repo : `drsoliveirasantos-lab/med-nykuto`
 
@@ -18,6 +18,17 @@ Méthode technique actuelle :
 - remplacer les questions existantes sans gonfler les totaux ;
 - vérifier le loader après chaque patch ;
 - préserver les patchs existants des autres matières.
+
+### Refonte du 22 août 2026
+
+- 6 matières présentées dans un sélecteur mobile compact ;
+- 14 séances transformées en cours narratifs continus avec sommaire, résumé, ultra, QCM, fichiers et audit enseignant ;
+- cuaderno chronologique par date, navigation précédente/suivante et statut de chapitre ;
+- 6 profils enseignants cumulatifs et sourcés, reliés aux 560 questions de séance ;
+- tâches actives alimentées par l'API, anciennes tâches masquées ;
+- séminaire de Nutrition du 20 août marqué comme présentation terminée, sans création d'un faux cours théorique ;
+- Drive partagé conservé uniquement sur l'accueil ;
+- vues Temas, Archivos et Progreso compactées pour iPhone.
 
 ---
 
@@ -195,3 +206,68 @@ Dernière vérification : le loader charge `practice-bank-fisiologia-quality-pat
 - Fisiología Module 3 : créer `data/practice-bank-fisiologia-quality-patch-v349-m3-qcm-151-190.js`, cible QCM 151-190, soit 40 QCM.
 - Fisiología Module 1 : demander validation utilisateur sur Preview avant nouvelle repasse.
 - Microbiología : demander validation utilisateur du Module 1 sur Preview avant de démarrer Module 2.
+
+---
+
+## 23 août 2026 — audit transversal et certification S3 v461
+
+L'audit transversal a distingué la banque restaurée de la banque réellement publiable. Les fichiers sources conservent 12 840 items restaurés (8 000 QCM, 1 940 V/F et 2 900 cas), mais ce volume brut ne doit plus être présenté comme une garantie de qualité.
+
+La couche `data/practice-bank-s3-certification-v461.js` s'exécute en dernier dans le loader et ne publie qu'un sous-ensemble rattaché au cours. Elle ne gonfle aucun total et ne détruit aucun fichier source.
+
+| Matière | QCM certifiés | V/F certifiés | vrais cas certifiés |
+|---|---:|---:|---:|
+| Fisiología | 180 | 90 | 87 |
+| Microbiología | 229 | 130 | 64 |
+| Genética | 206 | 120 | 11 |
+| Bioquímica | 18 | 6 | 0 |
+| Inmunología | 28 | 12 | 0 |
+| **Total runtime** | **661** | **358** | **162** |
+
+Règles appliquées au runtime v461 :
+
+- rattachement à une matière et à un module existants ;
+- preuve de cours visible dans la correction (`sourceEvidence` et `Referencia del curso`) ;
+- structure de réponse valide et positions A-D rééquilibrées ;
+- suppression des indices évidents liés à la longueur de la bonne réponse ;
+- exclusion des doublons, artefacts d'ancien examen, distracteurs absurdes et formulations génériques ;
+- pour les cas, conservation uniquement des mini-histoires cliniques réelles avec au moins deux phrases et un contexte clinique identifiable ;
+- pour les V/F faux, correction exacte obligatoire ;
+- maximum runtime par module : 20 QCM, 10 V/F et 10 cas.
+
+Les anciens pseudo-cas de Bioquímica et Inmunología sont bloqués (`blockedFormats: ["cases"]`) jusqu'à leur reconstruction manuelle. Les QCM et V/F de ces deux matières restent volontairement partiels : seuls les items qui passent les critères sont visibles. Cette certification établit une fidélité au contenu du cours et une qualité structurelle ; elle ne doit pas être décrite comme une validation médicale indépendante de chaque fait.
+
+Validation obligatoire avant publication :
+
+- `node scripts/validate-semester-3-question-certification.js` ;
+- `node scripts/validate-question-bank-deep-integrity.js` ;
+- `npm run validate` ;
+- tests Playwright des parcours QCM, V/F, cas et banques certifiées.
+
+Prochaine reconstruction prioritaire : cas cliniques Bioquímica puis Inmunología, module par module, selon les limites de `AI_MED_NYKUTO_RULES.md`. Ne jamais réexposer les volumes bruts pour atteindre artificiellement un compteur.
+
+---
+
+## 23 août 2026 — certification conservatrice S3 v462 par source exacte
+
+La v461 est conservée comme historique, mais elle est remplacée au runtime : sa proximité lexicale avec le cours ne suffisait pas à prouver que l'énoncé, la bonne réponse et l'explication décrivaient le même concept. La couche `data/practice-bank-s3-certification-v462.js` reconstruit donc les formats publiés à partir de phrases complètes présentes dans les modules du cours.
+
+| Matière | QCM source exacte | V/F source exacte | cas publiés |
+|---|---:|---:|---:|
+| Fisiología | 80 | 40 | 0 |
+| Microbiología | 104 | 52 | 0 |
+| Genética | 96 | 48 | 0 |
+| Bioquímica | 95 | 48 | 0 |
+| Inmunología | 95 | 48 | 0 |
+| **Total runtime** | **470** | **236** | **0** |
+
+Contrats du runtime v462 :
+
+- les 59 modules disposent de QCM et de V/F dérivés de leur propre contenu ;
+- la bonne réponse d'un QCM est une phrase exacte du module déclaré ;
+- les trois distracteurs sont des phrases exactes d'autres modules de la même matière, avec leur provenance enregistrée ;
+- un V/F vrai reprend exactement sa phrase source ; un V/F faux modifie une relation contrôlée et affiche la formulation source exacte comme correction ;
+- les consignes éditoriales, fragments, titres collés, artefacts techniques et indices de longueur évidents sont refusés automatiquement ;
+- tous les cas cliniques hérités sont bloqués jusqu'à une reconstruction et une relecture manuelles, matière par matière et module par module.
+
+Cette certification prouve la traçabilité textuelle et la cohérence structurelle avec le cours publié. Elle ne constitue pas une validation médicale indépendante de chaque fait. La prochaine étape de contenu est la reconstruction manuelle des cas cliniques, sans réutiliser les anciens pseudo-cas ni viser un volume artificiel.

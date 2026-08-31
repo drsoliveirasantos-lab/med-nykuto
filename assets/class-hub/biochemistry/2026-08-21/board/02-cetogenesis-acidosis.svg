@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Metabolismo hepático, cetogénesis y cetoacidosis</title>
+  <desc id="desc">Reconstrucción semántica de la segunda pizarra: ácidos grasos y alanina llegan al hepatocito; la mitocondria realiza beta-oxidación, el acetil-CoA alimenta Krebs o cetogénesis y los cuerpos cetónicos llevan a acidosis, compensación y pérdida de función celular.</desc>
+  <defs>
+    <marker id="b-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#315cc3" stroke-width="2"/></marker>
+    <marker id="b-red" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#ce4c68" stroke-width="2"/></marker>
+    <marker id="b-green" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#2d9a55" stroke-width="2"/></marker>
+    <marker id="b-ink" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#263039" stroke-width="2"/></marker>
+    <style>
+      .board{fill:#fcfcf8;stroke:#d7d9d5;stroke-width:5}.ink{fill:#263039;stroke:#263039}.blue{fill:#315cc3;stroke:#315cc3}.red{fill:#ce4c68;stroke:#ce4c68}.green{fill:#2d9a55;stroke:#2d9a55}.orange{fill:#d98738;stroke:#d98738}.purple{fill:#8a54b8;stroke:#8a54b8}
+      .hepatocyte{fill:#fff7ef;stroke:#ce4c68}.nucleus{fill:#fffdf8;stroke:#ce4c68}.mito{fill:#fff0d9;stroke:#d98738}.adipocyte{fill:#fff4dd;stroke:#d98738}.muscle{fill:#fbe8e9;stroke:#ce4c68}.vessel{fill:#fff3f4;stroke:#ce4c68}.lung{fill:#eef7fb;stroke:#315cc3}
+      text{font-family:"Segoe Print","Bradley Hand","Comic Sans MS",cursive;font-size:23px;font-weight:650;stroke:none}.small{font-size:18px}.tiny{font-size:15px}.title{font-size:28px;font-weight:750}.micro{font-family:Arial,sans-serif;font-size:13px;font-weight:800;letter-spacing:1.15px}.line{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.thin{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.hair{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+  <rect class="board" x="3" y="3" width="1594" height="994" rx="18"/>
+
+  <!-- Entradas desde adiposo y músculo, en la misma posición relativa de la foto. -->
+  <g><circle class="adipocyte thin" cx="77" cy="104" r="30"/><circle class="adipocyte thin" cx="125" cy="93" r="30"/><circle class="adipocyte thin" cx="111" cy="137" r="30"/></g>
+  <text class="orange" x="42" y="184">Adiposo</text><text class="ink" x="159" y="184">↑ lipólisis</text>
+  <path class="orange line" d="M44 202h260" marker-end="url(#b-red)"/><text class="ink title" x="318" y="210">FFA</text>
+
+  <path class="muscle thin" d="M45 285q87-34 184 0-87 34-184 0z"/><path class="red hair" d="M73 267v36m43-43v50m45-46v43m43-34v26"/>
+  <text class="red small" x="42" y="337">Músculo</text><text class="ink" x="142" y="337">↑ proteólisis</text>
+  <path class="red line" d="M43 356h283" marker-end="url(#b-red)"/><text class="ink" x="338" y="364">alanina</text>
+
+  <!-- Hepatocito representado como célula con núcleo y mitocondria identificable. -->
+  <text class="red micro" x="355" y="37">DENTRO DE LOS HEPATOCITOS</text>
+  <ellipse class="hepatocyte line" cx="492" cy="256" rx="184" ry="214"/>
+  <ellipse class="red hair" cx="492" cy="256" rx="169" ry="198"/>
+  <ellipse class="nucleus thin" cx="451" cy="365" rx="62" ry="34"/>
+  <path class="red hair" d="M413 364q31-23 69 1"/>
+  <path class="mito line" d="M435 145c25-27 91-24 118 5-15 34-79 49-115 22-11-8-12-18-3-27z"/>
+  <path class="orange hair" d="M454 150q14 16 29 0t29 2 25-1"/>
+  <text class="blue small" x="409" y="120">β-oxidación de AG</text>
+  <path class="blue line" d="M350 202q67-19 109-37" marker-end="url(#b-blue)"/>
+  <text class="orange tiny" x="448" y="203">mitocondria</text>
+
+  <path class="red line" d="M548 155h116" marker-end="url(#b-red)"/><text class="red title" x="681" y="164">↑↑ Acetil-CoA</text>
+  <text class="red tiny" x="614" y="115" transform="rotate(-14 614 115)">cadenas pares</text>
+  <path class="purple thin" d="M613 180q35 25 75 42" marker-end="url(#b-blue)"/><text class="red tiny" x="596" y="218" transform="rotate(15 596 218)">cadenas impares</text>
+  <text class="ink" x="701" y="238">Propionil-CoA</text><path class="blue thin" d="M778 251v78" marker-end="url(#b-blue)"/>
+
+  <!-- Rama energética de la profesora: TCA, CTE/FO y ATP. -->
+  <path class="ink line" d="M840 154h82" marker-end="url(#b-ink)"/>
+  <circle class="ink thin" cx="972" cy="154" r="41"/><text class="ink" x="947" y="162">TCA</text>
+  <path class="ink line" d="M1013 154h87" marker-end="url(#b-ink)"/><text class="ink" x="1115" y="162">CTE / FO</text>
+  <path class="ink line" d="M1235 154h112" marker-end="url(#b-ink)"/><text class="ink title" x="1364" y="163">↑↑ ATP</text>
+
+  <!-- Alanina y propionil-CoA hacia gluconeogénesis y salida de glucosa por GLUT2. -->
+  <path class="blue line" d="M390 356q108 20 210-6" marker-end="url(#b-blue)"/><text class="blue" x="501" y="330">↑ Glc</text>
+  <path class="purple line" d="M669 341h109" marker-end="url(#b-blue)"/><text class="purple title" x="700" y="379">Gluconeogénesis</text>
+  <text class="purple small" x="688" y="405">formación de nueva glucosa</text><text class="ink small" x="939" y="405">− 6 ATP</text>
+  <path class="blue line" d="M682 394q-94 41-151 61" marker-end="url(#b-blue)"/>
+  <path class="purple line" d="M609 396l33 38m-10-42 10 42m-29 0-36 34"/>
+  <text class="purple tiny" x="608" y="476" transform="rotate(36 608 476)">GLUT2</text>
+  <text class="blue small" x="372" y="493">↑ Glc sérica</text><text class="red title" x="313" y="530">Empeora la hiperglucemia</text>
+
+  <!-- Exceso de acetil-CoA hacia cetogénesis, sin cambiar la bifurcación original. -->
+  <path class="ink line" d="M821 180q119 30 174 91" marker-end="url(#b-ink)"/>
+  <text class="ink title" x="1027" y="257">CETOGÉNESIS</text><text class="ink small" x="1040" y="289">formación de cuerpos cetónicos</text>
+  <path class="red thin" d="M1149 305v61" marker-end="url(#b-red)"/>
+  <text class="red" x="1022" y="407">• Acetona</text><text class="red tiny" x="1160" y="407">(volátil)</text>
+  <text class="red" x="1022" y="455">• Acetoacetato</text>
+  <text class="red" x="1022" y="503">• β-hidroxibutirato</text>
+
+  <!-- El cilindro de la profesora se aclara como vaso sanguíneo. -->
+  <path class="green thin" d="M1242 399h154m-133 48h133m-105 48h105" marker-end="url(#b-green)"/>
+  <path class="vessel line" d="M1404 348h66v236h-66m0-236c0 19 66 19 66 0m-66 236c0-19 66-19 66 0"/>
+  <ellipse class="red hair" cx="1437" cy="404" rx="22" ry="11"/><ellipse class="red hair" cx="1437" cy="476" rx="22" ry="11"/><ellipse class="red hair" cx="1437" cy="545" rx="22" ry="11"/>
+  <text class="red tiny" x="1377" y="326">sangre</text>
+  <text class="ink small" x="758" y="493">energía en tejidos extrahepáticos</text><text class="ink small" x="814" y="520">+ moléculas ácidas</text>
+
+  <!-- Acetona volátil hacia pulmones y aliento cetónico. -->
+  <path class="red line" d="M1457 586q23 44 49 62" marker-end="url(#b-red)"/>
+  <path class="lung line" d="M1495 667c-24 7-42 38-40 77 29 5 50-12 52-43v-42m16 0v42c2 31 23 48 52 43 2-39-16-70-40-77"/>
+  <path class="blue thin" d="M1515 640v63"/>
+  <text class="red small" x="1424" y="787">Pulmones → aliento cetónico</text>
+
+  <!-- Acidosis y compensaciones en el mismo sector inferior de la pizarra. -->
+  <path class="ink thin" d="M926 535v61" marker-end="url(#b-ink)"/>
+  <text class="ink title" x="799" y="640">↑↑↑ H⁺</text><text class="ink title" x="950" y="640">↓ pH</text>
+  <text class="red title" x="742" y="686">Cetoacidosis</text><text class="red small" x="735" y="714">(acidosis metabólica)</text>
+
+  <text class="blue small" x="47" y="628">Tampón bicarbonato</text>
+  <text class="blue small" x="46" y="753">Proteínas · antiporte H⁺ / K⁺</text>
+  <path class="blue line" d="M232 626l150 44m-121 78 121-61" marker-end="url(#b-blue)"/>
+  <text class="blue title" x="390" y="677">compensación</text>
+  <path class="blue thin" d="M550 670h103"/>
+  <text class="ink small" x="419" y="711">H⁺ H⁺ H⁺ H⁺</text>
+  <path class="ink thin" d="M558 708q28 31 36 65" marker-end="url(#b-ink)"/>
+  <text class="ink small" x="505" y="805">↑ frecuencia respiratoria</text><text class="blue tiny" x="519" y="829">compensación respiratoria</text>
+  <text class="red tiny" x="414" y="858">rompe enlaces de estabilidad</text><text class="red tiny" x="454" y="882">(enlaces débiles)</text>
+  <path class="ink line" d="M655 864h127" marker-end="url(#b-ink)"/>
+  <text class="ink" x="797" y="858">Desnaturalización</text><text class="ink small" x="840" y="886">proteica</text>
+  <path class="ink line" d="M1010 862h112" marker-end="url(#b-ink)"/>
+  <text class="ink" x="1139" y="860">Cambio metabólico</text>
+  <path class="ink thin" d="M1257 877v51" marker-end="url(#b-ink)"/>
+  <text class="ink title" x="1211" y="966">↓ ATP</text><path class="red thin" d="M1305 956h101" marker-end="url(#b-red)"/><text class="red small" x="1421" y="964">muerte celular</text>
+</svg>

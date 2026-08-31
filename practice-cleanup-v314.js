@@ -1,4 +1,4 @@
-/* v361 — Practice visible cleanup without after-click repaint.
+/* v362 — Practice cleanup with a single authoritative V/F correction.
    Keeps correction/explanation panels visible while preserving essential actions such as Reportar error.
    This file must not mutate the QCM card after an answer or Next render. */
 (function(){
@@ -100,6 +100,7 @@
       'body.practice-page [data-action="show-hint"],body.practice-page [data-action="eliminate-two"],body.practice-page [data-action="mark-review"]{display:none!important}',
       'body.practice-page .answer-panel{display:block!important;visibility:visible!important;max-height:none!important;overflow:visible!important}',
       'body.practice-page .answer-panel[hidden]{display:none!important}',
+      'body.vrai-faux-page .answer-panel{display:none!important}',
       'body.practice-page .unknown-action-wrap{display:flex!important;visibility:visible!important}',
       'body.practice-page .unknown-action-wrap[hidden]{display:none!important}',
       'body.practice-page [data-action="dont-know"]{display:inline-flex!important;visibility:visible!important}',
@@ -124,7 +125,7 @@
     replaceTextNodes(document.body);
     injectStyle();
     normaliseNextButton();
-    window.__MED_NYKUTO_PRACTICE_CLEANUP__ = 'v361-no-after-click-repaint';
+    window.__MED_NYKUTO_PRACTICE_CLEANUP__ = 'v362-single-vf-correction';
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);

@@ -15,7 +15,7 @@ module.exports = defineConfig({
     navigationTimeout: 30_000
   },
   webServer: {
-    command: 'npx http-server . -p 4173 -c-1',
+    command: 'node scripts/serve-static-tests.js',
     url: 'http://127.0.0.1:4173',
     reuseExistingServer: true,
     timeout: 30_000

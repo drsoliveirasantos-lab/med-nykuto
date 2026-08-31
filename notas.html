@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07111f" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <title>Notas y gabaritos · 4.º E | Med Nykuto</title>
+  <meta name="description" content="Consulta pública de notas y gabaritos del 4.º E usando únicamente la catraca o matrícula." />
+  <link rel="icon" href="assets/logo-medcursos-icon.png" />
+  <link rel="stylesheet" href="notas-v486.css?v=486" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Ir a las notas</a>
+
+  <header class="results-header">
+    <a class="results-brand" href="clase.html#inicio" aria-label="Volver a la clase 4.º E">
+      <img src="assets/logo-medcursos-official.png" alt="" />
+      <span><strong>Med Nykuto</strong><small>4.º E · resultados académicos</small></span>
+    </a>
+    <a class="back-link" href="clase.html#inicio">Volver a la clase</a>
+  </header>
+
+  <main id="main" class="results-main">
+    <section class="results-hero" aria-labelledby="resultsTitle">
+      <div>
+        <span class="eyebrow">PUBLICACIÓN ACADÉMICA · 4.º E</span>
+        <h1 id="resultsTitle">Notas y gabaritos</h1>
+        <p>Busca por catraca o matrícula. Las publicaciones muestran únicamente el identificador académico y la nota o <b>Ausente</b>.</p>
+      </div>
+      <aside class="privacy-card" aria-label="Privacidad de los resultados">
+        <strong>Sin datos nominativos</strong>
+        <p>Nunca se muestran nombres, CPF, CI/RG, teléfonos ni correos.</p>
+      </aside>
+    </section>
+
+    <section class="search-panel" aria-labelledby="searchTitle">
+      <div class="search-heading">
+        <div><span>FILTRO LOCAL</span><h2 id="searchTitle">Buscar mi resultado</h2></div>
+        <small>La búsqueda no se añade a la dirección ni se guarda en este dispositivo.</small>
+      </div>
+      <form id="resultSearchForm" role="search" autocomplete="off">
+        <label for="studentIdSearch">Catraca o matrícula</label>
+        <div class="search-control">
+          <input id="studentIdSearch" name="studentIdSearch" type="search" inputmode="numeric" pattern="[0-9]{0,24}" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="24" placeholder="Ej.: 00001234" aria-describedby="searchHelp resultCount" />
+          <button id="clearStudentSearch" type="button">Limpiar</button>
+        </div>
+        <small id="searchHelp">Puedes escribir el identificador completo o solo sus primeros caracteres.</small>
+      </form>
+      <p id="resultCount" class="result-count" role="status" aria-live="polite" aria-atomic="true">Cargando publicaciones…</p>
+    </section>
+
+    <section id="releaseList" class="release-list" aria-label="Resultados agrupados por materia y evaluación" aria-busy="true"></section>
+    <section id="loadError" class="load-error" role="alert" hidden>
+      <h2>No pudimos abrir las notas</h2>
+      <p id="loadErrorMessage">Vuelve a intentarlo en unos minutos.</p>
+      <button id="retryResults" type="button">Reintentar</button>
+    </section>
+  </main>
+
+  <footer><span>Med Nykuto · 4.º E</span><span>Solo catraca o matrícula + resultado académico.</span></footer>
+  <script src="notas-v486.js?v=486" defer></script>
+</body>
+</html>

@@ -62,7 +62,7 @@ if(data && Array.isArray(data.courses)){
       });
     });
   });
-  if(total !== 58) add(`expected 58 modules, got ${total}`);
+  if(total !== 59) add(`expected 59 modules, got ${total}`);
   if(rich < 50) add(`expected at least 50 rich modules, got ${rich}`);
   if(imageRefs < 10) add(`expected restored course images/references, got only ${imageRefs}`);
   if(legacyBrandRefs) warn(`legacy internal brand references tolerated and normalized at runtime: ${legacyBrandRefs}`);

@@ -11,6 +11,12 @@ Med Nykuto is organized around four layers:
 3. **Validation scripts** — scripts that protect source integrity, counters, links, assets, and runtime behavior.
 4. **Documentation and governance** — files that explain what to edit, what not to edit, and how to validate changes.
 
+The shared operational layer for multiple classes is documented in
+[`docs/multiclass-foundation.md`](multiclass-foundation.md). It uses one generic
+student shell (`turma-shell/index.html`), one class-aware management shell (`gestion-shell/index.html`)
+and Cloudflare Functions backed by a tenant-scoped D1 schema. The S3 course
+library and the bespoke 4.º E notebook remain separate source-of-truth surfaces.
+
 ## Branch model
 
 - `preview` is the integration and validation branch.
@@ -41,6 +47,42 @@ data/med-courses-data.js
 ```
 
 This file is browser runtime data. It is not the preferred editing surface. When course content changes, update the course sources and run the appropriate build/validation path.
+
+### Public Drive material registry
+
+```txt
+data/drive-files.json
+```
+
+This allowlisted registry is maintained from the 4.º E semester Drive. Google
+Drive file IDs are stable identities; the browser merges active entries into
+the matching subject and Archives views. It is operational metadata, not course
+content. Only anonymously verified files may be present, and records carrying a
+`removedAt` tombstone must remain hidden. Automated scans must not touch
+`content/courses/**` or protected question banks.
+
+### 4.º E P1 review
+
+`p1.html` is the dedicated mobile-first cumulative review for the first partial.
+Its versioned lesson allowlist lives in `p1-s4-e-v2.js`, while
+`class-p1-v1.js` builds fiches and exam attempts from the existing dated S4
+banks. It must not reuse the legacy S3 `examen.html` bank, write ordinary class
+practice progress, or post to the community ranking. Its practice surface has
+two durable session modes: `training` locks and explains each answer after the
+student explicitly checks it, while `exam` withholds all correction until the
+final result. The practice surface is the mobile default; the cumulative sheet
+remains one tap away. Run
+`scripts/validate-p1-s4.js` whenever its scope or runtime changes.
+
+The 28 August lessons never enter a partial automatically. Bioquímica II is explicitly included in the P1 question pool by a direct study-scope decision, producing an 18-lesson/720-question contract; its full lesson stays in the class notebook and is omitted from the cumulative-sheet lesson cards through `sheetPracticeIds`. Epidemiología remains outside P1, and both 28 August lessons remain outside the provisional 4-lesson/160-question P2 contract.
+
+### 4.º E notice presentation
+
+Home renders one compact important notice at a time: complete poster thumbnail
+plus title, with no body or metadata. The banner advances automatically, pauses
+while pressed or focused, and each short tap deep-links to the exact full notice
+in `#avisos`. The Avisos view keeps the complete text, filters and attachments,
+but constrains poster images inside visible lateral margins on phones.
 
 ### App bundle source
 
@@ -77,6 +119,8 @@ scripts/validate-seo-health.js
 scripts/validate-branding-regression-advanced.js
 scripts/validate-content-sanitization.js
 scripts/validate-question-bank-deep-integrity.js
+scripts/validate-multiclass-foundation.js
+scripts/validate-calendar-subscription.js
 ```
 
 The permanent CI workflow is:

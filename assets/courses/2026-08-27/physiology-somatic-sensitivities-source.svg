@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="788" viewBox="0 0 1400 788" role="img" aria-labelledby="title desc">
+  <title id="title">Sensibilidades somáticas: receptores, fibras, vías y decusación</title>
+  <desc id="desc">Reconstrucción pedagógica que compara propiocepción, tacto, nocicepción y termorrecepción.</desc>
+  <rect width="1400" height="788" fill="#f8fafc"/>
+  <text x="54" y="62" fill="#0f172a" font-family="DejaVu Sans, sans-serif" font-size="34" font-weight="700">Sensibilidades somáticas</text>
+  <text x="54" y="94" fill="#64748b" font-family="DejaVu Sans, sans-serif" font-size="18">RECONSTRUCCIÓN LIMPIA · estímulo → receptor → fibra → vía → cruce</text>
+
+  <g font-family="DejaVu Sans, sans-serif">
+    <rect x="46" y="126" width="308" height="490" rx="24" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+    <text x="72" y="172" fill="#047857" font-size="25" font-weight="700">PROPIOCEPCIÓN</text>
+    <text x="72" y="211" fill="#334155" font-size="18" font-weight="700">Longitud y velocidad</text>
+    <text x="72" y="241" fill="#475569" font-size="17">Huso neuromuscular</text>
+    <rect x="72" y="263" width="112" height="39" rx="12" fill="#d1fae5"/>
+    <text x="93" y="289" fill="#065f46" font-size="17" font-weight="700">Ia · II</text>
+    <path d="M200 224v96" stroke="#10b981" stroke-width="3" marker-end="url(#arrow-green)"/>
+    <text x="72" y="351" fill="#334155" font-size="18" font-weight="700">Tensión</text>
+    <text x="72" y="381" fill="#475569" font-size="17">Órgano tendinoso de Golgi</text>
+    <rect x="72" y="403" width="112" height="39" rx="12" fill="#d1fae5"/>
+    <text x="113" y="429" fill="#065f46" font-size="17" font-weight="700">Ib</text>
+    <rect x="72" y="478" width="256" height="90" rx="16" fill="#ffffff" stroke="#a7f3d0"/>
+    <text x="92" y="510" fill="#0f172a" font-size="17" font-weight="700">Columna dorsal</text>
+    <text x="92" y="540" fill="#475569" font-size="16">Cruza en el bulbo</text>
+
+    <rect x="374" y="126" width="308" height="490" rx="24" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+    <text x="400" y="172" fill="#1d4ed8" font-size="25" font-weight="700">TACTO</text>
+    <text x="400" y="213" fill="#334155" font-size="18" font-weight="700">Fino · vibración</text>
+    <text x="400" y="243" fill="#475569" font-size="16">Meissner · Merkel · Pacini</text>
+    <rect x="400" y="266" width="112" height="39" rx="12" fill="#dbeafe"/>
+    <text x="439" y="292" fill="#1e40af" font-size="17" font-weight="700">Aβ</text>
+    <rect x="400" y="329" width="256" height="76" rx="16" fill="#ffffff" stroke="#bfdbfe"/>
+    <text x="420" y="360" fill="#0f172a" font-size="17" font-weight="700">Columna dorsal</text>
+    <text x="420" y="386" fill="#475569" font-size="16">Cruza en el bulbo</text>
+    <line x1="400" y1="433" x2="656" y2="433" stroke="#bfdbfe" stroke-width="2"/>
+    <text x="400" y="472" fill="#334155" font-size="18" font-weight="700">Tacto grosero</text>
+    <text x="400" y="502" fill="#475569" font-size="16">Fibras pequeñas</text>
+    <text x="400" y="533" fill="#0f172a" font-size="17" font-weight="700">Sistema anterolateral</text>
+    <text x="400" y="560" fill="#475569" font-size="16">Cruza en la médula</text>
+
+    <rect x="702" y="126" width="308" height="490" rx="24" fill="#fff1f2" stroke="#f43f5e" stroke-width="2"/>
+    <text x="728" y="172" fill="#be123c" font-size="25" font-weight="700">NOCICEPCIÓN</text>
+    <text x="728" y="205" fill="#334155" font-size="17" font-weight="700">Terminaciones nerviosas</text>
+    <text x="728" y="230" fill="#334155" font-size="17" font-weight="700">libres</text>
+    <text x="728" y="255" fill="#475569" font-size="16">Daño mecánico · térmico · químico</text>
+    <rect x="728" y="276" width="118" height="80" rx="15" fill="#ffffff" stroke="#fecdd3"/>
+    <text x="766" y="310" fill="#be123c" font-size="20" font-weight="700">Aδ</text>
+    <text x="750" y="338" fill="#475569" font-size="15">dolor rápido</text>
+    <rect x="866" y="276" width="118" height="80" rx="15" fill="#ffffff" stroke="#fecdd3"/>
+    <text x="918" y="310" fill="#be123c" font-size="20" font-weight="700">C</text>
+    <text x="889" y="338" fill="#475569" font-size="15">dolor lento</text>
+    <path d="M787 371v64M925 371v64" stroke="#f43f5e" stroke-width="3"/>
+    <rect x="728" y="444" width="256" height="94" rx="16" fill="#ffffff" stroke="#fecdd3"/>
+    <text x="748" y="478" fill="#0f172a" font-size="17" font-weight="700">Sistema anterolateral</text>
+    <text x="748" y="508" fill="#475569" font-size="16">Cruza en la médula</text>
+    <text x="728" y="575" fill="#881337" font-size="15">Aδ = más rápida · C = más lenta</text>
+
+    <rect x="1030" y="126" width="324" height="490" rx="24" fill="#fff7ed" stroke="#f59e0b" stroke-width="2"/>
+    <text x="1056" y="172" fill="#b45309" font-size="25" font-weight="700">TERMORRECEPCIÓN</text>
+    <text x="1056" y="205" fill="#334155" font-size="17" font-weight="700">Terminaciones nerviosas</text>
+    <text x="1056" y="230" fill="#334155" font-size="17" font-weight="700">libres</text>
+    <text x="1056" y="255" fill="#475569" font-size="16">Frío y calor no lesivos</text>
+    <rect x="1056" y="276" width="126" height="80" rx="15" fill="#ffffff" stroke="#fed7aa"/>
+    <text x="1097" y="310" fill="#b45309" font-size="20" font-weight="700">Aδ</text>
+    <text x="1100" y="338" fill="#475569" font-size="15">frío</text>
+    <rect x="1202" y="276" width="126" height="80" rx="15" fill="#ffffff" stroke="#fed7aa"/>
+    <text x="1256" y="310" fill="#b45309" font-size="20" font-weight="700">C</text>
+    <text x="1248" y="338" fill="#475569" font-size="15">calor</text>
+    <path d="M1119 371v64M1265 371v64" stroke="#f59e0b" stroke-width="3"/>
+    <rect x="1056" y="444" width="272" height="94" rx="16" fill="#ffffff" stroke="#fed7aa"/>
+    <text x="1076" y="478" fill="#0f172a" font-size="17" font-weight="700">Sistema anterolateral</text>
+    <text x="1076" y="508" fill="#475569" font-size="16">Cruza en la médula</text>
+    <text x="1056" y="575" fill="#92400e" font-size="15">Los extremos lesivos activan nociceptores</text>
+
+    <rect x="46" y="648" width="1308" height="96" rx="22" fill="#0f172a"/>
+    <text x="74" y="684" fill="#7dd3fc" font-size="17" font-weight="700">REGLA DE LOCALIZACIÓN EN LA MÉDULA</text>
+    <text x="74" y="718" fill="#f8fafc" font-size="18"><tspan font-weight="700">Columna dorsal:</tspan> déficit ipsilateral por debajo de la lesión</text>
+    <text x="716" y="718" fill="#f8fafc" font-size="18"><tspan font-weight="700">Anterolateral:</tspan> déficit contralateral por debajo de la lesión</text>
+  </g>
+
+  <defs>
+    <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#10b981"/></marker>
+  </defs>
+</svg>

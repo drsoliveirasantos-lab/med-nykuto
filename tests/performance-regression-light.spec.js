@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const { expectBlockedClinicalCases } = require('./helpers/practice-policy');
 
 async function openPractice(page, url) {
   await page.goto(url, { waitUntil: 'domcontentloaded' });
@@ -24,10 +25,7 @@ async function sampleCardCounts(page) {
   return samples;
 }
 
-for (const [label, url] of [
-  ['qcm', '/qcm.html?course=fisiologia'],
-  ['cases', '/cas-cliniques.html?course=fisiologia']
-]) {
+for (const [label, url] of [['qcm', '/qcm.html?course=fisiologia']]) {
   test(`${label}: answer and next do not leave an empty practice list`, async ({ page }) => {
     await openPractice(page, url);
     const firstIdentity = await currentIdentity(page);
@@ -48,3 +46,15 @@ for (const [label, url] of [
     await expect.poll(() => currentIdentity(page), { timeout: 10000 }).not.toBe(firstIdentity);
   });
 }
+
+test('cases quality gate remains stable without reviving an empty question card', async ({ page }) => {
+  await page.goto('/cas-cliniques.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
+  await expectBlockedClinicalCases(page, expect);
+  const samples = [];
+  for (let i = 0; i < 10; i += 1) {
+    samples.push(await page.locator('#practiceList .notice').count());
+    await page.waitForTimeout(60);
+  }
+  expect(samples.every((count) => count === 1)).toBeTruthy();
+  await expect(page.locator('#practiceList .single-question-card')).toHaveCount(0);
+});

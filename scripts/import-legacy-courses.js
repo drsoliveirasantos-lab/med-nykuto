@@ -160,7 +160,7 @@ function validateData(data, sourceFile){
   const activeCourses = data.courses.filter(c => (c.modules || []).length > 0);
   if(data.courses.length < 5) localProblems.push(`expected at least 5 courses, got ${data.courses.length}`);
   if(activeCourses.length < 5) localProblems.push(`expected at least 5 active courses, got ${activeCourses.length}`);
-  if(modules.length < 58) localProblems.push(`expected at least 58 modules, got ${modules.length}`);
+  if(modules.length < 59) localProblems.push(`expected at least 59 modules, got ${modules.length}`);
   const ids = new Set();
   for(const {course, module} of modules){
     if(!course.id) localProblems.push('course without id');

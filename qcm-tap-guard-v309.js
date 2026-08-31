@@ -1,11 +1,11 @@
-/* v317 — QCM instant renderer with progress bar and structured pedagogical feedback.
+/* v321 — Distinct quick key and complete medical reasoning.
    Answers and Next are handled in-place on QCM, so app.bundle.js does not repaint the whole practice list after every tap.
    Adds a clean progress bar, visible justification, detailed rationale, distractor explanations and a point-key block. */
 (function(){
   'use strict';
 
   window.__MED_NYKUTO_RUNTIME_GUARD__ = 'v362';
-  window.__MED_NYKUTO_QCM_INSTANT_RENDER__ = 'v317-progress-feedback-in-place';
+  window.__MED_NYKUTO_QCM_INSTANT_RENDER__ = 'v321-distinct-quick-full-feedback';
 
   var moved = false;
   var sx = 0;
@@ -19,6 +19,13 @@
   function params(){ return new URLSearchParams(location.search || ''); }
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function clean(s){ return String(s || '').replace(/\b(Selon|D'après|Dans) le cours[^?.!]*[?.!]\s*/gi,'').replace(/\bSegún el curso[^?.!]*[?.!]\s*/gi,'').replace(/\bSegún el módulo[^?.!]*[?.!]\s*/gi,'').replace(/\s+/g,' ').trim(); }
+  function correctionLabels(){
+    var active = document.querySelector('.brand-lang button.active, .lang-switch button.active, [data-lang].active');
+    var raw = String((active && (active.getAttribute('data-lang') || active.textContent)) || document.documentElement.lang || 'es').toLowerCase();
+    if(raw.indexOf('fr') >= 0) return {quick:'Justification rapide', full:'Justification complète', others:'Pourquoi les autres réponses sont fausses', takeaway:'À retenir'};
+    if(raw.indexOf('br') >= 0 || raw.indexOf('pt') >= 0) return {quick:'Justificativa rápida', full:'Justificativa completa', others:'Por que as outras respostas estão erradas', takeaway:'Ponto-chave'};
+    return {quick:'Justificación rápida', full:'Justificación completa', others:'Por qué las otras respuestas son falsas', takeaway:'Punto clave'};
+  }
   function letter(i){ return String.fromCharCode(65 + Number(i || 0)); }
   function hash(str){ var h = 0, s = String(str || ''); for(var i=0;i<s.length;i+=1){ h = ((h << 5) - h + s.charCodeAt(i)) | 0; } return Math.abs(h); }
   function difficultyKey(item){
@@ -31,13 +38,18 @@
   }
   function difficultyOrder(x){ var k = typeof x === 'string' ? x : difficultyKey(x); return k === 'normal' ? 0 : k === 'difficile' ? 1 : k === 'extreme' ? 2 : k === 'examen' ? 3 : 4; }
   function topic(item){
-    var list = [item && item.heading, item && item.moduleTitle, item && item.question, item && item.stem].map(clean).filter(Boolean);
-    var t = list.find(function(x){ return !/(caso clínico|pregunta|marca la opción|identifica la opción|desde el punto de vista)/i.test(x); }) || clean(item && item.moduleTitle || 'este tema');
+    var list = [item && item.question, item && item.moduleTitle, item && item.heading, item && item.stem].map(clean).filter(Boolean);
+    var t = list.find(function(x){
+      return !/(caso clínico|pregunta|marca la opción|identifica la opción|desde el punto de vista|validation-only)/i.test(x)
+        && !/\b(?:qcm|vf|case)s?-\d{2,3}-v\d+\b/i.test(x);
+    }) || clean(item && item.moduleTitle || 'este tema');
     t = t.replace(/^Módulo\s+\d+\s*-\s*/i,'').trim();
     if(t.length > 70) t = t.slice(0,70).replace(/\s+\S*$/,'') + '…';
     return t || 'este tema';
   }
   function questionText(item){
+    var original = clean(item && item.question || '');
+    if(original.length >= 18 && /[¿?]/.test(original) && !/validation-only|\b(?:qcm|vf|case)s?-\d{2,3}-v\d+\b/i.test(original)) return original;
     var k = difficultyKey(item), t = topic(item);
     if(k === 'normal') return '¿Qué opción describe correctamente ' + t + '?';
     if(k === 'difficile') return '¿Cuál es la relación fisiológica más correcta sobre ' + t + '?';
@@ -73,10 +85,16 @@
     return 'No es la mejor respuesta porque no explica el mecanismo principal evaluado o desplaza el foco hacia un distractor.';
   }
   function shortExplanation(item, record){
-    var base = firstText(item, ['explanationShort','shortExplanation','briefExplanation','rationaleShort','explanation']);
-    if(base && base.length > 220) base = base.slice(0, 220).replace(/\s+\S*$/,'') + '…';
-    if(base) return base;
-    return record && record.correct ? 'La opción elegida coincide con el mecanismo principal evaluado.' : 'La respuesta correcta es la que conserva la lógica fisiológica central del tema.';
+    var base = firstText(item, ['explanationShort','shortExplanation','briefExplanation','rationaleShort']);
+    var full = longExplanation(item);
+    if(base && clean(base) !== clean(full)){
+      if(base.length > 220) base = base.slice(0, 220).replace(/\s+\S*$/,'') + '…';
+      return base;
+    }
+    var answer = Number(item && item.answerIndex || 0);
+    var option = clean(item && item.options && item.options[answer] || '');
+    if(option) return 'Clave: ' + letter(answer) + ' — ' + option;
+    return record && record.correct ? 'La opción elegida coincide con el mecanismo principal evaluado.' : 'Revisa la opción correcta antes de abrir el razonamiento completo.';
   }
   function longExplanation(item){
     return firstText(item, ['explanationLong','longExplanation','detailedExplanation','rationale','explanation']) || 'La clave es identificar el mecanismo principal, relacionarlo con la consecuencia fisiológica y descartar las opciones que cambian el órgano, el ion, la localización o la secuencia causal.';
@@ -101,9 +119,16 @@
     items = items.slice().sort(function(a,b){ return difficultyOrder(a) - difficultyOrder(b) || Number(a.moduleNumber || 0) - Number(b.moduleNumber || 0) || String(a.id).localeCompare(String(b.id)); });
     if(level === 'all') items = items.slice().sort(function(a,b){ return hash('qcm|' + course + '|' + moduleId + '|' + a.id) - hash('qcm|' + course + '|' + moduleId + '|' + b.id); });
     else items = items.filter(function(x){ return difficultyKey(x) === level; });
-    return {items:items, course:course, moduleId:moduleId, level:level};
+    var audit = window.__MED_NYKUTO_PRACTICE_BATCH_AUDIT__;
+    var preferredBatch = [];
+    if(audit && audit.type === 'qcm' && Array.isArray(audit.items)){
+      var mapped = {}; audit.items.forEach(function(item){ if(item && item.id) mapped[item.id] = item; });
+      items = items.map(function(item){ return mapped[item.id] || item; });
+      preferredBatch = (audit.ids || []).filter(function(id){ return !!mapped[id]; });
+    }
+    return {items:items, course:course, moduleId:moduleId, level:level, preferredBatch:preferredBatch};
   }
-  function scopeKey(info){ return 'medPractice:v35-bugfix:study:qcm:' + (info.moduleId || info.course || 'all') + ':' + (info.level || 'all'); }
+  function scopeKey(info){ return 'medPractice:v320-shuffled-sync:study:qcm:' + (info.moduleId || info.course || 'all') + ':' + (info.level || 'all'); }
   function unique(ids){ var out = [], seen = {}; (ids || []).forEach(function(id){ if(id && !seen[id]){ seen[id] = 1; out.push(id); } }); return out; }
   function stateFor(cardId){
     var info = bankInfo();
@@ -113,7 +138,8 @@
     try{ state = JSON.parse(localStorage.getItem(key) || 'null'); }catch(e){ state = null; }
     if(!state || state.signature !== signature || !Array.isArray(state.currentBatch)){
       var ids = info.items.map(function(x){ return x.id; });
-      var batch = unique([cardId].concat(ids.filter(function(id){ return id !== cardId; }))).slice(0,20);
+      var preferred = unique(info.preferredBatch || []).filter(function(id){ return ids.indexOf(id) >= 0; });
+      var batch = preferred.length ? preferred.slice(0,20) : unique([cardId].concat(ids.filter(function(id){ return id !== cardId; }))).slice(0,20);
       var used = {}; batch.forEach(function(id){ used[id] = 1; });
       state = {order:ids, unseenIds:ids.filter(function(id){ return !used[id]; }), currentBatch:batch, currentIndex:Math.max(0, batch.indexOf(cardId)), seriesNumber:1, currentAnswers:{}, currentMissedIds:[], history:{}, correct:0, answered:0, streak:0, missStreak:0, unknown:0, unknownStreak:0, lastAction:'start', bestStreak:0, batchFinished:false, createdAt:Date.now(), signature:signature};
     }
@@ -199,14 +225,15 @@
     record = record || {chosen:-1, correct:false, unknown:true};
     var answer = Number(item.answerIndex || 0);
     var status = feedbackStatus(record);
+    var labels = correctionLabels();
     var selected = record.unknown || Number(record.chosen) < 0 ? 'No sé' : letter(record.chosen);
     var current = total ? ' · Progreso ' + Math.min(total, 1 + (stateFor(item.id || '').state.currentIndex || 0)) + '/' + total : '';
     return '<section class="qcm-feedback-card ' + status.cls + '">' +
       '<div class="qcm-feedback-top"><span class="qcm-feedback-pill">' + status.icon + ' ' + status.label + '</span><span class="qcm-feedback-answer">Tu respuesta: <strong>' + esc(selected) + '</strong> · Buena respuesta: <strong>' + letter(answer) + '</strong>' + esc(current) + '</span></div>' +
-      '<div class="qcm-feedback-short"><strong>Justificación rápida</strong><p>' + esc(shortExplanation(item,record)) + '</p></div>' +
-      '<details class="qcm-feedback-details" open><summary>Justificación complète</summary><div class="qcm-feedback-long"><p>' + esc(longExplanation(item)) + '</p></div></details>' +
-      '<section class="qcm-feedback-wrong"><h4>Pourquoi les autres réponses sont fausses</h4>' + distractorHtml(item) + '</section>' +
-      '<section class="qcm-feedback-takeaway"><h4>À retenir</h4><p>' + esc(takeawayText(item)) + '</p></section>' +
+      '<div class="qcm-feedback-short"><strong>' + labels.quick + '</strong><p>' + esc(shortExplanation(item,record)) + '</p></div>' +
+      '<details class="qcm-feedback-details" open><summary>' + labels.full + '</summary><div class="qcm-feedback-long"><p>' + esc(longExplanation(item)) + '</p></div></details>' +
+      '<section class="qcm-feedback-wrong"><h4>' + labels.others + '</h4>' + distractorHtml(item) + '</section>' +
+      '<section class="qcm-feedback-takeaway"><h4>' + labels.takeaway + '</h4><p>' + esc(takeawayText(item)) + '</p></section>' +
       '</section>';
   }
   function renderCard(item,state,total){

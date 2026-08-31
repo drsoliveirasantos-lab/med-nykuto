@@ -14,16 +14,12 @@ const stats = {
   checkedItems: 0,
   byCourse: {},
   byType: { qcm: 0, vf: 0, cases: 0 },
-  generatedAt: new Date().toISOString()
+  generatedAt: new Date().toISOString(),
+  qualitySignals: {
+    qcm: { eligible: 0, correctStrictlyLongest: 0, correctStrictlyShortest: 0, correctLongerThanDistractorMean: 0, obviousLengthCue: 0, obviousShortCue: 0 },
+    cases: { eligible: 0, correctStrictlyLongest: 0, correctStrictlyShortest: 0, correctLongerThanDistractorMean: 0, obviousLengthCue: 0, obviousShortCue: 0 }
+  }
 };
-const bankFiles = {
-  fisiologia: 'data/practice-bank-fisiologia.js',
-  microbiologia: 'data/practice-bank-microbiologia.js',
-  genetica: 'data/practice-bank-genetica.js',
-  bioquimica: 'data/practice-bank-bioquimica.js',
-  inmunologia: 'data/practice-bank-inmunologia.js'
-};
-
 function record(list, severity, message, meta = {}) {
   list.push({ severity, message, ...meta });
 }
@@ -83,6 +79,21 @@ function addStat(courseId, format) {
   stats.byCourse[courseId].total += 1;
   stats.byCourse[courseId][format] += 1;
 }
+function addLengthSignals(format, options, answerIndex) {
+  if (!['qcm', 'cases'].includes(format) || options.length !== 4 || answerIndex == null) return;
+  const lengths = options.map((option) => clean(option).length);
+  const correctLength = lengths[answerIndex];
+  const distractors = lengths.filter((_, index) => index !== answerIndex);
+  const secondLongest = distractors.slice().sort((a, b) => b - a)[0] || 0;
+  const shortestDistractor = distractors.slice().sort((a, b) => a - b)[0] || 0;
+  const signal = stats.qualitySignals[format];
+  signal.eligible += 1;
+  if (lengths.filter((length) => length === Math.max(...lengths)).length === 1 && correctLength === Math.max(...lengths)) signal.correctStrictlyLongest += 1;
+  if (lengths.filter((length) => length === Math.min(...lengths)).length === 1 && correctLength === Math.min(...lengths)) signal.correctStrictlyShortest += 1;
+  if (correctLength > distractors.reduce((sum, length) => sum + length, 0) / distractors.length) signal.correctLongerThanDistractorMean += 1;
+  if (correctLength >= secondLongest * 1.2 && correctLength - secondLongest >= 12) signal.obviousLengthCue += 1;
+  if (shortestDistractor >= correctLength * 1.2 && shortestDistractor - correctLength >= 12) signal.obviousShortCue += 1;
+}
 function ensureReportDir() {
   fs.mkdirSync(reportDir, { recursive: true });
 }
@@ -108,7 +119,9 @@ function writeReports() {
       warningCount: warnings.length,
       courses: Object.keys(stats.byCourse).length,
       byType: stats.byType,
-      byCourse: stats.byCourse
+      byCourse: stats.byCourse,
+      qualitySignals: stats.qualitySignals,
+      runtimeScripts: stats.runtimeScripts
     },
     failures: problems,
     warnings,
@@ -129,6 +142,12 @@ function writeReports() {
     lines.push(`- ${course}: total=${value.total}, qcm=${value.qcm}, vf=${value.vf}, cases=${value.cases}`);
   });
   lines.push('');
+  lines.push('Length-cue signals (content debt, measured on the final runtime bank):');
+  Object.entries(stats.qualitySignals).forEach(([format, value]) => {
+    const pct = (count) => value.eligible ? `${(count * 100 / value.eligible).toFixed(1)}%` : '0.0%';
+    lines.push(`- ${format}: eligible=${value.eligible}, strictly-longest=${value.correctStrictlyLongest} (${pct(value.correctStrictlyLongest)}), strictly-shortest=${value.correctStrictlyShortest} (${pct(value.correctStrictlyShortest)}), longer-than-distractor-mean=${value.correctLongerThanDistractorMean} (${pct(value.correctLongerThanDistractorMean)}), obvious-long-cue=${value.obviousLengthCue} (${pct(value.obviousLengthCue)}), obvious-short-cue=${value.obviousShortCue} (${pct(value.obviousShortCue)})`);
+  });
+  lines.push('');
   lines.push('Failures:');
   if (!problems.length) lines.push('- none');
   problems.forEach((item, index) => lines.push(`${index + 1}. ${item.message}`));
@@ -144,28 +163,66 @@ function writeReports() {
   fs.writeFileSync(reportTxtPath, lines.join('\n') + '\n');
 }
 
+const runtimeScripts = [];
 const context = vm.createContext({
   window: {},
   console: { log() {}, warn() {}, error() {} },
-  document: { write() {}, body: { dataset: {} } },
-  localStorage: {}
+  document: {
+    write(html) {
+      const match = String(html || '').match(/src=["']data\/([^?"']+)/i);
+      if (match) runtimeScripts.push(`data/${match[1]}`);
+    },
+    body: { dataset: { page: 'practice' } }
+  },
+  localStorage: {},
+  location: { search: '' },
+  URLSearchParams
 });
 run('data/med-courses-data.js', read('data/med-courses-data.js'), context);
 run('data/med-practice-bank-init.js', read('data/med-practice-bank-init.js'), context);
-Object.entries(bankFiles).forEach(([course, file]) => run(file, read(file), context));
-context.window.MED_PRACTICE_BANK_LAZY_WANTED = Object.keys(bankFiles);
-run('data/practice-bank-functional-fallback-v360.js', read('data/practice-bank-functional-fallback-v360.js'), context);
+run('data/med-practice-bank-loader.js', read('data/med-practice-bank-loader.js'), context);
+runtimeScripts.forEach((file) => run(file, read(file), context));
+if (!runtimeScripts.length) fail('Runtime loader did not request any practice-bank scripts', { type: 'runtime-loader-empty' });
+stats.runtimeScripts = runtimeScripts.slice();
 
 const bankRoot = context.window.MED_PRACTICE_BANK || {};
 const byCourse = bankRoot.byCourse || {};
 const globalIds = new Set();
 const exactTexts = new Map();
+const exactQuestions = new Map();
+const boilerplatePrompts = [];
+const boilerplatePatterns = [
+  /cu[aá]l opci[oó]n identifica el mecanismo principal del caso/i,
+  /qu[eé] interpretaci[oó]n relaciona mejor el dato cl[ií]nico con el mecanismo estudiado/i,
+  /en formato de examen,.*evita el distractor principal/i,
+  /en este caso, todos los razonamientos siguientes son compatibles/i,
+  /cu[aá]l es la interpretaci[oó]n m[aá]s directa/i,
+  /qu[eé] mecanismo fisiol[oó]gico explica mejor este (?:caso|cuadro)/i,
+  /qu[eé] mecanismo de transporte explica mejor esta situaci[oó]n/i,
+  /cu[aá]l afirmaci[oó]n responde mejor al dato descrito/i,
+  /marque la respuesta correcta/i,
+  /marque la opci[oó]n correcta/i,
+  /para reconocer correctamente .*marque/i,
+  /en una evaluaci[oó]n parcial, aparece una pregunta sobre/i,
+  /el examinador busca diferenciar mecanismo verdadero y distractor/i,
+  /un estudiante debe explicar .*durante una revisi[oó]n.*opci[oó]n integra mejor/i,
+  /en una pregunta de interpretaci[oó]n sobre .*respuesta relaciona mejor definici[oó]n y funci[oó]n/i,
+  /marque la alternativa que evita el error conceptual m[aá]s frecuente/i,
+  /^¿(?:cu[aá]l|qu[eé]) (?:es )?(?:la )?interpretaci[oó]n (?:es )?(?:m[aá]s )?(?:correcta|adecuada|precisa|probable|prudente|razonable)\?$/i,
+  /^¿qu[eé] (?:conclusi[oó]n|afirmaci[oó]n) es correcta\?$/i,
+  /^¿qu[eé] patr[oó]n funcional sugiere\?$/i,
+  /^¿qu[eé] explica la disminuci[oó]n\?$/i,
+  /^¿qu[eé] mecanismo es m[aá]s probable\?$/i,
+  /^¿qu[eé] microorganismo explica mejor el cuadro\?$/i
+];
 
 for (const [courseId, bank] of Object.entries(byCourse)) {
   if (!bank || typeof bank !== 'object') continue;
   for (const [format, items] of Object.entries({ qcm: bank.qcm || [], vf: bank.vf || [], cases: bank.cases || [] })) {
     if (!Array.isArray(items) || !items.length) {
-      fail(`${courseId}.${format}: missing or empty array`, { courseId, format, type: 'missing-array' });
+      const blocked = Array.isArray(bank.certification?.blockedFormats) && bank.certification.blockedFormats.includes(format);
+      if (blocked) warn(`${courseId}.${format}: intentionally blocked until course-grounded reconstruction`, { courseId, format, type: 'certification-blocked-format' });
+      else fail(`${courseId}.${format}: missing or empty array`, { courseId, format, type: 'missing-array' });
       continue;
     }
     const answerDistribution = [0, 0, 0, 0];
@@ -179,6 +236,12 @@ for (const [courseId, bank] of Object.entries(byCourse)) {
       const id = clean(item.id || `${courseId}-${format}-${index}`);
       const globalId = `${courseId}:${format}:${id}`;
       const baseMeta = { courseId, format, index, id, where };
+      if (bank.certification?.version === 'v462-exact-course-source') {
+        if (item.qualityStatus !== 'certified') fail(`${where}: item bypassed Semester 3 certification`, { ...baseMeta, type: 'uncertified-runtime-item' });
+        const source = clean(item.sourceStatement);
+        if (source.length < 12 || source !== clean(item.sourceEvidence)) fail(`${where}: exact-source evidence contract is broken`, { ...baseMeta, type: 'missing-course-evidence' });
+        if (item.qualityTier !== 'A-exact-course-source') fail(`${where}: exact-source quality tier is missing`, { ...baseMeta, type: 'wrong-quality-tier' });
+      }
       if (!id) fail(`${where}: missing id`, { ...baseMeta, type: 'missing-id' });
       if (globalIds.has(globalId)) fail(`${where}: duplicate id ${id}`, { ...baseMeta, type: 'duplicate-id' });
       globalIds.add(globalId);
@@ -186,18 +249,31 @@ for (const [courseId, bank] of Object.entries(byCourse)) {
       const question = clean(item.question || item.prompt || '');
       const stem = clean(item.stem || item.case || item.context || '');
       const options = Array.isArray(item.options) ? item.options.map(optionText) : [];
+      if (/validation-only|\b(?:qcm|vf|case)s?-\d{2,3}-v\d+\b/i.test(question)) {
+        fail(`${where}: technical identifier leaked into visible question`, { ...baseMeta, type: 'technical-id-in-question', question });
+      }
       const answerIndex = answerIndexOf(item, options);
+      addLengthSignals(format, options, answerIndex);
 
       if (format === 'qcm') {
         if (question.length < 8) warn(`${where}: QCM question is very short`, { ...baseMeta, type: 'short-question' });
         if (options.length !== 4) fail(`${where}: QCM must have exactly 4 options`, { ...baseMeta, type: 'invalid-option-count', optionCount: options.length });
         if (answerIndex === null || answerIndex < 0 || answerIndex > 3) fail(`${where}: invalid QCM answer index`, { ...baseMeta, type: 'invalid-answer-index', answerIndex });
         else answerDistribution[answerIndex] += 1;
+        if (bank.certification?.version === 'v462-exact-course-source' && answerIndex !== null && clean(options[answerIndex]) !== clean(item.sourceStatement)) {
+          fail(`${where}: correct QCM option is not the exact course statement`, { ...baseMeta, type: 'wrong-exact-source-answer' });
+        }
       }
 
       if (format === 'vf') {
         if (question.length < 8) warn(`${where}: V/F question is very short`, { ...baseMeta, type: 'short-question' });
         if (answerIndex === null || answerIndex < 0 || answerIndex > 1) fail(`${where}: invalid V/F answer index`, { ...baseMeta, type: 'invalid-answer-index', answerIndex });
+        if (bank.certification?.version === 'v462-exact-course-source') {
+          const assertion = question.replace(/^¿Verdadero o falso\?\s*/i, '');
+          const correction = clean(item.correctionIfFalse).replace(/^Correcci[oó]n:\s*/i, '');
+          if (answerIndex === 0 && clean(assertion) !== clean(item.sourceStatement)) fail(`${where}: true item is not the exact course statement`, { ...baseMeta, type: 'wrong-vf-source-answer' });
+          if (answerIndex === 1 && (clean(assertion) === clean(item.sourceStatement) || correction !== clean(item.sourceStatement))) fail(`${where}: false item does not preserve the exact course correction`, { ...baseMeta, type: 'wrong-vf-source-answer' });
+        }
       }
 
       if (format === 'cases') {
@@ -214,6 +290,12 @@ for (const [courseId, bank] of Object.entries(byCourse)) {
       }
       if (!hasExplanation(item)) warn(`${where}: explanation appears short or missing`, { ...baseMeta, type: 'short-or-missing-explanation', explanationLength: explanationText(item).length });
 
+      const normalizedQuestion = norm(question);
+      if (normalizedQuestion) exactQuestions.set(normalizedQuestion, [...(exactQuestions.get(normalizedQuestion) || []), baseMeta]);
+      if (question && boilerplatePatterns.some((pattern) => pattern.test(question))) {
+        boilerplatePrompts.push({ ...baseMeta, question });
+      }
+
       const signature = norm(itemText(item));
       if (signature.length > 40) {
         exactTexts.set(signature, [...(exactTexts.get(signature) || []), { ...baseMeta, signaturePreview: signature.slice(0, 160) }]);
@@ -228,15 +310,49 @@ for (const [courseId, bank] of Object.entries(byCourse)) {
 }
 
 const repeated = [...exactTexts.entries()].filter(([, occurrences]) => occurrences.length > 1);
-if (repeated.length > 25) {
-  warn(`Exact duplicate question signatures detected: ${repeated.length}`, {
+if (repeated.length) {
+  fail(`Exact duplicate question signatures detected: ${repeated.length}`, {
     type: 'duplicate-question-signatures',
     duplicateSignatureCount: repeated.length,
     samples: repeated.slice(0, 50).map(([signature, occurrences]) => ({ signaturePreview: signature.slice(0, 160), occurrences }))
   });
 }
 
-if (stats.checkedItems < 1000) fail(`Expected to check at least 1000 bank items, got ${stats.checkedItems}`, { type: 'too-few-items', checkedItems: stats.checkedItems });
+const overusedQuestions = [...exactQuestions.entries()].filter(([, occurrences]) => occurrences.length > 2);
+if (overusedQuestions.length) {
+  fail(`Question texts repeated more than twice: ${overusedQuestions.length}`, {
+    type: 'overused-question-prompts',
+    overusedPromptCount: overusedQuestions.length,
+    samples: overusedQuestions.slice(0, 50).map(([question, occurrences]) => ({ question: question.slice(0, 220), count: occurrences.length, occurrences }))
+  });
+}
+
+if (boilerplatePrompts.length) {
+  fail(`Generic boilerplate prompts detected: ${boilerplatePrompts.length}`, {
+    type: 'generic-boilerplate-prompts',
+    boilerplatePromptCount: boilerplatePrompts.length,
+    samples: boilerplatePrompts.slice(0, 100)
+  });
+}
+
+Object.entries(stats.qualitySignals).forEach(([format, signal]) => {
+  if (!signal.eligible) return;
+  const longestRate = signal.correctStrictlyLongest / signal.eligible;
+  const obviousRate = signal.obviousLengthCue / signal.eligible;
+  const obviousShortRate = signal.obviousShortCue / signal.eligible;
+  if (longestRate > 0.35 || obviousRate > 0.01 || obviousShortRate > 0.01) {
+    warn(`${format}: answer-length cue remains elevated (${(longestRate * 100).toFixed(1)}% strictly longest; ${(obviousRate * 100).toFixed(1)}% obvious long; ${(obviousShortRate * 100).toFixed(1)}% obvious short)`, {
+      format,
+      type: 'answer-length-cue-debt',
+      eligible: signal.eligible,
+      correctStrictlyLongest: signal.correctStrictlyLongest,
+      obviousLengthCue: signal.obviousLengthCue,
+      obviousShortCue: signal.obviousShortCue
+    });
+  }
+});
+
+if (stats.checkedItems < 650) fail(`Expected to check at least 650 exact-source bank items, got ${stats.checkedItems}`, { type: 'too-few-items', checkedItems: stats.checkedItems });
 
 writeReports();
 

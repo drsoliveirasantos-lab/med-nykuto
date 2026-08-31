@@ -8,7 +8,7 @@
     "heading": "Electricidad biológica",
     "difficulty": "Moyen",
     "stem": "Un estudiante de 22 años hiperventila durante una crisis de ansiedad y nota parestesias en labios y dedos. No tiene lesión nerviosa visible, pero la excitabilidad cambia por variaciones de corrientes iónicas a través de la membrana. El caso obliga a diferenciar electricidad biológica de conducción metálica.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué opción explica de forma coherente el hallazgo central desde «Electricidad biológica»?",
     "options": [
       "La electricidad biológica depende del desplazamiento selectivo de iones a través de canales de membrana, no de electrones circulando como en un cable metálico.",
       "La señal nerviosa se produce por electrones que avanzan longitudinalmente por el axón, mientras los iones solo conservan la neutralidad del citoplasma.",
@@ -84,7 +84,7 @@
     "heading": "Células excitables",
     "difficulty": "Examen",
     "stem": "Un joven recibe una estimulación eléctrica periférica durante una prueba neuromuscular y presenta fasciculaciones breves. El registro compara nervio, músculo esquelético y miocardio frente al mismo estímulo. Todas esas células responden porque pueden modificar rápido su potencial de membrana.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál opción relaciona correctamente el hallazgo principal con «Células excitables»?",
     "options": [
       "La hemacia es el modelo clásico de potencial de acción porque transporta oxígeno y por eso genera espigas eléctricas repetidas en la circulación.",
       "Neuronas, músculo esquelético, miocardio y músculo liso son células excitables porque pueden transformar un estímulo en cambios rápidos del potencial de membrana.",
@@ -154,7 +154,7 @@
     "heading": "Distribución iónica",
     "difficulty": "Base",
     "stem": "Una paciente hospitalizada recibe una solución que modifica el potasio extracelular y comienza con debilidad. El registro de fibras nerviosas muestra cambio del potencial de reposo. El dato central es la distribución desigual de Na+ y K+ entre interior y exterior celular.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué razonamiento sobre «Distribución iónica» se ajusta al escenario descrito?",
     "options": [
       "El Na+ predomina dentro de la célula y el K+ fuera; por eso la despolarización normal se produce por salida masiva de sodio.",
       "Na+ y K+ tienen concentraciones prácticamente iguales a ambos lados de la membrana, y la bomba solo modifica el voltaje durante la espiga.",
@@ -228,7 +228,7 @@
     "heading": "Gradiente electroquímico",
     "difficulty": "Moyen",
     "stem": "Un paciente con parestesias participa en una prueba de excitabilidad axonal. Al abrirse un canal catiónico, el ion no se mueve solo por concentración, sino también por el voltaje de membrana. El fisiólogo pregunta qué fuerza total determina el movimiento.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "En el contexto de «Gradiente electroquímico», ¿qué conclusión está respaldada por los hallazgos?",
     "options": [
       "El gradiente electroquímico depende solo de la concentración; la carga eléctrica del ion no modifica su dirección de movimiento, en la membrana neuronal.",
       "Un ion siempre se mueve hacia el lado donde ya hay mayor concentración, porque la membrana atrae las partículas hacia el compartimento lleno.",
@@ -300,7 +300,7 @@
     "heading": "Membrana y permeabilidad selectiva",
     "difficulty": "Examen",
     "stem": "Una paciente recibe un anestésico experimental que modifica canales sin romper la bicapa lipídica. En el registro, el voltaje neuronal cambia cuando cambia la permeabilidad al Na+ o al K+. La historia muestra que la membrana controla el paso iónico en milisegundos.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál de las opciones vincula correctamente los datos del caso con «Membrana y permeabilidad selectiva»?",
     "options": [
       "La membrana separa medios y controla el paso de iones mediante canales, bombas y transportadores; por eso la permeabilidad puede cambiar en milisegundos.",
       "La bicapa lipídica permite que Na+ y K+ crucen libremente en todo momento, de modo que los canales no son necesarios.",
@@ -372,7 +372,7 @@
     "heading": "Potencial de reposo",
     "difficulty": "Base",
     "stem": "Un paciente con evaluación neurológica tiene una neurona registrada en reposo cerca de −70 mV. No hay disparo, pero los gradientes iónicos permanecen activos y preparados para responder. El caso pregunta qué significa ese estado eléctrico basal.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál es la interpretación más consistente del escenario en relación con «Potencial de reposo»?",
     "options": [
       "Reposo significa que la célula no tiene actividad metabólica y que el interior carece completamente de cargas positivas, en la membrana neuronal.",
       "El potencial de reposo representa un interior celular relativamente negativo respecto al exterior, con la membrana polarizada y preparada para responder.",
@@ -444,7 +444,7 @@
     "heading": "Potencial de equilibrio",
     "difficulty": "Moyen",
     "stem": "Un paciente con debilidad intermitente es evaluado con una simulación de potasio extracelular. Cuando solo cambia la concentración de K+, cambia el voltaje hacia el cual tendería la membrana si solo K+ fuera permeable. El dato apunta al equilibrio entre fuerza química y eléctrica.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué afirmación permite resolver el caso sin contradecir «Potencial de equilibrio»?",
     "options": [
       "El potencial de equilibrio es el mismo para todos los iones porque todos comparten la misma membrana plasmática, en la membrana neuronal, con efecto sobre el umbral.",
       "El equilibrio de K+ ocurre cuando no existe K+ a ninguno de los dos lados de la membrana, durante el potencial de acción, durante la excitabilidad celular.",
@@ -518,7 +518,7 @@
     "heading": "Ecuación de Goldman",
     "difficulty": "Examen",
     "stem": "Una paciente en estudio de excitabilidad neuronal recibe una manipulación que aumenta la permeabilidad al Na+. El potencial de reposo se desplaza hacia valores menos negativos aunque el K+ siga siendo importante. El caso exige integrar permeabilidades relativas de varios iones.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál alternativa interpreta el dato principal dentro de «Ecuación de Goldman»?",
     "options": [
       "El reposo se calcula únicamente con Na+ porque la despolarización usa sodio; K+ y Cl− no influyen mientras la célula está polarizada.",
       "Goldman dice que la bomba Na+/K+ genera cada punto de la curva del potencial de acción en tiempo real, durante el potencial de acción.",
@@ -594,7 +594,7 @@
     "heading": "Bomba Na+/K+ ATPasa",
     "difficulty": "Base",
     "stem": "Un paciente intoxicado por una sustancia que reduce ATP desarrolla debilidad progresiva. Al inicio todavía hay algunas espigas, pero con el tiempo se pierden gradientes de Na+ y K+. El dato fisiológico clave es el mantenimiento activo de esos gradientes.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué relación entre hallazgo y mecanismo es válida en «Bomba Na+/K+ ATPasa»?",
     "options": [
       "La Na+/K+ ATPasa consume ATP, expulsa 3 Na+ e introduce 2 K+, manteniendo los gradientes que permiten excitabilidad repetida.",
       "La bomba abre durante la despolarización y deja entrar 3 Na+ para formar la fase ascendente de la espiga.",
@@ -666,7 +666,7 @@
     "heading": "Despolarización",
     "difficulty": "Moyen",
     "stem": "Un paciente con dolor neuropático es evaluado con estimulación del segmento inicial axonal. Cuando el estímulo alcanza umbral, el interior celular se vuelve rápidamente menos negativo. La fase ascendente depende de una entrada rápida de sodio.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué relación entre hallazgo y mecanismo es válida en «Despolarización»?",
     "options": [
       "La despolarización se produce por salida rápida de K+, que vuelve el interior más negativo desde el inicio de la espiga.",
       "La despolarización neuronal típica ocurre cuando se abren canales de Na+ voltaje-dependientes y entra Na+, haciendo el interior menos negativo.",
@@ -738,7 +738,7 @@
     "heading": "Umbral de excitación",
     "difficulty": "Examen",
     "stem": "Un paciente refiere hormigueos ante estímulos sensitivos leves. En el registro aparecen potenciales locales, pero solo algunos alcanzan una descarga propagada. El problema es determinar el nivel mínimo para activar suficientes canales de Na+.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál alternativa interpreta el dato principal dentro de «Umbral de excitación»?",
     "options": [
       "El umbral es el voltaje al que la neurona termina la repolarización y decide volver exactamente al reposo, en la membrana neuronal.",
       "El umbral equivale a la máxima concentración intracelular de K+ que puede tolerar la neurona antes de morir, durante el potencial de acción.",
@@ -810,7 +810,7 @@
     "heading": "Ley del todo o nada",
     "difficulty": "Base",
     "stem": "Una fibra sensitiva de un paciente es estimulada con intensidades crecientes durante un estudio. Los estímulos subumbrales no generan espiga, pero al superar el umbral aparece una respuesta de amplitud similar. El caso muestra la propiedad todo o nada.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué opción aplica sin contradicciones el principio central de «Una vez alcanzado el umbral, el potencial de acción se dispara con amplitud característica»?",
     "options": [
       "La ley indica que estímulos más intensos producen potenciales de acción individuales cada vez más altos y prolongados, en la membrana neuronal.",
       "La ley significa que cualquier estímulo subumbral se propaga por todo el axón con amplitud constante, durante el potencial de acción.",
@@ -880,7 +880,7 @@
     "heading": "Canales de Na+ voltaje-dependientes",
     "difficulty": "Moyen",
     "stem": "Un paciente expuesto a una toxina presenta debilidad porque la entrada rápida de Na+ está bloqueada en el axón. La neurona recibe estímulos, pero la fase ascendente del potencial de acción no se forma bien. El mecanismo afectado son canales voltaje-dependientes de sodio.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál conclusión explica el escenario de acuerdo con «Canales de Na+ voltaje-dependientes»?",
     "options": [
       "Los canales de Na+ voltaje-dependientes se activan rápidamente al alcanzar umbral y luego se inactivan, limitando la entrada de Na+.",
       "Los canales de Na+ permanecen abiertos durante toda la repolarización para sostener la salida de potasio, durante el potencial de acción.",
@@ -952,7 +952,7 @@
     "heading": "Inactivación del Na+",
     "difficulty": "Examen",
     "stem": "Un paciente en estudio de conducción recibe dos estímulos muy próximos sobre el mismo axón. El segundo estímulo falla aunque el voltaje todavía parezca favorable. Muchos canales de Na+ siguen inactivados y no están disponibles.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué interpretación es compatible con los principios de «Inactivación del Na+»?",
     "options": [
       "Inactivación significa que el canal está cerrado y listo para abrirse de inmediato ante cualquier estímulo pequeño, en la membrana neuronal.",
       "La inactivación del canal de Na+ deja el canal temporalmente no disponible, aunque el voltaje siga despolarizado, y exige repolarización para recuperarse.",
@@ -1026,7 +1026,7 @@
     "heading": "Canales de K+ voltaje-dependientes",
     "difficulty": "Base",
     "stem": "Después de una descarga nerviosa en un paciente con calambres, el registro muestra salida de K+ hacia el exterior. El voltaje vuelve hacia valores negativos después de la fase ascendente. La repolarización depende de apertura retardada de canales de potasio.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál opción permite pasar del dato observado al mecanismo de «Canales de K+ voltaje-dependientes»?",
     "options": [
       "Los canales de K+ se abren primero y causan la fase ascendente por entrada masiva de potasio desde el exterior.",
       "Los canales de K+ son receptores postsinápticos que liberan neurotransmisor al unirse acetilcolina, durante el potencial de acción.",
@@ -1100,7 +1100,7 @@
     "heading": "Repolarización",
     "difficulty": "Moyen",
     "stem": "Un paciente toma un fármaco experimental que bloquea parcialmente canales de K+ voltaje-dependientes. En la prueba, la fase descendente del potencial de acción se vuelve lenta. El dato explica por qué se retrasa la repolarización.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué opción mantiene la dirección causal correcta al analizar «Repolarización»?",
     "options": [
       "La repolarización es una segunda entrada de Na+ que refuerza la positividad interna antes de volver al reposo, en la membrana neuronal.",
       "La repolarización equivale a la contracción muscular y por eso depende exclusivamente de entrada de Ca2+, durante el potencial de acción, durante la excitabilidad celular.",
@@ -1174,7 +1174,7 @@
     "heading": "Hiperpolarización",
     "difficulty": "Examen",
     "stem": "Un paciente con parestesias recibe una estimulación axonal repetida. Tras una espiga, el voltaje cae por debajo del reposo y se necesita un estímulo mayor para volver a disparar. La persistencia de canales de K+ abiertos explica la hiperpolarización.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál razonamiento integra mejor el contexto con «Hiperpolarización»?",
     "options": [
       "La hiperpolarización aparece cuando canales de K+ permanecen abiertos un tiempo extra, dejando salir K+ y llevando el voltaje por debajo del reposo.",
       "La hiperpolarización ocurre por entrada adicional de Na+, que hace el interior más positivo que durante la espiga, durante el potencial de acción.",
@@ -1246,7 +1246,7 @@
     "heading": "Período refractario absoluto",
     "difficulty": "Base",
     "stem": "En una prueba neurofisiológica, un estímulo muy intenso se aplica inmediatamente después de una espiga axonal. El paciente no genera un segundo potencial de acción en ese intervalo. La causa es la inactivación transitoria de canales de Na+.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué opción conserva la coherencia entre el escenario y «Período refractario absoluto»?",
     "options": [
       "Durante el refractario absoluto un estímulo más fuerte sí genera una espiga mayor porque supera mejor el umbral.",
       "Durante el período refractario absoluto no puede generarse otro potencial de acción porque muchos canales de Na+ están inactivados.",
@@ -1318,7 +1318,7 @@
     "heading": "Período refractario relativo",
     "difficulty": "Moyen",
     "stem": "Un paciente con nervio periférico estimulado responde a un segundo estímulo pocos milisegundos después del primero. La fibra sí puede disparar, pero requiere más intensidad que antes. El registro corresponde al período refractario relativo.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál interpretación de «Período refractario relativo» resuelve de forma consistente el caso?",
     "options": [
       "En el refractario relativo ningún estímulo puede disparar potencial porque todos los canales de Na+ permanecen inactivados, en la membrana neuronal.",
       "El refractario relativo es el momento de máxima entrada de Na+ y por eso el estímulo requerido es menor que en reposo.",
@@ -1390,7 +1390,7 @@
     "heading": "Propagación axonal",
     "difficulty": "Examen",
     "stem": "Un paciente con dolor agudo tiene un potencial de acción iniciado en el segmento inicial de una neurona sensitiva. La señal avanza por el axón sin perder amplitud de manera progresiva. La propagación ocurre por activación secuencial de segmentos vecinos.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál opción integra correctamente el cambio observado con «Propagación axonal»?",
     "options": [
       "La misma molécula de sodio entra por el cono axónico y se desplaza físicamente hasta la terminal sináptica llevando el mensaje.",
       "La propagación depende de que la bomba Na+/K+ empuje la espiga de un nodo al siguiente en cada milisegundo.",
@@ -1462,7 +1462,7 @@
     "heading": "Conducción continua",
     "difficulty": "Base",
     "stem": "Un paciente con neuropatía de fibras pequeñas presenta conducción lenta en fibras no mielinizadas. Cada porción de membrana debe despolarizarse una tras otra. El estudio muestra una conducción continua, no saltatoria.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué relación funcional de «Conducción continua» permite explicar el dato central?",
     "options": [
       "En axones no mielinizados, la conducción es continua porque cada región adyacente de membrana debe despolarizarse secuencialmente.",
       "En axones no mielinizados la espiga salta de nodo en nodo porque la mielina concentra canales en interrupciones aisladas.",
@@ -1534,7 +1534,7 @@
     "heading": "Mielina y conducción saltatoria",
     "difficulty": "Moyen",
     "stem": "Una paciente con brotes de visión borrosa y debilidad tiene enlentecimiento de potenciales evocados. La resonancia sugiere pérdida de mielina en vías del sistema nervioso central. La mielina fallida reduce la eficiencia de la conducción saltatoria.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál interpretación fisiológica de «Mielina y conducción saltatoria» concuerda con el caso?",
     "options": [
       "La mielina enlentece la conducción porque obliga a abrir canales de Na+ en toda la superficie internodal, en el sistema nervioso.",
       "La mielina aumenta la resistencia de membrana y reduce capacitancia, permitiendo que la despolarización salte eficazmente entre nodos de Ranvier.",
@@ -1608,7 +1608,7 @@
     "heading": "Nodos de Ranvier",
     "difficulty": "Examen",
     "stem": "Un paciente con sospecha de desmielinización es evaluado con registro de una fibra mielinizada. La espiga se regenera solo en zonas cortas sin mielina donde se concentran canales de Na+. Esas zonas permiten continuar el impulso entre segmentos aislados.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué mecanismo fisiológico relacionado con «Nodos de Ranvier» explica los hallazgos?",
     "options": [
       "Los nodos de Ranvier son depósitos de neurotransmisor donde se almacenan vesículas antes de la sinapsis química.",
       "Los nodos son regiones sin canales iónicos para evitar fuga de corriente y mantener completamente aislado el axón.",
@@ -1682,7 +1682,7 @@
     "heading": "Diámetro axonal",
     "difficulty": "Base",
     "stem": "Dos pacientes con neuropatía tienen fibras no mielinizadas funcionales, pero de distinto diámetro. La fibra más gruesa conduce más rápido en el estudio. La diferencia se explica por menor resistencia interna al flujo longitudinal.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál interpretación de «Diámetro axonal» resuelve de forma consistente el caso?",
     "options": [
       "Un axón más delgado conduce más rápido porque concentra el sodio en un volumen menor y aumenta siempre la amplitud de la espiga.",
       "El diámetro no influye en velocidad; solo importa la cantidad de neurotransmisor liberado en la terminal, durante el potencial de acción.",
@@ -1756,7 +1756,7 @@
     "heading": "Codificación de intensidad",
     "difficulty": "Moyen",
     "stem": "Un paciente con dolor creciente por quemadura refiere que la sensación se vuelve más intensa. En el registro, cada espiga mantiene amplitud similar, pero aumenta la frecuencia de descarga y se reclutan más fibras. La intensidad no se codifica haciendo espigas más altas.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué opción conserva la coherencia entre el escenario y «Codificación de intensidad»?",
     "options": [
       "La intensidad de un estímulo se codifica aumentando la frecuencia de potenciales de acción y reclutando más fibras, no aumentando la amplitud de cada espiga.",
       "Un estímulo más fuerte siempre produce una espiga individual más alta, y esa altura es el código principal de intensidad, durante el potencial de acción.",
@@ -1828,7 +1828,7 @@
     "heading": "Potenciales graduados",
     "difficulty": "Examen",
     "stem": "Una paciente con temblor leve recibe señales sinápticas pequeñas en dendritas de una neurona motora. Esas señales varían en amplitud y se atenúan antes de llegar al segmento inicial. El caso representa potenciales graduados.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál conclusión sobre «Potenciales graduados» se sostiene con la información disponible?",
     "options": [
       "Los potenciales graduados tienen siempre la misma amplitud y se regeneran sin decremento hasta la terminal axonal.",
       "Los potenciales graduados tienen amplitud proporcional al estímulo, se propagan con decremento y pueden sumarse temporal o espacialmente.",
@@ -1902,7 +1902,7 @@
     "heading": "Sumación temporal",
     "difficulty": "Base",
     "stem": "Un paciente con espasmos musculares tiene una sinapsis excitadora que dispara varias veces en pocos milisegundos. Los EPSP sucesivos se superponen antes de desaparecer. La suma ocurre en el tiempo sobre la misma vía sináptica.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué alternativa responde al problema planteado desde «Sumación temporal»?",
     "options": [
       "La sumación temporal es la llegada simultánea de estímulos desde muchas sinapsis diferentes del árbol dendrítico, en la membrana postsináptica.",
       "La sumación temporal exige que cada potencial postsináptico individual sea ya supraliminar y todo o nada, durante la transmisión sináptica.",
@@ -1974,7 +1974,7 @@
     "heading": "Sumación espacial",
     "difficulty": "Moyen",
     "stem": "Una paciente con reflejos aumentados recibe señales excitadoras e inhibidoras desde distintas dendritas de una motoneurona. El disparo final depende del balance total que llega al segmento inicial. El fenómeno es integración espacial de señales postsinápticas.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál opción permite pasar del dato observado al mecanismo de «Sumación espacial»?",
     "options": [
       "La sumación espacial es la repetición rápida de potenciales desde una sola sinapsis en intervalos muy cortos.",
       "La sumación espacial solo aparece en axones sin mielina cuando cada segmento se despolariza de manera continua.",
@@ -2046,7 +2046,7 @@
     "heading": "Cono axónico",
     "difficulty": "Examen",
     "stem": "Un paciente con lesión medular incompleta conserva múltiples entradas dendríticas hacia una neurona motora. La espiga solo aparece cuando el segmento inicial alcanza el umbral. Esa zona tiene alta densidad de canales de Na+.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué interpretación es compatible con los principios de «Cono axónico»?",
     "options": [
       "El cono axónico integra señales graduadas y, por su alta densidad de canales de Na+, suele ser la zona donde inicia el potencial de acción.",
       "El cono axónico es la terminal presináptica donde las vesículas liberan neurotransmisor hacia la hendidura sináptica, durante el potencial de acción, con efecto sobre el umbral.",
@@ -2120,7 +2120,7 @@
     "heading": "Sinapsis química",
     "difficulty": "Base",
     "stem": "Un paciente con alteración de transmisión sináptica tiene llegada normal del potencial a la terminal presináptica. Sin embargo, la comunicación con la neurona postsináptica depende de liberar neurotransmisor. El paso crítico inicia con entrada de Ca2+.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué opción explica de forma coherente el hallazgo central desde «Sinapsis química»?",
     "options": [
       "La sinapsis química transmite la corriente directamente por continuidad citoplasmática, sin neurotransmisor ni receptores postsinápticos, en la membrana postsináptica.",
       "En la sinapsis química, el potencial de acción abre canales de Ca2+ presinápticos, libera neurotransmisor y activa receptores postsinápticos.",
@@ -2194,7 +2194,7 @@
     "heading": "Calcio presináptico",
     "difficulty": "Moyen",
     "stem": "Un fármaco bloquea canales de Ca2+ en la terminal nerviosa de un paciente con dolor neuropático. El potencial de acción llega, pero la liberación de neurotransmisor disminuye de forma marcada. La fusión vesicular depende de Ca2+ presináptico.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "A la luz de «Calcio presináptico», ¿cuál alternativa integra correctamente el dato clave y su consecuencia?",
     "options": [
       "La entrada de Ca2+ repolariza directamente todo el axón y sustituye la función de los canales de K+.",
       "El Ca2+ presináptico se une al receptor postsináptico como neurotransmisor principal de todas las sinapsis, durante la transmisión sináptica.",
@@ -2268,7 +2268,7 @@
     "heading": "EPSP",
     "difficulty": "Examen",
     "stem": "Una paciente recibe glutamato en una sinapsis excitadora durante un registro experimental. La membrana postsináptica se despolariza ligeramente y se acerca al umbral sin generar aún espiga. El cambio aumenta la probabilidad de disparo.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué razonamiento sobre «EPSP» se ajusta al escenario descrito?",
     "options": [
       "Un EPSP hiperpolariza la neurona y la aleja del umbral, reduciendo siempre la probabilidad de potencial de acción, en la membrana postsináptica.",
       "Un EPSP es idéntico a un potencial de acción: tiene amplitud fija y se propaga sin decremento por todo el axón.",
@@ -2342,7 +2342,7 @@
     "heading": "IPSP",
     "difficulty": "Base",
     "stem": "Un paciente con hiperreflexia recibe una señal inhibitoria por interneuronas GABAérgicas sobre una motoneurona. La membrana postsináptica se aleja del umbral o queda estabilizada. La probabilidad de disparo disminuye.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál opción relaciona correctamente el hallazgo principal con «IPSP»?",
     "options": [
       "Un IPSP aleja la membrana del umbral, frecuentemente por entrada de Cl− o salida de K+, disminuyendo la probabilidad de disparo.",
       "Un IPSP siempre despolariza la membrana hasta el umbral y aumenta la frecuencia de potenciales de acción, durante la transmisión sináptica.",
@@ -2414,7 +2414,7 @@
     "heading": "Terminación del neurotransmisor",
     "difficulty": "Moyen",
     "stem": "Un paciente toma un inhibidor de degradación de neurotransmisores y desarrolla fasciculaciones. En el laboratorio, el neurotransmisor permanece más tiempo en la hendidura sináptica y altera la precisión temporal de la señal. El caso pregunta cómo termina normalmente la señal química.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál de las opciones vincula correctamente los datos del caso con «Terminación del neurotransmisor»?",
     "options": [
       "La señal termina porque el neurotransmisor se convierte en Na+ y entra por canales voltaje-dependientes postsinápticos.",
       "La señal sináptica termina por recaptación, degradación enzimática o difusión del neurotransmisor fuera de la hendidura.",
@@ -2490,7 +2490,7 @@
     "heading": "Glía",
     "difficulty": "Examen",
     "stem": "Un paciente con alteración de mielina y del medio extracelular muestra conducción nerviosa inestable. El estudio recuerda que las células no neuronales nutren, aíslan y modulan la actividad neuronal. No son simple tejido de relleno.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "En el contexto de «Las células gliales sostienen, nutren, aíslan y modulan la actividad neuronal», ¿qué conclusión está respaldada por los hallazgos?",
     "options": [
       "Las células gliales generan todos los potenciales de acción rápidos y las neuronas solo rellenan el espacio entre axones.",
       "La glía no participa en homeostasis extracelular ni mielina; solo aporta colágeno mecánico al sistema nervioso, durante la conducción nerviosa.",
@@ -2560,7 +2560,7 @@
     "heading": "Astrocitos",
     "difficulty": "Base",
     "stem": "Durante una crisis epiléptica focal, un paciente presenta actividad neuronal intensa con aumento de K+ extracelular y glutamato. Las células de soporte del SNC ayudan a retirar ambos del espacio extracelular. Esa regulación protege la excitabilidad neuronal.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué afirmación permite resolver el caso sin contradecir «Astrocitos»?",
     "options": [
       "Los astrocitos forman la mielina de los axones periféricos y envuelven una sola fibra cada uno, en el sistema nervioso.",
       "Los astrocitos fagocitan patógenos como función inmune principal y por eso sustituyen completamente a la microglía, durante la conducción nerviosa.",
@@ -2634,7 +2634,7 @@
     "heading": "Oligodendrocito y célula de Schwann",
     "difficulty": "Moyen",
     "stem": "Un paciente tiene una neuropatía periférica y además lesiones desmielinizantes en médula espinal. El estudio neurofisiológico muestra que no es la misma célula la que mieliniza en SNP y en SNC. La localización determina si interviene célula de Schwann u oligodendrocito.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál es la interpretación más consistente del escenario en relación con «Oligodendrocito y célula de Schwann»?",
     "options": [
       "El oligodendrocito mieliniza axones en el SNC y la célula de Schwann mieliniza axones en el SNP.",
       "La célula de Schwann forma mielina en encéfalo y médula, mientras el oligodendrocito solo actúa en nervios periféricos.",
@@ -2708,7 +2708,7 @@
     "heading": "Dismielinización",
     "difficulty": "Examen",
     "stem": "Una paciente con debilidad fluctuante presenta potenciales evocados lentos y dispersos. La lesión reduce el aislamiento de axones mielinizados y disminuye la seguridad de propagación. El problema principal es pérdida de mielina.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué mecanismo fisiológico relacionado con «Dismielinización» explica los hallazgos?",
     "options": [
       "La pérdida de mielina acelera la conducción porque expone más membrana y permite abrir más canales simultáneamente, en el sistema nervioso.",
       "La pérdida de mielina disminuye la velocidad de conducción y puede producir bloqueo porque se pierde aislamiento y seguridad de propagación nodal.",
@@ -2780,7 +2780,7 @@
     "heading": "Espiga versus potencial graduado",
     "difficulty": "Base",
     "stem": "En un paciente con lesión de neurona motora, se comparan señales dendríticas locales con descargas axonales propagadas. Las señales pequeñas se atenúan, mientras la espiga mantiene amplitud a distancia. El caso diferencia potencial graduado y potencial de acción.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál interpretación fisiológica de «La espiga es todo o nada, se regenera y conserva amplitud» concuerda con el caso?",
     "options": [
       "La espiga es local y decremental, mientras el potencial graduado siempre llega sin pérdida hasta la terminal axonal, en la membrana neuronal.",
       "Ambos fenómenos tienen amplitud fija, refractario absoluto y propagación sin decremento por todo el axón, durante el potencial de acción.",
@@ -2852,7 +2852,7 @@
     "heading": "Potencial en meseta cardíaco",
     "difficulty": "Moyen",
     "stem": "Un paciente con alteración de canales de Ca2+ tipo L presenta cambios en la contracción cardíaca. El electrocardiograma y el registro celular muestran modificación de la meseta ventricular. La entrada sostenida de Ca2+ prolonga despolarización y período refractario.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál conclusión explica el escenario de acuerdo con «Potencial en meseta cardíaco»?",
     "options": [
       "La meseta cardíaca es una hiperpolarización profunda causada por salida exclusiva de Cl− durante toda la contracción, en el tejido excitable.",
       "La meseta es la misma espiga rápida de una neurona, sin participación relevante del calcio, durante la respuesta contráctil.",
@@ -2926,7 +2926,7 @@
     "heading": "Músculo liso",
     "difficulty": "Examen",
     "stem": "Una paciente con crisis asmática intensa presenta broncoconstricción por contracción de músculo liso. El estudio celular muestra aumento de Ca2+ intracelular y activación de calmodulina. El mecanismo contráctil difiere del músculo esquelético.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué opción aplica sin contradicciones el principio central de «Músculo liso»?",
     "options": [
       "En músculo liso, el Ca2+ participa de forma central en la excitabilidad y activa la contracción mediante calmodulina y MLCK.",
       "El músculo liso se contrae únicamente por entrada rápida de Na+ y no utiliza calcio para activar proteínas contráctiles.",
@@ -3000,7 +3000,7 @@
     "heading": "Hipercalemia",
     "difficulty": "Base",
     "stem": "Un paciente con insuficiencia renal llega con debilidad y K+ plasmático elevado. El potencial de reposo de las fibras se desplaza inicialmente hacia valores menos negativos. La hipercalemia altera el gradiente de salida de K+ y puede inactivar Na+.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál alternativa interpreta el dato principal dentro de «Hipercalemia»?",
     "options": [
       "La hipercalemia aumenta el gradiente de salida de K+ y vuelve el interior mucho más negativo que en reposo.",
       "La hipercalemia reduce el gradiente de salida de K+, despolariza el reposo y puede inactivar canales de Na+, alterando conducción.",
@@ -3074,7 +3074,7 @@
     "heading": "Hipocalemia",
     "difficulty": "Moyen",
     "stem": "Una paciente con vómitos prolongados presenta K+ bajo, calambres y debilidad muscular. Las fibras se vuelven menos excitables porque el potencial se aleja del umbral. La hipocalemia tiende a hiperpolarizar la membrana.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué relación entre hallazgo y mecanismo es válida en «Hipocalemia»?",
     "options": [
       "La hipocalemia despolariza intensamente la membrana y abre todos los canales de Na+ de manera sostenida, en la membrana neuronal.",
       "La hipocalemia solo afecta la coagulación, sin relación con músculo, nervio o potencial de membrana, durante el potencial de acción.",
@@ -3146,7 +3146,7 @@
     "heading": "Calcio extracelular y umbral",
     "difficulty": "Examen",
     "stem": "Un paciente con hipocalcemia llega con parestesias, espasmos carpopedales y signo de Trousseau. La disminución de Ca2+ extracelular facilita la activación de canales de Na+. El resultado es aumento de excitabilidad neuromuscular.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál razonamiento integra mejor el contexto con «Calcio extracelular y umbral»?",
     "options": [
       "La hipocalcemia siempre disminuye excitabilidad porque elimina la entrada de Na+ durante la fase ascendente neuronal.",
       "El calcio extracelular no modifica umbral ni excitabilidad; solo sirve para mineralizar hueso, durante el potencial de acción.",
@@ -3220,7 +3220,7 @@
     "heading": "Anestésicos locales",
     "difficulty": "Base",
     "stem": "Durante una sutura, un paciente recibe lidocaína local y deja de sentir dolor en la zona. No hay lesión permanente del nervio ni pérdida estructural. El bloqueo funcional impide la fase ascendente del potencial de acción.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué opción mantiene la dirección causal correcta al analizar «Anestésicos locales»?",
     "options": [
       "Los anestésicos locales bloquean canales de Na+ voltaje-dependientes, impidiendo la fase ascendente y la propagación del potencial de acción.",
       "Los anestésicos locales bloquean solo receptores postsinápticos de dopamina en el encéfalo para producir analgesia periférica, durante el potencial de acción.",
@@ -3296,7 +3296,7 @@
     "heading": "Tetrodotoxina",
     "difficulty": "Moyen",
     "stem": "Tras ingerir pez contaminado, un paciente desarrolla parestesias periorales y parálisis flácida progresiva. El tóxico bloquea canales de Na+ en nervios periféricos. La fibra no puede generar potenciales de acción eficaces.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál opción permite pasar del dato observado al mecanismo de «Tetrodotoxina»?",
     "options": [
       "La tetrodotoxina abre canales de K+ para producir una meseta cardíaca más prolongada y contracción sostenida.",
       "La tetrodotoxina bloquea canales de Na+ voltaje-dependientes e impide potenciales de acción en nervio y músculo excitable.",
@@ -3370,7 +3370,7 @@
     "heading": "Direccionalidad de la propagación",
     "difficulty": "Examen",
     "stem": "Un paciente con dolor neuropático tiene un axón estimulado en un punto durante una prueba. La espiga avanza hacia regiones disponibles y no vuelve de inmediato al segmento que acaba de activarse. La refractariedad da dirección funcional a la propagación.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué interpretación es compatible con los principios de «Direccionalidad de la propagación»?",
     "options": [
       "La dirección se debe a que el sodio recuerda químicamente hacia dónde debe avanzar dentro del axón.",
       "La propagación avanza porque la bomba Na+/K+ se desplaza físicamente desde el soma hasta la terminal, durante el potencial de acción.",
@@ -3442,7 +3442,7 @@
     "heading": "Sinapsis eléctrica versus química",
     "difficulty": "Base",
     "stem": "Un paciente con alteración de sincronización neuronal es estudiado con dos tipos de sinapsis. En una vía, las células se comunican por uniones gap; en otra, liberan neurotransmisor y activan receptores postsinápticos. El caso compara sinapsis eléctrica y química.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Cuál es la interpretación más consistente del escenario en relación con «La sinapsis eléctrica usa uniones gap para paso directo de corriente»?",
     "options": [
       "La sinapsis eléctrica libera vesículas de acetilcolina y siempre tarda más que la sinapsis química, en la membrana postsináptica.",
       "La sinapsis química permite continuidad citoplasmática completa entre neuronas mediante conexones siempre abiertos, durante la transmisión sináptica, con efecto sobre la respuesta neuronal.",
@@ -3514,7 +3514,7 @@
     "heading": "Retardo sináptico",
     "difficulty": "Moyen",
     "stem": "Un paciente con retraso de respuesta refleja es evaluado con registro sináptico. Hay una pausa breve entre la llegada del potencial a la terminal y la respuesta postsináptica. Ese retardo corresponde a los pasos de la transmisión química.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué afirmación permite resolver el caso sin contradecir «Retardo sináptico»?",
     "options": [
       "El retardo sináptico químico se debe a apertura de Ca2+, exocitosis, difusión del neurotransmisor y activación de receptores postsinápticos.",
       "El retardo sináptico ocurre porque el potencial de acción se detiene durante segundos en cada nodo de Ranvier.",
@@ -3590,7 +3590,7 @@
     "heading": "Receptores ionotrópicos y metabotrópicos",
     "difficulty": "Examen",
     "stem": "Una paciente con crisis neurológicas recibe un fármaco que actúa sobre receptores postsinápticos. El mismo neurotransmisor produce una corriente rápida en un receptor y una modulación lenta mediante proteína G en otro. El caso diferencia receptores ionotrópicos y metabotrópicos.",
-    "question": "¿Qué mecanismo fisiológico explica mejor este caso?",
+    "question": "¿Qué alternativa responde al problema planteado desde «Los receptores ionotrópicos son canales regulados por ligando y responden rápido»?",
     "options": [
       "Los receptores ionotrópicos siempre tardan minutos porque necesitan transcripción génica antes de abrir un canal, en la membrana postsináptica.",
       "Los receptores ionotrópicos son canales regulados por ligando y responden rápido; los metabotrópicos actúan por proteínas G y segundos mensajeros.",

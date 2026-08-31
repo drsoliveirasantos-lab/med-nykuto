@@ -32,6 +32,18 @@ test.describe('Verdadero/Falso critical behavior', () => {
 
     await expect(page.locator('#practiceList .single-question-card').first()).toBeVisible({ timeout: 5000 });
     await expect(page.locator('#practiceList .single-question-card .answer-panel:not([hidden]), #practiceList .single-question-card .ppc-card').first()).toBeVisible({ timeout: 8000 });
+    await expect(page.locator('#practiceList .single-question-card .ppc-card')).toHaveCount(1);
+    await expect(page.locator('#practiceList .single-question-card .answer-panel')).not.toBeVisible();
+    await expect(page.locator('#practiceList .single-question-card [data-action="next-question"]:visible')).toHaveCount(1);
+    const correctionLetters = await page.evaluate(() => {
+      const card = document.querySelector('#practiceList .single-question-card');
+      const options = Array.from(card?.querySelectorAll('button.option[data-option]') || []);
+      const correctIndex = options.findIndex((option) => option.classList.contains('correct'));
+      const visibleCorrection = card?.querySelector('.ppc-card .ppc-line span');
+      return {expected: 'ABCD'[correctIndex] || '', displayed: (visibleCorrection?.textContent || '').trim().slice(0, 1)};
+    });
+    expect(correctionLetters.displayed).toBe(correctionLetters.expected);
+    await expect(page.locator('#practiceList .single-question-card .ppc-card')).not.toContainText(/Bonne réponse|Pourquoi|À retenir/);
     expect(page.url()).toBe(initialUrl);
 
     const explanationControl = page.locator('#practiceList .single-question-card details summary, #practiceList .single-question-card .ppc-toggle').filter({ hasText: /explicaci[oó]n|explication|compl[eè]te|completa|voir|ver/i }).first();

@@ -1,6 +1,10 @@
 /*
   X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Content-Security-Policy: object-src 'none'; base-uri 'self'; frame-ancestors 'none'
 
 /data/*
   Cache-Control: no-cache, max-age=0, must-revalidate
@@ -10,3 +14,46 @@
 
 /*.css
   Cache-Control: no-cache, max-age=0, must-revalidate
+
+/service-worker.js
+  Cache-Control: no-cache, max-age=0, must-revalidate
+  Service-Worker-Allowed: /
+
+/manifest.webmanifest
+  Cache-Control: no-cache, max-age=0, must-revalidate
+
+/manifest-s3.webmanifest
+  Cache-Control: no-cache, max-age=0, must-revalidate
+
+/turma/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache, max-age=0, must-revalidate
+
+/turma-shell/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache, max-age=0, must-revalidate
+
+/clase.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache, max-age=0, must-revalidate
+
+/notas.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+  Referrer-Policy: no-referrer
+
+/notas
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+  Referrer-Policy: no-referrer
+
+/gestion-shell/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+
+/gestion/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+
+/api/*
+  Cache-Control: no-store

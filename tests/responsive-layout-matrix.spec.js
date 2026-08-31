@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const { expectBlockedClinicalCases } = require('./helpers/practice-policy');
 
 const viewports = [
   { name: 'iphone-se', width: 375, height: 667 },
@@ -18,11 +19,20 @@ const pages = [
   '/contact.html'
 ];
 
+async function dismissSemesterPicker(page) {
+  const modal = page.locator('#homeSemesterModal.open');
+  const opened = await modal.waitFor({ state: 'visible', timeout: 1500 }).then(() => true).catch(() => false);
+  if (!opened) return;
+  await modal.locator('[data-semester-select="s3"]').click();
+  await expect(modal).toBeHidden({ timeout: 5000 });
+}
+
 for (const viewport of viewports) {
   for (const path of pages) {
     test(`${viewport.name} ${path}: layout stays usable`, async ({ page }) => {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
       const response = await page.goto(path, { waitUntil: 'domcontentloaded' });
+      if (path === '/index.html') await dismissSemesterPicker(page);
       expect(response?.status() || 0, `${path} should not return HTTP error`).toBeLessThan(400);
       await expect(page.locator('body')).toBeVisible({ timeout: 15000 });
 
@@ -60,7 +70,11 @@ for (const viewport of viewports) {
         await expect(page.locator('#navLinks.open, .nav-links.open, #navLinks, .nav-links').first()).toBeVisible({ timeout: 10000 });
       }
 
-      if (/qcm|cas-cliniques|vrai-faux/.test(path)) {
+      if (/cas-cliniques/.test(path)) {
+        await expectBlockedClinicalCases(page, expect);
+        const noticeBox = await page.locator('#practiceList .notice').boundingBox();
+        expect(noticeBox?.width || 0, `${viewport.name} ${path}: quality notice should have width`).toBeGreaterThan(250);
+      } else if (/qcm|vrai-faux/.test(path)) {
         await expect(page.locator('#practiceList .single-question-card').first()).toBeVisible({ timeout: 20000 });
         const cardBox = await page.locator('#practiceList .single-question-card').first().boundingBox();
         expect(cardBox?.width || 0, `${viewport.name} ${path}: practice card should have width`).toBeGreaterThan(250);

@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const { expectBlockedClinicalCases } = require('./helpers/practice-policy');
 
 async function reset(page) {
   await page.evaluate(() => { localStorage.clear(); sessionStorage.clear(); });
@@ -44,8 +45,8 @@ test('student can complete the main study loop without dead ends', async ({ page
   await openPractice(page, '/qcm.html?course=fisiologia');
   await answerAndNext(page);
 
-  await openPractice(page, '/cas-cliniques.html?course=fisiologia');
-  await answerAndNext(page);
+  await page.goto('/cas-cliniques.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
+  await expectBlockedClinicalCases(page, expect);
 
   await openPractice(page, '/vrai-faux.html?course=fisiologia');
   await answerAndNext(page);

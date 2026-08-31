@@ -1,11 +1,11 @@
 {
   "siteName": "Med Nykuto",
-  "release": "v363-restored-legacy-data-hardening",
-  "branch": "preview",
-  "generatedAt": "2026-06-25",
+  "release": "v462-semester-3-exact-source",
+  "branch": "main",
+  "generatedAt": "2026-08-23",
   "deployment": {
     "provider": "Cloudflare Pages",
-    "previewHost": "preview.med-nykuto-git.pages.dev"
+    "productionHost": "med.nykuto.com"
   },
   "navigationPages": [
     "index.html",
@@ -28,6 +28,10 @@
     "data/med-practice-bank-init.js",
     "data/med-practice-bank-loader.js",
     "data/practice-bank-functional-fallback-v360.js",
+    "data/practice-bank-runtime-quality-patch-v371.js",
+    "data/practice-bank-s3-certification-v462.js",
+    "semester-scope-guard-v401.js",
+    "semester-3-shell-v460.js",
     "site-global-polish-v310.js",
     "med-nykuto-global-fix-v358.js",
     "med-nykuto-runtime-guard-v361.js"
@@ -35,24 +39,33 @@
   "expectedData": {
     "courseCount": 6,
     "activeCourseCount": 5,
-    "moduleCount": 58,
+    "moduleCount": 59,
     "restoredPracticeBankMinimums": {
       "fisiologia": { "qcm": 1800, "vf": 450, "cases": 450 },
       "microbiologia": { "qcm": 2600, "vf": 650, "cases": 650 },
       "genetica": { "qcm": 2400, "vf": 600, "cases": 600 },
       "bioquimica": { "qcm": 600, "vf": 120, "cases": 600 },
       "inmunologia": { "qcm": 600, "vf": 120, "cases": 600 }
+    },
+    "certifiedRuntimeMinimums": {
+      "fisiologia": { "qcm": 80, "vf": 40, "cases": 0 },
+      "microbiologia": { "qcm": 104, "vf": 52, "cases": 0 },
+      "genetica": { "qcm": 96, "vf": 48, "cases": 0 },
+      "bioquimica": { "qcm": 95, "vf": 48, "cases": 0 },
+      "inmunologia": { "qcm": 95, "vf": 48, "cases": 0 }
     }
   },
   "safeguards": {
     "noNetlifyForms": true,
     "noFakeSentConfirmation": true,
     "runtimeHealthMarker": "__MED_NYKUTO_RUNTIME_GUARD__",
-    "runtimeHealthVersion": "v361",
+    "runtimeHealthVersion": "v362",
     "contactFallback": "local-copy",
     "questionFeedbackFallback": "local-copy",
-    "practiceLoaderCacheVersion": "v363",
-    "fallbackMode": "complete-missing-formats-only"
+    "practiceLoaderCacheVersion": "v462",
+    "fallbackMode": "exact-course-source-only",
+    "questionCertificationVersion": "v462-exact-course-source",
+    "blockedUntilReconstruction": ["fisiologia.cases", "microbiologia.cases", "genetica.cases", "bioquimica.cases", "inmunologia.cases"]
   },
-  "contentWarning": "Course and practice data were restored from the recovered legacy split files. Fallback is kept only as a safety layer for missing formats."
+  "contentWarning": "The restored legacy banks remain preserved as source material. Runtime QCM and true/false items use exact Semester 3 course statements; all inherited clinical cases remain blocked until a manual, source-grounded review."
 }

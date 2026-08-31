@@ -1,1 +1,10 @@
-/*    /404.html   404
+/turma /turma/s4-e 302
+/gestion /gestion/s4-e 302
+# Directory-index targets avoid Cloudflare Pages' automatic .html canonical redirects.
+/turma/:slug/ /turma-shell/?class=:slug 200
+/turma/:slug /turma-shell/?class=:slug 200
+/gestion/:slug/estadisticas /gestion-analytics.html?class=:slug 200
+/gestion/:slug/ /gestion-shell/?class=:slug 200
+/gestion/:slug /gestion-shell/?class=:slug 200
+/bioquimica-ii-grupos /bioquimica-ii-grupos.html 200
+/* /404.html 404

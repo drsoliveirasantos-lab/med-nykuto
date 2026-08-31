@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pizarra reconstruida: sinapsis, excitación e inhibición</title>
+  <desc id="desc">Reproducción limpia de la organización dibujada por la profesora: neurona presináptica, calcio, espacio sináptico, receptores y mecanismos de excitación e inhibición.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#16314b" flood-opacity=".13"/></filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#355b73"/></marker>
+    <style>
+      .ink{fill:#19374c}.muted{fill:#557285}.blue{fill:#1f83aa}.green{fill:#247b65}.red{fill:#ad4f4f}.gold{fill:#a57622}
+      .label{font:700 24px Inter,Arial,sans-serif;letter-spacing:.04em}.body{font:500 23px Inter,Arial,sans-serif}.small{font:600 19px Inter,Arial,sans-serif}
+      .line{fill:none;stroke:#355b73;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrow)}
+      .soft{fill:none;stroke:#7895a6;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+  <rect width="1600" height="900" rx="46" fill="#fbfdfb"/>
+  <rect x="24" y="24" width="1552" height="852" rx="35" fill="none" stroke="#d7e5e2" stroke-width="3"/>
+  <g opacity=".28" stroke="#c4d6d2"><path d="M80 178h1440M80 332h1440M80 486h1440M80 640h1440M80 794h1440"/></g>
+
+  <g transform="translate(62 50)">
+    <text class="label blue" x="0" y="0" dominant-baseline="hanging">SINAPSIS QUÍMICA</text>
+    <text class="small green" x="0" y="42">Despolarización = excitación</text>
+    <text class="small red" x="0" y="72">Hiperpolarización = inhibición</text>
+  </g>
+
+  <g transform="translate(165 220)">
+    <path d="M110 0c-56 0-92 39-92 90 0 38 20 67 54 84v42c0 28 20 50 48 50h30c28 0 48-22 48-50v-42c34-17 54-46 54-84 0-51-36-90-92-90z" fill="#edf6f8" stroke="#355b73" stroke-width="5"/>
+    <circle cx="72" cy="86" r="15" fill="#f0bd58"/><circle cx="118" cy="60" r="15" fill="#f0bd58"/><circle cx="164" cy="92" r="15" fill="#f0bd58"/><circle cx="116" cy="127" r="15" fill="#f0bd58"/>
+    <path class="soft" d="M76 194v72M118 194v72M160 194v72"/>
+    <path d="M50 314c30-34 90-34 120 0" fill="none" stroke="#355b73" stroke-width="5" stroke-linecap="round"/>
+    <text class="label ink" x="38" y="-34">Neurona presináptica</text>
+    <text class="small blue" x="-92" y="76">Canales de Ca²⁺</text>
+    <path class="line" d="M35 80h-55" marker-end="none"/>
+    <text class="small gold" x="65" y="348">Espacio sináptico</text>
+  </g>
+
+  <g transform="translate(140 618)">
+    <path d="M40 150c20-98 72-148 155-148s135 50 155 148" fill="#edf6f8" stroke="#355b73" stroke-width="5"/>
+    <rect x="94" y="13" width="50" height="56" rx="21" fill="#d7efe8" stroke="#247b65" stroke-width="4"/>
+    <rect x="202" y="13" width="50" height="56" rx="21" fill="#e8e1f5" stroke="#76589a" stroke-width="4"/>
+    <text class="label ink" x="48" y="196">Neurona postsináptica</text>
+    <text class="small green" x="59" y="-22">Receptores</text>
+    <text class="small green" x="31" y="103">Ionotrópico</text>
+    <text class="small" fill="#76589a" x="174" y="103">Metabotrópico</text>
+  </g>
+
+  <g transform="translate(500 185)">
+    <rect width="374" height="220" rx="30" fill="#eef7f8" stroke="#9dc6d2" stroke-width="3"/>
+    <text class="label blue" x="30" y="34">PAPEL DEL CALCIO</text>
+    <text class="body ink" x="30" y="84">1. Llega el potencial de acción.</text>
+    <text class="body ink" x="30" y="124">2. Se abren canales de Ca²⁺.</text>
+    <text class="body ink" x="30" y="164">3. Se liberan neurotransmisores.</text>
+    <path class="line" d="M-38 106h-66"/>
+  </g>
+
+  <g transform="translate(930 80)">
+    <rect width="594" height="330" rx="34" fill="#f1faf6" stroke="#98cfbc" stroke-width="3"/>
+    <text class="label green" x="34" y="40">EXCITACIÓN → DESPOLARIZACIÓN</text>
+    <g class="body ink"><text x="40" y="96">• Apertura de canales de Na⁺</text><text x="40" y="140">  entra sodio</text><text x="40" y="190">• Apertura de canales de Ca²⁺</text><text x="40" y="240">• Cierre de canales de K⁺ o Cl⁻</text><text x="40" y="290">• Más receptores excitadores</text></g>
+  </g>
+
+  <g transform="translate(930 465)">
+    <rect width="594" height="330" rx="34" fill="#fff6f4" stroke="#dda5a0" stroke-width="3"/>
+    <text class="label red" x="34" y="40">INHIBICIÓN → HIPERPOLARIZACIÓN</text>
+    <g class="body ink"><text x="40" y="98">• Apertura de canales de Cl⁻</text><text x="40" y="142">  entra cloruro</text><text x="40" y="194">• Apertura de canales de K⁺</text><text x="40" y="238">  sale potasio</text><text x="40" y="290">• Más receptores inhibidores</text></g>
+  </g>
+
+  <g transform="translate(505 482)">
+    <rect width="370" height="276" rx="30" fill="#fffaf0" stroke="#dbc38d" stroke-width="3"/>
+    <text class="label gold" x="30" y="38">EN EL ESPACIO SINÁPTICO</text>
+    <text class="body ink" x="30" y="92">Las enzimas terminan la señal.</text>
+    <text class="body ink" x="30" y="140">Ejemplo: la acetilcolina</text>
+    <text class="body ink" x="30" y="180">es degradada por la</text>
+    <text class="body ink" x="30" y="220">acetilcolinesterasa.</text>
+    <path class="line" d="M-35 108h-75"/>
+  </g>
+  <text class="small muted" x="80" y="846">Reproducción limpia de la pizarra del 17/08/2026 · misma organización, flechas y contraste entre excitación e inhibición.</text>
+</svg>

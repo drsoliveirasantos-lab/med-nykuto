@@ -1,15 +1,15 @@
 const { test, expect } = require('@playwright/test');
 
-const CURRENT_PRACTICE_LOADER = 'v364';
+const CURRENT_PRACTICE_LOADER = 'v462';
 const CURRENT_RUNTIME_GUARD = 'v362';
 const EXPECTED_TOTAL_MODULES = 59;
 
 const expectedCourses = {
-  fisiologia: { modules: 10, bankModules: 9, qcm: 1800, vf: 450, cases: 450 },
-  microbiologia: { modules: 13, qcm: 2600, vf: 650, cases: 650 },
-  genetica: { modules: 12, qcm: 2400, vf: 600, cases: 600 },
-  bioquimica: { modules: 12, qcm: 600, vf: 120, cases: 600 },
-  inmunologia: { modules: 12, qcm: 600, vf: 120, cases: 600 }
+  fisiologia: { modules: 10, qcm: 80, vf: 40, cases: 0, blockedCases: true, raw: { qcm: 1800, vf: 450, cases: 450 } },
+  microbiologia: { modules: 13, qcm: 104, vf: 52, cases: 0, blockedCases: true, raw: { qcm: 2600, vf: 650, cases: 650 } },
+  genetica: { modules: 12, qcm: 96, vf: 48, cases: 0, blockedCases: true, raw: { qcm: 2400, vf: 600, cases: 600 } },
+  bioquimica: { modules: 12, qcm: 95, vf: 48, cases: 0, blockedCases: true, raw: { qcm: 600, vf: 120, cases: 600 } },
+  inmunologia: { modules: 12, qcm: 95, vf: 48, cases: 0, blockedCases: true, raw: { qcm: 600, vf: 120, cases: 600 } }
 };
 
 test.describe('Med Nykuto restored data integrity', () => {
@@ -41,7 +41,7 @@ test.describe('Med Nykuto restored data integrity', () => {
   });
 
   for (const [courseId, expected] of Object.entries(expectedCourses)) {
-    test(`restored bank volume is healthy for ${courseId}`, async ({ page }) => {
+    test(`certified runtime bank is healthy for ${courseId}`, async ({ page }) => {
       await page.goto(`/qcm.html?course=${courseId}`);
       await page.waitForFunction((version) => window.__MED_NYKUTO_PRACTICE_LOADER__ === version, CURRENT_PRACTICE_LOADER, { timeout: 20000 });
       await page.waitForFunction((version) => window.__MED_NYKUTO_RUNTIME_GUARD__ === version, CURRENT_RUNTIME_GUARD);
@@ -57,17 +57,30 @@ test.describe('Med Nykuto restored data integrity', () => {
           cases: (bank.cases || []).length,
           representedModules: representedModules.size,
           sampleQcmOptions: (bank.qcm || [])[0]?.options?.length || 0,
+          certificationVersion: bank.certification?.version || '',
+          blockedFormats: bank.certification?.blockedFormats || [],
+          rawCounts: bank.certification?.rawCounts || {},
+          uncertifiedRuntimeItems: [...(bank.qcm || []), ...(bank.vf || []), ...(bank.cases || [])]
+            .filter((item) => item?.qualityStatus !== 'certified').length,
           loader: window.__MED_NYKUTO_PRACTICE_LOADER__ || '',
           healthOk: !!window.MED_NYKUTO_HEALTH?.ok
         };
       }, courseId);
       expect(data.loader).toBe(CURRENT_PRACTICE_LOADER);
       expect(data.healthOk).toBeTruthy();
+      expect(data.certificationVersion).toBe('v462-exact-course-source');
+      expect(data.uncertifiedRuntimeItems).toBe(0);
       expect(data.modules).toBe(expected.modules);
       expect(data.qcm).toBeGreaterThanOrEqual(expected.qcm);
       expect(data.vf).toBeGreaterThanOrEqual(expected.vf);
-      expect(data.cases).toBeGreaterThanOrEqual(expected.cases);
-      expect(data.representedModules).toBeGreaterThanOrEqual(expected.bankModules || expected.modules);
+      if (expected.blockedCases) {
+        expect(data.cases).toBe(0);
+        expect(data.blockedFormats).toContain('cases');
+      } else expect(data.cases).toBeGreaterThanOrEqual(expected.cases);
+      expect(data.rawCounts.qcm).toBeGreaterThanOrEqual(expected.raw.qcm);
+      expect(data.rawCounts.vf).toBeGreaterThanOrEqual(expected.raw.vf);
+      expect(data.rawCounts.cases).toBeGreaterThanOrEqual(expected.raw.cases);
+      expect(data.representedModules).toBe(expected.modules);
       expect(data.sampleQcmOptions).toBe(4);
     });
   }

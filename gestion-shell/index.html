@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07111f" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <title>Gestión de la clase | Med Nykuto</title>
+  <meta name="description" content="Gestión segura de tareas, avisos, grupos, materiales y fechas de una clase Med Nykuto." />
+  <link rel="icon" href="/assets/logo-medcursos-icon.png" />
+  <link rel="stylesheet" href="/gestion-v440.css?v=489" />
+  <link rel="stylesheet" href="/help-desk-v479.css?v=500" />
+</head>
+<body>
+  <a class="skip" href="#main">Ir al contenido</a>
+  <header class="manage-header"><a id="manageClassHome" href="/turma/s4-e" class="manage-brand"><img src="/assets/logo-medcursos-official.png" alt="" /><span><strong>Med Nykuto</strong><small id="manageClassLabel">Gestión · cargando clase</small></span></a><a id="manageBackLink" href="/turma/s4-e">Volver a la clase</a></header>
+  <main id="main">
+    <section class="auth-card" id="authCard">
+      <div><span>ACCESO DEL DELEGADO · <b id="authClassSlug">S4-E</b></span><h1>Gestionar mi clase</h1><p>Inicia sesión para añadir tareas, avisos, grupos, materiales y fechas de tu clase.</p></div>
+      <div id="authMethods">
+        <form id="credentialForm"><input type="hidden" name="action" value="auth.login" /><label><span>Correo electrónico <em class="required-mark">Obligatorio</em></span><input id="loginEmail" name="email" type="email" inputmode="email" autocomplete="username" autocapitalize="none" spellcheck="false" required /></label><div class="field-group"><label for="loginPassword">Contraseña <em class="required-mark">Obligatoria</em></label><span class="password-field"><input id="loginPassword" name="password" type="password" autocomplete="current-password" maxlength="128" required /><button class="password-toggle" type="button" data-password-toggle aria-controls="loginPassword" aria-pressed="false" aria-label="Mostrar contraseña" title="Mostrar contraseña"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg><span class="sr-only">Mostrar contraseña</span></button></span></div><button id="credentialSubmit" type="submit">Entrar como delegado</button><small class="field-help" id="multiDeviceLoginHelp">Puedes mantener sesiones independientes en tu teléfono y tablet. Inicia sesión con el mismo correo y contraseña en cada dispositivo.</small></form>
+        <details id="legacyTokenAccess"><summary>Otra forma de acceso</summary><p class="details-help">Solo úsala si el administrador te entregó un token.</p><form id="tokenForm"><div class="field-group"><label for="accessToken">Token de acceso <em class="required-mark">Obligatorio</em></label><span class="password-field"><input id="accessToken" type="password" autocomplete="off" required /><button class="password-toggle" type="button" data-password-toggle aria-controls="accessToken" aria-pressed="false" aria-label="Mostrar token" title="Mostrar token"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg><span class="sr-only">Mostrar token</span></button></span></div><button type="submit">Entrar con token</button></form></details>
+        <details id="inviteAccess"><summary>Crear mi cuenta con una invitación</summary><p class="details-help" id="inviteAccessHelp">Usa el enlace privado que te envió el administrador. La invitación funciona una sola vez.</p><form id="claimForm" autocomplete="off"><div class="field-group" id="inviteCodeField"><label for="inviteToken">Código de invitación <em class="required-mark">Obligatorio</em></label><span class="password-field"><input id="inviteToken" type="password" autocomplete="off" inputmode="text" pattern="[A-Fa-f0-9]{64}" minlength="64" maxlength="64" required /><button class="password-toggle" type="button" data-password-toggle aria-controls="inviteToken" aria-pressed="false" aria-label="Mostrar código de invitación" title="Mostrar código de invitación"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg><span class="sr-only">Mostrar código de invitación</span></button></span></div><label><span>Tu nombre <em class="required-mark">Obligatorio</em></span><input id="inviteName" name="name" autocomplete="name" maxlength="60" required /></label><label><span>Tu correo electrónico <em class="required-mark">Obligatorio</em></span><input id="inviteEmail" name="email" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" required /></label><div class="field-group"><label for="invitePassword">Crea tu contraseña <em class="required-mark">Obligatoria</em></label><span class="password-field"><input id="invitePassword" name="password" type="password" autocomplete="new-password" minlength="12" maxlength="128" required /><button class="password-toggle" type="button" data-password-toggle aria-controls="invitePassword" aria-pressed="false" aria-label="Mostrar contraseña" title="Mostrar contraseña"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg><span class="sr-only">Mostrar contraseña</span></button></span><small class="field-help">Usa al menos 12 caracteres y no solo números.</small></div><div class="field-group"><label for="inviteConfirmPassword">Repite la contraseña <em class="required-mark">Obligatorio</em></label><span class="password-field"><input id="inviteConfirmPassword" type="password" autocomplete="new-password" minlength="12" maxlength="128" required /><button class="password-toggle" type="button" data-password-toggle aria-controls="inviteConfirmPassword" aria-pressed="false" aria-label="Mostrar contraseña repetida" title="Mostrar contraseña repetida"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg><span class="sr-only">Mostrar contraseña repetida</span></button></span></div><button type="submit">Crear mi cuenta y entrar</button><small class="field-help">El acceso quedará limitado a esta clase. Podrás conectarte después con este correo y esta contraseña.</small></form></details>
+        <aside class="account-request" id="accountRequest"><span><b>¿Eres delegado y todavía no tienes cuenta?</b><small id="requestAccessHelp">Solicita un acceso para esta clase.</small></span><a id="requestAccessLink" href="mailto:contact@nykuto.com?subject=Solicitud%20de%20acceso%20Med%20Nykuto">Solicitar acceso</a></aside>
+      </div>
+      <section class="password-change" id="passwordChangeCard" hidden aria-labelledby="passwordChangeTitle"><h2 id="passwordChangeTitle">Crea tu contraseña personal</h2><p>Debe tener al menos 12 caracteres y no puede contener solo números.</p><form id="passwordChangeForm"><input type="hidden" name="action" value="auth.password.change" /><div class="field-group"><label for="newPassword">Nueva contraseña <em class="required-mark">Obligatoria</em></label><span class="password-field"><input id="newPassword" name="password" type="password" autocomplete="new-password" minlength="12" maxlength="128" required /><button class="password-toggle" type="button" data-password-toggle aria-controls="newPassword" aria-pressed="false" aria-label="Mostrar nueva contraseña" title="Mostrar nueva contraseña"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg><span class="sr-only">Mostrar nueva contraseña</span></button></span></div><div class="field-group"><label for="confirmPassword">Repetir la contraseña <em class="required-mark">Obligatorio</em></label><span class="password-field"><input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" minlength="12" maxlength="128" required /><button class="password-toggle" type="button" data-password-toggle aria-controls="confirmPassword" aria-pressed="false" aria-label="Mostrar contraseña repetida" title="Mostrar contraseña repetida"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg><span class="sr-only">Mostrar contraseña repetida</span></button></span></div><button type="submit">Guardar y abrir el panel</button></form></section>
+      <p class="auth-status" id="authStatus" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="manage-app" id="manageApp" hidden>
+      <header class="manage-intro"><div><span id="actorRole">DELEGADO</span><h1 id="manageClassTitle">Panel de la clase</h1><p id="actorName"></p></div><button id="logoutButton" type="button">Cerrar sesión</button></header>
+      <details class="permission-note"><summary>Lo que puedes gestionar</summary><span id="managementPermissionSummary">Tareas, avisos, grupos, archivos, calendario y tu WhatsApp. Los cursos y las preguntas solo aparecen en cuentas con autorización de contenido.</span></details>
+      <nav class="manage-tabs" aria-label="Áreas de gestión" role="tablist">
+        <button type="button" id="manageTabTasks" data-manage-tab="tasks" aria-controls="managePanelTasks" aria-selected="true" role="tab"><span class="tab-icon" aria-hidden="true">✓</span><span>Tareas</span></button><button type="button" id="manageTabAccess" data-manage-tab="access" aria-controls="managePanelAccess" aria-selected="false" role="tab" data-invite-admin-only hidden><span class="tab-icon" aria-hidden="true">⌁</span><span>Accesos</span></button><button type="button" id="manageTabNotices" data-manage-tab="notices" aria-controls="managePanelNotices" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">!</span><span>Avisos</span></button><button type="button" id="manageTabGroups" data-manage-tab="groups" aria-controls="managePanelGroups" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">👥</span><span>Grupos</span></button><button type="button" id="manageTabChallenge" data-manage-tab="challenge" aria-controls="managePanelChallenge" aria-selected="false" role="tab" data-challenge-review-only hidden><span class="tab-icon" aria-hidden="true">★</span><span>Desafío</span></button><button type="button" id="manageTabCalendar" data-manage-tab="calendar" aria-controls="managePanelCalendar" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">▦</span><span>Calendario</span></button><button type="button" id="manageTabFiles" data-manage-tab="files" aria-controls="managePanelFiles" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">↗</span><span>Archivos</span></button><button type="button" id="manageTabSubjects" data-manage-tab="subjects" aria-controls="managePanelSubjects" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">▤</span><span>Materias</span></button><button type="button" id="manageTabGrades" data-manage-tab="grades" aria-controls="managePanelGrades" aria-selected="false" role="tab" data-owner-only hidden><span class="tab-icon" aria-hidden="true">◎</span><span>Notas</span></button><button type="button" id="manageTabContent" data-manage-tab="content" aria-controls="managePanelContent" aria-selected="false" role="tab" data-content-admin-only hidden><span class="tab-icon" aria-hidden="true">✎</span><span>Contenido</span></button><button type="button" id="manageTabProfile" data-manage-tab="profile" aria-controls="managePanelProfile" aria-selected="false" role="tab"><span class="tab-icon" aria-hidden="true">●</span><span>Perfil</span></button><button type="button" id="manageTabClasses" data-manage-tab="classes" aria-controls="managePanelClasses" aria-selected="false" role="tab" data-owner-only><span class="tab-icon" aria-hidden="true">◇</span><span>Clases</span></button>
+      </nav>
+      <p class="manage-status" id="manageStatus" role="status"></p>
+      <datalist id="subjectOptions"></datalist>
+
+      <section class="manage-panel" id="managePanelTasks" data-manage-panel="tasks" role="tabpanel" aria-labelledby="manageTabTasks">
+        <header><span>TAREAS DE LA CLASE</span><h2>Crear o actualizar una tarea</h2><p>Completa lo esencial. Los campos marcados como opcionales pueden quedar vacíos.</p></header>
+        <form class="manage-form" id="taskForm"><input type="hidden" name="action" value="task.upsert" /><h3 class="form-title">Información para los estudiantes</h3><label><span>Materia <em class="required-mark">Obligatoria</em></span><input id="taskCourseInput" name="course" list="subjectOptions" placeholder="Ej.: Fisiología" required /></label><label class="wide"><span>Título de la tarea <em class="required-mark">Obligatorio</em></span><input name="title" placeholder="Ej.: Resolver el cuestionario 3" required maxlength="180" /></label><label class="wide"><span>¿Qué deben hacer? <em class="optional-mark">Opcional</em></span><textarea name="description" rows="3" placeholder="Escribe instrucciones claras, páginas, formato de entrega…"></textarea></label><label><span>Próxima clase de esta materia <em class="optional-mark">Opcional</em></span><select id="taskSuggestedDate" aria-describedby="taskSuggestedDateHelp"><option value="">Selecciona primero una materia</option></select><small class="field-help" id="taskSuggestedDateHelp">Elige una fecha sugerida o indica otra fecha abajo.</small></label><label><span>Fecha y hora de entrega <em class="optional-mark">Opcional</em></span><input id="taskDueAtInput" name="dueAt" type="datetime-local" /><small class="field-help">Es la fecha exacta que ordena la tarea.</small></label><label><span>Texto corto para la fecha <em class="optional-mark">Opcional</em></span><input name="dueLabel" placeholder="Ej.: Próximo jueves" /><small class="field-help">Aparece junto a la fecha para facilitar la lectura.</small></label><label class="wide"><span>Enlace de un PDF o archivo <em class="optional-mark">Opcional</em></span><input name="attachmentUrl" type="url" inputmode="url" placeholder="https://drive.google.com/…" /><small class="field-help">Pega un enlace de Drive, PDF o documento que los estudiantes puedan abrir.</small></label><label><span>Nombre del archivo <em class="optional-mark">Opcional</em></span><input name="attachmentTitle" maxlength="180" placeholder="Ej.: Guía de ejercicios" /></label><label><span>¿Quién puede verla? <em class="required-mark">Obligatorio</em></span><select id="taskStatusInput" name="status"><option value="draft">Borrador · solo administradores</option><option value="published">Publicado · visible para estudiantes</option><option value="archived">Archivado · oculto y conservado</option></select><small class="field-help status-help"><b>Borrador</b> permite terminarla después. <b>Publicado</b> la muestra. <b>Archivado</b> la oculta sin borrarla.</small></label><fieldset class="task-notice-link wide" id="taskNoticeLink"><legend>Comunicación de esta tarea <em class="optional-mark">Opcional</em></legend><label class="task-notice-switch" for="taskAddToNotices"><input id="taskAddToNotices" name="addToNotices" type="checkbox" aria-controls="taskNoticeOptions" aria-expanded="false" /><span><b>Añadir también a Avisos</b><small>Se crea un aviso enlazado. No tendrás que escribir la información otra vez.</small></span></label><div class="task-notice-options" id="taskNoticeOptions" hidden><label><span>Importancia</span><select name="noticePriority"><option value="normal">Normal · solo en Avisos</option><option value="important">Importante · también en Inicio</option><option value="urgent">Urgente · destacado</option></select></label><label class="check task-notice-push"><input name="noticePushMode" type="checkbox" /> <span>Enviar también una notificación</span></label></div><small class="task-notice-status" id="taskNoticeStatus" aria-live="polite">El aviso solo se creará si activas esta opción.</small></fieldset><details class="advanced-fields"><summary>Opciones técnicas (normalmente no tocar)</summary><label><span>Identificador técnico <em class="optional-mark">Opcional</em></span><input name="id" pattern="[a-z0-9._-]+" placeholder="Se genera automáticamente" /></label></details><button type="submit">Guardar tarea</button></form>
+        <h3 class="list-title">Tareas guardadas</h3>
+        <div class="manage-list" id="taskList"></div>
+      </section>
+
+      <section class="manage-panel" id="managePanelNotices" data-manage-panel="notices" role="tabpanel" aria-labelledby="manageTabNotices" hidden>
+        <header><span>INFORMAR A LOS ESTUDIANTES</span><h2>Publicar un aviso</h2><p>Escribe el título y publícalo. La materia, el mensaje y las demás opciones pueden quedar vacíos.</p></header>
+        <form class="manage-form notice-form" id="noticeForm">
+          <input type="hidden" name="action" value="notice.upsert" />
+          <input id="noticeAttachmentUploadId" type="hidden" name="attachmentUploadId" />
+          <input id="noticeAttachmentTitle" type="hidden" name="attachmentTitle" />
+          <input id="noticeAttachmentPiiWarning" type="hidden" name="attachmentPiiWarning" value="false" />
+          <input id="noticeStatusInput" type="hidden" name="status" value="draft" />
+          <h3 class="form-title">Aviso rápido</h3>
+          <label><span>Materia relacionada <em class="optional-mark">Opcional</em></span><input name="course" list="subjectOptions" placeholder="Ej.: Fisiología" /><small class="field-help">Déjala vacía si el aviso corresponde a toda la clase.</small></label>
+          <label><span>Importancia <em class="required-mark">Obligatoria</em></span><select name="priority"><option value="normal">Normal · aparece en avisos</option><option value="important">Importante · se destaca</option><option value="urgent">Urgente · se muestra como alerta</option></select></label>
+          <label class="wide"><span>Título <em class="required-mark">Obligatorio</em></span><input name="title" placeholder="Ej.: Cambio de aula" required maxlength="180" /></label>
+          <label class="wide"><span>Mensaje <em class="optional-mark">Opcional</em></span><textarea name="body" rows="3" maxlength="1200" placeholder="Explica qué cambió y qué deben saber."></textarea></label>
+
+          <fieldset class="notice-upload wide" id="noticeUploadField">
+            <legend>Foto o PDF del teléfono <em class="optional-mark">Opcional</em></legend>
+            <label class="notice-file-picker" for="noticeAttachmentFile"><span>Elegir de la galería o de los archivos</span><input id="noticeAttachmentFile" type="file" aria-describedby="noticeAttachmentHelp" accept=".pdf,.jpg,.jpeg,.png,.webp,.gif,.heic,.heif,.avif,application/pdf,image/jpeg,image/png,image/webp,image/gif,image/heic,image/heif,image/avif" /></label>
+            <small class="field-help" id="noticeAttachmentHelp">Una sola foto o un solo PDF, máximo 15 MB.</small>
+            <div class="notice-upload-preview" id="noticeAttachmentPreview" hidden aria-live="polite"></div>
+            <button class="notice-upload-remove" id="noticeAttachmentRemove" type="button" hidden>Quitar archivo</button>
+          </fieldset>
+
+          <section class="notice-ai-assistant wide" id="noticeAiAssistant" aria-labelledby="noticeAiTitle" hidden>
+            <div class="notice-ai-heading"><div><span>ASISTENTE DE LECTURA</span><h4 id="noticeAiTitle">Proponer el aviso desde la imagen o el PDF</h4></div><button id="noticeAnalyzeButton" type="button">Analizar con IA</button></div>
+            <p>La IA solo prepara una propuesta. No guarda ni publica nada y siempre debes comprobarla.</p>
+            <div class="notice-ai-result" id="noticeAiResult" hidden>
+              <p id="noticeAiStatus" role="status" aria-live="polite"></p>
+              <p class="notice-ai-confidence" id="noticeAiConfidence"></p>
+              <ul class="notice-ai-warnings" id="noticeAiWarnings"></ul>
+            </div>
+          </section>
+
+          <details class="notice-options wide" id="noticeAdvancedOptions">
+            <summary><span>Más opciones</span><small>Programar, elegir destinatarios, añadir una fuente o enlazar otra ficha</small></summary>
+            <div class="notice-options-body">
+              <h3 class="form-section-title wide">Clasificación y vigencia</h3>
+              <label><span>Categoría <em class="required-mark">Obligatoria</em></span><select name="category"><option value="general">General</option><option value="academic">Académico</option><option value="transport">Transporte</option><option value="schedule">Horario</option><option value="assessment">Evaluación</option><option value="task">Tarea</option><option value="resource">Recurso</option><option value="administrative">Institución</option><option value="emergency">Seguridad</option></select></label>
+              <label><span>Estado de la información <em class="required-mark">Obligatorio</em></span><select name="lifecycle"><option value="active">Activo</option><option value="scheduled">Programado</option><option value="updated">Actualizado</option><option value="extended">Prorrogado</option><option value="corrected">Corregido</option><option value="replaced">Reemplazado</option><option value="cancelled">Cancelado</option><option value="expired">Expirado</option></select></label>
+              <label><span>Destinatarios <em class="required-mark">Obligatorio</em></span><select name="audience"><option value="all">Toda la clase</option><option value="students">Estudiantes</option><option value="delegates">Delegados</option></select></label>
+              <label><span>Válido desde <em class="optional-mark">Opcional</em></span><input name="effectiveAt" type="datetime-local" /></label>
+              <label><span>Válido hasta <em class="optional-mark">Opcional</em></span><input name="expiresAt" type="datetime-local" /></label>
+              <label><span>Nombre de la fuente <em class="optional-mark">Opcional</em></span><input name="sourceLabel" maxlength="180" placeholder="Ej.: Coordinación académica" /></label>
+              <label class="wide"><span>Enlace de la fuente <em class="optional-mark">Opcional</em></span><input name="sourceUrl" type="url" inputmode="url" placeholder="https://…" /></label>
+              <label><span>Enlazar con <em class="optional-mark">Opcional</em></span><select id="noticeTargetType" name="targetType" aria-controls="noticeTargetId"><option value="none">Ningún elemento</option><option value="task">Una tarea</option><option value="file">Un archivo</option><option value="date">Una fecha</option><option value="subject">Una materia</option></select></label>
+              <label><span>Identificador del elemento <em class="optional-mark">Según el enlace</em></span><input id="noticeTargetId" name="targetId" list="noticeTargetOptions" pattern="[a-z0-9._-]+" placeholder="Selecciona primero un tipo" disabled /><small class="field-help" id="noticeTargetHelp">Déjalo en «Ningún elemento» si el aviso no abre otra ficha.</small></label>
+              <datalist id="noticeTargetOptions"></datalist>
+              <label class="wide"><span>Resumen del cambio <em class="optional-mark">Recomendado si corriges</em></span><textarea name="changeSummary" rows="2" maxlength="500" placeholder="Ej.: Se corrigió el horario; la versión anterior queda reemplazada."></textarea></label>
+              <label class="wide"><span>Enlace de una imagen ya publicada <em class="optional-mark">Alternativa</em></span><input name="imageUrl" type="url" inputmode="url" placeholder="https://…/imagen.jpg" /><small class="field-help">Si la imagen ya está en Internet, puedes pegar aquí su enlace HTTPS en vez de importarla.</small></label>
+              <label><span>Descripción de la imagen <em class="optional-mark">Opcional</em></span><input name="imageAlt" maxlength="180" placeholder="Ej.: Nuevo horario de Fisiología" /><small class="field-help">Describe brevemente la imagen para quien no pueda verla.</small></label>
+              <label class="check"><input type="checkbox" name="pushMode" /> <span>Enviar también una notificación <em class="optional-mark">Opcional</em></span></label>
+              <details class="advanced-fields notice-technical wide"><summary>Opciones técnicas (normalmente no tocar)</summary><label><span>Identificador técnico <em class="optional-mark">Opcional</em></span><input name="id" pattern="[a-z0-9._-]+" placeholder="Se genera automáticamente" /></label><label><span>Revisión esperada</span><input id="noticeExpectedRevision" name="expectedRevision" type="number" min="0" value="0" readonly /></label><label><span>Confianza del análisis IA</span><input id="noticeAnalysisConfidence" name="analysisConfidence" type="number" min="0" max="1" step="0.01" readonly placeholder="Sin análisis" /></label></details>
+            </div>
+          </details>
+
+          <label class="notice-human-review wide" for="noticeHumanReview" hidden><input id="noticeHumanReview" name="humanReview" type="checkbox" autocomplete="off" /><span><b>He revisado la propuesta de la IA, las fechas, el destino y la privacidad.</b><small>Esta confirmación adicional solo aparece cuando se usó el asistente. La IA nunca la marca por ti.</small></span></label>
+          <label class="notice-human-review notice-pii-review wide" id="noticePiiReview" for="noticePiiReviewConfirmed" hidden><input id="noticePiiReviewConfirmed" name="piiReviewConfirmed" type="checkbox" autocomplete="off" /><span><b>He comprobado también el archivo adjunto.</b><small>La IA detectó un posible dato personal. Confirma que el archivo público no contiene nombre, CI/RG, teléfono ni correo.</small></span></label>
+
+          <div class="notice-submit-actions wide">
+            <button id="noticePrimarySubmit" type="submit" data-notice-status="published">Publicar ahora</button>
+            <button class="notice-draft-submit" type="submit" data-notice-status="draft">Guardar borrador</button>
+          </div>
+        </form>
+        <h3 class="list-title">Avisos guardados</h3>
+        <div class="manage-list" id="noticeList"></div>
+      </section>
+
+      <section class="manage-panel" id="managePanelGroups" data-manage-panel="groups" role="tabpanel" aria-labelledby="manageTabGroups" hidden>
+        <header><span>ORGANIZAR EQUIPOS</span><h2>Grupos de una actividad</h2><p>Crea primero la actividad y después sus grupos. Los nombres de los estudiantes aparecerán dentro de cada grupo.</p></header>
+        <ol class="workflow-steps" aria-label="Pasos para organizar grupos"><li><b>1. Crea la actividad</b><span>Ej.: Seminario de Epidemiología.</span></li><li><b>2. Crea sus grupos</b><span>Indica nombre y capacidad.</span></li><li><b>3. Revisa los integrantes</b><span>Puedes mover o quitar nombres en la lista.</span></li></ol>
+        <div class="manage-columns"><form class="manage-form" id="activityForm"><input type="hidden" name="action" value="activity.upsert" /><h3>1. Nueva actividad</h3><label><span>Materia relacionada <em class="optional-mark">Opcional</em></span><input name="course" list="subjectOptions" placeholder="Ej.: Epidemiología" /><small class="field-help">Déjala vacía si participan varias materias.</small></label><label><span>Nombre de la actividad <em class="required-mark">Obligatorio</em></span><input name="title" placeholder="Ej.: Seminario de Epidemiología" required /></label><label><span>Máximo de estudiantes por grupo <em class="optional-mark">Opcional</em></span><input name="capacity" type="number" min="1" max="50" value="10" /></label><label><span>Fecha límite para elegir grupo <em class="optional-mark">Opcional</em></span><input name="closesAt" type="datetime-local" /></label><label><span>¿Quién puede verla? <em class="required-mark">Obligatorio</em></span><select name="status"><option value="draft">Borrador · solo administradores</option><option value="published">Publicado · visible para estudiantes</option><option value="archived">Archivado · oculto y conservado</option></select><small class="field-help status-help"><b>Publicado</b> permite a los estudiantes encontrar la actividad. <b>Archivado</b> conserva sus grupos y nombres.</small></label><details class="advanced-fields"><summary>Opciones técnicas (normalmente no tocar)</summary><label><span>Identificador técnico <em class="optional-mark">Opcional</em></span><input name="id" pattern="[a-z0-9._-]+" placeholder="Se genera automáticamente" /></label></details><button type="submit">Guardar actividad</button></form><form class="manage-form" id="groupForm"><input type="hidden" name="action" value="group.upsert" /><input type="hidden" name="id" /><h3>2. Nuevo grupo</h3><label><span>Actividad <em class="required-mark">Obligatoria</em></span><select id="groupActivitySelect" name="activityId" required><option value="">Selecciona una actividad</option></select></label><label><span>Nombre del grupo <em class="required-mark">Obligatorio</em></span><input name="name" placeholder="Ej.: Grupo 7" required /></label><label><span>Máximo de estudiantes <em class="optional-mark">Opcional</em></span><input name="capacity" type="number" min="1" max="50" value="10" /></label><button type="submit">Crear grupo</button></form></div>
+        <p class="action-help"><b>Herramientas de cada actividad:</b> en su tarjeta puedes cerrar los cambios, copiar o enviar su lista y descargarla en PDF. Cada acción incluye únicamente esa actividad.</p>
+        <h3 class="list-title">Actividades, grupos e integrantes</h3>
+        <div class="manage-list" id="groupList"></div>
+      </section>
+
+      <section class="manage-panel challenge-review-panel" id="managePanelChallenge" data-manage-panel="challenge" role="tabpanel" aria-labelledby="manageTabChallenge" data-challenge-review-only hidden>
+        <header><span>CLASIFICACIÓN DEL DESAFÍO</span><h2>Validar candidaturas provisionales</h2><p>Comprueba que el nombre y la catraca pública pertenecen a la persona antes de validar su clasificación o rechazarla.</p></header>
+        <div class="challenge-review-summary" aria-live="polite"><p><b id="challengeReviewPendingCount">0 pendientes</b><span id="challengeReviewWeek">Semana actual</span></p><p class="challenge-review-privacy">Solo se muestran los datos que la persona aceptó publicar y sus resultados agregados. Nunca se muestran tokens, hashes ni identificadores internos.</p></div>
+        <div class="manage-list challenge-review-list" id="challengeReviewList"></div>
+      </section>
+
+      <section class="manage-panel" id="managePanelCalendar" data-manage-panel="calendar" role="tabpanel" aria-labelledby="manageTabCalendar" hidden>
+        <header><span>CALENDARIO DE LA CLASE</span><h2>Añadir o modificar una fecha</h2><p>Registra una clase, examen, presentación o entrega. El calendario está separado de los archivos para encontrar todo más rápido.</p></header>
+        <form class="manage-form single-form" id="dateForm"><input type="hidden" name="action" value="date.upsert" /><h3 class="form-title">Información de la fecha</h3><label><span>Materia relacionada <em class="optional-mark">Opcional</em></span><input name="course" list="subjectOptions" placeholder="Ej.: Fisiología" /><small class="field-help">Déjala vacía si la fecha corresponde a toda la clase.</small></label><label class="wide"><span>Nombre de la fecha <em class="required-mark">Obligatorio</em></span><input name="label" placeholder="Ej.: Examen de Fisiología" required /></label><label><span>Día y hora <em class="required-mark">Obligatorio</em></span><input name="startsAt" type="datetime-local" required /></label><label><span>¿Quién puede verla? <em class="required-mark">Obligatorio</em></span><select name="status"><option value="draft">Borrador · solo administradores</option><option value="published">Publicado · visible para estudiantes</option><option value="archived">Archivado · oculto y conservado</option></select><small class="field-help status-help"><b>Publicado</b> añade la fecha al calendario de los estudiantes.</small></label><details class="advanced-fields"><summary>Opciones técnicas (normalmente no tocar)</summary><label><span>Identificador técnico <em class="optional-mark">Opcional</em></span><input name="id" pattern="[a-z0-9._-]+" placeholder="Se genera automáticamente" /></label></details><button type="submit">Guardar fecha</button></form>
+        <h3 class="list-title">Fechas guardadas</h3>
+        <div class="manage-list" id="dateList"></div>
+      </section>
+
+      <section class="manage-panel" id="managePanelFiles" data-manage-panel="files" role="tabpanel" aria-labelledby="manageTabFiles" hidden>
+        <header><span>ARCHIVO DE LA CLASE</span><h2>Compartir o modificar un archivo</h2><p>Añade aquí los PDF, diapositivas y documentos. Las fechas se gestionan en la pestaña Calendario.</p></header>
+        <form class="manage-form single-form" id="fileForm"><input type="hidden" name="action" value="file.upsert" /><h3 class="form-title">Información del archivo</h3><p class="form-help">Sube primero el PDF o documento a Drive y pega aquí un enlace que los estudiantes puedan abrir.</p><label><span>Materia <em class="required-mark">Obligatoria</em></span><input name="course" list="subjectOptions" placeholder="Ej.: Fisiología" required /></label><label><span>Fecha de la clase <em class="optional-mark">Opcional</em></span><input name="lessonDate" type="date" /></label><label class="wide"><span>Nombre del archivo <em class="required-mark">Obligatorio</em></span><input name="title" placeholder="Ej.: Diapositivas de la clase 4" required /></label><label class="wide"><span>Enlace del PDF o documento <em class="required-mark">Obligatorio</em></span><input name="url" type="url" inputmode="url" placeholder="https://drive.google.com/…" required /></label><label><span>Tipo de archivo <em class="optional-mark">Opcional</em></span><input name="fileType" placeholder="Ej.: PDF, DOCX o enlace" /></label><label><span>¿Quién puede verlo? <em class="required-mark">Obligatorio</em></span><select name="status"><option value="draft">Borrador · solo administradores</option><option value="published">Publicado · visible para estudiantes</option><option value="archived">Archivado · oculto y conservado</option></select><small class="field-help status-help"><b>Borrador</b> permite revisar el enlace. <b>Publicado</b> lo muestra. <b>Archivado</b> lo oculta.</small></label><details class="advanced-fields"><summary>Opciones técnicas (normalmente no tocar)</summary><label><span>Identificador técnico <em class="optional-mark">Opcional</em></span><input name="id" pattern="[a-z0-9._-]+" placeholder="Se genera automáticamente" /></label></details><button type="submit">Guardar archivo</button></form>
+        <h3 class="list-title">Archivos guardados</h3>
+        <div class="manage-list" id="fileList"></div>
+      </section>
+
+      <section class="manage-panel" id="managePanelSubjects" data-manage-panel="subjects" role="tabpanel" aria-labelledby="manageTabSubjects" hidden>
+        <header><span>VISTA POR MATERIA</span><h2>Todo lo publicado, sin tocar los cursos</h2><p>Abre una materia para ver sus tareas, actividades, avisos, archivos y fechas. Cada elemento se puede modificar desde aquí con el mismo formulario seguro.</p></header>
+        <p class="subject-scope-note"><b>Importante:</b> este panel organiza la vida de la clase. No permite editar cursos, módulos ni preguntas.</p>
+        <div class="subject-cockpit" id="subjectCockpit"></div>
+      </section>
+
+      <section class="manage-panel grade-panel" id="managePanelGrades" data-manage-panel="grades" role="tabpanel" aria-labelledby="manageTabGrades" hidden>
+        <header><span>SOLO PROPIETARIO · DATOS ACADÉMICOS</span><h2>Notas y gabaritos públicos</h2><p>Guarda primero un borrador, revisa el resumen anonimizado y publica después con una confirmación de privacidad.</p></header>
+        <aside class="grade-privacy-warning" aria-labelledby="gradePrivacyTitle">
+          <strong id="gradePrivacyTitle">Prohibido importar datos personales</strong>
+          <p>Solo se admiten dos columnas: <b>catraca o matrícula</b> y <b>nota o Ausente</b>. Nunca pegues nombres, CPF, CI/RG, teléfono, WhatsApp, correo o email. El servidor vuelve a validar todo antes de guardar.</p>
+        </aside>
+        <div class="grade-toolbar"><button id="gradeNewButton" type="button">Nueva evaluación</button><p id="gradeEditorMode">Nuevo borrador</p></div>
+        <form class="grade-editor" id="gradeReleaseForm" autocomplete="off" novalidate>
+          <input type="hidden" name="action" value="grade.release.upsert" />
+          <input id="gradeReleaseId" type="hidden" name="id" />
+          <input id="gradeExpectedRevision" type="hidden" name="expectedRevision" value="0" />
+          <div class="grade-meta-grid">
+            <label><span>Materia <em class="required-mark">Obligatoria</em></span><select id="gradeSubjectId" name="subjectId" required><option value="">Selecciona una materia</option></select></label>
+            <label><span>Escala / nota máxima <em class="required-mark">Obligatoria</em></span><input id="gradeMaxGrade" name="maxGrade" type="number" inputmode="decimal" min="0.01" max="1000" step="0.01" placeholder="10" required /></label>
+            <label class="wide"><span>Título público <em class="required-mark">Obligatorio</em></span><input id="gradeTitle" name="title" maxlength="180" placeholder="Ej.: Primer parcial" required /></label>
+            <label class="wide"><span>Evaluación <em class="required-mark">Obligatoria</em></span><input id="gradeEvaluation" name="evaluation" maxlength="120" placeholder="Ej.: Parcial 1 · Teoría" required /></label>
+          </div>
+          <div class="grade-import-grid">
+            <label><span>Resultados <em class="required-mark">Obligatorios</em></span><textarea id="gradeRowsInput" rows="12" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="gradeRowsHelp gradeImportStatus" placeholder="00001234,8.5&#10;00005678,Ausente" required></textarea><small class="field-help" id="gradeRowsHelp">Una fila por estudiante: <code>catraca,nota</code> o <code>catraca,Ausente</code>. Usa punto para los decimales. Se permite una primera fila <code>catraca,nota</code>.</small></label>
+            <label><span>Gabarito estructurado <em class="optional-mark">Opcional</em></span><textarea id="gradeAnswerKeyInput" rows="12" spellcheck="false" autocapitalize="characters" autocomplete="off" aria-describedby="gradeAnswerKeyHelp gradeImportStatus" placeholder="1,A&#10;2,C&#10;3,Verdadero"></textarea><small class="field-help" id="gradeAnswerKeyHelp">Una respuesta por línea: <code>número,respuesta</code>. Se admiten A–Z, Verdadero o Falso.</small></label>
+          </div>
+          <p id="gradeImportStatus" class="grade-import-status" role="status" aria-live="polite" aria-atomic="true">Pega los resultados para comprobarlos.</p>
+          <section class="grade-preview" aria-labelledby="gradePreviewTitle">
+            <div><span>VISTA PREVIA ANONIMIZADA</span><h3 id="gradePreviewTitle">Filas que se enviarán</h3></div>
+            <div id="gradePreview"></div>
+          </section>
+          <button type="submit">Guardar borrador</button>
+        </form>
+        <h3 class="list-title">Evaluaciones guardadas</h3>
+        <div class="manage-list grade-release-list" id="gradeReleaseList"></div>
+      </section>
+
+      <section class="manage-panel content-panel" id="managePanelContent" data-manage-panel="content" role="tabpanel" aria-labelledby="manageTabContent" data-content-admin-only hidden>
+        <header><span>GESTIÓN DE CONTENIDO</span><h2>Añadir un curso y su entrenamiento</h2><p>Pega cada parte preparada, comprueba las 40 preguntas y guarda primero un borrador antes de publicar.</p></header>
+        <div class="content-toolbar"><button id="lessonNewButton" type="button">Nuevo curso</button><p id="lessonEditorMode">Nuevo contenido</p></div>
+        <form class="content-editor" id="lessonForm" autocomplete="off">
+          <input type="hidden" name="action" value="lesson.upsert" />
+          <input id="lessonId" type="hidden" name="id" />
+          <input id="lessonExpectedRevision" type="hidden" name="expectedRevision" />
+          <div class="content-meta-grid">
+            <label><span>Materia <em class="required-mark">Obligatoria</em></span><select id="lessonSubjectId" name="subjectId" required><option value="">Selecciona una materia</option></select></label>
+            <label><span>Fecha de la clase <em class="optional-mark">Para publicar</em></span><input id="lessonDate" name="lessonDate" type="date" /></label>
+            <label class="wide"><span>Título del curso <em class="required-mark">Obligatorio</em></span><input id="lessonTitle" name="title" maxlength="180" placeholder="Ej.: Sensibilidades somáticas" required /></label>
+            <label class="wide"><span>Descripción corta <em class="optional-mark">Opcional</em></span><textarea id="lessonDescription" name="description" rows="3" maxlength="500" placeholder="Resume en una o dos frases qué aprenderá el estudiante."></textarea></label>
+          </div>
+
+          <div class="content-sections" aria-label="Partes del curso">
+            <details class="content-section" open><summary><span>1</span><b>Curso completo</b><small>Markdown o texto · obligatorio al publicar.</small></summary><label for="lessonFullMarkdown" class="sr-only">Curso completo</label><textarea id="lessonFullMarkdown" name="fullMarkdown" rows="16" spellcheck="true" placeholder="# Título&#10;&#10;Contenido completo del curso…"></textarea></details>
+            <details class="content-section"><summary><span>2</span><b>Ficha rápida</b><small>Obligatoria al publicar.</small></summary><label for="lessonQuickMarkdown" class="sr-only">Ficha rápida</label><textarea id="lessonQuickMarkdown" name="quickMarkdown" rows="10" spellcheck="true" placeholder="## Puntos esenciales&#10;&#10;- …"></textarea></details>
+            <details class="content-section"><summary><span>3</span><b>Ficha ultra rápida</b><small>Obligatoria al publicar.</small></summary><label for="lessonUltraMarkdown" class="sr-only">Ficha ultra rápida</label><textarea id="lessonUltraMarkdown" name="ultraMarkdown" rows="7" spellcheck="true" placeholder="- Idea clave 1&#10;- Idea clave 2"></textarea></details>
+          </div>
+
+          <section class="practice-editor" aria-labelledby="practiceEditorTitle">
+            <header><div><span>4</span><div><h3 id="practiceEditorTitle">Entrenamiento en JSON</h3><p>Pega un objeto JSON válido. Se aceptan las claves <code>trueFalse</code>/<code>vf</code> y <code>clinicalCases</code>/<code>cases</code>.</p></div></div></header>
+            <label for="lessonPracticeJson" class="sr-only">Entrenamiento JSON</label>
+            <textarea id="lessonPracticeJson" name="practiceJson" rows="20" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="practiceJsonStatus practiceCounts" placeholder='{"practice":{"qcm":[],"trueFalse":[],"clinicalCases":[]}}' required></textarea>
+            <div class="practice-counts" id="practiceCounts" aria-label="Conteo de preguntas">
+              <span class="practice-count" data-practice-count="qcm"><b id="practiceQcmCount">0</b>/20 QCM</span>
+              <span class="practice-count" data-practice-count="trueFalse"><b id="practiceTrueFalseCount">0</b>/10 V/F</span>
+              <span class="practice-count" data-practice-count="clinicalCases"><b id="practiceClinicalCount">0</b>/10 casos clínicos</span>
+            </div>
+            <p class="practice-json-status" id="practiceJsonStatus" role="status" aria-live="polite">Pega el JSON para comprobarlo.</p>
+          </section>
+
+          <details class="content-prompt">
+            <summary>Prompt listo para ChatGPT</summary>
+            <p>Cópialo, añade el contenido fuente y pega aquí únicamente el JSON resultante.</p>
+            <button id="copyContentPrompt" type="button">Copiar prompt y plantilla</button>
+            <pre id="contentPromptTemplate">A partir únicamente del curso fuente que añadiré después de este mensaje, crea un entrenamiento en español médico claro. Devuelve SOLO JSON válido, sin comentarios ni bloques de código. Debe contener exactamente 20 QCM, 10 verdadero/falso y 10 casos clínicos. Conserva un id único y estable para cada pregunta.
+
+Usa esta estructura:
+{
+  "practice": {
+    "qcm": [{"id":"qcm-01","question":"…","options":["…","…","…","…"],"answerIndex":0,"explanation":"…"}],
+    "trueFalse": [{"id":"vf-01","question":"…","options":["Verdadero","Falso"],"answerIndex":0,"explanation":"…"}],
+    "clinicalCases": [{"id":"caso-01","stem":"Situación clínica realista de 2–3 frases.","question":"…","options":["…","…","…","…"],"answerIndex":0,"explanation":"…"}]
+  }
+}
+
+No inventes información ajena a la fuente. Distribuye las respuestas correctas y evita preguntas repetidas.</pre>
+          </details>
+
+          <div class="content-actions">
+            <button id="lessonPreviewButton" class="content-preview-action" type="button">Vista previa</button>
+            <button class="content-draft-action" type="submit" data-lesson-status="draft">Guardar borrador</button>
+            <button class="content-publish-action" type="submit" data-lesson-status="published">Publicar</button>
+          </div>
+        </form>
+
+        <section class="content-preview" id="lessonPreview" tabindex="-1" hidden aria-labelledby="lessonPreviewTitle">
+          <header><div><span>VISTA PREVIA SEGURA</span><h3 id="lessonPreviewTitle">Curso</h3><p id="lessonPreviewMeta"></p></div><button id="lessonPreviewClose" type="button">Cerrar vista previa</button></header>
+          <p id="lessonPreviewDescription"></p>
+          <div class="content-preview-grid">
+            <article><h4>Curso completo</h4><pre id="lessonPreviewFull"></pre></article>
+            <article><h4>Ficha rápida</h4><pre id="lessonPreviewQuick"></pre></article>
+            <article><h4>Ficha ultra rápida</h4><pre id="lessonPreviewUltra"></pre></article>
+          </div>
+          <details><summary id="lessonPreviewPracticeSummary">Entrenamiento</summary><pre id="lessonPreviewPractice"></pre></details>
+        </section>
+
+        <h3 class="list-title">Cursos guardados</h3>
+        <div class="manage-list content-lesson-list" id="lessonList"></div>
+      </section>
+
+      <section class="manage-panel" id="managePanelProfile" data-manage-panel="profile" role="tabpanel" aria-labelledby="manageTabProfile" hidden>
+        <header><span>TUS DATOS</span><h2>Mi perfil de delegado</h2><p>Tu nombre y correo identifican la cuenta. Añade tu WhatsApp para enviarte las listas de grupos con un toque.</p></header>
+        <form class="manage-form profile-form" id="profileForm"><input type="hidden" name="action" value="profile.upsert" /><label><span>Nombre</span><input name="name" autocomplete="name" readonly aria-readonly="true" /></label><label><span>Correo de conexión</span><input name="email" type="email" autocomplete="email" readonly aria-readonly="true" /></label><label class="wide"><span>Mi número de WhatsApp <em class="optional-mark">Opcional</em></span><input id="profileWhatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" maxlength="32" placeholder="+595 981 234 567" aria-describedby="profileWhatsappHelp" /><small class="field-help" id="profileWhatsappHelp">Incluye el código del país. Puedes usar espacios, guiones o empezar por 00; lo guardaremos en formato internacional. Solo se usa para tus propios envíos.</small></label><button type="submit">Guardar mi WhatsApp</button></form>
+        <p class="profile-status" id="profileStatus" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="manage-panel" id="managePanelClasses" data-manage-panel="classes" role="tabpanel" aria-labelledby="manageTabClasses" hidden data-owner-only>
+        <header><span>SOLO PROPIETARIO</span><h2>Clases y materias</h2><p>Crea un espacio para una nueva clase y configura sus materias.</p></header>
+        <p class="permission-note"><strong>Nueva clase independiente</strong><span>Ningún dato se copia automáticamente desde otra clase.</span></p>
+        <div class="manage-columns manage-action-grid">
+          <details class="manage-action-disclosure"><summary>Crear o modificar una clase</summary><form class="manage-form" id="classForm"><input type="hidden" name="action" value="class.upsert" /><input type="hidden" name="id" /><h3 id="classFormTitle">Nueva clase</h3><label><span>Dirección corta <em class="required-mark">Obligatoria</em></span><input name="slug" pattern="[a-z0-9-]+" maxlength="31" placeholder="s5-a" required /><small class="field-help">Ej.: s5-a. No se puede repetir.</small></label><label><span>Nombre <em class="required-mark">Obligatorio</em></span><input name="name" placeholder="5.º semestre · Grupo A" required /></label><label><span>Semestre <em class="required-mark">Obligatorio</em></span><input name="semester" type="number" min="1" max="20" required /></label><label><span>Grupo <em class="optional-mark">Opcional</em></span><input name="group" maxlength="20" placeholder="A" /></label><label><span>Tema visual <em class="optional-mark">Opcional</em></span><input name="theme" value="midnight-gold" /></label><label><span>Enlace de Drive <em class="optional-mark">Opcional</em></span><input name="driveUrl" type="url" placeholder="https://drive.google.com/..." /></label><label><span>WhatsApp para solicitar acceso <em class="optional-mark">Opcional</em></span><input name="supportWhatsapp" type="tel" inputmode="tel" maxlength="32" placeholder="+595 981 234 567" /><small class="field-help">Se aceptan espacios, guiones y prefijo 00. Si queda vacío, la solicitud se enviará a contact@nykuto.com.</small></label><label><span>Estado <em class="required-mark">Obligatorio</em></span><select name="status"><option value="active">Activa · disponible</option><option value="archived">Archivada · oculta</option></select></label><button type="submit">Crear la clase</button></form></details>
+          <details class="manage-action-disclosure"><summary>Añadir o modificar una materia</summary><form class="manage-form" id="subjectForm"><input type="hidden" name="action" value="subject.upsert" /><h3>Materia de esta clase</h3><label><span>Identificador técnico <em class="required-mark">Obligatorio</em></span><input name="id" pattern="[a-z0-9._-]+" placeholder="fisiologia-3" required /></label><label><span>Nombre <em class="required-mark">Obligatorio</em></span><input name="name" placeholder="Fisiología III" required /></label><label><span>Posición en la lista <em class="optional-mark">Opcional</em></span><input name="order" type="number" min="0" max="1000" value="1" /></label><label><span>Estado <em class="required-mark">Obligatorio</em></span><select name="status"><option value="active">Activa · visible</option><option value="archived">Archivada · oculta</option></select></label><button type="submit">Guardar materia</button><small>La materia se añade a <b id="subjectClassLabel">S4-E</b>.</small></form></details>
+        </div>
+        <div class="invite-output" id="classOutput" hidden></div>
+        <h3>Espacios registrados</h3><div class="manage-list" id="classList"></div>
+        <h3>Materias de esta clase</h3><div class="manage-list" id="subjectListAdmin"></div>
+      </section>
+
+      <section class="manage-panel" id="managePanelAccess" data-manage-panel="access" role="tabpanel" aria-labelledby="manageTabAccess" hidden data-invite-admin-only>
+        <header><span>INVITACIONES SEGURAS</span><h2>Accesos de los delegados</h2><p>Crea un enlace privado, comprueba su estado o revócalo antes de que sea utilizado.</p></header>
+        <div class="access-overview" aria-label="Resumen de accesos"><article><strong id="activeInviteCount">0</strong><span>invitaciones activas</span></article><article data-owner-only><strong id="activeEditorCount">0</strong><span>editores activos</span></article><article data-owner-only><strong id="auditEventCount">0</strong><span>cambios registrados</span></article></div>
+        <div class="owner-account-tools" data-owner-only><details class="manage-action-disclosure"><summary>Crear una cuenta de delegado</summary><form class="manage-form" id="delegateAccountForm" autocomplete="off"><input type="hidden" name="action" value="editor.account.create" /><h3 class="form-title">Crear una cuenta de delegado</h3><label><span>Nombre del delegado <em class="required-mark">Obligatorio</em></span><input name="name" maxlength="60" required /></label><label><span>Correo para conectarse <em class="required-mark">Obligatorio</em></span><input name="email" type="email" autocomplete="off" autocapitalize="none" spellcheck="false" required /></label><div class="field-group"><label for="delegateTemporaryPassword">Contraseña temporal <em class="required-mark">Obligatoria</em></label><span class="password-field"><input id="delegateTemporaryPassword" name="temporaryPassword" type="password" autocomplete="new-password" minlength="6" maxlength="128" required /><button class="password-toggle" type="button" data-password-toggle aria-controls="delegateTemporaryPassword" aria-pressed="false" aria-label="Mostrar contraseña temporal" title="Mostrar contraseña temporal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg><span class="sr-only">Mostrar contraseña temporal</span></button></span><small class="field-help">La persona deberá cambiarla en su primera conexión.</small></div><label><span>Horas antes de que expire <em class="optional-mark">Opcional</em></span><input name="hours" type="number" min="1" max="24" value="24" /></label><button type="submit">Crear cuenta de delegado</button></form></details><div class="invite-output" id="accountOutput" role="status" aria-live="polite" hidden></div></div>
+        <details class="manage-action-disclosure"><summary>Crear un enlace de invitación</summary><form class="manage-form compact" id="inviteForm"><input type="hidden" name="action" value="invite.create" /><label><span>Nombre de la invitación <em class="optional-mark">Opcional</em></span><input id="inviteLabel" name="label" value="Editor S4-E" /></label><label><span>Horas antes de que expire <em class="optional-mark">Opcional</em></span><input name="hours" type="number" min="1" max="168" value="168" /></label><button type="submit">Crear enlace de invitación</button></form></details>
+        <div class="invite-output" id="inviteOutput" role="status" aria-live="polite" hidden></div>
+        <h3>Invitaciones recientes</h3><div class="manage-list" id="inviteList"></div>
+        <h3 data-owner-only>Editores</h3>
+        <div class="manage-list" id="editorList" data-owner-only></div>
+        <div class="audit-heading" data-owner-only><div><h3>Actividad reciente</h3><small>Últimos movimientos administrativos de la clase.</small></div><button type="button" id="auditToggle" aria-controls="auditList" aria-expanded="false" hidden>Ver todo</button></div><div class="manage-list audit-list" id="auditList" data-owner-only></div>
+      </section>
+    </section>
+  </main>
+  <footer><span>Med Nykuto · Gestión académica</span><span>Los nombres de grupos son visibles únicamente para los administradores autorizados.</span></footer>
+  <script src="/gestion-v440.js?v=492"></script>
+  <script src="/help-desk-v479.js?v=481"></script>
+</body>
+</html>

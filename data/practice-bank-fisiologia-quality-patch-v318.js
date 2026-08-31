@@ -216,22 +216,22 @@
       R("Pérdida de la ley del todo o nada.","La amplitud constante conserva la lógica todo o nada."),
       R("Conversión de potenciales de acción en potenciales graduados.","El aumento de frecuencia no convierte PA en graduados." )],3,"La respuesta correcta es D. La intensidad suprumbral suele representarse con mayor frecuencia de descarga, no con grandes cambios de amplitud de cada potencial.",["Más intensidad = más frecuencia.","PA individual = amplitud estable.","Refractario limita frecuencia máxima."],"Codificación por frecuencia clínica","caso_codificacion_frecuencia","clinical_application","reasoning","hard"),
 
-    item("Diferencial de mecanismo","Examen","¿Cuál opción contiene una relación causa → efecto correcta?","Bloqueo de Na⁺ voltaje-dependiente → disminución de la fase ascendente.",[
+    item("Diferencial de mecanismo","Examen","¿Qué cambio del potencial de acción produce el bloqueo de canales de Na⁺ dependientes de voltaje?","Bloqueo de Na⁺ voltaje-dependiente → disminución de la fase ascendente.",[
       R("Bloqueo de Ca²⁺ presináptico → aumento de exocitosis.","Bloquear Ca²⁺ reduce exocitosis."),
       R("Apertura prolongada de K⁺ → despolarización rápida.","K⁺ prolongado favorece repolarización/hiperpolarización."),
       R("Entrada de Cl⁻ → fase ascendente positiva clásica.","Cl⁻ suele estabilizar o inhibir, no generar la fase ascendente neuronal clásica." )],0,"La respuesta correcta es A. La fase ascendente rápida depende de canales de Na⁺; bloquearlos reduce o impide esa fase.",["Na⁺ bloqueado = menos upstroke.","Ca²⁺ bloqueado = menos liberación.","K⁺ abierto = más negatividad."],"Causa-efecto neurofisiológico","causa_efecto_canales","exam_trap","reasoning","hard"),
 
-    item("Diferencial de mecanismo","Examen","¿Cuál opción contiene una relación causa → efecto correcta?","Entrada de Ca²⁺ presináptico → fusión vesicular y liberación de neurotransmisor.",[
+    item("Diferencial de mecanismo","Examen","¿Qué consecuencia inmediata tiene la entrada de Ca²⁺ en una terminal presináptica?","Entrada de Ca²⁺ presináptico → fusión vesicular y liberación de neurotransmisor.",[
       R("Entrada de Na⁺ axonal → fusión vesicular directa.","Na⁺ conduce la espiga, pero la fusión vesicular depende de Ca²⁺."),
       R("Salida de K⁺ → apertura directa de receptores postsinápticos.","La salida de K⁺ repolariza; no abre directamente receptores postsinápticos."),
       R("Mielina → síntesis de neurotransmisor en la hendidura.","La mielina aísla axones y no sintetiza neurotransmisor en la hendidura." )],1,"La respuesta correcta es B. La entrada de Ca²⁺ en la terminal presináptica es el paso clave para la exocitosis de vesículas sinápticas.",["Ca²⁺ = exocitosis.","Na⁺ = conducción.","Mielina = aislamiento."],"Causa-efecto sináptico","causa_efecto_ca_sinapsis","exam_trap","reasoning","hard"),
 
-    item("Diferencial de mecanismo","Examen","¿Cuál opción contiene una relación causa → efecto correcta?","Desmielinización → mayor fuga de corriente y conducción más lenta o insegura.",[
+    item("Diferencial de mecanismo","Examen","¿Cómo altera la desmielinización la propagación del impulso nervioso?","Desmielinización → mayor fuga de corriente y conducción más lenta o insegura.",[
       R("Desmielinización → mayor aislamiento y conducción más rápida.","La desmielinización reduce aislamiento."),
       R("Mielina intacta → desaparición de canales de Na⁺ nodales.","La conducción saltatoria requiere canales de Na⁺ en nodos."),
       R("Nodo de Ranvier → liberación obligatoria de neurotransmisor.","El nodo regenera potencial de acción; no es terminal sináptica." )],2,"La respuesta correcta es C. La mielina permite propagación rápida con poca fuga; perderla compromete la llegada efectiva de corriente al nodo siguiente.",["Mielina aísla.","Desmielinización = fuga.","Nodo regenera PA."],"Causa-efecto mielina","causa_efecto_mielina","exam_trap","reasoning","hard"),
 
-    item("Diferencial de mecanismo","Examen","¿Cuál opción contiene una relación causa → efecto correcta?","Apertura de canales de K⁺ → repolarización o hiperpolarización según duración.",[
+    item("Diferencial de mecanismo","Examen","¿Qué efecto eléctrico produce la apertura sostenida de canales de K⁺?","Apertura de canales de K⁺ → repolarización o hiperpolarización según duración.",[
       R("Apertura de K⁺ → fase ascendente rápida por entrada de Na⁺.","La apertura de K⁺ no implica entrada de Na⁺."),
       R("Apertura de K⁺ → liberación directa de neurotransmisor.","La liberación directa depende de Ca²⁺ presináptico."),
       R("Apertura de K⁺ → desaparición instantánea de gradientes.","Una apertura de K⁺ no elimina instantáneamente todos los gradientes." )],3,"La respuesta correcta es D. Cuando K⁺ sale, el interior pierde carga positiva y se hace más negativo; esto repolariza o, si persiste, hiperpolariza.",["K⁺ sale = baja Vm.","K⁺ prolongado = hiperpolarización.","No confundir con Na⁺."],"Causa-efecto K⁺","causa_efecto_k","exam_trap","reasoning","hard"),

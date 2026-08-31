@@ -17,7 +17,7 @@
       if(tab.dataset.documentTab === current) tab.setAttribute('aria-current','page');
       else tab.removeAttribute('aria-current');
     });
-    document.title = (current === 'modelo-portada' ? 'Modelo de portada' : 'Instructivo oficial') + ' | Med Nykuto';
+    document.title = (current === 'modelo-portada' ? 'Ejemplo de la primera página' : 'Instrucciones') + ' | Med Nykuto';
     window.scrollTo(0,0);
   }
 

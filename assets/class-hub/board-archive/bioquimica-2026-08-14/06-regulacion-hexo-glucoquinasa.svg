@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Regulación por hexoquinasa y glucoquinasa</title>
+  <desc id="desc">Comparación entre hexoquinasa y glucoquinasa y control hepático por GKRP.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#142b44"/><stop offset="1" stop-color="#07111f"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#6fd8ff"/><stop offset="1" stop-color="#f2c66d"/></linearGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#8eb6d8" stroke-opacity=".055"/></pattern>
+    <style><![CDATA[
+      text{font-family:Inter,Arial,sans-serif}.k{fill:#ffe2a3;font-size:23px;font-weight:800;letter-spacing:5px}.page{fill:#6fd8ff;font-size:22px;font-weight:800}.h1{fill:#f7f9fc;font-size:59px;font-weight:800;letter-spacing:-2px}.sub{fill:#aebbd0;font-size:28px}.label{fill:#6fd8ff;font-size:21px;font-weight:850;letter-spacing:2.5px}.cardh{fill:#f7f9fc;font-size:36px;font-weight:900}.body{fill:#ced7e5;font-size:24px}.yes{fill:#72e0ab;font-size:23px;font-weight:850}.no{fill:#ff9a9a;font-size:23px;font-weight:850}.gkrp{fill:#f7f9fc;font-size:29px;font-weight:850}.meta{fill:#aebbd0;font-size:22px}.dark{fill:#07111f;font-size:27px;font-weight:900}
+    ]]></style>
+  </defs>
+  <rect width="1080" height="1350" rx="50" fill="url(#bg)"/><rect width="1080" height="1350" rx="50" fill="url(#grid)"/>
+  <circle cx="1010" cy="120" r="230" fill="#6fd8ff" opacity=".06"/>
+  <g transform="translate(72 70)">
+    <text class="k" y="26">ARCHIVO DE LA PIZARRA</text><text class="page" x="936" y="26" text-anchor="end">06 / 07</text><rect y="55" width="936" height="3" rx="2" fill="url(#accent)"/>
+    <text class="h1" y="142">Primer punto de control</text><text class="sub" y="191">Mismo paso, distinto contexto metabólico</text>
+
+    <g transform="translate(0 244)">
+      <g><rect width="452" height="408" rx="35" fill="#0b1c2f" stroke="#6fd8ff" stroke-opacity=".3"/><text class="label" x="32" y="48">MAYORÍA DE TEJIDOS</text><text class="cardh" x="32" y="100">Hexoquinasa</text><text class="yes" x="32" y="157">✓ Alta afinidad por glucosa</text><text class="yes" x="32" y="205">✓ Activa con glucosa baja</text><text class="yes" x="32" y="253">✓ Usa Mg²⁺ con ATP</text><text class="no" x="32" y="315">× Inhibida por G6P</text><text class="meta" x="32" y="362">Ayuda a asegurar glucosa</text><text class="meta" x="32" y="391">para el propio tejido.</text></g>
+      <g transform="translate(484)"><rect width="452" height="408" rx="35" fill="#1b2031" stroke="#f2c66d" stroke-opacity=".32"/><text class="label" x="32" y="48" fill="#ffe2a3">HÍGADO Y CÉLULA β</text><text class="cardh" x="32" y="100">Glucoquinasa</text><text class="yes" x="32" y="157">✓ Alta capacidad</text><text class="yes" x="32" y="205">✓ Actúa cuando sube glucosa</text><text class="yes" x="32" y="253">✓ Insulina ↑ expresión</text><text class="yes" x="32" y="301">✓ No inhibida por G6P</text><text class="meta" x="32" y="362">Facilita captura y almacena-</text><text class="meta" x="32" y="391">miento hepático posprandial.</text></g>
+    </g>
+
+    <g transform="translate(0 684)">
+      <rect width="936" height="410" rx="36" fill="#0a192a" stroke="#c5d7ef" stroke-opacity=".18"/>
+      <text class="label" x="38" y="50">CONTROL HEPÁTICO POR GKRP</text><text class="meta" x="38" y="84">GKRP = proteína reguladora de la glucoquinasa</text>
+      <g transform="translate(38 124)">
+        <rect width="410" height="220" rx="30" fill="#261d29" stroke="#ff9a9a" stroke-opacity=".3"/>
+        <text class="no" x="28" y="48">F6P favorece la unión</text><text class="gkrp" x="28" y="101">GK + GKRP</text><path d="M28 129h180" stroke="#ff9a9a" stroke-width="5"/><path d="m194 117 16 12-16 12" fill="none" stroke="#ff9a9a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><text class="body" x="28" y="173">Retención nuclear</text><text class="body" x="28" y="205">y menor actividad</text>
+      </g>
+      <g transform="translate(488 124)">
+        <rect width="410" height="220" rx="30" fill="#102a2b" stroke="#72e0ab" stroke-opacity=".34"/>
+        <text class="yes" x="28" y="48">Glucosa y F1P liberan</text><text class="gkrp" x="28" y="101">GK → citosol</text><path d="M28 129h180" stroke="#72e0ab" stroke-width="5"/><path d="m194 117 16 12-16 12" fill="none" stroke="#72e0ab" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><text class="body" x="28" y="173">Glucoquinasa activa</text><text class="body" x="28" y="205">y disponible</text>
+      </g>
+    </g>
+    <g transform="translate(0 1130)"><rect width="936" height="108" rx="28" fill="url(#accent)"/><text class="dark" x="468" y="47" text-anchor="middle">AMBAS CATALIZAN:</text><text class="dark" x="468" y="82" text-anchor="middle">GLUCOSA → GLUCOSA-6-FOSFATO</text></g>
+  </g>
+</svg>

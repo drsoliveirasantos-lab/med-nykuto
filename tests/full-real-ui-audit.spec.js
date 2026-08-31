@@ -32,12 +32,12 @@ function collectRuntimeSignals(page) {
 
 async function waitRuntime(page) {
   await expect(page.locator('body')).toBeVisible({ timeout: 15000 });
-  await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v361', null, { timeout: 20000 });
+  await page.waitForFunction(() => window.__MED_NYKUTO_RUNTIME_GUARD__ === 'v362', null, { timeout: 20000 });
 }
 
 async function waitPracticeReady(page) {
   await waitRuntime(page);
-  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v363', null, { timeout: 20000 });
+  await page.waitForFunction(() => window.__MED_NYKUTO_PRACTICE_LOADER__ === 'v462', null, { timeout: 20000 });
   await expect(page.locator('.single-question-card').first()).toBeAttached({ timeout: 15000 });
 }
 

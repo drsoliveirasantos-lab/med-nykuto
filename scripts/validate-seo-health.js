@@ -4,6 +4,7 @@ const path = require('path');
 const root = process.cwd();
 const failures = [];
 const warnings = [];
+const productionOrigin = 'https://med.nykuto.com';
 
 const keyPages = [
   'index.html',
@@ -57,6 +58,7 @@ for (const file of keyPages) {
   if (!description || description.length < 40) failures.push(`${file}: missing or too-short meta description`);
   if (!lang) failures.push(`${file}: missing html lang`);
   if (!canonical) failures.push(`${file}: missing canonical link`);
+  if (canonical && !canonical.startsWith(`${productionOrigin}/`)) failures.push(`${file}: canonical must use ${productionOrigin}`);
   if (/Med\s*Cursos/i.test(text)) failures.push(`${file}: visible text still contains Med Cursos`);
   if (/\[[^\]]*(Pr[eé]nom|Nom|email|t[eé]l[eé]phone|TODO|placeholder)[^\]]*\]/i.test(text)) failures.push(`${file}: visible placeholder text remains`);
   if (/Document\s*Title|Untitled/i.test(title)) failures.push(`${file}: placeholder title remains`);
@@ -69,12 +71,15 @@ if (fs.existsSync(path.join(root, 'robots.txt'))) {
   const robots = read('robots.txt');
   if (!/Sitemap:/i.test(robots)) failures.push('robots.txt: missing Sitemap directive');
   if (/med-cursos\.netlify\.app/i.test(robots)) failures.push('robots.txt: old med-cursos.netlify.app domain remains');
+  if (!robots.includes(`${productionOrigin}/sitemap.xml`)) failures.push('robots.txt: sitemap must use the production domain');
 }
 
 if (fs.existsSync(path.join(root, 'sitemap.xml'))) {
   const sitemap = read('sitemap.xml');
   if (!/<urlset\b/i.test(sitemap)) failures.push('sitemap.xml: missing urlset');
   if (/med-cursos\.netlify\.app/i.test(sitemap)) failures.push('sitemap.xml: old med-cursos.netlify.app domain remains');
+  if (!sitemap.includes(`${productionOrigin}/`)) failures.push('sitemap.xml: production origin is missing');
+  if (/preview\.med-nykuto-git\.pages\.dev/i.test(sitemap)) failures.push('sitemap.xml: preview domain remains');
   for (const file of keyPages) {
     if (!sitemap.includes(file === 'index.html' ? '/' : file)) warnings.push(`sitemap.xml: ${file} not clearly listed`);
   }

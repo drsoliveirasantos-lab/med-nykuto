@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#07111f" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Espacio de la turma | Med Nykuto</title>
+  <link id="classManifest" rel="manifest" />
+  <script src="/turma-manifest-boot-v471.js?v=478"></script>
+  <link rel="icon" href="/assets/pwa-icon-192.png" />
+  <script src="/public-theme-v485.js?v=485"></script>
+  <script src="/calendar-subscription-v485.js?v=485"></script>
+  <link rel="stylesheet" href="/turma-v471.css?v=488" />
+  <link rel="stylesheet" href="/help-desk-v479.css?v=500" />
+  <link rel="stylesheet" href="/public-theme-v485.css?v=486" />
+</head>
+<body>
+  <a class="skip-link" href="#classMain">Saltar al contenido</a>
+
+  <header class="class-topbar">
+    <a class="brand" href="/" aria-label="Med Nykuto">
+      <img src="/assets/pwa-icon-192.png" width="40" height="40" alt="" />
+      <span><strong>Med Nykuto</strong><small>Espacio de la turma</small></span>
+    </a>
+    <div class="topbar-actions">
+      <button class="icon-button public-theme-toggle turma-theme-toggle" type="button" data-public-theme-toggle aria-pressed="false"><span class="public-theme-icon" data-public-theme-icon aria-hidden="true">☀</span><span class="public-theme-label" data-public-theme-label>Claro</span></button>
+      <button id="noticeButton" class="icon-button" type="button" aria-label="Abrir avisos" aria-controls="avisos">
+        <span aria-hidden="true">🔔</span><b id="noticeCount" aria-hidden="true" hidden>0</b>
+      </button>
+      <a id="manageLink" class="manage-button" href="/gestion/s4-e">Gestión</a>
+    </div>
+  </header>
+
+  <div id="connectionBanner" class="connection-banner" hidden></div>
+
+  <main id="classMain" class="class-main">
+    <section id="inicio" class="view is-active" data-view="inicio" aria-labelledby="homeTitle">
+      <article class="class-hero">
+        <div>
+          <span id="classEyebrow" class="eyebrow">MEDICINA · TURMA</span>
+          <h1 id="homeTitle">Cargando tu espacio…</h1>
+          <p id="classSubtitle">Tareas, materias, fechas y materiales en un solo lugar.</p>
+        </div>
+        <div class="hero-meta">
+          <span id="classStatus">ACTIVA</span>
+          <small id="lastUpdated">Sincronizando…</small>
+        </div>
+      </article>
+
+      <section id="homeNoticeSection" class="section-block home-notice-section" aria-labelledby="homeNoticeTitle" hidden>
+        <div class="section-heading">
+          <div><span>INFORMACIÓN OFICIAL</span><h2 id="homeNoticeTitle">Avisos importantes vigentes</h2></div>
+          <button type="button" data-open-view="avisos">Ver todos</button>
+        </div>
+        <div id="homeNoticeCarousel" class="notice-preview-list" aria-label="Avisos importantes vigentes de la turma"></div>
+      </section>
+
+      <section class="section-block" aria-labelledby="homeTasksTitle">
+        <div class="section-heading">
+          <div><span>AHORA</span><h2 id="homeTasksTitle">Lo próximo</h2></div>
+          <button type="button" data-open-view="tareas">Ver todas</button>
+        </div>
+        <div id="homeTasks" class="card-stack" aria-live="polite"></div>
+      </section>
+
+      <section class="section-block" aria-labelledby="homeSubjectsTitle">
+        <div class="section-heading">
+          <div><span>ACCESO RÁPIDO</span><h2 id="homeSubjectsTitle">Materias</h2></div>
+          <button type="button" data-open-view="materias">Abrir</button>
+        </div>
+        <div id="homeSubjects" class="subject-strip"></div>
+      </section>
+
+    </section>
+
+    <section id="avisos" class="view" data-view="avisos" aria-labelledby="noticesTitle" hidden>
+      <header class="view-heading notice-page-heading">
+        <span>INFORMACIÓN OFICIAL</span>
+        <h1 id="noticesTitle">Avisos vigentes</h1>
+        <p id="noticePageSummary" class="notice-page-summary" role="status" aria-live="polite" aria-atomic="true">Cargando la información actual…</p>
+        <button type="button" class="notice-back" data-open-view="inicio">← Volver al inicio</button>
+      </header>
+      <form id="noticePageFilters" class="notice-page-filters" role="search" aria-label="Filtrar avisos">
+        <fieldset class="notice-page-filter-types">
+          <legend>Tipo de aviso</legend>
+          <div class="notice-page-filter-chips" role="group" aria-label="Filtrar por tipo de aviso">
+            <button type="button" data-notice-category="all" aria-pressed="true">Todos</button>
+            <button type="button" data-notice-category="transport" aria-pressed="false">Transporte</button>
+            <button type="button" data-notice-category="schedule" aria-pressed="false">Horarios</button>
+            <button type="button" data-notice-category="assessment" aria-pressed="false">Evaluaciones</button>
+            <button type="button" data-notice-category="administrative" aria-pressed="false">Institución</button>
+            <button type="button" data-notice-category="academic" aria-pressed="false">Clases</button>
+            <button type="button" data-notice-category="task" aria-pressed="false">Tareas</button>
+            <button type="button" data-notice-category="resource" aria-pressed="false">Materiales</button>
+            <button type="button" data-notice-category="general" aria-pressed="false">General</button>
+            <button type="button" data-notice-category="emergency" aria-pressed="false">Seguridad</button>
+          </div>
+        </fieldset>
+        <label class="notice-page-filter-search" for="noticePageSearch"><span>Buscar</span><input id="noticePageSearch" type="search" inputmode="search" autocomplete="off" placeholder="Título o información" /></label>
+        <button class="notice-page-filter-reset" type="reset">Limpiar</button>
+      </form>
+      <div id="noticePageList" class="notice-page-list"></div>
+    </section>
+
+    <section id="tareas" class="view" data-view="tareas" aria-labelledby="tasksTitle" hidden>
+      <header class="view-heading"><span>ORGANIZACIÓN</span><h1 id="tasksTitle">Tareas activas</h1><p>Abre una tarea para consultar toda la consigna sin salir de esta página.</p></header>
+      <div id="taskFilters" class="filter-row" role="group" aria-label="Filtrar tareas">
+        <button type="button" class="is-active" data-task-filter="active">Activas</button>
+        <button type="button" data-task-filter="all">Todas</button>
+      </div>
+      <div id="taskList" class="card-stack"></div>
+    </section>
+
+    <section id="materias" class="view" data-view="materias" aria-labelledby="subjectsTitle" hidden>
+      <header class="view-heading"><span>CURSO</span><h1 id="subjectsTitle">Materias y materiales</h1><p>Cada archivo queda asociado a su materia y a la fecha correspondiente.</p></header>
+      <label class="search-field">Buscar materia o material<input id="subjectSearch" type="search" placeholder="Ej.: Fisiología" autocomplete="off" /></label>
+      <div id="subjectList" class="subject-list"></div>
+    </section>
+
+    <section id="estudiar" class="view" data-view="estudiar" aria-labelledby="studyTitle" hidden>
+      <header class="view-heading"><span>ESTUDIO ACTIVO</span><h1 id="studyTitle">Revisar con fuentes</h1><p>Solo aparecen módulos asociados a material identificado y revisado.</p></header>
+      <article id="studyCard" class="study-card">
+        <span id="studyStatus">CONTENIDO CONTROLADO</span>
+        <h2>Biblioteca Med Nykuto</h2>
+        <p>QCM, verdadero/falso y fichas organizadas por materia. Los casos clínicos se activan únicamente cuando la fuente permite construirlos correctamente.</p>
+        <a id="studyLink" href="/clase.html#entrenamiento">Abrir el espacio de estudio <b aria-hidden="true">→</b></a>
+      </article>
+      <div class="quality-grid">
+        <article><strong>Fuente visible</strong><small>Profesor, fecha, tema y versión.</small></article>
+        <article><strong>Revisión humana</strong><small>La IA produce un borrador, nunca una publicación automática.</small></article>
+        <article><strong>Errores corrigibles</strong><small>Todo estudiante puede señalar un problema.</small></article>
+      </div>
+    </section>
+
+    <section id="mas" class="view" data-view="mas" aria-labelledby="moreTitle" hidden>
+      <header class="view-heading"><span>HERRAMIENTAS</span><h1 id="moreTitle">Calendario, grupos y archivos</h1><p>La información práctica de la turma, sin mensajes perdidos.</p></header>
+
+      <details class="tool-panel" open>
+        <summary><span>Calendario</span><b id="dateCount">0 fechas</b></summary>
+        <section id="calendarSubscription" class="calendar-subscription" aria-labelledby="calendarSubscriptionTitle">
+          <div class="calendar-subscription-copy">
+            <strong id="calendarSubscriptionTitle">Recibir las fechas en tu calendario</strong>
+            <small>Las fechas y tareas publicadas se actualizan automáticamente. También puedes copiar el enlace HTTPS y añadirlo por URL en Google Calendar, Apple Calendar u Outlook.</small>
+          </div>
+          <div class="calendar-subscription-actions">
+            <a id="calendarSubscribeLink" href="/api/class-calendar.ics?class=s4-e" aria-describedby="calendarSubscriptionStatus">Suscribirme al calendario</a>
+            <button id="calendarCopyLink" type="button" aria-describedby="calendarSubscriptionStatus">Copiar enlace HTTPS</button>
+          </div>
+          <p id="calendarSubscriptionStatus" class="calendar-subscription-status" aria-live="polite">Solo incluye información académica publicada.</p>
+        </section>
+        <div id="dateList" class="tool-list"></div>
+      </details>
+      <details class="tool-panel">
+        <summary><span>Grupos</span><b id="groupCount">0 grupos</b></summary>
+        <div id="groupList" class="tool-list"></div>
+      </details>
+      <details class="tool-panel">
+        <summary><span>Archivo</span><b id="fileCount">0 archivos</b></summary>
+        <div id="fileList" class="tool-list"></div>
+      </details>
+
+      <div class="more-actions">
+        <a id="driveLink" target="_blank" rel="noopener" hidden>Abrir Drive de la turma</a>
+        <button id="shareClass" type="button">Compartir este espacio</button>
+        <button id="reportProblem" type="button">Reportar información incorrecta</button>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Navegación de la turma">
+    <button type="button" class="is-active" data-nav-view="inicio"><span aria-hidden="true">⌂</span><strong>Inicio</strong></button>
+    <button type="button" data-nav-view="tareas"><span aria-hidden="true">✓</span><strong>Tareas</strong></button>
+    <button type="button" data-nav-view="avisos"><span aria-hidden="true">!</span><strong>Avisos</strong></button>
+    <button type="button" data-nav-view="materias"><span aria-hidden="true">▤</span><strong>Materias</strong></button>
+    <button type="button" data-nav-view="estudiar"><span aria-hidden="true">◇</span><strong>Estudiar</strong></button>
+    <button type="button" data-nav-view="mas"><span aria-hidden="true">•••</span><strong>Más</strong></button>
+  </nav>
+
+  <script src="/turma-v471.js?v=488"></script>
+  <script src="/help-desk-v479.js?v=481"></script>
+</body>
+</html>

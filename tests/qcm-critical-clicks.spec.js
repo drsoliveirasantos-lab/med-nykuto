@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 const CURRENT_RUNTIME_GUARD = 'v362';
-const CURRENT_PRACTICE_LOADER = 'v364';
+const CURRENT_PRACTICE_LOADER = 'v462';
 const CURRENT_NEXT_STABILITY = 'v372-native-sticky-next-no-reload';
 const CURRENT_PROGRESS_FIX = 'v361';
 
@@ -109,8 +109,14 @@ test.describe('QCM critical click behavior', () => {
   test('real next click changes the current QCM question and progress without flicker', async ({ page }) => {
     await waitPracticeReady(page);
     const firstIdentity = await currentQuestionIdentity(page);
+    const firstPrompt = (await page.locator('.single-question-card .question-prompt').first().innerText()).trim();
+    expect(firstPrompt).not.toMatch(/qué afirmación es correcta, célula|Pregunta:\s*«(?:Tema|QCM)/i);
     await qcmDiag(page, 'BEFORE');
     await answerCurrent(page);
+    const correction = page.locator('.single-question-card .answer-panel:not([hidden])').first();
+    await expect(correction).toContainText('Justificación completa');
+    await expect(correction).toContainText('Por qué las otras respuestas son falsas');
+    await expect(correction).not.toContainText(/Justification|Pourquoi|À retenir/);
     await qcmDiag(page, 'ANSWERED');
 
     const next = page.locator('.single-question-card [data-action="next-question"]').first();

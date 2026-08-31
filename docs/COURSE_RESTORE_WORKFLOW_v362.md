@@ -63,7 +63,7 @@ npm run import:legacy-data -- /chemin/vers/dossier-recupere --write --replace-lo
 
 ## Fallback V/F pour Bioquímica et Inmunología
 
-Les fichiers récupérés pour Bioquímica et Inmunología ne contiennent pas de tableau `vf`. Le fallback `practice-bank-functional-fallback-v360.js` a donc été durci en v363 : il n'écrase pas les vraies banques, mais complète uniquement les formats absents.
+Les fichiers récupérés pour Bioquímica et Inmunología ne contiennent pas de tableau `vf`. Le fallback `practice-bank-functional-fallback-v360.js` a donc été durci en v370 : il n'écrase pas les vraies banques, complète uniquement les formats absents et dérive chaque affirmation V/F d'une question validée du même module, sans remplissage générique répété.
 
 ## Commandes après import
 

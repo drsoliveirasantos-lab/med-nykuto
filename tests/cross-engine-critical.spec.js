@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const { expectBlockedClinicalCases } = require('./helpers/practice-policy');
 
 function isCritical(message) {
   return /TypeError|ReferenceError|SyntaxError|Cannot read|is not defined|is not a function|Unhandled|Application error/i.test(message);
@@ -23,7 +24,8 @@ async function openAndAnswer(page, url) {
 
 test('critical practice flows work on this browser engine', async ({ page }) => {
   await openAndAnswer(page, '/qcm.html?course=fisiologia');
-  await openAndAnswer(page, '/cas-cliniques.html?course=fisiologia');
+  await page.goto('/cas-cliniques.html?course=fisiologia', { waitUntil: 'domcontentloaded' });
+  await expectBlockedClinicalCases(page, expect);
   await openAndAnswer(page, '/vrai-faux.html?course=fisiologia');
 });
 
