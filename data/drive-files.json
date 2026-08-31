@@ -388,11 +388,11 @@
       "mimeType": "application/pdf",
       "missingSince": "2026-08-31T11:24:34.000Z",
       "modifiedAt": "2026-08-06T23:14:42.891Z",
+      "removedAt": "2026-08-31T12:39:09.000Z",
       "sizeBytes": 687064,
       "title": "Ejercicio de fijacion Ventilacion y circulacion pulmonar.pdf",
       "url": "https://drive.google.com/open?id=1HR5mnhgQHCzouSql9ii_BI_kZHKqqMEE",
-      "visibility": "verified_anonymous",
-      "removedAt": "2026-08-31T12:39:09.000Z"
+      "visibility": "verified_anonymous"
     },
     {
       "course": "Fisiología II",
@@ -476,6 +476,20 @@
       "sizeBytes": 36597725,
       "title": "PRACTICA2.MIC.SUPERF.pptx",
       "url": "https://drive.google.com/open?id=1P67vxGlerjFUrwEyw5fFYRkNFZX6ltae",
+      "visibility": "verified_anonymous"
+    },
+    {
+      "course": "Microbiología II · Teórica",
+      "createdAt": "2026-08-31T14:18:16.425Z",
+      "fileType": "presentation",
+      "firstSeenAt": "2026-08-31T14:31:13.000Z",
+      "folderPath": "Microbiología II/Teórica/Slides",
+      "id": "1S45UhtwU7i7KWvRKu-hdgbG3W03Z6k3N",
+      "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "modifiedAt": "2026-08-31T14:15:06.579Z",
+      "sizeBytes": 72145666,
+      "title": "Micosis Oportunistas. .pptx",
+      "url": "https://drive.google.com/open?id=1S45UhtwU7i7KWvRKu-hdgbG3W03Z6k3N",
       "visibility": "verified_anonymous"
     },
     {
@@ -591,5 +605,5 @@
       "visibility": "verified_anonymous"
     }
   ],
-  "scannedAt": "2026-08-31T12:39:09.000Z"
+  "scannedAt": "2026-08-31T14:31:13.000Z"
 }
