@@ -76,6 +76,24 @@ remains one tap away. Run
 
 The 28 August lessons never enter a partial automatically. Bioquímica II is explicitly included in the P1 question pool by a direct study-scope decision, producing an 18-lesson/720-question contract; its full lesson stays in the class notebook and is omitted from the cumulative-sheet lesson cards through `sheetPracticeIds`. Epidemiología remains outside P1, and both 28 August lessons remain outside the provisional 4-lesson/160-question P2 contract.
 
+### 4.º E guided respiratory practice
+
+Guided multi-step respiratory cases are a separate notebook overlay. Their
+editable data lives in `content/class/s4-guided-respiratory-cases.json`; a build
+produces `data/s4-guided-clinical-cases-v177.js`, and the isolated
+`s4-guided-clinical-cases-v177.js` runtime mounts launchers beside the two
+documented respiratory practices in `clase.html`. Its local state, DOM
+selectors and events are intentionally separate from the 23 certified class
+banks, P1/P2 and the community ranking. The seven cases expose 24 contextual
+QCM and four contextual V/F through the same one-question-at-a-time engine.
+Source-derived chains that are not stated verbatim are labeled as guided
+inferences in both canonical data and the learner interface.
+
+The overlay may reference existing lesson ids but cannot declare a new lesson
+from a Drive upload timestamp. `scripts/validate-s4-guided-clinical-cases.js`
+checks source metadata, evidence links, sequential reasoning levels, generated
+data parity and runtime isolation.
+
 ### 4.º E notice presentation
 
 Home renders one compact important notice at a time: complete poster thumbnail

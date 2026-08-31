@@ -141,6 +141,33 @@ p1.html
 
 Bioquímica II del 28 de agosto se incorpora al banco P1 por una decisión directa de estudio del usuario, sin presentarla como confirmación oficial del temario. Sus 40 preguntas elevan el contrato a 18 clases y 720 preguntas fuente. `sheetPracticeIds` mantiene su curso completo únicamente en el cuaderno de la clase para no duplicar una nueva ficha dentro de P1. Epidemiología del 28 permanece fuera de P1 mientras no exista otra decisión explícita sobre ese alcance.
 
+### 4.º E guided respiratory cases
+
+The editable source for the guided Fisiología II respiratory exercise is:
+
+```txt
+content/class/s4-guided-respiratory-cases.json
+```
+
+It is a separate, source-grounded S4 layer built into
+`data/s4-guided-clinical-cases-v177.js` and rendered by
+`s4-guided-clinical-cases-v177.js` inside `clase.html`. The seven flows follow
+the teacher exercise in its original order through 28 sequential decisions:
+24 contextual QCM and four contextual V/F. They use the existing respiratory
+lessons `fisiologia-2026-08-10` and `fisiologia-2026-08-13` as context, with
+local lesson evidence explicitly derived from the corresponding reviewed PDF.
+The 31 August Drive timestamp is only a file timestamp: it must never create a
+fictitious dated lesson or alter the P1 allowlist.
+
+This guided layer must not append to `MedNykutoClassPractice.banks`, reuse
+`med-nykuto-class-practice-v431`, emit ordinary practice completion events, or
+affect ranking/P1/P2 totals. Build and validate it with:
+
+```bash
+npm run build:s4-guided-cases
+npm run validate:s4-guided-cases
+```
+
 ### 4.º E provisional P2 scope
 
 The early second-partial review is declared explicitly in:

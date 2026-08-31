@@ -57,6 +57,43 @@ Teacher-provided files displayed in the 4.º E class hub live under:
 assets/class-hub/
 ```
 
+### Guided respiratory exercise (S4)
+
+The S4 guided respiratory mode is derived from the anonymously verified
+Fisiología II teacher exercise with Drive id
+`1Rd3P52HVoLK4J4iKL8Wve-FY7ML1ytXh`, titled
+`1. Ejercicio de fijacion Ventilacion y circulacion pulmonar cont..pdf`. It
+contains six respiratory cases plus one integrative EPOC case, including the
+gasometry and spirometry values used by the guided flows. Corrections are
+limited to mechanisms supported by the accompanying S4 decks:
+
+- `1HPC8zwttUIQagpzyJRYBv0CyrWNXKugU` — ventilation and pulmonary circulation;
+- `1JroULL116ctsT95fkZlRD6Epw3L5LcIh` — gas exchange and transport;
+- `1RkHRfI5NyLELx9wN_vKD92j8k10E7B-g` — respiratory regulation.
+
+`data/drive-files.json` remains metadata only. The reviewed local evidence
+ledger, source locators, cases and corrections live in
+`content/class/s4-guided-respiratory-cases.json`, tied to those exact Drive IDs
+and modification timestamps. The browser consumes the generated
+`data/s4-guided-clinical-cases-v177.js`; edit the JSON and rebuild instead of
+editing the generated file. The older exercise id `1HR5mnhgQHCzouSql9ii_BI_kZHKqqMEE`
+is marked missing and is not an active source for this mode.
+
+Five short evidence statements are also verified against the existing lesson
+containers `fisio-detail-2026-08-10` and `fisio-detail` in `clase.html`. Their
+two `class-lesson` source records declare `derivedFromSourceIds` back to the
+reviewed gas-exchange and respiratory-regulation PDFs; they are not new or
+independent course sources.
+
+The upload timestamp does not establish a class date. These cases remain an
+undated guided P1 respiratory exercise attached to the documented 10 and 13
+August lessons; they do not create a 31 August lesson or enter the certified
+20/10/10 banks. The guided sequence itself contains 24 contextual QCM and four
+contextual V/F while leaving the ordinary bank format and totals unchanged.
+Four mechanism steps that require combining a teacher prompt with several
+documented facts carry `groundingMode: guided-inference` and a learner-visible
+note. They must not be presented as verbatim source statements.
+
 The Microbiología II · Teórica archive added on 2026-08-16 keeps the two received PDFs unchanged at:
 
 ```txt

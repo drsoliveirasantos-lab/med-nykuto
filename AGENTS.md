@@ -17,21 +17,20 @@ Ne pas modifier en devinant. Identifier d’abord la source officielle, puis fai
 
 ## Branches
 
-- `preview` = développement, corrections, tests et validation.
-- `main` = production uniquement.
-- Avant toute mise à jour importante de `main`, créer une branche de sauvegarde : `backup-main-YYYYMMDD`.
+- `main` = cible par défaut des travaux Med Nykuto demandés par le propriétaire du dépôt.
+- `preview` = environnement séparé à utiliser uniquement quand le propriétaire demande explicitement une prévisualisation ou un test isolé.
+- Une demande explicite de travail direct sur `main` autorise le commit et la publication directs, sans branche de fonctionnalité ni PR intermédiaire.
+- Avant une mise à jour importante de `main`, créer une branche de sauvegarde ciblée : `backup-main-YYYYMMDD-before-<chantier>`.
 
-Ne jamais modifier `main` directement pour une correction de site, sauf urgence explicitement validée par le propriétaire du dépôt.
+Workflow direct recommandé :
 
-Workflow recommandé :
+1. Lire l’état réel de `main` et les consignes vivantes du dépôt.
+2. Créer une sauvegarde ciblée si le changement est important.
+3. Appliquer le plus petit changement sûr directement sur `main`.
+4. Déclencher un seul run du workflow principal consolidé.
+5. Corriger et relancer uniquement si ce run échoue.
 
-1. Créer une branche dédiée depuis `preview`.
-2. Corriger sur cette branche.
-3. Ouvrir une PR draft vers `preview`.
-4. Laisser la CI s’exécuter.
-5. Corriger jusqu’à ce que les checks soient verts.
-6. Marquer la PR ready seulement quand elle est vérifiée.
-7. Merger uniquement après validation explicite de l’utilisateur.
+Ne passer par une branche dédiée, `preview` ou une PR que si le propriétaire le demande explicitement ou si une protection GitHub empêche techniquement l’écriture directe sur `main`.
 
 Ne pas supprimer de branche, fichier, workflow, donnée générée ou sauvegarde historique sans validation explicite.
 
@@ -48,6 +47,19 @@ Règle obligatoire :
 - Le `concurrency` doit éviter les annulations inutiles. Pour les runs de validation, préférer `cancel-in-progress: false`, sauf cas explicitement voulu.
 
 Objectif : un commit important doit produire un seul run lisible avec tous les jobs nécessaires.
+
+## Économie de crédits ChatGPT Work pendant les runs
+
+Lorsqu’un test, une CI ou un déploiement est lancé :
+
+1. Continuer immédiatement toute autre tâche utile déjà autorisée qui peut avancer en parallèle.
+2. S’il ne reste aucun travail actif, estimer la durée du run à partir des durées observées ou de la durée habituelle du workflow.
+3. Programmer une vérification automatique au moment estimé, puis rendre immédiatement la main à l’utilisateur pour économiser ses crédits Work.
+4. À l’échéance, vérifier le résultat réel sans annoncer qu’il est vert avant preuve.
+5. Si le run échoue, diagnostiquer, corriger, relancer une seule validation consolidée et programmer la vérification suivante selon la même règle.
+6. Continuer ce cycle jusqu’à obtenir le vert, sauf blocage nécessitant une décision ou une autorisation du propriétaire.
+
+Ne pas rester actif uniquement pour attendre ou interroger en boucle un run distant.
 
 ## Sources officielles
 
