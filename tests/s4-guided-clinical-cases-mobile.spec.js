@@ -121,13 +121,15 @@ test.describe('S4 guided cases on a 375 px mobile viewport', () => {
     await page.touchscreen.tap(tapX, tapY);
     await page.waitForTimeout(100);
     await expect(dialog.locator('[data-guided-option-index]:disabled')).toHaveCount(4);
+    await expect(dialog.locator('[data-guided-question-index]')).toHaveText('Paso 2 de 4');
+    await expect(dialog.locator('#s4GuidedQuestionTitle')).toHaveText(ASTHMA_CASE.questions[1].prompt);
+    await expect(dialog.locator('#s4GuidedQuestionTitle')).toBeFocused();
     await page.touchscreen.tap(tapX, tapY);
     await page.waitForTimeout(500);
 
     await expect(dialog.locator('[data-guided-question]')).toHaveCount(1);
     await expect(dialog.locator('[data-guided-question-index]')).toHaveText('Paso 2 de 4');
     await expect(dialog.locator('#s4GuidedQuestionTitle')).toHaveText(ASTHMA_CASE.questions[1].prompt);
-    await expect(dialog.locator('#s4GuidedQuestionTitle')).toBeFocused();
     await expect(dialog.locator('[data-guided-feedback]')).toHaveCount(0);
     await expect(dialog.locator('[data-guided-option-index]:not(:disabled)')).toHaveCount(4);
     await expectNoHorizontalOverflow(page, dialog, scroller);
