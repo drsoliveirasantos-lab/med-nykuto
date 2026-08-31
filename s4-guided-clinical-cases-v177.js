@@ -17,6 +17,7 @@
   var interactionLocked = false;
   var suppressLockedClickUntil = 0;
   var answerActivationAt = 0;
+  var lastAdvanceTap = null;
 
   function esc(value) {
     return String(value == null ? '' : value).replace(/[&<>"']/g, function (character) {
@@ -386,6 +387,26 @@
     }
   }
 
+  function isRepeatedAdvanceTap(event) {
+    if (!lastAdvanceTap) return false;
+    var age = Date.now() - lastAdvanceTap.at;
+    if (age < 0 || age > 1500) {
+      lastAdvanceTap = null;
+      return false;
+    }
+    var x = Number(event.clientX);
+    var y = Number(event.clientY);
+    if (!isFinite(x) || !isFinite(y)) return false;
+    var dx = x - lastAdvanceTap.x;
+    var dy = y - lastAdvanceTap.y;
+    if ((dx * dx) + (dy * dy) > 576) return false;
+    lastAdvanceTap = null;
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+    return true;
+  }
+
   function swallowLockedTouch(event) {
     if (!interactionLocked) return;
     suppressLockedClickUntil = Date.now() + 650;
@@ -426,11 +447,17 @@
 
       var option = event.target.closest('[data-guided-option-index]');
       if (option && !option.disabled) {
+        if (isRepeatedAdvanceTap(event)) return;
         answerCurrent(Number(option.getAttribute('data-guided-option-index')));
         return;
       }
 
-      if (event.target.closest('[data-guided-next]')) { nextStep(); return; }
+      var next = event.target.closest('[data-guided-next]');
+      if (next) {
+        lastAdvanceTap = { x: Number(event.clientX), y: Number(event.clientY), at: Date.now() };
+        nextStep();
+        return;
+      }
       if (event.target.closest('[data-guided-previous]')) { previousStep(); return; }
       if (event.target.closest('[data-guided-review-last]')) { reviewLastStep(); return; }
       if (event.target.closest('[data-guided-restart]')) { restartCase(); }
