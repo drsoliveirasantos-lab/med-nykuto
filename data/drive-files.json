@@ -254,6 +254,34 @@
     },
     {
       "course": "Fisiología II",
+      "createdAt": "2026-08-31T10:34:05.913Z",
+      "fileType": "pdf",
+      "firstSeenAt": "2026-08-31T11:24:34.000Z",
+      "folderPath": "Fisiología II/Slides/S. Respiratório",
+      "id": "1RkHRfI5NyLELx9wN_vKD92j8k10E7B-g",
+      "mimeType": "application/pdf",
+      "modifiedAt": "2026-08-31T10:33:54.286Z",
+      "sizeBytes": 1568077,
+      "title": "3. Unidad I Regulación de la respiración.pdf",
+      "url": "https://drive.google.com/open?id=1RkHRfI5NyLELx9wN_vKD92j8k10E7B-g",
+      "visibility": "verified_anonymous"
+    },
+    {
+      "course": "Fisiología II",
+      "createdAt": "2026-08-31T10:30:58.086Z",
+      "fileType": "pdf",
+      "firstSeenAt": "2026-08-31T11:24:34.000Z",
+      "folderPath": "Fisiología II/Ejercicios",
+      "id": "1Rd3P52HVoLK4J4iKL8Wve-FY7ML1ytXh",
+      "mimeType": "application/pdf",
+      "modifiedAt": "2026-08-31T10:30:54.503Z",
+      "sizeBytes": 838992,
+      "title": "1. Ejercicio de fijacion Ventilacion y circulacion pulmonar cont..pdf",
+      "url": "https://drive.google.com/open?id=1Rd3P52HVoLK4J4iKL8Wve-FY7ML1ytXh",
+      "visibility": "verified_anonymous"
+    },
+    {
+      "course": "Fisiología II",
       "createdAt": "2026-08-24T10:44:21.957Z",
       "fileType": "pdf",
       "firstSeenAt": "2026-08-27T12:25:12.000Z",
@@ -285,7 +313,7 @@
       "createdAt": "2026-08-24T10:45:18.748Z",
       "fileType": "pdf",
       "firstSeenAt": "2026-08-27T12:25:12.000Z",
-      "folderPath": "Fisiología II/Slides",
+      "folderPath": "Fisiología II/Slides/S. Nervioso",
       "id": "1PogQ0Z5a4NWO_lAwvX2E65qKaO-D73ve",
       "mimeType": "application/pdf",
       "modifiedAt": "2026-08-24T10:43:51.263Z",
@@ -313,7 +341,7 @@
       "createdAt": "2026-08-17T10:37:50.610Z",
       "fileType": "pdf",
       "firstSeenAt": "2026-08-27T12:25:12.000Z",
-      "folderPath": "Fisiología II/Slides",
+      "folderPath": "Fisiología II/Slides/S. Nervioso",
       "id": "1N7nj18G1ryZc5-gjgtCzxrTjBRCizkVN",
       "mimeType": "application/pdf",
       "modifiedAt": "2026-08-17T10:37:40.830Z",
@@ -327,7 +355,7 @@
       "createdAt": "2026-08-10T10:39:52.160Z",
       "fileType": "pdf",
       "firstSeenAt": "2026-08-27T12:25:12.000Z",
-      "folderPath": "Fisiología II/Slides",
+      "folderPath": "Fisiología II/Slides/S. Respiratório",
       "id": "1JroULL116ctsT95fkZlRD6Epw3L5LcIh",
       "mimeType": "application/pdf",
       "modifiedAt": "2026-08-10T10:39:47.670Z",
@@ -362,14 +390,15 @@
       "sizeBytes": 687064,
       "title": "Ejercicio de fijacion Ventilacion y circulacion pulmonar.pdf",
       "url": "https://drive.google.com/open?id=1HR5mnhgQHCzouSql9ii_BI_kZHKqqMEE",
-      "visibility": "verified_anonymous"
+      "visibility": "verified_anonymous",
+      "missingSince": "2026-08-31T11:24:34.000Z"
     },
     {
       "course": "Fisiología II",
       "createdAt": "2026-08-06T15:52:54.425Z",
       "fileType": "pdf",
       "firstSeenAt": "2026-08-27T12:25:12.000Z",
-      "folderPath": "Fisiología II/Slides",
+      "folderPath": "Fisiología II/Slides/S. Respiratório",
       "id": "1HPC8zwttUIQagpzyJRYBv0CyrWNXKugU",
       "mimeType": "application/pdf",
       "modifiedAt": "2026-08-06T23:14:39.628Z",
@@ -561,5 +590,5 @@
       "visibility": "verified_anonymous"
     }
   ],
-  "scannedAt": "2026-08-29T22:19:46.153Z"
+  "scannedAt": "2026-08-31T11:24:34.000Z"
 }
