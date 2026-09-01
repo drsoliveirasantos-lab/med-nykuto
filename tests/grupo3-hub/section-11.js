@@ -1,9 +1,9 @@
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
-  test('switches theoretical Microbiology revision depth independently', async ({ page }) => {
+  test('switches theoretical Microbiology to Repasar independently', async ({ page }) => {
     await page.goto('/clase.html#microbiologia-teorica-2026-08-10');
     const quickView = page.locator('#microbiologia-teorica-2026-08-10 [data-lesson-tab="rapida"]');
+    await expect(quickView).toHaveText('Repasar');
     await quickView.click();
-    await expect(page.getByRole('heading', { name: 'La clase convertida en una ficha de estudio' })).toBeVisible();
     await expect(page.locator('#microbiologia-teorica-2026-08-10 .notebook-review-card')).toHaveCount(8);
     await expect(quickView).toHaveAttribute('aria-selected', 'true');
   });
@@ -161,12 +161,12 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(page.locator('#' + id + ' [data-lesson-tabs] button')).toHaveCount(6);
       await expect(page.locator('#' + id + ' > [data-lesson-tabs]')).toBeVisible();
       expect(await page.locator('#' + id + ' > [data-lesson-tabs] button').allTextContents()).toEqual([
-        'Curso completo',
-        'Ficha rápida',
-        'Ficha ultra rápida',
-        'Entrenamiento',
-        'Material de la clase',
-        'Recursos IA'
+        'Comprender',
+        'Repasar',
+        'Recordar',
+        'Entrenar',
+        'Materiales y fuentes',
+        'Tutor IA'
       ]);
       const practiceId = legacyPracticeId || id;
       await expect(page.locator('#' + id + ' .practice-module[data-practice-root="' + practiceId + '"]')).toContainText('40 preguntas');
@@ -183,24 +183,29 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(quick.locator('.notebook-review-route')).toHaveCount(1);
       await expect(quick.locator('.notebook-review-recall')).toHaveCount(1);
       expect(await quick.locator('.notebook-review-card').count()).toBe(await fullCourse.locator('.course-chapter-section').count());
-      await expect(ultra.locator('.notebook-review-sheet[data-lesson-review="standard"]')).toHaveCount(1);
-      await expect(ultra.locator('.course-inline-figure.is-summary')).toHaveCount(1);
-      await expect(ultra.locator('.notebook-ultra-path li')).toHaveCount(4);
-      const ultraRules = await ultra.locator('.notebook-ultra-rules li').count();
-      expect(ultraRules).toBeGreaterThanOrEqual(1);
-      expect(ultraRules).toBeLessThanOrEqual(5);
+      const recallCards = ultra.locator('[data-s4-recall-card]');
+      await expect(recallCards).not.toHaveCount(0);
+      const firstRecallCard = recallCards.first();
+      const recallAnswer = firstRecallCard.locator('[data-s4-recall-answer]');
+      await expect(recallAnswer).toBeHidden();
+      await expect(firstRecallCard.locator('[data-s4-mastery]')).toHaveCount(3);
+      await expect(firstRecallCard.locator('[data-s4-mastery="dominado"]')).toHaveText('Dominado');
+      await expect(firstRecallCard.locator('[data-s4-mastery="dudo"]')).toHaveText('Dudo');
+      await expect(firstRecallCard.locator('[data-s4-mastery="revisar"]')).toHaveText('Revisar');
+      await firstRecallCard.locator('[data-s4-recall-reveal]').click();
+      await expect(recallAnswer).toBeVisible();
     }
   });
 
-  test('separates Biochemistry synthesis diagrams from the faithful teacher boards', async ({ page }) => {
+  test('keeps Biochemistry Recordar cards separate from the faithful teacher boards', async ({ page }) => {
     await page.goto('/clase.html#bioquimica-2026-08-14');
     let ultra = page.locator('#bioquimica-2026-08-14 [data-lesson-tab-panel="ultra"]');
-    await expect(ultra.locator('svg.diagram-pathway')).toHaveCount(1);
+    await expect(ultra.locator('[data-s4-recall-card]')).not.toHaveCount(0);
     await expect(ultra.locator('.course-inline-image')).toHaveCount(0);
 
     await page.goto('/clase.html#bioquimica-2026-08-21');
     ultra = page.locator('#bioquimica-2026-08-21 [data-lesson-tab-panel="ultra"]');
-    await expect(ultra.locator('svg.diagram-flow')).toHaveCount(1);
+    await expect(ultra.locator('[data-s4-recall-card]')).not.toHaveCount(0);
     await expect(ultra.locator('.course-inline-image')).toHaveCount(0);
   });
 
@@ -381,7 +386,20 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await page.locator('#fisiologia-2026-08-20 [data-lesson-tab="ultra"]').click();
       reviewDimensions = await page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth }));
       expect(reviewDimensions.scrollWidth).toBeLessThanOrEqual(reviewDimensions.clientWidth + 1);
-      await expect(page.locator('#fisiologia-2026-08-20 .notebook-ultra-close')).toBeVisible();
+      const recallCard = page.locator('#fisiologia-2026-08-20 [data-s4-recall-card]').first();
+      await expect(recallCard).toBeVisible();
+      const recallAnswer = recallCard.locator('[data-s4-recall-answer]');
+      const reveal = recallCard.locator('[data-s4-recall-reveal]');
+      await expect(recallAnswer).toBeHidden();
+      await expect(reveal).toBeVisible();
+      await expect(recallCard.locator('[data-s4-mastery]')).toHaveCount(3);
+      const recallTargets = await recallCard.locator('[data-s4-recall-reveal], [data-s4-mastery]').evaluateAll((controls) => controls.map((control) => {
+        const box = control.getBoundingClientRect();
+        return { width: box.width, height: box.height };
+      }));
+      expect(recallTargets.every((target) => target.width >= 44 && target.height >= 44)).toBe(true);
+      await reveal.click();
+      await expect(recallAnswer).toBeVisible();
     }
   });
 

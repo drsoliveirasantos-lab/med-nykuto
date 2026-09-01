@@ -80,6 +80,14 @@ test.describe('Published class content student runtime', () => {
         '',
         'Este texto procede de la publicación canónica.',
         '',
+        '## MECANISMO GESTIONADO',
+        '',
+        'El segundo bloque conserva una explicación propia y verificable.',
+        '',
+        '## CONSECUENCIA GESTIONADA',
+        '',
+        'El tercer bloque conecta el mecanismo con su consecuencia publicada.',
+        '',
         '<img src="x" onerror="window.__managedContentInjected = true">'
       ].join('\n'),
       quick: '## FICHA RÁPIDA GESTIONADA\n\n- Ancla rápida propia.\n- Segundo punto propio.',
@@ -103,6 +111,8 @@ test.describe('Published class content student runtime', () => {
     await expect(panel.locator('[data-managed-markdown] img')).toHaveCount(0);
     await expect(panel.locator('[data-lesson-tab-panel="curso"]')).toContainText('<img src="x"');
     expect(await page.evaluate(() => window.__managedContentInjected)).toBeUndefined();
+    await expect(panel.locator('[data-lesson-tab-panel="curso"] .course-chapter-section[data-s4-notion]')).toHaveCount(3);
+    await expect(panel.locator('[data-s4-specialization-node]')).toHaveCount(3);
 
     const quickTab = panel.locator('[data-lesson-tab="rapida"]');
     await expect(panel.locator('[data-lesson-tabs]')).toHaveAttribute('role', 'tablist');
@@ -116,12 +126,22 @@ test.describe('Published class content student runtime', () => {
     await quickTab.press('ArrowRight');
     await expect(panel.locator('[data-lesson-tab-panel="ultra"]')).toBeVisible();
     await expect(panel.locator('[data-lesson-tab-panel="ultra"]')).toContainText('FICHA ULTRA GESTIONADA');
+    await expect(panel.locator('[data-lesson-tab-panel="ultra"] [data-s4-recall]')).toHaveCount(1);
 
     const practiceId = 'fisiologia-2026-08-24-practice-r7';
-    await panel.locator('[data-lesson-tab="training"]').click();
+    const trainingTab = panel.locator('[data-lesson-tab="training"]');
+    await trainingTab.click();
     const practice = panel.locator(`.practice-module[data-practice-root="${practiceId}"]`);
     await expect(practice).toBeVisible();
     await expect(practice.locator('.practice-counts strong')).toHaveText(['20', '10', '10']);
+    await trainingTab.press('ArrowRight');
+    const materialTab = panel.locator('[data-lesson-tab="material"]');
+    await expect(materialTab).toBeFocused();
+    await expect(materialTab).toHaveAttribute('aria-selected', 'true');
+    await expect(panel.locator('[data-lesson-tab-panel="material"]')).toBeVisible();
+    await materialTab.press('ArrowRight');
+    await expect(panel.locator('[data-lesson-tab="ia"]')).toBeFocused();
+    await expect(panel.locator('[data-lesson-tab="ia"]')).toHaveAttribute('aria-selected', 'true');
 
     const runtimeState = await page.evaluate((expectedPracticeId) => {
       const lesson = window.MedNykutoAcademicModel.subjects.fisiologia.chapters

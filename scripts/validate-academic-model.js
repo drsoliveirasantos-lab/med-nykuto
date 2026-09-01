@@ -6,6 +6,9 @@ const html = fs.readFileSync(path.join(root, 'clase.html'), 'utf8');
 const teacherHtml = fs.readFileSync(path.join(root, 'profesores.html'), 'utf8');
 const notebookJs = fs.readFileSync(path.join(root, 'class-notebook-v445.js'), 'utf8');
 const notebookCss = fs.readFileSync(path.join(root, 'class-notebook-v445.css'), 'utf8');
+const s4LearningModelJs = fs.readFileSync(path.join(root, 's4-learning-model-v178.js'), 'utf8');
+const s4LearningExperienceJs = fs.readFileSync(path.join(root, 's4-learning-experience-v178.js'), 'utf8');
+const s4LearningExperienceCss = fs.readFileSync(path.join(root, 's4-learning-experience-v178.css'), 'utf8');
 const microClinicalDir = path.join(root, 'assets', 'class-hub', 'microbiology-theory', '2026-08-24', 'expanded-cases');
 const microClinicalPdf = path.join(microClinicalDir, 'casos-clinicos-y-candidiasis-24-08.pdf');
 const microClinicalPreviews = [
@@ -69,6 +72,10 @@ if (model) {
   expect(subjectIds.length === 6, `Expected 6 subjects, found ${subjectIds.length}.`);
   expect(/id="teacherProfiles"/.test(teacherHtml), 'Teacher audit page is not model-driven.');
   expect(/academic-model-v445\.js/.test(html) && /academic-model-2026-08-27-v494\.js/.test(html) && /academic-model-2026-08-28-v500\.js/.test(html) && /class-notebook-v445\.js\?v=501/.test(html), 'Class page does not load the complete academic model through 28 August and the current academic notebook.');
+  const s4ModelIndex = html.indexOf('s4-learning-model-v178.js');
+  const notebookIndex = html.indexOf('class-notebook-v445.js?v=501');
+  const s4ExperienceIndex = html.indexOf('s4-learning-experience-v178.js');
+  expect(s4ModelIndex >= 0 && notebookIndex > s4ModelIndex && s4ExperienceIndex > notebookIndex, 'Class page must load the S4 learning model before the notebook and its additive experience after the notebook.');
   expect(/academic-model-2026-08-28-v500\.js/.test(teacherHtml) && /23 CLASES/.test(teacherHtml) && /28 ago\. 2026/.test(teacherHtml), 'Teacher audit page does not expose the 28 August model and updated lesson count.');
   expect(!/class="class-drive-card"/.test(html), 'Drive is still duplicated inside Materias.');
   expect((html.match(/data-class-drive-link/g) || []).length === 1, 'Drive must appear exactly once, on Home.');
@@ -138,7 +145,11 @@ if (model) {
   expect(/sin teléfono ni apuntes/i.test(biochemistryTeacherMethod) && /NADP\+\/NADPH/i.test(biochemistryTeacherMethod), 'The Biochemistry teacher profile must preserve the observed oral-recall method and characteristic distractors.');
   expect(model.teachers['andrea-isasi'].likelyExamTargets.some((item) => /Manchester, START y SHORT/i.test(item)) && model.teachers['andrea-isasi'].likelyExamTargets.some((item) => /cuatro niveles/i.test(item)), 'The Epidemiology teacher model omits the confirmed practical methods or RIISS levels.');
   expect(!lessons.some((entry) => entry.subjectId === 'nutricion' && /2026-08-20/.test(entry.lesson.id)), 'A false Nutrition theory class was created for 20 August.');
-  expect(/Ficha rápida/.test(notebookJs) && /Ficha ultra rápida/.test(notebookJs), 'Notebook tabs do not use the canonical study-format labels.');
+  const canonicalS4Tabs = ['Comprender', 'Repasar', 'Recordar', 'Entrenar', 'Materiales y fuentes', 'Tutor IA'];
+  const s4LearningSource = `${s4LearningModelJs}\n${s4LearningExperienceJs}`;
+  expect(canonicalS4Tabs.every((label) => s4LearningSource.includes(label)), 'The additive S4 experience does not expose the six canonical study-intention labels.');
+  expect(['curso', 'rapida', 'ultra', 'training', 'material', 'ia'].every((tabId) => new RegExp(`(?:tabPanel\\('|lesson-tab-panel=["'])${tabId}`).test(notebookJs)), 'The additive S4 labels must preserve the six stable notebook tab ids.');
+  expect(/MedNykutoS4LearningModel/.test(s4LearningModelJs), 'The shared S4 learning model is not exposed for the additive experience.');
   expect(/standardizeLessonTabs/.test(notebookJs), 'Notebook does not standardize the tab bar across old and new lessons.');
   expect(/course-inline-figure/.test(notebookCss) && /course-diagram-dialog/.test(notebookCss), 'Inline lesson diagrams or their enlarged view are not styled.');
   expect(!/<nav class="(?:course-chapter-index|notebook-course-index)"/.test(html), 'The removed course summary navigation is still present in the class page.');
@@ -163,9 +174,11 @@ if (model) {
   expect(/function summaryPanel\([\s\S]*outlineFromCourse/.test(notebookJs), 'The quick and ultra sheets are not rebuilt from each lesson outline.');
   expect(/dataset\.lessonReview = 'standard'/.test(notebookJs), 'The unified review-sheet marker is missing.');
   expect(/notebook-review-route/.test(notebookJs) && /notebook-review-card/.test(notebookJs) && /notebook-review-recall/.test(notebookJs), 'The five-minute sheet is missing its route, reasoned cards or active-recall prompt.');
-  expect(/notebook-ultra-path/.test(notebookJs) && /notebook-ultra-rules/.test(notebookJs) && /notebook-ultra-close/.test(notebookJs), 'The ninety-second sheet is missing its scan path, limits or closing recall line.');
+  expect(/(?:data-s4-recall-card|s4RecallCard)/.test(s4LearningExperienceJs) && /(?:data-s4-recall-answer|s4RecallAnswer)/.test(s4LearningExperienceJs) && /(?:data-s4-recall-reveal|s4RecallReveal)/.test(s4LearningExperienceJs), 'Recordar is missing its recall-card, hidden-answer or reveal contract.');
+  expect(/(?:data-s4-mastery|s4Mastery)/.test(s4LearningExperienceJs) && ['Dominado', 'Dudo', 'Revisar'].every((label) => s4LearningSource.includes(label)), 'Recordar must expose the three explicit mastery decisions.');
   expect(/ultraLessonVisuals[\s\S]*'bioquimica-2026-08-14'[\s\S]*type:\s*'pathway'[\s\S]*'bioquimica-2026-08-21'[\s\S]*type:\s*'flow'/.test(notebookJs), 'Biochemistry ultra sheets must use dedicated synthesis diagrams instead of teacher boards.');
-  expect(/notebook-review-layout/.test(notebookCss) && /notebook-ultra-scan/.test(notebookCss), 'The unified review sheets are not styled.');
+  expect(/notebook-review-layout/.test(notebookCss), 'The shared Repasar sheet is not styled.');
+  expect(/s4-recall-card/.test(s4LearningExperienceCss) && /s4-mastery/.test(s4LearningExperienceCss), 'The additive Recordar cards and mastery controls are not styled.');
   expect(/adipocyte[\s\S]*tejido muscular[\s\S]*hígado/i.test(bioBoards[0]), 'Board 1 does not identify adipocytes, muscle and liver semantically.');
   expect(/hepatocito[\s\S]*mitocondria[\s\S]*vessel[\s\S]*lung/i.test(bioBoards[1]), 'Board 2 does not identify hepatocyte, mitochondrion, vessel and lungs semantically.');
   expect(/célula cerebral[\s\S]*cerebro adaptado[\s\S]*edema cerebral[\s\S]*herniación/i.test(bioBoards[2]), 'Board 3 does not identify the cerebral cell, adapted brain, edema and herniation semantically.');

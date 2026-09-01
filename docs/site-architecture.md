@@ -48,6 +48,38 @@ data/med-courses-data.js
 
 This file is browser runtime data. It is not the preferred editing surface. When course content changes, update the course sources and run the appropriate build/validation path.
 
+### 4.º E additive learning layer
+
+The dated S4 notebook remains a separate source surface from the canonical
+59-module library in `content/courses/**`. Its additive learning model lives in
+`s4-learning-model-v178.js`; `s4-learning-experience-v178.js` and
+`s4-learning-experience-v178.css` render the same twenty-three existing lessons
+as `Comprender` → `Repasar` → `Recordar` → `Entrenar`. The layer derives its
+blocks from the established academic lesson records instead of maintaining a
+second copy of course facts.
+
+Compatibility ids remain unchanged: `curso`, `rapida`, `ultra`, `training`,
+`material` and `ia`. The `training` surface continues to resolve the lesson's
+protected `practiceId` bank, so the adapter cannot mutate questions, counters,
+bank isolation or partial-exam allowlists. Reading themes (`Claro suave`,
+`Sepia lectura`, `Oscuro concentración`) are stored as local presentation
+preferences only.
+
+Every one of the twenty-three lesson ids maps to a specialized visual organizer
+that covers all of that lesson's notion blocks. The renderer selects a topic-
+appropriate family (sequence, feedback loop, causal chain, decision tree,
+comparison, hierarchy, care network, laboratory workflow or recognition map),
+derives its nodes from the existing course DOM and links each node back to its
+source block. It cannot add a branch or conclusion absent from the course.
+
+Provenance is explicit and limited to `PROFESORA · CONFIRMADO`,
+`REFORMULACIÓN NYKUTO`, `AMPLIACIÓN CLÍNICA`, `PRECISIÓN MÉDICA` and
+`POR CONFIRMAR`. Estimated or unverified dates use `POR CONFIRMAR`; the UI must
+not turn them into confirmed lesson records. Glycolysis is the molecular
+variant: it uses original reproducible SVG schematics and four pedagogical
+boards in the guided sequence while preserving all seven reviewed boards in
+the archive.
+
 ### Public Drive material registry
 
 ```txt

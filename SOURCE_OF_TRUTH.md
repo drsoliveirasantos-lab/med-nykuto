@@ -113,6 +113,44 @@ teacher-question-profile-v445.js
 
 `academic-model-v445.js` is the authoritative base mapping for the six 4.º E subjects, eighteen dated lessons, chapter status and six cumulative teacher profiles. The static 27 August extension adds three documented lessons and the 28 August extension adds Bioquímica II and Epidemiología, so the effective offline baseline exposes twenty-three lessons. A new lesson must extend the relevant evidence timeline; it must not overwrite prior evidence or invent a class date. Each transcription integration must also update at least one observable teaching surface when the source adds evidence — teaching architecture, reasoning path, importance signal, observed format, likely target, distractor policy or personalized prompt. If the transcription adds no new pattern, record that conservatively instead of inventing a personality trait. Each practice bank remains isolated by lesson and is annotated at runtime with the matching teacher profile and reasoning angle.
 
+### S4 learning experience
+
+The additive S4 learning layer is declared in `s4-learning-model-v178.js` and
+rendered by `s4-learning-experience-v178.js` with
+`s4-learning-experience-v178.css`. It derives one knowledge base from the
+twenty-three existing dated lessons and exposes four study intentions:
+`Comprender`, `Repasar`, `Recordar` and `Entrenar`. It must not duplicate or
+replace the academic lesson models. Existing tab ids remain stable
+(`curso`, `rapida`, `ultra`, `training`, `material`, `ia`) so links and saved
+state continue to work. `Entrenar` reuses the protected bank selected by each
+lesson's `practiceId`; the adapter must not rewrite bank questions, totals or
+P1/P2 scope.
+
+All S4 blocks use only these source-status labels: `PROFESORA · CONFIRMADO`,
+`REFORMULACIÓN NYKUTO`, `AMPLIACIÓN CLÍNICA`, `PRECISIÓN MÉDICA` and
+`POR CONFIRMAR`. An estimated, inferred or otherwise unverified class date must
+carry `POR CONFIRMAR` and must not silently become a dated lesson. The three
+reading themes — `Claro suave`, `Sepia lectura` and `Oscuro concentración` —
+are local learner preferences, not academic content.
+
+Every dated S4 lesson has one specialized learning visual that covers all of
+its established notion blocks and returns to the exact source block. The
+specialization must match the reasoning of the topic — for example a
+regulation loop, causal chain, diagnostic tree, comparison, care network or
+laboratory workflow — and may only reorganize facts already present in that
+lesson. It must never infer a diagnosis, branch or conclusion that the source
+block does not contain.
+
+The glycolysis lesson is the molecular-pathway specialization: it may add
+original, reproducible SVG molecular schematics and use four selected
+pedagogical boards in the guided flow. All seven reviewed 14 August board
+reconstructions remain available in the archive; the guided selection does not
+replace or reclassify them.
+
+`content/courses/**` remains the canonical source for the separate 59-module
+course library. It is not the source of the dated S4 notebook or of this
+learning adapter.
+
 Published class-specific overlays created through `/gestion/<slug>` are a separate source surface. They live in the tenant-scoped D1 tables `hub_content_lessons` and `hub_content_revisions`; they must not change `content-lock.json`, the 59-module catalog or protected generated banks. The static notebook remains the offline baseline. A D1 overlay may replace the browser view only when its subject and exact lesson date match, and an unavailable API must leave that baseline untouched.
 
 El seminario de Nutrición del 20 de agosto de 2026 fue una presentación terminada, no una clase teórica nueva. La clase teórica del 27 de agosto sí está documentada y se añade como lección independiente junto con Fisiología y Microbiología práctica de la misma fecha.

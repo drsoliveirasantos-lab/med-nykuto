@@ -35,6 +35,7 @@ jobs:
       - name: Validate notebook, lessons and cumulative teacher model
         run: |
           node scripts/validate-academic-model.js
+          node scripts/validate-s4-learning-experience.js
           node scripts/validate-s4-narrative-readability.js
       - name: Validate repository hygiene and stale files
         run: node scripts/validate-no-stale-files.js
@@ -152,6 +153,7 @@ jobs:
             tests/no-blank-page-matrix.spec.js \
             tests/console-error-guard.spec.js \
             tests/grupo3-hub.spec.js \
+            tests/s4-learning-experience.spec.js \
             tests/s4-guided-clinical-cases.spec.js \
             tests/multiclass-hub.spec.js \
             tests/class-content-management-runtime.spec.js \
@@ -191,7 +193,7 @@ jobs:
       - name: Run mobile touch critical tests
         run: |
           set +e
-          npx playwright test tests/mobile-touch-critical.spec.js tests/s4-guided-clinical-cases-mobile.spec.js --project=mobile-safari-shape --trace=retain-on-failure --output=test-results/mobile-touch --reporter=json > mobile-touch.json
+          npx playwright test tests/mobile-touch-critical.spec.js tests/s4-learning-experience.spec.js tests/s4-guided-clinical-cases-mobile.spec.js --project=mobile-safari-shape --trace=retain-on-failure --output=test-results/mobile-touch --reporter=json > mobile-touch.json
           code=$?
           node scripts/print-playwright-summary.js mobile-touch.json
           exit $code

@@ -57,6 +57,38 @@ Teacher-provided files displayed in the 4.º E class hub live under:
 assets/class-hub/
 ```
 
+### Additive S4 learning experience
+
+The S4 notebook does not use `content/courses/**` as its lesson source. That
+tree remains canonical only for the separate 59-module library. The notebook's
+single academic base is the set of twenty-three existing dated lessons; the
+additive declaration in `s4-learning-model-v178.js` and the renderer in
+`s4-learning-experience-v178.js` / `s4-learning-experience-v178.css` reorganize
+that same evidence as `Comprender`, `Repasar`, `Recordar` and `Entrenar` without
+creating a parallel content corpus.
+
+Existing tab ids stay stable (`curso`, `rapida`, `ultra`, `training`,
+`material`, `ia`). `Entrenar` keeps each lesson's protected `practiceId` and
+bank unchanged. Every surfaced statement uses one of the exact provenance
+labels `PROFESORA · CONFIRMADO`, `REFORMULACIÓN NYKUTO`,
+`AMPLIACIÓN CLÍNICA`, `PRECISIÓN MÉDICA` or `POR CONFIRMAR`; any estimated or
+unverified date must remain `POR CONFIRMAR` and cannot establish a new dated
+lesson. `Claro suave`, `Sepia lectura` and `Oscuro concentración` are local
+reading themes and do not alter source status.
+
+Each of the twenty-three lessons has a specialized visual organizer covering
+all of its existing notion blocks. Its form follows the source material — such
+as a feedback loop, causal cascade, decision tree, comparison, care network or
+lab protocol — and every node links back to its exact lesson block. These
+organizers may rearrange source facts, but may not create new scientific or
+clinical claims.
+
+For glycolysis, that specialization adds original, reproducible SVG molecular
+schematics and surfaces four selected boards in the pedagogical sequence. The
+complete seven-board reconstruction set remains in
+`assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/` as the
+archive of record; selection in the lesson does not remove or supersede it.
+
 ### Guided respiratory exercise (S4)
 
 The S4 guided respiratory mode is derived from the anonymously verified
