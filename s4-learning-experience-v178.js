@@ -1054,11 +1054,10 @@
       cards.appendChild(card);
     });
     shell.appendChild(cards);
-    // A published D1 overlay may carry an intentionally authored ultra sheet.
-    // Keep that managed source visible and add the learning layer after it;
-    // static notebook lessons can use Recordar as the complete ultra surface.
-    if (panel.getAttribute('data-managed-lesson') === 'true') recallPanel.appendChild(shell);
-    else recallPanel.replaceChildren(shell);
+    // Recordar enriches the lesson without deleting the authored ultra sheet.
+    // Several lessons keep documented figures and photo cards there; replacing
+    // the panel would silently discard source material and alter gallery counts.
+    recallPanel.appendChild(shell);
   }
 
   function structureForStep(step, side) {

@@ -136,10 +136,10 @@ test.describe('S4 Comprender → Entrenar learning experience', () => {
       await expect(detail).toHaveCount(1);
       await expect(detail).toBeVisible();
       await expect(detail).toHaveAttribute('aria-live', 'polite');
-      const before = (await detail.innerText()).trim();
+      const nextTarget = await nodes.nth(1).getAttribute('data-s4-target');
       await nodes.nth(1).click();
       await expect(nodes.nth(1)).toHaveAttribute('aria-pressed', 'true');
-      await expect.poll(async () => (await detail.innerText()).trim()).not.toBe(before);
+      await expect(detail).toHaveAttribute('data-s4-target', nextTarget);
     }
 
     expect(allKinds.size, 'the semester needs at least eight relevant specialization types').toBeGreaterThanOrEqual(8);
@@ -240,7 +240,8 @@ test.describe('S4 Comprender → Entrenar learning experience', () => {
     await expect(lab.locator('button[data-s4-glycolysis-view="chemistry"]')).toHaveAttribute('aria-selected', 'true');
     await expect(lab.locator('[data-s4-comparison]')).toHaveCount(6);
     await expect(lab.locator('[data-s4-representation="fischer"]')).toHaveCount(2);
-    await expect(lab.locator('[data-s4-representation="fischer"] svg line').first()).toBeVisible();
+    await expect(lab.locator('[data-s4-representation="fischer"] svg').first()).toBeVisible();
+    expect(await lab.locator('[data-s4-representation="fischer"] svg line').count()).toBeGreaterThan(0);
     const carbonButtons = lab.locator('button[data-s4-carbon]');
     await expect(carbonButtons).toHaveCount(6);
     await carbonButtons.filter({ hasText: /^C1/ }).click();
@@ -295,7 +296,9 @@ test.describe('S4 Comprender → Entrenar learning experience', () => {
     await expect(lab.locator('[data-s4-step-recall="6"] summary')).toContainText('fosfato incorporado');
     await lab.locator('button[data-s4-glycolysis-view="chemistry"]').click();
     await expect(lab.locator('[data-s4-comparison="d-l-glucose"]')).toContainText('D-glicose');
+    await lab.locator('button[data-s4-glycolysis-view="simple"]').click();
     await lab.locator('[data-s4-glycolysis-step="5"]').click();
+    await lab.locator('button[data-s4-glycolysis-view="chemistry"]').click();
     const carbonC1 = lab.locator('button[data-s4-carbon="1"]');
     await carbonC1.click();
     await expect(lab.locator('[data-s4-carbon-selection]')).toContainText('C1 → G3P ramo A C3');

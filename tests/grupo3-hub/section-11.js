@@ -192,6 +192,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(firstRecallCard.locator('[data-s4-mastery="dominado"]')).toHaveText('Dominado');
       await expect(firstRecallCard.locator('[data-s4-mastery="dudo"]')).toHaveText('Dudo');
       await expect(firstRecallCard.locator('[data-s4-mastery="revisar"]')).toHaveText('Revisar');
+      await page.locator('#' + id + ' [data-lesson-tab="ultra"]').click();
+      await expect(ultra).toBeVisible();
       await firstRecallCard.locator('[data-s4-recall-reveal]').click();
       await expect(recallAnswer).toBeVisible();
     }
@@ -374,7 +376,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('keeps the new lesson shell inside 320 to 430 pixel viewports', async ({ page }) => {
     for (const width of [320, 375, 390, 430]) {
       await page.setViewportSize({ width, height: 844 });
-      await page.goto('/clase.html#fisiologia-2026-08-20');
+      await page.goto(`/clase.html?viewport=${width}#fisiologia-2026-08-20`);
       const dimensions = await page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth }));
       expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
       const tabHeight = await page.locator('#fisiologia-2026-08-20 [data-lesson-tabs] button').first().evaluate((node) => node.getBoundingClientRect().height);
