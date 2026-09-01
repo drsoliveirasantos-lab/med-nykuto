@@ -1,31 +1,168 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
-  <title id="title">Complejo piruvato deshidrogenasa y sus cofactores</title>
-  <desc id="desc">Esquema limpio que conecta piruvato con acetil coenzima A mediante E1, E2 y E3, con los cinco cofactores TPP, lipoato, coenzima A, FAD y NAD.</desc>
-  <rect width="1200" height="760" rx="36" fill="#071521"/>
-  <text x="64" y="78" fill="#7dd3fc" font-family="Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="3">BIOQUÍMICA II · 19 AGO. 2026</text>
-  <text x="64" y="132" fill="#f8fafc" font-family="Arial,sans-serif" font-size="42" font-weight="800">Puente entre glucólisis y ciclo de Krebs</text>
-  <g font-family="Arial,sans-serif" text-anchor="middle">
-    <rect x="70" y="260" width="220" height="130" rx="24" fill="#0d3347" stroke="#38bdf8" stroke-width="3"/>
-    <text x="180" y="315" fill="#bae6fd" font-size="20" font-weight="700">PIRUVATO</text><text x="180" y="352" fill="#fff" font-size="30" font-weight="800">3 carbonos</text>
-    <path d="M310 325h120" stroke="#fbbf24" stroke-width="8" stroke-linecap="round"/><path d="m416 306 28 19-28 19" fill="none" stroke="#fbbf24" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-    <rect x="455" y="220" width="300" height="210" rx="28" fill="#172554" stroke="#818cf8" stroke-width="3"/>
-    <text x="605" y="272" fill="#c7d2fe" font-size="19" font-weight="700">COMPLEJO PDH · MITOCONDRIA</text>
-    <text x="605" y="322" fill="#fff" font-size="29" font-weight="800">E1 → E2 → E3</text>
-    <text x="605" y="365" fill="#a5b4fc" font-size="19">Descarboxilación oxidativa</text>
-    <text x="605" y="399" fill="#fcd34d" font-size="18" font-weight="700">Irreversible · CO₂ + NADH</text>
-    <path d="M775 325h120" stroke="#fbbf24" stroke-width="8" stroke-linecap="round"/><path d="m881 306 28 19-28 19" fill="none" stroke="#fbbf24" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-    <rect x="920" y="260" width="220" height="130" rx="24" fill="#12392c" stroke="#34d399" stroke-width="3"/>
-    <text x="1030" y="315" fill="#a7f3d0" font-size="20" font-weight="700">ACETIL-CoA</text><text x="1030" y="352" fill="#fff" font-size="30" font-weight="800">2 carbonos</text>
-  </g>
-  <g font-family="Arial,sans-serif">
-    <text x="64" y="506" fill="#f8fafc" font-size="24" font-weight="800">Cinco cofactores que debes reconocer</text>
-    <g font-size="19" font-weight="700">
-      <rect x="64" y="540" width="190" height="112" rx="18" fill="#112b3c"/><text x="84" y="578" fill="#38bdf8">TPP · B1</text><text x="84" y="611" fill="#cbd5e1" font-size="16">E1 · descarboxila</text>
-      <rect x="276" y="540" width="190" height="112" rx="18" fill="#112b3c"/><text x="296" y="578" fill="#f472b6">LIPOATO</text><text x="296" y="611" fill="#cbd5e1" font-size="16">E2 · brazo móvil</text>
-      <rect x="488" y="540" width="190" height="112" rx="18" fill="#112b3c"/><text x="508" y="578" fill="#34d399">CoA · B5</text><text x="508" y="611" fill="#cbd5e1" font-size="16">Recibe el acetilo</text>
-      <rect x="700" y="540" width="190" height="112" rx="18" fill="#112b3c"/><text x="720" y="578" fill="#fbbf24">FAD · B2</text><text x="720" y="611" fill="#cbd5e1" font-size="16">E3 · se reduce</text>
-      <rect x="912" y="540" width="190" height="112" rx="18" fill="#112b3c"/><text x="932" y="578" fill="#a78bfa">NAD⁺ · B3</text><text x="932" y="611" fill="#cbd5e1" font-size="16">Forma NADH</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Destino aeróbico del piruvato: transporte mitocondrial y complejo PDH</title>
+  <desc id="desc">Reconstrucción semántica sobre fondo blanco de la pizarra del 19 de agosto. Conserva la ubicación del piruvato, las membranas mitocondriales con porinas y MPC, la reacción de la piruvato deshidrogenasa, sus cofactores y el nexo con el ciclo TCA. Al pie hay una aclaración didáctica separada.</desc>
+  <defs>
+    <marker id="arrow-navy" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M1 1l10 5-10 5" fill="none" stroke="#17324d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M1 1l10 5-10 5" fill="none" stroke="#16856b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M1 1l10 5-10 5" fill="none" stroke="#c6525b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <pattern id="lipid-bilayer" width="44" height="78" patternUnits="userSpaceOnUse">
+      <circle cx="22" cy="9" r="7" fill="#fff" stroke="#164c6c" stroke-width="3"/>
+      <path d="M20 17v19m4-19v19" fill="none" stroke="#164c6c" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="22" cy="69" r="7" fill="#fff" stroke="#164c6c" stroke-width="3"/>
+      <path d="M20 61V42m4 19V42" fill="none" stroke="#164c6c" stroke-width="2.5" stroke-linecap="round"/>
+    </pattern>
+    <filter id="paper-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#17324d" flood-opacity="0.10"/>
+    </filter>
+    <style>
+      .sans{font-family:Arial,Helvetica,sans-serif}.ink{fill:#17324d}.blue{fill:#155f91}.green{fill:#16856b}.red{fill:#c6525b}.orange{fill:#c97a2a}.muted{fill:#60758a}
+      .line{fill:none;stroke:#17324d;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.thin{stroke-width:3}.green-line{fill:none;stroke:#16856b;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.red-line{fill:none;stroke:#c6525b;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+
+  <rect width="1600" height="1200" fill="#fff"/>
+  <rect x="34" y="34" width="1532" height="1132" rx="28" fill="#fff" stroke="#d9e6ee" stroke-width="3" filter="url(#paper-shadow)"/>
+
+  <g class="sans">
+    <text x="78" y="84" class="blue" font-size="22" font-weight="700" letter-spacing="2.5">BIOQUÍMICA II · 19 AGO. 2026 · PIZARRA RECONSTRUIDA EN LIMPIO</text>
+    <text x="78" y="133" class="ink" font-size="38" font-weight="800">Destino aeróbico del piruvato: transporte mitocondrial y complejo PDH</text>
+    <path d="M78 153H1522" stroke="#d9e6ee" stroke-width="3"/>
+
+    <!-- Parte superior de la pizarra: piruvato y sus dos condiciones -->
+    <g aria-label="Dos condiciones anotadas alrededor del piruvato">
+      <text x="646" y="191" class="blue" font-size="22" font-weight="700" text-anchor="middle">2 destinos</text>
+      <path d="M646 198v22" class="line thin" marker-end="url(#arrow-navy)"/>
+      <text x="646" y="250" class="ink" font-size="28" font-weight="800" text-anchor="middle">PIRUVATO</text>
+      <text x="646" y="279" class="ink" font-size="21" font-weight="700" text-anchor="middle">(citosol)</text>
+
+      <path d="M590 248H368" class="line" marker-end="url(#arrow-navy)"/>
+      <text x="465" y="225" class="green" font-size="22" font-weight="800" text-anchor="middle">O₂ ✓</text>
+      <text x="210" y="255" class="green" font-size="27" font-weight="800">AERÓBICO</text>
+      <path d="M284 270v53" class="green-line" marker-end="url(#arrow-green)"/>
+
+      <path d="M703 248h102" class="line"/>
+      <path d="M805 232v32" class="red-line thin"/>
+      <text x="763" y="225" class="red" font-size="22" font-weight="800" text-anchor="middle">↓ O₂ ✕</text>
     </g>
+
+    <!-- Cofactores en la misma posición relativa que en la fotografía -->
+    <g aria-label="Complejo piruvato deshidrogenasa y cofactores">
+      <path d="M846 342h612" class="line" marker-end="url(#arrow-navy)"/>
+      <path d="M947 240c19-49 68-70 139-70" class="red-line thin" marker-end="url(#arrow-red)"/>
+      <text x="842" y="190" class="red" font-size="20" font-weight="700">enzima</text>
+      <text x="842" y="215" class="red" font-size="20" font-weight="700">conjugada</text>
+      <text x="846" y="278" class="red" font-size="27" font-weight="800">(PDH)</text>
+      <text x="846" y="311" class="red" font-size="21" font-weight="700">Piruvato deshidrogenasa</text>
+
+      <path d="M1135 155c-20 0-24 12-24 26v126c0 15-5 25-23 25 18 0 23 10 23 25v10" class="line thin"/>
+      <text x="1150" y="176" class="blue" font-size="22" font-weight="700">B1: tiamina</text>
+      <text x="1150" y="211" class="blue" font-size="22" font-weight="700">B2: riboflavina</text>
+      <text x="1150" y="246" class="blue" font-size="22" font-weight="700">B3: niacina</text>
+      <text x="1150" y="281" class="blue" font-size="22" font-weight="700">B5: ácido pantoténico</text>
+      <text x="1150" y="316" class="blue" font-size="22" font-weight="700">Lipoato (azufrado)</text>
+    </g>
+
+    <!-- Membranas y transporte del piruvato -->
+    <g aria-label="Transporte mitocondrial del piruvato mediante porinas y MPC">
+      <text x="83" y="350" class="blue" font-size="20" font-weight="700">CITOSOL</text>
+      <text x="83" y="413" class="blue" font-size="18" font-weight="700">MME</text>
+      <rect x="145" y="367" width="470" height="78" fill="url(#lipid-bilayer)"/>
+      <rect x="351" y="367" width="35" height="78" rx="14" fill="#fff8ee" stroke="#d78a3c" stroke-width="4"/>
+      <rect x="390" y="367" width="35" height="78" rx="14" fill="#fff8ee" stroke="#d78a3c" stroke-width="4"/>
+      <text x="437" y="359" class="orange" font-size="20" font-weight="700">porinas</text>
+      <path d="M428 355c-18 2-27 10-31 27" fill="none" stroke="#c97a2a" stroke-width="3" marker-end="url(#arrow-navy)"/>
+
+      <text x="83" y="486" class="blue" font-size="18" font-weight="700">EIM</text>
+      <text x="174" y="485" class="blue" font-size="18" font-weight="700">H⁺</text>
+      <text x="215" y="485" class="blue" font-size="18" font-weight="700">H⁺</text>
+      <text x="477" y="485" class="blue" font-size="18" font-weight="700">H⁺</text>
+      <text x="520" y="485" class="blue" font-size="18" font-weight="700">H⁺</text>
+      <text x="562" y="485" class="blue" font-size="18" font-weight="700">H⁺</text>
+
+      <text x="83" y="555" class="blue" font-size="18" font-weight="700">MMI</text>
+      <rect x="145" y="510" width="470" height="78" fill="url(#lipid-bilayer)"/>
+      <rect x="346" y="510" width="39" height="78" rx="8" fill="#eef8ff" stroke="#2f79a9" stroke-width="4"/>
+      <rect x="390" y="510" width="39" height="78" rx="8" fill="#eef8ff" stroke="#2f79a9" stroke-width="4"/>
+      <path d="M388 583c9 20 25 26 46 26" class="line thin" marker-end="url(#arrow-navy)"/>
+      <text x="451" y="618" class="blue" font-size="19" font-weight="700">MPC (transportador de</text>
+      <text x="451" y="644" class="blue" font-size="19" font-weight="700">piruvato mitocondrial)</text>
+      <text x="497" y="677" class="blue" font-size="19" font-weight="700">↓ simporte con H⁺</text>
+
+      <text x="83" y="628" class="blue" font-size="18" font-weight="700">MATRIZ</text>
+      <text x="83" y="652" class="blue" font-size="18" font-weight="700">MITOCONDRIAL</text>
+      <circle cx="341" cy="642" r="8" fill="#e85b66"/>
+      <path d="M284 323c0 41 68 22 92 44v129c0 26 0 35-8 50" class="green-line thin" marker-end="url(#arrow-green)"/>
+    </g>
+
+    <!-- Reacción central de la pizarra -->
+    <g aria-label="Reacción global de la piruvato deshidrogenasa">
+      <text x="690" y="492" class="ink" font-size="24" font-weight="800">PIRUVATO</text>
+      <text x="719" y="520" class="ink" font-size="20" font-weight="700">(3C)</text>
+      <path d="M810 500h604" class="line" marker-end="url(#arrow-navy)"/>
+      <text x="1425" y="492" class="ink" font-size="24" font-weight="800">ACETIL-CoA</text>
+      <text x="1470" y="520" class="ink" font-size="20" font-weight="700">(2C)</text>
+
+      <text x="882" y="435" class="blue" font-size="23" font-weight="800">SH–CoA</text>
+      <path d="M981 429c34 2 39 28 39 62" class="line thin" marker-end="url(#arrow-navy)"/>
+
+      <path d="M878 506c0 37-16 52-38 62" class="red-line thin" marker-end="url(#arrow-red)"/>
+      <text x="806" y="602" class="red" font-size="23" font-weight="800">CO₂</text>
+      <text x="798" y="630" class="red" font-size="19" font-weight="700">(−1C)</text>
+
+      <text x="994" y="596" class="orange" font-size="23" font-weight="800">NAD⁺</text>
+      <path d="M1060 575c52-57 104-55 155 0" fill="none" stroke="#c97a2a" stroke-width="4" marker-end="url(#arrow-navy)"/>
+      <text x="1113" y="548" class="orange" font-size="18" font-weight="700">2 e⁻</text>
+      <text x="1198" y="596" class="blue" font-size="23" font-weight="800">NADH + H⁺</text>
+
+      <text x="817" y="697" class="ink" font-size="20" font-weight="700"><tspan class="blue" font-weight="800">SH–CoA:</tspan> coenzima A</text>
+      <circle cx="838" cy="728" r="23" fill="#fff" stroke="#155f91" stroke-width="3"/>
+      <text x="838" y="735" class="blue" font-size="18" font-weight="800" text-anchor="middle">SH</text>
+      <text x="872" y="735" class="ink" font-size="19" font-weight="700">= grupo sulfhidrilo</text>
+
+      <path d="M1485 537v126" class="line" marker-end="url(#arrow-navy)"/>
+      <text x="1485" y="693" class="blue" font-size="19" font-weight="700" text-anchor="middle">NEXO</text>
+      <circle cx="1485" cy="755" r="49" fill="#f7f1ff" stroke="#7456a3" stroke-width="4"/>
+      <text x="1485" y="750" fill="#7456a3" font-size="25" font-weight="800" text-anchor="middle">TCA</text>
+      <path d="M1485 765v18" fill="none" stroke="#7456a3" stroke-width="3" marker-end="url(#arrow-navy)"/>
+    </g>
+
+    <!-- Definiciones conservadas de la parte inferior -->
+    <g aria-label="Definición de descarboxilación oxidativa y estados del NAD">
+      <text x="130" y="742" class="green" font-size="24" font-weight="800">DESCARBOXILACIÓN</text>
+      <text x="202" y="772" class="green" font-size="24" font-weight="800">OXIDATIVA</text>
+      <path d="M242 783c-36 25-80 28-125 28" class="green-line thin" marker-end="url(#arrow-green)"/>
+      <text x="80" y="850" class="ink" font-size="20" font-weight="700">Pérdida de CO₂</text>
+      <path d="M365 783c38 25 86 28 129 28" class="green-line thin" marker-end="url(#arrow-green)"/>
+      <text x="464" y="850" class="ink" font-size="20" font-weight="700">Pérdida de e⁻</text>
+
+      <text x="704" y="800" class="orange" font-size="19" font-weight="800">NAD⁺:</text>
+      <text x="773" y="800" class="ink" font-size="19">nicotinamida adenina dinucleótido</text>
+      <text x="1216" y="800" class="orange" font-size="19" font-weight="800">oxidado</text>
+      <text x="704" y="839" class="blue" font-size="19" font-weight="800">NADH:</text>
+      <text x="773" y="839" class="ink" font-size="19">nicotinamida adenina dinucleótido</text>
+      <text x="1216" y="839" class="blue" font-size="19" font-weight="800">reducido</text>
+    </g>
+
+    <!-- Contenido añadido, deliberadamente separado de la pizarra -->
+    <g aria-label="Aclaración didáctica añadida">
+      <rect x="78" y="906" width="1444" height="212" rx="22" fill="#eef8ff" stroke="#74b6db" stroke-width="3"/>
+      <rect x="78" y="906" width="14" height="212" rx="7" fill="#2f79a9"/>
+      <text x="116" y="949" class="blue" font-size="21" font-weight="800" letter-spacing="1.2">ACLARACIÓN DIDÁCTICA · NO FORMA PARTE DEL TRAZO ORIGINAL</text>
+      <circle cx="126" cy="987" r="5" fill="#2f79a9"/>
+      <text x="145" y="994" class="ink" font-size="20"><tspan font-weight="800">El O₂ no es sustrato directo de PDH.</tspan><tspan dx="7">Permite reoxidar NADH en la cadena respiratoria; si falta O₂, aumenta NADH/NAD⁺,</tspan></text>
+      <text x="145" y="1022" class="ink" font-size="20">se frena PDH y el piruvato se desvía con mayor facilidad hacia lactato.</text>
+      <circle cx="126" cy="1058" r="5" fill="#2f79a9"/>
+      <text x="145" y="1065" class="ink" font-size="20"><tspan font-weight="800">PDH está en la matriz y su reacción es irreversible:</tspan><tspan dx="7">piruvato + CoA–SH + NAD⁺ → acetil‑CoA + CO₂ + NADH + H⁺.</tspan></text>
+      <circle cx="126" cy="1099" r="5" fill="#2f79a9"/>
+      <text x="145" y="1106" class="ink" font-size="20"><tspan font-weight="800">Ampliación:</tspan><tspan dx="7">E1–TPP (B1); E2–lipoato y CoA (B5); E3–FAD (B2) y NAD⁺ (B3).</tspan></text>
+    </g>
+
+    <text x="800" y="1150" class="muted" font-size="17" text-anchor="middle">Contenido, disposición y código cromático conservados; perspectiva, contraste y trazos normalizados para lectura.</text>
   </g>
-  <text x="64" y="708" fill="#94a3b8" font-family="Arial,sans-serif" font-size="18">Pizarra reconstruida en limpio · contenido académico, no fotografía del aula.</text>
 </svg>

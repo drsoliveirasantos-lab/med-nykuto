@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Ciclo de Cori entre músculo, sangre, eritrocitos e hígado</title>
+  <desc id="desc">Reconstrucción semántica del segundo pizarrón del ciclo de Cori. Conserva la gran silueta hepática superior, el vaso sanguíneo central con eritrocitos y el músculo inferior. Las flechas muestran el lactato que llega al hígado y la glucosa que vuelve al músculo. Un recuadro separado corrige el balance, los intermediarios del glucógeno muscular y la interpretación del lactato.</desc>
+  <defs>
+    <marker id="arrow-ink" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#263039" stroke-width="2"/></marker>
+    <marker id="arrow-red" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#c94f69" stroke-width="2"/></marker>
+    <marker id="arrow-green" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#2e8a57" stroke-width="2"/></marker>
+    <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#315fbd" stroke-width="2"/></marker>
+    <style>
+      .board{fill:#fff;stroke:#d7ddd9;stroke-width:5}.ink{fill:#263039;stroke:#263039}.red{fill:#c94f69;stroke:#c94f69}.green{fill:#2e8a57;stroke:#2e8a57}.purple{fill:#7651a5;stroke:#7651a5}.orange{fill:#d88738;stroke:#d88738}.blue{fill:#315fbd;stroke:#315fbd}
+      .liver{fill:#fff8f8;stroke:#c94f69}.blood{fill:#f8fcff;stroke:#c94f69}.muscle{fill:#fffafa;stroke:#263039}.rbc{fill:#fff;stroke:#c94f69}.rbc-core{fill:#fff5f6;stroke:#c94f69}.correction{fill:#eef7fb;stroke:#4c83a3;stroke-width:3}
+      text{font-family:"Segoe Print","Bradley Hand","Trebuchet MS",sans-serif;font-size:23px;font-weight:650;stroke:none}.title{font-size:36px;font-weight:780}.heading{font-size:28px;font-weight:780}.small{font-size:18px}.tiny{font-size:15px}.micro{font-family:"Trebuchet MS",Arial,sans-serif;font-size:15px;font-weight:800;letter-spacing:1.25px}.formula{font-family:"Trebuchet MS",Arial,sans-serif;font-size:20px;font-weight:750}
+      .line{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.thin{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.hair{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.dash{fill:none;stroke-width:3;stroke-linecap:round;stroke-dasharray:10 9}
+    </style>
+  </defs>
+
+  <rect class="board" x="3" y="3" width="1594" height="1094" rx="18"/>
+  <text class="green title" x="402" y="54">CICLO DE CORI · INTERCAMBIO ENTRE TEJIDOS</text>
+
+  <!-- Silueta hepática superior: misma gran envolvente del pizarrón. -->
+  <path class="liver line" d="M178 165C253 83 418 77 550 95 746 122 930 133 1089 90c139-38 274-22 329 57 38 54 27 135-24 190-61 65-157 92-274 91l-183-3c-112-2-185 21-270 52-107 38-251 33-350-14-105-50-187-128-139-198z"/>
+  <text class="red heading" x="205" y="142">HÍGADO</text>
+
+  <text class="ink" x="242" y="265">Glucógeno</text><text class="ink small" x="256" y="291">hepático</text>
+  <text class="ink heading" x="603" y="270">Glucosa</text>
+  <path class="red line" d="M586 260H418" marker-end="url(#arrow-red)"/>
+  <text class="red small" x="438" y="231">glucogénesis</text>
+
+  <text class="ink heading" x="980" y="270">Piruvato</text>
+  <path class="red line" d="M958 260H733" marker-end="url(#arrow-red)"/>
+  <text class="red small" x="772" y="227">gluconeogénesis</text>
+  <text class="purple small" x="790" y="294">−4 ATP · −2 GTP</text>
+
+  <text class="ink heading" x="1015" y="384">Lactato</text>
+  <path class="red line" d="M1066 357V294" marker-end="url(#arrow-red)"/>
+  <text class="red small" x="1092" y="328">LDH</text>
+  <text class="purple tiny" x="1118" y="351">NAD⁺ → NADH + H⁺</text>
+
+  <path class="blue dash" d="M655 296v174" marker-end="url(#arrow-blue)"/>
+  <text class="blue small" x="675" y="405">G6Pasa</text><text class="blue small" x="675" y="431">+ GLUT2</text>
+
+  <!-- Vaso sanguíneo horizontal con eritrocitos, como en la pizarra. -->
+  <path class="blood line" d="M152 472h1265c42 0 64 29 64 69s-22 69-64 69H152c-34 0-55-30-55-69s21-69 55-69z"/>
+  <text class="red heading" x="82" y="458">SANGRE</text>
+  <text class="blue" x="579" y="536">Glucosa</text>
+  <text class="red" x="254" y="567">Lactato</text><text class="red" x="785" y="566">Lactato</text><text class="red" x="1019" y="533">Lactato</text>
+
+  <g aria-label="eritrocitos">
+    <circle class="rbc line" cx="1262" cy="522" r="32"/><circle class="rbc-core hair" cx="1262" cy="522" r="17"/>
+    <circle class="rbc line" cx="1334" cy="550" r="32"/><circle class="rbc-core hair" cx="1334" cy="550" r="17"/>
+    <circle class="rbc line" cx="1402" cy="515" r="32"/><circle class="rbc-core hair" cx="1402" cy="515" r="17"/>
+    <circle class="rbc line" cx="1237" cy="577" r="29"/><circle class="rbc-core hair" cx="1237" cy="577" r="15"/>
+  </g>
+  <text class="red small" x="1265" y="455">Eritrocitos</text>
+  <path class="green thin" d="M1302 477q-81-25-158 22" marker-end="url(#arrow-green)"/>
+  <text class="green tiny" x="1115" y="471">glucólisis → lactato</text>
+
+  <!-- Flujo de lactato músculo → sangre → hígado. -->
+  <path class="red line" d="M1080 710V615" marker-end="url(#arrow-red)"/>
+  <path class="red line" d="M1080 472V407" marker-end="url(#arrow-red)"/>
+  <text class="red small" x="1097" y="684">lactato</text>
+  <path class="blue dash" d="M655 610v118" marker-end="url(#arrow-blue)"/>
+  <text class="blue small" x="675" y="682">GLUT4</text>
+
+  <!-- Silueta muscular inferior, con la secuencia horizontal original. -->
+  <path class="muscle line" d="M87 854c98-17 170-69 260-113 111-55 237-70 359-57 122 13 232 68 356 73 148 6 290-56 448-35 47 6 88 20 128 41v132H87z"/>
+  <text class="ink heading" x="104" y="742">MÚSCULO</text>
+  <path class="ink hair" d="M167 852q83-41 176-72m-143 107q85-46 191-85m843 25q97-44 195-46m-164 85q98-42 205-45"/>
+
+  <text class="ink small" x="260" y="804">Glucógeno muscular</text>
+  <path class="red line" d="M443 795h129" marker-end="url(#arrow-red)"/>
+  <text class="red tiny" x="457" y="766">glucogenólisis</text>
+  <text class="ink" x="591" y="803">G1P → G6P</text>
+  <path class="orange line" d="M723 795h121" marker-end="url(#arrow-ink)"/>
+  <text class="red tiny" x="742" y="764">glucólisis</text>
+  <text class="green tiny" x="751" y="831">+2 ATP</text>
+  <text class="ink" x="865" y="803">Piruvato</text>
+  <path class="red line" d="M963 795h125" marker-end="url(#arrow-red)"/>
+  <text class="red tiny" x="982" y="765">LDH</text>
+  <text class="ink" x="1107" y="803">Lactato</text>
+  <text class="purple tiny" x="1002" y="840">NADH + H⁺ → NAD⁺</text>
+  <path class="red thin" d="M1175 823q69 25 119 63" marker-end="url(#arrow-red)"/>
+  <text class="red small" x="1309" y="893">sale a sangre</text>
+
+  <!-- Correcciones separadas para no confundirlas con el trazado original. -->
+  <rect class="correction" x="55" y="923" width="1490" height="132" rx="17"/>
+  <text class="blue micro" x="85" y="957">CORRECCIÓN DIDÁCTICA · LECTURA INTERORGÁNICA</text>
+  <text class="ink small" x="85" y="993">
+    <tspan x="85" dy="0">• Dos lactatos reconstruyen una glucosa; el hígado consume 4 ATP + 2 GTP. El músculo usa G1P/G6P y no exporta glucosa libre.</tspan>
+    <tspan x="85" dy="30">• Los eritrocitos producen lactato aun con O₂ porque no tienen mitocondrias. Lactato y fatiga no son una relación causal única.</tspan>
+  </text>
+</svg>

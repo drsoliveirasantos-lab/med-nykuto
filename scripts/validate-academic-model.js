@@ -68,7 +68,7 @@ if (model) {
   expect(teacherIds.length === 6, `Expected 6 teacher profiles, found ${teacherIds.length}.`);
   expect(subjectIds.length === 6, `Expected 6 subjects, found ${subjectIds.length}.`);
   expect(/id="teacherProfiles"/.test(teacherHtml), 'Teacher audit page is not model-driven.');
-  expect(/academic-model-v445\.js/.test(html) && /academic-model-2026-08-27-v494\.js/.test(html) && /academic-model-2026-08-28-v500\.js/.test(html) && /class-notebook-v445\.js\?v=500/.test(html), 'Class page does not load the complete academic model through 28 August and the current academic notebook.');
+  expect(/academic-model-v445\.js/.test(html) && /academic-model-2026-08-27-v494\.js/.test(html) && /academic-model-2026-08-28-v500\.js/.test(html) && /class-notebook-v445\.js\?v=501/.test(html), 'Class page does not load the complete academic model through 28 August and the current academic notebook.');
   expect(/academic-model-2026-08-28-v500\.js/.test(teacherHtml) && /23 CLASES/.test(teacherHtml) && /28 ago\. 2026/.test(teacherHtml), 'Teacher audit page does not expose the 28 August model and updated lesson count.');
   expect(!/class="class-drive-card"/.test(html), 'Drive is still duplicated inside Materias.');
   expect((html.match(/data-class-drive-link/g) || []).length === 1, 'Drive must appear exactly once, on Home.');
@@ -143,7 +143,7 @@ if (model) {
   expect(/course-inline-figure/.test(notebookCss) && /course-diagram-dialog/.test(notebookCss), 'Inline lesson diagrams or their enlarged view are not styled.');
   expect(!/<nav class="(?:course-chapter-index|notebook-course-index)"/.test(html), 'The removed course summary navigation is still present in the class page.');
   expect(/querySelectorAll\('\.course-chapter-index, \.notebook-course-index'\)/.test(notebookJs), 'Generated legacy summary navigation is not removed at runtime.');
-  expect((notebookJs.match(/type:\s*'board'/g) || []).length >= 3, 'The 21 August lesson must expose the three faithful teacher boards.');
+  expect((notebookJs.match(/type:\s*'board'/g) || []).length === 15, 'The four recovered Biochemistry lessons must expose exactly fifteen distinct teacher boards.');
   expect(/whiteboard-v2/.test(notebookJs), 'The 14 August lesson is not using the reviewed faithful whiteboard series.');
   expect(/course-diagram-dialog[^}]*[\s\S]{0,1800}object-fit:contain/.test(notebookCss), 'The enlarged board view does not guarantee contain fitting.');
   expect(/PIZARRA DEL PROFESOR · RECONSTRUIDA/.test(notebookJs), 'Teacher-board provenance is not explicit in the enlarged viewer.');

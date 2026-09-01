@@ -24,16 +24,17 @@
   <g class="green"><circle cx="177" cy="356" r="7"/><circle cx="212" cy="344" r="7"/><circle cx="243" cy="368" r="7"/><circle cx="203" cy="388" r="7"/></g>
   <path class="green thin" d="M252 357q48-24 79-51" marker-end="url(#a-green)"/>
 
-  <!-- Célula insulinodependiente reconocible: membrana, núcleo, receptores, mitocondria y glucosa. -->
-  <text class="ink micro" x="326" y="63">CÉLULA INSULINODEPENDIENTE</text>
+  <!-- Célula reconocible: membrana, núcleo, vías dependiente/no dependiente de insulina, receptores, mitocondria y glucosa. -->
+  <text class="ink micro" x="326" y="63">CÉLULA · VÍAS DE ENTRADA DE GLUCOSA</text>
   <ellipse class="cell line" cx="468" cy="222" rx="165" ry="154"/>
   <ellipse class="ink hair" cx="468" cy="222" rx="151" ry="140"/>
   <ellipse class="nucleus thin" cx="423" cy="139" rx="52" ry="31"/>
   <path class="purple line" d="M315 201h26m-13-17v34m287 62h-25m13-17v34"/>
   <circle class="green" cx="306" cy="181" r="7"/><circle class="green" cx="624" cy="262" r="7"/>
-  <text class="red tiny" x="345" y="188">señal de insulina</text>
+  <text class="red tiny" x="345" y="188">no dep. de INS</text>
   <path class="red thin" d="M344 199q47 37 64 70" marker-end="url(#a-red)"/>
   <path class="mito thin" d="M466 278c23-16 64-12 77 12-15 24-53 31-78 13-10-8-10-18 1-25z"/><path class="orange hair" d="M481 287q12 11 23 0t24 1"/>
+  <text class="green tiny" x="345" y="322">dep. de INS</text>
   <text class="green tiny" x="418" y="342">mitocondria · producción de ATP</text>
   <text class="blue small" x="433" y="228">Glc</text><text class="blue small" x="512" y="190">Glc</text><text class="blue small" x="531" y="247">Glc</text>
   <path class="blue line" d="M642 123q58-20 94-51" marker-end="url(#a-blue)"/>
@@ -72,8 +73,9 @@
   </g>
   <text class="ink title" x="1204" y="352">HSL</text><text class="ink small" x="1190" y="382">lipasa sensible a hormona</text><text class="green title" x="1210" y="421">↑ lipólisis</text>
   <path class="purple thin" d="M1308 434v45" marker-end="url(#a-red)"/>
-  <text class="red" x="1182" y="511">TAG (triacilglicerol)</text>
-  <path class="blue thin" d="M1304 525l-67 54m76-54 86 54" marker-end="url(#a-blue)"/>
+  <text class="red small" x="1168" y="497">Rompimiento de TAG</text>
+  <text class="red tiny" x="1241" y="521">(triacilglicerol)</text>
+  <path class="blue thin" d="M1304 531l-67 48m76-48 86 48" marker-end="url(#a-blue)"/>
   <text class="blue title" x="1170" y="611">3 AG</text><text class="green small" x="1137" y="640">FFA · ácidos grasos libres</text><text class="blue title" x="1390" y="611">glicerol</text>
   <text class="red small" x="690" y="468">Objetivo: formar acetil-CoA</text><text class="green small" x="742" y="495">y producir ATP</text>
 
@@ -83,7 +85,7 @@
   <g class="muscle thin"><path d="M652 800q94-43 212 0-94 43-212 0z"/><path d="M689 849q96-40 209 0-96 39-209 0z"/></g>
   <g class="red hair"><path d="M704 781v37m44-47v56m46-54v54m45-47v38m-104 14v36m45-45v52m46-50v47"/></g>
   <text class="ink" x="915" y="810">↑ proteólisis</text><path class="green thin" d="M991 823v44" marker-end="url(#a-green)"/>
-  <text class="green" x="898" y="900">aminoácidos</text><text class="green small" x="1102" y="866">NH₃ + H⁺ → NH₄⁺</text><text class="red" x="1124" y="910">alanina</text>
+  <text class="green" x="898" y="900">aminoácidos</text><text class="green small" x="1102" y="866">NH₃ + H⁺ → NH₄⁺</text><text class="red title" x="1110" y="916">alanina</text>
   <text class="red small" x="550" y="918">precursores para la</text><text class="green title" x="558" y="952">gluconeogénesis</text>
 
   <!-- Hígado reconocible y colocado como en la pizarra, recibiendo FFA y alanina. -->

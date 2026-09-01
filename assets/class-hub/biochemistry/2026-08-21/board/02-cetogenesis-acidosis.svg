@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
   <title id="title">Metabolismo hepático, cetogénesis y cetoacidosis</title>
-  <desc id="desc">Reconstrucción semántica de la segunda pizarra: ácidos grasos y alanina llegan al hepatocito; la mitocondria realiza beta-oxidación, el acetil-CoA alimenta Krebs o cetogénesis y los cuerpos cetónicos llevan a acidosis, compensación y pérdida de función celular.</desc>
+  <desc id="desc">Reconstrucción semántica de la segunda pizarra: ácidos grasos y alanina llegan al hepatocito; la mitocondria realiza beta-oxidación, el acetil-CoA alimenta Krebs o cetogénesis y los cuerpos cetónicos llevan a acidosis, compensación, entorpecimiento metabólico y debilidad extrema.</desc>
   <defs>
     <marker id="b-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#315cc3" stroke-width="2"/></marker>
     <marker id="b-red" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#ce4c68" stroke-width="2"/></marker>
@@ -93,7 +93,7 @@
   <path class="ink line" d="M655 864h127" marker-end="url(#b-ink)"/>
   <text class="ink" x="797" y="858">Desnaturalización</text><text class="ink small" x="840" y="886">proteica</text>
   <path class="ink line" d="M1010 862h112" marker-end="url(#b-ink)"/>
-  <text class="ink" x="1139" y="860">Cambio metabólico</text>
+  <text class="ink" x="1098" y="860">“Entorpecimiento metabólico”</text>
   <path class="ink thin" d="M1257 877v51" marker-end="url(#b-ink)"/>
-  <text class="ink title" x="1211" y="966">↓ ATP</text><path class="red thin" d="M1305 956h101" marker-end="url(#b-red)"/><text class="red small" x="1421" y="964">muerte celular</text>
+  <text class="ink title" x="1211" y="966">↓ ATP</text><path class="red thin" d="M1305 956h83" marker-end="url(#b-red)"/><text class="red small" x="1399" y="964">debilidad extrema</text>
 </svg>

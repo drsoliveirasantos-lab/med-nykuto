@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
   <title id="title">Adaptación cerebral, osmoles idiogénicos y edema</title>
-  <desc id="desc">Reconstrucción semántica de la tercera pizarra: una célula cerebral se adapta a la hiperosmolaridad mediante osmoles idiogénicos; una corrección brusca favorece entrada de agua, edema, herniación y compromiso cardiorrespiratorio. La rama de potasio y arritmia se mantiene separada.</desc>
+  <desc id="desc">Reconstrucción semántica de la tercera pizarra: una célula cerebral se adapta a la hiperosmolaridad mediante osmoles idiogénicos; una corrección brusca favorece entrada de agua, edema, herniación y muerte por paro cardiorrespiratorio. La rama de potasio y arritmia se mantiene separada.</desc>
   <defs>
     <marker id="c-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#315cc3" stroke-width="2"/></marker>
     <marker id="c-red" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#ce4c68" stroke-width="2"/></marker>
@@ -62,10 +62,10 @@
   <path class="red line" d="M891 817q12 31 9 76c0 21 13 38 32 45-2-30-1-55-9-81-6-19-15-32-32-40z"/>
   <text class="ink small" x="944" y="835">foramen magno</text><text class="red small" x="942" y="875">invaginación /</text><text class="red small" x="942" y="902">herniación cerebral</text>
 
-  <!-- Las consecuencias mantienen la dirección de la pizarra sin duplicar el mismo paro. -->
+  <!-- Las consecuencias mantienen la dirección y la conclusión escrita por la profesora. -->
   <path class="blue line" d="M1011 754q72 8 107 53" marker-end="url(#c-blue)"/>
   <text class="blue" x="1124" y="760">centro respiratorio</text><text class="blue" x="1124" y="812">centro cardiovascular</text>
   <path class="blue line" d="M1331 773v-78m5 111v-96" marker-end="url(#c-blue)"/>
-  <text class="green title" x="1280" y="650">PARO</text><text class="green title" x="1215" y="686">CARDIORRESPIRATORIO</text>
+  <text class="blue small" x="1248" y="650">Muerte por paro</text><text class="blue title" x="1167" y="686">cardiorrespiratorio</text>
   <text class="red small" x="1237" y="724">compresión del tronco</text><text class="red small" x="1283" y="749">encefálico</text>
 </svg>

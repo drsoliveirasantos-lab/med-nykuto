@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1320" role="img" aria-labelledby="title desc">
+  <title id="title">Vía de las pentosas fosfato: objetivos, fases y destinos</title>
+  <desc id="desc">Reconstrucción semántica del pizarrón de la vía de las pentosas fosfato. Conserva el eje superior de glucosa a glucólisis, la derivación vertical desde glucosa-6-fosfato, la división entre fase oxidativa y no oxidativa y las tres ramas de objetivos: NADPH, ribosa-5-fosfato e intermediarios glucolíticos. Un recuadro independiente reúne las precisiones didácticas.</desc>
+  <defs>
+    <marker id="arrow-ink" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#263039" stroke-width="2"/></marker>
+    <marker id="arrow-red" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#c94f69" stroke-width="2"/></marker>
+    <marker id="arrow-green" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#2e8a57" stroke-width="2"/></marker>
+    <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#315fbd" stroke-width="2"/></marker>
+    <marker id="arrow-purple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#7651a5" stroke-width="2"/></marker>
+    <style>
+      .board{fill:#fff;stroke:#d7ddd9;stroke-width:5}.ink{fill:#263039;stroke:#263039}.red{fill:#c94f69;stroke:#c94f69}.green{fill:#2e8a57;stroke:#2e8a57}.purple{fill:#7651a5;stroke:#7651a5}.orange{fill:#d88738;stroke:#d88738}.blue{fill:#315fbd;stroke:#315fbd}
+      .sugar{fill:#fffdfa;stroke:#263039}.base{fill:#f5f1ff;stroke:#7651a5}.phosphate{fill:#eef7fb;stroke:#315fbd}.correction{fill:#eef7fb;stroke:#4c83a3;stroke-width:3}
+      text{font-family:"Segoe Print","Bradley Hand","Trebuchet MS",sans-serif;font-size:23px;font-weight:650;stroke:none}.title{font-size:35px;font-weight:790}.heading{font-size:28px;font-weight:780}.small{font-size:18px}.tiny{font-size:15px}.micro{font-family:"Trebuchet MS",Arial,sans-serif;font-size:15px;font-weight:800;letter-spacing:1.25px}.formula{font-family:"Trebuchet MS",Arial,sans-serif;font-size:20px;font-weight:750}
+      .line{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.thin{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.hair{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.dash{fill:none;stroke-width:3;stroke-linecap:round;stroke-dasharray:10 9}
+    </style>
+  </defs>
+
+  <rect class="board" x="3" y="3" width="1594" height="1314" rx="18"/>
+
+  <!-- Eje superior glucosa → glucólisis, conservado del pizarrón. -->
+  <text class="ink heading" x="66" y="100">Glucosa</text><text class="ink small" x="101" y="129">6 C</text>
+  <path class="red line" d="M193 92h191" marker-end="url(#arrow-red)"/>
+  <text class="red small" x="221" y="61">hexoquinasa / glucoquinasa</text>
+  <text class="purple small" x="273" y="124">ATP → ADP</text>
+  <text class="ink heading" x="405" y="100">Glucosa-6-fosfato</text>
+
+  <path class="blue line" d="M666 92h178" marker-end="url(#arrow-blue)"/>
+  <text class="blue small" x="685" y="61">fosfoglucosa isomerasa</text>
+  <text class="ink heading" x="864" y="100">Fructosa-6-fosfato</text>
+  <path class="blue line" d="M1084 92h130" marker-end="url(#arrow-blue)"/>
+  <text class="blue heading" x="1234" y="100">Glucólisis</text>
+  <path class="ink thin" d="M1374 92h91" marker-end="url(#arrow-ink)"/>
+  <text class="ink small" x="1380" y="62">Krebs · CTE/FO</text>
+  <text class="red small" x="1468" y="129">O₂ · ↑ ATP</text>
+
+  <!-- Derivación vertical desde G6P hacia la vía. -->
+  <path class="green line" d="M527 122v130" marker-end="url(#arrow-green)"/>
+  <text class="blue" x="552" y="184">G6PD</text>
+  <text class="blue tiny" x="552" y="210">glucosa-6-fosfato</text>
+  <text class="blue tiny" x="552" y="231">deshidrogenasa</text>
+
+  <text class="green title" x="396" y="302">VÍA DE LAS PENTOSAS FOSFATO</text>
+  <text class="ink small" x="510" y="338">Ruta citosólica alternativa para usar la glucosa-6-fosfato</text>
+
+  <!-- Rama izquierda: no producción directa de ATP. -->
+  <path class="ink thin" d="M379 293h-64" marker-end="url(#arrow-ink)"/>
+  <text class="ink heading" x="54" y="264">No produce ATP</text>
+  <text class="ink heading" x="85" y="298">directamente</text>
+  <text class="red small" x="59" y="333">su objetivo es reducir,</text>
+  <text class="red small" x="74" y="358">construir y reciclar</text>
+
+  <!-- Rama derecha: fases con la misma bifurcación del pizarrón. -->
+  <path class="ink thin" d="M1013 291h167" marker-end="url(#arrow-ink)"/>
+  <text class="ink small" x="1052" y="271">ocurre en el citosol</text>
+  <path class="purple thin" d="M1201 288q66-46 125-69" marker-end="url(#arrow-purple)"/>
+  <path class="purple thin" d="M1201 299q65 32 116 53" marker-end="url(#arrow-purple)"/>
+  <text class="red heading" x="1334" y="211">OXIDATIVA</text>
+  <text class="red small" x="1356" y="238">irreversible</text>
+  <text class="red tiny" x="1287" y="267">2 NADPH + CO₂ + ribulosa-5-P</text>
+  <text class="purple heading" x="1336" y="371">NO OXIDATIVA</text>
+  <text class="purple small" x="1363" y="398">reversible</text>
+  <text class="purple tiny" x="1272" y="426">R5P ⇄ F6P + gliceraldehído-3-P</text>
+
+  <!-- Línea de los tres objetivos, como en el margen inferior del original. -->
+  <path class="blue thin" d="M152 404v95h303" marker-end="url(#arrow-blue)"/>
+  <text class="blue heading" x="69" y="440">3 objetivos</text>
+
+  <!-- Objetivo 1: NADPH y sus dos ramas. -->
+  <circle class="orange" cx="475" cy="500" r="5"/><text class="red heading" x="496" y="509">Obtener NADPH</text>
+  <path class="green thin" d="M718 500q95-7 175-6" marker-end="url(#arrow-green)"/>
+  <path class="green thin" d="M718 510q91 57 174 116" marker-end="url(#arrow-green)"/>
+  <text class="ink heading" x="910" y="502">Biosíntesis lipídica</text>
+  <path class="blue thin" d="M1230 493q47-13 82-18" marker-end="url(#arrow-blue)"/>
+  <path class="blue thin" d="M1230 505q48 29 85 48" marker-end="url(#arrow-blue)"/>
+  <text class="ink small" x="1322" y="480">Ácidos grasos</text>
+  <text class="ink small" x="1322" y="508">y fosfolípidos</text>
+  <text class="ink small" x="1322" y="559">Colesterol</text>
+  <text class="ink heading" x="909" y="640">Defensa antioxidante</text>
+  <text class="green small" x="940" y="673">glutatión reducido</text>
+  <text class="green small" x="940" y="703">neutraliza oxidantes</text>
+
+  <!-- Objetivo 2: ribosa, nucleótidos, ARN y ADN. -->
+  <circle class="orange" cx="475" cy="743" r="5"/><text class="red heading" x="496" y="752">Obtener ribosa-5-fosfato</text><text class="red small" x="914" y="752">(5 C)</text>
+  <g transform="translate(524 776)" aria-label="esquema de ribonucleótido">
+    <circle class="phosphate thin" cx="0" cy="24" r="19"/><text class="blue tiny" x="-8" y="30">P</text>
+    <path class="sugar thin" d="M28 18 73 4 104 40 79 82 35 68z"/>
+    <text class="ink tiny" x="45" y="49">ribosa</text>
+    <path class="base thin" d="M104 40 145 13 184 31 178 72 133 78 79 82z"/>
+    <text class="purple tiny" x="119" y="54">base</text>
+  </g>
+  <path class="red line" d="M732 812h150" marker-end="url(#arrow-red)"/>
+  <text class="ink" x="901" y="819">Ribonucleótidos</text>
+  <path class="blue thin" d="M1114 806q72-42 128-70" marker-end="url(#arrow-blue)"/>
+  <path class="blue thin" d="M1114 824q70 48 125 92" marker-end="url(#arrow-blue)"/>
+  <text class="blue heading" x="1260" y="742">ARN</text>
+  <text class="ink small" x="1260" y="772">participa en la síntesis proteica</text>
+  <text class="purple small" x="1219" y="873">ribonucleótido reductasa</text>
+  <text class="purple small" x="1238" y="902">→ desoxirribonucleótidos</text>
+  <text class="blue heading" x="1390" y="931">ADN</text>
+  <text class="green small" x="1247" y="960">replicación · división celular</text>
+
+  <!-- Objetivo 3: intermediarios glucolíticos, bajo los anteriores. -->
+  <circle class="orange" cx="475" cy="1040" r="5"/>
+  <text class="red heading" x="496" y="1049">Obtener intermediarios de la glucólisis</text>
+  <path class="purple thin" d="M1090 1039h58" marker-end="url(#arrow-purple)"/>
+  <text class="purple" x="1170" y="1024">Fructosa-6-fosfato</text>
+  <text class="purple" x="1170" y="1065">Gliceraldehído-3-fosfato</text>
+  <text class="ink small" x="602" y="1113">La fase no oxidativa redistribuye carbonos según la demanda celular.</text>
+
+  <!-- Precisión científica separada de la organización original. -->
+  <rect class="correction" x="55" y="1150" width="1490" height="132" rx="17"/>
+  <text class="blue micro" x="85" y="1184">CORRECCIÓN DIDÁCTICA · LECTURA DE LOS PRODUCTOS</text>
+  <text class="ink small" x="85" y="1220">
+    <tspan x="85" dy="0">• La vía comienza con 6 C; “5 C” corresponde a la pentosa formada tras liberar CO₂. NADPH no es NADH ni ATP.</tspan>
+    <tspan x="85" dy="30">• R5P → PRPP → nucleótidos. La ribonucleótido reductasa usa poder reductor derivado de NADPH para formar desoxirribonucleótidos.</tspan>
+  </text>
+</svg>

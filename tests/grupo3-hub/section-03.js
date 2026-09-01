@@ -62,4 +62,33 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(dialog).toBeHidden();
     await expect(openArchive).toBeFocused();
   });
+
+  test('places all fifteen recovered Biochemistry boards in their dated course and unified archive', async ({ page }) => {
+    const datedLessons = [
+      ['bioquimica-2026-08-14', 7, null],
+      ['bioquimica-2026-08-19', 2, 2],
+      ['bioquimica-2026-08-21', 3, 3],
+      ['bioquimica-2026-08-26', 3, 3]
+    ];
+
+    for (const [lessonId, courseBoards, materialBoards] of datedLessons) {
+      await page.goto('/clase.html#' + lessonId);
+      const lesson = page.locator('#' + lessonId);
+      await expect(lesson.locator('[data-lesson-tab-panel="curso"] .course-inline-figure.is-teacher-board')).toHaveCount(courseBoards);
+      if (materialBoards !== null) {
+        await lesson.locator('[data-lesson-tab="material"]').click();
+        await expect(lesson.locator('[data-lesson-tab-panel="material"] .lesson-file-card img[src*="/board/"]')).toHaveCount(materialBoards);
+      }
+    }
+
+    await page.goto('/archivos.html?course=bioquimica');
+    const biochemistry = page.locator('.file-group[data-course="bioquimica"]');
+    await expect(biochemistry).toBeVisible();
+    await expect(biochemistry.locator('.file-row[data-file-source="local"] a[href*="/board/"], .file-row[data-file-source="local"] a[href*="/whiteboard-v2/"]')).toHaveCount(15);
+    await expect(biochemistry.locator('.file-row[data-file-source="local"][data-file-visual="true"] .file-row-preview')).toHaveCount(15);
+    await expect(biochemistry.locator('[data-file-badge="board"]')).toHaveCount(15);
+    await expect(biochemistry).toContainText('destino aeróbico del piruvato y complejo PDH');
+    await expect(biochemistry).toContainText('vía de las pentosas fosfato: objetivos, fases y destinos');
+    await expect(biochemistry).toContainText('regulación con anotaciones de la profesora');
+  });
 };

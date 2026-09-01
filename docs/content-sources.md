@@ -113,13 +113,36 @@ assets/class-hub/epidemiology/2026-08-16/salud-publica-paraguay.pdf
 
 The `aps-slides/` directory contains the 36 PowerPoint renders in their original order. The `rac-pages/` and `salud-publica-pages/` directories contain only quick-view renders; the complete PDFs remain available from the archive. The Epidemiology homework card is grounded in the Paraguay RAC manual: printed pages 15 and 16 (PDF pages 17 and 18). The APS quick review uses pages 30 and 31 of the public-health book.
 
+### Bioquímica II internal board provenance
+
+The recovered Bioquímica II comparison archive contains 18 internal JPG photographs. These source photographs are audit inputs only: they are not published directly and must not be placed in public runtime paths. After grouping alternate crops and duplicate views, they document 15 distinct teacher boards:
+
+| Class date | Internal JPG photographs | Distinct boards | Grouping rule |
+| --- | ---: | ---: | --- |
+| 14 August | 7 | 7 | One photograph per board. |
+| 19 August | 2 | 2 | One photograph per board. |
+| 21 August | 5 | 3 | `00005190` is a crop of `00005191`; `00005192` and `00005194` are two framings of the same board. |
+| 26 August | 4 | 3 | `00005271` and `00005277` are two views of the same Cori board. |
+| **Total** | **18** | **15** | Photograph count and unique-board count must remain separate. |
+
+The internal source identifiers are:
+
+```txt
+14 August: 00004832, 00004835, 00004836, 00004837, 00004838, 00004839, 00004840
+19 August: 00004946, 00004961
+21 August: 00005190, 00005191, 00005192, 00005193, 00005194
+26 August: 00005271, 00005277, 00005278, 00005283
+```
+
+Public study surfaces use the clean reconstructions in their dated folders rather than these internal JPGs. Alternate crops may clarify a board during review, but they must never be counted as additional teacher boards or lessons.
+
 The Bioquímica II glycolysis board archive is rendered at:
 
 ```txt
 assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/
 ```
 
-These seven WebP files are clean whiteboard reconstructions of the seven board screenshots supplied for the 14 August class. They preserve the teacher's teaching order, arrows, relative layout, color roles and side annotations. They are derivative viewing assets, not an independent scientific source. The adjacent HTML lesson remains the verified study layer and explicitly clarifies the net balance, the cytosolic NADH shuttle caveat and the direct role of oxygen. The older `restored/` renders remain non-runtime history and must not replace `whiteboard-v2/` without a new visual review.
+These seven WebP files are clean whiteboard reconstructions of the seven recovered 14 August photographs, mapped one-to-one in chronological order from `00004832`, `00004835`, `00004836`, `00004837`, `00004838`, `00004839` and `00004840`. They preserve the teacher's teaching order, arrows, relative layout, color roles and side annotations. They are derivative viewing assets, not an independent scientific source. The adjacent HTML lesson remains the verified study layer and explicitly clarifies the net balance, the cytosolic NADH shuttle caveat and the direct role of oxygen. The older `restored/` renders are cleaned photographic derivatives kept as non-runtime history; they must not replace `whiteboard-v2/` without a new visual review.
 
 The Fisiología II class from 2026-08-17 keeps the teacher PDF unchanged at:
 
@@ -175,11 +198,11 @@ assets/class-hub/epidemiology/2026-08-19/teacher-guidance/0746E8D5-EFF3-46DF-99C
 
 It confirms that every group member speaks, the deck has at most 15 slides, no separate written report is required, and one shared notebook/file is recommended to avoid compatibility problems. The image is displayed as an original teacher message and must not be redesigned or silently replaced.
 
-The three SVGs in `assets/class-hub/biochemistry/2026-08-21/board/` are semantic vector reconstructions of the three board photographs supplied again on 22 August. Each hand-drawn object is first identified from the photographed board and the class chain (cell, adipocytes, skeletal muscle, liver, hepatocyte, mitochondrion, vessel, lungs, cerebral cell, normal brain and edematous brain), then redrawn clearly without changing the teacher's relative positions, arrow directions, causal connections, functional colors or teaching sequence. They must remain recognizable as the teacher's boards: do not reorganize them into editorial cards or generic infographics. The raw photographs are internal comparison sources and are not published.
+The three SVGs in `assets/class-hub/biochemistry/2026-08-21/board/` are semantic vector reconstructions of three distinct boards documented by five internal photographs. `00005190` is a tighter crop of the upper part of `00005191`; both map to `01-deficit-insulina.svg`. `00005192` and `00005194` are alternate framings of the same board and map to `02-cetogenesis-acidosis.svg`. `00005193` alone maps to `03-cerebro-osmoles.svg`. Each hand-drawn object is first identified from the photographed board and the class chain (cell, adipocytes, skeletal muscle, liver, hepatocyte, mitochondrion, vessel, lungs, cerebral cell, normal brain and edematous brain), then redrawn clearly without changing the teacher's relative positions, arrow directions, causal connections, functional colors or teaching sequence. They must remain recognizable as the teacher's boards: do not reorganize them into editorial cards or generic infographics. The five JPG photographs remain internal comparison sources and are not published.
 
 Runtime visuals that do not have a directly comparable teacher-board photograph are explicitly presented as `ESQUEMA EXPLICATIVO DEL CURSO`, never as a reconstructed pizarra. This provenance distinction applies to every dated lesson: a contextual diagram can clarify the verified lesson text, but must not imitate or claim the professor's authorship.
 
-The two older SVGs in `assets/class-hub/biochemistry/2026-08-19/board/` are retained only as non-runtime history. They are no longer presented as teacher-board reconstructions because the exact original photographs were not available for a faithful visual comparison. Re-enable or replace them only after the corresponding source photographs are supplied and reviewed.
+The two SVGs in `assets/class-hub/biochemistry/2026-08-19/board/` are clean reconstructions grounded in the recovered exact source photographs. `00004946` maps to `01-pdh-cofactores.svg`, and `00004961` maps to `02-regulacion-glucolisis.svg`. The two JPG photographs remain internal and unpublished; the clean SVGs are the publishable study assets and must preserve the source layout, arrows, labels and teaching sequence.
 
 The Microbiology practical lesson uses the public laboratory transcription only and excludes the unrelated private conversation. No new Nutrition lesson is inferred from this handoff.
 
@@ -197,7 +220,17 @@ assets/class-hub/biochemistry/2026-08-26/pentosas-pizarra.webp
 assets/class-hub/epidemiology/2026-08-26/caso-clinico-co.webp
 ```
 
-The Cori derivative contains the three supplied board views in their original order. The pentose-phosphate derivative keeps the photographed pathway without the phone screenshot bars. The Epidemiology photograph is cropped to the projected carbon-monoxide questions and excludes the patient's name, age, neighbourhood and the students in the room. A separate messaging screenshot that displayed a telephone number is intentionally excluded from the repository and runtime.
+The four internal Bioquímica photographs from this date document three distinct boards. `00005271` and `00005277` are two views of the same board on Cori pathways, objectives and energy balance; `00005278` documents the interorgan Cori cycle; `00005283` documents the pentose-phosphate pathway. The Cori WebP derivative retains the three supplied Cori views in their original order, while the pentose-phosphate derivative keeps its photographed pathway without the phone screenshot bars.
+
+The corresponding clean vector reconstructions are:
+
+```txt
+assets/class-hub/biochemistry/2026-08-26/board/01-ciclo-cori-vias-balance.svg
+assets/class-hub/biochemistry/2026-08-26/board/02-ciclo-cori-interorganico.svg
+assets/class-hub/biochemistry/2026-08-26/board/03-via-pentosas-objetivos.svg
+```
+
+These three SVGs are the clean publishable representations of the three distinct boards; the four recovered JPGs remain internal and unpublished. The Epidemiology photograph is cropped to the projected carbon-monoxide questions and excludes the patient's name, age, neighbourhood and the students in the room. A separate messaging screenshot that displayed a telephone number is intentionally excluded from the repository and runtime.
 
 The adjacent HTML courses correct obvious speech-recognition and scientific errors without presenting the corrections as verbatim teacher statements. In particular, they preserve `ciclo de Cori`, the classic −4 ATP-equivalent interorgan balance, the NADPH/ribose roles of the pentose-phosphate pathway, carbon monoxide rather than carbon dioxide for a brazier exposure, and the limitation of conventional SpO₂ in carbon-monoxide poisoning. Each lesson owns a separate 20/10/10 bank in:
 

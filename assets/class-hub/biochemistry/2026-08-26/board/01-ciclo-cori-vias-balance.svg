@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Ciclo de Cori: vías, objetivos y balance energético</title>
+  <desc id="desc">Reconstrucción semántica del pizarrón de la profesora. Conserva la reacción superior, el circuito entre sangre e hígado y las tres ramas inferiores: vías incluidas, objetivos y balance energético. Un recuadro separado aclara la reacción de lactato deshidrogenasa, el costo hepático y la relación entre lactato y acidosis.</desc>
+  <defs>
+    <marker id="arrow-ink" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#263039" stroke-width="2"/></marker>
+    <marker id="arrow-red" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#c94f69" stroke-width="2"/></marker>
+    <marker id="arrow-green" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#2e8a57" stroke-width="2"/></marker>
+    <marker id="arrow-purple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 11 6 1 11" fill="none" stroke="#7651a5" stroke-width="2"/></marker>
+    <style>
+      .board{fill:#fff;stroke:#d7ddd9;stroke-width:5}.ink{fill:#263039;stroke:#263039}.red{fill:#c94f69;stroke:#c94f69}.green{fill:#2e8a57;stroke:#2e8a57}.purple{fill:#7651a5;stroke:#7651a5}.orange{fill:#d88738;stroke:#d88738}.blue{fill:#315fbd;stroke:#315fbd}
+      text{font-family:"Segoe Print","Bradley Hand","Trebuchet MS",sans-serif;font-size:24px;font-weight:650;stroke:none}.title{font-size:39px;font-weight:780}.subtitle{font-size:25px}.heading{font-size:28px;font-weight:780}.small{font-size:19px}.tiny{font-size:16px}.micro{font-family:"Trebuchet MS",Arial,sans-serif;font-size:15px;font-weight:800;letter-spacing:1.3px}.formula{font-family:"Trebuchet MS",Arial,sans-serif;font-size:22px;font-weight:750}
+      .line{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.thin{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.hair{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.soft{fill:#fbfaf6;stroke:#e5ded3;stroke-width:2}.correction{fill:#eef7fb;stroke:#4c83a3;stroke-width:3}.divider{stroke:#cbd5d1;stroke-width:2;stroke-dasharray:7 9}
+    </style>
+  </defs>
+
+  <rect class="board" x="3" y="3" width="1594" height="994" rx="18"/>
+
+  <!-- Franja metabólica superior, en la misma secuencia horizontal del pizarrón. -->
+  <text class="ink heading" x="195" y="108">Glucosa</text>
+  <path class="orange line" d="M315 99h185" marker-end="url(#arrow-ink)"/>
+  <text class="red small" x="335" y="75">vía común · glucólisis</text>
+  <text class="green small" x="396" y="133">+2 ATP</text>
+  <text class="ink heading" x="522" y="108">2 piruvato</text>
+  <path class="red line" d="M669 99h209" marker-end="url(#arrow-red)"/>
+  <text class="red small" x="708" y="74">lactato deshidrogenasa</text>
+  <text class="purple tiny" x="702" y="132">2 NADH + 2 H⁺ → 2 NAD⁺</text>
+  <text class="red heading" x="899" y="108">2 lactato</text>
+  <path class="red thin" d="M989 126v70" marker-end="url(#arrow-red)"/>
+  <text class="ink" x="938" y="230">Sangre</text>
+  <path class="ink line" d="M915 218H603" marker-end="url(#arrow-ink)"/>
+  <text class="ink" x="666" y="204">Hígado</text>
+  <path class="ink line" d="M604 218H254V132" marker-end="url(#arrow-ink)"/>
+  <path class="green thin" d="M1026 95q96 39 151 102" marker-end="url(#arrow-green)"/>
+  <text class="green small" x="1122" y="73">se recicla</text>
+  <text class="green tiny" x="1116" y="101">también puede oxidarse</text>
+
+  <text class="green title" x="580" y="306">CICLO DE CORI</text>
+  <path class="green hair" d="M568 316q239 16 476 0"/>
+  <text class="ink subtitle" x="450" y="354">Asociación de vías que permite el reciclaje del lactato</text>
+
+  <!-- Tres ramas inferiores conservan la organización de la profesora. -->
+  <path class="red thin" d="M493 372Q352 405 220 466" marker-end="url(#arrow-red)"/>
+  <path class="ink thin" d="M789 373v74" marker-end="url(#arrow-ink)"/>
+  <path class="red thin" d="M1059 372q133 38 242 100" marker-end="url(#arrow-red)"/>
+
+  <text class="ink heading" x="65" y="499">Incluye las vías:</text>
+  <circle class="orange" cx="82" cy="542" r="4"/><text class="ink" x="101" y="550">Glucogenólisis</text><text class="purple tiny" x="370" y="550">moviliza glucógeno</text>
+  <circle class="orange" cx="82" cy="582" r="4"/><text class="ink" x="101" y="590">Glucólisis</text><text class="purple tiny" x="370" y="590">glucosa → lactato</text>
+  <circle class="orange" cx="82" cy="622" r="4"/><text class="ink" x="101" y="630">Conversión por LDH</text><text class="purple tiny" x="395" y="630">regenera NAD⁺</text>
+  <circle class="orange" cx="82" cy="662" r="4"/><text class="ink" x="101" y="670">Gluconeogénesis</text><text class="purple tiny" x="370" y="670">forma glucosa</text>
+  <circle class="orange" cx="82" cy="702" r="4"/><text class="ink" x="101" y="710">Glucogénesis</text><text class="purple tiny" x="370" y="710">almacenamiento posible</text>
+
+  <text class="ink heading" x="682" y="492">3 objetivos</text>
+  <text class="ink" x="568" y="548">1.</text><text class="ink" x="606" y="548">Recuperar glucosa a partir del lactato.</text>
+  <text class="ink" x="568" y="600">2.</text><text class="ink" x="606" y="600">Redistribuir combustible entre tejidos.</text>
+  <text class="ink" x="568" y="652">3.</text><text class="ink" x="606" y="652">Contribuir al aclaramiento del lactato.</text>
+  <path class="green thin" d="M621 674q172 31 342-2"/>
+
+  <text class="ink heading" x="1123" y="502">Energéticamente</text>
+  <text class="ink heading" x="1182" y="538">deficitario</text>
+  <path class="purple thin" d="M1288 554v42" marker-end="url(#arrow-purple)"/>
+  <text class="purple small" x="1094" y="632">El hígado gasta más energía</text>
+  <text class="purple small" x="1156" y="662">de la que el músculo obtiene.</text>
+  <text class="green formula" x="1110" y="714">+2 ATP − (4 ATP + 2 GTP)</text>
+  <text class="red heading" x="1240" y="756">= −4 ATP eq.</text>
+
+  <!-- Las aclaraciones quedan separadas de la reconstrucción del pizarrón. -->
+  <rect class="correction" x="55" y="795" width="1490" height="160" rx="17"/>
+  <text class="blue micro" x="85" y="829">CORRECCIÓN DIDÁCTICA · LECTURA DEL ESQUEMA</text>
+  <text class="ink small" x="85" y="868">
+    <tspan x="85" dy="0">• LDH: piruvato + NADH + H⁺ ⇄ lactato + NAD⁺. Formar lactato regenera NAD⁺ y consume H⁺.</tspan>
+    <tspan x="85" dy="31">• El lactato también se forma con O₂ disponible; no causa por sí solo la acidosis ni la fatiga muscular.</tspan>
+    <tspan x="85" dy="31">• El costo hepático es 4 ATP + 2 GTP. El ciclo no tiene una duración fija y no es el único mecanismo de aclaramiento.</tspan>
+  </text>
+</svg>

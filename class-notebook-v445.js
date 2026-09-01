@@ -229,22 +229,52 @@
       section: 1,
       type: 'board',
       src: 'assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/01-mapa-general.webp',
-      title: 'Mapa original de la glucólisis',
-      caption: 'Composición, colores, flechas y anotaciones del profesor, repasados en limpio.'
+      title: 'Pizarra 1 · mapa general de la glucólisis',
+      caption: 'Objetivo, lugar, fases, balance y destinos del piruvato; composición, flechas y colores de la profesora repasados en limpio.'
     }, {
       section: 2,
       type: 'board',
       src: 'assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/02-fase-preparatoria-1-3.webp',
-      title: 'Fase preparatoria · reacciones 1 a 3',
+      title: 'Pizarra 2 · fase preparatoria, reacciones 1 a 3',
       caption: 'El orden visual del tablero se conserva sin convertirlo en una infografía nueva.'
+    }, {
+      section: 3,
+      type: 'board',
+      src: 'assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/03-fase-preparatoria-4-5.webp',
+      title: 'Pizarra 3 · fase preparatoria, reacciones 4 y 5',
+      caption: 'La ruptura de la hexosa y la formación de dos G3P conservan la disposición del tablero original.'
+    }, {
+      section: 4,
+      type: 'board',
+      src: 'assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/04-fase-beneficio-6-10.webp',
+      title: 'Pizarra 4 · fase de beneficio, reacciones 6 a 10',
+      caption: 'Oxidación, formación de NADH y producción de ATP se leen en la secuencia trazada por la profesora.'
+    }, {
+      section: 5,
+      type: 'board',
+      src: 'assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/05-balance-final.webp',
+      title: 'Pizarra 5 · balance final de la glucólisis',
+      caption: 'Inversión, beneficio y resultado neto se mantienen en la misma organización de la pizarra.'
     }, {
       section: 6,
       type: 'board',
       src: 'assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/06-regulacion-resumen.webp',
-      title: 'Puntos de regulación',
+      title: 'Pizarra 6 · resumen de la regulación glucolítica',
       caption: 'Hexoquinasa, glucoquinasa, GKRP y PFK-1 según la pizarra original.'
+    }, {
+      section: 7,
+      type: 'board',
+      src: 'assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/07-regulacion-anotada.webp',
+      title: 'Pizarra 7 · regulación con anotaciones de la profesora',
+      caption: 'Versión completa con las notas laterales y la disociación de GKRP restauradas a partir de la fotografía original.'
     }],
     'bioquimica-2026-08-19': [{
+      target: '#bio19-control',
+      type: 'board',
+      src: 'assets/class-hub/biochemistry/2026-08-19/board/02-regulacion-glucolisis.svg',
+      title: 'Pizarra · hexoquinasa, glucoquinasa y PFK-1',
+      caption: 'Reconstrucción fiel de la pizarra original: trazos limpiados, contenido, jerarquía y disposición conservados.'
+    }, {
       target: '#bio19-piruvato',
       type: 'branch',
       kicker: 'CRUCE METABÓLICO',
@@ -257,25 +287,31 @@
         { title: ['Oxalacetato'], detail: ['piruvato carboxilasa'] },
         { title: ['Alanina'], detail: ['transaminación'] }
       ]
+    }, {
+      target: '#bio19-pdh',
+      type: 'board',
+      src: 'assets/class-hub/biochemistry/2026-08-19/board/01-pdh-cofactores.svg',
+      title: 'Pizarra · transporte mitocondrial del piruvato y complejo PDH',
+      caption: 'Reconstrucción fiel de la pizarra original: membranas, MPC, reacción global, destino del acetil-CoA y cofactores preservados.'
     }],
     'bioquimica-2026-08-21': [{
       target: '#cad-insulina',
       type: 'board',
       src: 'assets/class-hub/biochemistry/2026-08-21/board/01-deficit-insulina.svg',
-      title: 'Insulina, glucosa y combustibles',
-      caption: 'Reconstrucción semántica de la pizarra 1: célula, adipocitos, músculo e hígado reconocibles; posiciones, flechas, relaciones y colores conservados.'
+      title: 'Pizarra 1 · insulina, uso de glucosa y movilización de reservas',
+      caption: 'Condiciones fisiológicas y patológicas, adipocitos, músculo e hígado; posiciones, flechas, relaciones y colores conservados.'
     }, {
       target: '#cad-cetonas',
       type: 'board',
       src: 'assets/class-hub/biochemistry/2026-08-21/board/02-cetogenesis-acidosis.svg',
-      title: 'Hepatocito, cetogénesis y acidosis',
-      caption: 'Reconstrucción semántica de la pizarra 2: hepatocito, mitocondria, sangre y pulmones clarificados sin modificar la bifurcación metabólica de la profesora.'
+      title: 'Pizarra 2 · β-oxidación, cetogénesis y cetoacidosis',
+      caption: 'Hepatocito, mitocondria, sangre, pulmones y cadena hasta la debilidad extrema, clarificados sin modificar la bifurcación de la profesora.'
     }, {
       target: '#cad-cerebro',
       type: 'board',
       src: 'assets/class-hub/biochemistry/2026-08-21/board/03-cerebro-osmoles.svg',
-      title: 'Osmoles cerebrales y edema',
-      caption: 'Reconstrucción semántica de la pizarra 3: célula cerebral, cerebro adaptado y cerebro edematoso identificables; ramas de edema e hipocalemia separadas.'
+      title: 'Pizarra 3 · osmoles cerebrales, edema e hipocalemia',
+      caption: 'Célula cerebral, cerebro adaptado y cerebro edematoso identificables; ramas de edema e hipocalemia conservadas y separadas.'
     }],
     'bioquimica-2026-08-26': [{
       target: '#cori-musculo',
@@ -295,6 +331,18 @@
       cycle: true,
       note: 'BALANCE CLÁSICO · +2 ATP − (4 ATP + 2 GTP) = −4 ATP EQUIVALENTES'
     }, {
+      target: '#cori-musculo',
+      type: 'board',
+      src: 'assets/class-hub/biochemistry/2026-08-26/board/02-ciclo-cori-interorganico.svg',
+      title: 'Pizarra 2 · ciclo de Cori entre músculo, sangre, eritrocitos e hígado',
+      caption: 'Reconstrucción fiel del circuito interorgánico: siluetas, niveles, flujos y notas de la profesora conservados sobre fondo blanco.'
+    }, {
+      target: '#bio26-cori-balance',
+      type: 'board',
+      src: 'assets/class-hub/biochemistry/2026-08-26/board/01-ciclo-cori-vias-balance.svg',
+      title: 'Pizarra 1 · vías, objetivos y balance energético del ciclo de Cori',
+      caption: 'La banda de reacciones, las tres ramas inferiores y el balance de la pizarra se conservan; las precisiones científicas se distinguen del trazado docente.'
+    }, {
       target: '#ppp-objetivos',
       type: 'branch',
       kicker: 'VÍA DE LAS PENTOSAS FOSFATO',
@@ -307,6 +355,12 @@
         { title: ['Fructosa-6-P'], detail: ['vuelve a glucólisis'] },
         { title: ['Gliceraldehído-3-P'], detail: ['vuelve a glucólisis'] }
       ]
+    }, {
+      target: '#ppp-objetivos',
+      type: 'board',
+      src: 'assets/class-hub/biochemistry/2026-08-26/board/03-via-pentosas-objetivos.svg',
+      title: 'Pizarra 3 · vía de las pentosas fosfato: objetivos, fases y destinos',
+      caption: 'Encrucijada de G6P, fases oxidativa y no oxidativa, NADPH, ribosa y conexiones glucolíticas conservadas sobre fondo blanco.'
     }],
     'bioquimica-2026-08-28': [{
       section: 6,
