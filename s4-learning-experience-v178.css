@@ -41,6 +41,73 @@
     grid-template-columns: 1fr;
     overflow-x: hidden;
   }
+
+  /* Critical phone rules live in the directly linked entry stylesheet as
+     well as the imported layers. This avoids a stale nested-import cascade
+     from restoring the pre-v179 layout on Safari/WebKit. */
+  body:has(#materias:target) #materias {
+    display: block !important;
+  }
+
+  body:has(#materias:target) .subject-section[data-view="cursos"] {
+    display: none !important;
+  }
+
+  .course-hub .course-selector {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  /* Four permanent destinations: schedule stays reachable from Inicio. */
+  .mobile-bottom-nav {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+
+  .mobile-bottom-nav > a:nth-child(2) {
+    display: none !important;
+  }
+
+  /* One visual row: Curso · Ficha · lightning · Quiz plus two tiny utilities. */
+  [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs),
+  .notebook-lesson-tabs.s4-mode-tabs,
+  .lesson-section-tabs.s4-mode-tabs {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 40px minmax(0, 1fr) 40px 40px !important;
+    grid-auto-flow: row !important;
+    grid-auto-rows: 44px !important;
+  }
+
+  [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button,
+  .notebook-lesson-tabs.s4-mode-tabs button,
+  .lesson-section-tabs.s4-mode-tabs button {
+    min-height: 44px !important;
+    max-height: 44px !important;
+  }
+
+  /* Inline visual = thumbnail. Teacher boards are intentionally even smaller
+     because several may appear in the same lesson. Enlargement remains one tap. */
+  .course-inline-figure,
+  .course-inline-figure.is-wide,
+  .course-inline-figure.is-summary {
+    width: min(58vw, 220px) !important;
+    max-width: 220px !important;
+  }
+
+  .course-inline-figure.is-teacher-board {
+    width: min(36vw, 138px) !important;
+    max-width: 138px !important;
+  }
+
+  .course-inline-figure .course-inline-diagram-trigger {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+}
+
+@media (max-width: 350px) {
+  [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs),
+  .notebook-lesson-tabs.s4-mode-tabs,
+  .lesson-section-tabs.s4-mode-tabs {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 36px minmax(0, 1fr) 36px 36px !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
