@@ -57,14 +57,24 @@
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 
-  /* Four permanent destinations: Inicio, Tareas, Materias and P1.
-     Horario remains reachable from Inicio without consuming a fifth slot. */
+  /* Four permanent visible destinations: Inicio, Tareas, Materias and P1.
+     The historical Horario anchor stays in the DOM for compatibility but is
+     removed from grid flow and accessibility/interaction on phones. */
   .mobile-bottom-nav {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
   }
 
   .mobile-bottom-nav > a:nth-child(2) {
-    display: none !important;
+    position: absolute !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 54px !important;
+    min-height: 54px !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
 
   /* One visual row: Curso · Ficha · lightning · Quiz plus two tiny utilities. */
