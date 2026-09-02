@@ -118,14 +118,17 @@ test.describe('S4 guided cases on a 375 px mobile viewport', () => {
     const nextBox = await next.boundingBox();
     const tapX = nextBox.x + nextBox.width / 2;
     const tapY = nextBox.y + nextBox.height / 2;
-    await page.touchscreen.tap(tapX, tapY);
-    await page.waitForTimeout(100);
+
+    // Use Locator.tap for the deliberate first action so WebKit always emits
+    // the complete touch/click sequence. The second raw tap deliberately reuses
+    // the old coordinates to exercise the stale-double-tap guard.
+    await next.tap();
     await expect(dialog.locator('[data-guided-option-index]:disabled')).toHaveCount(4);
     await expect(dialog.locator('[data-guided-question-index]')).toHaveText('Paso 2 de 4');
     await expect(dialog.locator('#s4GuidedQuestionTitle')).toHaveText(ASTHMA_CASE.questions[1].prompt);
     await expect(dialog.locator('#s4GuidedQuestionTitle')).toBeFocused();
     await page.touchscreen.tap(tapX, tapY);
-    await page.waitForTimeout(500);
+    await page.clock.runFor(500);
 
     await expect(dialog.locator('[data-guided-question]')).toHaveCount(1);
     await expect(dialog.locator('[data-guided-question-index]')).toHaveText('Paso 2 de 4');
