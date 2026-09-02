@@ -2,6 +2,7 @@
 @import url("./s4-mobile-study-v179-compact-visuals.css?v=179.1");
 @import url("./s4-mobile-study-v179-navigation.css?v=179.2");
 @import url("./s4-mobile-study-v179-fixes.css?v=179.3");
+@import url("./s4-mobile-study-v180-ux.css?v=180");
 
 /*
  * Validation and compatibility contract for the imported S4 layers.
@@ -9,6 +10,9 @@
  * .s4-specialization-node .s4-specialization-detail .s4-recall-card
  * .s4-glycolysis-lab .s4-carbon-selection-note .s4-glycolysis-recall
  * .s4-glycolysis-step-actions .s4-theme-switcher
+ *
+ * v180 is an additive iPhone UX pass: it consolidates secondary lesson tools,
+ * removes duplicate visual chrome and keeps the existing course/bank contracts.
  */
 
 :root {
@@ -77,7 +81,8 @@
     pointer-events: none !important;
   }
 
-  /* One visual row: Curso · Ficha · lightning · Quiz plus two tiny utilities. */
+  /* Compatibility fallback for the six historical lesson controls. The v180
+     layer deliberately overrides this to five visible slots plus contextual IA. */
   [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs),
   .notebook-lesson-tabs.s4-mode-tabs,
   .lesson-section-tabs.s4-mode-tabs {
