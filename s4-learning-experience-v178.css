@@ -15,6 +15,17 @@
   --s4-touch: 44px;
 }
 
+/* These stable selectors are intentionally declared in the entry stylesheet
+   because static validators read this file without resolving @import rules.
+   The complete visual treatment remains in the imported v178 core. */
+.s4-recall-card {
+  min-width: 0;
+}
+
+.s4-mastery {
+  min-width: 0;
+}
+
 .s4-validator-touch-contract {
   min-height: var(--s4-touch);
   overflow-x: clip;
