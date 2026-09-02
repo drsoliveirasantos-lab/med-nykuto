@@ -1,0 +1,346 @@
+/*
+ * S4 iPhone app-density pass · v181 · issue #180
+ *
+ * Presentation only. The visual glyph stays deliberately small while the
+ * interactive control keeps a comfortable 40–44 px hit area. No lesson,
+ * question bank, practiceId, P1/P2 volume or historical route is changed.
+ */
+
+@media (max-width: 700px) {
+  html body[data-class-id="s4e-g3"] {
+    --s4-phone-header: 52px;
+    --s4-phone-nav: 64px;
+    --s4-app-hit: 44px;
+    --s4-app-icon: 18px;
+    padding-bottom: calc(var(--s4-phone-nav) + 10px + env(safe-area-inset-bottom)) !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .class-app {
+    padding-bottom: calc(var(--s4-phone-nav) + 16px + env(safe-area-inset-bottom)) !important;
+  }
+
+  /* App header: tiny visible controls, generous invisible/tactile footprint. */
+  html body[data-class-id="s4e-g3"] .class-header {
+    min-height: calc(var(--s4-phone-header) + env(safe-area-inset-top)) !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .class-header-inner {
+    min-height: var(--s4-phone-header) !important;
+    height: var(--s4-phone-header) !important;
+    gap: 4px !important;
+    padding: 4px 6px !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .class-brand {
+    width: var(--s4-app-hit) !important;
+    min-width: var(--s4-app-hit) !important;
+    height: var(--s4-app-hit) !important;
+    min-height: var(--s4-app-hit) !important;
+    display: grid !important;
+    place-items: center !important;
+    padding: 0 !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .class-brand img {
+    width: 26px !important;
+    height: 26px !important;
+    flex: 0 0 26px !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .class-brand span {
+    display: none !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .class-language-switcher {
+    min-height: var(--s4-app-hit) !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .class-language-switcher select {
+    width: 80px !important;
+    min-width: 80px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 18px 0 7px !important;
+    border: 1px solid rgba(148, 163, 184, 0.28) !important;
+    border-radius: 11px !important;
+    font-size: 0.58rem !important;
+    line-height: 1 !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .class-header-actions {
+    gap: 0 !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .class-header-action,
+  html body[data-class-id="s4e-g3"] .class-header-actions button {
+    width: var(--s4-app-hit) !important;
+    min-width: var(--s4-app-hit) !important;
+    height: var(--s4-app-hit) !important;
+    min-height: var(--s4-app-hit) !important;
+    display: grid !important;
+    place-items: center !important;
+    padding: 0 !important;
+    border-color: transparent !important;
+    border-radius: 11px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    font-size: 0.72rem !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .public-theme-icon {
+    display: grid !important;
+    place-items: center !important;
+    width: var(--s4-app-icon) !important;
+    height: var(--s4-app-icon) !important;
+    overflow: hidden !important;
+    font-size: 0.95rem !important;
+    line-height: 1 !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .notice-bell {
+    font-size: 0.9rem !important;
+    line-height: 1 !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .notice-bell[data-count]::after {
+    right: 0 !important;
+    top: 1px !important;
+    min-width: 16px !important;
+    height: 16px !important;
+    padding: 0 3px !important;
+    border-radius: 8px !important;
+    font-size: 9px !important;
+    line-height: 16px !important;
+  }
+
+  /* One phone navigation only. The legacy workspace nav remains available on
+     larger screens; its duplicate mobile instance is not rendered on phones. */
+  html body[data-class-id="s4e-g3"] .workspace-nav {
+    display: none !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .mobile-bottom-nav {
+    left: max(6px, env(safe-area-inset-left)) !important;
+    right: max(6px, env(safe-area-inset-right)) !important;
+    bottom: max(5px, env(safe-area-inset-bottom)) !important;
+    min-height: 62px !important;
+    height: 62px !important;
+    padding: 3px 5px !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.26) !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .mobile-bottom-nav > a:not(:nth-child(2)) {
+    min-height: 54px !important;
+    height: 54px !important;
+    grid-template-rows: 20px 12px !important;
+    align-content: center !important;
+    gap: 2px !important;
+    padding: 2px 1px !important;
+    border-radius: 10px !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .mobile-bottom-nav .nav-icon {
+    width: 20px !important;
+    height: 20px !important;
+    display: grid !important;
+    place-items: center !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .mobile-bottom-nav .nav-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .mobile-bottom-nav strong {
+    font-size: 0.62rem !important;
+    line-height: 1 !important;
+  }
+
+  /* Subject utilities: ChatGPT-like visual density. The button is still 44px,
+     while the visible glyph is only 20px. */
+  html body[data-class-id="s4e-g3"] .notebook-cover {
+    min-height: 48px !important;
+    padding: 6px 184px 6px 8px !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-modes {
+    inset: 2px 4px auto auto !important;
+    height: var(--s4-app-hit) !important;
+    gap: 1px !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-modes button,
+  html body[data-class-id="s4e-g3"] .notebook-modes button[data-notebook-mode] {
+    width: var(--s4-app-hit) !important;
+    min-width: var(--s4-app-hit) !important;
+    height: var(--s4-app-hit) !important;
+    min-height: var(--s4-app-hit) !important;
+    max-height: var(--s4-app-hit) !important;
+    display: grid !important;
+    place-items: center !important;
+    padding: 0 !important;
+    border-radius: 9px !important;
+    background: transparent !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-modes button::after {
+    width: 20px !important;
+    height: 20px !important;
+    border: 0 !important;
+    border-radius: 6px !important;
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.76) !important;
+    font-size: 0.68rem !important;
+    line-height: 1 !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-modes button[aria-selected="true"]::after {
+    background: rgba(255, 255, 255, 0.94) !important;
+    color: var(--lesson-accent, #07596a) !important;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.16) !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-current-title {
+    font-size: 0.68rem !important;
+    line-height: 1.18 !important;
+  }
+
+  /* Dates remain easy to tap but stop looking like large buttons. */
+  html body[data-class-id="s4e-g3"] .notebook-date-controls {
+    grid-template-columns: 40px minmax(0, 1fr) 40px !important;
+    min-height: 44px !important;
+    gap: 2px !important;
+    padding: 2px 4px !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-date-arrow {
+    width: 40px !important;
+    min-width: 40px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 !important;
+    border-color: transparent !important;
+    background: transparent !important;
+    font-size: 0.82rem !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-date {
+    min-width: 46px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    gap: 0 !important;
+    padding: 2px 4px !important;
+    border-radius: 8px !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-date small {
+    font-size: 0.38rem !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-date strong {
+    font-size: 0.52rem !important;
+  }
+
+  /* The main lesson switcher must be one compact row, never a dark two-row
+     panel. Five visible destinations; Tutor IA stays the v180 popover. */
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs),
+  html body[data-class-id="s4e-g3"] .notebook-lesson-tabs.s4-mode-tabs,
+  html body[data-class-id="s4e-g3"] .lesson-section-tabs.s4-mode-tabs {
+    top: calc(var(--s4-phone-header) + env(safe-area-inset-top)) !important;
+    width: calc(100% - 8px) !important;
+    height: 50px !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 44px minmax(0, 1fr) 44px !important;
+    grid-template-rows: 44px !important;
+    grid-auto-rows: 44px !important;
+    gap: 2px !important;
+    margin: 3px auto 6px !important;
+    padding: 3px !important;
+    overflow: visible !important;
+    border-radius: 12px !important;
+    box-shadow: 0 5px 16px rgba(3, 15, 25, 0.13) !important;
+  }
+
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab],
+  html body[data-class-id="s4e-g3"] :is(.notebook-lesson-tabs, .lesson-section-tabs).s4-mode-tabs button[data-lesson-tab] {
+    min-width: 0 !important;
+    min-height: var(--s4-app-hit) !important;
+    max-height: var(--s4-app-hit) !important;
+    height: var(--s4-app-hit) !important;
+    padding: 0 4px !important;
+    border-radius: 9px !important;
+  }
+
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab]::after {
+    font-size: 0.62rem !important;
+    line-height: 1 !important;
+  }
+
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] button[data-lesson-tab="ultra"]::after {
+    font-size: 0.84rem !important;
+  }
+
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] button[data-lesson-tab="material"]::after {
+    font-size: 0.92rem !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* Keep reading cards dominant over chrome. */
+  html body[data-class-id="s4e-g3"] .notebook-lesson-head {
+    padding: 7px 8px 5px !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-lesson-head h3 {
+    margin: 2px 0 !important;
+    font-size: 1.02rem !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-view-panel {
+    margin-top: 3px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  html body[data-class-id="s4e-g3"] {
+    --s4-app-hit: 40px;
+    --s4-app-icon: 17px;
+  }
+
+  html body[data-class-id="s4e-g3"] .class-language-switcher select {
+    width: 72px !important;
+    min-width: 72px !important;
+    padding-left: 5px !important;
+    font-size: 0.54rem !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-cover {
+    padding-right: 166px !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-modes button::after {
+    width: 18px !important;
+    height: 18px !important;
+    font-size: 0.64rem !important;
+  }
+
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs),
+  html body[data-class-id="s4e-g3"] .notebook-lesson-tabs.s4-mode-tabs,
+  html body[data-class-id="s4e-g3"] .lesson-section-tabs.s4-mode-tabs {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 40px minmax(0, 1fr) 40px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html body[data-class-id="s4e-g3"] :is(.class-header-action, .notebook-modes button, .mobile-bottom-nav a) {
+    transition: none !important;
+  }
+}
