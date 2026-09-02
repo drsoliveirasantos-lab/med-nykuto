@@ -93,6 +93,8 @@
 
   html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="material"],
   html body[data-class-id="s4e-g3"] :is(.notebook-lesson-tabs, .lesson-section-tabs).s4-mode-tabs button[data-lesson-tab="material"] {
+    display: grid !important;
+    place-items: center !important;
     position: relative !important;
     grid-column: 5 !important;
     font-size: 0 !important;
@@ -139,6 +141,8 @@
 
   html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="ia"],
   html body[data-class-id="s4e-g3"] :is(.notebook-lesson-tabs, .lesson-section-tabs).s4-mode-tabs button[data-lesson-tab="ia"] {
+    display: grid !important;
+    place-items: center !important;
     position: absolute !important;
     z-index: 20 !important;
     top: calc(100% + 4px) !important;
@@ -170,8 +174,14 @@
   }
 
   html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs):has(button[data-lesson-tab="material"][aria-selected="true"]) button[data-lesson-tab="ia"],
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs):has(button[data-lesson-tab="material"].active) button[data-lesson-tab="ia"],
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs):has(button[data-lesson-tab="material"]:focus) button[data-lesson-tab="ia"],
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs):has(~ [data-lesson-tab-panel="material"]:not([hidden])) button[data-lesson-tab="ia"],
   html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs):has(button[data-lesson-tab="ia"][aria-selected="true"]) button[data-lesson-tab="ia"],
   html body[data-class-id="s4e-g3"] :is(.notebook-lesson-tabs, .lesson-section-tabs).s4-mode-tabs:has(button[data-lesson-tab="material"][aria-selected="true"]) button[data-lesson-tab="ia"],
+  html body[data-class-id="s4e-g3"] :is(.notebook-lesson-tabs, .lesson-section-tabs).s4-mode-tabs:has(button[data-lesson-tab="material"].active) button[data-lesson-tab="ia"],
+  html body[data-class-id="s4e-g3"] :is(.notebook-lesson-tabs, .lesson-section-tabs).s4-mode-tabs:has(button[data-lesson-tab="material"]:focus) button[data-lesson-tab="ia"],
+  html body[data-class-id="s4e-g3"] :is(.notebook-lesson-tabs, .lesson-section-tabs).s4-mode-tabs:has(~ [data-lesson-tab-panel="material"]:not([hidden])) button[data-lesson-tab="ia"],
   html body[data-class-id="s4e-g3"] :is(.notebook-lesson-tabs, .lesson-section-tabs).s4-mode-tabs:has(button[data-lesson-tab="ia"][aria-selected="true"]) button[data-lesson-tab="ia"] {
     opacity: 1 !important;
     visibility: visible !important;
