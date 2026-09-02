@@ -57,7 +57,8 @@
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 
-  /* Four permanent destinations: schedule stays reachable from Inicio. */
+  /* Four permanent destinations: Inicio, Tareas, Materias and P1.
+     Horario remains reachable from Inicio without consuming a fifth slot. */
   .mobile-bottom-nav {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
   }
@@ -89,6 +90,23 @@
   .course-inline-figure.is-summary {
     width: min(58vw, 220px) !important;
     max-width: 220px !important;
+  }
+
+  /* The 28 Aug imported compatibility layer uses ID-scoped selectors, so the
+     final entry stylesheet mirrors that specificity to keep the visible card
+     miniature instead of the old 82% layout slot. */
+  #bioquimica-2026-08-28 .course-inline-figure.is-wide,
+  #epidemiologia-2026-08-28 .course-inline-figure.is-wide {
+    width: min(58vw, 220px) !important;
+    max-width: 220px !important;
+  }
+
+  #bioquimica-2026-08-28 .course-inline-figure.is-wide .course-inline-diagram-trigger,
+  #epidemiologia-2026-08-28 .course-inline-figure.is-wide .course-inline-diagram-trigger,
+  #bioquimica-2026-08-28 .course-inline-figure.is-wide figcaption,
+  #epidemiologia-2026-08-28 .course-inline-figure.is-wide figcaption {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 
   .course-inline-figure.is-teacher-board {
