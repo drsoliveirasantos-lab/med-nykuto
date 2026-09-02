@@ -1,0 +1,141 @@
+/* Subject selector and compact subject utilities · issue #179 */
+
+@media (max-width: 700px) {
+  /* `activateView('cursos')` keeps the last subject active for compatibility.
+     The :target state restores a genuine Materias selector without changing
+     historical routes or lesson ids. */
+  #materias:target {
+    display: block !important;
+  }
+
+  #materias:target ~ .subject-section[data-view="cursos"] {
+    display: none !important;
+  }
+
+  body:has(#materias:target) .helpdesk-fab {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: none !important;
+  }
+
+  /* Move subject utilities into four miniature icon controls inside the cover
+     instead of consuming a second full navigation row. */
+  .notebook-shell {
+    position: relative !important;
+  }
+
+  .notebook-cover {
+    min-height: 54px !important;
+    padding-right: 180px !important;
+  }
+
+  .notebook-chapter-current {
+    display: none !important;
+  }
+
+  .notebook-modes {
+    position: absolute !important;
+    z-index: 35 !important;
+    inset: 6px 7px auto auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    display: flex !important;
+    gap: 2px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .notebook-modes button {
+    position: relative !important;
+    width: 42px !important;
+    min-width: 42px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    padding: 6px !important;
+    border: 0 !important;
+    border-radius: 9px !important;
+    background: transparent !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .notebook-modes button::after {
+    width: 29px;
+    height: 29px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 850;
+    line-height: 1;
+    content: "•";
+  }
+
+  .notebook-modes button[data-notebook-mode="cuaderno"]::after {
+    content: "▤";
+  }
+
+  .notebook-modes button[data-notebook-mode="temas"]::after {
+    content: "≡";
+  }
+
+  .notebook-modes button[data-notebook-mode="archivos"]::after {
+    content: "▣";
+  }
+
+  .notebook-modes button[data-notebook-mode="progreso"]::after {
+    content: "✓";
+  }
+
+  .notebook-modes button[aria-selected="true"]::after {
+    border-color: #fff;
+    background: #fff;
+    color: var(--lesson-accent, #07596a);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+  }
+
+  .notebook-current-title {
+    max-width: 100% !important;
+    padding-right: 2px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .notebook-cover {
+    padding-right: 152px !important;
+  }
+
+  .notebook-modes button {
+    width: 35px !important;
+    min-width: 35px !important;
+  }
+
+  .notebook-modes button::after {
+    width: 27px;
+    height: 27px;
+  }
+}
+
+@media (max-width: 340px) {
+  .notebook-cover {
+    padding-right: 132px !important;
+  }
+
+  .notebook-modes button {
+    width: 31px !important;
+    min-width: 31px !important;
+  }
+
+  .notebook-modes button::after {
+    width: 25px;
+    height: 25px;
+    font-size: 0.7rem;
+  }
+}
