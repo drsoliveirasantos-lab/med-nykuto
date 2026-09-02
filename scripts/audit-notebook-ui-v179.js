@@ -59,7 +59,7 @@ async function visibleNodes(locator) {
   return locator.evaluateAll((nodes) => nodes.filter((node) => {
     const rect = node.getBoundingClientRect();
     const style = getComputedStyle(node);
-    return rect.width > 0 && rect.height > 0 && style.display !== 'none' && style.visibility !== 'hidden';
+    return rect.width > 0 && rect.height > 0 && style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity || 1) > 0.05;
   }).length);
 }
 
@@ -86,6 +86,9 @@ async function inspectPhone(browserType, width, failures) {
       return rect.width > 0 && rect.height > 0 && style.display !== 'none' && style.visibility !== 'hidden';
     });
     const nav = document.querySelector('.mobile-bottom-nav');
+    const help = document.querySelector('.helpdesk-fab');
+    const helpStyle = help ? getComputedStyle(help) : null;
+    const helpRect = help ? help.getBoundingClientRect() : null;
     return {
       cardCount: cards.length,
       columns: getComputedStyle(document.querySelector('#materias .course-selector')).gridTemplateColumns.split(' ').length,
@@ -93,6 +96,7 @@ async function inspectPhone(browserType, width, failures) {
       visibleSubjects: visibleSubjects.length,
       navCount: nav ? nav.querySelectorAll('a').length : 0,
       navHeight: nav ? nav.getBoundingClientRect().height : 0,
+      helpVisible: Boolean(help && helpRect.width > 0 && helpRect.height > 0 && helpStyle.display !== 'none' && helpStyle.visibility !== 'hidden' && Number(helpStyle.opacity || 1) > 0.05),
       overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
     };
   });
@@ -101,7 +105,8 @@ async function inspectPhone(browserType, width, failures) {
   check(selectorState.columns === 2, `${browserName} ${width}px: Materias should use two scan-friendly columns.`, failures);
   check(selectorState.maxCardHeight <= 72, `${browserName} ${width}px: subject cards are too tall (${Math.round(selectorState.maxCardHeight)}px).`, failures);
   check(selectorState.visibleSubjects === 0, `${browserName} ${width}px: a subject remains visible behind Materias.`, failures);
-  check(selectorState.navCount === 5 && selectorState.navHeight >= 56, `${browserName} ${width}px: the five-item mobile navigation is not intact.`, failures);
+  check(selectorState.navCount === 5 && selectorState.navHeight >= 56, `${browserName} ${width}px: the compatible mobile navigation DOM is not intact.`, failures);
+  check(!selectorState.helpVisible, `${browserName} ${width}px: floating help still competes with the Materias selector.`, failures);
   check(selectorState.overflow <= 1, `${browserName} ${width}px: Materias overflows by ${selectorState.overflow}px.`, failures);
 
   if (width === 390) {
@@ -118,19 +123,29 @@ async function inspectPhone(browserType, width, failures) {
     const lesson = subject.querySelector(':scope > [data-lesson-panel]:not([hidden])');
     const utilities = Array.from(subject.querySelectorAll('.notebook-modes button'));
     const dates = Array.from(subject.querySelectorAll('.notebook-date'));
-    const tabs = Array.from(lesson.querySelectorAll(':scope > [data-lesson-tabs] [data-lesson-tab]')).filter((button) => getComputedStyle(button).display !== 'none');
+    const allTabs = Array.from(lesson.querySelectorAll(':scope > [data-lesson-tabs] [data-lesson-tab]'));
+    const tabs = allTabs.filter((button) => {
+      const rect = button.getBoundingClientRect();
+      const style = getComputedStyle(button);
+      return rect.width > 0 && rect.height > 0 && style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity || 1) > 0.05;
+    });
     const specialization = lesson.querySelector('[data-s4-specialization]');
+    const tabBar = lesson.querySelector(':scope > [data-lesson-tabs]');
+    const appHeader = document.querySelector('.class-header');
     return {
       lessonId: lesson && lesson.id,
       utilityColumns: getComputedStyle(subject.querySelector('.notebook-modes')).gridTemplateColumns.split(' ').length,
       utilityHeights: utilities.map((button) => button.getBoundingClientRect().height),
       dates: dates.length,
       dateHeights: dates.map((button) => button.getBoundingClientRect().height),
+      stableTabIds: allTabs.map((button) => button.dataset.lessonTab),
       tabs: tabs.map((button) => ({
         id: button.dataset.lessonTab,
         height: button.getBoundingClientRect().height,
         label: getComputedStyle(button, '::after').content.replace(/^"|"$/g, '')
       })),
+      tabTop: tabBar ? tabBar.getBoundingClientRect().top : -1,
+      headerBottom: appHeader ? appHeader.getBoundingClientRect().bottom : -1,
       heroVisible: Boolean(lesson.querySelector('[data-s4-course-hero]') && getComputedStyle(lesson.querySelector('[data-s4-course-hero]')).display !== 'none'),
       guideVisible: Array.from(lesson.querySelectorAll('[data-s4-notion-guide]')).some((node) => getComputedStyle(node).display !== 'none'),
       specializationHeight: specialization ? specialization.getBoundingClientRect().height : 0,
@@ -143,9 +158,12 @@ async function inspectPhone(browserType, width, failures) {
   check(subjectState.utilityColumns === 4, `${browserName} ${width}px: subject utilities are not a four-column miniature grid.`, failures);
   check(subjectState.utilityHeights.every((height) => height >= 43.5 && height <= 45), `${browserName} ${width}px: utility hit areas are not 44px.`, failures);
   check(subjectState.dates === 5 && subjectState.dateHeights.every((height) => height >= 43.5 && height <= 45), `${browserName} ${width}px: date ribbon is not a compact 44px row.`, failures);
-  check(subjectState.tabs.length === 6, `${browserName} ${width}px: all six stable lesson destinations must remain reachable.`, failures);
+  check(subjectState.stableTabIds.join('|') === 'curso|rapida|ultra|training|material|ia', `${browserName} ${width}px: stable lesson ids changed (${subjectState.stableTabIds.join(', ')}).`, failures);
+  check(subjectState.tabs.length === 5, `${browserName} ${width}px: expected five visible lesson choices before opening secondary tools.`, failures);
   check(subjectState.tabs.every((tab) => tab.height >= 43.5 && tab.height <= 45), `${browserName} ${width}px: lesson hit areas are not 44px.`, failures);
-  check(subjectState.tabs.map((tab) => tab.label).join('|') === 'Curso|Ficha|⚡|Quiz|▣|✦', `${browserName} ${width}px: compact labels are ${subjectState.tabs.map((tab) => tab.label).join(', ')}.`, failures);
+  check(subjectState.tabs.map((tab) => tab.id).join('|') === 'curso|rapida|ultra|training|material', `${browserName} ${width}px: visible lesson order is ${subjectState.tabs.map((tab) => tab.id).join(', ')}.`, failures);
+  check(subjectState.tabs.map((tab) => tab.label).join('|') === 'Curso|Ficha|⚡|Quiz|⋯', `${browserName} ${width}px: compact labels are ${subjectState.tabs.map((tab) => tab.label).join(', ')}.`, failures);
+  check(Math.abs(subjectState.tabTop - subjectState.headerBottom) <= 8, `${browserName} ${width}px: lesson bar is not consolidated directly below the app header (${Math.round(subjectState.tabTop)} vs ${Math.round(subjectState.headerBottom)}).`, failures);
   check(!subjectState.heroVisible && !subjectState.guideVisible, `${browserName} ${width}px: meta-pedagogical blocks still dominate the first screen.`, failures);
   check(subjectState.specializationHeight > 0 && subjectState.specializationHeight <= 240, `${browserName} ${width}px: specialization is not miniature (${Math.round(subjectState.specializationHeight)}px).`, failures);
   check(subjectState.visibleSubjects === 1, `${browserName} ${width}px: more than one subject is visible.`, failures);
@@ -154,6 +172,25 @@ async function inspectPhone(browserType, width, failures) {
   const activeLesson = page.locator('#bioquimica-2026-08-28');
   await activeLesson.locator('[data-lesson-tab="material"]').click();
   await activeLesson.locator('[data-lesson-tab-panel="material"]').waitFor({ state: 'visible' });
+  const iaState = await activeLesson.locator('[data-lesson-tab="ia"]').evaluate((button) => {
+    const rect = button.getBoundingClientRect();
+    const style = getComputedStyle(button);
+    return {
+      visible: rect.width > 0 && rect.height > 0 && style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity || 1) > 0.05,
+      width: rect.width,
+      height: rect.height,
+      left: rect.left,
+      right: rect.right,
+      label: getComputedStyle(button, '::after').content.replace(/^"|"$/g, '')
+    };
+  });
+  check(iaState.visible && iaState.height >= 43.5 && iaState.width >= 100, `${browserName} ${width}px: Tutor IA is not exposed as a safe contextual action.`, failures);
+  check(iaState.left >= -1 && iaState.right <= width + 1, `${browserName} ${width}px: Tutor IA popover leaves the viewport.`, failures);
+  check(iaState.label === 'Tutor IA', `${browserName} ${width}px: Tutor IA contextual label is ${iaState.label}.`, failures);
+  if (iaState.visible) {
+    await activeLesson.locator('[data-lesson-tab="ia"]').click();
+    await activeLesson.locator('[data-lesson-tab-panel="ia"]').waitFor({ state: 'visible' });
+  }
   await activeLesson.locator('[data-lesson-tab="curso"]').click();
 
   await page.locator('#bioquimica .notebook-date[data-lesson-id="bioquimica-2026-08-26"]').click();
@@ -197,6 +234,7 @@ async function inspectPhone(browserType, width, failures) {
   await page.locator('.mobile-bottom-nav [data-view-link="cursos"]').click();
   await page.waitForSelector('#materias', { state: 'visible' });
   check(await visibleNodes(page.locator('.subject-section[data-view="cursos"]')) === 0, `${browserName} ${width}px: returning to Materias leaves a subject visible.`, failures);
+  check(await visibleNodes(page.locator('.helpdesk-fab')) === 0, `${browserName} ${width}px: floating help returns over the Materias selector.`, failures);
   check(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth) <= 1, `${browserName} ${width}px: returning to Materias creates overflow.`, failures);
   check(runtimeErrors.length === 0, `${browserName} ${width}px: runtime errors: ${runtimeErrors.join(' | ')}`, failures);
 
