@@ -58,8 +58,10 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
       });
       expect(figureLayout.left).toBeGreaterThanOrEqual(0);
       expect(figureLayout.right).toBeLessThanOrEqual(figureLayout.viewportWidth + 1);
-      expect(figureLayout.width).toBeGreaterThanOrEqual(figureLayout.panelWidth * 0.8);
+      expect(figureLayout.width).toBeGreaterThanOrEqual(96);
+      expect(figureLayout.width).toBeLessThanOrEqual(220);
       expect(figureLayout.triggerWidth).toBeGreaterThanOrEqual(44);
+      expect(figureLayout.triggerWidth).toBeLessThanOrEqual(220);
       expect(figureLayout.triggerHeight).toBeGreaterThanOrEqual(44);
       expect(figureLayout.overflow).toBeLessThanOrEqual(1);
 
