@@ -17,7 +17,7 @@
     "import:courses": "node scripts/import-legacy-courses.js",
     "import:legacy-data": "node scripts/import-legacy-data.js",
     "test:e2e": "playwright test",
-    "audit:notebook-ui": "node scripts/audit-notebook-ui.js",
+    "audit:notebook-ui": "node scripts/audit-notebook-ui-v179.js",
     "test:e2e:headed": "playwright test --headed"
   },
   "devDependencies": {
