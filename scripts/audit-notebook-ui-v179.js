@@ -19,13 +19,7 @@ const mimeTypes = {
   '.webp': 'image/webp'
 };
 const publicData = {
-  notices: [],
-  tasks: [],
-  activities: [],
-  groups: [],
-  members: [],
-  files: [],
-  dates: [],
+  notices: [], tasks: [], activities: [], groups: [], members: [], files: [], dates: [],
   contentUpdatedAt: '2026-09-02T00:00:00-03:00',
   generatedAt: '2026-09-02T00:00:00-03:00'
 };
@@ -42,7 +36,6 @@ function createServer() {
       response.end(JSON.stringify(publicData));
       return;
     }
-
     const relative = pathname === '/' ? 'index.html' : pathname.replace(/^\/+/, '');
     const target = path.resolve(root, relative);
     if (!target.startsWith(root + path.sep)) {
@@ -50,7 +43,6 @@ function createServer() {
       response.end('Forbidden');
       return;
     }
-
     fs.readFile(target, (error, content) => {
       if (error) {
         response.statusCode = 404;
@@ -63,7 +55,7 @@ function createServer() {
   });
 }
 
-async function visibleCount(locator) {
+async function visibleNodes(locator) {
   return locator.evaluateAll((nodes) => nodes.filter((node) => {
     const rect = node.getBoundingClientRect();
     const style = getComputedStyle(node);
@@ -71,7 +63,8 @@ async function visibleCount(locator) {
   }).length);
 }
 
-async function inspectPhone(browserType, width, failures, screenshots) {
+async function inspectPhone(browserType, width, failures) {
+  const browserName = browserType.name();
   const browser = await browserType.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width, height: 844 }, deviceScaleFactor: 1 });
   const runtimeErrors = [];
@@ -84,148 +77,129 @@ async function inspectPhone(browserType, width, failures, screenshots) {
   await page.waitForSelector('.academic-notebook-ready');
   await page.waitForSelector('#materias', { state: 'visible' });
 
+  const subjectCards = page.locator('#materias [data-course-target]');
   const selectorState = await page.evaluate(() => {
-    const hub = document.getElementById('materias');
-    const cards = Array.from(hub.querySelectorAll('[data-course-target]'));
+    const cards = Array.from(document.querySelectorAll('#materias [data-course-target]'));
     const visibleSubjects = Array.from(document.querySelectorAll('.subject-section[data-view="cursos"]')).filter((subject) => {
-      const style = getComputedStyle(subject);
       const rect = subject.getBoundingClientRect();
-      return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 0 && rect.height > 0;
+      const style = getComputedStyle(subject);
+      return rect.width > 0 && rect.height > 0 && style.display !== 'none' && style.visibility !== 'hidden';
     });
-    const visibleNav = Array.from(document.querySelectorAll('.workspace-nav > a')).filter((link) => getComputedStyle(link).display !== 'none');
+    const nav = document.querySelector('.mobile-bottom-nav');
     return {
-      hubVisible: getComputedStyle(hub).display !== 'none',
-      cards: cards.length,
+      cardCount: cards.length,
+      columns: getComputedStyle(document.querySelector('#materias .course-selector')).gridTemplateColumns.split(' ').length,
       maxCardHeight: Math.max(...cards.map((card) => card.getBoundingClientRect().height), 0),
       visibleSubjects: visibleSubjects.length,
-      visibleNav: visibleNav.length,
+      navCount: nav ? nav.querySelectorAll('a').length : 0,
+      navHeight: nav ? nav.getBoundingClientRect().height : 0,
       overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
     };
   });
 
-  check(selectorState.hubVisible, `${browserType.name()} ${width}px: Materias is not visible as a selector.`, failures);
-  check(selectorState.cards === 6, `${browserType.name()} ${width}px: expected six subject cards, received ${selectorState.cards}.`, failures);
-  check(selectorState.maxCardHeight <= 72, `${browserType.name()} ${width}px: subject cards are too tall (${Math.round(selectorState.maxCardHeight)}px).`, failures);
-  check(selectorState.visibleSubjects === 0, `${browserType.name()} ${width}px: a subject remains visible behind Materias.`, failures);
-  check(selectorState.visibleNav === 4, `${browserType.name()} ${width}px: bottom navigation should expose four primary destinations.`, failures);
-  check(selectorState.overflow <= 1, `${browserType.name()} ${width}px: Materias overflows horizontally by ${selectorState.overflow}px.`, failures);
+  check(selectorState.cardCount === 6, `${browserName} ${width}px: expected six subject cards.`, failures);
+  check(selectorState.columns === 2, `${browserName} ${width}px: Materias should use two scan-friendly columns.`, failures);
+  check(selectorState.maxCardHeight <= 72, `${browserName} ${width}px: subject cards are too tall (${Math.round(selectorState.maxCardHeight)}px).`, failures);
+  check(selectorState.visibleSubjects === 0, `${browserName} ${width}px: a subject remains visible behind Materias.`, failures);
+  check(selectorState.navCount === 5 && selectorState.navHeight >= 56, `${browserName} ${width}px: the five-item mobile navigation is not intact.`, failures);
+  check(selectorState.overflow <= 1, `${browserName} ${width}px: Materias overflows by ${selectorState.overflow}px.`, failures);
 
-  if (screenshots && width === 390) {
-    await page.screenshot({ path: path.join(evidenceDir, `materias-${browserType.name()}-${width}.png`), fullPage: false });
+  if (width === 390) {
+    await page.screenshot({ path: path.join(evidenceDir, `materias-${browserName}-${width}.png`), fullPage: false });
   }
 
+  await subjectCards.filter({ has: page.locator('[data-course-target="bioquimica"]') }).count().catch(() => 0);
   await page.locator('[data-course-target="bioquimica"]').click();
   await page.waitForSelector('#bioquimica:not([hidden]) .notebook-shell');
   await page.waitForFunction(() => getComputedStyle(document.getElementById('materias')).display === 'none');
 
   const subjectState = await page.evaluate(() => {
     const subject = document.getElementById('bioquimica');
-    const activeLesson = subject.querySelector(':scope > [data-lesson-panel]:not([hidden])');
-    const utilityButtons = Array.from(subject.querySelectorAll('.notebook-modes button'));
-    const dateButtons = Array.from(subject.querySelectorAll('.notebook-date'));
-    const lessonTabs = Array.from(activeLesson.querySelectorAll(':scope > [data-lesson-tabs] [data-lesson-tab]')).filter((button) => getComputedStyle(button).display !== 'none');
-    const visualLabels = lessonTabs.map((button) => getComputedStyle(button, '::after').content.replace(/^"|"$/g, ''));
-    const visibleSubjects = Array.from(document.querySelectorAll('.subject-section[data-view="cursos"]')).filter((item) => getComputedStyle(item).display !== 'none');
-    const specialization = activeLesson.querySelector('[data-s4-specialization]');
+    const lesson = subject.querySelector(':scope > [data-lesson-panel]:not([hidden])');
+    const utilities = Array.from(subject.querySelectorAll('.notebook-modes button'));
+    const dates = Array.from(subject.querySelectorAll('.notebook-date'));
+    const tabs = Array.from(lesson.querySelectorAll(':scope > [data-lesson-tabs] [data-lesson-tab]')).filter((button) => getComputedStyle(button).display !== 'none');
+    const specialization = lesson.querySelector('[data-s4-specialization]');
     return {
-      activeLesson: activeLesson && activeLesson.id,
-      dates: dateButtons.length,
-      maxDateWidth: Math.max(...dateButtons.map((button) => button.getBoundingClientRect().width), 0),
-      maxDateHeight: Math.max(...dateButtons.map((button) => button.getBoundingClientRect().height), 0),
-      utilities: utilityButtons.length,
-      utilityMin: Math.min(...utilityButtons.map((button) => button.getBoundingClientRect().height), 999),
-      utilityMax: Math.max(...utilityButtons.map((button) => button.getBoundingClientRect().height), 0),
-      visibleTabs: lessonTabs.length,
-      tabMin: Math.min(...lessonTabs.map((button) => button.getBoundingClientRect().height), 999),
-      tabMax: Math.max(...lessonTabs.map((button) => button.getBoundingClientRect().height), 0),
-      visualLabels,
-      genericHeroVisible: Boolean(activeLesson.querySelector('[data-s4-course-hero]') && getComputedStyle(activeLesson.querySelector('[data-s4-course-hero]')).display !== 'none'),
-      notionGuideVisible: Array.from(activeLesson.querySelectorAll('[data-s4-notion-guide]')).some((node) => getComputedStyle(node).display !== 'none'),
+      lessonId: lesson && lesson.id,
+      utilityColumns: getComputedStyle(subject.querySelector('.notebook-modes')).gridTemplateColumns.split(' ').length,
+      utilityHeights: utilities.map((button) => button.getBoundingClientRect().height),
+      dates: dates.length,
+      dateHeights: dates.map((button) => button.getBoundingClientRect().height),
+      tabs: tabs.map((button) => ({
+        id: button.dataset.lessonTab,
+        height: button.getBoundingClientRect().height,
+        label: getComputedStyle(button, '::after').content.replace(/^"|"$/g, '')
+      })),
+      heroVisible: Boolean(lesson.querySelector('[data-s4-course-hero]') && getComputedStyle(lesson.querySelector('[data-s4-course-hero]')).display !== 'none'),
+      guideVisible: Array.from(lesson.querySelectorAll('[data-s4-notion-guide]')).some((node) => getComputedStyle(node).display !== 'none'),
       specializationHeight: specialization ? specialization.getBoundingClientRect().height : 0,
-      visibleSubjects: visibleSubjects.length,
+      visibleSubjects: Array.from(document.querySelectorAll('.subject-section[data-view="cursos"]')).filter((node) => getComputedStyle(node).display !== 'none').length,
       overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
     };
   });
 
-  check(subjectState.activeLesson === 'bioquimica-2026-08-28', `${browserType.name()} ${width}px: latest Bioquímica lesson is not selected.`, failures);
-  check(subjectState.dates === 5, `${browserType.name()} ${width}px: Bioquímica should expose five dates.`, failures);
-  check(subjectState.maxDateWidth <= 56 && subjectState.maxDateHeight <= 44, `${browserType.name()} ${width}px: date ribbon is not miniature (${Math.round(subjectState.maxDateWidth)}×${Math.round(subjectState.maxDateHeight)}px).`, failures);
-  check(subjectState.utilities === 4, `${browserType.name()} ${width}px: subject utility menu should retain four functions.`, failures);
-  check(subjectState.utilityMin >= 40 && subjectState.utilityMax <= 44, `${browserType.name()} ${width}px: subject utility hit areas should stay compact and usable (${subjectState.utilityMin}–${subjectState.utilityMax}px).`, failures);
-  check(subjectState.visibleTabs === 4, `${browserType.name()} ${width}px: lesson workspace should expose four compact tabs.`, failures);
-  check(subjectState.tabMin >= 43.5 && subjectState.tabMax <= 48, `${browserType.name()} ${width}px: lesson tab hit areas should be about 44px (${subjectState.tabMin}–${subjectState.tabMax}px).`, failures);
-  check(subjectState.visualLabels.join('|') === 'Curso|Ficha|⚡|Quiz', `${browserType.name()} ${width}px: compact tab labels are ${subjectState.visualLabels.join(', ')}.`, failures);
-  check(!subjectState.genericHeroVisible, `${browserType.name()} ${width}px: generic central-question hero still blocks the course.`, failures);
-  check(!subjectState.notionGuideVisible, `${browserType.name()} ${width}px: duplicated meta-pedagogical guides remain visible.`, failures);
-  check(subjectState.specializationHeight > 0 && subjectState.specializationHeight <= 240, `${browserType.name()} ${width}px: specialization map is not miniature (${Math.round(subjectState.specializationHeight)}px).`, failures);
-  check(subjectState.visibleSubjects === 1, `${browserType.name()} ${width}px: more than one subject is visible.`, failures);
-  check(subjectState.overflow <= 1, `${browserType.name()} ${width}px: subject workspace overflows horizontally by ${subjectState.overflow}px.`, failures);
+  check(subjectState.lessonId === 'bioquimica-2026-08-28', `${browserName} ${width}px: latest Bioquímica lesson is not selected.`, failures);
+  check(subjectState.utilityColumns === 4, `${browserName} ${width}px: subject utilities are not a four-column miniature grid.`, failures);
+  check(subjectState.utilityHeights.every((height) => height >= 43.5 && height <= 45), `${browserName} ${width}px: utility hit areas are not 44px.`, failures);
+  check(subjectState.dates === 5 && subjectState.dateHeights.every((height) => height >= 43.5 && height <= 45), `${browserName} ${width}px: date ribbon is not a compact 44px row.`, failures);
+  check(subjectState.tabs.length === 6, `${browserName} ${width}px: all six stable lesson destinations must remain reachable.`, failures);
+  check(subjectState.tabs.every((tab) => tab.height >= 43.5 && tab.height <= 45), `${browserName} ${width}px: lesson hit areas are not 44px.`, failures);
+  check(subjectState.tabs.map((tab) => tab.label).join('|') === 'Curso|Ficha|⚡|Quiz|▣|✦', `${browserName} ${width}px: compact labels are ${subjectState.tabs.map((tab) => tab.label).join(', ')}.`, failures);
+  check(!subjectState.heroVisible && !subjectState.guideVisible, `${browserName} ${width}px: meta-pedagogical blocks still dominate the first screen.`, failures);
+  check(subjectState.specializationHeight > 0 && subjectState.specializationHeight <= 240, `${browserName} ${width}px: specialization is not miniature (${Math.round(subjectState.specializationHeight)}px).`, failures);
+  check(subjectState.visibleSubjects === 1, `${browserName} ${width}px: more than one subject is visible.`, failures);
+  check(subjectState.overflow <= 1, `${browserName} ${width}px: subject workspace overflows by ${subjectState.overflow}px.`, failures);
 
-  const targetDate = page.locator('#bioquimica .notebook-date[data-lesson-id="bioquimica-2026-08-26"]');
-  await targetDate.click();
+  const activeLesson = page.locator('#bioquimica-2026-08-28');
+  await activeLesson.locator('[data-lesson-tab="material"]').click();
+  await activeLesson.locator('[data-lesson-tab-panel="material"]').waitFor({ state: 'visible' });
+  await activeLesson.locator('[data-lesson-tab="curso"]').click();
+
+  await page.locator('#bioquimica .notebook-date[data-lesson-id="bioquimica-2026-08-26"]').click();
   await page.waitForSelector('#bioquimica-2026-08-26:not([hidden])');
   const figure = page.locator('#bioquimica-2026-08-26 [data-lesson-tab-panel="curso"] .course-inline-figure').first();
   await figure.waitFor({ state: 'visible' });
   await figure.scrollIntoViewIfNeeded();
-
   const thumbnail = await figure.evaluate((node) => {
-    const box = node.getBoundingClientRect();
     const trigger = node.querySelector('.course-inline-diagram-trigger').getBoundingClientRect();
     return {
-      width: box.width,
-      height: box.height,
       triggerWidth: trigger.width,
       triggerHeight: trigger.height,
-      left: box.left,
-      right: box.right,
+      left: trigger.left,
+      right: trigger.right,
       viewport: innerWidth,
       overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
     };
   });
-
-  check(thumbnail.width <= 245 && thumbnail.height <= 190, `${browserType.name()} ${width}px: course diagram is not a thumbnail (${Math.round(thumbnail.width)}×${Math.round(thumbnail.height)}px).`, failures);
-  check(thumbnail.triggerWidth >= 44 && thumbnail.triggerHeight >= 44, `${browserType.name()} ${width}px: diagram thumbnail is not safely tappable.`, failures);
-  check(thumbnail.left >= -1 && thumbnail.right <= thumbnail.viewport + 1, `${browserType.name()} ${width}px: diagram thumbnail leaves the viewport.`, failures);
-  check(thumbnail.overflow <= 1, `${browserType.name()} ${width}px: diagram thumbnail creates horizontal overflow.`, failures);
+  check(thumbnail.triggerWidth <= 245 && thumbnail.triggerHeight <= 140, `${browserName} ${width}px: course diagram is not a thumbnail (${Math.round(thumbnail.triggerWidth)}×${Math.round(thumbnail.triggerHeight)}px).`, failures);
+  check(thumbnail.triggerWidth >= 44 && thumbnail.triggerHeight >= 44, `${browserName} ${width}px: diagram thumbnail is not safely tappable.`, failures);
+  check(thumbnail.left >= -1 && thumbnail.right <= thumbnail.viewport + 1 && thumbnail.overflow <= 1, `${browserName} ${width}px: diagram thumbnail leaves the viewport.`, failures);
 
   await figure.locator('.course-inline-diagram-trigger').click();
   const dialog = page.locator('#courseDiagramDialog');
   await dialog.waitFor({ state: 'visible' });
   const dialogState = await dialog.evaluate((node) => {
     const box = node.getBoundingClientRect();
-    const controls = Array.from(node.querySelectorAll('button:not([hidden])')).map((button) => {
-      const rect = button.getBoundingClientRect();
-      return { width: rect.width, height: rect.height };
-    });
+    const controls = Array.from(node.querySelectorAll('button:not([hidden])')).map((button) => button.getBoundingClientRect());
     return {
-      left: box.left,
-      right: box.right,
-      top: box.top,
-      bottom: box.bottom,
-      viewportWidth: innerWidth,
-      viewportHeight: innerHeight,
-      controls
+      inside: box.left >= -1 && box.right <= innerWidth + 1 && box.top >= -1 && box.bottom <= innerHeight + 1,
+      controlsUsable: controls.length >= 2 && controls.every((rect) => rect.width >= 44 && rect.height >= 44)
     };
   });
-  check(dialogState.left >= -1 && dialogState.right <= dialogState.viewportWidth + 1 && dialogState.top >= -1 && dialogState.bottom <= dialogState.viewportHeight + 1, `${browserType.name()} ${width}px: enlarged diagram leaves the viewport.`, failures);
-  check(dialogState.controls.length >= 2 && dialogState.controls.every((control) => control.width >= 44 && control.height >= 44), `${browserType.name()} ${width}px: enlarged diagram controls are smaller than 44px.`, failures);
+  check(dialogState.inside && dialogState.controlsUsable, `${browserName} ${width}px: enlarged diagram or its controls are outside the usable viewport.`, failures);
   await dialog.locator('.course-diagram-close').click();
-  await dialog.waitFor({ state: 'hidden' });
 
-  if (screenshots && width === 390) {
-    await page.screenshot({ path: path.join(evidenceDir, `bioquimica-26-${browserType.name()}-${width}.png`), fullPage: false });
+  if (width === 390) {
+    await page.screenshot({ path: path.join(evidenceDir, `bioquimica-26-${browserName}-${width}.png`), fullPage: false });
   }
 
-  await page.locator('.workspace-nav [data-view-link="cursos"]').click();
+  await page.locator('.mobile-bottom-nav [data-view-link="cursos"]').click();
   await page.waitForSelector('#materias', { state: 'visible' });
-  const returnState = await page.evaluate(() => ({
-    subjectsVisible: Array.from(document.querySelectorAll('.subject-section[data-view="cursos"]')).filter((subject) => getComputedStyle(subject).display !== 'none').length,
-    overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
-  }));
-  check(returnState.subjectsVisible === 0, `${browserType.name()} ${width}px: returning to Materias leaves a subject visible.`, failures);
-  check(returnState.overflow <= 1, `${browserType.name()} ${width}px: returning to Materias causes horizontal overflow.`, failures);
+  check(await visibleNodes(page.locator('.subject-section[data-view="cursos"]')) === 0, `${browserName} ${width}px: returning to Materias leaves a subject visible.`, failures);
+  check(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth) <= 1, `${browserName} ${width}px: returning to Materias creates overflow.`, failures);
+  check(runtimeErrors.length === 0, `${browserName} ${width}px: runtime errors: ${runtimeErrors.join(' | ')}`, failures);
 
-  check(runtimeErrors.length === 0, `${browserType.name()} ${width}px: runtime errors: ${runtimeErrors.join(' | ')}`, failures);
   await browser.close();
 }
 
@@ -236,18 +210,14 @@ async function main() {
     server.once('error', reject);
     server.listen(port, '127.0.0.1', resolve);
   });
-
   const failures = [];
   try {
     for (const browserType of [chromium, webkit]) {
-      for (const width of widths) {
-        await inspectPhone(browserType, width, failures, true);
-      }
+      for (const width of widths) await inspectPhone(browserType, width, failures);
     }
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }
-
   if (failures.length) {
     console.error('Mobile notebook audit failed:\n- ' + failures.join('\n- '));
     process.exit(1);

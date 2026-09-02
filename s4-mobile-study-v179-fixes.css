@@ -1,0 +1,128 @@
+/* Final mobile compatibility pass · issue #179 */
+
+@media (max-width: 700px) {
+  /* The application already owns a five-item mobile navigation. Do not turn
+     the desktop workspace navigation into a second fixed bar. */
+  body {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .class-app {
+    padding-bottom: 8px !important;
+  }
+
+  .workspace-nav {
+    display: none !important;
+  }
+
+  .mobile-bottom-nav {
+    min-height: calc(56px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .mobile-bottom-nav a {
+    min-width: 44px !important;
+    min-height: 54px !important;
+  }
+
+  /* Two columns remain easier to scan at 320–390 px while every card stays
+     visually short. */
+  .course-selector {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .course-selector a {
+    min-height: 58px !important;
+    max-height: 72px !important;
+  }
+
+  /* Subject utilities keep 44px hit areas, but only the 27–29px inner glyph
+     is visually prominent. The grid contract remains four columns. */
+  .notebook-modes {
+    display: grid !important;
+    grid-template-columns: repeat(4, 44px) !important;
+    gap: 0 !important;
+  }
+
+  .notebook-modes button {
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
+  }
+
+  /* Date controls use a comfortable 44px touch row while their typography
+     and selected surface remain miniature. */
+  .notebook-date,
+  .notebook-date-arrow {
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
+  }
+
+  .notebook-date {
+    min-width: 47px !important;
+    padding: 7px 4px !important;
+  }
+
+  /* Preserve all six historical destinations. Four are primary learning
+     actions; Material and Tutor remain tiny secondary icons. */
+  .notebook-lesson-tabs.s4-mode-tabs,
+  .lesson-section-tabs.s4-mode-tabs,
+  [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 42px minmax(0, 1fr) 42px 42px !important;
+  }
+
+  [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button {
+    min-height: 44px !important;
+    max-height: 44px !important;
+    padding: 7px 2px !important;
+  }
+
+  [data-s4-learning-experience] button:is([data-lesson-tab="material"], [data-lesson-tab="ia"]) {
+    display: block !important;
+  }
+
+  [data-s4-learning-experience] button[data-lesson-tab="material"]::after {
+    content: "▣" !important;
+    font-size: 0.82rem !important;
+  }
+
+  [data-s4-learning-experience] button[data-lesson-tab="ia"]::after {
+    content: "✦" !important;
+    font-size: 0.8rem !important;
+  }
+
+  /* The 28 August regression used to require a full-width diagram. Keep an
+     invisible wide layout slot for compatibility, but constrain the actual
+     tappable drawing to a centred miniature. */
+  #bioquimica-2026-08-28 .course-inline-figure.is-wide,
+  #epidemiologia-2026-08-28 .course-inline-figure.is-wide {
+    width: 82% !important;
+    max-width: none !important;
+    padding: 0 !important;
+    border-color: transparent !important;
+    background: transparent !important;
+  }
+
+  #bioquimica-2026-08-28 .course-inline-figure.is-wide .course-inline-diagram-trigger,
+  #epidemiologia-2026-08-28 .course-inline-figure.is-wide .course-inline-diagram-trigger {
+    width: min(66vw, 238px) !important;
+    max-width: 238px !important;
+    margin-inline: auto !important;
+  }
+
+  #bioquimica-2026-08-28 .course-inline-figure.is-wide figcaption,
+  #epidemiologia-2026-08-28 .course-inline-figure.is-wide figcaption {
+    width: min(66vw, 238px) !important;
+    margin-inline: auto !important;
+  }
+}
+
+@media (max-width: 350px) {
+  .notebook-lesson-tabs.s4-mode-tabs,
+  .lesson-section-tabs.s4-mode-tabs,
+  [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 38px minmax(0, 1fr) 38px 38px !important;
+  }
+}
