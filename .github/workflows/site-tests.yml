@@ -116,7 +116,7 @@ jobs:
   browser-desktop-core:
     name: Browser desktop core regression tests
     needs: validate
-    if: ${{ always() }}
+    if: ${{ always() && !cancelled() }}
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
@@ -179,9 +179,9 @@ jobs:
   browser-mobile-critical:
     name: Browser mobile Safari-shape critical tests
     needs: validate
-    if: ${{ always() }}
+    if: ${{ always() && !cancelled() }}
     runs-on: ubuntu-latest
-    timeout-minutes: 14
+    timeout-minutes: 24
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -189,7 +189,7 @@ jobs:
           node-version: 22
       - run: npm install
       - name: Install Playwright Chromium and WebKit with timeout
-        run: timeout 300s npx playwright install --with-deps chromium webkit
+        run: timeout 600s npx playwright install --with-deps chromium webkit
       - name: Run mobile touch critical tests
         run: |
           set +e
@@ -214,7 +214,7 @@ jobs:
   browser-deployed-visual-a11y:
     name: Browser deployed, visual and accessibility tests
     needs: validate
-    if: ${{ always() }}
+    if: ${{ always() && !cancelled() }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -253,7 +253,7 @@ jobs:
   browser-lot2-visible-features:
     name: Browser lot 2 visible feature tests
     needs: validate
-    if: ${{ always() }}
+    if: ${{ always() && !cancelled() }}
     runs-on: ubuntu-latest
     timeout-minutes: 24
     steps:
@@ -289,7 +289,7 @@ jobs:
   browser-lot3-hardening:
     name: Browser lot 3 hardening tests
     needs: validate
-    if: ${{ always() }}
+    if: ${{ always() && !cancelled() }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
