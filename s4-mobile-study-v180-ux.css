@@ -1,0 +1,283 @@
+/*
+ * S4 phone UX simplification · v180
+ * Continuation of issue #179.
+ *
+ * Additive presentation layer only: no lesson source, question bank, practiceId,
+ * P1/P2 volume or historical panel id is changed here.
+ */
+
+@media (max-width: 700px) {
+  /* Materias stays a selector, not another dashboard. The floating help entry
+     was visually competing with the six subjects; help remains available from
+     the rest of the app. */
+  html body[data-class-id="s4e-g3"]:has(#materias:target) .helpdesk-fab {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(10px) !important;
+  }
+
+  /* Keep the four notebook utilities compact while making their meaning
+     discoverable on touch/keyboard focus instead of adding another permanent
+     row of labels. */
+  html body[data-class-id="s4e-g3"] .notebook-modes button {
+    position: relative !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-modes button::before {
+    position: absolute;
+    z-index: 18;
+    top: calc(100% + 4px);
+    right: 0;
+    width: max-content;
+    max-width: 122px;
+    padding: 4px 6px;
+    border: 1px solid var(--notebook-border, rgba(148, 163, 184, 0.34));
+    border-radius: 7px;
+    background: var(--notebook-paper, #fff);
+    box-shadow: 0 7px 18px rgba(15, 23, 42, 0.16);
+    color: var(--notebook-ink, #1f2937);
+    font-size: 0.52rem;
+    font-weight: 800;
+    line-height: 1;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-2px);
+    transition: opacity 120ms ease, transform 120ms ease, visibility 120ms ease;
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-modes button[data-notebook-mode="cuaderno"]::before {
+    content: "Cuaderno";
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-modes button[data-notebook-mode="temas"]::before {
+    content: "Temas";
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-modes button[data-notebook-mode="archivos"]::before {
+    content: "Archivos";
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-modes button[data-notebook-mode="progreso"]::before {
+    content: "Progreso";
+  }
+
+  html body[data-class-id="s4e-g3"] .notebook-modes button:is(:focus-visible, :active)::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* One persistent study decision bar only. Date navigation and notebook
+     utilities scroll with the lesson; this row alone stays directly under the
+     compact app header. Materiales becomes the one secondary gateway and the
+     historical Tutor IA control remains in the DOM as a contextual popover. */
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs),
+  html body[data-class-id="s4e-g3"] .notebook-lesson-tabs.s4-mode-tabs,
+  html body[data-class-id="s4e-g3"] .lesson-section-tabs.s4-mode-tabs {
+    top: calc(var(--s4-phone-header, 48px) + env(safe-area-inset-top)) !important;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.05fr) 44px minmax(0, 1.05fr) 44px !important;
+    grid-auto-flow: row !important;
+    grid-auto-rows: 44px !important;
+    overflow: visible !important;
+    isolation: isolate;
+  }
+
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab],
+  html body[data-class-id="s4e-g3"] :is(.notebook-lesson-tabs, .lesson-section-tabs).s4-mode-tabs button[data-lesson-tab] {
+    min-height: 44px !important;
+    max-height: 44px !important;
+  }
+
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="material"],
+  html body[data-class-id="s4e-g3"] :is(.notebook-lesson-tabs, .lesson-section-tabs).s4-mode-tabs button[data-lesson-tab="material"] {
+    position: relative !important;
+    grid-column: 5 !important;
+    font-size: 0 !important;
+    overflow: visible !important;
+  }
+
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="material"]::after,
+  html body[data-class-id="s4e-g3"] :is(.notebook-lesson-tabs, .lesson-section-tabs).s4-mode-tabs button[data-lesson-tab="material"]::after {
+    content: "⋯" !important;
+    font-size: 1.05rem !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.05em !important;
+  }
+
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="material"]::before {
+    content: "Materiales · Tutor IA";
+    position: absolute;
+    z-index: 22;
+    top: calc(100% + 4px);
+    right: 0;
+    width: max-content;
+    max-width: 150px;
+    padding: 5px 7px;
+    border: 1px solid var(--notebook-border, rgba(148, 163, 184, 0.34));
+    border-radius: 7px;
+    background: var(--notebook-paper, #fff);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.16);
+    color: var(--notebook-ink, #1f2937);
+    font-size: 0.52rem;
+    font-weight: 800;
+    line-height: 1.1;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-2px);
+  }
+
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="material"]:is(:focus-visible, :active)::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="ia"],
+  html body[data-class-id="s4e-g3"] :is(.notebook-lesson-tabs, .lesson-section-tabs).s4-mode-tabs button[data-lesson-tab="ia"] {
+    position: absolute !important;
+    z-index: 20 !important;
+    top: calc(100% + 4px) !important;
+    right: 2px !important;
+    width: 112px !important;
+    min-width: 112px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
+    padding: 4px 8px !important;
+    border: 1px solid var(--notebook-border, rgba(148, 163, 184, 0.34)) !important;
+    border-radius: 9px !important;
+    background: var(--notebook-paper, #fff) !important;
+    box-shadow: 0 9px 24px rgba(15, 23, 42, 0.18) !important;
+    color: var(--notebook-ink, #1f2937) !important;
+    font-size: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(-4px);
+    transition: opacity 120ms ease, transform 120ms ease, visibility 120ms ease;
+  }
+
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="ia"]::after,
+  html body[data-class-id="s4e-g3"] :is(.notebook-lesson-tabs, .lesson-section-tabs).s4-mode-tabs button[data-lesson-tab="ia"]::after {
+    content: "Tutor IA" !important;
+    font-size: 0.58rem !important;
+    font-weight: 850 !important;
+    line-height: 1 !important;
+  }
+
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs):has(button[data-lesson-tab="material"][aria-selected="true"]) button[data-lesson-tab="ia"],
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs):has(button[data-lesson-tab="ia"][aria-selected="true"]) button[data-lesson-tab="ia"],
+  html body[data-class-id="s4e-g3"] :is(.notebook-lesson-tabs, .lesson-section-tabs).s4-mode-tabs:has(button[data-lesson-tab="material"][aria-selected="true"]) button[data-lesson-tab="ia"],
+  html body[data-class-id="s4e-g3"] :is(.notebook-lesson-tabs, .lesson-section-tabs).s4-mode-tabs:has(button[data-lesson-tab="ia"][aria-selected="true"]) button[data-lesson-tab="ia"] {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateY(0);
+  }
+
+  /* The lightning shortcut remains tiny. Its meaning is revealed on the same
+     interaction used to discover an icon, with no permanent fifth label. */
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="ultra"] {
+    position: relative !important;
+    overflow: visible !important;
+  }
+
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="ultra"]::before {
+    content: "Ficha ultra rápida";
+    position: absolute;
+    z-index: 21;
+    top: calc(100% + 4px);
+    left: 50%;
+    width: max-content;
+    max-width: 130px;
+    padding: 5px 7px;
+    border: 1px solid var(--notebook-border, rgba(148, 163, 184, 0.34));
+    border-radius: 7px;
+    background: var(--notebook-paper, #fff);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.16);
+    color: var(--notebook-ink, #1f2937);
+    font-size: 0.52rem;
+    font-weight: 800;
+    line-height: 1.1;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate(-50%, -2px);
+  }
+
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="ultra"]:is(:focus-visible, :active)::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
+
+  /* Only the header plus the one sticky lesson bar need scroll compensation. */
+  html body[data-class-id="s4e-g3"] .course-chapter-section,
+  html body[data-class-id="s4e-g3"] [data-s4-notion] {
+    scroll-margin-top: calc(var(--s4-phone-header, 48px) + 58px + env(safe-area-inset-top)) !important;
+  }
+
+  /* When the professor board is immediately followed by a cleaned explanatory
+     scheme, present them as a compact source/explanation pair. Both originals
+     remain individually tappable and use the existing enlargement dialog. */
+  html body[data-class-id="s4e-g3"] .course-inline-figure.is-teacher-board:has(+ .course-inline-figure) {
+    display: inline-flex !important;
+    width: min(31vw, 112px) !important;
+    max-width: 112px !important;
+    margin: 7px 3px !important;
+    vertical-align: top !important;
+  }
+
+  html body[data-class-id="s4e-g3"] .course-inline-figure.is-teacher-board + .course-inline-figure {
+    display: inline-flex !important;
+    width: min(48vw, 176px) !important;
+    max-width: 176px !important;
+    margin: 7px 3px !important;
+    vertical-align: top !important;
+  }
+
+  /* Medical definitions remain available on every decorated occurrence, but
+     the reading surface no longer looks like a page full of web links. */
+  html body[data-class-id="s4e-g3"] [data-lesson-tab-panel="curso"] .mn-glossary-term,
+  html body[data-class-id="s4e-g3"] [data-lesson-panel="curso"] .mn-glossary-term {
+    text-decoration: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-bottom-color: color-mix(in srgb, currentColor 34%, transparent) !important;
+    border-bottom-style: dotted !important;
+    border-bottom-width: 1px !important;
+  }
+
+  html body[data-class-id="s4e-g3"] [data-lesson-tab-panel="curso"] .mn-glossary-term:is(:focus-visible, [aria-expanded="true"]),
+  html body[data-class-id="s4e-g3"] [data-lesson-panel="curso"] .mn-glossary-term:is(:focus-visible, [aria-expanded="true"]) {
+    border-bottom-color: currentColor !important;
+    border-bottom-style: solid !important;
+    outline-offset: 2px;
+  }
+}
+
+@media (max-width: 340px) {
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs),
+  html body[data-class-id="s4e-g3"] .notebook-lesson-tabs.s4-mode-tabs,
+  html body[data-class-id="s4e-g3"] .lesson-section-tabs.s4-mode-tabs {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 40px minmax(0, 1fr) 40px !important;
+  }
+
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="ia"] {
+    width: 104px !important;
+    min-width: 104px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html body[data-class-id="s4e-g3"] .notebook-modes button::before,
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab]::before,
+  html body[data-class-id="s4e-g3"] [data-s4-learning-experience] :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="ia"] {
+    transition: none !important;
+  }
+}
