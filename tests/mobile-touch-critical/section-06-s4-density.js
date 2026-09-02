@@ -5,7 +5,7 @@ module.exports = ({ test, expect }) => {
     for (const width of widths) {
       await page.setViewportSize({ width, height: 844 });
       await page.goto('/clase.html#bioquimica-2026-08-28', { waitUntil: 'domcontentloaded' });
-      await expect(page.locator('body')).toHaveAttribute('data-class-id', 's4e-g3', { timeout: 20000 });
+      await expect(page.locator('html')).toHaveClass(/s4-learning-experience-v178-ready/, { timeout: 20000 });
       await expect(page.locator('#bioquimica-2026-08-28')).toBeVisible({ timeout: 20000 });
 
       const metrics = await page.evaluate(() => {
@@ -68,6 +68,7 @@ module.exports = ({ test, expect }) => {
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/clase.html#bioquimica-2026-08-28', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('html')).toHaveClass(/s4-learning-experience-v178-ready/, { timeout: 20000 });
     await expect(page.locator('#bioquimica-2026-08-28')).toBeVisible({ timeout: 20000 });
 
     const subjectModes = page.locator('#bioquimica .notebook-modes');
