@@ -1,4 +1,4 @@
-const CACHE = 'med-nykuto-shell-v489';
+const CACHE = 'med-nykuto-shell-v490';
 const SHELL = [
   '/offline.html',
   '/turma-shell/',
@@ -23,6 +23,18 @@ self.addEventListener('fetch', (event) => {
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin || url.pathname.startsWith('/api/') || url.pathname.startsWith('/gestion')) return;
+
+  const isP1VisualAsset = url.pathname === '/p1-micro-visual-50-v507.js'
+    || /^\/assets\/p1-micro-practica-pdf-sprite-v508\.part\d{2}$/.test(url.pathname);
+  if (isP1VisualAsset) {
+    event.respondWith(fetch(request, { cache: 'no-store' }).then((response) => {
+      if (!response.ok) return caches.match(request).then((cached) => cached || response);
+      const copy = response.clone();
+      return caches.open(CACHE).then((cache) => cache.put(request, copy)).then(() => response);
+    }).catch(() => caches.match(request).then((cached) => cached || Response.error())));
+    return;
+  }
+
   if (url.pathname === '/data/drive-files.json') {
     event.respondWith(fetch(request).then((response) => {
       if (!response.ok) return response;
