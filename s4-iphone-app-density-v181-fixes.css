@@ -1,0 +1,133 @@
+/* v181.1 · final phone-consolidation fixes for issue #180 */
+@media (max-width: 700px) {
+  /* Materias is a clean selector. Keep help available elsewhere, but never as
+     a floating competitor on the six-subject screen. */
+  html.s4-learning-experience-v178-ready body:has(#materias:target) .helpdesk-fab,
+  html body[data-class-id="s4e-g3"]:has(#materias:target) .helpdesk-fab {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  /* The one study decision bar behaves like native app chrome: it is always
+     directly below the app header. Notebook cover/utilities/dates remain
+     normal-flow content and scroll underneath once the student starts reading. */
+  :is(html.s4-learning-experience-v178-ready body, html body[data-class-id="s4e-g3"])
+    :is(.notebook-lesson-tabs, .lesson-section-tabs) {
+    position: fixed !important;
+    z-index: 950 !important;
+    top: calc(var(--s4-phone-header, 52px) + env(safe-area-inset-top)) !important;
+    left: max(4px, env(safe-area-inset-left)) !important;
+    right: max(4px, env(safe-area-inset-right)) !important;
+    width: auto !important;
+    height: 50px !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+    margin: 0 !important;
+    padding: 3px !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 44px minmax(0, 1fr) 44px !important;
+    grid-template-rows: 44px !important;
+    grid-auto-rows: 44px !important;
+    gap: 2px !important;
+    overflow: visible !important;
+    border-radius: 12px !important;
+  }
+
+  /* Reserve only the bar's visual height in normal flow so the notebook title
+     and dates do not sit behind the fixed app chrome. */
+  :is(html.s4-learning-experience-v178-ready body, html body[data-class-id="s4e-g3"])
+    .notebook-shell {
+    padding-top: 52px !important;
+  }
+
+  :is(html.s4-learning-experience-v178-ready body, html body[data-class-id="s4e-g3"])
+    :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab] {
+    min-height: 44px !important;
+    height: 44px !important;
+    max-height: 44px !important;
+  }
+
+  /* Preserve all six stable IDs, but expose only the five primary decisions. */
+  :is(html.s4-learning-experience-v178-ready body, html body[data-class-id="s4e-g3"])
+    :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="material"] {
+    display: grid !important;
+    place-items: center !important;
+    position: relative !important;
+    grid-column: 5 !important;
+    font-size: 0 !important;
+    overflow: visible !important;
+  }
+
+  :is(html.s4-learning-experience-v178-ready body, html body[data-class-id="s4e-g3"])
+    :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="material"]::after {
+    content: "⋯" !important;
+    font-size: 0.92rem !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    letter-spacing: 0 !important;
+  }
+
+  :is(html.s4-learning-experience-v178-ready body, html body[data-class-id="s4e-g3"])
+    :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="ia"] {
+    display: grid !important;
+    place-items: center !important;
+    position: absolute !important;
+    z-index: 22 !important;
+    top: calc(100% + 4px) !important;
+    right: 2px !important;
+    width: 112px !important;
+    min-width: 112px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
+    padding: 4px 8px !important;
+    border: 1px solid var(--notebook-border, rgba(148, 163, 184, 0.34)) !important;
+    border-radius: 9px !important;
+    background: var(--notebook-paper, #fff) !important;
+    box-shadow: 0 9px 24px rgba(15, 23, 42, 0.18) !important;
+    color: var(--notebook-ink, #1f2937) !important;
+    font-size: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(-4px) !important;
+  }
+
+  :is(html.s4-learning-experience-v178-ready body, html body[data-class-id="s4e-g3"])
+    :is(.notebook-lesson-tabs, .lesson-section-tabs) button[data-lesson-tab="ia"]::after {
+    content: "Tutor IA" !important;
+    width: auto !important;
+    height: auto !important;
+    font-size: 0.58rem !important;
+    font-weight: 850 !important;
+    line-height: 1 !important;
+    color: inherit !important;
+  }
+
+  /* Materiales is the single gateway. Tutor IA appears only once that gateway
+     is active; the historical IA id remains untouched for compatibility. */
+  :is(html.s4-learning-experience-v178-ready body, html body[data-class-id="s4e-g3"])
+    :is(.notebook-lesson-tabs, .lesson-section-tabs):has(button[data-lesson-tab="material"][aria-selected="true"])
+    button[data-lesson-tab="ia"],
+  :is(html.s4-learning-experience-v178-ready body, html body[data-class-id="s4e-g3"])
+    :is(.notebook-lesson-tabs, .lesson-section-tabs):has(button[data-lesson-tab="material"].active)
+    button[data-lesson-tab="ia"],
+  :is(html.s4-learning-experience-v178-ready body, html body[data-class-id="s4e-g3"])
+    :is(.notebook-lesson-tabs, .lesson-section-tabs):has(~ [data-lesson-tab-panel="material"]:not([hidden]))
+    button[data-lesson-tab="ia"],
+  :is(html.s4-learning-experience-v178-ready body, html body[data-class-id="s4e-g3"])
+    :is(.notebook-lesson-tabs, .lesson-section-tabs):has(button[data-lesson-tab="ia"][aria-selected="true"])
+    button[data-lesson-tab="ia"] {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+  }
+
+  /* Keep the course content clear of fixed chrome when internal anchors are used. */
+  :is(html.s4-learning-experience-v178-ready body, html body[data-class-id="s4e-g3"])
+    :is(.course-chapter-section, [data-s4-notion]) {
+    scroll-margin-top: calc(var(--s4-phone-header, 52px) + 54px + env(safe-area-inset-top)) !important;
+  }
+}
