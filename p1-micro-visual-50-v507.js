@@ -1,50 +1,224 @@
 (function(){
   'use strict';
+
   var PRACTICE_ID='microbiologia-practica-2026-08-27';
-  var EXPECTED_TOTAL=50;
-  var bannedBaseIds={
-    'micro-p1-cdc-histoplasma-10961':true,
-    'micro-p1-cdc-blastomyces-3788':true,
-    'micro-p1-cdc-sporothrix-4208':true,
-    'micro-p1-cdc-chromoblastomycosis-28111':true,
-    'micro-p1-cdc-madurella-4209':true
+  var EXPECTED_TOTAL=53;
+  var BANK_VERSION='p1-micro-practica-pdf-2026-09-03-v4';
+  var TILE_SIZE=220;
+  var SPRITE_COLUMNS=7;
+  var SPRITE_ROWS=8;
+  var SPRITE_BYTES=89968;
+  var SPRITE_PARTS=[
+    "assets/p1-micro-practica-pdf-sprite-v508.part01?v=508",
+    "assets/p1-micro-practica-pdf-sprite-v508.part02?v=508",
+    "assets/p1-micro-practica-pdf-sprite-v508.part03?v=508",
+    "assets/p1-micro-practica-pdf-sprite-v508.part04?v=508",
+    "assets/p1-micro-practica-pdf-sprite-v508.part05?v=508",
+    "assets/p1-micro-practica-pdf-sprite-v508.part06?v=508",
+    "assets/p1-micro-practica-pdf-sprite-v508.part07?v=508",
+    "assets/p1-micro-practica-pdf-sprite-v508.part08?v=508"
+  ];
+  var SOURCE_ITEMS=[{"page":1,"answer":"Hifas cenocíticas","category":"structure"},{"page":2,"answer":"Cryptococcus neoformans","category":"agent"},{"page":3,"answer":"Hifas cenocíticas","category":"structure"},{"page":4,"answer":"Aspergillus niger","category":"agent"},{"page":5,"answer":"Hifas cenocíticas","category":"structure"},{"page":6,"answer":"Aspergillus fumigatus","category":"agent"},{"page":7,"answer":"Hifas tabicadas","category":"structure"},{"page":8,"answer":"Micelio","category":"structure"},{"page":9,"answer":"Candida","category":"agent"},{"page":10,"answer":"Conidióforo","category":"structure"},{"page":11,"answer":"Micelio","category":"structure"},{"page":12,"answer":"Rhizopus","category":"agent"},{"page":13,"answer":"Hifas tabicadas","category":"structure"},{"page":14,"answer":"Aspergillus niger","category":"agent"},{"page":15,"answer":"Candida","category":"agent"},{"page":16,"answer":"Aspergillus flavus","category":"agent"},{"page":17,"answer":"Hifas tabicadas","category":"structure"},{"page":18,"answer":"Cryptococcus neoformans","category":"agent"},{"page":19,"answer":"Levaduras","category":"structure"},{"page":20,"answer":"Aspergillus fumigatus","category":"agent"},{"page":21,"answer":"Conidios","category":"structure"},{"page":22,"answer":"Rhizopus","category":"agent"},{"page":23,"answer":"Micelio","category":"structure"},{"page":24,"answer":"Mucor","category":"agent"},{"page":25,"answer":"Aspergillus fumigatus","category":"agent"},{"page":26,"answer":"Mucor","category":"agent"},{"page":27,"answer":"Cryptococcus neoformans","category":"agent"},{"page":28,"answer":"Mucor","category":"agent"},{"page":29,"answer":"Rhizopus","category":"agent"},{"page":30,"answer":"Macronidio","category":"structure"},{"page":31,"answer":"Aspergillus niger","category":"agent"},{"page":32,"answer":"Aspergillus flavus","category":"agent"},{"page":33,"answer":"Micronidios","category":"structure"},{"page":34,"answer":"Macronidios","category":"structure"},{"page":35,"answer":"Rhizopus","category":"agent"},{"page":36,"answer":"Macronidio","category":"structure"},{"page":37,"answer":"Aspergillus fumigatus","category":"agent"},{"page":38,"answer":"Macronidio","category":"structure"},{"page":39,"answer":"Micronidio","category":"structure"},{"page":40,"answer":"Aspergillus niger","category":"agent"},{"page":41,"answer":"Pseudohifas","category":"structure"},{"page":42,"answer":"Macronidio","category":"structure"},{"page":43,"answer":"Aspergillus fumigatus","category":"agent"},{"page":44,"answer":"Artroconidios","category":"structure"},{"page":45,"answer":"Candida","category":"agent"},{"page":46,"answer":"Cryptococcus neoformans","category":"agent"},{"page":47,"answer":"Aspergillus flavus","category":"agent"},{"page":48,"answer":"Aspergillus fumigatus","category":"agent"},{"page":49,"answer":"Aspergillus niger","category":"agent"},{"page":50,"answer":"Rhizopus","category":"agent"},{"page":51,"answer":"Tinta china","category":"stain"},{"page":52,"answer":"Tinción de Gram","category":"stain"},{"page":53,"answer":"Azul de lactofenol","category":"stain"}];
+  var POOLS={
+    agent:['Aspergillus niger','Aspergillus fumigatus','Aspergillus flavus','Cryptococcus neoformans','Candida','Rhizopus','Mucor'],
+    structure:['Hifas cenocíticas','Hifas tabicadas','Micelio','Conidióforo','Levaduras','Conidios','Macronidio','Macronidios','Micronidio','Micronidios','Pseudohifas','Artroconidios'],
+    stain:['Tinta china','Tinción de Gram','Azul de lactofenol']
   };
-  var cdcAdditions=[];
-  function ref(id,prompt,options,answer,explanation,imageSrc,clues,sourceLabel){return {prompt:prompt,options:options,answer:answer,explanation:explanation,imageSrc:imageSrc,imageAlt:'Micrografía fúngica para reconocimiento visual',visualRecognitionId:id,visualClues:clues.concat(['Fuente: '+sourceLabel+'.']),validationPending:false,teacherAngle:'practica-p1-drive',teacherAngleLabel:'PRÁCTICA P1 · REFERENCIA VISUAL'};}
-  function phil(id){return 'https://phil.cdc.gov//PHIL_Images/'+id+'/'+id+'_lores.jpg';}
-  cdcAdditions.push(ref('micro-p1-cdc-extra-19047','El aspecto de pincel con métulas, fiálides y cadenas de conidios corresponde mejor a:',['Penicillium spp.','Aspergillus spp.','Mucor spp.','Rhizopus spp.'],0,'La ramificación terminal en pincel es la pista principal de Penicillium.',phil(19047),['Conidióforo ramificado.','Fiálides terminales.','Cadenas de conidios.'],'CDC PHIL #19047 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-19044','¿Qué género corresponde a estos conidióforos terminados en un penicillus compacto?',['Penicillium spp.','Aspergillus spp.','Rhizopus spp.','Candida spp.'],0,'La organización en pincel diferencia Penicillium de la vesícula terminal de Aspergillus.',phil(19044),['Conidióforos hialinos.','Fiálides agrupadas.','Conidios en cadenas.'],'CDC PHIL #19044 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-8397','Varias estructuras conidiales en pincel como las de este campo orientan a:',['Penicillium spp.','Aspergillus spp.','Mucor spp.','Cryptococcus spp.'],0,'La ausencia de una vesícula aspergilar globosa y el penicillus ramificado orientan a Penicillium.',phil(8397),['Ramificación terminal.','Conidios en cadenas.','Aspecto de pincel.'],'CDC PHIL #8397 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-4245','Un macroconidio septado acompañado de numerosos microconidios lisos en forma de lágrima orienta a:',['Trichophyton rubrum','Microsporum canis','Malassezia furfur','Candida albicans'],0,'T. rubrum presenta microconidios pequeños y lisos asociados a hifas septadas; puede haber macroconidios alargados.',phil(4245),['Microconidios lisos pequeños.','Macroconidio septado.','Patrón de Trichophyton.'],'CDC PHIL #4245 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-2933','En este frotis teñido se observan levaduras compatibles con qué agente oportunista del práctico?',['Candida albicans','Cryptococcus neoformans','Aspergillus fumigatus','Rhizopus spp.'],0,'Las levaduras ovaladas y gemantes son compatibles con Candida albicans.',phil(2933),['Levaduras ovaladas.','Gemación posible.','Morfología levaduriforme.'],'CDC PHIL #2933 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-22294','Numerosas células levaduriformes como las de esta referencia corresponden mejor a:',['Candida albicans','Cryptococcus neoformans','Microsporum canis','Fusarium spp.'],0,'La referencia muestra Candida albicans en fase levaduriforme.',phil(22294),['Levaduras numerosas.','Morfología ovalada.','No hay cabeza conidial ni esporangio.'],'CDC PHIL #22294 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-15680','La presencia de clamidoconidias/clamidosporas en una preparación compatible con candidiasis orienta a:',['Candida albicans','Rhizopus spp.','Penicillium spp.','Cryptococcus neoformans'],0,'Las clamidoconidias son una estructura clásica que puede observarse en C. albicans.',phil(15680),['Estructuras de pared gruesa.','Asociadas a pseudohifas.','Diferentes de un esporangio.'],'CDC PHIL #15680 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-15641','Levaduras Gram positivas en gemación como en esta preparación orientan principalmente a:',['Candida albicans','Microsporum canis','Aspergillus fumigatus','Mucor spp.'],0,'La gemación de células levaduriformes orienta a Candida.',phil(15641),['Células levaduriformes.','Gemación evidente.','Sin estructura de moho.'],'CDC PHIL #15641 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-22841','En tejido se observan hifas de Mucorales junto con esporangiosporas libres. ¿Qué género documenta esta referencia?',['Mucor spp.','Rhizopus spp.','Aspergillus spp.','Penicillium spp.'],0,'La referencia CDC está catalogada como Mucor y refuerza el patrón de Mucorales.',phil(22841),['Hifas anchas.','Esporangiosporas.','Morfología de Mucorales.'],'CDC PHIL #22841 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-20353','Pares de levaduras gemantes observados en esta referencia corresponden a:',['Cryptococcus neoformans','Candida albicans','Malassezia furfur','Trichophyton rubrum'],0,'La referencia documenta Cryptococcus neoformans; en el práctico la pista principal es la levadura capsulada y su gemación.',phil(20353),['Levaduras redondeadas.','Gemación en pares.','Comparar con la cápsula en tinta china.'],'CDC PHIL #20353 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-4307','Micelio y cabezas conidiales en un tejido con aspergilosis orientan a qué especie trabajada en el práctico?',['Aspergillus fumigatus','Candida albicans','Cryptococcus neoformans','Rhizopus spp.'],0,'La referencia corresponde a Aspergillus fumigatus, especie destacada en la práctica de hongos oportunistas.',phil(4307),['Hifas septadas.','Cabezas conidiales aspergilares.','Correlacionar con ramificación aguda.'],'CDC PHIL #4307 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-15472','Macroconidios de dermatofito compatibles con el agente zoonótico del práctico orientan a:',['Microsporum canis','Trichophyton rubrum','Epidermophyton floccosum','Malassezia furfur'],0,'Microsporum canis presenta macroconidios fusiformes, rugosos y multiseptados.',phil(15472),['Macroconidios fusiformes.','Pared gruesa y rugosa.','Dermatofito zoofílico.'],'CDC PHIL #15472 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-17589','Esporangios en distintas etapas, hifas no septadas y rizoides identifican mejor a:',['Rhizopus spp.','Mucor spp.','Aspergillus spp.','Penicillium spp.'],0,'Los rizoides basales son una pista importante para Rhizopus frente a Mucor.',phil(17589),['Esporangios.','Hifas anchas no septadas.','Rizoides basales.'],'CDC PHIL #17589 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-2915','Hifas septadas pigmentadas y células levaduriformes marrón-verdosas en una tiña negra orientan a:',['Hortaea werneckii','Malassezia furfur','Piedraia hortae','Trichosporon spp.'],0,'Hortaea werneckii es el agente de tiña negra mostrado en el práctico de micosis superficiales.',phil(2915),['Hifas dematiáceas pigmentadas.','Elementos levaduriformes oscuros.','Tiña negra.'],'CDC PHIL #2915 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-3057','Este micelio pigmentado corresponde al agente de piedra negra visto en el práctico. ¿Cuál es?',['Piedraia hortae','Trichosporon spp.','Hortaea werneckii','Malassezia furfur'],0,'Piedraia hortae causa piedra negra y forma un estroma oscuro asociado al tallo piloso.',phil(3057),['Micelio pigmentado.','Piedra negra.','Relacionar con ascas y ascosporas en el nódulo.'],'CDC PHIL #3057 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-22952','Pseudohifas, blastoconidios y artroconidios rectangulares en una levadura semejante corresponden a:',['Trichosporon spp.','Piedraia hortae','Malassezia furfur','Hortaea werneckii'],0,'Trichosporon produce artroconidios y blastoconidios y está relacionado con piedra blanca.',phil(22952),['Pseudohifas.','Blastoconidios.','Artroconidios rectangulares.'],'CDC PHIL #22952 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-21781','Hifas septadas que se fragmentan en artroconidios ovoides y rectangulares orientan a:',['Trichosporon spp.','Microsporum canis','Epidermophyton floccosum','Fusarium spp.'],0,'La fragmentación hifal en artroconidios es característica de Trichosporon en el contexto de piedra blanca.',phil(21781),['Hifas septadas.','Artroconidios rectangulares.','Piedra blanca.'],'CDC PHIL #21781 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-4010','Hifas y conidióforos con conidios alargados como los de esta referencia orientan a:',['Fusarium spp.','Microsporum canis','Trichophyton rubrum','Epidermophyton floccosum'],0,'Fusarium produce conidios alargados; en el práctico se enfatizan los macroconidios curvos tipo hoz o plátano.',phil(4010),['Moho hialino.','Conidios alargados.','Relacionar con macroconidios curvos.'],'CDC PHIL #4010 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-23085','Macroconidios alargados, curvos, multicelulares y en forma de hoz corresponden a:',['Fusarium spp.','Microsporum canis','Trichophyton rubrum','Penicillium spp.'],0,'La forma de canoa/hoz o plátano de los macroconidios es una pista clásica de Fusarium.',phil(23085),['Macroconidios falciformes.','Multiseptados.','Moho oportunista NDM del práctico.'],'CDC PHIL #23085 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-4207','Macroconidios lisos, delgados, claviformes y agrupados en racimos, sin microconidios, orientan a:',['Epidermophyton floccosum','Microsporum canis','Trichophyton rubrum','Fusarium spp.'],0,'Epidermophyton floccosum presenta macroconidios en maza, lisos y multicelulares, y carece de microconidios.',phil(4207),['Macroconidios en maza.','Pared lisa.','Ausencia de microconidios.'],'CDC PHIL #4207 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-212','La levadura lipofílica responsable de pitiriasis versicolor en el práctico corresponde a:',['Malassezia furfur','Candida albicans','Cryptococcus neoformans','Trichosporon spp.'],0,'Malassezia furfur forma parte del complejo causal de pitiriasis versicolor; en KOH se busca el patrón de levaduras y hifas cortas.',phil(212),['Levadura lipofílica.','Pitiriasis versicolor.','Recordar patrón albóndigas + espaguetis.'],'CDC PHIL #212 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-3209','Macroconidios fusiformes, de pared rugosa y multiseptados corresponden a:',['Microsporum canis','Epidermophyton floccosum','Trichophyton rubrum','Fusarium spp.'],0,'La micrografía CDC muestra Microsporum canis y refuerza la morfología fusiforme rugosa del práctico.',phil(3209),['Macroconidios fusiformes.','Pared rugosa.','Múltiples septos.'],'CDC PHIL #3209 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-3965','Una cabeza conidial grande, globosa y muy oscura corresponde a cuál Aspergillus visto en el práctico?',['Aspergillus niger','Aspergillus flavus','Aspergillus fumigatus','Penicillium spp.'],0,'Aspergillus niger forma cabezas conidiales grandes y oscuras/negras, como una de las morfologías mostradas en la práctica de oportunistas.',phil(3965),['Cabeza conidial globosa.','Conidios muy oscuros.','Aspergillus niger.'],'CDC PHIL #3965 · dominio público'));
-  cdcAdditions.push(ref('micro-p1-cdc-extra-25202','Conidióforo rugoso que termina en una vesícula con cadenas de conidios, asociado a una cabeza amarillo-verdosa, orienta a:',['Aspergillus flavus','Aspergillus niger','Aspergillus fumigatus','Penicillium spp.'],0,'Aspergillus flavus presenta conidióforos rugosos y cabezas conidiales radiadas, típicamente amarillo-verdosas.',phil(25202),['Conidióforo rugoso.','Vesícula con fiálides alrededor.','Cabeza amarillo-verdosa.'],'CDC PHIL #25202 · dominio público'));
-  var generatedFiles=['p1-micro-generated-01-v507.js?v=507','p1-micro-generated-02-v507.js?v=507','p1-micro-generated-03-v507.js?v=507','p1-micro-generated-04-v507.js?v=507','p1-micro-generated-05-v507.js?v=507','p1-micro-generated-06-v507.js?v=507','p1-micro-generated-07-v507.js?v=507','p1-micro-generated-08-v507.js?v=507'];
-  var generatedReady=false;
-  function loadScript(src){return new Promise(function(resolve,reject){var s=document.createElement('script');s.src=src;s.async=false;s.onload=resolve;s.onerror=reject;document.head.appendChild(s);});}
-  var readyPromise=Promise.all(generatedFiles.map(loadScript)).then(function(){generatedReady=true;syncCopy();return true;}).catch(function(){generatedReady=false;syncCopy();return false;});
-  function bank(){var p=window.MedNykutoClassPractice;return p&&p.banks&&p.banks[PRACTICE_ID];}
-  function additions(){return cdcAdditions.concat(window.MedNykutoVisual50Generated||[]);}
-  function removeOutOfPractical(b){if(!b||!Array.isArray(b.qcm))return;b.qcm=b.qcm.filter(function(q){return !bannedBaseIds[q&&q.visualRecognitionId];});}
-  function addNow(){var b=bank();if(!b||!Array.isArray(b.qcm))return;removeOutOfPractical(b);var list=additions(),ids={};list.forEach(function(q){ids[q.visualRecognitionId]=true;if(!b.qcm.some(function(x){return x.visualRecognitionId===q.visualRecognitionId;}))b.qcm.push(q);});window.setTimeout(function(){b.qcm=b.qcm.filter(function(q){return !ids[q.visualRecognitionId];});},0);}
-  function handleVisualClick(event){var button=document.getElementById('p1StartVisual');if(!generatedReady){event.preventDefault();event.stopImmediatePropagation();if(button)button.disabled=true;readyPromise.then(function(ok){if(button)button.disabled=false;if(ok&&button)button.click();});return;}addNow();}
-  function syncCopy(){var button=document.getElementById('p1StartVisual');if(!button)return;var strong=button.querySelector('strong'),small=button.querySelector('small');var selected=document.querySelector('input[name="p1-correction-mode"]:checked');var training=!selected||selected.value==='training';if(!generatedReady){if(strong)strong.textContent='Preparando banco visual…';if(small)small.textContent='Cargando referencias de los 3 prácticos';return;}if(strong)strong.textContent='Reconocer '+EXPECTED_TOTAL+' imágenes · '+(training?'corrección inmediata':'corrección al final');if(small)small.textContent='Solo hongos de PRACTICA 1, 2 y 3 · 50 campos mezclados';}
-  if(typeof document!=='undefined'){var button=document.getElementById('p1StartVisual');if(button){button.addEventListener('click',handleVisualClick,true);syncCopy();}window.addEventListener('load',function(){syncCopy();document.querySelectorAll('input[name="p1-correction-mode"]').forEach(function(input){input.addEventListener('change',function(){window.setTimeout(syncCopy,0);});});});}
+
+  function clearStaleVisualSession(){
+    var scope=window.MedNykutoP1Scope;
+    if(!scope||!scope.id)return;
+    var sessionKey='medNykuto:p1Exam:'+scope.id;
+    var markerKey='medNykuto:p1VisualBankVersion:'+scope.id;
+    try{
+      if(localStorage.getItem(markerKey)===BANK_VERSION)return;
+      var rawSession=localStorage.getItem(sessionKey);
+      if(rawSession){
+        try{
+          var savedSession=JSON.parse(rawSession);
+          if(savedSession&&savedSession.kind==='visual-recognition')localStorage.removeItem(sessionKey);
+        }catch(parseError){
+          localStorage.removeItem(sessionKey);
+        }
+      }
+      localStorage.setItem(markerKey,BANK_VERSION);
+    }catch(storageError){}
+  }
+
+  function fetchPart(src){
+    return fetch(src,{credentials:'same-origin'}).then(function(response){
+      if(!response.ok)throw new Error('No se pudo cargar '+src+' ('+response.status+')');
+      return response.arrayBuffer();
+    });
+  }
+
+  function loadSprite(){
+    return Promise.all(SPRITE_PARTS.map(fetchPart)).then(function(parts){
+      var total=parts.reduce(function(sum,part){return sum+part.byteLength;},0);
+      if(total!==SPRITE_BYTES)throw new Error('Sprite visual incompleto: '+total+' de '+SPRITE_BYTES+' bytes');
+      var spriteUrl=URL.createObjectURL(new Blob(parts,{type:'image/webp'}));
+      return new Promise(function(resolve,reject){
+        var image=new Image();
+        image.onload=function(){
+          if(image.naturalWidth!==SPRITE_COLUMNS*TILE_SIZE||image.naturalHeight!==SPRITE_ROWS*TILE_SIZE){
+            URL.revokeObjectURL(spriteUrl);
+            reject(new Error('Dimensiones inesperadas del banco visual'));
+            return;
+          }
+          resolve({image:image,url:spriteUrl});
+        };
+        image.onerror=function(){
+          URL.revokeObjectURL(spriteUrl);
+          reject(new Error('No se pudo decodificar el banco visual'));
+        };
+        image.src=spriteUrl;
+      });
+    });
+  }
+
+  function cropSprite(sprite){
+    var images={};
+    var canvas=document.createElement('canvas');
+    canvas.width=TILE_SIZE;
+    canvas.height=TILE_SIZE;
+    var context=canvas.getContext('2d',{alpha:false});
+    if(!context)throw new Error('Canvas no disponible');
+    for(var page=1;page<=EXPECTED_TOTAL;page+=1){
+      var index=page-1;
+      var sourceX=(index%SPRITE_COLUMNS)*TILE_SIZE;
+      var sourceY=Math.floor(index/SPRITE_COLUMNS)*TILE_SIZE;
+      context.clearRect(0,0,TILE_SIZE,TILE_SIZE);
+      context.drawImage(sprite.image,sourceX,sourceY,TILE_SIZE,TILE_SIZE,0,0,TILE_SIZE,TILE_SIZE);
+      images[String(page)]=canvas.toDataURL('image/jpeg',0.68);
+    }
+    URL.revokeObjectURL(sprite.url);
+    return images;
+  }
+
+  function sameFamily(left,right){
+    var families={
+      Macronidio:'macro',Macronidios:'macro',
+      Micronidio:'micro',Micronidios:'micro'
+    };
+    return left===right||(families[left]&&families[left]===families[right]);
+  }
+
+  function rotateOptions(correct,pool,page){
+    var distractors=pool.filter(function(value){return !sameFamily(value,correct);});
+    var start=(page*5)%Math.max(1,distractors.length);
+    var selected=[];
+    var wanted=Math.min(3,distractors.length);
+    for(var offset=0;selected.length<wanted&&offset<distractors.length*2;offset+=1){
+      var candidate=distractors[(start+offset)%distractors.length];
+      if(selected.indexOf(candidate)<0)selected.push(candidate);
+    }
+    var options=selected.slice();
+    var correctIndex=page%(options.length+1);
+    options.splice(correctIndex,0,correct);
+    return {options:options,answer:correctIndex};
+  }
+
+  function promptFor(item){
+    if(item.category==='stain')return 'Imagen '+item.page+': ¿cuál es la tinción utilizada?';
+    if(item.category==='agent')return 'Imagen '+item.page+': ¿qué agente corresponde según el práctico P1?';
+    return 'Imagen '+item.page+': ¿qué estructura corresponde según el práctico P1?';
+  }
+
+  function buildQuestions(images){
+    return SOURCE_ITEMS.map(function(item){
+      var rotated=rotateOptions(item.answer,POOLS[item.category],item.page);
+      return {
+        prompt:promptFor(item),
+        options:rotated.options,
+        answer:rotated.answer,
+        explanation:'Según el gabarito docente, la imagen '+item.page+' corresponde a '+item.answer+'.',
+        imageSrc:images[String(item.page)]||'',
+        imageAlt:'Imagen '+item.page+' del PDF P1 Micro Práctica',
+        visualRecognitionId:'micro-p1-practica-pdf-'+String(item.page).padStart(3,'0'),
+        visualClues:['Imagen original '+item.page+' del PDF.','Respuesta del gabarito: '+item.answer+'.','Fuente: P1 Micro Práctica.'],
+        validationPending:false,
+        teacherAngle:'fuente-docente-p1-pdf',
+        teacherAngleLabel:'GABARITO DOCENTE · PDF'
+      };
+    });
+  }
+
+  function bank(){
+    var practice=window.MedNykutoClassPractice;
+    return practice&&practice.banks&&practice.banks[PRACTICE_ID];
+  }
+
+  var ready=false;
+  var readyPromise=loadSprite().then(function(sprite){
+    var images=cropSprite(sprite);
+    window.MedNykutoP1PdfQuestions=buildQuestions(images);
+    ready=window.MedNykutoP1PdfQuestions.length===EXPECTED_TOTAL;
+    if(!ready)throw new Error('Banco visual incompleto');
+    syncCopy();
+    return true;
+  }).catch(function(error){
+    ready=false;
+    window.MedNykutoP1PdfLoadError=String(error&&error.message||error);
+    syncCopy();
+    return false;
+  });
+
+  function installForOneClick(){
+    var target=bank();
+    if(!target||!Array.isArray(target.qcm))return false;
+    var original=target.qcm;
+    var nonVisual=original.filter(function(question){return !(question&&question.visualRecognitionId);});
+    target.qcm=nonVisual.concat((window.MedNykutoP1PdfQuestions||[]).slice());
+    window.setTimeout(function(){target.qcm=original;},0);
+    return true;
+  }
+
+  function handleVisualClick(event){
+    var button=document.getElementById('p1StartVisual');
+    if(!ready){
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if(button)button.disabled=true;
+      readyPromise.then(function(ok){
+        if(button)button.disabled=false;
+        if(ok&&button)button.click();
+      });
+      return;
+    }
+    if(!installForOneClick()){
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  }
+
+  function syncCopy(){
+    var button=document.getElementById('p1StartVisual');
+    if(!button)return;
+    var strong=button.querySelector('strong');
+    var small=button.querySelector('small');
+    var selected=document.querySelector('input[name="p1-correction-mode"]:checked');
+    var training=!selected||selected.value==='training';
+    if(!ready){
+      if(strong)strong.textContent='Preparando 53 imágenes del práctico…';
+      if(small)small.textContent='Cargando el PDF y su gabarito docente';
+      return;
+    }
+    if(strong)strong.textContent='Reconocer 53 imágenes · '+(training?'corrección inmediata':'corrección al final');
+    if(small)small.textContent='50 diagnósticos/estructuras + 3 tinciones · imágenes originales';
+  }
+
+  clearStaleVisualSession();
+  if(typeof document!=='undefined'){
+    var button=document.getElementById('p1StartVisual');
+    if(button){
+      button.addEventListener('click',handleVisualClick,true);
+      syncCopy();
+    }
+    window.addEventListener('load',function(){
+      syncCopy();
+      document.querySelectorAll('input[name="p1-correction-mode"]').forEach(function(input){
+        input.addEventListener('change',function(){window.setTimeout(syncCopy,0);});
+      });
+    });
+  }
 })();
