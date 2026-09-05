@@ -64,18 +64,45 @@ module.exports = ({ test, expect }) => {
       expect(metrics.bottomTargetMin, `${width}px bottom navigation needs a comfortable hit area`).toBeGreaterThanOrEqual(50);
       expect(metrics.bottomIconMax, `${width}px bottom glyphs must stay visually miniature`).toBeLessThanOrEqual(20);
       expect(metrics.modeVisualMax, `${width}px utility glyphs must stay visually miniature`).toBeLessThanOrEqual(20);
+
+      const subjectModes = page.locator('#bioquimica .notebook-modes');
+      const themesButton = subjectModes.locator('[data-notebook-mode="temas"]');
+      await themesButton.click();
+      await expect(themesButton).toHaveAttribute('aria-selected', 'true');
+      const cards = page.locator('#bioquimica [data-course-theme-card]');
+      await expect(cards).toHaveCount(3);
+      await expect(cards.first()).toBeVisible();
+      await cards.first().evaluate((card) => card.scrollIntoView({ block: 'center', inline: 'nearest' }));
+      await expect(cards.first()).toBeInViewport();
+      const themeMetrics = await page.locator('#bioquimica').evaluate((subject) => {
+        const themeCards = Array.from(subject.querySelectorAll('[data-course-theme-card]'));
+        const themeButton = subject.querySelector('[data-notebook-mode="temas"]');
+        const open = themeCards[0] && themeCards[0].querySelector('[data-course-theme-open]');
+        const openRect = open && open.getBoundingClientRect();
+        const hit = openRect && document.elementFromPoint(openRect.left + openRect.width / 2, openRect.top + openRect.height / 2);
+        return {
+          columns: new Set(themeCards.map((card) => Math.round(card.getBoundingClientRect().left))).size,
+          maxHeight: Math.max(...themeCards.map((card) => card.getBoundingClientRect().height)),
+          openHeight: openRect ? openRect.height : 0,
+          hitOpen: Boolean(open && hit && (hit === open || open.contains(hit))),
+          modeHit: themeButton ? themeButton.getBoundingClientRect().height : 0,
+          overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+        };
+      });
+      expect(themeMetrics.columns, `${width}px themes must use one compact column`).toBe(1);
+      expect(themeMetrics.maxHeight, `${width}px theme cards must stay compact`).toBeLessThanOrEqual(180);
+      expect(themeMetrics.openHeight, `${width}px theme CTA needs a 44px target`).toBeGreaterThanOrEqual(43.9);
+      expect(themeMetrics.modeHit, `${width}px Temas needs a 44px target`).toBeGreaterThanOrEqual(43.9);
+      expect(themeMetrics.hitOpen, `${width}px theme CTA must not be intercepted`).toBe(true);
+      expect(themeMetrics.overflow, `${width}px themes must not overflow`).toBeLessThanOrEqual(1);
+      await subjectModes.locator('[data-notebook-mode="cuaderno"]').click();
+      await expect(page.locator('#bioquimica-2026-08-28')).toBeVisible();
     }
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/clase.html#bioquimica-2026-08-28', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('html')).toHaveClass(/s4-learning-experience-v178-ready/, { timeout: 20000 });
     await expect(page.locator('#bioquimica-2026-08-28')).toBeVisible({ timeout: 20000 });
-
-    const subjectModes = page.locator('#bioquimica .notebook-modes');
-    await subjectModes.locator('[data-notebook-mode="temas"]').click();
-    await expect(subjectModes.locator('[data-notebook-mode="temas"]')).toHaveAttribute('aria-selected', 'true');
-    await subjectModes.locator('[data-notebook-mode="cuaderno"]').click();
-    await expect(page.locator('#bioquimica-2026-08-28')).toBeVisible();
 
     const tabs = page.locator('#bioquimica-2026-08-28 [data-lesson-tabs]');
     await tabs.locator('[data-lesson-tab="rapida"]').click();

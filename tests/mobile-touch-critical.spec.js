@@ -34,4 +34,5 @@ test.describe('Mobile critical paths', () => {
   require('./mobile-touch-critical/section-04.js')({ test, expect, openPractice, answerFirstVisibleOption, dismissSemesterPicker });
   require('./mobile-touch-critical/section-05.js')({ test, expect, openPractice, answerFirstVisibleOption, dismissSemesterPicker });
   require('./mobile-touch-critical/section-06-s4-density.js')({ test, expect, openPractice, answerFirstVisibleOption, dismissSemesterPicker });
+  require('./mobile-touch-critical/section-07-p1-pdf.js')({ test, expect });
 });

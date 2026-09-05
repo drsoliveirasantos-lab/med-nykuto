@@ -138,7 +138,7 @@ expect(i18n.includes("courseOnlyBase:'SOLO CONTENIDO DE LA CLASE'"), 'The Spanis
 expect(i18n.includes("courseOnlyBase:'SÓ CONTEÚDO DA AULA'"), 'The Portuguese course-only practice label is missing.');
 expect(i18n.includes("reviewedLessonBase:'LECCIÓN REVISADA · CLASE + FUENTES OFICIALES'"), 'The Spanish reviewed-lesson practice label is missing.');
 expect(i18n.includes("reviewedLessonBase:'AULA REVISADA · AULA + FONTES OFICIAIS'"), 'The Portuguese reviewed-lesson practice label is missing.');
-expect(['clase.html','p1.html','comunidade.html'].every((file) => fs.readFileSync(path.join(root,file),'utf8').includes('grupo-3-practice-v413.js?v=500')), 'The updated practice source-label runtime is not cache-busted in every public entry point.');
+expect(['clase.html','p1.html','comunidade.html'].every((file) => fs.readFileSync(path.join(root,file),'utf8').includes('grupo-3-practice-v413.js?v=503')), 'The updated practice source-label runtime is not cache-busted in every public entry point.');
 expect(i18n.includes("htmlLangByLang = {es:'es',br:'pt-BR'}"), 'The Portuguese document language is not configured as pt-BR.');
 expect(i18n.includes("'Tareas':'Tarefas'"), 'The Portuguese task navigation translation is missing.');
 expect(i18n.includes("'Materias':'Matérias'"), 'The Materias/Matérias navigation translation is missing.');

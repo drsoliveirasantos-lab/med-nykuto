@@ -3,26 +3,26 @@
 
   var PRACTICE_ID='microbiologia-practica-2026-08-27';
   var EXPECTED_TOTAL=53;
-  var BANK_VERSION='p1-micro-practica-pdf-2026-09-03-v5';
+  var BANK_VERSION='p1-micro-practica-pdf-2026-09-03-v7';
   var TILE_SIZE=220;
   var SPRITE_COLUMNS=7;
   var SPRITE_ROWS=8;
-  var SPRITE_BYTES=89968;
+  var SPRITE_BYTES=165542;
   var LOAD_TIMEOUT_MS=15000;
   var MAX_LOAD_ATTEMPTS=3;
   var SPRITE_PARTS=[
-    '/assets/p1-micro-practica-pdf-sprite-v508.part01?v=509',
-    '/assets/p1-micro-practica-pdf-sprite-v508.part02?v=509',
-    '/assets/p1-micro-practica-pdf-sprite-v508.part03?v=509',
-    '/assets/p1-micro-practica-pdf-sprite-v508.part04?v=509',
-    '/assets/p1-micro-practica-pdf-sprite-v508.part05?v=509',
-    '/assets/p1-micro-practica-pdf-sprite-v508.part06?v=509',
-    '/assets/p1-micro-practica-pdf-sprite-v508.part07?v=509',
-    '/assets/p1-micro-practica-pdf-sprite-v508.part08?v=509'
+    '/assets/p1-micro-practica-pdf-sprite-v508.part01?v=510',
+    '/assets/p1-micro-practica-pdf-sprite-v508.part02?v=510',
+    '/assets/p1-micro-practica-pdf-sprite-v508.part03?v=510',
+    '/assets/p1-micro-practica-pdf-sprite-v508.part04?v=510',
+    '/assets/p1-micro-practica-pdf-sprite-v508.part05?v=510',
+    '/assets/p1-micro-practica-pdf-sprite-v508.part06?v=510',
+    '/assets/p1-micro-practica-pdf-sprite-v508.part07?v=510',
+    '/assets/p1-micro-practica-pdf-sprite-v508.part08?v=510'
   ];
-  var SOURCE_ITEMS=[{"page":1,"answer":"Hifas cenocíticas","category":"structure"},{"page":2,"answer":"Cryptococcus neoformans","category":"agent"},{"page":3,"answer":"Hifas cenocíticas","category":"structure"},{"page":4,"answer":"Aspergillus niger","category":"agent"},{"page":5,"answer":"Hifas cenocíticas","category":"structure"},{"page":6,"answer":"Aspergillus fumigatus","category":"agent"},{"page":7,"answer":"Hifas tabicadas","category":"structure"},{"page":8,"answer":"Micelio","category":"structure"},{"page":9,"answer":"Candida","category":"agent"},{"page":10,"answer":"Conidióforo","category":"structure"},{"page":11,"answer":"Micelio","category":"structure"},{"page":12,"answer":"Rhizopus","category":"agent"},{"page":13,"answer":"Hifas tabicadas","category":"structure"},{"page":14,"answer":"Aspergillus niger","category":"agent"},{"page":15,"answer":"Candida","category":"agent"},{"page":16,"answer":"Aspergillus flavus","category":"agent"},{"page":17,"answer":"Hifas tabicadas","category":"structure"},{"page":18,"answer":"Cryptococcus neoformans","category":"agent"},{"page":19,"answer":"Levaduras","category":"structure"},{"page":20,"answer":"Aspergillus fumigatus","category":"agent"},{"page":21,"answer":"Conidios","category":"structure"},{"page":22,"answer":"Rhizopus","category":"agent"},{"page":23,"answer":"Micelio","category":"structure"},{"page":24,"answer":"Mucor","category":"agent"},{"page":25,"answer":"Aspergillus fumigatus","category":"agent"},{"page":26,"answer":"Mucor","category":"agent"},{"page":27,"answer":"Cryptococcus neoformans","category":"agent"},{"page":28,"answer":"Mucor","category":"agent"},{"page":29,"answer":"Rhizopus","category":"agent"},{"page":30,"answer":"Macronidio","category":"structure"},{"page":31,"answer":"Aspergillus niger","category":"agent"},{"page":32,"answer":"Aspergillus flavus","category":"agent"},{"page":33,"answer":"Micronidios","category":"structure"},{"page":34,"answer":"Macronidios","category":"structure"},{"page":35,"answer":"Rhizopus","category":"agent"},{"page":36,"answer":"Macronidio","category":"structure"},{"page":37,"answer":"Aspergillus fumigatus","category":"agent"},{"page":38,"answer":"Macronidio","category":"structure"},{"page":39,"answer":"Micronidio","category":"structure"},{"page":40,"answer":"Aspergillus niger","category":"agent"},{"page":41,"answer":"Pseudohifas","category":"structure"},{"page":42,"answer":"Macronidio","category":"structure"},{"page":43,"answer":"Aspergillus fumigatus","category":"agent"},{"page":44,"answer":"Artroconidios","category":"structure"},{"page":45,"answer":"Candida","category":"agent"},{"page":46,"answer":"Cryptococcus neoformans","category":"agent"},{"page":47,"answer":"Aspergillus flavus","category":"agent"},{"page":48,"answer":"Aspergillus fumigatus","category":"agent"},{"page":49,"answer":"Aspergillus niger","category":"agent"},{"page":50,"answer":"Rhizopus","category":"agent"},{"page":51,"answer":"Tinta china","category":"stain"},{"page":52,"answer":"Tinción de Gram","category":"stain"},{"page":53,"answer":"Azul de lactofenol","category":"stain"}];
+  var SOURCE_ITEMS=[{"page":1,"answer":"Hifas cenocíticas","category":"structure"},{"page":2,"answer":"Cryptococcus neoformans","category":"agent"},{"page":3,"answer":"Hifas cenocíticas","category":"structure"},{"page":4,"answer":"Aspergillus niger","category":"agent"},{"page":5,"answer":"Hifas cenocíticas","category":"structure"},{"page":6,"answer":"Aspergillus fumigatus","category":"agent"},{"page":7,"answer":"Hifas tabicadas","category":"structure"},{"page":8,"answer":"Micelio","category":"structure"},{"page":9,"answer":"Candida","category":"agent"},{"page":10,"answer":"Conidióforo","category":"structure"},{"page":11,"answer":"Micelio","category":"structure"},{"page":12,"answer":"Rhizopus","category":"agent"},{"page":13,"answer":"Hifas tabicadas","category":"structure"},{"page":14,"answer":"Aspergillus niger","category":"agent"},{"page":15,"answer":"Candida","category":"agent"},{"page":16,"answer":"Aspergillus flavus","category":"agent"},{"page":17,"answer":"Hifas tabicadas","category":"structure"},{"page":18,"answer":"Cryptococcus neoformans","category":"agent"},{"page":19,"answer":"Levaduras","category":"structure"},{"page":20,"answer":"Aspergillus fumigatus","category":"agent"},{"page":21,"answer":"Conidios","category":"structure"},{"page":22,"answer":"Rhizopus","category":"agent"},{"page":23,"answer":"Micelio","category":"structure"},{"page":24,"answer":"Mucor","category":"agent"},{"page":25,"answer":"Aspergillus fumigatus","category":"agent"},{"page":26,"answer":"Mucor","category":"agent"},{"page":27,"answer":"Cryptococcus neoformans","category":"agent"},{"page":28,"answer":"Mucor","category":"agent"},{"page":29,"answer":"Rhizopus","category":"agent"},{"page":30,"answer":"Macronidio","category":"structure"},{"page":31,"answer":"Aspergillus niger","category":"agent"},{"page":32,"answer":"Aspergillus flavus","category":"agent"},{"page":33,"answer":"Micronidios","category":"structure"},{"page":34,"answer":"Macronidios","category":"structure"},{"page":35,"answer":"Rhizopus","category":"agent"},{"page":36,"answer":"Macronidio","category":"structure"},{"page":37,"answer":"Aspergillus fumigatus","category":"agent"},{"page":38,"answer":"Macronidio","category":"structure"},{"page":39,"answer":"Micronidio","category":"structure"},{"page":40,"answer":"Aspergillus niger","category":"agent"},{"page":41,"answer":"Pseudohifas","category":"structure"},{"page":42,"answer":"Macronidio","category":"structure"},{"page":43,"answer":"Aspergillus fumigatus","category":"agent"},{"page":44,"answer":"Artroconidios","category":"structure"},{"page":45,"answer":"Candida spp.","category":"agent"},{"page":46,"answer":"Cryptococcus neoformans","category":"agent"},{"page":47,"answer":"Aspergillus flavus","category":"agent"},{"page":48,"answer":"Aspergillus fumigatus","category":"agent"},{"page":49,"answer":"Aspergillus niger","category":"agent"},{"page":50,"answer":"Rhizopus","category":"agent"},{"page":51,"answer":"Tinta china","category":"stain"},{"page":52,"answer":"Tinción de Gram","category":"stain"},{"page":53,"answer":"Azul de lactofenol","category":"stain"}];
   var POOLS={
-    agent:['Aspergillus niger','Aspergillus fumigatus','Aspergillus flavus','Cryptococcus neoformans','Candida','Rhizopus','Mucor'],
+    agent:['Aspergillus niger','Aspergillus fumigatus','Aspergillus flavus','Cryptococcus neoformans','Candida','Candida spp.','Rhizopus','Mucor'],
     structure:['Hifas cenocíticas','Hifas tabicadas','Micelio','Conidióforo','Levaduras','Conidios','Macronidio','Macronidios','Micronidio','Micronidios','Pseudohifas','Artroconidios'],
     stain:['Tinta china','Tinción de Gram','Azul de lactofenol']
   };
@@ -32,6 +32,11 @@
   var loadState='idle';
   var lastLoadError='';
   var replayPending=false;
+  var replayIntentVersion=0;
+
+  // The teacher-PDF exercise owns the visual start action. The older CDC
+  // supplement remains a fallback only when this module is absent.
+  window.MedNykutoP1PdfExerciseEnabled=true;
 
   function clearStaleVisualSession(){
     var scope=window.MedNykutoP1Scope;
@@ -133,7 +138,8 @@
   function sameFamily(left,right){
     var families={
       Macronidio:'macro',Macronidios:'macro',
-      Micronidio:'micro',Micronidios:'micro'
+      Micronidio:'micro',Micronidios:'micro',
+      Candida:'candida','Candida spp.':'candida'
     };
     return left===right||(families[left]&&families[left]===families[right]);
   }
@@ -226,12 +232,28 @@
     return true;
   }
 
-  function replayClick(button){
+  function p1SessionFingerprint(){
+    var api=window.MedNykutoP1;
+    if(!api||typeof api.getSession!=='function')return 'unavailable';
+    try{return JSON.stringify(api.getSession()||null);}
+    catch(error){return 'unreadable';}
+  }
+
+  function replayClick(button,intentVersion,sessionFingerprint){
     if(!button||replayPending)return;
     replayPending=true;
     window.setTimeout(function(){
       replayPending=false;
-      if(!button.disabled)button.click();
+      var setup=document.getElementById('p1ExamSetup');
+      var examView=document.getElementById('p1ExamView');
+      var dialog=document.getElementById('p1PracticeDialog');
+      var partialReview=window.MedNykutoPartialReview;
+      var activeScope=partialReview&&typeof partialReview.getActiveScope==='function'?partialReview.getActiveScope():null;
+      var p1Scope=window.MedNykutoP1Scope;
+      var p1IsActive=!activeScope||!p1Scope||activeScope.id===p1Scope.id;
+      var setupIsAvailable=Boolean(setup&&!setup.hidden&&examView&&!examView.hidden&&(!dialog||!dialog.open));
+      var intentIsCurrent=intentVersion===replayIntentVersion&&sessionFingerprint===p1SessionFingerprint();
+      if(button.isConnected&&!button.disabled&&!button.hidden&&p1IsActive&&setupIsAvailable&&intentIsCurrent)button.click();
     },0);
   }
 
@@ -244,16 +266,20 @@
   function handleVisualClick(event){
     var button=document.getElementById('p1StartVisual');
     if(!ready){
+      var loadIntent=++replayIntentVersion;
+      var loadSessionFingerprint=p1SessionFingerprint();
       event.preventDefault();
       event.stopImmediatePropagation();
       if(button)button.disabled=true;
       beginLoad(loadState==='error').then(function(ok){
         if(button)button.disabled=false;
-        if(ok&&button)replayClick(button);
+        if(ok&&button)replayClick(button,loadIntent,loadSessionFingerprint);
       });
       return;
     }
     if(!installForOneClick()){
+      var bankIntent=++replayIntentVersion;
+      var bankSessionFingerprint=p1SessionFingerprint();
       event.preventDefault();
       event.stopImmediatePropagation();
       loadState='bank-wait';
@@ -266,7 +292,7 @@
           loadState='ready';
           window.MedNykutoP1PdfLoadState=loadState;
           syncCopy();
-          replayClick(button);
+          replayClick(button,bankIntent,bankSessionFingerprint);
           return;
         }
         loadState='bank-error';
@@ -316,6 +342,11 @@
       button.addEventListener('click',handleVisualClick,true);
       syncCopy();
     }
+    document.addEventListener('click',function(event){
+      var target=event.target&&event.target.closest?event.target.closest('#p1StartExam,#p1ResumeButton,#p1PracticeDialog,[data-partial-scope],[data-p1-view]'):null;
+      if(target)replayIntentVersion+=1;
+    },true);
+    window.addEventListener('hashchange',function(){replayIntentVersion+=1;});
     window.addEventListener('load',function(){
       syncCopy();
       document.querySelectorAll('input[name="p1-correction-mode"]').forEach(function(input){

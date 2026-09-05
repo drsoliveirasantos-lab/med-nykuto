@@ -109,7 +109,9 @@ if (p1) {
 const html = fs.readFileSync(path.join(root, 'p1.html'), 'utf8');
 const runtime = fs.readFileSync(path.join(root, 'class-p1-v1.js'), 'utf8');
 const stylesheet = fs.readFileSync(path.join(root, 'class-p1-v1.css'), 'utf8');
-expect(html.indexOf('p2-s4-e-v1.js?v=494') > html.indexOf('p1-s4-e-v2.js?v=501'), 'p1.html must load P2 after P1.');
+const p1ScopeIndex = html.indexOf('p1-s4-e-v2.js?v=510');
+const p2ScopeIndex = html.indexOf('p2-s4-e-v1.js?v=494');
+expect(p1ScopeIndex >= 0 && p2ScopeIndex > p1ScopeIndex, 'p1.html must load the current P1 scope before P2.');
 expect(/grupo-3-practice-bioquimica-2026-08-28-v500\.js/.test(html), 'The shared P1/P2 page must load the 28 August Biochemistry bank selected for P1.');
 expect(!/grupo-3-practice-epidemiologia-2026-08-28-v500\.js/.test(html), 'The shared P1/P2 page must not load the 28 August Epidemiology bank excluded from both partials.');
 expect(html.indexOf('class-p1-v1.js?v=505') > html.indexOf('p2-s4-e-v1.js?v=494'), 'p1.html must load both scopes before the shared runtime.');

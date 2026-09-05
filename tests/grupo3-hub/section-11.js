@@ -459,6 +459,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.goto('/clase.html');
     await page.locator('.mobile-bottom-nav [data-view-link="cursos"]').click();
     await page.locator('[data-course-target="epidemiologia"]').click();
+    await page.locator('#epidemiologia [data-course-theme-open="epidemiologia-urgencias-triage"]').click();
+    await page.locator('#epidemiologia [data-theme-tab="sessions"]').click();
+    await page.locator('#epidemiologia [data-theme-session-open="epidemiologia-2026-08-19"]').click();
 
     const project = page.locator('#epi19-tarea');
     await expect(project).toBeVisible();

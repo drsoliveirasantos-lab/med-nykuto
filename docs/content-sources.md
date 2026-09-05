@@ -89,6 +89,16 @@ complete seven-board reconstruction set remains in
 `assets/class-hub/board-archive/bioquimica-2026-08-14/whiteboard-v2/` as the
 archive of record; selection in the lesson does not remove or supersede it.
 
+The related thematic registry in `s4-course-themes-v182.js` groups only these
+same twenty-three dated lessons. It records source lesson IDs and exact section
+indices for every consolidated notion and may cross-link a transverse session
+without copying its panel or bank. `class-notebook-v445.js` renders the
+projection while keeping the dated chronology, files, progress, training bank
+IDs and partial-exam allowlists intact. Future updates must use the stable-ID
+merge rules in `docs/s4-thematic-courses.md`; unclassified D1 overlays remain
+visible chronologically instead of being grouped heuristically. Run
+`node scripts/validate-s4-theme-merge.js` after any thematic mapping change.
+
 ### Guided respiratory exercise (S4)
 
 The S4 guided respiratory mode is derived from the anonymously verified
@@ -287,6 +297,8 @@ assets/courses/2026-08-27/
 ```
 
 El Work Pack de reconocimiento P1 recibido el 30 de agosto conserva diez campos microscópicos reales únicos y dos variantes duplicadas. La rotación móvil utiliza únicamente los diez WebP no generativos con nombres hachados de `assets/courses/2026-08-27/micro-p1/`; las variantes 10 y 12 quedan excluidas. Las etiquetas proceden del material compartido y mantienen el aviso `Validación docente pendiente`: sirven para memorizar las referencias de la clase, no para afirmar una identificación diagnóstica aislada. Las reconstrucciones IA del Work Pack no se publican ni se usan en preguntas.
+
+El ejercicio acumulativo recibido después como `P1 Micro Prática.pdf` sustituye el suplemento visual anterior únicamente dentro del botón dedicado de reconocimiento. El PDF tiene 57 páginas: las páginas 1–53 contienen los campos originales en orden y las páginas 54–57 contienen el gabarito manuscrito. El runtime publica derivados cuadrados de 220 px de las primeras 53 páginas, reunidos en los ocho fragmentos `assets/p1-micro-practica-pdf-sprite-v508.part01`–`.part08`; no publica imágenes del gabarito. `scripts/build-p1-pdf-sprite.py` reconstruye esos derivados desde el PDF privado y `scripts/validate-p1-s4.js` verifica el archivo WebP ensamblado antes de los tests de navegador. Las respuestas e indicios derivados del gabarito permanecen ocultos hasta la corrección.
 
 Solo se conservan zonas pedagógicas. Conversaciones domésticas, audio accidental, ruido ambiental, personas e identificadores privados se excluyen del runtime y de las preguntas. Las láminas de Microbiología son referencias visuales rotuladas: permiten describir y comparar estructuras, pero una fotografía aislada no confirma una especie ni una infección. El tercer caso práctico no fotografiado no se reconstruye.
 

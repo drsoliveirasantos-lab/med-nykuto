@@ -70,6 +70,11 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.locator('[data-course-target="fisiologia"]').click();
     await expect(page.locator('#nutricion')).toBeHidden();
     await expect(page.locator('#fisiologia')).toBeVisible();
+    await expect(page.locator('#fisiologia [data-course-theme-card]')).toHaveCount(3);
+    await expect(page.locator('#fisiologia-2026-08-27')).toBeHidden();
+    await page.locator('#fisiologia [data-course-theme-open="fisiologia-sensibilidad-somatica-vias"]').click();
+    await page.locator('#fisiologia [data-theme-tab="sessions"]').click();
+    await page.locator('#fisiologia [data-theme-session-open="fisiologia-2026-08-27"]').click();
     await expect(page.locator('#fisiologia-2026-08-27')).toBeVisible();
     await expect(page.locator('#fisiologia-2026-08-24')).toBeHidden();
     await expect(page.locator('#practice-fisiologia-2026-08-27')).toContainText('40 preguntas');
@@ -81,8 +86,13 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(shortcut).toBeHidden();
     await page.locator('[data-course-target="bioquimica"]').click();
     await expect(page.locator('#bioquimica .notebook-shell')).toBeVisible();
+    await expect(page.locator('#bioquimica [data-course-theme-card]')).toHaveCount(3);
+    await page.locator('#bioquimica [data-course-theme-open="bioquimica-pentosas-nadph-ribosa"]').click();
+    await page.locator('#bioquimica [data-theme-tab="training"]').click();
+    await page.locator('#bioquimica [data-theme-training-scope]').selectOption('session');
+    await page.locator('#bioquimica [data-theme-training-session]').selectOption('bioquimica-2026-08-28');
+    await page.locator('#bioquimica [data-theme-training-lesson="bioquimica-2026-08-28"] button').click();
     await expect(page.locator('#bioquimica .notebook-current-title')).toContainText('Vía de las pentosas fosfato');
-    await page.locator('#bioquimica-2026-08-28 [data-lesson-tab="training"]').click();
     await page.locator('#practice-bioquimica-2026-08-28').getByRole('button', { name: 'Comenzar entrenamiento' }).click();
     await expect(page.locator('#practice-bioquimica-2026-08-28-dialog')).toHaveAttribute('open', '');
     await expect(page.locator('#practice-bioquimica-2026-08-28 .practice-workspace')).toBeVisible();

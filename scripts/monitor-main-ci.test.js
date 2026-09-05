@@ -33,18 +33,22 @@ test('setup failure requires log inspection and has a finite retry budget', () =
   assert.equal(decide({ ...run, conclusion: 'failure', run_attempt: 3 }, sha, jobs).status, 'blocked');
   jobs[2].steps.push({ name: 'Run mobile touch critical tests', conclusion: 'failure' });
   assert.equal(decide({ ...run, conclusion: 'failure' }, sha, jobs).status, 'blocked');
+  jobs[2].steps = [{ name: 'Install Playwright Chromium and WebKit with timeout', conclusion: 'timed_out' }];
+  jobs[2].conclusion = 'timed_out';
+  assert.equal(decide({ ...run, conclusion: 'timed_out' }, sha, jobs).status, 'inspect');
 });
 test('all attempts retain successful jobs but newer failures take precedence', () => {
   const jobs = green();
-  const newer = { ...jobs[0], id: 99, conclusion: 'failure' };
+  jobs[0] = { ...jobs[0], id: 99, __attempt: 1 };
+  const newer = { ...jobs[0], id: 2, __attempt: 2, conclusion: 'failure' };
   assert.equal(latestJobs([newer, ...jobs]).find((job) => job.name === newer.name).conclusion, 'failure');
   assert.equal(decide(run, sha, [...jobs, newer]).status, 'blocked');
 });
 test('locator timeouts and dependency/configuration errors are not temporary network evidence', () => {
-  for (const text of ['locator.click: Timeout 15000ms exceeded', 'Expected 53, received 10', 'npm ERR! E404 package missing', 'Permission denied']) {
+  for (const text of ['locator.click: Timeout 15000ms exceeded', 'Expected 53, received 10', 'npm ERR! E404 package missing', 'Permission denied', 'Process completed with exit code 124.']) {
     assert.equal(TRANSIENT_LOG.test(text), false, text);
   }
-  for (const text of ['npm ERR! EAI_AGAIN', 'Error: ECONNRESET', '503 Service Unavailable', 'Process completed with exit code 124.']) {
+  for (const text of ['npm ERR! EAI_AGAIN', 'Error: ECONNRESET', 'ERR_SOCKET_TIMEOUT', 'socket hang up', '503 Service Unavailable', '504 Gateway Timeout']) {
     assert.equal(TRANSIENT_LOG.test(text), true, text);
   }
 });

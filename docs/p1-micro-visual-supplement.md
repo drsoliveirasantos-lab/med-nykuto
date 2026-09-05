@@ -1,49 +1,50 @@
-# P1 Microbiología — suplemento de reconocimiento visual
+# P1 Microbiología — ejercicio visual del PDF docente
 
-Issue de seguimiento: #181.
+Issues de seguimiento: #181 (histórico) y #183 (integridad del ejercicio PDF).
 
-## Alcance
+## Alcance actual
 
-El modo P1 conserva intactos los **10 campos docentes reales** de Microbiología práctica del 27 de agosto y su estado `VALIDACIÓN DOCENTE PENDIENTE`.
+El modo `Reconocimiento visual` utiliza el archivo docente exacto
+`P1 Micro Prática.pdf`, de 57 páginas:
 
-Se añaden **13 referencias suplementarias** para reconocimiento visual. Son material de `AMPLIACIÓN CLÍNICA · CDC PHIL`, no imágenes de la profesora y no sustituyen el material docente.
+- páginas 1–53: los 53 campos visuales originales, en el mismo orden;
+- páginas 54–57: el gabarito manuscrito utilizado para construir las respuestas;
+- 50 preguntas de agente/estructura y 3 preguntas de tinción.
 
-Las referencias suplementarias se inyectan solo al iniciar `Reconocimiento visual` y se retiran del banco inmediatamente después de construir esa sesión. Así:
+El PDF fuente queda fuera del repositorio público. El runtime publica únicamente
+miniaturas 220 × 220 sin el solucionario. Las imágenes se agrupan en un WebP
+1540 × 1760 y después se reparten entre los ocho fragmentos
+`assets/p1-micro-practica-pdf-sprite-v508.part01` a `.part08`.
 
-- el contrato P1 certificado de 720 preguntas no cambia;
-- los bancos fechados 20/10/10 no cambian;
-- un examen P1 ordinario no recibe estas preguntas;
-- una sesión visual iniciada sí conserva las 23 imágenes necesarias para entrenar.
+El comando de reconstrucción es:
 
-## Referencias CDC PHIL
+```bash
+python3 scripts/build-p1-pdf-sprite.py "/ruta/al/P1 Micro Prática.pdf"
+```
 
-Todas las referencias listadas abajo aparecen en PHIL como **public domain / sin restricciones de copyright**:
+Requiere Poppler (`pdfimages`) y Pillow, verifica la presencia exacta de las 53
+imágenes integradas y excluye automáticamente las cuatro páginas del
+solucionario. El validador `scripts/validate-p1-s4.js` recompone después los ocho
+fragmentos y comprueba el tamaño total, la cabecera RIFF/WebP y la cuadrícula
+7 × 8 antes de ejecutar cualquier suite de navegador.
 
-| PHIL | Foco de entrenamiento |
-| --- | --- |
-| 3961 | `Mucor` · esporangio |
-| 8398 | `Penicillium` · conidióforo ramificado |
-| 300 | `Aspergillus fumigatus` · organización conidial |
-| 21793 | `Candida albicans` · tubos germinales |
-| 24004 | `Cryptococcus` · cápsula en preparación negativa |
-| 10961 | `Histoplasma capsulatum` · macroconidios tuberculados |
-| 3788 | `Blastomyces dermatitidis` · fase levaduriforme tisular |
-| 4208 | `Sporothrix schenckii` · conidios en grupos/roseta |
-| 28111 | cromoblastomicosis · cuerpos muriformes/escleróticos |
-| 4209 | `Madurella mycetomatis` · eumicetoma |
-| 3209 | `Microsporum canis` · dermatofito |
-| 22309 | `Trichophyton rubrum` · microconidios laterales |
-| 24943 | `Malassezia` · levaduras + elementos hifales cortos |
+## Aislamiento del banco P1
 
-## Regla taxonómica
+Los 10 campos fechados del 27 de agosto y el contrato certificado de 720
+preguntas permanecen sin cambios. Al pulsar el modo visual, el módulo PDF
+reemplaza temporalmente las preguntas visuales por los 53 campos, construye la
+sesión y restaura de inmediato el banco original. Por tanto, un examen P1
+ordinario no recibe ninguna de estas preguntas adicionales.
 
-El ejercicio no fuerza una especie cuando una micrografía aislada solo sostiene género o estructura. Ejemplos:
+El suplemento anterior de 13 referencias CDC PHIL permanece solo como solución
+de respaldo si el módulo PDF no se carga. Cuando el módulo PDF está presente,
+posee explícitamente la acción de inicio para evitar dos inyectores concurrentes
+y cualquier persistencia accidental de las referencias CDC en el banco fechado.
 
-- cápsula visible → se pregunta `Cryptococcus spp.` aunque la referencia PHIL esté catalogada como *C. neoformans*;
-- cuerpos muriformes → se pregunta la estructura/cromoblastomicosis, no una especie dematiácea inventada;
-- tubo germinal → se explica la salvedad de *C. dubliniensis*;
-- `Mucor` vs `Rhizopus` → se recuerda que rizoides/estolones pueden ser necesarios para separar géneros.
+## Respuestas e indicios
 
-## IA
-
-No se usa ninguna imagen generada por IA dentro de este suplemento. Si en el futuro se crean esquemas pedagógicos, deben quedar fuera del banco de reconocimiento y rotulados como ilustraciones explicativas.
+Antes de la corrección, el texto alternativo permanece neutro y nunca contiene
+la respuesta. El gabarito, la explicación y los indicios aparecen únicamente
+después de validar la respuesta en entrenamiento, o dentro de la corrección
+final del modo examen. Una fuente visual aislada no debe presentarse como un
+diagnóstico clínico autónomo.

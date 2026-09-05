@@ -118,6 +118,55 @@ async function inspectPhone(browserType, width, failures) {
   await page.waitForSelector('#bioquimica:not([hidden]) .notebook-shell');
   await page.waitForFunction(() => getComputedStyle(document.getElementById('materias')).display === 'none');
 
+  const thematicState = await page.evaluate(() => {
+    const subject = document.getElementById('bioquimica');
+    const cards = Array.from(subject.querySelectorAll('[data-course-theme-card]')).filter((node) => {
+      const rect = node.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0 && getComputedStyle(node).display !== 'none';
+    });
+    const opens = cards.map((card) => card.querySelector('[data-course-theme-open]')).filter(Boolean);
+    const firstOpen = opens[0];
+    const openRect = firstOpen && firstOpen.getBoundingClientRect();
+    const hit = openRect && document.elementFromPoint(openRect.left + openRect.width / 2, openRect.top + openRect.height / 2);
+    return {
+      activeMode: subject.dataset.notebookActiveMode,
+      selectedThemes: subject.querySelector('[data-notebook-mode="temas"]').getAttribute('aria-selected'),
+      visibleLessons: Array.from(subject.querySelectorAll(':scope > [data-lesson-panel]')).filter((node) => !node.hidden).length,
+      cardCount: cards.length,
+      columns: new Set(cards.map((card) => Math.round(card.getBoundingClientRect().left))).size,
+      maximumHeight: Math.max(...cards.map((card) => card.getBoundingClientRect().height), 0),
+      minimumOpenHeight: Math.min(...opens.map((button) => button.getBoundingClientRect().height), Infinity),
+      hitOpen: Boolean(firstOpen && hit && (hit === firstOpen || firstOpen.contains(hit))),
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+    };
+  });
+  check(thematicState.activeMode === 'temas' && thematicState.selectedThemes === 'true', `${browserName} ${width}px: thematic courses are not the subject default.`, failures);
+  check(thematicState.visibleLessons === 0, `${browserName} ${width}px: a dated lesson is visible behind theme cards.`, failures);
+  check(thematicState.cardCount === 3 && thematicState.columns === 1, `${browserName} ${width}px: Bioquímica should expose three one-column theme cards.`, failures);
+  check(thematicState.maximumHeight <= 180, `${browserName} ${width}px: theme cards are too tall (${Math.round(thematicState.maximumHeight)}px).`, failures);
+  check(thematicState.minimumOpenHeight >= 43.5 && thematicState.hitOpen, `${browserName} ${width}px: theme actions are not unobstructed 44px targets.`, failures);
+  check(thematicState.overflow <= 1, `${browserName} ${width}px: theme cards overflow by ${thematicState.overflow}px.`, failures);
+
+  await page.locator('#bioquimica [data-course-theme-open="bioquimica-pentosas-nadph-ribosa"]').click();
+  await page.waitForSelector('#bioquimica [data-course-theme="bioquimica-pentosas-nadph-ribosa"]');
+  const themeWorkspace = await page.evaluate(() => {
+    const workspace = document.querySelector('#bioquimica [data-course-theme="bioquimica-pentosas-nadph-ribosa"]');
+    const tabs = Array.from(workspace.querySelectorAll('[data-theme-tab]'));
+    const modes = Array.from(workspace.querySelectorAll('[data-theme-course-mode]'));
+    return {
+      tabs: tabs.map((button) => button.dataset.themeTab).join('|'),
+      modes: modes.map((button) => button.dataset.themeCourseMode).join('|'),
+      minimumHeight: Math.min(...tabs.concat(modes).map((button) => button.getBoundingClientRect().height)),
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+    };
+  });
+  check(themeWorkspace.tabs === 'course|sessions|training|documents', `${browserName} ${width}px: theme tabs changed (${themeWorkspace.tabs}).`, failures);
+  check(themeWorkspace.modes === 'full|quick|ultra', `${browserName} ${width}px: consolidated course modes changed (${themeWorkspace.modes}).`, failures);
+  check(themeWorkspace.minimumHeight >= 43.5 && themeWorkspace.overflow <= 1, `${browserName} ${width}px: thematic workspace controls are not usable.`, failures);
+  await page.locator('#bioquimica [data-theme-tab="sessions"]').click();
+  await page.locator('#bioquimica [data-theme-session-open="bioquimica-2026-08-28"]').click();
+  await page.waitForSelector('#bioquimica-2026-08-28:not([hidden])');
+
   const subjectState = await page.evaluate(() => {
     const subject = document.getElementById('bioquimica');
     const lesson = subject.querySelector(':scope > [data-lesson-panel]:not([hidden])');

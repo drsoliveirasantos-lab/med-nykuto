@@ -71,11 +71,12 @@ if (model) {
   expect(teacherIds.length === 6, `Expected 6 teacher profiles, found ${teacherIds.length}.`);
   expect(subjectIds.length === 6, `Expected 6 subjects, found ${subjectIds.length}.`);
   expect(/id="teacherProfiles"/.test(teacherHtml), 'Teacher audit page is not model-driven.');
-  expect(/academic-model-v445\.js/.test(html) && /academic-model-2026-08-27-v494\.js/.test(html) && /academic-model-2026-08-28-v500\.js/.test(html) && /class-notebook-v445\.js\?v=501/.test(html), 'Class page does not load the complete academic model through 28 August and the current academic notebook.');
+  expect(/academic-model-v445\.js/.test(html) && /academic-model-2026-08-27-v494\.js/.test(html) && /academic-model-2026-08-28-v500\.js/.test(html) && /s4-course-themes-v182\.js\?v=182/.test(html) && /class-notebook-v445\.js\?v=502/.test(html), 'Class page does not load the complete academic model, evolving course themes and current academic notebook.');
   const s4ModelIndex = html.indexOf('s4-learning-model-v178.js');
-  const notebookIndex = html.indexOf('class-notebook-v445.js?v=501');
+  const courseThemeIndex = html.indexOf('s4-course-themes-v182.js?v=182');
+  const notebookIndex = html.indexOf('class-notebook-v445.js?v=502');
   const s4ExperienceIndex = html.indexOf('s4-learning-experience-v178.js');
-  expect(s4ModelIndex >= 0 && notebookIndex > s4ModelIndex && s4ExperienceIndex > notebookIndex, 'Class page must load the S4 learning model before the notebook and its additive experience after the notebook.');
+  expect(s4ModelIndex >= 0 && courseThemeIndex > s4ModelIndex && notebookIndex > courseThemeIndex && s4ExperienceIndex > notebookIndex, 'Class page must load the S4 learning model, then evolving course themes, the notebook and its additive experience in order.');
   expect(/academic-model-2026-08-28-v500\.js/.test(teacherHtml) && /23 CLASES/.test(teacherHtml) && /28 ago\. 2026/.test(teacherHtml), 'Teacher audit page does not expose the 28 August model and updated lesson count.');
   expect(!/class="class-drive-card"/.test(html), 'Drive is still duplicated inside Materias.');
   expect((html.match(/data-class-drive-link/g) || []).length === 1, 'Drive must appear exactly once, on Home.');

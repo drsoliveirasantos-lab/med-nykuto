@@ -16,6 +16,20 @@ function expect(condition, message) {
   if (!condition) errors.push(message);
 }
 
+function numericConstant(source, name) {
+  const match = source.match(new RegExp(`var\\s+${name}=(\\d+);`));
+  return match ? Number(match[1]) : 0;
+}
+
+function lossyWebpDimensions(bytes) {
+  if (bytes.length < 30 || bytes.toString('ascii', 12, 16) !== 'VP8 ') return null;
+  if (!bytes.subarray(23, 26).equals(Buffer.from([0x9d, 0x01, 0x2a]))) return null;
+  return {
+    width: bytes.readUInt16LE(26) & 0x3fff,
+    height: bytes.readUInt16LE(28) & 0x3fff
+  };
+}
+
 global.window = { location: { hash: '' }, addEventListener() {} };
 global.document = {
   readyState: 'loading',
@@ -111,10 +125,42 @@ const html = fs.readFileSync(path.join(root, 'p1.html'), 'utf8');
 const clase = fs.readFileSync(path.join(root, 'clase.html'), 'utf8');
 const runtime = fs.readFileSync(path.join(root, 'class-p1-v1.js'), 'utf8');
 const stylesheet = fs.readFileSync(path.join(root, 'class-p1-v1.css'), 'utf8');
+const p1ScopeRuntime = fs.readFileSync(path.join(root, 'p1-s4-e-v2.js'), 'utf8');
+const pdfVisualRuntime = fs.readFileSync(path.join(root, 'p1-micro-visual-50-v507.js'), 'utf8');
+const expectedPdfFields = numericConstant(pdfVisualRuntime, 'EXPECTED_TOTAL');
+const pdfTileSize = numericConstant(pdfVisualRuntime, 'TILE_SIZE');
+const spriteColumns = numericConstant(pdfVisualRuntime, 'SPRITE_COLUMNS');
+const spriteRows = numericConstant(pdfVisualRuntime, 'SPRITE_ROWS');
+const expectedSpriteBytes = numericConstant(pdfVisualRuntime, 'SPRITE_BYTES');
+const spriteReferences = [...pdfVisualRuntime.matchAll(/['"]\/(assets\/p1-micro-practica-pdf-sprite-v508\.part\d{2})\?v=(\d+)['"]/g)];
+const spritePaths = spriteReferences.map((match) => match[1]);
+const spriteBuffers = spritePaths.filter((file) => fs.existsSync(path.join(root, file))).map((file) => fs.readFileSync(path.join(root, file)));
+const sprite = Buffer.concat(spriteBuffers);
+const spriteDimensions = lossyWebpDimensions(sprite);
+const sourceItemsMatch = pdfVisualRuntime.match(/var SOURCE_ITEMS=(\[[^;]+\]);/);
+let pdfSourceItems = [];
+try {
+  pdfSourceItems = sourceItemsMatch ? JSON.parse(sourceItemsMatch[1]) : [];
+} catch (_) {
+  pdfSourceItems = [];
+}
 expect(/academic-model-2026-08-28-v500\.js/.test(html), 'The P1 page must load the cumulative teacher model through 28 August.');
 expect(/grupo-3-practice-bioquimica-2026-08-28-v500\.js/.test(html), 'The P1 page must load the selected 28 August Biochemistry bank.');
 expect(!/grupo-3-practice-epidemiologia-2026-08-28-v500\.js/.test(html), 'The P1 page must not load the excluded 28 August Epidemiology bank.');
 expect(/class-p1-v1\.css\?v=505/.test(html) && /class-p1-v1\.js\?v=505/.test(html), 'p1.html must load the current P1 stylesheet and runtime.');
+expect(/p1-micro-visual-50-v507\.js\?v=512/.test(html), 'p1.html must load the repaired teacher-PDF visual runtime with cache key v512.');
+expect(/p1-s4-e-v2\.js\?v=510/.test(html), 'p1.html must cache-bust the P1 scope runtime that yields to the teacher-PDF visual exercise.');
+expect(expectedPdfFields === 53 && pdfSourceItems.length === 53, 'The teacher-PDF visual exercise must expose all 53 source fields.');
+expect(pdfSourceItems.every((item, index) => item.page === index + 1 && item.answer && item.category), 'The teacher-PDF field mapping must preserve pages 1-53 in order with an answer and category.');
+expect(pdfSourceItems[44]?.answer === 'Candida spp.', 'The page 45 answer must preserve the exact handwritten teacher key: Candida spp.');
+expect(spritePaths.length === 8 && new Set(spritePaths).size === 8 && spriteBuffers.length === 8, 'The teacher-PDF sprite must expose eight unique, present fragments.');
+expect(new Set(spriteReferences.map((match) => match[2])).size === 1 && spriteReferences[0]?.[2] === '510', 'Every teacher-PDF sprite fragment must use the same current cache key v510.');
+expect(sprite.length === expectedSpriteBytes, `The teacher-PDF sprite is incomplete: found ${sprite.length} of ${expectedSpriteBytes} bytes.`);
+expect(sprite.length >= 12 && sprite.toString('ascii', 0, 4) === 'RIFF' && sprite.toString('ascii', 8, 12) === 'WEBP', 'The assembled teacher-PDF sprite is not a WebP RIFF file.');
+expect(sprite.length >= 8 && sprite.readUInt32LE(4) + 8 === sprite.length, 'The assembled teacher-PDF sprite RIFF length does not match its fragments.');
+expect(spriteDimensions && spriteDimensions.width === spriteColumns * pdfTileSize && spriteDimensions.height === spriteRows * pdfTileSize, 'The assembled teacher-PDF sprite dimensions do not match its 7x8 field grid.');
+expect(/window\.MedNykutoP1PdfExerciseEnabled=true/.test(pdfVisualRuntime) && /if \(window\.MedNykutoP1PdfExerciseEnabled\) return;/.test(p1ScopeRuntime), 'The superseded CDC visual injector must yield to the 53-field teacher-PDF exercise.');
+expect(/activeScope\.id===p1Scope\.id/.test(pdfVisualRuntime) && /setup&&!setup\.hidden&&examView&&!examView\.hidden/.test(pdfVisualRuntime) && /intentVersion===replayIntentVersion&&sessionFingerprint===p1SessionFingerprint\(\)/.test(pdfVisualRuntime), 'Queued visual replay must be cancelled after leaving P1 or starting, changing or pausing another practice.');
 expect(/href="p1\.html"/.test(clase), 'The class hub must expose the P1 page.');
 expect(/Entrenamiento · corrección inmediata/.test(html), 'P1 must expose immediate correction training before starting.');
 expect(/Examen blanco · corrección al final/.test(html), 'P1 must expose final-only exam correction before starting.');
@@ -181,4 +227,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('P1 validation passed: 6 subjects, 18 lessons and 720 source questions.');
+console.log('P1 validation passed: 6 subjects, 18 lessons, 720 source questions and an intact 53-field teacher-PDF sprite.');

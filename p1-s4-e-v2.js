@@ -280,6 +280,7 @@
   }
 
   function addSupplementalForVisualStart() {
+    if (window.MedNykutoP1PdfExerciseEnabled) return;
     var bank = practicalBank();
     if (!bank || !Array.isArray(bank.qcm)) return;
     var ids = {};
@@ -303,6 +304,7 @@
   }
 
   function syncVisualButtonCopy() {
+    if (window.MedNykutoP1PdfExerciseEnabled) return;
     var button = document.getElementById('p1StartVisual');
     if (!button) return;
     var strong = button.querySelector('strong');

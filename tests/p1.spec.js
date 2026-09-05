@@ -1,6 +1,8 @@
 const { test, expect } = require('@playwright/test');
 
 test.describe('P1 cumulative review', () => {
+  test.use({ serviceWorkers: 'block' });
+
   test.beforeEach(async ({ page }) => {
     await page.goto('/p1.html');
     await expect(page.locator('html')).toHaveClass(/p1-ready/);
@@ -158,6 +160,8 @@ test.describe('P1 cumulative review', () => {
         kind: session.kind,
         total: session.items.length,
         uniqueIds: new Set(session.items.map((item) => item.visualRecognitionId)).size,
+        uniqueSources: new Set(session.items.map((item) => item.imageSrc)).size,
+        nonemptySources: session.items.every((item) => /^data:image\/jpeg;base64,/.test(item.imageSrc)),
         pdfOnly: session.items.every((item) => /^micro-p1-practica-pdf-\d{3}$/.test(item.visualRecognitionId)),
         neutralAlts: session.items.every((item) => /^Imagen \d+ del PDF P1 Micro Práctica$/.test(item.imageAlt)),
         confirmed: session.items.every((item) => item.validationPending === false),
@@ -165,7 +169,7 @@ test.describe('P1 cumulative review', () => {
       };
     });
     expect(visualAudit).toEqual({
-      kind: 'visual-recognition', total: 53, uniqueIds: 53,
+      kind: 'visual-recognition', total: 53, uniqueIds: 53, uniqueSources: 53, nonemptySources: true,
       pdfOnly: true, neutralAlts: true, confirmed: true, baseTotal: 10
     });
     await expect(dialog.locator('#p1Question .p1-review-body')).toHaveCount(0);
@@ -193,6 +197,97 @@ test.describe('P1 cumulative review', () => {
     await expect(dialog.locator('#p1Question .p1-review-body')).toContainText('Claves visuales:');
     await expect(dialog.locator('#p1Question .p1-review-body')).toContainText('Según el gabarito docente');
     await expect(dialog.locator('#p1Question .p1-review-body')).toContainText('Fuente: P1 Micro Práctica.');
+  });
+
+  test('queues a visual click while the teacher sprite is still loading', async ({ page }) => {
+    let releaseFirstPart;
+    const firstPartGate = new Promise((resolve) => { releaseFirstPart = resolve; });
+    await page.route('**/assets/p1-micro-practica-pdf-sprite-v508.part01*', async (route) => {
+      await firstPartGate;
+      await route.continue();
+    });
+    await page.reload({ waitUntil: 'domcontentloaded' });
+
+    const launcher = page.locator('#p1StartVisual');
+    await expect(launcher).toContainText('Preparando 53 imágenes');
+    await launcher.click();
+    await expect(launcher).toBeDisabled();
+    releaseFirstPart();
+
+    const dialog = page.getByRole('dialog', { name: 'Reconocimiento visual en curso' });
+    await expect(dialog).toHaveAttribute('open', '');
+    await expect(dialog.locator('#p1QuestionPosition')).toHaveText('Pregunta 1 de 53');
+  });
+
+  test('cancels a queued visual click after switching to P2', async ({ page }) => {
+    let releaseFirstPart;
+    const firstPartGate = new Promise((resolve) => { releaseFirstPart = resolve; });
+    await page.route('**/assets/p1-micro-practica-pdf-sprite-v508.part01*', async (route) => {
+      await firstPartGate;
+      await route.continue();
+    });
+    await page.reload({ waitUntil: 'domcontentloaded' });
+
+    const launcher = page.locator('#p1StartVisual');
+    await expect(launcher).toContainText('Preparando 53 imágenes');
+    await launcher.click();
+    await expect(launcher).toBeDisabled();
+    await page.evaluate(() => window.MedNykutoPartialReview.selectScope('p2'));
+    await expect(page.locator('body')).toHaveAttribute('data-partial-scope', 'p2');
+    releaseFirstPart();
+    await expect.poll(() => page.evaluate(() => window.MedNykutoP1PdfLoadState)).toBe('ready');
+
+    await expect(page.locator('#p1PracticeDialog')).not.toHaveAttribute('open', '');
+    expect(await page.evaluate(() => ({
+      p1: window.MedNykutoP1.getSession(),
+      p2: window.MedNykutoP2.getSession()
+    }))).toEqual({ p1: null, p2: null });
+  });
+
+  test('does not replace a paused standard practice with a queued visual session', async ({ page }) => {
+    let releaseFirstPart;
+    const firstPartGate = new Promise((resolve) => { releaseFirstPart = resolve; });
+    await page.route('**/assets/p1-micro-practica-pdf-sprite-v508.part01*', async (route) => {
+      await firstPartGate;
+      await route.continue();
+    });
+    await page.reload({ waitUntil: 'domcontentloaded' });
+
+    const launcher = page.locator('#p1StartVisual');
+    await expect(launcher).toContainText('Preparando 53 imágenes');
+    await launcher.click();
+    await expect(launcher).toBeDisabled();
+    await page.getByRole('button', { name: 'Empezar entrenamiento' }).click();
+    await expect(page.locator('#p1QuestionPosition')).toHaveText('Pregunta 1 de 40');
+    await page.locator('#p1PracticeClose').click();
+    await expect(page.locator('#p1PracticeDialog')).not.toHaveAttribute('open', '');
+    await expect(page.locator('#p1ExamSetup')).toBeVisible();
+    releaseFirstPart();
+    await expect.poll(() => page.evaluate(() => window.MedNykutoP1PdfLoadState)).toBe('ready');
+
+    await expect(page.locator('#p1PracticeDialog')).not.toHaveAttribute('open', '');
+    expect(await page.evaluate(() => {
+      const session = window.MedNykutoP1.getSession();
+      return { kind: session.kind, total: session.items.length };
+    })).toEqual({ kind: 'standard', total: 40 });
+  });
+
+  test('offers a working retry after a permanent sprite request failure', async ({ page }) => {
+    let rejectParts = true;
+    await page.route('**/assets/p1-micro-practica-pdf-sprite-v508.part*', async (route) => {
+      if (rejectParts) await route.abort('failed');
+      else await route.continue();
+    });
+    await page.reload({ waitUntil: 'domcontentloaded' });
+
+    const launcher = page.locator('#p1StartVisual');
+    await expect(launcher).toContainText('Reintentar ejercicio de 53 imágenes');
+    rejectParts = false;
+    await launcher.click();
+
+    const dialog = page.getByRole('dialog', { name: 'Reconocimiento visual en curso' });
+    await expect(dialog).toHaveAttribute('open', '');
+    await expect(dialog.locator('#p1QuestionPosition')).toHaveText('Pregunta 1 de 53');
   });
 
   test('shows and preserves immediate correction in training mode', async ({ page }) => {

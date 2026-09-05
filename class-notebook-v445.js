@@ -5,9 +5,15 @@
   if (!model) return;
 
   var progressKey = 'med-nykuto-course-progress-v440';
+  var courseThemeStateKey = 'med-nykuto-s4-seen-content-v182';
+  var learningModel = window.MedNykutoS4LearningModel || {};
   var activeLessonBySubject = {};
   var activeModeBySubject = {};
+  var activeThemeTabById = {};
+  var activeThemeCourseViewById = {};
+  var themeOpenersBySubject = {};
   var publicClassFiles = [];
+  var publicClassFilesLoaded = false;
   var notebookFileViews = {};
   var recentFileWindowMs = 7 * 24 * 60 * 60 * 1000;
 
@@ -44,6 +50,86 @@
 
   function findLesson(subjectModel, lessonId) {
     return flattenLessons(subjectModel).find(function (entry) { return entry.lesson.id === lessonId; });
+  }
+
+  function themeText(value) {
+    if (typeof value === 'string') return value;
+    if (!value || typeof value !== 'object') return '';
+    return /^pt(?:-|$)/i.test(document.documentElement.lang || '')
+      ? (value.pt || value.br || value.es || '')
+      : (value.es || value.pt || value.br || '');
+  }
+
+  function contentThemesForSubject(subjectId) {
+    if (typeof learningModel.getContentThemesForSubject === 'function') {
+      return learningModel.getContentThemesForSubject(subjectId) || [];
+    }
+    return (learningModel.contentThemes || learningModel.courseThemes || []).filter(function (theme) {
+      return theme && theme.subjectId === subjectId;
+    });
+  }
+
+  function findContentTheme(themeId) {
+    if (typeof learningModel.getContentTheme === 'function') return learningModel.getContentTheme(themeId);
+    return (learningModel.contentThemeById || {})[themeId]
+      || (learningModel.contentThemes || learningModel.courseThemes || []).find(function (theme) { return theme.id === themeId; })
+      || null;
+  }
+
+  function readCourseThemeState() {
+    try {
+      var value = JSON.parse(localStorage.getItem(courseThemeStateKey) || '{}') || {};
+      if (!value.themes || typeof value.themes !== 'object') value.themes = {};
+      return value;
+    } catch (error) {
+      return { version: 1, themes: {} };
+    }
+  }
+
+  function writeCourseThemeState(value) {
+    try { localStorage.setItem(courseThemeStateKey, JSON.stringify(value)); }
+    catch (error) {}
+  }
+
+  function persistCourseThemePreference(themeId, field, value) {
+    var state = readCourseThemeState();
+    var current = state.themes[themeId] || {};
+    current[field] = value;
+    state.version = 1;
+    state.themes[themeId] = current;
+    writeCourseThemeState(state);
+  }
+
+  function themeSessionIds(theme) {
+    return Array.from(new Set((theme && (theme.sessionIds || theme.lessonIds) || []).filter(Boolean)));
+  }
+
+  function themeChapters(theme) {
+    return theme && theme.course && Array.isArray(theme.course.chapters) ? theme.course.chapters : [];
+  }
+
+  function chapterNotions(theme, chapter) {
+    if (Array.isArray(chapter.notions)) return chapter.notions;
+    return (chapter.notionIds || []).map(function (notionId) {
+      return (learningModel.notionsById || {})[notionId];
+    }).filter(Boolean);
+  }
+
+  function themeNotions(theme) {
+    return themeChapters(theme).reduce(function (notions, chapter) {
+      return notions.concat(chapterNotions(theme, chapter));
+    }, []);
+  }
+
+  function themeArtifactPayload(artifact) {
+    return artifact && artifact.content && typeof artifact.content === 'object' ? artifact.content : (artifact || {});
+  }
+
+  function themeArtifactText(artifact) {
+    var payload = themeArtifactPayload(artifact);
+    return themeText(payload.text || payload.claim || payload.summary || payload.label || payload.title)
+      || themeText(artifact && artifact.reason)
+      || '';
   }
 
   function statusLabel(status) {
@@ -1375,6 +1461,16 @@
     var seen = {};
     var seenIds = {};
     var managed = [];
+    var subjectModel = model.subjects[subjectId];
+    var lessons = subjectModel ? flattenLessons(subjectModel).map(function (entry) { return entry.lesson; }) : [];
+    function lessonIdForDate(value) {
+      var isoDate = String(value || '').trim().slice(0, 10);
+      if (!isoDate) return '';
+      var lesson = lessons.find(function (item) {
+        return item.id.indexOf(isoDate) !== -1 || String(item.lessonDate || '').slice(0, 10) === isoDate;
+      });
+      return lesson ? lesson.id : '';
+    }
     publicClassFiles.filter(function (file) { return file && (file.removedAt === null || file.removedAt === undefined || String(file.removedAt).trim() === ''); }).sort(function (left, right) {
       return (Date.parse(right.firstSeenAt || right.modifiedAt || right.createdAt || right.lessonDate || '') || 0) - (Date.parse(left.firstSeenAt || left.modifiedAt || left.createdAt || left.lessonDate || '') || 0);
     }).forEach(function (file) {
@@ -1392,6 +1488,7 @@
         label: String(file.title || '').trim() || 'Documento de la materia',
         type: fileType(href, file.fileType),
         date: String(file.lessonDate || '').trim() || String(file.firstSeenAt || '').trim().slice(0, 10),
+        lessonId: String(file.lessonId || '').trim() || lessonIdForDate(file.lessonDate),
         createdAt: String(file.createdAt || '').trim(),
         modifiedAt: String(file.modifiedAt || '').trim(),
         firstSeenAt: String(file.firstSeenAt || '').trim(),
@@ -1410,17 +1507,540 @@
       try { name = decodeURIComponent(name); } catch (error) {}
       var label = (link.textContent || '').trim();
       if (!label || /^(abrir|descargar|ver)/i.test(label)) label = name;
-      return { href: href, label: label, type: fileType(name), date: '', managed: false, drive: false, recent: false };
+      var lessonPanel = link.closest('[data-lesson-panel]');
+      var lessonEntry = lessonPanel && findLesson(subjectModel, lessonPanel.id);
+      return {
+        href: href,
+        label: label,
+        type: fileType(name),
+        date: lessonEntry ? lessonEntry.lesson.date : '',
+        lessonId: lessonPanel ? lessonPanel.id : '',
+        managed: false,
+        drive: false,
+        recent: false
+      };
     }).filter(Boolean);
     return managed.concat(local);
   }
 
-  function renderThemes(panel, subjectModel, selectLesson) {
+  function uniqueThemeSnapshotEntries(entries) {
+    var seen = {};
+    return entries.filter(function (entry) {
+      if (!entry || !entry.token || seen[entry.token]) return false;
+      seen[entry.token] = true;
+      return true;
+    }).sort(function (left, right) { return left.token < right.token ? -1 : (left.token > right.token ? 1 : 0); });
+  }
+
+  function themeDocumentToken(file) {
+    var identity = String(file && file.id || '').trim() || canonicalFileHref(file && file.href || '');
+    var revision = String(file && (file.modifiedAt || file.firstSeenAt || file.createdAt || file.date) || '').trim();
+    return identity ? identity + '@' + revision : '';
+  }
+
+  function themeCaseToken(notion, example, index) {
+    var payload = themeArtifactPayload(example);
+    var identity = example.id || payload.id || notion.id + '-case-' + String(index + 1);
+    return notion.id + ':' + identity + '@' + String(example.updatedAt || example.revision || payload.updatedAt || '');
+  }
+
+  function themeSnapshotEntries(theme, subject, subjectId) {
+    var lessonIds = themeSessionIds(theme);
+    var notions = [];
+    var cases = [];
+    themeNotions(theme).forEach(function (notion) {
+      notions.push({
+        token: notion.id + '@' + String(notion.updatedAt || notion.revision || ''),
+        label: themeText(notion.label || notion.title),
+        updatedAt: notion.updatedAt || ''
+      });
+      (notion.examples || []).forEach(function (example, index) {
+        var payload = themeArtifactPayload(example);
+        cases.push({
+          token: themeCaseToken(notion, example, index),
+          label: themeArtifactText(example) || themeText(notion.label || notion.title),
+          updatedAt: example.updatedAt || payload.updatedAt || ''
+        });
+      });
+    });
+    var documents = collectFiles(subject, subjectId).filter(function (file) {
+      return lessonIds.indexOf(file.lessonId) !== -1;
+    }).map(function (file) {
+      return {
+        token: themeDocumentToken(file),
+        label: file.label,
+        updatedAt: file.modifiedAt || file.firstSeenAt || file.createdAt || file.date || ''
+      };
+    });
+    return {
+      notions: uniqueThemeSnapshotEntries(notions),
+      cases: uniqueThemeSnapshotEntries(cases),
+      documents: uniqueThemeSnapshotEntries(documents)
+    };
+  }
+
+  function themeSnapshot(entries) {
+    return {
+      notions: entries.notions.map(function (entry) { return entry.token; }),
+      cases: entries.cases.map(function (entry) { return entry.token; }),
+      documents: entries.documents.map(function (entry) { return entry.token; })
+    };
+  }
+
+  function themeSnapshotItemIsNew(previous, section, token) {
+    if (section === 'documents' && previous && previous.documentsComplete === false) return false;
+    return Boolean(previous && previous.snapshot && Array.isArray(previous.snapshot[section]) && previous.snapshot[section].indexOf(token) === -1);
+  }
+
+  function themeHasNewContent(theme, snapshotEntries, previous) {
+    if (!previous) return false;
+    if (String(previous.seenRevision || '') < String(theme.updatedAt || theme.revision || '')) return true;
+    return ['notions', 'cases', 'documents'].some(function (section) {
+      return snapshotEntries[section].some(function (entry) { return themeSnapshotItemIsNew(previous, section, entry.token); });
+    });
+  }
+
+  function sourceContributionLabel(kind) {
+    return {
+      foundation: localized('Introducción', 'Introdução'),
+      introduced: localized('Introducción', 'Introdução'),
+      repetition: localized('Revisión', 'Revisão'),
+      precision: localized('Precisión', 'Precisão'),
+      extension: localized('Ampliación', 'Ampliação'),
+      enrichment: localized('Ampliación', 'Ampliação'),
+      example: localized('Ejemplo', 'Exemplo'),
+      case: localized('Caso', 'Caso'),
+      repeated: localized('Revisión', 'Revisão'),
+      divergence: localized('Divergencia', 'Divergência')
+    }[kind] || localized('Aporte', 'Contribuição');
+  }
+
+  function themeSessionEntries(theme, subjectModel) {
+    return themeSessionIds(theme).map(function (lessonId) {
+      return findLesson(subjectModel, lessonId);
+    }).filter(Boolean);
+  }
+
+  function sourceLessonEntry(subjectModel, source) {
+    return source && findLesson(subjectModel, source.lessonId);
+  }
+
+  function renderThemeCourse(panel, theme, subjectModel, selectLesson, previous) {
+    var switcher = el('div', 'content-theme-course-modes');
+    switcher.setAttribute('role', 'tablist');
+    switcher.setAttribute('aria-label', localized('Formato del curso consolidado', 'Formato do curso consolidado'));
+    var panels = {};
+    [
+      ['full', localized('Curso completo', 'Curso completo')],
+      ['quick', localized('Ficha rápida', 'Ficha rápida')],
+      ['ultra', localized('Ficha ultra-rápida', 'Ficha ultrarrápida')]
+    ].forEach(function (mode) {
+      var button = el('button', '', mode[1]);
+      button.type = 'button';
+      button.dataset.themeCourseMode = mode[0];
+      button.setAttribute('role', 'tab');
+      switcher.appendChild(button);
+    });
+    panel.appendChild(switcher);
+
+    var full = el('div', 'content-theme-course-view');
+    full.dataset.themeCourseView = 'full';
+    themeChapters(theme).forEach(function (chapter, chapterIndex) {
+      var chapterNode = el('section', 'content-theme-chapter');
+      chapterNode.dataset.themeChapter = chapter.id || String(chapterIndex + 1);
+      var head = el('header');
+      head.appendChild(el('span', '', localized('CAPÍTULO ', 'CAPÍTULO ') + String(chapterIndex + 1).padStart(2, '0')));
+      head.appendChild(el('h4', '', themeText(chapter.label || chapter.title)));
+      chapterNode.appendChild(head);
+      chapterNotions(theme, chapter).forEach(function (notion) {
+        var notionNode = el('article', 'content-theme-notion');
+        notionNode.dataset.themeNotion = notion.id;
+        var notionToken = notion.id + '@' + String(notion.updatedAt || notion.revision || '');
+        if (themeSnapshotItemIsNew(previous, 'notions', notionToken)) notionNode.dataset.themeNew = 'true';
+        var copy = el('div', 'content-theme-notion-copy');
+        copy.appendChild(el('span', '', themeText(notion.kicker) || localized('NOCIÓN CONSOLIDADA', 'NOÇÃO CONSOLIDADA')));
+        copy.appendChild(el('h5', '', themeText(notion.label || notion.title)));
+        copy.appendChild(el('p', '', themeText(notion.summary || notion.description)));
+        notionNode.appendChild(copy);
+
+        var sources = el('div', 'content-theme-sources');
+        sources.setAttribute('aria-label', localized('Fuentes cronológicas', 'Fontes cronológicas'));
+        (notion.sourceRefs || notion.sources || []).forEach(function (source) {
+          var entry = sourceLessonEntry(subjectModel, source);
+          if (!entry) return;
+          var sourceButton = el('button', 'content-theme-source');
+          sourceButton.type = 'button';
+          sourceButton.dataset.themeSource = source.lessonId;
+          sourceButton.dataset.themeSourceLesson = source.lessonId;
+          sourceButton.dataset.themeContribution = source.contribution || source.kind || 'introduced';
+          sourceButton.appendChild(el('time', '', entry.lesson.date));
+          sourceButton.appendChild(el('span', '', sourceContributionLabel(source.contribution || source.kind)));
+          sourceButton.setAttribute('aria-label', sourceContributionLabel(source.contribution || source.kind) + ' · ' + entry.lesson.dateLong + ' · ' + entry.lesson.title);
+          sourceButton.addEventListener('click', function () { selectLesson(source.lessonId, 'curso', 'push'); });
+          sources.appendChild(sourceButton);
+        });
+        notionNode.appendChild(sources);
+
+        (notion.repetitions || []).forEach(function (repetition) {
+          var repetitionNode = el('p', 'content-theme-repetition');
+          repetitionNode.dataset.themeRepetition = repetition.id || 'repetition';
+          repetitionNode.appendChild(el('strong', '', localized('REVISIÓN CONSOLIDADA · ', 'REVISÃO CONSOLIDADA · ')));
+          repetitionNode.appendChild(document.createTextNode(themeArtifactText(repetition) || localized('Mismo contenido confirmado en otra sesión.', 'Mesmo conteúdo confirmado em outra aula.')));
+          notionNode.appendChild(repetitionNode);
+        });
+        (notion.precisions || []).forEach(function (precision) {
+          var precisionNode = el('p', 'content-theme-precision');
+          precisionNode.dataset.themePrecision = precision.id || 'precision';
+          precisionNode.appendChild(el('strong', '', localized('PRECISIÓN · ', 'PRECISÃO · ')));
+          precisionNode.appendChild(document.createTextNode(themeArtifactText(precision)));
+          notionNode.appendChild(precisionNode);
+        });
+        (notion.examples || []).forEach(function (example, exampleIndex) {
+          var exampleNode = el('p', 'content-theme-example');
+          exampleNode.dataset.themeExample = example.id || 'example';
+          if (themeSnapshotItemIsNew(previous, 'cases', themeCaseToken(notion, example, exampleIndex))) exampleNode.dataset.themeNew = 'true';
+          exampleNode.appendChild(el('strong', '', localized('CASO / EJEMPLO · ', 'CASO / EXEMPLO · ')));
+          exampleNode.appendChild(document.createTextNode(themeArtifactText(example)));
+          notionNode.appendChild(exampleNode);
+        });
+        (notion.divergences || notion.conflicts || []).forEach(function (divergence) {
+          var warning = el('aside', 'content-theme-divergence');
+          warning.dataset.themeDivergence = divergence.id || 'divergence';
+          warning.appendChild(el('strong', '', localized('DIVERGENCIA CONSERVADA', 'DIVERGÊNCIA PRESERVADA')));
+          warning.appendChild(el('p', '', themeArtifactText(divergence)));
+          if (divergence.reason && themeText(divergence.reason) !== themeArtifactText(divergence)) {
+            warning.appendChild(el('small', '', themeText(divergence.reason)));
+          }
+          notionNode.appendChild(warning);
+        });
+        chapterNode.appendChild(notionNode);
+      });
+      full.appendChild(chapterNode);
+    });
+    panel.appendChild(full);
+    panels.full = full;
+
+    var quick = el('div', 'content-theme-course-view content-theme-quick');
+    quick.dataset.themeCourseView = 'quick';
+    themeNotions(theme).forEach(function (notion, index) {
+      var row = el('article');
+      row.appendChild(el('b', '', String(index + 1).padStart(2, '0')));
+      var rowCopy = el('div');
+      rowCopy.appendChild(el('strong', '', themeText(notion.label || notion.title)));
+      rowCopy.appendChild(el('p', '', themeText(notion.summary || notion.description)));
+      row.appendChild(rowCopy);
+      quick.appendChild(row);
+    });
+    panel.appendChild(quick);
+    panels.quick = quick;
+
+    var ultra = el('div', 'content-theme-course-view content-theme-ultra');
+    ultra.dataset.themeCourseView = 'ultra';
+    ultra.appendChild(el('p', 'content-theme-ultra-question', themeText(theme.course && theme.course.centralQuestion) || themeText(theme.summary)));
+    var ultraList = el('ol');
+    var ultraItems = theme.course && Array.isArray(theme.course.ultra) ? theme.course.ultra : themeNotions(theme).reduce(function (items, notion) {
+      return items.concat(Array.isArray(notion.keyPoints) && notion.keyPoints.length ? notion.keyPoints : [notion.label || notion.title]);
+    }, []).slice(0, 5);
+    ultraItems.forEach(function (item) { ultraList.appendChild(el('li', '', themeText(item))); });
+    ultra.appendChild(ultraList);
+    panel.appendChild(ultra);
+    panels.ultra = ultra;
+
+    function activateCourseView(view) {
+      activeThemeCourseViewById[theme.id] = view;
+      persistCourseThemePreference(theme.id, 'lastCourseView', view);
+      switcher.querySelectorAll('[data-theme-course-mode]').forEach(function (button) {
+        var selected = button.dataset.themeCourseMode === view;
+        button.setAttribute('aria-selected', selected ? 'true' : 'false');
+        button.tabIndex = selected ? 0 : -1;
+      });
+      Object.keys(panels).forEach(function (panelId) { panels[panelId].hidden = panelId !== view; });
+    }
+    switcher.querySelectorAll('[data-theme-course-mode]').forEach(function (button) {
+      button.addEventListener('click', function () { activateCourseView(button.dataset.themeCourseMode); });
+    });
+    activateCourseView(activeThemeCourseViewById[theme.id] || 'full');
+  }
+
+  function renderThemeSessions(panel, theme, subjectModel, selectLesson) {
+    var intro = el('p', 'content-theme-panel-intro', localized('Cada aporte conserva la fecha, el título y el curso original del profesor.', 'Cada contribuição preserva a data, o título e a aula original do professor.'));
+    panel.appendChild(intro);
+    var list = el('div', 'content-theme-session-list');
+    themeSessionEntries(theme, subjectModel).forEach(function (entry) {
+      var row = el('article', 'content-theme-session');
+      row.dataset.themeSession = entry.lesson.id;
+      var date = el('time', '', entry.lesson.date);
+      date.dateTime = entry.lesson.id.match(/\d{4}-\d{2}-\d{2}/) ? entry.lesson.id.match(/\d{4}-\d{2}-\d{2}/)[0] : '';
+      row.appendChild(date);
+      var copy = el('div');
+      copy.appendChild(el('strong', '', entry.lesson.title));
+      copy.appendChild(el('small', '', entry.lesson.dateLong + ' · ' + statusLabel(entry.lesson.status)));
+      row.appendChild(copy);
+      var button = el('button', '', localized('Abrir sesión', 'Abrir aula'));
+      button.type = 'button';
+      button.dataset.themeSessionOpen = entry.lesson.id;
+      button.addEventListener('click', function () { selectLesson(entry.lesson.id, 'curso', 'push'); });
+      row.appendChild(button);
+      list.appendChild(row);
+    });
+    panel.appendChild(list);
+  }
+
+  function renderThemeTraining(panel, theme, subjectModel, selectLesson) {
+    var entries = themeSessionEntries(theme, subjectModel);
+    var controls = el('div', 'content-theme-training-controls');
+    var scopeLabel = el('label');
+    scopeLabel.appendChild(el('span', '', localized('ALCANCE', 'ESCOPO')));
+    var scope = el('select');
+    scope.dataset.themeTrainingScope = 'scope';
+    [['theme', localized('Todo el tema', 'Todo o tema')], ['session', localized('Una sesión', 'Uma aula')]].forEach(function (optionData) {
+      var option = el('option', '', optionData[1]); option.value = optionData[0]; scope.appendChild(option);
+    });
+    scopeLabel.appendChild(scope);
+    controls.appendChild(scopeLabel);
+    var sessionLabel = el('label');
+    sessionLabel.appendChild(el('span', '', localized('SESIÓN', 'AULA')));
+    var sessionSelect = el('select');
+    sessionSelect.dataset.themeTrainingSession = 'session';
+    entries.forEach(function (entry) { var option = el('option', '', entry.lesson.date + ' · ' + entry.lesson.title); option.value = entry.lesson.id; sessionSelect.appendChild(option); });
+    sessionLabel.appendChild(sessionSelect);
+    controls.appendChild(sessionLabel);
+    var formatLabel = el('label');
+    formatLabel.appendChild(el('span', '', localized('FORMATO', 'FORMATO')));
+    var format = el('select');
+    format.dataset.themeTrainingFormat = 'format';
+    [['all', localized('Todos', 'Todos')], ['qcm', 'QCM'], ['vf', 'V / F'], ['cases', localized('Casos', 'Casos')], ['open', localized('Abiertas', 'Abertas')]].forEach(function (optionData) {
+      var option = el('option', '', optionData[1]); option.value = optionData[0]; format.appendChild(option);
+    });
+    formatLabel.appendChild(format);
+    controls.appendChild(formatLabel);
+    panel.appendChild(controls);
+
+    var list = el('div', 'content-theme-training-list');
+    panel.appendChild(list);
+    function draw() {
+      list.replaceChildren();
+      var selectedEntries = scope.value === 'session' ? entries.filter(function (entry) { return entry.lesson.id === sessionSelect.value; }) : entries;
+      var selectedFormat = format.value;
+      if (selectedFormat !== 'open') {
+        selectedEntries.forEach(function (entry) {
+          var bank = window.MedNykutoClassPractice && window.MedNykutoClassPractice.banks && window.MedNykutoClassPractice.banks[entry.lesson.practiceId];
+          var counts = bank ? { qcm: (bank.qcm || []).length, vf: (bank.vf || []).length, cases: (bank.cases || []).length } : { qcm: 0, vf: 0, cases: 0 };
+          var row = el('article', 'content-theme-training-card');
+          row.dataset.themeTrainingLesson = entry.lesson.id;
+          row.dataset.themeTrainingFormats = 'qcm vf cases';
+          row.appendChild(el('time', '', entry.lesson.date));
+          var copy = el('div');
+          copy.appendChild(el('strong', '', entry.lesson.title));
+          var countText = selectedFormat === 'all'
+            ? counts.qcm + ' QCM · ' + counts.vf + ' V/F · ' + counts.cases + ' ' + localized('casos', 'casos')
+            : counts[selectedFormat] + ' ' + ({ qcm: 'QCM', vf: 'V/F', cases: localized('casos', 'casos') }[selectedFormat]);
+          copy.appendChild(el('small', '', countText));
+          row.appendChild(copy);
+          var open = el('button', '', localized('Entrenar', 'Treinar'));
+          open.type = 'button';
+          open.dataset.themeTrainingOpen = selectedFormat;
+          open.addEventListener('click', function () {
+            selectLesson(entry.lesson.id, 'training', 'push', selectedFormat === 'all' ? '' : selectedFormat);
+          });
+          row.appendChild(open);
+          list.appendChild(row);
+        });
+      }
+      if (selectedFormat === 'all' || selectedFormat === 'open') {
+        var selectedLessonId = scope.value === 'session' ? sessionSelect.value : '';
+        var scopedNotions = themeNotions(theme).filter(function (notion) {
+          if (!selectedLessonId) return true;
+          return (notion.sourceRefs || notion.sources || []).some(function (source) { return source.lessonId === selectedLessonId; });
+        });
+        var questionEntries = !selectedLessonId && Array.isArray(theme.openQuestions) && theme.openQuestions.length
+          ? theme.openQuestions
+          : scopedNotions.slice(0, 3).map(function (notion) { return localized('Explica «', 'Explique «') + themeText(notion.label || notion.title) + localized('» y cita la sesión que sostiene tu respuesta.', '» e cite a aula que sustenta sua resposta.'); });
+        questionEntries.forEach(function (question, index) {
+          var card = el('article', 'content-theme-open-question');
+          card.dataset.themeOpenQuestion = String(index + 1);
+          card.appendChild(el('span', '', localized('PREGUNTA ABIERTA', 'QUESTÃO ABERTA')));
+          card.appendChild(el('p', '', themeText(question)));
+          list.appendChild(card);
+        });
+      }
+      if (!list.childElementCount) list.appendChild(el('p', 'notebook-empty', localized('No hay entrenamiento disponible para este filtro.', 'Não há treino disponível para este filtro.')));
+    }
+    [sessionSelect, format].forEach(function (control) { control.addEventListener('change', draw); });
+    function syncScope() { sessionSelect.disabled = scope.value !== 'session'; draw(); }
+    scope.addEventListener('change', syncScope);
+    syncScope();
+  }
+
+  function renderThemeDocuments(panel, theme, subjectModel, subject, subjectId, selectLesson, previous) {
+    var files = collectFiles(subject, subjectId);
+    var entries = themeSessionEntries(theme, subjectModel);
+    var list = el('div', 'content-theme-document-list');
+    entries.forEach(function (entry) {
+      var lessonFiles = files.filter(function (file) { return file.lessonId === entry.lesson.id; });
+      var lessonPanel = document.getElementById(entry.lesson.id);
+      var imageCount = lessonPanel ? lessonPanel.querySelectorAll('img, .course-inline-svg').length : 0;
+      var group = el('section', 'content-theme-document-session');
+      group.dataset.themeDocumentSession = entry.lesson.id;
+      group.dataset.themeDocumentLesson = entry.lesson.id;
+      var head = el('header');
+      head.appendChild(el('time', '', entry.lesson.date));
+      var copy = el('div');
+      copy.appendChild(el('strong', '', entry.lesson.title));
+      copy.appendChild(el('small', '', lessonFiles.length + ' ' + localized('archivos', 'arquivos') + ' · ' + imageCount + ' ' + localized('imágenes/tablas', 'imagens/quadros')));
+      head.appendChild(copy);
+      var sourceButton = el('button', '', localized('Ver materiales', 'Ver materiais'));
+      sourceButton.type = 'button';
+      sourceButton.addEventListener('click', function () { selectLesson(entry.lesson.id, 'material', 'push'); });
+      head.appendChild(sourceButton);
+      group.appendChild(head);
+      lessonFiles.forEach(function (file) {
+        var link = el('a', 'content-theme-document-link');
+        var isNew = themeSnapshotItemIsNew(previous, 'documents', themeDocumentToken(file));
+        link.href = file.href;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.dataset.themeDocumentSource = entry.lesson.id;
+        link.dataset.themeNew = isNew ? 'true' : 'false';
+        link.appendChild(el('span', '', file.type));
+        link.appendChild(el('strong', '', file.label));
+        if (isNew) link.appendChild(el('small', 'content-theme-document-new', localized('NUEVO', 'NOVO')));
+        link.appendChild(el('b', '', '↗'));
+        group.appendChild(link);
+      });
+      list.appendChild(group);
+    });
+    panel.appendChild(list);
+  }
+
+  function renderThemeWorkspace(panel, theme, subjectModel, subject, subjectId, selectLesson, renderThemeList, pushHistory) {
     panel.replaceChildren();
-    var header = el('header', 'notebook-view-head');
-    header.appendChild(el('span', '', 'MAPA DEL CURSO'));
-    header.appendChild(el('h3', '', 'Temas por capítulo'));
-    panel.appendChild(header);
+    var state = readCourseThemeState();
+    var previous = state.themes[theme.id] || null;
+    var snapshotEntries = themeSnapshotEntries(theme, subject, subjectId);
+    var currentSnapshot = themeSnapshot(snapshotEntries);
+    if (!publicClassFilesLoaded && previous && previous.snapshot && Array.isArray(previous.snapshot.documents)) {
+      currentSnapshot.documents = Array.from(new Set(previous.snapshot.documents.concat(currentSnapshot.documents))).sort();
+    }
+    if (!activeThemeTabById[theme.id] && previous && ['course', 'sessions', 'training', 'documents'].indexOf(previous.lastThemeTab) !== -1) {
+      activeThemeTabById[theme.id] = previous.lastThemeTab;
+    }
+    if (!activeThemeCourseViewById[theme.id] && previous && ['full', 'quick', 'ultra'].indexOf(previous.lastCourseView) !== -1) {
+      activeThemeCourseViewById[theme.id] = previous.lastCourseView;
+    }
+    var workspace = el('section', 'content-theme-workspace');
+    workspace.id = 'theme-' + theme.id;
+    workspace.dataset.courseTheme = theme.id;
+    workspace.dataset.courseThemeWorkspace = theme.id;
+    var header = el('header', 'content-theme-workspace-head');
+    var back = el('button', 'content-theme-back', '← ' + localized('Todos los temas', 'Todos os temas'));
+    back.type = 'button';
+    back.addEventListener('click', function () {
+      window.history.replaceState(null, '', '#' + subjectId);
+      renderThemeList();
+    });
+    header.appendChild(back);
+    header.appendChild(el('span', '', localized('CURSO CONSOLIDADO · ', 'CURSO CONSOLIDADO · ') + themeSessionIds(theme).length + localized(' SESIONES', ' AULAS')));
+    header.appendChild(el('h3', '', themeText(theme.course && (theme.course.title || theme.course.label)) || themeText(theme.label)));
+    header.appendChild(el('p', '', themeText(theme.summary)));
+    var unseenUpdates = previous ? themeNotions(theme).reduce(function (updates, notion) {
+      (notion.sourceRefs || notion.sources || []).forEach(function (source) {
+        var revision = source.updatedAt || source.revision || '';
+        if (String(revision) <= String(previous.seenRevision || '')) return;
+        updates.push({
+          id: [notion.id, source.lessonId, source.contribution || source.kind].join(':'),
+          revision: revision,
+          label: localized(
+            themeText(sourceContributionLabel(source.contribution || source.kind)) + ' · ' + themeText(notion.label || notion.title),
+            themeText(sourceContributionLabel(source.contribution || source.kind)) + ' · ' + themeText(notion.label || notion.title)
+          )
+        });
+      });
+      return updates;
+    }, []).filter(function (update, index, updates) {
+      return updates.findIndex(function (candidate) { return candidate.id === update.id; }) === index;
+    }) : [];
+    if (previous) {
+      [
+        ['notions', localized('Noción nueva · ', 'Noção nova · ')],
+        ['cases', localized('Caso nuevo · ', 'Caso novo · ')],
+        ['documents', localized('Documento nuevo · ', 'Documento novo · ')]
+      ].forEach(function (sectionData) {
+        var section = sectionData[0];
+        if (!previous.snapshot || !Array.isArray(previous.snapshot[section])) return;
+        snapshotEntries[section].forEach(function (entry) {
+          if (!themeSnapshotItemIsNew(previous, section, entry.token)) return;
+          unseenUpdates.push({ id: section + ':' + entry.token, revision: entry.updatedAt, label: sectionData[1] + entry.label });
+        });
+      });
+      unseenUpdates = unseenUpdates.filter(function (update, index, updates) {
+        return updates.findIndex(function (candidate) { return candidate.id === update.id; }) === index;
+      });
+    }
+    if (unseenUpdates.length) {
+      var updateBox = el('aside', 'content-theme-updates');
+      updateBox.dataset.themeUpdates = theme.id;
+      updateBox.appendChild(el('strong', '', localized('NUEVO DESDE TU ÚLTIMA VISITA', 'NOVO DESDE SUA ÚLTIMA VISITA')));
+      unseenUpdates.slice(0, 6).forEach(function (update) { updateBox.appendChild(el('span', '', themeText(update.label || update.title))); });
+      if (unseenUpdates.length > 6) updateBox.appendChild(el('span', '', '+' + (unseenUpdates.length - 6)));
+      header.appendChild(updateBox);
+    }
+    workspace.appendChild(header);
+
+    var tabs = el('div', 'content-theme-tabs');
+    tabs.setAttribute('role', 'tablist');
+    tabs.setAttribute('aria-label', localized('Vistas del tema', 'Visões do tema'));
+    [['course', localized('Curso', 'Curso')], ['sessions', localized('Sesiones', 'Aulas')], ['training', localized('Entrenar', 'Treinar')], ['documents', localized('Documentos', 'Documentos')]].forEach(function (tab) {
+      var button = el('button', '', tab[1]);
+      button.type = 'button';
+      button.dataset.themeTab = tab[0];
+      button.setAttribute('role', 'tab');
+      tabs.appendChild(button);
+    });
+    workspace.appendChild(tabs);
+
+    var panels = {};
+    ['course', 'sessions', 'training', 'documents'].forEach(function (tabId) {
+      var tabPanel = el('section', 'content-theme-panel');
+      tabPanel.dataset.themePanel = tabId;
+      tabPanel.setAttribute('role', 'tabpanel');
+      panels[tabId] = tabPanel;
+      workspace.appendChild(tabPanel);
+    });
+    renderThemeCourse(panels.course, theme, subjectModel, selectLesson, previous);
+    renderThemeSessions(panels.sessions, theme, subjectModel, selectLesson);
+    renderThemeTraining(panels.training, theme, subjectModel, selectLesson);
+    renderThemeDocuments(panels.documents, theme, subjectModel, subject, subjectId, selectLesson, previous);
+
+    function activateThemeTab(tabId) {
+      activeThemeTabById[theme.id] = tabId;
+      persistCourseThemePreference(theme.id, 'lastThemeTab', tabId);
+      tabs.querySelectorAll('[data-theme-tab]').forEach(function (button) {
+        var selected = button.dataset.themeTab === tabId;
+        button.setAttribute('aria-selected', selected ? 'true' : 'false');
+        button.tabIndex = selected ? 0 : -1;
+      });
+      Object.keys(panels).forEach(function (panelId) { panels[panelId].hidden = panelId !== tabId; });
+    }
+    tabs.querySelectorAll('[data-theme-tab]').forEach(function (button) {
+      button.addEventListener('click', function () { activateThemeTab(button.dataset.themeTab); });
+    });
+    activateThemeTab(activeThemeTabById[theme.id] || 'course');
+    panel.appendChild(workspace);
+    if (pushHistory && window.location.hash !== '#theme-' + theme.id) window.history.pushState(null, '', '#theme-' + theme.id);
+    state.version = 1;
+    state.themes[theme.id] = {
+      seenRevision: theme.updatedAt || theme.revision || '',
+      seenAt: new Date().toISOString(),
+      lastThemeTab: activeThemeTabById[theme.id] || 'course',
+      lastCourseView: activeThemeCourseViewById[theme.id] || 'full',
+      documentsComplete: Boolean(publicClassFilesLoaded || (previous && previous.documentsComplete !== false)),
+      snapshot: currentSnapshot
+    };
+    writeCourseThemeState(state);
+  }
+
+  function renderLegacyThemes(panel, subjectModel, selectLesson) {
     var list = el('div', 'notebook-chapter-list');
     subjectModel.chapters.forEach(function (chapter) {
       var group = el('section', 'notebook-chapter-row');
@@ -1434,13 +2054,66 @@
         button.type = 'button';
         button.appendChild(el('time', '', lesson.date));
         button.appendChild(el('span', '', lesson.title));
-        button.addEventListener('click', function () { selectLesson(lesson.id, true); });
+        button.addEventListener('click', function () { selectLesson(lesson.id, 'curso', 'push'); });
         lessons.appendChild(button);
       });
       group.appendChild(lessons);
       list.appendChild(group);
     });
     panel.appendChild(list);
+  }
+
+  function renderThemes(panel, subjectModel, subject, subjectId, selectLesson) {
+    panel.replaceChildren();
+    var themes = contentThemesForSubject(subjectId);
+    var header = el('header', 'notebook-view-head content-theme-list-head');
+    header.appendChild(el('span', '', localized('CURSOS TEMÁTICOS EVOLUTIVOS', 'CURSOS TEMÁTICOS EVOLUTIVOS')));
+    header.appendChild(el('h3', '', localized('Grandes temas de la materia', 'Grandes temas da matéria')));
+    header.appendChild(el('p', '', localized('Cada curso reúne nociones relacionadas sin perder las fechas ni los materiales originales.', 'Cada curso reúne noções relacionadas sem perder as datas nem os materiais originais.')));
+    panel.appendChild(header);
+    if (!themes.length) {
+      renderLegacyThemes(panel, subjectModel, selectLesson);
+      return;
+    }
+
+    var state = readCourseThemeState();
+    var progress = readProgress()[subjectId] || {};
+    var grid = el('div', 'content-theme-grid');
+    grid.dataset.courseThemeList = subjectId;
+    function drawList() { renderThemes(panel, subjectModel, subject, subjectId, selectLesson); }
+    themes.forEach(function (theme) {
+      var entries = themeSessionEntries(theme, subjectModel);
+      var done = entries.filter(function (entry) { return Boolean(progress[entry.lesson.id]); }).length;
+      var seen = state.themes[theme.id];
+      var snapshotEntries = themeSnapshotEntries(theme, subject, subjectId);
+      var hasNew = themeHasNewContent(theme, snapshotEntries, seen);
+      var card = el('article', 'content-theme-card');
+      card.dataset.courseThemeCard = theme.id;
+      card.dataset.themeNew = hasNew ? 'true' : 'false';
+      var top = el('div', 'content-theme-card-copy');
+      top.appendChild(el('span', '', localized('GRAN TEMA', 'GRANDE TEMA')));
+      top.appendChild(el('h4', '', themeText(theme.label)));
+      if (hasNew) top.appendChild(el('b', 'content-theme-new', localized('NUEVO', 'NOVO')));
+      card.appendChild(top);
+      var meta = el('div', 'content-theme-card-meta');
+      meta.appendChild(el('span', '', entries.length + localized(' sesiones', ' aulas')));
+      meta.appendChild(el('span', '', localized('Actualizado ', 'Atualizado ') + (entries.length ? entries[entries.length - 1].lesson.date : theme.revision || '')));
+      card.appendChild(meta);
+      var progressCopy = el('div', 'content-theme-card-progress');
+      progressCopy.appendChild(el('span', '', localized('Progreso', 'Progresso')));
+      progressCopy.appendChild(el('strong', '', done + '/' + entries.length));
+      var meter = el('i'); meter.appendChild(el('b')); meter.firstChild.style.width = (entries.length ? Math.round(done / entries.length * 100) : 0) + '%'; progressCopy.appendChild(meter);
+      card.appendChild(progressCopy);
+      var open = el('button', 'content-theme-open', done ? localized('Continuar', 'Continuar') : localized('Comenzar', 'Começar'));
+      open.type = 'button';
+      open.dataset.courseThemeOpen = theme.id;
+      open.addEventListener('click', function () {
+        renderThemeWorkspace(panel, theme, subjectModel, subject, subjectId, selectLesson, drawList, true);
+      });
+      card.appendChild(open);
+      grid.appendChild(card);
+    });
+    panel.appendChild(grid);
   }
 
   function renderFiles(panel, files) {
@@ -1482,10 +2155,16 @@
   }
 
   function refreshPublicFiles(event) {
+    publicClassFilesLoaded = !(event && event.detail && event.detail.complete === false);
     publicClassFiles = event && event.detail && Array.isArray(event.detail.files) ? event.detail.files.filter(function (file) { return file && (file.removedAt === null || file.removedAt === undefined || String(file.removedAt).trim() === ''); }) : [];
     Object.keys(notebookFileViews).forEach(function (subjectId) {
       var view = notebookFileViews[subjectId];
       if (view && activeModeBySubject[subjectId] === 'archivos') renderFiles(view.panel, collectFiles(view.subject, subjectId));
+      if (view && activeModeBySubject[subjectId] === 'temas' && themeOpenersBySubject[subjectId]) {
+        var workspace = view.panel.querySelector('[data-course-theme-workspace]');
+        if (workspace) themeOpenersBySubject[subjectId].showTheme(workspace.dataset.courseThemeWorkspace, false);
+        else themeOpenersBySubject[subjectId].renderThemeList();
+      }
     });
   }
 
@@ -1602,7 +2281,7 @@
     if (historyStrip) historyStrip.hidden = true;
 
     var shell = el('section', 'notebook-shell');
-    shell.setAttribute('aria-label', 'Cuaderno cronológico de ' + subjectModel.label);
+    shell.setAttribute('aria-label', 'Cursos temáticos y cuaderno cronológico de ' + subjectModel.label);
     var cover = el('header', 'notebook-cover');
     var coverCopy = el('div');
     coverCopy.appendChild(el('span', 'notebook-kicker', subjectModel.label));
@@ -1680,19 +2359,61 @@
       var index = flat.findIndex(function (entry) { return entry.lesson.id === selected.lesson.id; });
       previous.disabled = index <= 0;
       next.disabled = index >= flat.length - 1;
-      if (updateHash) window.history.replaceState(null, '', '#' + selected.lesson.id);
+      if (updateHash === 'push') window.history.pushState(null, '', '#' + selected.lesson.id);
+      else if (updateHash) window.history.replaceState(null, '', '#' + selected.lesson.id);
+    }
+
+    function openLesson(lessonId, tabId, historyMode, practiceType) {
+      activateMode('cuaderno');
+      showLesson(lessonId, historyMode || true);
+      window.requestAnimationFrame(function () {
+        var lessonPanel = document.getElementById(lessonId);
+        var tab = lessonPanel && lessonPanel.querySelector('[data-lesson-tab="' + (tabId || 'curso') + '"]');
+        if (tab) tab.click();
+        if (tabId === 'training' && practiceType) {
+          var entry = findLesson(subjectModel, lessonId);
+          var controllers = window.MedNykutoClassPractice && window.MedNykutoClassPractice.controllers;
+          var controller = entry && controllers && controllers[entry.lesson.practiceId];
+          if (controller && typeof controller.open === 'function') controller.open(practiceType);
+        }
+      });
+    }
+
+    function renderThemeList() {
+      renderThemes(viewPanel, subjectModel, subject, subjectId, openLesson);
+    }
+
+    function showTheme(themeId, pushHistory) {
+      var theme = findContentTheme(themeId);
+      if (!theme || theme.subjectId !== subjectId) return false;
+      activateMode('temas');
+      renderThemeWorkspace(viewPanel, theme, subjectModel, subject, subjectId, openLesson, renderThemeList, pushHistory);
+      return true;
     }
 
     function activateMode(mode) {
       activeModeBySubject[subjectId] = mode;
+      subject.dataset.notebookActiveMode = mode;
       modes.querySelectorAll('button').forEach(function (button) {
         button.setAttribute('aria-selected', button.dataset.notebookMode === mode ? 'true' : 'false');
       });
       dateControls.hidden = mode !== 'cuaderno';
       viewPanel.hidden = mode === 'cuaderno';
       subject.querySelectorAll(':scope > [data-lesson-panel]').forEach(function (panel) { panel.hidden = true; });
-      if (mode === 'cuaderno') showLesson(activeLessonBySubject[subjectId], false);
-      if (mode === 'temas') renderThemes(viewPanel, subjectModel, function (lessonId) { activateMode('cuaderno'); showLesson(lessonId, true); });
+      if (mode === 'cuaderno') {
+        coverCopy.querySelector('h2').textContent = 'Cuaderno';
+        showLesson(activeLessonBySubject[subjectId], false);
+      }
+      if (mode === 'temas') {
+        var themes = contentThemesForSubject(subjectId);
+        coverCopy.querySelector('h2').textContent = localized('Cursos temáticos', 'Cursos temáticos');
+        cover.querySelector('.notebook-current-title').textContent = themes.length + localized(' grandes temas · ', ' grandes temas · ') + flat.length + localized(' sesiones conservadas', ' aulas preservadas');
+        chapterStatus.replaceChildren();
+        chapterStatus.appendChild(el('span', '', localized('ORGANIZACIÓN', 'ORGANIZAÇÃO')));
+        chapterStatus.appendChild(el('strong', '', localized('Por contenido real', 'Por conteúdo real')));
+        chapterStatus.appendChild(el('small', 'chapter-state', localized('Cronología intacta', 'Cronologia intacta')));
+        renderThemeList();
+      }
       if (mode === 'archivos') renderFiles(viewPanel, collectFiles(subject, subjectId));
       if (mode === 'progreso') renderProgress(viewPanel, subjectId, subjectModel);
     }
@@ -1712,15 +2433,65 @@
       button.addEventListener('click', function () { activateMode(button.dataset.notebookMode); });
     });
 
-    var hashLesson = findLesson(subjectModel, window.location.hash.slice(1));
-    activeModeBySubject[subjectId] = 'cuaderno';
-    showLesson(hashLesson ? hashLesson.lesson.id : flat[flat.length - 1].lesson.id, false);
+    themeOpenersBySubject[subjectId] = { activateMode: activateMode, showTheme: showTheme, renderThemeList: renderThemeList };
+    var hashValue = window.location.hash.slice(1);
+    var hashLesson = findLesson(subjectModel, hashValue);
+    var hashTheme = hashValue.indexOf('theme-') === 0 ? findContentTheme(hashValue.slice(6)) : null;
+    activeLessonBySubject[subjectId] = hashLesson ? hashLesson.lesson.id : flat[flat.length - 1].lesson.id;
+    if (hashLesson) {
+      activateMode('cuaderno');
+      showLesson(hashLesson.lesson.id, false);
+    } else {
+      activateMode('temas');
+      if (hashTheme && hashTheme.subjectId === subjectId) showTheme(hashTheme.id, false);
+    }
     subject.classList.add('notebook-ready');
     if (window.MedNykutoClassI18n && typeof window.MedNykutoClassI18n.refresh === 'function') window.MedNykutoClassI18n.refresh(subject);
   }
 
+  function renderGlobalChronology() {
+    var hub = document.getElementById('materias');
+    var selector = hub && hub.querySelector('.course-selector');
+    if (!selector || hub.querySelector('[data-s4-global-chronology]')) return;
+    var rows = [];
+    Object.keys(model.subjects).forEach(function (subjectId) {
+      flattenLessons(model.subjects[subjectId]).forEach(function (entry) {
+        var matchedDate = entry.lesson.id.match(/\d{4}-\d{2}-\d{2}/);
+        var fallbackDate = entry.lesson.id === 'epidemiologia-bloque-anterior' ? '2026-08-12' : (entry.lesson.id === 'microbiologia-practica-anterior' ? '2026-08-13' : '');
+        rows.push({ subjectId: subjectId, subject: model.subjects[subjectId], lesson: entry.lesson, isoDate: matchedDate ? matchedDate[0] : fallbackDate });
+      });
+    });
+    rows.sort(function (left, right) { return right.isoDate.localeCompare(left.isoDate) || left.subject.label.localeCompare(right.subject.label); });
+    var chronology = el('details', 's4-global-chronology');
+    chronology.dataset.s4GlobalChronology = 'true';
+    chronology.appendChild(el('summary', '', localized('Cronología global · ', 'Cronologia global · ') + rows.length + localized(' sesiones', ' aulas')));
+    var list = el('div', 's4-global-chronology-list');
+    rows.forEach(function (row) {
+      var link = el('a');
+      link.href = '#' + row.lesson.id;
+      link.dataset.globalChronologyLesson = row.lesson.id;
+      var date = el('time', '', row.lesson.date);
+      if (row.isoDate) date.dateTime = row.isoDate;
+      link.appendChild(date);
+      link.appendChild(el('span', '', row.subject.label + ' · ' + row.lesson.title));
+      list.appendChild(link);
+    });
+    chronology.appendChild(list);
+    selector.insertAdjacentElement('afterend', chronology);
+  }
+
   function syncHash() {
     var lessonId = window.location.hash.slice(1);
+    if (lessonId.indexOf('theme-') === 0) {
+      var theme = findContentTheme(lessonId.slice(6));
+      var themeOpener = theme && themeOpenersBySubject[theme.subjectId];
+      if (themeOpener) themeOpener.showTheme(theme.id, false);
+      return;
+    }
+    if (model.subjects[lessonId] && themeOpenersBySubject[lessonId]) {
+      themeOpenersBySubject[lessonId].activateMode('temas');
+      return;
+    }
     Object.keys(model.subjects).some(function (subjectId) {
       var entry = findLesson(model.subjects[subjectId], lessonId);
       if (!entry) return false;
@@ -1754,6 +2525,12 @@
   function revealDeepTarget() {
     var hashId = window.location.hash.slice(1);
     if (!hashId) return;
+    if (hashId.indexOf('theme-') === 0) {
+      var contentTheme = findContentTheme(hashId.slice(6));
+      var themeSubject = contentTheme && document.getElementById(contentTheme.subjectId);
+      if (themeSubject) revealSubject(themeSubject);
+      return;
+    }
     var target = document.getElementById(hashId);
     if (!target) return;
     var lessonPanel = target.closest('[data-lesson-panel]');
@@ -1761,6 +2538,8 @@
     if (!subject || !subject.classList.contains('notebook-ready')) return;
     revealSubject(subject);
     if (!lessonPanel) {
+      var opener = themeOpenersBySubject[subject.id];
+      if (target === subject && opener) opener.activateMode('temas');
       window.history.replaceState(null, '', '#' + hashId);
       window.requestAnimationFrame(function () { target.scrollIntoView({ block: 'start', inline: 'nearest' }); });
       return;
@@ -1789,6 +2568,7 @@
 
   function init() {
     Object.keys(model.subjects).forEach(initSubject);
+    renderGlobalChronology();
     window.addEventListener('hashchange', handleHash);
     document.documentElement.classList.add('academic-notebook-ready');
     revealDeepTarget();

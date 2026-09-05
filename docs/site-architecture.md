@@ -80,6 +80,17 @@ variant: it uses original reproducible SVG schematics and four pedagogical
 boards in the guided sequence while preserving all seven reviewed boards in
 the archive.
 
+`s4-course-themes-v182.js` adds a thematic index over that same evidence, and
+`class-notebook-v445.js` / `s4-course-themes-v182.css` render it as the default
+subject entry. The hierarchy is subject → major theme → consolidated course →
+chapters/notions → dated sessions. It is a projection, not another course
+corpus: lesson panels, hashes, documents, protected banks, progress and P1/P2
+allowlists stay in place. Each notion carries lesson and section references;
+multi-theme contributions are cross-links rather than cloned sessions. The
+pure incremental merge contract and compatibility rules are documented in
+`docs/s4-thematic-courses.md` and guarded by
+`scripts/validate-s4-theme-merge.js`.
+
 ### Public Drive material registry
 
 ```txt

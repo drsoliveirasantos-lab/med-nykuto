@@ -151,6 +151,19 @@ replace or reclassify them.
 course library. It is not the source of the dated S4 notebook or of this
 learning adapter.
 
+The evolving thematic projection is declared additively in
+`s4-course-themes-v182.js` and rendered by `class-notebook-v445.js` with
+`s4-course-themes-v182.css`. It groups the same twenty-three dated lessons as
+subject → major theme → consolidated course → chapters/notions → dated
+sessions. Every consolidated notion retains explicit lesson and section
+provenance; transverse sessions may contribute to several themes without being
+cloned. Incremental contributions are merged only through stable IDs and the
+documented repetition, precision, example, extension and divergence rules.
+The original panels, hashes, documents, banks, P1/P2 scopes, progress and three
+reading themes remain authoritative and unchanged. See
+`docs/s4-thematic-courses.md` and validate with
+`scripts/validate-s4-theme-merge.js`.
+
 Published class-specific overlays created through `/gestion/<slug>` are a separate source surface. They live in the tenant-scoped D1 tables `hub_content_lessons` and `hub_content_revisions`; they must not change `content-lock.json`, the 59-module catalog or protected generated banks. The static notebook remains the offline baseline. A D1 overlay may replace the browser view only when its subject and exact lesson date match, and an unavailable API must leave that baseline untouched.
 
 El seminario de Nutrición del 20 de agosto de 2026 fue una presentación terminada, no una clase teórica nueva. La clase teórica del 27 de agosto sí está documentada y se añade como lección independiente junto con Fisiología y Microbiología práctica de la misma fecha.

@@ -129,6 +129,25 @@ function hashToken(value) {
   return crypto.createHash('sha256').update(String(value)).digest('hex');
 }
 
+async function withFixedNow(iso, callback) {
+  const NativeDate = global.Date;
+  const fixed = NativeDate.parse(iso);
+  global.Date = class FixedDate extends NativeDate {
+    constructor(...args) {
+      super(...(args.length ? args : [fixed]));
+    }
+
+    static now() {
+      return fixed;
+    }
+  };
+  try {
+    return await callback();
+  } finally {
+    global.Date = NativeDate;
+  }
+}
+
 class GuardedStatement {
   constructor(database, sql, values = []) {
     this.database = database;
@@ -864,7 +883,7 @@ async function validateRuntimeIsolation() {
   const classHub = await importSource('functions/api/class-hub.js');
   const community = await importSource('functions/api/community.js');
 
-  const legacyPublic = await classHubGet(classHub.onRequestGet, db, '?resource=public');
+  const legacyPublic = await withFixedNow('2026-09-04T12:00:00.000Z', () => classHubGet(classHub.onRequestGet, db, '?resource=public'));
   expect(legacyPublic.response.status === 200, `Class hub default 4.º E request failed (${legacyPublic.response.status}: ${JSON.stringify(legacyPublic.body)}).`);
   expect(responseClassId(legacyPublic.body) === DEFAULT_CLASS_ID, 'Class hub request without class must resolve to s4-e.');
   expect(legacyPublic.body.class?.supportWhatsapp === SYNTHETIC_SUPPORT_WHATSAPP, 'The configured public support WhatsApp is missing from the class contract.');
@@ -878,6 +897,8 @@ async function validateRuntimeIsolation() {
   expect(Array.isArray(legacyPublic.body.members) && legacyPublic.body.members.length === 2, 'The explicit S4 public roster is missing its sanitized member records.');
   expect(legacyPublic.body.members.every((member) => JSON.stringify(Object.keys(member).sort()) === JSON.stringify(['activityId', 'displayName', 'groupId', 'isLeader'].sort())), 'The public S4 roster exposes fields beyond activityId, groupId, displayName and isLeader.');
   expect(legacyPublic.body.members.some((member) => member.displayName === 'Responsable Fixture' && member.isLeader === true), 'The public S4 roster loses the leader boolean or sanitized display name.');
+  const expiredPracticalPublic = await withFixedNow('2026-09-05T04:00:00.000Z', () => classHubGet(classHub.onRequestGet, new GuardedD1Mock(), '?resource=public'));
+  expect(Array.isArray(expiredPracticalPublic.body.members) && expiredPracticalPublic.body.members.length === 0, 'The expired practical-week roster remains exposed after its archival boundary.');
 
   const s4Admin = await classHubGet(classHub.onRequestGet, db, '?class=s4-e&resource=admin', 'editor-s4-token');
   expect(s4Admin.response.status === 200, `The existing 4.º E editor lost access (${s4Admin.response.status}: ${JSON.stringify(s4Admin.body)}).`);

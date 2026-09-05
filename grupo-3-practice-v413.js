@@ -1069,7 +1069,8 @@
 
     return {
       root:root,
-      open:function(){
+      open:function(type){
+        if(typeOrder.indexOf(type) !== -1) activeType = type;
         openWorkspace();
       },
       close:closeWorkspace

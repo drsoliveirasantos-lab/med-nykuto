@@ -1,7 +1,50 @@
 const { test, expect } = require('@playwright/test');
+const fs = require('node:fs');
+const path = require('node:path');
 const { expectClinicalPageReady } = require('./helpers/practice-policy');
 
 const base = (process.env.DEPLOYED_BASE_URL || 'https://med.nykuto.com').replace(/\/$/, '');
+const repoRoot = path.resolve(__dirname, '..');
+
+function normalizedHtml(value) {
+  return value
+    .replace(/<script>\(function\(\)\{function c\(\)[\s\S]*?__CF\$cv\$params[\s\S]*?<\/script>/g, '')
+    .replace(/\r\n/g, '\n')
+    .trim();
+}
+
+async function waitForCurrentDeployment(page) {
+  const expected = [
+    ['/p1.html', fs.readFileSync(path.join(repoRoot, 'p1.html'), 'utf8')],
+    ['/clase.html', fs.readFileSync(path.join(repoRoot, 'clase.html'), 'utf8')]
+  ];
+  const deadline = Date.now() + 90000;
+  let last = 'no response';
+  do {
+    let current = true;
+    const observations = [];
+    for (const [route, source] of expected) {
+      try {
+        const response = await page.request.get(`${base}${route}?deployment-check=${Date.now()}`, {
+          failOnStatusCode: false,
+          headers: { 'cache-control': 'no-cache' },
+          timeout: 20000
+        });
+        const deployed = response.status() === 200 ? await response.text() : '';
+        const matches = response.status() === 200 && normalizedHtml(deployed) === normalizedHtml(source);
+        observations.push(`${route}: HTTP ${response.status()}, current=${matches}`);
+        if (!matches) current = false;
+      } catch (error) {
+        current = false;
+        observations.push(`${route}: ${error.message}`);
+      }
+    }
+    if (current) return;
+    last = observations.join('; ');
+    await page.waitForTimeout(5000);
+  } while (Date.now() < deadline);
+  throw new Error(`Production did not reach the checked-out P1/class HTML within 90 seconds (${last}).`);
+}
 
 async function gotoDeployed(page, path) {
   let response = null;
@@ -22,7 +65,6 @@ async function gotoDeployed(page, path) {
       type: 'external-edge-block',
       description: `Cloudflare blocked the GitHub Actions runner for ${path}${ray}`
     });
-    test.skip(true, `Cloudflare blocked the GitHub Actions runner for ${path}${ray}`);
   }
   expect(status, `${path} must not return an HTTP error`).toBeLessThan(400);
   await expect(page.locator('body')).toBeVisible({ timeout: 15000 });
@@ -31,6 +73,9 @@ async function gotoDeployed(page, path) {
 
 test.describe('Deployed production smoke', () => {
   test('public production loads key pages and core runtime markers', async ({ page }) => {
+    test.setTimeout(180000);
+    await waitForCurrentDeployment(page);
+
     await gotoDeployed(page, '/');
     await expect(page).toHaveTitle(/Med Nykuto/i);
     await expect(page.locator('body')).toContainText(/Med Nykuto/i);
@@ -45,6 +90,13 @@ test.describe('Deployed production smoke', () => {
 
     await gotoDeployed(page, '/vrai-faux.html?course=fisiologia');
     await expect(page.locator('#practiceList .single-question-card').first()).toBeVisible({ timeout: 20000 });
+
+    await gotoDeployed(page, '/clase.html');
+    await expect(page.locator('body')).toContainText(/Med Nykuto/i);
+
+    await gotoDeployed(page, '/p1.html');
+    await expect.poll(() => page.evaluate(() => window.MedNykutoP1PdfLoadState), { timeout: 30000 }).toBe('ready');
+    await expect(page.locator('#p1StartVisual strong')).toContainText('Reconocer 53 imágenes');
   });
 
   test('deployed production critical assets do not 404', async ({ page }) => {
