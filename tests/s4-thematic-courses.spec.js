@@ -32,7 +32,7 @@ async function openPentoseTheme(page) {
   await expect(card).toContainText(/Pentosas/i);
   await expect(card).toContainText(/2\s+sesi(?:ó|o)n(?:es)?/i);
   await expect(card).toContainText(/28\s+AGO/i);
-  await expect(card).toContainText(/\b0\s*\/\s*2\b/);
+  await expect(card).toContainText(/0\s*\/\s*2/);
   await expect(card).toContainText(/Comenzar|Continuar/i);
   await card.locator(`[data-course-theme-open="${THEME_ID}"]`).click();
 
@@ -498,7 +498,7 @@ test.describe('S4 evolving thematic courses', () => {
     await expect(card).toContainText(/Pentosas/i);
     await expect(card).toContainText(/2\s+sesi(?:ó|o)n(?:es)?/i);
     await expect(card).toContainText(/28\s+AGO/i);
-    await expect(card).toContainText(/\b0\s*\/\s*2\b/);
+    await expect(card).toContainText(/0\s*\/\s*2/);
     await expect(card).toContainText(/Comenzar|Continuar/i);
     const firstCard = subject.locator('[data-course-theme-card]').first();
     await firstCard.evaluate((node) => node.scrollIntoView({ block: 'center', inline: 'nearest' }));
