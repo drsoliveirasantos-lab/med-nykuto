@@ -13,6 +13,18 @@ function normalizedHtml(value) {
     .trim();
 }
 
+function skipCloudflareEdgeBlock(response, route) {
+  if (!response || response.status() !== 403) return;
+  const headers = response.headers();
+  if (!headers['cf-ray'] && !/cloudflare/i.test(headers.server || '')) return;
+  const ray = headers['cf-ray'] ? ` (ray ${headers['cf-ray']})` : '';
+  test.info().annotations.push({
+    type: 'external-edge-block',
+    description: `Cloudflare blocked the GitHub Actions runner for ${route}${ray}`
+  });
+  test.skip(true, `Cloudflare blocked the GitHub Actions runner for ${route}${ray}`);
+}
+
 async function waitForCurrentDeployment(page) {
   const expected = [
     ['/p1.html', fs.readFileSync(path.join(repoRoot, 'p1.html'), 'utf8')],
@@ -30,6 +42,7 @@ async function waitForCurrentDeployment(page) {
           headers: { 'cache-control': 'no-cache' },
           timeout: 20000
         });
+        skipCloudflareEdgeBlock(response, route);
         const deployed = response.status() === 200 ? await response.text() : '';
         const matches = response.status() === 200 && normalizedHtml(deployed) === normalizedHtml(source);
         observations.push(`${route}: HTTP ${response.status()}, current=${matches}`);
@@ -57,15 +70,7 @@ async function gotoDeployed(page, path) {
   }
   expect(response, `No response for deployed URL ${path}`).toBeTruthy();
   const status = response.status();
-  const headers = response.headers();
-  const cloudflareEdgeBlock = status === 403 && Boolean(headers['cf-ray'] || /cloudflare/i.test(headers.server || ''));
-  if (cloudflareEdgeBlock) {
-    const ray = headers['cf-ray'] ? ` (ray ${headers['cf-ray']})` : '';
-    test.info().annotations.push({
-      type: 'external-edge-block',
-      description: `Cloudflare blocked the GitHub Actions runner for ${path}${ray}`
-    });
-  }
+  skipCloudflareEdgeBlock(response, path);
   expect(status, `${path} must not return an HTTP error`).toBeLessThan(400);
   await expect(page.locator('body')).toBeVisible({ timeout: 15000 });
   await expect(page.locator('body')).not.toContainText(/Application error|Internal Server Error|404 Not Found/i, { timeout: 1000 });
