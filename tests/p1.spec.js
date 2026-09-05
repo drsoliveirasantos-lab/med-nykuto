@@ -135,23 +135,48 @@ test.describe('P1 cumulative review', () => {
     expect(visual.pending.every(Boolean)).toBe(true);
   });
 
-  test('opens a visual field, zooms it in-page and reveals clues after correction', async ({ page }) => {
+  test('opens the 53-field PDF practice, zooms in-page and reveals clues only after correction', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.getByRole('button', { name: /Reconocer 10 imágenes/ }).click();
+    // The UI uses the current PDF overlay; the base 10-field bank above stays isolated.
+    const launcher = page.locator('#p1StartVisual');
+    await expect(launcher).toContainText('Reconocer 53 imágenes');
+    await launcher.click();
 
     const dialog = page.getByRole('dialog', { name: 'Reconocimiento visual en curso' });
     await expect(dialog).toHaveAttribute('open', '');
-    await expect(dialog.locator('#p1QuestionPosition')).toHaveText('Pregunta 1 de 10');
+    await expect(dialog.locator('#p1QuestionPosition')).toHaveText('Pregunta 1 de 53');
     const image = dialog.locator('#p1Question .p1-question-media img');
-    await expect(image).toHaveAttribute('alt', 'Micrografía de microbiología práctica para identificar');
-    await expect(image).toHaveAttribute('src', /^assets\/courses\/2026-08-27\/micro-p1\/micro-p1-[a-f0-9]{10}\.webp$/);
+    await expect(image).toHaveAttribute('alt', /^Imagen \d+ del PDF P1 Micro Práctica$/);
+    await expect(image).toHaveAttribute('src', /^data:image\/jpeg;base64,/);
+    await expect.poll(() => image.evaluate((node) => ({
+      width: node.naturalWidth, height: node.naturalHeight
+    }))).toEqual({ width: 220, height: 220 });
+    const visualAudit = await page.evaluate(() => {
+      const session = window.MedNykutoP1.getSession();
+      const base = window.MedNykutoP1.buildExam({ seed: 20260830, visualOnly: true, mode: 'training' });
+      return {
+        kind: session.kind,
+        total: session.items.length,
+        uniqueIds: new Set(session.items.map((item) => item.visualRecognitionId)).size,
+        pdfOnly: session.items.every((item) => /^micro-p1-practica-pdf-\d{3}$/.test(item.visualRecognitionId)),
+        neutralAlts: session.items.every((item) => /^Imagen \d+ del PDF P1 Micro Práctica$/.test(item.imageAlt)),
+        confirmed: session.items.every((item) => item.validationPending === false),
+        baseTotal: base.items.length
+      };
+    });
+    expect(visualAudit).toEqual({
+      kind: 'visual-recognition', total: 53, uniqueIds: 53,
+      pdfOnly: true, neutralAlts: true, confirmed: true, baseTotal: 10
+    });
+    await expect(dialog.locator('#p1Question .p1-review-body')).toHaveCount(0);
+    await expect(dialog.locator('#p1Question .p1-visual-clues')).toHaveCount(0);
     const imageLayout = await image.evaluate((node) => ({
       height: node.getBoundingClientRect().height,
       viewportHeight: window.innerHeight
     }));
     expect(imageLayout.height).toBeLessThanOrEqual(Math.min(220, imageLayout.viewportHeight * 0.26) + 1);
     await expect(dialog.locator('.p1-option').nth(1)).toBeInViewport();
-    await expect(dialog.locator('.p1-validation-badge')).toHaveText('VALIDACIÓN DOCENTE PENDIENTE');
+    await expect(dialog.locator('.p1-validation-badge')).toHaveCount(0);
 
     await dialog.getByRole('button', { name: 'Ampliar la micrografía sin salir de la práctica' }).click();
     const viewer = dialog.getByRole('region', { name: 'Ampliación de la micrografía' });
@@ -166,7 +191,8 @@ test.describe('P1 cumulative review', () => {
     await dialog.locator('.p1-option').first().click();
     await dialog.getByRole('button', { name: 'Comprobar respuesta' }).click();
     await expect(dialog.locator('#p1Question .p1-review-body')).toContainText('Claves visuales:');
-    await expect(dialog.locator('#p1Question .p1-review-body')).toContainText('Validación docente pendiente');
+    await expect(dialog.locator('#p1Question .p1-review-body')).toContainText('Según el gabarito docente');
+    await expect(dialog.locator('#p1Question .p1-review-body')).toContainText('Fuente: P1 Micro Práctica.');
   });
 
   test('shows and preserves immediate correction in training mode', async ({ page }) => {

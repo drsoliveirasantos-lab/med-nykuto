@@ -14,7 +14,7 @@ permissions:
 
 concurrency:
   group: med-nykuto-site-tests-latest-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   validate:
@@ -30,6 +30,8 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm install
+      - name: Test safe CI recovery decisions
+        run: node --test scripts/monitor-main-ci.test.js
       - name: Validate split course sources and module counters
         run: node scripts/validate-course-sources.js
       - name: Validate notebook, lessons and cumulative teacher model
@@ -99,7 +101,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: static-quality-hardening-reports
+          name: static-quality-hardening-reports-attempt-${{ github.run_attempt }}
           if-no-files-found: ignore
           path: |
             reports/question-bank-quality-report.json
@@ -169,7 +171,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: desktop-core-evidence
+          name: desktop-core-evidence-attempt-${{ github.run_attempt }}
           if-no-files-found: ignore
           path: |
             desktop-core.json
@@ -203,7 +205,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: mobile-touch-evidence
+          name: mobile-touch-evidence-attempt-${{ github.run_attempt }}
           if-no-files-found: ignore
           path: |
             mobile-touch.json
@@ -242,7 +244,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: deployed-visual-a11y-evidence
+          name: deployed-visual-a11y-evidence-attempt-${{ github.run_attempt }}
           if-no-files-found: ignore
           path: |
             deployed-visual-a11y.json
@@ -279,7 +281,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lot2-visible-features-evidence
+          name: lot2-visible-features-evidence-attempt-${{ github.run_attempt }}
           if-no-files-found: ignore
           path: |
             lot2-visible-features.json
@@ -317,7 +319,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: lot3-hardening-evidence
+          name: lot3-hardening-evidence-attempt-${{ github.run_attempt }}
           if-no-files-found: ignore
           path: |
             lot3-chromium.json

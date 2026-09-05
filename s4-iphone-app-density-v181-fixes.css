@@ -1,4 +1,4 @@
-/* v181.1 · final phone-consolidation fixes for issue #180 */
+/* v181.2 · phone chrome and notebook hit-area alignment · issues #180, #183 */
 @media (max-width: 700px) {
   /* Materias is a clean selector. Keep help available elsewhere, but never as
      a floating competitor on the six-subject screen. */
@@ -38,7 +38,21 @@
      and dates do not sit behind the fixed app chrome. */
   :is(html.s4-learning-experience-v178-ready body, html body[data-class-id="s4e-g3"])
     .notebook-shell {
-    padding-top: 52px !important;
+    --s4-notebook-chrome-space: 52px;
+    padding-top: var(--s4-notebook-chrome-space) !important;
+  }
+
+  /* The utilities are absolutely positioned against the shell, not its cover.
+     They must include the same reserved space as normal-flow cover content;
+     otherwise the fixed lesson bar intercepts real taps on Temas. */
+  :is(html.s4-learning-experience-v178-ready body, html body[data-class-id="s4e-g3"])
+    .notebook-modes {
+    inset: calc(var(--s4-notebook-chrome-space, 52px) + 2px) 4px auto auto !important;
+  }
+
+  :is(html.s4-learning-experience-v178-ready body, html body[data-class-id="s4e-g3"])
+    .notebook-modes button {
+    scroll-margin-top: calc(var(--s4-phone-header, 52px) + 54px + env(safe-area-inset-top)) !important;
   }
 
   :is(html.s4-learning-experience-v178-ready body, html body[data-class-id="s4e-g3"])
