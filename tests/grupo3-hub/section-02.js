@@ -158,8 +158,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.getByRole('heading', { name: 'Tarefas ativas' })).toBeVisible();
     await expect(page.locator('#classHubLiveTasks .live-task')).toHaveCount(3);
     await expect(page.locator('#nutritionPrepCard')).toBeVisible();
-    await page.goto('/clase.html#nutricion');
-    await page.locator('#nutricion .notebook-date[data-lesson-id="nutricion-2026-08-13"]').click();
+    await page.goto('/clase.html#nutricion-2026-08-13');
     await page.locator('#nutricion-2026-08-13 [data-lesson-tab="material"]').click();
     await page.locator('[data-nutrition-mode="rapido"]').click();
     await expect(page.locator('#nutritionPreviewEyebrow')).toHaveText('RESUMO RÁPIDO · 10 IDEIAS');

@@ -72,6 +72,8 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#nutricion .notebook-date[data-lesson-id="nutricion-2026-08-13"]')).toContainText('13 AGO.');
     await expect(page.locator('#nutricion .notebook-date[data-lesson-id="nutricion-2026-08-27"]')).toContainText('27 AGO.');
     await expect(page.locator('#nutricion .notebook-date[data-lesson-id="nutricion-2026-08-20"]')).toHaveCount(0);
+    await expect(page.locator('#nutricion .notebook-current-title')).toContainText('1 gran tema · 2 sesiones conservadas');
+    await page.locator('#nutricion [data-notebook-mode="cuaderno"]').click();
     await expect(page.locator('#nutricion .notebook-current-title')).not.toContainText('20 de agosto');
     await expect(page.locator('#nutricion .notebook-current-title')).toContainText('Guías alimentarias, etiquetado y lectura crítica');
     await expect(page.locator('#nutricion-2026-08-27 .course-photo-card')).toHaveCount(4);

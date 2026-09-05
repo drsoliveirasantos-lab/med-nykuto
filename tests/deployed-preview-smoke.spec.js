@@ -16,7 +16,7 @@ function normalizedHtml(value) {
 function skipCloudflareEdgeBlock(response, route) {
   if (!response || response.status() !== 403) return;
   const headers = response.headers();
-  if (!headers['cf-ray'] && !/cloudflare/i.test(headers.server || '')) return;
+  if (String(headers['cf-mitigated'] || '').toLowerCase() !== 'challenge') return;
   const ray = headers['cf-ray'] ? ` (ray ${headers['cf-ray']})` : '';
   test.info().annotations.push({
     type: 'external-edge-block',
@@ -36,13 +36,24 @@ async function waitForCurrentDeployment(page) {
     let current = true;
     const observations = [];
     for (const [route, source] of expected) {
+      let response;
       try {
-        const response = await page.request.get(`${base}${route}?deployment-check=${Date.now()}`, {
+        response = await page.request.get(`${base}${route}?deployment-check=${Date.now()}`, {
           failOnStatusCode: false,
           headers: { 'cache-control': 'no-cache' },
           timeout: 20000
         });
-        skipCloudflareEdgeBlock(response, route);
+      } catch (error) {
+        current = false;
+        observations.push(`${route}: ${error.message}`);
+        continue;
+      }
+
+      // Keep Playwright's skip exception outside the polling catch: only a
+      // signed Cloudflare 403 may skip this test.
+      skipCloudflareEdgeBlock(response, route);
+
+      try {
         const deployed = response.status() === 200 ? await response.text() : '';
         const matches = response.status() === 200 && normalizedHtml(deployed) === normalizedHtml(source);
         observations.push(`${route}: HTTP ${response.status()}, current=${matches}`);

@@ -509,7 +509,7 @@ if (classHtml) {
   expect(modelIndex >= 0 && courseThemeIndex > modelIndex && notebookIndex > courseThemeIndex, 'clase.html/load-order', 'learning model and evolving course themes must load before the notebook adapter.');
   expect(notebookIndex >= 0 && runtimeIndex >= 0 && notebookIndex < runtimeIndex, 'clase.html/load-order', 'learning experience runtime must load after the notebook adapter.');
   expect(/s4-learning-model-v178\.js\?v=178/.test(classHtml), 'clase.html/cache', 'model reference must carry cache key v178.');
-  expect(/class-notebook-v445\.js\?v=502/.test(classHtml), 'clase.html/cache', 'notebook reference must carry cache key v502.');
+  expect(/class-notebook-v445\.js\?v=503/.test(classHtml), 'clase.html/cache', 'notebook reference must carry cache key v503.');
   expect(/s4-course-themes-v182\.css\?v=182/.test(classHtml), 'clase.html/cache', 'course-theme stylesheet must carry cache key v182.');
   expect(/s4-learning-experience-v178\.css\?v=178\.1/.test(classHtml), 'clase.html/cache', 'stylesheet reference must carry cache key v178.1.');
   expect(/s4-iphone-app-density-v181-fixes\.css\?v=181\.2/.test(styleText), 'styles/cache', 'iPhone interaction fixes must carry their current nested cache key v181.2.');

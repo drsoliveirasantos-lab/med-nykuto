@@ -141,6 +141,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     const isolatedContext = await browser.newContext({ serviceWorkers: 'block' });
     const page = await isolatedContext.newPage();
     try {
+      await page.clock.install({ time: new Date('2026-08-30T12:00:00-03:00') });
       await page.route('**/api/class-hub**', (route) => {
         const url = new URL(route.request().url());
         if (url.searchParams.get('class') === 's4-e' && url.searchParams.get('resource') === 'public') {

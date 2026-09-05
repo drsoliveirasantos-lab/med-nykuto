@@ -486,7 +486,7 @@ if (learningModel && thematic) {
 if (htmlText) {
   const learningScript = 's4-learning-model-v178.js?v=178';
   const themeScript = 's4-course-themes-v182.js?v=182';
-  const notebookScript = 'class-notebook-v445.js?v=502';
+  const notebookScript = 'class-notebook-v445.js?v=503';
   const baseStyles = 's4-learning-experience-v178.css?v=178.1';
   const themeStyles = 's4-course-themes-v182.css?v=182';
 

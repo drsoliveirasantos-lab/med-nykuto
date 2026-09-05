@@ -2407,7 +2407,13 @@
       if (mode === 'temas') {
         var themes = contentThemesForSubject(subjectId);
         coverCopy.querySelector('h2').textContent = localized('Cursos temáticos', 'Cursos temáticos');
-        cover.querySelector('.notebook-current-title').textContent = themes.length + localized(' grandes temas · ', ' grandes temas · ') + flat.length + localized(' sesiones conservadas', ' aulas preservadas');
+        var themeCountLabel = themes.length === 1
+          ? localized(' gran tema · ', ' grande tema · ')
+          : localized(' grandes temas · ', ' grandes temas · ');
+        var sessionCountLabel = flat.length === 1
+          ? localized(' sesión conservada', ' aula preservada')
+          : localized(' sesiones conservadas', ' aulas preservadas');
+        cover.querySelector('.notebook-current-title').textContent = themes.length + themeCountLabel + flat.length + sessionCountLabel;
         chapterStatus.replaceChildren();
         chapterStatus.appendChild(el('span', '', localized('ORGANIZACIÓN', 'ORGANIZAÇÃO')));
         chapterStatus.appendChild(el('strong', '', localized('Por contenido real', 'Por conteúdo real')));

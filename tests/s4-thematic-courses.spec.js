@@ -391,6 +391,8 @@ test.describe('S4 evolving thematic courses', () => {
     releasePublicData();
     theme = page.locator(`[data-course-theme="${THEME_ID}"]`);
     const document = theme.locator('[data-theme-document-source="' + PRIMARY_LESSON_ID + '"]', { hasText: baselineDocument.title });
+    await expect(document).toHaveCount(1);
+    await theme.locator('[data-theme-tab="documents"]').click();
     await expect(document).toBeVisible();
     await expect(document).toHaveAttribute('data-theme-new', 'false');
     const updateText = (await theme.locator('[data-theme-updates]').allTextContents()).join('\n');
