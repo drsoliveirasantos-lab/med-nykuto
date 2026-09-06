@@ -55,6 +55,10 @@ Before creating or updating any UI, read and apply
 Keep nested text subordinate to its own heading: page > section > subheading >
 card/item name > short description/price > metadata. Use consistent role tokens;
 retain readable long-form learning text, user text scaling and touch targets.
+For Med Nykuto, the owner's explicit 6 September 2026 choice takes precedence:
+12px course/body text, larger progressive headings, 10–11px descriptions/details.
+Read [the local implementation](../docs/typography-implementation.md); do not
+automatically restore the generic 16px reading recommendation on this site.
 Fix hierarchy inversions in the components touched by the requested update.
 Carry the standard and its AGENTS/Copilot references into every new site or
 repository created from this project.

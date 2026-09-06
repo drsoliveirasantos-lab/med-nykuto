@@ -267,3 +267,8 @@ instruction for new and updated interfaces, including sites created from this
 repository. It defines role-based sizes, readable learning content and the
 instruction handoff to future repositories. Adding the instruction does not
 itself change the existing runtime styles.
+
+The actual Med Nykuto scale now lives in `med-typography-v509.css`.
+[Diego's approved 12px reference](docs/typography-implementation.md) overrides
+the generic reading-size recommendation for this site and documents the
+runtime scope, role tokens and validation limits.

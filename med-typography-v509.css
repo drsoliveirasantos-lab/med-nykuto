@@ -1,0 +1,353 @@
+/* Med Nykuto — Diego's approved 12px reference, 2026-09-06.
+ * See docs/typography-implementation.md. Keep the browser root and zoom intact.
+ * This layer deliberately owns text roles, including historical !important
+ * mobile overrides. Important layered rules precede unlayered legacy rules.
+ * Do not move layout, colors, icon glyphs, diagrams or visibility into it.
+ */
+@layer med-typography {
+  :root {
+    --med-type-page: 1.25rem;
+    --med-type-section: 1.125rem;
+    --med-type-subheading: 1rem;
+    --med-type-card: .875rem;
+    --med-type-body: .75rem;
+    --med-type-description: .6875rem;
+    --med-type-meta: .625rem;
+    --med-type-input: 1rem;
+    --med-leading-title: 1.3;
+    --med-leading-body: 1.6;
+    --med-leading-ui: 1.4;
+  }
+
+  @media (min-width: 960px) {
+    :root {
+      --med-type-page: 1.5rem;
+      --med-type-section: 1.25rem;
+    }
+  }
+
+  body {
+    font-size: var(--med-type-body) !important;
+    line-height: var(--med-leading-body) !important;
+  }
+
+  :where(h1, h2, h3, h4, h5, h6) {
+    line-height: var(--med-leading-title) !important;
+    overflow-wrap: break-word;
+  }
+  :where(h1) { font-size: var(--med-type-page) !important; }
+  :where(h2) { font-size: var(--med-type-section) !important; }
+  :where(h3) { font-size: var(--med-type-subheading) !important; }
+  :where(h4, h5, h6) { font-size: var(--med-type-card) !important; }
+
+  /* Reading is a role, not a recursive reduction with HTML depth. */
+  :where(p, li, td, th, dd, blockquote) {
+    font-size: var(--med-type-body) !important;
+    line-height: var(--med-leading-body) !important;
+  }
+  :where(p, li, td, th, dd, blockquote)
+    :where(strong, b, em, a, span, code):not(:where(.katex *, .MathJax *, mjx-container *, math *)) {
+    font-size: inherit !important;
+  }
+  :where(small, time, figcaption) {
+    font-size: var(--med-type-meta) !important;
+    line-height: var(--med-leading-ui) !important;
+  }
+
+  /* Titles whose semantic HTML level serves a local, compact card. */
+  :where(
+    .s3-focus-card h2, .dashboard-next h2, .home-notice-card h2,
+    .subject-card h2, .module-card h2, .module-card h3,
+    .course-card h3, .course-card h4, .content-theme-card-copy h4,
+    .content-theme-notion-copy h5, .s4-notion-head h5,
+    .s4-recall-card h4, .p1-subject-card strong, .p1-lesson-body h4,
+    .subject-progress-link strong, .s3-focus-links strong,
+    .s3-study-grid strong, .s3-semester-card strong,
+    .home-transcript-copy strong, .home-quick-link-copy strong,
+    .content-theme-session strong, .content-theme-training-card strong,
+    .content-theme-document-session > header strong,
+    .content-theme-document-link strong, .content-theme-quick strong,
+    .notebook-review-recall strong, .course-selector strong,
+    .notebook-current-title, .notebook-chapter-current > strong,
+    .notebook-chapter-row > div:first-child strong,
+    .notebook-file-row > strong, .notebook-progress-row strong,
+    .lesson-file-card strong, .live-task-summary strong,
+    .live-task:not(.live-task-details) > strong,
+    .task-card summary strong, .subject-chip strong,
+    .subject-card header strong, .file-row strong, .notice-card strong,
+    .notice-page-list .notice-copy > strong, .tool-item strong,
+    .class-group-choice strong, .calendar-subscription-copy strong,
+    .audit-disclosure > summary strong, .subject-entry strong,
+    .notice-upload-copy strong, .community-steps strong,
+    .study-picker-copy strong, .ranking-name, .privacy-card strong,
+    .study-card h2, .answer-key-list strong,
+    .priority-card strong, .resource-card strong, .notice-item strong,
+    .notice-item .notice-copy > strong, .notice-preview-title,
+    .course-practice-shortcut > strong, .class-drive-copy strong,
+    .current-assignment-copy > strong, .assignment-review-open > strong,
+    .seminar-task-details > summary strong, .archive-subject-card strong,
+    .archive-subject-group > summary strong, .course-task-link strong,
+    .subject-assignment-history summary strong,
+    .group-join-heading > strong, .group-activity-card > header > strong,
+    .group-roster-assignment strong,
+    .s3-learning .dash-card > strong, .s3-study-sheet-grid strong,
+    .p1-subject-button strong, .p1-lesson-title strong,
+    .p1-key-grid strong, .p1-resume strong, .p1-visual-start strong,
+    .p1-review-title, .quick-sheet strong
+  ) {
+    font-size: var(--med-type-card) !important;
+    line-height: var(--med-leading-title) !important;
+  }
+
+  :where(
+    .content-theme-workspace-head h3, .notebook-lesson-head h3,
+    .s4-course-hero h3, .s4-review-checklist > h3, .s4-recall-head > h3,
+    .p1-sheet-header h3, .notebook-view-head h3,
+    .notebook-course-intro h3, .course-chapter-2026 > header h3,
+    .notebook-summary h3, .notebook-ultra h3
+  ) {
+    font-size: var(--med-type-section) !important;
+  }
+  :where(
+    .content-theme-chapter > header h4, .lesson-tab-panel > header h3,
+    .notebook-section > header h4, .s4-specialization-head h4,
+    .course-chapter-section h4, .dashboard-priorities-title,
+    .assignment-archive-heading > strong, .practice-dialog-heading > strong,
+    .lesson-subheading strong, .p1-image-viewer > header strong
+  ) {
+    font-size: var(--med-type-subheading) !important;
+  }
+
+  /* S3 exercises, S4 lessons/theme courses, P1 questions and explanations. */
+  :where(
+    .question-text, .question-stem, .question-command, .quiz-question,
+    .practice-question, .question-prompt h3, .vf-prompt h3,
+    .single-question-card h2, .single-question-card h3, .practice-card h3,
+    .case-stem, .option, .option span, .option em, .option-line,
+    .answer-panel, .compact-correction, .detailed-correction,
+    .answer-details-body-v102, .answer-compact-v102,
+    .compact-feedback-line, .compact-option-row, .distractor-option-v106,
+    .content-theme-ultra-question, .content-theme-example,
+    .content-theme-divergence, .content-theme-precision,
+    .content-theme-repetition, .content-theme-open-question p,
+    .content-theme-notion-copy p, .content-theme-ultra li,
+    .notebook-prose, .notebook-paragraph, .notebook-section-body,
+    .notebook-review-recall, .s4-notion-chain li, .s4-notion-meaning p,
+    .s4-notion-flash p, .s4-notion-recall p, .s4-notion-deepening p,
+    .s4-specialization-detail, .s4-glycolysis-detail,
+    .s4-review-checklist-items label, .s4-carbon-selection-note,
+    [data-s4-carbon-selection], .s4-comparison-detail,
+    [data-theme-precision], [data-theme-repetition],
+    .p1-scenario, .p1-question h3, .p1-option span,
+    .p1-feedback, .p1-explanation, .p1-lesson-body > p
+  ) {
+    font-size: var(--med-type-body) !important;
+    line-height: var(--med-leading-body) !important;
+  }
+  :where(
+    .option, .answer-panel, .compact-correction, .detailed-correction,
+    .answer-details-body-v102, .compact-option-row, .p1-option span,
+    .content-theme-example, .content-theme-divergence,
+    .content-theme-precision, .content-theme-repetition
+  ) :where(strong, b, em, span) {
+    font-size: inherit !important;
+  }
+
+  /* Descriptions are smaller than both the card title and reading text. */
+  :where(
+    .s3-dashboard-lead, .dashboard-intro, .s3-focus-card > p,
+    .s3-study-grid small, .s3-focus-links small,
+    .subject-progress-link span, .s3-semester-card-detail,
+    .home-transcript-copy em, .home-quick-link-copy em,
+    .content-theme-workspace-head > p,
+    .content-theme-session small, .content-theme-training-card small,
+    .content-theme-document-session > header small,
+    .p1-hero > div > span, .p1-subject-card small,
+    .p1-section-head > p, .p1-section-head > div > p,
+    .notebook-lesson-head > p, .notebook-review-recall small,
+    .s4-course-hero > p, .s4-review-checklist > p, .s4-recall-head > p,
+    .class-brand small, .workspace-nav small,
+    .course-card > p, .module-card > p, .subject-card > p,
+    .card-description, .help-intro, .feedback-intro,
+    .notebook-cover > p, .course-selector small,
+    .notebook-progress-row small, .notebook-material-intro,
+    .content-theme-panel-intro, .content-theme-list-head p,
+    .class-hero p, .view-heading p, .study-card p,
+    .subject-card header small, .subject-chip small, .file-row small,
+    .tool-item small, .notice-card small, .class-group-choice small,
+    .calendar-subscription-copy small, .notice-caption-preview,
+    .manage-intro p, .manage-panel > header p,
+    .field-help, .details-help, .form-help, .action-help,
+    .subject-entry small, .notice-upload-copy small,
+    .community-intro, .community-steps p, .study-picker-copy small,
+    .study-picker-heading > p:last-child, .study-topic-heading p,
+    .files-hero > p, .profile-hero p, .teacher-audit-head p,
+    .results-hero > div > p, .privacy-card p,
+    .priority-card p, .resource-card p, .notice-item small,
+    .p1-lesson-title small, .current-assignment-copy > p,
+    .course-practice-shortcut small
+  ) {
+    font-size: var(--med-type-description) !important;
+    line-height: var(--med-leading-ui) !important;
+  }
+
+  :where(
+    .eyebrow, .kicker, .badge, .question-label, .question-counter,
+    .practice-counter, .question-shortcuts, .option-state,
+    .content-theme-card-copy > span, .content-theme-new,
+    .content-theme-card-meta, .content-theme-card-meta span,
+    .content-theme-card-progress, .content-theme-card-progress strong,
+    .content-theme-source time, .content-theme-source span,
+    .content-theme-open-question > span,
+    .content-theme-training-controls label > span,
+    .content-theme-document-link > span,
+    .s4-global-chronology time, .s4-global-chronology span,
+    .s4-notion-head > span, .s4-notion-flash > span,
+    .s4-notion-chain > span, .s4-review-checklist > span,
+    .s4-recall-head > span, .s4-recall-number,
+    .p1-question-meta span, .p1-question-meta b, .p1-option b,
+    .p1-question-media figcaption, .p1-validation-badge,
+    .p1-subject-card .p1-count, .p1-stats dd,
+    .s3-dashboard-stats span, .s3-semester-card small,
+    .s3-subject-grid .subject-progress-pct,
+    .dashboard-status span, .dashboard-status small,
+    .home-transcript-copy > small, .home-quick-link-copy > small,
+    .content-theme-workspace-head > span,
+    .content-theme-chapter > header span, .content-theme-notion-copy > span,
+    .content-theme-updates span, .content-theme-document-new,
+    .content-theme-quick > article > b, .content-theme-ultra li::before,
+    .notebook-kicker, .notebook-chapter-current > span, .chapter-state,
+    .notebook-date small, .notebook-view-head span,
+    .notebook-chapter-row > div:first-child span,
+    .notebook-file-row > span, .notebook-file-row > b,
+    .notebook-lesson-head > span, .notebook-course-intro > span,
+    .course-chapter-2026 > header > span, .course-chapter-step,
+    .lesson-file-card div > span, .lesson-file-card small,
+    .live-task:not(.live-task-details) > span, .live-task-meta,
+    .course-selector .course-latest-chip, .view-heading > span,
+    .section-heading > span, .hero-meta span, .hero-meta small,
+    .task-card .task-meta, .task-card summary b,
+    .notice-meta b, .notice-meta em, .notice-timing,
+    .manage-panel > header > span, .manage-intro > span,
+    .required-mark, .optional-mark, .profile-status,
+    .community-kicker, .community-week, .ranking-meta,
+    .ranking-catraca, .ranking-verification, .ranking-you,
+    .challenge-score-label, .challenge-metrics span,
+    .files-hero > span, .file-group header span, .dynamic-tag, .file-badge,
+    .profile-hero > span, .legend span, .teacher-audit-head span,
+    .confidence-badge, .search-heading > span, .release-course,
+    .release-evaluation, .release-meta span, .result-count,
+    .assignment-date strong, .current-assignment-date > strong,
+    .home-transcript-date b, .home-transcript-date > time > b,
+    .priority-card-due, .priority-card > span,
+    .p1-sheet-numbers strong, .p1-exam-promise strong,
+    .s4-hero-progress > strong, .lesson-hero-facts strong
+  ) {
+    font-size: var(--med-type-meta) !important;
+    line-height: var(--med-leading-ui) !important;
+  }
+
+  /* Visible text controls only. Zero-size icon/pseudo-label buttons retain
+     their original hiding rules, hit areas, icons and accessible names. */
+  :where(
+    .btn, .tool-btn, .practice-quick-title, .workspace-nav strong,
+    .dashboard-next > strong, .class-scope, .class-brand strong,
+    .s3-dashboard-stats strong, .dashboard-status strong, .p1-stats dt,
+    .content-theme-open, .content-theme-tabs button,
+    .content-theme-course-modes button, .content-theme-session button,
+    .content-theme-training-card button, .content-theme-document-session button,
+    .content-theme-document-link button, .s4-global-chronology summary,
+    .s4-notion-recall summary, .s4-notion-deepening summary,
+    .s4-recall-reveal, .s4-recall-return, .s4-comparison-recall summary,
+    .p1-question-nav button, .p1-quiet, .p1-exam-options summary,
+    .p1-length-options span, .p1-filter-chip span,
+    .p1-correction-mode button, .p1-correction-mode label,
+    .p1-feedback-mode button, .p1-feedback-mode label,
+    .home-transcript-action b, .content-theme-back,
+    .content-theme-updates strong, .notebook-date strong,
+    .notebook-chapter-row button, .notebook-progress-summary,
+    .notebook-progress-chapter, .notebook-course-index a,
+    .course-chapter-index a, .lesson-file-card a,
+    .lesson-file-card button, .live-task-action, .mobile-bottom-nav strong,
+    .manage-button, .section-heading button, .filter-row button,
+    .file-row a, .study-card a, .more-actions a, .more-actions button,
+    .calendar-subscription-actions a, .calendar-subscription-actions button,
+    .notice-back, .notice-caption-toggle, .group-join, .group-leave,
+    .manage-tabs button, .manage-item-actions button,
+    .manage-item-actions a, .subject-entry button,
+    .community-back, .community-button, .community-refresh,
+    .community-error button, .ranking-score strong, .challenge-metrics strong,
+    .challenge-score, .challenge-prize strong, .challenge-countdown-units strong,
+    .study-leader-card > strong, .study-my-score-card > strong,
+    .file-actions button, .back-link, .answer-key summary,
+    .home-challenge-prize strong, .class-drive-action strong,
+    .course-detail-toggle strong, .quick-nav strong,
+    .class-context strong, .next-schedule-card > strong,
+    .lab-next strong, .agenda-day header strong, .schedule-slot strong,
+    .practice-counts strong, .practice-tab strong,
+    .practice-format-choice strong, .subject-assignment-meta strong,
+    .p1-brand strong, .p1-scope-switch strong,
+    .p1-topic-ranking strong, .p1-view-switch button strong,
+    .p1-bottom-nav strong
+  ) {
+    font-size: var(--med-type-body) !important;
+    line-height: var(--med-leading-ui) !important;
+  }
+
+  /* Input size is a functional iPhone exception, not a title or description. */
+  :where(input:not([type="checkbox"]):not([type="radio"]), textarea) {
+    font-size: var(--med-type-input) !important;
+    line-height: var(--med-leading-ui) !important;
+  }
+  :where(select) {
+    font-size: var(--med-type-body) !important;
+    line-height: var(--med-leading-ui) !important;
+  }
+
+  @media (max-width: 700px) {
+    :where(.notebook-lesson-tabs, .lesson-section-tabs) button::after {
+      font-size: var(--med-type-description) !important;
+      line-height: var(--med-leading-ui) !important;
+    }
+    /* Material is an ellipsis icon, not a text caption. */
+    :where(.notebook-lesson-tabs, .lesson-section-tabs)
+      button[data-lesson-tab="material"]::after {
+      font-size: 1rem !important;
+    }
+    .s4-specialization-node > strong {
+      font-size: var(--med-type-description) !important;
+      line-height: var(--med-leading-ui) !important;
+    }
+    .s4-specialization-node > span:first-child {
+      font-size: var(--med-type-meta) !important;
+    }
+  }
+}
+
+/* A readable card must grow with wrapped titles and user text enlargement. */
+.content-theme-card {
+  max-height: none;
+}
+.content-theme-card-copy h4 {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.content-theme-card-meta {
+  flex-wrap: wrap;
+}
+.content-theme-card-meta span {
+  white-space: normal;
+}
+.content-theme-open,
+.content-theme-tabs button,
+.content-theme-course-modes button {
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 700px) {
+  .content-theme-card {
+    max-height: none;
+    grid-template-columns: minmax(0, 1fr) minmax(76px, auto);
+  }
+}

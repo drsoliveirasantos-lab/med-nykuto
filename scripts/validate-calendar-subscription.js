@@ -199,7 +199,7 @@ async function main() {
   assert.match(css, /\.calendar-subscription-actions[^}]*grid-template-columns/);
   assert.match(css, /\.calendar-subscription-actions a,[^{]*\{[^}]*min-height:46px/);
   assert.match(publicThemeCss, /\.schedule-calendar-actions :is\(a,button\)[^{]*\{[^}]*min-height:46px/);
-  assert.ok(worker.includes("med-nykuto-shell-v488") && worker.includes("/turma-v471.js?v=488") && worker.includes("/turma-v471.css?v=488") && worker.includes("/calendar-subscription-v485.js?v=485"), 'Service worker does not precache the current turma and calendar assets.');
+  assert.ok(worker.includes("med-nykuto-shell-v509") && worker.includes("/turma-v471.js?v=488") && worker.includes("/turma-v471.css?v=488") && worker.includes("/calendar-subscription-v485.js?v=485") && worker.includes("/med-typography-v509.css?v=509"), 'Service worker does not precache the current turma, calendar and typography assets.');
 
   console.log('Calendar subscription validation passed.');
 }

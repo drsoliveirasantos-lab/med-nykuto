@@ -251,3 +251,8 @@ hierarchy for page, section, category, item, description/price and metadata role
 AGENTS and Copilot require it before UI work and require its inclusion in future
 site repositories. Compact interface text and long-form learning text have
 different readability needs; both keep details subordinate to their own heading.
+
+The runtime scale is `med-typography-v509.css`, loaded last by the interface
+pages and included in service-worker cache v509. The owner's explicit choice
+is 12px for course/body text, progressive headings and 10–11px details, taking
+precedence over the shared default. See [implementation](typography-implementation.md).
