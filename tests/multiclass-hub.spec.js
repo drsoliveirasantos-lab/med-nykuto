@@ -2287,7 +2287,7 @@ test.describe('Multiclass student hub', () => {
       '/public-theme-v485.js?v=485',
       '/calendar-subscription-v485.js?v=485'
     ]));
-    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v488['"]/);
+    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v509['"]/);
     [
       /\/gestion/i,
       /\/api\//i,

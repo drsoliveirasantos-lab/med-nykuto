@@ -350,4 +350,36 @@
     max-height: none;
     grid-template-columns: minmax(0, 1fr) minmax(76px, auto);
   }
+
+  /* Keep the approved type sizes while recovering the existing iPhone
+     density contracts with spacing and truncation, not smaller text. */
+  .bio-pathway-map {
+    padding: 3px;
+  }
+  .bio-pathway-node {
+    min-height: 88px;
+    padding: 3px 1px;
+  }
+  .bio-pathway-node > small {
+    display: none;
+  }
+  .home-transcript-card {
+    min-height: 50px;
+    padding-block: 3px;
+  }
+  .home-transcript-copy strong {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+  }
+  .live-task-summary {
+    min-height: 72px;
+    gap: 6px;
+    padding: 8px 10px;
+  }
+  .live-task-summary .live-task-meta {
+    margin-bottom: 4px;
+  }
 }

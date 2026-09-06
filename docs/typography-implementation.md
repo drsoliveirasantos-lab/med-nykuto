@@ -64,4 +64,9 @@ consolidé `Med Nykuto site tests`, avec suivi automatique du commit publié.
 Ces contrôles de source ne constituent pas une validation visuelle sur iPhone.
 L'analyse CSS couvre les rôles à 320, 390, 768 et 1280 px, les variables avec
 une racine doublée, les libellés masqués et la préservation des formules.
+Les contrôles navigateur du premier commit ont montré trois dépassements de
+hauteur sur iPhone. La correction conserve les tailles approuvées, réduit les
+espaces des cartes concernées, limite le titre des nouvelles transcriptions à
+une ligne et masque sur petit écran les précisions redondantes du schéma de
+glycolyse, dont l'explication complète reste immédiatement sous le schéma.
 Ne pas annoncer les tests navigateur ou le déploiement verts avant leur résultat.
