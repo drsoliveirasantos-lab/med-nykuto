@@ -259,3 +259,11 @@ stored in static files. The only student field allowed in the public projection
 is the numeric catraca/matrícula (4–24 digits, preserving leading zeroes), accompanied by a numeric grade or `Ausente`. Names,
 CPF, CI/RG, telephone numbers and email addresses are forbidden in this flow.
 Only the owner may publish a reviewed revision.
+
+## Shared typography standard
+
+[Typography hierarchy](docs/typography-standard.md) is the required visual
+instruction for new and updated interfaces, including sites created from this
+repository. It defines role-based sizes, readable learning content and the
+instruction handoff to future repositories. Adding the instruction does not
+itself change the existing runtime styles.

@@ -243,3 +243,11 @@ Before merging:
 1. Confirm CI is green.
 2. Confirm the user approved the merge.
 3. Do not merge if there are unresolved source-of-truth doubts.
+
+## Shared typography
+
+[The common typography standard](typography-standard.md) defines the text-size
+hierarchy for page, section, category, item, description/price and metadata roles.
+AGENTS and Copilot require it before UI work and require its inclusion in future
+site repositories. Compact interface text and long-form learning text have
+different readability needs; both keep details subordinate to their own heading.
