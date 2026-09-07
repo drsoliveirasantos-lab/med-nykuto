@@ -1625,6 +1625,54 @@
     return source && findLesson(subjectModel, source.lessonId);
   }
 
+  // A view of the original sections, never a second medical-content store.
+  // Stable source keys keep reading positions valid when new contributions arrive.
+  function appendThemeSourceSections(container, theme, source, included) {
+    var lesson = document.getElementById(source.lessonId);
+    var original = lesson && lesson.querySelector('[data-lesson-tab-panel="curso"]');
+    if (!original) return;
+    var sections = original.querySelectorAll('.course-chapter-section');
+    (source.sectionIndices || []).forEach(function (index) {
+      var section = sections[index];
+      var key = source.lessonId + '-section-' + (index + 1);
+      if (!section || included.has(key)) return;
+      included.add(key);
+      var copy = section.cloneNode(true);
+      // These learning aids repeat the original paragraphs and their controls
+      // belong to the historical lesson. The actual explanations remain intact.
+      copy.querySelectorAll('[data-s4-notion-guide], [data-s4-specialization], [data-s4-glycolysis-lab]').forEach(function (node) { node.remove(); });
+      var ids = {};
+      [copy].concat(Array.from(copy.querySelectorAll('*'))).forEach(function (node) {
+        if (node.id) { ids[node.id] = 'theme-' + theme.id + '--' + node.id; node.id = ids[node.id]; }
+        Array.from(node.attributes).forEach(function (attribute) {
+          if (attribute.name.indexOf('data-s4-') === 0) node.removeAttribute(attribute.name);
+        });
+      });
+      copy.querySelectorAll('*').forEach(function (node) {
+        Array.from(node.attributes).forEach(function (attribute) {
+          var value = attribute.value;
+          if (/^(aria-labelledby|aria-describedby|aria-controls|for)$/.test(attribute.name)) {
+            value = value.split(/\s+/).map(function (id) { return ids[id] || id; }).join(' ');
+          }
+          if (/^(href|xlink:href)$/.test(attribute.name) && value.charAt(0) === '#' && ids[value.slice(1)]) value = '#' + ids[value.slice(1)];
+          value = value.replace(/url\(#([^)]*)\)/g, function (match, id) { return ids[id] ? 'url(#' + ids[id] + ')' : match; });
+          if (value !== attribute.value) node.setAttribute(attribute.name, value);
+        });
+      });
+      // Cloning markup does not clone event listeners (diagram/gallery zoom).
+      var visualButtons = '.course-inline-diagram-trigger, .course-photo-card';
+      var originalButtons = Array.from(section.querySelectorAll(visualButtons));
+      copy.querySelectorAll(visualButtons).forEach(function (node, index) {
+        if (originalButtons[index]) node.addEventListener('click', function () { originalButtons[index].click(); });
+      });
+      copy.id = 'theme-' + theme.id + '--' + key;
+      copy.dataset.readerSection = key;
+      copy.dataset.readerLesson = source.lessonId;
+      copy.classList.add('s4-reader-section');
+      container.appendChild(copy);
+    });
+  }
+
   function renderThemeCourse(panel, theme, subjectModel, selectLesson, previous) {
     var switcher = el('div', 'content-theme-course-modes');
     switcher.setAttribute('role', 'tablist');
@@ -1645,6 +1693,7 @@
 
     var full = el('div', 'content-theme-course-view');
     full.dataset.themeCourseView = 'full';
+    var includedSections = new Set();
     themeChapters(theme).forEach(function (chapter, chapterIndex) {
       var chapterNode = el('section', 'content-theme-chapter');
       chapterNode.dataset.themeChapter = chapter.id || String(chapterIndex + 1);
@@ -1663,8 +1712,18 @@
         copy.appendChild(el('p', '', themeText(notion.summary || notion.description)));
         notionNode.appendChild(copy);
 
-        var sources = el('div', 'content-theme-sources');
+        var explanations = el('div', 's4-reader-explanations');
+        (notion.sourceRefs || notion.sources || []).forEach(function (source) {
+          appendThemeSourceSections(explanations, theme, source, includedSections);
+        });
+        if (explanations.childElementCount) {
+          notionNode.appendChild(explanations);
+          copy.hidden = true;
+        }
+
+        var sources = el('details', 'content-theme-sources');
         sources.setAttribute('aria-label', localized('Fuentes cronológicas', 'Fontes cronológicas'));
+        sources.appendChild(el('summary', '', localized('Fuentes', 'Fontes')));
         (notion.sourceRefs || notion.sources || []).forEach(function (source) {
           var entry = sourceLessonEntry(subjectModel, source);
           if (!entry) return;
@@ -1675,6 +1734,7 @@
           sourceButton.dataset.themeContribution = source.contribution || source.kind || 'introduced';
           sourceButton.appendChild(el('time', '', entry.lesson.date));
           sourceButton.appendChild(el('span', '', sourceContributionLabel(source.contribution || source.kind)));
+          sourceButton.appendChild(el('small', '', statusLabel(entry.lesson.status)));
           sourceButton.setAttribute('aria-label', sourceContributionLabel(source.contribution || source.kind) + ' · ' + entry.lesson.dateLong + ' · ' + entry.lesson.title);
           sourceButton.addEventListener('click', function () { selectLesson(source.lessonId, 'curso', 'push'); });
           sources.appendChild(sourceButton);
@@ -1934,6 +1994,7 @@
     workspace.id = 'theme-' + theme.id;
     workspace.dataset.courseTheme = theme.id;
     workspace.dataset.courseThemeWorkspace = theme.id;
+    workspace.setAttribute('aria-labelledby', workspace.id + '-title');
     var header = el('header', 'content-theme-workspace-head');
     var back = el('button', 'content-theme-back', '← ' + localized('Todos los temas', 'Todos os temas'));
     back.type = 'button';
@@ -1943,7 +2004,8 @@
     });
     header.appendChild(back);
     header.appendChild(el('span', '', localized('CURSO CONSOLIDADO · ', 'CURSO CONSOLIDADO · ') + themeSessionIds(theme).length + localized(' SESIONES', ' AULAS')));
-    header.appendChild(el('h3', '', themeText(theme.course && (theme.course.title || theme.course.label)) || themeText(theme.label)));
+    var courseTitle = el('h3', '', themeText(theme.label)); courseTitle.id = workspace.id + '-title';
+    header.appendChild(courseTitle);
     header.appendChild(el('p', '', themeText(theme.summary)));
     var unseenUpdates = previous ? themeNotions(theme).reduce(function (updates, notion) {
       (notion.sourceRefs || notion.sources || []).forEach(function (source) {
@@ -1980,9 +2042,9 @@
       });
     }
     if (unseenUpdates.length) {
-      var updateBox = el('aside', 'content-theme-updates');
+      var updateBox = el('details', 'content-theme-updates');
       updateBox.dataset.themeUpdates = theme.id;
-      updateBox.appendChild(el('strong', '', localized('NUEVO DESDE TU ÚLTIMA VISITA', 'NOVO DESDE SUA ÚLTIMA VISITA')));
+      updateBox.appendChild(el('summary', '', localized('Novedades', 'Novidades')));
       unseenUpdates.slice(0, 6).forEach(function (update) { updateBox.appendChild(el('span', '', themeText(update.label || update.title))); });
       if (unseenUpdates.length > 6) updateBox.appendChild(el('span', '', '+' + (unseenUpdates.length - 6)));
       header.appendChild(updateBox);
@@ -2069,9 +2131,7 @@
     panel.replaceChildren();
     var themes = contentThemesForSubject(subjectId);
     var header = el('header', 'notebook-view-head content-theme-list-head');
-    header.appendChild(el('span', '', localized('CURSOS TEMÁTICOS EVOLUTIVOS', 'CURSOS TEMÁTICOS EVOLUTIVOS')));
-    header.appendChild(el('h3', '', localized('Grandes temas de la materia', 'Grandes temas da matéria')));
-    header.appendChild(el('p', '', localized('Cada curso reúne nociones relacionadas sin perder las fechas ni los materiales originales.', 'Cada curso reúne noções relacionadas sem perder as datas nem os materiais originais.')));
+    header.appendChild(el('h3', '', localized('Cursos', 'Cursos')));
     panel.appendChild(header);
     if (!themes.length) {
       renderLegacyThemes(panel, subjectModel, selectLesson);
@@ -2093,11 +2153,10 @@
       card.dataset.courseThemeCard = theme.id;
       card.dataset.themeNew = hasNew ? 'true' : 'false';
       var top = el('div', 'content-theme-card-copy');
-      top.appendChild(el('span', '', localized('GRAN TEMA', 'GRANDE TEMA')));
-      top.appendChild(el('h4', '', themeText(theme.label)));
       if (hasNew) top.appendChild(el('b', 'content-theme-new', localized('NUEVO', 'NOVO')));
       card.appendChild(top);
       var meta = el('div', 'content-theme-card-meta');
+      meta.hidden = true;
       meta.appendChild(el('span', '', entries.length + localized(' sesiones', ' aulas')));
       meta.appendChild(el('span', '', localized('Actualizado ', 'Atualizado ') + (entries.length ? entries[entries.length - 1].lesson.date : theme.revision || '')));
       card.appendChild(meta);
@@ -2106,13 +2165,14 @@
       progressCopy.appendChild(el('strong', '', done + '/' + entries.length));
       var meter = el('i'); meter.appendChild(el('b')); meter.firstChild.style.width = (entries.length ? Math.round(done / entries.length * 100) : 0) + '%'; progressCopy.appendChild(meter);
       card.appendChild(progressCopy);
-      var open = el('button', 'content-theme-open', done ? localized('Continuar', 'Continuar') : localized('Comenzar', 'Começar'));
+      var open = el('button', 'content-theme-open', themeText(theme.label));
       open.type = 'button';
       open.dataset.courseThemeOpen = theme.id;
       open.addEventListener('click', function () {
+        activeThemeTabById[theme.id] = 'course';
         renderThemeWorkspace(panel, theme, subjectModel, subject, subjectId, selectLesson, drawList, true);
       });
-      card.appendChild(open);
+      var courseTitle = el('h4'); courseTitle.appendChild(open); top.prepend(courseTitle);
       grid.appendChild(card);
     });
     panel.appendChild(grid);
@@ -2164,7 +2224,7 @@
       if (view && activeModeBySubject[subjectId] === 'archivos') renderFiles(view.panel, collectFiles(view.subject, subjectId));
       if (view && activeModeBySubject[subjectId] === 'temas' && themeOpenersBySubject[subjectId]) {
         var workspace = view.panel.querySelector('[data-course-theme-workspace]');
-        if (workspace) themeOpenersBySubject[subjectId].showTheme(workspace.dataset.courseThemeWorkspace, false);
+        if (workspace) themeOpenersBySubject[subjectId].showTheme(workspace.dataset.courseThemeWorkspace, false, true);
         else themeOpenersBySubject[subjectId].renderThemeList();
       }
     });
@@ -2385,9 +2445,10 @@
       renderThemes(viewPanel, subjectModel, subject, subjectId, openLesson);
     }
 
-    function showTheme(themeId, pushHistory) {
+    function showTheme(themeId, pushHistory, preserveTab) {
       var theme = findContentTheme(themeId);
       if (!theme || theme.subjectId !== subjectId) return false;
+      if (!preserveTab) activeThemeTabById[themeId] = 'course';
       activateMode('temas');
       renderThemeWorkspace(viewPanel, theme, subjectModel, subject, subjectId, openLesson, renderThemeList, pushHistory);
       return true;
@@ -2441,7 +2502,7 @@
       button.addEventListener('click', function () { activateMode(button.dataset.notebookMode); });
     });
 
-    themeOpenersBySubject[subjectId] = { activateMode: activateMode, showTheme: showTheme, renderThemeList: renderThemeList };
+    themeOpenersBySubject[subjectId] = { activateMode: activateMode, showTheme: showTheme, renderThemeList: renderThemeList, openLesson: openLesson };
     var hashValue = window.location.hash.slice(1);
     var hashLesson = findLesson(subjectModel, hashValue);
     var hashTheme = hashValue.indexOf('theme-') === 0 ? findContentTheme(hashValue.slice(6)) : null;
@@ -2573,6 +2634,73 @@
     syncHash();
     revealDeepTarget();
   }
+
+  window.MedNykutoCourseReader = {
+    catalog: function () {
+      return Object.keys(model.subjects).map(function (subjectId) {
+        var themes = contentThemesForSubject(subjectId);
+        var courses = themes.map(function (theme) {
+          return { id: theme.id, label: themeText(theme.label), sections: themeNotions(theme).reduce(function (items, notion) {
+            return items.concat((notion.sourceRefs || notion.sources || []).reduce(function (refs, source) {
+              var lesson = document.getElementById(source.lessonId);
+              var sections = lesson ? lesson.querySelectorAll('[data-lesson-tab-panel="curso"] .course-chapter-section') : [];
+              return refs.concat((source.sectionIndices || []).map(function (index) {
+                var section = sections[index];
+                var heading = section && section.querySelector('h4, h3');
+                return { key: source.lessonId + '-section-' + (index + 1), label: heading ? heading.textContent.trim() : '', text: section ? Array.from(section.children).filter(function (node) { return node.tagName === 'P'; }).map(function (node) { return node.textContent; }).join(' ') : '' };
+              }));
+            }, []));
+          }, []) };
+        });
+        // New teacher lessons remain directly reachable before an editorial
+        // theme association exists. Never infer a medical grouping from dates.
+        var assigned = new Set(themes.reduce(function (ids, theme) { return ids.concat(themeSessionIds(theme)); }, []));
+        flattenLessons(model.subjects[subjectId]).forEach(function (entry) {
+          if (!assigned.has(entry.lesson.id)) courses.push({ id: entry.lesson.id, label: entry.lesson.title, sections: [] });
+        });
+        return { id: subjectId, label: model.subjects[subjectId].label, courses: courses };
+      });
+    },
+    open: function (themeId) {
+      var theme = findContentTheme(themeId);
+      if (!theme) return Object.keys(model.subjects).some(function (subjectId) {
+        if (!findLesson(model.subjects[subjectId], themeId) || !themeOpenersBySubject[subjectId]) return false;
+        revealSubject(document.getElementById(subjectId));
+        themeOpenersBySubject[subjectId].openLesson(themeId, 'curso', 'push');
+        return true;
+      });
+      var subject = theme && document.getElementById(theme.subjectId);
+      var opener = theme && themeOpenersBySubject[theme.subjectId];
+      if (!subject || !opener) return false;
+      revealSubject(subject);
+      return opener.showTheme(theme.id, true);
+    },
+    practice: function (themeId, lessonId) {
+      var theme = findContentTheme(themeId);
+      if (!theme) return false;
+      var ids = themeSessionIds(theme);
+      if (ids.indexOf(lessonId) === -1) lessonId = ids[0];
+      var candidates = [lessonId].concat(ids.filter(function (id) { return id !== lessonId; }));
+      return candidates.some(function (id) {
+        var entry = findLesson(model.subjects[theme.subjectId], id);
+        var runtime = window.MedNykutoClassPractice;
+        var controller = entry && runtime && runtime.controllers && runtime.controllers[entry.lesson.practiceId];
+        var bank = entry && runtime && runtime.banks && (runtime.banks[entry.lesson.practiceId] || runtime.banks[id]);
+        var format = bank && ['qcm', 'vf', 'cases'].find(function (type) { return bank[type] && bank[type].length; });
+        if (!controller || !format) return false;
+        // The established controller owns a dialog inside the historical
+        // lesson. Temporarily host that same dialog in the visible reader;
+        // its bank, question IDs, listeners and progress controller are intact.
+        var dialog = controller.root && controller.root.querySelector('.practice-dialog');
+        var home = dialog && dialog.parentNode;
+        if (!dialog || !home) return false;
+        document.body.appendChild(dialog);
+        dialog.addEventListener('close', function () { home.appendChild(dialog); }, { once: true });
+        controller.open(format);
+        return true;
+      });
+    }
+  };
 
   function init() {
     Object.keys(model.subjects).forEach(initSubject);

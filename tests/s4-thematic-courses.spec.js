@@ -34,7 +34,8 @@ async function openPentoseTheme(page) {
   await expect(card).toContainText(/2\s+sesi(?:ó|o)n(?:es)?/i);
   await expect(card).toContainText(/28\s+AGO/i);
   await expect(card).toContainText(/0\s*\/\s*2/);
-  await expect(card).toContainText(/Comenzar|Continuar/i);
+  await expect(card.locator('[data-course-theme-open]')).toHaveText(/Pentosas/i);
+  await expect(card.locator('.content-theme-card-meta')).toBeHidden();
   await card.locator(`[data-course-theme-open="${THEME_ID}"]`).click();
 
   const theme = page.locator(`[data-course-theme="${THEME_ID}"]`);
@@ -89,6 +90,109 @@ test.describe('S4 evolving thematic courses', () => {
     await expect(theme).toContainText(/28\s+AGO/i);
 
     await expect(subject.locator('[data-course-theme-card]:visible')).toHaveCount(0);
+    await theme.locator('[data-reader-section] .course-inline-diagram-trigger').first().click();
+    await expect(page.locator('.course-diagram-dialog[open]')).toBeVisible();
+    await page.locator('.course-diagram-close').click();
+    await expect(page.locator('.course-diagram-dialog[open]')).toHaveCount(0);
+    await page.screenshot({ path: testInfo.outputPath('direct-course-desktop.png') });
+  });
+
+  test('opens every S4 course directly with original explanations and unique source anchors', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'Full content projection is verified once in Chromium.');
+    await loadBiochemistryThemes(page);
+    const courses = await page.evaluate(() => window.MedNykutoCourseReader.catalog().flatMap(group => group.courses));
+    expect(courses).toHaveLength(11);
+    for (const course of courses) {
+      await page.locator('[data-s4-menu-toggle]').click();
+      await page.locator('#s4CourseSearch').fill(course.label);
+      await page.locator('#s4CourseCatalog [data-s4-course-open="' + course.id + '"]:not([data-s4-search-section])').click();
+      await expect(page.locator('#s4SiteMenu')).toBeHidden();
+      const theme = page.locator('[data-course-theme-workspace="' + course.id + '"]');
+      await expect(theme.locator('[data-theme-panel="course"]')).toBeVisible();
+      const contract = await theme.evaluate(root => {
+        const copies = [...root.querySelectorAll('[data-reader-section]')];
+        return copies.map(copy => {
+          const original = document.getElementById(copy.dataset.readerLesson);
+          const index = Number(copy.dataset.readerSection.match(/-section-(\d+)$/)[1]) - 1;
+          const section = original.querySelectorAll('[data-lesson-tab-panel="curso"] .course-chapter-section')[index];
+          const paragraphs = [...section.children].filter(node => node.tagName === 'P' && !node.classList.contains('course-chapter-step')).map(node => node.textContent.trim());
+          const sourceContent = [...section.children].filter(node => !node.matches('[data-s4-notion-guide], [data-s4-specialization], [data-s4-glycolysis-lab]')).map(node => node.textContent.trim()).filter(Boolean);
+          return { key: copy.dataset.readerSection, paragraphs: paragraphs.length, complete: paragraphs.every(text => copy.textContent.includes(text)) && sourceContent.every(text => copy.textContent.includes(text)), unique: [...copy.querySelectorAll('[id]'), copy].every(node => document.querySelectorAll('[id="' + node.id + '"]').length === 1) };
+        });
+      });
+      expect(contract.map(item => item.key).sort()).toEqual([...new Set(course.sections.map(section => section.key))].sort());
+      expect(contract.filter(item => item.paragraphs < 1 || !item.complete || !item.unique), course.id).toEqual([]);
+      await expect(theme.locator('.content-theme-sources').first()).not.toHaveAttribute('open', '');
+      await expect(theme.locator('.content-theme-source').first()).toBeHidden();
+    }
+  });
+
+  test('keeps a separate reading position across courses, reload and a source detour', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'Persistent position is verified once in Chromium.');
+    const { theme } = await openPentoseTheme(page);
+    const section = theme.locator('[data-reader-section]').nth(3);
+    const key = await section.getAttribute('data-reader-section');
+    const heading = await section.locator('h4, h3').first().textContent();
+    await page.locator('[data-s4-index-toggle]').click();
+    await page.locator('#s4CourseIndex').getByRole('button', { name: heading.trim(), exact: true }).first().click();
+    await expect.poll(() => page.evaluate(id => JSON.parse(localStorage.getItem('med-nykuto-s4-reader-v511') || '{}')[id]?.anchor, THEME_ID)).toBe(key);
+    await page.locator('[data-s4-menu-toggle]').click();
+    await page.locator('#s4CourseSearch').fill('Glucólisis');
+    await page.locator('#s4CourseCatalog [data-s4-course-open]:not([data-s4-search-section])').first().click();
+    await expect(page.locator('[data-course-theme-workspace]')).not.toHaveAttribute('data-course-theme-workspace', THEME_ID);
+    await page.locator('[data-s4-menu-toggle]').click();
+    await page.locator('#s4CourseSearch').fill('Pentosas');
+    await page.locator('#s4CourseCatalog [data-s4-course-open="' + THEME_ID + '"]:not([data-s4-search-section])').click();
+    await expect.poll(async () => Math.abs((await page.locator('[data-reader-section="' + key + '"]').boundingBox()).y - 100)).toBeLessThan(60);
+    await page.reload();
+    await expect.poll(async () => Math.abs((await page.locator('[data-reader-section="' + key + '"]').boundingBox()).y - 100)).toBeLessThan(60);
+    const source = page.locator('[data-course-theme-workspace] .content-theme-sources').first();
+    await source.locator('summary').click();
+    await source.locator('[data-theme-source]').first().click();
+    await expect(page.locator('[data-s4-return-course]')).toBeVisible();
+    await page.locator('[data-s4-return-course]').click();
+    await expect(page.locator('[data-course-theme-workspace="' + THEME_ID + '"]')).toBeVisible();
+  });
+
+  test('searches a notion directly and starts existing questions without another selection', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'Question and search context is verified once in Chromium.');
+    const { theme } = await openPentoseTheme(page);
+    await page.locator('[data-s4-menu-toggle]').click();
+    await page.locator('#s4CourseSearch').fill('ribosa');
+    const result = page.locator('#s4CourseCatalog [data-s4-search-section][data-s4-course-open="' + THEME_ID + '"]').first();
+    const key = await result.getAttribute('data-s4-search-section');
+    await result.click();
+    await expect(page.locator('[data-reader-section="' + key + '"]')).toBeFocused();
+    await page.locator('[data-s4-train]').click();
+    const dialog = page.locator('.practice-dialog[open]');
+    await expect(dialog).toBeVisible();
+    await expect(dialog.locator('.practice-question-card')).toBeVisible();
+    await dialog.locator('.practice-dialog-close').click();
+    await expect(theme.locator('[data-theme-panel="course"]')).toBeVisible();
+    await expect(page.locator('[data-reader-section="' + key + '"]')).toBeFocused();
+    await page.locator('[data-s4-return-course]').click();
+    await expect(theme.locator('[data-theme-panel="course"]')).toBeVisible();
+  });
+
+  test('preserves the course list and search when switching between desktop and mobile', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'desktop-chromium', 'Responsive transition is verified in Chromium; native WebKit runs the mobile layout test.');
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await openPentoseTheme(page);
+    await expect(page.locator('#s4CourseSidebar')).toBeVisible();
+    await expect(page.locator('#s4CourseCatalog [aria-current="page"]')).toHaveAttribute('data-s4-course-open', THEME_ID);
+    await page.locator('[data-s4-menu-toggle]').click();
+    await page.locator('#s4CourseSearch').fill('ribosa');
+    await page.setViewportSize({ width: 390, height: 844 });
+    await expect(page.locator('#s4SiteMenu')).toBeVisible();
+    await expect(page.locator('#s4CourseSearch')).toHaveValue('ribosa');
+    await page.keyboard.press('Escape');
+    await expect(page.locator('[data-s4-menu-toggle]')).toBeFocused();
+    await page.locator('[data-s4-menu-toggle]').click();
+    await expect(page.locator('#s4CourseSearch')).toHaveValue('ribosa');
+    const targets = page.locator('#s4CourseCatalog button');
+    expect(await targets.count()).toBeGreaterThan(0);
+    expect(await targets.evaluateAll(nodes => Math.min(...nodes.map(node => node.getBoundingClientRect().height)))).toBeGreaterThanOrEqual(44);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
   });
 
   test('moves between contributing sessions, scoped training and documents without changing the 20/10/10 bank', async ({ page }, testInfo) => {
@@ -171,7 +275,8 @@ test.describe('S4 evolving thematic courses', () => {
     await page.goBack();
     theme = page.locator(`[data-course-theme="${THEME_ID}"]`);
     await expect(theme).toBeVisible();
-    await expect(theme.locator('[data-theme-tab="training"]')).toHaveAttribute('aria-selected', 'true');
+    await expect(theme.locator('[data-theme-tab="course"]')).toHaveAttribute('aria-selected', 'true');
+    await clickStudyControl(page, theme.locator('[data-theme-tab="training"]'));
     const restoredScope = theme.locator('[data-theme-training-scope]');
     await expect(restoredScope).toHaveValue('theme');
     const restoredTrainingRows = theme.locator('[data-theme-training-lesson]');
@@ -257,11 +362,11 @@ test.describe('S4 evolving thematic courses', () => {
       lastThemeTab: 'documents'
     }));
 
-    await page.goto(`/clase.html#theme-${THEME_ID}`, { waitUntil: 'domcontentloaded' });
+    await page.reload({ waitUntil: 'domcontentloaded' });
     theme = page.locator(`[data-course-theme="${THEME_ID}"]`);
     await expect(theme).toBeVisible();
-    await expect(theme.locator('[data-theme-tab="documents"]')).toHaveAttribute('aria-selected', 'true');
-    await expect(theme.locator('[data-theme-panel="documents"]')).toBeVisible();
+    await expect(theme.locator('[data-theme-tab="course"]')).toHaveAttribute('aria-selected', 'true');
+    await expect(theme.locator('[data-theme-panel="course"]')).toBeVisible();
     await clickStudyControl(page, theme.locator('[data-theme-tab="course"]'));
     await expect(theme.locator('[data-theme-course-mode="full"]')).toHaveAttribute('aria-selected', 'true');
     await expect(theme.locator('[data-theme-course-view="full"]')).toBeVisible();
@@ -329,6 +434,7 @@ test.describe('S4 evolving thematic courses', () => {
 
     releasePublicData();
     theme = page.locator(`[data-course-theme="${THEME_ID}"]`);
+    await clickStudyControl(page, theme.locator('[data-theme-tab="documents"]'));
     const document = theme.locator('[data-theme-document-source="' + PRIMARY_LESSON_ID + '"]', { hasText: seenDocument.title });
     await expect(document).toBeVisible();
     await expect(document).toHaveAttribute('data-theme-new', 'false');
@@ -499,7 +605,8 @@ test.describe('S4 evolving thematic courses', () => {
     await expect(card).toContainText(/2\s+sesi(?:ó|o)n(?:es)?/i);
     await expect(card).toContainText(/28\s+AGO/i);
     await expect(card).toContainText(/0\s*\/\s*2/);
-    await expect(card).toContainText(/Comenzar|Continuar/i);
+    await expect(card.locator('[data-course-theme-open]')).toHaveText(/Pentosas/i);
+    await expect(card.locator('.content-theme-card-meta')).toBeHidden();
     const firstCard = subject.locator('[data-course-theme-card]').first();
     await firstCard.evaluate((node) => node.scrollIntoView({ block: 'center', inline: 'nearest' }));
     await expect(firstCard).toBeInViewport();
@@ -551,11 +658,14 @@ test.describe('S4 evolving thematic courses', () => {
     await expect(theme.locator('.content-theme-course-modes')).toBeHidden();
     const themeTargets = page.locator('[data-s4-menu-toggle]:visible, [data-s4-index-toggle]:visible, [data-s4-train]:visible');
     await expect(themeTargets).toHaveCount(3);
+    expect(await theme.locator('[data-reader-section] .course-inline-figure').evaluateAll(nodes => nodes.every(node => getComputedStyle(node).float === 'none'))).toBe(true);
+    await page.screenshot({ path: testInfo.outputPath('direct-course-mobile.png') });
     const minimumThemeTargetHeight = await themeTargets.evaluateAll((nodes) => (
       Math.min(...nodes.map((node) => node.getBoundingClientRect().height))
     ));
     expect(minimumThemeTargetHeight).toBeGreaterThanOrEqual(43.9);
     await page.locator('[data-s4-menu-toggle]').click();
+    await page.locator('#s4SiteMenu [data-s4-tools] > summary').click();
     for (const mode of ['sessions', 'documents']) {
       const action = page.locator('#s4SiteMenu [data-s4-target-theme-tab="' + mode + '"]');
       await expect(action).toBeVisible();

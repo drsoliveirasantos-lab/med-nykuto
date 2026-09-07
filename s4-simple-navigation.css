@@ -32,3 +32,64 @@ html[data-theme="light"] { --s4-nav-bg:#fff; --s4-nav-text:#172c3d; --s4-nav-bor
 @media(prefers-reduced-motion:reduce) { .s4-navigation-dialog { scroll-behavior:auto; } }
 
 .s4-navigation-dialog summary { min-height:44px; padding:12px 0; cursor:pointer; box-sizing:border-box; }
+
+/* One course title opens its explanations; chronology stays in Sources. */
+.s4-simple-navigation-ready .content-theme-card { display:flex; flex-direction:column; gap:8px; padding:12px; }
+.s4-simple-navigation-ready .content-theme-card-copy { display:flex; align-items:center; gap:8px; }
+.s4-simple-navigation-ready .content-theme-card-copy h4 { flex:1; margin:0; }
+.s4-simple-navigation-ready .content-theme-open { display:block; width:100%; min-height:44px; margin:0; padding:10px 12px; text-align:left; font-size:14px; white-space:normal; }
+.s4-simple-navigation-ready .content-theme-card-meta[hidden],
+.s4-simple-navigation-ready .content-theme-notion-copy[hidden] { display:none!important; }
+.s4-simple-navigation-ready .content-theme-workspace-head > .content-theme-back,
+.s4-simple-navigation-ready .content-theme-workspace-head > span,
+.s4-simple-navigation-ready .content-theme-workspace-head > p { display:none; }
+.s4-simple-navigation-ready .subject-section:has([data-course-theme-workspace]) .notebook-cover { display:none; }
+.s4-simple-navigation-ready .s4-theme-open #materias { display:none; }
+.s4-simple-navigation-ready .s4-theme-open .subject-section { margin-top:0; }
+.s4-simple-navigation-ready .content-theme-card-copy { width:100%; box-sizing:border-box; }
+.s4-simple-navigation-ready .content-theme-chapter { padding:0 12px; }
+.s4-simple-navigation-ready .content-theme-chapter > header { margin-inline:-12px; }
+.s4-simple-navigation-ready .subject-section[data-notebook-active-mode="temas"] .notebook-cover .notebook-chapter-status,
+.s4-simple-navigation-ready .subject-section[data-notebook-active-mode="temas"] .notebook-cover .notebook-current-title { display:none; }
+.s4-simple-navigation-ready .content-theme-chapter > header { margin-bottom:12px; }
+.s4-simple-navigation-ready .content-theme-chapter > header > span { display:none; }
+.s4-simple-navigation-ready .content-theme-notion { display:block; padding:0; background:none; border:0; }
+.s4-simple-navigation-ready .s4-reader-section { padding:12px 0; border:0; border-radius:0; background:none; min-width:0; }
+.s4-simple-navigation-ready .s4-reader-section > .course-chapter-step { display:none; }
+.s4-simple-navigation-ready .s4-reader-section :is(p,li,td,th,blockquote) { font-size:12px; line-height:1.7; }
+.s4-simple-navigation-ready .s4-reader-section h4 { font-size:16px; line-height:1.4; }
+.s4-simple-navigation-ready .s4-reader-section h4 { max-width:none; }
+.s4-simple-navigation-ready .s4-reader-section figcaption small { display:none; }
+.s4-simple-navigation-ready .s4-reader-section :is(img,svg,video) { max-width:100%; }
+.s4-simple-navigation-ready .s4-reader-section :is(table,pre) { display:block; max-width:100%; overflow-x:auto; }
+.s4-simple-navigation-ready .content-theme-sources { display:block; margin:8px 0 22px; font-size:11px; }
+.s4-simple-navigation-ready .content-theme-sources > summary,
+.s4-simple-navigation-ready .content-theme-updates > summary { min-height:44px; padding:12px 0; box-sizing:border-box; cursor:pointer; }
+.s4-simple-navigation-ready .content-theme-source { min-height:44px; margin:4px; white-space:normal; }
+.s4-simple-navigation-ready .content-theme-updates { display:block; }
+.s4-simple-navigation-ready .content-theme-updates > span { display:block; padding:4px 0; }
+#s4CourseSidebar { display:none; }
+#s4CourseCatalog { min-width:0; }
+#s4CourseCatalog label { display:block; font:600 11px/1.5 system-ui,sans-serif; margin-bottom:6px; }
+#s4CourseSearch { width:100%; box-sizing:border-box; min-height:44px; border:1px solid var(--s4-nav-border); border-radius:8px; padding:10px; color:var(--s4-nav-text); background:var(--s4-nav-bg); font:400 16px/1.4 system-ui,sans-serif; }
+#s4CourseCatalog nav { display:grid; gap:8px; margin-top:12px; }
+#s4CourseCatalog summary { min-height:44px; padding:12px 0; box-sizing:border-box; cursor:pointer; font:600 13px/1.5 system-ui,sans-serif; }
+#s4CourseCatalog button { display:block; width:100%; min-height:44px; padding:10px 12px; border:1px solid transparent; border-radius:8px; text-align:left; white-space:normal; overflow-wrap:anywhere; color:var(--s4-nav-text); background:transparent; font:400 12px/1.5 system-ui,sans-serif; cursor:pointer; }
+#s4CourseCatalog button[aria-current="page"] { border-color:var(--s4-nav-accent); font-weight:700; }
+#s4CourseCatalog button:hover { background:color-mix(in srgb,var(--s4-nav-accent) 12%,transparent); }
+#s4CourseCatalog [role="status"] { font-size:11px; }
+#s4CourseCatalog [role="status"]:empty { display:none; }
+.s4-navigation-dialog [data-s4-tools] > button { display:block; }
+:is(#s4CourseCatalog,.s4-navigation-dialog,.s4-reading-actions) :is(button,input,summary):focus-visible { outline:2px solid var(--s4-nav-accent); outline-offset:2px; }
+@media(min-width:1100px) {
+  .s4-catalog-persistent #s4CourseSidebar { display:block; box-sizing:border-box; position:fixed; z-index:90; top:95px; bottom:80px; left:max(12px,calc((100vw - 1400px)/2)); width:240px; padding:12px; overflow-y:auto; overscroll-behavior:contain; background:var(--s4-nav-bg); color:var(--s4-nav-text); border-right:1px solid var(--s4-nav-border); }
+  .s4-simple-navigation-ready .s4-catalog-persistent .class-app { padding-left:270px; }
+  .s4-simple-navigation-ready .s4-catalog-persistent .workspace-nav { display:none!important; }
+  .s4-catalog-persistent .s4-reading-actions { left:270px; }
+}
+@media(max-width:700px) {
+  .s4-simple-navigation-ready .s4-reader-section { padding:12px 0!important; }
+  .s4-simple-navigation-ready .s4-reader-section:before { display:none; }
+  .s4-simple-navigation-ready .s4-reader-section .course-inline-figure { float:none!important; clear:both; width:100%!important; max-width:100%!important; margin:12px 0!important; }
+  .s4-simple-navigation-ready .s4-reader-section .course-inline-figure :is(img,svg) { display:block; width:100%; max-height:200px; object-fit:contain; }
+}

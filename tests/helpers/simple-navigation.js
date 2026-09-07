@@ -2,7 +2,8 @@
 async function clickStudyControl(page, target) {
   if (await target.isVisible()) return target.click();
   const mode = await target.getAttribute('data-lesson-tab') || await target.getAttribute('data-theme-tab');
-  if (mode === 'training' && await page.locator('[data-s4-train]').isVisible()) return page.locator('[data-s4-train]').click();
+  // The primary Practice action starts questions directly. Tests of the
+  // advanced bank/filter view reach that distinct public tool through Courses.
   if (['curso', 'course'].includes(mode)) {
     const back = page.locator('[data-s4-return-course]');
     if (await back.isVisible()) return back.click();
@@ -21,7 +22,9 @@ async function clickStudyControl(page, target) {
   }
   if (!selector) return target.click();
   await page.locator('[data-s4-menu-toggle]').click();
-  if (selector.includes('target-lesson-id')) await page.locator('#s4SiteMenu details > summary').click();
-  await page.locator('#s4SiteMenu').locator(selector).click();
+  const control = page.locator('#s4SiteMenu').locator(selector);
+  const closedParents = control.locator('xpath=ancestor::details[not(@open)]');
+  for (const parent of (await closedParents.all()).reverse()) await parent.locator(':scope > summary').click();
+  await control.click();
 }
 module.exports = { clickStudyControl };
