@@ -27,10 +27,11 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('.workspace-nav .nav-icon')).toHaveCount(6);
     await expect(page.locator('.workspace-nav .nav-icon svg')).toHaveCount(6);
     await expect(page.locator('.workspace-nav').getByText('INI', { exact: true })).toHaveCount(0);
-    await expect(page.locator('.workspace-nav').getByText('Tareas', { exact: true })).toBeVisible();
-    await expect(page.locator('.workspace-nav').getByText('Avisos', { exact: true })).toBeVisible();
-    await expect(page.locator('.workspace-nav').getByText('Materias', { exact: true })).toBeVisible();
-    await expect(page.locator('.workspace-nav').getByText('P1', { exact: true })).toBeVisible();
+    await page.locator('[data-s4-menu-toggle]').click();
+    for (const name of ['Tareas', 'Avisos', 'Materias', 'P1']) {
+      await expect(page.locator('#s4SiteMenu').getByRole('button', { name, exact: true })).toBeVisible();
+    }
+    await page.keyboard.press('Escape');
     await page.goto('/clase.html#materias');
     await expect(page.locator('.course-selector .course-icon svg')).toHaveCount(6);
     for (const code of ['NUT', 'FIS', 'BIO', 'EPI', 'MIC', 'LAB']) {

@@ -1,21 +1,20 @@
+const { clickStudyControl } = require('../helpers/simple-navigation');
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
-  test('switches theoretical Microbiology to Repasar independently', async ({ page }) => {
+  test('opens the complete course without exposing retired quick formats', async ({ page }) => {
     await page.goto('/clase.html#microbiologia-teorica-2026-08-10');
-    const quickView = page.locator('#microbiologia-teorica-2026-08-10 [data-lesson-tab="rapida"]');
-    await expect(quickView).toHaveText('Repasar');
-    await quickView.click();
-    await expect(page.locator('#microbiologia-teorica-2026-08-10 .notebook-review-card')).toHaveCount(8);
-    await expect(quickView).toHaveAttribute('aria-selected', 'true');
+    await expect(page.locator('[data-s4-index-toggle]')).toBeVisible();
+    await expect(page.locator('#microbiologia-teorica-2026-08-10 [data-lesson-tab="rapida"]')).toBeHidden();
+    await expect(page.locator('#microbiologia-teorica-2026-08-10 [data-lesson-tab-panel="curso"]')).toBeVisible();
   });
 
   test('saves notebook progress by lesson', async ({ page }) => {
     await page.goto('/clase.html#fisiologia-2026-08-20');
-    await page.locator('#fisiologia [data-notebook-mode="progreso"]').click();
+    await clickStudyControl(page, page.locator('#fisiologia [data-notebook-mode="progreso"]'));
     const firstTask = page.locator('#fisiologia .notebook-progress-row input').first();
     await firstTask.check();
     await expect(page.locator('#fisiologia .notebook-progress-summary')).toContainText('1 de 6');
     await page.reload();
-    await page.locator('#fisiologia [data-notebook-mode="progreso"]').click();
+    await clickStudyControl(page, page.locator('#fisiologia [data-notebook-mode="progreso"]'));
     await expect(firstTask).toBeChecked();
   });
 
@@ -34,7 +33,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(bottomNavigation.getByRole('link')).toHaveCount(5);
       await expect(bottomNavigation.getByRole('link', { name: 'Avisos' })).toHaveCount(0);
       await expect(bottomNavigation.getByRole('link', { name: 'P1' })).toBeVisible();
-      await expect(page.locator('#noticeBell')).toBeVisible();
+      await expect(page.locator('[data-s4-menu-toggle]')).toBeVisible();
       await expect(bottomNavigation.getByRole('link', { name: 'Plan' })).toHaveCount(0);
       await expect(page.locator('.header-back')).toBeHidden();
       await expect(page.locator('.workspace-nav')).toBeHidden();
@@ -59,7 +58,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       expect(mobileLayout.switcherBottom).toBeLessThanOrEqual(mobileLayout.bottomTop);
       expect(mobileLayout.navScrollWidth).toBeLessThanOrEqual(mobileLayout.navClientWidth + 1);
       expect(mobileLayout.minItemWidth).toBeGreaterThanOrEqual(44);
-      await page.locator('#noticeBell').click();
+      await clickStudyControl(page, page.locator('#noticeBell'));
       await expect(page.locator('#avisos')).toBeVisible();
     } else {
       await expect(bottomNavigation).toBeHidden();
@@ -159,7 +158,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(page.locator('#' + id)).toBeVisible();
       await expect(page.locator('#' + id)).toHaveAttribute('data-notebook-narrative', 'true');
       await expect(page.locator('#' + id + ' [data-lesson-tabs] button')).toHaveCount(6);
-      await expect(page.locator('#' + id + ' > [data-lesson-tabs]')).toBeVisible();
+      await expect(page.locator('#' + id + ' > [data-lesson-tabs]')).toBeHidden();
       expect(await page.locator('#' + id + ' > [data-lesson-tabs] button').allTextContents()).toEqual([
         'Comprender',
         'Repasar',
@@ -192,10 +191,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(firstRecallCard.locator('[data-s4-mastery="dominado"]')).toHaveText('Dominado');
       await expect(firstRecallCard.locator('[data-s4-mastery="dudo"]')).toHaveText('Dudo');
       await expect(firstRecallCard.locator('[data-s4-mastery="revisar"]')).toHaveText('Revisar');
-      await page.locator('#' + id + ' [data-lesson-tab="ultra"]').click();
-      await expect(ultra).toBeVisible();
-      await firstRecallCard.locator('[data-s4-recall-reveal]').click();
-      await expect(recallAnswer).toBeVisible();
+      await expect(ultra).toBeHidden();
+      await expect(quick).toBeHidden();
+      await expect(page.locator('[data-s4-index-toggle]')).toBeVisible();
     }
   });
 
@@ -261,13 +259,13 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.goto('/clase.html#bioquimica-2026-08-21');
     const workspace = page.locator('#bioquimica .notebook-modes');
     await expect(workspace.getByRole('button')).toHaveCount(4);
-    await workspace.getByRole('button', { name: 'Archivos' }).click();
+    await clickStudyControl(page, workspace.getByRole('button', { includeHidden: true, name: 'Archivos' }));
     await expect(page.locator('#bioquimica .notebook-file-row')).not.toHaveCount(0);
-    await workspace.getByRole('button', { name: 'Progreso' }).click();
+    await clickStudyControl(page, workspace.getByRole('button', { includeHidden: true, name: 'Progreso' }));
     const first = page.locator('#bioquimica .notebook-progress-row input').first();
     await first.check();
     await expect(page.locator('#bioquimica .notebook-progress-summary')).toContainText('1 de');
-    await workspace.getByRole('button', { name: 'Cuaderno' }).click();
+    await clickStudyControl(page, workspace.getByRole('button', { includeHidden: true, name: 'Cuaderno' }));
     await expect(page.locator('#bioquimica-2026-08-21')).toBeVisible();
   });
 
@@ -305,7 +303,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
         });
       });
       await page.goto(new URL('/clase.html#bioquimica-2026-08-21', bootstrapPage.url()).href);
-      await page.locator('#bioquimica [data-notebook-mode="archivos"]').click();
+      await clickStudyControl(page, page.locator('#bioquimica [data-notebook-mode="archivos"]'));
       const rows = page.locator('#bioquimica .notebook-file-row');
       const managedRows = page.locator('#bioquimica .notebook-file-row[data-file-source="hub"]');
       await expect(rows).not.toHaveCount(0);
@@ -373,35 +371,20 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     }
   });
 
-  test('keeps the new lesson shell inside 320 to 430 pixel viewports', async ({ page }) => {
+  test('keeps the reader, menu and index usable from 320 to 430 pixels', async ({ page }) => {
     for (const width of [320, 375, 390, 430]) {
       await page.setViewportSize({ width, height: 844 });
-      await page.goto(`/clase.html?viewport=${width}#fisiologia-2026-08-20`);
-      const dimensions = await page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth }));
-      expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
-      const tabHeight = await page.locator('#fisiologia-2026-08-20 [data-lesson-tabs] button').first().evaluate((node) => node.getBoundingClientRect().height);
-      expect(tabHeight).toBeGreaterThanOrEqual(38);
-      await page.locator('#fisiologia-2026-08-20 [data-lesson-tab="rapida"]').click();
-      let reviewDimensions = await page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth }));
-      expect(reviewDimensions.scrollWidth).toBeLessThanOrEqual(reviewDimensions.clientWidth + 1);
-      await expect(page.locator('#fisiologia-2026-08-20 .notebook-review-recall')).toBeVisible();
-      await page.locator('#fisiologia-2026-08-20 [data-lesson-tab="ultra"]').click();
-      reviewDimensions = await page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth }));
-      expect(reviewDimensions.scrollWidth).toBeLessThanOrEqual(reviewDimensions.clientWidth + 1);
-      const recallCard = page.locator('#fisiologia-2026-08-20 [data-s4-recall-card]').first();
-      await expect(recallCard).toBeVisible();
-      const recallAnswer = recallCard.locator('[data-s4-recall-answer]');
-      const reveal = recallCard.locator('[data-s4-recall-reveal]');
-      await expect(recallAnswer).toBeHidden();
-      await expect(reveal).toBeVisible();
-      await expect(recallCard.locator('[data-s4-mastery]')).toHaveCount(3);
-      const recallTargets = await recallCard.locator('[data-s4-recall-reveal], [data-s4-mastery]').evaluateAll((controls) => controls.map((control) => {
-        const box = control.getBoundingClientRect();
-        return { width: box.width, height: box.height };
-      }));
-      expect(recallTargets.every((target) => target.width >= 44 && target.height >= 44)).toBe(true);
-      await reveal.click();
-      await expect(recallAnswer).toBeVisible();
+      await page.goto('/clase.html#fisiologia-2026-08-20');
+      await expect(page.locator('[data-s4-index-toggle]')).toBeVisible();
+      const size = await page.locator('[data-s4-index-toggle]').boundingBox();
+      expect(size.height).toBeGreaterThanOrEqual(44);
+      expect(size.width).toBeGreaterThanOrEqual(44);
+      await page.locator('[data-s4-index-toggle]').click();
+      await expect(page.locator('#s4CourseIndex')).toBeVisible();
+      await page.keyboard.press('Escape');
+      await expect(page.locator('#s4CourseIndex')).toBeHidden();
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+      expect(overflow).toBeLessThanOrEqual(1);
     }
   });
 
@@ -460,7 +443,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.locator('.mobile-bottom-nav [data-view-link="cursos"]').click();
     await page.locator('[data-course-target="epidemiologia"]').click();
     await page.locator('#epidemiologia [data-course-theme-open="epidemiologia-urgencias-triage"]').click();
-    await page.locator('#epidemiologia [data-theme-tab="sessions"]').click();
+    await clickStudyControl(page, page.locator('#epidemiologia [data-theme-tab="sessions"]'));
     await page.locator('#epidemiologia [data-theme-session-open="epidemiologia-2026-08-19"]').click();
 
     const project = page.locator('#epi19-tarea');
@@ -569,8 +552,10 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('[data-state="observed"]').first()).toBeVisible();
     await page.goto('/clase.html');
     await expect(page.locator('link[rel="manifest"]')).toHaveAttribute('href', 'manifest.webmanifest');
-    await expect(page.locator('#noticeBell')).toBeVisible();
-    await expect(page.locator('.delegate-link')).toBeVisible();
+    await expect(page.locator('[data-s4-menu-toggle]')).toBeVisible();
+    await page.locator('[data-s4-menu-toggle]').click();
+    await expect(page.locator('[data-s4-target-management]')).toBeVisible();
+    await page.keyboard.press('Escape');
     await expect(page.locator('.home-quick-link-delegate')).toHaveAttribute('href', '/gestion/s4-e');
   });
 };

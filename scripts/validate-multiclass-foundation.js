@@ -2106,7 +2106,8 @@ async function main() {
   console.log('Multiclass foundation validation OK: tenant-scoped D1/R2 schema and queries, notice upload lifecycle/alt text, subject cockpit links, cross-class editor refusal, protected banks unchanged and 4.º E compatibility preserved.');
 }
 
-main().catch((error) => {
+// Keep identity/rate-limit fixtures inside an open challenge window; boundary tests set their own clocks.
+withFixedNow('2026-09-02T15:00:00Z', main).catch((error) => {
   console.error(error);
   process.exit(1);
 });

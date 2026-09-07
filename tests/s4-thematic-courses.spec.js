@@ -1,3 +1,4 @@
+const { clickStudyControl } = require('./helpers/simple-navigation');
 const { test, expect } = require('@playwright/test');
 const { CURRENT_CLASS_PUBLIC_FIXTURE, routeCurrentClassPublic } = require('./helpers/current-class-public-fixture');
 
@@ -76,12 +77,10 @@ test.describe('S4 evolving thematic courses', () => {
       'ultra'
     ]);
 
-    for (const mode of ['quick', 'ultra', 'full']) {
-      const button = theme.locator(`[data-theme-course-mode="${mode}"]`);
-      await button.click();
-      await expect(button).toHaveAttribute('aria-selected', 'true');
-      await expect(theme.locator(`[data-theme-course-view="${mode}"]`)).toBeVisible();
-    }
+    await expect(theme.locator('.content-theme-course-modes')).toBeHidden();
+    await expect(theme.locator('[data-theme-course-view="full"]')).toBeVisible();
+    await expect(theme.locator('[data-theme-course-view="quick"]')).toBeHidden();
+    await expect(theme.locator('[data-theme-course-view="ultra"]')).toBeHidden();
 
     const sources = theme.locator('[data-theme-source]');
     expect(await sources.count()).toBeGreaterThanOrEqual(2);
@@ -96,7 +95,7 @@ test.describe('S4 evolving thematic courses', () => {
     test.skip(testInfo.project.name !== 'desktop-chromium', 'The canonical navigation and bank contract is covered once in Chromium.');
 
     let { theme } = await openPentoseTheme(page);
-    await theme.locator('[data-theme-tab="sessions"]').click();
+    await clickStudyControl(page, theme.locator('[data-theme-tab="sessions"]'));
 
     const sessions = theme.locator('[data-theme-session]');
     await expect(sessions).toHaveCount(2);
@@ -108,7 +107,7 @@ test.describe('S4 evolving thematic courses', () => {
     await expect(page).toHaveURL(new RegExp(`#${PRIMARY_LESSON_ID}$`));
     const lesson = page.locator(`#${PRIMARY_LESSON_ID}`);
     await expect(lesson).toBeVisible();
-    await lesson.locator('[data-lesson-tab="training"]').click();
+    await clickStudyControl(page, lesson.locator('[data-lesson-tab="training"]'));
     await expect(lesson.locator('[data-lesson-tab-panel="training"]')).toBeVisible();
 
     const bankSizes = await page.evaluate((lessonId) => {
@@ -121,7 +120,7 @@ test.describe('S4 evolving thematic courses', () => {
     theme = page.locator(`[data-course-theme="${THEME_ID}"]`);
     await expect(theme).toBeVisible();
 
-    await theme.locator('[data-theme-tab="training"]').click();
+    await clickStudyControl(page, theme.locator('[data-theme-tab="training"]'));
     const scope = theme.locator('[data-theme-training-scope]');
     await expect(scope).toHaveCount(1);
     await expect(scope).toHaveValue('theme');
@@ -179,7 +178,7 @@ test.describe('S4 evolving thematic courses', () => {
     await expect(restoredTrainingRows).toHaveCount(2);
     expect(await uniqueAttributeValues(restoredTrainingRows, 'data-theme-training-lesson')).toEqual(SOURCE_LESSON_IDS);
 
-    await theme.locator('[data-theme-tab="documents"]').click();
+    await clickStudyControl(page, theme.locator('[data-theme-tab="documents"]'));
     const documentSessions = theme.locator('[data-theme-document-session]');
     await expect(documentSessions).toHaveCount(2);
     expect(await uniqueAttributeValues(documentSessions, 'data-theme-document-session')).toEqual(SOURCE_LESSON_IDS);
@@ -242,20 +241,19 @@ test.describe('S4 evolving thematic courses', () => {
     }, PRIMARY_LESSON_ID);
     theme = page.locator(`[data-course-theme="${THEME_ID}"]`);
     await expect(theme.locator('[data-theme-updates]')).toContainText(/Documento nuevo.*Documento incremental PPP/i);
-    await theme.locator('[data-theme-tab="documents"]').click();
+    await clickStudyControl(page, theme.locator('[data-theme-tab="documents"]'));
     const newDocument = theme.locator('[data-theme-document-source][data-theme-new="true"]');
     await expect(newDocument).toContainText('Documento incremental PPP');
     await expect(newDocument.locator('.content-theme-document-new')).toContainText(/Nuevo/i);
-    await theme.locator('[data-theme-tab="course"]').click();
+    await clickStudyControl(page, theme.locator('[data-theme-tab="course"]'));
 
-    await theme.locator('[data-theme-course-mode="ultra"]').click();
-    await expect(theme.locator('[data-theme-course-mode="ultra"]')).toHaveAttribute('aria-selected', 'true');
-    await theme.locator('[data-theme-tab="documents"]').click();
+    await expect(theme.locator('[data-theme-course-mode="ultra"]')).toBeHidden();
+    await clickStudyControl(page, theme.locator('[data-theme-tab="documents"]'));
     await expect(theme.locator('[data-theme-tab="documents"]')).toHaveAttribute('aria-selected', 'true');
 
     const preferredState = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)), SEEN_CONTENT_KEY);
     expect(preferredState.themes[THEME_ID]).toEqual(expect.objectContaining({
-      lastCourseView: 'ultra',
+      lastCourseView: 'full',
       lastThemeTab: 'documents'
     }));
 
@@ -264,9 +262,9 @@ test.describe('S4 evolving thematic courses', () => {
     await expect(theme).toBeVisible();
     await expect(theme.locator('[data-theme-tab="documents"]')).toHaveAttribute('aria-selected', 'true');
     await expect(theme.locator('[data-theme-panel="documents"]')).toBeVisible();
-    await theme.locator('[data-theme-tab="course"]').click();
-    await expect(theme.locator('[data-theme-course-mode="ultra"]')).toHaveAttribute('aria-selected', 'true');
-    await expect(theme.locator('[data-theme-course-view="ultra"]')).toBeVisible();
+    await clickStudyControl(page, theme.locator('[data-theme-tab="course"]'));
+    await expect(theme.locator('[data-theme-course-mode="full"]')).toHaveAttribute('aria-selected', 'true');
+    await expect(theme.locator('[data-theme-course-view="full"]')).toBeVisible();
 
     await page.goto(`/clase.html#${SUBJECT_ID}`, { waitUntil: 'domcontentloaded' });
     const seenCard = page.locator(`#${SUBJECT_ID} [data-course-theme-card="${THEME_ID}"]`);
@@ -392,7 +390,7 @@ test.describe('S4 evolving thematic courses', () => {
     theme = page.locator(`[data-course-theme="${THEME_ID}"]`);
     const document = theme.locator('[data-theme-document-source="' + PRIMARY_LESSON_ID + '"]', { hasText: baselineDocument.title });
     await expect(document).toHaveCount(1);
-    await theme.locator('[data-theme-tab="documents"]').click();
+    await clickStudyControl(page, theme.locator('[data-theme-tab="documents"]'));
     await expect(document).toBeVisible();
     await expect(document).toHaveAttribute('data-theme-new', 'false');
     const updateText = (await theme.locator('[data-theme-updates]').allTextContents()).join('\n');
@@ -477,7 +475,7 @@ test.describe('S4 evolving thematic courses', () => {
     expect(mergeState.exampleIds).toContain('browser-ppp-case');
     expect(mergeState.divergenceIds).toContain('browser-ppp-divergence');
 
-    await subject.locator('[data-notebook-mode="temas"]').click();
+    await clickStudyControl(page, subject.locator('[data-notebook-mode="temas"]'));
     await subject.locator(`[data-course-theme-card="${THEME_ID}"] [data-course-theme-open="${THEME_ID}"]`).click();
     const theme = page.locator(`[data-course-theme="${THEME_ID}"]`);
     await expect(theme).toBeVisible();

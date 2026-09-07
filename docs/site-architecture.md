@@ -256,3 +256,8 @@ The runtime scale is `med-typography-v509.css`, loaded last by the interface
 pages and included in service-worker cache v509. The owner's explicit choice
 is 12px for course/body text, progressive headings and 10–11px details, taking
 precedence over the shared default. See [implementation](typography-implementation.md).
+
+
+## S4 navigation release 510
+
+The public S4 navigation is owned by `s4-simple-navigation.js` and its stylesheet, loaded after the notebook and typography layers. See [S4 simple navigation](s4-simple-navigation.md) for routing, accessibility, compatibility and verification contracts.

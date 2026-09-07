@@ -1,3 +1,4 @@
+const { clickStudyControl } = require('../helpers/simple-navigation');
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('presents the next useful action before secondary content', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Tu semana', exact: true })).toBeVisible();
@@ -61,7 +62,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   });
 
   test('uses clickable views and shows only one course at a time', async ({ page }) => {
-    await page.locator('.workspace-nav [data-view-link="cursos"]').click();
+    await clickStudyControl(page, page.locator('.workspace-nav [data-view-link="cursos"]'));
     await expect(page.locator('#materias')).toBeVisible();
     await expect(page.locator('#nutricion')).toBeVisible();
     await expect(page.locator('#fisiologia')).toBeHidden();
@@ -73,7 +74,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#fisiologia [data-course-theme-card]')).toHaveCount(3);
     await expect(page.locator('#fisiologia-2026-08-27')).toBeHidden();
     await page.locator('#fisiologia [data-course-theme-open="fisiologia-sensibilidad-somatica-vias"]').click();
-    await page.locator('#fisiologia [data-theme-tab="sessions"]').click();
+    await clickStudyControl(page, page.locator('#fisiologia [data-theme-tab="sessions"]'));
     await page.locator('#fisiologia [data-theme-session-open="fisiologia-2026-08-27"]').click();
     await expect(page.locator('#fisiologia-2026-08-27')).toBeVisible();
     await expect(page.locator('#fisiologia-2026-08-24')).toBeHidden();
@@ -88,7 +89,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#bioquimica .notebook-shell')).toBeVisible();
     await expect(page.locator('#bioquimica [data-course-theme-card]')).toHaveCount(3);
     await page.locator('#bioquimica [data-course-theme-open="bioquimica-pentosas-nadph-ribosa"]').click();
-    await page.locator('#bioquimica [data-theme-tab="training"]').click();
+    await clickStudyControl(page, page.locator('#bioquimica [data-theme-tab="training"]'));
     await page.locator('#bioquimica [data-theme-training-scope]').selectOption('session');
     await page.locator('#bioquimica [data-theme-training-session]').selectOption('bioquimica-2026-08-28');
     await page.locator('#bioquimica [data-theme-training-lesson="bioquimica-2026-08-28"] button').click();

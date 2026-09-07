@@ -1,3 +1,4 @@
+const { clickStudyControl } = require('../helpers/simple-navigation');
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('shows three active tasks and preserves completed homework in the visible archive', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
@@ -33,7 +34,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
   test('opens the faithful glycolysis board archive in its teaching order', async ({ page }) => {
     await page.goto('/clase.html#bioquimica-2026-08-14');
-    await page.locator('#bioquimica-2026-08-14 [data-lesson-tab="material"]').click();
+    await clickStudyControl(page, page.locator('#bioquimica-2026-08-14 [data-lesson-tab="material"]'));
     const openArchive = page.locator('#bioquimica-2026-08-14').getByRole('button', { name: /Ver las 7 láminas/ });
     await expect(openArchive).toBeVisible();
     await openArchive.click();
@@ -76,7 +77,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       const lesson = page.locator('#' + lessonId);
       await expect(lesson.locator('[data-lesson-tab-panel="curso"] .course-inline-figure.is-teacher-board')).toHaveCount(courseBoards);
       if (materialBoards !== null) {
-        await lesson.locator('[data-lesson-tab="material"]').click();
+        await clickStudyControl(page, lesson.locator('[data-lesson-tab="material"]'));
         await expect(lesson.locator('[data-lesson-tab-panel="material"] .lesson-file-card img[src*="/board/"]')).toHaveCount(materialBoards);
       }
     }

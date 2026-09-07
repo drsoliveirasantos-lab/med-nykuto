@@ -1,4 +1,4 @@
-const CACHE = 'med-nykuto-shell-v509';
+const CACHE = 'med-nykuto-shell-v510';
 const SHELL = [
   '/offline.html',
   '/med-typography-v509.css?v=509',

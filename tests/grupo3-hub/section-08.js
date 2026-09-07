@@ -1,3 +1,4 @@
+const { clickStudyControl } = require('../helpers/simple-navigation');
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('keeps the nutrition evaluation steps compact on a phone', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -162,7 +163,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
       await expect(preview).not.toContainText('Cursos del 19 al 21 de agosto disponibles');
       await expect(preview.locator('.notice-carousel-controls')).toHaveCount(0);
       await expect(page.locator('#noticeBell')).toHaveAttribute('aria-label', 'Abrir avisos · 1 importante');
-      await page.locator('#noticeBell').click();
+      await clickStudyControl(page, page.locator('#noticeBell'));
       await expect(page.locator('#avisos')).toBeVisible();
       await expect(page.locator('#classNoticePageList .notice-item')).toHaveCount(1);
       const taskNotice = page.locator('#classNoticePageList .notice-item').filter({ hasText: 'Exposición grupal de Epidemiología' });
@@ -445,7 +446,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('opens map explanations and oral answers as small inline disclosures', async ({ page }) => {
     await page.goto('/clase.html#nutricion-2026-08-13');
     const nutrition = page.locator('#nutricion');
-    await page.locator('#nutricion-2026-08-13 [data-lesson-tab="material"]').click();
+    await clickStudyControl(page, page.locator('#nutricion-2026-08-13 [data-lesson-tab="material"]'));
     await nutrition.locator('[data-nutrition-mode="completo"]').click();
     await expect(page.locator('#nutritionPreviewEyebrow')).toHaveText('RESUMEN COMPLETO · 13 AGO. ESTIMADO');
     const mapAnswer = nutrition.locator('.study-map .preview-answer-disclosure').first();
@@ -471,9 +472,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.goto('/clase.html#nutricion-2026-08-13');
     await expect(page.locator('#nutricion-2026-08-13 [data-lesson-tab="curso"]')).toBeVisible();
     await expect(page.locator('#nutricion-2026-08-13 .course-chapter-section')).toHaveCount(6);
-    await page.locator('#nutricion-2026-08-13 [data-lesson-tab="material"]').click();
+    await clickStudyControl(page, page.locator('#nutricion-2026-08-13 [data-lesson-tab="material"]'));
     await expect(page.locator('#nutrition-detail')).toBeAttached();
-    await page.locator('#nutricion-2026-08-13 [data-lesson-tab="training"]').click();
+    await clickStudyControl(page, page.locator('#nutricion-2026-08-13 [data-lesson-tab="training"]'));
     await expect(page.locator('#practice-nutricion')).toBeVisible();
   });
 

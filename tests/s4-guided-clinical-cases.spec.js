@@ -1,3 +1,4 @@
+const { clickStudyControl } = require('./helpers/simple-navigation');
 const { test, expect } = require('@playwright/test');
 const { routeCurrentClassPublic } = require('./helpers/current-class-public-fixture');
 const guidedContent = require('../content/class/s4-guided-respiratory-cases.json');
@@ -106,7 +107,7 @@ test.describe('S4 guided respiratory cases', () => {
     await resumedDialog.locator('[data-guided-cases-close]').click();
     await expect(resumedDialog).not.toHaveAttribute('open', '');
     expect(['caseMode', 'guidedScope', 'guidedCase'].every((key) => !new URL(page.url()).searchParams.has(key))).toBe(true);
-    await page.locator('[data-lesson-panel="fisiologia-2026-08-13"] [data-lesson-tab="training"]').click();
+    await clickStudyControl(page, page.locator('[data-lesson-panel="fisiologia-2026-08-13"] [data-lesson-tab="training"]'));
     await page.locator('[data-practice-root="fisiologia-2026-08-13"] [data-guided-cases-open]').click();
     await expect(resumedDialog).toHaveAttribute('open', '');
     await expect(resumedDialog.locator('[data-guided-case-picker]')).toHaveValue(ASTHMA_CASE.id);
@@ -194,7 +195,7 @@ test.describe('S4 guided respiratory cases', () => {
     expect(contract.ordinaryTabCounts).toHaveLength(23);
     expect(contract.ordinaryTabCounts.every((count) => count === 3)).toBe(true);
 
-    await page.locator('[data-lesson-panel="fisiologia-2026-08-13"] [data-lesson-tab="training"]').click();
+    await clickStudyControl(page, page.locator('[data-lesson-panel="fisiologia-2026-08-13"] [data-lesson-tab="training"]'));
     await expect(lessonLauncher).toBeVisible();
     await lessonLauncher.click();
     await expect(dialog).toHaveAttribute('open', '');
@@ -249,7 +250,7 @@ test.describe('S4 guided respiratory cases', () => {
     expect(['caseMode', 'guidedScope', 'guidedCase'].every((key) => !new URL(page.url()).searchParams.has(key))).toBe(true);
 
     await page.goto('/clase.html#fisiologia-2026-08-10', { waitUntil: 'domcontentloaded' });
-    await page.locator('[data-lesson-panel="fisiologia-2026-08-10"] [data-lesson-tab="training"]').click();
+    await clickStudyControl(page, page.locator('[data-lesson-panel="fisiologia-2026-08-10"] [data-lesson-tab="training"]'));
     const tenAugustLauncher = page.locator('[data-practice-root="fisiologia-2026-08-10"] [data-guided-cases-open]');
     await tenAugustLauncher.click();
     await expect(page.locator('[data-guided-cases-dialog]')).toHaveAttribute('open', '');

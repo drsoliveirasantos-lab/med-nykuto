@@ -1,3 +1,4 @@
+const { clickStudyControl } = require('./helpers/simple-navigation');
 const { test, expect } = require('@playwright/test');
 
 const SUBJECTS = [
@@ -114,34 +115,19 @@ test.describe('Published class content student runtime', () => {
     await expect(panel.locator('[data-lesson-tab-panel="curso"] .course-chapter-section[data-s4-notion]')).toHaveCount(3);
     await expect(panel.locator('[data-s4-specialization-node]')).toHaveCount(3);
 
-    const quickTab = panel.locator('[data-lesson-tab="rapida"]');
-    await expect(panel.locator('[data-lesson-tabs]')).toHaveAttribute('role', 'tablist');
-    await expect(quickTab).toHaveAttribute('role', 'tab');
-    await expect(quickTab).toHaveAttribute('aria-controls', 'fisiologia-2026-08-24-panel-rapida');
-    await expect(panel.locator('[data-lesson-tab-panel="rapida"]')).toHaveAttribute('aria-labelledby', 'fisiologia-2026-08-24-tab-rapida');
-    await quickTab.click();
-    await expect(quickTab).toHaveAttribute('aria-selected', 'true');
-    await expect(panel.locator('[data-lesson-tab-panel="rapida"]')).toBeVisible();
-    await expect(panel.locator('[data-lesson-tab-panel="rapida"]')).toContainText('FICHA RÁPIDA GESTIONADA');
-    await quickTab.press('ArrowRight');
-    await expect(panel.locator('[data-lesson-tab-panel="ultra"]')).toBeVisible();
-    await expect(panel.locator('[data-lesson-tab-panel="ultra"]')).toContainText('FICHA ULTRA GESTIONADA');
-    await expect(panel.locator('[data-lesson-tab-panel="ultra"] [data-s4-recall]')).toHaveCount(1);
-
+    await expect(panel.locator('[data-lesson-tab="rapida"]')).toBeHidden();
+    await expect(panel.locator('[data-lesson-tab="ultra"]')).toBeHidden();
+    await expect(panel.locator('[data-lesson-tab-panel="curso"]')).toBeVisible();
     const practiceId = 'fisiologia-2026-08-24-practice-r7';
     const trainingTab = panel.locator('[data-lesson-tab="training"]');
-    await trainingTab.click();
+    await clickStudyControl(page, trainingTab);
     const practice = panel.locator(`.practice-module[data-practice-root="${practiceId}"]`);
     await expect(practice).toBeVisible();
     await expect(practice.locator('.practice-counts strong')).toHaveText(['20', '10', '10']);
-    await trainingTab.press('ArrowRight');
-    const materialTab = panel.locator('[data-lesson-tab="material"]');
-    await expect(materialTab).toBeFocused();
-    await expect(materialTab).toHaveAttribute('aria-selected', 'true');
+    await clickStudyControl(page, panel.locator('[data-lesson-tab="material"]'));
     await expect(panel.locator('[data-lesson-tab-panel="material"]')).toBeVisible();
-    await materialTab.press('ArrowRight');
-    await expect(panel.locator('[data-lesson-tab="ia"]')).toBeFocused();
-    await expect(panel.locator('[data-lesson-tab="ia"]')).toHaveAttribute('aria-selected', 'true');
+    await clickStudyControl(page, panel.locator('[data-lesson-tab="ia"]'));
+    await expect(panel.locator('[data-lesson-tab-panel="ia"]')).toBeVisible();
 
     const runtimeState = await page.evaluate((expectedPracticeId) => {
       const lesson = window.MedNykutoAcademicModel.subjects.fisiologia.chapters

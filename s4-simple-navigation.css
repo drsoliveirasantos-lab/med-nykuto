@@ -1,0 +1,34 @@
+:root { --s4-nav-bg:#0d2536; --s4-nav-text:#e6f0f5; --s4-nav-border:#385464; --s4-nav-accent:#68d6ee; }
+html[data-theme="light"] { --s4-nav-bg:#fff; --s4-nav-text:#172c3d; --s4-nav-border:#ccdbe4; --s4-nav-accent:#006b86; }
+.s4-simple-navigation-ready .class-header-actions,.s4-simple-navigation-ready .header-back,.s4-simple-navigation-ready .class-header-inner > .class-language-switcher { display:none!important; }
+.s4-simple-navigation-ready [data-lesson-tab="rapida"],.s4-simple-navigation-ready [data-lesson-tab="rapido"],.s4-simple-navigation-ready [data-lesson-tab="ultra"],.s4-simple-navigation-ready .content-theme-course-modes { display:none!important; }
+.s4-simple-navigation-ready [data-lesson-tabs],.s4-simple-navigation-ready .content-theme-tabs,.s4-simple-navigation-ready .notebook-modes,.s4-simple-navigation-ready .notebook-date-controls { display:none!important; }
+.s4-simple-navigation-ready .notebook-cover { padding:8px 0; }
+.s4-simple-navigation-ready .class-header-inner { gap:12px; }
+.s4-simple-navigation-ready .class-header-inner > [data-s4-menu-toggle] { margin-left:auto; }
+[data-s4-menu-toggle],.s4-reading-actions button,.s4-navigation-dialog button { min-height:44px; padding:10px 16px; border:1px solid var(--s4-nav-border); border-radius:8px; background:var(--s4-nav-bg); color:var(--s4-nav-text); font:600 12px/1.4 system-ui,sans-serif; cursor:pointer; }
+.s4-navigation-dialog { box-sizing:border-box; color:var(--s4-nav-text); background:var(--s4-nav-bg); border:1px solid var(--s4-nav-border); padding:18px; max-height:100dvh; overscroll-behavior:contain; }
+.s4-navigation-dialog::backdrop { background:rgba(0,0,0,.5); }
+.s4-site-drawer { margin:0 0 0 auto; width:min(340px,90vw); height:100dvh; max-width:90vw; }
+.s4-index-sheet { margin:auto auto 0; width:min(660px,100%); max-width:100%; max-height:75dvh; border-radius:16px 16px 0 0; padding-bottom:max(18px,env(safe-area-inset-bottom)); }
+.s4-navigation-dialog > header { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.s4-navigation-dialog h2 { margin:0; font:600 18px/1.4 system-ui,sans-serif; }
+.s4-navigation-dialog h3 { font:600 14px/1.4 system-ui,sans-serif; }
+.s4-navigation-dialog-body { display:grid; gap:14px; margin-top:16px; }
+.s4-navigation-dialog-body nav,.s4-navigation-dialog-body section { display:grid; gap:4px; }
+.s4-navigation-dialog-body section + section { border-top:1px solid var(--s4-nav-border); padding-top:12px; }
+.s4-navigation-dialog-body button { width:100%; text-align:left; border-color:transparent; }
+.s4-navigation-dialog-body button:hover,.s4-navigation-dialog-body button[aria-current="page"] { border-color:var(--s4-nav-accent); }
+.s4-navigation-dialog .class-language-switcher { display:flex!important; margin-top:12px; }
+.s4-navigation-open { overflow:hidden; }
+.s4-reading-actions { position:fixed; z-index:100; bottom:0; left:0; right:0; display:flex; gap:10px; justify-content:center; padding:10px 16px max(10px,env(safe-area-inset-bottom)); background:var(--s4-nav-bg); border-top:1px solid var(--s4-nav-border); }
+.s4-reading-actions[hidden],.s4-reading-actions button[hidden],.s4-simple-navigation-ready .mobile-bottom-nav[hidden] { display:none!important; }
+.s4-reading-actions button { flex:1; max-width:300px; }
+.s4-reading-actions [data-s4-train] { border-color:var(--s4-nav-accent); color:var(--s4-nav-accent); }
+.s4-reading-active { padding-bottom:84px!important; }
+.s4-simple-navigation-ready .course-chapter-section,.s4-simple-navigation-ready .content-theme-chapter { scroll-margin-top:90px; }
+@media(max-width:900px) { .s4-simple-navigation-ready .workspace-nav { display:none!important; } }
+@media(min-width:901px) { .s4-simple-navigation-ready .class-app { padding-left:210px; } .s4-simple-navigation-ready .workspace-nav { position:fixed; top:95px; left:max(16px,calc((100vw - 1400px)/2)); width:180px; display:flex!important; flex-direction:column; align-items:stretch; max-height:calc(100dvh - 120px); overflow:auto; } .s4-simple-navigation-ready .workspace-nav a { width:100%; min-height:48px; } .s4-reading-actions { left:210px; } }
+@media(prefers-reduced-motion:reduce) { .s4-navigation-dialog { scroll-behavior:auto; } }
+
+.s4-navigation-dialog summary { min-height:44px; padding:12px 0; cursor:pointer; box-sizing:border-box; }

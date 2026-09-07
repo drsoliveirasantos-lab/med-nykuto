@@ -1,3 +1,4 @@
+const { clickStudyControl } = require('../helpers/simple-navigation');
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('keeps deep links working and opens the required class detail', async ({ page }) => {
     await page.goto('/clase.html#nutrition-seminar');
@@ -76,10 +77,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 
     const toggle = page.locator('[data-public-theme-toggle]');
-    await expect(toggle).toBeVisible();
+    await expect(page.locator('[data-s4-menu-toggle]')).toBeVisible();
     await expect(toggle).toHaveAttribute('aria-pressed', 'false');
-    expect((await toggle.boundingBox()).height).toBeGreaterThanOrEqual(44);
-    await toggle.click();
+    await clickStudyControl(page, toggle);
 
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
     await expect(toggle).toHaveAttribute('aria-pressed', 'true');
@@ -100,7 +100,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('switches the class interface between Spanish and Brazilian Portuguese', async ({ page }) => {
     const language = page.locator('#classLanguageSelect');
     await expect(language).toHaveValue('es');
+    if (await page.locator('[data-s4-menu-toggle]').count() && !await page.locator('#s4SiteMenu').isVisible()) await page.locator('[data-s4-menu-toggle]').click();
     await language.selectOption('br');
+    if (await page.locator('#s4SiteMenu').isVisible()) await page.keyboard.press('Escape');
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
     await expect(page.locator('#classLanguageSelect')).toHaveValue('br');
@@ -129,18 +131,18 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await page.goto('/clase.html#bioquimica-2026-08-28');
     const reviewedPractice = page.locator('#bioquimica-2026-08-28 [data-practice-root="bioquimica-2026-08-28"]');
     await expect(reviewedPractice).toContainText('Via das pentoses-fosfato: integração metabólica');
-    await page.locator('#bioquimica-2026-08-28 [data-lesson-tab="training"]').click();
+    await clickStudyControl(page, page.locator('#bioquimica-2026-08-28 [data-lesson-tab="training"]'));
     await reviewedPractice.locator('.practice-start').click();
     await expect(reviewedPractice.locator('.practice-sources')).toContainText('AULA REVISADA · AULA + FONTES OFICIAIS');
     await expect(reviewedPractice.locator('.practice-sources')).toContainText('NCBI · G6PD e defesa antioxidante');
     await reviewedPractice.locator('.practice-dialog-close').click();
-    await page.locator('#bioquimica-2026-08-28 [data-lesson-tab="ia"]').click();
+    await clickStudyControl(page, page.locator('#bioquimica-2026-08-28 [data-lesson-tab="ia"]'));
     const biochemistryAudit = page.locator('#bioquimica-2026-08-28 [data-lesson-tab-panel="ia"]');
     await expect(biochemistryAudit).toContainText('Cinco aulas orais completas');
     await expect(biochemistryAudit.locator('.lesson-teacher-prompt p')).toContainText('Atue como a Dra. Andrea López');
     await expect(biochemistryAudit.locator('.lesson-teacher-prompt p')).toContainText('Aula ativa:');
     await page.goto('/clase.html#epidemiologia-2026-08-28');
-    await page.locator('#epidemiologia-2026-08-28 [data-lesson-tab="ia"]').click();
+    await clickStudyControl(page, page.locator('#epidemiologia-2026-08-28 [data-lesson-tab="ia"]'));
     const epidemiologyAudit = page.locator('#epidemiologia-2026-08-28 [data-lesson-tab-panel="ia"]');
     await expect(epidemiologyAudit).toContainText('Seis blocos observados');
     await expect(epidemiologyAudit).toContainText('Pede a aplicação de um algoritmo de classificação completo');
@@ -159,7 +161,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#classHubLiveTasks .live-task')).toHaveCount(3);
     await expect(page.locator('#nutritionPrepCard')).toBeVisible();
     await page.goto('/clase.html#nutricion-2026-08-13');
-    await page.locator('#nutricion-2026-08-13 [data-lesson-tab="material"]').click();
+    await clickStudyControl(page, page.locator('#nutricion-2026-08-13 [data-lesson-tab="material"]'));
     await page.locator('[data-nutrition-mode="rapido"]').click();
     await expect(page.locator('#nutritionPreviewEyebrow')).toHaveText('RESUMO RÁPIDO · 10 IDEIAS');
 
@@ -168,7 +170,9 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#plan-estudio').getByRole('link', { name: 'Ver exemplo da primeira página', exact: true })).toBeVisible();
     await expect(page.locator('#plan-estudio')).not.toContainText(/Primera página|Documento firmado|Este paso se completa/);
 
+    if (await page.locator('[data-s4-menu-toggle]').count() && !await page.locator('#s4SiteMenu').isVisible()) await page.locator('[data-s4-menu-toggle]').click();
     await page.locator('#classLanguageSelect').selectOption('es');
+    if (await page.locator('#s4SiteMenu').isVisible()) await page.keyboard.press('Escape');
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('html')).toHaveAttribute('lang', 'es');
     await expect(page.getByRole('heading', { name: 'Plan del seminario' })).toBeVisible();

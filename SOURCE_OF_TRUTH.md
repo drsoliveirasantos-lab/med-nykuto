@@ -2,6 +2,10 @@
 
 This file is the first reference to read before editing the repository.
 
+## Current S4 navigation
+
+Release 510 uses the owner-approved simple Menu / Index / Train navigation. See [S4 simple navigation](docs/s4-simple-navigation.md). Earlier visible quick/ultra-quick mode contracts are superseded; preserve their underlying academic data and historical identifiers.
+
 ## Course and module content
 
 Authoritative editable sources:

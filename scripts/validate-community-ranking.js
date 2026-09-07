@@ -184,6 +184,9 @@ function participant(sqlite, playerId, classId = 's4-e') {
 }
 
 async function main() {
+  // Enrollment/score invariants must not depend on Sunday's real challenge closure.
+  const { mock } = require('node:test');
+  mock.timers.enable({ apis: ['Date'], now: new Date('2026-09-02T15:00:00Z') });
   const source = fs.readFileSync(sourcePath, 'utf8');
   const studyPage = fs.readFileSync(studyPagePath, 'utf8');
   const studyRuntime = fs.readFileSync(studyRuntimePath, 'utf8');
@@ -610,6 +613,7 @@ async function main() {
 
     console.log('Community ranking validation OK: Sunday 20:00 Paraguay cutoff enforced to the second, Monday reopening, exact 69-scope server allowlist with 20/10/10 totals, additive class-safe migration, conservative legacy-catraca lock, idempotent client tokens, race-safe verification, class-scoped first-created score writes, points-first 4E ranking, verified-only Pix eligibility and discriminating activity ties.');
   } finally {
+    mock.timers.reset();
     if (db) { try { db.close(); } catch {} }
     fs.rmSync(tempDirectory, { recursive: true, force: true });
   }

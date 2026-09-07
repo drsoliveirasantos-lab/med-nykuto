@@ -32,7 +32,9 @@ test.describe('Global medical glossary', () => {
 
   test('uses the active Portuguese language without a second internet search', async ({ page }) => {
     await page.goto('/clase.html#fisiologia-2026-08-13', { waitUntil: 'domcontentloaded' });
+    if (await page.locator('[data-s4-menu-toggle]').count() && !await page.locator('#s4SiteMenu').isVisible()) await page.locator('[data-s4-menu-toggle]').click();
     await page.locator('#classLanguageSelect').selectOption('br');
+    if (await page.locator('#s4SiteMenu').isVisible()) await page.keyboard.press('Escape');
     const term = page.locator('#fisiologia-2026-08-13 [data-lesson-tab-panel="curso"] .mn-glossary-term[data-glossary-key="hypercapnia"]:visible').first();
     await expect(term).toBeVisible({ timeout: 15000 });
     await term.evaluate(node => node.scrollIntoView({ block:'center', inline:'nearest' }));

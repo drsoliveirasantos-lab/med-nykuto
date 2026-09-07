@@ -1747,6 +1747,8 @@
     panels.ultra = ultra;
 
     function activateCourseView(view) {
+      // Retired quick/ultra preferences resolve to the complete course.
+      view = 'full';
       activeThemeCourseViewById[theme.id] = view;
       persistCourseThemePreference(theme.id, 'lastCourseView', view);
       switcher.querySelectorAll('[data-theme-course-mode]').forEach(function (button) {
