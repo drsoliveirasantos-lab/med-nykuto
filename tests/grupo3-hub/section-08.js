@@ -468,9 +468,11 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(oralAnswer).not.toHaveAttribute('open', '');
   });
 
-  test('separates the complete narrative, original material and training into compact tabs', async ({ page }) => {
+  test('separates the complete narrative, original material and training through the public menu', async ({ page }) => {
     await page.goto('/clase.html#nutricion-2026-08-13');
-    await expect(page.locator('#nutricion-2026-08-13 [data-lesson-tab="curso"]')).toBeVisible();
+    await expect(page.locator('#nutricion-2026-08-13 [data-lesson-tab-panel="curso"]')).toBeVisible();
+    await expect(page.locator('[data-s4-index-toggle]')).toBeVisible();
+    await expect(page.locator('[data-s4-train]')).toBeVisible();
     await expect(page.locator('#nutricion-2026-08-13 .course-chapter-section')).toHaveCount(6);
     await clickStudyControl(page, page.locator('#nutricion-2026-08-13 [data-lesson-tab="material"]'));
     await expect(page.locator('#nutrition-detail')).toBeAttached();

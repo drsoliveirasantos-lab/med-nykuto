@@ -255,10 +255,15 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     expect(zoomed).toEqual({ imageWiderThanStage: true, horizontallyScrollable: true });
   });
 
-  test('opens course files and progress through the four-part workspace', async ({ page }) => {
+  test('opens course files and progress through the public menu', async ({ page }) => {
     await page.goto('/clase.html#bioquimica-2026-08-21');
     const workspace = page.locator('#bioquimica .notebook-modes');
-    await expect(workspace.getByRole('button')).toHaveCount(4);
+    await expect(workspace).toBeHidden();
+    await page.locator('[data-s4-menu-toggle]').click();
+    const modes = page.locator('#s4SiteMenu [data-s4-target-notebook-mode]');
+    await expect(modes).toHaveCount(4);
+    for (let i = 0; i < 4; i++) await expect(modes.nth(i)).toBeVisible();
+    await page.keyboard.press('Escape');
     await clickStudyControl(page, workspace.getByRole('button', { includeHidden: true, name: 'Archivos' }));
     await expect(page.locator('#bioquimica .notebook-file-row')).not.toHaveCount(0);
     await clickStudyControl(page, workspace.getByRole('button', { includeHidden: true, name: 'Progreso' }));

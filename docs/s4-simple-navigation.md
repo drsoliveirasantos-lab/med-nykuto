@@ -15,3 +15,7 @@ Local npm validation passes, including academic content, isolated classes and qu
 Two existing static validators used the real Sunday challenge-close time and failed on the unchanged parent. Their identity/ranking fixtures now use an open-week clock, while explicit cutoff/reopening assertions remain unchanged. No production ranking logic changed.
 
 Publish one consolidated commit to main after the backup branch `backup-main-20260907-before-simple-navigation`. Check the exact commit's six workflow jobs and Cloudflare Pages deployment through the scheduled follow-up; do not continuously poll or dispatch duplicate workflows. Close #186 only after both are successful.
+
+## PR validation follow-up
+
+Run #1050 passed static/data, deployed/visual/accessibility, lot 2 and lot 3. Desktop and mobile found three stale assertions expecting retired toolbars and one real navigation gap: Train was missing from Menu outside reading. Release 510.1 keeps Train in the reading bar and exposes it in Menu from secondary views. Tests now verify the actual visible course panel, four public subject choices, and three primary 44px controls, while preserving overflow, bank and file/progress assertions. PR #187 must pass the next consolidated run before merge.

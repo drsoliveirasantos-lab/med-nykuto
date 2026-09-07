@@ -547,12 +547,21 @@ test.describe('S4 evolving thematic courses', () => {
     await card.locator(`[data-course-theme-open="${THEME_ID}"]`).click();
     const theme = page.locator(`[data-course-theme="${THEME_ID}"]`);
     await expect(theme).toBeVisible();
-    const themeTargets = theme.locator('[data-theme-tab]:visible, [data-theme-course-mode]:visible');
-    expect(await themeTargets.count()).toBeGreaterThanOrEqual(7);
+    await expect(theme.locator('.content-theme-tabs')).toBeHidden();
+    await expect(theme.locator('.content-theme-course-modes')).toBeHidden();
+    const themeTargets = page.locator('[data-s4-menu-toggle]:visible, [data-s4-index-toggle]:visible, [data-s4-train]:visible');
+    await expect(themeTargets).toHaveCount(3);
     const minimumThemeTargetHeight = await themeTargets.evaluateAll((nodes) => (
       Math.min(...nodes.map((node) => node.getBoundingClientRect().height))
     ));
     expect(minimumThemeTargetHeight).toBeGreaterThanOrEqual(43.9);
+    await page.locator('[data-s4-menu-toggle]').click();
+    for (const mode of ['sessions', 'documents']) {
+      const action = page.locator('#s4SiteMenu [data-s4-target-theme-tab="' + mode + '"]');
+      await expect(action).toBeVisible();
+      expect((await action.boundingBox()).height).toBeGreaterThanOrEqual(43.9);
+    }
+    await page.keyboard.press('Escape');
     expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(1);
   });
 });

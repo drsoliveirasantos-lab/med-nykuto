@@ -90,7 +90,9 @@
         var title = document.createElement('h3'); title.textContent = label('Este curso', 'Este curso'); local.appendChild(title);
         root.querySelectorAll('[data-lesson-tab], [data-theme-tab]').forEach(function (target) {
           var mode = target.dataset.lessonTab || target.dataset.themeTab;
-          if (!['rapida', 'rapido', 'ultra', 'training'].includes(mode)) proxy(target, /^(curso|course)$/.test(mode) ? label('Volver al curso', 'Voltar ao curso') : '', local);
+          // Reading already exposes Train in the primary bar. Other views still
+          // need a public route to training without returning to the course first.
+          if (!['rapida', 'rapido', 'ultra'].includes(mode) && !(mode === 'training' && isReading(root))) proxy(target, /^(curso|course)$/.test(mode) ? label('Volver al curso', 'Voltar ao curso') : '', local);
         });
         menu.body.appendChild(local);
       }
