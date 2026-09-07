@@ -1,3 +1,4 @@
+const { clickStudyControl } = require('../helpers/simple-navigation');
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('previews both seminar Word documents before download', async ({ page }) => {
     await page.goto('/documentos-seminario.html#modelo-portada');
@@ -54,7 +55,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     ));
     expect(clinicalStoriesArePatientVignettes).toBe(true);
     await page.goto('/clase.html#nutricion-2026-08-13');
-    await page.locator('#nutricion-2026-08-13 [data-lesson-tab="training"]').click();
+    await clickStudyControl(page, page.locator('#nutricion-2026-08-13 [data-lesson-tab="training"]'));
     const practice = page.locator('#practice-nutricion');
     const overviewCounts = practice.locator('.practice-counts > span');
     await expect(overviewCounts.nth(0)).toHaveText('20QCM');

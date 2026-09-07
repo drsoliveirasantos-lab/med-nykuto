@@ -18,7 +18,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
       const switcher = document.querySelector('#semesterSwitcherV402').getBoundingClientRect();
       const header = document.querySelector('.class-header').getBoundingClientRect();
       const highlighted = document.querySelector('.agenda-day.is-next-day [data-week-date]');
-      const themeToggle = document.querySelector('[data-public-theme-toggle]').getBoundingClientRect();
+      const themeToggle = document.querySelector('[data-s4-menu-toggle]').getBoundingClientRect();
       const calendarSubscribe = document.querySelector('#classCalendarSubscribeLink').getBoundingClientRect();
       const calendarCopy = document.querySelector('#classCalendarCopyLink').getBoundingClientRect();
       return {

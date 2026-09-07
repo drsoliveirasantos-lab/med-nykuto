@@ -1,3 +1,4 @@
+const { clickStudyControl } = require('../tests/helpers/simple-navigation');
 const fs = require('fs');
 const http = require('http');
 const path = require('path');
@@ -156,14 +157,14 @@ async function inspectPhone(browserType, width, failures) {
     return {
       tabs: tabs.map((button) => button.dataset.themeTab).join('|'),
       modes: modes.map((button) => button.dataset.themeCourseMode).join('|'),
-      minimumHeight: Math.min(...tabs.concat(modes).map((button) => button.getBoundingClientRect().height)),
+      minimumHeight: Math.min(...Array.from(document.querySelectorAll('[data-s4-index-toggle], [data-s4-train]')).map((button) => button.getBoundingClientRect().height)),
       overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
     };
   });
   check(themeWorkspace.tabs === 'course|sessions|training|documents', `${browserName} ${width}px: theme tabs changed (${themeWorkspace.tabs}).`, failures);
   check(themeWorkspace.modes === 'full|quick|ultra', `${browserName} ${width}px: consolidated course modes changed (${themeWorkspace.modes}).`, failures);
   check(themeWorkspace.minimumHeight >= 43.5 && themeWorkspace.overflow <= 1, `${browserName} ${width}px: thematic workspace controls are not usable.`, failures);
-  await page.locator('#bioquimica [data-theme-tab="sessions"]').click();
+  await clickStudyControl(page, page.locator('#bioquimica [data-theme-tab="sessions"]'));
   await page.locator('#bioquimica [data-theme-session-open="bioquimica-2026-08-28"]').click();
   await page.waitForSelector('#bioquimica-2026-08-28:not([hidden])');
 
@@ -204,45 +205,28 @@ async function inspectPhone(browserType, width, failures) {
   });
 
   check(subjectState.lessonId === 'bioquimica-2026-08-28', `${browserName} ${width}px: latest Bioquímica lesson is not selected.`, failures);
-  check(subjectState.utilityColumns === 4, `${browserName} ${width}px: subject utilities are not a four-column miniature grid.`, failures);
-  check(subjectState.utilityHeights.every((height) => height >= 43.5 && height <= 45), `${browserName} ${width}px: utility hit areas are not 44px.`, failures);
-  check(subjectState.dates === 5 && subjectState.dateHeights.every((height) => height >= 43.5 && height <= 45), `${browserName} ${width}px: date ribbon is not a compact 44px row.`, failures);
-  check(subjectState.stableTabIds.join('|') === 'curso|rapida|ultra|training|material|ia', `${browserName} ${width}px: stable lesson ids changed (${subjectState.stableTabIds.join(', ')}).`, failures);
-  check(subjectState.tabs.length === 5, `${browserName} ${width}px: expected five visible lesson choices before opening secondary tools.`, failures);
-  check(subjectState.tabs.every((tab) => tab.height >= 43.5 && tab.height <= 45), `${browserName} ${width}px: lesson hit areas are not 44px.`, failures);
-  check(subjectState.tabs.map((tab) => tab.id).join('|') === 'curso|rapida|ultra|training|material', `${browserName} ${width}px: visible lesson order is ${subjectState.tabs.map((tab) => tab.id).join(', ')}.`, failures);
-  check(subjectState.tabs.map((tab) => tab.label).join('|') === 'Curso|Ficha|⚡|Quiz|⋯', `${browserName} ${width}px: compact labels are ${subjectState.tabs.map((tab) => tab.label).join(', ')}.`, failures);
-  check(Math.abs(subjectState.tabTop - subjectState.headerBottom) <= 8, `${browserName} ${width}px: lesson bar is not consolidated directly below the app header (${Math.round(subjectState.tabTop)} vs ${Math.round(subjectState.headerBottom)}).`, failures);
+  check(subjectState.utilityHeights.every((height) => height === 0), `${browserName} ${width}px: subject utilities should be in the menu.`, failures);
+  check(subjectState.dates === 5, `${browserName} ${width}px: original sessions were lost.`, failures);
+  check(subjectState.stableTabIds.join('|') === 'curso|rapida|ultra|training|material|ia', `${browserName} ${width}px: stable lesson ids changed.`, failures);
+  check(subjectState.tabs.length === 0, `${browserName} ${width}px: legacy lesson toolbar remains visible.`, failures);
+  const readerControls = await page.locator('[data-s4-menu-toggle], [data-s4-index-toggle], [data-s4-train]').evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().height));
+  check(readerControls.length === 3 && readerControls.every(height => height >= 44), `${browserName} ${width}px: primary navigation hit areas are too small.`, failures);
+  await page.locator('[data-s4-index-toggle]').click();
+  check(await page.locator('#s4CourseIndex').isVisible(), `${browserName} ${width}px: course index does not open.`, failures);
+  await page.keyboard.press('Escape');
   check(!subjectState.heroVisible && !subjectState.guideVisible, `${browserName} ${width}px: meta-pedagogical blocks still dominate the first screen.`, failures);
   check(subjectState.specializationHeight > 0 && subjectState.specializationHeight <= 240, `${browserName} ${width}px: specialization is not miniature (${Math.round(subjectState.specializationHeight)}px).`, failures);
   check(subjectState.visibleSubjects === 1, `${browserName} ${width}px: more than one subject is visible.`, failures);
   check(subjectState.overflow <= 1, `${browserName} ${width}px: subject workspace overflows by ${subjectState.overflow}px.`, failures);
 
   const activeLesson = page.locator('#bioquimica-2026-08-28');
-  await activeLesson.locator('[data-lesson-tab="material"]').click();
+  await clickStudyControl(page, activeLesson.locator('[data-lesson-tab="material"]'));
   await activeLesson.locator('[data-lesson-tab-panel="material"]').waitFor({ state: 'visible' });
-  const iaState = await activeLesson.locator('[data-lesson-tab="ia"]').evaluate((button) => {
-    const rect = button.getBoundingClientRect();
-    const style = getComputedStyle(button);
-    return {
-      visible: rect.width > 0 && rect.height > 0 && style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity || 1) > 0.05,
-      width: rect.width,
-      height: rect.height,
-      left: rect.left,
-      right: rect.right,
-      label: getComputedStyle(button, '::after').content.replace(/^"|"$/g, '')
-    };
-  });
-  check(iaState.visible && iaState.height >= 43.5 && iaState.width >= 100, `${browserName} ${width}px: Tutor IA is not exposed as a safe contextual action.`, failures);
-  check(iaState.left >= -1 && iaState.right <= width + 1, `${browserName} ${width}px: Tutor IA popover leaves the viewport.`, failures);
-  check(iaState.label === 'Tutor IA', `${browserName} ${width}px: Tutor IA contextual label is ${iaState.label}.`, failures);
-  if (iaState.visible) {
-    await activeLesson.locator('[data-lesson-tab="ia"]').click();
-    await activeLesson.locator('[data-lesson-tab-panel="ia"]').waitFor({ state: 'visible' });
-  }
-  await activeLesson.locator('[data-lesson-tab="curso"]').click();
+  await clickStudyControl(page, activeLesson.locator('[data-lesson-tab="ia"]'));
+  await activeLesson.locator('[data-lesson-tab-panel="ia"]').waitFor({ state: 'visible' });
+  await clickStudyControl(page, activeLesson.locator('[data-lesson-tab="curso"]'));
 
-  await page.locator('#bioquimica .notebook-date[data-lesson-id="bioquimica-2026-08-26"]').click();
+  await clickStudyControl(page, page.locator('#bioquimica .notebook-date[data-lesson-id="bioquimica-2026-08-26"]'));
   await page.waitForSelector('#bioquimica-2026-08-26:not([hidden])');
   const figure = page.locator('#bioquimica-2026-08-26 [data-lesson-tab-panel="curso"] .course-inline-figure').first();
   await figure.waitFor({ state: 'visible' });
@@ -280,7 +264,7 @@ async function inspectPhone(browserType, width, failures) {
     await page.screenshot({ path: path.join(evidenceDir, `bioquimica-26-${browserName}-${width}.png`), fullPage: false });
   }
 
-  await page.locator('.mobile-bottom-nav [data-view-link="cursos"]').click();
+  await clickStudyControl(page, page.locator('.mobile-bottom-nav [data-view-link="cursos"]'));
   await page.waitForSelector('#materias', { state: 'visible' });
   check(await visibleNodes(page.locator('.subject-section[data-view="cursos"]')) === 0, `${browserName} ${width}px: returning to Materias leaves a subject visible.`, failures);
   check(await visibleNodes(page.locator('.helpdesk-fab')) === 0, `${browserName} ${width}px: floating help returns over the Materias selector.`, failures);

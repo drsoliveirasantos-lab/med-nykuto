@@ -1,3 +1,4 @@
+const { clickStudyControl } = require('./helpers/simple-navigation');
 const { test, expect } = require('@playwright/test');
 const { routeCurrentClassPublic } = require('./helpers/current-class-public-fixture');
 
@@ -69,7 +70,7 @@ async function activateLesson(page, lessonId) {
   const lesson = page.locator(`#${lessonId}`);
   await expect(lesson).toBeVisible();
   const understandTab = lesson.locator(':scope > [data-lesson-tabs] [data-lesson-tab="curso"]');
-  await understandTab.click();
+  await clickStudyControl(page, understandTab);
   await expect(understandTab).toHaveAttribute('aria-selected', 'true');
   await expect(lesson.locator('[data-lesson-tab-panel="curso"]')).toBeVisible();
   return lesson;
@@ -158,42 +159,31 @@ test.describe('S4 Comprender → Entrenar learning experience', () => {
     expect(practiceContract.banks.every((counts) => counts.join(',') === '20,10,10')).toBe(true);
   });
 
-  test('keeps Recordar concealed, persists mastery and returns to the exact source notion', async ({ page }, testInfo) => {
-    test.skip(testInfo.project.name !== 'desktop-chromium', 'Persistence and exact focus return need one canonical browser run.');
-    const lessonId = 'fisiologia-2026-08-13';
-    await loadExperience(page, lessonId);
-    let lesson = page.locator(`#${lessonId}`);
-    await lesson.locator('[data-lesson-tab="ultra"]').click();
-
-    let firstCard = lesson.locator('[data-s4-recall-card]').first();
-    const answer = firstCard.locator('[data-s4-recall-answer]');
-    await expect(answer).toBeHidden();
-    await firstCard.locator('[data-s4-recall-reveal]').click();
-    await expect(answer).toBeVisible();
-
-    const doubt = firstCard.locator('[data-s4-mastery="dudo"]');
-    await doubt.click();
-    await expect(doubt).toHaveAttribute('aria-pressed', 'true');
-    const stored = await page.evaluate(() => JSON.parse(localStorage.getItem('med-nykuto-s4-mastery-v178')));
-    expect(stored && stored[lessonId] && Object.values(stored[lessonId])).toContain('dudo');
-
-    await page.reload({ waitUntil: 'domcontentloaded' });
-    await expect(page.locator('html')).toHaveClass(/s4-learning-experience-v178-ready/);
-    lesson = page.locator(`#${lessonId}`);
-    await lesson.locator('[data-lesson-tab="ultra"]').click();
-    firstCard = lesson.locator('[data-s4-recall-card]').first();
-    await expect(firstCard.locator('[data-s4-mastery="dudo"]')).toHaveAttribute('aria-pressed', 'true');
-
-    const returnButton = firstCard.locator('[data-s4-recall-return]');
-    const exactTargetId = await returnButton.getAttribute('data-s4-target');
-    expect(exactTargetId).toBeTruthy();
-    await expect(lesson.locator(`#${exactTargetId}[data-s4-notion]`)).toHaveCount(1);
-    await returnButton.click();
-
-    await expect(lesson.locator('[data-lesson-tab="curso"]')).toHaveAttribute('aria-selected', 'true');
-    await expect(lesson.locator('[data-lesson-tab-panel="curso"]')).toBeVisible();
-    await expect(lesson.locator(`#${exactTargetId}`)).toBeFocused();
-    expect(await page.evaluate(() => document.activeElement && document.activeElement.id)).toBe(exactTargetId);
+  test('opens a labeled menu and chapter index while keeping retired modes hidden', async ({ page }) => {
+    await loadExperience(page, 'fisiologia-2026-08-13');
+    await expect(page.locator('html')).toHaveClass(/s4-simple-navigation-ready/);
+    await expect(page.locator('[data-s4-index-toggle]')).toBeVisible();
+    await expect(page.locator('[data-s4-train]')).toBeVisible();
+    await page.locator('[data-s4-menu-toggle]').click();
+    const menu = page.locator('#s4SiteMenu');
+    await expect(menu).toBeVisible();
+    await expect(menu.locator('[data-s4-target-lesson-tab="rapida"], [data-s4-target-lesson-tab="ultra"]')).toHaveCount(0);
+    await menu.getByRole('button', { name: 'Cerrar', exact: true }).click();
+    await expect(menu).toBeHidden();
+    await expect(page.locator('[data-s4-menu-toggle]')).toBeFocused();
+    await page.locator('[data-s4-index-toggle]').click();
+    const index = page.locator('#s4CourseIndex');
+    await expect(index).toBeVisible();
+    const chapters = index.locator('.s4-navigation-dialog-body button');
+    expect(await chapters.count()).toBeGreaterThan(1);
+    await chapters.nth(1).click();
+    await expect(index).toBeHidden();
+    await expect(page.locator('#fisiologia-2026-08-13 .course-chapter-section').nth(1)).toBeFocused();
+    await page.locator('[data-s4-train]').click();
+    await expect(page.locator('#fisiologia-2026-08-13 [data-lesson-tab-panel="training"]')).toBeVisible();
+    await expect(page.locator('[data-s4-index-toggle]')).toBeHidden();
+    await page.locator('[data-s4-return-course]').click();
+    await expect(page.locator('#fisiologia-2026-08-13 [data-lesson-tab-panel="curso"]')).toBeVisible();
   });
 
   test('makes glycolysis inspectable without losing reaction, energy, carbon or source-board context', async ({ page }, testInfo) => {

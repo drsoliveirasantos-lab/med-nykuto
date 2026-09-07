@@ -1,3 +1,4 @@
+const { clickStudyControl } = require('../helpers/simple-navigation');
 module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('archives the completed Microbiology homework and keeps the dated course available', async ({ page }) => {
     await page.goto('/clase.html#pendientes');
@@ -16,7 +17,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#fisiologia .chapter-state')).toHaveText('Capítulo terminado');
     await expect(page.locator('#fisiologia-2026-08-13')).toBeVisible();
     await expect(page.locator('#fisiologia-2026-08-10')).toBeHidden();
-    await page.locator('#fisiologia-2026-08-13 [data-lesson-tab="material"]').click();
+    await clickStudyControl(page, page.locator('#fisiologia-2026-08-13 [data-lesson-tab="material"]'));
     await page.locator('#fisiologia-2026-08-13 [data-detail-toggle]').click();
     await expect(page.locator('#fisiologia-2026-08-13 .control-loop li')).toHaveCount(3);
     const physiology13 = page.locator('#fisiologia-2026-08-13');
@@ -25,12 +26,12 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
     await expect(page.locator('#practice-fisiologia-2026-08-13')).toContainText('40 preguntas para dominar este curso');
     await expect(page.locator('#fisiologia-2026-08-13').getByText('EFECTO BOHR', { exact: true })).toHaveCount(0);
 
-    await page.locator('#fisiologia .notebook-date[data-lesson-id="fisiologia-2026-08-10"]').click();
+    await clickStudyControl(page, page.locator('#fisiologia .notebook-date[data-lesson-id="fisiologia-2026-08-10"]'));
     await expect(page.locator('#fisiologia .notebook-current-title')).toContainText('Difusión y transporte de gases');
     await expect(page.locator('#fisiologia-2026-08-13')).toBeHidden();
     await expect(page.locator('#fisiologia-2026-08-10')).toBeVisible();
     await expect(page.locator('#fisiologia .notebook-date[data-lesson-id="fisiologia-2026-08-10"]')).toHaveAttribute('aria-current', 'date');
-    await page.locator('#fisiologia-2026-08-10 [data-lesson-tab="material"]').click();
+    await clickStudyControl(page, page.locator('#fisiologia-2026-08-10 [data-lesson-tab="material"]'));
     await page.locator('#fisiologia-2026-08-10 [data-detail-toggle]').click();
     await expect(page.locator('#fisiologia-2026-08-10').getByText('EFECTO BOHR', { exact: true })).toBeVisible();
     await expect(page.locator('#fisiologia-2026-08-10').getByRole('row', { name: /Barrera alveolocapilar/ })).toBeVisible();
@@ -43,7 +44,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
   test('keeps 17 August archives separate and opens both 24 August courses', async ({ page }) => {
     await page.goto('/clase.html#fisiologia-2026-08-17');
     await expect(page.locator('#fisiologia .notebook-current-title')).toContainText('Organización, sinapsis y receptores');
-    await page.locator('#fisiologia-2026-08-17 [data-lesson-tab="material"]').click();
+    await clickStudyControl(page, page.locator('#fisiologia-2026-08-17 [data-lesson-tab="material"]'));
     const archive = page.locator('#sessionArchiveDialog');
     await page.locator('[data-session-archive-open="fisio-17-slides"]').click();
     await expect(archive.locator('#sessionArchiveThumbnails button')).toHaveCount(35);
@@ -51,7 +52,7 @@ module.exports = ({ test, expect, CLASS_DRIVE_URL }) => {
 
     await page.goto('/clase.html#microbiologia-teorica-2026-08-17');
     await expect(page.locator('#microbiologia-teorica .notebook-current-title')).toContainText('Pitiriasis versicolor y tiña corporal');
-    await page.locator('#microbiologia-teorica-2026-08-17 [data-lesson-tab="material"]').click();
+    await clickStudyControl(page, page.locator('#microbiologia-teorica-2026-08-17 [data-lesson-tab="material"]'));
     await page.locator('[data-session-archive-open="micro-17-cases"]').click();
     await expect(archive.locator('#sessionArchiveThumbnails button')).toHaveCount(8);
     await archive.locator('[data-session-archive-close]').click();

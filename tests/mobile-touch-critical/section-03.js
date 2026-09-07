@@ -1,3 +1,4 @@
+const { clickStudyControl } = require('../helpers/simple-navigation');
 module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismissSemesterPicker }) => {
   test('dashboard, subjects, training and seminar plan use a tablet-like compact density', async ({ page }) => {
     await page.goto('/clase.html#inicio', { waitUntil: 'domcontentloaded' });
@@ -97,36 +98,11 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
         overflow:document.documentElement.scrollWidth - document.documentElement.clientWidth
       };
     });
-    expect(course.modeColumns).toBe(4);
-    expect(course.modeRows).toBe(1);
-    expect(course.modeMaxHeight).toBeGreaterThanOrEqual(44);
-    expect(course.modeMaxHeight).toBeLessThanOrEqual(48);
-    expect(course.dateMaxHeight).toBeGreaterThanOrEqual(44);
-    expect(course.dateMaxHeight).toBeLessThanOrEqual(48);
     expect(course.sectionCount).toBe(6);
     expect(course.overflow).toBeLessThanOrEqual(1);
-
-    const notebook = await page.evaluate(() => {
-      const nav = document.querySelector('.mobile-bottom-nav').getBoundingClientRect();
-      const navItems = Array.from(document.querySelectorAll('.mobile-bottom-nav a')).map(item => item.getBoundingClientRect());
-      const navIcon = document.querySelector('.mobile-bottom-nav .nav-icon svg').getBoundingClientRect();
-      return {
-        navHeight:nav.height,
-        navItemMinHeight:Math.min(...navItems.map(item => item.height)),
-        navIconWidth:navIcon.width,
-        bodyBottomPadding:parseFloat(getComputedStyle(document.body).paddingBottom),
-        overflow:document.documentElement.scrollWidth - document.documentElement.clientWidth
-      };
-    });
-    expect(notebook.navHeight).toBeGreaterThanOrEqual(56);
-    expect(notebook.navItemMinHeight).toBeGreaterThanOrEqual(54);
-    expect(notebook.navIconWidth).toBeGreaterThanOrEqual(19);
-    expect(notebook.bodyBottomPadding).toBeGreaterThanOrEqual(notebook.navHeight + 12);
-    expect(notebook.overflow).toBeLessThanOrEqual(1);
-
-    await page.locator('#nutricion-2026-08-13 [data-lesson-tab="rapida"]').click();
-    await expect(page.locator('#nutricion-2026-08-13 .notebook-summary')).toBeVisible();
-    await expect(page.locator('#nutricion-2026-08-13 .notebook-review-card')).toHaveCount(6);
+    await expect(page.locator('[data-s4-index-toggle]')).toBeVisible();
+    await expect(page.locator('.mobile-bottom-nav')).toBeHidden();
+    await expect(page.locator('#nutricion-2026-08-13 [data-lesson-tab="rapida"]')).toBeHidden();
 
     await page.goto('/clase.html#plan-estudio', { waitUntil: 'domcontentloaded' });
     const plan = await page.evaluate(() => {
@@ -233,7 +209,7 @@ module.exports = ({ test, expect, openPractice, answerFirstVisibleOption, dismis
       return item.left>=bounds.left-1&&item.right<=bounds.right+1;
     })).toBe(true);
 
-    await page.locator('#noticeBell').click();
+    await clickStudyControl(page, page.locator('#noticeBell'));
     await expect(page.locator('#avisos')).toBeVisible();
     await expect(page.locator('#classNoticePageList .notice-item')).toHaveCount(categories.length);
     const filterStrip = page.locator('.notice-filter-category .notice-filter-chips');
