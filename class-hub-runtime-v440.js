@@ -176,8 +176,34 @@
   }
   function setTaskToggleLabel(card){var label=card.querySelector('[data-task-toggle-label]'),isPortuguese=/^pt(?:-|$)/i.test(document.documentElement.lang);if(label)label.textContent=card.open?(isPortuguese?'Fechar':'Cerrar'):'Abrir';}
   function expandLiveTask(taskId){var card=document.getElementById(taskDomId(taskId));if(!card)return;document.querySelectorAll('#classHubLiveTasks [data-live-task-id]').forEach(function(item){if(item===card)return;item.open=false;setTaskToggleLabel(item);});card.open=true;setTaskToggleLabel(card);var summary=card.querySelector('summary');card.scrollIntoView({behavior:reducedMotion()?'auto':'smooth',block:'center'});if(summary)summary.focus({preventScroll:true});}
+  // A civil date is not an instant: never pass it through the browser time zone.
+  function dateOnlyLabel(value){
+    var match=/^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value||''));
+    if(!match)return '';
+    var year=Number(match[1]),month=Number(match[2]),day=Number(match[3]);
+    var leap=year%4===0&&(year%100!==0||year%400===0),days=[31,leap?29:28,31,30,31,30,31,31,30,31,30,31];
+    if(month<1||month>12||day<1||day>days[month-1])return '';
+    return match[3]+'/'+match[2]+'/'+match[1]+' · Todo el día (hora no indicada)';
+  }
+  // Reuse public provenance only when an existing notice explicitly targets this item.
+  function appendDeadlineSources(host,type,id){
+
+    var seen={};
+    (publicData.notices||[]).filter(noticeIsCurrent).forEach(function(notice){
+      var linked=String(noticeValue(notice,'linkedTaskId','linked_task_id')||'');
+      if(!(type==='task'&&linked===id)&&!(noticeValue(notice,'targetType','target_type')===type&&noticeValue(notice,'targetId','target_id')===id))return;
+      var label=String(noticeValue(notice,'sourceLabel','source_label')||'').trim(),url=noticeHttpsUrl(noticeValue(notice,'sourceUrl','source_url'));
+      if(!label&&!url)return;
+      var key=label+'|'+url;if(seen[key])return;seen[key]=true;
+      var row=el('small','notice-source'),source=el(url?'a':'span','','Fuente: '+(label||new URL(url).hostname));
+      if(url){source.href=url;source.target='_blank';source.rel='noopener noreferrer';source.referrerPolicy='no-referrer';}
+      row.appendChild(source);host.appendChild(row);
+    });
+  }
+  function taskDateLabel(task){var civil=dateOnlyLabel(task.dueAt);return civil?(civil+(task.dueLabel?' · '+task.dueLabel:'')):(task.dueLabel||'FECHA POR CONFIRMAR');}
   function renderTaskBody(task,guide){
     var body=el('div','live-task-body');
+    appendDeadlineSources(body,'task',task.id);
     body.appendChild(el('p','live-task-intro',(guide&&guide.intro)||task.description||'Consulta aquí la consigna publicada.'));
     if(guide&&guide.facts){
       var facts=el('div','live-task-facts');facts.setAttribute('aria-label','Datos esenciales');
@@ -372,7 +398,7 @@
   function renderHomeTaskPreview(activeTasks){
     var home=document.querySelector('.dashboard-priorities');if(!home)return;home.replaceChildren();var panel=home.closest('.dashboard-week-tasks');if(panel)panel.classList.toggle('is-empty',!activeTasks.length);
     activeTasks.slice(0,3).forEach(function(task,index){
-      var guide=taskGuides[task.id],card=el('a','priority-card'+(index===0?' priority-main':'')),head=el('div','priority-card-head'),due=el(task.dueAt?'time':'span','priority-card-due',task.dueLabel||'FECHA POR CONFIRMAR');card.dataset.taskId=task.id;card.dataset.homework='';card.href='#'+taskDomId(task.id);head.appendChild(el('span','',task.course||'CLASE'));if(task.dueAt)due.dateTime=task.dueAt;head.appendChild(due);card.appendChild(head);card.appendChild(el('strong','',task.title));card.appendChild(el('small','',task.description||(guide&&guide.summary)||''));card.appendChild(el('b','','Ver tarea →'));home.appendChild(card);
+      var guide=taskGuides[task.id],card=el('a','priority-card'+(index===0?' priority-main':'')),head=el('div','priority-card-head'),due=el(task.dueAt?'time':'span','priority-card-due',taskDateLabel(task));card.dataset.taskId=task.id;card.dataset.homework='';card.href='#'+taskDomId(task.id);head.appendChild(el('span','',task.course||'CLASE'));if(task.dueAt)due.dateTime=task.dueAt;head.appendChild(due);card.appendChild(head);card.appendChild(el('strong','',task.title));card.appendChild(el('small','',task.description||(guide&&guide.summary)||''));card.appendChild(el('b','','Ver tarea →'));home.appendChild(card);
     });
     if(!activeTasks.length)home.appendChild(el('p','dashboard-task-empty',noticeText('Sin tareas esta semana.','Sem tarefas nesta semana.')));
     if(window.MedNykutoClassI18n&&window.MedNykutoClassI18n.refresh)window.MedNykutoClassI18n.refresh(home);
@@ -410,7 +436,7 @@
       var course=card.querySelector('.priority-card-head span:not(.priority-card-due)'),due=card.querySelector('.priority-card-due'),title=card.querySelector(':scope > strong'),description=card.querySelector(':scope > small'),action=card.querySelector(':scope > b'),guide=taskGuides[task.id];
       card.href='#'+taskDomId(task.id);
       if(course)course.textContent=task.course||'CLASE';
-      if(due){due.textContent=task.dueLabel||'POR CONFIRMAR';if(task.dueAt)due.dateTime=task.dueAt;}
+      if(due){due.textContent=taskDateLabel(task);if(task.dueAt)due.dateTime=task.dueAt;}
       if(title)title.textContent=task.title;
       if(description)description.textContent=task.description||(guide&&guide.summary)||'';
       if(action)action.textContent='Ver tarea →';
@@ -428,7 +454,7 @@
       var guide=taskGuides[task.id],card=el('details','live-task live-task-details');
       card.id=taskDomId(task.id);card.setAttribute('data-live-task-id',task.id);
       var summary=el('summary','live-task-summary'),copy=el('div','live-task-summary-copy');
-      copy.appendChild(el('span','live-task-meta',(task.course||'CLASE')+' · '+(task.dueLabel||'FECHA POR CONFIRMAR')));
+      copy.appendChild(el('span','live-task-meta',(task.course||'CLASE')+' · '+(taskDateLabel(task))));
       copy.appendChild(el('strong','',task.title));
       summary.appendChild(copy);summary.appendChild(el('b','live-task-action','Abrir'));
       summary.lastChild.dataset.taskToggleLabel='true';
@@ -443,7 +469,7 @@
     var hash=decodeURIComponent(window.location.hash.slice(1));
     if(hash.indexOf('task-')===0&&document.getElementById(hash)){var linkedCard=document.getElementById(hash),linkedTaskId=linkedCard.getAttribute('data-live-task-id');if(linkedTaskId)expandLiveTask(linkedTaskId);window.dispatchEvent(new Event('hashchange'));}
   }
-  function renderDynamicResources(){var section=document.getElementById('pendientes');if(!section)return;var host=document.getElementById('classHubDynamicResources');if(!host){host=el('div','class-hub-live');host.id='classHubDynamicResources';var tasks=document.getElementById('classHubLiveTasks');if(tasks)tasks.insertAdjacentElement('afterend',host);else section.appendChild(host);}host.replaceChildren();(publicData.dates||[]).forEach(function(date){var card=el('article','live-task');card.appendChild(el('span','','FECHA PUBLICADA'));card.appendChild(el('strong','',date.label));card.appendChild(el('p','',date.startsAt));host.appendChild(card);});(publicData.files||[]).forEach(function(file){var card=el('a','live-task');card.href=file.url;card.target='_blank';card.rel='noopener';card.appendChild(el('span','',(file.course||'ARCHIVO')+(file.lessonDate?' · '+file.lessonDate:'')));card.appendChild(el('strong','',file.title));card.appendChild(el('p','',(file.fileType||'Archivo').toUpperCase()+' · Abrir →'));host.appendChild(card);});}
+  function renderDynamicResources(){var section=document.getElementById('pendientes');if(!section)return;var host=document.getElementById('classHubDynamicResources');if(!host){host=el('div','class-hub-live');host.id='classHubDynamicResources';var tasks=document.getElementById('classHubLiveTasks');if(tasks)tasks.insertAdjacentElement('afterend',host);else section.appendChild(host);}host.replaceChildren();(publicData.dates||[]).forEach(function(date){var card=el('article','live-task');card.appendChild(el('span','','FECHA PUBLICADA'));card.appendChild(el('strong','',date.label));card.appendChild(el('p','',dateOnlyLabel(date.startsAt)||date.startsAt));appendDeadlineSources(card,'date',date.id);host.appendChild(card);});(publicData.files||[]).forEach(function(file){var card=el('a','live-task');card.href=file.url;card.target='_blank';card.rel='noopener';card.appendChild(el('span','',(file.course||'ARCHIVO')+(file.lessonDate?' · '+file.lessonDate:'')));card.appendChild(el('strong','',file.title));card.appendChild(el('p','',(file.fileType||'Archivo').toUpperCase()+' · Abrir →'));host.appendChild(card);});}
   function activityGroups(activityId){return (publicData.groups||[]).filter(function(group){return group.activityId===activityId;});}
   function activityMembers(activityId){return (publicData.members||[]).filter(function(member){return member.activityId===activityId;});}
   function renderGroups(){

@@ -1787,7 +1787,7 @@ test.describe('Multiclass student hub', () => {
     await page.goto('/gestion/s5-a');
 
     await expect(page.locator('link[rel="stylesheet"][href^="/gestion-v440.css"]')).toHaveAttribute('href', '/gestion-v440.css?v=489');
-    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=492');
+    await expect(page.locator('script[src^="/gestion-v440.js"]')).toHaveAttribute('src', '/gestion-v440.js?v=492-s4-dates-r2');
     expect(requestedPaths).toContain('/gestion-v440.css');
     expect(requestedPaths).toContain('/gestion-v440.js');
     await expect(page.locator('#authClassSlug')).toHaveText('S5-A');
@@ -2281,13 +2281,13 @@ test.describe('Multiclass student hub', () => {
       '/offline.html',
       '/turma-shell/',
       '/turma-v471.css?v=488',
-      '/turma-v471.js?v=488',
+      '/turma-v471.js?v=488-s4-dates-r2',
       '/turma-manifest-boot-v471.js?v=478',
       '/public-theme-v485.css?v=486',
       '/public-theme-v485.js?v=485',
       '/calendar-subscription-v485.js?v=485'
     ]));
-    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v510['"]/);
+    expect(source).toMatch(/const\s+CACHE\s*=\s*['"]med-nykuto-shell-v510-s4-dates-r2['"]/);
     [
       /\/gestion/i,
       /\/api\//i,

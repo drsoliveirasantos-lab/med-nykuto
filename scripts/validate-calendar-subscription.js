@@ -193,13 +193,13 @@ async function main() {
   ['classCalendarSubscription', 'classCalendarSubscribeLink', 'classCalendarCopyLink', 'classCalendarSubscriptionStatus'].forEach((id) => assert.ok(classHtml.includes(`id="${id}"`), `The main Horario view is missing #${id}.`));
   assert.ok(classHtml.includes('<details id="classCalendarSubscription"') && classHtml.includes('class="schedule-calendar-summary"') && classHtml.includes('>iCal</strong>'), 'The main Horario view does not expose iCal as a compact explanatory control.');
   assert.ok(classHtml.indexOf('id="classCalendarSubscription"') > classHtml.indexOf('id="horario"') && classHtml.indexOf('id="classCalendarSubscription"') < classHtml.indexOf('id="weeklyAgenda"'), 'The iCal controls are not discoverable inside the main Horario view.');
-  assert.ok(html.includes('/turma-v471.css?v=488') && html.includes('/turma-v471.js?v=488'), 'Turma shell cache-busting version is stale.');
+  assert.ok(html.includes('/turma-v471.css?v=488') && html.includes('/turma-v471.js?v=488-s4-dates-r2'), 'Turma shell cache-busting version is stale.');
   assert.ok(html.includes('/calendar-subscription-v485.js?v=485') && classHtml.includes('calendar-subscription-v485.js?v=485'), 'The shared calendar subscription runtime is not loaded by both student calendar surfaces.');
   assert.ok(runtime.includes("'/api/class-calendar.ics?class='") && runtime.includes("'webcal://'") && runtime.includes('navigator.clipboard') && runtime.includes('legacyCopy'), 'Calendar URL is not class-scoped, subscribable or copyable.');
   assert.match(css, /\.calendar-subscription-actions[^}]*grid-template-columns/);
   assert.match(css, /\.calendar-subscription-actions a,[^{]*\{[^}]*min-height:46px/);
   assert.match(publicThemeCss, /\.schedule-calendar-actions :is\(a,button\)[^{]*\{[^}]*min-height:46px/);
-  assert.ok(worker.includes("med-nykuto-shell-v510") && worker.includes("/turma-v471.js?v=488") && worker.includes("/turma-v471.css?v=488") && worker.includes("/calendar-subscription-v485.js?v=485") && worker.includes("/med-typography-v509.css?v=509"), 'Service worker does not precache the current turma, calendar and typography assets.');
+  assert.ok(worker.includes("med-nykuto-shell-v510-s4-dates-r2") && worker.includes("/turma-v471.js?v=488-s4-dates-r2") && worker.includes("/turma-v471.css?v=488") && worker.includes("/calendar-subscription-v485.js?v=485") && worker.includes("/med-typography-v509.css?v=509"), 'Service worker does not precache the current turma, calendar and typography assets.');
 
   console.log('Calendar subscription validation passed.');
 }
