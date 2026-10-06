@@ -21,11 +21,45 @@
   function deviceId(){var value=localStorage.getItem(studentKey);if(value)return value;value=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'device-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);try{localStorage.setItem(studentKey,value);}catch(error){}return value;}
   function membershipKey(activityId){return 'med-nykuto-membership-v471:'+slug+':'+activityId;}
   function post(data){return fetch(API,{method:'POST',headers:{'content-type':'application/json','accept':'application/json'},body:JSON.stringify(data)}).then(function(response){return response.json().then(function(body){if(!response.ok)throw new Error(body.error||body.message||'No se pudo guardar la inscripción.');return body;});});}
-  function formatDate(value){if(!value)return 'Fecha por confirmar';var date=new Date(value);if(Number.isNaN(date.getTime()))return value;return new Intl.DateTimeFormat('es-PY',{weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(date);}
+  // A civil date is not an instant: never pass it through the browser time zone.
+  function dateOnlyLabel(value){
+    var match=/^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value||''));
+    if(!match)return '';
+    var year=Number(match[1]),month=Number(match[2]),day=Number(match[3]);
+    var leap=year%4===0&&(year%100!==0||year%400===0),days=[31,leap?29:28,31,30,31,30,31,31,30,31,30,31];
+    if(month<1||month>12||day<1||day>days[month-1])return '';
+    return match[3]+'/'+match[2]+'/'+match[1]+' · Todo el día (hora no indicada)';
+  }
+  // Reuse public provenance only when an existing notice explicitly targets this item.
+  function appendDeadlineSources(host,type,id){
+    if(slug!=='s4-e')return;
+    var seen={};
+    (state.notices||[]).filter(noticeIsCurrent).forEach(function(notice){
+      var linked=String(noticeValue(notice,'linkedTaskId','linked_task_id')||'');
+      if(!(type==='task'&&linked===id)&&!(noticeValue(notice,'targetType','target_type')===type&&noticeValue(notice,'targetId','target_id')===id))return;
+      var label=String(noticeValue(notice,'sourceLabel','source_label')||'').trim(),url=noticeHttpsUrl(noticeValue(notice,'sourceUrl','source_url'));
+      if(!label&&!url)return;
+      var key=label+'|'+url;if(seen[key])return;seen[key]=true;
+      var row=el('small','notice-source'),source=el(url?'a':'span','','Fuente: '+(label||new URL(url).hostname));
+      if(url){source.href=url;source.target='_blank';source.rel='noopener noreferrer';source.referrerPolicy='no-referrer';}
+      row.appendChild(source);host.appendChild(row);
+    });
+  }
+  function formatDate(value){if(slug==='s4-e'&&dateOnlyLabel(value))return dateOnlyLabel(value);if(!value)return 'Fecha por confirmar';var date=new Date(value);if(Number.isNaN(date.getTime()))return value;return new Intl.DateTimeFormat('es-PY',{weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(date);}
   function timeAgo(value){var date=new Date(value),seconds=Math.floor((Date.now()-date.getTime())/1000);if(!Number.isFinite(seconds)||seconds<0)return 'Actualizado ahora';if(seconds<60)return 'Actualizado ahora';if(seconds<3600)return 'Actualizado hace '+Math.floor(seconds/60)+' min';if(seconds<86400)return 'Actualizado hace '+Math.floor(seconds/3600)+' h';return 'Actualizado el '+new Intl.DateTimeFormat('es-PY',{day:'2-digit',month:'short'}).format(date);}
   function empty(target,message){target.replaceChildren(el('p','empty-card',message));}
   function hashColor(value){var palette=['#38bdf8','#a78bfa','#4ade80','#fbbf24','#fb7185','#2dd4bf'];var total=Array.from(String(value||'')).reduce(function(sum,char){return sum+char.charCodeAt(0);},0);return palette[total%palette.length];}
-  function activeTask(task){if(task.status&&task.status!=='published')return false;if(!task.dueAt)return true;return new Date(task.dueAt).getTime()>=Date.now()-86400000;}
+  function activeTask(task){
+    if(task.status&&task.status!=='published')return false;
+    if(!task.dueAt)return true;
+    if(slug==='s4-e'&&dateOnlyLabel(task.dueAt)){
+      // Compare civil dates in the class's established calendar zone; the due date is never an instant.
+      var parts={};
+      new Intl.DateTimeFormat('en-CA',{timeZone:'America/Asuncion',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).forEach(function(part){parts[part.type]=part.value;});
+      return task.dueAt>=parts.year+'-'+parts.month+'-'+parts.day;
+    }
+    return new Date(task.dueAt).getTime()>=Date.now()-86400000;
+  }
   function taskDomId(taskId){return'task-'+String(taskId||'').toLowerCase().replace(/[^a-z0-9-]+/g,'-');}
   function linkedTaskId(notice){return String(notice&&((notice.linkedTaskId!==undefined?notice.linkedTaskId:notice.linked_task_id))||'').trim();}
   function publicTask(taskId){return state.tasks.find(function(task){return task.id===taskId&&(!task.status||task.status==='published');})||null;}
@@ -41,6 +75,7 @@
     var body=el('div','task-body');body.appendChild(el('p','',task.description||'Consulta la instrucción publicada por el delegado.'));
     var facts=el('div','task-facts');facts.appendChild(el('span','','Estado: '+(activeTask(task)?'activa':'archivada')));if(task.dueAt)facts.appendChild(el('span','',formatDate(task.dueAt)));body.appendChild(facts);
     var attachment=taskAttachment(task);if(attachment){var attachmentLink=el('a','task-attachment',attachment.title+' ↗');attachmentLink.href=attachment.url;attachmentLink.target='_blank';attachmentLink.rel='noopener noreferrer';body.appendChild(attachmentLink);}
+    appendDeadlineSources(body,'task',task.id);
     card.appendChild(summary);card.appendChild(body);card.addEventListener('toggle',function(){summary.lastChild.textContent=card.open?'Cerrar':'Abrir';});return card;
   }
   function reducedMotion(){return Boolean(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);}
@@ -132,8 +167,8 @@
     item.appendChild(controls);item.appendChild(el('small','group-privacy','La página pública muestra ocupación, nunca los nombres de la lista.'));return item;
   }
   function renderMore(){
-    var dates=state.dates.slice();state.tasks.filter(function(task){return task.dueAt;}).forEach(function(task){dates.push({id:'task-'+task.id,label:task.title,startsAt:task.dueAt,type:'TAREA'});});dates.sort(function(a,b){return String(a.startsAt).localeCompare(String(b.startsAt));});
-    var dateList=document.getElementById('dateList');dateList.replaceChildren();dates.forEach(function(date){var item=el('article','tool-item');item.appendChild(el('strong','',date.label||'Fecha'));item.appendChild(el('small','',(date.type||'CALENDARIO')+' · '+formatDate(date.startsAt)));dateList.appendChild(item);});if(!dates.length)empty(dateList,'No hay fechas publicadas.');document.getElementById('dateCount').textContent=dates.length+' '+(dates.length===1?'fecha':'fechas');
+    var dates=state.dates.slice();state.tasks.filter(function(task){return task.dueAt;}).forEach(function(task){dates.push({id:'task-'+task.id,label:task.title,startsAt:task.dueAt,type:'TAREA',sourceTaskId:task.id});});dates.sort(function(a,b){return String(a.startsAt).localeCompare(String(b.startsAt));});
+    var dateList=document.getElementById('dateList');dateList.replaceChildren();dates.forEach(function(date){var item=el('article','tool-item');item.appendChild(el('strong','',date.label||'Fecha'));item.appendChild(el('small','',(date.type||'CALENDARIO')+' · '+formatDate(date.startsAt)));appendDeadlineSources(item,date.sourceTaskId?'task':'date',date.sourceTaskId||date.id);dateList.appendChild(item);});if(!dates.length)empty(dateList,'No hay fechas publicadas.');document.getElementById('dateCount').textContent=dates.length+' '+(dates.length===1?'fecha':'fechas');
     var groupList=document.getElementById('groupList');groupList.replaceChildren();state.activities.forEach(function(activity){groupList.appendChild(renderGroupActivity(activity));});if(!state.activities.length)empty(groupList,'No hay actividades de grupo publicadas.');document.getElementById('groupCount').textContent=state.groups.length+' '+(state.groups.length===1?'grupo':'grupos');
     var fileList=document.getElementById('fileList');fileList.replaceChildren();state.files.forEach(function(file){var item=el('a','tool-item');item.href=file.url;item.target='_blank';item.rel='noopener';item.appendChild(el('strong','',file.title||'Material'));item.appendChild(el('small','',(file.course||'ARCHIVO')+' · Abrir →'));fileList.appendChild(item);});if(!state.files.length)empty(fileList,'No hay archivos dinámicos publicados.');document.getElementById('fileCount').textContent=state.files.length+' '+(state.files.length===1?'archivo':'archivos');
   }

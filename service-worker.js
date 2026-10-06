@@ -1,10 +1,10 @@
-const CACHE = 'med-nykuto-shell-v510';
+const CACHE = 'med-nykuto-shell-v510-s4-dates-r2';
 const SHELL = [
   '/offline.html',
   '/med-typography-v509.css?v=509',
   '/turma-shell/',
   '/turma-v471.css?v=488',
-  '/turma-v471.js?v=488',
+  '/turma-v471.js?v=488-s4-dates-r2',
   '/turma-manifest-boot-v471.js?v=478',
   '/public-theme-v485.css?v=486',
   '/public-theme-v485.js?v=485',
@@ -17,8 +17,13 @@ self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', (event) => {
-  event.waitUntil(caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== CACHE && (key.startsWith('med-nykuto-class-') || key.startsWith('med-nykuto-shell-'))).map((key) => caches.delete(key)))).then(() => self.clients.claim()));
+  // This S4-E-only release must not evict another class's offline snapshots or assets.
+  event.waitUntil(self.clients.claim());
 });
+async function cachedResponse(request) {
+  const current = await (await caches.open(CACHE)).match(request);
+  return current || caches.match(request);
+}
 self.addEventListener('fetch', (event) => {
   const request = event.request;
   if (request.method !== 'GET') return;
@@ -29,10 +34,10 @@ self.addEventListener('fetch', (event) => {
     || /^\/assets\/p1-micro-practica-pdf-sprite-v508\.part\d{2}$/.test(url.pathname);
   if (isP1VisualAsset) {
     event.respondWith(fetch(request, { cache: 'no-store' }).then((response) => {
-      if (!response.ok) return caches.match(request).then((cached) => cached || response);
+      if (!response.ok) return cachedResponse(request).then((cached) => cached || response);
       const copy = response.clone();
       return caches.open(CACHE).then((cache) => cache.put(request, copy)).then(() => response);
-    }).catch(() => caches.match(request).then((cached) => cached || Response.error())));
+    }).catch(() => cachedResponse(request).then((cached) => cached || Response.error())));
     return;
   }
 
@@ -41,17 +46,26 @@ self.addEventListener('fetch', (event) => {
       if (!response.ok) return response;
       const copy = response.clone();
       return caches.open(CACHE).then((cache) => cache.put(request, copy)).then(() => response);
-    }).catch(() => caches.match(request).then((cached) => cached || new Response('{"schemaVersion":1,"files":[]}', {
+    }).catch(() => cachedResponse(request).then((cached) => cached || new Response('{"schemaVersion":1,"files":[]}', {
       status: 503,
       headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' }
     }))));
     return;
   }
   if (request.mode === 'navigate') {
-    event.respondWith(fetch(request).then((response) => { if (response.ok) { const copy = response.clone(); caches.open(CACHE).then((cache) => cache.put(request, copy)); } return response; }).catch(() => caches.match(request).then((cached) => cached || caches.match('/offline.html'))));
+    event.respondWith(fetch(request).then((response) => { if (response.ok) { const copy = response.clone(); caches.open(CACHE).then((cache) => cache.put(request, copy)); } return response; }).catch(async () => {
+      const current = await caches.open(CACHE), cached = await current.match(request);
+      if (cached) return cached;
+      // Use the current S4-E shell before any retained, outdated S4-E navigation.
+      if (/^\/turma\/s4-e\/?$/.test(url.pathname)) {
+        const shell = await current.match('/turma-shell/');
+        if (shell) return shell;
+      }
+      return (await caches.match(request)) || cachedResponse('/offline.html');
+    }));
     return;
   }
-  event.respondWith(caches.match(request).then((cached) => {
+  event.respondWith(cachedResponse(request).then((cached) => {
     const network = fetch(request).then((response) => { if (response.ok && !/\.(?:pptx|docx|pdf)$/i.test(url.pathname)) caches.open(CACHE).then((cache) => cache.put(request, response.clone())); return response; }).catch(() => cached);
     return cached || network;
   }));
