@@ -236,7 +236,6 @@
       window.setTimeout(() => modal.querySelector('[data-semester-close]')?.focus({ preventScroll:true }), 30);
     };
     const closeSemesterModal = () => {
-      if(!selectedSemester()) return;
       modal.classList.remove('open');
       modal.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('home-pick-open');

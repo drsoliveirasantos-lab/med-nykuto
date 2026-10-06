@@ -10,7 +10,7 @@ const LEGACY_COHORT_KEY = 'semester-4-group-e';
 const SYNTHETIC_SUPPORT_WHATSAPP = '+595981000111';
 
 const protectedHashes = {
-  'data/med-courses-data.js': '96af099ed79fd09065d97f7c2c5d32c17a3005fb56dc3151ce6ff48dfbd6beab',
+  'data/med-courses-data.js': '54458fa420f2696b8050645c73511f45e6ba92c45e21f69c39d73b2bf76f9d6e',
   'data/med-practice-bank-init.js': '0e64c0647aeabd477628f3ddbd234a90099477836e921c4b20ca5b9391175ba6',
   'data/med-practice-bank-loader.js': '9049a0b00e7b24bc944cf53b6441abf43da17ba76829d5a29a59638a0bbb4140',
   'data/practice-bank-fisiologia.js': '9c178a48be4f14a4fd1289948203d8b321260c2512642ce216d384ffee610606',

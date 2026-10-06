@@ -56,7 +56,6 @@
       if(/apunte universitario|Notability|texto bruto de la transcripci[oó]n/i.test(tline) && tline.length < 180) continue;
       if(/^\|\s*Criterio de elaboraci[oó]n/i.test(tline)){ inMetaTable = true; continue; }
       if(inMetaTable){ if(/^\|\s*-+/.test(tline) || tline.includes('Aproximadamente')) continue; inMetaTable = false; }
-      if(/^\|\s*---\s*\|\s*$/.test(tline)) continue;
       if(/^#\s+/.test(tline)){
         const headerText = tline.replace(/^#+\s*/,'').replace(/^M[óo]dulo\s+\d+\s*[-–—:]\s*/i,'').trim();
         if(mode === 'full' && titleNorm && norm(headerText).includes(titleNorm.slice(0, Math.min(22, titleNorm.length)))) continue;
@@ -320,11 +319,16 @@
     return md.trim();
   }
   function isTableStart(lines, i){
-    return lines[i] && lines[i].includes('|') && lines[i+1] && /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(lines[i+1]);
+    if(!lines[i] || !lines[i].includes('|') || !lines[i+1]) return false;
+    const split = row => row.trim().replace(/^\|/,'').replace(/\|$/,'').split('|').map(cell => cell.trim());
+    const header = split(lines[i]), separator = split(lines[i+1]);
+    return header.length === separator.length && separator.every(cell => /^:?-{3,}:?$/.test(cell));
   }
   function parseTable(lines, start){
     const rows=[]; let i=start;
+    const width = lines[start].trim().replace(/^\|/,'').replace(/\|$/,'').split('|').length;
     while(i<lines.length && lines[i].includes('|') && lines[i].trim()){
+      if(i>start+1 && (isTableStart(lines,i) || lines[i].trim().replace(/^\|/,'').replace(/\|$/,'').split('|').length !== width)) break;
       if(i!==start+1) rows.push(lines[i]);
       i++;
     }
@@ -1178,6 +1182,7 @@ function renderHome(){
     $('#subjectDescription').textContent = lt(course.description || t('modules'));
     ['subjectQcmLink','goQcm'].forEach(id => { const el=$('#'+id); if(el) el.href = qcmUrl(course.id); });
     ['subjectCaseLink','goCases'].forEach(id => { const el=$('#'+id); if(el) el.href = caseUrl(course.id); });
+    ['subjectVfLink'].forEach(id => { const el=$('#'+id); if(el) el.href = truthUrl(course.id); });
     const grid = $('#subjectModuleGrid'), search = $('#searchInput'), empty = $('#emptyState');
     function render(){
       const q = norm(search && search.value || '');

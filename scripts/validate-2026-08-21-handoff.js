@@ -85,7 +85,7 @@ function walk(directory) {
     return entry.isDirectory() ? walk(target) : [target];
   });
 }
-const classAssets = walk(path.join(root, 'assets', 'class-hub')).map((file) => path.relative(root, file));
+const classAssets = walk(path.join(root, 'assets', 'class-hub')).map((file) => path.relative(root, file).split(path.sep).join('/'));
 const teacherGuidance = 'assets/class-hub/epidemiology/2026-08-19/teacher-guidance/0746E8D5-EFF3-46DF-99C4-CD3D83376F7A.jpeg';
 expect(!classAssets.some((file) => /whatsapp|photo-original/i.test(file) || (/\.(?:jpe?g)$/i.test(file) && file !== teacherGuidance)), 'Unapproved raw board photos or message captures remain in the published class assets.');
 expect(!/apartamento|número de teléfono|whatsapp/i.test(html), 'Private off-topic conversation leaked into the public class page.');
